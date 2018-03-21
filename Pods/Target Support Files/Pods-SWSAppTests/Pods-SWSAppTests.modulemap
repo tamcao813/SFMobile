@@ -1,0 +1,6 @@
+framework module Pods_SWSAppTests {
+  umbrella header "Pods-SWSAppTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

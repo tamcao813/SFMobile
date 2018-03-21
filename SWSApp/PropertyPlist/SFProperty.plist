@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>RemoteAccessConsumerKey</key>
+	<string>3MVG9qbIpUScOGtZvH.uE8H7f.DB1HSzR5leiZI_z08uOvOl5mqwATGQXSEsw_TxF0g76LEUU8qfVmD7seFzW</string>
+	<key>OAuthRedirectURI</key>
+	<string>MyNS:///mobilesdk/sgws/oauth/cma</string>
+</dict>
+</plist>

@@ -9,6 +9,7 @@
 import UIKit
 import SalesforceSDKCore
 import SalesforceSwiftSDK
+import PromiseKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var RemoteAccessConsumerKey = ""
     var OAuthRedirectURI = ""
+    
+    var loggedInUser: User?
     
     override
     init()
@@ -36,11 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 appconfig.remoteAccessConsumerKey = self.RemoteAccessConsumerKey
                 appconfig.oauthRedirectURI = self.OAuthRedirectURI
             }.postInit {
-                
+                //setup StoreDispatcher by registering soups
+                StoreDispatcher.shared.registerSoups()
             }
             .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
                 let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
                 SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
+                
                 self.setupRootViewController()
                 
             }.postLogout {  [unowned self] in
@@ -106,13 +111,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SFSDKLogger.log(type(of:self), level:.debug, message:"SFUserAccountManager changed from user \(String(describing: fromUserName)) to \(String(describing: toUserName)).  Resetting app.")
     }
     
+    
     func setupRootViewController() {
         guard let window = window else { return }
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
-        window.rootViewController = viewController
-        window.makeKeyAndVisible()
+        //register soups for the store
+        StoreDispatcher.shared.registerSoups()
+        
+        //Do this in the main thread to make sure the HUB gets added to the view properly and to show progresses
+        DispatchQueue.main.async(execute: {
+            //to do: show Hub and progress
+            
+            //to do:  research how to use promises here - need to find a better way to execute multipe async calls
+            let group = DispatchGroup()
+            
+            group.enter()
+            let _ = StoreDispatcher.shared.syncDownSoups()
+            group.leave()
+            
+            group.enter()
+            self.loggedInUser =  StoreDispatcher.shared.fetchLoggedInUser()
+            group.leave()
+            
+            group.notify(queue: DispatchQueue.main, execute: {
+                //to do: show progress 100% completed and dismiss Hub
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                window.rootViewController = viewController
+                window.makeKeyAndVisible()
+            })
+        })
     }
 }
 

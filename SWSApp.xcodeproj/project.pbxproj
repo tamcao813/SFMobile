@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		0CD6096AB4B96A978CFF0076 /* Pods_SWSAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7079A5982A809CAAA6EF1A9 /* Pods_SWSAppUITests.framework */; };
 		BDC2971F8C914488A5B7964D /* Pods_SWSApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */; };
+		D10483962068381A00A0343B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483952068381A00A0343B /* Contact.swift */; };
+		D10483982068396D00A0343B /* AccountsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483972068396D00A0343B /* AccountsTableViewController.swift */; };
+		D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483992068398F00A0343B /* HomeTableViewController.swift */; };
+		D104839C2068399C00A0343B /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D104839B2068399C00A0343B /* ContactsTableViewController.swift */; };
+		D104839E20683E4000A0343B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D104839D20683E4000A0343B /* Notification.swift */; };
+		D125134220648C4F00CD6CB4 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134120648C4F00CD6CB4 /* Account.swift */; };
+		D125134420648E1000CD6CB4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134320648E1000CD6CB4 /* User.swift */; };
 		D1FB18272062A7C00072F4C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB18262062A7C00072F4C1 /* AppDelegate.swift */; };
 		D1FB182E2062A7C00072F4C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1FB182D2062A7C00072F4C1 /* Assets.xcassets */; };
 		D1FB18312062A7C00072F4C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1FB182F2062A7C00072F4C1 /* LaunchScreen.storyboard */; };
@@ -16,8 +23,8 @@
 		D1FB18472062A7C10072F4C1 /* SWSAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB18462062A7C10072F4C1 /* SWSAppUITests.swift */; };
 		D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1FB18552062BB1F0072F4C1 /* SFProperty.plist */; };
 		D1FB18592062F7A40072F4C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1FB18582062F7A40072F4C1 /* Main.storyboard */; };
-		D1FB185C2062F8CD0072F4C1 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB185B2062F8CD0072F4C1 /* TestTableViewController.swift */; };
-		D1FB18612063058D0072F4C1 /* DataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB18602063058D0072F4C1 /* DataSync.swift */; };
+		D1FE1CD620654734009CC47C /* StoreDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FE1CD520654734009CC47C /* StoreDispatcher.swift */; };
+		D1FE1D0720657B7E009CC47C /* SFAError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FE1D0620657B7E009CC47C /* SFAError.swift */; };
 		EA69F234B4F821BD07B76811 /* Pods_SWSAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +54,13 @@
 		5B3277C8952E6C9483CD1CA7 /* Pods-SWSAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D10483952068381A00A0343B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		D10483972068396D00A0343B /* AccountsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableViewController.swift; sourceTree = "<group>"; };
+		D10483992068398F00A0343B /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		D104839B2068399C00A0343B /* ContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
+		D104839D20683E4000A0343B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		D125134120648C4F00CD6CB4 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		D125134320648E1000CD6CB4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D1FB18232062A7C00072F4C1 /* SWSApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SWSApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1FB18262062A7C00072F4C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1FB182D2062A7C00072F4C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,8 +74,8 @@
 		D1FB18482062A7C10072F4C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1FB18552062BB1F0072F4C1 /* SFProperty.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SFProperty.plist; sourceTree = "<group>"; };
 		D1FB18582062F7A40072F4C1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		D1FB185B2062F8CD0072F4C1 /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
-		D1FB18602063058D0072F4C1 /* DataSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSync.swift; sourceTree = "<group>"; };
+		D1FE1CD520654734009CC47C /* StoreDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDispatcher.swift; sourceTree = "<group>"; };
+		D1FE1D0620657B7E009CC47C /* SFAError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAError.swift; sourceTree = "<group>"; };
 		F7079A5982A809CAAA6EF1A9 /* Pods_SWSAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -116,6 +130,18 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D125133E206480E400CD6CB4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D1FE1CD520654734009CC47C /* StoreDispatcher.swift */,
+				D125134320648E1000CD6CB4 /* User.swift */,
+				D125134120648C4F00CD6CB4 /* Account.swift */,
+				D10483952068381A00A0343B /* Contact.swift */,
+				D104839D20683E4000A0343B /* Notification.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D1FB181A2062A7C00072F4C1 = {
 			isa = PBXGroup;
 			children = (
@@ -141,11 +167,13 @@
 		D1FB18252062A7C00072F4C1 /* SWSApp */ = {
 			isa = PBXGroup;
 			children = (
+				D1FB18262062A7C00072F4C1 /* AppDelegate.swift */,
+				D1FE1D0320657B47009CC47C /* Utilies */,
+				D125133E206480E400CD6CB4 /* Model */,
 				D1FB185D206304680072F4C1 /* Network */,
 				D1FB185A2062F86C0072F4C1 /* ViewControllers */,
 				D1FB18572062F76C0072F4C1 /* Storyboards */,
 				D1FB18542062BAA80072F4C1 /* PropertyPlist */,
-				D1FB18262062A7C00072F4C1 /* AppDelegate.swift */,
 				D1FB182D2062A7C00072F4C1 /* Assets.xcassets */,
 				D1FB182F2062A7C00072F4C1 /* LaunchScreen.storyboard */,
 				D1FB18322062A7C00072F4C1 /* Info.plist */,
@@ -190,7 +218,9 @@
 		D1FB185A2062F86C0072F4C1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				D1FB185B2062F8CD0072F4C1 /* TestTableViewController.swift */,
+				D10483992068398F00A0343B /* HomeTableViewController.swift */,
+				D10483972068396D00A0343B /* AccountsTableViewController.swift */,
+				D104839B2068399C00A0343B /* ContactsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -198,9 +228,16 @@
 		D1FB185D206304680072F4C1 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				D1FB18602063058D0072F4C1 /* DataSync.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		D1FE1D0320657B47009CC47C /* Utilies */ = {
+			isa = PBXGroup;
+			children = (
+				D1FE1D0620657B7E009CC47C /* SFAError.swift */,
+			);
+			path = Utilies;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -513,9 +550,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D10483962068381A00A0343B /* Contact.swift in Sources */,
+				D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */,
+				D104839C2068399C00A0343B /* ContactsTableViewController.swift in Sources */,
+				D125134220648C4F00CD6CB4 /* Account.swift in Sources */,
+				D125134420648E1000CD6CB4 /* User.swift in Sources */,
 				D1FB18272062A7C00072F4C1 /* AppDelegate.swift in Sources */,
-				D1FB185C2062F8CD0072F4C1 /* TestTableViewController.swift in Sources */,
-				D1FB18612063058D0072F4C1 /* DataSync.swift in Sources */,
+				D104839E20683E4000A0343B /* Notification.swift in Sources */,
+				D1FE1D0720657B7E009CC47C /* SFAError.swift in Sources */,
+				D10483982068396D00A0343B /* AccountsTableViewController.swift in Sources */,
+				D1FE1CD620654734009CC47C /* StoreDispatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

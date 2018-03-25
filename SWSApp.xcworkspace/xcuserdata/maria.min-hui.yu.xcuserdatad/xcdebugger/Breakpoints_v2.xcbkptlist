@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SWSApp/AppDelegate.swift"
-            timestampString = "543365622.882161"
+            timestampString = "543704124.601593"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "handleUserSwitch(_:toUser:)"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "handleSdkManagerLogout()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,6 +32,22 @@
             startingLineNumber = "73"
             endingLineNumber = "73"
             landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/SalesforceSwiftSDK/libs/SalesforceSwiftSDK/SalesforceSwiftSDK/Extensions/SFSmartStoreExtensions.swift"
+            timestampString = "543698724.894628"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
+            landmarkName = "query(querySpec:pageIndex:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

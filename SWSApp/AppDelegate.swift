@@ -123,23 +123,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //to do: show Hub and progress
             
             //to do:  research how to use promises here - need to find a better way to execute multipe async calls
-            let group = DispatchGroup()
             
-            group.enter()
             let _ = StoreDispatcher.shared.syncDownSoups()
-            group.leave()
             
-            group.enter()
-            self.loggedInUser =  StoreDispatcher.shared.fetchLoggedInUser()
-            group.leave()
+            DispatchQueue.main.async(execute: {
             
-            group.notify(queue: DispatchQueue.main, execute: {
-                //to do: show progress 100% completed and dismiss Hub
+                self.loggedInUser =  StoreDispatcher.shared.fetchLoggedInUser()
                 
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
-                window.rootViewController = viewController
-                window.makeKeyAndVisible()
+                DispatchQueue.main.async(execute: {
+                    //to do: show progress 100% completed and dismiss Hub
+                
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                    window.rootViewController = viewController
+                    window.makeKeyAndVisible()
+                })
             })
         })
     }

@@ -125,19 +125,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //to do:  research how to use promises here - need to find a better way to execute multipe async calls
             
             let _ = StoreDispatcher.shared.syncDownSoups()
+            sleep(2) //for now use sleep
+            
+            self.loggedInUser =  StoreDispatcher.shared.fetchLoggedInUser()
+            sleep(1) //for now use sleep
             
             DispatchQueue.main.async(execute: {
-            
-                self.loggedInUser =  StoreDispatcher.shared.fetchLoggedInUser()
-                
-                DispatchQueue.main.async(execute: {
                     //to do: show progress 100% completed and dismiss Hub
                 
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
                     window.rootViewController = viewController
                     window.makeKeyAndVisible()
-                })
             })
         })
     }

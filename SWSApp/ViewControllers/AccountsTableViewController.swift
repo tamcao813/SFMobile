@@ -19,6 +19,12 @@ class AccountsTableViewController: UITableViewController {
         
         accountAry = StoreDispatcher.shared.fetchAccounts(forConsultant: currentUser.Id)
         
+        /*
+        1.
+        searchSomething = StoreDispatcher.shared.fetchSomething()
+        2.
+        let subAry = accountAry.filter(accountNumber.contains("wine"))
+        */
     }
 
     override func didReceiveMemoryWarning() {

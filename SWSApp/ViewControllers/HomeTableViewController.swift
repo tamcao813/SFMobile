@@ -18,9 +18,9 @@ class HomeTableViewController: UITableViewController {
         self.title = "Home"
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        currentUser = appDelegate.loggedInUser! 
+        // = appDelegate.loggedInUser!
         
-        notificationAry = StoreDispatcher.shared.fetchNotifications(forUser: currentUser.Id)
+        //notificationAry = StoreDispatcher.shared.fetchNotifications(forUser: currentUser.Id)
         
     }
 

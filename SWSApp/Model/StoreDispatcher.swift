@@ -50,7 +50,7 @@ class StoreDispatcher {
         group.enter()
         syncDownAccount()
         group.leave()
-        
+    
         group.enter()
         syncDownContact()
         group.leave()
@@ -129,16 +129,18 @@ class StoreDispatcher {
     
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: "User")
         .done { syncStateStatus in
-            return
+            if syncStateStatus.isDone() {
+                print("syncDownUser() done")
+            }
         }
         .catch { error in
         }
     }
     
     func syncDownAccount() {
-        let fields : [String] = ["Id", "AccountNumber", "Name", "ConsultantId", "Balance"] //add more
+        let fields : [String] = ["Id", "AccountNumber", "Name"] //add more
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from Account"
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from Account limit 10"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -146,6 +148,9 @@ class StoreDispatcher {
         
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: "User")
             .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownAccount() done")
+                }
                 
             }
             .catch { error in
@@ -155,7 +160,7 @@ class StoreDispatcher {
     func syncDownContact() {
         let fields : [String] = ["Id", "FirstName", "LastName", "AccountId", "Birthdate"] //add more
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from Contact"
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from Contact limit 10"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -163,7 +168,9 @@ class StoreDispatcher {
         
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: "User")
             .done { syncStateStatus in
-                
+                if syncStateStatus.isDone() {
+                    print("syncDownContact() done")
+                }
             }
             .catch { error in
         }
@@ -191,8 +198,9 @@ class StoreDispatcher {
             return currentUser!
         }
         .done { syncStateStatus in
-            
-        }
+            if currentUser != nil {
+                print("fetchLoggedInUser() done")
+            }        }
         .catch { error in
         }
         
@@ -201,7 +209,7 @@ class StoreDispatcher {
     
     func fetchAccounts(forConsultant cid: String) -> [Account]  {
         var accountAry: [Account] = []
-        let querySpec = SFQuerySpec.newSmartQuerySpec("SELECT {Account:Id}, {Account:AccountNumber}, {Account:Name}, {Account:ConsultantId}, {Account:Balance} FROM {Account} WHERE {Account:ConsultantId} = 'cid'",  withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec("SELECT {Account:Id}, {Account:AccountNumber}, {Account:Name} FROM {Account} WHERE {Account:AccountNumber} like '3200%' ", withPageSize: 10000) //{Account:ConsultantId} = 'cid'",  withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)

@@ -1,6 +1,9 @@
 platform :ios, '10.0'
 use_frameworks!
 
+# Pods for SGWSApp
+pod 'DropDown'
+
 
 def sf_pods
 	pod 'SalesforceAnalytics',	:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'

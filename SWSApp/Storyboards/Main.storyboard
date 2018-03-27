@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,6 +39,32 @@
             </objects>
             <point key="canvasLocation" x="2901" y="-39"/>
         </scene>
+        <!--Parent View Controller-->
+        <scene sceneID="R5k-Nc-9cf">
+            <objects>
+                <viewController id="RlU-r1-gYR" customClass="ParentViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qs8-Mg-V28">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ly9-8p-aJN">
+                                <rect key="frame" x="20" y="77" width="984" height="691"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="AMG-2h-AX5"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NIr-HF-YQB"/>
+                    <connections>
+                        <outlet property="contentView" destination="Ly9-8p-aJN" id="Xtz-Uc-d8W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zcN-bU-Pbg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2950.78125" y="704.6875"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="csg-BB-htT">
             <objects>
@@ -49,12 +76,117 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="V8K-X0-zK1" kind="relationship" relationship="rootViewController" id="emg-4x-FBG"/>
+                        <segue destination="V8K-X0-zK1" kind="relationship" relationship="rootViewController" id="gP1-cl-bMC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfI-Pl-EuK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2199.609375" y="-39.0625"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="Cda-zd-oCK">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GYs-qm-iWO" customClass="HomeViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bsm-Il-g1l">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q1f-qT-CIa">
+                                <rect key="frame" x="489" y="374" width="46" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="q1f-qT-CIa" firstAttribute="centerY" secondItem="bsm-Il-g1l" secondAttribute="centerY" id="3zp-5N-dUz"/>
+                            <constraint firstItem="q1f-qT-CIa" firstAttribute="centerX" secondItem="bsm-Il-g1l" secondAttribute="centerX" id="CCi-2G-z3t"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bAG-ps-Xj7"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zH7-Gq-IqO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2042.5781249999998" y="793.75"/>
+        </scene>
+        <!--Accounts View Controller-->
+        <scene sceneID="lfG-xF-a6k">
+            <objects>
+                <viewController storyboardIdentifier="AccountsViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xsG-Kj-x7L" customClass="AccountsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a6K-sn-ydh">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accounts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yRw-p7-e5m">
+                                <rect key="frame" x="476" y="374" width="72" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yRw-p7-e5m" firstAttribute="centerX" secondItem="a6K-sn-ydh" secondAttribute="centerX" id="HLH-7k-Mry"/>
+                            <constraint firstItem="yRw-p7-e5m" firstAttribute="centerY" secondItem="a6K-sn-ydh" secondAttribute="centerY" id="Vhq-jy-xj6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BgK-AP-sHR"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oE1-iP-8DN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--Contacts View Controller-->
+        <scene sceneID="u6I-Q2-QkM">
+            <objects>
+                <viewController storyboardIdentifier="ContactsViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dr0-6H-uiB" customClass="ContactsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gOV-vF-atD">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contacts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0h-rH-Q2u">
+                                <rect key="frame" x="477.5" y="374" width="69.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="o0h-rH-Q2u" firstAttribute="centerX" secondItem="gOV-vF-atD" secondAttribute="centerX" id="a5Z-ds-tt5"/>
+                            <constraint firstItem="o0h-rH-Q2u" firstAttribute="centerY" secondItem="gOV-vF-atD" secondAttribute="centerY" id="lma-eT-5he"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="b89-O2-r49"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="skc-Ns-B2l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--Calendar View Controller-->
+        <scene sceneID="W3U-IB-Khi">
+            <objects>
+                <viewController storyboardIdentifier="CalendarViewControllerID" id="OUI-U9-P4y" customClass="CalendarViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Dkt-ox-hJP">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N82-jT-EC0">
+                                <rect key="frame" x="477.5" y="374" width="69" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="N82-jT-EC0" firstAttribute="centerX" secondItem="Dkt-ox-hJP" secondAttribute="centerX" id="sPI-9w-yIt"/>
+                            <constraint firstItem="N82-jT-EC0" firstAttribute="centerY" secondItem="Dkt-ox-hJP" secondAttribute="centerY" id="xvz-eW-uGq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hpf-Gi-iVr"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GiH-Mt-2UC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
 </document>

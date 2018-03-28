@@ -24,9 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override
     init()
     {
+        
         super.init()
         
-        if let path  = Bundle.main.path(forResource: "SFProperty", ofType: "plist") {
+        if let  path  = Bundle.main.path(forResource: "SFProperty", ofType: "plist") {
             if let dict = NSDictionary(contentsOfFile: path) as? Dictionary<String, String> {
                 RemoteAccessConsumerKey = dict["RemoteAccessConsumerKey"]!
                 OAuthRedirectURI = dict["OAuthRedirectURI"]!

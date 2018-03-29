@@ -16,9 +16,10 @@ class HomeTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.title = "Home"
+        print("HoneViewController viewDis Load")
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        // = appDelegate.loggedInUser!
+        currentUser = appDelegate.loggedInUser!
         
         //notificationAry = StoreDispatcher.shared.fetchNotifications(forUser: currentUser.Id)
         

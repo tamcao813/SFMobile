@@ -123,23 +123,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DispatchQueue.main.async(execute: {
             //to do: show Hub and progress
             
-            //to do:  research how to use promises here - need to find a better way to execute multipe async calls
             
-            let _ = StoreDispatcher.shared.syncDownSoups()
-            sleep(2) //for now use sleep
-            
-            self.loggedInUser =  StoreDispatcher.shared.fetchLoggedInUser()
-            sleep(1) //for now use sleep
-            
-            DispatchQueue.main.async(execute: {
-                    //to do: show progress 100% completed and dismiss Hub
+            StoreDispatcher.shared.downloadAllSoups({ (error) in
+                if error != nil {
+                    print("error in downloadAllSoups")
+                    return
+                }
                 
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
-                    window.rootViewController = viewController
-                    window.makeKeyAndVisible()
+                StoreDispatcher.shared.fetchLoggedInUse({ (user, error) in
+                    guard let user = user else {
+                        return
+                    }
+                    
+                    self.loggedInUser =  user
+                    
+                    DispatchQueue.main.async(execute: {
+                        //to do: show progress 100% completed and dismiss Hub
+                        
+                        print("DispatchQueue.main.async rootViewController")
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                        window.rootViewController = viewController
+                        window.makeKeyAndVisible()
+                    })
+                })
             })
         })
+        
     }
 }
-

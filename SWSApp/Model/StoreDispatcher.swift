@@ -20,7 +20,7 @@ class StoreDispatcher {
     final var sfaStore: SFSmartStore {
         let store = SFSmartStore.sharedGlobalStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
         
-        print("Store Path is \(String(describing: store.storePath))")
+        //print("Store Path is \(String(describing: store.storePath))")
         return store
     }
     
@@ -34,34 +34,40 @@ class StoreDispatcher {
         registerContactSoup()
     }
     
+    func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
+        syncDownSoups(completion)
+    }
+    
+    
     //sync down all soups
-    func syncDownSoups() -> Bool {
+    fileprivate func syncDownSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
         
-        //To Do: research how to use Promises
-        
-        var completed: Bool = false
-        let queue = DispatchQueue(label: "serial") //or concurrent
+        let queue = DispatchQueue(label: "serial") // or concurrent
         let group = DispatchGroup()
         
         group.enter()
-        syncDownUser()
-        group.leave()
+        syncDownUser() { _ in
+            group.leave()
+        }
+        
         
         group.enter()
-        syncDownAccount()
-        group.leave()
-    
+        syncDownAccount() { _ in
+            group.leave()
+        }
+        
         group.enter()
-        syncDownContact()
-        group.leave()
+        syncDownContact() { _ in
+            group.leave()
+        }
         
         //to do: syncDown other soups
         
         group.notify(queue: queue) {
-            completed = true
+            completion(nil)
         }
         
-        return completed
+        
     }
     
     //#pragma mark - create indexes for the soup and register the soup; only create indexes for the fields we want to query by
@@ -69,12 +75,13 @@ class StoreDispatcher {
     func registerUserSoup() {
         let indexSpec:[SFSoupIndex] = [
             SFSoupIndex(path: "Id", indexType: kSoupIndexTypeString, columnName: "Id")!,
-            SFSoupIndex(path: "Name", indexType:kSoupIndexTypeString, columnName: "Name")!,
-            SFSoupIndex(path: "EmployeeNumber", indexType:kSoupIndexTypeString, columnName: "EmployeeNumber")!,
-            SFSoupIndex(path: "Job_Role__c", indexType: kSoupIndexTypeString, columnName: "Job_Role__c")!,
-            SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountNumber")!
-            ]
-    
+            SFSoupIndex(path: "FirstName", indexType:kSoupIndexTypeString, columnName: "FirstName")!,
+            //SFSoupIndex(path: "LastName", indexType:kSoupIndexTypeString, columnName: "LastName")!,
+            //SFSoupIndex(path: "EmployeeNumber", indexType:kSoupIndexTypeString, columnName: "EmployeeNumber")!,
+            //SFSoupIndex(path: "Job_Role__c", indexType: kSoupIndexTypeString, columnName: "Job_Role__c")!,
+            SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!
+        ]
+        
         do {
             try sfaStore.registerSoup("User", withIndexSpecs: indexSpec, error: ())
             
@@ -86,8 +93,8 @@ class StoreDispatcher {
     func registerAccountSoup() {
         let indexSpec:[SFSoupIndex] = [
             SFSoupIndex(path: "Id", indexType: kSoupIndexTypeString, columnName: "Id")!,
-            SFSoupIndex(path: "Name", indexType:kSoupIndexTypeString, columnName: "Name")!,
-            SFSoupIndex(path: "AccountNumber", indexType: kSoupIndexTypeString, columnName: "AccountNumber")!
+            SFSoupIndex(path: "AccountNumber", indexType: kSoupIndexTypeString, columnName: "AccountNumber")!,
+            SFSoupIndex(path: "Name", indexType:kSoupIndexTypeString, columnName: "Name")!
         ]
         
         do {
@@ -118,29 +125,42 @@ class StoreDispatcher {
     
     //#pragma mark - syncdown so we have data in the soups
     
-    func syncDownUser() {
-        let fields : [String] = ["Id", "FirstName", "LastName", "Email", "AccountId", "EmployeeNumber"]
+    func syncDownUser(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let fields : [String] = ["Id", "FirstName", "LastName", "AccountId"] //, "EmployeeNumber"]
         
         let soqlQuery = "Select \(fields.joined(separator: ",")) from User"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
-    
+        
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: "User")
-        .done { syncStateStatus in
-            if syncStateStatus.isDone() {
-                print("syncDownUser() done")
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownUser() done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownUser()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownUser()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
             }
-        }
-        .catch { error in
+            .catch { error in
+                completion(error as NSError?)
         }
     }
     
-    func syncDownAccount() {
+    func syncDownAccount(_ completion:@escaping (_ error: NSError?)->()) {
         let fields : [String] = ["Id", "AccountNumber", "Name"] //add more
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from Account limit 10"
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from Account where AccountNumber like '3200%' limit 10"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -150,14 +170,26 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print("syncDownAccount() done")
+                    //let _ = self.fetchAccounts(forConsultant: "111")
+                    completion(nil)
                 }
-                
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownAccount() "
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownAccount()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
             }
             .catch { error in
+                completion(error as NSError?)
         }
     }
     
-    func syncDownContact() {
+    func syncDownContact(_ completion:@escaping (_ error: NSError?)->()) {
         let fields : [String] = ["Id", "FirstName", "LastName", "AccountId", "Birthdate"] //add more
         
         let soqlQuery = "Select \(fields.joined(separator: ",")) from Contact limit 10"
@@ -170,52 +202,55 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print("syncDownContact() done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownContact()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownContact()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
                 }
             }
             .catch { error in
+                completion(error as NSError?)
         }
     }
     
-    
-    func fetchLoggedInUser() -> User? {
-        let userId : String = SFUserAccountManager.sharedInstance().currentUser!.accountIdentity.userId
-        var currentUser:Promise<User>?
+    func fetchLoggedInUse(_ completion:@escaping ((_ user:User?, _ error: NSError?)->())) {
+        let userId : String = "005i0000002XxdhAAC" //use this for now for testing SFUserAccountManager.sharedInstance().currentUser!.accountIdentity.userId
         
-        //SELECT fields FROM User WHERE Id = '\(userId)'
-        let querySpec =  SFQuerySpec.Builder(soupName: "User")
-                    .queryType(value: "match")
-                    .path(value: "Id")
-                    .matchKey(value: userId)
-                    .build()
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec("SELECT {User:Id}, {User:FirstName} FROM {User} WHERE {User:Id} = '\(userId)'", withPageSize: 20)
+        var error : NSError?
+        let result = self.sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
         
-        firstly {
-            self.sfaStore.Promises.query(querySpec: querySpec, pageIndex: 0)
+        if (error == nil ) {
+            let ary:[Any] = result[0] as! [Any]
+            let user = User(withAry: ary)
+            completion(user, nil)
         }
-        .then {
-            result -> Promise<User> in
-            let dict = result[0] as! [String:AnyObject]
-            currentUser = Promise<User>(value: User(json: dict))
-            return currentUser!
+        else {
+            completion(nil, error)
         }
-        .done { syncStateStatus in
-            if currentUser != nil {
-                print("fetchLoggedInUser() done")
-            }        }
-        .catch { error in
-        }
-        
-        return nil
     }
     
     func fetchAccounts(forConsultant cid: String) -> [Account]  {
         var accountAry: [Account] = []
-        let querySpec = SFQuerySpec.newSmartQuerySpec("SELECT {Account:Id}, {Account:AccountNumber}, {Account:Name} FROM {Account} WHERE {Account:AccountNumber} like '3200%' ", withPageSize: 10000) //{Account:ConsultantId} = 'cid'",  withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec("SELECT {Account:Id}, {Account:AccountNumber}, {Account:Name} FROM {Account}", withPageSize: 10) //{Account:ConsultantId} = 'cid'",  withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
         
         
         let cnt = result.count
+        
+        if cnt < 1 {
+            return accountAry
+        }
+        
         for i in 0...cnt-1 {
             let acc = Account(withAry:result[i] as! [Any])
             accountAry.append(acc)
@@ -223,41 +258,6 @@ class StoreDispatcher {
         
         return accountAry
     }
-    
-    //not quite right - to do: research how to return an array by using Promise
-    /*
-    func fetchAccount(forConsultant cid: String) -> [Account]  {
-        var accountAry: [Promise<Account>] = []
-        
-        //SELECT fields FROM Account WHERE ConsultantId = '\(cid)'
-        let querySpec =  SFQuerySpec.Builder(soupName: "Account")
-            .queryType(value: "match")
-            .path(value: "ConsultantId")
-            .matchKey(value: cid)
-            .build()
-        
-        firstly {
-            self.sfaStore.Promises.query(querySpec: querySpec, pageIndex: 0)
-            }
-            .then {
-                result -> Promise<[Account]> in
-                let cnt = result.count
-                
-                for i in 0...cnt-1 {
-                let dict = result[i] as! [String:AnyObject]
-                    let acc = Promise<Account>(value: Account(json: dict))
-                    accountAry.append(acc)
-                }
-                return accountAry
-            }
-            .done { syncStateStatus in
-                
-            }
-            .catch { error in
-        }
-        return nil
-    }
-    */
     
     func fetchContacts(forAccount aid: String) -> [Contact]  {
         //to do
@@ -273,3 +273,4 @@ class StoreDispatcher {
         return ary
     }
 }
+

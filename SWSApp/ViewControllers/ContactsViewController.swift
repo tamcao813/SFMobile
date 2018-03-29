@@ -9,18 +9,13 @@
 import UIKit
 
 class ContactsViewController: UITableViewController {
-   
     
     let contactData = Contact()
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         contactData.gettingSouthernIntials()
         contactData.gettingCrownsIntials()
-      
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,7 +24,6 @@ class ContactsViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 2
@@ -41,12 +35,9 @@ class ContactsViewController: UITableViewController {
             return  contactData.crownNameArray.count
         }
         else{
-            
             return contactData.contactNameArray.count
         }
-        
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -59,26 +50,18 @@ class ContactsViewController: UITableViewController {
             return cell
         }
         else if indexPath.section == 1 {
-            
-            
             cell.emailLabel.text = contactData.contactEmailArray[indexPath.row]
             cell.nameLabel.text = contactData.contactNameArray[indexPath.row]
             cell.phoneNumberLabel.text = contactData.contactArray[indexPath.row]
             cell.initialsLabel.text = contactData.southernInitialArray[indexPath.row]
             return cell
-            
-            
         }
-        
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         return 120
-        
-        
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -90,13 +73,11 @@ class ContactsViewController: UITableViewController {
         default:
             return  "Default"
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
-    
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
@@ -105,11 +86,7 @@ class ContactsViewController: UITableViewController {
         header.textLabel?.font = UIFont.boldSystemFont(ofSize: 25)
         header.textLabel?.frame = header.frame
         header.textLabel?.textAlignment = .left
-        
     }
-    
-    
-    
     
     /*
      // Override to support conditional editing of the table view.

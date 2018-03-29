@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Contact  {
+class Contact {
     
     // Static data for Southern Glazer's Contact TableView
     let contactNameArray = ["Devin Miller","Alice Stewert","Ciera Morales","Tasha Howell","Keaton Mckinney","Tiffany Mccarthy"]
@@ -22,32 +22,26 @@ class Contact  {
     let crownEmailArray  = ["daniel@eec.com","cory@ffc.com","lawrence@ggc.com"]
     var crownInitialArray:[String] = []
     
-    
-    
-    /// Function to get initial Label for southern contacts
+    //TODO: SHUBHAM No warning must be introduced
+    /// Function to get First letters of the Name Label for southern contacts
     func gettingSouthernIntials(){
         for  var i in 0...(contactNameArray.count)-1 {
             
             var initials = contactNameArray[i].components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
             southernInitialArray.append(initials)
-            print("My Initials are\(initials)")
-            
+            print("My Initials are\(initials) \(i)")
         }
-        
     }
     
-     /// Function to get initial Label for crown store contacts
+    
+    //TODO: SHUBHAM make a common function to handel initails and put in it unitility mentod crea a static method so can be used else were.
+    /// Function to get initial Label for crown store contacts
     func gettingCrownsIntials(){
         for  var i in 0...(crownNameArray.count)-1 {
             
             var initials = crownNameArray[i].components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
             crownInitialArray.append(initials)
             print("My Initials are\(initials)")
-            
         }
-        
     }
-    
-    
-    
 }

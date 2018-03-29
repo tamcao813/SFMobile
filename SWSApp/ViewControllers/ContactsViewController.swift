@@ -11,27 +11,16 @@ import UIKit
 class ContactsViewController: UITableViewController {
    
     
-    // Static data for Southern Glazer's Contact TableView
-    let contactNameArray = ["Devin Miller","Alice Stewert","Ciera Morales","Tasha Howell","Keaton Mckinney","Tiffany Mccarthy"]
-    let contactArray    =   ["1236432465","5565789036","3412456677","67673876277","1237645672","58754234456"]
-    let contactEmailArray  = ["Devin@abc.com","Alice@bbc.com","Ciera@ccd.com","Tasha@eec.com","Keaton@ffc.com","Tiffany@ggc.com"]
-    var southernInitialArray:[String] = []
+    let contactData = Contact()
     
-    // Static data for Crown Liquor Contacts TableView
-    
-    let crownNameArray = ["Daniel Brown","Cory Gutierrez","Lawrence Sherman"]
-    let crownContactArray    =   ["67673876277","1237645672","58754234456"]
-    let crownEmailArray  = ["daniel@eec.com","cory@ffc.com","lawrence@ggc.com"]
-    var crownInitialArray:[String] = []
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.gettingSouthernIntials()
-        self.gettingCrownsIntials()
+        contactData.gettingSouthernIntials()
+        contactData.gettingCrownsIntials()
       
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,11 +38,11 @@ class ContactsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if section == 0{
-            return  crownNameArray.count
+            return  contactData.crownNameArray.count
         }
         else{
             
-            return contactNameArray.count
+            return contactData.contactNameArray.count
         }
         
     }
@@ -63,19 +52,19 @@ class ContactsViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactTableViewCell
         if indexPath.section == 0 {
-            cell.emailLabel.text = crownEmailArray[indexPath.row]
-            cell.nameLabel.text = crownNameArray[indexPath.row]
-            cell.phoneNumberLabel.text = crownContactArray[indexPath.row]
-            cell.initialsLabel.text = crownInitialArray[indexPath.row]
+            cell.emailLabel.text = contactData.crownEmailArray[indexPath.row]
+            cell.nameLabel.text = contactData.crownNameArray[indexPath.row]
+            cell.phoneNumberLabel.text = contactData.crownContactArray[indexPath.row]
+            cell.initialsLabel.text = contactData.crownInitialArray[indexPath.row]
             return cell
         }
         else if indexPath.section == 1 {
             
             
-            cell.emailLabel.text = contactEmailArray[indexPath.row]
-            cell.nameLabel.text = contactNameArray[indexPath.row]
-            cell.phoneNumberLabel.text = contactArray[indexPath.row]
-            cell.initialsLabel.text = southernInitialArray[indexPath.row]
+            cell.emailLabel.text = contactData.contactEmailArray[indexPath.row]
+            cell.nameLabel.text = contactData.contactNameArray[indexPath.row]
+            cell.phoneNumberLabel.text = contactData.contactArray[indexPath.row]
+            cell.initialsLabel.text = contactData.southernInitialArray[indexPath.row]
             return cell
             
             
@@ -119,31 +108,7 @@ class ContactsViewController: UITableViewController {
         
     }
     
-    func gettingSouthernIntials(){
-        
-        
-        for  var i in 0...(contactNameArray.count)-1 {
-            
-            var initials = contactNameArray[i].components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
-            southernInitialArray.append(initials)
-            print("My Initials are\(initials)")
-            
-        }
-        
-    }
     
-    func gettingCrownsIntials(){
-        
-        
-        for  var i in 0...(crownNameArray.count)-1 {
-            
-            var initials = crownNameArray[i].components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
-            crownInitialArray.append(initials)
-            print("My Initials are\(initials)")
-            
-        }
-        
-    }
     
     
     /*

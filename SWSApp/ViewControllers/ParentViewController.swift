@@ -72,7 +72,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         
         //let logoButton = UIBarButtonItem(title: "Logo", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         self.navigationItem.leftBarButtonItems = [fpoButton]
-        
+        //TODO: SHILPA Use Global Let or Enum and use it insted of consatant.
         let titles8 = ["Home", "Accounts", "Contacts", "Calendar", "More"]
         let icons = [UIImage(), UIImage(), UIImage(), UIImage(), UIImage(named: "moreArrow")!]
         
@@ -87,7 +87,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         
         self.navigationItem.titleView = topMenuBar
     }
-    
+    //TODO: SHILPA Use Global Let or Enum and use it insted of consatant.
     // XMSegmentedControlDelegate methods
     func xmSegmentedControl(_ xmSegmentedControl: XMSegmentedControl, selectedSegment: Int)
     {
@@ -104,7 +104,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             displayCurrentTab(selectedSegment)
         }
     }
-    
+    //TODO: SHILPA Move all the Lables and Constant in Common file so it can be reused.
     // show dropdown
     private func showMoreDropDown()
     {
@@ -130,7 +130,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             self.currentViewController = vc
         }
     }
-    
+    //TODO: SHILPA Use Global Let or Enum and use it insted of consatant.
     private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
         var vc: UIViewController?
         switch index {
@@ -141,7 +141,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         case 2 :
             vc = contactsVC
         case 3:
-            vc =  calendarVC
+            vc = calendarVC
         default:
             return nil
         }

@@ -34,6 +34,7 @@
 		D1FE1CD620654734009CC47C /* StoreDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FE1CD520654734009CC47C /* StoreDispatcher.swift */; };
 		D1FE1D0720657B7E009CC47C /* SFAError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FE1D0620657B7E009CC47C /* SFAError.swift */; };
 		EA69F234B4F821BD07B76811 /* Pods_SWSAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */; };
+		F209D705206CF05C001AF22F /* AccountsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		D1FB18582062F7A40072F4C1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		D1FE1CD520654734009CC47C /* StoreDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDispatcher.swift; sourceTree = "<group>"; };
 		D1FE1D0620657B7E009CC47C /* SFAError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAError.swift; sourceTree = "<group>"; };
+		F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuViewController.swift; sourceTree = "<group>"; };
 		F7079A5982A809CAAA6EF1A9 /* Pods_SWSAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -264,6 +266,7 @@
 				128B1A9B206BAE43004E148A /* TableViewCells */,
 				6F3D30A3206BA59C000CFFCC /* XMSegmentedControl.swift */,
 				6F3D3099206BA064000CFFCC /* AccountsViewController.swift */,
+				F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */,
 				6F3D309B206BA065000CFFCC /* CalendarViewController.swift */,
 				128B1A99206BADF8004E148A /* ContactsViewController.swift */,
 				6F3D309D206BA065000CFFCC /* HomeViewController.swift */,
@@ -617,6 +620,7 @@
 				D1FB18272062A7C00072F4C1 /* AppDelegate.swift in Sources */,
 				D104839E20683E4000A0343B /* Notification.swift in Sources */,
 				6F3D309F206BA066000CFFCC /* ParentViewController.swift in Sources */,
+				F209D705206CF05C001AF22F /* AccountsMenuViewController.swift in Sources */,
 				D1FE1D0720657B7E009CC47C /* SFAError.swift in Sources */,
 				D10483982068396D00A0343B /* AccountsTableViewController.swift in Sources */,
 				6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */,

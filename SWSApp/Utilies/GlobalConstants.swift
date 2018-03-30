@@ -14,6 +14,10 @@ class GlobalConstants
         static let cellHeight:CGFloat = 120.0
         static let heightForHeaderInSection:CGFloat = 50.0
     }
-
+    // persistent menu related
+    enum persistenMenuTabVCIndex:Int
+    {
+        case HomeVCIndex = 0, AccountVCIndex, ContactsVCIndex, CalendarVCIndex, MoreVCIndex
+    }
 }
 

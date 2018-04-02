@@ -28,8 +28,10 @@ class Contact {
         for  var i in 0...(contactNameArray.count)-1 {
             
             var initials = contactNameArray[i].components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
-            southernInitialArray.append(initials)
-            print("My Initials are\(initials) \(i)")
+            
+             southernInitialArray.append(initials)
+          
+           
         }
     }
     
@@ -41,7 +43,7 @@ class Contact {
             
             var initials = crownNameArray[i].components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
             crownInitialArray.append(initials)
-            print("My Initials are\(initials)")
+            
         }
     }
 }

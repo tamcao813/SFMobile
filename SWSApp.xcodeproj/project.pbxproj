@@ -13,6 +13,7 @@
 		12C5CEF1206E197C00BC6E7A /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 12C5CEF0206E197C00BC6E7A /* Fonts */; };
 		12C5CEF3206E1A9500BC6E7A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12C5CEF2206E1A9500BC6E7A /* Localizable.strings */; };
 		12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */; };
+		12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */; };
 		4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */; };
 		6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D3099206BA064000CFFCC /* AccountsViewController.swift */; };
 		6F3D309F206BA066000CFFCC /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309A206BA065000CFFCC /* ParentViewController.swift */; };
@@ -64,6 +65,7 @@
 		12C5CEF0206E197C00BC6E7A /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		12C5CEF2206E1A9500BC6E7A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		13ACDBAAC12413AFDDC1828A /* Pods-SWSApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.release.xcconfig"; sourceTree = "<group>"; };
 		19C8BD47DF4615A2A812341C /* Pods-SWSAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		47406C810A477C295440E667 /* Pods-SWSAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				128B1A9C206BAE5E004E148A /* ContactTableViewCell.swift */,
+				12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */,
 				D10483962068381A00A0343B /* Contact.swift in Sources */,
 				D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */,
 				12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */,

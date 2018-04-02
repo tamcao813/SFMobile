@@ -32,11 +32,17 @@ class ContactsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if section == 0{
-            return  contactData.crownNameArray.count
+            return contactData.crownNameArray.count
         }
-        else{
+        else if
+            section == 1 {
             return contactData.contactNameArray.count
+            
         }
+        
+        
+        return 0
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,32 +71,48 @@ class ContactsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return GlobalConstants.contactTableViewConstants.cellHeight
     }
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        switch section {
-        case 0:
-            return NSLocalizedString("Crown_Liquor_Contacts", comment: "crown liquor contacts section name")
-        case 1:
-            return NSLocalizedString("Southern_Glazer's_Contacts", comment: "southern glazers contacts section name")
-        default:
-            return  "Default"
-        }
-    }
+    //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //
+    //        switch section {
+    //        case 0:
+    //            return NSLocalizedString("Crown_Liquor_Contacts", comment: "crown liquor contacts section name")
+    //        case 1:
+    //            return NSLocalizedString("Southern_Glazer's_Contacts", comment: "southern glazers contacts section name")
+    //        default:
+    //            return  "Default"
+    //        }
+    //    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return GlobalConstants.contactTableViewConstants.heightForHeaderInSection
     }
     
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    //    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    //
+    //        guard let header = view as? UITableViewHeaderFooterView else { return }
+    //        header.textLabel?.textColor = UIColor.black
+    //        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 25)
+    //        header.textLabel?.frame = header.frame
+    //        header.textLabel?.textAlignment = .left
+    //    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.textLabel?.textColor = UIColor.black
-        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 25)
-        header.textLabel?.frame = header.frame
-        header.textLabel?.textAlignment = .left
+        let  headerCell = tableView.dequeueReusableCell(withIdentifier: "customerHeaderCell") as! CustomerHeaderTableViewCell
+        if section == 0{
+            
+        }
+        else if
+            section == 1{
+            
+        }
+        
+        return headerCell
+        
     }
     
-   
+    
+    
     
 }
 

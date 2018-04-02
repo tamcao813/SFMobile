@@ -38,6 +38,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         let calendarTabVC = self.storyboard?.instantiateViewController(withIdentifier: "CalendarViewControllerID")
         return calendarTabVC
     }()
+    // more VC
+    lazy var moreVC : UIViewController? = {
+        let moreTabVC = self.storyboard?.instantiateViewController(withIdentifier: "MoreViewControllerID")
+        return moreTabVC
+    }()
+    
     
 
     
@@ -61,7 +67,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     private func setUpMenuBar()
     {
         // right side buttons
-        let wifiIconButton = UIBarButtonItem(image: UIImage(named: "wifiImage"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        let wifiIconButton = UIBarButtonItem(image: UIImage(named: "Offline"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         wifiIconButton.isEnabled = false
         
         let numberButton = UIBarButtonItem(image: UIImage(named: "blueCircle-Small"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
@@ -98,16 +104,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     func xmSegmentedControl(_ xmSegmentedControl: XMSegmentedControl, selectedSegment: Int)
     {
         //print("Tab tapped" + String(selectedSegment))
+        // display other tabs
+        displayCurrentTab(selectedSegment)
+        
         // more tapped
         if(selectedSegment == GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex.rawValue)
         {
             //show more drop down()
             showMoreDropDown()
-        }
-        else
-        {
-            // display other tabs
-            displayCurrentTab(selectedSegment)
         }
     }
     
@@ -132,6 +136,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         // just print for now
         moreDropDown.selectionAction = { (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
+            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+            moreVC1.moreLabel.text = item
         }
         // display the dropdown
         moreDropDown.show()
@@ -169,7 +175,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         /*default:
             return nil*/
         case .MoreVCIndex:
-            return nil // for now 30/03/18
+            return moreVC
         }
         
         return vc

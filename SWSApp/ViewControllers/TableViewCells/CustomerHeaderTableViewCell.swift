@@ -15,7 +15,8 @@ class CustomerHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var accountIDValue: UILabel!
     
     @IBOutlet weak var addressLbl: UILabel!
-    @IBOutlet weak var addressValue: UITextView!
+    @IBOutlet weak var addressValue: UILabel!
+    
     
     @IBOutlet weak var phoneLbl: UILabel!
     @IBOutlet weak var phoneValue: UILabel!
@@ -24,7 +25,8 @@ class CustomerHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var businessHoursValue: UILabel!
     //MARK:- -
     @IBOutlet weak var accountType: UILabel!
-    @IBOutlet weak var accountTypeValue: UITextView!
+    @IBOutlet weak var accountTypeValue: UILabel!
+    
     
     @IBOutlet weak var licenseTypeLbl: UILabel!
     @IBOutlet weak var licenseTypeValue: UILabel!
@@ -57,9 +59,34 @@ class CustomerHeaderTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nextDeliveryDateLbl: UILabel!
     @IBOutlet weak var nextDeliveryDateValue: UILabel!
+    
+    // MARK:- View Outlets
+    
+    @IBOutlet weak var AccountID_View: UIView!
+    @IBOutlet weak var AccountType_View: UIView!
+    @IBOutlet weak var NetSales_View: UIView!
+    @IBOutlet weak var Delivery_View: UIView!
+    
   
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.AccountID_View.layer.borderWidth = 1
+        self.AccountID_View.layer.borderWidth = 1
+        self.AccountID_View.layer.borderColor = UIColor.lightGray.cgColor
+        
+        
+        self.AccountType_View.layer.borderWidth = 1
+        self.AccountType_View.layer.borderWidth = 1
+        self.AccountType_View.layer.borderColor = UIColor.lightGray.cgColor
+        
+        self.NetSales_View.layer.borderWidth = 1
+        self.NetSales_View.layer.borderWidth = 1
+        self.NetSales_View.layer.borderColor = UIColor.lightGray.cgColor
+        
+        self.Delivery_View.layer.borderWidth = 1
+        self.Delivery_View.layer.borderWidth = 1
+        self.Delivery_View.layer.borderColor = UIColor.lightGray.cgColor
         // Initialization code
     }
 

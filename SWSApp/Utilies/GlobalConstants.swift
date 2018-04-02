@@ -12,7 +12,7 @@ class GlobalConstants
 {
     struct contactTableViewConstants {
         static let cellHeight:CGFloat = 150.0
-        static let heightForHeaderInSection:CGFloat = 200.0
+        static let heightForHeaderInSection:CGFloat = 280.0
     }
     // persistent menu related
     enum persistenMenuTabVCIndex:Int

@@ -14,9 +14,46 @@ class AccountsMenuViewController: UIViewController, UITableViewDelegate, UITable
     
     let kHeaderSectionTag: Int = 6900;
     
+    var filterModelView: FilterViewModel?
+    var local_pastDue: String = ""
+    var local_status: String = ""
+    var local_premise: String = ""
+    var local_locations: String = ""
+    var local_channel: String = ""
+    var local_subChannel: String = ""
+    var local_licenseType: String = ""
+    var local_city: String = ""
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar : UISearchBar!
     @IBOutlet weak var searchView : UIView!
+    
+    //Filters the account list according to filter selection
+    @IBAction func submitButton(_ sender: Any) {
+        filterModelView = FilterViewModel()
+        // Get values from UI and set to model
+        filterModelView?.pastDue = local_pastDue
+        filterModelView?.status = local_status
+        filterModelView?.premise = local_premise
+        filterModelView?.locations = local_locations
+        filterModelView?.channel = local_channel
+        filterModelView?.subChannel = local_subChannel
+        filterModelView?.licenseType = local_licenseType
+        filterModelView?.city = local_city
+    }
+    
+    //Clears all the filter selection
+    @IBAction func clearButton(_ sender: Any) {
+        filterModelView?.pastDue = ""
+        filterModelView?.status = ""
+        filterModelView?.premise = ""
+        filterModelView?.locations = ""
+        filterModelView?.channel = ""
+        filterModelView?.subChannel = ""
+        filterModelView?.licenseType = ""
+        filterModelView?.city = ""
+        tableView.reloadData()
+    }
     
     var expandedSectionHeaderNumber: Int = -1
     var expandedSectionHeader: UITableViewHeaderFooterView!
@@ -204,8 +241,40 @@ class AccountsMenuViewController: UIViewController, UITableViewDelegate, UITable
             
             dropDownMenu.anchorView = (currentCell as! FilterTableViewCell).filterLabel//dropDownImageView
             dropDownMenu.direction = .bottom
+            dropDownMenu.multiSelectionAction = { [weak self] (indices, items) in
+                let itemsSelected = items.joined(separator: ",")
+                
+                if(indexPath.section == 0){
+                    if(indexPath.row == 0){
+                        (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
+                        self?.local_pastDue = (currentCell as! FilterTableViewCell).filterLabel.text!
+                    }
+                } else if(indexPath.section == 1){
+                    switch(indexPath.row){
+                    case 0:
+                       (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
+                       self?.local_status = (currentCell as! FilterTableViewCell).filterLabel.text!
+                    case 1:
+                       (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
+                       self?.local_premise = (currentCell as! FilterTableViewCell).filterLabel.text!
+                    case 2:
+                      (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
+                        self?.local_locations = (currentCell as! FilterTableViewCell).filterLabel.text!
+                    case 3:
+                        (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
+                        self?.local_channel = (currentCell as! FilterTableViewCell).filterLabel.text!
+                    case 4:
+                        (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
+                        self?.local_subChannel = (currentCell as! FilterTableViewCell).filterLabel.text!
+                    case 5:
+                        (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
+                        self?.local_licenseType = (currentCell as! FilterTableViewCell).filterLabel.text!
+                    default:
+                        break
+                    }
+                }
+            }
         }
-        
         
         //Get rowID as string from indexpath of section and row
         let rowId = String(indexPath.section) + String(indexPath.row)
@@ -223,23 +292,11 @@ class AccountsMenuViewController: UIViewController, UITableViewDelegate, UITable
         case 12?:
             dropDownMenu.dataSource = ["Single", "Multi"]
             dropDownMenu.show()
+        case 15?:
+            dropDownMenu.dataSource = ["W", "L", "B", "N"]
+            dropDownMenu.show()
         default:
             break
-        }
-        
-        //        dropDownMenu.selectionAction = { [weak self] (index, item) in
-        //            currentCell.filterLabel.text = item
-        //        }
-        
-        dropDownMenu.multiSelectionAction = { [weak self] (indices, items) in
-            //            for filterOptions in items {
-            //                currentCell.filterLabel.text = filterOptions
-            //            }
-            print("Muti selection action called with: \(items)")
-            if items.isEmpty {
-                print("Muti selection action called with: \(items)")
-            }
-            
         }
     }
     

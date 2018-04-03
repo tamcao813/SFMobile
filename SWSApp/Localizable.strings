@@ -7,6 +7,7 @@
 */
 "Crown_Liquor_Contacts " = "Crown Liquor Contacts";
 "Southern_Glazer's_Contacts" = "Southern Glazer's Contacts";
+
 // more dropdown related 
 "Objectives" = "Objectives";
 "Account Visits" = "Account Visits";
@@ -16,6 +17,7 @@
 "Transactions (Topaz)" = "Transactions (Topaz)";
 "Load Deposit (IDD)" = "Load Deposit (IDD)";
 "GoSpotCheck" = "GoSpotCheck";
+
 // persistent menu related
 "Home" = "Home";
 "Accounts" = "Accounts";

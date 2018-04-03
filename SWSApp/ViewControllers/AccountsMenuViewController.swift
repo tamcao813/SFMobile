@@ -8,23 +8,20 @@
 
 import Foundation
 import UIKit
-import DropDown
+
 
 class AccountsMenuViewController: UIViewController {
 
     let kHeaderSectionTag: Int = 6900;
     var expandedSectionHeaderNumber: Int = -1
     var expandedSectionHeader: UITableViewHeaderFooterView!
-    var sectionItems: Array<Any> = []
-    var sectionNames: Array<Any> = []
     
-    let dropDownMenu = DropDown()
-    let placeHolderName = "Select item"
+    let filterClass = Filter()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar : UISearchBar!
     
-    //Used to do for the Drop down Arrow during Relaod
+    //Used to do for the Drop down Arrow during TableviewReload
     var selectedSection = -1
     
     //MARK: - ViewLifeCycle Methods
@@ -32,13 +29,6 @@ class AccountsMenuViewController: UIViewController {
         super.viewDidLoad()
         
         self.customizeSearchBar()
-        self.customizeDropDown()
-        
-        sectionNames = ["Past Due", "Action Items", "Status", "Premise" , "Single/Multi locations" ,"Channel", "Sub-Channel" ,"License Type"];
-        
-        sectionItems = [ ["YES", "NO"],[],
-                         ["Active", "Inactive","Suspended"],
-                         ["ON","OFF"], ["Single","Multi"],[],[],["W","L","B","N"]];
         
         self.tableView!.tableFooterView = UIView()
     }
@@ -81,7 +71,7 @@ class AccountsMenuViewController: UIViewController {
             for vw in subViews{
                 for searchVW in vw.subviews{
                     if searchVW is UITextField{
-                        searchVW.backgroundColor = UIColor.white//init(red: 228/255, green: 228/255, blue: 230/255, alpha: 1.0)
+                        searchVW.backgroundColor = UIColor.white
                     }
                 }
             }
@@ -127,20 +117,6 @@ class AccountsMenuViewController: UIViewController {
         tableView.reloadData()
     }
     
-    //Clickable items color after clicking table view cell
-    func customizeDropDown() {
-        let appearance = DropDown.appearance()
-        appearance.cellHeight = 60
-        appearance.backgroundColor = UIColor(white: 1, alpha: 1)
-        appearance.selectionBackgroundColor = UIColor(red: 0.6494, green: 0.8155, blue: 1.0, alpha: 0.2)
-        appearance.cornerRadius = 10
-        appearance.shadowColor = UIColor(white: 0.6, alpha: 1)
-        appearance.shadowOpacity = 0.9
-        appearance.shadowRadius = 25
-        appearance.animationduration = 0.25
-        appearance.textColor = .darkGray
-    }
-    
     //Used to check which section header was clicked
     @objc func sectionHeaderWasTouched(_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
@@ -151,12 +127,18 @@ class AccountsMenuViewController: UIViewController {
         
         self.selectedSection = section
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            self.tableView.reloadData()
+        }
+        
         if (self.expandedSectionHeaderNumber == -1) {
             self.expandedSectionHeaderNumber = section
             tableViewExpandSection(section, imageView: eImageView!)
         } else {
             if (self.expandedSectionHeaderNumber == section) {
                 tableViewCollapeSection(section, imageView: eImageView!)
+                //If expanded section is clicked make this below variable to -1 so that arrow mark will be down
+                self.selectedSection = -1
             } else {
                 let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
                 tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
@@ -167,11 +149,9 @@ class AccountsMenuViewController: UIViewController {
     
     //Used to dismiss Dropdown menu
     func tableViewCollapeSection(_ section: Int, imageView: UIImageView) {
-        let sectionData = self.sectionItems[section] as! NSArray
+        let sectionData = filterClass.sectionItems[section] as! NSArray
+        self.expandedSectionHeaderNumber = -1
         
-        self.selectedSection = -1
-        
-        self.expandedSectionHeaderNumber = -1;
         if (sectionData.count == 0) {
             return;
         } else {
@@ -186,16 +166,12 @@ class AccountsMenuViewController: UIViewController {
             self.tableView!.beginUpdates()
             self.tableView!.deleteRows(at: indexesPath, with: UITableViewRowAnimation.fade)
             self.tableView!.endUpdates()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.tableView.reloadData()
-            }
         }
     }
     
     //Used to show Dropdown menu
     func tableViewExpandSection(_ section: Int, imageView: UIImageView) {
-        let sectionData = self.sectionItems[section] as! NSArray
+        let sectionData = filterClass.sectionItems[section] as! NSArray
         
         if (sectionData.count == 0) {
             self.expandedSectionHeaderNumber = -1;
@@ -216,51 +192,9 @@ class AccountsMenuViewController: UIViewController {
         }
     }
     
-    //Dropdown Multi selection option clicked and is assigned to model class
-    func tableViewCellClickedMultipleSelection(indexPath : IndexPath , currentCell : UITableViewCell){
-        
-        //Used for MultiSelect in the Dropdown
-        /* dropDownMenu.multiSelectionAction = { [weak self] (indices, items) in
-         let itemsSelected = items.joined(separator: ",")
-         
-         if(indexPath.section == 0){
-         if(indexPath.row == 0){
-         (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
-         self?.local_pastDue = (currentCell as! FilterTableViewCell).filterLabel.text!
-         }
-         } else if(indexPath.section == 1){
-         switch(indexPath.row){
-         case 0:
-         (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
-         self?.local_status = (currentCell as! FilterTableViewCell).filterLabel.text!
-         case 1:
-         (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
-         self?.local_premise = (currentCell as! FilterTableViewCell).filterLabel.text!
-         case 2:
-         (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
-         self?.local_locations = (currentCell as! FilterTableViewCell).filterLabel.text!
-         case 3:
-         (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
-         self?.local_channel = (currentCell as! FilterTableViewCell).filterLabel.text!
-         case 4:
-         (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
-         self?.local_subChannel = (currentCell as! FilterTableViewCell).filterLabel.text!
-         case 5:
-         (currentCell as! FilterTableViewCell).filterLabel.text = itemsSelected
-         self?.local_licenseType = (currentCell as! FilterTableViewCell).filterLabel.text!
-         default:
-         break
-         }
-         }
-         } */
-        
-    }
-    
     //Dropdown Single selection option clicked and is assigned to model class
     func tableViewCellClickedSingleSelection(indexPath : IndexPath){
         
-        //dropDownMenu.selectionAction = { [weak self] (index, item) in
-            // check the section and row.. and accordingly set the selected/edited value to respective class variable
         switch indexPath.section {
             case 0:
             
@@ -350,33 +284,10 @@ class AccountsMenuViewController: UIViewController {
 
     }
     
-    //Used to show dropdown options fkor the selected Cells
-    func showDropDownOptionsInCell(indexPath : IndexPath, currentCell: UITableViewCell){
-        //Get rowID as string from indexpath of section and row
-        let rowId = String(indexPath.section) + String(indexPath.row)
-        currentCell.tag = Int(rowId)!
-        switch currentCell.tag {
-        case 00:
-            dropDownMenu.dataSource = ["Yes", "No"]
-            dropDownMenu.show()
-        case 01:
-            dropDownMenu.dataSource = ["Yes", "No"]
-            dropDownMenu.show()
-        case 10:
-            dropDownMenu.dataSource = ["Active", "Inactive", "Suspended"]
-            dropDownMenu.show()
-        case 11:
-            dropDownMenu.dataSource = ["On", "Off"]
-            dropDownMenu.show()
-        case 12:
-            dropDownMenu.dataSource = ["Single", "Multi"]
-            dropDownMenu.show()
-        case 15:
-            dropDownMenu.dataSource = ["W", "L", "B", "N"]
-            dropDownMenu.show()
-        default:
-            break
-        }
+    //Data to pass for Respective Cell Class
+    func passDataToTableViewCell(cell : UITableViewCell, indexPath : IndexPath){
+        (cell as? AccountsMenuTableTableViewCell)?.displayCellContent(sectionContent: filterClass.sectionItems as NSArray, indexPath: indexPath)
+        
     }
     
     //MARK:- IBAction Methods
@@ -396,24 +307,16 @@ class AccountsMenuViewController: UIViewController {
 extension AccountsMenuViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if sectionNames.count > 0 {
+        if filterClass.sectionNames.count > 0 {
             tableView.backgroundView = nil
-            return sectionNames.count
-        } else {
-            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
-            messageLabel.text = "Retrieving data.\nPlease wait."
-            messageLabel.numberOfLines = 0;
-            messageLabel.textAlignment = .center;
-            messageLabel.font = UIFont(name: "Ubuntu", size: 20.0)!
-            messageLabel.sizeToFit()
-            self.tableView.backgroundView = messageLabel;
+            return filterClass.sectionNames.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (self.expandedSectionHeaderNumber == section) {
-            let arrayOfItems = self.sectionItems[section] as! NSArray
+            let arrayOfItems = filterClass.sectionItems[section] as! NSArray
             return arrayOfItems.count;
         }else {
             return 0;
@@ -425,8 +328,8 @@ extension AccountsMenuViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (self.sectionNames.count > 0) {
-            return self.sectionNames[section] as? String
+        if (filterClass.sectionNames.count > 0) {
+            return filterClass.sectionNames[section] as? String
         }
         return ""
     }
@@ -436,17 +339,20 @@ extension AccountsMenuViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        //recast your view as a UITableViewHeaderFooterView
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.contentView.backgroundColor = UIColor.white//colorWithHexString(hexStr: "#408000")
-        //header.textLabel?.textColor = UIColor.black
+        header.contentView.backgroundColor = UIColor.white
         
         if let viewWithTag = self.view.viewWithTag(kHeaderSectionTag + section) {
             viewWithTag.removeFromSuperview()
         }
         let headerFrame = self.view.frame.size
         
-        let theImageView = UIImageView(frame: CGRect(x: headerFrame.width - 40, y: 13, width: 15, height: 18));
+        view.frame.size.height = 45
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 5
+        view.layer.borderColor = UIColor.init(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0).cgColor
+                
+        let theImageView = UIImageView(frame: CGRect(x: headerFrame.width - 35, y: 13, width: 15, height: 18));
 
         if self.selectedSection == section{
             theImageView.image = UIImage(named: "dropUp")
@@ -458,7 +364,6 @@ extension AccountsMenuViewController : UITableViewDataSource{
         
         theImageView.tag = kHeaderSectionTag + section
         header.addSubview(theImageView)
-
         
         // make headers touchable
         header.tag = section
@@ -469,55 +374,58 @@ extension AccountsMenuViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell1 : UITableViewCell?
+        var cell : UITableViewCell?
         
         if indexPath.section <= 7{
             
-            cell1 = tableView.dequeueReusableCell(withIdentifier: "customCell1", for: indexPath) as! AccountsMenuTableTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: filterCell, for: indexPath) as! AccountsMenuTableTableViewCell
+            cell?.selectionStyle = .none
             
             if(indexPath.section == 0) {
                 
-                (cell1 as? AccountsMenuTableTableViewCell)?.displayCellContent(sectionContent: sectionItems as NSArray, indexPath: indexPath, placeHolderText: placeHolderName)
+                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
                 
             } else if(indexPath.section == 1){
                 
-                (cell1 as! AccountsMenuTableTableViewCell).displayCellContent(sectionContent: sectionItems as NSArray, indexPath: indexPath, placeHolderText: placeHolderName)
+                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
                 
             }else if(indexPath.section == 2){
                 
-                (cell1 as! AccountsMenuTableTableViewCell).displayCellContent(sectionContent: sectionItems as NSArray, indexPath: indexPath, placeHolderText: placeHolderName)
+                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
                 
             }else if(indexPath.section == 3){
                 
-                (cell1 as! AccountsMenuTableTableViewCell).displayCellContent(sectionContent: sectionItems as NSArray, indexPath: indexPath, placeHolderText: placeHolderName)
+                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
                 
             }else if(indexPath.section == 4){
                 
-                (cell1 as! AccountsMenuTableTableViewCell).displayCellContent(sectionContent: sectionItems as NSArray, indexPath: indexPath, placeHolderText: placeHolderName)
+                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
                 
             }else if(indexPath.section == 5){
                 
-                (cell1 as! AccountsMenuTableTableViewCell).displayCellContent(sectionContent: sectionItems as NSArray, indexPath: indexPath, placeHolderText: placeHolderName)
+                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
                 
             }else if(indexPath.section == 6){
                 
-                (cell1 as! AccountsMenuTableTableViewCell).displayCellContent(sectionContent: sectionItems as NSArray, indexPath: indexPath, placeHolderText: placeHolderName)
+                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
                 
             }else if(indexPath.section == 7){
                 
-                (cell1 as! AccountsMenuTableTableViewCell).displayCellContent(sectionContent: sectionItems as NSArray, indexPath: indexPath, placeHolderText: placeHolderName)
+                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
+                
             }
             
         }else{
         
+            //Used to display location view (If Required in future)
             if(indexPath.section == 8){
                 
-                cell1 = tableView.dequeueReusableCell(withIdentifier: "customCell2", for: indexPath) as! AccountsMenuTableTableViewCell
-                (cell1 as? AccountsMenuTableTableViewCell)?.displayLocationItemCellContent(indexPath: indexPath, placeHolderText: "Zip Code or City")
+                cell = tableView.dequeueReusableCell(withIdentifier: locationCell, for: indexPath) as! AccountsMenuTableTableViewCell
+                (cell as? AccountsMenuTableTableViewCell)?.displayLocationItemCellContent(indexPath: indexPath, placeHolderText: "Zip Code or City")
             }
         }
         
-        return cell1!
+        return cell!
     }
 }
 
@@ -525,37 +433,11 @@ extension AccountsMenuViewController : UITableViewDataSource{
 extension AccountsMenuViewController : UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
-       // let filterIndexPath = tableView.indexPathForSelectedRow
-       // let currentCell = tableView.cellForRow(at: filterIndexPath!) as! AccountsMenuTableTableViewCell//tableView.cellForRow(at: filterIndexPath!) as! FilterTableViewCell
-       // dropDownMenu.anchorView = (currentCell ).filterLabel//dropDownImageView
-       // dropDownMenu.direction = .bottom
-        /*if indexPath.section == 2{
-        
-            currentCell = tableView.cellForRow(at: filterIndexPath!) as! AccountsMenuTableTableViewCell
-        
-        }else{
-            currentCell = tableView.cellForRow(at: filterIndexPath!) as! AccountsMenuTableTableViewCell
-        
-            dropDownMenu.anchorView = (currentCell as! AccountsMenuTableTableViewCell).filterLabel//dropDownImageView
-            dropDownMenu.direction = .bottom
-        
-            //Used for Multi selection in the DropDown
-            //self.tableViewCellClickedMultipleSelection(indexPath: indexPath, currentCell: currentCell!)
-            
-            //Used for Single selection in the DropDown
-            self.tableViewCellClickedSingleSelection(indexPath: indexPath, currentCell: currentCell!)
-            
-        } */
-        
-        
-        //Used for Single selection in the DropDown
+
         self.tableViewCellClickedSingleSelection(indexPath: indexPath)
 
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        //self.showDropDownOptionsInCell(indexPath: indexPath, currentCell: currentCell!)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -571,7 +453,7 @@ extension AccountsMenuViewController : UISearchBarDelegate{
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        //self.tableViewBottomConstraint.constant = 216 // height of the keyboard
+
     }
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {

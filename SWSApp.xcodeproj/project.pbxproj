@@ -43,6 +43,7 @@
 		EA69F234B4F821BD07B76811 /* Pods_SWSAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */; };
 		F209D705206CF05C001AF22F /* AccountsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */; };
 		F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */; };
+		F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		D2A4AD50206E253E009A1F52 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuViewController.swift; sourceTree = "<group>"; };
 		F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuTableTableViewCell.swift; sourceTree = "<group>"; };
+		F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Filter.storyboard; sourceTree = "<group>"; };
 		F7079A5982A809CAAA6EF1A9 /* Pods_SWSAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -148,6 +150,7 @@
 			children = (
 				128B1A9C206BAE5E004E148A /* ContactTableViewCell.swift */,
 				F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */,
+				12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				D1FB18582062F7A40072F4C1 /* Main.storyboard */,
+				F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -436,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12C5CEF1206E197C00BC6E7A /* Fonts in Resources */,
+				F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */,
 				12C5CEF3206E1A9500BC6E7A /* Localizable.strings in Resources */,
 				D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */,
 				D1FB18592062F7A40072F4C1 /* Main.storyboard in Resources */,

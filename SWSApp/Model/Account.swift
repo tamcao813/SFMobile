@@ -9,34 +9,60 @@
 import Foundation
 
 class Account {
-    var Id: String
-    var AccountNumber: String
-    var Name: String
-    //var ConsultantId: String
-    //var Balance: String
+    var sfid: String
+    var accountNumber: String
+    var name: String
+    var address: String
+    var balance: String
+    var actionItem: Int
+    var totalR12NetSales: String
+    var nextDelivery: String //might be date, use string for now
     
     init()  {
-        Id = ""
-        AccountNumber = ""
-        Name = ""
-        //ConsultantId = ""
-        //Balance = ""
+        sfid = ""
+        accountNumber = ""
+        name = ""
+        address = "1234 W. Broadway Blvd, New York NY12000"
+        balance = "0.0"
+        actionItem = 2
+        totalR12NetSales = "2,000.00"
+        nextDelivery = "02-10-2018"
     }
     
     init(withAry ary: [Any]) {
-        Id = ary[0] as! String
-        AccountNumber = ary[1] as! String
-        Name = ary[2] as! String
-        //ConsultantId = ary[3] as! String
-        //Balance = ary[4] as! String
+        sfid = ary[0] as! String
+        accountNumber = ary[1] as! String
+        name = ary[2] as! String
+        address = "1234 W. Broadway Blvd, New York NY12000"
+        balance = "0.0"
+        actionItem = 2
+        totalR12NetSales = "2,000.00"
+        nextDelivery = "02-10-2018"
     }
     
     init(json: [String: AnyObject]) {
-        Id = json["Id"] as! String
-        AccountNumber = json["AccountNumber"] as! String
-        Name = json["Name"] as! String
-        //ConsultantId = json["Name"] as! String
-        //Balance = json["Name"] as! String
+        sfid = json["Id"] as! String
+        accountNumber = json["AccountNumber"] as! String
+        name = json["Name"] as! String
+        address = "1234 W. Broadway Blvd, New York NY12000"
+        balance = "0.0"
+        actionItem = 2
+        totalR12NetSales = "2,000.00"
+        nextDelivery = "02-10-2018"
+    }
+    
+    static func mockAccount1() -> Account {
+        let acc = Account()
+        acc.sfid =  "001m000000cHLmDAAW"
+        acc.accountNumber = "148"
+        acc.name = "Crown Liquor Store"
+        acc.address = "1234 W. Broadway Blvd, New York NY12000"
+        acc.balance = "90.98"
+        acc.actionItem = 2
+        acc.totalR12NetSales = "2,000.00"
+        acc.nextDelivery = "02-10-2018"
+        
+        return acc
     }
 }
 

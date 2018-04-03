@@ -10,12 +10,19 @@ import UIKit
 
 class ContactsViewController: UITableViewController {
     
-    let contactData = Contact()
+    //use view models to get contacts data
+    let userViewModel = UserViewModel()
+    let contactViewModel = ContactsViewModel()
+    var contactsWithBuyingPower = [Contact]()
+    var contactsForSG = [Contact]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contactData.gettingSouthernIntials()
-        contactData.gettingCrownsIntials()
+        
+        let loggerInUser = userViewModel.loggedInUser
+        contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forUser: (loggerInUser?.sfid)!)
+        
+        contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.sfid)!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,10 +39,10 @@ class ContactsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if section == 0{
-            return  contactData.crownNameArray.count
+            return  contactsWithBuyingPower.count
         }
         else{
-            return contactData.contactNameArray.count
+            return contactsForSG.count
         }
     }
     
@@ -44,20 +51,21 @@ class ContactsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactTableViewCell
         cell.layer.cornerRadius = 5
         cell.layer.borderWidth = 0.5
+        
+        var ary: [Contact] = []
+        
         if indexPath.section == 0 {
-            cell.emailLabel.text = contactData.crownEmailArray[indexPath.row]
-            cell.nameLabel.text = contactData.crownNameArray[indexPath.row]
-            cell.phoneNumberLabel.text = contactData.crownContactArray[indexPath.row]
-            cell.initialsLabel.text = contactData.crownInitialArray[indexPath.row]
-            return cell
+            ary = contactsWithBuyingPower
         }
         else if indexPath.section == 1 {
-            cell.emailLabel.text = contactData.contactEmailArray[indexPath.row]
-            cell.nameLabel.text = contactData.contactNameArray[indexPath.row]
-            cell.phoneNumberLabel.text = contactData.contactArray[indexPath.row]
-            cell.initialsLabel.text = contactData.southernInitialArray[indexPath.row]
-            return cell
+            ary = contactsForSG
         }
+        
+        let contact = ary[indexPath.row]
+        cell.emailLabel.text = contact.email
+        cell.nameLabel.text = contact.name
+        cell.phoneNumberLabel.text = contact.phoneuNmber
+        cell.initialsLabel.text = contact.getIntials(name: contact.name)
         
         return cell
     }
@@ -65,32 +73,34 @@ class ContactsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return GlobalConstants.contactTableViewConstants.cellHeight
     }
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        switch section {
-        case 0:
-            return NSLocalizedString("Crown_Liquor_Contacts", comment: "crown liquor contacts section name")
-        case 1:
-            return NSLocalizedString("Southern_Glazer's_Contacts", comment: "southern glazers contacts section name")
-        default:
-            return  "Default"
-        }
-    }
+   
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return GlobalConstants.contactTableViewConstants.heightForHeaderInSection
     }
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
+    }
+  
     
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.textLabel?.textColor = UIColor.black
-        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 25)
-        header.textLabel?.frame = header.frame
-        header.textLabel?.textAlignment = .left
+        let  headerCell = tableView.dequeueReusableCell(withIdentifier: "customerHeaderCell") as! CustomerHeaderTableViewCell
+        if section == 0{
+         
+            
+        }
+        else if
+            section == 1{
+            
+        }
+        
+        return headerCell
+        
     }
     
-   
+    
+    
     
 }
 

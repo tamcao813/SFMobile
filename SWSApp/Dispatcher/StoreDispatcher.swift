@@ -75,11 +75,11 @@ class StoreDispatcher {
     func registerUserSoup() {
         let indexSpec:[SFSoupIndex] = [
             SFSoupIndex(path: "Id", indexType: kSoupIndexTypeString, columnName: "Id")!,
+            //SFSoupIndex(path: "Name", indexType:kSoupIndexTypeString, columnName: "Name")!,
             SFSoupIndex(path: "FirstName", indexType:kSoupIndexTypeString, columnName: "FirstName")!,
-            //SFSoupIndex(path: "LastName", indexType:kSoupIndexTypeString, columnName: "LastName")!,
             //SFSoupIndex(path: "EmployeeNumber", indexType:kSoupIndexTypeString, columnName: "EmployeeNumber")!,
             //SFSoupIndex(path: "Job_Role__c", indexType: kSoupIndexTypeString, columnName: "Job_Role__c")!,
-            SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!
+            //SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!
         ]
         
         do {
@@ -122,14 +122,17 @@ class StoreDispatcher {
         }
     }
     
-    
     //#pragma mark - syncdown so we have data in the soups
     
     func syncDownUser(_ completion:@escaping (_ error: NSError?)->()) {
+        //let userId : String = SFUserAccountManager.sharedInstance().currentUser!.accountIdentity.userId //logged in userId
+        let userId : String = "005i0000002XxdhAAC" //use this for now for testing
+        
+        //let fields : [String] = ["Id", "Name", "Username", "Manager.Name", "Manager.Username", "Manager.Manager.Name", "Manager.Manager.Username"]
         
         let fields : [String] = ["Id", "FirstName", "LastName", "AccountId"] //, "EmployeeNumber"]
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from User"
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from User Where Id = '\(userId)'"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -220,10 +223,16 @@ class StoreDispatcher {
         }
     }
     
-    func fetchLoggedInUse(_ completion:@escaping ((_ user:User?, _ error: NSError?)->())) {
+    
+    //User
+    func fetchLoggedInUser(_ completion:@escaping ((_ user:User?, _ error: NSError?)->())) {
+        completion(User.mockUser(), nil)
+        return
+        
+        //user mockUser for now
         let userId : String = "005i0000002XxdhAAC" //use this for now for testing SFUserAccountManager.sharedInstance().currentUser!.accountIdentity.userId
         
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec("SELECT {User:Id}, {User:FirstName} FROM {User} WHERE {User:Id} = '\(userId)'", withPageSize: 20)
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec("SELECT {User:Id}, {User:FirstName} FROM {User} Where {User:Id} = '\(userId)'", withPageSize: 10)
         var error : NSError?
         let result = self.sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
         
@@ -236,6 +245,20 @@ class StoreDispatcher {
             completion(nil, error)
         }
     }
+    
+    
+    //Accounts
+    func fetchAccountsForLoggedUser() -> [Account] {
+        let account1 = Account.mockAccount1()
+        //add more if needed
+        
+        var ary = [Account]()
+        ary.append(account1)
+        
+        return ary
+    }
+    
+    
     
     func fetchAccounts(forConsultant cid: String) -> [Account]  {
         var accountAry: [Account] = []
@@ -258,6 +281,30 @@ class StoreDispatcher {
         
         return accountAry
     }
+    
+    //Contacts
+    func fetchContactsWithBuyingPower(forUser uid: String) -> [Contact] {
+        let contact1 = Contact.mockBuyingPowerContact1()
+        //add more if needed
+        
+        var ary = [Contact]()
+        ary.append(contact1)
+        
+        return ary
+    }
+    
+    func fetchContactsForSG(forUser uid: String) -> [Contact] {
+        let contact1 = Contact.mockContactSG1()
+        let contact2 = Contact.mockContactSG2()
+        //add more if needed
+        
+        var ary = [Contact]()
+        ary.append(contact1)
+        ary.append(contact2)
+        
+        return ary
+    }
+    
     
     func fetchContacts(forAccount aid: String) -> [Contact]  {
         //to do

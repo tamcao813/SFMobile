@@ -13,8 +13,12 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var accountListTableView: UITableView!
     
+    let accountViewModel = AccountsViewModel()
+    var accountsForLoggedUser = [Account]()
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
+        accountsForLoggedUser = accountViewModel.accountsForLoggedUser
+        print(accountsForLoggedUser.count)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -9,6 +9,13 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    let userViewModel = UserViewModel()
+    var loggerInUser: User?
+    
+    override func viewDidLoad() {
+        loggerInUser = userViewModel.loggedInUser
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

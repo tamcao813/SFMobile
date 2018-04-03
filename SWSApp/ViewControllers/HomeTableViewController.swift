@@ -9,8 +9,9 @@
 import UIKit
 
 class HomeTableViewController: UITableViewController {
-    var currentUser: User = User()
-    var notificationAry = [Notification]()
+    let userViewModel = UserViewModel()
+    var loggerInUser: User?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,11 +19,7 @@ class HomeTableViewController: UITableViewController {
         self.title = "Home"
         print("HoneViewController viewDis Load")
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        currentUser = appDelegate.loggedInUser!
-        
-        //notificationAry = StoreDispatcher.shared.fetchNotifications(forUser: currentUser.Id)
-        
+        loggerInUser = userViewModel.loggedInUser
     }
 
     override func didReceiveMemoryWarning() {

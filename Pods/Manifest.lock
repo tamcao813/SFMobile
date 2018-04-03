@@ -89,19 +89,19 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mxcl/PromiseKit
     :tag: 5.0.3
   SalesforceAnalytics:
-    :commit: fb6e2af134509f6f709b4e71fc62c2c1d908222b
+    :commit: 1e6686e7fe7bb1e8c376a27108002e4c4c3fbaad
     :git: https://github.com/forcedotcom/SalesforceMobileSDK-iOS
   SalesforceSDKCore:
-    :commit: fb6e2af134509f6f709b4e71fc62c2c1d908222b
+    :commit: 1e6686e7fe7bb1e8c376a27108002e4c4c3fbaad
     :git: https://github.com/forcedotcom/SalesforceMobileSDK-iOS
   SalesforceSwiftSDK:
-    :commit: fb6e2af134509f6f709b4e71fc62c2c1d908222b
+    :commit: 1e6686e7fe7bb1e8c376a27108002e4c4c3fbaad
     :git: https://github.com/forcedotcom/SalesforceMobileSDK-iOS
   SmartStore:
-    :commit: fb6e2af134509f6f709b4e71fc62c2c1d908222b
+    :commit: 1e6686e7fe7bb1e8c376a27108002e4c4c3fbaad
     :git: https://github.com/forcedotcom/SalesforceMobileSDK-iOS
   SmartSync:
-    :commit: fb6e2af134509f6f709b4e71fc62c2c1d908222b
+    :commit: 1e6686e7fe7bb1e8c376a27108002e4c4c3fbaad
     :git: https://github.com/forcedotcom/SalesforceMobileSDK-iOS
 
 SPEC CHECKSUMS:

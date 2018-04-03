@@ -20,8 +20,6 @@ class ContactTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.initialsLabel.layer.cornerRadius = 50/2
-        initialsLabel.layer.borderWidth = 1
-        
         initialsLabel.clipsToBounds = true
         // Initialization code
     }

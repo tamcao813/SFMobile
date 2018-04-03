@@ -152,6 +152,15 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
+		12AF94CB207355E4005D3D5F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D1FB182D2062A7C00072F4C1 /* Assets.xcassets */,
+				12C5CEF0206E197C00BC6E7A /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		4ADB2B09206B1B4D001A8785 /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,7 +214,6 @@
 		D1FB181A2062A7C00072F4C1 = {
 			isa = PBXGroup;
 			children = (
-				12C5CEF0206E197C00BC6E7A /* Fonts */,
 				D1FB18252062A7C00072F4C1 /* SWSApp */,
 				D1FB183A2062A7C10072F4C1 /* SWSAppTests */,
 				D1FB18452062A7C10072F4C1 /* SWSAppUITests */,
@@ -236,8 +244,8 @@
 				D1FE1D0320657B47009CC47C /* Utilies */,
 				D1FB185A2062F86C0072F4C1 /* ViewControllers */,
 				D1FB18572062F76C0072F4C1 /* Storyboards */,
+				12AF94CB207355E4005D3D5F /* Resources */,
 				D1FB18542062BAA80072F4C1 /* PropertyPlist */,
-				D1FB182D2062A7C00072F4C1 /* Assets.xcassets */,
 				D1FB182F2062A7C00072F4C1 /* LaunchScreen.storyboard */,
 				D1FB18322062A7C00072F4C1 /* Info.plist */,
 				12C5CEF2206E1A9500BC6E7A /* Localizable.strings */,

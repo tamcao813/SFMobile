@@ -10,12 +10,19 @@ import UIKit
 
 class ContactsViewController: UITableViewController {
     
-    let contactData = Contact()
+    //use view models to get contacts data
+    let userViewModel = UserViewModel()
+    let contactViewModel = ContactsViewModel()
+    var contactsWithBuyingPower = [Contact]()
+    var contactsForSG = [Contact]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contactData.gettingSouthernIntials()
-        contactData.gettingCrownsIntials()
+        
+        let loggerInUser = userViewModel.loggedInUser
+        contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forUser: (loggerInUser?.sfid)!)
+        
+        contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.sfid)!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,17 +39,11 @@ class ContactsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if section == 0{
-            return contactData.crownNameArray.count
+            return  contactsWithBuyingPower.count
         }
-        else if
-            section == 1 {
-            return contactData.contactNameArray.count
-            
+        else{
+            return contactsForSG.count
         }
-        
-        
-        return 0
-        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,22 +52,20 @@ class ContactsViewController: UITableViewController {
         cell.layer.cornerRadius = 5
         cell.layer.borderWidth = 0.5
         
+        var ary: [Contact] = []
+        
         if indexPath.section == 0 {
-            cell.emailLabel.text = contactData.crownEmailArray[indexPath.row]
-            cell.nameLabel.text = contactData.crownNameArray[indexPath.row]
-            cell.nameLabel.textColor = UIColor(named: "Data New")
-            cell.phoneNumberLabel.text = contactData.crownContactArray[indexPath.row]
-            cell.initialsLabel.text = contactData.crownInitialArray[indexPath.row]
-            return cell
+            ary = contactsWithBuyingPower
         }
         else if indexPath.section == 1 {
-            cell.emailLabel.text = contactData.contactEmailArray[indexPath.row]
-            cell.nameLabel.text = contactData.contactNameArray[indexPath.row]
-            cell.nameLabel.textColor = UIColor.black
-            cell.phoneNumberLabel.text = contactData.contactArray[indexPath.row]
-            cell.initialsLabel.text = contactData.southernInitialArray[indexPath.row]
-            return cell
+            ary = contactsForSG
         }
+        
+        let contact = ary[indexPath.row]
+        cell.emailLabel.text = contact.email
+        cell.nameLabel.text = contact.name
+        cell.phoneNumberLabel.text = contact.phoneuNmber
+        cell.initialsLabel.text = contact.getIntials(name: contact.name)
         
         return cell
     }

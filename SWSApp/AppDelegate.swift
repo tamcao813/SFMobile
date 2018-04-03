@@ -130,13 +130,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 
-                StoreDispatcher.shared.fetchLoggedInUse({ (user, error) in
+                StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
                     guard let user = user else {
                         return
                     }
                     
                     self.loggedInUser =  user
-                    
                     DispatchQueue.main.async(execute: {
                         //to do: show progress 100% completed and dismiss Hub
                         

@@ -29,7 +29,7 @@ class Contact {
         contact.name = "Daniel Brown"
         contact.phoneuNmber = "(676) 738-76277"
         contact.email = "daniel@eec.com"
-        contact.functionRole = "buying power"
+        contact.functionRole = "Buying power"
         
         return contact
     }

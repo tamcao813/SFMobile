@@ -15,6 +15,8 @@ class ContactTableViewCell: UITableViewCell {
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var initialsLabel: UILabel!
+    @IBOutlet weak var function_RoleLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

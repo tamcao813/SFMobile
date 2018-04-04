@@ -64,15 +64,15 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         //delegate?.pushTheScreenToDetailsScreen(accountData: accountsForLoggedUser[indexPath.row])
 
         
-        let accountDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as! AccountDetailsViewController
+        //let accountDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as! AccountDetailsViewController
         
-        let accountsView = self.storyboard?.instantiateViewController(withIdentifier: "AccountsViewControllerID") as! AccountsViewController
-        accountsView.view.addSubview(accountDetailsVC.view)
+        //let accountsView = self.storyboard?.instantiateViewController(withIdentifier: "AccountsViewControllerID") as! AccountsViewController
+        //accountsView.view.addSubview(accountDetailsVC.view)
         
         
         
-        accountDetailsVC.accountsForLoggedInUser = accountsForLoggedUser[indexPath.row]
-        self.view.addSubview(accountDetailsVC.view)//present(accountDetailsVC, animated: false, completion: nil)
+        //accountDetailsVC.accountsForLoggedInUser = accountsForLoggedUser[indexPath.row]
+        //self.view.addSubview(accountDetailsVC.view)//present(accountDetailsVC, animated: false, completion: nil)
         
         
         //selectedAccount = accountsForLoggedUser[indexPath.row]

@@ -22,7 +22,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return accountsForLoggedUser.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -30,9 +30,19 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        // get the account details from accountsForLoggedUser
+        let account:Account = accountsForLoggedUser[indexPath.row]
         
         let cell:AccountRowCell = tableView.dequeueReusableCell(withIdentifier: "accountRowCellID", for: indexPath) as! AccountRowCell
+        cell.storeNameLabel.text = account.name
+        cell.accountNumberLabel.text = account.accountNumber
+        cell.addressLabel.text = account.address
+        cell.actionItemsLabel.text = String(account.actionItem)
+        cell.netSalesAmountLabel.text = account.totalR12NetSales
+        cell.pastDueAmountTextLabel.text = account.balance
+        cell.nextDeliveryDateLabel.text = account.nextDelivery
         
         return cell
         
@@ -94,6 +104,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     }
 }
 
+// # MARK: SortingCell
 // sorting table view cell
 class SortingCell: UITableViewCell
 {
@@ -105,9 +116,20 @@ class SortingCell: UITableViewCell
     @IBOutlet weak var SortByAccountNameView: UIView!
 }
 
+// # MARK: AccountRowCell
 // account row cell
 class AccountRowCell: UITableViewCell
 {
+    @IBOutlet weak var storeNameLabel: UILabel!
+    @IBOutlet weak var accountNumberLabel: UILabel!
     
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var actionItemsLabel: UILabel!
+    @IBOutlet weak var netSalesAmountLabel: UILabel!
+    @IBOutlet weak var pastDueIndicatorImageView: UIImageView!
+    
+    @IBOutlet weak var pastDueAmountLabel: UILabel!
+    @IBOutlet weak var pastDueAmountTextLabel: UILabel!
+    @IBOutlet weak var nextDeliveryDateLabel: UILabel!
 }
 

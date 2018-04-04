@@ -33,20 +33,15 @@ class Contact {
         
         return contact
     }
-    
-    //TODO: SHUBHAM No warning must be introduced
-    /// Function to get First letters of the Name Label for southern contacts
-    func gettingSouthernIntials(){
-        for  var i in 0...(contactNameArray.count)-1 {
-            
-            var initials = contactNameArray[i].components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
-            
-             southernInitialArray.append(initials)
-          
-           
-        }
+    static func mockContactSG1() -> Contact {
+        let contact = Contact()
+        contact.sfid =  "xxxAAW"
+        contact.name = "Devin Miller"
+        contact.phoneuNmber = "(123) 643-2465"
+        contact.email = "Devin@abc.com"
+        contact.functionRole = "SG"
         
-        
+        return contact
     }
     
     static func mockContactSG2() -> Contact {

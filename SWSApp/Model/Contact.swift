@@ -34,6 +34,29 @@ class Contact {
         return contact
     }
     
+    static func mockBuyingPowerContact2() -> Contact{
+        
+        let contact = Contact()
+        contact.sfid = "111ASD"
+        contact.name = "Justin Timber"
+        contact.phoneuNmber = "(765) 764-5634"
+        contact.email = "justin@bhd.com"
+        contact.functionRole = "Buying Power"
+        return contact
+        
+    }
+    static func mockBuyingPowerContact3() -> Contact{
+        
+        let contact = Contact()
+        contact.sfid = "212ASD"
+        contact.name = "Amber Heard"
+        contact.phoneuNmber = "(734) 732 8734"
+        contact.email = "Amber@bhd.com"
+        contact.functionRole = "Buying Power"
+        return contact
+        
+    }
+    
     static func mockContactSG1() -> Contact {
         let contact = Contact()
         contact.sfid =  "xxxAAW"
@@ -52,6 +75,27 @@ class Contact {
         contact.phoneuNmber = "(123) 245-6677"
         contact.email = "Keaton@ffc.com"
         contact.functionRole = "SG"  //made-up
+        
+        return contact
+    }
+    
+    static func mockContactSG3() -> Contact {
+        let contact = Contact()
+        contact.sfid =  "AGH007"
+        contact.name = "James Bond"
+        contact.phoneuNmber = "(145) 276-7543"
+        contact.email = "James@ffc.com"
+        contact.functionRole = "SG"  //made-up
+        
+        return contact
+    }
+    static func mockContactSG4() -> Contact {
+        let contact = Contact()
+        contact.sfid =  "xBHJD"
+        contact.name = "Rosh Jacob"
+        contact.phoneuNmber = "(423) 643-2465"
+        contact.email = "Rosh@abc.com"
+        contact.functionRole = "SG"
         
         return contact
     }

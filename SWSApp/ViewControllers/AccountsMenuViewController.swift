@@ -12,8 +12,7 @@ import DropDown
 
 class AccountsMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let kHeaderSectionTag: Int = 6900;
-    
+    let kHeaderSectionTag: Int = 6900; 
     var filterModelView: FilterViewModel?
     var local_pastDue: String = ""
     var local_status: String = ""

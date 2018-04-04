@@ -8,7 +8,14 @@
 
 import UIKit
 
-class AccountsViewController: UIViewController {
+class AccountsViewController: UIViewController , DetailsScreenDelegate{
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -19,4 +26,13 @@ class AccountsViewController: UIViewController {
         super.viewWillDisappear(animated)
         print("Accounts VC will disappear")
     }
+    
+    func pushTheScreenToDetailsScreen(accountData: Account) {
+        
+        
+        
+        
+        
+    }
+    
 }

@@ -39,8 +39,8 @@ class User {
         //lastName = ary[2] as! String
         name = ary[1] as! String
         userName = ary[2] as! String
-        managerName = ary[3] as! String
-        managerName2 = ary[4] as! String
+        managerName = "Manager"
+        managerName2 = "Manager2"
         //accountId = ary[2] as! String
     }
     

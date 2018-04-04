@@ -293,8 +293,8 @@ class StoreDispatcher {
     //Contacts
     func fetchContactsWithBuyingPower(forUser uid: String) -> [Contact] {
         let contact1 = Contact.mockBuyingPowerContact1()
-        let contact2 = Contact.mockBuyingPowerContact1()
-        let contact3 = Contact.mockBuyingPowerContact1()
+        let contact2 = Contact.mockBuyingPowerContact2()
+        let contact3 = Contact.mockBuyingPowerContact3()
         
         //add more if needed
         

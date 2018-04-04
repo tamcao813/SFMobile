@@ -9,7 +9,7 @@
 import UIKit
 import DropDown
 
-class ParentViewController: UIViewController, XMSegmentedControlDelegate {
+class ParentViewController: UIViewController, XMSegmentedControlDelegate , DetailsScreenDelegate{
     // drop down on tapping more
     let moreDropDown = DropDown()
     // persistent menu
@@ -44,7 +44,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         return moreTabVC
     }()
     
-
+    var detailsScreen : AccountsListViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,11 +55,29 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         topMenuBar?.selectedSegment = 0
         // show the relevant tab
         displayCurrentTab(0)
+        
+        detailsScreen = AccountsListViewController()
+        detailsScreen.delegate = self
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func pushTheScreenToDetailsScreen(accountData : Account){
+        
+        self.performSegue(withIdentifier: "detailsScreenSegue", sender: nil)
+        
     }
     
     // # MARK: setUpMenuBar

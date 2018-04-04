@@ -1,25 +1,21 @@
 //
-//  MoreViewController.swift
+//  AccountVisitsViewController.swift
 //  SWSApp
 //
-//  Created by shilpa.a.kulkarni on 02/04/18.
+//  Created by Krishna, Kamya on 4/3/18.
 //  Copyright © 2018 maria.min-hui.yu. All rights reserved.
 //
 
 import UIKit
 
-class MoreViewController: UIViewController {
-    
-    @IBOutlet weak var moreLabel: UILabel!
-    
+class AccountVisitsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("More VC will appear")
-        //self.moreLabel.text = "More"
+        print("AccountVisits VC will appear")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("More VC will disappear")
+        print("AccountVisits VC will disappear")
     }
 }

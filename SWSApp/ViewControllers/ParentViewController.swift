@@ -44,7 +44,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         return moreTabVC
     }()
     
-    
 
     
     override func viewDidLoad() {
@@ -133,11 +132,34 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         let dropDownItem8 = NSLocalizedString("GoSpotCheck", comment: "GoSpotCheck")
         // set the data source for the dropdown
         moreDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4, dropDownItem5, dropDownItem6, dropDownItem7, dropDownItem8]
-        // just print for now
+        
         moreDropDown.selectionAction = { (index: Int, item: String) in
-            print("Selected item: \(item) at index: \(index)")
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
-            moreVC1.moreLabel.text = item
+            switch index {
+            case 0:
+                let objectivesVC = self.storyboard?.instantiateViewController(withIdentifier: "ObjectivesViewControllerID")
+                moreVC1.view.addSubview((objectivesVC?.view)!)
+            case 1:
+                let accountVisitsVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountVisitsControllerID")
+                moreVC1.view.addSubview((accountVisitsVC?.view)!)
+            case 2:
+                let insightsVC = self.storyboard?.instantiateViewController(withIdentifier: "InsightsViewControllerID")
+                moreVC1.view.addSubview((insightsVC?.view)!)
+            case 3:
+                let reportsVC = self.storyboard?.instantiateViewController(withIdentifier: "ReportsViewControllerID")
+                moreVC1.view.addSubview((reportsVC?.view)!)
+            case 4:
+                let chatterVC = self.storyboard?.instantiateViewController(withIdentifier: "ChatterViewControllerID")
+                moreVC1.view.addSubview((chatterVC?.view)!)
+            default:
+                break
+            }
+            
+            //just print for now
+//            print("Selected item: \(item) at index: \(index)")
+//            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+//            moreVC1.moreLabel.text = item
+            
         }
         // display the dropdown
         moreDropDown.show()
@@ -174,8 +196,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         // have to cover all cases from defined enum, else compiler wont be happy :D
         /*default:
             return nil*/
-        case .MoreVCIndex:
-            return moreVC
+       case .MoreVCIndex:
+            vc = moreVC
+            //return moreVC
+//        default:
+//            break
         }
         
         return vc

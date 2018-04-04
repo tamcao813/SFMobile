@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SmartStore
 
 class HomeViewController: UIViewController {
     let userViewModel = UserViewModel()
@@ -20,6 +21,11 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("Home VC will appear")
+        
+        /* //for soup testing
+        let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
+        present(SmartStoreViewController, animated: true, completion: nil)
+         */
     }
     
     override func viewWillDisappear(_ animated: Bool) {

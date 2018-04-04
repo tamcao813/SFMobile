@@ -53,7 +53,6 @@ class User {
         let user = User()
         user.sfid = "005i0000002XxdhAAC"
         user.firstName = "Lucas"
-        
         return user
     }
     

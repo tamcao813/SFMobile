@@ -10,16 +10,16 @@ import UIKit
 
 class AccountsViewController: UIViewController , DetailsScreenDelegate{
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("Accounts VC will appear")
+        
+        let count =  self.view.subviews
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -28,11 +28,19 @@ class AccountsViewController: UIViewController , DetailsScreenDelegate{
     }
     
     func pushTheScreenToDetailsScreen(accountData: Account) {
+         let accountDetails = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as! AccountDetailsViewController
+        accountDetails.accountsForLoggedInUser = accountData
         
-        
-        
-        
-        
+        //self.present(accountDetails, animated: true, completion: nil)
+        self.view.addSubview(accountDetails.view)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "mySegue") {
+            let vc = segue.destination as! AccountsListViewController
+            vc.delegate = self
+        }
+    }
+    
     
 }

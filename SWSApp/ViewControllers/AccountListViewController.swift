@@ -8,8 +8,7 @@
 
 import UIKit
 
-
-protocol DetailsScreenDelegate : class {
+protocol DetailsScreenDelegate{
     func pushTheScreenToDetailsScreen(accountData : Account)
 }
 
@@ -61,7 +60,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        //delegate?.pushTheScreenToDetailsScreen(accountData: accountsForLoggedUser[indexPath.row])
+        
+        delegate?.pushTheScreenToDetailsScreen(accountData: accountsForLoggedUser[indexPath.row])
 
         
         //let accountDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as! AccountDetailsViewController
@@ -73,7 +73,6 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
         //accountDetailsVC.accountsForLoggedInUser = accountsForLoggedUser[indexPath.row]
         //self.view.addSubview(accountDetailsVC.view)//present(accountDetailsVC, animated: false, completion: nil)
-        
         
         //selectedAccount = accountsForLoggedUser[indexPath.row]
         //self.performSegue(withIdentifier: "detailsScreenSegue", sender: nil)

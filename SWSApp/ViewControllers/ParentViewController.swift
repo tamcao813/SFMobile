@@ -196,11 +196,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         // have to cover all cases from defined enum, else compiler wont be happy :D
         /*default:
             return nil*/
-//        case .MoreVCIndex:
-//            vc = moreVC
+       case .MoreVCIndex:
+            vc = moreVC
             //return moreVC
-        default:
-            break
+//        default:
+//            break
         }
         
         return vc

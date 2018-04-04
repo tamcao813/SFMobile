@@ -8,13 +8,39 @@
 
 import Foundation
 
-class FilterViewModel {
-    var pastDue: String = ""
-    var status: String = ""
-    var premise: String = ""
-    var locations: String = ""
-    var channel: String = ""
-    var subChannel: String = ""
-    var licenseType: String = ""
-    var city: String = ""
+class Filter {
+    
+    let sectionNames : Array<Any>  = ["Past Due", "Action Items", "Status", "Premise" , "Single / Multi locations" ,"Channel", "Sub-Channel" ,"License Type"]
+    
+    let sectionItems : Array<Any> = [ ["YES", "NO"],[],
+                                      ["Active", "Inactive","Suspended"],
+                                      ["ON","OFF"], ["Single","Multi"],[],[],["W","L","B","N"]]
+    
+}
+
+let filterCell = "customCell1"
+let locationCell = "customCell2"
+
+struct FilterMenuModel {
+    
+    static var pastDueYes = ""
+    static var pastDueNo = ""
+    
+    static var statusIsActive = ""
+    static var statusIsInActive = ""
+    static var statusIsSuspended = ""
+    
+    static var premiseOn = ""
+    static var premiseOff = ""
+    
+    static var singleSelected = ""
+    static var multiSelected = ""
+    
+    static var licenseW = ""
+    static var licenseL = ""
+    static var licenseB = ""
+    static var licenseN = ""
+    
+    static var city: String = ""
+    
 }

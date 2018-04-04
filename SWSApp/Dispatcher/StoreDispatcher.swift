@@ -285,23 +285,30 @@ class StoreDispatcher {
     //Contacts
     func fetchContactsWithBuyingPower(forUser uid: String) -> [Contact] {
         let contact1 = Contact.mockBuyingPowerContact1()
+        let contact2 = Contact.mockBuyingPowerContact2()
+        let contact3 = Contact.mockBuyingPowerContact3()
+        
         //add more if needed
         
         var ary = [Contact]()
         ary.append(contact1)
-        
+        ary.append(contact2)
+        ary.append(contact3)
         return ary
     }
     
     func fetchContactsForSG(forUser uid: String) -> [Contact] {
         let contact1 = Contact.mockContactSG1()
         let contact2 = Contact.mockContactSG2()
+        let contact3 = Contact.mockContactSG3()
+        let contact4 = Contact.mockContactSG4()
         //add more if needed
         
         var ary = [Contact]()
         ary.append(contact1)
         ary.append(contact2)
-        
+        ary.append(contact3)
+        ary.append(contact4)
         return ary
     }
     

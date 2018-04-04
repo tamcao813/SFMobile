@@ -29,7 +29,7 @@ class Contact {
         contact.name = "Daniel Brown"
         contact.phoneuNmber = "(676) 738-76277"
         contact.email = "daniel@eec.com"
-        contact.functionRole = "buying power"
+        contact.functionRole = "Buying power"
         
         return contact
     }
@@ -51,6 +51,27 @@ class Contact {
         contact.phoneuNmber = "(123) 245-6677"
         contact.email = "Keaton@ffc.com"
         contact.functionRole = "SG"  //made-up
+        
+        return contact
+    }
+    
+    static func mockContactSG3() -> Contact {
+        let contact = Contact()
+        contact.sfid =  "AGH007"
+        contact.name = "James Bond"
+        contact.phoneuNmber = "(145) 276-7543"
+        contact.email = "James@ffc.com"
+        contact.functionRole = "SG"  //made-up
+        
+        return contact
+    }
+    static func mockContactSG4() -> Contact {
+        let contact = Contact()
+        contact.sfid =  "xBHJD"
+        contact.name = "Rosh Jacob"
+        contact.phoneuNmber = "(423) 643-2465"
+        contact.email = "Rosh@abc.com"
+        contact.functionRole = "SG"
         
         return contact
     }

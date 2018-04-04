@@ -56,10 +56,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNO-CU-ul6">
-                                                    <rect key="frame" x="12" y="9" width="265" height="52"/>
+                                                    <rect key="frame" x="12" y="9" width="330" height="52"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lpu-Dd-X0V">
-                                                            <rect key="frame" x="6" y="0.0" width="252" height="52"/>
+                                                            <rect key="frame" x="6" y="0.0" width="317" height="52"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <color key="textColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -74,7 +74,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropDownLight" translatesAutoresizingMaskIntoConstraints="NO" id="XAD-9c-Nsa">
-                                                            <rect key="frame" x="238" y="16" width="20" height="20"/>
+                                                            <rect key="frame" x="303" y="16" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="6ja-yz-AbT"/>
                                                                 <constraint firstAttribute="height" constant="20" id="O2I-g9-AOP"/>
@@ -133,10 +133,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auP-BY-w80">
-                                                    <rect key="frame" x="15" y="36" width="265" height="50"/>
+                                                    <rect key="frame" x="15" y="36" width="330" height="50"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zip Code or City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fYQ-HH-Zk7">
-                                                            <rect key="frame" x="5" y="0.0" width="265" height="50"/>
+                                                            <rect key="frame" x="5" y="0.0" width="330" height="50"/>
                                                             <color key="textColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <textInputTraits key="textInputTraits"/>

@@ -33,6 +33,30 @@ class Contact {
         
         return contact
     }
+    
+    static func mockBuyingPowerContact2() -> Contact{
+        
+        let contact = Contact()
+        contact.sfid = "111ASD"
+        contact.name = "Justin Timber"
+        contact.phoneuNmber = "(765) 764-5634"
+        contact.email = "justin@bhd.com"
+        contact.functionRole = "Buying Power"
+        return contact
+        
+    }
+    static func mockBuyingPowerContact3() -> Contact{
+        
+        let contact = Contact()
+        contact.sfid = "212ASD"
+        contact.name = "Amber Heard"
+        contact.phoneuNmber = "(734) 732 8734"
+        contact.email = "Amber@bhd.com"
+        contact.functionRole = "Buying Power"
+        return contact
+        
+    }
+    
     static func mockContactSG1() -> Contact {
         let contact = Contact()
         contact.sfid =  "xxxAAW"

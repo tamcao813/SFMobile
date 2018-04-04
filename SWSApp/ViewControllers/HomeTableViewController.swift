@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SmartStore
 
 class HomeTableViewController: UITableViewController {
     let userViewModel = UserViewModel()

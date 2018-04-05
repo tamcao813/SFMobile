@@ -27,11 +27,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="Search Field Text" translatesAutoresizingMaskIntoConstraints="NO" id="ZUg-Ca-eAR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                <rect key="frame" x="16" y="0.0" width="343" height="56"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="5Bm-wD-Qby"/>
-                                </constraints>
                                 <color key="barTintColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -39,14 +36,14 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9lY-Jo-gRH">
-                                <rect key="frame" x="0.0" y="62" width="375" height="541"/>
+                                <rect key="frame" x="16" y="62" width="343" height="541"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell1" rowHeight="70" id="b8F-bi-6Is" customClass="AccountsMenuTableTableViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                        <rect key="frame" x="0.0" y="28" width="343" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b8F-bi-6Is" id="r3Q-KJ-Itg">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNg-2M-Lf8">
@@ -120,10 +117,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell2" rowHeight="100" id="o5N-8z-R4Z" customClass="AccountsMenuTableTableViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="98" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="98" width="343" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o5N-8z-R4Z" id="v0q-nv-Ztc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZzD-mc-gJ3">
@@ -253,13 +250,13 @@
                             <constraint firstItem="StX-qI-4nh" firstAttribute="top" secondItem="9lY-Jo-gRH" secondAttribute="bottom" constant="-5" id="BwB-X1-6fE"/>
                             <constraint firstItem="StX-qI-4nh" firstAttribute="leading" secondItem="VH1-O0-jRK" secondAttribute="leading" id="Csd-SC-40a"/>
                             <constraint firstItem="VH1-O0-jRK" firstAttribute="trailing" secondItem="StX-qI-4nh" secondAttribute="trailing" id="HBu-oM-Yxf"/>
-                            <constraint firstItem="ZUg-Ca-eAR" firstAttribute="leading" secondItem="VH1-O0-jRK" secondAttribute="leading" id="HDT-HQ-JQT"/>
-                            <constraint firstItem="9lY-Jo-gRH" firstAttribute="top" secondItem="ZUg-Ca-eAR" secondAttribute="bottom" constant="6" id="RP3-d1-gNG"/>
+                            <constraint firstItem="VH1-O0-jRK" firstAttribute="trailing" secondItem="ZUg-Ca-eAR" secondAttribute="trailing" constant="16" id="KVp-JA-XUV"/>
                             <constraint firstItem="VH1-O0-jRK" firstAttribute="bottom" secondItem="StX-qI-4nh" secondAttribute="bottom" id="S4z-WC-2xd"/>
-                            <constraint firstItem="9lY-Jo-gRH" firstAttribute="leading" secondItem="cBD-jd-G9H" secondAttribute="leading" id="eXh-MM-OoS"/>
-                            <constraint firstItem="VH1-O0-jRK" firstAttribute="trailing" secondItem="ZUg-Ca-eAR" secondAttribute="trailing" id="eai-Cp-Bvg"/>
-                            <constraint firstAttribute="trailing" secondItem="9lY-Jo-gRH" secondAttribute="trailing" id="ifP-1M-Gti"/>
-                            <constraint firstItem="VH1-O0-jRK" firstAttribute="top" secondItem="ZUg-Ca-eAR" secondAttribute="top" constant="20" id="s4M-QW-aMW"/>
+                            <constraint firstItem="ZUg-Ca-eAR" firstAttribute="leading" secondItem="VH1-O0-jRK" secondAttribute="leading" constant="16" id="YLE-Si-JOj"/>
+                            <constraint firstItem="9lY-Jo-gRH" firstAttribute="leading" secondItem="cBD-jd-G9H" secondAttribute="leading" constant="16" id="eXh-MM-OoS"/>
+                            <constraint firstAttribute="trailing" secondItem="9lY-Jo-gRH" secondAttribute="trailing" constant="16" id="ifP-1M-Gti"/>
+                            <constraint firstItem="9lY-Jo-gRH" firstAttribute="top" secondItem="ZUg-Ca-eAR" secondAttribute="bottom" constant="6" id="taS-y6-raE"/>
+                            <constraint firstItem="ZUg-Ca-eAR" firstAttribute="top" secondItem="cBD-jd-G9H" secondAttribute="top" id="zDB-SE-Zt1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VH1-O0-jRK"/>
                     </view>
@@ -270,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZuB-Yj-AtP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1567" y="-662"/>
+            <point key="canvasLocation" x="1565.5999999999999" y="-662.51874062968523"/>
         </scene>
     </scenes>
     <resources>

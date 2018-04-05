@@ -324,7 +324,7 @@ extension AccountsMenuViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70;
+        return 50;
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -352,7 +352,7 @@ extension AccountsMenuViewController : UITableViewDataSource{
         view.layer.cornerRadius = 5
         view.layer.borderColor = UIColor.init(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0).cgColor
                 
-        let theImageView = UIImageView(frame: CGRect(x: headerFrame.width - 35, y: 13, width: 15, height: 18));
+        let theImageView = UIImageView(frame: CGRect(x: headerFrame.width - 75, y: 13, width: 15, height: 18));
 
         if self.selectedSection == section{
             theImageView.image = UIImage(named: "dropUp")

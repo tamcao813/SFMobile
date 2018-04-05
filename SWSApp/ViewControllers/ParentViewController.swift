@@ -17,6 +17,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     @IBOutlet weak var contentView: UIView!
     // current view controller
     var currentViewController: UIViewController?
+    var notificationsViewController:UIViewController?
     // keep the views loaded
     //home VC
     lazy var homeVC: UIViewController? = {
@@ -65,8 +66,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
     }
     
     
@@ -84,7 +83,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let wifiIconButton = UIBarButtonItem(image: UIImage(named: "Offline"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         wifiIconButton.isEnabled = false
         
-        let numberButton = UIBarButtonItem(image: UIImage(named: "blueCircle-Small"), style:UIBarButtonItemStyle.plain, target: nil, action: #selector(ParentViewController.notificationButtonPressed))
+        let numberButton = UIBarButtonItem(image: UIImage(named: "blueCircle-Small"), style:UIBarButtonItemStyle.plain, target: self, action: #selector(ParentViewController.notificationButtonPressed))
         
         self.navigationItem.rightBarButtonItems = [numberButton, wifiIconButton]
         
@@ -152,7 +151,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         moreDropDown.selectionAction = { (index: Int, item: String) in
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
-            let moreMenuStoryboard = UIStoryboard(name: "MoreMenu", bundle: nil)
+            let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
             let currentViewController = self.displayCurrentTab(selectedIndex)
             currentViewController?.view.addSubview(moreVC1.view)
             switch index {
@@ -209,9 +208,16 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // # MARK: viewControllerForSelectedSegmentIndex
     // get the respective view controller as per the selected index of menu from menubar
     private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
+        
+        //If notification view controller is already loaded, remove it from superview when any menu is clicked
+        if((notificationsViewController?.view) != nil){
+         notificationsViewController?.view.removeFromSuperview()
+        }
+        
         let selectedVC:GlobalConstants.persistenMenuTabVCIndex = GlobalConstants.persistenMenuTabVCIndex(rawValue: index)!
         var vc: UIViewController?
         switch selectedVC {
+            
         case .HomeVCIndex:
             vc = homeVC
         case .AccountVCIndex:
@@ -240,8 +246,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     @objc func notificationButtonPressed(sender: UIBarButtonItem){
         let moreStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
-        let notificationsViewController = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
-        self.view.removeFromSuperview()
-        self.view.addSubview(notificationsViewController.view)
+        notificationsViewController = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
+        if let notifVC = notificationsViewController{
+            self.view.addSubview(notifVC.view)
+        }
     }
 }

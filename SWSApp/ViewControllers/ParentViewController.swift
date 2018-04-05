@@ -73,6 +73,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             } else {
                 print("Reachable via Cellular")
             }
+            self.wifiIconButton?.image = UIImage(named: "Online")
+
         }
         reachability?.whenUnreachable = { _ in
             print("Not reachable")

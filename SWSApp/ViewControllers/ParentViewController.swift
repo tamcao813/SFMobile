@@ -104,8 +104,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         numberLabel.clipsToBounds = true
         let numberLabelButton = UIBarButtonItem.init(customView: numberLabel)
 
-        let numberButton = UIBarButtonItem(image: UIImage(named: "blueCircle-Small"), style:UIBarButtonItemStyle.plain, target: self, action: #selector(ParentViewController.notificationButtonPressed))
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ParentViewController.notificationButtonPressed))
+        numberLabel.isUserInteractionEnabled = true
+        numberLabel.addGestureRecognizer(tap)
  
         self.navigationItem.rightBarButtonItems = [userInitialLabelButton, numberLabelButton, wifiIconButton]
         
@@ -290,4 +291,5 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.view.addSubview(notifVC.view)
         }
     }
+    
 }

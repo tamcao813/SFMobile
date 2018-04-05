@@ -43,4 +43,6 @@ struct FilterMenuModel {
     
     static var city: String = ""
     
+    static var comingFromDetailsScreen = ""
+    
 }

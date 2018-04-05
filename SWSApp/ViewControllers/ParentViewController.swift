@@ -197,6 +197,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         case .HomeVCIndex:
             vc = homeVC
         case .AccountVCIndex:
+            let accVC = accountsVC as? AccountsViewController
+            accVC?.accountDetails?.view.removeFromSuperview()
+            
             vc = accountsVC
         case .ContactsVCIndex:
             vc = contactsVC

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactsViewController: UITableViewController {
+class AccountsContactsViewController: UITableViewController {
     
     //use view models to get contacts data
     let userViewModel = UserViewModel()

@@ -10,6 +10,9 @@ import UIKit
 
 class AccountsViewController: UIViewController , DetailsScreenDelegate{
     
+    
+    var accountDetails : AccountDetailsViewController?
+    
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,17 +28,20 @@ class AccountsViewController: UIViewController , DetailsScreenDelegate{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("Accounts VC will disappear")
+        
+        
+        self.accountDetails?.view.removeFromSuperview()
     }
     
     //MARK:-
     
     //Used to push the screen to Details ViewController
     func pushTheScreenToDetailsScreen(accountData: Account) {
-         let accountDetails = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as! AccountDetailsViewController
-        accountDetails.accountsForLoggedInUser = accountData
-        self.addChildViewController(accountDetails)
+        accountDetails = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as? AccountDetailsViewController
+        accountDetails?.accountsForLoggedInUser = accountData
+        self.addChildViewController(accountDetails!)
         //self.present(accountDetails, animated: true, completion: nil)
-        self.view.addSubview(accountDetails.view)
+        self.view.addSubview((accountDetails?.view)!)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

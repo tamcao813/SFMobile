@@ -38,6 +38,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         let calendarTabVC = self.storyboard?.instantiateViewController(withIdentifier: "CalendarViewControllerID")
         return calendarTabVC
     }()
+    // objectives VC
+    lazy var objectivesVC : UIViewController? = {
+        let objectivesTabVC = self.storyboard?.instantiateViewController(withIdentifier: "ObjectivesControllerID")
+        return objectivesTabVC
+    }()
     // more VC
     lazy var moreVC : UIViewController? = {
         let moreStoryboard: UIStoryboard = UIStoryboard(name: "MoreMenu", bundle: nil)
@@ -83,10 +88,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         let menuItem2 = NSLocalizedString("Accounts", comment: "Accounts")
         let menuItem3 = NSLocalizedString("Contacts", comment: "Contacts")
         let menuItem4 = NSLocalizedString("Calendar", comment: "Calendar")
-        let menuItem5 = NSLocalizedString("More", comment: "More")
+        let menuItem5 = NSLocalizedString("Objectives", comment: "Objectives")
+        let menuItem6 = NSLocalizedString("More", comment: "More")
         
-        let menuTitles = [menuItem1, menuItem2, menuItem3, menuItem4, menuItem5]
-        let menuIcons = [UIImage(), UIImage(), UIImage(), UIImage(), UIImage(named: "moreArrow")!]
+        let menuTitles = [menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, menuItem6]
+        let menuIcons = [UIImage(), UIImage(), UIImage(), UIImage(),UIImage(), UIImage(named: "moreArrow")!]
         
         let frame = CGRect(x: 0, y: 114, width: self.view.frame.width/1.5, height: 44)
         
@@ -201,22 +207,23 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             vc = contactsVC
         case .CalendarVCIndex:
             vc = calendarVC
+        case .ObjectivesVCIndex:
+            vc = objectivesVC
 
         // have to cover all cases from defined enum, else compiler wont be happy :D
         /*default:
             return nil*/
-//       case .MoreVCIndex:
-//            vc = moreVC
-            //return moreVC
-        default:
-            break
+       case .MoreVCIndex:
+            vc = moreVC
+//        default:
+//            break
         }
         
         return vc
     }
     
     @objc func notificationButtonPressed(sender: UIBarButtonItem){
-        let moreStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)//(name: "MoreMenu", bundle: nil)
+        let moreStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
         let vc = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
         self.view.addSubview(vc.view)
     }

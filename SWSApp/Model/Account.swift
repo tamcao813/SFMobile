@@ -64,5 +64,18 @@ class Account {
         
         return acc
     }
+    static func mockAccount2() -> Account {
+        let acc = Account()
+        acc.sfid =  "001m000000cHLmDAAZ"
+        acc.accountNumber = "188"
+        acc.name = "Big Liquor Store"
+        acc.address = "1234 W. Broadway Blvd, New York NY12000"
+        acc.balance = "80.98"
+        acc.actionItem = 5
+        acc.totalR12NetSales = "4,000.00"
+        acc.nextDelivery = "05-10-2018"
+        
+        return acc
+    }
 }
 

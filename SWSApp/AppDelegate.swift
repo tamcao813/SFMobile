@@ -40,12 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 appconfig.remoteAccessConsumerKey = self.RemoteAccessConsumerKey
                 appconfig.oauthRedirectURI = self.OAuthRedirectURI
             }.postInit {
-                //setup StoreDispatcher by registering soups
-                StoreDispatcher.shared.registerSoups()
+                
             }
             .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
                 let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
                 SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
+                
+                //setup StoreDispatcher by registering soups
+                StoreDispatcher.shared.registerSoups()
                 
                 self.setupRootViewController()
                 
@@ -132,6 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
                     guard let user = user else {
+                        print("No logged in user retrieved")
                         return
                     }
                     

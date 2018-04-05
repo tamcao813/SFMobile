@@ -11,6 +11,9 @@ import UIKit
 
 class AccountDetailsViewController : UIViewController{
     
+    var accountsForLoggedInUser : Account?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Account details Screen is loaded")
@@ -20,7 +23,7 @@ class AccountDetailsViewController : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
+        print(accountsForLoggedInUser!)
     }
     
     override func viewDidAppear(_ animated: Bool) {

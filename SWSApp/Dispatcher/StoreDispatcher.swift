@@ -17,18 +17,15 @@ class StoreDispatcher {
     static let shared = StoreDispatcher()
     static let SFADB = "SFADB"
     
-    final var sfaStore: SFSmartStore {
-        let store = SFSmartStore.sharedGlobalStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
-        
-        //print("Store Path is \(String(describing: store.storePath))")
-        return store
-    }
+    lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
     lazy final var sfaSyncMgr: SFSmartSyncSyncManager = SFSmartSyncSyncManager.sharedInstance(for: sfaStore)!
     
     
     //register all soups - to do: register other needed soups
     func registerSoups() {
+        print("Store Path is \(String(describing: sfaStore.storePath))")
+        
         registerUserSoup()
         registerAccountSoup()
         registerContactSoup()
@@ -75,8 +72,13 @@ class StoreDispatcher {
     func registerUserSoup() {
         let indexSpec:[SFSoupIndex] = [
             SFSoupIndex(path: "Id", indexType: kSoupIndexTypeString, columnName: "Id")!,
-            //SFSoupIndex(path: "Name", indexType:kSoupIndexTypeString, columnName: "Name")!,
-            SFSoupIndex(path: "FirstName", indexType:kSoupIndexTypeString, columnName: "FirstName")!,
+            //SFSoupIndex(path: "FirstName", indexType:kSoupIndexTypeString, columnName: "FirstName")!,
+            //SFSoupIndex(path: "LastName", indexType:kSoupIndexTypeString, columnName: "LastName")!,
+            SFSoupIndex(path: "Name", indexType:kSoupIndexTypeString, columnName: "Name")!,
+            SFSoupIndex(path: "Username", indexType:kSoupIndexTypeString, columnName: "Username")!,
+            SFSoupIndex(path: "Manager.Name", indexType:kSoupIndexTypeString, columnName: "ManagerName")!,
+            SFSoupIndex(path: "Manager.Manager.Name", indexType:kSoupIndexTypeString, columnName: "Manager2Name")!
+            
             //SFSoupIndex(path: "EmployeeNumber", indexType:kSoupIndexTypeString, columnName: "EmployeeNumber")!,
             //SFSoupIndex(path: "Job_Role__c", indexType: kSoupIndexTypeString, columnName: "Job_Role__c")!,
             //SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!
@@ -125,14 +127,16 @@ class StoreDispatcher {
     //#pragma mark - syncdown so we have data in the soups
     
     func syncDownUser(_ completion:@escaping (_ error: NSError?)->()) {
-        //let userId : String = SFUserAccountManager.sharedInstance().currentUser!.accountIdentity.userId //logged in userId
-        let userId : String = "005i0000002XxdhAAC" //use this for now for testing
+        //let userId : String = "005m0000002p9CWAAY" //005i0000002XxdhAAC" //use this for now for testing
+        
+        let username = SFUserAccountManager.sharedInstance().currentUser!.userName
         
         //let fields : [String] = ["Id", "Name", "Username", "Manager.Name", "Manager.Username", "Manager.Manager.Name", "Manager.Manager.Username"]
         
-        let fields : [String] = ["Id", "FirstName", "LastName", "AccountId"] //, "EmployeeNumber"]
+        let fields : [String] = ["Id", "Name", "Username", "Manager.Name", "Manager.Manager.Name"]
+        //["Id", "FirstName", "LastName", "Name", "Username"] //["Id", "Username", "Name"]  //
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from User Where Id = '\(userId)'"
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from User Where Username = '\(username)'"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -226,17 +230,19 @@ class StoreDispatcher {
     
     //User
     func fetchLoggedInUser(_ completion:@escaping ((_ user:User?, _ error: NSError?)->())) {
-        completion(User.mockUser(), nil)
-        return
+        //completion(User.mockUser(), nil)
+        //return
         
         //user mockUser for now
-        let userId : String = "005i0000002XxdhAAC" //use this for now for testing SFUserAccountManager.sharedInstance().currentUser!.accountIdentity.userId
+        //let userId : String = "005m0000002p9CWAAY"
+        let username = SFUserAccountManager.sharedInstance().currentUser!.userName
+        //"005m0000002p9CWAAY" //"003m000000uu4XZAAY" //"005i0000002XxdhAAC"
         
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec("SELECT {User:Id}, {User:FirstName} FROM {User} Where {User:Id} = '\(userId)'", withPageSize: 10)
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec("SELECT {User:Id}, {User:Name}, {User:Username}, {User:Manager.Name}, {User:Manager.Manager.Name} FROM {User} Where {User:Username} = '\(username)'", withPageSize: 1)
         var error : NSError?
         let result = self.sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
         
-        if (error == nil ) {
+        if (error == nil && result.count > 0) {
             let ary:[Any] = result[0] as! [Any]
             let user = User(withAry: ary)
             completion(user, nil)
@@ -250,10 +256,12 @@ class StoreDispatcher {
     //Accounts
     func fetchAccountsForLoggedUser() -> [Account] {
         let account1 = Account.mockAccount1()
+        let account2 = Account.mockAccount2()
         //add more if needed
         
         var ary = [Account]()
         ary.append(account1)
+        ary.append(account2)
         
         return ary
     }
@@ -285,8 +293,8 @@ class StoreDispatcher {
     //Contacts
     func fetchContactsWithBuyingPower(forUser uid: String) -> [Contact] {
         let contact1 = Contact.mockBuyingPowerContact1()
-        let contact2 = Contact.mockBuyingPowerContact1()
-        let contact3 = Contact.mockBuyingPowerContact1()
+        let contact2 = Contact.mockBuyingPowerContact2()
+        let contact3 = Contact.mockBuyingPowerContact3()
         
         //add more if needed
         

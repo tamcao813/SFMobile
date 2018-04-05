@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="Search Field Text" translatesAutoresizingMaskIntoConstraints="NO" id="ZUg-Ca-eAR">
-                                <rect key="frame" x="16" y="0.0" width="343" height="56"/>
+                                <rect key="frame" x="16" y="16" width="343" height="56"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -36,7 +36,7 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9lY-Jo-gRH">
-                                <rect key="frame" x="16" y="62" width="343" height="541"/>
+                                <rect key="frame" x="16" y="79" width="343" height="524"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell1" rowHeight="70" id="b8F-bi-6Is" customClass="AccountsMenuTableTableViewCell" customModule="SWSApp" customModuleProvider="target">
@@ -53,10 +53,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNO-CU-ul6">
-                                                    <rect key="frame" x="12" y="9" width="330" height="52"/>
+                                                    <rect key="frame" x="12" y="9" width="298" height="52"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lpu-Dd-X0V">
-                                                            <rect key="frame" x="6" y="0.0" width="317" height="52"/>
+                                                            <rect key="frame" x="6" y="0.0" width="285" height="52"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <color key="textColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -71,7 +71,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropDownLight" translatesAutoresizingMaskIntoConstraints="NO" id="XAD-9c-Nsa">
-                                                            <rect key="frame" x="303" y="16" width="20" height="20"/>
+                                                            <rect key="frame" x="271" y="16" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="6ja-yz-AbT"/>
                                                                 <constraint firstAttribute="height" constant="20" id="O2I-g9-AOP"/>
@@ -130,10 +130,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auP-BY-w80">
-                                                    <rect key="frame" x="15" y="36" width="330" height="50"/>
+                                                    <rect key="frame" x="15" y="36" width="298" height="50"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zip Code or City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fYQ-HH-Zk7">
-                                                            <rect key="frame" x="5" y="0.0" width="330" height="50"/>
+                                                            <rect key="frame" x="5" y="0.0" width="298" height="50"/>
                                                             <color key="textColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <textInputTraits key="textInputTraits"/>
@@ -255,8 +255,8 @@
                             <constraint firstItem="ZUg-Ca-eAR" firstAttribute="leading" secondItem="VH1-O0-jRK" secondAttribute="leading" constant="16" id="YLE-Si-JOj"/>
                             <constraint firstItem="9lY-Jo-gRH" firstAttribute="leading" secondItem="cBD-jd-G9H" secondAttribute="leading" constant="16" id="eXh-MM-OoS"/>
                             <constraint firstAttribute="trailing" secondItem="9lY-Jo-gRH" secondAttribute="trailing" constant="16" id="ifP-1M-Gti"/>
-                            <constraint firstItem="9lY-Jo-gRH" firstAttribute="top" secondItem="ZUg-Ca-eAR" secondAttribute="bottom" constant="6" id="taS-y6-raE"/>
-                            <constraint firstItem="ZUg-Ca-eAR" firstAttribute="top" secondItem="cBD-jd-G9H" secondAttribute="top" id="zDB-SE-Zt1"/>
+                            <constraint firstItem="9lY-Jo-gRH" firstAttribute="top" secondItem="ZUg-Ca-eAR" secondAttribute="bottom" constant="7" id="taS-y6-raE"/>
+                            <constraint firstItem="ZUg-Ca-eAR" firstAttribute="top" secondItem="cBD-jd-G9H" secondAttribute="top" constant="16" id="zDB-SE-Zt1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VH1-O0-jRK"/>
                     </view>

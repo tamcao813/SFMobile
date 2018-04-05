@@ -13,11 +13,13 @@ class AccountDetailsViewController : UIViewController{
     
     var accountsForLoggedInUser : Account?
     
+    @IBOutlet weak var centerLabel : UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Account details Screen is loaded")
         
+        centerLabel?.layer.cornerRadius = 
     }
     
     override func viewWillAppear(_ animated: Bool) {

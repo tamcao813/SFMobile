@@ -62,7 +62,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         tableView.deselectRow(at: indexPath, animated: true)
         
         delegate?.pushTheScreenToDetailsScreen(accountData: accountsForLoggedUser[indexPath.row])
-
+        FilterMenuModel.comingFromDetailsScreen = "YES"
         
         //let accountDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as! AccountDetailsViewController
         

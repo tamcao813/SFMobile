@@ -181,6 +181,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.addChildViewController(vc)
             vc.didMove(toParentViewController: self)
             
+            
             vc.view.frame = self.contentView.bounds
             self.contentView.addSubview(vc.view)
             self.currentViewController = vc

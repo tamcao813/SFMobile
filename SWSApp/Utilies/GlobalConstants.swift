@@ -13,7 +13,7 @@ class GlobalConstants
     // persistent menu related
     enum persistenMenuTabVCIndex:Int
     {
-        case HomeVCIndex = 0, AccountVCIndex, ContactsVCIndex, CalendarVCIndex, MoreVCIndex
+        case HomeVCIndex = 0, AccountVCIndex, ContactsVCIndex, CalendarVCIndex, ObjectivesVCIndex, MoreVCIndex
     }
 }
 

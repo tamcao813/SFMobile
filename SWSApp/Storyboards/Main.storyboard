@@ -905,6 +905,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Jy-Rv-Vyf">
                                 <rect key="frame" x="0.0" y="0.0" width="736" height="710"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
@@ -930,20 +931,20 @@
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort" translatesAutoresizingMaskIntoConstraints="NO" id="zfw-1U-tTe">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort" translatesAutoresizingMaskIntoConstraints="NO" id="A5F-DY-u8D">
                                                                             <rect key="frame" x="93" y="0.5" width="20" height="20"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="height" constant="20" id="67l-kH-lNl"/>
-                                                                                <constraint firstAttribute="width" constant="20" id="bR9-Gu-PLe"/>
+                                                                                <constraint firstAttribute="width" constant="20" id="8cQ-qj-AGl"/>
+                                                                                <constraint firstAttribute="height" constant="20" id="HvK-Eq-Sxg"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="uXv-Sh-Xfc" firstAttribute="leading" secondItem="WKH-bK-y7m" secondAttribute="leading" constant="20" id="2I8-Sq-ObJ"/>
-                                                                <constraint firstAttribute="bottom" secondItem="uXv-Sh-Xfc" secondAttribute="bottom" constant="30" id="OJA-rT-OjP"/>
-                                                                <constraint firstItem="uXv-Sh-Xfc" firstAttribute="top" secondItem="WKH-bK-y7m" secondAttribute="top" constant="29.5" id="wD8-qr-4sQ"/>
+                                                                <constraint firstItem="WbK-Jm-II4" firstAttribute="leading" secondItem="6e3-ig-8uZ" secondAttribute="leading" constant="20" id="Gnv-tE-2LX"/>
+                                                                <constraint firstAttribute="bottom" secondItem="WbK-Jm-II4" secondAttribute="bottom" constant="30" id="JFF-Yd-m9f"/>
+                                                                <constraint firstItem="WbK-Jm-II4" firstAttribute="top" secondItem="6e3-ig-8uZ" secondAttribute="top" constant="29.5" id="lR9-aT-KTd"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="29u-eu-DhH" userLabel="ActionItems">
@@ -952,25 +953,25 @@
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cHk-gQ-63a">
                                                                     <rect key="frame" x="4.5" y="30" width="100.5" height="20"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U92-8j-Fod" userLabel="Action Items">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOH-yh-bpE" userLabel="Action Items">
                                                                             <rect key="frame" x="0.0" y="0.0" width="70.5" height="20"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort" translatesAutoresizingMaskIntoConstraints="NO" id="bNp-SN-6iQ">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort" translatesAutoresizingMaskIntoConstraints="NO" id="LHc-AD-RYI">
                                                                             <rect key="frame" x="80.5" y="0.0" width="20" height="20"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="20" id="GUZ-sn-owK"/>
-                                                                                <constraint firstAttribute="height" constant="20" id="HMf-s6-hn5"/>
+                                                                                <constraint firstAttribute="height" constant="20" id="DwH-lI-ypT"/>
+                                                                                <constraint firstAttribute="width" constant="20" id="ctI-gc-VNI"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="cHk-gQ-63a" firstAttribute="centerX" secondItem="29u-eu-DhH" secondAttribute="centerX" id="1HM-qn-mOl"/>
-                                                                <constraint firstItem="cHk-gQ-63a" firstAttribute="centerY" secondItem="29u-eu-DhH" secondAttribute="centerY" id="Qkh-P5-qy8"/>
+                                                                <constraint firstItem="Lw0-B0-5e4" firstAttribute="centerX" secondItem="PT3-SU-H5w" secondAttribute="centerX" id="7eL-zx-v13"/>
+                                                                <constraint firstItem="Lw0-B0-5e4" firstAttribute="centerY" secondItem="PT3-SU-H5w" secondAttribute="centerY" id="sgV-MG-8nU"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zX5-Av-kEg" userLabel="NetSales">
@@ -985,11 +986,11 @@
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort" translatesAutoresizingMaskIntoConstraints="NO" id="Vbj-l7-JTi">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort" translatesAutoresizingMaskIntoConstraints="NO" id="CD4-OD-S7b">
                                                                             <rect key="frame" x="119" y="0.0" width="20" height="20"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="20" id="DVy-5v-4nb"/>
-                                                                                <constraint firstAttribute="height" constant="20" id="wIQ-Zy-Ld1"/>
+                                                                                <constraint firstAttribute="height" constant="20" id="J8D-JO-6rr"/>
+                                                                                <constraint firstAttribute="width" constant="20" id="ff9-aG-KCS"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                     </subviews>
@@ -1000,8 +1001,8 @@
                                                                 </stackView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="hys-wg-5GK" firstAttribute="centerX" secondItem="zX5-Av-kEg" secondAttribute="centerX" id="IGk-yL-mPU"/>
-                                                                <constraint firstItem="hys-wg-5GK" firstAttribute="centerY" secondItem="zX5-Av-kEg" secondAttribute="centerY" id="bgX-zT-IoB"/>
+                                                                <constraint firstItem="Bpl-hq-nZl" firstAttribute="centerX" secondItem="XIB-5g-gMI" secondAttribute="centerX" id="RkC-5H-OiU"/>
+                                                                <constraint firstItem="Bpl-hq-nZl" firstAttribute="centerY" secondItem="XIB-5g-gMI" secondAttribute="centerY" id="gYD-oq-3s1"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F8q-jA-r41" userLabel="Balance">
@@ -1010,25 +1011,25 @@
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="T6s-cx-PWp" userLabel="BalanceStack">
                                                                     <rect key="frame" x="17.5" y="30" width="75" height="20"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQh-dL-eqc" userLabel="Balance">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jl-iC-Pq8" userLabel="Balance">
                                                                             <rect key="frame" x="0.0" y="0.0" width="45" height="20"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort" translatesAutoresizingMaskIntoConstraints="NO" id="Tlz-5a-5XZ">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort" translatesAutoresizingMaskIntoConstraints="NO" id="w6o-sF-uhA">
                                                                             <rect key="frame" x="55" y="0.0" width="20" height="20"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="height" constant="20" id="MKj-uH-DrP"/>
-                                                                                <constraint firstAttribute="width" constant="20" id="OlX-0K-TNh"/>
+                                                                                <constraint firstAttribute="width" constant="20" id="DYC-NW-lW8"/>
+                                                                                <constraint firstAttribute="height" constant="20" id="ctT-p4-dFW"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="T6s-cx-PWp" firstAttribute="centerY" secondItem="F8q-jA-r41" secondAttribute="centerY" id="PWE-tu-AVr"/>
-                                                                <constraint firstItem="T6s-cx-PWp" firstAttribute="centerX" secondItem="F8q-jA-r41" secondAttribute="centerX" id="sq5-Uu-Qzh"/>
+                                                                <constraint firstItem="MnC-Sb-wvk" firstAttribute="centerY" secondItem="yow-Fv-TL9" secondAttribute="centerY" id="R9R-u5-BRj"/>
+                                                                <constraint firstItem="MnC-Sb-wvk" firstAttribute="centerX" secondItem="yow-Fv-TL9" secondAttribute="centerX" id="jmJ-NR-wZs"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9qz-IL-o2J" userLabel="Next Delivery">
@@ -1043,11 +1044,11 @@
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort" translatesAutoresizingMaskIntoConstraints="NO" id="6CB-04-mMg">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort" translatesAutoresizingMaskIntoConstraints="NO" id="k77-d3-swP">
                                                                             <rect key="frame" x="85.5" y="0.0" width="20" height="20"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="height" constant="20" id="WSp-xc-C7m"/>
-                                                                                <constraint firstAttribute="width" constant="20" id="pjM-dp-daX"/>
+                                                                                <constraint firstAttribute="height" constant="20" id="8H9-PN-eP9"/>
+                                                                                <constraint firstAttribute="width" constant="20" id="JbW-PW-kgB"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                     </subviews>
@@ -1058,17 +1059,17 @@
                                                                 </stackView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="qgu-gW-fcQ" firstAttribute="centerY" secondItem="9qz-IL-o2J" secondAttribute="centerY" id="XVV-0y-fV0"/>
-                                                                <constraint firstItem="qgu-gW-fcQ" firstAttribute="centerX" secondItem="9qz-IL-o2J" secondAttribute="centerX" id="dh5-nK-jyI"/>
+                                                                <constraint firstItem="Vv1-5f-TiO" firstAttribute="centerX" secondItem="bCA-AB-b7S" secondAttribute="centerX" id="Fp6-sk-XBu"/>
+                                                                <constraint firstItem="Vv1-5f-TiO" firstAttribute="centerY" secondItem="bCA-AB-b7S" secondAttribute="centerY" id="yVq-5R-YZ6"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="80" id="6NH-VQ-ici"/>
-                                                        <constraint firstItem="zX5-Av-kEg" firstAttribute="width" secondItem="WKH-bK-y7m" secondAttribute="width" multiplier="0.7" id="6wE-du-drL"/>
-                                                        <constraint firstItem="9qz-IL-o2J" firstAttribute="width" secondItem="WKH-bK-y7m" secondAttribute="width" multiplier="0.6" id="EQU-Dj-OLf"/>
-                                                        <constraint firstItem="F8q-jA-r41" firstAttribute="width" secondItem="WKH-bK-y7m" secondAttribute="width" multiplier="0.5" id="FBV-lg-Idb"/>
-                                                        <constraint firstItem="29u-eu-DhH" firstAttribute="width" secondItem="WKH-bK-y7m" secondAttribute="width" multiplier="0.5" id="QKJ-fW-goN"/>
+                                                        <constraint firstItem="bCA-AB-b7S" firstAttribute="width" secondItem="6e3-ig-8uZ" secondAttribute="width" multiplier="0.6" id="7f8-0T-0bX"/>
+                                                        <constraint firstAttribute="height" constant="80" id="867-ji-Mk5"/>
+                                                        <constraint firstItem="XIB-5g-gMI" firstAttribute="width" secondItem="6e3-ig-8uZ" secondAttribute="width" multiplier="0.7" id="9hQ-5v-Bz2"/>
+                                                        <constraint firstItem="yow-Fv-TL9" firstAttribute="width" secondItem="6e3-ig-8uZ" secondAttribute="width" multiplier="0.5" id="hUe-lB-pxA"/>
+                                                        <constraint firstItem="PT3-SU-H5w" firstAttribute="width" secondItem="6e3-ig-8uZ" secondAttribute="width" multiplier="0.5" id="lSD-rD-BCA"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -1558,7 +1559,7 @@
     <resources>
         <image name="Action Items" width="32" height="32"/>
         <image name="Details" width="6" height="11"/>
-        <image name="Small Status Critical" width="21" height="18"/>
+        <image name="Large Status Critical" width="36" height="32"/>
         <image name="Sort" width="225" height="225"/>
     </resources>
 </document>

@@ -19,7 +19,8 @@ class AccountDetailsViewController : UIViewController{
         super.viewDidLoad()
         print("Account details Screen is loaded")
         
-        //centerLabel?.layer.cornerRadius = 
+
+        centerLabel?.layer.cornerRadius = 5
     }
     
     override func viewWillAppear(_ animated: Bool) {

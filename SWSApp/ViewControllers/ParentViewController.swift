@@ -80,17 +80,49 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     private func setUpMenuBar()
     {
         // right side buttons
-        let wifiIconButton = UIBarButtonItem(image: UIImage(named: "Offline"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        let wifiIconButton = UIBarButtonItem(image: UIImage(named: "Online"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         wifiIconButton.isEnabled = false
+        //let numberButton = UIBarButtonItem(image: UIImage(named: "blueCircle-Small"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        let userInitialLabel:UILabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
+        userInitialLabel.font  = UIFont.boldSystemFont(ofSize: 13)
+        userInitialLabel.text = "DB"
+        userInitialLabel.textAlignment = .center
+        userInitialLabel.textColor = UIColor.white
+        userInitialLabel.backgroundColor = UIColor(named: "Data New")
+        userInitialLabel.layer.cornerRadius = 35/2
+        userInitialLabel.clipsToBounds = true
+        let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel)
         
+
+        let numberLabel:UILabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
+        numberLabel.font  = UIFont.boldSystemFont(ofSize: 8)
+        numberLabel.text = "3"
+        numberLabel.textAlignment = .center
+        numberLabel.textColor = UIColor.white
+        numberLabel.backgroundColor = UIColor(named: "Data New")
+        numberLabel.layer.cornerRadius = 20/2
+        numberLabel.clipsToBounds = true
+        let numberLabelButton = UIBarButtonItem.init(customView: numberLabel)
+
         let numberButton = UIBarButtonItem(image: UIImage(named: "blueCircle-Small"), style:UIBarButtonItemStyle.plain, target: self, action: #selector(ParentViewController.notificationButtonPressed))
         
-        self.navigationItem.rightBarButtonItems = [numberButton, wifiIconButton]
+ 
+        self.navigationItem.rightBarButtonItems = [userInitialLabelButton, numberLabelButton, wifiIconButton]
         
         // left buttons
-        let fpoButton = UIBarButtonItem(image: UIImage(named: "redCircle"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         
+        //let fpoButton = UIBarButtonItem(image: UIImage(named: "redCircle"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        let fpoLabel:UILabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
+        fpoLabel.font  = UIFont.boldSystemFont(ofSize: 13)
+        fpoLabel.text = "FPO"
+        fpoLabel.textAlignment = .center
+        fpoLabel.textColor = UIColor.white
+        fpoLabel.backgroundColor = UIColor(named: "High Alert")
+        fpoLabel.layer.cornerRadius = 35/2
+        fpoLabel.clipsToBounds = true
+        let fpoButton = UIBarButtonItem.init(customView: fpoLabel)
         self.navigationItem.leftBarButtonItems = [fpoButton]
+        
         // get the menu items from localized strings
         let menuItem1 = NSLocalizedString("Home", comment: "Home")
         let menuItem2 = NSLocalizedString("Accounts", comment: "Accounts")
@@ -135,7 +167,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         moreDropDown.anchorView = topMenuBar
         // number of menus in persisten menubar
         //let numberOfMenuTabsInPersistentMenu = 5
-        moreDropDown.bottomOffset = CGPoint(x: ((topMenuBar?.frame.size.width)!-((topMenuBar?.frame.size.width)!/5)), y:(moreDropDown.anchorView?.plainView.bounds.height)!)
+        moreDropDown.bottomOffset = CGPoint(x: ((topMenuBar?.frame.size.width)!-((topMenuBar?.frame.size.width)!/3.8)), y:(moreDropDown.anchorView?.plainView.bounds.height)!)
+        moreDropDown.backgroundColor = UIColor.white
         // get the dropdown items from localized strings
         let dropDownItem1 = NSLocalizedString("Action Items", comment: "Action Items")
         let dropDownItem2 = NSLocalizedString("Account Visits", comment: "Account Visits")
@@ -185,6 +218,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             default:
                 break
             }
+            
+            //just print for now
+//            print("Selected item: \(item) at index: \(index)")
+//            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+//            moreVC1.moreLabel.text = item
+            
         }
         // display the dropdown
         moreDropDown.show()

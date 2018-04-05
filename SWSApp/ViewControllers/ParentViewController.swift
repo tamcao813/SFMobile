@@ -8,12 +8,15 @@
 
 import UIKit
 import DropDown
+import Reachability
 
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // drop down on tapping more
     let moreDropDown = DropDown()
     // persistent menu
     var topMenuBar:XMSegmentedControl? = nil
+    var wifiIconButton:UIBarButtonItem? = nil
+
     @IBOutlet weak var contentView: UIView!
     // current view controller
     var currentViewController: UIViewController?
@@ -62,6 +65,26 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // show the relevant tab
         displayCurrentTab(0)
         
+        let reachability = Reachability.init()
+        
+        reachability?.whenReachable = { reachability in
+            if reachability.connection == .wifi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        }
+        reachability?.whenUnreachable = { _ in
+            print("Not reachable")
+            self.wifiIconButton?.image = UIImage(named: "Offline")
+        }
+        
+        do {
+            try reachability?.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,8 +103,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     private func setUpMenuBar()
     {
         // right side buttons
-        let wifiIconButton = UIBarButtonItem(image: UIImage(named: "Online"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
-        wifiIconButton.isEnabled = false
+        wifiIconButton = UIBarButtonItem(image: UIImage(named: "Online"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        wifiIconButton?.isEnabled = false
         //let numberButton = UIBarButtonItem(image: UIImage(named: "blueCircle-Small"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         let userInitialLabel:UILabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
         userInitialLabel.font  = UIFont.boldSystemFont(ofSize: 13)
@@ -108,7 +131,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         numberLabel.isUserInteractionEnabled = true
         numberLabel.addGestureRecognizer(tap)
  
-        self.navigationItem.rightBarButtonItems = [userInitialLabelButton, numberLabelButton, wifiIconButton]
+        self.navigationItem.rightBarButtonItems = [userInitialLabelButton, numberLabelButton, wifiIconButton!]
         
         // left buttons
         

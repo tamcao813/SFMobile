@@ -135,12 +135,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate , Detai
         if(selectedSegment == GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex.rawValue)
         {
             //show more drop down()
-            showMoreDropDown()
+            showMoreDropDown(selectedIndex: selectedSegment)
         }
     }
     
     // # MARK: show more dropdown
-    private func showMoreDropDown()
+    private func showMoreDropDown(selectedIndex: Int)
     {
         moreDropDown.anchorView = topMenuBar
         // number of menus in persisten menubar
@@ -162,6 +162,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate , Detai
         moreDropDown.selectionAction = { (index: Int, item: String) in
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let moreMenuStoryboard = UIStoryboard(name: "MoreMenu", bundle: nil)
+            let currentViewController = self.displayCurrentTab(selectedIndex)
+            currentViewController?.view.addSubview(moreVC1.view)
             switch index {
             case 0:
                 let actionItemsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ActionItemsViewControllerID")
@@ -199,7 +201,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate , Detai
     }
     
     // # MARK: displayCurrentTab
-    private func displayCurrentTab(_ tabIndex: Int){
+    private func displayCurrentTab(_ tabIndex: Int) -> UIViewController?{
         if let vc = viewControllerForSelectedSegmentIndex(tabIndex) {
             
             self.addChildViewController(vc)
@@ -209,6 +211,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate , Detai
             self.contentView.addSubview(vc.view)
             self.currentViewController = vc
         }
+        return currentViewController
     }
     
     // # MARK: viewControllerForSelectedSegmentIndex
@@ -231,10 +234,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate , Detai
         // have to cover all cases from defined enum, else compiler wont be happy :D
         /*default:
             return nil*/
-       case .MoreVCIndex:
-            vc = moreVC
-//        default:
-//            break
+//       case .MoreVCIndex:
+//            vc = moreVC
+        default:
+            break
         }
         
         return vc
@@ -242,7 +245,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate , Detai
     
     @objc func notificationButtonPressed(sender: UIBarButtonItem){
         let moreStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
-        let vc = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
-        self.view.addSubview(vc.view)
+        let notificationsViewController = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
+        self.view.removeFromSuperview()
+        self.view.addSubview(notificationsViewController.view)
     }
 }

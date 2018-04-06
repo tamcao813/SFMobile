@@ -21,7 +21,7 @@ class ContactTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.initialsLabel.layer.cornerRadius = 50/2
+        self.initialsLabel.layer.cornerRadius = 40/2
         initialsLabel.clipsToBounds = true
         // Initialization code
     }

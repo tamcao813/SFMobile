@@ -193,7 +193,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         moreDropDown.anchorView = topMenuBar
         // number of menus in persisten menubar
         //let numberOfMenuTabsInPersistentMenu = 5
-        moreDropDown.bottomOffset = CGPoint(x: ((topMenuBar?.frame.size.width)!-((topMenuBar?.frame.size.width)!/3.8)), y:(moreDropDown.anchorView?.plainView.bounds.height)!)
+        moreDropDown.bottomOffset = CGPoint(x: ((topMenuBar?.frame.size.width)!-((topMenuBar?.frame.size.width)!/6)), y:(moreDropDown.anchorView?.plainView.bounds.height)!)
         moreDropDown.backgroundColor = UIColor.white
         // get the dropdown items from localized strings
         let dropDownItem1 = NSLocalizedString("Action Items", comment: "Action Items")

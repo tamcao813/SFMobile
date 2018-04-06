@@ -829,6 +829,13 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Large Status Critical" translatesAutoresizingMaskIntoConstraints="NO" id="Ydk-Hj-Pcq">
+                                                <rect key="frame" x="322" y="62" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="4wj-L0-ESd"/>
+                                                    <constraint firstAttribute="height" constant="25" id="bqz-PT-T56"/>
+                                                </constraints>
+                                            </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="License Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lj4-DY-eKZ">
                                                 <rect key="frame" x="229.5" y="129" width="91" height="16"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
@@ -902,6 +909,7 @@
                                             <constraint firstItem="Xk3-hB-paB" firstAttribute="top" secondItem="IcR-OS-hoC" secondAttribute="bottom" constant="3" id="I5g-Yr-4Ch"/>
                                             <constraint firstItem="IcR-OS-hoC" firstAttribute="top" secondItem="V6J-HN-Nra" secondAttribute="top" constant="43" id="I5o-5w-SHL"/>
                                             <constraint firstItem="U2C-pH-E2R" firstAttribute="top" secondItem="Lj4-DY-eKZ" secondAttribute="bottom" constant="4.5" id="KIO-Dz-Qfr"/>
+                                            <constraint firstItem="Ydk-Hj-Pcq" firstAttribute="top" secondItem="Z02-Zb-E1A" secondAttribute="bottom" constant="3" id="LN3-Sr-XHy"/>
                                             <constraint firstItem="Ii9-kh-8OB" firstAttribute="leading" secondItem="Lj4-DY-eKZ" secondAttribute="trailing" constant="71.5" id="LfF-fF-LNz"/>
                                             <constraint firstItem="yw5-2A-5u0" firstAttribute="leading" secondItem="IcR-OS-hoC" secondAttribute="trailing" constant="34" id="RMO-AY-nIm"/>
                                             <constraint firstItem="Z02-Zb-E1A" firstAttribute="top" secondItem="V6J-HN-Nra" secondAttribute="top" constant="43" id="WH6-ya-Q33"/>
@@ -921,6 +929,7 @@
                                             <constraint firstItem="QUs-GY-XVm" firstAttribute="top" secondItem="Ii9-kh-8OB" secondAttribute="bottom" constant="8" id="tIW-rw-GYv"/>
                                             <constraint firstItem="Xk3-hB-paB" firstAttribute="leading" secondItem="ocP-m8-3D7" secondAttribute="trailing" constant="85.5" id="tW4-b8-4Fs"/>
                                             <constraint firstItem="YOB-lz-3Pe" firstAttribute="top" secondItem="Dx6-as-q1v" secondAttribute="bottom" constant="4" id="uI5-91-HRq"/>
+                                            <constraint firstItem="Ydk-Hj-Pcq" firstAttribute="leading" secondItem="ocP-m8-3D7" secondAttribute="trailing" constant="15.5" id="uko-49-8fJ"/>
                                             <constraint firstItem="0gh-Al-Uat" firstAttribute="top" secondItem="V6J-HN-Nra" secondAttribute="top" constant="34" id="vos-Ty-mpo"/>
                                             <constraint firstItem="QUs-GY-XVm" firstAttribute="leading" secondItem="U2C-pH-E2R" secondAttribute="trailing" constant="107" id="whO-K0-Xmi"/>
                                             <constraint firstItem="IcR-OS-hoC" firstAttribute="leading" secondItem="Z02-Zb-E1A" secondAttribute="trailing" constant="105.5" id="xe7-Ep-ZaL"/>

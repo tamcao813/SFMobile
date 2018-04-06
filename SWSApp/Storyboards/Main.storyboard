@@ -799,19 +799,19 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwy-c4-Aqr">
-                                                <rect key="frame" x="303.5" y="84.5" width="50" height="50"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwy-c4-Aqr">
+                                                <rect key="frame" x="303.5" y="84.5" width="46" height="46"/>
                                                 <color key="backgroundColor" red="0.84313725490000002" green="0.70196078429999997" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="50" id="A3S-HJ-YXY"/>
-                                                    <constraint firstAttribute="height" constant="50" id="vhc-vi-M7O"/>
+                                                    <constraint firstAttribute="width" constant="46" id="A3S-HJ-YXY"/>
+                                                    <constraint firstAttribute="height" constant="46" id="vhc-vi-M7O"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="25"/>
+                                                        <integer key="value" value="23"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipsToBounds" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -867,17 +867,17 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUs-GY-XVm">
-                                                <rect key="frame" x="399" y="151" width="50" height="50"/>
+                                                <rect key="frame" x="399" y="151" width="46" height="46"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="50" id="e8C-ht-dzr"/>
-                                                    <constraint firstAttribute="height" constant="50" id="lyb-EN-lAW"/>
+                                                    <constraint firstAttribute="width" constant="46" id="e8C-ht-dzr"/>
+                                                    <constraint firstAttribute="height" constant="46" id="lyb-EN-lAW"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="22"/>
                                                 <color key="textColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="25"/>
+                                                        <integer key="value" value="23"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                         <integer key="value" value="2"/>
@@ -904,7 +904,7 @@
                                             <constraint firstItem="yw5-2A-5u0" firstAttribute="leading" secondItem="Xk3-hB-paB" secondAttribute="trailing" constant="20" id="1G1-zY-Exr"/>
                                             <constraint firstItem="2Y9-2Y-Tl2" firstAttribute="leading" secondItem="t13-T0-hxT" secondAttribute="trailing" constant="-41.5" id="2rC-if-fqE"/>
                                             <constraint firstItem="2Y9-2Y-Tl2" firstAttribute="top" secondItem="t13-T0-hxT" secondAttribute="bottom" constant="4" id="390-ja-3pL"/>
-                                            <constraint firstItem="Kwy-c4-Aqr" firstAttribute="centerX" secondItem="V6J-HN-Nra" secondAttribute="centerX" constant="-7.5" id="4Zk-AT-BWc"/>
+                                            <constraint firstItem="Kwy-c4-Aqr" firstAttribute="centerX" secondItem="V6J-HN-Nra" secondAttribute="centerX" constant="-9.5" id="4Zk-AT-BWc"/>
                                             <constraint firstItem="t13-T0-hxT" firstAttribute="leading" secondItem="Dx6-as-q1v" secondAttribute="trailing" constant="25" id="7kn-GR-c1Q"/>
                                             <constraint firstItem="Xk3-hB-paB" firstAttribute="top" secondItem="IcR-OS-hoC" secondAttribute="bottom" constant="3" id="I5g-Yr-4Ch"/>
                                             <constraint firstItem="IcR-OS-hoC" firstAttribute="top" secondItem="V6J-HN-Nra" secondAttribute="top" constant="43" id="I5o-5w-SHL"/>
@@ -913,8 +913,8 @@
                                             <constraint firstItem="Ii9-kh-8OB" firstAttribute="leading" secondItem="Lj4-DY-eKZ" secondAttribute="trailing" constant="71.5" id="LfF-fF-LNz"/>
                                             <constraint firstItem="yw5-2A-5u0" firstAttribute="leading" secondItem="IcR-OS-hoC" secondAttribute="trailing" constant="34" id="RMO-AY-nIm"/>
                                             <constraint firstItem="Z02-Zb-E1A" firstAttribute="top" secondItem="V6J-HN-Nra" secondAttribute="top" constant="43" id="WH6-ya-Q33"/>
-                                            <constraint firstAttribute="bottom" secondItem="QUs-GY-XVm" secondAttribute="bottom" constant="14" id="YA2-fR-FWP"/>
-                                            <constraint firstItem="Kwy-c4-Aqr" firstAttribute="centerY" secondItem="V6J-HN-Nra" secondAttribute="centerY" constant="2" id="b5z-Bs-T2P"/>
+                                            <constraint firstAttribute="bottom" secondItem="QUs-GY-XVm" secondAttribute="bottom" constant="18" id="YA2-fR-FWP"/>
+                                            <constraint firstItem="Kwy-c4-Aqr" firstAttribute="centerY" secondItem="V6J-HN-Nra" secondAttribute="centerY" id="b5z-Bs-T2P"/>
                                             <constraint firstItem="YOB-lz-3Pe" firstAttribute="leading" secondItem="V6J-HN-Nra" secondAttribute="leading" constant="47" id="cZR-32-KPB"/>
                                             <constraint firstAttribute="bottom" secondItem="U2C-pH-E2R" secondAttribute="bottom" constant="41" id="dwk-fm-7MN"/>
                                             <constraint firstAttribute="height" constant="215" id="fGX-qh-h1P"/>
@@ -925,7 +925,7 @@
                                             <constraint firstItem="yw5-2A-5u0" firstAttribute="leading" secondItem="Ii9-kh-8OB" secondAttribute="trailing" constant="20" id="oRG-fL-N4b"/>
                                             <constraint firstItem="Dx6-as-q1v" firstAttribute="leading" secondItem="V6J-HN-Nra" secondAttribute="leading" constant="47" id="pOq-6V-f4c"/>
                                             <constraint firstAttribute="trailing" secondItem="yw5-2A-5u0" secondAttribute="trailing" constant="84" id="qMs-Rl-CaJ"/>
-                                            <constraint firstItem="yw5-2A-5u0" firstAttribute="leading" secondItem="QUs-GY-XVm" secondAttribute="trailing" constant="43" id="svV-of-zY1"/>
+                                            <constraint firstItem="yw5-2A-5u0" firstAttribute="leading" secondItem="QUs-GY-XVm" secondAttribute="trailing" constant="47" id="svV-of-zY1"/>
                                             <constraint firstItem="QUs-GY-XVm" firstAttribute="top" secondItem="Ii9-kh-8OB" secondAttribute="bottom" constant="8" id="tIW-rw-GYv"/>
                                             <constraint firstItem="Xk3-hB-paB" firstAttribute="leading" secondItem="ocP-m8-3D7" secondAttribute="trailing" constant="85.5" id="tW4-b8-4Fs"/>
                                             <constraint firstItem="YOB-lz-3Pe" firstAttribute="top" secondItem="Dx6-as-q1v" secondAttribute="bottom" constant="4" id="uI5-91-HRq"/>

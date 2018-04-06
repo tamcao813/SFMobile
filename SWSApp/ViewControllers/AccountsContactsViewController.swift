@@ -95,10 +95,10 @@ class AccountsContactsViewController: UITableViewController {
             return 280
         }
         else if section == 1{
-            return 50
+            return 100
         }
         else if section == 2{
-            return 50
+            return 100
         }
         return 0
     }
@@ -125,6 +125,17 @@ class AccountsContactsViewController: UITableViewController {
             return headerCell
             
         }
+        else if section == 2 {
+            
+            let viewAllAccountContactsButton = UIButton.init(frame: CGRect(x: 815, y: 25, width: 200, height: 35))
+            viewAllAccountContactsButton.setTitle("ViewAllAccountsContact", for: .normal)
+            viewAllAccountContactsButton.backgroundColor = UIColor(named: "LightGrey")
+           viewAllAccountContactsButton.setTitleColor(UIColor.black, for: .normal)
+            
+            let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:200 , height:200 ))
+            headerView.addSubview(viewAllAccountContactsButton)
+            return headerView;
+        }
         
         return nil
     }
@@ -136,8 +147,9 @@ class AccountsContactsViewController: UITableViewController {
         
         if  section == 1{
             tableViewHeaderFooterView.contentView.backgroundColor = UIColor.white
+            tableViewHeaderFooterView.textLabel?.text = "Crown Liquor Store"
             tableViewHeaderFooterView.textLabel?.textColor = UIColor.black
-            tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:22)
+            tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:25)
             tableViewHeaderFooterView.textLabel?.frame = tableViewHeaderFooterView.frame
             tableViewHeaderFooterView.textLabel?.textAlignment = .left
             
@@ -145,8 +157,9 @@ class AccountsContactsViewController: UITableViewController {
         else if section == 2
         {
             tableViewHeaderFooterView.contentView.backgroundColor = UIColor.white
+            tableViewHeaderFooterView.textLabel?.text = "Souther Glazers Contact "
             tableViewHeaderFooterView.textLabel?.textColor = UIColor.black
-            tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:22)
+            tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:25)
             tableViewHeaderFooterView.textLabel?.frame = tableViewHeaderFooterView.frame
             tableViewHeaderFooterView.textLabel?.textAlignment = .left
             

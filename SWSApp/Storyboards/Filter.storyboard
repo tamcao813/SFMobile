@@ -39,24 +39,24 @@
                                 <rect key="frame" x="16" y="79" width="343" height="524"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell1" rowHeight="70" id="b8F-bi-6Is" customClass="AccountsMenuTableTableViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="70"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell1" rowHeight="50" id="b8F-bi-6Is" customClass="AccountsMenuTableTableViewCell" customModule="SWSApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b8F-bi-6Is" id="r3Q-KJ-Itg">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNg-2M-Lf8">
-                                                    <rect key="frame" x="15" y="3" width="38" height="17"/>
+                                                    <rect key="frame" x="15" y="3" width="38" height="28.5"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNO-CU-ul6">
-                                                    <rect key="frame" x="12" y="9" width="298" height="52"/>
+                                                    <rect key="frame" x="12" y="9.5" width="298" height="20.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lpu-Dd-X0V">
-                                                            <rect key="frame" x="6" y="0.0" width="285" height="52"/>
+                                                            <rect key="frame" x="6" y="0.0" width="285" height="20.5"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <color key="textColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -71,7 +71,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropDownLight" translatesAutoresizingMaskIntoConstraints="NO" id="XAD-9c-Nsa">
-                                                            <rect key="frame" x="271" y="16" width="20" height="20"/>
+                                                            <rect key="frame" x="271" y="1" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="6ja-yz-AbT"/>
                                                                 <constraint firstAttribute="height" constant="20" id="O2I-g9-AOP"/>
@@ -80,11 +80,11 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="XAD-9c-Nsa" firstAttribute="top" secondItem="BNO-CU-ul6" secondAttribute="top" constant="16" id="8dT-2X-Ar4"/>
+                                                        <constraint firstItem="XAD-9c-Nsa" firstAttribute="top" secondItem="BNO-CU-ul6" secondAttribute="top" constant="1" id="8dT-2X-Ar4"/>
                                                         <constraint firstItem="Lpu-Dd-X0V" firstAttribute="top" secondItem="BNO-CU-ul6" secondAttribute="top" id="Ezi-RM-YCV"/>
                                                         <constraint firstAttribute="trailing" secondItem="XAD-9c-Nsa" secondAttribute="trailing" constant="7" id="aOf-2P-t2E"/>
                                                         <constraint firstAttribute="bottom" secondItem="Lpu-Dd-X0V" secondAttribute="bottom" id="b8e-tI-btW"/>
-                                                        <constraint firstAttribute="bottom" secondItem="XAD-9c-Nsa" secondAttribute="bottom" constant="16" id="kUh-Sz-zGE"/>
+                                                        <constraint firstAttribute="bottom" secondItem="XAD-9c-Nsa" secondAttribute="bottom" constant="-0.5" id="kUh-Sz-zGE"/>
                                                         <constraint firstItem="Lpu-Dd-X0V" firstAttribute="leading" secondItem="BNO-CU-ul6" secondAttribute="leading" constant="6" id="lPT-Qn-h5H"/>
                                                         <constraint firstItem="XAD-9c-Nsa" firstAttribute="leading" secondItem="Lpu-Dd-X0V" secondAttribute="trailing" constant="-20" id="wBE-DE-PNj"/>
                                                     </constraints>
@@ -102,10 +102,10 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="BNO-CU-ul6" secondAttribute="trailing" constant="33" id="ETo-ha-cHI"/>
                                                 <constraint firstItem="TNg-2M-Lf8" firstAttribute="leading" secondItem="r3Q-KJ-Itg" secondAttribute="leading" constant="15" id="KEp-UM-bna"/>
-                                                <constraint firstAttribute="bottom" secondItem="BNO-CU-ul6" secondAttribute="bottom" constant="9" id="Nn1-Pm-dd6"/>
+                                                <constraint firstAttribute="bottom" secondItem="BNO-CU-ul6" secondAttribute="bottom" constant="20" id="Nn1-Pm-dd6"/>
                                                 <constraint firstItem="BNO-CU-ul6" firstAttribute="leading" secondItem="r3Q-KJ-Itg" secondAttribute="leading" constant="12" id="RcR-Sq-Cbs"/>
                                                 <constraint firstItem="TNg-2M-Lf8" firstAttribute="top" secondItem="r3Q-KJ-Itg" secondAttribute="top" constant="3" id="fux-vH-xnG"/>
-                                                <constraint firstItem="BNO-CU-ul6" firstAttribute="top" secondItem="TNg-2M-Lf8" secondAttribute="bottom" constant="-11" id="wZP-7W-7jF"/>
+                                                <constraint firstItem="BNO-CU-ul6" firstAttribute="top" secondItem="TNg-2M-Lf8" secondAttribute="bottom" constant="-22" id="wZP-7W-7jF"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -117,7 +117,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell2" rowHeight="100" id="o5N-8z-R4Z" customClass="AccountsMenuTableTableViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="98" width="343" height="100"/>
+                                        <rect key="frame" x="0.0" y="78" width="343" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o5N-8z-R4Z" id="v0q-nv-Ztc">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>

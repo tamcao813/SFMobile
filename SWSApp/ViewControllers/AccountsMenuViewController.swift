@@ -114,6 +114,8 @@ class AccountsMenuViewController: UIViewController {
         
         FilterMenuModel.city = ""
         
+        searchBar.text = ""
+        
         tableView.reloadData()
     }
     
@@ -347,10 +349,10 @@ extension AccountsMenuViewController : UITableViewDataSource{
         }
         let headerFrame = self.view.frame.size
         
-        view.frame.size.height = 45
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 5
-        view.layer.borderColor = UIColor.init(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0).cgColor
+        //view.frame.size.height = 45
+        //view.layer.borderWidth = 1
+        //view.layer.cornerRadius = 5
+        //view.layer.borderColor = UIColor.init(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0).cgColor
                 
         let theImageView = UIImageView(frame: CGRect(x: headerFrame.width - 75, y: 13, width: 15, height: 18));
 
@@ -470,7 +472,7 @@ extension AccountsMenuViewController : UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count == 0{
-            searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
+            //searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
         }
     }
     

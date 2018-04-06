@@ -12,6 +12,8 @@ class AccountsViewController: UIViewController , DetailsScreenDelegate{
     
     
     var accountDetails : AccountDetailsViewController?
+    var accountListVC :AccountsListViewController?
+    var filterMenuVC: AccountsMenuViewController?
     
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
@@ -22,6 +24,7 @@ class AccountsViewController: UIViewController , DetailsScreenDelegate{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("Accounts VC will appear")
+        filterMenuVC?.searchByEnteredTextDelegate = accountListVC
         
     }
     
@@ -46,8 +49,13 @@ class AccountsViewController: UIViewController , DetailsScreenDelegate{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "mySegue") {
-            let vc = segue.destination as! AccountsListViewController
-            vc.delegate = self
+            accountListVC = segue.destination as? AccountsListViewController
+            accountListVC?.delegate = self
+        }
+        
+        if(segue.identifier == "QueryFilter")
+        {
+            filterMenuVC = segue.destination as? AccountsMenuViewController
         }
     }
     

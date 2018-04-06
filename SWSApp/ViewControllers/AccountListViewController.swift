@@ -13,7 +13,7 @@ protocol DetailsScreenDelegate{
 }
 
 /// <#Description#>
-class AccountsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class AccountsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SearchByEnteredTextDelegate{
     
     @IBOutlet weak var accountListTableView: UITableView!
     
@@ -23,6 +23,9 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     var accountsForLoggedUser = [Account]()
     
     var selectedAccount:Account?
+    var isFiltering = false
+    // filtered list
+    var accountsForLoggedUserFiltered = [Account]()
     
     override func viewDidLoad() {
         accountsForLoggedUser = accountViewModel.accountsForLoggedUser
@@ -31,6 +34,10 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(isFiltering)
+        {
+            return accountsForLoggedUserFiltered.count
+        }
         return accountsForLoggedUser.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -42,7 +49,12 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         // get the account details from accountsForLoggedUser
-        let account:Account = accountsForLoggedUser[indexPath.row]
+        var account:Account = accountsForLoggedUser[indexPath.row]
+        if(isFiltering)
+        {
+            account = accountsForLoggedUserFiltered[indexPath.row]
+        }
+        
         
         let cell:AccountRowCell = tableView.dequeueReusableCell(withIdentifier: "accountRowCellID", for: indexPath) as! AccountRowCell
         cell.selectionStyle = .none
@@ -61,7 +73,12 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        delegate?.pushTheScreenToDetailsScreen(accountData: accountsForLoggedUser[indexPath.row])
+        var account:Account = accountsForLoggedUser[indexPath.row]
+        if(isFiltering)
+        {
+            account = accountsForLoggedUserFiltered[indexPath.row]
+        }
+        delegate?.pushTheScreenToDetailsScreen(accountData: account)
         FilterMenuModel.comingFromDetailsScreen = "YES"
         
         //let accountDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as! AccountDetailsViewController
@@ -146,6 +163,33 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func sortAccountListByNextDelivery(_ sender: Any)
     {
         print("sortAccountListByNextDelivery")
+    }
+    
+    // # MARK: sort by entered text
+    func sortAccountsData(searchString: String)
+    {
+        print("AccountsListViewController sortAccountsData: " + searchString)
+        accountsForLoggedUserFiltered = [Account]()
+        
+        for account in accountViewModel.accountsForLoggedUser
+        {
+            if account.name.contains(searchString)
+            {
+                accountsForLoggedUserFiltered.append(account)
+            }
+        }
+        
+        self.accountListTableView.reloadData()
+        
+    }
+    
+    func filtering(filtering: Bool)
+    {
+        isFiltering = filtering
+        if(isFiltering == false)
+        {
+            self.accountListTableView.reloadData()
+        }
     }
 }
 

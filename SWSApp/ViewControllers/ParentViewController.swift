@@ -215,8 +215,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let dropDownItem9 = NSLocalizedString("  GoSpotCheck", comment: "GoSpotCheck")
         // set the data source for the dropdown
         moreDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4, dropDownItem5, dropDownItem6, dropDownItem7, dropDownItem8, dropDownItem9]
-        self.moreDropDown.textFont = UIFont(name: "HelveticaNeue", size: 15)!
-        
+        self.moreDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
+        self.moreDropDown.textColor =  UIColor.gray
+
         moreDropDown.selectionAction = { (index: Int, item: String) in
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
@@ -276,7 +277,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
         // display the dropdown
         moreDropDown.show()
-        
         
         // Dictionary to maitian the last selection
         if(self.moreDropDownSelectionIndex != -1){

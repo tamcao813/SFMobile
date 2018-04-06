@@ -128,7 +128,7 @@ class AccountsContactsViewController: UITableViewController {
         else if section == 1{
             let frame = tableView.frame
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 400, height: 50))
-            sectionLabel.text = "Crown Liquor Store"
+            sectionLabel.text = "Crown Liquor Contacts"
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont.boldSystemFont(ofSize: 25)
             
@@ -175,7 +175,7 @@ class AccountsContactsViewController: UITableViewController {
         
         if  section == 1{
             tableViewHeaderFooterView.contentView.backgroundColor = UIColor.white
-            tableViewHeaderFooterView.textLabel?.text = "Crown Liquor Store"
+            tableViewHeaderFooterView.textLabel?.text = "Crown Liquor Contacts"
             tableViewHeaderFooterView.textLabel?.textColor = UIColor.black
             tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:25)
             tableViewHeaderFooterView.textLabel?.frame = tableViewHeaderFooterView.frame
@@ -185,7 +185,7 @@ class AccountsContactsViewController: UITableViewController {
         else if section == 2
         {
             tableViewHeaderFooterView.contentView.backgroundColor = UIColor.white
-            tableViewHeaderFooterView.textLabel?.text = "Souther Glazers Contact "
+            tableViewHeaderFooterView.textLabel?.text = "Souther Glazers Contacts "
             tableViewHeaderFooterView.textLabel?.textColor = UIColor.black
             tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:25)
             tableViewHeaderFooterView.textLabel?.frame = tableViewHeaderFooterView.frame

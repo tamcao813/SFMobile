@@ -204,7 +204,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWE-4c-9Ky">
                                 <rect key="frame" x="0.0" y="20" width="280" height="747"/>
                                 <connections>
-                                    <segue destination="gJR-u1-9Ao" kind="embed" id="R23-LR-Tkx"/>
+                                    <segue destination="gJR-u1-9Ao" kind="embed" identifier="QueryFilter" id="R23-LR-Tkx"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMg-il-paI">

@@ -98,7 +98,7 @@ class AccountsContactsViewController: UITableViewController {
             return 100
         }
         else if section == 2{
-            return 100
+            return 150
         }
         return 0
     }
@@ -125,15 +125,43 @@ class AccountsContactsViewController: UITableViewController {
             return headerCell
             
         }
-        else if section == 2 {
+        else if section == 1{
+            let frame = tableView.frame
+            let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 400, height: 50))
+            sectionLabel.text = "Crown Liquor Store"
+            sectionLabel.textColor = UIColor.black
+            sectionLabel.font = UIFont.boldSystemFont(ofSize: 25)
             
+            
+            let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:frame.width , height:frame.height ))
+            headerView.backgroundColor = UIColor.white
+            headerView.addSubview(sectionLabel)
+            return headerView;
+            
+            
+        }
+            
+        else if section == 2 {
+          
+            let frame = tableView.frame
+            // ViewAllContacts Button...
             let viewAllAccountContactsButton = UIButton.init(frame: CGRect(x: 815, y: 25, width: 200, height: 35))
             viewAllAccountContactsButton.setTitle("ViewAllAccountsContact", for: .normal)
             viewAllAccountContactsButton.backgroundColor = UIColor(named: "LightGrey")
-           viewAllAccountContactsButton.setTitleColor(UIColor.black, for: .normal)
+            viewAllAccountContactsButton.setTitleColor(UIColor.black, for: .normal)
+            viewAllAccountContactsButton.titleLabel?.font = UIFont.init(name: "Ubuntu-Medium", size: 10)
             
-            let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:200 , height:200 ))
+            let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 90, width: 400, height: 50))
+            sectionLabel.text = "Souther Glazers Contact"
+            sectionLabel.textColor = UIColor.black
+            sectionLabel.font = UIFont.boldSystemFont(ofSize: 25)
+            
+            
+            
+            let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:frame.width , height:frame.height ))
+            headerView.backgroundColor = UIColor.white
             headerView.addSubview(viewAllAccountContactsButton)
+            headerView.addSubview(sectionLabel)
             return headerView;
         }
         

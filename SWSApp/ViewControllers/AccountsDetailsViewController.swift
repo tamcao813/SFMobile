@@ -84,25 +84,52 @@ class AccountDetailsViewController : UIViewController{
     
     @IBAction func itemsClicked(sender : UIButton){
         
+        containerView?.isHidden = true
+        
+        btnOverview?.backgroundColor = UIColor(named: "LightGrey")
+        btnDetails?.backgroundColor = UIColor(named: "LightGrey")
+        btnInsights?.backgroundColor = UIColor(named: "LightGrey")
+        btnOpportunities?.backgroundColor = UIColor(named: "LightGrey")
+        btnStrategy?.backgroundColor = UIColor(named: "LightGrey")
+        btnActionItems?.backgroundColor = UIColor(named: "LightGrey")
+        btnCommunication?.backgroundColor = UIColor(named: "LightGrey")
+        
+        btnOverview?.setTitleColor(UIColor.gray, for: .normal)
+        btnDetails?.setTitleColor(UIColor.gray, for: .normal)
+        btnInsights?.setTitleColor(UIColor.gray, for: .normal)
+        btnOpportunities?.setTitleColor(UIColor.gray, for: .normal)
+        btnStrategy?.setTitleColor(UIColor.gray, for: .normal)
+        btnActionItems?.setTitleColor(UIColor.gray, for: .normal)
+        btnCommunication?.setTitleColor(UIColor.gray, for: .normal)
+        
         switch sender.tag {
         case 0:
-            btnOverview?.backgroundColor = UIColor.black
-            btnDetails?.backgroundColor = UIColor.black
-            
-            
+            btnOverview?.backgroundColor = UIColor.white
+            btnOverview?.setTitleColor(UIColor.black, for: .normal)
+        case 1:
+            containerView?.isHidden = false
+            btnDetails?.backgroundColor = UIColor.white
+            btnDetails?.setTitleColor(UIColor.black, for: .normal)
+        case 2:
+            btnInsights?.backgroundColor = UIColor.white
+            btnInsights?.setTitleColor(UIColor.black, for: .normal)
+        case 3:
+            btnOpportunities?.backgroundColor = UIColor.white
+            btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
+        case 4:
+            btnStrategy?.backgroundColor = UIColor.white
+            btnStrategy?.setTitleColor(UIColor.black, for: .normal)
+        case 5:
+            btnActionItems?.backgroundColor = UIColor.white
+            btnActionItems?.setTitleColor(UIColor.black, for: .normal)
+        case 6:
+            btnCommunication?.backgroundColor = UIColor.white
+            btnCommunication?.setTitleColor(UIColor.black, for: .normal)
             
         default:
-            <#code#>
+            break
         }
-        
-        
-        if sender.tag == 2 {
-            containerView?.isHidden = false
-        }else{
-            containerView?.isHidden = true
-        }
-        
     }
-    
-    
 }
+
+

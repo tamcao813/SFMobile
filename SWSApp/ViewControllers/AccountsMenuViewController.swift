@@ -9,12 +9,19 @@
 import Foundation
 import UIKit
 
+protocol SearchByEnteredTextDelegate: class
+{
+    func sortAccountsData(searchString: String)
+    func filtering(filtering: Bool)
+}
+
 
 class AccountsMenuViewController: UIViewController {
 
     let kHeaderSectionTag: Int = 6900;
     var expandedSectionHeaderNumber: Int = -1
     var expandedSectionHeader: UITableViewHeaderFooterView!
+    weak var searchByEnteredTextDelegate: SearchByEnteredTextDelegate?
     
     let filterClass = Filter()
     
@@ -471,8 +478,16 @@ extension AccountsMenuViewController : UISearchBarDelegate{
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count == 0{
-            //searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
+        print(searchText)
+        if searchText.count == 0
+        {
+            self.searchByEnteredTextDelegate?.filtering(filtering: false)
+            searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
+        }
+        else
+        {
+            self.searchByEnteredTextDelegate?.filtering(filtering: true)
+            self.searchByEnteredTextDelegate?.sortAccountsData(searchString: searchText)
         }
     }
     

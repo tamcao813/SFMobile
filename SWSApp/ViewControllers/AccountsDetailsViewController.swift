@@ -24,6 +24,16 @@ class AccountDetailsViewController : UIViewController{
     @IBOutlet weak var lblPhoneNumber : UILabel?
     @IBOutlet weak var btnPercentage : UIButton?
     
+    @IBOutlet weak var containerView : UIView?
+    
+    @IBOutlet weak var btnOverview : UIButton?
+    @IBOutlet weak var btnDetails : UIButton?
+    @IBOutlet weak var btnInsights : UIButton?
+    @IBOutlet weak var btnOpportunities : UIButton?
+    @IBOutlet weak var btnStrategy : UIButton?
+    @IBOutlet weak var btnActionItems : UIButton?
+    @IBOutlet weak var btnCommunication : UIButton?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +41,7 @@ class AccountDetailsViewController : UIViewController{
         
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         
-        
+        containerView?.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +79,28 @@ class AccountDetailsViewController : UIViewController{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        
+    }
+    
+    @IBAction func itemsClicked(sender : UIButton){
+        
+        switch sender.tag {
+        case 0:
+            btnOverview?.backgroundColor = UIColor.black
+            btnDetails?.backgroundColor = UIColor.black
+            
+            
+            
+        default:
+            <#code#>
+        }
+        
+        
+        if sender.tag == 2 {
+            containerView?.isHidden = false
+        }else{
+            containerView?.isHidden = true
+        }
         
     }
     

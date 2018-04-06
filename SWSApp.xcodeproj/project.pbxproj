@@ -11,11 +11,25 @@
 		128B1A9A206BADF8004E148A /* AccountsContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B1A99206BADF8004E148A /* AccountsContactsViewController.swift */; };
 		128B1A9D206BAE5E004E148A /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B1A9C206BAE5E004E148A /* ContactTableViewCell.swift */; };
 		12A37D1D20776F0D0036ED36 /* AccountsContactsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A37D1C20776F0D0036ED36 /* AccountsContactsVC.storyboard */; };
-		12C5CEF1206E197C00BC6E7A /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 12C5CEF0206E197C00BC6E7A /* Fonts */; };
 		12C5CEF3206E1A9500BC6E7A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12C5CEF2206E1A9500BC6E7A /* Localizable.strings */; };
 		12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */; };
 		12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */; };
 		4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */; };
+		6DBD031A2077B5EF0083419E /* UFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030B2077B5EE0083419E /* UFL.txt */; };
+		6DBD031B2077B5EF0083419E /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030C2077B5EE0083419E /* Ubuntu-Italic.ttf */; };
+		6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030D2077B5EE0083419E /* CrimsonText-Bold.ttf */; };
+		6DBD031D2077B5EF0083419E /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030E2077B5EE0083419E /* Ubuntu-Regular.ttf */; };
+		6DBD031E2077B5EF0083419E /* Ubuntu-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030F2077B5EE0083419E /* Ubuntu-MediumItalic.ttf */; };
+		6DBD031F2077B5EF0083419E /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03102077B5EE0083419E /* Ubuntu-Bold.ttf */; };
+		6DBD03202077B5EF0083419E /* CrimsonText-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03112077B5EE0083419E /* CrimsonText-Italic.ttf */; };
+		6DBD03212077B5EF0083419E /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03122077B5EF0083419E /* Ubuntu-Light.ttf */; };
+		6DBD03222077B5EF0083419E /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03132077B5EF0083419E /* Ubuntu-BoldItalic.ttf */; };
+		6DBD03232077B5EF0083419E /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03142077B5EF0083419E /* Ubuntu-Medium.ttf */; };
+		6DBD03242077B5EF0083419E /* CrimsonText-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03152077B5EF0083419E /* CrimsonText-BoldItalic.ttf */; };
+		6DBD03252077B5EF0083419E /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03162077B5EF0083419E /* Ubuntu-LightItalic.ttf */; };
+		6DBD03262077B5EF0083419E /* CrimsonText-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03172077B5EF0083419E /* CrimsonText-Semibold.ttf */; };
+		6DBD03272077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03182077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf */; };
+		6DBD03282077B5EF0083419E /* CrimsonText-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03192077B5EF0083419E /* CrimsonText-Roman.ttf */; };
 		6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D3099206BA064000CFFCC /* AccountsViewController.swift */; };
 		6F3D309F206BA066000CFFCC /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309A206BA065000CFFCC /* ParentViewController.swift */; };
 		6F3D30A0206BA066000CFFCC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309B206BA065000CFFCC /* CalendarViewController.swift */; };
@@ -82,7 +96,6 @@
 		128B1A99206BADF8004E148A /* AccountsContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsContactsViewController.swift; sourceTree = "<group>"; };
 		128B1A9C206BAE5E004E148A /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		12A37D1C20776F0D0036ED36 /* AccountsContactsVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AccountsContactsVC.storyboard; sourceTree = "<group>"; };
-		12C5CEF0206E197C00BC6E7A /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		12C5CEF2206E1A9500BC6E7A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -94,6 +107,21 @@
 		4ADB2B0C206B1BAB001A8785 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		4F7D05EC33F4872FA0BE636C /* Pods-SWSApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.debug.xcconfig"; sourceTree = "<group>"; };
 		5B3277C8952E6C9483CD1CA7 /* Pods-SWSAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		6DBD030B2077B5EE0083419E /* UFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = UFL.txt; path = SWSApp/Resources/Fonts/UFL.txt; sourceTree = SOURCE_ROOT; };
+		6DBD030C2077B5EE0083419E /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-Italic.ttf"; path = "SWSApp/Resources/Fonts/Ubuntu-Italic.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD030D2077B5EE0083419E /* CrimsonText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Bold.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Bold.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD030E2077B5EE0083419E /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-Regular.ttf"; path = "SWSApp/Resources/Fonts/Ubuntu-Regular.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD030F2077B5EE0083419E /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-MediumItalic.ttf"; path = "SWSApp/Resources/Fonts/Ubuntu-MediumItalic.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD03102077B5EE0083419E /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-Bold.ttf"; path = "SWSApp/Resources/Fonts/Ubuntu-Bold.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD03112077B5EE0083419E /* CrimsonText-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Italic.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Italic.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD03122077B5EF0083419E /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-Light.ttf"; path = "SWSApp/Resources/Fonts/Ubuntu-Light.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD03132077B5EF0083419E /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-BoldItalic.ttf"; path = "SWSApp/Resources/Fonts/Ubuntu-BoldItalic.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD03142077B5EF0083419E /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-Medium.ttf"; path = "SWSApp/Resources/Fonts/Ubuntu-Medium.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD03152077B5EF0083419E /* CrimsonText-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-BoldItalic.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-BoldItalic.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD03162077B5EF0083419E /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-LightItalic.ttf"; path = "SWSApp/Resources/Fonts/Ubuntu-LightItalic.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD03172077B5EF0083419E /* CrimsonText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Semibold.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Semibold.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD03182077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-SemiboldItalic.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-SemiboldItalic.ttf"; sourceTree = SOURCE_ROOT; };
+		6DBD03192077B5EF0083419E /* CrimsonText-Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Roman.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Roman.ttf"; sourceTree = SOURCE_ROOT; };
 		6F3D3099206BA064000CFFCC /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		6F3D309A206BA065000CFFCC /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		6F3D309B206BA065000CFFCC /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -187,8 +215,8 @@
 		12AF94CB207355E4005D3D5F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6DBD030A2077B5C70083419E /* Fonts */,
 				D1FB182D2062A7C00072F4C1 /* Assets.xcassets */,
-				12C5CEF0206E197C00BC6E7A /* Fonts */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -210,6 +238,29 @@
 				F7079A5982A809CAAA6EF1A9 /* Pods_SWSAppUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6DBD030A2077B5C70083419E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6DBD030D2077B5EE0083419E /* CrimsonText-Bold.ttf */,
+				6DBD03152077B5EF0083419E /* CrimsonText-BoldItalic.ttf */,
+				6DBD03112077B5EE0083419E /* CrimsonText-Italic.ttf */,
+				6DBD03192077B5EF0083419E /* CrimsonText-Roman.ttf */,
+				6DBD03172077B5EF0083419E /* CrimsonText-Semibold.ttf */,
+				6DBD03182077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf */,
+				6DBD03102077B5EE0083419E /* Ubuntu-Bold.ttf */,
+				6DBD03132077B5EF0083419E /* Ubuntu-BoldItalic.ttf */,
+				6DBD030C2077B5EE0083419E /* Ubuntu-Italic.ttf */,
+				6DBD03122077B5EF0083419E /* Ubuntu-Light.ttf */,
+				6DBD03162077B5EF0083419E /* Ubuntu-LightItalic.ttf */,
+				6DBD03142077B5EF0083419E /* Ubuntu-Medium.ttf */,
+				6DBD030F2077B5EE0083419E /* Ubuntu-MediumItalic.ttf */,
+				6DBD030E2077B5EE0083419E /* Ubuntu-Regular.ttf */,
+				6DBD030B2077B5EE0083419E /* UFL.txt */,
+			);
+			name = Fonts;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		74F55EA8A5A604D7DCF31C25 /* Pods */ = {
@@ -507,15 +558,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12C5CEF1206E197C00BC6E7A /* Fonts in Resources */,
+				6DBD03252077B5EF0083419E /* Ubuntu-LightItalic.ttf in Resources */,
+				6DBD03282077B5EF0083419E /* CrimsonText-Roman.ttf in Resources */,
+				6DBD03222077B5EF0083419E /* Ubuntu-BoldItalic.ttf in Resources */,
+				6DBD031D2077B5EF0083419E /* Ubuntu-Regular.ttf in Resources */,
+				6DBD03232077B5EF0083419E /* Ubuntu-Medium.ttf in Resources */,
+				6DBD03262077B5EF0083419E /* CrimsonText-Semibold.ttf in Resources */,
 				F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */,
 				D2EAEB8A2074EAC6005F7792 /* MoreMenu.storyboard in Resources */,
 				12C5CEF3206E1A9500BC6E7A /* Localizable.strings in Resources */,
+				6DBD03212077B5EF0083419E /* Ubuntu-Light.ttf in Resources */,
+				6DBD031F2077B5EF0083419E /* Ubuntu-Bold.ttf in Resources */,
+				6DBD031E2077B5EF0083419E /* Ubuntu-MediumItalic.ttf in Resources */,
+				6DBD031B2077B5EF0083419E /* Ubuntu-Italic.ttf in Resources */,
+				6DBD031A2077B5EF0083419E /* UFL.txt in Resources */,
+				6DBD03202077B5EF0083419E /* CrimsonText-Italic.ttf in Resources */,
 				D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */,
 				D1FB18592062F7A40072F4C1 /* Main.storyboard in Resources */,
 				D1FB18312062A7C00072F4C1 /* LaunchScreen.storyboard in Resources */,
+				6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */,
+				6DBD03272077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf in Resources */,
 				12A37D1D20776F0D0036ED36 /* AccountsContactsVC.storyboard in Resources */,
 				D1FB182E2062A7C00072F4C1 /* Assets.xcassets in Resources */,
+				6DBD03242077B5EF0083419E /* CrimsonText-BoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

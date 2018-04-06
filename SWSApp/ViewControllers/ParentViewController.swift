@@ -114,6 +114,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // # MARK: setUpMenuBar
     private func setUpMenuBar()
     {
+        // color change
+        navigationController?.navigationBar.barTintColor = UIColor.white
         // right side buttons
         wifiIconButton = UIBarButtonItem(image: UIImage(named: "Online"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         wifiIconButton?.isEnabled = false
@@ -147,17 +149,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         // left buttons
         
-        //let fpoButton = UIBarButtonItem(image: UIImage(named: "redCircle"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
-        let fpoLabel:UILabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
-        fpoLabel.font  = UIFont.boldSystemFont(ofSize: 13)
-        fpoLabel.text = "FPO"
-        fpoLabel.textAlignment = .center
-        fpoLabel.textColor = UIColor.white
-        fpoLabel.backgroundColor = UIColor(named: "High Alert")
-        fpoLabel.layer.cornerRadius = 35/2
-        fpoLabel.clipsToBounds = true
-        let fpoButton = UIBarButtonItem.init(customView: fpoLabel)
-        self.navigationItem.leftBarButtonItems = [fpoButton]
+        let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        logoButton.isEnabled = false
+        self.navigationItem.leftBarButtonItem = logoButton
         
         // get the menu items from localized strings
         let menuItem1 = NSLocalizedString("Home", comment: "Home")
@@ -165,14 +159,17 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let menuItem3 = NSLocalizedString("Contacts", comment: "Contacts")
         let menuItem4 = NSLocalizedString("Calendar", comment: "Calendar")
         let menuItem5 = NSLocalizedString("Objectives", comment: "Objectives")
-        let menuItem6 = NSLocalizedString("More", comment: "More")
+        //let menuItem6 = NSLocalizedString("More", comment: "More")
+        let menuItem6 = "More   v" // time being 6April
         
         let menuTitles = [menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, menuItem6]
-        let menuIcons = [UIImage(), UIImage(), UIImage(), UIImage(),UIImage(), UIImage(named: "moreArrow")!]
+        //let menuIcons = [UIImage(), UIImage(), UIImage(), UIImage(),UIImage(), UIImage(named: "moreArrow")!]
         
-        let frame = CGRect(x: 0, y: 114, width: self.view.frame.width/1.5, height: 44)
+        let frame = CGRect(x: 0, y: 114, width: self.view.frame.width/1.9, height: 44)
         
-        topMenuBar = XMSegmentedControl(frame: frame, segmentContent: (menuTitles, menuIcons), selectedItemHighlightStyle: XMSelectedItemHighlightStyle.bottomEdge)
+        //topMenuBar = XMSegmentedControl(frame: frame, segmentContent: (menuTitles, menuIcons), selectedItemHighlightStyle: XMSelectedItemHighlightStyle.bottomEdge)
+        topMenuBar = XMSegmentedControl(frame: frame, segmentTitle: menuTitles, selectedItemHighlightStyle: XMSelectedItemHighlightStyle.bottomEdge) // 6 April
+        
         topMenuBar?.delegate = self
         topMenuBar?.backgroundColor = UIColor.clear
         topMenuBar?.highlightColor = UIColor.black
@@ -204,7 +201,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         // number of menus in persisten menubar
         //let numberOfMenuTabsInPersistentMenu = 5
-        moreDropDown.bottomOffset = CGPoint(x: ((topMenuBar?.frame.size.width)!-((topMenuBar?.frame.size.width)!/3.8)), y:(moreDropDown.anchorView?.plainView.bounds.height)!)
+        moreDropDown.bottomOffset = CGPoint(x: ((topMenuBar?.frame.size.width)!-((topMenuBar?.frame.size.width)!/6.0)), y:(moreDropDown.anchorView?.plainView.bounds.height)!)
         moreDropDown.backgroundColor = UIColor.white
         // get the dropdown items from localized strings
         let dropDownItem1 = NSLocalizedString("  Action Items", comment: "Action Items")
@@ -218,8 +215,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let dropDownItem9 = NSLocalizedString("  GoSpotCheck", comment: "GoSpotCheck")
         // set the data source for the dropdown
         moreDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4, dropDownItem5, dropDownItem6, dropDownItem7, dropDownItem8, dropDownItem9]
-        self.moreDropDown.textFont = UIFont(name: "HelveticaNeue", size: 15)!
-        
+        self.moreDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
+        self.moreDropDown.textColor =  UIColor.gray
+
         moreDropDown.selectionAction = { (index: Int, item: String) in
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
@@ -279,7 +277,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
         // display the dropdown
         moreDropDown.show()
-        
         
         // Dictionary to maitian the last selection
         if(self.moreDropDownSelectionIndex != -1){

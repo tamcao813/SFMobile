@@ -12,6 +12,7 @@ import Reachability
 
 struct SelectedMoreButton {
     static var selectedItem : Int = -1
+    static var isNotificationClicked = "NO"
 }
 
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
@@ -23,6 +24,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     var moreDropDownSelectionIndex:Int?=0
     
+    var notificationButton:UIBarButtonItem? = nil
+    var numberLabel:UILabel? = nil
     
     @IBOutlet weak var contentView: UIView!
     // current view controller
@@ -126,21 +129,21 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel)
         
         
-        let numberLabel:UILabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
-        numberLabel.font  = UIFont.boldSystemFont(ofSize: 8)
-        numberLabel.text = "3"
-        numberLabel.textAlignment = .center
-        numberLabel.textColor = UIColor.white
-        numberLabel.backgroundColor = UIColor(named: "Data New")
-        numberLabel.layer.cornerRadius = 20/2
-        numberLabel.clipsToBounds = true
-        let numberLabelButton = UIBarButtonItem.init(customView: numberLabel)
+        self.numberLabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
+        self.numberLabel?.font  = UIFont.boldSystemFont(ofSize: 8)
+        self.numberLabel?.text = "3"
+        self.numberLabel?.textAlignment = .center
+        self.numberLabel?.textColor = UIColor.white
+        self.numberLabel?.backgroundColor = UIColor(named: "Data New")
+        self.numberLabel?.layer.cornerRadius = 20/2
+        self.numberLabel?.clipsToBounds = true
+        self.notificationButton = UIBarButtonItem.init(customView: self.numberLabel!)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(ParentViewController.notificationButtonPressed))
-        numberLabel.isUserInteractionEnabled = true
-        numberLabel.addGestureRecognizer(tap)
+        self.numberLabel?.isUserInteractionEnabled = true
+        self.numberLabel?.addGestureRecognizer(tap)
         
-        self.navigationItem.rightBarButtonItems = [userInitialLabelButton, numberLabelButton, wifiIconButton!]
+        self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, wifiIconButton!]
         
         // left buttons
         
@@ -306,12 +309,32 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // get the respective view controller as per the selected index of menu from menubar
     private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
         
-        //If notification view controller is already loaded, remove it from superview when any menu is clicked
-        if((notificationsViewController?.view) != nil){
-            notificationsViewController?.view.removeFromSuperview()
+        if SelectedMoreButton.isNotificationClicked == "YES"{
+            SelectedMoreButton.isNotificationClicked = "NO"
+            if((self.moreVC) != nil) {
+                if((notificationsViewController?.view) != nil){
+                    notificationsViewController?.view.removeFromSuperview()
+                }
+            }
+        }
+        else{
+            //If notification view controller is already loaded, remove it from superview when any menu is clicked
+            if((self.moreVC) != nil) {
+                if((notificationsViewController?.view) != nil){
+                    notificationsViewController?.view.removeFromSuperview()
+                }
+                if let mVC = self.moreVC {
+                    mVC.view.removeFromSuperview()
+                }
+            }
         }
         
+
         
+        
+        
+        self.notificationButton?.isEnabled = true
+        self.numberLabel?.isUserInteractionEnabled = true
         
         let selectedVC:GlobalConstants.persistenMenuTabVCIndex = GlobalConstants.persistenMenuTabVCIndex(rawValue: index)!
         
@@ -349,10 +372,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
     @objc func notificationButtonPressed(sender: UIBarButtonItem){
+        
+        SelectedMoreButton.isNotificationClicked = "YES"
+        self.moreDropDownSelectionIndex = -1
         let moreStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
         notificationsViewController = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
         if let notifVC = notificationsViewController{
             self.view.addSubview(notifVC.view)
+            self.notificationButton?.isEnabled = false
+            self.numberLabel?.isUserInteractionEnabled = false
         }
     }
     

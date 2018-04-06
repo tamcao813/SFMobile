@@ -10,13 +10,20 @@ import UIKit
 import DropDown
 import Reachability
 
+struct SelectedMoreButton {
+    static var selectedItem : Int = -1
+}
+
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // drop down on tapping more
     let moreDropDown = DropDown()
     // persistent menu
     var topMenuBar:XMSegmentedControl? = nil
     var wifiIconButton:UIBarButtonItem? = nil
-
+    
+    var moreDropDownSelectionIndex:Int?=0
+    
+    
     @IBOutlet weak var contentView: UIView!
     // current view controller
     var currentViewController: UIViewController?
@@ -74,7 +81,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 print("Reachable via Cellular")
             }
             self.wifiIconButton?.image = UIImage(named: "Online")
-
+            
         }
         reachability?.whenUnreachable = { _ in
             print("Not reachable")
@@ -118,7 +125,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         userInitialLabel.clipsToBounds = true
         let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel)
         
-
+        
         let numberLabel:UILabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
         numberLabel.font  = UIFont.boldSystemFont(ofSize: 8)
         numberLabel.text = "3"
@@ -128,11 +135,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         numberLabel.layer.cornerRadius = 20/2
         numberLabel.clipsToBounds = true
         let numberLabelButton = UIBarButtonItem.init(customView: numberLabel)
-
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(ParentViewController.notificationButtonPressed))
         numberLabel.isUserInteractionEnabled = true
         numberLabel.addGestureRecognizer(tap)
- 
+        
         self.navigationItem.rightBarButtonItems = [userInitialLabelButton, numberLabelButton, wifiIconButton!]
         
         // left buttons
@@ -191,68 +198,93 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     private func showMoreDropDown(selectedIndex: Int)
     {
         moreDropDown.anchorView = topMenuBar
+        
         // number of menus in persisten menubar
         //let numberOfMenuTabsInPersistentMenu = 5
-        moreDropDown.bottomOffset = CGPoint(x: ((topMenuBar?.frame.size.width)!-((topMenuBar?.frame.size.width)!/6)), y:(moreDropDown.anchorView?.plainView.bounds.height)!)
+        moreDropDown.bottomOffset = CGPoint(x: ((topMenuBar?.frame.size.width)!-((topMenuBar?.frame.size.width)!/3.8)), y:(moreDropDown.anchorView?.plainView.bounds.height)!)
         moreDropDown.backgroundColor = UIColor.white
         // get the dropdown items from localized strings
-        let dropDownItem1 = NSLocalizedString("Action Items", comment: "Action Items")
-        let dropDownItem2 = NSLocalizedString("Account Visits", comment: "Account Visits")
-        let dropDownItem3 = NSLocalizedString("Insights", comment: "Insights")
-        let dropDownItem4 = NSLocalizedString("Reports", comment: "Reports")
-        let dropDownItem5 = NSLocalizedString("Notifications", comment: "Notifications")
-        let dropDownItem6 = NSLocalizedString("Chatter", comment: "Chatter")
-        let dropDownItem7 = NSLocalizedString("Transactions (Topaz)", comment: "Transactions (Topaz)")
-        let dropDownItem8 = NSLocalizedString("Load Deposit (IDD)", comment: "Load Deposit (IDD)")
-        let dropDownItem9 = NSLocalizedString("GoSpotCheck", comment: "GoSpotCheck")
+        let dropDownItem1 = NSLocalizedString("  Action Items", comment: "Action Items")
+        let dropDownItem2 = NSLocalizedString("  Account Visits", comment: "Account Visits")
+        let dropDownItem3 = NSLocalizedString("  Insights", comment: "Insights")
+        let dropDownItem4 = NSLocalizedString("  Reports", comment: "Reports")
+        let dropDownItem5 = NSLocalizedString("  Notifications", comment: "Notifications")
+        let dropDownItem6 = NSLocalizedString("  Chatter", comment: "Chatter")
+        let dropDownItem7 = NSLocalizedString("  Transactions (Topaz)", comment: "Transactions (Topaz)")
+        let dropDownItem8 = NSLocalizedString("  Load Deposit (IDD)", comment: "Load Deposit (IDD)")
+        let dropDownItem9 = NSLocalizedString("  GoSpotCheck", comment: "GoSpotCheck")
         // set the data source for the dropdown
         moreDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4, dropDownItem5, dropDownItem6, dropDownItem7, dropDownItem8, dropDownItem9]
+        self.moreDropDown.textFont = UIFont(name: "HelveticaNeue", size: 15)!
         
         moreDropDown.selectionAction = { (index: Int, item: String) in
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
             let currentViewController = self.displayCurrentTab(selectedIndex)
             currentViewController?.view.addSubview(moreVC1.view)
+            
+            SelectedMoreButton.selectedItem = index
+            //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
             switch index {
             case 0:
                 let actionItemsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ActionItemsViewControllerID")
                 moreVC1.view.addSubview((actionItemsVC.view)!)
+                self.moreDropDownSelectionIndex = index
             case 1:
                 let accountVisitsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "AccountVisitsControllerID")
                 moreVC1.view.addSubview((accountVisitsVC.view)!)
+                self.moreDropDownSelectionIndex = index
             case 2:
                 let insightsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "InsightsViewControllerID")
                 moreVC1.view.addSubview((insightsVC.view)!)
+                self.moreDropDownSelectionIndex = index
             case 3:
                 let reportsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ReportsViewControllerID")
                 moreVC1.view.addSubview((reportsVC.view)!)
+                self.moreDropDownSelectionIndex = index
             case 4:
                 let notificationsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID")
                 moreVC1.view.addSubview((notificationsVC.view)!)
+                self.moreDropDownSelectionIndex = index
             case 5:
                 let chatterVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ChatterViewControllerID")
                 moreVC1.view.addSubview((chatterVC.view)!)
+                self.moreDropDownSelectionIndex = index
             case 6:
                 let topazVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "TopazViewControllerID")
                 moreVC1.view.addSubview((topazVC.view)!)
+                self.moreDropDownSelectionIndex = index
             case 7:
                 let loadDepositVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "IDDViewControllerID")
                 moreVC1.view.addSubview((loadDepositVC.view)!)
+                self.moreDropDownSelectionIndex = index
             case 8:
                 let goSpotCheckVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "GoSpotViewControllerID")
                 moreVC1.view.addSubview((goSpotCheckVC.view)!)
+                self.moreDropDownSelectionIndex = index
             default:
                 break
+                
+                
             }
             
             //just print for now
-//            print("Selected item: \(item) at index: \(index)")
-//            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
-//            moreVC1.moreLabel.text = item
+            //            print("Selected item: \(item) at index: \(index)")
+            //            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+            //            moreVC1.moreLabel.text = item
             
         }
         // display the dropdown
         moreDropDown.show()
+        
+        
+        // Dictionary to maitian the last selection
+        if(self.moreDropDownSelectionIndex != -1){
+            if let selection = moreDropDownSelectionIndex{
+                moreDropDown.selectRow(selection)
+            }
+        }
+        
     }
     
     // # MARK: displayCurrentTab
@@ -276,10 +308,17 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         //If notification view controller is already loaded, remove it from superview when any menu is clicked
         if((notificationsViewController?.view) != nil){
-         notificationsViewController?.view.removeFromSuperview()
+            notificationsViewController?.view.removeFromSuperview()
         }
         
+        
+        
         let selectedVC:GlobalConstants.persistenMenuTabVCIndex = GlobalConstants.persistenMenuTabVCIndex(rawValue: index)!
+        
+        if(GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex != selectedVC) {
+            self.moreDropDownSelectionIndex = -1
+        }
+        
         var vc: UIViewController?
         switch selectedVC {
             
@@ -296,12 +335,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             vc = calendarVC
         case .ObjectivesVCIndex:
             vc = objectivesVC
-
-        // have to cover all cases from defined enum, else compiler wont be happy :D
-        /*default:
-            return nil*/
-//       case .MoreVCIndex:
-//            vc = moreVC
+            
+            // have to cover all cases from defined enum, else compiler wont be happy :D
+            /*default:
+             return nil*/
+            //       case .MoreVCIndex:
+        //            vc = moreVC
         default:
             break
         }
@@ -318,3 +357,4 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
 }
+

@@ -73,20 +73,20 @@ class CustomerHeaderTableViewCell: UITableViewCell {
         
         self.AccountID_View.layer.borderWidth = 1
         self.AccountID_View.layer.borderWidth = 1
-        self.AccountID_View.layer.borderColor = UIColor.lightGray.cgColor
+        self.AccountID_View.layer.borderColor = UIColor(named: "LightGrey")?.cgColor
         
         
         self.AccountType_View.layer.borderWidth = 1
         self.AccountType_View.layer.borderWidth = 1
-        self.AccountType_View.layer.borderColor = UIColor.lightGray.cgColor
+        self.AccountType_View.layer.borderColor = UIColor(named: "LightGrey")?.cgColor
         
         self.NetSales_View.layer.borderWidth = 1
         self.NetSales_View.layer.borderWidth = 1
-        self.NetSales_View.layer.borderColor = UIColor.lightGray.cgColor
+        self.NetSales_View.layer.borderColor = UIColor(named: "LightGrey")?.cgColor
         
         self.Delivery_View.layer.borderWidth = 1
         self.Delivery_View.layer.borderWidth = 1
-        self.Delivery_View.layer.borderColor = UIColor.lightGray.cgColor
+        self.Delivery_View.layer.borderColor = UIColor(named: "LightGrey")?.cgColor
         // Initialization code
     }
 

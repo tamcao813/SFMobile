@@ -51,7 +51,7 @@ class AccountsContactsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactTableViewCell
-        cell.layer.borderWidth = 0.5
+        
         
         var ary: [Contact] = []
         
@@ -86,7 +86,7 @@ class AccountsContactsViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 100
     }
     
     

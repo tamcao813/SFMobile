@@ -71,7 +71,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropDownLight" translatesAutoresizingMaskIntoConstraints="NO" id="XAD-9c-Nsa">
-                                                            <rect key="frame" x="271" y="1" width="20" height="20"/>
+                                                            <rect key="frame" x="256" y="1" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="6ja-yz-AbT"/>
                                                                 <constraint firstAttribute="height" constant="20" id="O2I-g9-AOP"/>
@@ -82,11 +82,11 @@
                                                     <constraints>
                                                         <constraint firstItem="XAD-9c-Nsa" firstAttribute="top" secondItem="BNO-CU-ul6" secondAttribute="top" constant="1" id="8dT-2X-Ar4"/>
                                                         <constraint firstItem="Lpu-Dd-X0V" firstAttribute="top" secondItem="BNO-CU-ul6" secondAttribute="top" id="Ezi-RM-YCV"/>
-                                                        <constraint firstAttribute="trailing" secondItem="XAD-9c-Nsa" secondAttribute="trailing" constant="7" id="aOf-2P-t2E"/>
+                                                        <constraint firstAttribute="trailing" secondItem="XAD-9c-Nsa" secondAttribute="trailing" constant="22" id="aOf-2P-t2E"/>
                                                         <constraint firstAttribute="bottom" secondItem="Lpu-Dd-X0V" secondAttribute="bottom" id="b8e-tI-btW"/>
                                                         <constraint firstAttribute="bottom" secondItem="XAD-9c-Nsa" secondAttribute="bottom" constant="-0.5" id="kUh-Sz-zGE"/>
                                                         <constraint firstItem="Lpu-Dd-X0V" firstAttribute="leading" secondItem="BNO-CU-ul6" secondAttribute="leading" constant="6" id="lPT-Qn-h5H"/>
-                                                        <constraint firstItem="XAD-9c-Nsa" firstAttribute="leading" secondItem="Lpu-Dd-X0V" secondAttribute="trailing" constant="-20" id="wBE-DE-PNj"/>
+                                                        <constraint firstItem="XAD-9c-Nsa" firstAttribute="leading" secondItem="Lpu-Dd-X0V" secondAttribute="trailing" constant="-35" id="wBE-DE-PNj"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">

@@ -30,7 +30,7 @@
 		6DBD03262077B5EF0083419E /* CrimsonText-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03172077B5EF0083419E /* CrimsonText-Semibold.ttf */; };
 		6DBD03272077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03182077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf */; };
 		6DBD03282077B5EF0083419E /* CrimsonText-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03192077B5EF0083419E /* CrimsonText-Roman.ttf */; };
-		6F36531E207B85BB0068105B /* AccountSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36531D207B85BB0068105B /* AccountSortUtility.swift */; };
+		6F365320207B95850068105B /* AccountSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36531F207B95850068105B /* AccountSortUtility.swift */; };
 		6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D3099206BA064000CFFCC /* AccountsViewController.swift */; };
 		6F3D309F206BA066000CFFCC /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309A206BA065000CFFCC /* ParentViewController.swift */; };
 		6F3D30A0206BA066000CFFCC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309B206BA065000CFFCC /* CalendarViewController.swift */; };
@@ -123,7 +123,7 @@
 		6DBD03172077B5EF0083419E /* CrimsonText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Semibold.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Semibold.ttf"; sourceTree = SOURCE_ROOT; };
 		6DBD03182077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-SemiboldItalic.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-SemiboldItalic.ttf"; sourceTree = SOURCE_ROOT; };
 		6DBD03192077B5EF0083419E /* CrimsonText-Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Roman.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Roman.ttf"; sourceTree = SOURCE_ROOT; };
-		6F36531D207B85BB0068105B /* AccountSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountSortUtility.swift; path = ../../../../Dev_6April_EOD/salesforcemobileapp/SWSApp/Utilies/AccountSortUtility.swift; sourceTree = "<group>"; };
+		6F36531F207B95850068105B /* AccountSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSortUtility.swift; sourceTree = "<group>"; };
 		6F3D3099206BA064000CFFCC /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		6F3D309A206BA065000CFFCC /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		6F3D309B206BA065000CFFCC /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -419,7 +419,7 @@
 		D1FE1D0320657B47009CC47C /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
-				6F36531D207B85BB0068105B /* AccountSortUtility.swift */,
+				6F36531F207B95850068105B /* AccountSortUtility.swift */,
 				4ADB2B0A206B1BAA001A8785 /* SWSApp-Bridging-Header.h */,
 				4ADB2B09206B1B4D001A8785 /* MBProgressHUD */,
 				D1FE1D0620657B7E009CC47C /* SFAError.swift */,
@@ -781,8 +781,8 @@
 				12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */,
 				D10483962068381A00A0343B /* Contact.swift in Sources */,
 				D2E12D7520736E0C0005B982 /* ChatterViewController.swift in Sources */,
+				6F365320207B95850068105B /* AccountSortUtility.swift in Sources */,
 				D1FCDE0F20733025005F956D /* FilterViewModel.swift in Sources */,
-				6F36531E207B85BB0068105B /* AccountSortUtility.swift in Sources */,
 				F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */,
 				D2EAEB8E2074EC9B005F7792 /* LoadDepositViewController.swift in Sources */,
 				D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */,

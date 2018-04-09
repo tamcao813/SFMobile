@@ -206,7 +206,11 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         {
             if(isFiltering)
             {
-                accountsForLoggedUserFiltered = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: sortedAccountsList, searchText: searchString)
+                accountsForLoggedUserFiltered = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: accountsForLoggedUser, searchText: searchString)
+            }
+            else
+            {
+                accountsForLoggedUserFiltered = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: accountsForLoggedUser, searchText: searchString)
             }
         }
         self.accountListTableView.reloadData()

@@ -257,27 +257,12 @@ class StoreDispatcher {
     func fetchAccountsForLoggedUser() -> [Account] {
         let account1 = Account.mockAccount1()
         let account2 = Account.mockAccount2()
-        let account3 = Account.mockAccount3()
-        let account4 = Account.mockAccount4()
-        let account5 = Account.mockAccount5()
-        let account6 = Account.mockAccount6()
-        let account7 = Account.mockAccount7()
-        let account8 = Account.mockAccount8()
-        let account9 = Account.mockAccount9()
-        let account10 = Account.mockAccount10()
+        
         //add more if needed
         
         var ary = [Account]()
         ary.append(account1)
         ary.append(account2)
-        ary.append(account3)
-        ary.append(account4)
-        ary.append(account5)
-        ary.append(account6)
-        ary.append(account7)
-        ary.append(account8)
-        ary.append(account9)
-        ary.append(account10)
         
         return ary
     }

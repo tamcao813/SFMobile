@@ -12,6 +12,10 @@ protocol DetailsScreenDelegate{
     func pushTheScreenToDetailsScreen(accountData : Account)
 }
 
+struct OrderOfAccountListItems {
+    static var isAscending = "YES"
+}
+
 /// <#Description#>
 class AccountsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SearchByEnteredTextDelegate{
     
@@ -162,11 +166,22 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isSorting = true
         if(isFiltering == true)
         {
-            sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserFiltered)
+            sortedAccountsList = AccountSortUtility.sortAlphabetsByAscendingOrder(accountsListToBeSorted:accountsForLoggedUserFiltered)
         }
         else
         {
-            sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
+            
+            if OrderOfAccountListItems.isAscending == "YES"{
+                OrderOfAccountListItems.isAscending = "NO"
+                sortedAccountsList = AccountSortUtility.sortAlphabetsByAscendingOrder(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
+                
+            }else{
+                OrderOfAccountListItems.isAscending = "YES"
+                sortedAccountsList = AccountSortUtility.sortAlphabetsByDescendingOrder(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
+                
+            }
+            
+            
         }
         
         self.accountListTableView.reloadData()
@@ -225,7 +240,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             if(isSorting)
             {
                 //account = sortedAccountsList[indexPath.row]
-                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
+                sortedAccountsList = AccountSortUtility.sortAlphabetsByAscendingOrder(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
             }
             self.accountListTableView.reloadData()
         }

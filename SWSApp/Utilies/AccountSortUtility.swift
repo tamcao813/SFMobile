@@ -27,10 +27,18 @@ class AccountSortUtility
         return accountsForLoggedUserFiltered
     }
     
-    static func sortByAccountNameAlphabetically(accountsListToBeSorted:[Account])->[Account]
+    static func sortAlphabetsByAscendingOrder(accountsListToBeSorted:[Account])->[Account]
     {
         var alphabeticallySortedAccountList = [Account]()
         alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $0.name < $1.name }
+        
+        return alphabeticallySortedAccountList
+    }
+    
+    static func sortAlphabetsByDescendingOrder(accountsListToBeSorted:[Account])->[Account]
+    {
+        var alphabeticallySortedAccountList = [Account]()
+        alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $0.name > $1.name }
         
         return alphabeticallySortedAccountList
     }

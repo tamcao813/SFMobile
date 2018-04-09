@@ -12,7 +12,7 @@ class Filter {
     
     let sectionNames : Array<Any>  = ["Past Due", "Action Items", "Status", "Premise" , "Single / Multi locations" ,"Channel", "Sub-Channel" ,"License Type"]
     
-    let sectionItems : Array<Any> = [ ["YES", "NO"],[],
+    let sectionItems : Array<Any> = [ ["Yes", "No"],[],
                                       ["Active", "Inactive","Suspended"],
                                       ["ON","OFF"], ["Single","Multi"],[],[],["W","L","B","N"]]
     

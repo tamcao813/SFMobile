@@ -153,7 +153,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         logoButton.isEnabled = false
+
         self.navigationItem.leftBarButtonItem = logoButton
+        
         
         // get the menu items from localized strings
         let menuItem1 = NSLocalizedString("Home", comment: "Home")
@@ -171,7 +173,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         //topMenuBar = XMSegmentedControl(frame: frame, segmentContent: (menuTitles, menuIcons), selectedItemHighlightStyle: XMSelectedItemHighlightStyle.bottomEdge)
         topMenuBar = XMSegmentedControl(frame: frame, segmentTitle: menuTitles, selectedItemHighlightStyle: XMSelectedItemHighlightStyle.bottomEdge) // 6 April
-        
+        topMenuBar?.font = UIFont(name: "Ubuntu-Medium", size: 17)! // 9 april shubham
         topMenuBar?.delegate = self
         topMenuBar?.backgroundColor = UIColor.clear
         topMenuBar?.highlightColor = UIColor.black

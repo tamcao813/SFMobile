@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var loggedInUser: User?
     
+    let isMockUser = true //set it to true to use mock data or set it to false if testing with real data
+    
     override
     init()
     {
@@ -118,17 +120,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupRootViewController() {
         guard let window = window else { return }
         
-        //register soups for the store
-        StoreDispatcher.shared.registerSoups()
-        
         //Do this in the main thread to make sure the HUB gets added to the view properly and to show progresses
         DispatchQueue.main.async(execute: {
             //to do: show Hub and progress
             
-            
-            StoreDispatcher.shared.downloadAllSoups({ (error) in
+            StoreDispatcher.shared.syncDownUser({ (error) in
                 if error != nil {
-                    print("error in downloadAllSoups")
+                    print("error in syncDownUser")
                     return
                 }
                 
@@ -139,18 +137,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                     
                     self.loggedInUser =  user
-                    DispatchQueue.main.async(execute: {
-                        //to do: show progress 100% completed and dismiss Hub
+                    
+                    StoreDispatcher.shared.downloadAllSoups({ (error) in
+                        if error != nil {
+                            print("error in downloadAllSoups")
+                            return
+                        }
                         
-                        print("DispatchQueue.main.async rootViewController")
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
-                        window.rootViewController = viewController
-                        window.makeKeyAndVisible()
+                        
+                        DispatchQueue.main.async(execute: {
+                            //to do: show progress 100% completed and dismiss Hub
+                            
+                            print("DispatchQueue.main.async rootViewController")
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                            window.rootViewController = viewController
+                            window.makeKeyAndVisible()
+                        })
                     })
                 })
             })
         })
-        
     }
 }

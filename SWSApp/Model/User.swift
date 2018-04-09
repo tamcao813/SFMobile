@@ -9,66 +9,48 @@
 import Foundation
 
 class User {
-    var sfid: String
-    //var firstName: String
-    //var lastName: String
+    static let UserFields = ["Id", "Name", "Username", "FirstName", "LastName", "SGWS_Site__c"]
+    
+    var userid: String
+    var firstName: String
+    var lastName: String
     var name: String
     var userName: String
-    var managerName: String
-    var managerName2: String
-    //var email: String
-    //var accountId: String
-    //var employeeNumber: String
+    var userSite: String
     
-    init() {
-        sfid = ""
-        //firstName = ""
-        //lastName = ""
+    convenience init(withAry ary: [Any]) {
+        let resultDict = Dictionary(uniqueKeysWithValues: zip(User.UserFields, ary))
+        self.init(json: resultDict)
+    }
+    
+    init(json: [String: Any]) {
+        userid = json[User.UserFields[0]] as! String
+        firstName = json[User.UserFields[1]] as! String
+        lastName = json[User.UserFields[2]] as! String
+        name = json[User.UserFields[3]] as! String
+        userName = json[User.UserFields[4]] as! String
+        userSite = json[User.UserFields[5]] as! String
+    }
+    
+    init(for: String) {
+        userid = ""
+        firstName = ""
+        lastName = ""
         name = ""
         userName = ""
-        managerName = ""
-        managerName2 = ""
-        //email = ""
-        //accountId = ""
-        //employeeNumber = ""
+        userSite = ""
     }
-    
-    init(withAry ary: [Any]) {
-        sfid = ary[0] as! String
-        //firstName = ary[1] as! String
-        //lastName = ary[2] as! String
-        name = ary[1] as! String
-        userName = ary[2] as! String
-        managerName = "Manager"
-        managerName2 = "Manager2"
-        //accountId = ary[2] as! String
-    }
-    
-    init(json: [String: AnyObject]) {
-        sfid = json["Id"] as! String
-        //firstName = json["FirstName"] as! String
-        //lastName = json["LastName"] as! String
-        name = json["Name"] as! String
-        userName = json["Username"] as! String
-        managerName = ""
-        managerName2 = ""
-        //lastName = json["LastName"] as! String
-        //email = json["Email"] as! String
-        //accountId = json["AccountId"] as! String
-        //employeeNumber = json["EmployeeNumber"] as! String
-    }
-    
     
     static func mockUser() -> User {
-        let user = User()
-        user.sfid = "005i0000002XxdhAAC"
-        //user.firstName = "Lucas"
-        //user.lastName = "Giant"
+        let user = User(for: "mockup")
+        user.userid = "005i0000002XxdhAAC"
+        user.firstName = "Lucas"
+        user.lastName = "Giant"
         user.name = "Lucas Giant"
         user.userName = "lua@tahoo.com"
+        user.userSite = "70010"
         return user
     }
-    
 }
 
 extension User {
@@ -76,7 +58,7 @@ extension User {
         //we should retrieve and construct a user object for manager
         
         //for now
-        return User()
+        return User(for: "mockup")
     }
     
     var myConsultants: [User]? {
@@ -86,4 +68,3 @@ extension User {
         return nil
     }
 }
-

@@ -21,9 +21,9 @@ class UserViewModel {
         }
     }
 }
-    
+
 extension UserViewModel {
-        
+    
     var myManager: User? {
         if let user = self.loggedInUser {
             return user.myManager

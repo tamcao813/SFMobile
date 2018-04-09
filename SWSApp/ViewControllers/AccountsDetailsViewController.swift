@@ -55,12 +55,12 @@ class AccountDetailsViewController : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        lblAccountTitle?.text = accountsForLoggedInUser?.name
+        lblAccountTitle?.text = accountsForLoggedInUser?.accountName
         
         lblAddress1?.text = ""
         lblAddress2?.text = ""
         
-        let addressData = accountsForLoggedInUser?.address
+        let addressData = accountsForLoggedInUser?.shippingAddress
         let addressArray : NSArray = (addressData?.components(separatedBy: ",") as NSArray?)!
         if (addressArray.count > 0) {
             if addressArray.count == 1{
@@ -72,8 +72,8 @@ class AccountDetailsViewController : UIViewController{
             }
         }
         lblActionItem?.text = String(describing: accountsForLoggedInUser!.actionItem)
-        lblPastDue?.text = accountsForLoggedInUser!.balance
-        lblMTDSales?.text = accountsForLoggedInUser!.totalR12NetSales
+        lblPastDue?.text = "\(accountsForLoggedInUser!.totalARBalance)"
+        lblMTDSales?.text = "\(accountsForLoggedInUser!.totalCYR12NetSales)"
         
         print(accountsForLoggedInUser!)
     }

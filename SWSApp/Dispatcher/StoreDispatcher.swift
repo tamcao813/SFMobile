@@ -17,10 +17,18 @@ class StoreDispatcher {
     static let shared = StoreDispatcher()
     static let SFADB = "SFADB"
     
+    let SoupUser = "User"
+    let SoupAccount = "AccountTeamMember"
+    let SoupContact = "Contact"
+    
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
     lazy final var sfaSyncMgr: SFSmartSyncSyncManager = SFSmartSyncSyncManager.sharedInstance(for: sfaStore)!
     
+    var userVieModel: UserViewModel {
+        return UserViewModel()
+        
+    }
     
     //register all soups - to do: register other needed soups
     func registerSoups() {
@@ -36,17 +44,11 @@ class StoreDispatcher {
     }
     
     
-    //sync down all soups
+    //sync down all soups other than User
     fileprivate func syncDownSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
         
-        let queue = DispatchQueue(label: "serial") // or concurrent
+        let queue = DispatchQueue(label: "concurrent")
         let group = DispatchGroup()
-        
-        group.enter()
-        syncDownUser() { _ in
-            group.leave()
-        }
-        
         
         group.enter()
         syncDownAccount() { _ in
@@ -70,22 +72,16 @@ class StoreDispatcher {
     //#pragma mark - create indexes for the soup and register the soup; only create indexes for the fields we want to query by
     
     func registerUserSoup() {
-        let indexSpec:[SFSoupIndex] = [
-            SFSoupIndex(path: "Id", indexType: kSoupIndexTypeString, columnName: "Id")!,
-            //SFSoupIndex(path: "FirstName", indexType:kSoupIndexTypeString, columnName: "FirstName")!,
-            //SFSoupIndex(path: "LastName", indexType:kSoupIndexTypeString, columnName: "LastName")!,
-            SFSoupIndex(path: "Name", indexType:kSoupIndexTypeString, columnName: "Name")!,
-            SFSoupIndex(path: "Username", indexType:kSoupIndexTypeString, columnName: "Username")!,
-            SFSoupIndex(path: "Manager.Name", indexType:kSoupIndexTypeString, columnName: "ManagerName")!,
-            SFSoupIndex(path: "Manager.Manager.Name", indexType:kSoupIndexTypeString, columnName: "Manager2Name")!
-            
-            //SFSoupIndex(path: "EmployeeNumber", indexType:kSoupIndexTypeString, columnName: "EmployeeNumber")!,
-            //SFSoupIndex(path: "Job_Role__c", indexType: kSoupIndexTypeString, columnName: "Job_Role__c")!,
-            //SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!
-        ]
+        let userQueryFields = User.UserFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...userQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: userQueryFields[i], indexType: kSoupIndexTypeString, columnName: userQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
         
         do {
-            try sfaStore.registerSoup("User", withIndexSpecs: indexSpec, error: ())
+            try sfaStore.registerSoup(SoupUser, withIndexSpecs: indexSpec, error: ())
             
         } catch let error as NSError {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register User soup: \(error.localizedDescription)")
@@ -93,14 +89,54 @@ class StoreDispatcher {
     }
     
     func registerAccountSoup() {
+        /*
         let indexSpec:[SFSoupIndex] = [
+            SFSoupIndex(path: "Account.Id", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[0])!,
+            SFSoupIndex(path: "Account.Name", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[1])!,
+            SFSoupIndex(path: "Account.SWS_Account_Site__r.SWS_External_ID__c", indexType:kSoupIndexTypeString, columnName: Account.AccountFields[2])!,
+            SFSoupIndex(path: "Account.Google_Place_Formatted_Phone__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[3])!,
+            SFSoupIndex(path: "Account.SWS_License_Status__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[4])!,
+            SFSoupIndex(path: "Account.SWS_Growth_in_MTD_Net_Sales__c", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[5])!,
+            SFSoupIndex(path: "Account.SWS_AR_Past_Due_Amount__c", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[6])!,
+            SFSoupIndex(path: "Account.AccountNumber", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[7])!,
+            SFSoupIndex(path: "Account.SWS_Premise_Code__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[8])!,
+            SFSoupIndex(path: "Account.SWS_License_Type__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[9])!,
+            SFSoupIndex(path: "Account.SWS_License__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[10])!,
+            SFSoupIndex(path: "Account.Google_Place_Operating_Hours__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[11])!,
+            SFSoupIndex(path: "Account.SWS_License_Expiration_Date__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[12])!,
+            SFSoupIndex(path: "Account.SWS_Total_CY_R12_Net_Sales__c", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[13])!,
+            SFSoupIndex(path: "Account.SWS_Total_AR_Balance__c", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[14])!,
+            SFSoupIndex(path: "Account.SWS_Credit_Limit__c", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[15])!,
+            SFSoupIndex(path: "Account.SWS_TD_Channel__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[16])!,
+            SFSoupIndex(path: "Account.SWS_TD_Sub_Channel__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[17])!,
+            SFSoupIndex(path: "Account.SWS_License_Status_Description__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[18])!,
+            SFSoupIndex(path: "Account.ShippingCity", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[18])!,
+            SFSoupIndex(path: "Account.ShippingCountry", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[20])!,
+            SFSoupIndex(path: "Account.ShippingGeocodeAccuracy", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[21])!,
+            SFSoupIndex(path: "Account.ShippingLatitude", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[22])!,
+            SFSoupIndex(path: "Account.ShippingLongitude", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[23])!,
+            SFSoupIndex(path: "Account.ShippingPostalCode", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[24])!,
+            SFSoupIndex(path: "Account.ShippingState", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[25])!,
+            SFSoupIndex(path: "Account.ShippingStreet", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[26])!,
+            SFSoupIndex(path: "Account.ShippingAddress", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[27])!,
+            SFSoupIndex(path: "UserId", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[28])!,
+            SFSoupIndex(path: "Account.IS_Next_Delivery_Date__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[29])!,
+            SFSoupIndex(path: "Account.SWS_Delivery_Frequency__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[30])!,
+            SFSoupIndex(path: "Account.SWS_License_Type_Description__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[31])!,
+            SFSoupIndex(path: "Account.SWS_AR_Past_Due_Alert__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[32])!
+        ]
+        */
+        
+        let indexSpec = [
             SFSoupIndex(path: "Id", indexType: kSoupIndexTypeString, columnName: "Id")!,
-            SFSoupIndex(path: "AccountNumber", indexType: kSoupIndexTypeString, columnName: "AccountNumber")!,
-            SFSoupIndex(path: "Name", indexType:kSoupIndexTypeString, columnName: "Name")!
+            SFSoupIndex(path: "CreatedDate", indexType: kSoupIndexTypeString, columnName: "CreatedDate")!,
+            SFSoupIndex(path: "TeamMemberRole", indexType: kSoupIndexTypeFullText, columnName: "TeamMemberRole")!,
+            SFSoupIndex(path: "Account.Name", indexType: kSoupIndexTypeFullText, columnName: "Account.Name")!,//
+            SFSoupIndex(path: "Account.AccountNumber", indexType: kSoupIndexTypeString, columnName: "Account.AccountNumber")!
         ]
         
         do {
-            try sfaStore.registerSoup("Account", withIndexSpecs: indexSpec, error: ())
+            try sfaStore.registerSoup(SoupAccount, withIndexSpecs: indexSpec, error: ())
             
         } catch let error as NSError {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register Account soup: \(error.localizedDescription)")
@@ -108,16 +144,16 @@ class StoreDispatcher {
     }
     
     func registerContactSoup() {
-        let indexSpec:[SFSoupIndex] = [
-            SFSoupIndex(path: "Id", indexType: kSoupIndexTypeString, columnName: "Id")!,
-            SFSoupIndex(path: "FirstName", indexType: kSoupIndexTypeString, columnName: "FirstName")!,
-            SFSoupIndex(path: "LastName", indexType: kSoupIndexTypeString, columnName: "LastName")!,
-            SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!,
-            SFSoupIndex(path: "Birthdate", indexType: kSoupIndexTypeString, columnName: "Birthdate")!
-        ]
+        let contactQueryFields = Contact.ContactFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...contactQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: contactQueryFields[i], indexType: kSoupIndexTypeString, columnName: contactQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
         
         do {
-            try sfaStore.registerSoup("Contact", withIndexSpecs: indexSpec, error: ())
+            try sfaStore.registerSoup(SoupContact, withIndexSpecs: indexSpec, error: ())
             
         } catch let error as NSError {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register Contact soup: \(error.localizedDescription)")
@@ -127,14 +163,9 @@ class StoreDispatcher {
     //#pragma mark - syncdown so we have data in the soups
     
     func syncDownUser(_ completion:@escaping (_ error: NSError?)->()) {
-        //let userId : String = "005m0000002p9CWAAY" //005i0000002XxdhAAC" //use this for now for testing
-        
         let username = SFUserAccountManager.sharedInstance().currentUser!.userName
         
-        //let fields : [String] = ["Id", "Name", "Username", "Manager.Name", "Manager.Username", "Manager.Manager.Name", "Manager.Manager.Username"]
-        
-        let fields : [String] = ["Id", "Name", "Username", "Manager.Name", "Manager.Manager.Name"]
-        //["Id", "FirstName", "LastName", "Name", "Username"] //["Id", "Username", "Name"]  //
+        let fields : [String] = User.UserFields
         
         let soqlQuery = "Select \(fields.joined(separator: ",")) from User Where Username = '\(username)'"
         
@@ -142,7 +173,7 @@ class StoreDispatcher {
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
-        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: "User")
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print("syncDownUser() done")
@@ -165,19 +196,24 @@ class StoreDispatcher {
     }
     
     func syncDownAccount(_ completion:@escaping (_ error: NSError?)->()) {
-        let fields : [String] = ["Id", "AccountNumber", "Name"] //add more
+        /*
+         let userid = (userVieModel.loggedInUser?.userid)!
+         
+         let fields: [String] = Account.AccountFields
+         
+         //let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember where Account.RecordType.DeveloperName = 'Customer' "
+         */
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from Account where AccountNumber like '3200%' limit 10"
+        let soqlQuery = "SELECT Id,CreatedDate,TeamMemberRole,Account.Name,Account.AccountNumber FROM AccountTeamMember limit 10000"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
-        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: "User")
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupAccount)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print("syncDownAccount() done")
-                    //let _ = self.fetchAccounts(forConsultant: "111")
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
@@ -197,15 +233,20 @@ class StoreDispatcher {
     }
     
     func syncDownContact(_ completion:@escaping (_ error: NSError?)->()) {
-        let fields : [String] = ["Id", "FirstName", "LastName", "AccountId", "Birthdate"] //add more
+        let userid:String = (userVieModel.loggedInUser?.userid)!
+        let siteid:String = "89658" //(userVieModel.loggedInUser?.userSite)! //test with a site for now
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from Contact limit 10"
+        let fields : [String] = Contact.ContactFields
+        
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from Contact where SGWS_Account_Site_Number__c = '\(siteid)' and RecordType.DeveloperName = 'Customer' " //and AccountId IN(Select AccountId from AccountTeamMember where UserId = '\(userid)' "
+        
+        //let soqlQuery = "Select Id from Contact where SGWS_Account_Site_Number__c = '\(siteid)' "
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
-        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: "User")
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupContact)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print("syncDownContact() done")
@@ -230,17 +271,22 @@ class StoreDispatcher {
     
     //User
     func fetchLoggedInUser(_ completion:@escaping ((_ user:User?, _ error: NSError?)->())) {
-        //completion(User.mockUser(), nil)
-        //return
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if appDelegate.isMockUser  {
+            completion(User.mockUser(), nil)
+            return
+        }
         
-        //user mockUser for now
-        //let userId : String = "005m0000002p9CWAAY"
         let username = SFUserAccountManager.sharedInstance().currentUser!.userName
-        //"005m0000002p9CWAAY" //"003m000000uu4XZAAY" //"005i0000002XxdhAAC"
         
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec("SELECT {User:Id}, {User:Name}, {User:Username}, {User:Manager.Name}, {User:Manager.Manager.Name} FROM {User} Where {User:Username} = '\(username)'", withPageSize: 1)
+        let fields = User.UserFields.map{"{User:\($0)}"}
+        
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:Username} = '\(username)'"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
         var error : NSError?
-        let result = self.sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
         
         if (error == nil && result.count > 0) {
             let ary:[Any] = result[0] as! [Any]
@@ -255,47 +301,60 @@ class StoreDispatcher {
     
     //Accounts
     func fetchAccountsForLoggedUser() -> [Account] {
-        let account1 = Account.mockAccount1()
-        let account2 = Account.mockAccount2()
-        
-        //add more if needed
-        
-        var ary = [Account]()
-        ary.append(account1)
-        ary.append(account2)
-        
-        return ary
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if appDelegate.isMockUser {
+            let account1 = Account.mockAccount1()
+            let account2 = Account.mockAccount2()
+            //add more if needed
+            
+            var ary = [Account]()
+            ary.append(account1)
+            ary.append(account2)
+            
+            return ary
+        }
+        else {
+            let userViewModel = UserViewModel()
+            let userid: String = (userViewModel.loggedInUser?.userid)!
+            
+            return fetchAccounts(forUser: userid)
+        }
     }
     
-    
-    
-    func fetchAccounts(forConsultant cid: String) -> [Account]  {
+    func fetchAccounts(forUser userid: String) -> [Account] {
         var accountAry: [Account] = []
-        let querySpec = SFQuerySpec.newSmartQuerySpec("SELECT {Account:Id}, {Account:AccountNumber}, {Account:Name} FROM {Account}", withPageSize: 10) //{Account:ConsultantId} = 'cid'",  withPageSize: 100000)
+
+        let fields = Account.AccountFields.map{"{AccountTeamMember:\($0)}"}
+        
+        //let soqlQuery = "Select \(fields.joined(separator: ",")) from {AccountTeamMember} " //where {AccountTeamMember:Account.RecordType.DeveloperName} = 'Customer'"
+        
+        let soqlQuery = "Select {AccountTeamMember:Id}, {AccountTeamMember:Account.Name} from {AccountTeamMember} "
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
         
-        
-        let cnt = result.count
-        
-        if cnt < 1 {
-            return accountAry
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let account = Account(withAry: ary)
+                accountAry.append(account)
+            }
         }
-        
-        for i in 0...cnt-1 {
-            let acc = Account(withAry:result[i] as! [Any])
-            accountAry.append(acc)
+        else if error != nil {
+            print("fectchAccounts for userid " + userid + " error:" + (error?.localizedDescription)!)
         }
         
         return accountAry
     }
     
+    
     //Contacts
     func fetchContactsWithBuyingPower(forUser uid: String) -> [Contact] {
         let contact1 = Contact.mockBuyingPowerContact1()
-        let contact2 = Contact.mockBuyingPowerContact2()
-        let contact3 = Contact.mockBuyingPowerContact3()
+        let contact2 = Contact.mockBuyingPowerContact1()
+        let contact3 = Contact.mockBuyingPowerContact1()
         
         //add more if needed
         
@@ -321,11 +380,31 @@ class StoreDispatcher {
         return ary
     }
     
-    
-    func fetchContacts(forAccount aid: String) -> [Contact]  {
-        //to do
+    func fetchGlobalContacts() -> [Contact]  {
+        let userid:String = (userVieModel.loggedInUser?.userid)!
+        let siteid:String = "89658" //(userVieModel.loggedInUser?.userSite)!
+        
         var contactAry: [Contact] = []
         
+        let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
+        
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} " //where {Contact:SGWS_Account_Site_Number__c} = '\(siteid)' and {Contact:RecordType.DeveloperName} = 'Customer' and {Contact:AccountId} IN(Select {Contact:AccountId} from {Contact:AccountTeamMember where UserId = '\(userid)' "
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let contact = Contact(withAry: ary)
+                contactAry.append(contact)
+            }
+        }
+        else if error != nil {
+            print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
+        }
         return contactAry
     }
     

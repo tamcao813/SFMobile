@@ -82,13 +82,18 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
         let cell:AccountRowCell = tableView.dequeueReusableCell(withIdentifier: "accountRowCellID", for: indexPath) as! AccountRowCell
         cell.selectionStyle = .none
-        cell.storeNameLabel.text = account.name
+        cell.storeNameLabel.text = account.accountName
         cell.accountNumberLabel.text = account.accountNumber
-        cell.addressLabel.text = account.address
+        cell.addressLabel.text = account.shippingAddress
         cell.actionItemsLabel.text = String(account.actionItem)
-        cell.netSalesAmountLabel.text = account.totalR12NetSales
-        cell.pastDueAmountTextLabel.text = account.balance
-        cell.nextDeliveryDateLabel.text = account.nextDelivery
+        cell.netSalesAmountLabel.text = "\(account.totalCYR12NetSales)"
+        cell.pastDueAmountTextLabel.text = "\(account.totalARBalance)"
+        
+        //TODO: write a common dateformatter in Utilities
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        cell.nextDeliveryDateLabel.text = dateFormatter.string(from: account.nextDeliveryDate)
         
         return cell
         

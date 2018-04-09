@@ -18,4 +18,7 @@ class ContactsViewModel{
         return StoreDispatcher.shared.fetchContactsForSG(forUser: uid)
     }
     
+    func globalContacts() -> [Contact] {
+        return StoreDispatcher.shared.fetchGlobalContacts()
+    }
 }

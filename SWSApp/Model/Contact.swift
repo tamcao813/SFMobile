@@ -9,23 +9,59 @@
 import Foundation
 
 class Contact {
-    var sfid: String
+    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate", "AccountId", "Account.SWS_Account_Site__c", "SGWS_Account_Site_Number__c"]
+    
+    var contactId: String
     var name: String
+    var firstName: String
+    var lastName: String
+    //var preferredName: String
     var phoneuNmber: String
     var email: String
+    var birthDate: Date
+    var accountId: String
+    var accountSite: String
+    var sccountSiteNumber: String
     var functionRole: String
     
-    init() {
-        sfid = ""
+    convenience init(withAry ary: [Any]) {
+        let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
+        self.init(json: resultDict)
+    }
+    
+    init(json: [String: Any]) {
+        contactId = json["Id"] as! String
+        name = json["Name"] as? String ?? ""
+        firstName = json["FirstName"] as? String ?? ""
+        lastName = json["LastName"] as? String ?? ""
+        //preferredName = json["PreferredName"] as! String
+        phoneuNmber = json["Phone"] as? String ?? ""
+        email = json["Email"] as? String ?? ""
+        birthDate = json["Birthdate"] as? Date ?? Date() //need to check if ok to have a default or make it a string
+        accountId = json["AccountId"] as? String ?? ""
+        accountSite = json["Account.SWS_Account_Site__c"] as? String ?? ""
+        sccountSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
+        functionRole = "" //json["FunctionRole"] as! String
+    }
+    
+    init(for: String) {
+        contactId = ""
         name = ""
+        firstName = ""
+        lastName = ""
+        //preferredName = ""
         phoneuNmber = ""
         email = ""
+        birthDate = Date()
+        accountId = ""
+        accountSite = ""
+        sccountSiteNumber = ""
         functionRole = ""
     }
     
     static func mockBuyingPowerContact1() -> Contact {
-        let contact = Contact()
-        contact.sfid =  "111AAW"
+        let contact = Contact(for: "mockup")
+        contact.contactId =  "111AAW"
         contact.name = "Daniel Brown"
         contact.phoneuNmber = "(676) 738-76277"
         contact.email = "daniel@eec.com"
@@ -35,9 +71,8 @@ class Contact {
     }
     
     static func mockBuyingPowerContact2() -> Contact{
-        
-        let contact = Contact()
-        contact.sfid = "111ASD"
+        let contact = Contact(for: "mockup")
+        contact.contactId = "111ASD"
         contact.name = "Justin Timber"
         contact.phoneuNmber = "(765) 764-5634"
         contact.email = "justin@bhd.com"
@@ -45,10 +80,10 @@ class Contact {
         return contact
         
     }
+    
     static func mockBuyingPowerContact3() -> Contact{
-        
-        let contact = Contact()
-        contact.sfid = "212ASD"
+        let contact = Contact(for: "mockup")
+        contact.contactId = "212ASD"
         contact.name = "Amber Heard"
         contact.phoneuNmber = "(734) 732 8734"
         contact.email = "Amber@bhd.com"
@@ -58,8 +93,8 @@ class Contact {
     }
     
     static func mockContactSG1() -> Contact {
-        let contact = Contact()
-        contact.sfid =  "xxxAAW"
+        let contact = Contact(for: "mockup")
+        contact.contactId =  "xxxAAW"
         contact.name = "Devin Miller"
         contact.phoneuNmber = "(123) 643-2465"
         contact.email = "Devin@abc.com"
@@ -69,8 +104,8 @@ class Contact {
     }
     
     static func mockContactSG2() -> Contact {
-        let contact = Contact()
-        contact.sfid =  "xxx001"
+        let contact = Contact(for: "mockup")
+        contact.contactId =  "xxx001"
         contact.name = "Keaton Mckinneyr"
         contact.phoneuNmber = "(123) 245-6677"
         contact.email = "Keaton@ffc.com"
@@ -80,8 +115,8 @@ class Contact {
     }
     
     static func mockContactSG3() -> Contact {
-        let contact = Contact()
-        contact.sfid =  "AGH007"
+        let contact = Contact(for: "mockup")
+        contact.contactId =  "AGH007"
         contact.name = "James Bond"
         contact.phoneuNmber = "(145) 276-7543"
         contact.email = "James@ffc.com"
@@ -90,8 +125,8 @@ class Contact {
         return contact
     }
     static func mockContactSG4() -> Contact {
-        let contact = Contact()
-        contact.sfid =  "xBHJD"
+        let contact = Contact(for: "mockup")
+        contact.contactId =  "xBHJD"
         contact.name = "Rosh Jacob"
         contact.phoneuNmber = "(423) 643-2465"
         contact.email = "Rosh@abc.com"

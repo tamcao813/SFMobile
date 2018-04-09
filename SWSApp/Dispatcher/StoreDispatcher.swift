@@ -257,6 +257,7 @@ class StoreDispatcher {
     func fetchAccountsForLoggedUser() -> [Account] {
         let account1 = Account.mockAccount1()
         let account2 = Account.mockAccount2()
+        
         //add more if needed
         
         var ary = [Account]()

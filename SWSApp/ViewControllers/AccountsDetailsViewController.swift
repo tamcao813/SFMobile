@@ -33,6 +33,7 @@ class AccountDetailsViewController : UIViewController{
     @IBOutlet weak var btnStrategy : UIButton?
     @IBOutlet weak var btnActionItems : UIButton?
     @IBOutlet weak var btnCommunication : UIButton?
+    @IBOutlet weak var imgStatus : UIImageView?
     
     
     override func viewDidLoad() {
@@ -42,6 +43,12 @@ class AccountDetailsViewController : UIViewController{
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         
         containerView?.isHidden = true
+        
+        
+        centerLabel?.text = "A"
+        btnPercentage?.setTitle("91%", for: .normal)
+        lblPhoneNumber?.text = "(123)456-6789"
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,8 +71,8 @@ class AccountDetailsViewController : UIViewController{
             }
         }
         lblActionItem?.text = String(describing: accountsForLoggedInUser!.actionItem)
-        
-        
+        lblPastDue?.text = accountsForLoggedInUser!.balance
+        lblMTDSales?.text = accountsForLoggedInUser!.totalR12NetSales
         
         print(accountsForLoggedInUser!)
     }

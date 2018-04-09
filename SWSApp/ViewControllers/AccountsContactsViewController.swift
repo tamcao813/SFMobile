@@ -69,7 +69,6 @@ class AccountsContactsViewController: UITableViewController {
         cell.phoneNumberLabel.text = contact.phoneuNmber
         cell.function_RoleLabel.text = contact.functionRole
         cell.initialsLabel.text = contact.getIntials(name: contact.name)
-       
         return cell
     }
     
@@ -152,7 +151,7 @@ class AccountsContactsViewController: UITableViewController {
             viewAllAccountContactsButton.backgroundColor = UIColor(named: "LightGrey")
             viewAllAccountContactsButton.setTitleColor(UIColor.black, for: .normal)
             viewAllAccountContactsButton.titleLabel?.font = UIFont.init(name: "Ubuntu-Medium", size: 12)
-           
+            
             
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 90, width: 400, height: 50))
             sectionLabel.text = "Southern Glazer's Contacts"

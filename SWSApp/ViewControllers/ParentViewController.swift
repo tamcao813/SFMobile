@@ -122,6 +122,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         wifiIconButton = UIBarButtonItem(image: UIImage(named: "Online"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         wifiIconButton?.isEnabled = false
         //let numberButton = UIBarButtonItem(image: UIImage(named: "blueCircle-Small"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        
         let userInitialLabel:UILabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
         userInitialLabel.font  = UIFont.boldSystemFont(ofSize: 13)
         userInitialLabel.text = "DB"
@@ -151,10 +152,26 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         // left buttons
         
-        let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
-        logoButton.isEnabled = false
+        // Logo Button with Label....
+        
+        
+        
+        let logoLabel:UIImageView = UIImageView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))
+        logoLabel.image = UIImage(named: "logo")
+        logoLabel.layer.cornerRadius = 10/2
+        logoLabel.clipsToBounds = true
+        let logoBarButton = UIBarButtonItem.init(customView: logoLabel)
+        
+        
+        
+        
+        
+        
+//        let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+//        logoButton.isEnabled = false
+//
 
-        self.navigationItem.leftBarButtonItem = logoButton
+        self.navigationItem.leftBarButtonItem = logoBarButton
         
         
         // get the menu items from localized strings

@@ -108,9 +108,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         return 80.0;
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
-        return 0;
-    }
+    
+   
     
     
     

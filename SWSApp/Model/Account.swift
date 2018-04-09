@@ -56,10 +56,10 @@ class Account {
         acc.sfid =  "001m000000cHLmDAAW"
         acc.accountNumber = "148"
         acc.name = "Crown Liquor Store"
-        acc.address = "1234 W. Broadway Blvd, New York NY12000"
-        acc.balance = "$"+"90.98"
-        acc.actionItem = 2
-        acc.totalR12NetSales = "$"+"2,000.00"
+        acc.address = "1234 W. Broadway Blvd, Canada NY12000"
+        acc.balance = "$"+"91.98"
+        acc.actionItem = 1
+        acc.totalR12NetSales = "$"+"1,000.00"
         acc.nextDelivery = "02-10-2018"
         
         return acc
@@ -69,13 +69,14 @@ class Account {
         acc.sfid =  "001m000000cHLmDAAZ"
         acc.accountNumber = "188"
         acc.name = "Big Liquor Store"
-        acc.address = "1234 W. Broadway Blvd, New York NY12000"
-        acc.balance = "$"+"80.98"
-        acc.actionItem = 5
-        acc.totalR12NetSales = "$"+"4,000.00"
+        acc.address = "2345 W. Broadway Blvd, Mexico NY12000"
+        acc.balance = "$"+"82.98"
+        acc.actionItem = 2
+        acc.totalR12NetSales = "$"+"2,000.00"
         acc.nextDelivery = "05-10-2018"
         
         return acc
     }
+    
 }
 

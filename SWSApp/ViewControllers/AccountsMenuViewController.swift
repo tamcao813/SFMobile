@@ -17,7 +17,7 @@ protocol SearchByEnteredTextDelegate: class
 
 
 class AccountsMenuViewController: UIViewController {
-
+    
     let kHeaderSectionTag: Int = 6900;
     var expandedSectionHeaderNumber: Int = -1
     var expandedSectionHeader: UITableViewHeaderFooterView!
@@ -205,92 +205,92 @@ class AccountsMenuViewController: UIViewController {
     func tableViewCellClickedSingleSelection(indexPath : IndexPath){
         
         switch indexPath.section {
+        case 0:
+            
+            switch indexPath.row {
             case 0:
-            
-                switch indexPath.row {
-                    case 0:
-                        FilterMenuModel.pastDueYes = "YES"
-                        FilterMenuModel.pastDueNo = "NO"
-                    case 1:
-                        FilterMenuModel.pastDueNo = "YES"
-                        FilterMenuModel.pastDueYes = "NO"
-                    default:
-                        break
-                }
-            case 2:
-            
-                switch indexPath.row {
-                    case 0:
-                        FilterMenuModel.statusIsActive = "YES"
-                        FilterMenuModel.statusIsInActive = "NO"
-                        FilterMenuModel.statusIsSuspended = "NO"
-                    case 1:
-                        FilterMenuModel.statusIsActive = "NO"
-                        FilterMenuModel.statusIsInActive = "YES"
-                        FilterMenuModel.statusIsSuspended = "NO"
-                    case 2:
-                        FilterMenuModel.statusIsActive = "NO"
-                        FilterMenuModel.statusIsInActive = "NO"
-                        FilterMenuModel.statusIsSuspended = "YES"
-                    default:
-                        break
-                }
-            case 3:
-            
-                switch indexPath.row {
-                    case 0:
-                        FilterMenuModel.premiseOn = "YES"
-                        FilterMenuModel.premiseOff = "NO"
-                    case 1:
-                        FilterMenuModel.premiseOn = "NO"
-                        FilterMenuModel.premiseOff = "YES"
-                    default:
-                        break
-                }
-            case 4:
-            
-                switch indexPath.row {
-                    case 0:
-                        FilterMenuModel.singleSelected = "YES"
-                        FilterMenuModel.multiSelected = "NO"
-                    case 1:
-                        FilterMenuModel.singleSelected = "NO"
-                        FilterMenuModel.multiSelected = "YES"
-                    default:
-                        break
-                }
-            case 7:
-            
-                switch indexPath.row {
-                    case 0:
-                        FilterMenuModel.licenseW = "YES"
-                        FilterMenuModel.licenseL = "NO"
-                        FilterMenuModel.licenseB = "NO"
-                        FilterMenuModel.licenseN = "NO"
-                    case 1:
-                        FilterMenuModel.licenseW = "NO"
-                        FilterMenuModel.licenseL = "YES"
-                        FilterMenuModel.licenseB = "NO"
-                        FilterMenuModel.licenseN = "NO"
-                    case 2:
-                        FilterMenuModel.licenseW = "NO"
-                        FilterMenuModel.licenseL = "NO"
-                        FilterMenuModel.licenseB = "YES"
-                        FilterMenuModel.licenseN = "NO"
-                    case 3:
-                        FilterMenuModel.licenseW = "NO"
-                        FilterMenuModel.licenseL = "NO"
-                        FilterMenuModel.licenseB = "NO"
-                        FilterMenuModel.licenseN = "YES"
-                    default:
-                        break
-                }
+                FilterMenuModel.pastDueYes = "YES"
+                FilterMenuModel.pastDueNo = "NO"
+            case 1:
+                FilterMenuModel.pastDueNo = "YES"
+                FilterMenuModel.pastDueYes = "NO"
             default:
                 break
             }
+        case 2:
+            
+            switch indexPath.row {
+            case 0:
+                FilterMenuModel.statusIsActive = "YES"
+                FilterMenuModel.statusIsInActive = "NO"
+                FilterMenuModel.statusIsSuspended = "NO"
+            case 1:
+                FilterMenuModel.statusIsActive = "NO"
+                FilterMenuModel.statusIsInActive = "YES"
+                FilterMenuModel.statusIsSuspended = "NO"
+            case 2:
+                FilterMenuModel.statusIsActive = "NO"
+                FilterMenuModel.statusIsInActive = "NO"
+                FilterMenuModel.statusIsSuspended = "YES"
+            default:
+                break
+            }
+        case 3:
+            
+            switch indexPath.row {
+            case 0:
+                FilterMenuModel.premiseOn = "YES"
+                FilterMenuModel.premiseOff = "NO"
+            case 1:
+                FilterMenuModel.premiseOn = "NO"
+                FilterMenuModel.premiseOff = "YES"
+            default:
+                break
+            }
+        case 4:
+            
+            switch indexPath.row {
+            case 0:
+                FilterMenuModel.singleSelected = "YES"
+                FilterMenuModel.multiSelected = "NO"
+            case 1:
+                FilterMenuModel.singleSelected = "NO"
+                FilterMenuModel.multiSelected = "YES"
+            default:
+                break
+            }
+        case 7:
+            
+            switch indexPath.row {
+            case 0:
+                FilterMenuModel.licenseW = "YES"
+                FilterMenuModel.licenseL = "NO"
+                FilterMenuModel.licenseB = "NO"
+                FilterMenuModel.licenseN = "NO"
+            case 1:
+                FilterMenuModel.licenseW = "NO"
+                FilterMenuModel.licenseL = "YES"
+                FilterMenuModel.licenseB = "NO"
+                FilterMenuModel.licenseN = "NO"
+            case 2:
+                FilterMenuModel.licenseW = "NO"
+                FilterMenuModel.licenseL = "NO"
+                FilterMenuModel.licenseB = "YES"
+                FilterMenuModel.licenseN = "NO"
+            case 3:
+                FilterMenuModel.licenseW = "NO"
+                FilterMenuModel.licenseL = "NO"
+                FilterMenuModel.licenseB = "NO"
+                FilterMenuModel.licenseN = "YES"
+            default:
+                break
+            }
+        default:
+            break
+        }
         
-            tableView.reloadData()
-
+        tableView.reloadData()
+        
     }
     
     //Data to pass for Respective Cell Class
@@ -303,12 +303,19 @@ class AccountsMenuViewController: UIViewController {
     
     //Filters the account list according to filter selection
     @IBAction func submitButton(_ sender: Any) {
-        self.clearFilterModelData()
+        //self.clearFilterModelData()
+        if(searchBar.text!.count > 0)
+        {
+            self.searchByEnteredTextDelegate?.filtering(filtering: true)
+            self.searchByEnteredTextDelegate?.sortAccountsData(searchString: searchBar.text!)
+        }
+        
     }
     
     //Clears all the filter selection
     @IBAction func clearButton(_ sender: Any) {
         self.clearFilterModelData()
+        self.searchByEnteredTextDelegate?.filtering(filtering: false)
     }
 }
 
@@ -360,9 +367,9 @@ extension AccountsMenuViewController : UITableViewDataSource{
         //view.layer.borderWidth = 1
         //view.layer.cornerRadius = 5
         //view.layer.borderColor = UIColor.init(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0).cgColor
-                
+        
         let theImageView = UIImageView(frame: CGRect(x: headerFrame.width - 75, y: 13, width: 15, height: 18));
-
+        
         if self.selectedSection == section{
             theImageView.image = UIImage(named: "dropUp")
             print("UP")
@@ -425,7 +432,7 @@ extension AccountsMenuViewController : UITableViewDataSource{
             }
             
         }else{
-        
+            
             //Used to display location view (If Required in future)
             if(indexPath.section == 8){
                 
@@ -440,13 +447,13 @@ extension AccountsMenuViewController : UITableViewDataSource{
 
 //MARK:- TableView Delegate Methods
 extension AccountsMenuViewController : UITableViewDelegate{
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
-
+        
         self.tableViewCellClickedSingleSelection(indexPath: indexPath)
-
+        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -462,7 +469,7 @@ extension AccountsMenuViewController : UISearchBarDelegate{
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-
+        
     }
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
@@ -479,16 +486,16 @@ extension AccountsMenuViewController : UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
-        if searchText.count == 0
+        /*if searchText.count == 0
         {
             self.searchByEnteredTextDelegate?.filtering(filtering: false)
-            searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
+            //searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
         }
         else
         {
             self.searchByEnteredTextDelegate?.filtering(filtering: true)
             self.searchByEnteredTextDelegate?.sortAccountsData(searchString: searchText)
-        }
+        }*/
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

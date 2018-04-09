@@ -30,7 +30,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         accountsForLoggedUser = accountViewModel.accountsForLoggedUser
         print(accountsForLoggedUser.count)
-    
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

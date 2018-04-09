@@ -12,7 +12,6 @@ import Reachability
 
 struct SelectedMoreButton {
     static var selectedItem : Int = -1
-    static var isNotificationClicked = "NO"
 }
 
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
@@ -31,6 +30,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // current view controller
     var currentViewController: UIViewController?
     var notificationsViewController:UIViewController?
+    
+    var notificationsView:UIView?
+    
     // keep the views loaded
     //home VC
     lazy var homeVC: UIViewController? = {
@@ -217,11 +219,19 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         moreDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4, dropDownItem5, dropDownItem6, dropDownItem7, dropDownItem8, dropDownItem9]
         self.moreDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
         self.moreDropDown.textColor =  UIColor.gray
-
+        
         moreDropDown.selectionAction = { (index: Int, item: String) in
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
             let currentViewController = self.displayCurrentTab(selectedIndex)
+            
+            for view in self.view.subviews{
+                
+                // Set the identifier for globalNotification view
+                if(view.restorationIdentifier == "globalNotification"){
+                    view.removeFromSuperview()
+                }
+            }
             currentViewController?.view.addSubview(moreVC1.view)
             
             SelectedMoreButton.selectedItem = index
@@ -306,33 +316,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // get the respective view controller as per the selected index of menu from menubar
     private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
         
-        if SelectedMoreButton.isNotificationClicked == "YES"{
-            SelectedMoreButton.isNotificationClicked = "NO"
-            if((self.moreVC) != nil) {
-                if((notificationsViewController?.view) != nil){
-                    notificationsViewController?.view.removeFromSuperview()
-                }
-            }
-        }
-        else{
-            //If notification view controller is already loaded, remove it from superview when any menu is clicked
-            if((self.moreVC) != nil) {
-                if((notificationsViewController?.view) != nil){
-                    notificationsViewController?.view.removeFromSuperview()
-                }
-                if let mVC = self.moreVC {
-                    mVC.view.removeFromSuperview()
-                }
-            }
-        }
-        
-
-        
-        
-        
         self.notificationButton?.isEnabled = true
         self.numberLabel?.isUserInteractionEnabled = true
         
+        var ifMoreVC = false
         let selectedVC:GlobalConstants.persistenMenuTabVCIndex = GlobalConstants.persistenMenuTabVCIndex(rawValue: index)!
         
         if(GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex != selectedVC) {
@@ -362,19 +349,37 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             //       case .MoreVCIndex:
         //            vc = moreVC
         default:
+            ifMoreVC = true
             break
         }
         
+        if(!ifMoreVC){
+            if let mVC = self.moreVC {
+                mVC.view.removeFromSuperview()
+            }
+            
+        }
+        
+        
+        if(!ifMoreVC){
+            for view in self.view.subviews{
+                
+                if(view.restorationIdentifier == "globalNotification"){
+                    view.removeFromSuperview()
+                }
+            }
+        }
         return vc
     }
     
     @objc func notificationButtonPressed(sender: UIBarButtonItem){
         
-        SelectedMoreButton.isNotificationClicked = "YES"
         self.moreDropDownSelectionIndex = -1
         let moreStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
         notificationsViewController = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
         if let notifVC = notificationsViewController{
+            self.notificationsView = notifVC.view
+            notifVC.view.restorationIdentifier = "globalNotification"
             self.view.addSubview(notifVC.view)
             self.notificationButton?.isEnabled = false
             self.numberLabel?.isUserInteractionEnabled = false

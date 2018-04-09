@@ -153,6 +153,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         logoButton.isEnabled = false
         self.navigationItem.leftBarButtonItem = logoButton
         
+        
         // get the menu items from localized strings
         let menuItem1 = NSLocalizedString("Home", comment: "Home")
         let menuItem2 = NSLocalizedString("Accounts", comment: "Accounts")

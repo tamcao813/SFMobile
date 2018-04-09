@@ -80,7 +80,7 @@ class AccountsContactsViewController: UITableViewController {
             return "Crown Liquor Store"
         }
         else if section == 2{
-            return "Souther Glazers Contact "
+            return "Southern Glazer's Contact "
         }
         return nil
     }
@@ -187,7 +187,7 @@ class AccountsContactsViewController: UITableViewController {
         else if section == 2
         {
             tableViewHeaderFooterView.contentView.backgroundColor = UIColor.white
-            tableViewHeaderFooterView.textLabel?.text = "Souther Glazers Contacts "
+            tableViewHeaderFooterView.textLabel?.text = "Southern Glazer's Contacts "
             tableViewHeaderFooterView.textLabel?.textColor = UIColor.black
             tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:25)
             tableViewHeaderFooterView.textLabel?.frame = tableViewHeaderFooterView.frame

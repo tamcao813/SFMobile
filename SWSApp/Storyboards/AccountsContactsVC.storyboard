@@ -135,8 +135,8 @@
                                         <constraint firstItem="N2F-1k-MOI" firstAttribute="leading" secondItem="PJl-j0-2Xw" secondAttribute="leading" constant="40" id="L2o-gG-yr1"/>
                                         <constraint firstAttribute="bottom" secondItem="wwv-jT-AFK" secondAttribute="bottom" id="Nah-7z-b7Z"/>
                                         <constraint firstAttribute="trailing" secondItem="l31-zv-Kji" secondAttribute="trailing" constant="11" id="QNh-6h-wPT"/>
-                                        <constraint firstItem="l31-zv-Kji" firstAttribute="top" secondItem="PJl-j0-2Xw" secondAttribute="top" constant="0.5" id="WLn-Vv-5xV"/>
-                                        <constraint firstAttribute="bottom" secondItem="l31-zv-Kji" secondAttribute="bottom" constant="0.5" id="WPU-Bw-kwS"/>
+                                        <constraint firstItem="l31-zv-Kji" firstAttribute="top" secondItem="PJl-j0-2Xw" secondAttribute="top" constant="1" id="WLn-Vv-5xV"/>
+                                        <constraint firstAttribute="bottom" secondItem="l31-zv-Kji" secondAttribute="bottom" constant="1" id="WPU-Bw-kwS"/>
                                         <constraint firstAttribute="trailing" secondItem="N2F-1k-MOI" secondAttribute="trailing" constant="20" id="XxG-3B-utD"/>
                                         <constraint firstAttribute="bottom" secondItem="N2F-1k-MOI" secondAttribute="bottom" id="eoD-CU-0oF"/>
                                         <constraint firstItem="l31-zv-Kji" firstAttribute="leading" secondItem="PJl-j0-2Xw" secondAttribute="leading" constant="11" id="oX7-Bk-C9C"/>
@@ -176,8 +176,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66666" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ptr-jq-QfV">
-                                                                    <rect key="frame" x="0.0" y="14.5" width="48.5" height="19.5"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="17"/>
+                                                                    <rect key="frame" x="0.0" y="14.5" width="48" height="19.5"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -196,8 +196,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B1 -202 California" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSO-Fm-Y2i">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="127" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="121" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -216,8 +216,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66666" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zge-TJ-g0X">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="43" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="42.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -236,8 +236,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66666" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zf-cG-Mt6">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="43" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="42.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -272,8 +272,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B1 -202 California" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGb-u0-jDG">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="127" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="121" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -292,8 +292,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbU-6F-RmZ">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="36.5" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="35" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -312,8 +312,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66666" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6N5-hM-fsO">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="43" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="42.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -332,8 +332,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66666" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thn-6Y-Jpa">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="43" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="42.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -376,8 +376,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$6784.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQg-gE-c9y">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="55" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="54.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -396,8 +396,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$456.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPV-7J-7AD">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="46.5" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="46" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -416,8 +416,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$456.6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BWa-Ye-H7Y">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="46.5" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="46" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -436,8 +436,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$986.3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gGI-NV-dd9">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="46.5" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="46" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -481,8 +481,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66666" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGg-KW-5vs">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="43" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="42.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -498,8 +498,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="2-15-2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCS-gA-mMm">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="70" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="15.5" width="68.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>

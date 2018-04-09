@@ -169,7 +169,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         //topMenuBar = XMSegmentedControl(frame: frame, segmentContent: (menuTitles, menuIcons), selectedItemHighlightStyle: XMSelectedItemHighlightStyle.bottomEdge)
         topMenuBar = XMSegmentedControl(frame: frame, segmentTitle: menuTitles, selectedItemHighlightStyle: XMSelectedItemHighlightStyle.bottomEdge) // 6 April
-        
+        topMenuBar?.font = UIFont(name: "Ubuntu-Medium", size: 17)! // 9 april shubham
         topMenuBar?.delegate = self
         topMenuBar?.backgroundColor = UIColor.clear
         topMenuBar?.highlightColor = UIColor.black

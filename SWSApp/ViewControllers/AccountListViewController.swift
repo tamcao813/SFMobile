@@ -26,6 +26,9 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     var isFiltering = false
     // filtered list
     var accountsForLoggedUserFiltered = [Account]()
+    // sort related
+    var isSorting = false
+    var sortedAccountsList = [Account]()
     
     override func viewDidLoad() {
         accountsForLoggedUser = accountViewModel.accountsForLoggedUser
@@ -34,11 +37,18 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(isFiltering)
+        if(isSorting)
         {
-            return accountsForLoggedUserFiltered.count
+            return sortedAccountsList.count
         }
-        return accountsForLoggedUser.count
+        else
+        {
+            if(isFiltering)
+            {
+                return accountsForLoggedUserFiltered.count
+            }
+            return accountsForLoggedUser.count
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -50,11 +60,21 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     {
         // get the account details from accountsForLoggedUser
         var account:Account = accountsForLoggedUser[indexPath.row]
-        if(isFiltering)
+        if(isSorting)
         {
-            account = accountsForLoggedUserFiltered[indexPath.row]
+            account = sortedAccountsList[indexPath.row]
         }
-        
+        else
+        {
+            if(isFiltering)
+            {
+                account = accountsForLoggedUserFiltered[indexPath.row]
+            }
+            else
+            {
+                account = accountsForLoggedUser[indexPath.row]
+            }
+        }
         
         let cell:AccountRowCell = tableView.dequeueReusableCell(withIdentifier: "accountRowCellID", for: indexPath) as! AccountRowCell
         cell.selectionStyle = .none
@@ -72,28 +92,24 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         var account:Account = accountsForLoggedUser[indexPath.row]
-        if(isFiltering)
+        if(isSorting)
         {
-            account = accountsForLoggedUserFiltered[indexPath.row]
+            account = sortedAccountsList[indexPath.row]
+        }
+        else
+        {
+            if(isFiltering)
+            {
+                account = accountsForLoggedUserFiltered[indexPath.row]
+            }
+            else
+            {
+                account = accountsForLoggedUser[indexPath.row]
+            }
         }
         delegate?.pushTheScreenToDetailsScreen(accountData: account)
         FilterMenuModel.comingFromDetailsScreen = "YES"
-        
-        //let accountDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as! AccountDetailsViewController
-        
-        //let accountsView = self.storyboard?.instantiateViewController(withIdentifier: "AccountsViewControllerID") as! AccountsViewController
-        //accountsView.view.addSubview(accountDetailsVC.view)
-        
-        
-        
-        //accountDetailsVC.accountsForLoggedInUser = accountsForLoggedUser[indexPath.row]
-        //self.view.addSubview(accountDetailsVC.view)//present(accountDetailsVC, animated: false, completion: nil)
-        
-        //selectedAccount = accountsForLoggedUser[indexPath.row]
-        //self.performSegue(withIdentifier: "detailsScreenSegue", sender: nil)
-        
     }
     
     
@@ -143,6 +159,18 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func sortAccountListByAccountName(_ sender: Any)
     {
         print("sortAccountListByAccountName")
+        isSorting = true
+        if(isFiltering == true)
+        {
+            sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserFiltered)
+        }
+        else
+        {
+            sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
+        }
+        
+        self.accountListTableView.reloadData()
+        
     }
     
     @IBAction func sortAccountListByActionItems(_ sender: Any)
@@ -169,16 +197,18 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     func sortAccountsData(searchString: String)
     {
         print("AccountsListViewController sortAccountsData: " + searchString)
-        accountsForLoggedUserFiltered = [Account]()
-        
-        for account in accountViewModel.accountsForLoggedUser
+        if(isSorting)
         {
-            if account.name.contains(searchString)
+            //account = sortedAccountsList[indexPath.row]
+            sortedAccountsList = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: sortedAccountsList, searchText: searchString)
+        }
+        else
+        {
+            if(isFiltering)
             {
-                accountsForLoggedUserFiltered.append(account)
+                accountsForLoggedUserFiltered = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: sortedAccountsList, searchText: searchString)
             }
         }
-        
         self.accountListTableView.reloadData()
         
     }
@@ -188,6 +218,11 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isFiltering = filtering
         if(isFiltering == false)
         {
+            if(isSorting)
+            {
+                //account = sortedAccountsList[indexPath.row]
+                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
+            }
             self.accountListTableView.reloadData()
         }
     }

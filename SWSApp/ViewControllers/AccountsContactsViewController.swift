@@ -61,6 +61,7 @@ class AccountsContactsViewController: UITableViewController {
         }
         else if indexPath.section == 2 {
             ary = contactsForSG
+            cell.nameLabel.textColor = UIColor.black
             
         }
         let contact = ary[indexPath.row]
@@ -112,7 +113,8 @@ class AccountsContactsViewController: UITableViewController {
         else if section == 1{
             return 0.1
         }else if section == 2{
-            return 0.1
+            return 60
+            
         }
         return 0.1
     }

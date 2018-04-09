@@ -153,6 +153,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         logoButton.isEnabled = false
+
         self.navigationItem.leftBarButtonItem = logoButton
         
         

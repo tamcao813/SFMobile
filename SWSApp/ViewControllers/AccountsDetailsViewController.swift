@@ -46,6 +46,9 @@ class AccountDetailsViewController : UIViewController{
         
         
         centerLabel?.text = "A"
+        
+        
+        
         btnPercentage?.setTitle("91%", for: .normal)
         lblPhoneNumber?.text = "(123)456-6789"
         

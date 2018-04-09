@@ -316,11 +316,15 @@
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
+                                                            <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstItem="WbK-Jm-II4" firstAttribute="leading" secondItem="6e3-ig-8uZ" secondAttribute="leading" constant="20" id="Gnv-tE-2LX"/>
                                                                 <constraint firstAttribute="bottom" secondItem="WbK-Jm-II4" secondAttribute="bottom" constant="30" id="JFF-Yd-m9f"/>
                                                                 <constraint firstItem="WbK-Jm-II4" firstAttribute="top" secondItem="6e3-ig-8uZ" secondAttribute="top" constant="29.5" id="lR9-aT-KTd"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="Vec-cM-gIl" appends="YES" id="SIm-Tl-CVH"/>
+                                                            </connections>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PT3-SU-H5w" userLabel="ActionItems">
                                                             <rect key="frame" x="220" y="0.0" width="110" height="90"/>
@@ -674,34 +678,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7mH-TG-zyH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="qKH-KB-lNw">
+                <tapGestureRecognizer id="Vec-cM-gIl">
                     <connections>
-                        <action selector="sortAccountListByAccountName:" destination="TC4-sW-ah2" id="76I-hI-jfc"/>
-                        <outlet property="delegate" destination="TC4-sW-ah2" id="j6u-Ye-7pO"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="dwq-g5-Ccj">
-                    <connections>
-                        <action selector="sortAccountListByActionItems:" destination="TC4-sW-ah2" id="M2U-vQ-SyI"/>
-                        <outlet property="delegate" destination="TC4-sW-ah2" id="JBN-DB-90A"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="ZIS-Hn-1f0">
-                    <connections>
-                        <action selector="sortAccountListByNetSales:" destination="TC4-sW-ah2" id="yzj-x6-1df"/>
-                        <outlet property="delegate" destination="TC4-sW-ah2" id="M9G-xM-Zzv"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="bHM-Eq-kIS">
-                    <connections>
-                        <action selector="sortAccountListByBalance:" destination="TC4-sW-ah2" id="Rs5-jG-EQf"/>
-                        <outlet property="delegate" destination="TC4-sW-ah2" id="RJi-Bq-Cak"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="P7z-qg-2wd">
-                    <connections>
-                        <action selector="sortAccountListByNextDelivery:" destination="TC4-sW-ah2" id="qNm-wg-MYK"/>
-                        <outlet property="delegate" destination="TC4-sW-ah2" id="Kfb-YH-Qke"/>
+                        <action selector="sortAccountListByAccountName:" destination="TC4-sW-ah2" id="YbN-mH-rdq"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1123,9 +1102,6 @@
         <image name="Sort" width="225" height="225"/>
         <namedColor name="Data New">
             <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="LightGrey">
-            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightGrey">
             <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

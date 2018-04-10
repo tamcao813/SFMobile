@@ -24,8 +24,8 @@ class Account {
     var license: String
     var operatingHours: String
     var licenseExpirationDate: Date
-    var totalCYR12NetSales: Double
-    var totalARBalance: Double
+    var totalCYR12NetSales: String
+    var totalARBalance: String
     var creditLimit: Double
     var channelTD: String
     var subChannelTD: String
@@ -66,8 +66,8 @@ class Account {
         license = json["License"] as? String ?? ""
         operatingHours = json["Operating_Hours"] as? String ?? ""
         licenseExpirationDate = json["License_Expiration_Date"] as? Date ?? Date() //need to check if ok to have a default or make it a string
-        totalCYR12NetSales = json["Total_CY_R12_Net_Sales"] as? Double ?? 0.0
-        totalARBalance = json["Total_AR_Balance"] as? Double ?? 0.0
+        totalCYR12NetSales = json["Total_CY_R12_Net_Sales"] as? String ?? ""
+        totalARBalance = json["Total_AR_Balance"] as? String ?? ""
         creditLimit = json["Credit_Limit"] as? Double ?? 0.0
         channelTD = json["TD_Channel"] as? String ?? ""
         subChannelTD = json["TD_Sub_Channel"] as? String ?? ""
@@ -103,8 +103,8 @@ class Account {
         license = ""
         operatingHours = ""
         licenseExpirationDate = Date()
-        totalCYR12NetSales = 0.0
-        totalARBalance = 0.0
+        totalCYR12NetSales = ""
+        totalARBalance = ""
         creditLimit = 0.0
         channelTD = ""
         subChannelTD = ""
@@ -131,14 +131,14 @@ class Account {
         acc.accountId =  "001m000000cHLmDAAW"
         acc.accountNumber = "148"
         acc.accountName = "Crown Liquor Store"
-        acc.shippingAddress = "1234"
+        acc.shippingAddress =  "B1- 202 Argentina"
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York"
         acc.shippingState = "NY"
         acc.shippingPostalCode = "12100"
         acc.shippingCountry = "USA"
-        acc.totalARBalance = 90.98
-        acc.totalCYR12NetSales = 2000.00
+        acc.totalARBalance = "$"+"90.98"
+        acc.totalCYR12NetSales = "$"+"2000.00"
         acc.nextDeliveryDate = Date()
         acc.actionItem = 2
         
@@ -149,14 +149,14 @@ class Account {
         acc.accountId =  "001m000000cHLmDAAZ"
         acc.accountNumber = "188"
         acc.accountName = "Big Liquor Store"
-        acc.shippingAddress = "1234"
+        acc.shippingAddress = "B1- 202 California"
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York"
         acc.shippingState = "NY"
         acc.shippingPostalCode = "12100"
         acc.shippingCountry = "USA"
-        acc.totalARBalance = 80.98
-        acc.totalCYR12NetSales = 4000.00
+        acc.totalARBalance = "$"+"80.98"
+        acc.totalCYR12NetSales = "$"+"4000.00"
         acc.nextDeliveryDate = Date()
         acc.actionItem = 5
         

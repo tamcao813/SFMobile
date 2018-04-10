@@ -48,15 +48,22 @@ class AccountsMenuViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         self.addSearchIconInSearchBar()
+    
+        
         
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        self.clearFilterModelData()
         
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.clearFilterModelData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -94,7 +101,8 @@ class AccountsMenuViewController: UIViewController {
         let image:UIImage = UIImage(named: "searchIcon")!
         let imageView:UIImageView = UIImageView.init(image: image)
         searchTextField.leftView = nil
-        searchTextField.placeholder = "Search Field Text"
+        //Added attributedPlaceholder with ubuntu font
+        searchTextField.attributedPlaceholder = NSAttributedString(string:"Search Field Text", attributes: [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 18)!])
         searchTextField.rightView = imageView
         searchTextField.rightViewMode = UITextFieldViewMode.always
     }
@@ -121,9 +129,17 @@ class AccountsMenuViewController: UIViewController {
         
         FilterMenuModel.city = ""
         
-        searchBar.text = ""
+        if searchBar != nil{
+            
+            searchBar.text = ""
+            
+        }
+       
         
+        if tableView != nil{
         tableView.reloadData()
+        }
+        
     }
     
     //Used to check which section header was clicked
@@ -368,7 +384,7 @@ extension AccountsMenuViewController : UITableViewDataSource{
         //view.layer.cornerRadius = 5
         //view.layer.borderColor = UIColor.init(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0).cgColor
         
-        let theImageView = UIImageView(frame: CGRect(x: headerFrame.width - 75, y: 13, width: 15, height: 18));
+        let theImageView = UIImageView(frame: CGRect(x: headerFrame.width - 75, y: 18, width: 15, height: 18));
         
         if self.selectedSection == section{
             theImageView.image = UIImage(named: "dropUp")

@@ -32,6 +32,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var notificationsViewController:UIViewController?
     
     var notificationsView:UIView?
+    var filterMenuModel = AccountsMenuViewController()
     
     // keep the views loaded
     //home VC
@@ -153,25 +154,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // left buttons
         
         // Logo Button with Label....
+//        let logoLabel:UIImageView = UIImageView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))
+//        logoLabel.image = UIImage(named: "logo")
+//        logoLabel.layer.cornerRadius = 10/2
+//        logoLabel.clipsToBounds = true
+//        let logoBarButton = UIBarButtonItem.init(customView: logoLabel)
         
-        
-        
-        let logoLabel:UIImageView = UIImageView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))
-        logoLabel.image = UIImage(named: "logo")
-        logoLabel.layer.cornerRadius = 10/2
-        logoLabel.clipsToBounds = true
-        let logoBarButton = UIBarButtonItem.init(customView: logoLabel)
-        
-        
-        
-        
-        
-        
-//        let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
-//        logoButton.isEnabled = false
-//
-
-        self.navigationItem.leftBarButtonItem = logoBarButton
+        let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        logoButton.isEnabled = false
+        self.navigationItem.leftBarButtonItem = logoButton
         
         
         // get the menu items from localized strings
@@ -181,16 +172,17 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let menuItem4 = NSLocalizedString("Calendar", comment: "Calendar")
         let menuItem5 = NSLocalizedString("Objectives", comment: "Objectives")
         //let menuItem6 = NSLocalizedString("More", comment: "More")
-        let menuItem6 = "More   v" // time being 6April
+        //let menuItem6 = "More   v" // time being 6April
+        let menuItem6 = "More ..."
         
         let menuTitles = [menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, menuItem6]
         //let menuIcons = [UIImage(), UIImage(), UIImage(), UIImage(),UIImage(), UIImage(named: "moreArrow")!]
         
-        let frame = CGRect(x: 0, y: 114, width: self.view.frame.width/1.9, height: 44)
+        let frame = CGRect(x: 0, y: 114, width: self.view.frame.width/1.5, height: 44)
         
         //topMenuBar = XMSegmentedControl(frame: frame, segmentContent: (menuTitles, menuIcons), selectedItemHighlightStyle: XMSelectedItemHighlightStyle.bottomEdge)
         topMenuBar = XMSegmentedControl(frame: frame, segmentTitle: menuTitles, selectedItemHighlightStyle: XMSelectedItemHighlightStyle.bottomEdge) // 6 April
-        topMenuBar?.font = UIFont(name: "Ubuntu-Medium", size: 17)! // 9 april shubham
+        topMenuBar?.font = UIFont(name: "Ubuntu-Medium", size: 17)!
         topMenuBar?.delegate = self
         topMenuBar?.backgroundColor = UIColor.clear
         topMenuBar?.highlightColor = UIColor.black
@@ -212,6 +204,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         {
             //show more drop down()
             showMoreDropDown(selectedIndex: selectedSegment)
+            filterMenuModel.clearFilterModelData()
         }
     }
     
@@ -219,6 +212,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     private func showMoreDropDown(selectedIndex: Int)
     {
         moreDropDown.anchorView = topMenuBar
+        
+        
         
         // number of menus in persisten menubar
         //let numberOfMenuTabsInPersistentMenu = 5
@@ -259,6 +254,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             case 0:
                 let actionItemsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ActionItemsViewControllerID")
                 moreVC1.view.addSubview((actionItemsVC.view)!)
+               
                 self.moreDropDownSelectionIndex = index
             case 1:
                 let accountVisitsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "AccountVisitsControllerID")
@@ -275,6 +271,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             case 4:
                 let notificationsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID")
                 moreVC1.view.addSubview((notificationsVC.view)!)
+                notificationsVC.view.frame.origin.y = -63.5
                 self.moreDropDownSelectionIndex = index
             case 5:
                 let chatterVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ChatterViewControllerID")
@@ -334,6 +331,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // # MARK: viewControllerForSelectedSegmentIndex
     // get the respective view controller as per the selected index of menu from menubar
     private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
+        
+        filterMenuModel.clearFilterModelData()
         
         self.notificationButton?.isEnabled = true
         self.numberLabel?.isUserInteractionEnabled = true

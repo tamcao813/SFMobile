@@ -69,8 +69,8 @@ class AccountDetailsViewController : UIViewController{
             }
         }
         lblActionItem?.text = String(describing: accountsForLoggedInUser!.actionItem)
-        lblPastDue?.text = "\(accountsForLoggedInUser!.totalARBalance)"
-        lblMTDSales?.text = "\(accountsForLoggedInUser!.totalCYR12NetSales)"
+        lblPastDue?.text = "$\(accountsForLoggedInUser!.totalARBalance)"
+        lblMTDSales?.text = "$\(accountsForLoggedInUser!.totalCYR12NetSales)"
         
         print(accountsForLoggedInUser!)
     }

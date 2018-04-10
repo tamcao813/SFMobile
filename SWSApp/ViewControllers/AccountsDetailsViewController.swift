@@ -39,14 +39,12 @@ class AccountDetailsViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Account details Screen is loaded")
-        
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
-        
         containerView?.isHidden = true
         
-        
+        // Adding color to center label
         centerLabel?.text = "A"
-      
+        centerLabel?.backgroundColor = UIColor(named: "Good")
         btnPercentage?.setTitle("91%", for: .normal)
         lblPhoneNumber?.text = "(123)456-6789"
         
@@ -56,7 +54,6 @@ class AccountDetailsViewController : UIViewController{
         super.viewWillAppear(animated)
         
         lblAccountTitle?.text = accountsForLoggedInUser?.accountName
-        
         lblAddress1?.text = ""
         lblAddress2?.text = ""
         
@@ -72,8 +69,8 @@ class AccountDetailsViewController : UIViewController{
             }
         }
         lblActionItem?.text = String(describing: accountsForLoggedInUser!.actionItem)
-        lblPastDue?.text = "\(accountsForLoggedInUser!.totalARBalance)"
-        lblMTDSales?.text = "\(accountsForLoggedInUser!.totalCYR12NetSales)"
+        lblPastDue?.text = "$\(accountsForLoggedInUser!.totalARBalance)"
+        lblMTDSales?.text = "$\(accountsForLoggedInUser!.totalCYR12NetSales)"
         
         print(accountsForLoggedInUser!)
     }

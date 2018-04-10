@@ -131,7 +131,7 @@ class Account {
         acc.accountId =  "001m000000cHLmDAAW"
         acc.accountNumber = "148"
         acc.accountName = "Crown Liquor Store"
-        acc.shippingAddress = "1234"
+        acc.shippingAddress =  "B1- 202 Argentina"
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York"
         acc.shippingState = "NY"
@@ -141,7 +141,6 @@ class Account {
         acc.totalCYR12NetSales = 2000.00
         acc.nextDeliveryDate = Date()
         acc.actionItem = 2
-        
         return acc
     }
     static func mockAccount2() -> Account {
@@ -149,7 +148,7 @@ class Account {
         acc.accountId =  "001m000000cHLmDAAZ"
         acc.accountNumber = "188"
         acc.accountName = "Big Liquor Store"
-        acc.shippingAddress = "1234"
+        acc.shippingAddress = "B1- 202 California"
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York"
         acc.shippingState = "NY"

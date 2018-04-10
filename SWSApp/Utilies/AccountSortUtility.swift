@@ -19,7 +19,7 @@ class AccountSortUtility
         let trimmedSearchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         for account in accountsForLoggedUser
         {
-            if account.name.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
+            if account.accountName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
             {
                 accountsForLoggedUserFiltered.append(account)
             }
@@ -27,10 +27,18 @@ class AccountSortUtility
         return accountsForLoggedUserFiltered
     }
     
-    static func sortByAccountNameAlphabetically(accountsListToBeSorted:[Account])->[Account]
+    static func sortAlphabetsByAscendingOrder(accountsListToBeSorted:[Account])->[Account]
     {
         var alphabeticallySortedAccountList = [Account]()
-        alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $0.name < $1.name }
+        alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $0.accountName < $1.accountName }
+        
+        return alphabeticallySortedAccountList
+    }
+    
+    static func sortAlphabetsByDescendingOrder(accountsListToBeSorted:[Account])->[Account]
+    {
+        var alphabeticallySortedAccountList = [Account]()
+        alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $0.accountName > $1.accountName }
         
         return alphabeticallySortedAccountList
     }

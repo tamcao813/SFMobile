@@ -12,6 +12,10 @@ protocol DetailsScreenDelegate{
     func pushTheScreenToDetailsScreen(accountData : Account)
 }
 
+struct OrderOfAccountListItems {
+    static var isAscending = "YES"
+}
+
 /// <#Description#>
 class AccountsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SearchByEnteredTextDelegate{
     
@@ -78,13 +82,18 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
         let cell:AccountRowCell = tableView.dequeueReusableCell(withIdentifier: "accountRowCellID", for: indexPath) as! AccountRowCell
         cell.selectionStyle = .none
-        cell.storeNameLabel.text = account.name
+        cell.storeNameLabel.text = account.accountName
         cell.accountNumberLabel.text = account.accountNumber
-        cell.addressLabel.text = account.address
+        cell.addressLabel.text = account.shippingAddress
         cell.actionItemsLabel.text = String(account.actionItem)
-        cell.netSalesAmountLabel.text = account.totalR12NetSales
-        cell.pastDueAmountTextLabel.text = account.balance
-        cell.nextDeliveryDateLabel.text = account.nextDelivery
+        cell.netSalesAmountLabel.text = "\(account.totalCYR12NetSales)"
+        cell.pastDueAmountTextLabel.text = "\(account.totalARBalance)"
+        
+        //TODO: write a common dateformatter in Utilities
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        cell.nextDeliveryDateLabel.text = dateFormatter.string(from: account.nextDeliveryDate)
         
         return cell
         
@@ -161,11 +170,22 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isSorting = true
         if(isFiltering == true)
         {
-            sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserFiltered)
+            sortedAccountsList = AccountSortUtility.sortAlphabetsByAscendingOrder(accountsListToBeSorted:accountsForLoggedUserFiltered)
         }
         else
         {
-            sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
+            
+            if OrderOfAccountListItems.isAscending == "YES"{
+                OrderOfAccountListItems.isAscending = "NO"
+                sortedAccountsList = AccountSortUtility.sortAlphabetsByAscendingOrder(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
+                
+            }else{
+                OrderOfAccountListItems.isAscending = "YES"
+                sortedAccountsList = AccountSortUtility.sortAlphabetsByDescendingOrder(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
+                
+            }
+            
+            
         }
         
         self.accountListTableView.reloadData()
@@ -224,7 +244,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             if(isSorting)
             {
                 //account = sortedAccountsList[indexPath.row]
-                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
+                sortedAccountsList = AccountSortUtility.sortAlphabetsByAscendingOrder(accountsListToBeSorted:accountViewModel.accountsForLoggedUser)
             }
             self.accountListTableView.reloadData()
         }

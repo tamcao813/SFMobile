@@ -12,7 +12,8 @@ class AccountsViewModel {
     
     let accountsForLoggedUser: [Account] = StoreDispatcher.shared.fetchAccountsForLoggedUser()
     
-    
-    
+    func accountsForUser(userid: String) -> [Account] {
+        return StoreDispatcher.shared.fetchAccounts(forUser: userid)
+    }
     
 }

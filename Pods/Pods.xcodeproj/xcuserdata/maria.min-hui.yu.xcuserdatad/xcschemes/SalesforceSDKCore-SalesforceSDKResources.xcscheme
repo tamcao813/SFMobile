@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4899BA07ED2FA3E8D2F37493A2D5D1D"
+               BlueprintIdentifier = "2827C7B3AEAC874C9692FFCED5E23F37"
                BuildableName = "SalesforceSDKResources.bundle"
                BlueprintName = "SalesforceSDKCore-SalesforceSDKResources"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -37,7 +36,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -47,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4899BA07ED2FA3E8D2F37493A2D5D1D"
+            BlueprintIdentifier = "2827C7B3AEAC874C9692FFCED5E23F37"
             BuildableName = "SalesforceSDKResources.bundle"
             BlueprintName = "SalesforceSDKCore-SalesforceSDKResources"
             ReferencedContainer = "container:Pods.xcodeproj">

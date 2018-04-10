@@ -19,8 +19,12 @@ class AccountsContactsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let loggerInUser = userViewModel.loggedInUser
-        contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forUser: (loggerInUser?.sfid)!)
-        contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.sfid)!)
+        contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forUser: (loggerInUser?.userid)!)
+        contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.userid)!)
+        
+        //just testing globalContacts here
+        let globalContactas = contactViewModel.globalContacts()
+        print("globalContactas.count = " + "\(globalContactas.count)")
     }
     
     override func didReceiveMemoryWarning() {

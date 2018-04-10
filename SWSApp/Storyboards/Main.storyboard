@@ -349,10 +349,14 @@
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
+                                                            <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstItem="Lw0-B0-5e4" firstAttribute="centerX" secondItem="PT3-SU-H5w" secondAttribute="centerX" id="7eL-zx-v13"/>
                                                                 <constraint firstItem="Lw0-B0-5e4" firstAttribute="centerY" secondItem="PT3-SU-H5w" secondAttribute="centerY" id="sgV-MG-8nU"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="gca-2z-gqR" appends="YES" id="kiw-rG-P5z"/>
+                                                            </connections>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XIB-5g-gMI" userLabel="NetSales">
                                                             <rect key="frame" x="330" y="0.0" width="154" height="90"/>
@@ -376,10 +380,14 @@
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
+                                                            <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstItem="Bpl-hq-nZl" firstAttribute="centerX" secondItem="XIB-5g-gMI" secondAttribute="centerX" id="RkC-5H-OiU"/>
                                                                 <constraint firstItem="Bpl-hq-nZl" firstAttribute="centerY" secondItem="XIB-5g-gMI" secondAttribute="centerY" id="gYD-oq-3s1"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="MWc-Sh-WOU" appends="YES" id="2KL-44-bT7"/>
+                                                            </connections>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yow-Fv-TL9" userLabel="Balance">
                                                             <rect key="frame" x="484" y="0.0" width="110" height="90"/>
@@ -403,10 +411,14 @@
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
+                                                            <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstItem="MnC-Sb-wvk" firstAttribute="centerY" secondItem="yow-Fv-TL9" secondAttribute="centerY" id="R9R-u5-BRj"/>
                                                                 <constraint firstItem="MnC-Sb-wvk" firstAttribute="centerX" secondItem="yow-Fv-TL9" secondAttribute="centerX" id="jmJ-NR-wZs"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="pra-ol-8dK" appends="YES" id="x0v-3h-ISm"/>
+                                                            </connections>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCA-AB-b7S" userLabel="Next Delivery">
                                                             <rect key="frame" x="594" y="0.0" width="132" height="90"/>
@@ -430,10 +442,14 @@
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
+                                                            <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstItem="Vv1-5f-TiO" firstAttribute="centerX" secondItem="bCA-AB-b7S" secondAttribute="centerX" id="Fp6-sk-XBu"/>
                                                                 <constraint firstItem="Vv1-5f-TiO" firstAttribute="centerY" secondItem="bCA-AB-b7S" secondAttribute="centerY" id="yVq-5R-YZ6"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="dqb-AT-LXo" appends="YES" id="Fgg-cU-D5C"/>
+                                                            </connections>
                                                         </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -682,6 +698,26 @@
                 <tapGestureRecognizer id="Vec-cM-gIl">
                     <connections>
                         <action selector="sortAccountListByAccountName:" destination="TC4-sW-ah2" id="YbN-mH-rdq"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="gca-2z-gqR">
+                    <connections>
+                        <action selector="sortAccountListByActionItems:" destination="TC4-sW-ah2" id="pdH-FL-Asg"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="MWc-Sh-WOU">
+                    <connections>
+                        <action selector="sortAccountListByNetSales:" destination="TC4-sW-ah2" id="doL-IU-rdK"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="pra-ol-8dK">
+                    <connections>
+                        <action selector="sortAccountListByBalance:" destination="TC4-sW-ah2" id="LXJ-pK-c8J"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="dqb-AT-LXo">
+                    <connections>
+                        <action selector="sortAccountListByNextDelivery:" destination="TC4-sW-ah2" id="Lt4-5Q-Tfb"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

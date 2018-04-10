@@ -305,11 +305,15 @@ class StoreDispatcher {
         if appDelegate.isMockUser {
             let account1 = Account.mockAccount1()
             let account2 = Account.mockAccount2()
+            let account3 = Account.mockAccount3()
+            let account4 = Account.mockAccount4()
             //add more if needed
             
             var ary = [Account]()
             ary.append(account1)
             ary.append(account2)
+            ary.append(account3)
+            ary.append(account4)
             
             return ary
         }

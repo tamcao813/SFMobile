@@ -27,20 +27,85 @@ class AccountSortUtility
         return accountsForLoggedUserFiltered
     }
     
-    static func sortAlphabetsByAscendingOrder(accountsListToBeSorted:[Account])->[Account]
+    static func sortByAccountNameAlphabetically(accountsListToBeSorted:[Account], ascending:Bool)->[Account]
     {
+        
         var alphabeticallySortedAccountList = [Account]()
-        alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $0.accountName < $1.accountName }
+        if(ascending == true)
+        {
+            alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $0.accountName < $1.accountName }
+        }
+        else
+        {
+            alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $1.accountName < $0.accountName }
+        }
+        
         
         return alphabeticallySortedAccountList
     }
     
-    static func sortAlphabetsByDescendingOrder(accountsListToBeSorted:[Account])->[Account]
+    static func sortAccountsByActionItems(accountsListToBeSorted:[Account], ascending:Bool)->[Account]
     {
-        var alphabeticallySortedAccountList = [Account]()
-        alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $0.accountName > $1.accountName }
+        var actionItemSortedAccountList = [Account]()
+        if(ascending == true)
+        {
+            actionItemSortedAccountList = accountsListToBeSorted.sorted { $0.actionItem < $1.actionItem }
+        }
+        else
+        {
+            actionItemSortedAccountList = accountsListToBeSorted.sorted { $1.actionItem < $0.actionItem }
+        }
         
-        return alphabeticallySortedAccountList
+        return actionItemSortedAccountList
+    }
+    
+    static func sortAccountsByTotalNetSales(accountsListToBeSorted:[Account], ascending:Bool)->[Account]
+    {
+        var netSalesSortedAccountList = [Account]()
+        if(ascending == true)
+        {
+            netSalesSortedAccountList = accountsListToBeSorted.sorted { $0.totalCYR12NetSales < $1.totalCYR12NetSales }
+        }
+        else
+        {
+            netSalesSortedAccountList = accountsListToBeSorted.sorted { $1.totalCYR12NetSales < $0.totalCYR12NetSales }
+        }
+        
+        return netSalesSortedAccountList
+    }
+    
+    static func sortAccountsByBalance(accountsListToBeSorted:[Account], ascending:Bool)->[Account]
+    {
+        var balanceSortedAccountList = [Account]()
+        if(ascending == true)
+        {
+            balanceSortedAccountList = accountsListToBeSorted.sorted { $0.totalARBalance < $1.totalARBalance }
+        }
+        else
+        {
+            balanceSortedAccountList = accountsListToBeSorted.sorted { $1.totalARBalance < $0.totalARBalance }
+        }
+        
+        return balanceSortedAccountList
+    }
+    
+    // considering date format as MM-DD-YYYY for now.. 9April
+    static func sortAccountsByNextDeliveryDate(accountsListToBeSorted:[Account], ascending:Bool)->[Account]
+    {
+        var dateSortedAccountList = [Account]()
+        
+        if(ascending == true)
+        {
+            
+            dateSortedAccountList = accountsListToBeSorted.sorted(by: { $0.nextDeliveryDate.compare($1.nextDeliveryDate) == .orderedAscending })
+        }
+        else
+        {
+            dateSortedAccountList = accountsListToBeSorted.sorted(by: { $0.nextDeliveryDate.compare($1.nextDeliveryDate) == .orderedDescending })
+        }
+        
+        return dateSortedAccountList
     }
     
 }
+

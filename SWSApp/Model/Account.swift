@@ -162,4 +162,50 @@ class Account {
         
         return acc
     }
+    
+    static func mockAccount3() -> Account {
+        let acc = Account(for: "mockup")
+        acc.accountId =  "001m000000cHLmDAAZ"
+        acc.accountNumber = "198"
+        acc.accountName = "Bigger Liquor Store"
+        acc.shippingAddress = "7890"
+        acc.shippingStreet = "W. Broadway Blvd"
+        acc.shippingCity = "New York"
+        acc.shippingState = "NY"
+        acc.shippingPostalCode = "12100"
+        acc.shippingCountry = "USA"
+        acc.totalARBalance = 90.98
+        acc.totalCYR12NetSales = 4500.00
+        let dateFormatter = DateFormatter()
+        //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"// MM-DD-YYYY
+        dateFormatter.dateFormat = "yyyy-MM-dd"// MM-DD-YYYY
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        acc.nextDeliveryDate = dateFormatter.date(from:"2018-05-10")!
+        acc.actionItem = 7
+        
+        return acc
+    }
+    
+    static func mockAccount4() -> Account {
+        let acc = Account(for: "mockup")
+        acc.accountId =  "001m000000cHLmDAAZ"
+        acc.accountNumber = "208"
+        acc.accountName = "Biggest Liquor Store"
+        acc.shippingAddress = "4567"
+        acc.shippingStreet = "W. Broadway Blvd"
+        acc.shippingCity = "New York"
+        acc.shippingState = "NY"
+        acc.shippingPostalCode = "12100"
+        acc.shippingCountry = "USA"
+        acc.totalARBalance = 99.98
+        acc.totalCYR12NetSales = 4300.00
+        let dateFormatter = DateFormatter()
+        //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"// MM-DD-YYYY
+        dateFormatter.dateFormat = "yyyy-MM-dd"// MM-DD-YYYY
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        acc.nextDeliveryDate = dateFormatter.date(from:"2018-07-13")!
+        acc.actionItem = 15
+        
+        return acc
+    }
 }

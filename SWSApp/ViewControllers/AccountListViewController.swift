@@ -29,7 +29,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     var delegate : DetailsScreenDelegate?
     
     let accountViewModel = AccountsViewModel()
-    var accountsForLoggedUser = [Account]()
+    var accountsForLoggedUserOriginal = [Account]()
     
     var selectedAccount:Account?
     var isFiltering = false
@@ -41,8 +41,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     var ascendingSort = true // action item, net sale, balance, next delivery date
     
     override func viewDidLoad() {
-        accountsForLoggedUser = accountViewModel.accountsForLoggedUser
-        print(accountsForLoggedUser.count)
+        accountsForLoggedUserOriginal = accountViewModel.accountsForLoggedUser
+        print(accountsForLoggedUserOriginal.count)
         
     }
     
@@ -57,7 +57,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             {
                 return accountsForLoggedUserFiltered.count
             }
-            return accountsForLoggedUser.count
+            return accountsForLoggedUserOriginal.count
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -69,7 +69,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         // get the account details from accountsForLoggedUser
-        var account:Account = accountsForLoggedUser[indexPath.row]
+        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
         if(isSorting)
         {
             account = sortedAccountsList[indexPath.row]
@@ -82,7 +82,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
             else
             {
-                account = accountsForLoggedUser[indexPath.row]
+                account = accountsForLoggedUserOriginal[indexPath.row]
             }
         }
         
@@ -107,7 +107,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        var account:Account = accountsForLoggedUser[indexPath.row]
+        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
         if(isSorting)
         {
             account = sortedAccountsList[indexPath.row]
@@ -120,7 +120,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
             else
             {
-                account = accountsForLoggedUser[indexPath.row]
+                account = accountsForLoggedUserOriginal[indexPath.row]
             }
         }
         delegate?.pushTheScreenToDetailsScreen(accountData: account)
@@ -351,23 +351,24 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     // # MARK: sort by entered text
     func sortAccountsData(searchString: String)
     {
+        isSorting = false
         print("AccountsListViewController sortAccountsData: " + searchString)
-        if(isSorting)
+        if(isFiltering)
         {
-            //account = sortedAccountsList[indexPath.row]
-            sortedAccountsList = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: sortedAccountsList, searchText: searchString)
-        }
-        else
-        {
-            if(isFiltering)
+            if(isSorting)
             {
-                accountsForLoggedUserFiltered = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: accountsForLoggedUser, searchText: searchString)
+                sortedAccountsList = AccountSortUtility.searchAccountBySearchBarQuery(accountsForLoggedUser: accountsForLoggedUserFiltered, searchText: searchString)
             }
             else
             {
-                accountsForLoggedUserFiltered = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: accountsForLoggedUser, searchText: searchString)
+                accountsForLoggedUserFiltered = AccountSortUtility.searchAccountBySearchBarQuery(accountsForLoggedUser: accountsForLoggedUserOriginal, searchText: searchString)
             }
         }
+        else
+        {
+            sortedAccountsList = AccountSortUtility.searchAccountBySearchBarQuery(accountsForLoggedUser: accountsForLoggedUserOriginal, searchText: searchString)
+        }
+        
         self.accountListTableView.reloadData()
         
     }
@@ -377,6 +378,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isFiltering = filtering
         if(isFiltering == false)
         {
+            isSorting = false
             if(isSorting)
             {
                 sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)

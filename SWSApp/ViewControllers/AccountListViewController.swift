@@ -41,7 +41,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     var ascendingSort = true // action item, net sale, balance, next delivery date
     
     override func viewDidLoad() {
-        accountsForLoggedUserOriginal = accountViewModel.accountsForLoggedUser
+        accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
         print(accountsForLoggedUserOriginal.count)
         
     }
@@ -190,13 +190,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         {
             if OrderOfAccountListItems.isAscending == "YES"{
                 OrderOfAccountListItems.isAscending = "NO"
-                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
                 
             }
             else
             {
                 OrderOfAccountListItems.isAscending = "YES"
-                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: false)
+                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: false)
                 
             }
         }
@@ -227,13 +227,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         {
             if OrderOfAccountListItems.isAscendingActionItems == "YES"{
                 OrderOfAccountListItems.isAscendingActionItems = "NO"
-                sortedAccountsList = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
                 
             }
             else
             {
                 OrderOfAccountListItems.isAscendingActionItems = "YES"
-                sortedAccountsList = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: false)
+                sortedAccountsList = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: false)
                 
             }
         }
@@ -263,13 +263,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         {
             if OrderOfAccountListItems.isAscendingNetSales == "YES"{
                 OrderOfAccountListItems.isAscendingNetSales = "NO"
-                sortedAccountsList = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
                 
             }
             else
             {
                 OrderOfAccountListItems.isAscendingNetSales = "YES"
-                sortedAccountsList = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: false)
+                sortedAccountsList = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: false)
                 
             }
         }
@@ -301,13 +301,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             if OrderOfAccountListItems.isAscendingBalance == "YES"{
                 OrderOfAccountListItems.isAscendingBalance = "NO"
                 
-                sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: true)
             }
             else
             {
                 OrderOfAccountListItems.isAscendingBalance = "YES"
                 
-                sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountViewModel.accountsForLoggedUser, ascending: false)
+                sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: false)
             }
         }
         
@@ -336,12 +336,12 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         {
             if OrderOfAccountListItems.isAscendingNextDeliveryDate == "YES"{
                 OrderOfAccountListItems.isAscendingNextDeliveryDate = "NO"
-                sortedAccountsList = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: true)
             }
             else
             {
                 OrderOfAccountListItems.isAscendingNextDeliveryDate = "YES"
-                sortedAccountsList = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountViewModel.accountsForLoggedUser, ascending: false)
+                sortedAccountsList = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: false)
             }
         }
         
@@ -381,7 +381,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             isSorting = false
             if(isSorting)
             {
-                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
             }
             self.accountListTableView.reloadData()
         }

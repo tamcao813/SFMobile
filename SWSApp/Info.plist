@@ -17,11 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.1</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>5</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>SFDCOAuthLoginHost</key>
+	<string>sgws-de--detest.cs77.my.salesforce.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>CrimsonText-Bold.ttf</string>
@@ -58,7 +60,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>SFDCOAuthLoginHost</key>
-	<string>sgws-de--detest.cs77.my.salesforce.com</string>
 </dict>
 </plist>

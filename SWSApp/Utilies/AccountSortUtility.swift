@@ -14,7 +14,7 @@ class AccountSortUtility
     static func searchAccountBySearchBarQuery(accountsForLoggedUser:[Account], searchText:String)->[Account]
     {
         print("sortAccountByFilterSearchBarQuery: " + searchText)
-        var accountsForLoggedUserFiltered = [Account]()
+        var accountsListWithSearchResults = [Account]()
         // trim leading trailing white spaces
         let trimmedSearchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         for account in accountsForLoggedUser
@@ -25,10 +25,10 @@ class AccountSortUtility
                 || account.shippingPostalCode.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
                 || account.shippingCity.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
             {
-                accountsForLoggedUserFiltered.append(account)
+                accountsListWithSearchResults.append(account)
             }
         }
-        return accountsForLoggedUserFiltered
+        return accountsListWithSearchResults
     }
     
     static func sortByAccountNameAlphabetically(accountsListToBeSorted:[Account], ascending:Bool)->[Account]

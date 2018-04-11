@@ -33,6 +33,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     var notificationsView:UIView?
     var filterMenuModel = AccountsMenuViewController()
+    //
+    var previouslySelectedVCIndex = 0
     
     // keep the views loaded
     //home VC
@@ -315,6 +317,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     // # MARK: displayCurrentTab
     private func displayCurrentTab(_ tabIndex: Int) -> UIViewController?{
+        
         if let vc = viewControllerForSelectedSegmentIndex(tabIndex) {
             
             self.addChildViewController(vc)
@@ -333,6 +336,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
         
         filterMenuModel.clearFilterModelData()
+        
+        if(previouslySelectedVCIndex == 1)// account list view
+        {
+            // clear filter, reset data, hide keyboard
+            print("previous is account list")
+            let accVC = accountsVC as? AccountsViewController
+            accVC?.filterMenuVC?.resetEnteredDataAndAccountList()
+        }
         
         self.notificationButton?.isEnabled = true
         self.numberLabel?.isUserInteractionEnabled = true
@@ -370,6 +381,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             ifMoreVC = true
             break
         }
+        
+        previouslySelectedVCIndex = index
         
         if(!ifMoreVC){
             if let mVC = self.moreVC {

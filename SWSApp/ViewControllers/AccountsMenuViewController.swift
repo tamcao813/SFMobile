@@ -333,6 +333,13 @@ class AccountsMenuViewController: UIViewController {
         self.clearFilterModelData()
         self.searchByEnteredTextDelegate?.filtering(filtering: false)
     }
+    
+    func resetEnteredDataAndAccountList()
+    {
+        searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
+        self.clearFilterModelData()
+        self.searchByEnteredTextDelegate?.filtering(filtering: false)
+    }
 }
 
 //MARK:- TableView DataSource Methods

@@ -116,7 +116,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         }
         
         
-        return tableViewDisplayData.count
+        //return tableViewDisplayData.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -552,14 +552,14 @@ extension AccountsListViewController{
         self.currentPageSet = 0     //[1][2][3][4][5][6] --- CPI
         
         
-        if inputArr.count >= 10{
+        //if inputArr.count >= 10{
             //tableViewDisplayData = tableViewDisplayData[0...4]
-            print(tableViewDisplayData)
-        }else{
-            let items = inputArr.count - 1
+        //    print(tableViewDisplayData)
+       // }else{
+            //let items = inputArr.count - 1
            // tableViewDisplayData = tableViewDisplayData[0...items]
-             print(tableViewDisplayData)
-        }
+         //    print(tableViewDisplayData)
+       // }
         
         accountListTableView.reloadData()
         

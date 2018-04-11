@@ -25,11 +25,11 @@ class User {
     
     init(json: [String: Any]) {
         userid = json[User.UserFields[0]] as! String
-        firstName = json[User.UserFields[1]] as! String
-        lastName = json[User.UserFields[2]] as! String
-        name = json[User.UserFields[3]] as! String
-        userName = json[User.UserFields[4]] as! String
-        userSite = json[User.UserFields[5]] as! String
+        firstName = json[User.UserFields[3]] as! String
+        lastName = json[User.UserFields[4]] as! String
+        name = json[User.UserFields[1]] as! String
+        userName = json[User.UserFields[2]] as! String
+        userSite = ""//json[User.UserFields[2]] as! String
     }
     
     init(for: String) {

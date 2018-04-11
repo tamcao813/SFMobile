@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var loggedInUser: User?
     
-    let isMockUser = true //set it to true to use mock data or set it to false if testing with real data
+    let isMockUser = false //set it to true to use mock data or set it to false if testing with real data
     
     override
     init()
@@ -127,6 +127,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             StoreDispatcher.shared.syncDownUser({ (error) in
                 if error != nil {
                     print("error in syncDownUser")
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                    window.rootViewController = viewController
+                    window.makeKeyAndVisible()
                     return
                 }
                 

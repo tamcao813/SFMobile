@@ -8,13 +8,14 @@
 
 import UIKit
 
-class AccountsContactsViewController: UITableViewController {
+class AccountDetailTabViewController: UITableViewController {
     
     //use view models to get contacts data
     let userViewModel = UserViewModel()
     let contactViewModel = ContactsViewModel()
     var contactsWithBuyingPower = [Contact]()
     var contactsForSG = [Contact]()
+    var account : Account?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,6 +130,57 @@ class AccountsContactsViewController: UITableViewController {
         let  headerCell = tableView.dequeueReusableCell(withIdentifier: "customerHeaderCell") as! CustomerHeaderTableViewCell
         
         if section == 0{
+            
+            // getting full address
+            
+            if let acc = account{
+                 let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode + " " + acc.shippingCountry
+                headerCell.addressValue.text = fullAddress
+            } else {
+                headerCell.addressValue.text = ""
+            }
+            
+           
+            headerCell.accountIDValue.text = account?.accountNumber
+            headerCell.phoneValue.text = account?.phone
+            headerCell.licenseTypeValue.text = account?.licenseType
+            headerCell.licenseNumberValue.text = account?.licenseNumber
+            headerCell.netsalesValue.text = "$"+(account?.totalCYR12NetSales.description)!
+            headerCell.creditLimitValue.text = "$"+(account?.creditLimit.description)!
+            headerCell.totalBalanceValue.text = "$"+(account?.totalARBalance.description)!
+            
+            if let expDate = account?.licenseExpirationDate {
+                let dateFormatter = DateFormatter()
+                
+                dateFormatter.dateFormat = "dd/mm/yyyy"
+                headerCell.expirationValue.text = dateFormatter.string(from: expDate)
+            }
+            
+            //Past due amount value is greater than 0 than only show indicator else hide it
+            if let arbBalance = account?.totalARBalance{
+                if arbBalance <= 0{
+                    headerCell.pastDueIndicatorImage.isHidden = true
+                }
+            }
+            headerCell.pastDueValue.text = "$"+(account?.pastDueAmount.description)!
+            headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
+            headerCell.nextDeliveryDateValue.text =  account?.nextDeliveryDate
+            
+            //Getting only working hours from extension
+            
+            let workingHours = account?.operatingHours.slice(from: ":", to: "\n")
+            headerCell.businessHoursValue.text = workingHours
+            
+            // getting account type value
+            if let acc = account{
+                let accountType = acc.premiseCode + " " + acc.channelTD + "\n" + acc.subChannelTD
+                headerCell.accountTypeValue.text = accountType
+                
+            } else {
+                
+                headerCell.accountTypeValue.text = ""
+            }
+            
             return headerCell
             
         }
@@ -139,12 +191,10 @@ class AccountsContactsViewController: UITableViewController {
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
             
-            
             let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:frame.width , height:frame.height ))
             headerView.backgroundColor = UIColor.white
             headerView.addSubview(sectionLabel)
             return headerView;
-            
             
         }
             

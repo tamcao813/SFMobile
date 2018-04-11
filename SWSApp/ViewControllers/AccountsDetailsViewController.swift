@@ -11,7 +11,7 @@ import UIKit
 
 class AccountDetailsViewController : UIViewController{
     
-    var accountsForLoggedInUser : Account?
+    var accountDetailForLoggedInUser : Account?
     
     @IBOutlet weak var centerLabel : UILabel?
     @IBOutlet weak var lblAccountTitle : UILabel?
@@ -45,34 +45,38 @@ class AccountDetailsViewController : UIViewController{
         // Adding color to center label
         centerLabel?.text = "A"
         centerLabel?.backgroundColor = UIColor(named: "Good")
-        btnPercentage?.setTitle("91%", for: .normal)
+      //  btnPercentage?.setTitle("91%", for: .normal)
         lblPhoneNumber?.text = "(123)456-6789"
+        
+        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        lblAccountTitle?.text = accountsForLoggedInUser?.accountName
-        lblAddress1?.text = ""
-        lblAddress2?.text = ""
+        lblAccountTitle?.text = accountDetailForLoggedInUser?.accountName
         
-        let addressData = accountsForLoggedInUser?.shippingAddress
-        let addressArray : NSArray = (addressData?.components(separatedBy: ",") as NSArray?)!
-        if (addressArray.count > 0) {
-            if addressArray.count == 1{
-                lblAddress1?.text = addressArray[0] as? String
-                lblAddress2?.text = ""
-            }else{
-                lblAddress1?.text = addressArray[0] as? String
-                lblAddress2?.text = addressArray[1] as? String
-            }
+        if let acc = accountDetailForLoggedInUser{
+            let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode + " " + acc.shippingCountry
+            
+            lblAddress1?.text = fullAddress
+            
+        } else {
+            
+           lblAddress1?.text = ""
         }
-        lblActionItem?.text = String(describing: accountsForLoggedInUser!.actionItem)
-        lblPastDue?.text = "$\(accountsForLoggedInUser!.totalARBalance)"
-        lblMTDSales?.text = "$\(accountsForLoggedInUser!.totalCYR12NetSales)"
-        
-        print(accountsForLoggedInUser!)
+     
+        print("Health Text \(accountDetailForLoggedInUser?.healthGrade)")
+        centerLabel?.text = accountDetailForLoggedInUser?.healthGrade
+        lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)
+        lblPastDue?.text = "$\(accountDetailForLoggedInUser!.totalARBalance)"
+        lblMTDSales?.text = "$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
+        lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
+        lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
+        btnPercentage?.setTitle(accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description, for: .normal)
+
+        print(accountDetailForLoggedInUser!)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -135,6 +139,15 @@ class AccountDetailsViewController : UIViewController{
             break
         }
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showAccountDetailTab"{
+           
+            let accountDetailTabViewController = segue.destination as! AccountDetailTabViewController
+
+            accountDetailTabViewController.account = accountDetailForLoggedInUser
+        }
+    }
+    
 }
 
 

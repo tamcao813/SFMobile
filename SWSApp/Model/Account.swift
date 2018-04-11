@@ -9,19 +9,20 @@
 import Foundation
 
 class Account {
-    static let AccountFields: [String] = ["Account.Id", "Account.Name", "Account.SWS_Account_Site__r.SWS_External_ID__c", "Account.Google_Place_Formatted_Phone__c", "Account.SWS_License_Status__c", "Account.SWS_Growth_in_MTD_Net_Sales__c", "Account.SWS_AR_Past_Due_Amount__c", "Account.AccountNumber", "Account.SWS_Premise_Code__c", "Account.SWS_License_Type__c", "Account.SWS_License__c", "Account.Google_Place_Operating_Hours__c", "Account.SWS_License_Expiration_Date__c", "Account.SWS_Total_CY_R12_Net_Sales__c", "Account.SWS_Total_AR_Balance__c", "Account.SWS_Credit_Limit__c", "Account.SWS_TD_Channel__c", "Account.SWS_TD_Sub_Channel__c", "Account.SWS_License_Status_Description__c", "Account.ShippingCity", "Account.ShippingCountry", "Account.ShippingGeocodeAccuracy", "Account.ShippingLatitude", "Account.ShippingLongitude", "Account.ShippingPostalCode", "Account.ShippingState", "Account.ShippingStreet", "Account.ShippingAddress", "UserId", "Account.IS_Next_Delivery_Date__c", "Account.SWS_Delivery_Frequency__c", "Account.SWS_License_Type_Description__c", "Account.SWS_AR_Past_Due_Alert__c"]
+    static let AccountFields: [String] = ["Account.Id","Account.Name","CreatedDate","TeamMemberRole","Account.SWS_Growth_in_MTD_Net_Sales__c","Account.IS_Next_Delivery_Date__c","Account.AccountNumber","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingGeocodeAccuracy","Account.ShippingLatitude","Account.ShippingLongitude","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.Google_Place_Formatted_Phone__c","Account.SWS_License_Status__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SWS_License_Type_Description__c","Account.SGWS_Account_Health_Grade__c"]
     
     var accountId: String
     var accountName: String
     var siteId: String
     var phone: String
     var licenseStatus: String
+    var nextDeliveryDate: String
     var netSales: Double
     var pastDueAmount: Double
     var accountNumber: String
     var premiseCode: String
     var licenseType: String
-    var license: String
+    var licenseNumber: String
     var operatingHours: String
     var licenseExpirationDate: Date
     var totalCYR12NetSales: Double
@@ -38,13 +39,15 @@ class Account {
     var shippingPostalCode: String
     var shippingState: String
     var shippingStreet: String
-    var shippingAddress: String
-    var userId: String
-    var nextDeliveryDate: Date
+    //var shippingAddress: String
+    //var userId: String
     var deliveryFrequency: String
     var licenseTypeDescription: String
     var pastDueAlert: String
     var actionItem: Int
+    var percentageLastYearMTDNetSales: Double
+    var healthGrade:String
+    
     
     
     convenience init(withAry ary: [Any]) {
@@ -53,40 +56,51 @@ class Account {
     }
     
     init(json: [String: Any]) {
-        accountId = json["AccountId"] as! String
-        accountName = json["AccountName"] as? String ?? ""
+        
+        print("Json coming here is*** \(json)")
+        accountId = json["Account.Id"] as! String
+        accountName = json["Account.Name"] as? String ?? ""
         siteId = json["SiteId"] as? String ?? ""
-        phone = json["Phone"] as? String ?? ""
-        licenseStatus = json["License_Status"] as? String ?? ""
-        netSales = json["MTD_Net_Sales"] as? Double ?? 0.0
-        pastDueAmount = json["Past_Due_Amount"] as? Double ?? 0.0
-        accountNumber = json["AccountNumber"] as? String ?? ""
-        premiseCode = json["Premise_Code"] as? String ?? ""
-        licenseType = json["License_Type"] as? String ?? ""
-        license = json["License"] as? String ?? ""
-        operatingHours = json["Operating_Hours"] as? String ?? ""
+        phone = json["Account.Google_Place_Formatted_Phone__c"] as? String ?? ""
+        licenseStatus = json["Account.SWS_License_Status_Description__c"] as? String ?? ""
+        netSales = json["Account.SWS_Growth_in_MTD_Net_Sales__c"] as? Double ?? 0.0
+        pastDueAmount = json["Account.SWS_AR_Past_Due_Amount__c"] as? Double ?? 0.0
+        accountNumber = json["Account.AccountNumber"] as? String ?? ""
+        premiseCode = json["Account.SWS_Premise_Code__c"] as? String ?? ""
+        licenseType = json["Account.SWS_License_Type__c"] as? String ?? ""
+        percentageLastYearMTDNetSales = json["Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c"] as? Double ?? 0.0
+        
+        
+        licenseNumber = json["Account.SWS_License__c"] as? String ?? ""
+        operatingHours = json["Account.Google_Place_Operating_Hours__c"] as? String ?? ""
         licenseExpirationDate = json["License_Expiration_Date"] as? Date ?? Date() //need to check if ok to have a default or make it a string
-        totalCYR12NetSales = json["Total_CY_R12_Net_Sales"] as? Double ?? 0.0
-        totalARBalance = json["Total_AR_Balance"] as? Double ?? 0.0
-        creditLimit = json["Credit_Limit"] as? Double ?? 0.0
-        channelTD = json["TD_Channel"] as? String ?? ""
-        subChannelTD = json["TD_Sub_Channel"] as? String ?? ""
-        licenseStatusDescription = json["License_Status_Description"] as? String ?? ""
-        shippingCity = json["ShippingCity"] as? String ?? ""
-        shippingCountry = json["ShippingCountry"] as? String ?? ""
-        shippingGeocodeAccuracy = json["ShippingGeocodeAccuracy"] as? String ?? ""
+        totalCYR12NetSales = json["Account.SWS_Total_CY_R12_Net_Sales__c"] as? Double ?? 0.0
+        totalARBalance = json["Account.SWS_Total_AR_Balance__c"] as? Double ?? 0.0
+        creditLimit = json["Account.SWS_Credit_Limit__c"] as? Double ?? 0.0
+        channelTD = json["Account.SWS_TD_Channel__c"] as? String ?? ""
+        subChannelTD = json["Account.SWS_TD_Sub_Channel__c"] as? String ?? ""
+        licenseStatusDescription = json["Account.SWS_License_Status_Description__c"] as? String ?? ""
+        
+        shippingCity = json["Account.ShippingCity"] as? String ?? ""
+        shippingCountry = json["Account.ShippingCountry"] as? String ?? ""
+        shippingGeocodeAccuracy = json["Account.ShippingGeocodeAccuracy"] as? String ?? ""
+        
         shippingLatitude = json["ShippingLatitude"] as? Double ?? 0.0
         shippingLongitude = json["ShippingLongitude"] as? Double ?? 0.0
-        shippingPostalCode = json["ShippingPostalCode"] as? String ?? ""
-        shippingState = json["ShippingState"] as? String ?? ""
-        shippingStreet = json["ShippingStreet"] as? String ?? ""
-        shippingAddress = json["ShippingAddress"] as? String ?? ""
-        userId = json["UserId"] as? String ?? ""
-        nextDeliveryDate = json["Next_Delivery_Date"] as? Date ?? Date() //need to check if ok to have a default or make it a string
-        deliveryFrequency = json["Delivery_Frequency"] as? String ?? ""
-        licenseTypeDescription = json["License_Type_Description"] as? String ?? ""
+        
+        shippingPostalCode = json["Account.ShippingPostalCode"] as? String ?? ""
+        shippingState = json["Account.ShippingState"] as? String ?? ""
+        shippingStreet = json["Account.ShippingStreet"] as? String ?? ""
+      //  shippingAddress = json["Account.ShippingAddress"] as? String ?? ""
+       // userId = json["UserId"] as? String ?? ""
+        nextDeliveryDate = json["Account.IS_Next_Delivery_Date__c"] as? String ?? "" //need to check if ok to have a default or make it a string
+        
+        deliveryFrequency = json["Account.SWS_Delivery_Frequency__c"] as? String ?? ""
+        licenseTypeDescription = json["Account.SWS_License_Type_Description__c"] as? String ?? ""
         pastDueAlert = json["Past_Due_Alert"] as? String ?? ""
         actionItem = 2 //need to get from query
+        healthGrade = json["Account.SGWS_Account_Health_Grade__c"] as? String ?? ""
+        
     }
     
     init(for: String)  {
@@ -100,7 +114,7 @@ class Account {
         accountNumber = ""
         premiseCode = ""
         licenseType = ""
-        license = ""
+        licenseNumber = ""
         operatingHours = ""
         licenseExpirationDate = Date()
         totalCYR12NetSales = 0.0
@@ -117,13 +131,16 @@ class Account {
         shippingPostalCode = ""
         shippingState = ""
         shippingStreet = ""
-        shippingAddress = ""
-        userId = ""
-        nextDeliveryDate = Date()
+       // shippingAddress = ""
+       // userId = ""
+        nextDeliveryDate = ""
         deliveryFrequency = ""
         licenseTypeDescription = ""
         pastDueAlert = ""
+        percentageLastYearMTDNetSales = 0.0
         actionItem = 2
+        healthGrade = ""
+       
     }
     
     static func mockAccount1() -> Account {
@@ -131,7 +148,7 @@ class Account {
         acc.accountId =  "001m000000cHLmDAAW"
         acc.accountNumber = "148"
         acc.accountName = "Crown Liquor Store"
-        acc.shippingAddress =  "B1- 202 Argentina"
+      //  acc.shippingAddress =  "B1- 202 Argentina"
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York4"
         acc.shippingState = "NY"
@@ -139,7 +156,7 @@ class Account {
         acc.shippingCountry = "USA"
         acc.totalARBalance = 90.98
         acc.totalCYR12NetSales = 2000.00
-        acc.nextDeliveryDate = Date()
+     //   acc.nextDeliveryDate = Date()
         acc.actionItem = 2
         return acc
     }
@@ -148,7 +165,7 @@ class Account {
         acc.accountId =  "001m000000cHLmDAAZ"
         acc.accountNumber = "188"
         acc.accountName = "Big Liquor Store"
-        acc.shippingAddress = "B1- 202 California"
+     //   acc.shippingAddress = "B1- 202 California"
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York3"
         acc.shippingState = "NY"
@@ -156,7 +173,7 @@ class Account {
         acc.shippingCountry = "USA"
         acc.totalARBalance = 80.98
         acc.totalCYR12NetSales = 4000.00
-        acc.nextDeliveryDate = Date()
+     //   acc.nextDeliveryDate = Date()
         acc.actionItem = 5
         
         return acc
@@ -167,7 +184,7 @@ class Account {
         acc.accountId =  "001m000000cHLmDAAZ"
         acc.accountNumber = "198"
         acc.accountName = "Bigger Liquor Store"
-        acc.shippingAddress = "7890"
+     //   acc.shippingAddress = "7890"
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York2"
         acc.shippingState = "NY"
@@ -179,7 +196,7 @@ class Account {
         //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"// MM-DD-YYYY
         dateFormatter.dateFormat = "yyyy-MM-dd"// MM-DD-YYYY
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
-        acc.nextDeliveryDate = dateFormatter.date(from:"2018-05-10")!
+     //   acc.nextDeliveryDate = dateFormatter.date(from:"2018-05-10")!
         acc.actionItem = 7
         
         return acc
@@ -190,7 +207,7 @@ class Account {
         acc.accountId =  "001m000000cHLmDAAZ"
         acc.accountNumber = "208"
         acc.accountName = "Biggest Liquor Store"
-        acc.shippingAddress = "4567"
+      //  acc.shippingAddress = "4567"
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York1"
         acc.shippingState = "NY"
@@ -202,7 +219,7 @@ class Account {
         //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"// MM-DD-YYYY
         dateFormatter.dateFormat = "yyyy-MM-dd"// MM-DD-YYYY
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
-        acc.nextDeliveryDate = dateFormatter.date(from:"2018-07-13")!
+  //      acc.nextDeliveryDate = dateFormatter.date(from:"2018-07-13")!
         acc.actionItem = 15
         
         return acc

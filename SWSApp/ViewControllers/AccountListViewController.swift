@@ -88,7 +88,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         tableViewDisplayData = accountsForLoggedUserOriginal
         
         
-        initPageViewWith(inputArr: tableViewDisplayData, pageSize: 2)
+        initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
     }
     
@@ -109,12 +109,12 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
         if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
             return cellsToDisplay
-            
-        }else{
-            
+        } else if (cellsToDisplay == 0) {
+            return 0
+        }
+        else {
             return self.kPageSize
         }
-        
         
         //return tableViewDisplayData.count
     }
@@ -503,7 +503,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        initPageViewWith(inputArr: tableViewDisplayData, pageSize: 2)
+        initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
         

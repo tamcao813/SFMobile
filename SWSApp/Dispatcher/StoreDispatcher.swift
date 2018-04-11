@@ -312,6 +312,7 @@ class StoreDispatcher {
         }
         else {
             let userViewModel = UserViewModel()
+            
             let userid: String = (userViewModel.loggedInUser?.userid)!
             
             return fetchAccounts(forUser: userid)

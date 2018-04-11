@@ -127,6 +127,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             StoreDispatcher.shared.syncDownUser({ (error) in
                 if error != nil {
                     print("error in syncDownUser")
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                    window.rootViewController = viewController
+                    window.makeKeyAndVisible()
                     return
                 }
                 

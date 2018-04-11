@@ -56,40 +56,17 @@ class AccountDetailsViewController : UIViewController{
         super.viewWillAppear(animated)
         
         lblAccountTitle?.text = accountDetailForLoggedInUser?.accountName
-        //lblAddress1?.text = ""
-        //lblAddress2?.text = ""
         
-        //Get Address Line 1
-//      if accountDetailForLoggedInUser?.shippingAddress == ""{
-//
-//           let fullAddressLine1 = (accountDetailForLoggedInUser?.shippingStreet)! + " " + (accountDetailForLoggedInUser?.shippingCity)!
-//             lblAddress1?.text = fullAddressLine1
-//
-//        }
-//        else {
-        
-            let fullAddressLine1 = (accountDetailForLoggedInUser?.shippingStreet)! + " " + (accountDetailForLoggedInUser?.shippingCity)!
-             //lblAddress1?.text = fullAddressLine1
-     //   }
-        
-        
-        // Getting address line 2
-        
-        let fullAddressLine2 =  (accountDetailForLoggedInUser?.shippingState)! +  " " + (accountDetailForLoggedInUser?.shippingPostalCode)! + " " + (accountDetailForLoggedInUser?.shippingCountry)!
-        
-        
-      //  let addressData = accountsForLoggedInUser?.shippingAddress
-      //  let addressArray : NSArray = (addressData?.components(separatedBy: ",") as NSArray?)!
-    //    if (addressArray.count > 0) {
-     //       if addressArray.count == 1{
-        
-                lblAddress1?.text = fullAddressLine1 + fullAddressLine2
-//            }else{
-//                lblAddress1?.text = addressArray[0] as? String
-//                lblAddress2?.text = addressArray[1] as? String
-//            }
-//        }
-        
+        if let acc = accountDetailForLoggedInUser{
+            let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode + " " + acc.shippingCountry
+            
+            lblAddress1?.text = fullAddress
+            
+        } else {
+            
+           lblAddress1?.text = ""
+        }
+     
         print("Health Text \(accountDetailForLoggedInUser?.healthGrade)")
         centerLabel?.text = accountDetailForLoggedInUser?.healthGrade
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)
@@ -98,8 +75,7 @@ class AccountDetailsViewController : UIViewController{
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
         btnPercentage?.setTitle(accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description, for: .normal)
-        
-        
+
         print(accountDetailForLoggedInUser!)
     }
     

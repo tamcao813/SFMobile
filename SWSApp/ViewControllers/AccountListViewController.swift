@@ -29,22 +29,35 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     var delegate : DetailsScreenDelegate?
     
     let accountViewModel = AccountsViewModel()
+    
+    
+    
+    //Master Data to display Tableview when First Logged in
     var accountsForLoggedUserOriginal = [Account]()
+    
+    
+    
     
     var selectedAccount:Account?
     var isFiltering = false
     // filtered list
-    var accountsForLoggedUserFiltered = [Account]()
+    var accountsForLoggedUserFiltered = [Account]() //aftersearch operation if search is enabled
     // sort related
     var isSorting = false
-    var sortedAccountsList = [Account]()
+    var sortedAccountsList = [Account]() //after applying for sort
     var ascendingSort = true // action item, net sale, balance, next delivery date
+    
+    
+    //Used to display Table View Content
+    var tableViewDisplayData = [Account]()
+    
+    var itemsToShowInTableView = -1
     
     
     //Used for Page control operation
     @IBOutlet var pageButtonArr: [UIButton]!
     
-    var inputArray = [1,2,3,4, 5,6,7,8, 9,10,11,12, 13,14,15,16, 17,18,19,20, 21,22,23,24, 25,26,27,28, 29,30,31,32, 33,34,35,36, 37,38,39,40, 41]
+    //var inputArray = [1,2,3,4, 5,6,7,8, 9,10,11,12, 13,14,15,16, 17,18,19,20, 21,22,23,24, 25,26,27,28, 29,30,31,32, 33,34,35,36, 37,38,39,40, 41]
     
     
     //External
@@ -72,25 +85,38 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
         print(accountsForLoggedUserOriginal.count)
         
-        initPageViewWith(inputArr: inputArray, pageSize: 1)
-        updateUI()
-        print("\(self.noOfPages!)")
+        tableViewDisplayData = accountsForLoggedUserOriginal
         
+        
+        initPageViewWith(inputArr: tableViewDisplayData, pageSize: 2)
+        updateUI()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(isSorting)
-        {
-            return sortedAccountsList.count
+//        if(isSorting)
+//        {
+//            return sortedAccountsList.count
+//        }
+//        else
+//        {
+//            if(isFiltering)
+//            {
+//                return accountsForLoggedUserFiltered.count
+//            }
+//            return accountsForLoggedUserOriginal.count
+//        }
+        let cellsToDisplay = tableViewDisplayData.count - currentPageIndex!
+        
+        if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
+            return cellsToDisplay
+            
+        }else{
+            
+            return self.kPageSize
         }
-        else
-        {
-            if(isFiltering)
-            {
-                return accountsForLoggedUserFiltered.count
-            }
-            return accountsForLoggedUserOriginal.count
-        }
+        
+        
+        return tableViewDisplayData.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -101,22 +127,24 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         // get the account details from accountsForLoggedUser
-        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
-        if(isSorting)
-        {
-            account = sortedAccountsList[indexPath.row]
-        }
-        else
-        {
-            if(isFiltering)
-            {
-                account = accountsForLoggedUserFiltered[indexPath.row]
-            }
-            else
-            {
-                account = accountsForLoggedUserOriginal[indexPath.row]
-            }
-        }
+//        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
+//        if(isSorting)
+//        {
+//            account = sortedAccountsList[indexPath.row]
+//        }
+//        else
+//        {
+//            if(isFiltering)
+//            {
+//                account = accountsForLoggedUserFiltered[indexPath.row]
+//            }
+//            else
+//            {
+//                account = accountsForLoggedUserOriginal[indexPath.row]
+//            }
+//        }
+        
+        let account:Account = tableViewDisplayData[indexPath.row + currentPageIndex!]
         
         let cell:AccountRowCell = tableView.dequeueReusableCell(withIdentifier: "accountRowCellID", for: indexPath) as! AccountRowCell
         cell.selectionStyle = .none
@@ -139,22 +167,25 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
-        if(isSorting)
-        {
-            account = sortedAccountsList[indexPath.row]
-        }
-        else
-        {
-            if(isFiltering)
-            {
-                account = accountsForLoggedUserFiltered[indexPath.row]
-            }
-            else
-            {
-                account = accountsForLoggedUserOriginal[indexPath.row]
-            }
-        }
+//        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
+//        if(isSorting)
+//        {
+//            account = sortedAccountsList[indexPath.row]
+//        }
+//        else
+//        {
+//            if(isFiltering)
+//            {
+//                account = accountsForLoggedUserFiltered[indexPath.row]
+//            }
+//            else
+//            {
+//                account = accountsForLoggedUserOriginal[indexPath.row]
+//            }
+//        }
+        
+        let account:Account = tableViewDisplayData[indexPath.row  + currentPageIndex!]
+        
         delegate?.pushTheScreenToDetailsScreen(accountData: account)
         FilterMenuModel.comingFromDetailsScreen = "YES"
     }
@@ -233,7 +264,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        self.accountListTableView.reloadData()
+        //self.accountListTableView.reloadData()
+        self.updateTheTableViewDataAccordingly()
         
     }
     
@@ -270,7 +302,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        self.accountListTableView.reloadData()
+        //self.accountListTableView.reloadData()
+        self.updateTheTableViewDataAccordingly()
     }
     
     @IBAction func sortAccountListByNetSales(_ sender: Any)
@@ -306,7 +339,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        self.accountListTableView.reloadData()
+        //self.accountListTableView.reloadData()
+        self.updateTheTableViewDataAccordingly()
     }
     
     @IBAction func sortAccountListByBalance(_ sender: Any)
@@ -343,7 +377,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        self.accountListTableView.reloadData()
+        //self.accountListTableView.reloadData()
+        self.updateTheTableViewDataAccordingly()
     }
     
     @IBAction func sortAccountListByNextDelivery(_ sender: Any)
@@ -377,7 +412,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        self.accountListTableView.reloadData()
+        //self.accountListTableView.reloadData()
+        self.updateTheTableViewDataAccordingly()
     }
     
     // # MARK: sort by entered text
@@ -401,8 +437,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             sortedAccountsList = AccountSortUtility.searchAccountBySearchBarQuery(accountsForLoggedUser: accountsForLoggedUserOriginal, searchText: searchString)
         }
         
-        self.accountListTableView.reloadData()
-        
+        //self.accountListTableView.reloadData()
+        self.updateTheTableViewDataAccordingly()
     }
     
     func filtering(filtering: Bool)
@@ -415,9 +451,44 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             {
                 sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
             }
-            self.accountListTableView.reloadData()
+            //self.accountListTableView.reloadData()
+            self.updateTheTableViewDataAccordingly()
         }
     }
+    
+    
+    
+    //Use to update the table view data
+    func updateTheTableViewDataAccordingly(){
+        
+        if(isSorting)
+        {
+            tableViewDisplayData = sortedAccountsList
+        }
+        else
+        {
+            if(isFiltering)
+            {
+                tableViewDisplayData = accountsForLoggedUserFiltered
+            }
+            else
+            {
+                tableViewDisplayData = accountsForLoggedUserOriginal
+            }
+        }
+        
+        initPageViewWith(inputArr: tableViewDisplayData, pageSize: 2)
+        updateUI()
+        print("\(self.noOfPages!)")
+        
+        //self.accountListTableView.reloadData()
+        
+    }
+    
+    
+    
+    
+    
 }
 
 // # MARK: SortingCell
@@ -481,11 +552,15 @@ extension AccountsListViewController{
         self.currentPageSet = 0     //[1][2][3][4][5][6] --- CPI
         
         
-        isSorting = true
+        if inputArr.count >= 10{
+            //tableViewDisplayData = tableViewDisplayData[0...4]
+            print(tableViewDisplayData)
+        }else{
+            let items = inputArr.count - 1
+           // tableViewDisplayData = tableViewDisplayData[0...items]
+             print(tableViewDisplayData)
+        }
         
-        let tableViewData = accountsForLoggedUser[0]
-        //accountsForLoggedUser.removeAll()
-        sortedAccountsList = [tableViewData]
         accountListTableView.reloadData()
         
     }
@@ -547,6 +622,19 @@ extension AccountsListViewController{
     }
     
     @IBAction func pageActionHandeler(sender: UIButton) {
+        
+        pageButtonArr[1].setTitleColor(UIColor.black, for: .normal)
+        pageButtonArr[2].setTitleColor(UIColor.black, for: .normal)
+        pageButtonArr[3].setTitleColor(UIColor.black, for: .normal)
+        pageButtonArr[4].setTitleColor(UIColor.black, for: .normal)
+        pageButtonArr[5].setTitleColor(UIColor.black, for: .normal)
+        
+        pageButtonArr[1].backgroundColor = UIColor.white
+        pageButtonArr[2].backgroundColor = UIColor.white
+        pageButtonArr[3].backgroundColor = UIColor.white
+        pageButtonArr[4].backgroundColor = UIColor.white
+        pageButtonArr[5].backgroundColor = UIColor.white
+        
         switch sender.tag {
             
         case Page.first.rawValue:
@@ -573,27 +661,41 @@ extension AccountsListViewController{
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+0) * kPageSize
             print ("One: Index is \(currentPageIndex!)")
             
-            
-
+            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+            pageButtonArr[1].backgroundColor = UIColor.lightGray
             
             
         case Page.two.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+1) * kPageSize
             print ("two: Index is \(currentPageIndex!)")
             
-
+            pageButtonArr[2].setTitleColor(UIColor.white, for: .normal)
+            pageButtonArr[2].backgroundColor = UIColor.lightGray
+            
             
         case Page.three.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+2) * kPageSize
             print ("three: Index is \(currentPageIndex!)")
             
+            pageButtonArr[3].setTitleColor(UIColor.white, for: .normal)
+            pageButtonArr[3].backgroundColor = UIColor.lightGray
+            
+            
         case Page.four.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+3) * kPageSize
             print ("four: Index is \(currentPageIndex!)")
             
+            pageButtonArr[4].setTitleColor(UIColor.white, for: .normal)
+            pageButtonArr[4].backgroundColor = UIColor.lightGray
+            
+            
         case Page.five.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+4) * kPageSize
             print ("five: Index is \(currentPageIndex!)")
+            
+            pageButtonArr[5].setTitleColor(UIColor.white, for: .normal)
+            pageButtonArr[5].backgroundColor = UIColor.lightGray
+            
             
         case Page.next.rawValue:
             changeBtnText(byPageSet: 1)
@@ -616,10 +718,11 @@ extension AccountsListViewController{
             break
         }
         
-        isSorting = true
-        let tableViewData = accountsForLoggedUser[self.currentPageIndex!]
-        sortedAccountsList.removeAll()
-        sortedAccountsList = [tableViewData]
+
+        //let tableViewData = accountsForLoggedUserOriginal[self.currentPageIndex!]
+        //tableViewDisplayData = [tableViewData]
+        
+        
         accountListTableView.reloadData()
     }
 }

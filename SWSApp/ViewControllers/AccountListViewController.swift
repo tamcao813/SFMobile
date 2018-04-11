@@ -40,9 +40,41 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     var sortedAccountsList = [Account]()
     var ascendingSort = true // action item, net sale, balance, next delivery date
     
+    
+    //Used for Page control operation
+    @IBOutlet var pageButtonArr: [UIButton]!
+    
+    var inputArray = [1,2,3,4, 5,6,7,8, 9,10,11,12, 13,14,15,16, 17,18,19,20, 21,22,23,24, 25,26,27,28, 29,30,31,32, 33,34,35,36, 37,38,39,40, 41]
+    
+    
+    //External
+    var outputArray:[Any]?
+    var indexInOrignalArray:Int?
+    
+    //Internal
+    var kPageSize:Int = 10
+    var kSizeOfArray:Int = 103
+    var kNoOfPagesInEachSet = 5
+    var noOfPages:Int?
+    var kNoOfPageSet:Int?
+    var currentPageIndex:Int?
+    var currentPageSet:Int?
+    //    var previousPageSet:Int?
+    let kNoOfPagesDisplayed = 5
+    var kRemainderNoPagesEnabed = 0
+    var kRemainderNoPagesDisabled = 0
+    var kRemainderNoLeft = 0
+    var kOrignalArray:[Any]?
+    var isDisabledPreviously = false
+    
+    
     override func viewDidLoad() {
         accountsForLoggedUser = accountViewModel.accountsForLoggedUser
         print(accountsForLoggedUser.count)
+        
+        initPageViewWith(inputArr: inputArray, pageSize: 1)
+        updateUI()
+        print("\(self.noOfPages!)")
         
     }
     
@@ -414,4 +446,181 @@ class AccountRowCell: UITableViewCell
     @IBOutlet weak var pastDueAmountTextLabel: UILabel!
     @IBOutlet weak var nextDeliveryDateLabel: UILabel!
 }
+
+
+//MARK:- PageControl Implementation
+extension AccountsListViewController{
+    
+
+    enum Page: Int {
+        case  previousLbl=0, oneLbl, twoLbl, threeLbl, fourLbl, fiveLbl, nextLbl,lastLbl,firstLbl
+        case first = 100, previous, one, two, three, four, five, next,last
+    }
+    
+    func initPageViewWith(inputArr: [Any], pageSize:Int) {
+        self.kOrignalArray = inputArr
+        self.kPageSize = pageSize
+        self.kSizeOfArray = inputArr.count
+        self.noOfPages = (self.kSizeOfArray/self.kPageSize)
+        self.kNoOfPageSet = self.noOfPages! / kNoOfPagesDisplayed
+        
+        if(self.kPageSize * kNoOfPagesDisplayed * self.kNoOfPageSet!  <  self.kSizeOfArray) {
+            
+            self.kRemainderNoLeft = self.kSizeOfArray - (self.kPageSize * kNoOfPagesDisplayed * self.kNoOfPageSet!)
+            self.kRemainderNoPagesEnabed = self.kRemainderNoLeft/self.kPageSize
+            if(self.kRemainderNoLeft % self.kPageSize > 0) {
+                self.kRemainderNoPagesEnabed = self.kRemainderNoPagesEnabed + 1
+            }
+            self.kRemainderNoPagesDisabled = kNoOfPagesDisplayed - self.kRemainderNoPagesEnabed
+            
+            self.kNoOfPageSet! += 1
+        }
+        self.currentPageIndex = 0   //It will have index value of the page it is displaying right now, 0 or 5 or next 10, 15---
+        self.currentPageSet = 0     //[1][2][3][4][5][6] --- CPI
+        
+        
+        isSorting = true
+        
+        let tableViewData = accountsForLoggedUser[0]
+        //accountsForLoggedUser.removeAll()
+        sortedAccountsList = [tableViewData]
+        accountListTableView.reloadData()
+        
+    }
+    
+    func disableBtn(from:Int, to:Int) {
+        for i in from...to {
+            pageButtonArr[i].isEnabled = false
+            isDisabledPreviously = true
+        }
+    }
+    
+    func enableBtn(from:Int, to:Int) {
+        for i in from...to {
+            pageButtonArr[i].isEnabled = true
+        }
+    }
+    
+    func changeBtnText(byPageSet:Int) {
+        if(currentPageSet! + byPageSet >= 0 &&
+            currentPageSet! < kNoOfPageSet!) {
+            for i in 1...kNoOfPagesInEachSet {
+                if let labelText = pageButtonArr[i].titleLabel?.text {
+                    if let intVal = Int(labelText) {
+                        pageButtonArr[i].setTitle(String(intVal + (byPageSet * kNoOfPagesInEachSet)), for: .normal)
+                    }
+                }
+            }
+            currentPageSet = currentPageSet! + byPageSet
+            currentPageIndex = currentPageIndex! + kPageSize * (kNoOfPagesInEachSet * byPageSet)
+            print("Page Set Selected = \(currentPageSet!) Base Index Calulated \(currentPageIndex!)")
+        }
+    }
+    
+    func updateUI(){
+        
+        if (isDisabledPreviously == true){
+            enableBtn(from:0, to: 8)
+        }
+        
+        //Get Size of aray and enable the tabs
+        if(currentPageSet == 0){
+            disableBtn(from: 0, to: 0)
+            disableBtn(from: 7, to: 7)
+        }
+        
+        if(currentPageSet! >= kNoOfPageSet! - 1 ){
+            disableBtn(from: 6, to: 6)
+            disableBtn(from: 8, to: 8)
+            
+            if(kRemainderNoPagesDisabled > 0) {
+                let enableBtns = kNoOfPagesInEachSet - kRemainderNoPagesDisabled
+                enableBtn(from: 1, to: enableBtns)
+                if(enableBtns+1 <= 5) {
+                    disableBtn(from: enableBtns+1, to: 5)
+                }
+            }
+        }
+        
+    }
+    
+    @IBAction func pageActionHandeler(sender: UIButton) {
+        switch sender.tag {
+            
+        case Page.first.rawValue:
+            for i in 1...kNoOfPagesInEachSet {
+                pageButtonArr[i].setTitle(String(i), for: .normal)
+            }
+            self.currentPageIndex = 0
+            self.currentPageSet = 0
+            
+            updateUI()
+            print ("First")
+            print ("New \(self.currentPageIndex!)")
+            
+        case Page.previous.rawValue:
+            //On pres of Previous if pageSet is grater than 0 than we have one pageSet to display decrement by 1
+            changeBtnText(byPageSet:-1)
+            //                self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+0) * kPageSize
+            print ("One: Index is \(currentPageIndex!)")
+            updateUI()
+            
+            
+        case Page.one.rawValue:
+            
+            self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+0) * kPageSize
+            print ("One: Index is \(currentPageIndex!)")
+            
+            
+
+            
+            
+        case Page.two.rawValue:
+            self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+1) * kPageSize
+            print ("two: Index is \(currentPageIndex!)")
+            
+
+            
+        case Page.three.rawValue:
+            self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+2) * kPageSize
+            print ("three: Index is \(currentPageIndex!)")
+            
+        case Page.four.rawValue:
+            self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+3) * kPageSize
+            print ("four: Index is \(currentPageIndex!)")
+            
+        case Page.five.rawValue:
+            self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+4) * kPageSize
+            print ("five: Index is \(currentPageIndex!)")
+            
+        case Page.next.rawValue:
+            changeBtnText(byPageSet: 1)
+            updateUI()
+            print ("Next")
+            
+        case Page.last.rawValue:
+            let lastSetNo = (kNoOfPageSet!-1) * kNoOfPagesInEachSet
+            for i in 1...kNoOfPagesInEachSet {
+                pageButtonArr[i].setTitle(String(lastSetNo + i), for: .normal)
+            }
+            
+            self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
+            self.currentPageSet = kNoOfPageSet! - 1
+            updateUI()
+            print ("Last")
+            print ("New \(self.currentPageIndex!)")
+            
+        default:
+            break
+        }
+        
+        isSorting = true
+        let tableViewData = accountsForLoggedUser[self.currentPageIndex!]
+        sortedAccountsList.removeAll()
+        sortedAccountsList = [tableViewData]
+        accountListTableView.reloadData()
+    }
+}
+
+
 

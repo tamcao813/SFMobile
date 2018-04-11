@@ -36,7 +36,7 @@ class StoreDispatcher {
         
         registerUserSoup()
         registerAccountSoup()
-        registerContactSoup()
+        //registerContactSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -55,10 +55,10 @@ class StoreDispatcher {
             group.leave()
         }
         
-        group.enter()
-        syncDownContact() { _ in
-            group.leave()
-        }
+//        group.enter()
+//        syncDownContact() { _ in
+//            group.leave()
+//        }
         
         //to do: syncDown other soups
         
@@ -89,54 +89,47 @@ class StoreDispatcher {
     }
     
     func registerAccountSoup() {
-        /*
-        let indexSpec:[SFSoupIndex] = [
-            SFSoupIndex(path: "Account.Id", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[0])!,
-            SFSoupIndex(path: "Account.Name", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[1])!,
-            SFSoupIndex(path: "Account.SWS_Account_Site__r.SWS_External_ID__c", indexType:kSoupIndexTypeString, columnName: Account.AccountFields[2])!,
-            SFSoupIndex(path: "Account.Google_Place_Formatted_Phone__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[3])!,
-            SFSoupIndex(path: "Account.SWS_License_Status__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[4])!,
-            SFSoupIndex(path: "Account.SWS_Growth_in_MTD_Net_Sales__c", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[5])!,
-            SFSoupIndex(path: "Account.SWS_AR_Past_Due_Amount__c", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[6])!,
-            SFSoupIndex(path: "Account.AccountNumber", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[7])!,
-            SFSoupIndex(path: "Account.SWS_Premise_Code__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[8])!,
-            SFSoupIndex(path: "Account.SWS_License_Type__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[9])!,
-            SFSoupIndex(path: "Account.SWS_License__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[10])!,
-            SFSoupIndex(path: "Account.Google_Place_Operating_Hours__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[11])!,
-            SFSoupIndex(path: "Account.SWS_License_Expiration_Date__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[12])!,
-            SFSoupIndex(path: "Account.SWS_Total_CY_R12_Net_Sales__c", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[13])!,
-            SFSoupIndex(path: "Account.SWS_Total_AR_Balance__c", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[14])!,
-            SFSoupIndex(path: "Account.SWS_Credit_Limit__c", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[15])!,
-            SFSoupIndex(path: "Account.SWS_TD_Channel__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[16])!,
-            SFSoupIndex(path: "Account.SWS_TD_Sub_Channel__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[17])!,
-            SFSoupIndex(path: "Account.SWS_License_Status_Description__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[18])!,
-            SFSoupIndex(path: "Account.ShippingCity", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[18])!,
-            SFSoupIndex(path: "Account.ShippingCountry", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[20])!,
-            SFSoupIndex(path: "Account.ShippingGeocodeAccuracy", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[21])!,
-            SFSoupIndex(path: "Account.ShippingLatitude", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[22])!,
-            SFSoupIndex(path: "Account.ShippingLongitude", indexType: kSoupIndexTypeFloating, columnName: Account.AccountFields[23])!,
-            SFSoupIndex(path: "Account.ShippingPostalCode", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[24])!,
-            SFSoupIndex(path: "Account.ShippingState", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[25])!,
-            SFSoupIndex(path: "Account.ShippingStreet", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[26])!,
-            SFSoupIndex(path: "Account.ShippingAddress", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[27])!,
-            SFSoupIndex(path: "UserId", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[28])!,
-            SFSoupIndex(path: "Account.IS_Next_Delivery_Date__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[29])!,
-            SFSoupIndex(path: "Account.SWS_Delivery_Frequency__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[30])!,
-            SFSoupIndex(path: "Account.SWS_License_Type_Description__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[31])!,
-            SFSoupIndex(path: "Account.SWS_AR_Past_Due_Alert__c", indexType: kSoupIndexTypeString, columnName: Account.AccountFields[32])!
-        ]
-        */
+
         
-        let indexSpec = [
+        let indexes:[AnyObject]! = [
             SFSoupIndex(path: "Id", indexType: kSoupIndexTypeString, columnName: "Id")!,
             SFSoupIndex(path: "CreatedDate", indexType: kSoupIndexTypeString, columnName: "CreatedDate")!,
             SFSoupIndex(path: "TeamMemberRole", indexType: kSoupIndexTypeFullText, columnName: "TeamMemberRole")!,
             SFSoupIndex(path: "Account.Name", indexType: kSoupIndexTypeFullText, columnName: "Account.Name")!,//
-            SFSoupIndex(path: "Account.AccountNumber", indexType: kSoupIndexTypeString, columnName: "Account.AccountNumber")!
+            SFSoupIndex(path: "Account.AccountNumber", indexType: kSoupIndexTypeString, columnName: "Account.AccountNumber")!,
+            SFSoupIndex(path: "Account.SWS_Growth_in_MTD_Net_Sales__c", indexType: kSoupIndexTypeFloating, columnName: "Account.SWS_Growth_in_MTD_Net_Sales__c")!,
+            SFSoupIndex(path: "Account.SWS_Total_AR_Balance__c", indexType: kSoupIndexTypeFloating, columnName: "Account.SWS_Total_AR_Balance__c")!,
+            SFSoupIndex(path: "Account.IS_Next_Delivery_Date__c", indexType: kSoupIndexTypeFullText, columnName: "Account.IS_Next_Delivery_Date__c")!,
+            SFSoupIndex(path: "Account.SWS_Premise_Code__c", indexType: kSoupIndexTypeFullText, columnName: "Account.SWS_Premise_Code__c")!,
+            SFSoupIndex(path: "Account.SWS_License_Type__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_License_Type__c")!,
+            SFSoupIndex(path: "Account.SWS_License__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_License__c")!,
+            SFSoupIndex(path: "Account.Google_Place_Operating_Hours__c", indexType: kSoupIndexTypeString, columnName:"Account.Google_Place_Operating_Hours__c")!,
+            SFSoupIndex(path: "Account.SWS_License_Expiration_Date__c", indexType: kSoupIndexTypeString, columnName:"Account.SWS_License_Expiration_Date__c")!,
+            SFSoupIndex(path: "Account.SWS_Total_CY_R12_Net_Sales__c", indexType: kSoupIndexTypeFloating, columnName:"Account.SWS_Total_CY_R12_Net_Sales__c")!,
+            SFSoupIndex(path: "Account.SWS_Credit_Limit__c", indexType: kSoupIndexTypeFloating, columnName:"Account.SWS_Credit_Limit__c")!,
+            SFSoupIndex(path: "Account.SWS_TD_Channel__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_TD_Channel__c")!,
+            SFSoupIndex(path: "Account.SWS_TD_Sub_Channel__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_TD_Sub_Channel__c")!,
+            SFSoupIndex(path: "Account.SWS_License_Status_Description__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_License_Status_Description__c")!,
+            SFSoupIndex(path: "Account.ShippingCity", indexType: kSoupIndexTypeString, columnName: "Account.ShippingCity")!,
+            SFSoupIndex(path: "Account.ShippingCountry", indexType: kSoupIndexTypeString, columnName: "Account.ShippingCountry")!,
+            SFSoupIndex(path: "Account.ShippingGeocodeAccuracy", indexType: kSoupIndexTypeString, columnName: "Account.ShippingGeocodeAccuracy")!,
+            SFSoupIndex(path: "Account.ShippingLatitude", indexType: kSoupIndexTypeFloating, columnName: "Account.ShippingLatitude")!,
+            SFSoupIndex(path: "Account.ShippingLongitude", indexType: kSoupIndexTypeFloating, columnName: "Account.ShippingLongitude")!,
+            SFSoupIndex(path: "Account.ShippingPostalCode", indexType: kSoupIndexTypeString, columnName: "Account.ShippingPostalCode")!,
+            SFSoupIndex(path: "Account.ShippingState", indexType: kSoupIndexTypeString, columnName: "Account.ShippingState")!,
+            SFSoupIndex(path: "Account.ShippingStreet", indexType: kSoupIndexTypeString, columnName: "Account.ShippingStreet")!,
+            SFSoupIndex(path: "Account.Google_Place_Formatted_Phone__c", indexType: kSoupIndexTypeString, columnName: "Account.Google_Place_Formatted_Phone__c")!,
+            SFSoupIndex(path: "Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c")!,
+             SFSoupIndex(path: "Account.SWS_AR_Past_Due_Amount__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_AR_Past_Due_Amount__c")!,
+              SFSoupIndex(path: "Account.SWS_Delivery_Frequency__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_Delivery_Frequency__c")!,
+              SFSoupIndex(path: "Account.SGWS_Account_Health_Grade__c", indexType: kSoupIndexTypeString, columnName: "Account.SGWS_Account_Health_Grade__c")!
+          
         ]
+        let indexSpecs: [AnyObject] = SFSoupIndex.asArraySoupIndexes(indexes) as [AnyObject]
+        
         
         do {
-            try sfaStore.registerSoup(SoupAccount, withIndexSpecs: indexSpec, error: ())
+            try sfaStore.registerSoup(SoupAccount, withIndexSpecs: indexSpecs, error: ())
             
         } catch let error as NSError {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register Account soup: \(error.localizedDescription)")
@@ -204,7 +197,7 @@ class StoreDispatcher {
          //let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember where Account.RecordType.DeveloperName = 'Customer' "
          */
         
-        let soqlQuery = "SELECT Id,CreatedDate,TeamMemberRole,Account.Name,Account.AccountNumber FROM AccountTeamMember limit 10000"
+        let soqlQuery = "SELECT Id,CreatedDate,TeamMemberRole,Account.Name,Account.AccountNumber,Account.SWS_Growth_in_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c,Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingGeocodeAccuracy,Account.ShippingLatitude,Account.ShippingLongitude,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.Google_Place_Formatted_Phone__c,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Account_Health_Grade__c  FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -332,13 +325,16 @@ class StoreDispatcher {
         
         //let soqlQuery = "Select \(fields.joined(separator: ",")) from {AccountTeamMember} " //where {AccountTeamMember:Account.RecordType.DeveloperName} = 'Customer'"
         
-        let soqlQuery = "Select {AccountTeamMember:Id}, {AccountTeamMember:Account.Name} from {AccountTeamMember} "
+        let soqlQuery = "Select {AccountTeamMember:Id},{AccountTeamMember:Account.Name},{AccountTeamMember:CreatedDate},{AccountTeamMember:TeamMemberRole},{AccountTeamMember:Account.SWS_Growth_in_MTD_Net_Sales__c},{AccountTeamMember:Account.IS_Next_Delivery_Date__c},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.SWS_Premise_Code__c},{AccountTeamMember:Account.SWS_License_Type__c},{AccountTeamMember:Account.SWS_License__c},{AccountTeamMember:Account.Google_Place_Operating_Hours__c}, {AccountTeamMember:Account.SWS_License_Expiration_Date__c}, {AccountTeamMember:Account.SWS_Total_CY_R12_Net_Sales__c},{AccountTeamMember:Account.SWS_Total_AR_Balance__c},{AccountTeamMember:Account.SWS_Credit_Limit__c}, {AccountTeamMember:Account.SWS_TD_Channel__c}, {AccountTeamMember:Account.SWS_TD_Sub_Channel__c},  {AccountTeamMember:Account.SWS_License_Status_Description__c}, {AccountTeamMember:Account.ShippingCity}, {AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingGeocodeAccuracy}, {AccountTeamMember:Account.ShippingLatitude},{AccountTeamMember:Account.ShippingLongitude}, {AccountTeamMember:Account.ShippingPostalCode}, {AccountTeamMember:Account.ShippingState},  {AccountTeamMember:Account.ShippingStreet},{AccountTeamMember:Account.Google_Place_Formatted_Phone__c},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_AR_Past_Due_Amount__c},{AccountTeamMember:Account.SWS_Delivery_Frequency__c},{AccountTeamMember:Account.SGWS_Account_Health_Grade__c}  from {AccountTeamMember} "
+        
+       
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         var error : NSError?
+        // json array of dict
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-        
+        print("The json of account is \(result)")
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]

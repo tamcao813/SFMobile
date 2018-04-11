@@ -19,10 +19,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Accounts Contacts View Controller-->
+        <!--Account Detail Tab View Controller-->
         <scene sceneID="f4o-b3-JLR">
             <objects>
-                <tableViewController storyboardIdentifier="AccountsContactsViewControllerID" id="eM4-pV-7HQ" customClass="AccountsContactsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AccountDetailTabViewControllerID" id="eM4-pV-7HQ" customClass="AccountDetailTabViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Wg9-Ku-RZW">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -164,7 +164,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="251" height="256"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Urn-f4-YcU" userLabel="v1">
-                                                            <rect key="frame" x="30" y="20" width="100" height="34"/>
+                                                            <rect key="frame" x="30" y="20" width="100" height="31.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Up-Gu-RVo" userLabel="AccountID lbl">
                                                                     <rect key="frame" x="0.0" y="0.0" width="44.5" height="10.5"/>
@@ -173,8 +173,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66666" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ptr-jq-QfV">
-                                                                    <rect key="frame" x="0.0" y="14.5" width="48" height="19.5"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                                    <rect key="frame" x="0.0" y="14.5" width="42.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -184,7 +184,7 @@
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="aPq-og-kFx" userLabel="v2">
-                                                            <rect key="frame" x="30" y="79" width="150" height="32.5"/>
+                                                            <rect key="frame" x="30" y="76.5" width="170" height="32.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTt-Ra-vXz" userLabel="Address">
                                                                     <rect key="frame" x="0.0" y="0.0" width="37" height="11.5"/>
@@ -192,19 +192,19 @@
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B1 -202 California" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSO-Fm-Y2i">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="121" height="17"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B1 -202 California" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSO-Fm-Y2i">
+                                                                    <rect key="frame" x="0.0" y="15.5" width="0.0" height="17"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="150" id="rk1-ui-leO"/>
+                                                                <constraint firstAttribute="width" constant="170" id="rk1-ui-leO"/>
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Alt-SZ-2QB" userLabel="v3">
-                                                            <rect key="frame" x="30" y="149" width="150" height="32.5"/>
+                                                            <rect key="frame" x="30" y="146.5" width="150" height="32.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BT4-zb-x2G" userLabel="Phone">
                                                                     <rect key="frame" x="0.0" y="0.0" width="29.5" height="11.5"/>
@@ -224,7 +224,7 @@
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="A34-WP-Jjc" userLabel="v4">
-                                                            <rect key="frame" x="30" y="207" width="150" height="32.5"/>
+                                                            <rect key="frame" x="30" y="204.5" width="150" height="32.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhr-Qr-kbG" userLabel="BusinessHours">
                                                                     <rect key="frame" x="0.0" y="0.0" width="69" height="11.5"/>
@@ -260,7 +260,7 @@
                                                     <rect key="frame" x="251" y="0.0" width="251" height="256"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="R4j-lj-Gdo" userLabel="b1">
-                                                            <rect key="frame" x="30" y="20" width="150" height="32.5"/>
+                                                            <rect key="frame" x="30" y="20" width="180" height="32.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cy0-4D-m3k">
                                                                     <rect key="frame" x="0.0" y="0.0" width="61.5" height="11.5"/>
@@ -268,15 +268,15 @@
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B1 -202 California" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGb-u0-jDG">
-                                                                    <rect key="frame" x="0.0" y="15.5" width="121" height="17"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B1 -202 California" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGb-u0-jDG">
+                                                                    <rect key="frame" x="0.0" y="15.5" width="0.0" height="17"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="150" id="d0f-au-V1D"/>
+                                                                <constraint firstAttribute="width" constant="180" id="d0f-au-V1D"/>
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="O2k-r6-Iep" userLabel="b2">
@@ -595,6 +595,7 @@
                                     <outlet property="netsalesValue" destination="WQg-gE-c9y" id="gON-9b-H3i"/>
                                     <outlet property="nextDeliveryDateLbl" destination="S1z-9w-9SC" id="qTk-sz-FsI"/>
                                     <outlet property="nextDeliveryDateValue" destination="TCS-gA-mMm" id="5EB-xM-xik"/>
+                                    <outlet property="pastDueIndicatorImage" destination="8WE-zR-BC6" id="txB-7g-jZR"/>
                                     <outlet property="pastDueLbl" destination="mtR-ZU-tbA" id="2Zc-YE-zrc"/>
                                     <outlet property="pastDueValue" destination="gGI-NV-dd9" id="Rw6-yI-Vex"/>
                                     <outlet property="phoneLbl" destination="BT4-zb-x2G" id="Av8-QQ-3jQ"/>

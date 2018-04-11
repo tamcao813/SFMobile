@@ -60,6 +60,9 @@ class CustomerHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var nextDeliveryDateLbl: UILabel!
     @IBOutlet weak var nextDeliveryDateValue: UILabel!
     
+    @IBOutlet weak var pastDueIndicatorImage: UIImageView!
+    
+    
     // MARK:- View Outlets
     
     @IBOutlet weak var AccountID_View: UIView!
@@ -88,6 +91,9 @@ class CustomerHeaderTableViewCell: UITableViewCell {
         self.Delivery_View.layer.borderWidth = 1
         self.Delivery_View.layer.borderColor = UIColor(named: "LightGrey")?.cgColor
         // Initialization code
+        
+    
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

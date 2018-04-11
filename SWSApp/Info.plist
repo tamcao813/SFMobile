@@ -58,5 +58,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>SFDCOAuthLoginHost</key>
+	<string>sgws-de--detest.cs77.my.salesforce.com</string>
 </dict>
 </plist>

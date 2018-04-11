@@ -41,7 +41,7 @@ class AccountsViewController: UIViewController , DetailsScreenDelegate{
     //Used to push the screen to Details ViewController
     func pushTheScreenToDetailsScreen(accountData: Account) {
         accountDetails = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as? AccountDetailsViewController
-        accountDetails?.accountsForLoggedInUser = accountData
+        accountDetails?.accountDetailForLoggedInUser = accountData
         self.addChildViewController(accountDetails!)
         //self.present(accountDetails, animated: true, completion: nil)
         self.view.addSubview((accountDetails?.view)!)

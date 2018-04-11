@@ -8,13 +8,14 @@
 
 import UIKit
 
-class AccountsContactsViewController: UITableViewController {
+class AccountDetailTabViewController: UITableViewController {
     
     //use view models to get contacts data
     let userViewModel = UserViewModel()
     let contactViewModel = ContactsViewModel()
     var contactsWithBuyingPower = [Contact]()
     var contactsForSG = [Contact]()
+    var account : Account?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,6 +130,52 @@ class AccountsContactsViewController: UITableViewController {
         let  headerCell = tableView.dequeueReusableCell(withIdentifier: "customerHeaderCell") as! CustomerHeaderTableViewCell
         
         if section == 0{
+            
+            // getting full address
+            let fullAddress = (account?.shippingStreet)! + " " + (account?.shippingCity)! + "," + " " + (account?.shippingState)! +  " " + (account?.shippingPostalCode)! + (account?.shippingCountry)!
+           
+            
+            headerCell.addressValue.text = fullAddress
+            headerCell.accountIDValue.text = account?.accountNumber
+            headerCell.phoneValue.text = account?.phone
+            //headerCell.businessHoursValue.text = account.
+            headerCell.licenseTypeValue.text = account?.licenseType
+            headerCell.licenseNumberValue.text = account?.licenseNumber
+            headerCell.netsalesValue.text = account?.totalCYR12NetSales.description
+            headerCell.creditLimitValue.text = account?.creditLimit.description
+            headerCell.totalBalanceValue.text = account?.totalARBalance.description
+            
+            //Past due amount value is greater than 0 than only show indicator else hide it
+            if let arbBalance = account?.totalARBalance{
+                if arbBalance <= 0{
+                    headerCell.pastDueIndicatorImage.isHidden = true
+                }
+            }
+            headerCell.pastDueValue.text = account?.pastDueAmount.description
+            headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
+            headerCell.nextDeliveryDateValue.text =  account?.nextDeliveryDate
+            
+            //Getting only working hours from extension
+            
+            let workingHours = account?.operatingHours.slice(from: ":", to: "\n")
+            
+            
+            headerCell.businessHoursValue.text = workingHours
+            
+            
+            
+            
+           
+            // getting account type value
+            if let acc = account{
+                let accountType = acc.premiseCode + " " + acc.channelTD + "\n" + acc.subChannelTD
+                headerCell.accountTypeValue.text = accountType
+                
+            } else {
+                
+                headerCell.accountTypeValue.text = ""
+            }
+            
             return headerCell
             
         }

@@ -90,16 +90,42 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         cell.selectionStyle = .none
         cell.storeNameLabel.text = account.accountName
         cell.accountNumberLabel.text = account.accountNumber
-        cell.addressLabel.text = account.shippingAddress
+        
+        // Create Full shipping address
+        // account.shippingCountry is commented out.
+        
+//        if account.shippingAddress == ""{
+//
+//
+//            let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode
+//            cell.addressLabel.text = fullAddress
+//
+//        }else{
+        
+            let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode + " " + account.shippingCountry
+            cell.addressLabel.text = fullAddress
+            
+        //}
+        
         cell.actionItemsLabel.text = String(account.actionItem)
         cell.netSalesAmountLabel.text = String(format: "$%.1f",account.totalCYR12NetSales)
         cell.pastDueAmountTextLabel.text = String(format: "$%.1f",account.totalARBalance)
+        
+        //Past due amount value is greater than 0 than only show indicator else hide it
+        if account.totalARBalance <= 0 {
+            cell.pastDueIndicatorImageView.isHidden = true
+        }
+        
+        
+        
+        
         // TODO: have to create utility method for this
         let dateFormatter = DateFormatter()
         //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"// MM-DD-YYYY
         dateFormatter.dateFormat = "yyyy-MM-dd"// MM-DD-YYYY
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
-        cell.nextDeliveryDateLabel.text = dateFormatter.string(from: account.nextDeliveryDate)
+        cell.nextDeliveryDateLabel.text = account.nextDeliveryDate
+        // dateFormatter.string(from: account.nextDeliveryDate)
         
         return cell
         
@@ -140,7 +166,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     
-   
+    
     
     
     
@@ -164,7 +190,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailsScreenSegue" {
             let accountDetailsScreen = segue.destination as! AccountDetailsViewController
-            accountDetailsScreen.accountsForLoggedInUser = selectedAccount
+            accountDetailsScreen.accountDetailForLoggedInUser = selectedAccount
         }
     }
     

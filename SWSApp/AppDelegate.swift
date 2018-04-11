@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var loggedInUser: User?
     
-    let isMockUser = true //set it to true to use mock data or set it to false if testing with real data
+    let isMockUser = false //set it to true to use mock data or set it to false if testing with real data
     
     override
     init()

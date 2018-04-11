@@ -502,11 +502,11 @@ extension AccountsMenuViewController : UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
-        /*if searchText.count == 0
+        if searchText.count == 0
         {
             self.searchByEnteredTextDelegate?.filtering(filtering: false)
             //searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
-        }
+        }/*
         else
         {
             self.searchByEnteredTextDelegate?.filtering(filtering: true)

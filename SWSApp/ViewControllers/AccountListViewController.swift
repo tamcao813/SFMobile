@@ -351,23 +351,24 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     // # MARK: sort by entered text
     func sortAccountsData(searchString: String)
     {
+        isSorting = false
         print("AccountsListViewController sortAccountsData: " + searchString)
-        if(isSorting)
+        if(isFiltering)
         {
-            //account = sortedAccountsList[indexPath.row]
-            sortedAccountsList = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: sortedAccountsList, searchText: searchString)
-        }
-        else
-        {
-            if(isFiltering)
+            if(isSorting)
             {
-                accountsForLoggedUserFiltered = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: accountsForLoggedUser, searchText: searchString)
+                sortedAccountsList = AccountSortUtility.searchAccountBySearchBarQuery(accountsForLoggedUser: accountsForLoggedUserFiltered, searchText: searchString)
             }
             else
             {
-                accountsForLoggedUserFiltered = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: accountsForLoggedUser, searchText: searchString)
+                accountsForLoggedUserFiltered = AccountSortUtility.searchAccountBySearchBarQuery(accountsForLoggedUser: accountsForLoggedUser, searchText: searchString)
             }
         }
+        else
+        {
+            sortedAccountsList = AccountSortUtility.searchAccountBySearchBarQuery(accountsForLoggedUser: accountsForLoggedUser, searchText: searchString)
+        }
+        
         self.accountListTableView.reloadData()
         
     }
@@ -377,6 +378,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isFiltering = filtering
         if(isFiltering == false)
         {
+            isSorting = false
             if(isSorting)
             {
                 sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)

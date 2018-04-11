@@ -135,7 +135,7 @@ class Account {
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York"
         acc.shippingState = "NY"
-        acc.shippingPostalCode = "12100"
+        acc.shippingPostalCode = "12105"
         acc.shippingCountry = "USA"
         acc.totalARBalance = 90.98
         acc.totalCYR12NetSales = 2000.00
@@ -152,7 +152,7 @@ class Account {
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York"
         acc.shippingState = "NY"
-        acc.shippingPostalCode = "12100"
+        acc.shippingPostalCode = "12102"
         acc.shippingCountry = "USA"
         acc.totalARBalance = 80.98
         acc.totalCYR12NetSales = 4000.00
@@ -171,7 +171,7 @@ class Account {
         acc.shippingStreet = "W. Broadway Blvd"
         acc.shippingCity = "New York"
         acc.shippingState = "NY"
-        acc.shippingPostalCode = "12100"
+        acc.shippingPostalCode = "12101"
         acc.shippingCountry = "USA"
         acc.totalARBalance = 90.98
         acc.totalCYR12NetSales = 4500.00

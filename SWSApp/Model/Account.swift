@@ -133,9 +133,9 @@ class Account {
         acc.accountName = "Crown Liquor Store"
         acc.shippingAddress =  "B1- 202 Argentina"
         acc.shippingStreet = "W. Broadway Blvd"
-        acc.shippingCity = "New York"
+        acc.shippingCity = "New York4"
         acc.shippingState = "NY"
-        acc.shippingPostalCode = "12100"
+        acc.shippingPostalCode = "12105"
         acc.shippingCountry = "USA"
         acc.totalARBalance = 90.98
         acc.totalCYR12NetSales = 2000.00
@@ -150,9 +150,9 @@ class Account {
         acc.accountName = "Big Liquor Store"
         acc.shippingAddress = "B1- 202 California"
         acc.shippingStreet = "W. Broadway Blvd"
-        acc.shippingCity = "New York"
+        acc.shippingCity = "New York3"
         acc.shippingState = "NY"
-        acc.shippingPostalCode = "12100"
+        acc.shippingPostalCode = "12102"
         acc.shippingCountry = "USA"
         acc.totalARBalance = 80.98
         acc.totalCYR12NetSales = 4000.00
@@ -169,9 +169,9 @@ class Account {
         acc.accountName = "Bigger Liquor Store"
         acc.shippingAddress = "7890"
         acc.shippingStreet = "W. Broadway Blvd"
-        acc.shippingCity = "New York"
+        acc.shippingCity = "New York2"
         acc.shippingState = "NY"
-        acc.shippingPostalCode = "12100"
+        acc.shippingPostalCode = "12101"
         acc.shippingCountry = "USA"
         acc.totalARBalance = 90.98
         acc.totalCYR12NetSales = 4500.00
@@ -192,7 +192,7 @@ class Account {
         acc.accountName = "Biggest Liquor Store"
         acc.shippingAddress = "4567"
         acc.shippingStreet = "W. Broadway Blvd"
-        acc.shippingCity = "New York"
+        acc.shippingCity = "New York1"
         acc.shippingState = "NY"
         acc.shippingPostalCode = "12100"
         acc.shippingCountry = "USA"

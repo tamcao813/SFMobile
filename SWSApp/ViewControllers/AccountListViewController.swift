@@ -29,7 +29,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     var delegate : DetailsScreenDelegate?
     
     let accountViewModel = AccountsViewModel()
-    var accountsForLoggedUser = [Account]()
+    var accountsForLoggedUserOriginal = [Account]()
     
     var selectedAccount:Account?
     var isFiltering = false
@@ -69,8 +69,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     
     override func viewDidLoad() {
-        accountsForLoggedUser = accountViewModel.accountsForLoggedUser
-        print(accountsForLoggedUser.count)
+        accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+        print(accountsForLoggedUserOriginal.count)
         
         initPageViewWith(inputArr: inputArray, pageSize: 1)
         updateUI()
@@ -89,7 +89,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             {
                 return accountsForLoggedUserFiltered.count
             }
-            return accountsForLoggedUser.count
+            return accountsForLoggedUserOriginal.count
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -101,7 +101,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         // get the account details from accountsForLoggedUser
-        var account:Account = accountsForLoggedUser[indexPath.row]
+        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
         if(isSorting)
         {
             account = sortedAccountsList[indexPath.row]
@@ -114,7 +114,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
             else
             {
-                account = accountsForLoggedUser[indexPath.row]
+                account = accountsForLoggedUserOriginal[indexPath.row]
             }
         }
         
@@ -139,7 +139,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        var account:Account = accountsForLoggedUser[indexPath.row]
+        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
         if(isSorting)
         {
             account = sortedAccountsList[indexPath.row]
@@ -152,7 +152,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
             else
             {
-                account = accountsForLoggedUser[indexPath.row]
+                account = accountsForLoggedUserOriginal[indexPath.row]
             }
         }
         delegate?.pushTheScreenToDetailsScreen(accountData: account)
@@ -222,13 +222,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         {
             if OrderOfAccountListItems.isAscending == "YES"{
                 OrderOfAccountListItems.isAscending = "NO"
-                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
                 
             }
             else
             {
                 OrderOfAccountListItems.isAscending = "YES"
-                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: false)
+                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: false)
                 
             }
         }
@@ -259,13 +259,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         {
             if OrderOfAccountListItems.isAscendingActionItems == "YES"{
                 OrderOfAccountListItems.isAscendingActionItems = "NO"
-                sortedAccountsList = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
                 
             }
             else
             {
                 OrderOfAccountListItems.isAscendingActionItems = "YES"
-                sortedAccountsList = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: false)
+                sortedAccountsList = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: false)
                 
             }
         }
@@ -295,13 +295,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         {
             if OrderOfAccountListItems.isAscendingNetSales == "YES"{
                 OrderOfAccountListItems.isAscendingNetSales = "NO"
-                sortedAccountsList = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
                 
             }
             else
             {
                 OrderOfAccountListItems.isAscendingNetSales = "YES"
-                sortedAccountsList = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: false)
+                sortedAccountsList = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: false)
                 
             }
         }
@@ -333,13 +333,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             if OrderOfAccountListItems.isAscendingBalance == "YES"{
                 OrderOfAccountListItems.isAscendingBalance = "NO"
                 
-                sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: true)
             }
             else
             {
                 OrderOfAccountListItems.isAscendingBalance = "YES"
                 
-                sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountViewModel.accountsForLoggedUser, ascending: false)
+                sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: false)
             }
         }
         
@@ -368,12 +368,12 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         {
             if OrderOfAccountListItems.isAscendingNextDeliveryDate == "YES"{
                 OrderOfAccountListItems.isAscendingNextDeliveryDate = "NO"
-                sortedAccountsList = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: true)
             }
             else
             {
                 OrderOfAccountListItems.isAscendingNextDeliveryDate = "YES"
-                sortedAccountsList = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountViewModel.accountsForLoggedUser, ascending: false)
+                sortedAccountsList = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: false)
             }
         }
         
@@ -383,23 +383,24 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     // # MARK: sort by entered text
     func sortAccountsData(searchString: String)
     {
+        isSorting = false
         print("AccountsListViewController sortAccountsData: " + searchString)
-        if(isSorting)
+        if(isFiltering)
         {
-            //account = sortedAccountsList[indexPath.row]
-            sortedAccountsList = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: sortedAccountsList, searchText: searchString)
-        }
-        else
-        {
-            if(isFiltering)
+            if(isSorting)
             {
-                accountsForLoggedUserFiltered = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: accountsForLoggedUser, searchText: searchString)
+                sortedAccountsList = AccountSortUtility.searchAccountBySearchBarQuery(accountsForLoggedUser: accountsForLoggedUserFiltered, searchText: searchString)
             }
             else
             {
-                accountsForLoggedUserFiltered = AccountSortUtility.sortAccountByFilterSearchBarQuery(accountsForLoggedUser: accountsForLoggedUser, searchText: searchString)
+                accountsForLoggedUserFiltered = AccountSortUtility.searchAccountBySearchBarQuery(accountsForLoggedUser: accountsForLoggedUserOriginal, searchText: searchString)
             }
         }
+        else
+        {
+            sortedAccountsList = AccountSortUtility.searchAccountBySearchBarQuery(accountsForLoggedUser: accountsForLoggedUserOriginal, searchText: searchString)
+        }
+        
         self.accountListTableView.reloadData()
         
     }
@@ -409,9 +410,10 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isFiltering = filtering
         if(isFiltering == false)
         {
+            isSorting = false
             if(isSorting)
             {
-                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+                sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
             }
             self.accountListTableView.reloadData()
         }

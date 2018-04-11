@@ -11,20 +11,24 @@ import Foundation
 class AccountSortUtility
 {
     
-    static func sortAccountByFilterSearchBarQuery(accountsForLoggedUser:[Account], searchText:String)->[Account]
+    static func searchAccountBySearchBarQuery(accountsForLoggedUser:[Account], searchText:String)->[Account]
     {
         print("sortAccountByFilterSearchBarQuery: " + searchText)
-        var accountsForLoggedUserFiltered = [Account]()
+        var accountsListWithSearchResults = [Account]()
         // trim leading trailing white spaces
         let trimmedSearchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         for account in accountsForLoggedUser
         {
-            if account.accountName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
+            // search account name, account number, postal code and city
+            if (account.accountName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
+                || account.accountNumber.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
+                || account.shippingPostalCode.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
+                || account.shippingCity.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
             {
-                accountsForLoggedUserFiltered.append(account)
+                accountsListWithSearchResults.append(account)
             }
         }
-        return accountsForLoggedUserFiltered
+        return accountsListWithSearchResults
     }
     
     static func sortByAccountNameAlphabetically(accountsListToBeSorted:[Account], ascending:Bool)->[Account]

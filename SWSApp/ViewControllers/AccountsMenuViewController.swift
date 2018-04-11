@@ -71,6 +71,11 @@ class AccountsMenuViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+
+    
+    
+    
+    
     
     //MARK:-
     //Used to customize the search bar background
@@ -333,6 +338,13 @@ class AccountsMenuViewController: UIViewController {
         self.clearFilterModelData()
         self.searchByEnteredTextDelegate?.filtering(filtering: false)
     }
+    
+    func resetEnteredDataAndAccountList()
+    {
+        searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
+        self.clearFilterModelData()
+        self.searchByEnteredTextDelegate?.filtering(filtering: false)
+    }
 }
 
 //MARK:- TableView DataSource Methods
@@ -502,11 +514,11 @@ extension AccountsMenuViewController : UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
-        /*if searchText.count == 0
+        if searchText.count == 0
         {
             self.searchByEnteredTextDelegate?.filtering(filtering: false)
             //searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
-        }
+        }/*
         else
         {
             self.searchByEnteredTextDelegate?.filtering(filtering: true)

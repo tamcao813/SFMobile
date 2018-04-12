@@ -121,9 +121,11 @@ class AccountSortUtility
         
         var filteredSearchedArray = [Account]()
         var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var enteredAnyFilterCase = false
         
         // filter by past due
         if FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != ""{
+            enteredAnyFilterCase = true
             if FilterMenuModel.pastDueYes == "YES"{
                 
                 filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount > 0 } )
@@ -135,10 +137,11 @@ class AccountSortUtility
             }
         }
         
-        if(filteredByPastDue_PremiseCode_LicenseTypeAccountArray.count == 0)
+        if(enteredAnyFilterCase == false)
         {
             // filter by  premise code
             if FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != ""{
+                enteredAnyFilterCase = true
                 if FilterMenuModel.premiseOn == "YES"{
                     
                     filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.premiseCode == "ON" } )
@@ -156,6 +159,7 @@ class AccountSortUtility
         {
             // filter by  premise code
             if FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != ""{
+                enteredAnyFilterCase = true
                 if FilterMenuModel.premiseOn == "YES"{
                     
                     filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.premiseCode == "ON" } )
@@ -170,9 +174,10 @@ class AccountSortUtility
         
         
         // filter by license type
-        if(filteredByPastDue_PremiseCode_LicenseTypeAccountArray.count == 0)
+        if(enteredAnyFilterCase == false)
         {
             if FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != ""{
+                enteredAnyFilterCase = true
                 
                 if FilterMenuModel.licenseB == "YES"{
                     
@@ -198,6 +203,7 @@ class AccountSortUtility
         else
         {
             if FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != ""{
+                enteredAnyFilterCase = true
                 
                 if FilterMenuModel.licenseB == "YES"{
                     
@@ -222,10 +228,11 @@ class AccountSortUtility
         }
         
         // filter by single or multilocation
-        if(filteredByPastDue_PremiseCode_LicenseTypeAccountArray.count == 0)
+        if(enteredAnyFilterCase == false)
         {
             // filter by  single or multilocation
             if FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != ""{
+                enteredAnyFilterCase = true
                 if FilterMenuModel.singleSelected == "YES"
                 {
                     filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KSingleLocation.rawValue } )
@@ -240,6 +247,7 @@ class AccountSortUtility
         {
             // filter by  single or multilocation
             if FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != ""{
+                enteredAnyFilterCase = true
                 if FilterMenuModel.singleSelected == "YES"{
                     
                     filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KSingleLocation.rawValue } )
@@ -274,21 +282,19 @@ class AccountSortUtility
         
         
         // now search filtered list by search text
-        if(searchBarText != "")
+        if(searchBarText != "" && enteredAnyFilterCase == true) // user filtered list fot search
         {
-            if(filteredByPastDue_PremiseCode_LicenseTypeAccountArray.count == 0)
-            {
-                filteredSearchedArray = searchAccountBySearchBarQuery(accountsForLoggedUser: accountsListToBeSorted, searchText: searchBarText!)
-            }
-            else
-            {
-                filteredSearchedArray = searchAccountBySearchBarQuery(accountsForLoggedUser: filteredByPastDue_PremiseCode_LicenseTypeAccountArray, searchText: searchBarText!)
-            }
+            filteredSearchedArray = searchAccountBySearchBarQuery(accountsForLoggedUser: filteredByPastDue_PremiseCode_LicenseTypeAccountArray, searchText: searchBarText!)
+        }
+        else if(searchBarText != "" && enteredAnyFilterCase == false) // use main list for search
+        {
+            filteredSearchedArray = searchAccountBySearchBarQuery(accountsForLoggedUser: accountsListToBeSorted, searchText: searchBarText!)
         }
         else
         {
-            filteredSearchedArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray
+            filteredSearchedArray =  filteredByPastDue_PremiseCode_LicenseTypeAccountArray
         }
+        
         
         return filteredSearchedArray
     }

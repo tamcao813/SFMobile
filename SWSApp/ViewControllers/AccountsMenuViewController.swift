@@ -13,6 +13,7 @@ protocol SearchByEnteredTextDelegate: class
 {
     func sortAccountsData(searchString: String)
     func filtering(filtering: Bool)
+    //
 }
 
 

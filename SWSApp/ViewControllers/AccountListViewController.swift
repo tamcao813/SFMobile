@@ -485,6 +485,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
             pageButtonArr[1].backgroundColor = UIColor.lightGray
         }
+
     }
     
     
@@ -514,6 +515,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         if(numberOfAccountRows > 0)
         {
             self.accountListTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        } else {
+            for count in 1...5 {
+                pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+                pageButtonArr[count].backgroundColor = UIColor.white
+            }
+            pageButtonArr[1].backgroundColor = UIColor.lightGray
+//            pageButtonArr[1].setTitleColor(white, for: <#T##UIControlState#>)
         }
         
         //self.accountListTableView.reloadData()

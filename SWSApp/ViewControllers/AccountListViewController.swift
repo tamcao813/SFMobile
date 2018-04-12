@@ -746,8 +746,12 @@ extension AccountsListViewController{
         //let tableViewData = accountsForLoggedUserOriginal[self.currentPageIndex!]
         //tableViewDisplayData = [tableViewData]
         
+        if(numberOfAccountRows > 0)
+        {
+            accountListTableView.reloadData()
+            self.accountListTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
         
-        accountListTableView.reloadData()
     }
     
     func performFilterOperation(searchString: String) {

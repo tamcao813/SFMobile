@@ -13,6 +13,8 @@ protocol SearchByEnteredTextDelegate: class
 {
     func sortAccountsData(searchString: String)
     func filtering(filtering: Bool)
+    //
+    func  performFilterOperation(searchString: String)
 }
 
 
@@ -324,12 +326,17 @@ class AccountsMenuViewController: UIViewController {
     
     //Filters the account list according to filter selection
     @IBAction func submitButton(_ sender: Any) {
-        //self.clearFilterModelData()
-        if(searchBar.text!.count > 0)
+        // step 1
+        //Apply logic for filter selection performed in Filter screen to Filter List screen
+        self.searchByEnteredTextDelegate?.filtering(filtering: true)
+        searchByEnteredTextDelegate?.performFilterOperation(searchString: searchBar.text!)
+        
+        //step 2
+        /*if(searchBar.text!.count > 0)
         {
             self.searchByEnteredTextDelegate?.filtering(filtering: true)
             self.searchByEnteredTextDelegate?.sortAccountsData(searchString: searchBar.text!)
-        }
+        }*/
         
     }
     

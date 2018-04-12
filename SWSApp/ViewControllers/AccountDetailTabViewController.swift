@@ -23,6 +23,17 @@ class AccountDetailTabViewController: UITableViewController {
         contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forUser: (loggerInUser?.userid)!)
         contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.userid)!)
         
+        // checking single multi location filter
+        if let acc = account{
+            print( "the single multi is \(acc.singleMultiLocationFilter)")
+        }
+        
+        // checking account Description status location filter
+        if let acc = account{
+            print( "the account description status is \(acc.accDescriptionStatus)")
+        }
+        
+        
         //just testing globalContacts here
         let globalContactas = contactViewModel.globalContacts()
         print("globalContactas.count = " + "\(globalContactas.count)")
@@ -132,15 +143,13 @@ class AccountDetailTabViewController: UITableViewController {
         if section == 0{
             
             // getting full address
-            
             if let acc = account{
-                 let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode + " " + acc.shippingCountry
+                let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode + " " + acc.shippingCountry
                 headerCell.addressValue.text = fullAddress
             } else {
                 headerCell.addressValue.text = ""
             }
             
-           
             headerCell.accountIDValue.text = account?.accountNumber
             headerCell.phoneValue.text = account?.phone
             headerCell.licenseTypeValue.text = account?.licenseType

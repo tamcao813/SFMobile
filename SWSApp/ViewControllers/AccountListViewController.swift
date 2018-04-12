@@ -93,18 +93,18 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if(isSorting)
-//        {
-//            return sortedAccountsList.count
-//        }
-//        else
-//        {
-//            if(isFiltering)
-//            {
-//                return accountsForLoggedUserFiltered.count
-//            }
-//            return accountsForLoggedUserOriginal.count
-//        }
+        //        if(isSorting)
+        //        {
+        //            return sortedAccountsList.count
+        //        }
+        //        else
+        //        {
+        //            if(isFiltering)
+        //            {
+        //                return accountsForLoggedUserFiltered.count
+        //            }
+        //            return accountsForLoggedUserOriginal.count
+        //        }
         let cellsToDisplay = tableViewDisplayData.count - currentPageIndex!
         
         if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
@@ -127,22 +127,22 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         // get the account details from accountsForLoggedUser
-//        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
-//        if(isSorting)
-//        {
-//            account = sortedAccountsList[indexPath.row]
-//        }
-//        else
-//        {
-//            if(isFiltering)
-//            {
-//                account = accountsForLoggedUserFiltered[indexPath.row]
-//            }
-//            else
-//            {
-//                account = accountsForLoggedUserOriginal[indexPath.row]
-//            }
-//        }
+        //        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
+        //        if(isSorting)
+        //        {
+        //            account = sortedAccountsList[indexPath.row]
+        //        }
+        //        else
+        //        {
+        //            if(isFiltering)
+        //            {
+        //                account = accountsForLoggedUserFiltered[indexPath.row]
+        //            }
+        //            else
+        //            {
+        //                account = accountsForLoggedUserOriginal[indexPath.row]
+        //            }
+        //        }
         
         let account:Account = tableViewDisplayData[indexPath.row + currentPageIndex!]
         
@@ -152,20 +152,10 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         cell.accountNumberLabel.text = account.accountNumber
         
         // Create Full shipping address
-        // account.shippingCountry is commented out.
         
-//        if account.shippingAddress == ""{
-//
-//
-//            let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode
-//            cell.addressLabel.text = fullAddress
-//
-//        }else{
         
-            let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode + " " + account.shippingCountry
-            cell.addressLabel.text = fullAddress
-            
-        //}
+        let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode + " " + account.shippingCountry
+        cell.addressLabel.text = fullAddress
         
         cell.actionItemsLabel.text = String(account.actionItem)
         cell.netSalesAmountLabel.text = String(format: "$%.1f",account.totalCYR12NetSales)
@@ -193,22 +183,22 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
-//        if(isSorting)
-//        {
-//            account = sortedAccountsList[indexPath.row]
-//        }
-//        else
-//        {
-//            if(isFiltering)
-//            {
-//                account = accountsForLoggedUserFiltered[indexPath.row]
-//            }
-//            else
-//            {
-//                account = accountsForLoggedUserOriginal[indexPath.row]
-//            }
-//        }
+        //        var account:Account = accountsForLoggedUserOriginal[indexPath.row]
+        //        if(isSorting)
+        //        {
+        //            account = sortedAccountsList[indexPath.row]
+        //        }
+        //        else
+        //        {
+        //            if(isFiltering)
+        //            {
+        //                account = accountsForLoggedUserFiltered[indexPath.row]
+        //            }
+        //            else
+        //            {
+        //                account = accountsForLoggedUserOriginal[indexPath.row]
+        //            }
+        //        }
         
         let account:Account = tableViewDisplayData[indexPath.row  + currentPageIndex!]
         
@@ -550,7 +540,7 @@ class AccountRowCell: UITableViewCell
 //MARK:- PageControl Implementation
 extension AccountsListViewController{
     
-
+    
     enum Page: Int {
         case  previousLbl=0, oneLbl, twoLbl, threeLbl, fourLbl, fiveLbl, nextLbl,lastLbl,firstLbl
         case first = 100, previous, one, two, three, four, five, next,last
@@ -579,13 +569,13 @@ extension AccountsListViewController{
         
         
         //if inputArr.count >= 10{
-            //tableViewDisplayData = tableViewDisplayData[0...4]
+        //tableViewDisplayData = tableViewDisplayData[0...4]
         //    print(tableViewDisplayData)
-       // }else{
-            //let items = inputArr.count - 1
-           // tableViewDisplayData = tableViewDisplayData[0...items]
-         //    print(tableViewDisplayData)
-       // }
+        // }else{
+        //let items = inputArr.count - 1
+        // tableViewDisplayData = tableViewDisplayData[0...items]
+        //    print(tableViewDisplayData)
+        // }
         
         accountListTableView.reloadData()
         
@@ -744,7 +734,7 @@ extension AccountsListViewController{
             break
         }
         
-
+        
         //let tableViewData = accountsForLoggedUserOriginal[self.currentPageIndex!]
         //tableViewDisplayData = [tableViewData]
         

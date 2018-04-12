@@ -9,7 +9,7 @@
 import Foundation
 
 class Account {
-    static let AccountFields: [String] = ["Account.Id","Account.Name","CreatedDate","TeamMemberRole","Account.SWS_Growth_in_MTD_Net_Sales__c","Account.IS_Next_Delivery_Date__c","Account.AccountNumber","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingGeocodeAccuracy","Account.ShippingLatitude","Account.ShippingLongitude","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.Google_Place_Formatted_Phone__c","Account.SWS_License_Status__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SWS_License_Type_Description__c","Account.SGWS_Account_Health_Grade__c"]
+    static let AccountFields: [String] = ["Account.Id","Account.Name","CreatedDate","TeamMemberRole","Account.SWS_Growth_in_MTD_Net_Sales__c","Account.IS_Next_Delivery_Date__c","Account.AccountNumber","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingGeocodeAccuracy","Account.ShippingLatitude","Account.ShippingLongitude","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.Google_Place_Formatted_Phone__c","Account.SWS_License_Status__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SGWS_Single_Multi_Locations_Filter__c","Account.SWS_License_Type_Description__c","Account.SWS_Status_Description__c"]
     
     var accountId: String
     var accountName: String
@@ -46,10 +46,11 @@ class Account {
     var pastDueAlert: String
     var actionItem: Int
     var percentageLastYearMTDNetSales: Double
-    var healthGrade:String
+    var singleMultiLocationFilter:String
+    var accDescriptionStatus:String
     
     
-    
+   
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Account.AccountFields, ary))
         self.init(json: resultDict)
@@ -58,6 +59,8 @@ class Account {
     init(json: [String: Any]) {
         
         print("Json coming here is*** \(json)")
+        
+        singleMultiLocationFilter = json["Account.SGWS_Single_Multi_Locations_Filter__c"] as! String
         accountId = json["Account.Id"] as! String
         accountName = json["Account.Name"] as? String ?? ""
         siteId = json["SiteId"] as? String ?? ""
@@ -69,8 +72,6 @@ class Account {
         premiseCode = json["Account.SWS_Premise_Code__c"] as? String ?? ""
         licenseType = json["Account.SWS_License_Type__c"] as? String ?? ""
         percentageLastYearMTDNetSales = json["Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c"] as? Double ?? 0.0
-        
-        
         licenseNumber = json["Account.SWS_License__c"] as? String ?? ""
         operatingHours = json["Account.Google_Place_Operating_Hours__c"] as? String ?? ""
         licenseExpirationDate = json["License_Expiration_Date"] as? Date ?? Date() //need to check if ok to have a default or make it a string
@@ -98,8 +99,12 @@ class Account {
         deliveryFrequency = json["Account.SWS_Delivery_Frequency__c"] as? String ?? ""
         licenseTypeDescription = json["Account.SWS_License_Type_Description__c"] as? String ?? ""
         pastDueAlert = json["Past_Due_Alert"] as? String ?? ""
+        accDescriptionStatus = json["Account.SWS_Status_Description__c"] as? String ?? ""
+        
         actionItem = 2 //need to get from query
-        healthGrade = json["Account.SGWS_Account_Health_Grade__c"] as? String ?? ""
+     
+       
+        
         
     }
     
@@ -139,7 +144,10 @@ class Account {
         pastDueAlert = ""
         percentageLastYearMTDNetSales = 0.0
         actionItem = 2
-        healthGrade = ""
+        singleMultiLocationFilter = ""
+        accDescriptionStatus = ""
+       
+       
        
     }
     

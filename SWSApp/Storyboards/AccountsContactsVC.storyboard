@@ -595,6 +595,7 @@
                                     <outlet property="AccountType_View" destination="aYw-9b-IlM" id="hfS-af-9fI"/>
                                     <outlet property="Delivery_View" destination="Q7d-ZM-cRE" id="fke-AZ-rVh"/>
                                     <outlet property="NetSales_View" destination="wYd-au-gQc" id="fWH-Qy-xTd"/>
+                                    <outlet property="accountHealthIndicator" destination="RcO-SQ-2eB" id="vrA-ts-SkL"/>
                                     <outlet property="accountIDValue" destination="Ptr-jq-QfV" id="nD1-H1-Ybo"/>
                                     <outlet property="accountIDlbl" destination="4Up-Gu-RVo" id="nOS-fI-L3S"/>
                                     <outlet property="accountType" destination="Cy0-4D-m3k" id="ZOU-sV-V5g"/>

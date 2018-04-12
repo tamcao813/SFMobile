@@ -60,6 +60,7 @@ class CustomerHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var nextDeliveryDateLbl: UILabel!
     @IBOutlet weak var nextDeliveryDateValue: UILabel!
     
+    @IBOutlet weak var accountHealthIndicator: UILabel!
     @IBOutlet weak var pastDueIndicatorImage: UIImageView!
     
     

@@ -128,7 +128,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         let userInitialLabel:UILabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
         userInitialLabel.font  = UIFont.boldSystemFont(ofSize: 13)
-        userInitialLabel.text = "DB"
+        userInitialLabel.text = ""//"DB"
         userInitialLabel.textAlignment = .center
         userInitialLabel.textColor = UIColor.white
         userInitialLabel.backgroundColor = UIColor(named: "Data New")

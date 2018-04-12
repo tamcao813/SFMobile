@@ -55,7 +55,7 @@ class AccountDetailsViewController : UIViewController{
         lblAccountTitle?.text = accountDetailForLoggedInUser?.accountName
         
         if let acc = accountDetailForLoggedInUser{
-            let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode + " " + acc.shippingCountry
+            let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode 
             
             lblAddress1?.text = fullAddress
             
@@ -63,12 +63,22 @@ class AccountDetailsViewController : UIViewController{
             
            lblAddress1?.text = ""
         }
-     
+        
+        let pastDue : Double = Double((accountDetailForLoggedInUser?.pastDueAmount)!)
+        
+        if pastDue <= 0.0 {
+            
+            imgStatus?.isHidden = true
+        }
+        else {
+            
+            imgStatus?.isHidden = false
+        }
        
        // centerLabel?.text = accountDetailForLoggedInUser?.accountHealthGrade
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)
-        lblPastDue?.text = "$\(accountDetailForLoggedInUser!.totalARBalance)"
-        lblMTDSales?.text = "$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
+        lblPastDue?.text = "$\(accountDetailForLoggedInUser!.pastDueAmount)"
+        lblMTDSales?.text = "$\(accountDetailForLoggedInUser!.percentageLastYearMTDNetSales)"
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
         btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description)! + "%", for: .normal)

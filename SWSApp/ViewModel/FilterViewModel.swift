@@ -10,11 +10,11 @@ import Foundation
 
 class Filter {
     
-    let sectionNames : Array<Any>  = ["Past Due", "Action Items", "Status", "Premise" , "Single / Multi locations" ,"Channel", "Sub-Channel" ,"License Type"]
+    var sectionNames : Array<Any>  = ["Past Due", "Action Items", "Status", "Premise" , "Single / Multi locations" ,"Channel", "Sub-Channel" ,"License Type"]
     
-    let sectionItems : Array<Any> = [ ["Yes", "No"],[],
+    var sectionItems : Array<Any> = [ ["Yes", "No"],[],
                                       ["Active", "Inactive","Suspended"],
-                                      ["ON","OFF"], ["Single","Multi"],[],[],["W","L","B","N"]]
+                                      ["ON","OFF"], ["Single","Multi"],["W","L","B","N"]]
     
 }
 
@@ -40,6 +40,13 @@ struct FilterMenuModel {
     static var licenseL = ""
     static var licenseB = ""
     static var licenseN = ""
+    
+    static var channel = ""
+    static var subChannel = ""
+    
+    //static var activeSelected = ""
+    //static var inActiveSelected = ""
+    //static var suspendedSelected = ""
     
     static var city: String = ""
     

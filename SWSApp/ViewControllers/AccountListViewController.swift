@@ -13,11 +13,11 @@ protocol DetailsScreenDelegate{
 }
 
 struct OrderOfAccountListItems {
-    static var isAscending = "YES"
-    static var isAscendingActionItems = "YES"
-    static var isAscendingNetSales = "YES"
-    static var isAscendingBalance = "YES"
-    static var isAscendingNextDeliveryDate = "YES"
+    static var isAscending = "NO"
+    static var isAscendingActionItems = "NO"
+    static var isAscendingNetSales = "NO"
+    static var isAscendingBalance = "NO"
+    static var isAscendingNextDeliveryDate = "NO"
 }
 
 
@@ -91,6 +91,11 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
+        
+        
+        
+        
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

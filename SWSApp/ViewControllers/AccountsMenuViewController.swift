@@ -328,16 +328,28 @@ class AccountsMenuViewController: UIViewController {
     @IBAction func submitButton(_ sender: Any) {
         // step 1
         //Apply logic for filter selection performed in Filter screen to Filter List screen
-        self.searchByEnteredTextDelegate?.filtering(filtering: true)
-        searchByEnteredTextDelegate?.performFilterOperation(searchString: searchBar.text!)
-        
-        //step 2
-        /*if(searchBar.text!.count > 0)
+        // validate user input and then proceed for filtering and search
+        if(isValidUserInputAtSearchFilterPanel() == true)
         {
             self.searchByEnteredTextDelegate?.filtering(filtering: true)
-            self.searchByEnteredTextDelegate?.sortAccountsData(searchString: searchBar.text!)
-        }*/
+            searchByEnteredTextDelegate?.performFilterOperation(searchString: searchBar.text!)
+        }
+        else
+        {
+            print(" Not ValidUserInputAtSearchFilterPanel")
+        }
+    }
+    
+    private func isValidUserInputAtSearchFilterPanel()->Bool
+    {
+        var validInput = false
+        if(searchBar.text!.count > 0 || FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != "" || FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != "" || FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != "" || FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != "")
+        {
+            print("ValidUserInputAtSearchFilterPanel")
+            validInput = true
+        }
         
+        return validInput
     }
     
     //Clears all the filter selection

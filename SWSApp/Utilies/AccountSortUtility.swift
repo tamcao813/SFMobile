@@ -10,6 +10,12 @@ import Foundation
 
 class AccountSortUtility
 {
+    // TODO: have to modify later .. currently getting either A or empty string from backend
+    enum SingleMultiLocationEnum:String
+    {
+        case KSingleLocation = ""
+        case KMultiLocation = "A"
+    }
     
     static func searchAccountBySearchBarQuery(accountsForLoggedUser:[Account], searchText:String)->[Account]
     {
@@ -112,21 +118,11 @@ class AccountSortUtility
     }
     
     static func filterAccountByAppliedFilter(accountsListToBeSorted : [Account], searchBarText:String?)-> [Account]{
-        // test
-        print("****** test start*****")
-        for testAccount in accountsListToBeSorted
-        {
-            print("--------")
-            print("accountName: " + testAccount.accountName)
-            print("pastDueAmount: " + String(testAccount.pastDueAmount))
-            print("premiseCode: " + testAccount.premiseCode)
-            print("licenseType: " + testAccount.licenseType)
-            
-        }
-        print("****** test end*****")
-        // test
+        
         var filteredSearchedArray = [Account]()
         var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        
+        // filter by past due
         if FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != ""{
             if FilterMenuModel.pastDueYes == "YES"{
                 
@@ -138,7 +134,6 @@ class AccountSortUtility
                 
             }
         }
-        //print(filteredByPastDueAccountArray.count)
         
         if(filteredByPastDue_PremiseCode_LicenseTypeAccountArray.count == 0)
         {
@@ -225,6 +220,38 @@ class AccountSortUtility
                 }
             }
         }
+        
+        // filter by single or multilocation
+        if(filteredByPastDue_PremiseCode_LicenseTypeAccountArray.count == 0)
+        {
+            // filter by  single or multilocation
+            if FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != ""{
+                if FilterMenuModel.singleSelected == "YES"
+                {
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KSingleLocation.rawValue } )
+                }
+                else if FilterMenuModel.multiSelected == "YES"
+                {
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KMultiLocation.rawValue } )
+                }
+            }
+        }
+        else
+        {
+            // filter by  single or multilocation
+            if FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != ""{
+                if FilterMenuModel.singleSelected == "YES"{
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.singleMultiLocationFilter == "single" } )
+                    
+                }else if FilterMenuModel.multiSelected == "YES" {
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.singleMultiLocationFilter == "multi" } )
+                    
+                }
+            }
+        }
+        
         
         // now search filtered list by search text
         if(searchBarText != "")

@@ -28,10 +28,7 @@ class AccountDetailTabViewController: UITableViewController {
             print( "the single multi is \(acc.singleMultiLocationFilter)")
         }
         
-        // checking account Description status location filter
-        if let acc = account{
-            print( "the account description status is \(acc.accDescriptionStatus)")
-        }
+       
         
         
         //just testing globalContacts here
@@ -166,17 +163,22 @@ class AccountDetailTabViewController: UITableViewController {
             }
             
             //Past due amount value is greater than 0 than only show indicator else hide it
-            if let arbBalance = account?.totalARBalance{
-                if arbBalance <= 0{
+            if let pastDueAmmt = account?.pastDueAmount{
+                if pastDueAmmt <= 0{
                     headerCell.pastDueIndicatorImage.isHidden = true
+                }
+                else{
+                    
+                     headerCell.pastDueIndicatorImage.isHidden = false
+                    
                 }
             }
             headerCell.pastDueValue.text = "$"+(account?.pastDueAmount.description)!
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
             headerCell.nextDeliveryDateValue.text =  account?.nextDeliveryDate
+            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description
             
             //Getting only working hours from extension
-            
             let workingHours = account?.operatingHours.slice(from: ":", to: "\n")
             headerCell.businessHoursValue.text = workingHours
             

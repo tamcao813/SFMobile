@@ -169,11 +169,15 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
         cell.actionItemsLabel.text = String(account.actionItem)
         cell.netSalesAmountLabel.text = String(format: "$%.1f",account.totalCYR12NetSales)
-        cell.pastDueAmountTextLabel.text = String(format: "$%.1f",account.totalARBalance)
+        cell.pastDueAmountTextLabel.text = "$"+account.pastDueAmount.description
         
         //Past due amount value is greater than 0 than only show indicator else hide it
-        if account.totalARBalance <= 0 {
+        if account.pastDueAmount <= 0 {
             cell.pastDueIndicatorImageView.isHidden = true
+        }else {
+            
+             cell.pastDueIndicatorImageView.isHidden = false
+            
         }
         
         
@@ -486,6 +490,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
             pageButtonArr[1].backgroundColor = UIColor.lightGray
         }
+
     }
     
     
@@ -515,6 +520,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         if(numberOfAccountRows > 0)
         {
             self.accountListTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        } else {
+            for count in 1...5 {
+                pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+                pageButtonArr[count].backgroundColor = UIColor.white
+            }
+            pageButtonArr[1].backgroundColor = UIColor.lightGray
+//            pageButtonArr[1].setTitleColor(white, for: <#T##UIControlState#>)
         }
         
         //self.accountListTableView.reloadData()

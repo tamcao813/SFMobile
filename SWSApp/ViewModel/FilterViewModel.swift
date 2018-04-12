@@ -44,6 +44,10 @@ struct FilterMenuModel {
     static var channel = ""
     static var subChannel = ""
     
+    //static var activeSelected = ""
+    //static var inActiveSelected = ""
+    //static var suspendedSelected = ""
+    
     static var city: String = ""
     
     static var comingFromDetailsScreen = ""

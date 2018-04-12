@@ -144,7 +144,7 @@ class AccountDetailTabViewController: UITableViewController {
             
             // getting full address
             if let acc = account{
-                let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode + " " + acc.shippingCountry
+                let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode 
                 headerCell.addressValue.text = fullAddress
             } else {
                 headerCell.addressValue.text = ""

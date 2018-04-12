@@ -56,8 +56,13 @@ class AccountsMenuViewController: UIViewController {
         var subChannelData = [String]()
         
         for item in accountsForLoggedUserFiltered{
+            
             let channel = item.channelTD
             let subchannel = item.subChannelTD
+            
+            print(channel)
+            print(subchannel)
+            
             if channel != "" {
                 if subchannel != ""{
                     if !(channelData.contains(channel)){
@@ -198,19 +203,46 @@ class AccountsMenuViewController: UIViewController {
             self.tableView.reloadData()
         }
         
-        if (self.expandedSectionHeaderNumber == -1) {
-            self.expandedSectionHeaderNumber = section
-            tableViewExpandSection(section, imageView: eImageView!)
-        } else {
-            if (self.expandedSectionHeaderNumber == section) {
-                tableViewCollapeSection(section, imageView: eImageView!)
-                //If expanded section is clicked make this below variable to -1 so that arrow mark will be down
-                self.selectedSection = -1
-            } else {
-                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-                tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
-                tableViewExpandSection(section, imageView: eImageView!)
+        if selectedSection == 6{
+            
+            if FilterMenuModel.channel == ""{
+                
+                print("Your Channel is not Selected")
+            }else{
+                
+                if (self.expandedSectionHeaderNumber == -1) {
+                    self.expandedSectionHeaderNumber = section
+                    tableViewExpandSection(section, imageView: eImageView!)
+                } else {
+                    if (self.expandedSectionHeaderNumber == section) {
+                        tableViewCollapeSection(section, imageView: eImageView!)
+                        //If expanded section is clicked make this below variable to -1 so that arrow mark will be down
+                        self.selectedSection = -1
+                    } else {
+                        let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+                        tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+                        tableViewExpandSection(section, imageView: eImageView!)
+                    }
+                }
             }
+            
+        }else{
+            
+            if (self.expandedSectionHeaderNumber == -1) {
+                self.expandedSectionHeaderNumber = section
+                tableViewExpandSection(section, imageView: eImageView!)
+            } else {
+                if (self.expandedSectionHeaderNumber == section) {
+                    tableViewCollapeSection(section, imageView: eImageView!)
+                    //If expanded section is clicked make this below variable to -1 so that arrow mark will be down
+                    self.selectedSection = -1
+                } else {
+                    let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+                    tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+                    tableViewExpandSection(section, imageView: eImageView!)
+                }
+            }
+            
         }
     }
     
@@ -277,19 +309,22 @@ class AccountsMenuViewController: UIViewController {
             }
         case 2:
             
+            let arrayData : [String] = arrayContent[indexPath.section] as! [String]
+            
             switch indexPath.row {
+                
             case 0:
-                FilterMenuModel.statusIsActive = "YES"
-                FilterMenuModel.statusIsInActive = "NO"
-                FilterMenuModel.statusIsSuspended = "NO"
+                FilterMenuModel.statusIsActive = arrayData[indexPath.row]//"YES"
+                FilterMenuModel.statusIsInActive = ""
+                FilterMenuModel.statusIsSuspended = ""
             case 1:
-                FilterMenuModel.statusIsActive = "NO"
-                FilterMenuModel.statusIsInActive = "YES"
-                FilterMenuModel.statusIsSuspended = "NO"
+                FilterMenuModel.statusIsActive = ""
+                FilterMenuModel.statusIsInActive = arrayData[indexPath.row]//"YES"
+                FilterMenuModel.statusIsSuspended = ""
             case 2:
-                FilterMenuModel.statusIsActive = "NO"
-                FilterMenuModel.statusIsInActive = "NO"
-                FilterMenuModel.statusIsSuspended = "YES"
+                FilterMenuModel.statusIsActive = ""
+                FilterMenuModel.statusIsInActive = ""
+                FilterMenuModel.statusIsSuspended = arrayData[indexPath.row]//"YES"
             default:
                 break
             }
@@ -323,7 +358,7 @@ class AccountsMenuViewController: UIViewController {
             switch indexPath.row {
             case 0:
                 
-                let arrayData : [String] = arrayContent[indexPath.row] as! [String]
+                let arrayData : [String] = arrayContent[indexPath.section] as! [String]
                 FilterMenuModel.channel = arrayData[indexPath.row]
                 
             default:
@@ -334,7 +369,7 @@ class AccountsMenuViewController: UIViewController {
             
             switch indexPath.row {
             case 0:
-                let arrayData : [String] = arrayContent[indexPath.row] as! [String]
+                let arrayData : [String] = arrayContent[indexPath.section] as! [String]
                 FilterMenuModel.subChannel = arrayData[indexPath.row]
             default:
                 break
@@ -403,7 +438,7 @@ class AccountsMenuViewController: UIViewController {
     private func isValidUserInputAtSearchFilterPanel()->Bool
     {
         var validInput = false
-        if(searchBar.text!.count > 0 || FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != "" || FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != "" || FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != "" || FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != "")
+        if(searchBar.text!.count > 0 || FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != "" || FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != "" || FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != "" || FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != "" || FilterMenuModel.channel != "" || FilterMenuModel.subChannel != "")
         {
             print("ValidUserInputAtSearchFilterPanel")
             validInput = true

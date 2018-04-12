@@ -123,6 +123,33 @@ class AccountsMenuTableTableViewCell: UITableViewCell {
                         break
                 }
             
+        case 5:
+            
+            switch indexPath.row{
+            case 0:
+                if FilterMenuModel.channel != ""{
+                    self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+                }else{
+                    self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+                }
+            default:
+                break
+            }
+            
+        case 6:
+            
+            switch indexPath.row{
+            case 0:
+                if FilterMenuModel.subChannel != ""{
+                    self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+                }else{
+                    self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+                }
+            default:
+                break
+            }
+            
+            
             case 7:
             
             switch indexPath.row{

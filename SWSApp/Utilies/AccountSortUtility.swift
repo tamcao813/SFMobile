@@ -253,6 +253,26 @@ class AccountSortUtility
         }
         
         
+        
+        
+        if(filteredByPastDue_PremiseCode_LicenseTypeAccountArray.count == 0)
+        {
+            
+            if FilterMenuModel.channel != ""{
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.channelTD == FilterMenuModel.channel } )
+            }
+            
+            if FilterMenuModel.subChannel != ""{
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.channelTD == FilterMenuModel.subChannel } )
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
         // now search filtered list by search text
         if(searchBarText != "")
         {

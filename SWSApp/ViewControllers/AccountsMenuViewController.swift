@@ -33,6 +33,8 @@ class AccountsMenuViewController: UIViewController {
     //Used to do for the Drop down Arrow during TableviewReload
     var selectedSection = -1
     
+     var accountsForLoggedUserFiltered = [Account]()
+    
     //MARK: - ViewLifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +47,37 @@ class AccountsMenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let accountViewModel = AccountsViewModel()
+        accountsForLoggedUserFiltered = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+        print(accountsForLoggedUserFiltered.count)
         
+        
+        var channelData = [String]()
+        var subChannelData = [String]()
+        
+        for item in accountsForLoggedUserFiltered{
+            let channel = item.channelTD
+            let subchannel = item.subChannelTD
+            if channel != "" {
+                if subchannel != ""{
+                    if !(channelData.contains(channel)){
+                        channelData.append(channel)
+                    }
+                    if !(subChannelData.contains(subchannel)){
+                        subChannelData.append(subchannel)
+                    }
+                }
+            }
+        }
+        
+        if channelData.count > 0 {
+            if subChannelData.count > 0{
+                filterClass.sectionItems.insert(channelData, at: 5)
+                filterClass.sectionItems.insert(subChannelData, at: 6)
+            }
+        }
+        
+        print(filterClass.sectionItems)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -133,6 +165,9 @@ class AccountsMenuViewController: UIViewController {
         FilterMenuModel.licenseL = ""
         FilterMenuModel.licenseB = ""
         FilterMenuModel.licenseN = ""
+        
+        FilterMenuModel.channel = ""
+        FilterMenuModel.subChannel = ""
         
         FilterMenuModel.city = ""
         
@@ -225,7 +260,7 @@ class AccountsMenuViewController: UIViewController {
     }
     
     //Dropdown Single selection option clicked and is assigned to model class
-    func tableViewCellClickedSingleSelection(indexPath : IndexPath){
+    func tableViewCellClickedSingleSelection(indexPath : IndexPath , arrayContent : Array<Any>) {
         
         switch indexPath.section {
         case 0:
@@ -282,6 +317,31 @@ class AccountsMenuViewController: UIViewController {
             default:
                 break
             }
+            
+        case 5:
+            
+            switch indexPath.row {
+            case 0:
+                
+                let arrayData : [String] = arrayContent[indexPath.row] as! [String]
+                FilterMenuModel.channel = arrayData[indexPath.row]
+                
+            default:
+                break
+            }
+            
+        case 6:
+            
+            switch indexPath.row {
+            case 0:
+                let arrayData : [String] = arrayContent[indexPath.row] as! [String]
+                FilterMenuModel.subChannel = arrayData[indexPath.row]
+            default:
+                break
+                
+            }
+            
+            
         case 7:
             
             switch indexPath.row {
@@ -499,7 +559,7 @@ extension AccountsMenuViewController : UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
         
-        self.tableViewCellClickedSingleSelection(indexPath: indexPath)
+        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : filterClass.sectionItems)
         
     }
     

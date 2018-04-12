@@ -64,19 +64,19 @@ class AccountsMenuTableTableViewCell: UITableViewCell {
             
                 switch indexPath.row{
                     case 0:
-                        if FilterMenuModel.statusIsActive == "YES"{
+                        if FilterMenuModel.statusIsActive != ""{
                             self.dropDownImageView.image = UIImage.init(named: "radioSelected")
                         }else{
                             self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
                         }
                     case 1:
-                        if FilterMenuModel.statusIsInActive == "YES"{
+                        if FilterMenuModel.statusIsInActive != ""{
                             self.dropDownImageView.image = UIImage.init(named: "radioSelected")
                         }else{
                             self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
                         }
                     case 2:
-                        if FilterMenuModel.statusIsSuspended == "YES"{
+                        if FilterMenuModel.statusIsSuspended != ""{
                             self.dropDownImageView.image = UIImage.init(named: "radioSelected")
                         }else{
                             self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
@@ -122,6 +122,33 @@ class AccountsMenuTableTableViewCell: UITableViewCell {
                     default:
                         break
                 }
+            
+        case 5:
+            
+            switch indexPath.row{
+            case 0:
+                if FilterMenuModel.channel != ""{
+                    self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+                }else{
+                    self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+                }
+            default:
+                break
+            }
+            
+        case 6:
+            
+            switch indexPath.row{
+            case 0:
+                if FilterMenuModel.subChannel != ""{
+                    self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+                }else{
+                    self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+                }
+            default:
+                break
+            }
+            
             
             case 7:
             

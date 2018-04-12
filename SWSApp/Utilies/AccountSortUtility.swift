@@ -260,6 +260,94 @@ class AccountSortUtility
             }
         }
         
+        //For Channel Filtering
+        if(enteredAnyFilterCase == false){
+            
+            if FilterMenuModel.channel != ""{
+                enteredAnyFilterCase = true
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.channelTD == FilterMenuModel.channel } )
+            }
+            
+        }else{
+            
+            if FilterMenuModel.channel != ""{
+                enteredAnyFilterCase = true
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.channelTD == FilterMenuModel.channel } )
+            }
+            
+        }
+        
+        
+        //For SubChannel Filtering
+        if(enteredAnyFilterCase == false){
+            
+            if FilterMenuModel.subChannel != ""{
+                enteredAnyFilterCase = true
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.subChannelTD == FilterMenuModel.subChannel } )
+            }
+            
+        }else{
+            
+            if FilterMenuModel.subChannel != ""{
+                enteredAnyFilterCase = true
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.subChannelTD == FilterMenuModel.subChannel } )
+            }
+            
+        }
+        
+        
+        //For Active
+        if(enteredAnyFilterCase == false){
+            
+            if FilterMenuModel.statusIsActive != ""{
+                enteredAnyFilterCase = true
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.accDescriptionStatus == "A" } )
+            }
+            
+        }else{
+            
+            if FilterMenuModel.statusIsActive != ""{
+                enteredAnyFilterCase = true
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.accDescriptionStatus == "A" } )
+            }
+            
+        }
+        
+        
+        //For Inactive
+        if(enteredAnyFilterCase == false){
+            
+            if FilterMenuModel.statusIsInActive != ""{
+                enteredAnyFilterCase = true
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.accDescriptionStatus == "I" } )
+            }
+            
+        }else{
+            
+            if FilterMenuModel.statusIsInActive != ""{
+                enteredAnyFilterCase = true
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.accDescriptionStatus == "I" } )
+            }
+            
+        }
+        
+        //For Suspended
+        if(enteredAnyFilterCase == false){
+            
+            if FilterMenuModel.statusIsSuspended != ""{
+                enteredAnyFilterCase = true
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.accDescriptionStatus == "S" } )
+            }
+            
+        }else{
+            
+            if FilterMenuModel.statusIsSuspended != ""{
+                enteredAnyFilterCase = true
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.accDescriptionStatus == "S" } )
+            }
+            
+        }
+        
         
         // now search filtered list by search text
         if(searchBarText != "" && enteredAnyFilterCase == true) // user filtered list fot search

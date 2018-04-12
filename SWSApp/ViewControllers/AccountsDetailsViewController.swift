@@ -55,7 +55,7 @@ class AccountDetailsViewController : UIViewController{
         lblAccountTitle?.text = accountDetailForLoggedInUser?.accountName
         
         if let acc = accountDetailForLoggedInUser{
-            let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode + " " + acc.shippingCountry
+            let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode 
             
             lblAddress1?.text = fullAddress
             

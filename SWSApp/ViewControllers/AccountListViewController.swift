@@ -50,6 +50,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     //Used to display Table View Content
     var tableViewDisplayData = [Account]()
+    var numberOfAccountRows = 0
     
     var itemsToShowInTableView = -1
     
@@ -108,11 +109,14 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         let cellsToDisplay = tableViewDisplayData.count - currentPageIndex!
         
         if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
+            numberOfAccountRows = cellsToDisplay
             return cellsToDisplay
         } else if (cellsToDisplay == 0) {
+            numberOfAccountRows = 0
             return 0
         }
         else {
+            numberOfAccountRows = self.kPageSize
             return self.kPageSize
         }
         
@@ -506,6 +510,10 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
+        if(numberOfAccountRows > 0)
+        {
+            self.accountListTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
         
         //self.accountListTableView.reloadData()
         
@@ -750,6 +758,13 @@ extension AccountsListViewController{
         
         
         accountListTableView.reloadData()
+    }
+    
+    func performFilterOperation(searchString: String) {
+        //filteringFromLeftMenu = isFiltering
+        accountsForLoggedUserFiltered = AccountSortUtility.filterAccountByAppliedFilter(accountsListToBeSorted: accountsForLoggedUserOriginal, searchBarText: searchString)
+        self.updateTheTableViewDataAccordingly()
+        
     }
 }
 

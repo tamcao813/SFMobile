@@ -111,5 +111,140 @@ class AccountSortUtility
         return dateSortedAccountList
     }
     
+    static func filterAccountByAppliedFilter(accountsListToBeSorted : [Account], searchBarText:String?)-> [Account]{
+        // test
+        print("****** test start*****")
+        for testAccount in accountsListToBeSorted
+        {
+            print("--------")
+            print("accountName: " + testAccount.accountName)
+            print("pastDueAmount: " + String(testAccount.pastDueAmount))
+            print("premiseCode: " + testAccount.premiseCode)
+            print("licenseType: " + testAccount.licenseType)
+            
+        }
+        print("****** test end*****")
+        // test
+        var filteredSearchedArray = [Account]()
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        if FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != ""{
+            if FilterMenuModel.pastDueYes == "YES"{
+                
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount >= 0 } )
+                
+            }else if FilterMenuModel.pastDueNo == "YES" {
+                
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount < 0 } )
+                
+            }
+        }
+        //print(filteredByPastDueAccountArray.count)
+        
+        if(filteredByPastDue_PremiseCode_LicenseTypeAccountArray.count == 0)
+        {
+            // filter by  premise code
+            if FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != ""{
+                if FilterMenuModel.premiseOn == "YES"{
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.premiseCode == "ON" } )
+                    
+                }
+                else if FilterMenuModel.premiseOff == "YES"
+                {
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.premiseCode == "OFF" } )
+                    
+                }
+            }
+        }
+        else
+        {
+            // filter by  premise code
+            if FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != ""{
+                if FilterMenuModel.premiseOn == "YES"{
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.premiseCode == "ON" } )
+                    
+                }else if FilterMenuModel.premiseOff == "YES" {
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.premiseCode == "OFF" } )
+                    
+                }
+            }
+        }
+        
+        
+        // filter by license type
+        if(filteredByPastDue_PremiseCode_LicenseTypeAccountArray.count == 0)
+        {
+            if FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != ""{
+                
+                if FilterMenuModel.licenseB == "YES"{
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "B" } )
+                    
+                }else if FilterMenuModel.licenseL == "YES" {
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "L" } )
+                    
+                }
+                else if FilterMenuModel.licenseN == "YES" {
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "N" } )
+                    
+                }
+                else if FilterMenuModel.licenseW == "YES" {
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "W" } )
+                    
+                }
+            }
+        }
+        else
+        {
+            if FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != ""{
+                
+                if FilterMenuModel.licenseB == "YES"{
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "licenseB" } )
+                    
+                }else if FilterMenuModel.licenseL == "YES" {
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "licenseL" } )
+                    
+                }
+                else if FilterMenuModel.licenseN == "YES" {
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "licenseN" } )
+                    
+                }
+                else if FilterMenuModel.licenseW == "YES" {
+                    
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "licenseW" } )
+                    
+                }
+            }
+        }
+        
+        // now search filtered list by search text
+        if(searchBarText != "")
+        {
+            if(filteredByPastDue_PremiseCode_LicenseTypeAccountArray.count == 0)
+            {
+                filteredSearchedArray = searchAccountBySearchBarQuery(accountsForLoggedUser: accountsListToBeSorted, searchText: searchBarText!)
+            }
+            else
+            {
+                filteredSearchedArray = searchAccountBySearchBarQuery(accountsForLoggedUser: filteredByPastDue_PremiseCode_LicenseTypeAccountArray, searchText: searchBarText!)
+            }
+        }
+        else
+        {
+            filteredSearchedArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray
+        }
+        
+        return filteredSearchedArray
+    }
+    
 }
 

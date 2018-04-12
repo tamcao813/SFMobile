@@ -535,7 +535,7 @@ extension AccountsMenuViewController : UISearchBarDelegate{
         print(searchText)
         if searchText.count == 0
         {
-            self.searchByEnteredTextDelegate?.filtering(filtering: false)
+            //self.searchByEnteredTextDelegate?.filtering(filtering: false)
             //searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
         }/*
         else

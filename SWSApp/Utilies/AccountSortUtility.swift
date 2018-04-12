@@ -126,11 +126,11 @@ class AccountSortUtility
         if FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != ""{
             if FilterMenuModel.pastDueYes == "YES"{
                 
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount >= 0 } )
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount > 0 } )
                 
             }else if FilterMenuModel.pastDueNo == "YES" {
                 
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount < 0 } )
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount <= 0 } )
                 
             }
         }
@@ -201,21 +201,21 @@ class AccountSortUtility
                 
                 if FilterMenuModel.licenseB == "YES"{
                     
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "licenseB" } )
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "B" } )
                     
                 }else if FilterMenuModel.licenseL == "YES" {
                     
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "licenseL" } )
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "L" } )
                     
                 }
                 else if FilterMenuModel.licenseN == "YES" {
                     
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "licenseN" } )
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "N" } )
                     
                 }
                 else if FilterMenuModel.licenseW == "YES" {
                     
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "licenseW" } )
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "W" } )
                     
                 }
             }

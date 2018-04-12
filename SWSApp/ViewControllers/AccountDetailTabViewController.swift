@@ -154,7 +154,27 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.phoneValue.text = account?.phone
             headerCell.licenseTypeValue.text = account?.licenseType
             headerCell.licenseNumberValue.text = account?.licenseNumber
-            headerCell.netsalesValue.text = "$"+(account?.totalCYR12NetSales.description)!
+            headerCell.totalCYR12NetSales.text = "$" + String(describing: account!.totalCYR12NetSales)
+            
+
+            
+            let mtdValue : Double = Double((account?.percentageLastYearMTDNetSales)!)
+            if (mtdValue > 0.0 && mtdValue < 0.40 )
+            {// Health-Pathetic
+                headerCell.batterySalesIndicator.image = UIImage(named: "Health-Good")
+            } else if ( 0.60 > mtdValue && mtdValue > 0.40){
+                 headerCell.batterySalesIndicator.image = UIImage(named: "Health-Bad")
+            }
+            else if ( 0.80 > mtdValue && mtdValue > 0.60){
+                 headerCell.batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
+            }
+            else if ( 1.0 > mtdValue && mtdValue > 0.80){
+                 headerCell.batterySalesIndicator.image = UIImage(named: "Health-Extremely Bad.png")
+            }
+            else {
+                headerCell.batterySalesIndicator.image = UIImage(named: "Health-Pathetic.png")
+            }
+
             headerCell.creditLimitValue.text = "$"+(account?.creditLimit.description)!
             headerCell.totalBalanceValue.text = "$"+(account?.totalARBalance.description)!
             
@@ -177,8 +197,8 @@ class AccountDetailTabViewController: UITableViewController {
             
             //Getting only working hours from extension
             
-            let workingHours = account?.operatingHours.slice(from: ":", to: "\n")
-            headerCell.businessHoursValue.text = workingHours
+          //  let workingHours = account?.operatingHours.slice(from: ":", to: "\n")
+            headerCell.businessHoursValue.text = account?.operatingHours
             
             // getting account type value
             if let acc = account{
@@ -196,7 +216,7 @@ class AccountDetailTabViewController: UITableViewController {
         else if section == 1{
             let frame = tableView.frame
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 400, height: 50))
-            sectionLabel.text = "Crown Liquor Contacts"
+            sectionLabel.text = "Contacts"
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
             
@@ -242,7 +262,7 @@ class AccountDetailTabViewController: UITableViewController {
         
         if  section == 1{
             tableViewHeaderFooterView.contentView.backgroundColor = UIColor.white
-            tableViewHeaderFooterView.textLabel?.text = "Crown Liquor Contacts"
+            tableViewHeaderFooterView.textLabel?.text = "Contacts"
             tableViewHeaderFooterView.textLabel?.textColor = UIColor.black
             tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:25)
             tableViewHeaderFooterView.textLabel?.frame = tableViewHeaderFooterView.frame

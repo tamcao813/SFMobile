@@ -39,7 +39,7 @@ class CustomerHeaderTableViewCell: UITableViewCell {
     
     //MARK:- -
     @IBOutlet weak var nestsalesLbl: UILabel!
-    @IBOutlet weak var netsalesValue: UILabel!
+    @IBOutlet weak var totalCYR12NetSales: UILabel!
     
     @IBOutlet weak var creditLimitLbl: UILabel!
     @IBOutlet weak var creditLimitValue: UILabel!
@@ -70,7 +70,8 @@ class CustomerHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var NetSales_View: UIView!
     @IBOutlet weak var Delivery_View: UIView!
     
-  
+    @IBOutlet weak var batterySalesIndicator: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         

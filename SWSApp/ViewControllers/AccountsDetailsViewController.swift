@@ -71,7 +71,7 @@ class AccountDetailsViewController : UIViewController{
         lblMTDSales?.text = "$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
-        btnPercentage?.setTitle(accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description, for: .normal)
+        btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description)! + "%", for: .normal)
 
        
     }

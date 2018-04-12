@@ -24,11 +24,37 @@ class User {
     }
     
     init(json: [String: Any]) {
-        userid = json[User.UserFields[0]] as! String
-        firstName = json[User.UserFields[3]] as! String
-        lastName = json[User.UserFields[4]] as! String
-        name = json[User.UserFields[1]] as! String
-        userName = json[User.UserFields[2]] as! String
+        if json[User.UserFields[0]] is NSNull {
+            userid = ""
+        } else {
+            userid = json[User.UserFields[0]] as! String
+            
+        }
+        
+        if json[User.UserFields[3]] is NSNull {
+            firstName = ""
+        }
+        else {
+            firstName = json[User.UserFields[3]] as! String
+        }
+        if json[User.UserFields[4]] is NSNull {
+            lastName = ""
+        }
+        else {
+            lastName = json[User.UserFields[4]] as! String
+        }
+        if json[User.UserFields[1]] is NSNull {
+            name = ""
+        }else {
+            name =  json[User.UserFields[1]] as! String
+        }
+        if json[User.UserFields[2]] is NSNull {
+            userName = ""
+        } else {
+            
+            userName = json[User.UserFields[2]] as! String
+            
+        }
         userSite = ""//json[User.UserFields[2]] as! String
     }
     

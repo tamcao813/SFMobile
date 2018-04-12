@@ -242,11 +242,11 @@ class AccountSortUtility
             if FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != ""{
                 if FilterMenuModel.singleSelected == "YES"{
                     
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.singleMultiLocationFilter == "single" } )
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KSingleLocation.rawValue } )
                     
                 }else if FilterMenuModel.multiSelected == "YES" {
                     
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.singleMultiLocationFilter == "multi" } )
+                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KMultiLocation.rawValue } )
                     
                 }
             }

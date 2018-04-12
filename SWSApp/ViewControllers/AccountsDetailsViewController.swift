@@ -43,12 +43,9 @@ class AccountDetailsViewController : UIViewController{
         containerView?.isHidden = true
         
         // Adding color to center label
-        centerLabel?.text = "A"
         centerLabel?.backgroundColor = UIColor(named: "Good")
       //  btnPercentage?.setTitle("91%", for: .normal)
         lblPhoneNumber?.text = "(123)456-6789"
-        
-        
         
     }
     
@@ -67,8 +64,8 @@ class AccountDetailsViewController : UIViewController{
            lblAddress1?.text = ""
         }
      
-        print("Health Text \(accountDetailForLoggedInUser?.healthGrade)")
-        centerLabel?.text = accountDetailForLoggedInUser?.healthGrade
+       
+       // centerLabel?.text = accountDetailForLoggedInUser?.accountHealthGrade
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)
         lblPastDue?.text = "$\(accountDetailForLoggedInUser!.totalARBalance)"
         lblMTDSales?.text = "$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
@@ -76,7 +73,7 @@ class AccountDetailsViewController : UIViewController{
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
         btnPercentage?.setTitle(accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description, for: .normal)
 
-        print(accountDetailForLoggedInUser!)
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {

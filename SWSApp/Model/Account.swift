@@ -48,8 +48,7 @@ class Account {
     var percentageLastYearMTDNetSales: Double
     var singleMultiLocationFilter:String // single multi
   
-    
-    
+    var accDescriptionStatus:String
     
     
    
@@ -101,7 +100,7 @@ class Account {
         deliveryFrequency = json["Account.SWS_Delivery_Frequency__c"] as? String ?? ""
         licenseTypeDescription = json["Account.SWS_License_Type_Description__c"] as? String ?? ""
         pastDueAlert = json["Past_Due_Alert"] as? String ?? ""
-        
+        accDescriptionStatus = json["Account.SWS_Status_Description__c"] as? String ?? ""
         
         
         actionItem = 2 //need to get from query
@@ -149,7 +148,7 @@ class Account {
         actionItem = 2
         singleMultiLocationFilter = ""
       
-    
+        accDescriptionStatus  = ""
        
     }
     

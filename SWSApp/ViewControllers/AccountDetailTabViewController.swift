@@ -196,7 +196,7 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.pastDueValue.text = "$"+(account?.pastDueAmount.description)!
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
             headerCell.nextDeliveryDateValue.text =  account?.nextDeliveryDate
-            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description
+//            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description
             
             //Getting only working hours from extension
             

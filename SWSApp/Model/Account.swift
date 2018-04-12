@@ -46,7 +46,7 @@ class Account {
     var pastDueAlert: String
     var actionItem: Int
     var percentageLastYearMTDNetSales: Double
-    var singleMultiLocationFilter:String
+    var singleMultiLocationFilter:String // single multi
     var accDescriptionStatus:String
     
     
@@ -60,7 +60,7 @@ class Account {
         
         print("Json coming here is*** \(json)")
         
-        singleMultiLocationFilter = json["Account.SGWS_Single_Multi_Locations_Filter__c"] as! String
+        singleMultiLocationFilter = json["Account.SGWS_Single_Multi_Locations_Filter__c"] as? String ?? ""
         accountId = json["Account.Id"] as! String
         accountName = json["Account.Name"] as? String ?? ""
         siteId = json["SiteId"] as? String ?? ""

@@ -10,6 +10,7 @@ import UIKit
 import SalesforceSDKCore
 import SalesforceSwiftSDK
 import PromiseKit
+import Reachability
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -120,47 +121,79 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupRootViewController() {
         guard let window = window else { return }
         
-        //Do this in the main thread to make sure the HUB gets added to the view properly and to show progresses
-        DispatchQueue.main.async(execute: {
-            //to do: show Hub and progress
+        let reachability = Reachability.init()
+        
+        reachability?.whenReachable = { reachability in
+            if reachability.connection == .wifi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
             
-            StoreDispatcher.shared.syncDownUser({ (error) in
-                if error != nil {
-                    print("error in syncDownUser")
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
-                    window.rootViewController = viewController
-                    window.makeKeyAndVisible()
-                    return
-                }
+            
+            //Do this in the main thread to make sure the HUB gets added to the view properly and to show progresses
+            DispatchQueue.main.async(execute: {
+                //to do: show Hub and progress
                 
-                StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
-                    guard let user = user else {
-                        print("No logged in user retrieved")
+                StoreDispatcher.shared.syncDownUser({ (error) in
+                    if error != nil {
+                        print("error in syncDownUser")
                         return
                     }
                     
-                    self.loggedInUser =  user
-                    
-                    StoreDispatcher.shared.downloadAllSoups({ (error) in
-                        if error != nil {
-                            print("error in downloadAllSoups")
+                    StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+                        guard let user = user else {
+                            print("No logged in user retrieved")
                             return
                         }
                         
+                        self.loggedInUser =  user
                         
-                        DispatchQueue.main.async(execute: {
-                            //to do: show progress 100% completed and dismiss Hub
+                        StoreDispatcher.shared.downloadAllSoups({ (error) in
+                            if error != nil {
+                                print("error in downloadAllSoups")
+                                return
+                            }
                             
-                            print("DispatchQueue.main.async rootViewController")
-                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
-                            window.rootViewController = viewController
-                            window.makeKeyAndVisible()
+                            
+                            DispatchQueue.main.async(execute: {
+                                //to do: show progress 100% completed and dismiss Hub
+                                
+                                print("DispatchQueue.main.async rootViewController")
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                                window.rootViewController = viewController
+                                window.makeKeyAndVisible()
+                            })
                         })
                     })
                 })
             })
-        })
+        }
+        reachability?.whenUnreachable = { _ in
+            
+            StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+                guard let user = user else {
+                    print("No logged in user retrieved")
+                    return
+                }
+                
+                self.loggedInUser =  user
+                
+                print("Not reachable")
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                window.rootViewController = viewController
+                window.makeKeyAndVisible()
+            })
+            
+        }
+        
+        do {
+            try reachability?.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
     }
 }

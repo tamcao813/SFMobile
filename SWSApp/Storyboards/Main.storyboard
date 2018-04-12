@@ -684,35 +684,48 @@
                                 <rect key="frame" x="0.0" y="681" width="726" height="70"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="e05-r0-46M">
-                                        <rect key="frame" x="104" y="20" width="518" height="30"/>
+                                        <rect key="frame" x="104" y="19" width="518" height="32"/>
                                         <subviews>
                                             <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mM-p1-xOI">
-                                                <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="32"/>
                                                 <color key="backgroundColor" name="LightGrey"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="n6t-1y-Paz"/>
                                                 </constraints>
-                                                <state key="normal" title="&lt;   First Page"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" title="&lt;   First Page">
+                                                    <color key="titleColor" name="Data New"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="pageActionHandelerWithSender:" destination="TC4-sW-ah2" eventType="touchUpInside" id="9ye-dZ-EI0"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXs-T8-vRg">
-                                                <rect key="frame" x="151" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="151" y="0.0" width="30" height="32"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                                 <state key="normal" title="&lt;">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="pageActionHandelerWithSender:" destination="TC4-sW-ah2" eventType="touchUpInside" id="A7M-rb-wxY"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BwR-mu-ltp">
-                                                <rect key="frame" x="182" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="182" y="0.0" width="30" height="32"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                 <state key="normal" title="1">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <state key="selected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -722,66 +735,88 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrH-W1-Zxw">
-                                                <rect key="frame" x="213" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="213" y="0.0" width="30" height="32"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                 <state key="normal" title="2">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="pageActionHandelerWithSender:" destination="TC4-sW-ah2" eventType="touchUpInside" id="8bu-DF-lWw"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I1u-WA-oD4">
-                                                <rect key="frame" x="244" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="244" y="0.0" width="30" height="32"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                 <state key="normal" title="3">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="pageActionHandelerWithSender:" destination="TC4-sW-ah2" eventType="touchUpInside" id="L3P-U0-xFU"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEJ-jx-mIy">
-                                                <rect key="frame" x="275" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="275" y="0.0" width="30" height="32"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                 <state key="normal" title="4">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="pageActionHandelerWithSender:" destination="TC4-sW-ah2" eventType="touchUpInside" id="fEK-sW-yqt"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QB9-DB-Q6o">
-                                                <rect key="frame" x="306" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="306" y="0.0" width="30" height="32"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                 <state key="normal" title="5">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="pageActionHandelerWithSender:" destination="TC4-sW-ah2" eventType="touchUpInside" id="b7Z-0w-Xhm"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="107" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dic-0B-QTX">
-                                                <rect key="frame" x="337" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="337" y="0.0" width="30" height="32"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                                 <state key="normal" title="&gt;">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="pageActionHandelerWithSender:" destination="TC4-sW-ah2" eventType="touchUpInside" id="dzX-ZW-DI0"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="108" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fF4-5D-ZLc">
-                                                <rect key="frame" x="368" y="0.0" width="150" height="30"/>
+                                                <rect key="frame" x="368" y="0.0" width="150" height="32"/>
                                                 <color key="backgroundColor" name="LightGrey"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="kGW-rk-NWr"/>
                                                 </constraints>
-                                                <state key="normal" title="Last Page  &gt;"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" title="Last Page  &gt;">
+                                                    <color key="titleColor" name="Data New"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="pageActionHandelerWithSender:" destination="TC4-sW-ah2" eventType="touchUpInside" id="yU4-0J-GPk"/>
                                                 </connections>
@@ -1266,6 +1301,9 @@
         <image name="Details" width="6" height="11"/>
         <image name="Large Status Critical" width="36" height="32"/>
         <image name="Sort" width="225" height="225"/>
+        <namedColor name="Data New">
+            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Data New">
             <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -385,14 +385,14 @@
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcO-SQ-2eB">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcO-SQ-2eB">
                                                                             <rect key="frame" x="56" y="0.0" width="40" height="20.5"/>
                                                                             <color key="backgroundColor" red="1" green="0.3491543815" blue="0.3067211742" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="40" id="0y2-fg-l3W"/>
                                                                                 <constraint firstAttribute="height" constant="20" id="2t6-mD-w8u"/>
                                                                             </constraints>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -593,6 +593,7 @@
                                     <outlet property="AccountType_View" destination="aYw-9b-IlM" id="hfS-af-9fI"/>
                                     <outlet property="Delivery_View" destination="Q7d-ZM-cRE" id="fke-AZ-rVh"/>
                                     <outlet property="NetSales_View" destination="wYd-au-gQc" id="fWH-Qy-xTd"/>
+                                    <outlet property="accountHealthIndicator" destination="RcO-SQ-2eB" id="vrA-ts-SkL"/>
                                     <outlet property="accountIDValue" destination="Ptr-jq-QfV" id="nD1-H1-Ybo"/>
                                     <outlet property="accountIDlbl" destination="4Up-Gu-RVo" id="nOS-fI-L3S"/>
                                     <outlet property="accountType" destination="Cy0-4D-m3k" id="ZOU-sV-V5g"/>

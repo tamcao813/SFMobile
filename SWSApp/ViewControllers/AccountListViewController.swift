@@ -473,6 +473,12 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }
             //self.accountListTableView.reloadData()
             self.updateTheTableViewDataAccordingly()
+            
+            for count in 1...5 {
+                pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+                pageButtonArr[count].backgroundColor = UIColor.white
+            }
+            pageButtonArr[1].backgroundColor = UIColor.lightGray
         }
     }
     
@@ -620,25 +626,30 @@ extension AccountsListViewController{
     
     func updateUI(){
         
-        if (isDisabledPreviously == true){
-            enableBtn(from:0, to: 8)
+        if(kSizeOfArray == 0) {
+            disableBtn(from:0, to: 8)
         }
-        
-        //Get Size of aray and enable the tabs
-        if(currentPageSet == 0){
-            disableBtn(from: 0, to: 0)
-            disableBtn(from: 7, to: 7)
-        }
-        
-        if(currentPageSet! >= kNoOfPageSet! - 1 ){
-            disableBtn(from: 6, to: 6)
-            disableBtn(from: 8, to: 8)
+        else {
+            if (isDisabledPreviously == true){
+                enableBtn(from:0, to: 8)
+            }
             
-            if(kRemainderNoPagesDisabled > 0) {
-                let enableBtns = kNoOfPagesInEachSet - kRemainderNoPagesDisabled
-                enableBtn(from: 1, to: enableBtns)
-                if(enableBtns+1 <= 5) {
-                    disableBtn(from: enableBtns+1, to: 5)
+            //Get Size of aray and enable the tabs
+            if(currentPageSet == 0){
+                disableBtn(from: 0, to: 0)
+                disableBtn(from: 7, to: 7)
+            }
+            
+            if(currentPageSet! >= kNoOfPageSet! - 1 ){
+                disableBtn(from: 6, to: 6)
+                disableBtn(from: 8, to: 8)
+                
+                if(kRemainderNoPagesDisabled > 0) {
+                    let enableBtns = kNoOfPagesInEachSet - kRemainderNoPagesDisabled
+                    enableBtn(from: 1, to: enableBtns)
+                    if(enableBtns+1 <= 5) {
+                        disableBtn(from: enableBtns+1, to: 5)
+                    }
                 }
             }
         }

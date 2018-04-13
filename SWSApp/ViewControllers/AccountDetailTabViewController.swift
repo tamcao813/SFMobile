@@ -219,8 +219,8 @@ class AccountDetailTabViewController: UITableViewController {
         }
         else if section == 1{
             let frame = tableView.frame
-            let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 400, height: 50))
-            sectionLabel.text = "Contacts"
+            let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 800, height: 50))
+            sectionLabel.text = (account?.accountName)! + " " + "Contacts"
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
             
@@ -266,7 +266,7 @@ class AccountDetailTabViewController: UITableViewController {
         
         if  section == 1{
             tableViewHeaderFooterView.contentView.backgroundColor = UIColor.white
-            tableViewHeaderFooterView.textLabel?.text = "Contacts"
+            tableViewHeaderFooterView.textLabel?.text = (account?.accountName)! + "Contacts"
             tableViewHeaderFooterView.textLabel?.textColor = UIColor.black
             tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:25)
             tableViewHeaderFooterView.textLabel?.frame = tableViewHeaderFooterView.frame

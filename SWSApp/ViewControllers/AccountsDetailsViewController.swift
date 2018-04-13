@@ -73,12 +73,12 @@ class AccountDetailsViewController : UIViewController{
         if accountDetailForLoggedInUser?.acctHealthGrade == "A"{
             
             centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
-            centerLabel?.layer.backgroundColor = UIColor.green.cgColor
+            centerLabel?.layer.backgroundColor = UIColor(named: "Good")?.cgColor//green.cgColor
             
         }else if accountDetailForLoggedInUser?.acctHealthGrade == "B"{
             
             centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
-            centerLabel?.layer.backgroundColor = UIColor.yellow.cgColor
+            centerLabel?.layer.backgroundColor = UIColor(named: "Medium Alert")?.cgColor//yellow.cgColor
             
         }else if accountDetailForLoggedInUser?.acctHealthGrade == "C"{
             
@@ -88,7 +88,7 @@ class AccountDetailsViewController : UIViewController{
         }else if accountDetailForLoggedInUser?.acctHealthGrade == "D"{
             
             centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
-            centerLabel?.layer.backgroundColor = UIColor.red.cgColor
+            centerLabel?.layer.backgroundColor = UIColor(named: "Bad")?.cgColor//.red.cgColor
             
         }
         else {

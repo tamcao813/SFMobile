@@ -128,11 +128,11 @@ class AccountSortUtility
             enteredAnyFilterCase = true
             if FilterMenuModel.pastDueYes == "YES"{
                 
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount > 0 } )
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmountDouble as Double > 0.0 } )
                 
             }else if FilterMenuModel.pastDueNo == "YES" {
                 
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount <= 0 } )
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmountDouble <= 0 } )
                 
             }
         }

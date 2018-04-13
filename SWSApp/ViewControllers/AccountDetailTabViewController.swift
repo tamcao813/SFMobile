@@ -152,11 +152,11 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.phoneValue.text = account?.phone
             headerCell.licenseTypeValue.text = account?.licenseType
             headerCell.licenseNumberValue.text = account?.licenseNumber
-            headerCell.totalCYR12NetSales.text = "$" + String(describing: account!.totalCYR12NetSales)
+            headerCell.mtdSalesValue.text = "$" + String(describing: account!.mtdNetSales)
             
 
             
-            let mtdValue : Double = Double((account?.percentageLastYearMTDNetSales)!)
+            let mtdValue = (account?.percentageLastYearMTDNetSales)!
             if (mtdValue > 0.0 && mtdValue < 0.40 )
             {// Health-Pathetic
                 headerCell.batterySalesIndicator.image = UIImage(named: "Health-Good")
@@ -184,7 +184,7 @@ class AccountDetailTabViewController: UITableViewController {
 //            }
             
             //Past due amount value is greater than 0 than only show indicator else hide it
-            if let pastDueAmmt = account?.pastDueAmount{
+            if let pastDueAmmt = account?.pastDueAmountDouble{
                 if pastDueAmmt <= 0{
                     headerCell.pastDueIndicatorImage.isHidden = true
                 }

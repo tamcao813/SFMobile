@@ -174,16 +174,16 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         cell.addressLabel.text = fullAddress
         
         cell.actionItemsLabel.text = String(account.actionItem)
-        cell.netSalesAmountLabel.text = String(format: "$%.1f",account.totalCYR12NetSales)
-        cell.pastDueAmountTextLabel.text = String(format: "$%.1f",account.pastDueAmount)
+        
+        cell.netSalesAmountLabel.text = String(format: "$%.2f",account.totalCYR12NetSales)
+        cell.pastDueAmountTextLabel.text = String(format: "$%.2f",account.pastDueAmountDouble)
         
         //Past due amount value is greater than 0 than only show indicator else hide it
-        if account.pastDueAmount <= 0 {
+        
+        if account.pastDueAmountDouble <= 0.0 {
             cell.pastDueIndicatorImageView.isHidden = true
         }else {
-            
              cell.pastDueIndicatorImageView.isHidden = false
-            
         }
         
         cell.nextDeliveryDateLabel.text = account.nextDeliveryDate

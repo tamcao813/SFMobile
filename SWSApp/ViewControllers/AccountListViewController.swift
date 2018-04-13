@@ -480,6 +480,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     func filtering(filtering: Bool)
     {
         isFiltering = filtering
+        isSorting = false
         if(isFiltering == false)
         {
             /*isSorting = false

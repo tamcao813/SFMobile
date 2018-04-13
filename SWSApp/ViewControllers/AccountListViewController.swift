@@ -95,13 +95,13 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
         tableViewDisplayData = accountsForLoggedUserOriginal
         
+        if accountsForLoggedUserOriginal.count > 0 {
+            pageButtonArr[1].backgroundColor = UIColor.lightGray
+            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        }
         
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
-        
-        
-        
-        
         
     }
     
@@ -174,19 +174,19 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         cell.addressLabel.text = fullAddress
         
         cell.actionItemsLabel.text = String(account.actionItem)
-        cell.netSalesAmountLabel.text = String(format: "$%.1f",account.totalCYR12NetSales)
-        cell.pastDueAmountTextLabel.text = String(format: "$%.1f",account.pastDueAmount)
+        
+        cell.netSalesAmountLabel.text = String(format: "$%.2f",account.totalCYR12NetSales)
+        cell.pastDueAmountTextLabel.text = String(format: "$%.2f",account.pastDueAmountDouble)
         
         //Past due amount value is greater than 0 than only show indicator else hide it
-        if account.pastDueAmount <= 0 {
+        
+        if account.pastDueAmountDouble <= 0.0 {
             cell.pastDueIndicatorImageView.isHidden = true
         }else {
-            
              cell.pastDueIndicatorImageView.isHidden = false
-            
         }
         
-        cell.nextDeliveryDateLabel.text = account.nextDeliveryDate
+        cell.nextDeliveryDateLabel.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account.nextDeliveryDate)
     
         return cell
         
@@ -257,6 +257,15 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             accountDetailsScreen.accountDetailForLoggedInUser = selectedAccount
         }
     }
+    
+    
+    func setTheButtonsFormatAccordingly(){
+        
+        
+        
+    }
+    
+    
     
     
     // # MARK: Account List Sorting related
@@ -471,6 +480,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     func filtering(filtering: Bool)
     {
         isFiltering = filtering
+        isSorting = false
         if(isFiltering == false)
         {
             /*isSorting = false
@@ -480,16 +490,18 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             }*/
             //self.accountListTableView.reloadData()
             self.updateTheTableViewDataAccordingly()
-            
+        }
+        
+        //if isSorting == false{
             for count in 1...5 {
                 pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
                 pageButtonArr[count].backgroundColor = UIColor.white
+                pageButtonArr[count].setTitle(String(count), for: .normal)
             }
             pageButtonArr[1].backgroundColor = UIColor.lightGray
-        }
-
+            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        //}
     }
-    
     
     
     //Use to update the table view data
@@ -514,17 +526,21 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
-        if(numberOfAccountRows > 0)
-        {
+        //if(numberOfAccountRows > 0)
+       // {
             self.accountListTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-        } else {
+            
+            
+            
+        //} else {
             for count in 1...5 {
                 pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
                 pageButtonArr[count].backgroundColor = UIColor.white
+                pageButtonArr[count].setTitle(String(count), for: .normal)
             }
             pageButtonArr[1].backgroundColor = UIColor.lightGray
-//            pageButtonArr[1].setTitleColor(white, for: <#T##UIControlState#>)
-        }
+            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        //}
         
         //self.accountListTableView.reloadData()
         
@@ -634,7 +650,7 @@ extension AccountsListViewController{
                 }
             }
             currentPageSet = currentPageSet! + byPageSet
-            currentPageIndex = currentPageIndex! + kPageSize * (kNoOfPagesInEachSet * byPageSet)
+            currentPageIndex = currentPageSet! * kNoOfPagesInEachSet * kPageSize
             print("Page Set Selected = \(currentPageSet!) Base Index Calulated \(currentPageIndex!)")
         }
     }
@@ -786,6 +802,9 @@ extension AccountsListViewController{
         self.updateTheTableViewDataAccordingly()
         
     }
+    
+    
+
 }
 
 

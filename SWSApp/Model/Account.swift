@@ -21,8 +21,8 @@ class Account {
     var phone: String
     var licenseStatus: String
     var nextDeliveryDate: String
-    var netSales: Double
-    var pastDueAmount: Double
+    var mtdNetSales: Double
+    var pastDueAmount: String
     var accountNumber: String
     var premiseCode: String
     var licenseType: String
@@ -55,7 +55,7 @@ class Account {
     var acctDescStatus: String
     
     
-  
+    var pastDueAmountDouble: Double
   
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Account.AccountFields, ary))
@@ -72,8 +72,8 @@ class Account {
         siteId = json["SiteId"] as? String ?? ""
         phone = json["Account.Google_Place_Formatted_Phone__c"] as? String ?? ""
         licenseStatus = json["Account.SWS_License_Status_Description__c"] as? String ?? ""
-        netSales = json["Account.SWS_Growth_in_MTD_Net_Sales__c"] as? Double ?? 0.0
-        pastDueAmount = json["Account.SWS_AR_Past_Due_Amount__c"] as? Double ?? 0.0
+        mtdNetSales = json["Account.SWS_Growth_in_MTD_Net_Sales__c"] as? Double ?? 0.0
+        pastDueAmount = json["Account.SWS_AR_Past_Due_Amount__c"] as? String ?? ""
         accountNumber = json["Account.AccountNumber"] as? String ?? ""
         premiseCode = json["Account.SWS_Premise_Code__c"] as? String ?? ""
         licenseType = json["Account.SWS_License_Type__c"] as? String ?? ""
@@ -109,7 +109,7 @@ class Account {
         
         actionItem = 2 //need to get from query
         
-        
+        pastDueAmountDouble = Double(pastDueAmount)!
      
     }
     
@@ -120,8 +120,8 @@ class Account {
         phone = ""
         acctHealthGrade = ""
         licenseStatus = ""
-        netSales = 0.0
-        pastDueAmount = 0.0
+        mtdNetSales = 0.0
+        pastDueAmount = ""
         accountNumber = ""
         premiseCode = ""
         licenseType = ""
@@ -153,7 +153,7 @@ class Account {
         singleMultiLocationFilter = ""
         acctDescStatus = ""
         
-      
+        pastDueAmountDouble = 0.1
        
        
     }

@@ -152,30 +152,31 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.phoneValue.text = account?.phone
             headerCell.licenseTypeValue.text = account?.licenseType
             headerCell.licenseNumberValue.text = account?.licenseNumber
-            headerCell.totalCYR12NetSales.text = "$" + String(describing: account!.totalCYR12NetSales)
+            headerCell.mtdSalesValue.text = "$" + String(describing: account!.mtdNetSales)
             
 
             
-            let mtdValue : Double = Double((account?.percentageLastYearMTDNetSales)!)
+            var mtdValue = (account?.percentageLastYearMTDNetSales)!
+            
             if (mtdValue > 0.0 && mtdValue < 0.40 )
-            {// Health-Pathetic
-                headerCell.batterySalesIndicator.image = UIImage(named: "Health-Good")
-            } else if ( 0.60 > mtdValue && mtdValue > 0.40){
-                 headerCell.batterySalesIndicator.image = UIImage(named: "Health-Bad")
+            {
+                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Pathetic")
+            } else if ( 0.60 > mtdValue && mtdValue >= 0.40){
+                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
             }
-            else if ( 0.80 > mtdValue && mtdValue > 0.60){
+            else if ( 0.80 > mtdValue && mtdValue >= 0.60){
                  headerCell.batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
             }
-            else if ( 1.0 > mtdValue && mtdValue > 0.80){
-                 headerCell.batterySalesIndicator.image = UIImage(named: "Health-Extremely Bad.png")
+            else if ( 1.0 > mtdValue && mtdValue >= 0.80){
+                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Bad")
             }
-            else {
-                headerCell.batterySalesIndicator.image = UIImage(named: "Health-Pathetic.png")
+            else if  mtdValue >= 1 {
+                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Good")
             }
 
             headerCell.creditLimitValue.text = "$"+(account?.creditLimit.description)!
             headerCell.totalBalanceValue.text = "$"+(account?.totalARBalance.description)!
-            headerCell.expirationValue.text = account?.licenseExpirationDate
+            headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)//account?.licenseExpirationDate
             
 //            if let expDate = account?.licenseExpirationDate {
 //                let dateFormatter = DateFormatter()
@@ -184,7 +185,7 @@ class AccountDetailTabViewController: UITableViewController {
 //            }
             
             //Past due amount value is greater than 0 than only show indicator else hide it
-            if let pastDueAmmt = account?.pastDueAmount{
+            if let pastDueAmmt = account?.pastDueAmountDouble{
                 if pastDueAmmt <= 0{
                     headerCell.pastDueIndicatorImage.isHidden = true
                 }
@@ -196,7 +197,7 @@ class AccountDetailTabViewController: UITableViewController {
             }
             headerCell.pastDueValue.text = "$"+(account?.pastDueAmount.description)!
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
-            headerCell.nextDeliveryDateValue.text =  account?.nextDeliveryDate
+            headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate)//account?.nextDeliveryDate
 //            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description
             
             //Getting only working hours from extension
@@ -219,8 +220,8 @@ class AccountDetailTabViewController: UITableViewController {
         }
         else if section == 1{
             let frame = tableView.frame
-            let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 400, height: 50))
-            sectionLabel.text = "Contacts"
+            let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 800, height: 50))
+            sectionLabel.text = (account?.accountName)! + " " + "Contacts"
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
             
@@ -266,7 +267,7 @@ class AccountDetailTabViewController: UITableViewController {
         
         if  section == 1{
             tableViewHeaderFooterView.contentView.backgroundColor = UIColor.white
-            tableViewHeaderFooterView.textLabel?.text = "Contacts"
+            tableViewHeaderFooterView.textLabel?.text = (account?.accountName)! + "Contacts"
             tableViewHeaderFooterView.textLabel?.textColor = UIColor.black
             tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:25)
             tableViewHeaderFooterView.textLabel?.frame = tableViewHeaderFooterView.frame

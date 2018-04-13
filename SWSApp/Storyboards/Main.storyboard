@@ -961,7 +961,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="1234 W. Broadway St. Blvd" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dx6-as-q1v">
-                                                <rect key="frame" x="40" y="122" width="280" height="57"/>
+                                                <rect key="frame" x="40" y="112" width="280" height="57"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="280" id="lNK-w2-s0c"/>
@@ -982,7 +982,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwy-c4-Aqr">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwy-c4-Aqr">
                                                 <rect key="frame" x="373" y="88" width="40" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1093,7 +1093,7 @@
                                             <constraint firstItem="Ii9-kh-8OB" firstAttribute="leading" secondItem="Lj4-DY-eKZ" secondAttribute="trailing" constant="66" id="6SQ-O8-xIT"/>
                                             <constraint firstItem="t13-T0-hxT" firstAttribute="leading" secondItem="Dx6-as-q1v" secondAttribute="trailing" constant="60" id="7kn-GR-c1Q"/>
                                             <constraint firstItem="Ii9-kh-8OB" firstAttribute="top" secondItem="yw5-2A-5u0" secondAttribute="bottom" constant="39" id="9m8-ER-nfU"/>
-                                            <constraint firstItem="mMr-jd-hOi" firstAttribute="bottom" secondItem="Dx6-as-q1v" secondAttribute="bottom" constant="36" id="Ays-7O-6C7"/>
+                                            <constraint firstItem="mMr-jd-hOi" firstAttribute="bottom" secondItem="Dx6-as-q1v" secondAttribute="bottom" constant="46" id="Ays-7O-6C7"/>
                                             <constraint firstItem="Xk3-hB-paB" firstAttribute="top" secondItem="IcR-OS-hoC" secondAttribute="bottom" constant="3" id="EV4-1C-WFH"/>
                                             <constraint firstItem="Lj4-DY-eKZ" firstAttribute="top" secondItem="Ydk-Hj-Pcq" secondAttribute="bottom" constant="41" id="MQx-p5-p3D"/>
                                             <constraint firstItem="QUs-GY-XVm" firstAttribute="top" secondItem="Ii9-kh-8OB" secondAttribute="bottom" constant="1" id="N8q-hx-xgw"/>
@@ -1105,7 +1105,7 @@
                                             <constraint firstItem="Kwy-c4-Aqr" firstAttribute="centerY" secondItem="V6J-HN-Nra" secondAttribute="centerY" id="b5z-Bs-T2P"/>
                                             <constraint firstItem="Ydk-Hj-Pcq" firstAttribute="leading" secondItem="Z02-Zb-E1A" secondAttribute="trailing" constant="17" id="fFr-BI-Z5h"/>
                                             <constraint firstAttribute="height" constant="215" id="fGX-qh-h1P"/>
-                                            <constraint firstItem="Dx6-as-q1v" firstAttribute="top" secondItem="0gh-Al-Uat" secondAttribute="bottom" constant="53.5" id="fk0-ir-Tka"/>
+                                            <constraint firstItem="Dx6-as-q1v" firstAttribute="top" secondItem="0gh-Al-Uat" secondAttribute="bottom" constant="44" id="fk0-ir-Tka"/>
                                             <constraint firstItem="Ydk-Hj-Pcq" firstAttribute="top" secondItem="mMr-jd-hOi" secondAttribute="top" constant="60" id="iyM-8w-gB8"/>
                                             <constraint firstItem="ocP-m8-3D7" firstAttribute="leading" secondItem="Z02-Zb-E1A" secondAttribute="leading" id="lOy-WN-dLb"/>
                                             <constraint firstItem="0gh-Al-Uat" firstAttribute="leading" secondItem="V6J-HN-Nra" secondAttribute="leading" constant="40" id="mv7-xY-xzE"/>
@@ -1276,15 +1276,15 @@
                         <outlet property="lblAccountTitle" destination="0gh-Al-Uat" id="66c-Nt-Y2j"/>
                         <outlet property="lblActionItem" destination="QUs-GY-XVm" id="Uzu-e0-wg2"/>
                         <outlet property="lblAddress1" destination="Dx6-as-q1v" id="MFT-ig-7nS"/>
+                        <outlet property="lblCYR12Sales" destination="Xk3-hB-paB" id="xJ0-Al-Eki"/>
                         <outlet property="lblLicenseStatus" destination="U2C-pH-E2R" id="Y6U-ok-XdE"/>
-                        <outlet property="lblMTDSales" destination="Xk3-hB-paB" id="nhu-kP-6YG"/>
                         <outlet property="lblPastDue" destination="ocP-m8-3D7" id="Mnc-E0-xKo"/>
                         <outlet property="lblPhoneNumber" destination="2Y9-2Y-Tl2" id="F7L-pe-JhW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8EG-FC-CRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="202.734375" y="612.890625"/>
+            <point key="canvasLocation" x="246" y="614"/>
         </scene>
         <!--AccountDetailTabViewControllerID-->
         <scene sceneID="k9u-45-2Ns">

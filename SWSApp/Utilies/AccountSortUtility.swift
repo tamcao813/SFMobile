@@ -13,8 +13,8 @@ class AccountSortUtility
     // TODO: have to modify later .. currently getting either A or empty string from backend
     enum SingleMultiLocationEnum:String
     {
-        case KSingleLocation = ""
-        case KMultiLocation = "A"
+        case KSingleLocation = "Single"
+        case KMultiLocation = "Multi"
     }
     
     static func searchAccountBySearchBarQuery(accountsForLoggedUser:[Account], searchText:String)->[Account]
@@ -103,15 +103,18 @@ class AccountSortUtility
     static func sortAccountsByNextDeliveryDate(accountsListToBeSorted:[Account], ascending:Bool)->[Account]
     {
         var dateSortedAccountList = [Account]()
+        // 13April: Date coming into string format now. previously it was Date() object
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "mm/dd/yyyy"// MM/DD/YYYY
         
         if(ascending == true)
         {
             
-            dateSortedAccountList = accountsListToBeSorted.sorted(by: { $0.nextDeliveryDate.compare($1.nextDeliveryDate) == .orderedAscending })
+            dateSortedAccountList = accountsListToBeSorted.sorted(by: { dateFormatter.date(from:$0.nextDeliveryDate)?.compare(dateFormatter.date(from:$1.nextDeliveryDate)!) == .orderedAscending })
         }
         else
         {
-            dateSortedAccountList = accountsListToBeSorted.sorted(by: { $0.nextDeliveryDate.compare($1.nextDeliveryDate) == .orderedDescending })
+            dateSortedAccountList = accountsListToBeSorted.sorted(by: { dateFormatter.date(from:$0.nextDeliveryDate)?.compare(dateFormatter.date(from:$1.nextDeliveryDate)!) == .orderedDescending })
         }
         
         return dateSortedAccountList
@@ -128,11 +131,11 @@ class AccountSortUtility
             enteredAnyFilterCase = true
             if FilterMenuModel.pastDueYes == "YES"{
                 
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount > 0 } )
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmountDouble > 0.0 } )
                 
             }else if FilterMenuModel.pastDueNo == "YES" {
                 
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmount <= 0 } )
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmountDouble <= 0 } )
                 
             }
         }

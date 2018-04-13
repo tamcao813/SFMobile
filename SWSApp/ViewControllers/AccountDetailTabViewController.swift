@@ -176,7 +176,7 @@ class AccountDetailTabViewController: UITableViewController {
 
             headerCell.creditLimitValue.text = "$"+(account?.creditLimit.description)!
             headerCell.totalBalanceValue.text = "$"+(account?.totalARBalance.description)!
-            headerCell.expirationValue.text = account?.licenseExpirationDate
+            headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)//account?.licenseExpirationDate
             
 //            if let expDate = account?.licenseExpirationDate {
 //                let dateFormatter = DateFormatter()
@@ -197,7 +197,7 @@ class AccountDetailTabViewController: UITableViewController {
             }
             headerCell.pastDueValue.text = "$"+(account?.pastDueAmount.description)!
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
-            headerCell.nextDeliveryDateValue.text =  account?.nextDeliveryDate
+            headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate)//account?.nextDeliveryDate
 //            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description
             
             //Getting only working hours from extension
@@ -220,8 +220,8 @@ class AccountDetailTabViewController: UITableViewController {
         }
         else if section == 1{
             let frame = tableView.frame
-            let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 400, height: 50))
-            sectionLabel.text = "Contacts"
+            let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 800, height: 50))
+            sectionLabel.text = (account?.accountName)! + " " + "Contacts"
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
             
@@ -267,7 +267,7 @@ class AccountDetailTabViewController: UITableViewController {
         
         if  section == 1{
             tableViewHeaderFooterView.contentView.backgroundColor = UIColor.white
-            tableViewHeaderFooterView.textLabel?.text = "Contacts"
+            tableViewHeaderFooterView.textLabel?.text = (account?.accountName)! + "Contacts"
             tableViewHeaderFooterView.textLabel?.textColor = UIColor.black
             tableViewHeaderFooterView.textLabel?.font = UIFont.boldSystemFont(ofSize:25)
             tableViewHeaderFooterView.textLabel?.frame = tableViewHeaderFooterView.frame

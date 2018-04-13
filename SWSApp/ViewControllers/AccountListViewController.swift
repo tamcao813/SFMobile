@@ -12,13 +12,13 @@ protocol DetailsScreenDelegate{
     func pushTheScreenToDetailsScreen(accountData : Account)
 }
 
-struct OrderOfAccountListItems {
-    static var isAscending = "NO"
-    static var isAscendingActionItems = "NO"
-    static var isAscendingNetSales = "NO"
-    static var isAscendingBalance = "NO"
-    static var isAscendingNextDeliveryDate = "NO"
-}
+/*struct OrderOfAccountListItems {
+    static var isAscendingAccountName = false
+    static var isAscendingActionItems = false
+    static var isAscendingNetSales = false
+    static var isAscendingBalance = false
+    static var isAscendingNextDeliveryDate = false
+}*/
 
 
 /// <#Description#>
@@ -29,6 +29,12 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     var delegate : DetailsScreenDelegate?
     
     let accountViewModel = AccountsViewModel()
+    // sorting flags
+    var isAscendingAccountName = false
+    var isAscendingActionItems = false
+    var isAscendingNetSales = false
+    var isAscendingBalance = false
+    var isAscendingNextDeliveryDate = false
     
     
     
@@ -83,19 +89,19 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     
     override func viewDidLoad() {
-        //OrderOfAccountListItems.isAscending = "YES"
+        //isAscending = true
         accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
         print(accountsForLoggedUserOriginal.count)
         
         tableViewDisplayData = accountsForLoggedUserOriginal
         
+        if accountsForLoggedUserOriginal.count > 0 {
+            pageButtonArr[1].backgroundColor = UIColor.lightGray
+            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        }
         
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
-        
-        
-        
-        
         
     }
     
@@ -180,7 +186,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
              cell.pastDueIndicatorImageView.isHidden = false
         }
         
-        cell.nextDeliveryDateLabel.text = account.nextDeliveryDate
+        cell.nextDeliveryDateLabel.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account.nextDeliveryDate)
     
         return cell
         
@@ -253,6 +259,15 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     
+    func setTheButtonsFormatAccordingly(){
+        
+        
+        
+    }
+    
+    
+    
+    
     // # MARK: Account List Sorting related
     @IBAction func sortAccountListByAccountName(_ sender: Any)
     {
@@ -260,26 +275,26 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isSorting = true
         if(isFiltering == true)
         {
-            if OrderOfAccountListItems.isAscending == "YES"{
-                OrderOfAccountListItems.isAscending = "NO"
+            if isAscendingAccountName == true{
+                isAscendingAccountName = false
                 sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserFiltered, ascending: true)
             }
             else
             {
-                OrderOfAccountListItems.isAscending = "YES"
+                isAscendingAccountName = true
                 sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserFiltered, ascending: false)
             }
         }
         else
         {
-            if OrderOfAccountListItems.isAscending == "YES"{
-                OrderOfAccountListItems.isAscending = "NO"
+            if isAscendingAccountName == true{
+                isAscendingAccountName = false
                 sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
                 
             }
             else
             {
-                OrderOfAccountListItems.isAscending = "YES"
+                isAscendingAccountName = true
                 sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: false)
                 
             }
@@ -296,28 +311,28 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isSorting = true
         if(isFiltering == true)
         {
-            if OrderOfAccountListItems.isAscendingActionItems == "YES"{
-                OrderOfAccountListItems.isAscendingActionItems = "NO"
+            if isAscendingActionItems == true{
+                isAscendingActionItems = false
                 sortedAccountsList =
                     AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted: accountsForLoggedUserFiltered, ascending: true)
             }
             else
             {
-                OrderOfAccountListItems.isAscendingActionItems = "YES"
+                isAscendingActionItems = true
                 sortedAccountsList =
                     AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted: accountsForLoggedUserFiltered, ascending: false)
             }
         }
         else
         {
-            if OrderOfAccountListItems.isAscendingActionItems == "YES"{
-                OrderOfAccountListItems.isAscendingActionItems = "NO"
+            if isAscendingActionItems == true{
+                isAscendingActionItems = false
                 sortedAccountsList = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
                 
             }
             else
             {
-                OrderOfAccountListItems.isAscendingActionItems = "YES"
+                isAscendingActionItems = true
                 sortedAccountsList = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: false)
                 
             }
@@ -333,28 +348,28 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isSorting = true
         if(isFiltering == true)
         {
-            if OrderOfAccountListItems.isAscendingNetSales == "YES"{
-                OrderOfAccountListItems.isAscendingNetSales = "NO"
+            if isAscendingNetSales == true{
+                isAscendingNetSales = false
                 sortedAccountsList =
                     AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted: accountsForLoggedUserFiltered, ascending: true)
             }
             else
             {
-                OrderOfAccountListItems.isAscendingNetSales = "YES"
+                isAscendingNetSales = true
                 sortedAccountsList =
                     AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted: accountsForLoggedUserFiltered, ascending: false)
             }
         }
         else
         {
-            if OrderOfAccountListItems.isAscendingNetSales == "YES"{
-                OrderOfAccountListItems.isAscendingNetSales = "NO"
+            if isAscendingNetSales == true{
+                isAscendingNetSales = false
                 sortedAccountsList = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
                 
             }
             else
             {
-                OrderOfAccountListItems.isAscendingNetSales = "YES"
+                isAscendingNetSales = true
                 sortedAccountsList = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: false)
                 
             }
@@ -370,29 +385,29 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isSorting = true
         if(isFiltering == true)
         {
-            if OrderOfAccountListItems.isAscendingBalance == "YES"{
+            if isAscendingBalance == true{
                 
-                OrderOfAccountListItems.isAscendingBalance = "NO"
+                isAscendingBalance = false
                 sortedAccountsList =
                     AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountsForLoggedUserFiltered, ascending: true)
             }
             else
             {
-                OrderOfAccountListItems.isAscendingBalance = "YES"
+                isAscendingBalance = true
                 sortedAccountsList =
                     AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountsForLoggedUserFiltered, ascending: false)
             }
         }
         else
         {
-            if OrderOfAccountListItems.isAscendingBalance == "YES"{
-                OrderOfAccountListItems.isAscendingBalance = "NO"
+            if isAscendingBalance == true{
+                isAscendingBalance = false
                 
                 sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: true)
             }
             else
             {
-                OrderOfAccountListItems.isAscendingBalance = "YES"
+                isAscendingBalance = true
                 
                 sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: false)
             }
@@ -408,27 +423,27 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isSorting = true
         if(isFiltering == true)
         {
-            if OrderOfAccountListItems.isAscendingNextDeliveryDate == "YES"{
-                OrderOfAccountListItems.isAscendingNextDeliveryDate = "NO"
+            if isAscendingNextDeliveryDate == true{
+                isAscendingNextDeliveryDate = false
                 sortedAccountsList =
                     AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountsForLoggedUserFiltered, ascending: true)
             }
             else
             {
-                OrderOfAccountListItems.isAscendingNextDeliveryDate = "YES"
+                isAscendingNextDeliveryDate = true
                 sortedAccountsList =
                     AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountsForLoggedUserFiltered, ascending: false)
             }
         }
         else
         {
-            if OrderOfAccountListItems.isAscendingNextDeliveryDate == "YES"{
-                OrderOfAccountListItems.isAscendingNextDeliveryDate = "NO"
+            if isAscendingNextDeliveryDate == true{
+                isAscendingNextDeliveryDate = false
                 sortedAccountsList = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: true)
             }
             else
             {
-                OrderOfAccountListItems.isAscendingNextDeliveryDate = "YES"
+                isAscendingNextDeliveryDate = true
                 sortedAccountsList = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: false)
             }
         }
@@ -467,23 +482,25 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         isFiltering = filtering
         if(isFiltering == false)
         {
-            isSorting = false
+            /*isSorting = false
             if(isSorting)
             {
                 sortedAccountsList = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountsForLoggedUserOriginal, ascending: true)
-            }
+            }*/
             //self.accountListTableView.reloadData()
             self.updateTheTableViewDataAccordingly()
-            
+        }
+        
+        //if isSorting == false{
             for count in 1...5 {
                 pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
                 pageButtonArr[count].backgroundColor = UIColor.white
+                pageButtonArr[count].setTitle(String(count), for: .normal)
             }
             pageButtonArr[1].backgroundColor = UIColor.lightGray
-        }
-
+            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        //}
     }
-    
     
     
     //Use to update the table view data
@@ -508,17 +525,21 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
-        if(numberOfAccountRows > 0)
-        {
+        //if(numberOfAccountRows > 0)
+       // {
             self.accountListTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-        } else {
+            
+            
+            
+        //} else {
             for count in 1...5 {
                 pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
                 pageButtonArr[count].backgroundColor = UIColor.white
+                pageButtonArr[count].setTitle(String(count), for: .normal)
             }
             pageButtonArr[1].backgroundColor = UIColor.lightGray
-//            pageButtonArr[1].setTitleColor(white, for: <#T##UIControlState#>)
-        }
+            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        //}
         
         //self.accountListTableView.reloadData()
         
@@ -628,7 +649,7 @@ extension AccountsListViewController{
                 }
             }
             currentPageSet = currentPageSet! + byPageSet
-            currentPageIndex = currentPageIndex! + kPageSize * (kNoOfPagesInEachSet * byPageSet)
+            currentPageIndex = currentPageSet! * kNoOfPagesInEachSet * kPageSize
             print("Page Set Selected = \(currentPageSet!) Base Index Calulated \(currentPageIndex!)")
         }
     }

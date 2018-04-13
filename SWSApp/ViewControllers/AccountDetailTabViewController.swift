@@ -147,6 +147,7 @@ class AccountDetailTabViewController: UITableViewController {
                 headerCell.addressValue.text = ""
             }
             
+            
             headerCell.accountIDValue.text = account?.accountNumber
             headerCell.phoneValue.text = account?.phone
             headerCell.licenseTypeValue.text = account?.licenseType
@@ -174,13 +175,13 @@ class AccountDetailTabViewController: UITableViewController {
 
             headerCell.creditLimitValue.text = "$"+(account?.creditLimit.description)!
             headerCell.totalBalanceValue.text = "$"+(account?.totalARBalance.description)!
+            headerCell.expirationValue.text = account?.licenseExpirationDate
             
-            if let expDate = account?.licenseExpirationDate {
-                let dateFormatter = DateFormatter()
-                
-                dateFormatter.dateFormat = "dd/mm/yyyy"
-                headerCell.expirationValue.text = dateFormatter.string(from: expDate)
-            }
+//            if let expDate = account?.licenseExpirationDate {
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.dateFormat = "mm/dd/yyyy"
+//                headerCell.expirationValue.text = dateFormatter.string(from: expDate)
+//            }
             
             //Past due amount value is greater than 0 than only show indicator else hide it
             if let pastDueAmmt = account?.pastDueAmount{

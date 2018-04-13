@@ -41,12 +41,7 @@ class AccountDetailsViewController : UIViewController{
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         containerView?.isHidden = true
-        
-        // Adding color to center label
-        centerLabel?.backgroundColor = UIColor(named: "Good")
-      //  btnPercentage?.setTitle("91%", for: .normal)
-        lblPhoneNumber?.text = "(123)456-6789"
-        
+  
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +69,34 @@ class AccountDetailsViewController : UIViewController{
             
             imgStatus?.isHidden = false
         }
+        
+        if accountDetailForLoggedInUser?.acctHealthGrade == "A"{
+            
+            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+            centerLabel?.layer.backgroundColor = UIColor.green.cgColor
+            
+        }else if accountDetailForLoggedInUser?.acctHealthGrade == "B"{
+            
+            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+            centerLabel?.layer.backgroundColor = UIColor.yellow.cgColor
+            
+        }else if accountDetailForLoggedInUser?.acctHealthGrade == "C"{
+            
+            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+            centerLabel?.layer.backgroundColor = UIColor.orange.cgColor
+            
+        }else if accountDetailForLoggedInUser?.acctHealthGrade == "D"{
+            
+            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+            centerLabel?.layer.backgroundColor = UIColor.red.cgColor
+            
+        }
+        else {
+            
+            centerLabel?.layer.backgroundColor = UIColor.gray.cgColor
+            
+        }
+        
        
        // centerLabel?.text = accountDetailForLoggedInUser?.accountHealthGrade
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)

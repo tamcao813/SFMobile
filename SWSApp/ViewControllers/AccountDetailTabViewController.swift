@@ -158,7 +158,6 @@ class AccountDetailTabViewController: UITableViewController {
             
             var mtdValue = (account?.percentageLastYearMTDNetSales)!
             
-            
             if (mtdValue > 0.0 && mtdValue < 0.40 )
             {
                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Pathetic")

@@ -168,7 +168,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         cell.accountNumberLabel.text = account.accountNumber
         
         // Create Full shipping address
-        
+       
         
         let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode
         cell.addressLabel.text = fullAddress

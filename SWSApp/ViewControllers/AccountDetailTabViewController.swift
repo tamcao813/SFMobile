@@ -177,7 +177,7 @@ class AccountDetailTabViewController: UITableViewController {
 
             headerCell.creditLimitValue.text = "$"+(account?.creditLimit.description)!
             headerCell.totalBalanceValue.text = "$"+(account?.totalARBalance.description)!
-            headerCell.expirationValue.text = account?.licenseExpirationDate
+            headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)//account?.licenseExpirationDate
             
 //            if let expDate = account?.licenseExpirationDate {
 //                let dateFormatter = DateFormatter()
@@ -198,7 +198,7 @@ class AccountDetailTabViewController: UITableViewController {
             }
             headerCell.pastDueValue.text = "$"+(account?.pastDueAmount.description)!
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
-            headerCell.nextDeliveryDateValue.text =  account?.nextDeliveryDate
+            headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate)//account?.nextDeliveryDate
 //            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description
             
             //Getting only working hours from extension

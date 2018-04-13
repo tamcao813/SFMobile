@@ -93,7 +93,7 @@ class AccountDetailsViewController : UIViewController{
         }
         else {
             
-            centerLabel?.layer.backgroundColor = UIColor.gray.cgColor
+            centerLabel?.layer.backgroundColor = UIColor.clear.cgColor
             
         }
         

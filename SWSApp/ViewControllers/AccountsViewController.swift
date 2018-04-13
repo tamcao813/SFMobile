@@ -41,10 +41,17 @@ class AccountsViewController: UIViewController , DetailsScreenDelegate{
     //Used to push the screen to Details ViewController
     func pushTheScreenToDetailsScreen(accountData: Account) {
         accountDetails = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as? AccountDetailsViewController
+        
+        self.view.endEditing(true)
+        
         accountDetails?.accountDetailForLoggedInUser = accountData
         self.addChildViewController(accountDetails!)
         //self.present(accountDetails, animated: true, completion: nil)
         self.view.addSubview((accountDetails?.view)!)
+    }
+    
+    func dismissKeyBoard() {
+        self.view.endEditing(true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

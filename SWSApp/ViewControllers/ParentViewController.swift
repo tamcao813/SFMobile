@@ -335,6 +335,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // get the respective view controller as per the selected index of menu from menubar
     private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
         
+        self.view.endEditing(true)
+        
         filterMenuModel.clearFilterModelData()
         
         if(previouslySelectedVCIndex == 1)// account list view
@@ -411,6 +413,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if let notifVC = notificationsViewController{
             self.notificationsView = notifVC.view
             notifVC.view.restorationIdentifier = "globalNotification"
+            self.view.endEditing(true)
             self.view.addSubview(notifVC.view)
             self.notificationButton?.isEnabled = false
             self.numberLabel?.isUserInteractionEnabled = false

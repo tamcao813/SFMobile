@@ -301,14 +301,14 @@ class AccountSortUtility
             
             if FilterMenuModel.statusIsActive != ""{
                 enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.accDescriptionStatus == "A" } )
+                //filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.accDescriptionStatus == "A" } )
             }
             
         }else{
             
             if FilterMenuModel.statusIsActive != ""{
                 enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.accDescriptionStatus == "A" } )
+                //filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.accDescriptionStatus == "A" } )
             }
             
         }
@@ -319,14 +319,14 @@ class AccountSortUtility
             
             if FilterMenuModel.statusIsInActive != ""{
                 enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.accDescriptionStatus == "I" } )
+                //filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.accDescriptionStatus == "I" } )
             }
             
         }else{
             
             if FilterMenuModel.statusIsInActive != ""{
                 enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.accDescriptionStatus == "I" } )
+                //filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.accDescriptionStatus == "I" } )
             }
             
         }
@@ -336,14 +336,14 @@ class AccountSortUtility
             
             if FilterMenuModel.statusIsSuspended != ""{
                 enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.accDescriptionStatus == "S" } )
+                //filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.accDescriptionStatus == "S" } )
             }
             
         }else{
             
             if FilterMenuModel.statusIsSuspended != ""{
                 enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.accDescriptionStatus == "S" } )
+                //filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.accDescriptionStatus == "S" } )
             }
             
         }

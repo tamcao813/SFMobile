@@ -156,21 +156,23 @@ class AccountDetailTabViewController: UITableViewController {
             
 
             
-            let mtdValue = (account?.percentageLastYearMTDNetSales)!
+            var mtdValue = (account?.percentageLastYearMTDNetSales)!
+            
+            
             if (mtdValue > 0.0 && mtdValue < 0.40 )
-            {// Health-Pathetic
-                headerCell.batterySalesIndicator.image = UIImage(named: "Health-Good")
-            } else if ( 0.60 > mtdValue && mtdValue > 0.40){
-                 headerCell.batterySalesIndicator.image = UIImage(named: "Health-Bad")
+            {
+                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Pathetic")
+            } else if ( 0.60 > mtdValue && mtdValue >= 0.40){
+                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
             }
-            else if ( 0.80 > mtdValue && mtdValue > 0.60){
+            else if ( 0.80 > mtdValue && mtdValue >= 0.60){
                  headerCell.batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
             }
-            else if ( 1.0 > mtdValue && mtdValue > 0.80){
-                 headerCell.batterySalesIndicator.image = UIImage(named: "Health-Extremely Bad.png")
+            else if ( 1.0 > mtdValue && mtdValue >= 0.80){
+                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Bad")
             }
-            else {
-                headerCell.batterySalesIndicator.image = UIImage(named: "Health-Pathetic.png")
+            else if  mtdValue >= 1 {
+                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Good")
             }
 
             headerCell.creditLimitValue.text = "$"+(account?.creditLimit.description)!

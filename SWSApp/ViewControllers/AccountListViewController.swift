@@ -526,23 +526,17 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
-        //if(numberOfAccountRows > 0)
-       // {
-            self.accountListTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-            
-            
-            
-        //} else {
-            for count in 1...5 {
-                pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
-                pageButtonArr[count].backgroundColor = UIColor.white
-                pageButtonArr[count].setTitle(String(count), for: .normal)
-            }
-            pageButtonArr[1].backgroundColor = UIColor.lightGray
-            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
-        //}
         
-        //self.accountListTableView.reloadData()
+        if(numberOfAccountRows > 0){
+            self.accountListTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
+        for count in 1...5 {
+            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+            pageButtonArr[count].backgroundColor = UIColor.white
+            pageButtonArr[count].setTitle(String(count), for: .normal)
+        }
+        pageButtonArr[1].backgroundColor = UIColor.lightGray
+        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         
     }
     

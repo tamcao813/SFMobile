@@ -54,7 +54,7 @@ class AccountDetailsViewController : UIViewController{
         lblAccountTitle?.text = accountDetailForLoggedInUser?.accountName
         
         if let acc = accountDetailForLoggedInUser{
-            let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode + " " + acc.shippingCountry
+            let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode 
             
             lblAddress1?.text = fullAddress
             
@@ -80,7 +80,7 @@ class AccountDetailsViewController : UIViewController{
         lblMTDSales?.text = "$\(accountDetailForLoggedInUser!.percentageLastYearMTDNetSales)"
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
-        btnPercentage?.setTitle(accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description, for: .normal)
+        btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description)! + "%", for: .normal)
 
        
     }

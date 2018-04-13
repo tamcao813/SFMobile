@@ -92,6 +92,11 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
+        
+        
+        
+        
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -159,7 +164,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         // Create Full shipping address
         
         
-        let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode + " " + account.shippingCountry
+        let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode
         cell.addressLabel.text = fullAddress
         
         cell.actionItemsLabel.text = String(account.actionItem)

@@ -78,19 +78,19 @@
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "Southern_Glazers_Seal_Large76.jpg",
+      "filename" : "152pixel_76.png",
       "scale" : "2x"
     },
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "Southern_Glazers_Seal_AppIcon83.5.jpg",
+      "filename" : "167pixels_83.5.png",
       "scale" : "2x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "Southern_Glazers_Seal_Large1024White.jpg",
+      "filename" : "@1024app-icon.png",
       "scale" : "1x"
     }
   ],

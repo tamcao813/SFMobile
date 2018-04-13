@@ -155,7 +155,7 @@ class Account {
         acctDescStatus = ""
         
       
-    
+        accDescriptionStatus  = ""
        
     }
     

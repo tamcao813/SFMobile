@@ -207,6 +207,8 @@ class AccountsMenuViewController: UIViewController {
             if FilterMenuModel.channel == ""{
                 
                 print("Your Channel is not Selected")
+                
+                
             }else{
                 
                 if (self.expandedSectionHeaderNumber == -1) {
@@ -375,7 +377,7 @@ class AccountsMenuViewController: UIViewController {
             
             let channelData = filterClass.sectionItems[indexPath.section] as! [String]
             if channelData[0] != ""{
-                let arrayData : [String] = [arrayContent[indexPath.section] as! String]
+                let arrayData : [String] = arrayContent[indexPath.section] as! [String]
                 FilterMenuModel.subChannelIndex = indexPath.row
                 FilterMenuModel.subChannel = arrayData[indexPath.row]
             }
@@ -437,6 +439,9 @@ class AccountsMenuViewController: UIViewController {
         }
         else
         {
+            //reset the table view data to main array
+            self.searchByEnteredTextDelegate?.filtering(filtering: false)
+            
             print(" Not ValidUserInputAtSearchFilterPanel")
         }
     }
@@ -444,7 +449,7 @@ class AccountsMenuViewController: UIViewController {
     private func isValidUserInputAtSearchFilterPanel()->Bool
     {
         var validInput = false
-        if(searchBar.text!.count > 0 || FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != "" || FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != "" || FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != "" || FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != "" || FilterMenuModel.channel != "" || FilterMenuModel.subChannel != "")
+        if(searchBar.text!.count > 0 || FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != "" || FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != "" || FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != "" || FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != "" || FilterMenuModel.channel != "" || FilterMenuModel.subChannel != "" || FilterMenuModel.statusIsActive != "" || FilterMenuModel.statusIsInActive != "" || FilterMenuModel.statusIsSuspended != "")
         {
             print("ValidUserInputAtSearchFilterPanel")
             validInput = true

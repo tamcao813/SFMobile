@@ -153,7 +153,7 @@ class Account {
         singleMultiLocationFilter = ""
         acctDescStatus = ""
         
-        pastDueAmountDouble = 0.1
+        pastDueAmountDouble = 0.0
        
        
     }

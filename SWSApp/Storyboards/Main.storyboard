@@ -982,7 +982,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwy-c4-Aqr">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwy-c4-Aqr">
                                                 <rect key="frame" x="373" y="88" width="40" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1276,15 +1276,15 @@
                         <outlet property="lblAccountTitle" destination="0gh-Al-Uat" id="66c-Nt-Y2j"/>
                         <outlet property="lblActionItem" destination="QUs-GY-XVm" id="Uzu-e0-wg2"/>
                         <outlet property="lblAddress1" destination="Dx6-as-q1v" id="MFT-ig-7nS"/>
+                        <outlet property="lblCYR12Sales" destination="Xk3-hB-paB" id="xJ0-Al-Eki"/>
                         <outlet property="lblLicenseStatus" destination="U2C-pH-E2R" id="Y6U-ok-XdE"/>
-                        <outlet property="lblMTDSales" destination="Xk3-hB-paB" id="nhu-kP-6YG"/>
                         <outlet property="lblPastDue" destination="ocP-m8-3D7" id="Mnc-E0-xKo"/>
                         <outlet property="lblPhoneNumber" destination="2Y9-2Y-Tl2" id="F7L-pe-JhW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8EG-FC-CRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="202.734375" y="612.890625"/>
+            <point key="canvasLocation" x="246" y="614"/>
         </scene>
         <!--AccountDetailTabViewControllerID-->
         <scene sceneID="k9u-45-2Ns">

@@ -38,8 +38,8 @@ class CustomerHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var expirationValue: UILabel!
     
     //MARK:- -
-    @IBOutlet weak var nestsalesLbl: UILabel!
-    @IBOutlet weak var totalCYR12NetSales: UILabel!
+    @IBOutlet weak var mtdSalesLbl: UILabel!
+    @IBOutlet weak var mtdSalesValue: UILabel!
     
     @IBOutlet weak var creditLimitLbl: UILabel!
     @IBOutlet weak var creditLimitValue: UILabel!

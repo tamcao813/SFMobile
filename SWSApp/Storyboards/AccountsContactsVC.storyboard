@@ -614,7 +614,8 @@
                                     <outlet property="licenseNumberValue" destination="6N5-hM-fsO" id="Gxf-Ip-H34"/>
                                     <outlet property="licenseTypeLbl" destination="UNo-nr-UoN" id="k7B-tF-M58"/>
                                     <outlet property="licenseTypeValue" destination="bbU-6F-RmZ" id="jON-5l-46K"/>
-                                    <outlet property="nestsalesLbl" destination="a1J-cI-vPD" id="s65-ho-lKf"/>
+                                    <outlet property="mtdSalesLbl" destination="a1J-cI-vPD" id="8XA-hR-IpH"/>
+                                    <outlet property="mtdSalesValue" destination="WQg-gE-c9y" id="yEX-yq-zVg"/>
                                     <outlet property="nextDeliveryDateLbl" destination="S1z-9w-9SC" id="qTk-sz-FsI"/>
                                     <outlet property="nextDeliveryDateValue" destination="TCS-gA-mMm" id="5EB-xM-xik"/>
                                     <outlet property="pastDueIndicatorImage" destination="8WE-zR-BC6" id="txB-7g-jZR"/>
@@ -624,7 +625,6 @@
                                     <outlet property="phoneValue" destination="Zge-TJ-g0X" id="cdh-j9-5cZ"/>
                                     <outlet property="totalBalanceLbl" destination="4Sl-K5-HVh" id="3SJ-fm-cB4"/>
                                     <outlet property="totalBalanceValue" destination="BWa-Ye-H7Y" id="K2t-7y-rS0"/>
-                                    <outlet property="totalCYR12NetSales" destination="WQg-gE-c9y" id="gON-9b-H3i"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -18,7 +18,7 @@ class AccountDetailsViewController : UIViewController{
     @IBOutlet weak var lblAddress1 : UILabel?
     @IBOutlet weak var lblAddress2 : UILabel?
     @IBOutlet weak var lblPastDue : UILabel?
-    @IBOutlet weak var lblMTDSales : UILabel?
+    @IBOutlet weak var lblCYR12Sales : UILabel?
     @IBOutlet weak var lblLicenseStatus : UILabel?
     @IBOutlet weak var lblActionItem : UILabel?
     @IBOutlet weak var lblPhoneNumber : UILabel?
@@ -59,9 +59,9 @@ class AccountDetailsViewController : UIViewController{
            lblAddress1?.text = ""
         }
         
-        let pastDue : Double = Double((accountDetailForLoggedInUser?.pastDueAmount)!)
+        //let pastDue : Double = Double((accountDetailForLoggedInUser?.pastDueAmount)!)
         
-        if pastDue <= 0.0 {
+        if accountDetailForLoggedInUser!.pastDueAmountDouble <= 0.0 {
             
             imgStatus?.isHidden = true
         }
@@ -100,11 +100,12 @@ class AccountDetailsViewController : UIViewController{
        
        // centerLabel?.text = accountDetailForLoggedInUser?.accountHealthGrade
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)
-        lblPastDue?.text = "$\(accountDetailForLoggedInUser!.pastDueAmount)"
-        lblMTDSales?.text = "$\(accountDetailForLoggedInUser!.percentageLastYearMTDNetSales)"
+        lblPastDue?.text = String(format: "$%.2f",(accountDetailForLoggedInUser?.pastDueAmountDouble)!)
+        lblCYR12Sales?.text = "$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
-        btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description)! + "%", for: .normal)
+     //   btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description)! + "%", for: .normal)
+         btnPercentage?.setTitle("0.0" + "%", for: .normal)
 
        
     }

@@ -410,6 +410,7 @@ class StoreDispatcher {
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+       
         
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {

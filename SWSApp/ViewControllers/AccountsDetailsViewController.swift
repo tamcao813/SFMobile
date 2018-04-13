@@ -41,11 +41,7 @@ class AccountDetailsViewController : UIViewController{
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         containerView?.isHidden = true
-        
-        // Adding color to center label
-        centerLabel?.backgroundColor = UIColor(named: "Good")
-      //  btnPercentage?.setTitle("91%", for: .normal)
-        
+  
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +69,13 @@ class AccountDetailsViewController : UIViewController{
             
             imgStatus?.isHidden = false
         }
+        
+        if accountDetailForLoggedInUser?.acctHealthGrade == "A"{
+            
+            
+            
+        }
+        
        
        // centerLabel?.text = accountDetailForLoggedInUser?.accountHealthGrade
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)

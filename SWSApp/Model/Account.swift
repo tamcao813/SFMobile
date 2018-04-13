@@ -65,8 +65,6 @@ class Account {
     init(json: [String: Any]) {
         
         print("Json coming here is*** \(json)")
-        
-       
         singleMultiLocationFilter = json["Account.SGWS_Single_Multi_Locations_Filter__c"] as? String ?? ""
         acctHealthGrade = json["Account.SGWS_Account_Health_Grade__c"] as? String ?? ""
         accountId = json["Account.Id"] as! String
@@ -107,7 +105,6 @@ class Account {
         licenseTypeDescription = json["Account.SWS_License_Type_Description__c"] as? String ?? ""
         pastDueAlert = json["Past_Due_Alert"] as? String ?? ""
         acctDescStatus = json["Account.SWS_Status_Description__c"] as? String ?? ""
-        
         
         
         actionItem = 2 //need to get from query
@@ -155,7 +152,7 @@ class Account {
         acctDescStatus = ""
         
       
-        accDescriptionStatus  = ""
+       
        
     }
     

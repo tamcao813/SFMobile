@@ -169,7 +169,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
         cell.actionItemsLabel.text = String(account.actionItem)
         cell.netSalesAmountLabel.text = String(format: "$%.1f",account.totalCYR12NetSales)
-        cell.pastDueAmountTextLabel.text = "$"+account.pastDueAmount.description
+        cell.pastDueAmountTextLabel.text = String(format: "$%.1f",account.pastDueAmount)
         
         //Past due amount value is greater than 0 than only show indicator else hide it
         if account.pastDueAmount <= 0 {
@@ -180,17 +180,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             
         }
         
-        
-        
-        
-        // TODO: have to create utility method for this
-        let dateFormatter = DateFormatter()
-        //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"// MM-DD-YYYY
-        dateFormatter.dateFormat = "yyyy-MM-dd"// MM-DD-YYYY
-        dateFormatter.timeZone = TimeZone(identifier:"UTC")
         cell.nextDeliveryDateLabel.text = account.nextDeliveryDate
-        // dateFormatter.string(from: account.nextDeliveryDate)
-        
+    
         return cell
         
     }

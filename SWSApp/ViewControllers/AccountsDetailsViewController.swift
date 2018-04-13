@@ -72,7 +72,28 @@ class AccountDetailsViewController : UIViewController{
         
         if accountDetailForLoggedInUser?.acctHealthGrade == "A"{
             
+            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+            centerLabel?.layer.backgroundColor = UIColor.green.cgColor
             
+        }else if accountDetailForLoggedInUser?.acctHealthGrade == "B"{
+            
+            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+            centerLabel?.layer.backgroundColor = UIColor.yellow.cgColor
+            
+        }else if accountDetailForLoggedInUser?.acctHealthGrade == "C"{
+            
+            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+            centerLabel?.layer.backgroundColor = UIColor.orange.cgColor
+            
+        }else if accountDetailForLoggedInUser?.acctHealthGrade == "D"{
+            
+            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+            centerLabel?.layer.backgroundColor = UIColor.red.cgColor
+            
+        }
+        else {
+            
+            centerLabel?.layer.backgroundColor = UIColor.gray.cgColor
             
         }
         

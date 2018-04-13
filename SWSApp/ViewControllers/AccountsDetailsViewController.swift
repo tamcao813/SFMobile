@@ -45,7 +45,6 @@ class AccountDetailsViewController : UIViewController{
         // Adding color to center label
         centerLabel?.backgroundColor = UIColor(named: "Good")
       //  btnPercentage?.setTitle("91%", for: .normal)
-        lblPhoneNumber?.text = "(123)456-6789"
         
     }
     

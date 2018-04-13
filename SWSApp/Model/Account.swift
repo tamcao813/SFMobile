@@ -9,7 +9,11 @@
 import Foundation
 
 class Account {
-    static let AccountFields: [String] = ["Account.Id","Account.Name","CreatedDate","TeamMemberRole","Account.SWS_Growth_in_MTD_Net_Sales__c","Account.IS_Next_Delivery_Date__c","Account.AccountNumber","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingGeocodeAccuracy","Account.ShippingLatitude","Account.ShippingLongitude","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.Google_Place_Formatted_Phone__c","Account.SWS_License_Status__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SGWS_Single_Multi_Locations_Filter__c","Account.SWS_License_Type_Description__c"]
+    static let AccountFields: [String] = ["Account.Id","Account.SGWS_Account_Health_Grade__c","CreatedDate","TeamMemberRole","Account.Name","Account.AccountNumber","Account.SWS_Growth_in_MTD_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.IS_Next_Delivery_Date__c","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SGWS_Single_Multi_Locations_Filter__c","Account.Google_Place_Formatted_Phone__c","Account.SWS_Status_Description__c"]
+    //,,,
+//  ,,,,,,,,,,,,"Account.ShippingGeocodeAccuracy",,,,,"Account.SWS_License_Status__c",,"Account.SGWS_Account_Health_Grade__c",,"Account.SWS_License_Type_Description__c"]
+    
+    // "Account.ShippingLatitude","Account.ShippingLongitude",
     
     var accountId: String
     var accountName: String
@@ -24,7 +28,7 @@ class Account {
     var licenseType: String
     var licenseNumber: String
     var operatingHours: String
-    var licenseExpirationDate: Date
+    var licenseExpirationDate: String
     var totalCYR12NetSales: Double
     var totalARBalance: Double
     var creditLimit: Double
@@ -34,25 +38,25 @@ class Account {
     var shippingCity: String
     var shippingCountry: String
     var shippingGeocodeAccuracy: String
-    var shippingLatitude: Double
-    var shippingLongitude: Double
+//    var shippingLatitude: Double
+//    var shippingLongitude: Double
     var shippingPostalCode: String
     var shippingState: String
     var shippingStreet: String
     //var shippingAddress: String
     //var userId: String
+    var acctHealthGrade: String
     var deliveryFrequency: String
     var licenseTypeDescription: String
     var pastDueAlert: String
     var actionItem: Int
     var percentageLastYearMTDNetSales: Double
     var singleMultiLocationFilter:String // single multi
+    var acctDescStatus: String
+    
+    
   
-    
-    
-    
-    
-   
+  
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Account.AccountFields, ary))
         self.init(json: resultDict)
@@ -62,7 +66,9 @@ class Account {
         
         print("Json coming here is*** \(json)")
         
+       
         singleMultiLocationFilter = json["Account.SGWS_Single_Multi_Locations_Filter__c"] as? String ?? ""
+        acctHealthGrade = json["Account.SGWS_Account_Health_Grade__c"] as? String ?? ""
         accountId = json["Account.Id"] as! String
         accountName = json["Account.Name"] as? String ?? ""
         siteId = json["SiteId"] as? String ?? ""
@@ -76,20 +82,19 @@ class Account {
         percentageLastYearMTDNetSales = json["Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c"] as? Double ?? 0.0
         licenseNumber = json["Account.SWS_License__c"] as? String ?? ""
         operatingHours = json["Account.Google_Place_Operating_Hours__c"] as? String ?? ""
-        licenseExpirationDate = json["Account.SWS_License_Expiration_Date__c"] as? Date ?? Date() //need to check if ok to have a default or make it a string
+        licenseExpirationDate = json["Account.SWS_License_Expiration_Date__c"] as? String ?? "" //need to check if ok to have a default or make it a string
         totalCYR12NetSales = json["Account.SWS_Total_CY_R12_Net_Sales__c"] as? Double ?? 0.0
         totalARBalance = json["Account.SWS_Total_AR_Balance__c"] as? Double ?? 0.0
         creditLimit = json["Account.SWS_Credit_Limit__c"] as? Double ?? 0.0
         channelTD = json["Account.SWS_TD_Channel__c"] as? String ?? ""
         subChannelTD = json["Account.SWS_TD_Sub_Channel__c"] as? String ?? ""
         licenseStatusDescription = json["Account.SWS_License_Status_Description__c"] as? String ?? ""
-        
         shippingCity = json["Account.ShippingCity"] as? String ?? ""
         shippingCountry = json["Account.ShippingCountry"] as? String ?? ""
         shippingGeocodeAccuracy = json["Account.ShippingGeocodeAccuracy"] as? String ?? ""
         
-        shippingLatitude = json["Account.ShippingLatitude"] as? Double ?? 0.0
-        shippingLongitude = json["Account.ShippingLongitude"] as? Double ?? 0.0
+//        shippingLatitude = json["Account.ShippingLatitude"] as? Double ?? 0.0
+//        shippingLongitude = json["Account.ShippingLongitude"] as? Double ?? 0.0
         
         shippingPostalCode = json["Account.ShippingPostalCode"] as? String ?? ""
         shippingState = json["Account.ShippingState"] as? String ?? ""
@@ -97,18 +102,16 @@ class Account {
       //  shippingAddress = json["Account.ShippingAddress"] as? String ?? ""
        // userId = json["UserId"] as? String ?? ""
         nextDeliveryDate = json["Account.IS_Next_Delivery_Date__c"] as? String ?? "" //need to check if ok to have a default or make it a string
-        
+       
         deliveryFrequency = json["Account.SWS_Delivery_Frequency__c"] as? String ?? ""
         licenseTypeDescription = json["Account.SWS_License_Type_Description__c"] as? String ?? ""
         pastDueAlert = json["Past_Due_Alert"] as? String ?? ""
+        acctDescStatus = json["Account.SWS_Status_Description__c"] as? String ?? ""
         
         
         
         actionItem = 2 //need to get from query
      
-       
-        
-        
     }
     
     init(for: String)  {
@@ -116,6 +119,7 @@ class Account {
         accountName = ""
         siteId = ""
         phone = ""
+        acctHealthGrade = ""
         licenseStatus = ""
         netSales = 0.0
         pastDueAmount = 0.0
@@ -124,7 +128,7 @@ class Account {
         licenseType = ""
         licenseNumber = ""
         operatingHours = ""
-        licenseExpirationDate = Date()
+        licenseExpirationDate = ""
         totalCYR12NetSales = 0.0
         totalARBalance = 0.0
         creditLimit = 0.0
@@ -134,8 +138,8 @@ class Account {
         shippingCity = ""
         shippingCountry = ""
         shippingGeocodeAccuracy = ""
-        shippingLatitude = 0.0
-        shippingLongitude = 0.0
+//        shippingLatitude = 0.0
+//        shippingLongitude = 0.0
         shippingPostalCode = ""
         shippingState = ""
         shippingStreet = ""
@@ -148,6 +152,8 @@ class Account {
         percentageLastYearMTDNetSales = 0.0
         actionItem = 2
         singleMultiLocationFilter = ""
+        acctDescStatus = ""
+        
       
     
        

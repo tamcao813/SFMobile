@@ -11,7 +11,8 @@ class DateTimeUtility
 {
     static func getDDMMYYYFormattedDateString(dateStringfromAccountObject:String?)->String
     {
-        if(dateStringfromAccountObject?.count == 0)
+        // 13April Shilpa: Handling the empty date coming from backend for some of the accounts 1969
+        if(dateStringfromAccountObject?.count == 0 || dateStringfromAccountObject == "1969-12-31")
         {
             return ""
         }

@@ -10,6 +10,7 @@ import UIKit
 
 protocol DetailsScreenDelegate{
     func pushTheScreenToDetailsScreen(accountData : Account)
+    func dismissKeyBoard()
 }
 
 /*struct OrderOfAccountListItems {
@@ -210,6 +211,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         //                account = accountsForLoggedUserOriginal[indexPath.row]
         //            }
         //        }
+        
         
         let account:Account = tableViewDisplayData[indexPath.row  + currentPageIndex!]
         
@@ -506,6 +508,8 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     
     //Use to update the table view data
     func updateTheTableViewDataAccordingly(){
+        
+        delegate?.dismissKeyBoard()
         
         if(isSorting)
         {

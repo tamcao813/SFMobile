@@ -186,7 +186,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
              cell.pastDueIndicatorImageView.isHidden = false
         }
         
-        cell.nextDeliveryDateLabel.text = account.nextDeliveryDate
+        cell.nextDeliveryDateLabel.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account.nextDeliveryDate)
     
         return cell
         

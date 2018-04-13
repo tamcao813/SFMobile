@@ -43,11 +43,11 @@ class AccountSortUtility
         var alphabeticallySortedAccountList = [Account]()
         if(ascending == true)
         {
-            alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $0.accountName < $1.accountName }
+            alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $0.accountName.lowercased() < $1.accountName.lowercased() }
         }
         else
         {
-            alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $1.accountName < $0.accountName }
+            alphabeticallySortedAccountList = accountsListToBeSorted.sorted { $1.accountName.lowercased() < $0.accountName.lowercased() }
         }
         
         

@@ -123,31 +123,53 @@ class AccountsMenuTableTableViewCell: UITableViewCell {
                         break
                 }
             
-        case 5:
+        case 5:           
             
-            switch indexPath.row{
-            case 0:
+            if FilterMenuModel.channelIndex == indexPath.row{
                 if FilterMenuModel.channel != ""{
                     self.dropDownImageView.image = UIImage.init(named: "radioSelected")
                 }else{
                     self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
                 }
-            default:
-                break
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
             }
+            
+            
+            //switch indexPath.row{
+            //case 0:
+//                if FilterMenuModel.channel != ""{
+//                    self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+//                }else{
+//                    self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+//                }
+            //default:
+            //    break
+           // }
             
         case 6:
             
-            switch indexPath.row{
-            case 0:
+            if FilterMenuModel.subChannelIndex == indexPath.row{
                 if FilterMenuModel.subChannel != ""{
                     self.dropDownImageView.image = UIImage.init(named: "radioSelected")
                 }else{
                     self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
                 }
-            default:
-                break
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
             }
+            
+            
+//            switch indexPath.row{
+//            case 0:
+//                if FilterMenuModel.subChannel != ""{
+//                    self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+//                }else{
+//                    self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+//                }
+//            default:
+//                break
+//            }
             
             
             case 7:

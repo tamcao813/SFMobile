@@ -77,9 +77,15 @@ class AccountsMenuViewController: UIViewController {
         
         if channelData.count > 0 {
             if subChannelData.count > 0{
+                
                 filterClass.sectionItems.insert(channelData, at: 5)
                 filterClass.sectionItems.insert(subChannelData, at: 6)
+                
             }
+        }else{
+            
+            filterClass.sectionItems.insert([], at: 5)
+            filterClass.sectionItems.insert([], at: 6)
         }
         
         print(filterClass.sectionItems)
@@ -89,7 +95,6 @@ class AccountsMenuViewController: UIViewController {
         super.viewDidAppear(animated)
         self.addSearchIconInSearchBar()
     
-        
         
     }
     
@@ -109,12 +114,6 @@ class AccountsMenuViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    
-    
-    
-    
     
     //MARK:-
     //Used to customize the search bar background
@@ -270,8 +269,8 @@ class AccountsMenuViewController: UIViewController {
     
     //Used to show Dropdown menu
     func tableViewExpandSection(_ section: Int, imageView: UIImageView) {
-        let sectionData = filterClass.sectionItems[section] as! NSArray
         
+        let sectionData = filterClass.sectionItems[section] as! NSArray
         if (sectionData.count == 0) {
             self.expandedSectionHeaderNumber = -1;
             return;
@@ -355,27 +354,34 @@ class AccountsMenuViewController: UIViewController {
             
         case 5:
             
-            switch indexPath.row {
-            case 0:
-                
+            //switch indexPath.row {
+            //case 0:
+            
+            let channelData = filterClass.sectionItems[indexPath.section] as! [String]
+            if channelData[0] != ""{
                 let arrayData : [String] = arrayContent[indexPath.section] as! [String]
+                FilterMenuModel.channelIndex = indexPath.row
                 FilterMenuModel.channel = arrayData[indexPath.row]
-                
-            default:
-                break
             }
+            
+            //default:
+            //    break
+            //}
             
         case 6:
             
-            switch indexPath.row {
-            case 0:
-                let arrayData : [String] = arrayContent[indexPath.section] as! [String]
-                FilterMenuModel.subChannel = arrayData[indexPath.row]
-            default:
-                break
-                
-            }
+            //switch indexPath.row {
+            //case 0:
             
+            let channelData = filterClass.sectionItems[indexPath.section] as! [String]
+            if channelData[0] != ""{
+                let arrayData : [String] = [arrayContent[indexPath.section] as! String]
+                FilterMenuModel.subChannelIndex = indexPath.row
+                FilterMenuModel.subChannel = arrayData[indexPath.row]
+            }
+            //default:
+            //    break
+            //}
             
         case 7:
             

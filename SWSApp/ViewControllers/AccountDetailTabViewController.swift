@@ -195,7 +195,9 @@ class AccountDetailTabViewController: UITableViewController {
                     
                 }
             }
-            headerCell.pastDueValue.text = "$"+(account?.pastDueAmount.description)!
+            
+            
+            headerCell.pastDueValue.text = String(format: "$%.2f",(account?.pastDueAmountDouble)!)
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
             headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate)//account?.nextDeliveryDate
 //            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description
@@ -241,15 +243,12 @@ class AccountDetailTabViewController: UITableViewController {
             viewAllAccountContactsButton.backgroundColor = UIColor(named: "LightGrey")
             viewAllAccountContactsButton.setTitleColor(UIColor.black, for: .normal)
             viewAllAccountContactsButton.titleLabel?.font = UIFont.init(name: "Ubuntu-Medium", size: 12)
-            
-            
+      
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 90, width: 400, height: 50))
             sectionLabel.text = "Southern Glazer's Contacts"
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
-            
-            
-            
+       
             let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:frame.width , height:frame.height ))
             headerView.backgroundColor = UIColor.white
             headerView.addSubview(viewAllAccountContactsButton)

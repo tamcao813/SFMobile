@@ -40,6 +40,7 @@
 		6F8BD3EB20720281006CABA8 /* AccountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8BD3EA20720281006CABA8 /* AccountListViewController.swift */; };
 		6F8BD3F12072297C006CABA8 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8BD3F02072297C006CABA8 /* MoreViewController.swift */; };
 		6FE55BAA2080DA19006A9A80 /* DateTimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE55BA92080DA19006A9A80 /* DateTimeUtility.swift */; };
+		6FE55BAC2080F622006A9A80 /* AccountListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE55BAB2080F622006A9A80 /* AccountListTests.swift */; };
 		BDC2971F8C914488A5B7964D /* Pods_SWSApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */; };
 		D10483962068381A00A0343B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483952068381A00A0343B /* Contact.swift */; };
 		D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483992068398F00A0343B /* HomeTableViewController.swift */; };
@@ -135,6 +136,7 @@
 		6F8BD3EA20720281006CABA8 /* AccountListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListViewController.swift; sourceTree = "<group>"; };
 		6F8BD3F02072297C006CABA8 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		6FE55BA92080DA19006A9A80 /* DateTimeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeUtility.swift; sourceTree = "<group>"; };
+		6FE55BAB2080F622006A9A80 /* AccountListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListTests.swift; sourceTree = "<group>"; };
 		A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D10483952068381A00A0343B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 		D1FB183A2062A7C10072F4C1 /* SWSAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				6FE55BAB2080F622006A9A80 /* AccountListTests.swift */,
 				D1FB183B2062A7C10072F4C1 /* SWSAppTests.swift */,
 				D1FB183D2062A7C10072F4C1 /* Info.plist */,
 			);
@@ -832,6 +835,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1FB183C2062A7C10072F4C1 /* SWSAppTests.swift in Sources */,
+				6FE55BAC2080F622006A9A80 /* AccountListTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

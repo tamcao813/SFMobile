@@ -102,10 +102,19 @@ class AccountSortUtility
     // considering date format as MM-DD-YYYY for now.. 9April
     static func sortAccountsByNextDeliveryDate(accountsListToBeSorted:[Account], ascending:Bool)->[Account]
     {
+        // 13April Shilpa: Handling the empty date coming from backend for some of the accounts
+        for accountObject in accountsListToBeSorted
+        {
+            if(accountObject.nextDeliveryDate.count == 0)
+            {
+                accountObject.nextDeliveryDate = "1969-12-31"// "yyyy-mm-dd"
+            }
+        }
+        
         var dateSortedAccountList = [Account]()
         // 13April: Date coming into string format now. previously it was Date() object
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "mm/dd/yyyy"// MM/DD/YYYY
+        dateFormatter.dateFormat = "yyyy-mm-dd"// MM/DD/YYYY Account object has date format as yyyy-mm-dd
         
         if(ascending == true)
         {

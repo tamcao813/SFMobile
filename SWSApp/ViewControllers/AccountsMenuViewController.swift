@@ -9,11 +9,10 @@
 import Foundation
 import UIKit
 
-protocol SearchByEnteredTextDelegate: class
-{
+
+protocol SearchByEnteredTextDelegate: class {
     func sortAccountsData(searchString: String)
     func filtering(filtering: Bool)
-    //
     func  performFilterOperation(searchString: String)
 }
 
@@ -30,7 +29,7 @@ class AccountsMenuViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar : UISearchBar!
     
-    //Used to do for the Drop down Arrow during TableviewReload
+    //Used for selected section in TableView
     var selectedSection = -1
     
      var accountsForLoggedUserFiltered = [Account]()
@@ -176,16 +175,19 @@ class AccountsMenuViewController: UIViewController {
         FilterMenuModel.city = ""
         
         if searchBar != nil{
-            
             searchBar.text = ""
-            
         }
        
-        
-        if tableView != nil{
-        tableView.reloadData()
+        //Used to Clear the Expanded section of Filter Option
+        selectedSection = -1
+        if self.expandedSectionHeaderNumber != -1{
+            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
         }
         
+        if tableView != nil{
+            tableView.reloadData()
+        }
     }
     
     //Used to check which section header was clicked
@@ -203,47 +205,31 @@ class AccountsMenuViewController: UIViewController {
         }
         
         if selectedSection == 6{
-            
             if FilterMenuModel.channel == ""{
-                
                 print("Your Channel is not Selected")
-                
-                
             }else{
-                
-                if (self.expandedSectionHeaderNumber == -1) {
-                    self.expandedSectionHeaderNumber = section
-                    tableViewExpandSection(section, imageView: eImageView!)
-                } else {
-                    if (self.expandedSectionHeaderNumber == section) {
-                        tableViewCollapeSection(section, imageView: eImageView!)
-                        //If expanded section is clicked make this below variable to -1 so that arrow mark will be down
-                        self.selectedSection = -1
-                    } else {
-                        let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-                        tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
-                        tableViewExpandSection(section, imageView: eImageView!)
-                    }
-                }
+                self.sectionHeaderOperation(section: section, eImageView: eImageView)
             }
-            
         }else{
-            
-            if (self.expandedSectionHeaderNumber == -1) {
-                self.expandedSectionHeaderNumber = section
-                tableViewExpandSection(section, imageView: eImageView!)
+            self.sectionHeaderOperation(section: section, eImageView: eImageView)
+        }
+    }
+    
+    func sectionHeaderOperation(section : Int , eImageView : UIImageView?){
+        
+        if (self.expandedSectionHeaderNumber == -1) {
+            self.expandedSectionHeaderNumber = section
+            tableViewExpandSection(section, imageView: eImageView!)
+        } else {
+            if (self.expandedSectionHeaderNumber == section) {
+                tableViewCollapeSection(section, imageView: eImageView!)
+                //If expanded section is clicked make this below variable to -1 so that arrow mark will be down
+                self.selectedSection = -1
             } else {
-                if (self.expandedSectionHeaderNumber == section) {
-                    tableViewCollapeSection(section, imageView: eImageView!)
-                    //If expanded section is clicked make this below variable to -1 so that arrow mark will be down
-                    self.selectedSection = -1
-                } else {
-                    let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-                    tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
-                    tableViewExpandSection(section, imageView: eImageView!)
-                }
+                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+                tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+                tableViewExpandSection(section, imageView: eImageView!)
             }
-            
         }
     }
     
@@ -425,6 +411,24 @@ class AccountsMenuViewController: UIViewController {
         
     }
     
+    func resetEnteredDataAndAccountList(){
+        searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
+        self.clearFilterModelData()
+        self.searchByEnteredTextDelegate?.filtering(filtering: false)
+    }
+    
+    
+    private func isValidUserInputAtSearchFilterPanel()->Bool{
+        var validInput = false
+        if(searchBar.text!.count > 0 || FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != "" || FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != "" || FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != "" || FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != "" || FilterMenuModel.channel != "" || FilterMenuModel.subChannel != "" || FilterMenuModel.statusIsActive != "" || FilterMenuModel.statusIsInActive != "" || FilterMenuModel.statusIsSuspended != "")
+        {
+            print("ValidUserInputAtSearchFilterPanel")
+            validInput = true
+        }
+        
+        return validInput
+    }
+    
     //MARK:- IBAction Methods
     
     //Filters the account list according to filter selection
@@ -446,31 +450,14 @@ class AccountsMenuViewController: UIViewController {
         }
     }
     
-    private func isValidUserInputAtSearchFilterPanel()->Bool
-    {
-        var validInput = false
-        if(searchBar.text!.count > 0 || FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != "" || FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != "" || FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != "" || FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != "" || FilterMenuModel.channel != "" || FilterMenuModel.subChannel != "" || FilterMenuModel.statusIsActive != "" || FilterMenuModel.statusIsInActive != "" || FilterMenuModel.statusIsSuspended != "")
-        {
-            print("ValidUserInputAtSearchFilterPanel")
-            validInput = true
-        }
-        
-        return validInput
-    }
-    
     //Clears all the filter selection
     @IBAction func clearButton(_ sender: Any) {
         self.clearFilterModelData()
         self.searchByEnteredTextDelegate?.filtering(filtering: false)
     }
     
-    func resetEnteredDataAndAccountList()
-    {
-        searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
-        self.clearFilterModelData()
-        self.searchByEnteredTextDelegate?.filtering(filtering: false)
-    }
 }
+
 
 //MARK:- TableView DataSource Methods
 extension AccountsMenuViewController : UITableViewDataSource{
@@ -531,6 +518,18 @@ extension AccountsMenuViewController : UITableViewDataSource{
             print("Down")
         }
         
+        //As Action Item is in Sprint 2, Dropdown icon is set to DownArrow
+        if section == 1{
+            theImageView.image = UIImage(named: "dropDown")
+        }
+        
+        //Used to check Subchannel Click action. if Channel is empty dont change the drop down icon
+        if section == 6{
+            if FilterMenuModel.channel == ""{
+                theImageView.image = UIImage(named: "dropDown")
+            }
+        }
+        
         theImageView.tag = kHeaderSectionTag + section
         header.addSubview(theImageView)
         
@@ -550,39 +549,7 @@ extension AccountsMenuViewController : UITableViewDataSource{
             cell = tableView.dequeueReusableCell(withIdentifier: filterCell, for: indexPath) as! AccountsMenuTableTableViewCell
             cell?.selectionStyle = .none
             
-            if(indexPath.section == 0) {
-                
-                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
-                
-            } else if(indexPath.section == 1){
-                
-                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
-                
-            }else if(indexPath.section == 2){
-                
-                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
-                
-            }else if(indexPath.section == 3){
-                
-                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
-                
-            }else if(indexPath.section == 4){
-                
-                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
-                
-            }else if(indexPath.section == 5){
-                
-                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
-                
-            }else if(indexPath.section == 6){
-                
-                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
-                
-            }else if(indexPath.section == 7){
-                
-                self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
-                
-            }
+            self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
             
         }else{
             

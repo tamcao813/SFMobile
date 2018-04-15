@@ -197,7 +197,7 @@ class AccountDetailTabViewController: UITableViewController {
             }
             
             
-            headerCell.pastDueValue.text = String(format: "$%.2f",(account?.pastDueAmountDouble)!)
+            headerCell.pastDueValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.pastDueAmountDouble)!) //String(format: "$%.2f",(account?.pastDueAmountDouble)!)
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
             headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate)//account?.nextDeliveryDate
 //            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description

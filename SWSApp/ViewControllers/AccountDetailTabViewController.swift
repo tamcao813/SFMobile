@@ -153,26 +153,32 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.licenseTypeValue.text = account?.licenseType
             headerCell.licenseNumberValue.text = account?.licenseNumber
             headerCell.mtdSalesValue.text =  CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.mtdNetSales)!)//"$" + String(describing: account!.mtdNetSales)
-
-            var mtdValue = (account?.percentageLastYearMTDNetSales)!
-            print("mtd value is here \(account?.percentageLastYearMTDNetSales)")
             
-            if (mtdValue > 0.0 && mtdValue < 0.4 )
-            {
-                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Pathetic")
+            if let mtdValue = account?.percentageLastYearMTDNetSales {
                 
-            } else if ( 0.6 > mtdValue && mtdValue >= 0.4){
-                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
+                if (mtdValue > 0.0 && mtdValue < 0.4 )
+                {
+                    headerCell.batterySalesIndicator.image = UIImage(named:"Health-Pathetic")
+                    
+                } else if ( 0.6 > mtdValue && mtdValue >= 0.4){
+                    headerCell.batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
+                }
+                else if ( 0.8 > mtdValue && mtdValue >= 0.6){
+                    headerCell.batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
+                }
+                else if ( 1.0 > mtdValue && mtdValue >= 0.8){
+                    headerCell.batterySalesIndicator.image = UIImage(named:"Health-Bad")
+                }
+                else if  mtdValue >= 1.0 {
+                    headerCell.batterySalesIndicator.image = UIImage(named:"Health-Good")
+                }
+                
             }
-            else if ( 0.8 > mtdValue && mtdValue >= 0.6){
-                 headerCell.batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
-            }
-            else if ( 1.0 > mtdValue && mtdValue >= 0.8){
-                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Bad")
-            }
-            else if  mtdValue >= 1.0 {
-                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Good")
-            }
+
+           // var mtdValue = (account?.percentageLastYearMTDNetSales)!
+           // print("mtd value is here \(account?.percentageLastYearMTDNetSales)")
+            
+            
 
             headerCell.creditLimitValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.creditLimit)!) //"$"+(account?.creditLimit.description)!
             headerCell.totalBalanceValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.totalARBalance)!) //"$"+(account?.totalARBalance.description)!

@@ -221,6 +221,7 @@ class AccountDetailTabViewController: UITableViewController {
             
         }
         else if section == 1{
+            
             let frame = tableView.frame
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 800, height: 50))
             sectionLabel.text = (account?.accountName)! + " " + "Contacts"
@@ -237,6 +238,7 @@ class AccountDetailTabViewController: UITableViewController {
         else if section == 2 {
             
             let frame = tableView.frame
+            
             // ViewAllContacts Button...
             let viewAllAccountContactsButton = UIButton.init(frame: CGRect(x: 815, y: 25, width: 200, height: 35))
             viewAllAccountContactsButton.setTitle("View All Account Contacts", for: .normal)
@@ -253,6 +255,39 @@ class AccountDetailTabViewController: UITableViewController {
             headerView.backgroundColor = UIColor.white
             headerView.addSubview(viewAllAccountContactsButton)
             headerView.addSubview(sectionLabel)
+            
+//             headerView.translatesAutoresizingMaskIntoConstraints = true
+//
+//            let trailing = NSLayoutConstraint(item: viewAllAccountContactsButton,
+//                                              attribute: .trailing,
+//                                              relatedBy: .equal,
+//                                              toItem: headerView,
+//                                              attribute: .trailing,
+//                                              multiplier: 1.0,
+//                                              constant: 200.0)
+//            let top = NSLayoutConstraint(item: viewAllAccountContactsButton,
+//                                         attribute:.top,
+//                                              relatedBy: .equal,
+//                                              toItem: headerView,
+//                                              attribute:.top,
+//                                              multiplier: 1.0,
+//                                              constant: 50.0)
+//
+//
+//            let height = NSLayoutConstraint(item: viewAllAccountContactsButton,
+//                                            attribute: .height,
+//                                            relatedBy: .equal,
+//                                            toItem: nil,
+//                                            attribute: .notAnAttribute,
+//                                            multiplier: 1.0,
+//                                            constant: 50.0)
+//
+//
+//            headerView.addConstraint(trailing)
+//            headerView.addConstraint(top)
+//            headerView.addConstraint(height)
+            
+            
             return headerView;
         }
         

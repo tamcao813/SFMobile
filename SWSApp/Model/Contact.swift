@@ -9,7 +9,7 @@
 import Foundation
 
 class Contact {
-    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate", "AccountId", "Account.SWS_Account_Site__c", "SGWS_Account_Site_Number__c"]
+    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate", "AccountId", "Account.SWS_Account_Site__c", "SGWS_Account_Site_Number__c","SGWS_Buyer_Flag__c"]
     
     var contactId: String
     var name: String
@@ -23,7 +23,8 @@ class Contact {
     var accountSite: String
     var sccountSiteNumber: String
     var functionRole: String
-    
+    var buyerFlag: String
+
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
         self.init(json: resultDict)
@@ -42,6 +43,8 @@ class Contact {
         accountSite = json["Account.SWS_Account_Site__c"] as? String ?? ""
         sccountSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
         functionRole = "" //json["FunctionRole"] as! String
+        buyerFlag = json["SGWS_Buyer_Flag__c"] as! String ?? ""
+
     }
     
     init(for: String) {
@@ -57,6 +60,7 @@ class Contact {
         accountSite = ""
         sccountSiteNumber = ""
         functionRole = ""
+        buyerFlag = ""
     }
     
     static func mockBuyingPowerContact1() -> Contact {

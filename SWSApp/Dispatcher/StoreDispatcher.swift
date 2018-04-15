@@ -36,7 +36,7 @@ class StoreDispatcher {
         
         registerUserSoup()
         registerAccountSoup()
-        //registerContactSoup()
+        registerContactSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -55,10 +55,10 @@ class StoreDispatcher {
             group.leave()
         }
         
-        //        group.enter()
-        //        syncDownContact() { _ in
-        //            group.leave()
-        //        }
+        group.enter()
+        syncDownContact() { _ in
+            group.leave()
+        }
         
         //to do: syncDown other soups
         
@@ -95,7 +95,7 @@ class StoreDispatcher {
             SFSoupIndex(path: "Account.SGWS_Account_Health_Grade__c", indexType: kSoupIndexTypeString, columnName: "Account.SGWS_Account_Health_Grade__c")!,
             SFSoupIndex(path: "Account.Name", indexType: kSoupIndexTypeFullText, columnName: "Account.Name")!,
             SFSoupIndex(path: "Account.AccountNumber", indexType: kSoupIndexTypeString, columnName: "Account.AccountNumber")!,
-            SFSoupIndex(path: "Account.SWS_Growth_in_MTD_Net_Sales__c", indexType: kSoupIndexTypeFloating, columnName: "Account.SWS_Growth_in_MTD_Net_Sales__c")!,
+            SFSoupIndex(path: "Account.SWS_Total_CY_MTD_Net_Sales__c", indexType: kSoupIndexTypeFloating, columnName: "Account.SWS_Total_CY_MTD_Net_Sales__c")!,
             SFSoupIndex(path: "Account.SWS_Total_AR_Balance__c", indexType: kSoupIndexTypeFloating, columnName: "Account.SWS_Total_AR_Balance__c")!,
             SFSoupIndex(path: "Account.IS_Next_Delivery_Date__c", indexType: kSoupIndexTypeFullText, columnName: "Account.IS_Next_Delivery_Date__c")!,
             SFSoupIndex(path: "Account.SWS_Premise_Code__c", indexType: kSoupIndexTypeFullText, columnName: "Account.SWS_Premise_Code__c")!,
@@ -158,8 +158,9 @@ class StoreDispatcher {
         let username = SFUserAccountManager.sharedInstance().currentUser!.userName
         
         let fields : [String] = User.UserFields
-        
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from User Where Username = '\(username)'"
+        let userId =   SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
+
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember Where UserId = '\(userId!)' OR User.ManagerId = '\(userId!)' limit 100"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -200,7 +201,7 @@ class StoreDispatcher {
         
         //,,Account.SWS_Premise_Code__c
         
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Growth_in_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
        
         //,,,
         
@@ -233,8 +234,8 @@ class StoreDispatcher {
     }
     
     func syncDownContact(_ completion:@escaping (_ error: NSError?)->()) {
-        let userid:String = (userVieModel.loggedInUser?.userid)!
-        let siteid:String = "89658" //(userVieModel.loggedInUser?.userSite)! //test with a site for now
+        let userid:String = (userVieModel.loggedInUser?.userId)!
+        let siteid:String = (userVieModel.loggedInUser?.userSite)!
         
         let fields : [String] = Contact.ContactFields
         
@@ -272,16 +273,16 @@ class StoreDispatcher {
     //User
     func fetchLoggedInUser(_ completion:@escaping ((_ user:User?, _ error: NSError?)->())) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        if appDelegate.isMockUser  {
-            completion(User.mockUser(), nil)
-            return
-        }
+//        if appDelegate.isMockUser  {
+//            completion(User.mockUser(), nil)
+//            return
+//        }
         
         let username = SFUserAccountManager.sharedInstance().currentUser!.userName
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:Username} = '\(username)'"
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:User.Username} = '\(username)'"
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
@@ -320,7 +321,7 @@ class StoreDispatcher {
         else {
             let userViewModel = UserViewModel()
             
-            let userid: String = (userViewModel.loggedInUser?.userid)!
+            let userid: String = (userViewModel.loggedInUser?.userId)!
             
             return fetchAccounts(forUser: userid)
         }
@@ -364,7 +365,7 @@ class StoreDispatcher {
         
         //let soqlQuery = "Select \(fields.joined(separator: ",")) from {AccountTeamMember} " //where {AccountTeamMember:Account.RecordType.DeveloperName} = 'Customer'"
         
-        let soqlQuery = "Select DISTINCT {AccountTeamMember:Account.SGWS_Account_Health_Grade__c},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.SWS_Growth_in_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_Total_AR_Balance__c},{AccountTeamMember:Account.IS_Next_Delivery_Date__c},{AccountTeamMember:Account.SWS_Premise_Code__c},{AccountTeamMember:Account.SWS_License_Type__c},{AccountTeamMember:Account.SWS_License__c},{AccountTeamMember:Account.Google_Place_Operating_Hours__c},{AccountTeamMember:Account.SWS_License_Expiration_Date__c},{AccountTeamMember:Account.SWS_Total_CY_R12_Net_Sales__c},{AccountTeamMember:Account.SWS_Credit_Limit__c},{AccountTeamMember:Account.SWS_TD_Channel__c},{AccountTeamMember:Account.SWS_TD_Sub_Channel__c},{AccountTeamMember:Account.SWS_License_Status_Description__c},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_AR_Past_Due_Amount__c},{AccountTeamMember:Account.SWS_Delivery_Frequency__c},{AccountTeamMember:Account.SGWS_Single_Multi_Locations_Filter__c},{AccountTeamMember:Account.Google_Place_Formatted_Phone__c},{AccountTeamMember:Account.SWS_Status_Description__c} from {AccountTeamMember} WHERE {AccountTeamMember:AccountId} IN (\(formattedAccIdArray))"
+        let soqlQuery = "Select DISTINCT {AccountTeamMember:Account.SGWS_Account_Health_Grade__c},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.SWS_Total_CY_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_Total_AR_Balance__c},{AccountTeamMember:Account.IS_Next_Delivery_Date__c},{AccountTeamMember:Account.SWS_Premise_Code__c},{AccountTeamMember:Account.SWS_License_Type__c},{AccountTeamMember:Account.SWS_License__c},{AccountTeamMember:Account.Google_Place_Operating_Hours__c},{AccountTeamMember:Account.SWS_License_Expiration_Date__c},{AccountTeamMember:Account.SWS_Total_CY_R12_Net_Sales__c},{AccountTeamMember:Account.SWS_Credit_Limit__c},{AccountTeamMember:Account.SWS_TD_Channel__c},{AccountTeamMember:Account.SWS_TD_Sub_Channel__c},{AccountTeamMember:Account.SWS_License_Status_Description__c},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_AR_Past_Due_Amount__c},{AccountTeamMember:Account.SWS_Delivery_Frequency__c},{AccountTeamMember:Account.SGWS_Single_Multi_Locations_Filter__c},{AccountTeamMember:Account.Google_Place_Formatted_Phone__c},{AccountTeamMember:Account.SWS_Status_Description__c},{AccountTeamMember:AccountId} from {AccountTeamMember} WHERE {AccountTeamMember:AccountId} IN (\(formattedAccIdArray))"
         
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
@@ -389,18 +390,30 @@ class StoreDispatcher {
     
     
     //Contacts
-    func fetchContactsWithBuyingPower(forUser uid: String) -> [Contact] {
-        let contact1 = Contact.mockBuyingPowerContact1()
-        let contact2 = Contact.mockBuyingPowerContact1()
-        let contact3 = Contact.mockBuyingPowerContact1()
+    func fetchContactsWithBuyingPower(forAccount accountId: String) -> [Contact] {
         
-        //add more if needed
+        print("fetchContactsWithBuyingPower \(accountId)")
+        var contactAry: [Contact] = []
         
-        var ary = [Contact]()
-        ary.append(contact1)
-        ary.append(contact2)
-        ary.append(contact3)
-        return ary
+        let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:SGWS_Buyer_Flag__c} = 1 AND {Contact:AccountId} = '\(accountId)' "
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let contact = Contact(withAry: ary)
+                contactAry.append(contact)
+            }
+        }
+        else if error != nil {
+            print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
+        }
+        return contactAry
     }
     
     func fetchContactsForSG(forUser uid: String) -> [Contact] {
@@ -419,8 +432,8 @@ class StoreDispatcher {
     }
     
     func fetchGlobalContacts() -> [Contact]  {
-        let userid:String = (userVieModel.loggedInUser?.userid)!
-        let siteid:String = "89658" //(userVieModel.loggedInUser?.userSite)!
+        let userid:String = (userVieModel.loggedInUser?.userId)!
+        let siteid:String = (userVieModel.loggedInUser?.userSite)!
         
         var contactAry: [Contact] = []
         

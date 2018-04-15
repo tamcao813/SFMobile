@@ -9,13 +9,12 @@
 import Foundation
 
 class Account {
-    static let AccountFields: [String] = ["Account.Id","Account.SGWS_Account_Health_Grade__c","CreatedDate","TeamMemberRole","Account.Name","Account.AccountNumber","Account.SWS_Growth_in_MTD_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.IS_Next_Delivery_Date__c","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SGWS_Single_Multi_Locations_Filter__c","Account.Google_Place_Formatted_Phone__c","Account.SWS_Status_Description__c"]
+    static let AccountFields: [String] = ["Account.SGWS_Account_Health_Grade__c","Account.Name","Account.AccountNumber","Account.SWS_Growth_in_MTD_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.IS_Next_Delivery_Date__c","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SGWS_Single_Multi_Locations_Filter__c","Account.Google_Place_Formatted_Phone__c","Account.SWS_Status_Description__c","AccountId"]
     //,,,
 //  ,,,,,,,,,,,,"Account.ShippingGeocodeAccuracy",,,,,"Account.SWS_License_Status__c",,"Account.SGWS_Account_Health_Grade__c",,"Account.SWS_License_Type_Description__c"]
     
     // "Account.ShippingLatitude","Account.ShippingLongitude",
     
-    var accountId: String
     var accountName: String
     var siteId: String
     var phone: String
@@ -53,7 +52,8 @@ class Account {
     var percentageLastYearMTDNetSales: Double
     var singleMultiLocationFilter:String // single multi
     var acctDescStatus: String
-    
+    var account_Id: String
+
     
     var pastDueAmountDouble: Double
   
@@ -67,7 +67,6 @@ class Account {
         print("Json coming here is*** \(json)")
         singleMultiLocationFilter = json["Account.SGWS_Single_Multi_Locations_Filter__c"] as? String ?? ""
         acctHealthGrade = json["Account.SGWS_Account_Health_Grade__c"] as? String ?? ""
-        accountId = json["Account.Id"] as! String
         accountName = json["Account.Name"] as? String ?? ""
         siteId = json["SiteId"] as? String ?? ""
         phone = json["Account.Google_Place_Formatted_Phone__c"] as? String ?? ""
@@ -105,7 +104,7 @@ class Account {
         licenseTypeDescription = json["Account.SWS_License_Type_Description__c"] as? String ?? ""
         pastDueAlert = json["Past_Due_Alert"] as? String ?? ""
         acctDescStatus = json["Account.SWS_Status_Description__c"] as? String ?? ""
-        
+        account_Id = json["AccountId"] as? String ?? ""
         
         actionItem = 2 //need to get from query
         
@@ -114,7 +113,6 @@ class Account {
     }
     
     init(for: String)  {
-        accountId = ""
         accountName = ""
         siteId = ""
         phone = ""
@@ -152,7 +150,7 @@ class Account {
         actionItem = 2
         singleMultiLocationFilter = ""
         acctDescStatus = ""
-        
+        account_Id = ""
         pastDueAmountDouble = 0.0
        
        
@@ -160,7 +158,7 @@ class Account {
     
     static func mockAccount1() -> Account {
         let acc = Account(for: "mockup")
-        acc.accountId =  "001m000000cHLmDAAW"
+       // acc.accountId =  "001m000000cHLmDAAW"
         acc.accountNumber = "148"
         acc.accountName = "Crown Liquor Store"
       //  acc.shippingAddress =  "B1- 202 Argentina"
@@ -177,7 +175,7 @@ class Account {
     }
     static func mockAccount2() -> Account {
         let acc = Account(for: "mockup")
-        acc.accountId =  "001m000000cHLmDAAZ"
+        //acc.accountId =  "001m000000cHLmDAAZ"
         acc.accountNumber = "188"
         acc.accountName = "Big Liquor Store"
      //   acc.shippingAddress = "B1- 202 California"
@@ -196,7 +194,7 @@ class Account {
     
     static func mockAccount3() -> Account {
         let acc = Account(for: "mockup")
-        acc.accountId =  "001m000000cHLmDAAZ"
+      //  acc.accountId =  "001m000000cHLmDAAZ"
         acc.accountNumber = "198"
         acc.accountName = "Bigger Liquor Store"
      //   acc.shippingAddress = "7890"
@@ -219,7 +217,7 @@ class Account {
     
     static func mockAccount4() -> Account {
         let acc = Account(for: "mockup")
-        acc.accountId =  "001m000000cHLmDAAZ"
+      //  acc.accountId =  "001m000000cHLmDAAZ"
         acc.accountNumber = "208"
         acc.accountName = "Biggest Liquor Store"
       //  acc.shippingAddress = "4567"

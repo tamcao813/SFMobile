@@ -89,11 +89,11 @@ class AccountSortUtility
         var balanceSortedAccountList = [Account]()
         if(ascending == true)
         {
-            balanceSortedAccountList = accountsListToBeSorted.sorted { $0.totalARBalance < $1.totalARBalance }
+            balanceSortedAccountList = accountsListToBeSorted.sorted { $0.pastDueAmountDouble < $1.pastDueAmountDouble }
         }
         else
         {
-            balanceSortedAccountList = accountsListToBeSorted.sorted { $1.totalARBalance < $0.totalARBalance }
+            balanceSortedAccountList = accountsListToBeSorted.sorted { $1.pastDueAmountDouble < $0.pastDueAmountDouble }
         }
         
         return balanceSortedAccountList
@@ -140,7 +140,7 @@ class AccountSortUtility
             enteredAnyFilterCase = true
             if FilterMenuModel.pastDueYes == "YES"{
                 
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmountDouble > 0.0 } )
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmountDouble > 0 } )
                 
             }else if FilterMenuModel.pastDueNo == "YES" {
                 

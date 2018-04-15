@@ -416,6 +416,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             if isAscendingBalance == true{
                 isAscendingBalance = false
                 
+                
                 sortedAccountsList = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: accountsForLoggedUserOriginal, ascending: true)
             }
             else

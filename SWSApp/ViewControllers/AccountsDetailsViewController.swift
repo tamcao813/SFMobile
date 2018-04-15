@@ -98,10 +98,9 @@ class AccountDetailsViewController : UIViewController{
         }
         
        
-       // centerLabel?.text = accountDetailForLoggedInUser?.accountHealthGrade
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)
-        lblPastDue?.text = String(format: "$%.2f",(accountDetailForLoggedInUser?.pastDueAmountDouble)!)
-        lblCYR12Sales?.text = "$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
+        lblPastDue?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.pastDueAmountDouble)!) //String(format: "$%.2f",(accountDetailForLoggedInUser?.pastDueAmountDouble)!)
+        lblCYR12Sales?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.totalCYR12NetSales)!) //"$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
      //   btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description)! + "%", for: .normal)

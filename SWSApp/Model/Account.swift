@@ -57,6 +57,7 @@ class Account {
     
     var pastDueAmountDouble: Double
   
+  
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Account.AccountFields, ary))
         self.init(json: resultDict)
@@ -109,6 +110,7 @@ class Account {
         actionItem = 2 //need to get from query
         
         pastDueAmountDouble = Double(pastDueAmount)!
+      
      
     }
     
@@ -152,6 +154,7 @@ class Account {
         acctDescStatus = ""
         account_Id = ""
         pastDueAmountDouble = 0.0
+      
        
        
     }

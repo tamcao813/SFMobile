@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var OAuthRedirectURI = ""
     
     var loggedInUser: User?
-    
+    var alertVisible = false
     let isMockUser = false //set it to true to use mock data or set it to false if testing with real data
     
     override
@@ -98,10 +98,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func initializeAppViewState() {
+
+        // Checking for the Network
+        let reachability = Reachability.init()
+        let alert = UIAlertController(title: "Alert", message: "The internet connection appears to be offline.", preferredStyle: UIAlertControllerStyle.alert)
+        reachability?.whenReachable = { reachability in
+            if self.alertVisible {
+                alert.dismiss(animated: true, completion: nil)
+                self.alertVisible = false
+            }
+        }
+        
+        reachability?.whenUnreachable = { _ in
+            if !self.alertVisible {
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    exit(1)
+                }))
+                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                self.alertVisible = true
+            }
+        }
+        
+        do {
+            try reachability?.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
         if let window = window {
-            let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
-            window.rootViewController = storyboard.instantiateViewController(withIdentifier: "LaunchScreen")
-            window.makeKeyAndVisible()
+            if !self.alertVisible {
+                let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
+                window.rootViewController = storyboard.instantiateViewController(withIdentifier: "LaunchScreen")
+                window.makeKeyAndVisible()
+            }
         }
     }
     

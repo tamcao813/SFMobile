@@ -279,8 +279,13 @@ class StoreDispatcher {
 //            completion(User.mockUser(), nil)
 //            return
 //        }
-        
-        let username = SFUserAccountManager.sharedInstance().currentUser!.userName
+        var error : NSError?
+        guard let user = SFUserAccountManager.sharedInstance().currentUser else {
+            completion(nil, error)
+            return
+        }
+                
+        let username = user.userName
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
@@ -288,7 +293,6 @@ class StoreDispatcher {
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
-        var error : NSError?
         let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
         
         if (error == nil && result.count > 0) {

@@ -27,10 +27,7 @@ class AccountDetailTabViewController: UITableViewController {
         if let acc = account{
             print( "the single multi is \(acc.singleMultiLocationFilter)")
         }
-        
-       
-        
-        
+
         //just testing globalContacts here
         let globalContactas = contactViewModel.globalContacts()
         print("globalContactas.count = " + "\(globalContactas.count)")
@@ -154,12 +151,14 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.licenseNumberValue.text = account?.licenseNumber
             headerCell.mtdSalesValue.text =  CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.mtdNetSales)!)//"$" + String(describing: account!.mtdNetSales)
             
+           
+            
             if let mtdValue = account?.percentageLastYearMTDNetSales {
-                
-                if (mtdValue > 0.0 && mtdValue < 0.4 )
+
+                if (mtdValue >= 0.0 && mtdValue < 0.4 )
                 {
                     headerCell.batterySalesIndicator.image = UIImage(named:"Health-Pathetic")
-                    
+
                 } else if ( 0.6 > mtdValue && mtdValue >= 0.4){
                     headerCell.batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
                 }
@@ -170,16 +169,14 @@ class AccountDetailTabViewController: UITableViewController {
                     headerCell.batterySalesIndicator.image = UIImage(named:"Health-Bad")
                 }
                 else if  mtdValue >= 1.0 {
+
                     headerCell.batterySalesIndicator.image = UIImage(named:"Health-Good")
                 }
-                
+
             }
 
            // var mtdValue = (account?.percentageLastYearMTDNetSales)!
            // print("mtd value is here \(account?.percentageLastYearMTDNetSales)")
-            
-            
-
             headerCell.creditLimitValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.creditLimit)!) //"$"+(account?.creditLimit.description)!
             headerCell.totalBalanceValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.totalARBalance)!) //"$"+(account?.totalARBalance.description)!
             headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)//account?.licenseExpirationDate

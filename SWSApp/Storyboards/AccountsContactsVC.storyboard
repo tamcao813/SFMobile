@@ -403,7 +403,7 @@
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="aFs-W3-pOZ" userLabel="c2">
-                                                            <rect key="frame" x="30" y="73.5" width="100" height="33.5"/>
+                                                            <rect key="frame" x="30" y="87.5" width="100" height="33.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Credit Limit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="901-jO-Ako">
                                                                     <rect key="frame" x="0.0" y="0.0" width="64" height="13.5"/>
@@ -423,7 +423,7 @@
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="cLW-V7-Y93" userLabel="c3">
-                                                            <rect key="frame" x="30" y="126" width="150" height="33.5"/>
+                                                            <rect key="frame" x="30" y="140" width="150" height="33.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Total Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Sl-K5-HVh">
                                                                     <rect key="frame" x="0.0" y="0.0" width="73.5" height="13.5"/>
@@ -443,7 +443,7 @@
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Ope-BJ-qKH" userLabel="c4">
-                                                            <rect key="frame" x="30" y="182.5" width="150" height="35.5"/>
+                                                            <rect key="frame" x="30" y="196.5" width="150" height="35.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Past Due" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mtR-ZU-tbA">
                                                                     <rect key="frame" x="0.0" y="0.0" width="48.5" height="13.5"/>
@@ -485,7 +485,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="aFs-W3-pOZ" firstAttribute="top" secondItem="rm3-Lt-aHx" secondAttribute="bottom" constant="16" id="3QD-fZ-7z5"/>
+                                                        <constraint firstItem="aFs-W3-pOZ" firstAttribute="top" secondItem="rm3-Lt-aHx" secondAttribute="bottom" constant="30" id="3QD-fZ-7z5"/>
                                                         <constraint firstItem="rm3-Lt-aHx" firstAttribute="leading" secondItem="wYd-au-gQc" secondAttribute="leading" constant="30" id="Luh-bB-IUE"/>
                                                         <constraint firstItem="cLW-V7-Y93" firstAttribute="leading" secondItem="wYd-au-gQc" secondAttribute="leading" constant="30" id="QXA-B5-hO5"/>
                                                         <constraint firstItem="Ope-BJ-qKH" firstAttribute="leading" secondItem="wYd-au-gQc" secondAttribute="leading" constant="30" id="c9R-uG-bkW"/>
@@ -521,7 +521,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Xlh-l6-eUU" userLabel="c3">
-                                                            <rect key="frame" x="30" y="73.5" width="160.5" height="33.5"/>
+                                                            <rect key="frame" x="30" y="81.5" width="160.5" height="33.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next Delivery Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1z-9w-9SC">
                                                                     <rect key="frame" x="0.0" y="0.0" width="103" height="13.5"/>
@@ -561,7 +561,7 @@
                                                         <constraint firstItem="NxW-fI-34S" firstAttribute="top" secondItem="Q7d-ZM-cRE" secondAttribute="top" constant="20" id="AbC-jC-iWn"/>
                                                         <constraint firstAttribute="trailing" secondItem="Xlh-l6-eUU" secondAttribute="trailing" constant="60.5" id="MTZ-Hg-r2c"/>
                                                         <constraint firstAttribute="bottom" secondItem="9jP-cQ-G2F" secondAttribute="bottom" constant="80" id="N9n-h8-ppC"/>
-                                                        <constraint firstItem="Xlh-l6-eUU" firstAttribute="top" secondItem="NxW-fI-34S" secondAttribute="bottom" constant="20" id="QAJ-J5-dgG"/>
+                                                        <constraint firstItem="Xlh-l6-eUU" firstAttribute="top" secondItem="NxW-fI-34S" secondAttribute="bottom" constant="28" id="QAJ-J5-dgG"/>
                                                         <constraint firstAttribute="trailing" secondItem="9jP-cQ-G2F" secondAttribute="trailing" constant="93.5" id="fhX-Zv-WK5"/>
                                                         <constraint firstItem="NxW-fI-34S" firstAttribute="leading" secondItem="Q7d-ZM-cRE" secondAttribute="leading" constant="30" id="fwn-fM-LHF"/>
                                                         <constraint firstItem="9jP-cQ-G2F" firstAttribute="leading" secondItem="Q7d-ZM-cRE" secondAttribute="leading" constant="30" id="tdZ-OJ-uSI"/>

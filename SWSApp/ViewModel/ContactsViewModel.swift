@@ -10,8 +10,8 @@ import Foundation
 
 class ContactsViewModel{
     
-    func contactsWithBuyingPower(forUser uid:String) -> [Contact] {
-        return StoreDispatcher.shared.fetchContactsWithBuyingPower(forUser: uid)
+    func contactsWithBuyingPower(forAccount accountId:String) -> [Contact] {
+        return StoreDispatcher.shared.fetchContactsWithBuyingPower(forAccount: accountId)
     }
     
     func contactsForSG(forUser uid:String) -> [Contact] {

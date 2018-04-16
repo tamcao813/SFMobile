@@ -73,7 +73,7 @@ class Account {
         siteId = json["SiteId"] as? String ?? ""
         phone = json["Account.Google_Place_Formatted_Phone__c"] as? String ?? ""
         licenseStatus = json["Account.SWS_License_Status_Description__c"] as? String ?? ""
-        mtdNetSales = json["Account.SWS_Growth_in_MTD_Net_Sales__c"] as? Double ?? 0.0
+        mtdNetSales = json["Account.SWS_Total_CY_MTD_Net_Sales__c"] as? Double ?? 0.0
         pastDueAmount = json["Account.SWS_AR_Past_Due_Amount__c"] as? String ?? ""
         accountNumber = json["Account.AccountNumber"] as? String ?? ""
         premiseCode = json["Account.SWS_Premise_Code__c"] as? String ?? ""

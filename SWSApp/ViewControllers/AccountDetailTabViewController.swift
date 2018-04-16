@@ -20,8 +20,13 @@ class AccountDetailTabViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let loggerInUser = userViewModel.loggedInUser
-        contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forUser: (loggerInUser?.userid)!)
-        contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.userid)!)
+        
+        // Get the buying power contact for this account
+        if let accountId = account?.account_Id {
+            contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forAccount: accountId)
+        }
+            contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.userId)!)
+        
         
         // checking single multi location filter
         if let acc = account{

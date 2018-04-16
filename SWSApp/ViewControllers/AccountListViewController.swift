@@ -167,6 +167,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         cell.selectionStyle = .none
         cell.storeNameLabel.text = account.accountName
         cell.accountNumberLabel.text = account.accountNumber
+        //cell.percentR12NetSales.setTitle((account.percentageLastYearR12NetSales) + "%", for: .normal)
         
         // Create Full shipping address
        
@@ -589,6 +590,9 @@ class AccountRowCell: UITableViewCell
     @IBOutlet weak var pastDueAmountLabel: UILabel!
     @IBOutlet weak var pastDueAmountTextLabel: UILabel!
     @IBOutlet weak var nextDeliveryDateLabel: UILabel!
+    @IBOutlet weak var percentR12NetSales: UIButton!
+    
+    
 }
 
 

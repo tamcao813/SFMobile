@@ -41,7 +41,7 @@ class AccountDetailsViewController : UIViewController{
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         containerView?.isHidden = true
-  
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +56,7 @@ class AccountDetailsViewController : UIViewController{
             
         } else {
             
-           lblAddress1?.text = ""
+            lblAddress1?.text = ""
         }
         
         //let pastDue : Double = Double((accountDetailForLoggedInUser?.pastDueAmount)!)
@@ -97,17 +97,14 @@ class AccountDetailsViewController : UIViewController{
             
         }
         
-       
-       // centerLabel?.text = accountDetailForLoggedInUser?.accountHealthGrade
+        
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)
-        lblPastDue?.text = String(format: "$%.2f",(accountDetailForLoggedInUser?.pastDueAmountDouble)!)
-        lblCYR12Sales?.text = "$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
+        lblPastDue?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.pastDueAmountDouble)!) //String(format: "$%.2f",(accountDetailForLoggedInUser?.pastDueAmountDouble)!)
+        lblCYR12Sales?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.totalCYR12NetSales)!) //"$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
-     //   btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description)! + "%", for: .normal)
-         btnPercentage?.setTitle("0.0" + "%", for: .normal)
-
-       
+        btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)! + "%", for: .normal)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -172,9 +169,9 @@ class AccountDetailsViewController : UIViewController{
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAccountDetailTab"{
-           
+            
             let accountDetailTabViewController = segue.destination as! AccountDetailTabViewController
-
+            
             accountDetailTabViewController.account = accountDetailForLoggedInUser
         }
     }

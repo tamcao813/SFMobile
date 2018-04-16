@@ -337,7 +337,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         self.view.endEditing(true)
         
-        filterMenuModel.clearFilterModelData()
+        if index != 1{
+            filterMenuModel.clearFilterModelData()
+        }
         
         if(previouslySelectedVCIndex == 1)// account list view
         {

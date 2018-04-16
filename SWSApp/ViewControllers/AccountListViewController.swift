@@ -167,6 +167,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         cell.selectionStyle = .none
         cell.storeNameLabel.text = account.accountName
         cell.accountNumberLabel.text = account.accountNumber
+        //cell.percentR12NetSales.setTitle((account.percentageLastYearR12NetSales) + "%", for: .normal)
         
         // Create Full shipping address
        
@@ -174,10 +175,21 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode
         cell.addressLabel.text = fullAddress
         
-        cell.actionItemsLabel.text = String(account.actionItem)
+        //cell.actionItemsLabel.text = String(account.actionItem)
         
-        cell.netSalesAmountLabel.text = String(format: "$%.2f",account.totalCYR12NetSales)
-        cell.pastDueAmountTextLabel.text = String(format: "$%.2f",account.pastDueAmountDouble)
+        
+        
+        
+//        let formatter = NumberFormatter()
+//        formatter.locale = Locale.current // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
+//        formatter.numberStyle = .currency
+//        if let formattedTipAmount = formatter.string(from: account.totalCYR12NetSales as NSNumber) {
+//            cell.netSalesAmountLabel.text = formattedTipAmount
+//        }
+        
+        cell.netSalesAmountLabel.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: account.totalCYR12NetSales)
+        
+        cell.pastDueAmountTextLabel.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: account.pastDueAmountDouble) //String(format: "$%.2f",account.pastDueAmountDouble)
         
         //Past due amount value is greater than 0 than only show indicator else hide it
         
@@ -578,6 +590,9 @@ class AccountRowCell: UITableViewCell
     @IBOutlet weak var pastDueAmountLabel: UILabel!
     @IBOutlet weak var pastDueAmountTextLabel: UILabel!
     @IBOutlet weak var nextDeliveryDateLabel: UILabel!
+    @IBOutlet weak var percentR12NetSales: UIButton!
+    
+    
 }
 
 

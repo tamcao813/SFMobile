@@ -34,9 +34,6 @@ class AccountDetailTabViewController: UITableViewController {
             print( "the single multi is \(acc.singleMultiLocationFilter)")
         }
         
-       
-        
-        
         //just testing globalContacts here
         let globalContactas = contactViewModel.globalContacts()
         print("globalContactas.count = " + "\(globalContactas.count)")
@@ -70,8 +67,6 @@ class AccountDetailTabViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactTableViewCell
-        
-        
         var ary: [Contact] = []
         
         if indexPath.section == 1 {
@@ -158,37 +153,40 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.phoneValue.text = account?.phone
             headerCell.licenseTypeValue.text = account?.licenseType
             headerCell.licenseNumberValue.text = account?.licenseNumber
-            headerCell.mtdSalesValue.text = "$" + String(describing: account!.mtdNetSales)
+            headerCell.mtdSalesValue.text =  CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.mtdNetSales)!) //"$" + String(describing: account!.mtdNetSales)
             
-
             
-            var mtdValue = (account?.percentageLastYearMTDNetSales)!
+            // Battery indicator implementation....
+            var mtdValue:Double = ((account?.percentageLastYearMTDNetSales)! as NSString).doubleValue
+            print("MTD value is \(mtdValue)")
             
-            if (mtdValue > 0.0 && mtdValue < 0.40 )
+            if (mtdValue >= 0.0 && mtdValue < 0.4 )
             {
                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Pathetic")
-            } else if ( 0.60 > mtdValue && mtdValue >= 0.40){
-                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
+                
+            } else if ( 0.6 > mtdValue && mtdValue >= 0.4){
+                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
             }
-            else if ( 0.80 > mtdValue && mtdValue >= 0.60){
-                 headerCell.batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
+            else if ( 0.8 > mtdValue && mtdValue >= 0.6){
+                headerCell.batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
             }
-            else if ( 1.0 > mtdValue && mtdValue >= 0.80){
-                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Bad")
+            else if ( 1.0 > mtdValue && mtdValue >= 0.8){
+                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Bad")
             }
-            else if  mtdValue >= 1 {
+            else if  mtdValue >= 1.0 {
+                
                 headerCell.batterySalesIndicator.image = UIImage(named:"Health-Good")
+                
+                
             }
-
-            headerCell.creditLimitValue.text = "$"+(account?.creditLimit.description)!
-            headerCell.totalBalanceValue.text = "$"+(account?.totalARBalance.description)!
+            
+            // var mtdValue = (account?.percentageLastYearMTDNetSales)!
+            // print("mtd value is here \(account?.percentageLastYearMTDNetSales)")
+            headerCell.creditLimitValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.creditLimit)!) //"$"+(account?.creditLimit.description)!
+            headerCell.totalBalanceValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.totalARBalance)!) //"$"+(account?.totalARBalance.description)!
             headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)//account?.licenseExpirationDate
             
-//            if let expDate = account?.licenseExpirationDate {
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "mm/dd/yyyy"
-//                headerCell.expirationValue.text = dateFormatter.string(from: expDate)
-//            }
+           
             
             //Past due amount value is greater than 0 than only show indicator else hide it
             if let pastDueAmmt = account?.pastDueAmountDouble{
@@ -197,20 +195,18 @@ class AccountDetailTabViewController: UITableViewController {
                 }
                 else{
                     
-                     headerCell.pastDueIndicatorImage.isHidden = false
+                    headerCell.pastDueIndicatorImage.isHidden = false
                     
                 }
             }
             
-            
-            headerCell.pastDueValue.text = String(format: "$%.2f",(account?.pastDueAmountDouble)!)
+            headerCell.pastDueValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.pastDueAmountDouble)!) //String(format: "$%.2f",(account?.pastDueAmountDouble)!)
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
             headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate)//account?.nextDeliveryDate
-//            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description
+            //            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description
             
             //Getting only working hours from extension
-            
-          //  let workingHours = account?.operatingHours.slice(from: ":", to: "\n")
+            //  let workingHours = account?.operatingHours.slice(from: ":", to: "\n")
             headerCell.businessHoursValue.text = account?.operatingHours
             
             // getting account type value
@@ -227,6 +223,7 @@ class AccountDetailTabViewController: UITableViewController {
             
         }
         else if section == 1{
+            
             let frame = tableView.frame
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 800, height: 50))
             sectionLabel.text = (account?.accountName)! + " " + "Contacts"
@@ -243,22 +240,26 @@ class AccountDetailTabViewController: UITableViewController {
         else if section == 2 {
             
             let frame = tableView.frame
-            // ViewAllContacts Button...
+            
+            // ViewAllContacts Button Frame and Position....
             let viewAllAccountContactsButton = UIButton.init(frame: CGRect(x: 815, y: 25, width: 200, height: 35))
             viewAllAccountContactsButton.setTitle("View All Account Contacts", for: .normal)
             viewAllAccountContactsButton.backgroundColor = UIColor(named: "LightGrey")
             viewAllAccountContactsButton.setTitleColor(UIColor.black, for: .normal)
             viewAllAccountContactsButton.titleLabel?.font = UIFont.init(name: "Ubuntu-Medium", size: 12)
-      
+            
+            // Southern Glazer,s  Label Frame and Position....
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 90, width: 400, height: 50))
             sectionLabel.text = "Southern Glazer's Contacts"
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
-       
+            
+            // Adding Button and Label to the  headerView.....
             let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:frame.width , height:frame.height ))
             headerView.backgroundColor = UIColor.white
             headerView.addSubview(viewAllAccountContactsButton)
             headerView.addSubview(sectionLabel)
+            
             return headerView;
         }
         

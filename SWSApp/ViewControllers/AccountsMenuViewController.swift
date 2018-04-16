@@ -151,42 +151,50 @@ class AccountsMenuViewController: UIViewController {
     
     //Used to Clear the Model Data
     func clearFilterModelData(){
-        FilterMenuModel.pastDueYes = ""
-        FilterMenuModel.pastDueNo = ""
+    
+        if FilterMenuModel.comingFromDetailsScreen == "YES"{
+            
+           FilterMenuModel.comingFromDetailsScreen = "NO"
+            
+        }else{
         
-        FilterMenuModel.statusIsActive = ""
-        FilterMenuModel.statusIsInActive = ""
-        FilterMenuModel.statusIsSuspended = ""
+            FilterMenuModel.pastDueYes = ""
+            FilterMenuModel.pastDueNo = ""
         
-        FilterMenuModel.premiseOn = ""
-        FilterMenuModel.premiseOff = ""
+            FilterMenuModel.statusIsActive = ""
+            FilterMenuModel.statusIsInActive = ""
+            FilterMenuModel.statusIsSuspended = ""
         
-        FilterMenuModel.singleSelected = ""
-        FilterMenuModel.multiSelected = ""
+            FilterMenuModel.premiseOn = ""
+            FilterMenuModel.premiseOff = ""
         
-        FilterMenuModel.licenseW = ""
-        FilterMenuModel.licenseL = ""
-        FilterMenuModel.licenseB = ""
-        FilterMenuModel.licenseN = ""
+            FilterMenuModel.singleSelected = ""
+            FilterMenuModel.multiSelected = ""
         
-        FilterMenuModel.channel = ""
-        FilterMenuModel.subChannel = ""
+            FilterMenuModel.licenseW = ""
+            FilterMenuModel.licenseL = ""
+            FilterMenuModel.licenseB = ""
+            FilterMenuModel.licenseN = ""
         
-        FilterMenuModel.city = ""
+            FilterMenuModel.channel = ""
+            FilterMenuModel.subChannel = ""
         
-        if searchBar != nil{
-            searchBar.text = ""
-        }
-       
-        //Used to Clear the Expanded section of Filter Option
-        selectedSection = -1
-        if self.expandedSectionHeaderNumber != -1{
-            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
-        }
+            FilterMenuModel.city = ""
         
-        if tableView != nil{
-            tableView.reloadData()
+            if searchBar != nil{
+                searchBar.text = ""
+            }
+        
+            //Used to Clear the Expanded section of Filter Option
+            selectedSection = -1
+            if self.expandedSectionHeaderNumber != -1{
+                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+                tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+            }
+        
+            if tableView != nil{
+                tableView.reloadData()
+            }
         }
     }
     
@@ -413,8 +421,11 @@ class AccountsMenuViewController: UIViewController {
     
     func resetEnteredDataAndAccountList(){
         searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
+        
+        if FilterMenuModel.comingFromDetailsScreen != "YES"{
+            self.searchByEnteredTextDelegate?.filtering(filtering: false)
+        }
         self.clearFilterModelData()
-        self.searchByEnteredTextDelegate?.filtering(filtering: false)
     }
     
     

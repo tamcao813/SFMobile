@@ -43,7 +43,7 @@ class Contact {
         accountSite = json["Account.SWS_Account_Site__c"] as? String ?? ""
         sccountSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
         functionRole = json["SGWS_Roles__c"] as? String ?? ""
-        buyerFlag = json["SGWS_Buyer_Flag__c"] as! String ?? ""
+        buyerFlag = json["SGWS_Buyer_Flag__c"] as? String ?? ""
 
     }
     

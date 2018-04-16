@@ -104,7 +104,7 @@ class AccountDetailsViewController : UIViewController{
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
      //   btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearMTDNetSales.description)! + "%", for: .normal)
-         btnPercentage?.setTitle("0.0" + "%", for: .normal)
+        btnPercentage?.setTitle(String(describing: (accountDetailForLoggedInUser?.percentageLastYearR12NetSales)!) + "%", for: .normal)
 
        
     }

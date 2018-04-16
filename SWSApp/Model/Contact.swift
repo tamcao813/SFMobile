@@ -9,7 +9,7 @@
 import Foundation
 
 class Contact {
-    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate", "AccountId", "Account.SWS_Account_Site__c", "SGWS_Account_Site_Number__c","SGWS_Buyer_Flag__c"]
+    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate", "AccountId", "Account.SWS_Account_Site__c", "SGWS_Account_Site_Number__c","SGWS_Buyer_Flag__c","SGWS_Roles__c"]
     
     var contactId: String
     var name: String
@@ -42,8 +42,8 @@ class Contact {
         accountId = json["AccountId"] as? String ?? ""
         accountSite = json["Account.SWS_Account_Site__c"] as? String ?? ""
         sccountSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
-        functionRole = "" //json["FunctionRole"] as! String
-        buyerFlag = json["SGWS_Buyer_Flag__c"] as! String ?? ""
+        functionRole = json["SGWS_Roles__c"] as? String ?? ""
+        buyerFlag = json["SGWS_Buyer_Flag__c"] as? String ?? ""
 
     }
     

@@ -24,8 +24,9 @@ class AccountDetailTabViewController: UITableViewController {
         // Get the buying power contact for this account
         if let accountId = account?.account_Id {
             contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forAccount: accountId)
+        
+            contactsForSG = contactViewModel.contactsForSG(forAccount: accountId)
         }
-            contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.userId)!)
         
         
         // checking single multi location filter

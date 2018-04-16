@@ -14,8 +14,8 @@ class ContactsViewModel{
         return StoreDispatcher.shared.fetchContactsWithBuyingPower(forAccount: accountId)
     }
     
-    func contactsForSG(forUser uid:String) -> [Contact] {
-        return StoreDispatcher.shared.fetchContactsForSG(forUser: uid)
+    func contactsForSG(forAccount accountId:String) -> [Contact] {
+        return StoreDispatcher.shared.fetchContactsForSG(forAccount: accountId)
     }
     
     func globalContacts() -> [Contact] {

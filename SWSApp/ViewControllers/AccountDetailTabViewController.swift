@@ -25,8 +25,7 @@ class AccountDetailTabViewController: UITableViewController {
         if let accountId = account?.account_Id {
             contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forAccount: accountId)
         }
-            contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.userId)!)
-        
+        contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.userId)!)
         
         // checking single multi location filter
         if let acc = account{
@@ -155,28 +154,27 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.mtdSalesValue.text =  CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.mtdNetSales)!) //"$" + String(describing: account!.mtdNetSales)
             
             
+            // Battery indicator implementation....
+            var mtdValue:Double = ((account?.percentageLastYearMTDNetSales)! as NSString).doubleValue
+            print("MTD value is \(mtdValue)")
             
-            if let mtdValue = account?.percentageLastYearMTDNetSales {
+            if (mtdValue >= 0.0 && mtdValue < 0.4 )
+            {
+                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Pathetic")
                 
-                print("mtd is \(mtdValue)")
+            } else if ( 0.6 > mtdValue && mtdValue >= 0.4){
+                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
+            }
+            else if ( 0.8 > mtdValue && mtdValue >= 0.6){
+                headerCell.batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
+            }
+            else if ( 1.0 > mtdValue && mtdValue >= 0.8){
+                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Bad")
+            }
+            else if  mtdValue >= 1.0 {
                 
-                if (mtdValue >= 0.0 && mtdValue < 0.4 )
-                {
-                    headerCell.batterySalesIndicator.image = UIImage(named:"Health-Pathetic")
-                    
-                } else if ( 0.6 > mtdValue && mtdValue >= 0.4){
-                    headerCell.batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
-                }
-                else if ( 0.8 > mtdValue && mtdValue >= 0.6){
-                    headerCell.batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
-                }
-                else if ( 1.0 > mtdValue && mtdValue >= 0.8){
-                    headerCell.batterySalesIndicator.image = UIImage(named:"Health-Bad")
-                }
-                else if  mtdValue >= 1.0 {
-                    
-                    headerCell.batterySalesIndicator.image = UIImage(named:"Health-Good")
-                }
+                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Good")
+                
                 
             }
             
@@ -252,13 +250,13 @@ class AccountDetailTabViewController: UITableViewController {
             viewAllAccountContactsButton.setTitleColor(UIColor.black, for: .normal)
             viewAllAccountContactsButton.titleLabel?.font = UIFont.init(name: "Ubuntu-Medium", size: 12)
             
-             // Southern Glazer,s  Label Frame and Position....
+            // Southern Glazer,s  Label Frame and Position....
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 90, width: 400, height: 50))
             sectionLabel.text = "Southern Glazer's Contacts"
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
             
-             // Adding Button and Label to the  headerView.....
+            // Adding Button and Label to the  headerView.....
             let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:frame.width , height:frame.height ))
             headerView.backgroundColor = UIColor.white
             headerView.addSubview(viewAllAccountContactsButton)

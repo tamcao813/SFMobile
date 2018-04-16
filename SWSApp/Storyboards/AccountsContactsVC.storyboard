@@ -69,51 +69,51 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jhd-wf-KyB" userLabel="NameStack">
-                                                    <rect key="frame" x="50" y="32.5" width="288.5" height="35"/>
+                                                    <rect key="frame" x="50" y="32.5" width="344" height="35"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uad-lM-bz4">
-                                                            <rect key="frame" x="0.0" y="0.0" width="43.5" height="19.5"/>
-                                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="46" height="20.5"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Function/Role" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tY9-v6-H1C">
-                                                            <rect key="frame" x="0.0" y="20.5" width="78" height="14.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <rect key="frame" x="0.0" y="21.5" width="77" height="13.5"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Ary-1E-uCe" userLabel="PhoneStack">
-                                                    <rect key="frame" x="348.5" y="33" width="317" height="34"/>
+                                                    <rect key="frame" x="404" y="33" width="206" height="34"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6Q-9n-UXR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="36" height="14.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="35" height="13.5"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Zt-69-lQa">
-                                                            <rect key="frame" x="0.0" y="14.5" width="43.5" height="19.5"/>
-                                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="13.5" width="46" height="20.5"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-1c-zVL" userLabel="EmailStack">
-                                                    <rect key="frame" x="675.5" y="33" width="288.5" height="34"/>
+                                                    <rect key="frame" x="620" y="33" width="344" height="34"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acP-ME-zK5">
-                                                            <rect key="frame" x="0.0" y="0.0" width="30.5" height="14.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="30" height="13.5"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2kC-Pw-LUa">
-                                                            <rect key="frame" x="0.0" y="14.5" width="43.5" height="19.5"/>
-                                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="13.5" width="46.5" height="20.5"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -121,7 +121,7 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Ary-1E-uCe" firstAttribute="width" secondItem="DfN-1c-zVL" secondAttribute="width" multiplier="1.1" id="F4w-Sn-QnU"/>
+                                                <constraint firstItem="Ary-1E-uCe" firstAttribute="width" secondItem="DfN-1c-zVL" secondAttribute="width" multiplier="0.6" id="F4w-Sn-QnU"/>
                                                 <constraint firstItem="Jhd-wf-KyB" firstAttribute="width" secondItem="DfN-1c-zVL" secondAttribute="width" id="Nu0-xm-fqj"/>
                                             </constraints>
                                         </stackView>

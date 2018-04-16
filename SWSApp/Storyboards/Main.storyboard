@@ -577,7 +577,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uF7-d3-VnH" userLabel="circledNumber">
                                                             <rect key="frame" x="204" y="0.0" width="102" height="71"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Action Items" translatesAutoresizingMaskIntoConstraints="NO" id="l6C-W0-4tm">
+                                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Action Items" translatesAutoresizingMaskIntoConstraints="NO" id="l6C-W0-4tm">
                                                                     <rect key="frame" x="31" y="16" width="40" height="40"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="40" id="Hv6-LT-vjM"/>
@@ -885,7 +885,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="277" y="-160"/>
+            <point key="canvasLocation" x="277" y="-314"/>
         </scene>
         <!--More View Controller-->
         <scene sceneID="nfh-Sn-KgW">
@@ -1001,13 +1001,13 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Past Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z02-Zb-E1A">
-                                                <rect key="frame" x="325.5" y="43" width="57" height="16"/>
+                                                <rect key="frame" x="325" y="43" width="57" height="16"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$456.90" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ocP-m8-3D7">
-                                                <rect key="frame" x="325.5" y="62" width="97" height="21"/>
+                                                <rect key="frame" x="325" y="62" width="97" height="21"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1033,13 +1033,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total CY R12 Net Sales" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IcR-OS-hoC">
-                                                <rect key="frame" x="477.5" y="43" width="143.5" height="16"/>
+                                                <rect key="frame" x="478" y="43" width="143.5" height="16"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$456.90" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Xk3-hB-paB">
-                                                <rect key="frame" x="477.5" y="62" width="100" height="21"/>
+                                                <rect key="frame" x="478" y="62" width="100" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="vMd-gz-Ikz"/>
                                                 </constraints>
@@ -1060,7 +1060,7 @@
                                                 </state>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ii9-kh-8OB">
-                                                <rect key="frame" x="482" y="122" width="80" height="16"/>
+                                                <rect key="frame" x="478" y="122" width="80" height="16"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1094,7 +1094,7 @@
                                             <constraint firstItem="IcR-OS-hoC" firstAttribute="top" secondItem="mMr-jd-hOi" secondAttribute="top" constant="43" id="3dp-SJ-iVk"/>
                                             <constraint firstItem="Kwy-c4-Aqr" firstAttribute="centerX" secondItem="V6J-HN-Nra" secondAttribute="centerX" constant="50" id="4Zk-AT-BWc"/>
                                             <constraint firstItem="yw5-2A-5u0" firstAttribute="trailing" secondItem="IcR-OS-hoC" secondAttribute="trailing" constant="27" id="6J1-Te-hs9"/>
-                                            <constraint firstItem="Ii9-kh-8OB" firstAttribute="leading" secondItem="Lj4-DY-eKZ" secondAttribute="trailing" constant="66" id="6SQ-O8-xIT"/>
+                                            <constraint firstItem="Ii9-kh-8OB" firstAttribute="leading" secondItem="Lj4-DY-eKZ" secondAttribute="trailing" constant="62" id="6SQ-O8-xIT"/>
                                             <constraint firstItem="t13-T0-hxT" firstAttribute="leading" secondItem="Dx6-as-q1v" secondAttribute="trailing" constant="60" id="7kn-GR-c1Q"/>
                                             <constraint firstItem="Ii9-kh-8OB" firstAttribute="top" secondItem="yw5-2A-5u0" secondAttribute="bottom" constant="39" id="9m8-ER-nfU"/>
                                             <constraint firstItem="mMr-jd-hOi" firstAttribute="bottom" secondItem="Dx6-as-q1v" secondAttribute="bottom" constant="46" id="Ays-7O-6C7"/>
@@ -1114,10 +1114,10 @@
                                             <constraint firstItem="Ydk-Hj-Pcq" firstAttribute="top" secondItem="mMr-jd-hOi" secondAttribute="top" constant="60" id="iyM-8w-gB8"/>
                                             <constraint firstItem="ocP-m8-3D7" firstAttribute="leading" secondItem="Z02-Zb-E1A" secondAttribute="leading" id="lOy-WN-dLb"/>
                                             <constraint firstItem="0gh-Al-Uat" firstAttribute="leading" secondItem="V6J-HN-Nra" secondAttribute="leading" constant="40" id="mv7-xY-xzE"/>
-                                            <constraint firstItem="mMr-jd-hOi" firstAttribute="trailing" secondItem="Ii9-kh-8OB" secondAttribute="trailing" constant="124" id="od1-Ez-T4X"/>
+                                            <constraint firstItem="mMr-jd-hOi" firstAttribute="trailing" secondItem="Ii9-kh-8OB" secondAttribute="trailing" constant="128" id="od1-Ez-T4X"/>
                                             <constraint firstItem="Dx6-as-q1v" firstAttribute="leading" secondItem="V6J-HN-Nra" secondAttribute="leading" constant="40" id="pOq-6V-f4c"/>
                                             <constraint firstItem="U2C-pH-E2R" firstAttribute="leading" secondItem="Lj4-DY-eKZ" secondAttribute="leading" id="rcm-SD-ht3"/>
-                                            <constraint firstItem="QUs-GY-XVm" firstAttribute="leading" secondItem="Ii9-kh-8OB" secondAttribute="leading" constant="7" id="sC2-HW-DSc"/>
+                                            <constraint firstItem="QUs-GY-XVm" firstAttribute="leading" secondItem="Ii9-kh-8OB" secondAttribute="leading" constant="11" id="sC2-HW-DSc"/>
                                             <constraint firstItem="0gh-Al-Uat" firstAttribute="top" secondItem="V6J-HN-Nra" secondAttribute="top" constant="34" id="vos-Ty-mpo"/>
                                             <constraint firstItem="yw5-2A-5u0" firstAttribute="top" secondItem="IcR-OS-hoC" secondAttribute="bottom" constant="3" id="xUW-7W-W42"/>
                                             <constraint firstItem="t13-T0-hxT" firstAttribute="top" secondItem="0gh-Al-Uat" secondAttribute="bottom" constant="53.5" id="y1p-c6-i04"/>
@@ -1289,7 +1289,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8EG-FC-CRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="245.50781249999997" y="613.671875"/>
+            <point key="canvasLocation" x="277" y="409"/>
         </scene>
         <!--AccountDetailTabViewControllerID-->
         <scene sceneID="k9u-45-2Ns">

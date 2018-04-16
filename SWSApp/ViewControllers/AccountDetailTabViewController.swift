@@ -184,11 +184,7 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.totalBalanceValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.totalARBalance)!) //"$"+(account?.totalARBalance.description)!
             headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)//account?.licenseExpirationDate
             
-            //            if let expDate = account?.licenseExpirationDate {
-            //                let dateFormatter = DateFormatter()
-            //                dateFormatter.dateFormat = "mm/dd/yyyy"
-            //                headerCell.expirationValue.text = dateFormatter.string(from: expDate)
-            //            }
+           
             
             //Past due amount value is greater than 0 than only show indicator else hide it
             if let pastDueAmmt = account?.pastDueAmountDouble{

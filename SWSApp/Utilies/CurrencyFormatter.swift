@@ -15,7 +15,8 @@ class CurrencyFormatter {
         
         
         let formatter = NumberFormatter()
-        formatter.locale = Locale.current // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
+        formatter.locale = Locale(identifier:"en_US")
+        // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
         formatter.numberStyle = .currency
         let formattedAmount = formatter.string(from:amountToConvert as NSNumber)
         return formattedAmount!

@@ -106,17 +106,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if self.alertVisible {
                 alert.dismiss(animated: true, completion: nil)
                 self.alertVisible = false
+                if let window = self.window {
+                    let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
+                    window.rootViewController = storyboard.instantiateViewController(withIdentifier: "LaunchScreen")
+                    window.makeKeyAndVisible()
+                }
             }
         }
         
         reachability?.whenUnreachable = { _ in
-            if !self.alertVisible {
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                    exit(1)
-                }))
-                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-                self.alertVisible = true
-            }
+            StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+                if user == nil {
+                    if !self.alertVisible {
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            exit(0)
+                        }))
+                        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                        self.alertVisible = true
+                    }
+                }
+            })
         }
         
         do {

@@ -110,27 +110,30 @@ class AccountDetailsViewController : UIViewController{
         
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)
         lblPastDue?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.pastDueAmountDouble)!) //String(format: "$%.2f",(accountDetailForLoggedInUser?.pastDueAmountDouble)!)
-        lblCYR12Sales?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.totalCYR12NetSales)!) //"$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
+        lblCYR12Sales?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.totalCYR12NetSales)!)
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
         
         let percLastYearR12DivideBy100:Double = ((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)!as NSString).doubleValue / 100
-        print("Double value is coming here \(percLastYearR12DivideBy100)")
+        
+        let titleForButton = String(format: "%.2f",percLastYearR12DivideBy100) + "%"
+   
+        print("the button text is \(titleForButton)")
         
         if percLastYearR12DivideBy100 < 0.80 {
             
-            btnPercentage?.setTitle(percLastYearR12DivideBy100.description + "%", for: .normal)
+            btnPercentage?.setTitle(titleForButton, for: .normal)
             btnPercentage?.backgroundColor = UIColor(named: "Bad")
             
         }else if percLastYearR12DivideBy100 >= 0.80 && percLastYearR12DivideBy100 <= 0.99 {
             
-            btnPercentage?.setTitle(percLastYearR12DivideBy100.description + "%", for: .normal)
+            btnPercentage?.setTitle(titleForButton, for: .normal)
             btnPercentage?.backgroundColor = UIColor(named: "Medium Alert")
             
         }
         else if percLastYearR12DivideBy100 > 0.99 {
             
-            btnPercentage?.setTitle(percLastYearR12DivideBy100.description + "%", for: .normal)
+             btnPercentage?.setTitle(titleForButton, for: .normal)
             btnPercentage?.backgroundColor = UIColor(named: "Good")
             
             

@@ -50,9 +50,17 @@ class AccountDetailsViewController : UIViewController{
         lblAccountTitle?.text = accountDetailForLoggedInUser?.accountName
         
         if let acc = accountDetailForLoggedInUser{
-            let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode 
             
-            lblAddress1?.text = fullAddress
+            // Create Full shipping address
+            if acc.shippingStreet == "" && acc.shippingCity == "" && acc.shippingState == "" && acc.shippingPostalCode == "" {
+                
+                let fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                lblAddress1?.text = fullAddress
+            }else {
+                let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                lblAddress1?.text = fullAddress
+            }
+            
             
         } else {
             

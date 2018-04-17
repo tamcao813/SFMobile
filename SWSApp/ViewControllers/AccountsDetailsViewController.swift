@@ -115,9 +115,16 @@ class AccountDetailsViewController : UIViewController{
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
         
         let percLastYearR12DivideBy100:Double = ((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)!as NSString).doubleValue / 100
+        let percentYearR12Double:Double =  ((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)!as NSString).doubleValue
         
-        let titleForButton = String(format: "%.2f",percLastYearR12DivideBy100) + "%"
-   
+//        var strVal = String(percLastYearR12DivideBy100)
+//        var fullPerR12NetSaleValue = strVal.components(separatedBy: ".")
+//        var strNew = fullPerR12NetSaleValue[0] + "." + String(fullPerR12NetSaleValue[1].prefix(2)) + "%"
+        
+        let titleForButton = String(format: "%.02f",percentYearR12Double) + "%"
+        
+        
+        
         print("the button text is \(titleForButton)")
         
         if percLastYearR12DivideBy100 < 0.80 {
@@ -135,7 +142,7 @@ class AccountDetailsViewController : UIViewController{
         else if percLastYearR12DivideBy100 > 0.99 {
             
            
-             btnPercentage?.setTitle(titleForButton, for: .normal)
+            btnPercentage?.setTitle(titleForButton, for: .normal)
             btnPercentage?.backgroundColor = UIColor(named: "Good")
             
             

@@ -26,7 +26,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Wg9-Ku-RZW">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="6mB-Xr-0F4" customClass="ContactTableViewCell" customModule="SWSApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="1024" height="100"/>
@@ -57,7 +57,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Hw-sL-WcF">
                                                             <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                            <color key="backgroundColor" name="Data New"/>
+                                                            <color key="backgroundColor" name="InitialsBackground"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="Z0f-ga-aug"/>
                                                                 <constraint firstAttribute="width" constant="40" id="v2p-rA-33D"/>
@@ -654,8 +654,8 @@
     <resources>
         <image name="Health-Extremely Bad" width="60" height="20"/>
         <image name="Small Status Critical" width="21" height="18"/>
-        <namedColor name="Data New">
-            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="InitialsBackground">
+            <color red="0.14509803921568629" green="0.30588235294117649" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightGrey">
             <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

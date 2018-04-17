@@ -176,10 +176,19 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
             
             let fullAddress = account.shippingStreet + " " + account.shippingCity + " " + account.shippingState +  " " + account.shippingPostalCode
             cell.addressLabel.text = fullAddress
-        }else {
+        }
+        else if account.shippingStreet == "" {
+            
+            
+        }
+        else {
             let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode
             cell.addressLabel.text = fullAddress
         }
+        
+        
+        
+        
        
         
         

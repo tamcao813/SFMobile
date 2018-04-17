@@ -196,7 +196,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                         
                         self.loggedInUser =  user
-                        self.validateRole(user: self.loggedInUser!, completion: {_ in
+                 //       self.validateRole(user: self.loggedInUser!, completion: {_ in
 
                         StoreDispatcher.shared.downloadAllSoups({ (error) in
                             if error != nil {
@@ -215,7 +215,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 window.makeKeyAndVisible()
                             })
                         })
-                    })
+                   // })
                     })
                 })
             })
@@ -248,28 +248,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    func validateRole(user: User, completion: @escaping (Bool) -> ()) {
-        
-        let alert = UIAlertController(title: "Alert", message: "You do not have access to the SFA mobile application", preferredStyle: UIAlertControllerStyle.alert)
-        
-        
-        // Check if this user is Sales Rep OR Sales Manager or not
-        // If not show Alert and logout
-        if((user.userTeamMemberRole == "Sales Rep") || (user.userTeamMemberRole == "Sales Manager")){
-            
-            completion(true)
-            
-        }
-        else {
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                // StoreDispatcher.shared.deleteSmartStore()
-                SFUserAccountManager.sharedInstance().logout()
-                completion(true)
-                exit(0)
-            }))
-            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-        }
-        
-    }
+//    func validateRole(user: User, completion: @escaping (Bool) -> ()) {
+//
+//        let alert = UIAlertController(title: "Alert", message: "You do not have access to the SFA mobile application", preferredStyle: UIAlertControllerStyle.alert)
+//
+//
+//        // Check if this user is Sales Rep OR Sales Manager or not
+//        // If not show Alert and logout
+//        if((user.userTeamMemberRole == "Sales Rep") || (user.userTeamMemberRole == "Sales Manager")){
+//
+//            completion(true)
+//
+//        }
+//        else {
+//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+//                // StoreDispatcher.shared.deleteSmartStore()
+//                SFUserAccountManager.sharedInstance().logout()
+//                completion(true)
+//                exit(0)
+//            }))
+//            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+//        }
+//
+//    }
 
 }

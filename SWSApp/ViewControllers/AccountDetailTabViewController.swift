@@ -140,13 +140,21 @@ class AccountDetailTabViewController: UITableViewController {
         
         if section == 0{
             
-            // getting full address
-            if let acc = account{
-                let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode 
-                headerCell.addressValue.text = fullAddress
-            } else {
-                headerCell.addressValue.text = ""
+
+            
+            // Create Full shipping address
+             if let acc = account{
+                // Create Full shipping address
+                if acc.shippingStreet == "" && acc.shippingCity == "" && acc.shippingState == "" && acc.shippingPostalCode == "" {
+                    
+                    let fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                    headerCell.addressValue.text = fullAddress
+                }else {
+                    let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                    headerCell.addressValue.text = fullAddress
+                }
             }
+            
             
             
             headerCell.accountIDValue.text = account?.accountNumber

@@ -169,11 +169,20 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         cell.accountNumberLabel.text = account.accountNumber
         //cell.percentR12NetSales.setTitle((account.percentageLastYearR12NetSales) + "%", for: .normal)
         
-        // Create Full shipping address
+        
+        
+         // Create Full shipping address
+        if account.shippingStreet == "" && account.shippingCity == "" && account.shippingState == "" && account.shippingPostalCode == "" {
+            
+            let fullAddress = account.shippingStreet + " " + account.shippingCity + " " + account.shippingState +  " " + account.shippingPostalCode
+            cell.addressLabel.text = fullAddress
+        }else {
+            let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode
+            cell.addressLabel.text = fullAddress
+        }
        
         
-        let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode
-        cell.addressLabel.text = fullAddress
+        
         
         //cell.actionItemsLabel.text = String(account.actionItem)
         

@@ -75,7 +75,7 @@ class AccountDetailTabViewController: UITableViewController {
         }
         else if indexPath.section == 2 {
             ary = contactsForSG
-            cell.nameLabel.textColor = UIColor.black
+            cell.nameLabel.textColor = UIColor(named: "Data New")
             
         }
         let contact = ary[indexPath.row]

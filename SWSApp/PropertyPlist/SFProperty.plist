@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>RemoteAccessConsumerKey</key>
-	<string>3MVG9qbIpUScOGtZvH.uE8H7f.DB1HSzR5leiZI_z08uOvOl5mqwATGQXSEsw_TxF0g76LEUU8qfVmD7seFzW</string>
+	<string>3MVG9ifmAKCHISbYK1eSz9ju2BLdSPRy2.wwpgx2w7kIac_lKQaS98ueVL88ASGerRqEq4jv6BvZsedT2aok.</string>
 	<key>OAuthRedirectURI</key>
-	<string>MyNS:///mobilesdk/sgws/oauth/cma</string>
+	<string>sws://success</string>
 </dict>
 </plist>

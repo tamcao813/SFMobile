@@ -113,7 +113,31 @@ class AccountDetailsViewController : UIViewController{
         lblCYR12Sales?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.totalCYR12NetSales)!) //"$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
-        btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)! + "%", for: .normal)
+        
+        let percLastYearR12DivideBy100:Double = ((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)!as NSString).doubleValue / 100
+        print("Double value is coming here \(percLastYearR12DivideBy100)")
+        
+        if percLastYearR12DivideBy100 < 0.80 {
+            
+            btnPercentage?.setTitle(percLastYearR12DivideBy100.description + "%", for: .normal)
+            btnPercentage?.backgroundColor = UIColor(named: "Bad")
+            
+        }else if percLastYearR12DivideBy100 >= 0.80 && percLastYearR12DivideBy100 <= 0.99 {
+            
+            btnPercentage?.setTitle(percLastYearR12DivideBy100.description + "%", for: .normal)
+            btnPercentage?.backgroundColor = UIColor(named: "Medium Alert")
+            
+        }
+        else if percLastYearR12DivideBy100 > 0.99 {
+            
+            btnPercentage?.setTitle(percLastYearR12DivideBy100.description + "%", for: .normal)
+            btnPercentage?.backgroundColor = UIColor(named: "Good")
+            
+            
+        }
+        
+        
+        
         
     }
     

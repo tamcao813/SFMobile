@@ -172,27 +172,22 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
         
         
          // Create Full shipping address
+        var fullAddress = ""
         if account.shippingStreet == "" && account.shippingCity == "" && account.shippingState == "" && account.shippingPostalCode == "" {
+            fullAddress = account.shippingStreet + " " + account.shippingCity + " " + account.shippingState +  " " + account.shippingPostalCode
             
-            let fullAddress = account.shippingStreet + " " + account.shippingCity + " " + account.shippingState +  " " + account.shippingPostalCode
-            cell.addressLabel.text = fullAddress
+        }else{
+            if (account.shippingStreet != "" || account.shippingCity != "") {
+                if (account.shippingState != "" || account.shippingPostalCode != "") {
+                    fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode
+                }else{
+                    fullAddress = account.shippingStreet + " " + account.shippingCity + " " + account.shippingState +  " " + account.shippingPostalCode
+                }
+            }else{
+                fullAddress = account.shippingStreet + " " + account.shippingCity + " " + account.shippingState +  " " + account.shippingPostalCode
+            }
         }
-        else if account.shippingStreet == "" {
-            
-            
-        }
-        else {
-            let fullAddress = account.shippingStreet + " " + account.shippingCity + "," + " " + account.shippingState +  " " + account.shippingPostalCode
-            cell.addressLabel.text = fullAddress
-        }
-        
-        
-        
-        
-       
-        
-        
-        
+        cell.addressLabel.text = fullAddress
         //cell.actionItemsLabel.text = String(account.actionItem)
         
         

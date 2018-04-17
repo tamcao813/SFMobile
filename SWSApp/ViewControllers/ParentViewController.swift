@@ -10,6 +10,7 @@ import UIKit
 import DropDown
 import Reachability
 
+
 struct SelectedMoreButton {
     static var selectedItem : Int = -1
 }
@@ -69,7 +70,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         return moreTabVC
     }()
     
-    
+    var reachability = Reachability()!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -80,9 +81,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // show the relevant tab
         displayCurrentTab(0)
         
-        let reachability = Reachability.init()
-        
-        reachability?.whenReachable = { reachability in
+   
+        reachability.whenReachable = { reachability in
             if reachability.connection == .wifi {
                 print("Reachable via WiFi")
             } else {
@@ -91,13 +91,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.wifiIconButton?.image = UIImage(named: "Online")
             
         }
-        reachability?.whenUnreachable = { _ in
+        reachability.whenUnreachable = { _ in
             print("Not reachable")
             self.wifiIconButton?.image = UIImage(named: "Offline")
         }
         
         do {
-            try reachability?.startNotifier()
+            try reachability.startNotifier()
         } catch {
             print("Unable to start notifier")
         }

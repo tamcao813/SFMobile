@@ -140,22 +140,24 @@ class AccountDetailTabViewController: UITableViewController {
         
         if section == 0{
             
-
-            
-            // Create Full shipping address
-             if let acc = account{
-                // Create Full shipping address
+            if let acc = account{
+                var fullAddress = ""
                 if acc.shippingStreet == "" && acc.shippingCity == "" && acc.shippingState == "" && acc.shippingPostalCode == "" {
+                    fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
                     
-                    let fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                    headerCell.addressValue.text = fullAddress
-                }else {
-                    let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                    headerCell.addressValue.text = fullAddress
+                }else{
+                    if (acc.shippingStreet != "" || acc.shippingCity != "") {
+                        if (acc.shippingState != "" || acc.shippingPostalCode != "") {
+                            fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                        }else{
+                            fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                        }
+                    }else{
+                        fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                    }
                 }
+                headerCell.addressValue.text = fullAddress
             }
-            
-            
             
             headerCell.accountIDValue.text = account?.accountNumber
             headerCell.phoneValue.text = account?.phone

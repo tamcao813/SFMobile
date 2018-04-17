@@ -51,20 +51,22 @@ class AccountDetailsViewController : UIViewController{
         
         if let acc = accountDetailForLoggedInUser{
             
-            // Create Full shipping address
+            var fullAddress = ""
             if acc.shippingStreet == "" && acc.shippingCity == "" && acc.shippingState == "" && acc.shippingPostalCode == "" {
+                fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
                 
-                let fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                lblAddress1?.text = fullAddress
-            }else {
-                let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                lblAddress1?.text = fullAddress
+            }else{
+                if (acc.shippingStreet != "" || acc.shippingCity != "") {
+                    if (acc.shippingState != "" || acc.shippingPostalCode != "") {
+                        fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                    }else{
+                        fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                    }
+                }else{
+                    fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                }
             }
-            
-            
-        } else {
-            
-            lblAddress1?.text = ""
+            lblAddress1?.text = fullAddress
         }
         
         //let pastDue : Double = Double((accountDetailForLoggedInUser?.pastDueAmount)!)

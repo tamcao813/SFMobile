@@ -56,6 +56,11 @@ class StoreDispatcher {
         }
         
         group.enter()
+        syncDownUserDataForAccounts() { _ in
+            group.leave()
+        }
+        
+        group.enter()
         syncDownContact() { _ in
             group.leave()
         }
@@ -172,16 +177,6 @@ class StoreDispatcher {
                 if syncStateStatus.isDone() {
                     print("syncDownUser() done")
                     
-                    self.syncDownUserDataForAccounts({ error in
-                        if error != nil {
-                            print("error in syncDownUserDataForAccounts")
-                            return
-                        }
-                        else {
-                            completion(nil)
-                        }
-                        
-                    })
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
@@ -244,17 +239,17 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
-                    print("syncDownAccount() done")
+                    print("syncDownUserDataForAccounts() done")
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
-                    let meg = "ErrorDownloading: syncDownAccount() "
+                    let meg = "ErrorDownloading: syncDownUserDataForAccounts() "
                     let userInfo: [String: Any] =
                         [
                             NSLocalizedDescriptionKey : meg,
                             NSLocalizedFailureReasonErrorKey : meg
                     ]
-                    let err = NSError(domain: "syncDownAccount()", code: 601, userInfo: userInfo)
+                    let err = NSError(domain: "syncDownUserDataForAccounts()", code: 601, userInfo: userInfo)
                     completion(err as NSError?)
                 }
             }

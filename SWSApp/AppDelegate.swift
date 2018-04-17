@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         super.init()
         
+      //  SalesforceSDKManager.shared().isIdentityProvider =  true
+        
         if let  path  = Bundle.main.path(forResource: "SFProperty", ofType: "plist") {
             if let dict = NSDictionary(contentsOfFile: path) as? Dictionary<String, String> {
                 RemoteAccessConsumerKey = dict["RemoteAccessConsumerKey"]!
@@ -43,7 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 appconfig.remoteAccessConsumerKey = self.RemoteAccessConsumerKey
                 appconfig.oauthRedirectURI = self.OAuthRedirectURI
             }.postInit {
-                
+                SFUserAccountManager.sharedInstance().advancedAuthConfiguration = SFOAuthAdvancedAuthConfiguration.require;
+
             }
             .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
                 let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
@@ -246,6 +249,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Unable to start notifier")
         }
         
+    }
+    
+func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        // If you're using advanced authentication:
+        // --Configure your app to handle incoming requests to your
+        //   OAuth Redirect URI custom URL scheme.
+        // --Uncomment the following line and delete the original return statement:
+
+        return  SFUserAccountManager.sharedInstance().handleAdvancedAuthenticationResponse(url, options: options)
+        //return false;
     }
     
 //    func validateRole(user: User, completion: @escaping (Bool) -> ()) {

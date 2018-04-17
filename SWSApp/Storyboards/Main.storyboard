@@ -548,7 +548,7 @@
                                                     <rect key="frame" x="16" y="93" width="694" height="71"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="0N4-FY-351" userLabel="AccountNumStack">
-                                                            <rect key="frame" x="0.0" y="0.5" width="238" height="70"/>
+                                                            <rect key="frame" x="0.0" y="0.5" width="218.5" height="70"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYz-Or-1Gc">
                                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="20"/>
@@ -561,7 +561,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b7l-7R-UwV">
-                                                                    <rect key="frame" x="0.0" y="20" width="238" height="50"/>
+                                                                    <rect key="frame" x="0.0" y="20" width="218.5" height="50"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="9ia-Ee-6mv"/>
@@ -575,17 +575,17 @@
                                                             </constraints>
                                                         </stackView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uF7-d3-VnH" userLabel="circledNumber">
-                                                            <rect key="frame" x="238" y="0.0" width="119.5" height="71"/>
+                                                            <rect key="frame" x="218.5" y="0.0" width="153" height="71"/>
                                                             <subviews>
                                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Action Items" translatesAutoresizingMaskIntoConstraints="NO" id="l6C-W0-4tm">
-                                                                    <rect key="frame" x="39" y="16" width="40" height="40"/>
+                                                                    <rect key="frame" x="56" y="16" width="40" height="40"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="40" id="Hv6-LT-vjM"/>
                                                                         <constraint firstAttribute="width" constant="40" id="SZd-vp-xvK"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36u-Nl-ALA">
-                                                                    <rect key="frame" x="59" y="36" width="0.0" height="0.0"/>
+                                                                    <rect key="frame" x="76" y="36" width="0.0" height="0.0"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                     <color key="textColor" name="Data New"/>
                                                                     <nil key="highlightedColor"/>
@@ -600,7 +600,7 @@
                                                             </constraints>
                                                         </view>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="49g-yP-4OF">
-                                                            <rect key="frame" x="357.5" y="0.5" width="80" height="70.5"/>
+                                                            <rect key="frame" x="371.5" y="0.5" width="80" height="70.5"/>
                                                             <subviews>
                                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WcJ-50-ilU">
                                                                     <rect key="frame" x="0.0" y="-93.5" width="80" height="20"/>
@@ -623,23 +623,23 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WQx-fK-ONO" userLabel="PastDueStack">
-                                                            <rect key="frame" x="437.5" y="0.5" width="114" height="70.5"/>
+                                                            <rect key="frame" x="451.5" y="0.5" width="133.5" height="70.5"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Large Status Critical" translatesAutoresizingMaskIntoConstraints="NO" id="bKe-MU-bAi">
-                                                                    <rect key="frame" x="44.5" y="0.0" width="25" height="25"/>
+                                                                    <rect key="frame" x="54" y="0.0" width="25" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="25" id="Q9d-0l-qw0"/>
                                                                         <constraint firstAttribute="height" constant="25" id="Tzl-QL-Ehg"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Past Due" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Edm-OT-zfd">
-                                                                    <rect key="frame" x="32" y="33" width="50" height="13.5"/>
+                                                                    <rect key="frame" x="41.5" y="33" width="50" height="13.5"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="12"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$90.98" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="niS-4U-8vy">
-                                                                    <rect key="frame" x="35.5" y="54.5" width="43.5" height="16"/>
+                                                                    <rect key="frame" x="45" y="54.5" width="43.5" height="16"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -647,7 +647,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28-03-2018" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ehp-ua-cwm">
-                                                            <rect key="frame" x="551.5" y="27.5" width="142.5" height="16"/>
+                                                            <rect key="frame" x="585" y="27.5" width="109" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -655,9 +655,9 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="49g-yP-4OF" firstAttribute="height" secondItem="WQx-fK-ONO" secondAttribute="height" id="elF-aP-hRb"/>
-                                                        <constraint firstItem="Ehp-ua-cwm" firstAttribute="width" secondItem="0N4-FY-351" secondAttribute="width" multiplier="0.6" id="iAY-EN-k8n"/>
-                                                        <constraint firstItem="49g-yP-4OF" firstAttribute="width" secondItem="WQx-fK-ONO" secondAttribute="width" multiplier="0.7" id="kQo-jx-6pr"/>
-                                                        <constraint firstItem="uF7-d3-VnH" firstAttribute="width" secondItem="0N4-FY-351" secondAttribute="width" multiplier="0.5" id="xls-fQ-akg" userLabel="circledNumber.width = 0.3 × AccountNumStack.width"/>
+                                                        <constraint firstItem="Ehp-ua-cwm" firstAttribute="width" secondItem="0N4-FY-351" secondAttribute="width" multiplier="0.5" id="iAY-EN-k8n"/>
+                                                        <constraint firstItem="49g-yP-4OF" firstAttribute="width" secondItem="WQx-fK-ONO" secondAttribute="width" multiplier="0.6" id="kQo-jx-6pr"/>
+                                                        <constraint firstItem="uF7-d3-VnH" firstAttribute="width" secondItem="0N4-FY-351" secondAttribute="width" multiplier="0.7" id="xls-fQ-akg" userLabel="circledNumber.width = 0.3 × AccountNumStack.width"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -1323,9 +1323,6 @@
         <image name="Sort Gray" width="149" height="149"/>
         <namedColor name="Data New">
             <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="LightGrey">
-            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightGrey">
             <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

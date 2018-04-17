@@ -51,20 +51,22 @@ class AccountDetailsViewController : UIViewController{
         
         if let acc = accountDetailForLoggedInUser{
             
-            // Create Full shipping address
+            var fullAddress = ""
             if acc.shippingStreet == "" && acc.shippingCity == "" && acc.shippingState == "" && acc.shippingPostalCode == "" {
+                fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
                 
-                let fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                lblAddress1?.text = fullAddress
-            }else {
-                let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                lblAddress1?.text = fullAddress
+            }else{
+                if (acc.shippingStreet != "" || acc.shippingCity != "") {
+                    if (acc.shippingState != "" || acc.shippingPostalCode != "") {
+                        fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                    }else{
+                        fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                    }
+                }else{
+                    fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                }
             }
-            
-            
-        } else {
-            
-            lblAddress1?.text = ""
+            lblAddress1?.text = fullAddress
         }
         
         //let pastDue : Double = Double((accountDetailForLoggedInUser?.pastDueAmount)!)
@@ -108,10 +110,39 @@ class AccountDetailsViewController : UIViewController{
         
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)
         lblPastDue?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.pastDueAmountDouble)!) //String(format: "$%.2f",(accountDetailForLoggedInUser?.pastDueAmountDouble)!)
-        lblCYR12Sales?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.totalCYR12NetSales)!) //"$\(accountDetailForLoggedInUser!.totalCYR12NetSales)"
+        lblCYR12Sales?.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (accountDetailForLoggedInUser?.totalCYR12NetSales)!)
         lblLicenseStatus?.text = accountDetailForLoggedInUser?.licenseStatus
         lblPhoneNumber?.text = accountDetailForLoggedInUser?.phone
-        btnPercentage?.setTitle((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)! + "%", for: .normal)
+        
+        let percLastYearR12DivideBy100:Double = ((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)!as NSString).doubleValue / 100
+        
+        let titleForButton = String(format: "%.2f",percLastYearR12DivideBy100) + "%"
+   
+        print("the button text is \(titleForButton)")
+        
+        if percLastYearR12DivideBy100 < 0.80 {
+            
+            
+            btnPercentage?.setTitle(titleForButton, for: .normal)
+            btnPercentage?.backgroundColor = UIColor(named: "Bad")
+            
+        }else if percLastYearR12DivideBy100 >= 0.80 && percLastYearR12DivideBy100 <= 0.99 {
+            
+            btnPercentage?.setTitle(titleForButton, for: .normal)
+            btnPercentage?.backgroundColor = UIColor(named: "Medium Alert")
+            
+        }
+        else if percLastYearR12DivideBy100 > 0.99 {
+            
+           
+             btnPercentage?.setTitle(titleForButton, for: .normal)
+            btnPercentage?.backgroundColor = UIColor(named: "Good")
+            
+            
+        }
+        
+        
+        
         
     }
     

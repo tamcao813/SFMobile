@@ -24,7 +24,7 @@ class AccountDetailTabViewController: UITableViewController {
         // Get the buying power contact for this account
         if let accountId = account?.account_Id {
             contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forAccount: accountId)
-        
+            
             contactsForSG = contactViewModel.contactsForSG(forAccount: accountId)
         }
         
@@ -66,16 +66,16 @@ class AccountDetailTabViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        // setting the contact cell data.....
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactTableViewCell
         var ary: [Contact] = []
-        
         if indexPath.section == 1 {
             ary = contactsWithBuyingPower
             cell.nameLabel.textColor = UIColor(named: "Data New")
         }
         else if indexPath.section == 2 {
             ary = contactsForSG
-            cell.nameLabel.textColor = UIColor(named: "Data New")
+            cell.nameLabel.textColor = UIColor.black
             
         }
         let contact = ary[indexPath.row]
@@ -89,16 +89,16 @@ class AccountDetailTabViewController: UITableViewController {
     
     
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        if section == 1{
-            return "Crown Liquor Store"
-        }
-        else if section == 2{
-            return "Southern Glazer's Contact "
-        }
-        return nil
-    }
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//
+//        if section == 1{
+//            return "Crown Liquor Store"
+//        }
+//        else if section == 2{
+//            return "Southern Glazer's Contact "
+//        }
+//        return nil
+//    }
     
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -127,7 +127,7 @@ class AccountDetailTabViewController: UITableViewController {
         else if section == 1{
             return 0.1
         }else if section == 2{
-            return 60
+            return 75
             
         }
         return 0.1
@@ -140,22 +140,24 @@ class AccountDetailTabViewController: UITableViewController {
         
         if section == 0{
             
-
-            
-            // Create Full shipping address
-             if let acc = account{
-                // Create Full shipping address
+            if let acc = account{
+                var fullAddress = ""
                 if acc.shippingStreet == "" && acc.shippingCity == "" && acc.shippingState == "" && acc.shippingPostalCode == "" {
+                    fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
                     
-                    let fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                    headerCell.addressValue.text = fullAddress
-                }else {
-                    let fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                    headerCell.addressValue.text = fullAddress
+                }else{
+                    if (acc.shippingStreet != "" || acc.shippingCity != "") {
+                        if (acc.shippingState != "" || acc.shippingPostalCode != "") {
+                            fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                        }else{
+                            fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                        }
+                    }else{
+                        fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                    }
                 }
+                headerCell.addressValue.text = fullAddress
             }
-            
-            
             
             headerCell.accountIDValue.text = account?.accountNumber
             headerCell.phoneValue.text = account?.phone
@@ -188,13 +190,10 @@ class AccountDetailTabViewController: UITableViewController {
                 
             }
             
-            // var mtdValue = (account?.percentageLastYearMTDNetSales)!
-            // print("mtd value is here \(account?.percentageLastYearMTDNetSales)")
-            headerCell.creditLimitValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.creditLimit)!) //"$"+(account?.creditLimit.description)!
-            headerCell.totalBalanceValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.totalARBalance)!) //"$"+(account?.totalARBalance.description)!
-            headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)//account?.licenseExpirationDate
             
-           
+            headerCell.creditLimitValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.creditLimit)!) 
+            headerCell.totalBalanceValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.totalARBalance)!)
+            headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)
             
             //Past due amount value is greater than 0 than only show indicator else hide it
             if let pastDueAmmt = account?.pastDueAmountDouble{

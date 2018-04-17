@@ -122,6 +122,7 @@ class AccountDetailsViewController : UIViewController{
         
         if percLastYearR12DivideBy100 < 0.80 {
             
+            
             btnPercentage?.setTitle(titleForButton, for: .normal)
             btnPercentage?.backgroundColor = UIColor(named: "Bad")
             
@@ -133,6 +134,7 @@ class AccountDetailsViewController : UIViewController{
         }
         else if percLastYearR12DivideBy100 > 0.99 {
             
+           
              btnPercentage?.setTitle(titleForButton, for: .normal)
             btnPercentage?.backgroundColor = UIColor(named: "Good")
             

@@ -25,7 +25,7 @@ class HomeViewController: UIViewController {
         
          //for soup testing
 //        let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
-//        present(SmartStoreViewController, animated: true, completion: nil)
+//         present(SmartStoreViewController, animated: true, completion: nil)
 
     }
     

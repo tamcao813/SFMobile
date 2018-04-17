@@ -157,7 +157,6 @@ class StoreDispatcher {
     //#pragma mark - syncdown so we have data in the soups
     
     func syncDownUser(_ completion:@escaping (_ error: NSError?)->()) {
-        let username = SFUserAccountManager.sharedInstance().currentUser!.userName
         
         let fields : [String] = User.UserFields
         let userId =   SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
@@ -172,6 +171,17 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print("syncDownUser() done")
+                    
+                    self.syncDownUserDataForAccounts({ error in
+                        if error != nil {
+                            print("error in syncDownUserDataForAccounts")
+                            return
+                        }
+                        else {
+                            completion(nil)
+                        }
+                        
+                    })
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
@@ -189,6 +199,71 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
     }
+    
+    func fetchAllAccountIdFromUser()->[String]{
+        
+        var accountIdsArray:[String] = []
+        
+        let soqlQuery = "Select {User:AccountId} FROM {User}"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                accountIdsArray.append(ary[0] as! String)
+                
+            }
+        }
+        print(accountIdsArray)
+        
+        return accountIdsArray
+    }
+    
+    func syncDownUserDataForAccounts(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let fields : [String] = User.UserFields
+        
+        let accIdsString = fetchAllAccountIdFromUser().joined(separator: "','")
+        
+        print("UserTable Account ids \(accIdsString)")
+        
+        let accIdsFormattedString = "'" + accIdsString + "'"
+        
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember  WHERE AccountId IN (\(accIdsFormattedString))"
+        
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
+            SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownAccount() done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownAccount() "
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownAccount()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    
     
     func syncDownAccount(_ completion:@escaping (_ error: NSError?)->()) {
         /*
@@ -422,19 +497,36 @@ class StoreDispatcher {
         return contactAry
     }
     
-    func fetchContactsForSG(forUser uid: String) -> [Contact] {
-        let contact1 = Contact.mockContactSG1()
-        let contact2 = Contact.mockContactSG2()
-        let contact3 = Contact.mockContactSG3()
-        let contact4 = Contact.mockContactSG4()
-        //add more if needed
+    func fetchContactsForSG(forAccount accountId:String) -> [Contact] {
         
-        var ary = [Contact]()
-        ary.append(contact1)
-        ary.append(contact2)
-        ary.append(contact3)
-        ary.append(contact4)
-        return ary
+       var contactAry: [Contact] = []
+        
+        let fields = User.UserFields.map{"{User:\($0)}"}
+        
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:AccountId} = '\(accountId)' "
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let user = User(withAry: ary)
+                
+                let json:[String:Any] = [ "Id":user.id, "Name":user.userName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Account_Site_Number__c":user.userSite,"SGWS_Buyer_Flag__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                
+                let contact =  Contact.init(json: json)
+                
+                contactAry.append(contact)
+            }
+        }
+        else if error != nil {
+            print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
+        }
+        return contactAry
+        
     }
     
     func fetchGlobalContacts() -> [Contact]  {
@@ -471,6 +563,20 @@ class StoreDispatcher {
         var ary: [Notification] = []
         
         return ary
+    }
+    
+    func deleteSmartStore(){
+        
+        do {
+            try FileManager.default.removeItem(atPath: sfaStore.storePath!)
+        }
+        catch{
+            
+            print("Not able to delete smart store")
+        }
+        
+        
+        
     }
 }
 

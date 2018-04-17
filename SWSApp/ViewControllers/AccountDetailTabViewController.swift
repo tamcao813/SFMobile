@@ -24,8 +24,10 @@ class AccountDetailTabViewController: UITableViewController {
         // Get the buying power contact for this account
         if let accountId = account?.account_Id {
             contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forAccount: accountId)
+        
+            contactsForSG = contactViewModel.contactsForSG(forAccount: accountId)
         }
-        contactsForSG = contactViewModel.contactsForSG(forUser: (loggerInUser?.userId)!)
+        
         
         // checking single multi location filter
         if let acc = account{
@@ -73,7 +75,7 @@ class AccountDetailTabViewController: UITableViewController {
         }
         else if indexPath.section == 2 {
             ary = contactsForSG
-            cell.nameLabel.textColor = UIColor.black
+            cell.nameLabel.textColor = UIColor(named: "Data New")
             
         }
         let contact = ary[indexPath.row]

@@ -135,8 +135,10 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SQLCipher/SQLCipher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SalesforceAnalytics/SalesforceAnalytics.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SalesforceSDKCore/SalesforceSDKCore.framework"
@@ -146,8 +148,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SQLCipher/SQLCipher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SalesforceAnalytics/SalesforceAnalytics.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SalesforceSDKCore/SalesforceSDKCore.framework"

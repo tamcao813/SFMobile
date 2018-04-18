@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  SWSApp
+
+  Created by shubham.e.shukla on 3/30/18.
+  Copyright © 2018 maria.min-hui.yu. All rights reserved.
+*/
+"Crown_Liquor_Contacts " = "Crown Liquor Contacts";
+"Southern_Glazer's_Contacts" = "Southern Glazer's Contacts";
+
+// more dropdown related 
+"Objectives" = "Objectives";
+"Account Visits" = "Account Visits";
+"Insights" = "Insights";
+"Reports" = "Reports";
+"Chatter" = "Chatter";
+"Transactions (Topaz)" = "Transactions (Topaz)";
+"Load Deposit (IDD)" = "Load Deposit (IDD)";
+"GoSpotCheck" = "GoSpotCheck";
+
+// persistent menu related
+"Home" = "Home";
+"Accounts" = "Accounts";
+"Contacts" = "Contacts";
+"Calendar" = "Calendar";
+"More" = "More";
+
+

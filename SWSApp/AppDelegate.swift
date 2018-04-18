@@ -9,6 +9,8 @@
 import UIKit
 import SalesforceSDKCore
 import SalesforceSwiftSDK
+import PromiseKit
+import Reachability
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,12 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var RemoteAccessConsumerKey = ""
     var OAuthRedirectURI = ""
     
+    var loggedInUser: User?
+    var alertVisible = false
+    let isMockUser = false //set it to true to use mock data or set it to false if testing with real data
+    
     override
     init()
     {
+        
         super.init()
         
-        if let path = Bundle.main.path(forResource: "SFProperty", ofType: "plist") {
+      //  SalesforceSDKManager.shared().isIdentityProvider =  true
+        
+        if let  path  = Bundle.main.path(forResource: "SFProperty", ofType: "plist") {
             if let dict = NSDictionary(contentsOfFile: path) as? Dictionary<String, String> {
                 RemoteAccessConsumerKey = dict["RemoteAccessConsumerKey"]!
                 OAuthRedirectURI = dict["OAuthRedirectURI"]!
@@ -36,11 +45,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 appconfig.remoteAccessConsumerKey = self.RemoteAccessConsumerKey
                 appconfig.oauthRedirectURI = self.OAuthRedirectURI
             }.postInit {
-                
+                SFUserAccountManager.sharedInstance().advancedAuthConfiguration = SFOAuthAdvancedAuthConfiguration.require;
+
             }
             .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
                 let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
                 SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
+                
+                //setup StoreDispatcher by registering soups
+                StoreDispatcher.shared.registerSoups()
+                
                 self.setupRootViewController()
                 
             }.postLogout {  [unowned self] in
@@ -87,16 +101,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func initializeAppViewState() {
+
+        // Checking for the Network
+        let reachability = Reachability.init()
+        let alert = UIAlertController(title: "Alert", message: "The internet connection appears to be offline.", preferredStyle: UIAlertControllerStyle.alert)
+        reachability?.whenReachable = { reachability in
+            if self.alertVisible {
+                alert.dismiss(animated: true, completion: nil)
+                self.alertVisible = false
+                if let window = self.window {
+                    let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
+                    window.rootViewController = storyboard.instantiateViewController(withIdentifier: "LaunchScreen")
+                    window.makeKeyAndVisible()
+                }
+            }
+        }
+        
+        reachability?.whenUnreachable = { _ in
+            StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+                if user == nil {
+                    if !self.alertVisible {
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            exit(0)
+                        }))
+                        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                        self.alertVisible = true
+                    }
+                }
+            })
+        }
+        
+        do {
+            try reachability?.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
         if let window = window {
-            let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
-            window.rootViewController = storyboard.instantiateViewController(withIdentifier: "LaunchScreen")
-            window.makeKeyAndVisible()
+            if !self.alertVisible {
+                let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
+                window.rootViewController = storyboard.instantiateViewController(withIdentifier: "LaunchScreen")
+                window.makeKeyAndVisible()
+            }
         }
     }
     
     func handleSdkManagerLogout()
     {
         SFSDKLogger.log(type(of:self), level:.debug, message: "SFUserAccountManager logged out.  Resetting app.")
+        if((self.window?.rootViewController?.presentedViewController) != nil){
+            self.window?.rootViewController?.dismiss(animated: true, completion: {
+            
+            self.initializeAppViewState()
+            
+            SalesforceSDKManager.shared().launch()
+            
+            
+        })}
+        
     }
     
     func handleUserSwitch(_ fromUser: SFUserAccount?, toUser: SFUserAccount?)
@@ -106,13 +168,122 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SFSDKLogger.log(type(of:self), level:.debug, message:"SFUserAccountManager changed from user \(String(describing: fromUserName)) to \(String(describing: toUserName)).  Resetting app.")
     }
     
+    
     func setupRootViewController() {
         guard let window = window else { return }
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
-        window.rootViewController = viewController
-        window.makeKeyAndVisible()
-    }
-}
+        let reachability = Reachability.init()
+        
+        reachability?.whenReachable = { reachability in
+            if reachability.connection == .wifi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+            
+            
+            //Do this in the main thread to make sure the HUB gets added to the view properly and to show progresses
+            DispatchQueue.main.async(execute: {
+                //to do: show Hub and progress
+                
+                StoreDispatcher.shared.syncDownUser({ (error) in
+                    if error != nil {
+                        print("error in syncDownUser")
+                        return
+                    }
+                    
+                    StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+                        guard let user = user else {
+                            print("No logged in user retrieved")
+                            return
+                        }
+                        
+                        self.loggedInUser =  user
+                 //       self.validateRole(user: self.loggedInUser!, completion: {_ in
 
+                        StoreDispatcher.shared.downloadAllSoups({ (error) in
+                            if error != nil {
+                                print("error in downloadAllSoups")
+                                return
+                            }
+                            
+                            
+                            DispatchQueue.main.async(execute: {
+                                //to do: show progress 100% completed and dismiss Hub
+                                
+                                print("DispatchQueue.main.async rootViewController")
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                                window.rootViewController = viewController
+                                window.makeKeyAndVisible()
+                            })
+                        })
+                   // })
+                    })
+                })
+            })
+        }
+        reachability?.whenUnreachable = { _ in
+            
+            StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+                guard let user = user else {
+                    print("No logged in user retrieved")
+                    return
+                }
+                
+                self.loggedInUser =  user
+                
+                print("Not reachable")
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                window.rootViewController = viewController
+                window.makeKeyAndVisible()
+                
+            })
+            
+        }
+    
+        do {
+            try reachability?.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
+    }
+    
+func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        // If you're using advanced authentication:
+        // --Configure your app to handle incoming requests to your
+        //   OAuth Redirect URI custom URL scheme.
+        // --Uncomment the following line and delete the original return statement:
+
+        return  SFUserAccountManager.sharedInstance().handleAdvancedAuthenticationResponse(url, options: options)
+        //return false;
+    }
+    
+//    func validateRole(user: User, completion: @escaping (Bool) -> ()) {
+//
+//        let alert = UIAlertController(title: "Alert", message: "You do not have access to the SFA mobile application", preferredStyle: UIAlertControllerStyle.alert)
+//
+//
+//        // Check if this user is Sales Rep OR Sales Manager or not
+//        // If not show Alert and logout
+//        if((user.userTeamMemberRole == "Sales Rep") || (user.userTeamMemberRole == "Sales Manager")){
+//
+//            completion(true)
+//
+//        }
+//        else {
+//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+//                // StoreDispatcher.shared.deleteSmartStore()
+//                SFUserAccountManager.sharedInstance().logout()
+//                completion(true)
+//                exit(0)
+//            }))
+//            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+//        }
+//
+//    }
+
+}

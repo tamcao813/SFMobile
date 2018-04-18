@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A4DE76486733E792B19B7E6ACD3960BB"
+               BlueprintIdentifier = "953CDF897AD13751F1F7958229BF0B56"
                BlueprintName = "SalesforceAnalytics"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "SalesforceAnalytics.framework">

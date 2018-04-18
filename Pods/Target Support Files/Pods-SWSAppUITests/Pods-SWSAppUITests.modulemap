@@ -1,6 +1,0 @@
-framework module Pods_SWSAppUITests {
-  umbrella header "Pods-SWSAppUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}

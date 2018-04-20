@@ -55,7 +55,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }()
     // calendar VC
     lazy var calendarVC : UIViewController? = {
-        let calendarTabVC = self.storyboard?.instantiateViewController(withIdentifier: "CalendarViewControllerID")
+        let planVisitStoryboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+        let calendarTabVC = planVisitStoryboard.instantiateViewController(withIdentifier: "PlanVisitViewControllerID")
         return calendarTabVC
     }()
     // objectives VC

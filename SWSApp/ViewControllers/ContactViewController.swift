@@ -10,6 +10,9 @@ import Foundation
 
 class ContactViewController : UIViewController {
     
+    var calendarSearchVC : CalendarSearchViewController?
+    var calendarFormatVC :CalendarFormatDisplay?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

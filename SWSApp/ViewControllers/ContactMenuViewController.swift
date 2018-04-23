@@ -356,7 +356,7 @@ class ContactMenuViewController: UIViewController {
         
     }
     
-    func resetEnteredDataAndAccountList(){
+    func resetEnteredDataAndContactList(){
         searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
         
         if ContactFilterMenuModel.comingFromDetailsScreen != "YES"{

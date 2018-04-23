@@ -135,9 +135,3 @@ class ContactMenuTableTableViewCell: UITableViewCell {
     
 }
 
-//MARK:- TextField Delegate Methods
-extension ContactMenuTableTableViewCell : UITextFieldDelegate{
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        FilterMenuModel.city = textField.text!
-    }
-}

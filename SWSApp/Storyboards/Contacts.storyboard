@@ -25,7 +25,7 @@
         <!--Contacts View Controller-->
         <scene sceneID="5JI-dW-HVs">
             <objects>
-                <viewController storyboardIdentifier="ContactsViewControllerID" id="wz0-wy-SnO" customClass="ContactsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactsViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wz0-wy-SnO" customClass="ContactsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wt4-55-Ok9">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

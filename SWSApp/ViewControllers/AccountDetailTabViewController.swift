@@ -247,13 +247,14 @@ class AccountDetailTabViewController: UITableViewController {
         else if section == 2 {
             
             let frame = tableView.frame
-            
             // ViewAllContacts Button Frame and Position....
             let viewAllAccountContactsButton = UIButton.init(frame: CGRect(x: 815, y: 25, width: 200, height: 35))
+           
             viewAllAccountContactsButton.setTitle("View All Account Contacts", for: .normal)
             viewAllAccountContactsButton.backgroundColor = UIColor(named: "LightGrey")
             viewAllAccountContactsButton.setTitleColor(UIColor.black, for: .normal)
             viewAllAccountContactsButton.titleLabel?.font = UIFont.init(name: "Ubuntu-Medium", size: 12)
+            viewAllAccountContactsButton.addTarget(self, action:#selector(viewAllContactFunction), for: .touchUpInside)
             
             // Southern Glazer,s  Label Frame and Position....
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 90, width: 400, height: 50))
@@ -298,6 +299,18 @@ class AccountDetailTabViewController: UITableViewController {
             
         }
         
+    }
+    
+    
+    @objc func viewAllContactFunction()  {
+        print("Hello World")
+//        let storyBoard : UIStoryboard = UIStoryboard(name: "Contacts", bundle:nil)
+//        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "ContactsViewControllerID")
+//        self.present(nextViewController, animated:true, completion:nil)
+        
+        let changeVC = ParentViewController()
+        let currentVC = changeVC.viewControllerForSelectedSegmentIndex(3)
+        print(currentVC)
     }
     
 }

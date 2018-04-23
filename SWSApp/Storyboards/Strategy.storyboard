@@ -34,8 +34,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDS-kZ-zIa">
-                                <rect key="frame" x="1014" y="86" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="1027" y="86" width="33" height="30"/>
+                                <state key="normal" title="EDIT"/>
                                 <connections>
                                     <segue destination="Wi2-UB-ajt" kind="presentation" id="RxL-DE-Zez"/>
                                 </connections>
@@ -323,7 +323,7 @@
         <image name="Close" width="38" height="38"/>
         <image name="selectedBlue" width="20" height="20"/>
         <namedColor name="Data New">
-            <color red="0.2549999952" green="0.52899998429999995" blue="0.76099997760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

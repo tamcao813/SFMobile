@@ -8,6 +8,11 @@
 
 import Foundation
 import UIKit
+import DropDown
+
+protocol SendDataToContainerDelegate {
+    func passTheViewControllerToBeLoadedInContainerView(index : Int)
+}
 
 class AccountDetailsViewController : UIViewController{
     
@@ -32,8 +37,92 @@ class AccountDetailsViewController : UIViewController{
     @IBOutlet weak var btnOpportunities : UIButton?
     @IBOutlet weak var btnStrategy : UIButton?
     @IBOutlet weak var btnActionItems : UIButton?
-    @IBOutlet weak var btnCommunication : UIButton?
+    @IBOutlet weak var btnNotes : UIButton?
     @IBOutlet weak var imgStatus : UIImageView?
+    
+    @IBOutlet weak var addNewButton: UIButton!
+    
+    var selectedIndex : Int = 0
+    
+    var firstViewController: NotesViewController?
+    var detailsViewController : AccountDetailsViewController?
+    
+    var secondViewController: UIViewController?
+    
+    var delegate : SendDataToContainerDelegate?
+    
+    var addNewDropDown = DropDown()
+    
+    let contactsStoryboard = UIStoryboard.init(name: "AccountsContactsVC", bundle: nil)
+    let notesStoryboard = UIStoryboard.init(name: "Notes", bundle: nil)
+    
+    private var activeViewController: UIViewController? {
+        didSet {
+            removeInactiveViewController(inactiveViewController: oldValue)
+            updateActiveViewController()
+        }
+    }
+    
+    private func removeInactiveViewController(inactiveViewController: UIViewController?) {
+        if let inActiveVC = inactiveViewController {
+            // call before removing child view controller's view from hierarchy
+            inActiveVC.willMove(toParentViewController: nil)
+            
+            inActiveVC.view.removeFromSuperview()
+            
+            // call after removing child view controller's view from hierarchy
+            inActiveVC.removeFromParentViewController()
+        }
+    }
+    
+    private func updateActiveViewController() {
+        if let activeVC = activeViewController {
+            // call before adding child view controller's view as subview
+            addChildViewController(activeVC)
+            
+            activeVC.view.frame = (containerView?.bounds)!
+            containerView?.addSubview(activeVC.view)
+            
+            // call before adding child view controller's view as subview
+            activeVC.didMove(toParentViewController: self)
+        }
+    }
+    
+    
+    @IBAction func addNewButtonClicked(_ sender: Any) {
+        addNewDropDown.anchorView = addNewButton
+        
+        addNewDropDown.bottomOffset = CGPoint(x: ((addNewButton?.frame.size.width)!-((addNewButton?.frame.size.width)!/6.0)), y:(addNewDropDown.anchorView?.plainView.bounds.height)!)
+        addNewDropDown.backgroundColor = UIColor.white
+        
+        let dropDownItem1 = NSLocalizedString("Visit", comment: "Visit")
+        let dropDownItem2 = NSLocalizedString("Event", comment: "Event")
+        let dropDownItem3 = NSLocalizedString("Action Item", comment: "Action Item")
+        let dropDownItem4 = NSLocalizedString("Note", comment: "Note")
+        
+        addNewDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4]
+        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
+        self.addNewDropDown.textColor = UIColor.gray
+        
+        addNewDropDown.show()
+        
+        addNewDropDown.selectionAction = {(index: Int, item: String) in
+            switch index {
+            case 0:
+                print(index)
+            case 1:
+                print(index)
+            case 2:
+                print(index)
+            case 3:
+                let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
+                let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as UIViewController
+                self.present(vc, animated: true, completion: nil)
+            default:
+                break
+            }
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -117,9 +206,9 @@ class AccountDetailsViewController : UIViewController{
         let percLastYearR12DivideBy100:Double = ((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)!as NSString).doubleValue / 100
         let percentYearR12Double:Double =  ((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)!as NSString).doubleValue
         
-//        var strVal = String(percLastYearR12DivideBy100)
-//        var fullPerR12NetSaleValue = strVal.components(separatedBy: ".")
-//        var strNew = fullPerR12NetSaleValue[0] + "." + String(fullPerR12NetSaleValue[1].prefix(2)) + "%"
+        //        var strVal = String(percLastYearR12DivideBy100)
+        //        var fullPerR12NetSaleValue = strVal.components(separatedBy: ".")
+        //        var strNew = fullPerR12NetSaleValue[0] + "." + String(fullPerR12NetSaleValue[1].prefix(2)) + "%"
         
         let titleForButton = String(format: "%.02f",percentYearR12Double) + "%"
         
@@ -141,7 +230,6 @@ class AccountDetailsViewController : UIViewController{
         }
         else if percLastYearR12DivideBy100 > 0.99 {
             
-           
             btnPercentage?.setTitle(titleForButton, for: .normal)
             btnPercentage?.backgroundColor = UIColor(named: "Good")
             
@@ -175,7 +263,7 @@ class AccountDetailsViewController : UIViewController{
         btnOpportunities?.backgroundColor = UIColor(named: "LightGrey")
         btnStrategy?.backgroundColor = UIColor(named: "LightGrey")
         btnActionItems?.backgroundColor = UIColor(named: "LightGrey")
-        btnCommunication?.backgroundColor = UIColor(named: "LightGrey")
+        btnNotes?.backgroundColor = UIColor(named: "LightGrey")
         
         btnOverview?.setTitleColor(UIColor.gray, for: .normal)
         btnDetails?.setTitleColor(UIColor.gray, for: .normal)
@@ -183,7 +271,7 @@ class AccountDetailsViewController : UIViewController{
         btnOpportunities?.setTitleColor(UIColor.gray, for: .normal)
         btnStrategy?.setTitleColor(UIColor.gray, for: .normal)
         btnActionItems?.setTitleColor(UIColor.gray, for: .normal)
-        btnCommunication?.setTitleColor(UIColor.gray, for: .normal)
+        btnNotes?.setTitleColor(UIColor.gray, for: .normal)
         
         switch sender.tag {
         case 0:
@@ -193,6 +281,12 @@ class AccountDetailsViewController : UIViewController{
             containerView?.isHidden = false
             btnDetails?.backgroundColor = UIColor.white
             btnDetails?.setTitleColor(UIColor.black, for: .normal)
+            
+            let detailsViewController: AccountDetailTabViewController = contactsStoryboard.instantiateViewController(withIdentifier: "AccountDetailTabViewControllerID") as! AccountDetailTabViewController
+            
+            detailsViewController.account = accountDetailForLoggedInUser
+            activeViewController = detailsViewController
+            
         case 2:
             btnInsights?.backgroundColor = UIColor.white
             btnInsights?.setTitleColor(UIColor.black, for: .normal)
@@ -206,19 +300,15 @@ class AccountDetailsViewController : UIViewController{
             btnActionItems?.backgroundColor = UIColor.white
             btnActionItems?.setTitleColor(UIColor.black, for: .normal)
         case 6:
-            btnCommunication?.backgroundColor = UIColor.white
-            btnCommunication?.setTitleColor(UIColor.black, for: .normal)
+            btnNotes?.backgroundColor = UIColor.white
+            btnNotes?.setTitleColor(UIColor.black, for: .normal)
+            containerView?.isHidden = false
+            
+            let notesViewController: NotesViewController = notesStoryboard.instantiateViewController(withIdentifier: "AccountNotesID") as! NotesViewController
+            activeViewController = notesViewController
             
         default:
             break
-        }
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showAccountDetailTab"{
-            
-            let accountDetailTabViewController = segue.destination as! AccountDetailTabViewController
-            
-            accountDetailTabViewController.account = accountDetailForLoggedInUser
         }
     }
     

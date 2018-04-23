@@ -334,7 +334,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     // # MARK: viewControllerForSelectedSegmentIndex
     // get the respective view controller as per the selected index of menu from menubar
-    private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
+     func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
         
         self.view.endEditing(true)
         
@@ -362,13 +362,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         var vc: UIViewController?
         switch selectedVC {
-            
         case .HomeVCIndex:
             vc = homeVC
         case .AccountVCIndex:
             let accVC = accountsVC as? AccountsViewController
             accVC?.accountDetails?.view.removeFromSuperview()
-            
             vc = accountsVC
         case .ContactsVCIndex:
             vc = contactsVC

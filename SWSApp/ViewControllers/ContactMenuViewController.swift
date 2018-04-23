@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-protocol SearchByContactEnteredTextDelegate: class {
-    func sortAccountsData(searchString: String)
-    func filtering(filtering: Bool)
-    func  performFilterOperation(searchString: String)
+protocol SearchContactByEnteredTextDelegate: class {
+    func sortContactData(searchString: String)
+    func filteringContact(filtering: Bool)
+    func  performContactFilterOperation(searchString: String)
 }
 
 class ContactMenuViewController: UIViewController {
@@ -20,7 +20,7 @@ class ContactMenuViewController: UIViewController {
     let kHeaderSectionTag: Int = 7900;
     var expandedSectionHeaderNumber: Int = -1
     var expandedSectionHeader: UITableViewHeaderFooterView!
-    weak var searchByEnteredTextDelegate: SearchByContactEnteredTextDelegate?
+    weak var searchByEnteredTextDelegate: SearchContactByEnteredTextDelegate?
     
     let filterClass = ContactFilter()
     
@@ -30,7 +30,7 @@ class ContactMenuViewController: UIViewController {
     //Used for selected section in TableView
     var selectedSection = -1
     
-    var accountsForLoggedUserFiltered = [Account]()
+    var contactForLoggedUserFiltered = [Account]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +45,8 @@ class ContactMenuViewController: UIViewController {
         super.viewWillAppear(animated)
         
         //This needs to be replaced with Contact details
+        let contactViewModel = ContactsViewModel()
+        
         /*
         let accountViewModel = AccountsViewModel()
         accountsForLoggedUserFiltered = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
@@ -358,21 +360,22 @@ class ContactMenuViewController: UIViewController {
         searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
         
         if ContactFilterMenuModel.comingFromDetailsScreen != "YES"{
-            self.searchByEnteredTextDelegate?.filtering(filtering: false)
+            self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
         }
         self.clearFilterModelData()
     }
     
     private func isValidUserInputAtSearchFilterPanel()->Bool{
         var validInput = false
-        //This needs to be re-written for Contact query
-        /*
-        if(searchBar.text!.count > 0 || ContactFilterMenuModel.pastDueNo != "" || ContactFilterMenuModel.pastDueYes != "" || ContactFilterMenuModel.premiseOn != "" || ContactFilterMenuModel.premiseOff != "" || ContactFilterMenuModel.licenseB != "" || ContactFilterMenuModel.licenseL != "" || ContactFilterMenuModel.licenseN != "" || ContactFilterMenuModel.licenseW != "" || ContactFilterMenuModel.singleSelected != "" || ContactFilterMenuModel.multiSelected != "" || ContactFilterMenuModel.channel != "" || ContactFilterMenuModel.subChannel != "" || ContactFilterMenuModel.statusIsActive != "" || ContactFilterMenuModel.statusIsInActive != "" || ContactFilterMenuModel.statusIsSuspended != "")
+        if(searchBar.text!.count > 0 ||
+            ContactFilterMenuModel.allContacts != "" ||
+            (ContactFilterMenuModel.allRole == "YES" || ContactFilterMenuModel.role1 == "YES" || ContactFilterMenuModel.role2 == "YES" || ContactFilterMenuModel.role3 == "YES" || ContactFilterMenuModel.role4 == "YES") ||
+            (ContactFilterMenuModel.allBuyingPower == "YES" || ContactFilterMenuModel.buyingPower == "YES" || ContactFilterMenuModel.buyingPower == "YES"))
         {
             print("ValidUserInputAtSearchFilterPanel")
             validInput = true
         }
-        */
+        
         return validInput
     }
     
@@ -385,13 +388,13 @@ class ContactMenuViewController: UIViewController {
         // validate user input and then proceed for filtering and search
         if(isValidUserInputAtSearchFilterPanel() == true)
         {
-            self.searchByEnteredTextDelegate?.filtering(filtering: true)
-            searchByEnteredTextDelegate?.performFilterOperation(searchString: searchBar.text!)
+            self.searchByEnteredTextDelegate?.filteringContact(filtering: true)
+            searchByEnteredTextDelegate?.performContactFilterOperation(searchString: searchBar.text!)
         }
         else
         {
             //reset the table view data to main array
-            self.searchByEnteredTextDelegate?.filtering(filtering: false)
+            self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
             
             print(" Not ValidUserInputAtSearchFilterPanel")
         }
@@ -400,7 +403,7 @@ class ContactMenuViewController: UIViewController {
     //Clears all the filter selection
     @IBAction func clearButton(_ sender: Any) {
         self.clearFilterModelData()
-        self.searchByEnteredTextDelegate?.filtering(filtering: false)
+        self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
     }
 
 }
@@ -410,7 +413,6 @@ extension ContactMenuViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if filterClass.sectionNames.count > 0 {
-            tableView.backgroundView = nil
             return filterClass.sectionNames.count
         }
         return 0
@@ -549,7 +551,7 @@ extension ContactMenuViewController : UISearchBarDelegate{
          else
          {
          self.searchByEnteredTextDelegate?.filtering(filtering: true)
-         self.searchByEnteredTextDelegate?.sortAccountsData(searchString: searchText)
+         self.searchByEnteredTextDelegate?.sortContactData(searchString: searchText)
          }*/
     }
     

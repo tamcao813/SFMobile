@@ -27,20 +27,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="Search Field Text" translatesAutoresizingMaskIntoConstraints="NO" id="no7-AS-rLQ">
-                                <rect key="frame" x="-29" y="36" width="768" height="56"/>
+                                <rect key="frame" x="29" y="36" width="710" height="56"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fvr-5t-EJl">
-                                <rect key="frame" x="-16" y="99" width="768" height="861"/>
+                                <rect key="frame" x="16" y="99" width="736" height="861"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell1" rowHeight="50" id="SNW-XT-XrU" customClass="AccountsMenuTableTableViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="768" height="50"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customContactCell1" rowHeight="50" id="SNW-XT-XrU" customClass="ContactMenuTableTableViewCell" customModule="SWSApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="736" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SNW-XT-XrU" id="aOS-GX-dyv">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="736" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfT-XH-nhk">
@@ -50,10 +50,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KHV-vU-h9T">
-                                                    <rect key="frame" x="12" y="10" width="962" height="21"/>
+                                                    <rect key="frame" x="12" y="10" width="706" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pun-21-o61">
-                                                            <rect key="frame" x="6" y="0.0" width="936" height="20.5"/>
+                                                            <rect key="frame" x="6" y="0.0" width="680" height="20.5"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="0.74590118839999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioUnselected" translatesAutoresizingMaskIntoConstraints="NO" id="Xiv-bp-Lyu">
-                                                            <rect key="frame" x="935" y="1" width="20" height="20"/>
+                                                            <rect key="frame" x="679" y="1" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="EuN-Tr-kAU"/>
                                                                 <constraint firstAttribute="width" constant="20" id="eMC-ta-sfn"/>
@@ -113,11 +113,11 @@
                                             <outlet property="titleLabel" destination="CfT-XH-nhk" id="tkf-nc-fQr"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell2" rowHeight="100" id="PaG-tW-v6h" customClass="AccountsMenuTableTableViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="78" width="768" height="100"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customContactCell2" rowHeight="100" id="PaG-tW-v6h" customClass="ContactMenuTableTableViewCell" customModule="SWSApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="78" width="736" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PaG-tW-v6h" id="MVJ-VN-b8q">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="736" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3V-Ed-5a9">
@@ -127,10 +127,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XzS-hh-B7b">
-                                                    <rect key="frame" x="15" y="36" width="947" height="50"/>
+                                                    <rect key="frame" x="15" y="36" width="691" height="50"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zip Code or City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G70-Nw-flf">
-                                                            <rect key="frame" x="5" y="0.0" width="947" height="50"/>
+                                                            <rect key="frame" x="5" y="0.0" width="691" height="50"/>
                                                             <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <textInputTraits key="textInputTraits"/>
@@ -175,6 +175,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="vEi-1F-ils" id="c6a-Df-wFl"/>
+                                    <outlet property="delegate" destination="vEi-1F-ils" id="7WI-r9-vcQ"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Da2-wz-hXD">
                                 <rect key="frame" x="0.0" y="955" width="768" height="69"/>
@@ -238,15 +242,19 @@
                             <constraint firstItem="eLL-9c-VDM" firstAttribute="trailing" secondItem="no7-AS-rLQ" secondAttribute="trailing" constant="29" id="DCz-CX-0VQ"/>
                             <constraint firstItem="no7-AS-rLQ" firstAttribute="top" secondItem="eLL-9c-VDM" secondAttribute="top" constant="16" id="EEQ-uf-5dx"/>
                             <constraint firstItem="fvr-5t-EJl" firstAttribute="top" secondItem="no7-AS-rLQ" secondAttribute="bottom" constant="7" id="Hms-Fv-wix"/>
-                            <constraint firstItem="eLL-9c-VDM" firstAttribute="leading" secondItem="fvr-5t-EJl" secondAttribute="leading" constant="16" id="KtP-Lt-UA6"/>
+                            <constraint firstItem="fvr-5t-EJl" firstAttribute="leading" secondItem="eLL-9c-VDM" secondAttribute="leading" constant="16" id="KtP-Lt-UA6"/>
                             <constraint firstItem="eLL-9c-VDM" firstAttribute="trailing" secondItem="fvr-5t-EJl" secondAttribute="trailing" constant="16" id="M0Q-BP-yr1"/>
                             <constraint firstItem="Da2-wz-hXD" firstAttribute="top" secondItem="fvr-5t-EJl" secondAttribute="bottom" constant="-5" id="bRl-L5-VHO"/>
                             <constraint firstItem="eLL-9c-VDM" firstAttribute="trailing" secondItem="Da2-wz-hXD" secondAttribute="trailing" id="bfr-JD-Oh4"/>
-                            <constraint firstItem="eLL-9c-VDM" firstAttribute="leading" secondItem="no7-AS-rLQ" secondAttribute="leading" constant="29" id="ndo-2l-3Au"/>
+                            <constraint firstItem="no7-AS-rLQ" firstAttribute="leading" secondItem="eLL-9c-VDM" secondAttribute="leading" constant="29" id="ndo-2l-3Au"/>
                             <constraint firstItem="eLL-9c-VDM" firstAttribute="leading" secondItem="Da2-wz-hXD" secondAttribute="leading" id="qKB-jr-QDO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eLL-9c-VDM"/>
                     </view>
+                    <connections>
+                        <outlet property="searchBar" destination="no7-AS-rLQ" id="DJ0-4f-2TS"/>
+                        <outlet property="tableView" destination="fvr-5t-EJl" id="Ixm-dh-lzS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKX-za-LZT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

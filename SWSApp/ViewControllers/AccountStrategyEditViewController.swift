@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import IQKeyboardManagerSwift
+//import IQKeyboardManagerSwift
 
 class AccountStrategyEditViewController: UIViewController {
     
@@ -24,7 +24,7 @@ class AccountStrategyEditViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        IQKeyboardManager.sharedManager().enable = true
+        //IQKeyboardManager.sharedManager().enable = true
         
         if self.view.frame.size.width == 1112.0{
             textViewWidth = 1105
@@ -123,7 +123,7 @@ extension AccountStrategyEditViewController : UICollectionViewDataSource {
         
         let cell1 : UICollectionViewCell?
         
-        if indexPath.section == 4{
+        if indexPath.section == tableViewRowDetails?.count{
             cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell2", for: indexPath) as! AccountStrategyCollectionViewCell
             (cell1 as! AccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
         }else{
@@ -145,7 +145,7 @@ extension AccountStrategyEditViewController : UICollectionViewDelegate , UIColle
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
         
-        if indexPath.section < 4{
+        if indexPath.section < (tableViewRowDetails?.count)!{
             
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
@@ -171,7 +171,7 @@ extension AccountStrategyEditViewController : UICollectionViewDelegate , UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == 4{
+        if indexPath.section == tableViewRowDetails?.count{
             return CGSize(width: textViewWidth, height: 410)
         }
         return CGSize(width: collectionViewWidth, height: 80)
@@ -179,7 +179,7 @@ extension AccountStrategyEditViewController : UICollectionViewDelegate , UIColle
     
     //Used to set width and height of HeaderView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if section == 4{
+        if section == tableViewRowDetails?.count{
             return CGSize(width: 0.0  , height: 30.0)
         }
         return CGSize(width: 50.0, height: 110)

@@ -10,15 +10,17 @@ import UIKit
 
 class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, SearchContactByEnteredTextDelegate {
     func sortContactData(searchString: String) {
-        print(sortContactData)
+        print("sortContactData")
     }
     
     func filteringContact(filtering: Bool) {
-        print(filteringContact)
+        print("filteringContact")
     }
     
     func performContactFilterOperation(searchString: String) {
-        print(performContactFilterOperation)
+        print("performContactFilterOperation")
+        print(ContactFilterMenuModel.functionRoles)
+        print(ContactFilterMenuModel.buyerFlags)
     }
     
     

@@ -13,8 +13,8 @@ class ContactFilter {
     var sectionNames : Array<Any>  = ["Contact Association", "Function/Role", "Buying Power"]
     
     var sectionItems : Array<Any> = [ ["All Contacts", "Contacts On My Route"],
-                                      ["All", "Role 1","Role 2","Role 3","Role 4"],
-                                      ["All","Buying Power","No Buying Power"] ]
+                                      ["All"],
+                                      ["All"] ]
 
 }
 
@@ -27,14 +27,10 @@ struct ContactFilterMenuModel {
     static var contactsOnMyRoute = ""
     
     static var allRole = ""
-    static var role1 = ""
-    static var role2 = ""
-    static var role3 = ""
-    static var role4 = ""
+    static var functionRoles = [String]()
     
     static var allBuyingPower = ""
-    static var buyingPower = ""
-    static var nobuyingPower = ""
+    static var buyerFlags = [String]()
     
     static var comingFromDetailsScreen = ""
     

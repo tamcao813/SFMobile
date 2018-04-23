@@ -67,31 +67,13 @@ class ContactMenuTableTableViewCell: UITableViewCell {
                 }else{
                     self.dropDownImageView.image = UIImage.init(named: "Checkbox")
                 }
-            case 1:
-                if ContactFilterMenuModel.role1 == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
-            case 2:
-                if ContactFilterMenuModel.role2 == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
-            case 3:
-                if ContactFilterMenuModel.role3 == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
-            case 4:
-                if ContactFilterMenuModel.role4 == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
             default:
+                if ContactFilterMenuModel.functionRoles.contains(self.filterLabel.text!) {
+                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+                }
+                else {
+                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+                }
                 break
             }
             
@@ -104,19 +86,13 @@ class ContactMenuTableTableViewCell: UITableViewCell {
                 }else{
                     self.dropDownImageView.image = UIImage.init(named: "Checkbox")
                 }
-            case 1:
-                if ContactFilterMenuModel.buyingPower == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
-            case 2:
-                if ContactFilterMenuModel.nobuyingPower == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
             default:
+                if ContactFilterMenuModel.buyerFlags.contains(self.filterLabel.text!) {
+                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+                }
+                else {
+                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+                }
                 break
             }
             

@@ -44,18 +44,36 @@ class ContactMenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let contactData = ContactsViewModel().globalContacts() as [Contact]?
-        {
+        if let contactData = ContactsViewModel().globalContacts() as [Contact]? {
+            
+            var functionRoles = filterClass.sectionItems[1] as! [String]
+            var buyerFlags = filterClass.sectionItems[2] as! [String]
+
             for contactObject in contactData {
-                print(contactObject.firstName)
-                print(contactObject.functionRole)
-                print(contactObject.buyerFlag)
+                
+                if contactObject.functionRole != ""{
+                    if !(functionRoles.contains(contactObject.functionRole)){
+                        functionRoles.append(contactObject.functionRole)
+                    }
+                }
+
+                if contactObject.buyerFlag != ""{
+                    if !(buyerFlags.contains(contactObject.buyerFlag)){
+                        buyerFlags.append(contactObject.buyerFlag)
+                    }
+                }
+                
             }
+            
+            if functionRoles.count > 0{
+                filterClass.sectionItems[1] = functionRoles
+            }
+            if buyerFlags.count > 0{
+                filterClass.sectionItems[2] = buyerFlags
+            }
+
         }
 
-        
-
-        
         print(filterClass.sectionItems)
     }
     
@@ -124,14 +142,10 @@ class ContactMenuViewController: UIViewController {
             ContactFilterMenuModel.contactsOnMyRoute = ""
             
             ContactFilterMenuModel.allRole = ""
-            ContactFilterMenuModel.role1 = ""
-            ContactFilterMenuModel.role2 = ""
-            ContactFilterMenuModel.role3 = ""
-            ContactFilterMenuModel.role4 = ""
+            ContactFilterMenuModel.functionRoles = [String]()
             
             ContactFilterMenuModel.allBuyingPower = ""
-            ContactFilterMenuModel.buyingPower = ""
-            ContactFilterMenuModel.nobuyingPower = ""
+            ContactFilterMenuModel.buyerFlags = [String]()
 
             ContactFilterMenuModel.comingFromDetailsScreen = ""
 
@@ -263,35 +277,14 @@ class ContactMenuViewController: UIViewController {
                 else {
                     ContactFilterMenuModel.allRole = "YES"
                 }
-            case 1:
-                if ContactFilterMenuModel.role1 == "YES"{
-                    ContactFilterMenuModel.role1 = "NO"
-                }
-                else {
-                    ContactFilterMenuModel.role1 = "YES"
-                }
-            case 2:
-                if ContactFilterMenuModel.role2 == "YES"{
-                    ContactFilterMenuModel.role2 = "NO"
-                }
-                else {
-                    ContactFilterMenuModel.role2 = "YES"
-                }
-            case 3:
-                if ContactFilterMenuModel.role3 == "YES"{
-                    ContactFilterMenuModel.role3 = "NO"
-                }
-                else {
-                    ContactFilterMenuModel.role3 = "YES"
-                }
-            case 4:
-                if ContactFilterMenuModel.role4 == "YES"{
-                    ContactFilterMenuModel.role4 = "NO"
-                }
-                else {
-                    ContactFilterMenuModel.role4 = "YES"
-                }
             default:
+                let titleContent = arrayContent[indexPath.section] as? NSArray
+                if let index = ContactFilterMenuModel.functionRoles.index(of: (titleContent![indexPath.row] as? String)!) {
+                    ContactFilterMenuModel.functionRoles.remove(at: index)
+                }
+                else {
+                    ContactFilterMenuModel.functionRoles.append((titleContent![indexPath.row] as? String)!)
+                }
                 break
             }
         case 2:
@@ -304,21 +297,14 @@ class ContactMenuViewController: UIViewController {
                 else {
                     ContactFilterMenuModel.allBuyingPower = "YES"
                 }
-            case 1:
-                if ContactFilterMenuModel.buyingPower == "YES"{
-                    ContactFilterMenuModel.buyingPower = "NO"
-                }
-                else {
-                    ContactFilterMenuModel.buyingPower = "YES"
-                }
-            case 2:
-                if ContactFilterMenuModel.nobuyingPower == "YES"{
-                    ContactFilterMenuModel.nobuyingPower = "NO"
-                }
-                else {
-                    ContactFilterMenuModel.nobuyingPower = "YES"
-                }
             default:
+                let titleContent = arrayContent[indexPath.section] as? NSArray
+                if let index = ContactFilterMenuModel.buyerFlags.index(of: (titleContent![indexPath.row] as? String)!) {
+                    ContactFilterMenuModel.buyerFlags.remove(at: index)
+                }
+                else {
+                    ContactFilterMenuModel.buyerFlags.append((titleContent![indexPath.row] as? String)!)
+                }
                 break
             }
         default:
@@ -349,8 +335,8 @@ class ContactMenuViewController: UIViewController {
         var validInput = false
         if(searchBar.text!.count > 0 ||
             ContactFilterMenuModel.allContacts != "" ||
-            (ContactFilterMenuModel.allRole == "YES" || ContactFilterMenuModel.role1 == "YES" || ContactFilterMenuModel.role2 == "YES" || ContactFilterMenuModel.role3 == "YES" || ContactFilterMenuModel.role4 == "YES") ||
-            (ContactFilterMenuModel.allBuyingPower == "YES" || ContactFilterMenuModel.buyingPower == "YES" || ContactFilterMenuModel.buyingPower == "YES"))
+            (ContactFilterMenuModel.allRole == "YES" || ContactFilterMenuModel.functionRoles.count > 0) ||
+            (ContactFilterMenuModel.allBuyingPower == "YES" || ContactFilterMenuModel.buyerFlags.count > 0))
         {
             print("ValidUserInputAtSearchFilterPanel")
             validInput = true
@@ -461,7 +447,7 @@ extension ContactMenuViewController : UITableViewDataSource{
         
         var cell : UITableViewCell?
         
-        if indexPath.section <= 7{
+        if indexPath.section <= 2{
             
             cell = tableView.dequeueReusableCell(withIdentifier: ContactFilterCell, for: indexPath) as! ContactMenuTableTableViewCell
             cell?.selectionStyle = .none
@@ -471,7 +457,7 @@ extension ContactMenuViewController : UITableViewDataSource{
         }else{
             
             //Used to display location view (If Required in future)
-            if(indexPath.section == 8){
+            if(indexPath.section == 3){
                 
                 cell = tableView.dequeueReusableCell(withIdentifier: ContacLocationCell, for: indexPath) as! ContactMenuTableTableViewCell
                 (cell as? ContactMenuTableTableViewCell)?.displayLocationItemCellContent(indexPath: indexPath, placeHolderText: "Zip Code or City")

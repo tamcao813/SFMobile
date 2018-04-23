@@ -29,10 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         
         super.init()
+        var  plistpath:String? = ""
+        #if DEVELOPMENT
+              plistpath  = Bundle.main.path(forResource: "SFPropertydev", ofType: "plist")
+        #else
+              plistpath  = Bundle.main.path(forResource: "SFProperty", ofType: "plist")
+        #endif
         
-      //  SalesforceSDKManager.shared().isIdentityProvider =  true
-        
-        if let  path  = Bundle.main.path(forResource: "SFProperty", ofType: "plist") {
+        if let  path = plistpath {
             if let dict = NSDictionary(contentsOfFile: path) as? Dictionary<String, String> {
                 RemoteAccessConsumerKey = dict["RemoteAccessConsumerKey"]!
                 OAuthRedirectURI = dict["OAuthRedirectURI"]!

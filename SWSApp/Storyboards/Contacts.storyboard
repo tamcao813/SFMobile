@@ -34,14 +34,14 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PG4-Wc-pZg">
                                 <rect key="frame" x="0.0" y="20" width="280" height="747"/>
                                 <connections>
-                                    <segue destination="uGV-iW-soH" kind="embed" id="Zzp-7f-WWi"/>
+                                    <segue destination="uGV-iW-soH" kind="embed" identifier="ContactQueryFilter" id="Zzp-7f-WWi"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRS-3O-ZEG">
-                                <rect key="frame" x="288" y="20" width="726" height="671"/>
+                                <rect key="frame" x="288" y="20" width="726" height="747"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <connections>
-                                    <segue destination="xUK-RA-fte" kind="embed" id="vAr-4M-J6V"/>
+                                    <segue destination="xUK-RA-fte" kind="embed" identifier="ContactSegue" id="vAr-4M-J6V"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -53,7 +53,7 @@
                             <constraint firstItem="PG4-Wc-pZg" firstAttribute="top" secondItem="nTb-8s-dsk" secondAttribute="top" id="UpO-ul-LBx"/>
                             <constraint firstItem="LRS-3O-ZEG" firstAttribute="top" secondItem="nTb-8s-dsk" secondAttribute="top" id="Vef-dG-3mn"/>
                             <constraint firstItem="LRS-3O-ZEG" firstAttribute="leading" secondItem="PG4-Wc-pZg" secondAttribute="trailing" constant="8" id="esN-EW-FI1"/>
-                            <constraint firstItem="nTb-8s-dsk" firstAttribute="bottom" secondItem="LRS-3O-ZEG" secondAttribute="bottom" constant="77" id="kLk-ip-0Bz"/>
+                            <constraint firstItem="nTb-8s-dsk" firstAttribute="bottom" secondItem="LRS-3O-ZEG" secondAttribute="bottom" constant="1" id="kLk-ip-0Bz"/>
                             <constraint firstItem="nTb-8s-dsk" firstAttribute="trailing" secondItem="LRS-3O-ZEG" secondAttribute="trailing" constant="10" id="zW3-sZ-bbx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nTb-8s-dsk"/>
@@ -61,18 +61,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mpb-ih-X7R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="886" y="-2587"/>
+            <point key="canvasLocation" x="885.93749999999989" y="-2587.5"/>
         </scene>
         <!--Contact List View Controller-->
         <scene sceneID="QgQ-XQ-fea">
             <objects>
                 <viewController id="xUK-RA-fte" customClass="ContactListViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="my4-FX-0c9">
-                        <rect key="frame" x="0.0" y="0.0" width="726" height="671"/>
+                        <rect key="frame" x="0.0" y="0.0" width="726" height="747"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="67Z-9W-dmS">
-                                <rect key="frame" x="0.0" y="0.0" width="726" height="671"/>
+                                <rect key="frame" x="0.0" y="0.0" width="726" height="747"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -268,11 +268,11 @@
             <objects>
                 <viewController id="mrh-ed-dzP" customClass="ContactListDetailsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4H4-mI-jHH">
-                        <rect key="frame" x="0.0" y="0.0" width="726" height="671"/>
+                        <rect key="frame" x="0.0" y="0.0" width="726" height="747"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pbm-nr-HYa">
-                                <rect key="frame" x="20" y="20" width="686" height="631"/>
+                                <rect key="frame" x="20" y="20" width="686" height="707"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactDetailsCell" rowHeight="300" id="Upj-zl-vSy" customClass="ContactListDetailsTableViewCell" customModule="SWSApp" customModuleProvider="target">
@@ -385,13 +385,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcD-eK-Ax7">
-                                                    <rect key="frame" x="15" y="3" width="37" height="27.5"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHB-dj-eb3">
-                                                    <rect key="frame" x="12" y="10" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDf-nS-fSv">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -468,10 +468,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPg-Z4-Iba">
-                                                    <rect key="frame" x="15" y="36" width="203" height="50"/>
+                                                    <rect key="frame" x="15" y="36" width="203" height="49.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zip Code or City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD4-Z3-Iua">
-                                                            <rect key="frame" x="5" y="0.0" width="203" height="50"/>
+                                                            <rect key="frame" x="5" y="0.0" width="203" height="49.5"/>
                                                             <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <textInputTraits key="textInputTraits"/>

@@ -44,37 +44,17 @@ class ContactMenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //This needs to be replaced with Contact details
-        let contactViewModel = ContactsViewModel()
-        
-        /*
-        let accountViewModel = AccountsViewModel()
-        accountsForLoggedUserFiltered = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
-        print(accountsForLoggedUserFiltered.count)
-        
-        
-        var channelData = [String]()
-        var subChannelData = [String]()
-        
-        for item in accountsForLoggedUserFiltered{
-            
-            let channel = item.channelTD
-            let subchannel = item.subChannelTD
-            
-            print(channel)
-            print(subchannel)
-            
-            if channel != "" {
-                if subchannel != ""{
-                    if !(channelData.contains(channel)){
-                        channelData.append(channel)
-                    }
-                    if !(subChannelData.contains(subchannel)){
-                        subChannelData.append(subchannel)
-                    }
-                }
+        if let contactData = ContactsViewModel().globalContacts() as [Contact]?
+        {
+            for contactObject in contactData {
+                print(contactObject.firstName)
+                print(contactObject.functionRole)
+                print(contactObject.buyerFlag)
             }
-        }*/
+        }
+
+        
+
         
         print(filterClass.sectionItems)
     }

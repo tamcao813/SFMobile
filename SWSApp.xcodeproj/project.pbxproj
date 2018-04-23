@@ -58,7 +58,6 @@
 		6D38327620874026006805C6 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309B206BA065000CFFCC /* CalendarViewController.swift */; };
 		6D38327720874026006805C6 /* ReportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E12D7220736D620005B982 /* ReportsViewController.swift */; };
 		6D38327820874026006805C6 /* StoreDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FE1CD520654734009CC47C /* StoreDispatcher.swift */; };
-		6D38327A20874026006805C6 /* Pods_SWSApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */; };
 		6D38327C20874026006805C6 /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03162077B5EF0083419E /* Ubuntu-LightItalic.ttf */; };
 		6D38327D20874026006805C6 /* CrimsonText-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03192077B5EF0083419E /* CrimsonText-Roman.ttf */; };
 		6D38327E20874026006805C6 /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03132077B5EF0083419E /* Ubuntu-BoldItalic.ttf */; };
@@ -116,6 +115,11 @@
 		AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */; };
 		AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */; };
 		BDC2971F8C914488A5B7964D /* Pods_SWSApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */; };
+		BEB744DE3D3763CB271C360C /* Pods_SWSApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */; };
+		C9B63C68208DB6DB008D9E14 /* Notes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B63C67208DB6DB008D9E14 /* Notes.storyboard */; };
+		C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */; };
+		C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */; };
+		C9B63C6E208DB819008D9E14 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */; };
 		D10483962068381A00A0343B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483952068381A00A0343B /* Contact.swift */; };
 		D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483992068398F00A0343B /* HomeTableViewController.swift */; };
 		D104839E20683E4000A0343B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D104839D20683E4000A0343B /* Notification.swift */; };
@@ -179,13 +183,13 @@
 		12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		12D725052083A845000E7015 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
-		13ACDBAAC12413AFDDC1828A /* Pods-SWSApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.release.xcconfig"; sourceTree = "<group>"; };
 		19C8BD47DF4615A2A812341C /* Pods-SWSAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		47406C810A477C295440E667 /* Pods-SWSAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4ADB2B0A206B1BAA001A8785 /* SWSApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SWSApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		4ADB2B0C206B1BAB001A8785 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		4F7D05EC33F4872FA0BE636C /* Pods-SWSApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.debug.xcconfig"; sourceTree = "<group>"; };
+		4E8B2141B0640B1581755B3D /* Pods-SWSApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.debug.xcconfig"; sourceTree = "<group>"; };
+		5AA42EFBD421FE930972321D /* Pods-SWSApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B3277C8952E6C9483CD1CA7 /* Pods-SWSAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6D38329820874026006805C6 /* SWSApp Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWSApp Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D38329920874026006805C6 /* SWSApp dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SWSApp dev-Info.plist"; path = "/Users/soumin.nikhra/Downloads/Project/SGWS/14April/salesforcemobileapp/SWSApp dev-Info.plist"; sourceTree = "<absolute>"; };
@@ -223,6 +227,10 @@
 		AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
 		AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanVisitEditableScreen.storyboard; sourceTree = "<group>"; };
 		BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C9B63C67208DB6DB008D9E14 /* Notes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notes.storyboard; sourceTree = "<group>"; };
+		C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
+		C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
 		D10483952068381A00A0343B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		D10483992068398F00A0343B /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		D104839D20683E4000A0343B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
@@ -271,7 +279,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D38327A20874026006805C6 /* Pods_SWSApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDC2971F8C914488A5B7964D /* Pods_SWSApp.framework in Frameworks */,
+				BEB744DE3D3763CB271C360C /* Pods_SWSApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,12 +377,12 @@
 		74F55EA8A5A604D7DCF31C25 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4F7D05EC33F4872FA0BE636C /* Pods-SWSApp.debug.xcconfig */,
-				13ACDBAAC12413AFDDC1828A /* Pods-SWSApp.release.xcconfig */,
 				47406C810A477C295440E667 /* Pods-SWSAppTests.debug.xcconfig */,
 				19C8BD47DF4615A2A812341C /* Pods-SWSAppTests.release.xcconfig */,
 				5B3277C8952E6C9483CD1CA7 /* Pods-SWSAppUITests.debug.xcconfig */,
 				BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */,
+				4E8B2141B0640B1581755B3D /* Pods-SWSApp.debug.xcconfig */,
+				5AA42EFBD421FE930972321D /* Pods-SWSApp.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -476,6 +484,7 @@
 				12A37D1C20776F0D0036ED36 /* AccountsContactsVC.storyboard */,
 				F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */,
 				D2EAEB892074EAC6005F7792 /* MoreMenu.storyboard */,
+				C9B63C67208DB6DB008D9E14 /* Notes.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -499,6 +508,9 @@
 				6F8BD3EA20720281006CABA8 /* AccountListViewController.swift */,
 				6F8BD3F02072297C006CABA8 /* MoreViewController.swift */,
 				AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */,
+				C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */,
+				C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */,
+				C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -562,12 +574,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6D38329520874026006805C6 /* Build configuration list for PBXNativeTarget "SWSApp Dev" */;
 			buildPhases = (
-				6D38324E20874026006805C6 /* [CP] Check Pods Manifest.lock */,
 				6D38324F20874026006805C6 /* Sources */,
 				6D38327920874026006805C6 /* Frameworks */,
 				6D38327B20874026006805C6 /* Resources */,
-				6D38329320874026006805C6 /* [CP] Embed Pods Frameworks */,
-				6D38329420874026006805C6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -587,6 +596,7 @@
 				D1FB18202062A7C00072F4C1 /* Frameworks */,
 				D1FB18212062A7C00072F4C1 /* Resources */,
 				39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */,
+				BCABE55D7B3090C674B55CCB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -605,6 +615,8 @@
 				D1FB18332062A7C00072F4C1 /* Sources */,
 				D1FB18342062A7C00072F4C1 /* Frameworks */,
 				D1FB18352062A7C00072F4C1 /* Resources */,
+				CFF672A7BA486B1E7F1FE014 /* [CP] Embed Pods Frameworks */,
+				3D9F24F08FD294AB7F2B062D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -624,6 +636,8 @@
 				D1FB183E2062A7C10072F4C1 /* Sources */,
 				D1FB183F2062A7C10072F4C1 /* Frameworks */,
 				D1FB18402062A7C10072F4C1 /* Resources */,
+				0ABA50CDBE72F61F1DF378D3 /* [CP] Embed Pods Frameworks */,
+				28333F5788EEC13485E770C5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -734,6 +748,7 @@
 				12C5CEF3206E1A9500BC6E7A /* Localizable.strings in Resources */,
 				6DBD03212077B5EF0083419E /* Ubuntu-Light.ttf in Resources */,
 				6DBD031F2077B5EF0083419E /* Ubuntu-Bold.ttf in Resources */,
+				C9B63C68208DB6DB008D9E14 /* Notes.storyboard in Resources */,
 				6DBD031E2077B5EF0083419E /* Ubuntu-MediumItalic.ttf in Resources */,
 				6DBD031B2077B5EF0083419E /* Ubuntu-Italic.ttf in Resources */,
 				6DBD031A2077B5EF0083419E /* UFL.txt in Resources */,
@@ -768,6 +783,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0ABA50CDBE72F61F1DF378D3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		28333F5788EEC13485E770C5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -806,6 +851,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3D9F24F08FD294AB7F2B062D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		49596D23472CB10FABBCB27D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -824,77 +884,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6D38324E20874026006805C6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SWSApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6D38329320874026006805C6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
-				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/SQLCipher/SQLCipher.framework",
-				"${BUILT_PRODUCTS_DIR}/SalesforceAnalytics/SalesforceAnalytics.framework",
-				"${BUILT_PRODUCTS_DIR}/SalesforceSDKCore/SalesforceSDKCore.framework",
-				"${BUILT_PRODUCTS_DIR}/SalesforceSwiftSDK/SalesforceSwiftSDK.framework",
-				"${BUILT_PRODUCTS_DIR}/SmartStore/SmartStore.framework",
-				"${BUILT_PRODUCTS_DIR}/SmartSync/SmartSync.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLCipher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SalesforceAnalytics.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SalesforceSDKCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SalesforceSwiftSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SmartStore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SmartSync.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6D38329420874026006805C6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7D085E038417463EAC57175A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -911,6 +900,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BCABE55D7B3090C674B55CCB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CFF672A7BA486B1E7F1FE014 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D3656B1901A9CF6DF4316191 /* [CP] Check Pods Manifest.lock */ = {
@@ -993,6 +1012,7 @@
 				D2E12D7520736E0C0005B982 /* ChatterViewController.swift in Sources */,
 				6F365320207B95850068105B /* AccountSortUtility.swift in Sources */,
 				D1FCDE0F20733025005F956D /* FilterViewModel.swift in Sources */,
+				C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */,
 				F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */,
 				D2EAEB8E2074EC9B005F7792 /* LoadDepositViewController.swift in Sources */,
 				D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */,
@@ -1019,11 +1039,13 @@
 				D1FCDE1220733025005F956D /* ContactsViewModel.swift in Sources */,
 				D24E5B0B2073635D00641814 /* ObjectivesViewController.swift in Sources */,
 				D104839E20683E4000A0343B /* Notification.swift in Sources */,
+				C9B63C6E208DB819008D9E14 /* CreateNoteViewController.swift in Sources */,
 				AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */,
 				6F3D309F206BA066000CFFCC /* ParentViewController.swift in Sources */,
 				D2EAEB942074EF88005F7792 /* NotificationsViewController.swift in Sources */,
 				F209D705206CF05C001AF22F /* AccountsMenuViewController.swift in Sources */,
 				6F8BD3F12072297C006CABA8 /* MoreViewController.swift in Sources */,
+				C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */,
 				D1FE1D0720657B7E009CC47C /* SFAError.swift in Sources */,
 				D2E12D7120736C4B0005B982 /* InsightsViewController.swift in Sources */,
 				6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */,
@@ -1080,7 +1102,6 @@
 /* Begin XCBuildConfiguration section */
 		6D38329620874026006805C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F7D05EC33F4872FA0BE636C /* Pods-SWSApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1103,7 +1124,6 @@
 		};
 		6D38329720874026006805C6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13ACDBAAC12413AFDDC1828A /* Pods-SWSApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1232,7 +1252,7 @@
 		};
 		D1FB184C2062A7C10072F4C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F7D05EC33F4872FA0BE636C /* Pods-SWSApp.debug.xcconfig */;
+			baseConfigurationReference = 4E8B2141B0640B1581755B3D /* Pods-SWSApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1255,7 +1275,7 @@
 		};
 		D1FB184D2062A7C10072F4C1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13ACDBAAC12413AFDDC1828A /* Pods-SWSApp.release.xcconfig */;
+			baseConfigurationReference = 5AA42EFBD421FE930972321D /* Pods-SWSApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

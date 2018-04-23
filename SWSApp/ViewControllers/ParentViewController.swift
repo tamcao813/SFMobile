@@ -260,8 +260,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                
                 self.moreDropDownSelectionIndex = index
             case 1:
-                let accountVisitsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "AccountVisitsControllerID")
-                moreVC1.view.addSubview((accountVisitsVC.view)!)
+                let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
+                let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitListViewController") as? AccountVisitListViewController
+                moreVC1.view.addSubview((accountVisitsVC?.view)!)
                 self.moreDropDownSelectionIndex = index
             case 2:
                 let insightsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "InsightsViewControllerID")

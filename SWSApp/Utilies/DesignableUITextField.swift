@@ -11,17 +11,17 @@ import UIKit
 @IBDesignable
 class DesignableUITextField: UITextField {
     
-    @IBInspectable var borderColor: UIColor? {
-        didSet {
-            layer.borderColor = borderColor?.cgColor
-        }
-    }
-    
-    @IBInspectable var borderWidth: CGFloat = 0 {
-        didSet {
-            layer.borderWidth = borderWidth
-        }
-    }
+//    @IBInspectable var borderColor: UIColor? {
+//        didSet {
+//            layer.borderColor = borderColor?.cgColor
+//        }
+//    }
+//    
+//    @IBInspectable var borderWidth: CGFloat = 0 {
+//        didSet {
+//            layer.borderWidth = borderWidth
+//        }
+//    }
     
     // Provides right padding for images
     override func rightViewRect(forBounds bounds: CGRect) -> CGRect {

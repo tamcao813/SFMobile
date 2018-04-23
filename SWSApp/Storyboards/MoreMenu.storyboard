@@ -57,33 +57,6 @@
             </objects>
             <point key="canvasLocation" x="1740" y="1204"/>
         </scene>
-        <!--Account Visits View Controller-->
-        <scene sceneID="QnP-i9-kcO">
-            <objects>
-                <viewController storyboardIdentifier="AccountVisitsControllerID" id="tuy-eV-8Zv" customClass="AccountVisitsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="D0t-Mn-Qjy">
-                        <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Visits Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5B-vb-Llg">
-                                <rect key="frame" x="453" y="349.5" width="207.5" height="23.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="z5B-vb-Llg" firstAttribute="centerX" secondItem="D0t-Mn-Qjy" secondAttribute="centerX" id="34u-nu-MmY"/>
-                            <constraint firstItem="z5B-vb-Llg" firstAttribute="centerY" secondItem="D0t-Mn-Qjy" secondAttribute="centerY" constant="-56" id="Tsn-Wr-xad"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="FP3-ic-khK"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gau-OO-bay" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2363" y="1204"/>
-        </scene>
         <!--Notifications View Controller-->
         <scene sceneID="x24-Ro-KbH">
             <objects>

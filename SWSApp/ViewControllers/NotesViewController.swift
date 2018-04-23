@@ -64,9 +64,9 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource{
         let editRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.default, title: "Edit", handler:{action, indexpath in
             let notes = self.notesDict[indexPath.row]
             let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
-            let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditNoteID") as! EditNoteViewController
+            let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
             self.present(vc, animated: true, completion: nil)
-            (vc as! EditNoteViewController).displayEditNoteData(title: notes["title"]!, date: notes["date"]!, description: notes["description"]!)
+            (vc as! CreateNoteViewController).displayCreateNoteData(title: notes["title"]!, description: notes["description"]!)
             print("EDIT•ACTION");
         });
         //editRowAction.view
@@ -98,6 +98,14 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40.0;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let notes = self.notesDict[indexPath.row]
+        let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
+        let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditNoteID") as! EditNoteViewController
+        self.present(vc, animated: true, completion: nil)
+        (vc as! EditNoteViewController).displayEditNoteData(title: notes["title"]!, date: notes["date"]!, description: notes["description"]!)
     }
     
 }

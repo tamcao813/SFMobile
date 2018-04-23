@@ -4,6 +4,7 @@ use_frameworks!
 # Pods for SGWSApp
 pod 'DropDown'
 pod 'ReachabilitySwift'
+pod 'IQKeyboardManagerSwift'
 
 def sf_pods
 	pod 'SalesforceAnalytics',	:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'

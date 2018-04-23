@@ -519,7 +519,9 @@ class StoreDispatcher {
         }
         else if error != nil {
             print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
+            
         }
+        print("SG Contacts are \(contactAry)")
         return contactAry
         
     }
@@ -550,7 +552,9 @@ class StoreDispatcher {
         else if error != nil {
             print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
         }
+         print("contact array is \(contactAry)")
         return contactAry
+       
     }
     
     func fetchNotifications(forUser uid: String) -> [Notification]  {
@@ -572,6 +576,32 @@ class StoreDispatcher {
         
         
         
+    }
+    
+    func fetchContacts(forAccount accountId: String) -> [Contact] {
+        
+        print("fetchContactsWithBuyingPower \(accountId)")
+        var contactAry: [Contact] = []
+        
+        let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:AccountId} = '\(accountId)' "
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let contact = Contact(withAry: ary)
+                contactAry.append(contact)
+            }
+        }
+        else if error != nil {
+            print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
+        }
+        return contactAry
     }
 }
 

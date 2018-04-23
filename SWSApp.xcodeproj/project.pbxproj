@@ -16,6 +16,11 @@
 		12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */; };
 		12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */; };
 		12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D725052083A845000E7015 /* CurrencyFormatter.swift */; };
+		12E47BDC208A210A00D37B74 /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12E47BDB208A210A00D37B74 /* Contacts.storyboard */; };
+		12E47BDE208A21C900D37B74 /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BDD208A21C900D37B74 /* ContactListViewController.swift */; };
+		12E47BE0208A254900D37B74 /* ContactListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BDF208A254900D37B74 /* ContactListTableViewCell.swift */; };
+		12E47BE2208B458C00D37B74 /* ContactListDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */; };
+		12E47BE4208B518A00D37B74 /* ContactListDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE3208B518A00D37B74 /* ContactListDetailsTableViewCell.swift */; };
 		4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */; };
 		6DBD031A2077B5EF0083419E /* UFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030B2077B5EE0083419E /* UFL.txt */; };
 		6DBD031B2077B5EF0083419E /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030C2077B5EE0083419E /* Ubuntu-Italic.ttf */; };
@@ -112,6 +117,11 @@
 		12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		12D725052083A845000E7015 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
+		12E47BDB208A210A00D37B74 /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
+		12E47BDD208A21C900D37B74 /* ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewController.swift; sourceTree = "<group>"; };
+		12E47BDF208A254900D37B74 /* ContactListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListTableViewCell.swift; sourceTree = "<group>"; };
+		12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListDetailsViewController.swift; sourceTree = "<group>"; };
+		12E47BE3208B518A00D37B74 /* ContactListDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		13ACDBAAC12413AFDDC1828A /* Pods-SWSApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.release.xcconfig"; sourceTree = "<group>"; };
 		19C8BD47DF4615A2A812341C /* Pods-SWSAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		47406C810A477C295440E667 /* Pods-SWSAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -189,7 +199,7 @@
 		D2EAEB912074EDBE005F7792 /* ActionItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionItemsViewController.swift; sourceTree = "<group>"; };
 		D2EAEB932074EF88005F7792 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuViewController.swift; sourceTree = "<group>"; };
-		F23929E42075E3E90039A924 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		F23929E42075E3E90039A924 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsDetailsViewController.swift; sourceTree = "<group>"; };
 		F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Filter.storyboard; sourceTree = "<group>"; };
@@ -232,6 +242,8 @@
 				12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */,
 				AEF951172089C7800083EA47 /* AccountTableViewCell.swift */,
 				AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */,
+				12E47BDF208A254900D37B74 /* ContactListTableViewCell.swift */,
+				12E47BE3208B518A00D37B74 /* ContactListDetailsTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -391,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				D1FB18582062F7A40072F4C1 /* Main.storyboard */,
+				12E47BDB208A210A00D37B74 /* Contacts.storyboard */,
 				AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */,
 				12A37D1C20776F0D0036ED36 /* AccountsContactsVC.storyboard */,
 				F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */,
@@ -405,10 +418,12 @@
 				D276DE662075028500086901 /* MoreMenu */,
 				128B1A9B206BAE43004E148A /* TableViewCells */,
 				6F3D30A3206BA59C000CFFCC /* XMSegmentedControl.swift */,
+				12E47BDD208A21C900D37B74 /* ContactListViewController.swift */,
+				12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */,
 				6F3D3099206BA064000CFFCC /* AccountsViewController.swift */,
 				F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */,
 				F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */,
-				F23929E42075E3E90039A924 /* ContactViewController.swift */,
+				F23929E42075E3E90039A924 /* ContactsViewController.swift */,
 				6F3D309B206BA065000CFFCC /* CalendarViewController.swift */,
 				128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */,
 				6F3D309D206BA065000CFFCC /* HomeViewController.swift */,
@@ -486,6 +501,7 @@
 				D1FB18202062A7C00072F4C1 /* Frameworks */,
 				D1FB18212062A7C00072F4C1 /* Resources */,
 				39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */,
+				2454B1DF38AE4E532E5E7A4B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -504,6 +520,8 @@
 				D1FB18332062A7C00072F4C1 /* Sources */,
 				D1FB18342062A7C00072F4C1 /* Frameworks */,
 				D1FB18352062A7C00072F4C1 /* Resources */,
+				FEAFED748AB20AD2BA65B48D /* [CP] Embed Pods Frameworks */,
+				75ABCFD3B4CEDC3266A0F953 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -523,6 +541,8 @@
 				D1FB183E2062A7C10072F4C1 /* Sources */,
 				D1FB183F2062A7C10072F4C1 /* Frameworks */,
 				D1FB18402062A7C10072F4C1 /* Resources */,
+				5A8A5B58BA2047ECF6AE32BD /* [CP] Embed Pods Frameworks */,
+				79AF2A7A75FAB8896A3F5481 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -593,6 +613,7 @@
 				6DBD031D2077B5EF0083419E /* Ubuntu-Regular.ttf in Resources */,
 				6DBD03232077B5EF0083419E /* Ubuntu-Medium.ttf in Resources */,
 				6DBD03262077B5EF0083419E /* CrimsonText-Semibold.ttf in Resources */,
+				12E47BDC208A210A00D37B74 /* Contacts.storyboard in Resources */,
 				F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */,
 				D2EAEB8A2074EAC6005F7792 /* MoreMenu.storyboard in Resources */,
 				12C5CEF3206E1A9500BC6E7A /* Localizable.strings in Resources */,
@@ -631,6 +652,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2454B1DF38AE4E532E5E7A4B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -687,6 +723,51 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5A8A5B58BA2047ECF6AE32BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		75ABCFD3B4CEDC3266A0F953 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		79AF2A7A75FAB8896A3F5481 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7D085E038417463EAC57175A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -723,6 +804,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FEAFED748AB20AD2BA65B48D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -735,6 +831,7 @@
 				AE5C974520886DD4004548E9 /* PlanVisitViewController.swift in Sources */,
 				D10483962068381A00A0343B /* Contact.swift in Sources */,
 				D2E12D7520736E0C0005B982 /* ChatterViewController.swift in Sources */,
+				12E47BDE208A21C900D37B74 /* ContactListViewController.swift in Sources */,
 				6F365320207B95850068105B /* AccountSortUtility.swift in Sources */,
 				D1FCDE0F20733025005F956D /* FilterViewModel.swift in Sources */,
 				F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */,
@@ -743,8 +840,10 @@
 				12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
+				12E47BE2208B458C00D37B74 /* ContactListDetailsViewController.swift in Sources */,
 				6F8BD3EB20720281006CABA8 /* AccountListViewController.swift in Sources */,
 				6F3D30A4206BA59D000CFFCC /* XMSegmentedControl.swift in Sources */,
+				12E47BE0208A254900D37B74 /* ContactListTableViewCell.swift in Sources */,
 				D2EAEB902074ED1E005F7792 /* GoSpotCheckViewController.swift in Sources */,
 				128B1A9A206BADF8004E148A /* AccountDetailTabViewController.swift in Sources */,
 				D1FCDE1020733025005F956D /* UserViewModel.swift in Sources */,
@@ -773,6 +872,7 @@
 				6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */,
 				6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */,
 				6F3D30A0206BA066000CFFCC /* CalendarViewController.swift in Sources */,
+				12E47BE4208B518A00D37B74 /* ContactListDetailsTableViewCell.swift in Sources */,
 				D2E12D7320736D620005B982 /* ReportsViewController.swift in Sources */,
 				D1FE1CD620654734009CC47C /* StoreDispatcher.swift in Sources */,
 			);

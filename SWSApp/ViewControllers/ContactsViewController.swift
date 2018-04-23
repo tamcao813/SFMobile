@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ContactViewController : UIViewController {
+class ContactsViewController : UIViewController {
     
     var calendarSearchVC : CalendarSearchViewController?
     var calendarFormatVC :CalendarFormatDisplay?

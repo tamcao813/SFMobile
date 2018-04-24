@@ -382,7 +382,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             accVC?.accountDetails?.view.removeFromSuperview()
             vc = accountsVC
             ContactsGlobal.accountId = ""
-            
            case .ContactsVCIndex:
             let contactVC = contactsVC as! ContactsViewController
             vc = contactVC

@@ -13,15 +13,15 @@ class ContactsViewController : UIViewController {
     
     var contactListVC: ContactListViewController?
     var filterMenuVC: ContactMenuViewController?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         print("Contact VC will appear")
         filterMenuVC?.searchByEnteredTextDelegate = contactListVC
 
@@ -29,8 +29,7 @@ class ContactsViewController : UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        
+    
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -304,13 +304,9 @@ class AccountDetailTabViewController: UITableViewController {
     
     @objc func viewAllContactFunction()  {
         print("Hello World")
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "Contacts", bundle:nil)
-//        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "ContactsViewControllerID")
-//        self.present(nextViewController, animated:true, completion:nil)
-        
-        let changeVC = ParentViewController()
-        let currentVC = changeVC.viewControllerForSelectedSegmentIndex(3)
-        print(currentVC)
+        print("Hello World")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:account?.account_Id)
+
     }
     
 }

@@ -580,7 +580,7 @@ class StoreDispatcher {
     
     func fetchContacts(forAccount accountId: String) -> [Contact] {
         
-        print("fetchContactsWithBuyingPower \(accountId)")
+        print("fetchContactsWithAccountID \(accountId)")
         var contactAry: [Contact] = []
         
         let fields = Contact.ContactFields.map{"{Contact:\($0)}"}

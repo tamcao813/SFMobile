@@ -9,7 +9,7 @@
 import UIKit
 
 class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, SearchContactByEnteredTextDelegate {
-    var contactListAccountID:String?
+  
     
     func sortContactData(searchString: String) {
         print("sortContactData")
@@ -26,12 +26,13 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     let contactViewModel = ContactsViewModel()
+    
     var globalContactsForList = [Contact]()
-    let linkedAccountArray = ["Crown Liquor Store One","Account Name Two"," Account Name Three"]
-
     var accountContactsForList = [Contact]()
-    
-    
+    let linkedAccountArray = ["Crown Liquor Store One","Account Name Two"," Account Name Three"]
+   
+  
+    //MARK: Table View Functions
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -42,9 +43,19 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         else if  section == 1{
             
-            return globalContactsForList.count
+            if ContactsGlobal.accountId == "" {
+                globalContactsForList = contactViewModel.globalContacts()
+                print("globalContactsForList.count = \(globalContactsForList.count)")
+                return globalContactsForList.count
+                
+            }else {
+                accountContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
+                print("accountContactsForList.count = \(accountContactsForList.count)")
+                return accountContactsForList.count
+            }
+            
         }
-        return 1
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -68,21 +79,34 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let globalContact:Contact = globalContactsForList[indexPath.row]
-        let cell:ContactListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactListTableViewCell
-      
+        var ary: [Contact] = []
+        if ContactsGlobal.accountId == "" {
+            ary = contactViewModel.globalContacts()
+            print("globalContacts ary.count  = \(ary.count)")
+            
+        }else{
+            ary = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
+            print("contacts ary.count  = \(ary.count)")
+        }
         
+        //let globalContact:Contact = globalContactsForList[indexPath.row]
+        
+        let globalContact:Contact = ary[indexPath.row]
+        
+ 
+        let cell:ContactListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactListTableViewCell
+    
         let fullName = globalContact.firstName + " " + globalContact.lastName
-          print("full name \(fullName)")
+        print("full name \(fullName)")
         cell.initialNameLabel.text = globalContact.getIntials(name: fullName)
         cell.nameValueLabel.text = fullName
         cell.phoneValueLabel.text = globalContact.phoneuNmber
         cell.emailValueLabel.text =  globalContact.email
         cell.linkedAccountWithContact.text = "\(linkedAccountArray)"
-        
         return cell
         
     }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
@@ -103,26 +127,22 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("account id in contact list \(contactListAccountID)")
-        //globalContactsForList = contactViewModel.globalContacts()
-        // Do any additional setup after loading the view.
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tableView.reloadData()
         
-        if contactListAccountID == "" {
-            globalContactsForList = contactViewModel.globalContacts()
-        }else {
-            
-            globalContactsForList = contactViewModel.contacts(forAccount: contactListAccountID!)
-        }
     }
- 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        contactListAccountID = ""
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
+        
     }
+    
+   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -132,12 +152,9 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "contactDetailsSegue" {
             let contactDetailsScreen = segue.destination as! ContactListDetailsViewController
-           // accountDetailsScreen.accountDetailForLoggedInUser = selectedAccount
+            // accountDetailsScreen.accountDetailForLoggedInUser = selectedAccount
         }
     }
-    
-    
-    
     
     
     

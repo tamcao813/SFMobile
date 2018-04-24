@@ -15,9 +15,11 @@ struct SelectedMoreButton {
     static var selectedItem : Int = -1
 }
 
+struct ContactsGlobal {
+    static var accountId: String = ""
+}
+
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
-    
-     var accountIDToSet:String = ""
     // drop down on tapping more
     let moreDropDown = DropDown()
     // persistent menu
@@ -119,7 +121,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
     @objc func showAllContacts(notification: NSNotification){
-        accountIDToSet = notification.object as! String
+        ContactsGlobal.accountId = notification.object as! String
         print(notification.object)
         topMenuBar?.selectedSegment = 2
         displayCurrentTab(2)
@@ -379,9 +381,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             let accVC = accountsVC as? AccountsViewController
             accVC?.accountDetails?.view.removeFromSuperview()
             vc = accountsVC
-        case .ContactsVCIndex:
+            ContactsGlobal.accountId = ""
+            
+           case .ContactsVCIndex:
             let contactVC = contactsVC as! ContactsViewController
-            contactVC.accountId = accountIDToSet
             vc = contactVC
         case .CalendarVCIndex:
             vc = calendarVC

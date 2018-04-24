@@ -8,20 +8,7 @@
 
 import UIKit
 
-class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, SearchContactByEnteredTextDelegate {
-    func sortContactData(searchString: String) {
-        print("sortContactData")
-    }
-    
-    func filteringContact(filtering: Bool) {
-        print("filteringContact")
-    }
-    
-    func performContactFilterOperation(searchString: String) {
-        print("performContactFilterOperation")
-        print(ContactFilterMenuModel.functionRoles)
-    }
-    
+class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     let contactViewModel = ContactsViewModel()
     var globalContactsForList = [Contact]()
@@ -120,20 +107,34 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         }
     }
     
+}
+
+//MARK:- SearchContactByEnteredTextDelegate Methods
+extension ContactListViewController : SearchContactByEnteredTextDelegate{
+
+    func sortContactData(searchString: String) {
+        print("sortContactData")
+    }
     
+    func filteringContact(filtering: Bool) {
+
+        print("filteringContact")
+
+        if !filtering {
+            globalContactsForList = contactViewModel.globalContacts()
+            self.tableView.reloadData()
+        }
+
+    }
     
-    
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    func performContactFilterOperation(searchString: String) {
+        
+        print("performContactFilterOperation")
+        print(ContactFilterMenuModel.functionRoles)
+        
+        globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
+        self.tableView.reloadData()
+        
+    }
     
 }

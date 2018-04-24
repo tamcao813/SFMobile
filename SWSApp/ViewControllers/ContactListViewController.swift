@@ -14,10 +14,9 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     var globalContactsForList = [Contact]()
     var accountContactsForList = [Contact]()
-    let linkedAccountArray = ["Crown Liquor Store One","Account Name Two"," Account Name Three"]
-   
-  
-    //MARK: Table View Functions
+    var contactsAcc = [AccountContactRelation]()
+
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -85,8 +84,21 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         cell.initialNameLabel.text = globalContact.getIntials(name: fullName)
         cell.nameValueLabel.text = fullName
         cell.phoneValueLabel.text = globalContact.phoneuNmber
+        
         cell.emailValueLabel.text =  globalContact.email
-        cell.linkedAccountWithContact.text = "\(linkedAccountArray)"
+        
+        var accountsName = [String]()
+        for acc in contactsAcc{
+            
+            if(globalContact.contactId == acc.contactId){
+             accountsName.append(acc.accountName)
+            }
+        }
+        
+        let formattedaccountsName = accountsName.joined(separator: "','")
+        print(formattedaccountsName)
+        cell.linkedAccountWithContact.text = "\(formattedaccountsName)"
+        
         return cell
         
     }
@@ -114,17 +126,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         
          NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-       
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.tableView.reloadData()
+        contactsAcc = contactViewModel.accountsForContacts()
         
     }
     

@@ -8,7 +8,20 @@
 
 import UIKit
 
-class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, SearchContactByEnteredTextDelegate {
+    func sortContactData(searchString: String) {
+        print("sortContactData")
+    }
+    
+    func filteringContact(filtering: Bool) {
+        print("filteringContact")
+    }
+    
+    func performContactFilterOperation(searchString: String) {
+        print("performContactFilterOperation")
+        print(ContactFilterMenuModel.functionRoles)
+    }
+    
     
     let contactViewModel = ContactsViewModel()
     var globalContactsForList = [Contact]()

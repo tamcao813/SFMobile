@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 class ContactsViewController : UIViewController {
     
-    var calendarSearchVC : CalendarSearchViewController?
-    var calendarFormatVC :CalendarFormatDisplay?
-    
+    var contactListVC: ContactListViewController?
+    var filterMenuVC: ContactMenuViewController?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,7 +21,10 @@ class ContactsViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        print("Contact VC will appear")
+        filterMenuVC?.searchByEnteredTextDelegate = contactListVC
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -29,5 +33,17 @@ class ContactsViewController : UIViewController {
         
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "ContactSegue") {
+            contactListVC = segue.destination as? ContactListViewController
+//            contactListVC?.delegate = self
+        }
+        
+        if(segue.identifier == "ContactQueryFilter")
+        {
+            filterMenuVC = segue.destination as? ContactMenuViewController
+//            filterMenuVC?.searchByEnteredTextDelegate = contactListVC
+        }
+    }
+
 }

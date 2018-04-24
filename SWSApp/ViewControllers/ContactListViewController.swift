@@ -8,22 +8,7 @@
 
 import UIKit
 
-class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, SearchContactByEnteredTextDelegate {
-  
-    
-    func sortContactData(searchString: String) {
-        print("sortContactData")
-    }
-    
-    func filteringContact(filtering: Bool) {
-        print("filteringContact")
-    }
-    
-    func performContactFilterOperation(searchString: String) {
-        print("performContactFilterOperation")
-        print(ContactFilterMenuModel.functionRoles)
-    }
-    
+class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     let contactViewModel = ContactsViewModel()
     
@@ -92,8 +77,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         //let globalContact:Contact = globalContactsForList[indexPath.row]
         
         let globalContact:Contact = ary[indexPath.row]
-        
- 
+     
         let cell:ContactListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactListTableViewCell
     
         let fullName = globalContact.firstName + " " + globalContact.lastName
@@ -176,6 +160,15 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
 
     }
     
+    func performContactFilterOperation(searchString: String) {
+        
+        print("performContactFilterOperation")
+        print(ContactFilterMenuModel.functionRoles)
+        
+        globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
+        self.tableView.reloadData()
+        
+    }
     
     /*
      // MARK: - Navigation

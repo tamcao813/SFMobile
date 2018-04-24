@@ -184,11 +184,12 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zc-No-vef">
-                                <rect key="frame" x="746" y="625" width="119" height="30"/>
+                                <rect key="frame" x="746" y="627" width="119" height="28"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="119" id="cGh-UZ-Xyr"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                 <state key="normal" title="Delete Note">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
@@ -197,11 +198,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CH3-7n-rZU">
-                                <rect key="frame" x="906" y="625" width="112" height="30"/>
+                                <rect key="frame" x="906" y="627" width="112" height="28"/>
                                 <color key="backgroundColor" name="Data New"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="112" id="oqs-Ie-0re"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                 <state key="normal" title="Edit Note">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -268,7 +270,7 @@
                                                 <constraint firstAttribute="height" constant="113" id="8AM-Cx-k5A"/>
                                             </constraints>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Strategy Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhN-V8-dOc">
@@ -304,19 +306,19 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UB1-ek-nlG">
-                                                    <rect key="frame" x="609.5" y="33.5" width="127.5" height="14"/>
+                                                    <rect key="frame" x="609.5" y="33.5" width="98" height="14"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Modified" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eP-TI-O8v">
-                                                            <rect key="frame" x="0.0" y="0.0" width="107.5" height="14"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="78" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="ttm-3X-My0"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="TKR-sa-ME4">
-                                                            <rect key="frame" x="117.5" y="0.0" width="10" height="14"/>
+                                                            <rect key="frame" x="88" y="0.0" width="10" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="ujq-rQ-pdi"/>
                                                                 <constraint firstAttribute="width" constant="10" id="vex-wp-w34"/>
@@ -325,19 +327,19 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1z8-0z-Ww8">
-                                                    <rect key="frame" x="40" y="33" width="102" height="14"/>
+                                                    <rect key="frame" x="40" y="33" width="80" height="14"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBS-Fk-ViH">
-                                                            <rect key="frame" x="0.0" y="0.0" width="82" height="14"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="Hwy-tM-Apa"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="f2f-La-zmu">
-                                                            <rect key="frame" x="92" y="0.0" width="10" height="14"/>
+                                                            <rect key="frame" x="70" y="0.0" width="10" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="YZK-En-ReB"/>
                                                                 <constraint firstAttribute="width" constant="10" id="xoe-GW-Xu3"/>
@@ -375,22 +377,22 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPn-ql-mbU">
                                                     <rect key="frame" x="40" y="39" width="522" height="22"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ffz-6G-H5v" userLabel="DateStack View">
-                                                    <rect key="frame" x="612" y="30" width="200" height="42"/>
+                                                    <rect key="frame" x="612" y="25" width="200" height="41"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ZC-6e-4mt">
-                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="21.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="23"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bx3-ld-BgZ">
-                                                            <rect key="frame" x="0.0" y="21.5" width="200" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="23" width="200" height="18"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -405,7 +407,7 @@
                                                 <constraint firstItem="VPM-49-PD5" firstAttribute="top" secondItem="k8J-2G-ezd" secondAttribute="top" constant="2.5" id="10G-MJ-Mu1"/>
                                                 <constraint firstItem="XPn-ql-mbU" firstAttribute="width" secondItem="k8J-2G-ezd" secondAttribute="width" multiplier="0.6" constant="-145.19999999999993" id="8bJ-Hj-nOO"/>
                                                 <constraint firstItem="XPn-ql-mbU" firstAttribute="leading" secondItem="VPM-49-PD5" secondAttribute="leading" constant="30" id="ANa-BY-CKY"/>
-                                                <constraint firstItem="Ffz-6G-H5v" firstAttribute="top" secondItem="k8J-2G-ezd" secondAttribute="topMargin" constant="19" id="Eje-wW-2rT"/>
+                                                <constraint firstItem="Ffz-6G-H5v" firstAttribute="top" secondItem="k8J-2G-ezd" secondAttribute="topMargin" constant="14" id="Eje-wW-2rT"/>
                                                 <constraint firstItem="VPM-49-PD5" firstAttribute="leading" secondItem="k8J-2G-ezd" secondAttribute="leading" constant="10" id="EtS-ob-vHc"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="XPn-ql-mbU" secondAttribute="bottom" constant="28" id="H79-ZD-dMc"/>
                                                 <constraint firstAttribute="bottom" secondItem="VPM-49-PD5" secondAttribute="bottom" constant="5" id="PZj-AQ-WpF"/>
@@ -413,7 +415,7 @@
                                                 <constraint firstItem="Ffz-6G-H5v" firstAttribute="leading" secondItem="k8J-2G-ezd" secondAttribute="leading" constant="612" id="aaB-7e-1g9"/>
                                                 <constraint firstAttribute="trailing" secondItem="VPM-49-PD5" secondAttribute="trailing" constant="10" id="q3v-l9-pUd"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XPn-ql-mbU" secondAttribute="trailing" constant="20" symbolic="YES" id="sFv-Ll-BlT"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Ffz-6G-H5v" secondAttribute="bottom" constant="17" id="uIQ-Ye-dGr"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Ffz-6G-H5v" secondAttribute="bottom" constant="23" id="uIQ-Ye-dGr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

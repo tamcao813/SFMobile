@@ -156,7 +156,25 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         }
     }
     
+}
+
+//MARK:- SearchContactByEnteredTextDelegate Methods
+extension ContactListViewController : SearchContactByEnteredTextDelegate{
+
+    func sortContactData(searchString: String) {
+        print("sortContactData")
+    }
     
+    func filteringContact(filtering: Bool) {
+
+        print("filteringContact")
+
+        if !filtering {
+            globalContactsForList = contactViewModel.globalContacts()
+            self.tableView.reloadData()
+        }
+
+    }
     
     
     /*

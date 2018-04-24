@@ -14,7 +14,7 @@ class ContactFilter {
     
     var sectionItems : Array<Any> = [ ["All Contacts", "Contacts On My Route"],
                                       ["All"],
-                                      ["All"] ]
+                                      ["All", "Buying Power", "No Buying Power"] ]
 
 }
 
@@ -30,8 +30,10 @@ struct ContactFilterMenuModel {
     static var functionRoles = [String]()
     
     static var allBuyingPower = ""
-    static var buyerFlags = [String]()
-    
+//    static var buyerFlags = [String]()
+    static var buyingPower = ""
+    static var nobuyingPower = ""
+
     static var comingFromDetailsScreen = ""
     
 }

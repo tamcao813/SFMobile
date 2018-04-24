@@ -47,7 +47,7 @@ class ContactMenuViewController: UIViewController {
         if let contactData = ContactsViewModel().globalContacts() as [Contact]? {
             
             var functionRoles = filterClass.sectionItems[1] as! [String]
-            var buyerFlags = filterClass.sectionItems[2] as! [String]
+//            var buyerFlags = filterClass.sectionItems[2] as! [String]
 
             for contactObject in contactData {
                 
@@ -56,21 +56,22 @@ class ContactMenuViewController: UIViewController {
                         functionRoles.append(contactObject.functionRole)
                     }
                 }
-
+                /*
                 if contactObject.buyerFlag != ""{
                     if !(buyerFlags.contains(contactObject.buyerFlag)){
                         buyerFlags.append(contactObject.buyerFlag)
                     }
-                }
+                }*/
                 
             }
             
             if functionRoles.count > 0{
                 filterClass.sectionItems[1] = functionRoles
             }
+            /*
             if buyerFlags.count > 0{
                 filterClass.sectionItems[2] = buyerFlags
-            }
+            }*/
 
         }
 
@@ -145,7 +146,9 @@ class ContactMenuViewController: UIViewController {
             ContactFilterMenuModel.functionRoles = [String]()
             
             ContactFilterMenuModel.allBuyingPower = ""
-            ContactFilterMenuModel.buyerFlags = [String]()
+//            ContactFilterMenuModel.buyerFlags = [String]()
+            ContactFilterMenuModel.buyingPower = ""
+            ContactFilterMenuModel.nobuyingPower = ""
 
             ContactFilterMenuModel.comingFromDetailsScreen = ""
 
@@ -297,14 +300,29 @@ class ContactMenuViewController: UIViewController {
                 else {
                     ContactFilterMenuModel.allBuyingPower = "YES"
                 }
+            case 1:
+                if ContactFilterMenuModel.buyingPower == "YES"{
+                    ContactFilterMenuModel.buyingPower = "NO"
+                }
+                else {
+                    ContactFilterMenuModel.buyingPower = "YES"
+                }
+            case 2:
+                if ContactFilterMenuModel.nobuyingPower == "YES"{
+                    ContactFilterMenuModel.nobuyingPower = "NO"
+                }
+                else {
+                    ContactFilterMenuModel.nobuyingPower = "YES"
+                }
             default:
+                /*
                 let titleContent = arrayContent[indexPath.section] as? NSArray
                 if let index = ContactFilterMenuModel.buyerFlags.index(of: (titleContent![indexPath.row] as? String)!) {
                     ContactFilterMenuModel.buyerFlags.remove(at: index)
                 }
                 else {
                     ContactFilterMenuModel.buyerFlags.append((titleContent![indexPath.row] as? String)!)
-                }
+                }*/
                 break
             }
         default:
@@ -336,7 +354,7 @@ class ContactMenuViewController: UIViewController {
         if(searchBar.text!.count > 0 ||
             ContactFilterMenuModel.allContacts != "" ||
             (ContactFilterMenuModel.allRole == "YES" || ContactFilterMenuModel.functionRoles.count > 0) ||
-            (ContactFilterMenuModel.allBuyingPower == "YES" || ContactFilterMenuModel.buyerFlags.count > 0))
+            (ContactFilterMenuModel.allBuyingPower == "YES" || ContactFilterMenuModel.buyingPower == "YES" || ContactFilterMenuModel.nobuyingPower == "YES" /*ContactFilterMenuModel.buyerFlags.count > 0*/))
         {
             print("ValidUserInputAtSearchFilterPanel")
             validInput = true

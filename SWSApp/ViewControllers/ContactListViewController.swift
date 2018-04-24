@@ -20,7 +20,6 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     func performContactFilterOperation(searchString: String) {
         print("performContactFilterOperation")
         print(ContactFilterMenuModel.functionRoles)
-        print(ContactFilterMenuModel.buyerFlags)
     }
     
     

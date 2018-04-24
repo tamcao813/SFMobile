@@ -86,13 +86,26 @@ class ContactMenuTableTableViewCell: UITableViewCell {
                 }else{
                     self.dropDownImageView.image = UIImage.init(named: "Checkbox")
                 }
+            case 1:
+                if ContactFilterMenuModel.buyingPower == "YES"{
+                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+                }else{
+                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+                }
+            case 2:
+                if ContactFilterMenuModel.nobuyingPower == "YES"{
+                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+                }else{
+                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+                }
             default:
+                /*
                 if ContactFilterMenuModel.buyerFlags.contains(self.filterLabel.text!) {
                     self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
                 }
                 else {
                     self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
+                }*/
                 break
             }
             

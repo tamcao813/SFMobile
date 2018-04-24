@@ -55,6 +55,7 @@ class AccountDetailsViewController : UIViewController{
     
     let contactsStoryboard = UIStoryboard.init(name: "AccountsContactsVC", bundle: nil)
     let notesStoryboard = UIStoryboard.init(name: "Notes", bundle: nil)
+    let strategyStoryboard = UIStoryboard.init(name: "Strategy", bundle: nil)
     
     private var activeViewController: UIViewController? {
         didSet {
@@ -294,8 +295,13 @@ class AccountDetailsViewController : UIViewController{
             btnOpportunities?.backgroundColor = UIColor.white
             btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
         case 4:
+            containerView?.isHidden = false
             btnStrategy?.backgroundColor = UIColor.white
             btnStrategy?.setTitleColor(UIColor.black, for: .normal)
+            
+            let strategyViewController: AccountStrategyViewController = strategyStoryboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
+            activeViewController = strategyViewController
+            
         case 5:
             btnActionItems?.backgroundColor = UIColor.white
             btnActionItems?.setTitleColor(UIColor.black, for: .normal)

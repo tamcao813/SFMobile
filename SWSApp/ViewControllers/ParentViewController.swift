@@ -16,6 +16,8 @@ struct SelectedMoreButton {
 }
 
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
+    
+     var accountIDToSet:String = ""
     // drop down on tapping more
     let moreDropDown = DropDown()
     // persistent menu
@@ -102,6 +104,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         } catch {
             print("Unable to start notifier")
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
         
     }
     
@@ -113,6 +116,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func showAllContacts(notification: NSNotification){
+        accountIDToSet = notification.object as! String
+        print(notification.object)
+        topMenuBar?.selectedSegment = 2
+        displayCurrentTab(2)
+        
     }
     
     
@@ -369,7 +380,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             accVC?.accountDetails?.view.removeFromSuperview()
             vc = accountsVC
         case .ContactsVCIndex:
-            vc = contactsVC
+            let contactVC = contactsVC as! ContactsViewController
+            contactVC.accountId = accountIDToSet
+            vc = contactVC
         case .CalendarVCIndex:
             vc = calendarVC
         case .ObjectivesVCIndex:

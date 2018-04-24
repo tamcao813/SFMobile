@@ -38,7 +38,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
                 print("accountContactsForList.count = \(accountContactsForList.count)")
                 return accountContactsForList.count
             }
-            
+
         }
         return 0
     }
@@ -107,16 +107,18 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     }
     
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet  var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.reloadData()
+       
         
     }
     
@@ -125,8 +127,6 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         self.tableView.reloadData()
         
     }
-    
-   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -168,6 +168,11 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
         self.tableView.reloadData()
         
+    }
+    
+    @objc func reloadAllContacts(notification: NSNotification){
+
+        tableView.reloadData()
     }
     
     /*

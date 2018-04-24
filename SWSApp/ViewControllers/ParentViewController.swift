@@ -108,6 +108,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -385,6 +386,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
            case .ContactsVCIndex:
             let contactVC = contactsVC as! ContactsViewController
             vc = contactVC
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
             vc = calendarVC
         case .ObjectivesVCIndex:

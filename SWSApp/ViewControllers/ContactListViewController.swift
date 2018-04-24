@@ -9,8 +9,8 @@
 import UIKit
 
 class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, SearchContactByEnteredTextDelegate {
-    
     var contactListAccountID:String?
+    
     func sortContactData(searchString: String) {
         print("sortContactData")
     }
@@ -28,7 +28,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     let contactViewModel = ContactsViewModel()
     var globalContactsForList = [Contact]()
     let linkedAccountArray = ["Crown Liquor Store One","Account Name Two"," Account Name Three"]
-    var accountID:String = ""
+
     var accountContactsForList = [Contact]()
     
     
@@ -105,8 +105,6 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         super.viewDidLoad()
         print("account id in contact list \(contactListAccountID)")
         //globalContactsForList = contactViewModel.globalContacts()
-       
-        
         // Do any additional setup after loading the view.
     }
     
@@ -120,7 +118,11 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             globalContactsForList = contactViewModel.contacts(forAccount: contactListAccountID!)
         }
     }
-    
+ 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        contactListAccountID = ""
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -58,7 +58,6 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     //Used to display Table View Content
     var tableViewDisplayData = [Account]()
     var numberOfAccountRows = 0
-    
     var itemsToShowInTableView = -1
     
     

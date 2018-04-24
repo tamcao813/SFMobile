@@ -21,6 +21,8 @@
 		12E47BE0208A254900D37B74 /* ContactListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BDF208A254900D37B74 /* ContactListTableViewCell.swift */; };
 		12E47BE2208B458C00D37B74 /* ContactListDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */; };
 		12E47BE4208B518A00D37B74 /* ContactListDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE3208B518A00D37B74 /* ContactListDetailsTableViewCell.swift */; };
+		12F0F896208F242300160C3D /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BDD208A21C900D37B74 /* ContactListViewController.swift */; };
+		12F0F897208F242700160C3D /* ContactListDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */; };
 		4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */; };
 		6D38325020874026006805C6 /* CustomerHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */; };
 		6D38325120874026006805C6 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483952068381A00A0343B /* Contact.swift */; };
@@ -1032,7 +1034,9 @@
 				6D38325F20874026006805C6 /* UserViewModel.swift in Sources */,
 				F2DC2842208E6B6B0005294E /* AccountStrategyViewControllerr.swift in Sources */,
 				6D38326020874026006805C6 /* Account.swift in Sources */,
+				12F0F896208F242300160C3D /* ContactListViewController.swift in Sources */,
 				6D38326120874026006805C6 /* ContactTableViewCell.swift in Sources */,
+				12F0F897208F242700160C3D /* ContactListDetailsViewController.swift in Sources */,
 				6D38326220874026006805C6 /* DateTimeUtility.swift in Sources */,
 				6D38326320874026006805C6 /* TransactionsViewController.swift in Sources */,
 				6D38326420874026006805C6 /* ActionItemsViewController.swift in Sources */,

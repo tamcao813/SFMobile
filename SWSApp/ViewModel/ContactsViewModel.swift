@@ -25,4 +25,10 @@ class ContactsViewModel{
     func contacts(forAccount accountId:String) -> [Contact] {
        return StoreDispatcher.shared.fetchContacts(forAccount: accountId)
     }
+    
+    func accountsForContacts() -> [AccountContactRelation] {
+        return StoreDispatcher.shared.fetchContactsAccounts()
+    }
+    
+    
 }

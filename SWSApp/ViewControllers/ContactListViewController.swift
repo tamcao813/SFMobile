@@ -28,7 +28,8 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     let linkedAccountArray = ["Crown Liquor Store One","Account Name Two"," Account Name Three"]
     var accountID:String = ""
     var accountContactsForList = [Contact]()
-    
+    var contactsAcc = [AccountContactRelation]()
+
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -75,8 +76,20 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         cell.initialNameLabel.text = globalContact.getIntials(name: fullName)
         cell.nameValueLabel.text = fullName
         cell.phoneValueLabel.text = globalContact.phoneuNmber
+        
         cell.emailValueLabel.text =  globalContact.email
-        cell.linkedAccountWithContact.text = "\(linkedAccountArray)"
+        
+        var accountsName = [String]()
+        for acc in contactsAcc{
+            
+            if(globalContact.contactId == acc.contactId){
+             accountsName.append(acc.accountName)
+            }
+        }
+        
+        let formattedaccountsName = accountsName.joined(separator: "','")
+        print(formattedaccountsName)
+        cell.linkedAccountWithContact.text = "\(formattedaccountsName)"
         
         return cell
         
@@ -104,6 +117,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         
         globalContactsForList = contactViewModel.globalContacts()
        
+        contactsAcc = contactViewModel.accountsForContacts()
         
         // Do any additional setup after loading the view.
     }

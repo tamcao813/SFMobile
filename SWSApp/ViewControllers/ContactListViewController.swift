@@ -154,6 +154,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
             print("globalContactsForList.count  = \(globalContactsForList.count)")
         }
+        globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         self.tableView.reloadData()
 
     }
@@ -183,6 +184,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print(ContactFilterMenuModel.functionRoles)
         
         globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
+        globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         self.tableView.reloadData()
         
     }

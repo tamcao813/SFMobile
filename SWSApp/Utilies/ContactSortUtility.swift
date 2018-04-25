@@ -10,6 +10,23 @@ import UIKit
 
 class ContactSortUtility {
 
+    static func sortByContactNameAlphabetically(contactsListToBeSorted:[Contact], ascending:Bool)->[Contact]
+    {
+        
+        var alphabeticallySortedContactList = [Contact]()
+        if(ascending == true)
+        {
+            alphabeticallySortedContactList = contactsListToBeSorted.sorted { $0.name.lowercased() < $1.name.lowercased() }
+        }
+        else
+        {
+            alphabeticallySortedContactList = contactsListToBeSorted.sorted { $1.name.lowercased() < $0.name.lowercased() }
+        }
+        
+        
+        return alphabeticallySortedContactList
+    }
+    
     static func searchContactBySearchBarQuery(contactsForLoggedUser:[Contact], searchText:String)->[Contact]
     {
         print("sortContactByFilterSearchBarQuery: " + searchText)
@@ -18,14 +35,41 @@ class ContactSortUtility {
         let trimmedSearchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         for contact in contactsForLoggedUser
         {
-            // search account name, account number, postal code and city
+            // search contace name, first and last name Plus Account Id
             if (contact.name.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
                 || contact.firstName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
-                || contact.lastName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+                || contact.lastName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
+                || contact.accountId.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
             {
                 contactListWithSearchResults.append(contact)
             }
+            else {
+                
+                // search account name and number
+                let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contact.contactId)
+                for acrObject in accountsListWithContactId {
+                    if (acrObject.accountName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+                    {
+                        contactListWithSearchResults.append(contact)
+                        break
+                    }
+                    
+                    let accountViewModel = AccountsViewModel()
+                    let accountsListByAccountId = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: accountViewModel.accountsForLoggedUser, accountId: acrObject.accountId)
+                    for accObject in accountsListByAccountId {
+                        if (accObject.accountNumber.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+                        {
+                            contactListWithSearchResults.append(contact)
+                            break
+                        }
+                    }
+                    
+                }
+                
+            }
+            
         }
+        
         return contactListWithSearchResults
     }
     

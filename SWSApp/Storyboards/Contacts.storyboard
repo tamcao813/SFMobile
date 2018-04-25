@@ -228,7 +228,7 @@
                                                     </state>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Showing 6 of 300 results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4UU-Gk-zYp">
-                                                    <rect key="frame" x="0.0" y="27.5" width="155.5" height="16"/>
+                                                    <rect key="frame" x="0.0" y="27.5" width="155" height="16"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -395,29 +395,28 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.94117647058823528" green="0.95686274509803926" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="S37-6b-gFZ" firstAttribute="bottom" secondItem="8rm-qV-sqC" secondAttribute="bottom" constant="24" id="1u5-R9-Btu"/>
                             <constraint firstItem="67Z-9W-dmS" firstAttribute="leading" secondItem="S37-6b-gFZ" secondAttribute="leading" id="4OZ-8p-2qj"/>
-                            <constraint firstItem="S37-6b-gFZ" firstAttribute="trailing" secondItem="8rm-qV-sqC" secondAttribute="trailing" constant="104" id="9Pc-Ub-ZPA"/>
-                            <constraint firstItem="67Z-9W-dmS" firstAttribute="bottom" secondItem="S37-6b-gFZ" secondAttribute="bottom" constant="-82" id="AkP-Dh-oGK"/>
+                            <constraint firstItem="S37-6b-gFZ" firstAttribute="bottom" secondItem="8rm-qV-sqC" secondAttribute="bottom" constant="24" id="8fJ-KB-WAs"/>
+                            <constraint firstItem="8rm-qV-sqC" firstAttribute="top" secondItem="67Z-9W-dmS" secondAttribute="bottom" constant="26" id="QJE-RP-Imh"/>
                             <constraint firstItem="67Z-9W-dmS" firstAttribute="top" secondItem="my4-FX-0c9" secondAttribute="top" id="UoP-pN-70g"/>
+                            <constraint firstItem="8rm-qV-sqC" firstAttribute="centerX" secondItem="S37-6b-gFZ" secondAttribute="centerX" id="dqO-oN-4EK"/>
                             <constraint firstItem="67Z-9W-dmS" firstAttribute="trailing" secondItem="S37-6b-gFZ" secondAttribute="trailing" id="l2X-rI-vuz"/>
-                            <constraint firstItem="8rm-qV-sqC" firstAttribute="leading" secondItem="S37-6b-gFZ" secondAttribute="leading" constant="104" id="wwb-aL-fqj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="S37-6b-gFZ"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="67Z-9W-dmS" id="NMN-FN-iUm"/>
-                        <outletCollection property="pageButtonArr" destination="bJw-6o-KiQ" collectionClass="NSMutableArray" id="aAT-62-Qg5"/>
-                        <outletCollection property="pageButtonArr" destination="0tg-iz-Vbz" collectionClass="NSMutableArray" id="hiT-44-MJC"/>
-                        <outletCollection property="pageButtonArr" destination="hu1-Lt-hux" collectionClass="NSMutableArray" id="aXS-IR-6Qy"/>
-                        <outletCollection property="pageButtonArr" destination="QDW-yN-QFT" collectionClass="NSMutableArray" id="yRv-sc-29t"/>
-                        <outletCollection property="pageButtonArr" destination="CdQ-p0-Vjb" collectionClass="NSMutableArray" id="pMX-d1-NLs"/>
-                        <outletCollection property="pageButtonArr" destination="IUj-Qt-5in" collectionClass="NSMutableArray" id="vqG-wn-z3Z"/>
-                        <outletCollection property="pageButtonArr" destination="sdD-tF-7jF" collectionClass="NSMutableArray" id="jcA-Di-Q7J"/>
-                        <outletCollection property="pageButtonArr" destination="xp0-GJ-C2u" collectionClass="NSMutableArray" id="hsP-ie-4pQ"/>
-                        <outletCollection property="pageButtonArr" destination="a2p-de-9Lr" collectionClass="NSMutableArray" id="7L3-BX-ThR"/>
+                        <outletCollection property="pageButtonArr" destination="0tg-iz-Vbz" collectionClass="NSMutableArray" id="lgd-oF-dNd"/>
+                        <outletCollection property="pageButtonArr" destination="hu1-Lt-hux" collectionClass="NSMutableArray" id="Eap-NN-IQG"/>
+                        <outletCollection property="pageButtonArr" destination="QDW-yN-QFT" collectionClass="NSMutableArray" id="0l1-rP-hFq"/>
+                        <outletCollection property="pageButtonArr" destination="CdQ-p0-Vjb" collectionClass="NSMutableArray" id="a1f-UE-pdq"/>
+                        <outletCollection property="pageButtonArr" destination="IUj-Qt-5in" collectionClass="NSMutableArray" id="mFh-sR-ii1"/>
+                        <outletCollection property="pageButtonArr" destination="sdD-tF-7jF" collectionClass="NSMutableArray" id="hQf-XZ-zqG"/>
+                        <outletCollection property="pageButtonArr" destination="xp0-GJ-C2u" collectionClass="NSMutableArray" id="Oo1-e5-e8R"/>
+                        <outletCollection property="pageButtonArr" destination="bJw-6o-KiQ" collectionClass="NSMutableArray" id="jBr-bW-lGb"/>
+                        <outletCollection property="pageButtonArr" destination="a2p-de-9Lr" collectionClass="NSMutableArray" id="1UM-0w-gbT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qh1-oh-2LP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -685,7 +684,7 @@
                                 <rect key="frame" x="0.0" y="678" width="280" height="69"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7F-uP-mHo">
-                                        <rect key="frame" x="30" y="14" width="74.5" height="40"/>
+                                        <rect key="frame" x="30" y="14" width="75" height="40"/>
                                         <color key="backgroundColor" red="0.89525987689999997" green="0.89525987689999997" blue="0.89525987689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="Clear">
@@ -702,7 +701,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUZ-q9-FuG">
-                                        <rect key="frame" x="126.5" y="14" width="128.5" height="40"/>
+                                        <rect key="frame" x="127" y="14" width="128" height="40"/>
                                         <color key="backgroundColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="Submit">
@@ -719,7 +718,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wii-gM-Y8r">
-                                        <rect key="frame" x="139.5" y="24" width="1" height="20"/>
+                                        <rect key="frame" x="140" y="24" width="1" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="MfQ-Bd-7u2"/>
@@ -774,17 +773,11 @@
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="Data New">
-            <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="InitialsBackground">
             <color red="0.14509803921568629" green="0.30588235294117649" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightGrey">
             <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="LightGrey">
-            <color red="0.94099998470000001" green="0.95700001720000005" blue="0.96899998190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

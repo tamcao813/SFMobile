@@ -20,7 +20,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     var numberOfAccountRows = 0
     
     //Internal
-    var kPageSize:Int = 10
+    var kPageSize:Int = 5
     var kSizeOfArray:Int = 103
     var kNoOfPagesInEachSet = 5
     var noOfPages:Int?
@@ -43,15 +43,13 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     
+    var globalContactCount:Int?
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 0
-        }
-        else if  section == 1{
+        if  section == 1{
             /*
             if ContactsGlobal.accountId == "" {
                 globalContactsForList = contactViewModel.globalContacts()
@@ -80,7 +78,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             
             //return globalContactsForList.count
         }
-        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -116,7 +114,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             print("contacts ary.count  = \(ary.count)")
         }*/
         
-        let globalContact:Contact = globalContactsForList[indexPath.row]
+        let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
         
 //        let globalContact:Contact = ary[indexPath.row]
 
@@ -150,30 +148,27 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         return 200
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        }
-        else if  section == 1 {
-            return 0
-        }
-        return 0
-    }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        if section == 0 {
+//            return 0
+//        }
+//        else if  section == 1 {
+//            return 0
+//        }
+//        return 0
+//    }
     
     
-    @IBOutlet  var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
          NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
             contactsAcc = contactViewModel.accountsForContacts()
-            loadContactData()
+        
+        loadContactData()
         
         globalContactCount = contactViewModel.globalContacts().count
-
-        
-        
-
         
     }
     
@@ -212,22 +207,17 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
             print("globalContactsForList.count  = \(globalContactsForList.count)")
         }
+        globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
+        
+        if globalContactsForList.count > 0 {
+            pageButtonArr[1].backgroundColor = UIColor.lightGray
+            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        }
         
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
-        print("\(self.noOfPages!)")
         
-        if(numberOfAccountRows > 0){
-            //self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-        }
-        for count in 1...5 {
-            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
-            pageButtonArr[count].backgroundColor = UIColor.white
-            pageButtonArr[count].setTitle(String(count), for: .normal)
-        }
-        pageButtonArr[1].backgroundColor = UIColor.lightGray
-        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         
         self.tableView.reloadData()
 
@@ -266,6 +256,24 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
+        
+        
+        initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
+        updateUI()
+        print("\(self.noOfPages!)")
+        
+        if(numberOfAccountRows > 0){
+            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
+        for count in 1...5 {
+            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+            pageButtonArr[count].backgroundColor = UIColor.white
+            pageButtonArr[count].setTitle(String(count), for: .normal)
+        }
+        pageButtonArr[1].backgroundColor = UIColor.lightGray
+        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        
+        
         self.tableView.reloadData()
         
         
@@ -289,6 +297,22 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     
     @objc func reloadAllContacts(notification: NSNotification){
 
+        initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
+        updateUI()
+        print("\(self.noOfPages!)")
+        
+        if(numberOfAccountRows > 0){
+            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
+        for count in 1...5 {
+            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+            pageButtonArr[count].backgroundColor = UIColor.white
+            pageButtonArr[count].setTitle(String(count), for: .normal)
+        }
+        pageButtonArr[1].backgroundColor = UIColor.lightGray
+        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        
+        
         loadContactData()
 //        tableView.reloadData()
     }
@@ -516,7 +540,7 @@ extension ContactListViewController{
         if(numberOfAccountRows > 0)
         {
             tableView.reloadData()
-            //self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
         }
         
     }

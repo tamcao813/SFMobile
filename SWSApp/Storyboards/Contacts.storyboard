@@ -344,16 +344,25 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Showing 6 of 300 results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4UU-Gk-zYp">
+                                                    <rect key="frame" x="0.0" y="27.5" width="155.5" height="16"/>
+                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="fAx-eP-RFc" firstAttribute="top" secondItem="FJY-MD-o0q" secondAttribute="top" constant="17" id="4Ig-i9-55c"/>
                                                 <constraint firstAttribute="trailing" secondItem="fAx-eP-RFc" secondAttribute="trailing" id="5ch-B2-VTM"/>
+                                                <constraint firstItem="4UU-Gk-zYp" firstAttribute="centerY" secondItem="FJY-MD-o0q" secondAttribute="centerY" id="Et8-1p-d4x"/>
                                                 <constraint firstAttribute="bottom" secondItem="fAx-eP-RFc" secondAttribute="bottom" constant="17.5" id="RQm-tz-w2K"/>
+                                                <constraint firstItem="4UU-Gk-zYp" firstAttribute="leading" secondItem="FJY-MD-o0q" secondAttribute="leading" id="USm-tu-Pbz"/>
                                                 <constraint firstItem="fAx-eP-RFc" firstAttribute="leading" secondItem="FJY-MD-o0q" secondAttribute="leading" constant="606" id="n2q-YD-zrX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="newContactButton" destination="fAx-eP-RFc" id="xMq-ya-kLp"/>
+                                            <outlet property="noOfResultLabel" destination="4UU-Gk-zYp" id="ClB-5A-qXO"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

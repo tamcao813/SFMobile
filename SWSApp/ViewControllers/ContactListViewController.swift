@@ -15,7 +15,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     var globalContactsForList = [Contact]()
     var accountContactsForList = [Contact]()
     var contactsAcc = [AccountContactRelation]()
-    
+    var globalContactCount:Int?
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -55,6 +55,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         
         if section == 0{
             let  headerCell = tableView.dequeueReusableCell(withIdentifier: "buttonCell") as! ContactListTableViewButtonCell
+                headerCell.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
             return headerCell
         }
         return nil
@@ -85,7 +86,6 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         cell.initialNameLabel.text = globalContact.getIntials(name: fullName)
         cell.nameValueLabel.text = fullName
         cell.phoneValueLabel.text = globalContact.phoneuNmber
-        
         cell.emailValueLabel.text =  globalContact.email
         
         var accountsName = [String]()
@@ -96,7 +96,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             }
         }
         
-        let formattedaccountsName = accountsName.joined(separator: ",")
+        let formattedaccountsName = accountsName.joined(separator: ", ")
         print(formattedaccountsName)
         cell.linkedAccountWithContact.text = "\(formattedaccountsName)"
         
@@ -124,11 +124,12 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
          NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
-       
-        contactsAcc = contactViewModel.accountsForContacts()
-        loadContactData()
+            contactsAcc = contactViewModel.accountsForContacts()
+            loadContactData()
+        
+        globalContactCount = contactViewModel.globalContacts().count
+
         
     }
     

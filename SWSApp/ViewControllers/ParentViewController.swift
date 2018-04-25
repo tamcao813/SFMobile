@@ -374,6 +374,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.moreDropDownSelectionIndex = -1
         }
         
+        
         var vc: UIViewController?
         switch selectedVC {
         case .HomeVCIndex:

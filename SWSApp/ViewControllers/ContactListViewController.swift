@@ -20,7 +20,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     var numberOfAccountRows = 0
     
     //Internal
-    var kPageSize:Int = 5
+    var kPageSize:Int = 15
     var kSizeOfArray:Int = 103
     var kNoOfPagesInEachSet = 5
     var noOfPages:Int?
@@ -266,7 +266,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         if(numberOfAccountRows > 0){
             self.tableView.beginUpdates()
-            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            self.tableView.setContentOffset(CGPoint.zero, animated: false)
             self.tableView.endUpdates()
         }
         for count in 1...5 {
@@ -307,7 +307,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         if(numberOfAccountRows > 0){
             self.tableView.beginUpdates()
-            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            self.tableView.setContentOffset(CGPoint.zero, animated: false)
             self.tableView.endUpdates()        }
         
         for count in 1...5 {
@@ -547,7 +547,7 @@ extension ContactListViewController{
         {
             tableView.reloadData()
             self.tableView.beginUpdates()
-            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            self.tableView.setContentOffset(CGPoint.zero, animated: false)
             self.tableView.endUpdates()        }
         
     }

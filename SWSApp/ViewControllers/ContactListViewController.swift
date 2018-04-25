@@ -109,8 +109,10 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             contactsAcc = contactViewModel.accountsForContacts()
         loadContactData()
        
+        //testContactRolePlist
+        let opts = PlistMap.sharedInstance.getPicklist("Contact", fieldname: "Roles")
+        print(opts)
  
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

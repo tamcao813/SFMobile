@@ -144,6 +144,7 @@
 		D104839E20683E4000A0343B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D104839D20683E4000A0343B /* Notification.swift */; };
 		D125134220648C4F00CD6CB4 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134120648C4F00CD6CB4 /* Account.swift */; };
 		D125134420648E1000CD6CB4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134320648E1000CD6CB4 /* User.swift */; };
+		D17BD572209115CD000F38FA /* PlistMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BD571209115CD000F38FA /* PlistMap.swift */; };
 		D1FB18272062A7C00072F4C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB18262062A7C00072F4C1 /* AppDelegate.swift */; };
 		D1FB182E2062A7C00072F4C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1FB182D2062A7C00072F4C1 /* Assets.xcassets */; };
 		D1FB18312062A7C00072F4C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1FB182F2062A7C00072F4C1 /* LaunchScreen.storyboard */; };
@@ -276,6 +277,7 @@
 		D104839D20683E4000A0343B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		D125134120648C4F00CD6CB4 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		D125134320648E1000CD6CB4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D17BD571209115CD000F38FA /* PlistMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistMap.swift; sourceTree = "<group>"; };
 		D1FB18232062A7C00072F4C1 /* SWSApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SWSApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1FB18262062A7C00072F4C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1FB182D2062A7C00072F4C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -610,6 +612,7 @@
 				12D725052083A845000E7015 /* CurrencyFormatter.swift */,
 				AE5C974720887550004548E9 /* DesignableUITextField.swift */,
 				AE5C974920888330004548E9 /* SchedulerComponent.swift */,
+				D17BD571209115CD000F38FA /* PlistMap.swift */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -1101,6 +1104,7 @@
 				D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */,
 				12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
+				D17BD572209115CD000F38FA /* PlistMap.swift in Sources */,
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
 				12E47BE2208B458C00D37B74 /* ContactListDetailsViewController.swift in Sources */,
 				6F8BD3EB20720281006CABA8 /* AccountListViewController.swift in Sources */,

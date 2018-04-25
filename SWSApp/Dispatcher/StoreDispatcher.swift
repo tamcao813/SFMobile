@@ -13,11 +13,6 @@ import PromiseKit
 import SmartStore
 import SmartSync
 
-struct ContactRole {
-    var label: String
-    var value: String
-    var validFor: String
-}
 
 class StoreDispatcher {
     static let shared = StoreDispatcher()
@@ -93,93 +88,42 @@ class StoreDispatcher {
     }
     
     func downloadContactRolesPList(_ completion:@escaping (_ error: NSError?)->()) {
-        
-        //let queryParams = Dictionary<String,String>()
-        
-        let request = SFRestRequest(method: .GET, path: "ui-api/object-info/Contact/picklist-values/012i0000000PchR/SGWS_Roles__c", queryParams: nil)
+        let recordTypeId = "012i0000000PebvAAC" //"012i0000000Pf4AAAS" //(userVieModel.loggedInUser?.recordTypeId)!
+        let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Roles__c"
+        let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
         request.endpoint = "/services/data/v41.0/"
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
                 let response = sfRestResponse.asJsonDictionary()
-                print(response)
-                //let keys = response.keys
-                //let values = response.values
+                    
+                var rolesPicklist = [String:[PlistOption]]()
                 
-                var roleAry = [ContactRole]()
+                if response.count > 0 {
+                    var rolesAry = [PlistOption]()
                 
-                if let options = response["values"] as? [[String : AnyObject]] {
-                    for option in options {
-                        let role = ContactRole(label: option["label"] as! String, value: option["value"] as! String, validFor: option["validFor"] as! String)
+                    if let options = response["values"] as? [[String : AnyObject]] {
+                        for option in options {
+                            let label = option["label"] as? String ?? ""
+                            let value = option["value"] as? String ?? ""
+                            let role = PlistOption(label: label, value: value)
                         
-                        roleAry.append(role)
+                            rolesAry.append(role)
+                        }
+                    
+                        rolesPicklist["Roles"] = rolesAry
                     }
                 }
                 
+                PlistMap.sharedInstance.addToMap(self.SoupContact, map: rolesPicklist)
                 completion(nil)
             }
             .catch { error in
                 print(error)
                 completion(error as NSError?)
         }
-        
-
     }
 
-
-    
-    /*
-    //Retrieve static Plist values for Contact Roles
-    class func downloadContactRolesPlist(_ completion:@escaping ((_ error: NSError?)->())) {
-        let request = SFRestRequest(method: .GET, path: "ui-api/object-info/Contact/picklist-values/012i0000000PchR/SGWS_Roles__c", queryParams: nil)
-        request.endpoint = "/services/data/v41.0/"
-        SFRestAPI.sharedInstance().send(request: request, fail: { (error, rawResponse) in
-            DispatchQueue.main.async(execute: {
-                completion(error)
-            }, completion : { (any, jsonResponse) in
-            
-            })
-        
-            
-            SFRestAPI.sharedInstance().send(request, fail: {},}  { { (<#Any?#>, <#URLResponse?#>) in
-                <#code#>
-                } })
- */
-            /*
-            /(request, fail: { (error) in
-            DispatchQueue.main.async(execute: {
-                completion(error)
-            })
-        },  complete: { (infoAry, jsonResponse) in
-                let userData = UserDefaults.standard
-                let json = jsonResponse as! [String : AnyObject]
-                let fields = json["fields"] as! [[String : AnyObject]]
-                
-                for field in fields {
-                    if let fieldName = field["name"] as? String {
-                        if fieldName == "Event_Type__c" || fieldName == "Status__c" || fieldName == "Event_Objective__c" || fieldName == "Cancellation_Reason__c" {
-                            if let options = field["picklistValues"] as? [[String : AnyObject]] {
-                                let opt = options.map({ (option) -> NSString in
-                                    option["value"] as? String as! NSString ?? ""
-                                })
-                                if fieldName == "Event_Type__c" {
-                                    userData.set(opt, forKey: "EVENT_TYPE_VALUES")
-                                }else if fieldName == "Status__c" {
-                                    userData.set(opt, forKey: "EVENT_STATUS_VALUES")
-                                }else if fieldName == "Event_Objective__c" {
-                                    userData.set(opt, forKey: "EVENT_OBJECTIVE_VALUES")
-                                }else if fieldName == "Cancellation_Reason__c"{
-                                    userData.set(opt, forKey: "EVENT_CANCELLATION_REASON_VALUES")
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                completion(nil)
-        }
- */
- //   }
     
     //#pragma mark - create indexes for the soup and register the soup; only create indexes for the fields we want to query by
     

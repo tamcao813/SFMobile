@@ -47,10 +47,14 @@ class AccountVisitSummaryViewController: UIViewController {
         default:
             break
         }
+        let image = #imageLiteral(resourceName: "delete").withRenderingMode(.alwaysTemplate)
+        deleteVisitButton.setImage(image, for: .normal)
+        deleteVisitButton.tintColor = UIColor(hexString: "#4287C2")
+        deleteVisitButton.setTitle("    Delete", for: .normal)
     }
     
     func initializingXIBs(){
-        self.tableView.register(UINib(nibName: "AddressTableViewCell", bundle: nil), forCellReuseIdentifier: "AddressTableViewCell")
+        self.tableView.register(UINib(nibName: "LocationTableViewCell", bundle: nil), forCellReuseIdentifier: "LocationTableViewCell")
         self.tableView.register(UINib(nibName: "HeadSubHeadTableViewCell", bundle: nil), forCellReuseIdentifier: "HeadSubHeadTableViewCell")
         self.tableView.register(UINib(nibName: "AssociatedContactsTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociatedContactsTableViewCell")
         self.tableView.register(UINib(nibName: "UnorderedListTableViewCell", bundle: nil), forCellReuseIdentifier: "UnorderedListTableViewCell")
@@ -178,7 +182,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case .scheduled?:
             switch indexPath.section {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "AddressTableViewCell") as? AddressTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as? LocationTableViewCell
                 return cell!
             case 1 ... 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
@@ -190,7 +194,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case .inProgress?, .completed?:
             switch indexPath.section {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "AddressTableViewCell") as? AddressTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as? LocationTableViewCell
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "AssociatedContactsTableViewCell") as? AssociatedContactsTableViewCell
@@ -199,11 +203,13 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 let cell = tableView.dequeueReusableCell(withIdentifier: "UnorderedListTableViewCell") as?
                     UnorderedListTableViewCell
                 cell?.listItemLabel.text = opportunitiesArray[indexPath.row]
+                cell?.listSymbol.image = #imageLiteral(resourceName: "Notify Me Check")
                 return cell!
             case 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "UnorderedListTableViewCell") as?
                     UnorderedListTableViewCell
                 cell?.listItemLabel.text = servicePurposeArray[indexPath.row]
+                cell?.listSymbol.image = #imageLiteral(resourceName: "bullet")
                 return cell!
             case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell

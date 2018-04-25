@@ -11,10 +11,10 @@ import UIKit
 class UnorderedListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var listItemLabel: UILabel!
+    @IBOutlet weak var listSymbol: UIImageView!
     
     override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+        super.awakeFromNib()        
     }
     
 }

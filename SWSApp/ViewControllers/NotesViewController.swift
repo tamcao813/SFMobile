@@ -65,8 +65,9 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource{
             let notes = self.notesDict[indexPath.row]
             let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
             let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditNoteID") as! EditNoteViewController
-            self.present(vc, animated: true, completion: nil)
             (vc as! EditNoteViewController).displayEditNoteData(title: notes["title"]!, date: notes["date"]!, description: notes["description"]!)
+            self.present(vc, animated: true, completion: nil)
+            
             print("EDIT•ACTION");
         });
         //editRowAction.view

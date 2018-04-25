@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,24 +25,38 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2z-cb-diy">
-                        <rect key="frame" x="36" y="16" width="234" height="29"/>
+                        <rect key="frame" x="50" y="5" width="220" height="40.5"/>
                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Notify Me Check" translatesAutoresizingMaskIntoConstraints="NO" id="3Ks-Lz-vuG">
+                        <rect key="frame" x="20" y="15.5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="Q0c-5X-1fn"/>
+                            <constraint firstAttribute="height" constant="20" id="zbg-s1-cZo"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="j2z-cb-diy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="2nd-j5-d3I"/>
-                    <constraint firstItem="j2z-cb-diy" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" constant="5" id="5Rw-Ej-9ct"/>
-                    <constraint firstItem="j2z-cb-diy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="DVd-aP-lLW"/>
+                    <constraint firstItem="j2z-cb-diy" firstAttribute="leading" secondItem="3Ks-Lz-vuG" secondAttribute="trailing" constant="10" id="Gdn-kR-HeB"/>
+                    <constraint firstItem="j2z-cb-diy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JKQ-cE-FIh"/>
+                    <constraint firstItem="j2z-cb-diy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="l3q-nH-U51"/>
+                    <constraint firstAttribute="bottom" secondItem="j2z-cb-diy" secondAttribute="bottom" constant="5" id="nP9-Xc-xcs"/>
                     <constraint firstAttribute="trailing" secondItem="j2z-cb-diy" secondAttribute="trailing" constant="50" id="oMh-4H-oRv"/>
+                    <constraint firstItem="3Ks-Lz-vuG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="osw-EC-2lO"/>
+                    <constraint firstItem="3Ks-Lz-vuG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="sqo-7j-SfO"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="listItemLabel" destination="j2z-cb-diy" id="vZw-oh-xZi"/>
+                <outlet property="listSymbol" destination="3Ks-Lz-vuG" id="rC6-Fu-k3S"/>
             </connections>
             <point key="canvasLocation" x="34" y="57.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Notify Me Check" width="18" height="18"/>
+    </resources>
 </document>

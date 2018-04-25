@@ -1,5 +1,5 @@
 //
-//  AddressTableViewCell.swift
+//  LocationTableViewCell.swift
 //  Acoount Visit
 //
 //  Created by maco on 19/04/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddressTableViewCell: UITableViewCell {
+class LocationTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -71,6 +71,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         return moreTabVC
     }()
     
+    lazy var accountVisit : UIViewController? = {
+        let accountStoryboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
+        let accountVisitListVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitListViewController") as UIViewController
+        return accountVisitListVC
+    }()
+    
+    
+    
     var reachability = Reachability()!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -176,7 +184,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let menuItem5 = NSLocalizedString("Objectives", comment: "Objectives")
         //let menuItem6 = NSLocalizedString("More", comment: "More")
         //let menuItem6 = "More   v" // time being 6April
-        let menuItem6 = "More ..."
+        let menuItem6 = "More ⌵"
         
         let menuTitles = [menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, menuItem6]
         //let menuIcons = [UIImage(), UIImage(), UIImage(), UIImage(),UIImage(), UIImage(named: "moreArrow")!]
@@ -238,12 +246,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.moreDropDown.textColor =  UIColor.gray
         
         moreDropDown.selectionAction = { (index: Int, item: String) in
+            
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
             let currentViewController = self.displayCurrentTab(selectedIndex)
             
             for view in self.view.subviews{
-                
                 // Set the identifier for globalNotification view
                 if(view.restorationIdentifier == "globalNotification"){
                     view.removeFromSuperview()
@@ -256,13 +264,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             switch index {
             case 0:
                 let actionItemsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ActionItemsViewControllerID")
-                moreVC1.view.addSubview((actionItemsVC.view)!)
-               
+                moreVC1.view.addSubview((actionItemsVC.view)!)               
                 self.moreDropDownSelectionIndex = index
             case 1:
-                let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
-                let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitListViewController") as? AccountVisitListViewController
-                moreVC1.view.addSubview((accountVisitsVC?.view)!)
+                moreVC1.view.addSubview((self.accountVisit?.view)!)
                 self.moreDropDownSelectionIndex = index
             case 2:
                 let insightsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "InsightsViewControllerID")

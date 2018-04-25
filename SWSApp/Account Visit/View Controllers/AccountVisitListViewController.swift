@@ -21,10 +21,11 @@ class AccountVisitListViewController: UIViewController {
         customizedUI()
         initializingXIBs()
     }
-    
+
     func customizedUI(){
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
+        self.tableView.tableFooterView = UIView()
     }
     
     func initializingXIBs(){

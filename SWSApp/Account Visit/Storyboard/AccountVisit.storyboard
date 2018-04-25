@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
         <array key="Ubuntu-Regular.ttf">
             <string>Ubuntu</string>
         </array>
@@ -24,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pA8-1K-Fkd">
-                                <rect key="frame" x="894" y="40" width="120" height="40"/>
+                                <rect key="frame" x="894" y="104" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="BWR-Cp-J3K"/>
@@ -36,7 +39,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
+                                        <real key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -44,33 +47,28 @@
                                     <action selector="startOrContinueVisitButtonTapped:" destination="v9Q-k8-N2k" eventType="touchUpInside" id="Z27-6f-LOh"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DTx-A4-gav">
-                                <rect key="frame" x="0.0" y="130" width="1024" height="638"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mJ4-8V-uwc">
+                                <rect key="frame" x="0.0" y="184" width="1024" height="584"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="Yt1-7f-MJ4">
-                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
                                 <connections>
-                                    <outlet property="dataSource" destination="Yyq-GP-B40" id="XP7-yf-Urr"/>
-                                    <outlet property="delegate" destination="Yyq-GP-B40" id="jk0-zY-9i8"/>
+                                    <outlet property="dataSource" destination="Yyq-GP-B40" id="Yhh-3J-X30"/>
+                                    <outlet property="delegate" destination="Yyq-GP-B40" id="H9r-XU-6nO"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="DTx-A4-gav" firstAttribute="top" secondItem="pA8-1K-Fkd" secondAttribute="bottom" constant="50" id="KRR-lo-e3g"/>
-                            <constraint firstItem="FBI-Cv-M3r" firstAttribute="bottom" secondItem="DTx-A4-gav" secondAttribute="bottom" id="Kib-es-H1r"/>
-                            <constraint firstItem="FBI-Cv-M3r" firstAttribute="trailing" secondItem="DTx-A4-gav" secondAttribute="trailing" id="N61-XA-MIu"/>
-                            <constraint firstItem="DTx-A4-gav" firstAttribute="leading" secondItem="FBI-Cv-M3r" secondAttribute="leading" id="QoW-z7-2hW"/>
+                            <constraint firstItem="FBI-Cv-M3r" firstAttribute="bottom" secondItem="mJ4-8V-uwc" secondAttribute="bottom" id="13z-VQ-C7J"/>
+                            <constraint firstItem="mJ4-8V-uwc" firstAttribute="top" secondItem="pA8-1K-Fkd" secondAttribute="bottom" constant="40" id="Alw-lN-Rjk"/>
+                            <constraint firstItem="mJ4-8V-uwc" firstAttribute="leading" secondItem="FBI-Cv-M3r" secondAttribute="leading" id="B2a-70-C08"/>
+                            <constraint firstItem="FBI-Cv-M3r" firstAttribute="trailing" secondItem="mJ4-8V-uwc" secondAttribute="trailing" id="EF5-Ht-Cm3"/>
                             <constraint firstItem="FBI-Cv-M3r" firstAttribute="trailing" secondItem="pA8-1K-Fkd" secondAttribute="trailing" constant="10" id="bHn-2a-eYH"/>
-                            <constraint firstItem="pA8-1K-Fkd" firstAttribute="top" secondItem="FBI-Cv-M3r" secondAttribute="top" constant="20" id="wOF-Uz-fDi"/>
+                            <constraint firstItem="pA8-1K-Fkd" firstAttribute="top" secondItem="FBI-Cv-M3r" secondAttribute="top" constant="84" id="wOF-Uz-fDi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FBI-Cv-M3r"/>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="DTx-A4-gav" id="9bw-eD-Lmw"/>
+                        <outlet property="tableView" destination="mJ4-8V-uwc" id="eab-fB-4qX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wzd-gl-Sd7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -86,13 +84,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Dt-tf-onC">
-                                <rect key="frame" x="73" y="40" width="34.5" height="20"/>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <rect key="frame" x="50" y="40" width="80.5" height="43"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="38"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYG-9I-MTa">
-                                <rect key="frame" x="30" y="100" width="120" height="130"/>
+                                <rect key="frame" x="30" y="123" width="120" height="130"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0f-R3-edu">
                                         <rect key="frame" x="44" y="20" width="32.5" height="20.5"/>
@@ -126,7 +124,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PON-ss-Nsr">
-                                <rect key="frame" x="180" y="100" width="844" height="668"/>
+                                <rect key="frame" x="180" y="123" width="844" height="645"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Ess-1a-y5p">
                                     <rect key="frame" x="0.0" y="0.0" width="844" height="44"/>
@@ -139,19 +137,19 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZ9-L3-SEK">
-                                <rect key="frame" x="30" y="250" width="49" height="20"/>
+                                <rect key="frame" x="30" y="273" width="49" height="20"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scheduled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFp-xT-3QR">
-                                <rect key="frame" x="30" y="280" width="80.5" height="20"/>
+                                <rect key="frame" x="30" y="303" width="80.5" height="20"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGd-Ri-gvD">
-                                <rect key="frame" x="30" y="330" width="120" height="40"/>
+                                <rect key="frame" x="30" y="353" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.25882352941176467" green="0.52941176470588236" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="BoC-Lo-ofj"/>
@@ -163,7 +161,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
+                                        <real key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -171,7 +169,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fh2-vm-Ac9">
-                                <rect key="frame" x="30" y="380" width="120" height="40"/>
+                                <rect key="frame" x="30" y="403" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="GUy-Xc-Bq2"/>
@@ -183,7 +181,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
+                                        <real key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -191,26 +189,25 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-iM-AOQ">
-                                <rect key="frame" x="30" y="430" width="120" height="40"/>
+                                <rect key="frame" x="30" y="453" width="120" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="aex-pJ-A1H"/>
                                     <constraint firstAttribute="height" constant="40" id="hdL-mC-hZq"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                <state key="normal" title="☓ Delete Visit">
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                <state key="normal" title="   Delete Visit" image="delete">
                                     <color key="titleColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blD-Gm-ocV">
-                                <rect key="frame" x="964" y="30.5" width="40" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blD-Gm-ocV">
+                                <rect key="frame" x="964" y="41.5" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="JuD-Nf-dEE"/>
                                     <constraint firstAttribute="height" constant="40" id="hqQ-hg-xxw"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="X">
+                                <state key="normal" image="Close">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -255,7 +252,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="35C-X1-OUV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="-685"/>
+            <point key="canvasLocation" x="1291" y="-1470"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Close" width="38" height="38"/>
+        <image name="delete" width="12" height="12"/>
+    </resources>
 </document>

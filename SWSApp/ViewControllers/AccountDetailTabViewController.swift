@@ -89,16 +89,16 @@ class AccountDetailTabViewController: UITableViewController {
     
     
     
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//
-//        if section == 1{
-//            return "Crown Liquor Store"
-//        }
-//        else if section == 2{
-//            return "Southern Glazer's Contact "
-//        }
-//        return nil
-//    }
+    //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //
+    //        if section == 1{
+    //            return "Crown Liquor Store"
+    //        }
+    //        else if section == 2{
+    //            return "Southern Glazer's Contact "
+    //        }
+    //        return nil
+    //    }
     
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -249,7 +249,7 @@ class AccountDetailTabViewController: UITableViewController {
             let frame = tableView.frame
             // ViewAllContacts Button Frame and Position....
             let viewAllAccountContactsButton = UIButton.init(frame: CGRect(x: 815, y: 25, width: 200, height: 35))
-           
+            
             viewAllAccountContactsButton.setTitle("View All Account Contacts", for: .normal)
             viewAllAccountContactsButton.backgroundColor = UIColor(named: "LightGrey")
             viewAllAccountContactsButton.setTitleColor(UIColor.black, for: .normal)
@@ -306,7 +306,7 @@ class AccountDetailTabViewController: UITableViewController {
         print("Hello World")
         print("Hello World")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:account?.account_Id)
-
+        
     }
     
 }

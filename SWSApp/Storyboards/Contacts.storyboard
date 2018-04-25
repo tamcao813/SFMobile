@@ -250,15 +250,6 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details     &gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Al7-k1-6tO">
-                                                    <rect key="frame" x="651" y="40" width="60" height="14"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="q0f-oz-bv8"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
-                                                    <color key="textColor" name="Data New"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdq-lh-tSN">
                                                     <rect key="frame" x="0.0" y="90" width="726" height="2"/>
                                                     <color key="backgroundColor" name="LightGrey"/>
@@ -282,6 +273,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-9r-BKs">
+                                                    <rect key="frame" x="632.5" y="25" width="38.5" height="40"/>
+                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                                                    <color key="textColor" name="Data New"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Al7-k1-6tO">
+                                                    <rect key="frame" x="679" y="25" width="24" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="q0f-oz-bv8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="20"/>
+                                                    <color key="textColor" name="Data New"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -289,9 +295,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="qkR-c0-Jtr" secondAttribute="bottom" constant="120" id="0tS-qo-iS7"/>
                                                 <constraint firstAttribute="trailing" secondItem="1eM-tG-4Ke" secondAttribute="trailing" constant="211" id="3dL-Hq-7lh"/>
                                                 <constraint firstItem="gJ7-Kf-sx8" firstAttribute="top" secondItem="u1u-WO-Rsb" secondAttribute="bottom" constant="5" id="5HM-7h-KCg"/>
+                                                <constraint firstItem="wJm-9r-BKs" firstAttribute="top" secondItem="WjV-OA-Wwk" secondAttribute="top" constant="25" id="5YT-2t-UYe"/>
                                                 <constraint firstItem="sim-lk-fxV" firstAttribute="leading" secondItem="WjV-OA-Wwk" secondAttribute="leading" id="7BG-vI-9DE"/>
                                                 <constraint firstItem="fdq-lh-tSN" firstAttribute="leading" secondItem="WjV-OA-Wwk" secondAttribute="leading" id="8XD-Qg-2zk"/>
-                                                <constraint firstAttribute="bottom" secondItem="Al7-k1-6tO" secondAttribute="bottom" constant="125.5" id="BWk-Xi-h7h"/>
+                                                <constraint firstAttribute="bottom" secondItem="Al7-k1-6tO" secondAttribute="bottom" constant="115" id="BWk-Xi-h7h"/>
                                                 <constraint firstAttribute="bottom" secondItem="sim-lk-fxV" secondAttribute="bottom" id="EmN-gm-TM8"/>
                                                 <constraint firstItem="qkR-c0-Jtr" firstAttribute="top" secondItem="f5s-M7-EKj" secondAttribute="bottom" constant="5" id="IeO-mh-pIM"/>
                                                 <constraint firstAttribute="bottom" secondItem="fdq-lh-tSN" secondAttribute="bottom" constant="88" id="Jj2-rP-9ba"/>
@@ -302,11 +309,15 @@
                                                 <constraint firstAttribute="bottom" secondItem="gJ7-Kf-sx8" secondAttribute="bottom" constant="120" id="S2v-wf-jkA"/>
                                                 <constraint firstItem="qkR-c0-Jtr" firstAttribute="leading" secondItem="Zhw-14-6ae" secondAttribute="trailing" constant="23" id="UM2-fc-Cfb"/>
                                                 <constraint firstAttribute="trailing" secondItem="sim-lk-fxV" secondAttribute="trailing" id="Uv8-cv-JYN"/>
+                                                <constraint firstItem="wJm-9r-BKs" firstAttribute="bottom" secondItem="Al7-k1-6tO" secondAttribute="bottom" id="VJb-Bl-BfS"/>
                                                 <constraint firstItem="b1R-er-abg" firstAttribute="leading" secondItem="WjV-OA-Wwk" secondAttribute="leading" constant="15" id="aE0-gg-DLp"/>
+                                                <constraint firstItem="fdq-lh-tSN" firstAttribute="top" secondItem="wJm-9r-BKs" secondAttribute="bottom" constant="25" id="aE9-uH-mLf"/>
                                                 <constraint firstItem="gJ7-Kf-sx8" firstAttribute="leading" secondItem="qkR-c0-Jtr" secondAttribute="trailing" constant="58" id="ank-CQ-jIZ"/>
                                                 <constraint firstAttribute="bottom" secondItem="b1R-er-abg" secondAttribute="bottom" constant="120" id="ch0-ku-RlV"/>
                                                 <constraint firstAttribute="bottom" secondItem="1eM-tG-4Ke" secondAttribute="bottom" constant="39" id="d3x-a5-zHc"/>
-                                                <constraint firstAttribute="trailing" secondItem="Al7-k1-6tO" secondAttribute="trailing" constant="15" id="lBZ-4Q-EAq"/>
+                                                <constraint firstItem="wJm-9r-BKs" firstAttribute="height" secondItem="Al7-k1-6tO" secondAttribute="height" id="eXn-on-Gtr"/>
+                                                <constraint firstItem="Al7-k1-6tO" firstAttribute="leading" secondItem="wJm-9r-BKs" secondAttribute="trailing" constant="8" id="kRq-Bp-cIJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="Al7-k1-6tO" secondAttribute="trailing" constant="23" id="lBZ-4Q-EAq"/>
                                                 <constraint firstItem="gJ7-Kf-sx8" firstAttribute="bottom" secondItem="qkR-c0-Jtr" secondAttribute="bottom" id="oQd-GI-Z4h"/>
                                                 <constraint firstItem="f5s-M7-EKj" firstAttribute="leading" secondItem="qkR-c0-Jtr" secondAttribute="leading" id="oSB-V6-bQv"/>
                                                 <constraint firstItem="u1u-WO-Rsb" firstAttribute="leading" secondItem="gJ7-Kf-sx8" secondAttribute="leading" id="teS-c4-id3"/>
@@ -738,6 +749,9 @@
         <image name="radioUnselected" width="20" height="20"/>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Data New">
+            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InitialsBackground">
             <color red="0.14509803921568629" green="0.30588235294117649" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

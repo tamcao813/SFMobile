@@ -15,7 +15,6 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     var globalContactsForList = [Contact]()
     var accountContactsForList = [Contact]()
     var contactsAcc = [AccountContactRelation]()
-
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -26,7 +25,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             return 0
         }
         else if  section == 1{
-            
+            /*
             if ContactsGlobal.accountId == "" {
                 globalContactsForList = contactViewModel.globalContacts()
                 print("globalContactsForList.count = \(globalContactsForList.count)")
@@ -36,8 +35,9 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
                 accountContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
                 print("accountContactsForList.count = \(accountContactsForList.count)")
                 return accountContactsForList.count
-            }
+            }*/
 
+            return globalContactsForList.count
         }
         return 0
     }
@@ -63,6 +63,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        /*
         var ary: [Contact] = []
         if ContactsGlobal.accountId == "" {
             ary = contactViewModel.globalContacts()
@@ -71,12 +72,12 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         }else{
             ary = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
             print("contacts ary.count  = \(ary.count)")
-        }
+        }*/
         
-        //let globalContact:Contact = globalContactsForList[indexPath.row]
+        let globalContact:Contact = globalContactsForList[indexPath.row]
         
-        let globalContact:Contact = ary[indexPath.row]
-     
+//        let globalContact:Contact = ary[indexPath.row]
+
         let cell:ContactListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactListTableViewCell
     
         let fullName = globalContact.firstName + " " + globalContact.lastName
@@ -127,6 +128,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
          NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
        
         contactsAcc = contactViewModel.accountsForContacts()
+        loadContactData()
         
     }
     
@@ -140,6 +142,20 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             let contactDetailsScreen = segue.destination as! ContactListDetailsViewController
             // accountDetailsScreen.accountDetailForLoggedInUser = selectedAccount
         }
+    }
+    
+    //Mark load contact data
+    func loadContactData() {
+        
+        print("loadContactData")
+        if ContactsGlobal.accountId == "" {
+            globalContactsForList = contactViewModel.globalContacts()
+        }else{
+            globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
+            print("globalContactsForList.count  = \(globalContactsForList.count)")
+        }
+        self.tableView.reloadData()
+
     }
     
 }
@@ -156,8 +172,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("filteringContact")
 
         if !filtering {
-            globalContactsForList = contactViewModel.globalContacts()
-            self.tableView.reloadData()
+            loadContactData()
         }
 
     }
@@ -174,7 +189,8 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     
     @objc func reloadAllContacts(notification: NSNotification){
 
-        tableView.reloadData()
+        loadContactData()
+//        tableView.reloadData()
     }
     
     /*

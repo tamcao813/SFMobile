@@ -66,6 +66,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         }else {
             accountVisitsVC?.visitStatus = .inProgress
         }
+        accountVisitsVC?.modalPresentationStyle = .overCurrentContext
         present(accountVisitsVC!, animated: true, completion: nil)
     }
 }

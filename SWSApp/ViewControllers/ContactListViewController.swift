@@ -56,6 +56,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         if section == 0{
             let  headerCell = tableView.dequeueReusableCell(withIdentifier: "buttonCell") as! ContactListTableViewButtonCell
                 headerCell.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
+            headerCell.delegate = self
             return headerCell
         }
         return nil
@@ -193,19 +194,16 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     }
     
     @objc func reloadAllContacts(notification: NSNotification){
-
         loadContactData()
-//        tableView.reloadData()
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+}
+
+extension ContactListViewController : ContactListTableViewButtonCellDelegate {
+    func newContactButtonTapped() {
+        let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
+        let createContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
+        createContactVC?.modalPresentationStyle = .overCurrentContext
+        present(createContactVC!, animated: true, completion: nil)
+    }
 }

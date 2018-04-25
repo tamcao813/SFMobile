@@ -686,13 +686,13 @@ class StoreDispatcher {
     
     func syncDownACR(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let contactIdsString = fetchAllContactIds().joined(separator: "','")
+        let accIdsString = fetchAllAccountIds().joined(separator: "','")
         
-        print("UserTable Contact ids \(contactIdsString)")
+        print("account  ids \(accIdsString)")
         
-        let contactIdsFormattedString = "'" + contactIdsString + "'"
+        let accIdsFormattedString = "'" + accIdsString + "'"
         
-        let soqlQuery = "Select Id,Account.Name, Roles, AccountId, ContactId, Contact.name, SGWS_Account_Site_Number__c From AccountContactRelation WHERE ContactId IN (\(contactIdsFormattedString))"
+        let soqlQuery = "Select Id,Account.Name, Roles, AccountId, ContactId, Contact.name, SGWS_Accou/TestProjects/24April/salesforcemobileapp/SWSApp/Dispatchernt_Site_Number__c From AccountContactRelation WHERE AccountId IN (\(accIdsFormattedString))"
         
         print(soqlQuery)
         

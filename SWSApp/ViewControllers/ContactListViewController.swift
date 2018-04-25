@@ -96,7 +96,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             }
         }
         
-        let formattedaccountsName = accountsName.joined(separator: "','")
+        let formattedaccountsName = accountsName.joined(separator: ",")
         print(formattedaccountsName)
         cell.linkedAccountWithContact.text = "\(formattedaccountsName)"
         

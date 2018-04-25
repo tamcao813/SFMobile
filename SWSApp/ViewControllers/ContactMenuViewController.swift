@@ -49,12 +49,6 @@ class ContactMenuViewController: UIViewController {
             var functionRoles = filterClass.sectionItems[1] as! [String]
 
             for contactObject in contactData {
-                /*
-                if contactObject.functionRole != ""{
-                    if !(functionRoles.contains(contactObject.functionRole)){
-                        functionRoles.append(contactObject.functionRole)
-                    }
-                }*/
                 
                 let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contactObject.contactId)
                 for acrObject in accountsListWithContactId {

@@ -34,7 +34,7 @@
                                     <constraint firstAttribute="height" constant="40" id="tek-IQ-rP6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                <state key="normal" title="Start Visit">
+                                <state key="normal" title="New Visit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>

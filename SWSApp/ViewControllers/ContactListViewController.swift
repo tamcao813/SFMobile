@@ -263,7 +263,9 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
+            self.tableView.beginUpdates()
             self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            self.tableView.endUpdates()
         }
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
@@ -302,8 +304,9 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
+            self.tableView.beginUpdates()
             self.tableView.setContentOffset(CGPoint.zero, animated: true)
-        }
+            self.tableView.endUpdates()        }
         
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
@@ -541,8 +544,9 @@ extension ContactListViewController{
         if(numberOfAccountRows > 0)
         {
             tableView.reloadData()
+            self.tableView.beginUpdates()
             self.tableView.setContentOffset(CGPoint.zero, animated: true)
-        }
+            self.tableView.endUpdates()        }
         
     }
 

@@ -96,6 +96,8 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             }
         }
         
+        accountsName = accountsName.sorted { $0.lowercased() < $1.lowercased() }
+
         let formattedaccountsName = accountsName.joined(separator: ", ")
         print(formattedaccountsName)
         cell.linkedAccountWithContact.text = "\(formattedaccountsName)"

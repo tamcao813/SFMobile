@@ -78,7 +78,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             
             //return globalContactsForList.count
         }
-        return 1
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -263,7 +263,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
-            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            self.tableView.setContentOffset(CGPoint.zero, animated: true)
         }
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
@@ -302,8 +302,9 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
-            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            self.tableView.setContentOffset(CGPoint.zero, animated: true)
         }
+        
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
             pageButtonArr[count].backgroundColor = UIColor.white
@@ -540,7 +541,7 @@ extension ContactListViewController{
         if(numberOfAccountRows > 0)
         {
             tableView.reloadData()
-            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            self.tableView.setContentOffset(CGPoint.zero, animated: true)
         }
         
     }

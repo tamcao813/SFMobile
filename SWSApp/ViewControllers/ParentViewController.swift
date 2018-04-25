@@ -59,8 +59,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }()
     // calendar VC
     lazy var calendarVC : UIViewController? = {
-        let planVisitStoryboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-        let calendarTabVC = planVisitStoryboard.instantiateViewController(withIdentifier: "PlanVisitViewControllerID")
+        let calendarTabVC = self.storyboard?.instantiateViewController(withIdentifier: "CalendarViewControllerID")
+//        let planVisitStoryboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+//        let calendarTabVC = planVisitStoryboard.instantiateViewController(withIdentifier: "PlanVisitViewControllerID")
         return calendarTabVC
     }()
     // objectives VC
@@ -373,6 +374,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if(GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex != selectedVC) {
             self.moreDropDownSelectionIndex = -1
         }
+        
         
         var vc: UIViewController?
         switch selectedVC {

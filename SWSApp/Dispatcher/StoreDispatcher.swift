@@ -692,7 +692,7 @@ class StoreDispatcher {
         
         let accIdsFormattedString = "'" + accIdsString + "'"
         
-        let soqlQuery = "Select Id,Account.Name, Roles, AccountId, ContactId, Contact.name, SGWS_Accou/TestProjects/24April/salesforcemobileapp/SWSApp/Dispatchernt_Site_Number__c From AccountContactRelation WHERE AccountId IN (\(accIdsFormattedString))"
+        let soqlQuery = "Select Id,Account.Name, Roles, AccountId, ContactId, Contact.name, SGWS_Account_Site_Number__c From AccountContactRelation WHERE AccountId IN (\(accIdsFormattedString))"
         
         print(soqlQuery)
         

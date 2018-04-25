@@ -15,7 +15,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     var globalContactsForList = [Contact]()
     var accountContactsForList = [Contact]()
     var contactsAcc = [AccountContactRelation]()
-    
+    @IBOutlet weak var noOfResultLabel: UILabel!
     
     var numberOfAccountRows = 0
     
@@ -40,84 +40,31 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     //Used for Page control operation
     @IBOutlet var pageButtonArr: [UIButton]!
-    
-    
-    
+
     var globalContactCount:Int?
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if  section == 1{
-            /*
-            if ContactsGlobal.accountId == "" {
-                globalContactsForList = contactViewModel.globalContacts()
-                print("globalContactsForList.count = \(globalContactsForList.count)")
-                return globalContactsForList.count
-                
-            }else {
-                accountContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
-                print("accountContactsForList.count = \(accountContactsForList.count)")
-                return accountContactsForList.count
-            }*/
-            
-            let cellsToDisplay = globalContactsForList.count - currentPageIndex!
-            
-            if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
-                numberOfAccountRows = cellsToDisplay
-                return cellsToDisplay
-            }else if (cellsToDisplay == 0) {
-                numberOfAccountRows = 0
-                return 0
-            }
-            else {
-                numberOfAccountRows = self.kPageSize
-                return self.kPageSize
-            }
-            
-            //return globalContactsForList.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {            
+        let cellsToDisplay = globalContactsForList.count - currentPageIndex!
+        
+        if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
+            numberOfAccountRows = cellsToDisplay
+            return cellsToDisplay
+        }else if (cellsToDisplay == 0) {
+            numberOfAccountRows = 0
+            return 0
         }
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0{
-            
-            return 70
+        else {
+            numberOfAccountRows = self.kPageSize
+            return self.kPageSize
         }
         
-        return 0
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        if section == 0{
-            let  headerCell = tableView.dequeueReusableCell(withIdentifier: "buttonCell") as! ContactListTableViewButtonCell
-                headerCell.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
-            return headerCell
-        }
-        return nil
-    }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        /*
-        var ary: [Contact] = []
-        if ContactsGlobal.accountId == "" {
-            ary = contactViewModel.globalContacts()
-            print("globalContacts ary.count  = \(ary.count)")
-            
-        }else{
-            ary = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
-            print("contacts ary.count  = \(ary.count)")
-        }*/
+       
         
         let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
-        
-//        let globalContact:Contact = ary[indexPath.row]
-
         let cell:ContactListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactListTableViewCell
     
         let fullName = globalContact.firstName + " " + globalContact.lastName
@@ -126,6 +73,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         cell.nameValueLabel.text = fullName
         cell.phoneValueLabel.text = globalContact.phoneuNmber
         cell.emailValueLabel.text =  globalContact.email
+        cell.selectionStyle = .none
         
         var accountsName = [String]()
         for acc in contactsAcc{
@@ -149,28 +97,19 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
-    
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        if section == 0 {
-//            return 0
-//        }
-//        else if  section == 1 {
-//            return 0
-//        }
-//        return 0
-//    }
+
     
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         globalContactCount = contactViewModel.globalContacts().count
          NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
             contactsAcc = contactViewModel.accountsForContacts()
-        
         loadContactData()
-        
-        globalContactCount = contactViewModel.globalContacts().count
+       
+ 
         
     }
     
@@ -217,6 +156,8 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         }
         
+        self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
+        
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         
@@ -259,15 +200,14 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
+        self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
         
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
-            self.tableView.beginUpdates()
-            self.tableView.setContentOffset(CGPoint.zero, animated: false)
-            self.tableView.endUpdates()
+            self.tableView.setContentOffset(CGPoint.zero, animated: true)
         }
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
@@ -306,9 +246,8 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
-            self.tableView.beginUpdates()
-            self.tableView.setContentOffset(CGPoint.zero, animated: false)
-            self.tableView.endUpdates()        }
+            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+        }
         
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
@@ -543,12 +482,10 @@ extension ContactListViewController{
         //let tableViewData = accountsForLoggedUserOriginal[self.currentPageIndex!]
         //tableViewDisplayData = [tableViewData]
         
-        if(numberOfAccountRows > 0)
-        {
+        if(numberOfAccountRows > 0){
             tableView.reloadData()
-            self.tableView.beginUpdates()
-            self.tableView.setContentOffset(CGPoint.zero, animated: false)
-            self.tableView.endUpdates()        }
+            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+        }
         
     }
 

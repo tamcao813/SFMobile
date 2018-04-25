@@ -38,7 +38,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     var notificationsView:UIView?
     var filterMenuModel = AccountsMenuViewController()
-    //
+    var contactFilterMenuModel = ContactMenuViewController()
+    
     var previouslySelectedVCIndex = 0
     
     // keep the views loaded
@@ -223,6 +224,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             //show more drop down()
             showMoreDropDown(selectedIndex: selectedSegment)
             filterMenuModel.clearFilterModelData()
+            contactFilterMenuModel.clearFilterModelData()
         }
     }
     
@@ -355,8 +357,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         if index != 1{
             filterMenuModel.clearFilterModelData()
+           
         }
-        
+         contactFilterMenuModel.clearFilterModelData()
         if(previouslySelectedVCIndex == 1)// account list view
         {
             // clear filter, reset data, hide keyboard

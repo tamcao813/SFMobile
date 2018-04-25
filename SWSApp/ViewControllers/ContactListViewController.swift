@@ -44,62 +44,23 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     var globalContactCount:Int?
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if  section == 1{
-            /*
-            if ContactsGlobal.accountId == "" {
-                globalContactsForList = contactViewModel.globalContacts()
-                print("globalContactsForList.count = \(globalContactsForList.count)")
-                return globalContactsForList.count
-                
-            }else {
-                accountContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
-                print("accountContactsForList.count = \(accountContactsForList.count)")
-                return accountContactsForList.count
-            }*/
-            
-            let cellsToDisplay = globalContactsForList.count - currentPageIndex!
-            
-            if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
-                numberOfAccountRows = cellsToDisplay
-                return cellsToDisplay
-            }else if (cellsToDisplay == 0) {
-                numberOfAccountRows = 0
-                return 0
-            }
-            else {
-                numberOfAccountRows = self.kPageSize
-                return self.kPageSize
-            }
-            
-            //return globalContactsForList.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {            
+        let cellsToDisplay = globalContactsForList.count - currentPageIndex!
+        
+        if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
+            numberOfAccountRows = cellsToDisplay
+            return cellsToDisplay
+        }else if (cellsToDisplay == 0) {
+            numberOfAccountRows = 0
+            return 0
         }
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0{
-            
-            return 70
+        else {
+            numberOfAccountRows = self.kPageSize
+            return self.kPageSize
         }
         
-        return 0
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        if section == 0{
-            let  headerCell = tableView.dequeueReusableCell(withIdentifier: "buttonCell") as! ContactListTableViewButtonCell
-                headerCell.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
-            return headerCell
-        }
-        return nil
-    }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -126,7 +87,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         cell.nameValueLabel.text = fullName
         cell.phoneValueLabel.text = globalContact.phoneuNmber
         cell.emailValueLabel.text =  globalContact.email
-        
+        cell.selectionStyle = .none
         var accountsName = [String]()
         for acc in contactsAcc{
             
@@ -265,9 +226,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
-            self.tableView.beginUpdates()
-            self.tableView.setContentOffset(CGPoint.zero, animated: false)
-            self.tableView.endUpdates()
+            self.tableView.setContentOffset(CGPoint.zero, animated: true)
         }
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
@@ -306,9 +265,8 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
-            self.tableView.beginUpdates()
-            self.tableView.setContentOffset(CGPoint.zero, animated: false)
-            self.tableView.endUpdates()        }
+            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+        }
         
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
@@ -543,12 +501,10 @@ extension ContactListViewController{
         //let tableViewData = accountsForLoggedUserOriginal[self.currentPageIndex!]
         //tableViewDisplayData = [tableViewData]
         
-        if(numberOfAccountRows > 0)
-        {
+        if(numberOfAccountRows > 0){
             tableView.reloadData()
-            self.tableView.beginUpdates()
-            self.tableView.setContentOffset(CGPoint.zero, animated: false)
-            self.tableView.endUpdates()        }
+            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+        }
         
     }
 

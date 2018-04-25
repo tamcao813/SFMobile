@@ -374,6 +374,7 @@ class ContactMenuViewController: UIViewController {
             
             print(" Not ValidUserInputAtSearchFilterPanel")
         }
+        self.tableView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     //Clears all the filter selection

@@ -112,8 +112,18 @@ class ContactSortUtility {
             filteredContactArray = contactListToBeSorted
         }
         else if ContactFilterMenuModel.functionRoles.count > 0 {
+            
             enteredAnyFilterCase = true
-            filteredContactArray = contactListToBeSorted.filter( { return ContactFilterMenuModel.functionRoles.contains($0.functionRole) } )
+            filteredContactArray = contactListToBeSorted.filter( {
+                
+                let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: $0.contactId)
+                for acrObject in accountsListWithContactId {
+                    if ContactFilterMenuModel.functionRoles.contains(acrObject.roles) {
+                        return true
+                    }
+                }
+                return false } )
+
         }
 
         return (enteredAnyFilterCase, filteredContactArray)

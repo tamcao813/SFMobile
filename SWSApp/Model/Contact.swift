@@ -166,11 +166,27 @@ class Contact {
                 return name
             }
         }
+
         
-        let initials = name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
+        let initials = name.components(separatedBy: " ")
+        print(initials)
+        var firstChar = ""
         
-        print("My Initials are \(initials)")
-        return initials
+        if(initials[0] != "") {
+            var firstCharIndex = initials[0].index(initials[0].startIndex, offsetBy: 1)
+            firstChar = initials[0].substring(to: firstCharIndex)
+            print(firstChar)
+        }
+        if(initials[1] != "") {
+            var firstCharIndex = initials[1].index(initials[1].startIndex, offsetBy: 1)
+            firstChar = firstChar+initials[1].substring(to: firstCharIndex)
+            print(firstChar)
+        }
+        
+//        let initials = name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
+        
+       // print("My Initials are \(initials)")
+        return firstChar
     }
     
 }

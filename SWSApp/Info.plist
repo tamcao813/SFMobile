@@ -17,13 +17,24 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1.0.1</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>sws</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sws</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>10</string>
+	<string>11</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>SFDCOAuthLoginHost</key>
-	<string>sgws-de--dedev1.cs20.my.salesforce.com</string>
+	<string>sgws-de--detest.cs77.my.salesforce.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>CrimsonText-Bold.ttf</string>
@@ -59,17 +70,6 @@
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>sws</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>sws</string>
-			</array>
-		</dict>
 	</array>
 </dict>
 </plist>

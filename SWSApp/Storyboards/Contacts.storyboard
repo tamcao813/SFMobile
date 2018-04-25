@@ -410,6 +410,7 @@
                         <viewLayoutGuide key="safeArea" id="S37-6b-gFZ"/>
                     </view>
                     <connections>
+                        <outlet property="noOfResultLabel" destination="4UU-Gk-zYp" id="JWh-CJ-0bD"/>
                         <outlet property="tableView" destination="67Z-9W-dmS" id="NMN-FN-iUm"/>
                         <outletCollection property="pageButtonArr" destination="0tg-iz-Vbz" collectionClass="NSMutableArray" id="lgd-oF-dNd"/>
                         <outletCollection property="pageButtonArr" destination="hu1-Lt-hux" collectionClass="NSMutableArray" id="Eap-NN-IQG"/>
@@ -424,7 +425,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qh1-oh-2LP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="702.5390625" y="-3525.390625"/>
+            <point key="canvasLocation" x="600" y="-3563"/>
         </scene>
         <!--Contact List Details View Controller-->
         <scene sceneID="aUl-2J-exI">

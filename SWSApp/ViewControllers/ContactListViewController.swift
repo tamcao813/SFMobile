@@ -15,7 +15,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     var globalContactsForList = [Contact]()
     var accountContactsForList = [Contact]()
     var contactsAcc = [AccountContactRelation]()
-    
+    @IBOutlet weak var noOfResultLabel: UILabel!
     
     var numberOfAccountRows = 0
     
@@ -40,9 +40,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     //Used for Page control operation
     @IBOutlet var pageButtonArr: [UIButton]!
-    
-    
-    
+
     var globalContactCount:Int?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {            
@@ -64,21 +62,9 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        /*
-        var ary: [Contact] = []
-        if ContactsGlobal.accountId == "" {
-            ary = contactViewModel.globalContacts()
-            print("globalContacts ary.count  = \(ary.count)")
-            
-        }else{
-            ary = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
-            print("contacts ary.count  = \(ary.count)")
-        }*/
+       
         
         let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
-        
-//        let globalContact:Contact = ary[indexPath.row]
-
         let cell:ContactListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactListTableViewCell
     
         let fullName = globalContact.firstName + " " + globalContact.lastName
@@ -88,6 +74,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         cell.phoneValueLabel.text = globalContact.phoneuNmber
         cell.emailValueLabel.text =  globalContact.email
         cell.selectionStyle = .none
+        
         var accountsName = [String]()
         for acc in contactsAcc{
             
@@ -110,28 +97,19 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
-    
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        if section == 0 {
-//            return 0
-//        }
-//        else if  section == 1 {
-//            return 0
-//        }
-//        return 0
-//    }
+
     
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         globalContactCount = contactViewModel.globalContacts().count
          NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
             contactsAcc = contactViewModel.accountsForContacts()
-        
         loadContactData()
-        
-        globalContactCount = contactViewModel.globalContacts().count
+       
+ 
         
     }
     
@@ -178,6 +156,8 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         }
         
+        self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
+        
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         
@@ -220,6 +200,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
+        self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
         
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()

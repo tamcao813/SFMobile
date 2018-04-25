@@ -359,7 +359,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             filterMenuModel.clearFilterModelData()
            
         }
-         contactFilterMenuModel.clearFilterModelData()
+        if index != 2{
+            
+            let accVC = contactsVC as? ContactsViewController
+            accVC?.filterMenuVC?.clearFilterModelData()
+        }
+        
         if(previouslySelectedVCIndex == 1)// account list view
         {
             // clear filter, reset data, hide keyboard

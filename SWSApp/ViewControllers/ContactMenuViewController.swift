@@ -47,31 +47,29 @@ class ContactMenuViewController: UIViewController {
         if let contactData = ContactsViewModel().globalContacts() as [Contact]? {
             
             var functionRoles = filterClass.sectionItems[1] as! [String]
-//            var buyerFlags = filterClass.sectionItems[2] as! [String]
 
             for contactObject in contactData {
-                
+                /*
                 if contactObject.functionRole != ""{
                     if !(functionRoles.contains(contactObject.functionRole)){
                         functionRoles.append(contactObject.functionRole)
                     }
-                }
-                /*
-                if contactObject.buyerFlag != ""{
-                    if !(buyerFlags.contains(contactObject.buyerFlag)){
-                        buyerFlags.append(contactObject.buyerFlag)
-                    }
                 }*/
+                
+                let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contactObject.contactId)
+                for acrObject in accountsListWithContactId {
+                    if acrObject.roles != ""{
+                        if !(functionRoles.contains(acrObject.roles)){
+                            functionRoles.append(acrObject.roles)
+                        }
+                    }
+                }
                 
             }
             
             if functionRoles.count > 0{
                 filterClass.sectionItems[1] = functionRoles
             }
-            /*
-            if buyerFlags.count > 0{
-                filterClass.sectionItems[2] = buyerFlags
-            }*/
 
         }
 

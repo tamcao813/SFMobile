@@ -101,4 +101,12 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource{
         return 40.0;
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let notes = self.notesDict[indexPath.row]
+        let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
+        let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditNoteID") as! EditNoteViewController
+        self.present(vc, animated: true, completion: nil)
+        (vc as! EditNoteViewController).displayEditNoteData(title: notes["title"]!, date: notes["date"]!, description: notes["description"]!)
+    }
+    
 }

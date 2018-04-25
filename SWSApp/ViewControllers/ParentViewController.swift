@@ -15,6 +15,10 @@ struct SelectedMoreButton {
     static var selectedItem : Int = -1
 }
 
+struct ContactsGlobal {
+    static var accountId: String = ""
+}
+
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // drop down on tapping more
     let moreDropDown = DropDown()
@@ -110,6 +114,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         } catch {
             print("Unable to start notifier")
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
+        
         
     }
     
@@ -121,6 +127,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func showAllContacts(notification: NSNotification){
+        ContactsGlobal.accountId = notification.object as! String
+        print(notification.object)
+        topMenuBar?.selectedSegment = 2
+        displayCurrentTab(2)
+        
     }
     
     
@@ -340,7 +354,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     // # MARK: viewControllerForSelectedSegmentIndex
     // get the respective view controller as per the selected index of menu from menubar
-    private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
+     func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
         
         self.view.endEditing(true)
         
@@ -368,20 +382,24 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         var vc: UIViewController?
         switch selectedVC {
-            
         case .HomeVCIndex:
             vc = homeVC
+            ContactsGlobal.accountId = ""
         case .AccountVCIndex:
             let accVC = accountsVC as? AccountsViewController
             accVC?.accountDetails?.view.removeFromSuperview()
-            
             vc = accountsVC
-        case .ContactsVCIndex:
-            vc = contactsVC
+            ContactsGlobal.accountId = ""
+           case .ContactsVCIndex:
+            let contactVC = contactsVC as! ContactsViewController
+            vc = contactVC
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
             vc = calendarVC
+            ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             vc = objectivesVC
+             ContactsGlobal.accountId = ""
             
             // have to cover all cases from defined enum, else compiler wont be happy :D
             /*default:

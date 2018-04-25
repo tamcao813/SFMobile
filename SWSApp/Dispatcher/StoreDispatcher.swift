@@ -20,7 +20,8 @@ class StoreDispatcher {
     let SoupUser = "User"
     let SoupAccount = "AccountTeamMember"
     let SoupContact = "Contact"
-    
+    let SoupAccountContactRelation = "AccountContactRelation"
+
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
     lazy final var sfaSyncMgr: SFSmartSyncSyncManager = SFSmartSyncSyncManager.sharedInstance(for: sfaStore)!
@@ -37,6 +38,7 @@ class StoreDispatcher {
         registerUserSoup()
         registerAccountSoup()
         registerContactSoup()
+        registerACRSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -62,6 +64,11 @@ class StoreDispatcher {
         
         group.enter()
         syncDownContact() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownACR() { _ in
             group.leave()
         }
         
@@ -519,7 +526,9 @@ class StoreDispatcher {
         }
         else if error != nil {
             print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
+            
         }
+        print("SG Contacts are \(contactAry)")
         return contactAry
         
     }
@@ -550,7 +559,9 @@ class StoreDispatcher {
         else if error != nil {
             print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
         }
+         print("contact array is \(contactAry)")
         return contactAry
+       
     }
     
     func fetchNotifications(forUser uid: String) -> [Notification]  {
@@ -572,6 +583,143 @@ class StoreDispatcher {
         
         
         
+    }
+    
+    func fetchContacts(forAccount accountId: String) -> [Contact] {
+        
+        print("fetchContactsWithAccountID \(accountId)")
+        var contactAry: [Contact] = []
+        
+        let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:AccountId} = '\(accountId)' "
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let contact = Contact(withAry: ary)
+                contactAry.append(contact)
+            }
+        }
+        else if error != nil {
+            print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
+        }
+        return contactAry
+    }
+    
+    
+    func fetchAllContactIds()->[String]{
+        
+        var contactIdsArray:[String] = []
+        
+        let soqlQuery = "Select {Contact:Id} FROM {Contact}"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                contactIdsArray.append(ary[0] as! String)
+            }
+        }
+        print(contactIdsArray)
+        
+        return contactIdsArray
+    }
+    
+    func fetchContactsAccounts() -> [AccountContactRelation] {
+        
+        print("fetchContactsAccounts")
+        var acrAry: [AccountContactRelation] = []
+        
+        // print("\(formattedContactIdsArray) formattedContactIdsArray")
+        
+        let fields = AccountContactRelation.AccountContactRelationFields.map{"{AccountContactRelation:\($0)}"}
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {AccountContactRelation}"
+        
+        //let soqlQuery = "Select {AccountContactRelation:Account.Name}, {AccountContactRelation:AccountId}, {AccountContactRelation:ContactId},{AccountContactRelation:Contact.name} FROM {AccountContactRelation} WHERE {AccountContactRelation:AccountId} = '\(accountId)' "
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let acr = AccountContactRelation(withAry: ary)
+                acrAry.append(acr)
+            }
+        }
+        else if error != nil {
+            print("fetchContactsAccounts " + " error:" + (error?.localizedDescription)!)
+        }
+        return acrAry
+    }
+    
+    func registerACRSoup(){
+        
+        let acrQueryFields = AccountContactRelation.AccountContactRelationFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...acrQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: acrQueryFields[i], indexType: kSoupIndexTypeString, columnName: acrQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        do {
+            try sfaStore.registerSoup(SoupAccountContactRelation, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupAccountContactRelation soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    func syncDownACR(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let accIdsString = fetchAllAccountIds().joined(separator: "','")
+        
+        print("account  ids \(accIdsString)")
+        
+        let accIdsFormattedString = "'" + accIdsString + "'"
+        
+        let soqlQuery = "Select Id,Account.Name, Roles, AccountId, ContactId, Contact.name, SGWS_Accou/TestProjects/24April/salesforcemobileapp/SWSApp/Dispatchernt_Site_Number__c From AccountContactRelation WHERE AccountId IN (\(accIdsFormattedString))"
+        
+        print(soqlQuery)
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
+            SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupAccountContactRelation)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownACR() done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownACR()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownACR()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
     }
 }
 

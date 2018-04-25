@@ -155,11 +155,38 @@ class Contact {
      */
     
     func getIntials(name: String) -> String{
+        if name == "" { return "" }
         
-        let initials = name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
+        let nameSep = name.components(separatedBy: " ")
+        if (nameSep == [name]) || (nameSep == ["", nameSep[1]]) || (nameSep == [nameSep[0], ""])  {
+            if name.count >= 2 {
+                return String(name.prefix(2))
+            }
+            else {
+                return name
+            }
+        }
+
         
-        print("My Initials are \(initials)")
-        return initials
+        let initials = name.components(separatedBy: " ")
+        print(initials)
+        var firstChar = ""
+        
+        if(initials[0] != "") {
+            var firstCharIndex = initials[0].index(initials[0].startIndex, offsetBy: 1)
+            firstChar = initials[0].substring(to: firstCharIndex)
+            print(firstChar)
+        }
+        if(initials[1] != "") {
+            var firstCharIndex = initials[1].index(initials[1].startIndex, offsetBy: 1)
+            firstChar = firstChar+initials[1].substring(to: firstCharIndex)
+            print(firstChar)
+        }
+        
+//        let initials = name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
+        
+       // print("My Initials are \(initials)")
+        return firstChar
     }
     
 }

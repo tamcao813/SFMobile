@@ -38,139 +38,22 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRS-3O-ZEG">
-                                <rect key="frame" x="288" y="20" width="726" height="677"/>
+                                <rect key="frame" x="288" y="20" width="726" height="748"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <connections>
                                     <segue destination="xUK-RA-fte" kind="embed" identifier="ContactSegue" id="vAr-4M-J6V"/>
                                 </connections>
                             </containerView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="00a-n7-q0j">
-                                <rect key="frame" x="392" y="717" width="518" height="31"/>
-                                <subviews>
-                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLB-75-9cA">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="31"/>
-                                        <color key="backgroundColor" name="LightGrey"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="Ec7-Sw-VMl"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                        <state key="normal" title="&lt;   First Page">
-                                            <color key="titleColor" name="Data New"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyZ-8y-fZT">
-                                        <rect key="frame" x="151" y="0.0" width="30" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                        <state key="normal" title="&lt;">
-                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1P-a0-EiV">
-                                        <rect key="frame" x="182" y="0.0" width="30" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
-                                        <state key="normal" title="1">
-                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <state key="selected">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gtv-yn-fkV">
-                                        <rect key="frame" x="213" y="0.0" width="30" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
-                                        <state key="normal" title="2">
-                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mn7-MQ-DZh">
-                                        <rect key="frame" x="244" y="0.0" width="30" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
-                                        <state key="normal" title="3">
-                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5AM-Aw-or5">
-                                        <rect key="frame" x="275" y="0.0" width="30" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
-                                        <state key="normal" title="4">
-                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEG-Lt-spj">
-                                        <rect key="frame" x="306" y="0.0" width="30" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
-                                        <state key="normal" title="5">
-                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" tag="107" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBE-BO-dNf">
-                                        <rect key="frame" x="337" y="0.0" width="30" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                        <state key="normal" title="&gt;">
-                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" tag="108" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6Q-gv-YPM">
-                                        <rect key="frame" x="368" y="0.0" width="150" height="31"/>
-                                        <color key="backgroundColor" name="LightGrey"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="HHg-yB-VlG"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                        <state key="normal" title="Last Page  &gt;">
-                                            <color key="titleColor" name="Data New"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" name="LightGrey"/>
                         <constraints>
                             <constraint firstItem="PG4-Wc-pZg" firstAttribute="leading" secondItem="nTb-8s-dsk" secondAttribute="leading" id="3Ma-f5-Ffo"/>
                             <constraint firstItem="nTb-8s-dsk" firstAttribute="bottom" secondItem="PG4-Wc-pZg" secondAttribute="bottom" constant="1" id="4Nd-gw-qDr"/>
-                            <constraint firstItem="nTb-8s-dsk" firstAttribute="bottom" secondItem="00a-n7-q0j" secondAttribute="bottom" constant="20" id="GoE-Xb-V2g"/>
-                            <constraint firstItem="nTb-8s-dsk" firstAttribute="trailing" secondItem="00a-n7-q0j" secondAttribute="trailing" constant="114" id="KTX-PB-MM3"/>
                             <constraint firstItem="PG4-Wc-pZg" firstAttribute="width" secondItem="wt4-55-Ok9" secondAttribute="width" multiplier="310/1024" constant="-30" id="NJu-Ny-0Z9"/>
                             <constraint firstItem="PG4-Wc-pZg" firstAttribute="top" secondItem="nTb-8s-dsk" secondAttribute="top" id="UpO-ul-LBx"/>
                             <constraint firstItem="LRS-3O-ZEG" firstAttribute="top" secondItem="nTb-8s-dsk" secondAttribute="top" id="Vef-dG-3mn"/>
-                            <constraint firstItem="00a-n7-q0j" firstAttribute="top" secondItem="LRS-3O-ZEG" secondAttribute="bottom" constant="20" id="bUc-t2-I8H"/>
                             <constraint firstItem="LRS-3O-ZEG" firstAttribute="leading" secondItem="PG4-Wc-pZg" secondAttribute="trailing" constant="8" id="esN-EW-FI1"/>
-                            <constraint firstItem="00a-n7-q0j" firstAttribute="leading" secondItem="PG4-Wc-pZg" secondAttribute="trailing" constant="112" id="hyi-2C-Uu3"/>
-                            <constraint firstItem="nTb-8s-dsk" firstAttribute="bottom" secondItem="LRS-3O-ZEG" secondAttribute="bottom" constant="71" id="kLk-ip-0Bz"/>
+                            <constraint firstItem="nTb-8s-dsk" firstAttribute="bottom" secondItem="LRS-3O-ZEG" secondAttribute="bottom" id="kLk-ip-0Bz"/>
                             <constraint firstItem="nTb-8s-dsk" firstAttribute="trailing" secondItem="LRS-3O-ZEG" secondAttribute="trailing" constant="10" id="zW3-sZ-bbx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nTb-8s-dsk"/>
@@ -185,16 +68,48 @@
             <objects>
                 <viewController id="xUK-RA-fte" customClass="ContactListViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="my4-FX-0c9">
-                        <rect key="frame" x="0.0" y="0.0" width="726" height="677"/>
+                        <rect key="frame" x="0.0" y="0.0" width="726" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="67Z-9W-dmS">
-                                <rect key="frame" x="0.0" y="0.0" width="726" height="677"/>
+                                <rect key="frame" x="0.0" y="0.0" width="726" height="666"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="VcJ-kO-cyU">
+                                    <rect key="frame" x="0.0" y="0.0" width="726" height="80"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAx-eP-RFc">
+                                            <rect key="frame" x="586" y="22.5" width="120" height="35"/>
+                                            <color key="backgroundColor" name="Data New"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="120" id="prQ-h8-aRm"/>
+                                                <constraint firstAttribute="height" constant="35" id="zRP-Cp-wPc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                            <state key="normal" title="New Contact  +">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Showing 6 of 300 results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4UU-Gk-zYp">
+                                            <rect key="frame" x="20" y="32" width="466" height="16"/>
+                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="LightGrey"/>
+                                    <constraints>
+                                        <constraint firstItem="fAx-eP-RFc" firstAttribute="leading" secondItem="4UU-Gk-zYp" secondAttribute="trailing" constant="100" id="9CY-Bb-Z5T"/>
+                                        <constraint firstItem="4UU-Gk-zYp" firstAttribute="centerY" secondItem="VcJ-kO-cyU" secondAttribute="centerY" id="D0M-B3-dnn"/>
+                                        <constraint firstAttribute="trailing" secondItem="fAx-eP-RFc" secondAttribute="trailing" constant="20" id="Dcx-OA-osc"/>
+                                        <constraint firstItem="4UU-Gk-zYp" firstAttribute="leading" secondItem="VcJ-kO-cyU" secondAttribute="leading" constant="20" id="Vq1-f3-eAe"/>
+                                        <constraint firstItem="fAx-eP-RFc" firstAttribute="centerY" secondItem="VcJ-kO-cyU" secondAttribute="centerY" id="XPM-qP-rJP"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="180" id="bxc-L3-2ig" customClass="ContactListTableViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="726" height="180"/>
+                                        <rect key="frame" x="0.0" y="108" width="726" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bxc-L3-2ig" id="WjV-OA-Wwk">
                                             <rect key="frame" x="0.0" y="0.0" width="726" height="180"/>
@@ -250,15 +165,6 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details     &gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Al7-k1-6tO">
-                                                    <rect key="frame" x="651" y="40" width="60" height="14"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="q0f-oz-bv8"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
-                                                    <color key="textColor" name="Data New"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdq-lh-tSN">
                                                     <rect key="frame" x="0.0" y="90" width="726" height="2"/>
                                                     <color key="backgroundColor" name="LightGrey"/>
@@ -282,6 +188,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-9r-BKs">
+                                                    <rect key="frame" x="632.5" y="25" width="38.5" height="40"/>
+                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                                                    <color key="textColor" name="Data New"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Al7-k1-6tO">
+                                                    <rect key="frame" x="679" y="25" width="24" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="q0f-oz-bv8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="20"/>
+                                                    <color key="textColor" name="Data New"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -289,9 +210,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="qkR-c0-Jtr" secondAttribute="bottom" constant="120" id="0tS-qo-iS7"/>
                                                 <constraint firstAttribute="trailing" secondItem="1eM-tG-4Ke" secondAttribute="trailing" constant="211" id="3dL-Hq-7lh"/>
                                                 <constraint firstItem="gJ7-Kf-sx8" firstAttribute="top" secondItem="u1u-WO-Rsb" secondAttribute="bottom" constant="5" id="5HM-7h-KCg"/>
+                                                <constraint firstItem="wJm-9r-BKs" firstAttribute="top" secondItem="WjV-OA-Wwk" secondAttribute="top" constant="25" id="5YT-2t-UYe"/>
                                                 <constraint firstItem="sim-lk-fxV" firstAttribute="leading" secondItem="WjV-OA-Wwk" secondAttribute="leading" id="7BG-vI-9DE"/>
                                                 <constraint firstItem="fdq-lh-tSN" firstAttribute="leading" secondItem="WjV-OA-Wwk" secondAttribute="leading" id="8XD-Qg-2zk"/>
-                                                <constraint firstAttribute="bottom" secondItem="Al7-k1-6tO" secondAttribute="bottom" constant="125.5" id="BWk-Xi-h7h"/>
+                                                <constraint firstAttribute="bottom" secondItem="Al7-k1-6tO" secondAttribute="bottom" constant="115" id="BWk-Xi-h7h"/>
                                                 <constraint firstAttribute="bottom" secondItem="sim-lk-fxV" secondAttribute="bottom" id="EmN-gm-TM8"/>
                                                 <constraint firstItem="qkR-c0-Jtr" firstAttribute="top" secondItem="f5s-M7-EKj" secondAttribute="bottom" constant="5" id="IeO-mh-pIM"/>
                                                 <constraint firstAttribute="bottom" secondItem="fdq-lh-tSN" secondAttribute="bottom" constant="88" id="Jj2-rP-9ba"/>
@@ -302,11 +224,15 @@
                                                 <constraint firstAttribute="bottom" secondItem="gJ7-Kf-sx8" secondAttribute="bottom" constant="120" id="S2v-wf-jkA"/>
                                                 <constraint firstItem="qkR-c0-Jtr" firstAttribute="leading" secondItem="Zhw-14-6ae" secondAttribute="trailing" constant="23" id="UM2-fc-Cfb"/>
                                                 <constraint firstAttribute="trailing" secondItem="sim-lk-fxV" secondAttribute="trailing" id="Uv8-cv-JYN"/>
+                                                <constraint firstItem="wJm-9r-BKs" firstAttribute="bottom" secondItem="Al7-k1-6tO" secondAttribute="bottom" id="VJb-Bl-BfS"/>
                                                 <constraint firstItem="b1R-er-abg" firstAttribute="leading" secondItem="WjV-OA-Wwk" secondAttribute="leading" constant="15" id="aE0-gg-DLp"/>
+                                                <constraint firstItem="fdq-lh-tSN" firstAttribute="top" secondItem="wJm-9r-BKs" secondAttribute="bottom" constant="25" id="aE9-uH-mLf"/>
                                                 <constraint firstItem="gJ7-Kf-sx8" firstAttribute="leading" secondItem="qkR-c0-Jtr" secondAttribute="trailing" constant="58" id="ank-CQ-jIZ"/>
                                                 <constraint firstAttribute="bottom" secondItem="b1R-er-abg" secondAttribute="bottom" constant="120" id="ch0-ku-RlV"/>
                                                 <constraint firstAttribute="bottom" secondItem="1eM-tG-4Ke" secondAttribute="bottom" constant="39" id="d3x-a5-zHc"/>
-                                                <constraint firstAttribute="trailing" secondItem="Al7-k1-6tO" secondAttribute="trailing" constant="15" id="lBZ-4Q-EAq"/>
+                                                <constraint firstItem="wJm-9r-BKs" firstAttribute="height" secondItem="Al7-k1-6tO" secondAttribute="height" id="eXn-on-Gtr"/>
+                                                <constraint firstItem="Al7-k1-6tO" firstAttribute="leading" secondItem="wJm-9r-BKs" secondAttribute="trailing" constant="8" id="kRq-Bp-cIJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="Al7-k1-6tO" secondAttribute="trailing" constant="23" id="lBZ-4Q-EAq"/>
                                                 <constraint firstItem="gJ7-Kf-sx8" firstAttribute="bottom" secondItem="qkR-c0-Jtr" secondAttribute="bottom" id="oQd-GI-Z4h"/>
                                                 <constraint firstItem="f5s-M7-EKj" firstAttribute="leading" secondItem="qkR-c0-Jtr" secondAttribute="leading" id="oSB-V6-bQv"/>
                                                 <constraint firstItem="u1u-WO-Rsb" firstAttribute="leading" secondItem="gJ7-Kf-sx8" secondAttribute="leading" id="teS-c4-id3"/>
@@ -325,71 +251,192 @@
                                             <segue destination="mrh-ed-dzP" kind="show" id="ZmI-GK-CHP"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="buttonCell" rowHeight="70" id="6Ih-Q4-lcQ" customClass="ContactListTableViewButtonCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="208" width="726" height="70"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Ih-Q4-lcQ" id="FJY-MD-o0q">
-                                            <rect key="frame" x="0.0" y="0.0" width="726" height="70"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAx-eP-RFc">
-                                                    <rect key="frame" x="606" y="17" width="120" height="35"/>
-                                                    <color key="backgroundColor" name="Data New"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="120" id="prQ-h8-aRm"/>
-                                                        <constraint firstAttribute="height" constant="35" id="zRP-Cp-wPc"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                                    <state key="normal" title="New Contact  +">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="fAx-eP-RFc" firstAttribute="top" secondItem="FJY-MD-o0q" secondAttribute="top" constant="17" id="4Ig-i9-55c"/>
-                                                <constraint firstAttribute="trailing" secondItem="fAx-eP-RFc" secondAttribute="trailing" id="5ch-B2-VTM"/>
-                                                <constraint firstAttribute="bottom" secondItem="fAx-eP-RFc" secondAttribute="bottom" constant="17.5" id="RQm-tz-w2K"/>
-                                                <constraint firstItem="fAx-eP-RFc" firstAttribute="leading" secondItem="FJY-MD-o0q" secondAttribute="leading" constant="606" id="n2q-YD-zrX"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="newContactButton" destination="fAx-eP-RFc" id="xMq-ya-kLp"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="xUK-RA-fte" id="V6X-X3-EE0"/>
                                     <outlet property="delegate" destination="xUK-RA-fte" id="60v-bE-am1"/>
                                 </connections>
                             </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="8rm-qV-sqC">
+                                <rect key="frame" x="104" y="692" width="518" height="32"/>
+                                <subviews>
+                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJw-6o-KiQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="32"/>
+                                        <color key="backgroundColor" name="LightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="13J-h7-5lL"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                        <state key="normal" title="&lt;   First Page">
+                                            <color key="titleColor" name="Data New"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageActionHandelerContactListWithSender:" destination="xUK-RA-fte" eventType="touchUpInside" id="a25-TJ-OaU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0tg-iz-Vbz">
+                                        <rect key="frame" x="151" y="0.0" width="30" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                        <state key="normal" title="&lt;">
+                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageActionHandelerContactListWithSender:" destination="xUK-RA-fte" eventType="touchUpInside" id="xiV-JD-Gqx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hu1-Lt-hux">
+                                        <rect key="frame" x="182" y="0.0" width="30" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                        <state key="normal" title="1">
+                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageActionHandelerContactListWithSender:" destination="xUK-RA-fte" eventType="touchUpInside" id="qi5-4A-dQD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDW-yN-QFT">
+                                        <rect key="frame" x="213" y="0.0" width="30" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                        <state key="normal" title="2">
+                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageActionHandelerContactListWithSender:" destination="xUK-RA-fte" eventType="touchUpInside" id="x5r-g0-a1S"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdQ-p0-Vjb">
+                                        <rect key="frame" x="244" y="0.0" width="30" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                        <state key="normal" title="3">
+                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageActionHandelerContactListWithSender:" destination="xUK-RA-fte" eventType="touchUpInside" id="3OB-a8-JFz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUj-Qt-5in">
+                                        <rect key="frame" x="275" y="0.0" width="30" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                        <state key="normal" title="4">
+                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageActionHandelerContactListWithSender:" destination="xUK-RA-fte" eventType="touchUpInside" id="liM-Hp-rd9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdD-tF-7jF">
+                                        <rect key="frame" x="306" y="0.0" width="30" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                        <state key="normal" title="5">
+                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageActionHandelerContactListWithSender:" destination="xUK-RA-fte" eventType="touchUpInside" id="IuE-Xu-7gj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="107" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xp0-GJ-C2u">
+                                        <rect key="frame" x="337" y="0.0" width="30" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                        <state key="normal" title="&gt;">
+                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageActionHandelerContactListWithSender:" destination="xUK-RA-fte" eventType="touchUpInside" id="qwd-VK-QcA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="108" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2p-de-9Lr">
+                                        <rect key="frame" x="368" y="0.0" width="150" height="32"/>
+                                        <color key="backgroundColor" name="LightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="ebK-mA-D4g"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                        <state key="normal" title="Last Page  &gt;">
+                                            <color key="titleColor" name="Data New"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageActionHandelerContactListWithSender:" destination="xUK-RA-fte" eventType="touchUpInside" id="D4E-QB-Ix4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.94117647058823528" green="0.95686274509803926" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="67Z-9W-dmS" firstAttribute="leading" secondItem="S37-6b-gFZ" secondAttribute="leading" id="4OZ-8p-2qj"/>
-                            <constraint firstItem="67Z-9W-dmS" firstAttribute="bottom" secondItem="S37-6b-gFZ" secondAttribute="bottom" id="AkP-Dh-oGK"/>
+                            <constraint firstItem="S37-6b-gFZ" firstAttribute="bottom" secondItem="8rm-qV-sqC" secondAttribute="bottom" constant="24" id="8fJ-KB-WAs"/>
+                            <constraint firstItem="8rm-qV-sqC" firstAttribute="top" secondItem="67Z-9W-dmS" secondAttribute="bottom" constant="26" id="QJE-RP-Imh"/>
                             <constraint firstItem="67Z-9W-dmS" firstAttribute="top" secondItem="my4-FX-0c9" secondAttribute="top" id="UoP-pN-70g"/>
+                            <constraint firstItem="8rm-qV-sqC" firstAttribute="centerX" secondItem="S37-6b-gFZ" secondAttribute="centerX" id="dqO-oN-4EK"/>
                             <constraint firstItem="67Z-9W-dmS" firstAttribute="trailing" secondItem="S37-6b-gFZ" secondAttribute="trailing" id="l2X-rI-vuz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="S37-6b-gFZ"/>
                     </view>
                     <connections>
+                        <outlet property="noOfResultLabel" destination="4UU-Gk-zYp" id="JWh-CJ-0bD"/>
                         <outlet property="tableView" destination="67Z-9W-dmS" id="NMN-FN-iUm"/>
+                        <outletCollection property="pageButtonArr" destination="0tg-iz-Vbz" collectionClass="NSMutableArray" id="lgd-oF-dNd"/>
+                        <outletCollection property="pageButtonArr" destination="hu1-Lt-hux" collectionClass="NSMutableArray" id="Eap-NN-IQG"/>
+                        <outletCollection property="pageButtonArr" destination="QDW-yN-QFT" collectionClass="NSMutableArray" id="0l1-rP-hFq"/>
+                        <outletCollection property="pageButtonArr" destination="CdQ-p0-Vjb" collectionClass="NSMutableArray" id="a1f-UE-pdq"/>
+                        <outletCollection property="pageButtonArr" destination="IUj-Qt-5in" collectionClass="NSMutableArray" id="mFh-sR-ii1"/>
+                        <outletCollection property="pageButtonArr" destination="sdD-tF-7jF" collectionClass="NSMutableArray" id="hQf-XZ-zqG"/>
+                        <outletCollection property="pageButtonArr" destination="xp0-GJ-C2u" collectionClass="NSMutableArray" id="Oo1-e5-e8R"/>
+                        <outletCollection property="pageButtonArr" destination="bJw-6o-KiQ" collectionClass="NSMutableArray" id="jBr-bW-lGb"/>
+                        <outletCollection property="pageButtonArr" destination="a2p-de-9Lr" collectionClass="NSMutableArray" id="1UM-0w-gbT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qh1-oh-2LP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="702.5390625" y="-3525.390625"/>
+            <point key="canvasLocation" x="600" y="-3563"/>
         </scene>
         <!--Contact List Details View Controller-->
         <scene sceneID="aUl-2J-exI">
             <objects>
                 <viewController id="mrh-ed-dzP" customClass="ContactListDetailsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4H4-mI-jHH">
-                        <rect key="frame" x="0.0" y="0.0" width="726" height="677"/>
+                        <rect key="frame" x="0.0" y="0.0" width="726" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pbm-nr-HYa">
-                                <rect key="frame" x="20" y="20" width="686" height="637"/>
+                                <rect key="frame" x="20" y="20" width="686" height="708"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactDetailsCell" rowHeight="300" id="Upj-zl-vSy" customClass="ContactListDetailsTableViewCell" customModule="SWSApp" customModuleProvider="target">
@@ -641,7 +688,7 @@
                                 <rect key="frame" x="0.0" y="678" width="280" height="69"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7F-uP-mHo">
-                                        <rect key="frame" x="30" y="14" width="74.5" height="40"/>
+                                        <rect key="frame" x="30" y="14" width="75" height="40"/>
                                         <color key="backgroundColor" red="0.89525987689999997" green="0.89525987689999997" blue="0.89525987689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="Clear">
@@ -658,7 +705,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUZ-q9-FuG">
-                                        <rect key="frame" x="126.5" y="14" width="128.5" height="40"/>
+                                        <rect key="frame" x="127" y="14" width="128" height="40"/>
                                         <color key="backgroundColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="Submit">
@@ -675,7 +722,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wii-gM-Y8r">
-                                        <rect key="frame" x="139.5" y="24" width="1" height="20"/>
+                                        <rect key="frame" x="140" y="24" width="1" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="MfQ-Bd-7u2"/>
@@ -732,6 +779,9 @@
         </namedColor>
         <namedColor name="InitialsBackground">
             <color red="0.14509803921568629" green="0.30588235294117649" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LightGrey">
+            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightGrey">
             <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

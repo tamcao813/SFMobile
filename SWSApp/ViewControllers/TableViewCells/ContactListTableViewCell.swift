@@ -37,6 +37,7 @@ class ContactListTableViewButtonCell: UITableViewCell {
     
     @IBOutlet weak var newContactButton: UIButton!
     
+    @IBOutlet weak var noOfResultLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         self.newContactButton.layer.cornerRadius = 4

@@ -531,6 +531,7 @@ class AccountsListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     
+    
     //Use to update the table view data
     func updateTheTableViewDataAccordingly(){
         

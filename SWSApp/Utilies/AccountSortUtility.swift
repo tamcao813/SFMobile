@@ -17,6 +17,13 @@ class AccountSortUtility
         case KMultiLocation = "Multi"
     }
     
+    static func searchAccountByAccountId(accountsForLoggedUser:[Account], accountId:String)->[Account]
+    {
+
+        return accountsForLoggedUser.filter( { return $0.account_Id == accountId } )
+
+    }
+
     static func searchAccountBySearchBarQuery(accountsForLoggedUser:[Account], searchText:String)->[Account]
     {
         print("sortAccountByFilterSearchBarQuery: " + searchText)

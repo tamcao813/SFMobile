@@ -38,7 +38,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     var notificationsView:UIView?
     var filterMenuModel = AccountsMenuViewController()
-    //
+    var contactFilterMenuModel = ContactMenuViewController()
+    
     var previouslySelectedVCIndex = 0
     
     // keep the views loaded
@@ -59,8 +60,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }()
     // calendar VC
     lazy var calendarVC : UIViewController? = {
-        let planVisitStoryboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-        let calendarTabVC = planVisitStoryboard.instantiateViewController(withIdentifier: "PlanVisitViewControllerID")
+        let calendarTabVC = self.storyboard?.instantiateViewController(withIdentifier: "CalendarViewControllerID")
+//        let planVisitStoryboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+//        let calendarTabVC = planVisitStoryboard.instantiateViewController(withIdentifier: "PlanVisitViewControllerID")
         return calendarTabVC
     }()
     // objectives VC
@@ -222,6 +224,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             //show more drop down()
             showMoreDropDown(selectedIndex: selectedSegment)
             filterMenuModel.clearFilterModelData()
+            contactFilterMenuModel.clearFilterModelData()
         }
     }
     
@@ -354,6 +357,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         if index != 1{
             filterMenuModel.clearFilterModelData()
+           
+        }
+        if index != 2{
+            
+            let accVC = contactsVC as? ContactsViewController
+            accVC?.filterMenuVC?.clearFilterModelData()
         }
         
         if(previouslySelectedVCIndex == 1)// account list view
@@ -363,7 +372,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             let accVC = accountsVC as? AccountsViewController
             accVC?.filterMenuVC?.resetEnteredDataAndAccountList()
         }
-        
+        else if(previouslySelectedVCIndex == 2)// contact list view
+        {
+            // clear filter, reset data, hide keyboard
+            print("previous is contact list")
+            let conVC = contactsVC as? ContactsViewController
+            conVC?.filterMenuVC?.resetEnteredDataAndContactList()
+        }
+
         self.notificationButton?.isEnabled = true
         self.numberLabel?.isUserInteractionEnabled = true
         
@@ -373,6 +389,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if(GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex != selectedVC) {
             self.moreDropDownSelectionIndex = -1
         }
+        
         
         var vc: UIViewController?
         switch selectedVC {

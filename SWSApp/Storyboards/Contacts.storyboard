@@ -38,7 +38,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRS-3O-ZEG">
-                                <rect key="frame" x="288" y="20" width="726" height="748"/>
+                                <rect key="frame" x="288" y="20" width="726" height="747"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <connections>
                                     <segue destination="xUK-RA-fte" kind="embed" identifier="ContactSegue" id="vAr-4M-J6V"/>
@@ -53,7 +53,7 @@
                             <constraint firstItem="PG4-Wc-pZg" firstAttribute="top" secondItem="nTb-8s-dsk" secondAttribute="top" id="UpO-ul-LBx"/>
                             <constraint firstItem="LRS-3O-ZEG" firstAttribute="top" secondItem="nTb-8s-dsk" secondAttribute="top" id="Vef-dG-3mn"/>
                             <constraint firstItem="LRS-3O-ZEG" firstAttribute="leading" secondItem="PG4-Wc-pZg" secondAttribute="trailing" constant="8" id="esN-EW-FI1"/>
-                            <constraint firstItem="nTb-8s-dsk" firstAttribute="bottom" secondItem="LRS-3O-ZEG" secondAttribute="bottom" id="kLk-ip-0Bz"/>
+                            <constraint firstItem="nTb-8s-dsk" firstAttribute="bottom" secondItem="LRS-3O-ZEG" secondAttribute="bottom" constant="1" id="kLk-ip-0Bz"/>
                             <constraint firstItem="nTb-8s-dsk" firstAttribute="trailing" secondItem="LRS-3O-ZEG" secondAttribute="trailing" constant="10" id="zW3-sZ-bbx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nTb-8s-dsk"/>
@@ -68,11 +68,11 @@
             <objects>
                 <viewController id="xUK-RA-fte" customClass="ContactListViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="my4-FX-0c9">
-                        <rect key="frame" x="0.0" y="0.0" width="726" height="748"/>
+                        <rect key="frame" x="0.0" y="0.0" width="726" height="747"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="67Z-9W-dmS">
-                                <rect key="frame" x="-3" y="0.0" width="726" height="666"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="67Z-9W-dmS">
+                                <rect key="frame" x="0.0" y="0.0" width="726" height="665"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="VcJ-kO-cyU">
@@ -241,7 +241,6 @@
                                             <outlet property="nameValueLabel" destination="Zhw-14-6ae" id="t0s-zw-DbK"/>
                                             <outlet property="phoneLabel" destination="f5s-M7-EKj" id="o4U-Ig-sCz"/>
                                             <outlet property="phoneValueLabel" destination="qkR-c0-Jtr" id="mNu-kW-niN"/>
-                                            <segue destination="mrh-ed-dzP" kind="show" id="ZmI-GK-CHP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -251,7 +250,7 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="8rm-qV-sqC">
-                                <rect key="frame" x="104" y="692" width="518" height="32"/>
+                                <rect key="frame" x="104" y="691" width="518" height="32"/>
                                 <subviews>
                                     <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJw-6o-KiQ">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="32"/>
@@ -393,12 +392,12 @@
                         </subviews>
                         <color key="backgroundColor" red="0.94117647058823528" green="0.95686274509803926" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="67Z-9W-dmS" firstAttribute="leading" secondItem="S37-6b-gFZ" secondAttribute="leading" constant="-3" id="4OZ-8p-2qj"/>
+                            <constraint firstItem="67Z-9W-dmS" firstAttribute="leading" secondItem="S37-6b-gFZ" secondAttribute="leading" id="4OZ-8p-2qj"/>
                             <constraint firstItem="S37-6b-gFZ" firstAttribute="bottom" secondItem="8rm-qV-sqC" secondAttribute="bottom" constant="24" id="8fJ-KB-WAs"/>
                             <constraint firstItem="8rm-qV-sqC" firstAttribute="top" secondItem="67Z-9W-dmS" secondAttribute="bottom" constant="26" id="QJE-RP-Imh"/>
                             <constraint firstItem="67Z-9W-dmS" firstAttribute="top" secondItem="my4-FX-0c9" secondAttribute="top" id="UoP-pN-70g"/>
                             <constraint firstItem="8rm-qV-sqC" firstAttribute="centerX" secondItem="S37-6b-gFZ" secondAttribute="centerX" id="dqO-oN-4EK"/>
-                            <constraint firstItem="67Z-9W-dmS" firstAttribute="trailing" secondItem="S37-6b-gFZ" secondAttribute="trailing" constant="-3" id="l2X-rI-vuz"/>
+                            <constraint firstItem="67Z-9W-dmS" firstAttribute="trailing" secondItem="S37-6b-gFZ" secondAttribute="trailing" id="l2X-rI-vuz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="S37-6b-gFZ"/>
                     </view>
@@ -424,18 +423,18 @@
             <objects>
                 <viewController id="mrh-ed-dzP" customClass="ContactListDetailsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4H4-mI-jHH">
-                        <rect key="frame" x="0.0" y="0.0" width="726" height="748"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pbm-nr-HYa">
-                                <rect key="frame" x="20" y="20" width="686" height="708"/>
+                                <rect key="frame" x="20" y="20" width="984" height="728"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactDetailsCell" rowHeight="300" id="Upj-zl-vSy" customClass="ContactListDetailsTableViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="686" height="300"/>
+                                        <rect key="frame" x="0.0" y="28" width="984" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Upj-zl-vSy" id="IXH-h6-NQf">
-                                            <rect key="frame" x="0.0" y="0.0" width="686" height="299.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="984" height="299.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnI-5x-CT4">
@@ -510,7 +509,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PA3-i8-nhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1303" y="-3563"/>
+            <point key="canvasLocation" x="1580" y="-3977"/>
         </scene>
         <!--Contact Menu View Controller-->
         <scene sceneID="47X-J1-uRM">

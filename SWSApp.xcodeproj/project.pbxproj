@@ -1357,6 +1357,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
 				INFOPLIST_FILE = SWSApp/Info.plist;
+				INFOPLIST_OUTPUT_FORMAT = XML;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1380,6 +1381,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
 				INFOPLIST_FILE = SWSApp/Info.plist;
+				INFOPLIST_OUTPUT_FORMAT = XML;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
 				PRODUCT_NAME = "$(TARGET_NAME)";

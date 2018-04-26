@@ -1229,7 +1229,7 @@
                                             <action selector="itemsClickedWithSender:" destination="icW-Qo-Oxi" eventType="touchUpInside" id="FAS-LE-VBz"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ovJ-ud-u5g">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ovJ-ud-u5g">
                                         <rect key="frame" x="568" y="30" width="138" height="34"/>
                                         <color key="backgroundColor" name="Data New"/>
                                         <constraints>

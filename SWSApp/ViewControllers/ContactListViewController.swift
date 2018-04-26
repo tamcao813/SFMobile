@@ -199,12 +199,12 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("performContactFilterOperation")
         print(ContactFilterMenuModel.functionRoles)
         
-        if ContactFilterMenuModel.comingFromDetailsScreen == "YES" {
+        if (ContactsGlobal.accountId == "" || ContactFilterMenuModel.comingFromDetailsScreen != "YES") {
+            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
+        } else {
             globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.contacts(forAccount: ContactsGlobal.accountId), searchBarText: searchString)
         }
-        else {
-            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
-        }
+
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
        // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
@@ -214,7 +214,11 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
-            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            }
         }
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
@@ -253,7 +257,10 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
-            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            }
         }
         
         for count in 1...5 {
@@ -490,8 +497,11 @@ extension ContactListViewController{
         //tableViewDisplayData = [tableViewData]
         
         if(numberOfAccountRows > 0){
-            tableView.reloadData()
-            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            }
         }
         
     }

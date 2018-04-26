@@ -217,7 +217,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.tableView.setContentOffset(CGPoint.zero, animated: true)
+                self.tableView.setContentOffset(CGPoint.zero, animated: false)
             }
         }
         for count in 1...5 {
@@ -259,7 +259,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         if(numberOfAccountRows > 0){
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.tableView.setContentOffset(CGPoint.zero, animated: true)
+                self.tableView.setContentOffset(CGPoint.zero, animated: false)
             }
         }
         
@@ -500,7 +500,7 @@ extension ContactListViewController{
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.tableView.setContentOffset(CGPoint.zero, animated: true)
+                self.tableView.setContentOffset(CGPoint.zero, animated: false)
             }
         }
         

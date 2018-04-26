@@ -305,6 +305,7 @@ class AccountDetailTabViewController: UITableViewController {
     @objc func viewAllContactFunction()  {
         print("Hello World")
         print("Hello World")
+        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:account?.account_Id)
         
     }

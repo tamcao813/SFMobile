@@ -75,7 +75,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         endTimeTextField.rightPadding = 8
         endTimeTextField.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
         endTimeTextField.text = "10:15 AM"
-        startTimeTextField.tag = 202
+        endTimeTextField.tag = 202
         endTimeTextField.font = UIFont(name:"Ubuntu", size: 12.0)
         endTimeTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
         endTimeTextField.layer.borderWidth = 1.0
@@ -96,23 +96,11 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField.tag {
         case 200:
-            let inputView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 240))
-            let datePickerView = UIDatePicker()
-            datePickerView.frame.origin = CGPoint(x: self.frame.width/1.2, y: 10)
-            datePickerView.datePickerMode = .date
-            datePickerView.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
-            inputView.addSubview(datePickerView) // add date picker to UIView
-            
-            let doneButton = UIButton(frame: CGRect(x: (self.frame.size.width/2), y: 0, width: 100, height: 50))
-            doneButton.setTitle("Done", for: UIControlState.normal)
-            doneButton.setTitle("Done", for: UIControlState.highlighted)
-            doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
-            doneButton.setTitleColor(UIColor.gray, for: UIControlState.highlighted)
-            
-            inputView.addSubview(doneButton) // add Button to UIView
-            
-            doneButton.addTarget(self, action: #selector(doneButton(sender:)), for: UIControlEvents.touchUpInside) // set button click event
-            textField.inputView = inputView
+           self.dateView(textField: textField)
+        case 201:
+            self.timeView(textField: textField)
+        case 202:
+            self.timeView(textField: textField)
         default:
             print("default")
         }
@@ -130,9 +118,63 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField.text = dateFormatter.string(from: sender.date)
     }
     
+    @objc func handleTimePicker(sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        if (sender.tag == 201) {
+           startTimeTextField.text = dateFormatter.string(from: sender.date)
+        } else {
+            endTimeTextField.text = dateFormatter.string(from: sender.date)
+        }
+        
+    }
+    
     @objc func doneButton(sender:UIButton)
     {
         self.endEditing(true)// To resign the inputView on clicking done.
+    }
+    
+    func dateView(textField: UITextField) {
+        
+        let inputView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 240))
+        let datePickerView = UIDatePicker()
+        datePickerView.frame.origin = CGPoint(x: self.frame.width/1.2, y: 20)
+        datePickerView.datePickerMode = .date
+        datePickerView.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
+        inputView.addSubview(datePickerView) // add date picker to UIView
+        
+        let doneButton = UIButton(frame: CGRect(x: (self.frame.size.width), y: 0, width: 100, height: 50))
+        doneButton.setTitle("Done", for: UIControlState.normal)
+        doneButton.setTitle("Done", for: UIControlState.highlighted)
+        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
+        doneButton.setTitleColor(UIColor.gray, for: UIControlState.highlighted)
+        
+        inputView.addSubview(doneButton) // add Button to UIView
+        
+        doneButton.addTarget(self, action: #selector(doneButton(sender:)), for: UIControlEvents.touchUpInside) // set button click event
+        textField.inputView = inputView
+    }
+    
+    func timeView(textField: UITextField) {
+        
+        let inputView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 240))
+        let datePickerView = UIDatePicker()
+        datePickerView.frame.origin = CGPoint(x: self.frame.width/1.2, y: 20)
+        datePickerView.datePickerMode = .time
+        datePickerView.tag = textField.tag
+        datePickerView.addTarget(self, action: #selector(handleTimePicker(sender:)), for: .valueChanged)
+        inputView.addSubview(datePickerView) // add date picker to UIView
+        
+        let doneButton = UIButton(frame: CGRect(x: (self.frame.size.width), y: 0, width: 100, height: 50))
+        doneButton.setTitle("Done", for: UIControlState.normal)
+        doneButton.setTitle("Done", for: UIControlState.highlighted)
+        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
+        doneButton.setTitleColor(UIColor.gray, for: UIControlState.highlighted)
+        
+        inputView.addSubview(doneButton) // add Button to UIView
+        
+        doneButton.addTarget(self, action: #selector(doneButton(sender:)), for: UIControlEvents.touchUpInside) // set button click event
+        textField.inputView = inputView
     }
     
 }

@@ -33,41 +33,34 @@ class ContactSortUtility {
         var contactListWithSearchResults = [Contact]()
         // trim leading trailing white spaces
         let trimmedSearchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        
         for contact in contactsForLoggedUser
         {
-            // search contace name, first and last name Plus Account Id
+            // search contace name and Account Id
             if (contact.name.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
-                || contact.firstName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
-                || contact.lastName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
                 || contact.accountId.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
             {
                 contactListWithSearchResults.append(contact)
             }
-            else {
-                
-                // search account name and number
-                let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contact.contactId)
-                for acrObject in accountsListWithContactId {
-                    if (acrObject.accountName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
-                    {
-                        contactListWithSearchResults.append(contact)
-                        break
-                    }
-                    
-                    let accountViewModel = AccountsViewModel()
-                    let accountsListByAccountId = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: accountViewModel.accountsForLoggedUser, accountId: acrObject.accountId)
-                    for accObject in accountsListByAccountId {
-                        if (accObject.accountNumber.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
-                        {
-                            contactListWithSearchResults.append(contact)
-                            break
-                        }
-                    }
-                    
+
+            // search account name
+            let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contact.contactId)
+            for acrObject in accountsListWithContactId {
+                if (acrObject.accountName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+                {
+                    contactListWithSearchResults.append(contact)
+                    break
                 }
                 
+                // search account number
+                let accountsListByAccountId = AccountsViewModel().accountsForLoggedUser.filter( { return ($0.account_Id == acrObject.accountId && $0.accountNumber.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil) } )
+                if accountsListByAccountId.count > 0 {
+                    contactListWithSearchResults.append(contact)
+                    break
+                }
+
             }
-            
+
         }
         
         return contactListWithSearchResults
@@ -119,7 +112,6 @@ class ContactSortUtility {
             
             enteredAnyFilterCase = true
             let accountViewModel = AccountsViewModel()
-            print(accountViewModel.accountsForLoggedUser)
             if accountViewModel.accountsForLoggedUser.count > 0 {
                 
                 var filteredAccountContactArray = [Contact]()

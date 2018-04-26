@@ -9,7 +9,7 @@
 import Foundation
 
 class Contact {
-    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate", "AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","SGWS_Buyer_Flag__c","SGWS_Roles__c","Title", "SGWS_Notes__c", "LastModifiedBy.Name","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c"]
+    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate", "AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","SGWS_Buyer_Flag__c","SGWS_Roles__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Preferred_Communication_Method__c","SGWS_Notes__c", "LastModifiedBy.Name","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c"]
     
     var contactId: String
     var name: String
@@ -25,6 +25,10 @@ class Contact {
     var functionRole: String
     var buyerFlag: String
     var title: String
+    var department:String
+    var preferredName:String
+    var contactHours:String
+    var preferredCommunicationMethod:String
     var sgwsNotes:String
     var lastModifiedByName:String
     var child1Name:String
@@ -66,6 +70,10 @@ class Contact {
         functionRole = json["SGWS_Roles__c"] as? String ?? ""
         buyerFlag = json["SGWS_Buyer_Flag__c"] as? String ?? ""
         title = json["Title"] as? String ?? ""
+        department = json["Department"] as? String ?? ""
+        preferredName = json["SGWS_Preferred_Name__c"] as? String ?? ""
+        contactHours = json["SGWS_Contact_Hours__c"] as? String ?? ""
+        preferredCommunicationMethod = json["SGWS_Preferred_Communication_Method__c"] as? String ?? ""
         sgwsNotes = json["SGWS_Notes__c"] as? String ?? ""
         lastModifiedByName = json["LastModifiedBy.Name"] as? String ?? ""
         child1Name = json["SGWS_Child_1_Name__c"] as? String ?? ""
@@ -77,7 +85,6 @@ class Contact {
         child4Name = json["SGWS_Child_4_Name__c"] as? String ?? ""
         child4Birthday = json["SGWS_Child_4_Birthday__c"] as? String ?? ""
         child5Name = json["SGWS_Child_5_Name__c"] as? String ?? ""
-        child5Birthday = json["SGWS_Child_5_Birthday__c"] as? String ?? ""
         child5Birthday = json["SGWS_Child_5_Birthday__c"] as? String ?? ""
         anniversary = json["SGWS_Anniversary__c"] as? String ?? ""
         likes = json["SGWS_Likes__c"] as? String ?? ""
@@ -102,25 +109,29 @@ class Contact {
         sccountSiteNumber = ""
         functionRole = ""
         buyerFlag = ""
-         title = ""
-         sgwsNotes = ""
-         lastModifiedByName = ""
-         child1Name = ""
-         child1Birthday = ""
-         child2Name = ""
-         child2Birthday = ""
-         child3Name = ""
-         child3Birthday = ""
-         child4Name = ""
-         child4Birthday = ""
-         child5Name = ""
-         child5Birthday = ""
-         anniversary = ""
-         likes = ""
-         dislikes = ""
-         favouriteActivities = ""
-         lifeEvents = ""
-         lifeEventDate = ""
+        title = ""
+        department = ""
+        preferredName = ""
+        contactHours = ""
+        preferredCommunicationMethod = ""
+        sgwsNotes = ""
+        lastModifiedByName = ""
+        child1Name = ""
+        child1Birthday = ""
+        child2Name = ""
+        child2Birthday = ""
+        child3Name = ""
+        child3Birthday = ""
+        child4Name = ""
+        child4Birthday = ""
+        child5Name = ""
+        child5Birthday = ""
+        anniversary = ""
+        likes = ""
+        dislikes = ""
+        favouriteActivities = ""
+        lifeEvents = ""
+        lifeEventDate = ""
     }
     
     static func mockBuyingPowerContact1() -> Contact {

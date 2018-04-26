@@ -170,11 +170,12 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         }
     }
     
+    //Used for Collection view Cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == tableViewRowDetails?.count{
             return CGSize(width: textViewWidth, height: 410)
         }
-        return CGSize(width: collectionViewWidth, height: 80)
+        return CGSize(width: collectionViewWidth, height: 70)
     }
     
     //Used to set width and height of HeaderView

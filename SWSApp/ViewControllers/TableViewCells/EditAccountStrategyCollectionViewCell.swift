@@ -21,10 +21,11 @@ class EditAccountStrategyCollectionViewCell: UICollectionViewCell {
         
         if (data["isSelected"] as! String) == "NO"{
             self.layer.borderColor = UIColor.white.cgColor
-            selectedIcon?.isHidden = true
+            selectedIcon?.image = UIImage(named: "selectedGrey")//isHidden = true
+            
         }else{
             self.layer.borderColor = UIColor(named: "Data New")?.cgColor
-            selectedIcon?.isHidden = false
+            selectedIcon?.image = UIImage(named: "selectedBlue")//isHidden = false
         }
     }
 }

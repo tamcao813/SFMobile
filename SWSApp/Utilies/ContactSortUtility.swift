@@ -183,20 +183,20 @@ class ContactSortUtility {
             var filteredNoBuyingPowerContactArray = [Contact]()
 
             if ContactFilterMenuModel.buyingPower == "YES"{
+                enteredAnyFilterCase = true
                 filteredBuyingPowerContactArray = contactListToBeSorted.filter( { return $0.buyerFlag == "1" } )
             }
             
             // filter by NO Buying Power
             if ContactFilterMenuModel.nobuyingPower == "YES"{
+                enteredAnyFilterCase = true
                 filteredNoBuyingPowerContactArray = contactListToBeSorted.filter( { return $0.buyerFlag == "0" } )
             }
             
             if filteredBuyingPowerContactArray.count > 0 {
-                enteredAnyFilterCase = true
                 filteredContactArray = filteredBuyingPowerContactArray
             }
             if filteredNoBuyingPowerContactArray.count > 0 {
-                enteredAnyFilterCase = true
                 filteredContactArray += filteredNoBuyingPowerContactArray
             }
 

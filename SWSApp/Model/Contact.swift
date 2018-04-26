@@ -9,7 +9,7 @@
 import Foundation
 
 class Contact {
-    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate", "AccountId", "Account.SWS_Account_Site__c", "SGWS_Account_Site_Number__c","SGWS_Buyer_Flag__c","SGWS_Roles__c","Title", "SGWS_Notes__c", "LastModifiedBy.Name","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_C hild_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SG WS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c", "SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c"]
+    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate", "AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","SGWS_Buyer_Flag__c","SGWS_Roles__c","Title", "SGWS_Notes__c", "LastModifiedBy.Name","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c"]
     
     var contactId: String
     var name: String
@@ -65,27 +65,27 @@ class Contact {
         sccountSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
         functionRole = json["SGWS_Roles__c"] as? String ?? ""
         buyerFlag = json["SGWS_Buyer_Flag__c"] as? String ?? ""
-         title = json["Title"] as! String
-         sgwsNotes = json["SGWS_Notes__c"] as! String
-         lastModifiedByName = json["LastModifiedBy.Name"] as! String
-         child1Name = json["SGWS_Child_1_Name__c"] as! String
-         child1Birthday = json["SGWS_Child_1_Birthday__c"] as! String
-         child2Name = json["SGWS_Child_2_Name__c"] as! String
-         child2Birthday = json["SGWS_Child_2_Birthday__c"] as! String
-         child3Name = json["SGWS_Child_3_Name__c"] as! String
-         child3Birthday = json["SGWS_Child_3_Birthday__c"] as! String
-         child4Name = json["SGWS_Child_4_Name__c"] as! String
-         child4Birthday = json["SGWS_Child_4_Birthday__c"] as! String
-         child5Name = json["SGWS_Child_5_Name__c"] as! String
-         child5Birthday = json["SGWS_Child_5_Birthday__c"] as! String
-         child5Birthday = json["SGWS_Child_5_Birthday__c"] as! String
-         anniversary = json["SGWS_Anniversary__c"] as! String
-         likes = json["SGWS_Likes__c"] as! String
-         dislikes = json["SGWS_Disikes__c"] as! String
-         favouriteActivities = json["SGWS_Favorite_Activities__c"] as! String
-         lifeEvents = json["SGWS_Life_Events__c"] as! String
-         lifeEventDate = json["SGWS_Life_Events_Date__c"] as! String
-
+        title = json["Title"] as? String ?? ""
+        sgwsNotes = json["SGWS_Notes__c"] as? String ?? ""
+        lastModifiedByName = json["LastModifiedBy.Name"] as? String ?? ""
+        child1Name = json["SGWS_Child_1_Name__c"] as? String ?? ""
+        child1Birthday = json["SGWS_Child_1_Birthday__c"] as? String ?? ""
+        child2Name = json["SGWS_Child_2_Name__c"] as? String ?? ""
+        child2Birthday = json["SGWS_Child_2_Birthday__c"] as? String ?? ""
+        child3Name = json["SGWS_Child_3_Name__c"] as? String ?? ""
+        child3Birthday = json["SGWS_Child_3_Birthday__c"] as? String ?? ""
+        child4Name = json["SGWS_Child_4_Name__c"] as? String ?? ""
+        child4Birthday = json["SGWS_Child_4_Birthday__c"] as? String ?? ""
+        child5Name = json["SGWS_Child_5_Name__c"] as? String ?? ""
+        child5Birthday = json["SGWS_Child_5_Birthday__c"] as? String ?? ""
+        child5Birthday = json["SGWS_Child_5_Birthday__c"] as? String ?? ""
+        anniversary = json["SGWS_Anniversary__c"] as? String ?? ""
+        likes = json["SGWS_Likes__c"] as? String ?? ""
+        dislikes = json["SGWS_Disikes__c"] as? String ?? ""
+        favouriteActivities = json["SGWS_Favorite_Activities__c"] as? String ?? ""
+        lifeEvents = json["SGWS_Life_Events__c"] as? String ?? ""
+        lifeEventDate = json["SGWS_Life_Events_Date__c"] as? String ?? ""
+        
     }
     
     init(for: String) {

@@ -60,10 +60,9 @@ class StoreDispatcher {
         
         group.enter()
         syncDownAccount() { _ in
-            
-            // acr
-            
-            group.leave()
+            self.syncDownACR() { _ in
+                group.leave()
+            }
         }
         
         group.enter()

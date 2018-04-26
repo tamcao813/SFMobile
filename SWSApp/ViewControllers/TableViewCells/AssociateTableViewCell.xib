@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AssociateTableViewCell" rowHeight="62" id="osq-fF-xfN" customClass="AssociateTableViewCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="909" height="62"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="osq-fF-xfN" id="NRX-dx-sio">
+                <rect key="frame" x="0.0" y="0.0" width="909" height="61.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Daniel Brown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dul-nK-r80">
+                        <rect key="frame" x="69" y="11" width="219" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="4QV-mu-wye"/>
+                            <constraint firstAttribute="width" constant="219" id="p2j-2Z-Vwz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                        <color key="textColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Function / Role" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I18-Yb-3iL">
+                        <rect key="frame" x="69" y="36" width="219" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="219" id="GwF-GQ-zlM"/>
+                            <constraint firstAttribute="height" constant="16" id="i6A-0p-7wJ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5YL-Dq-pEg">
+                        <rect key="frame" x="0.0" y="61" width="909" height="0.0"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="13P-HK-grA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9BX-Cz-fnm">
+                        <rect key="frame" x="406" y="8" width="97" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="1Kt-hX-mhd"/>
+                            <constraint firstAttribute="width" constant="97" id="NXr-yC-VYS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Apn-tI-0ru">
+                        <rect key="frame" x="632" y="10" width="90" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="90" id="BLN-Aa-ON2"/>
+                            <constraint firstAttribute="height" constant="21" id="BNY-zw-dXJ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(337) 439-0096" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4JM-QM-2Nb">
+                        <rect key="frame" x="406" y="30" width="150" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="5V8-Lt-3Pb"/>
+                            <constraint firstAttribute="height" constant="16" id="QWc-Ul-OjL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="daniel@email.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dw-8H-ENJ">
+                        <rect key="frame" x="661" y="31" width="150" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="U4K-Jr-Hgg"/>
+                            <constraint firstAttribute="height" constant="16" id="aSz-hh-gvC"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="5YL-Dq-pEg" secondAttribute="bottom" constant="0.5" id="4Tm-MQ-GRq"/>
+                    <constraint firstItem="4JM-QM-2Nb" firstAttribute="top" secondItem="9BX-Cz-fnm" secondAttribute="bottom" constant="1" id="8RM-DR-eak"/>
+                    <constraint firstItem="0dw-8H-ENJ" firstAttribute="leading" secondItem="4JM-QM-2Nb" secondAttribute="trailing" constant="105" id="8oP-ss-bEP"/>
+                    <constraint firstItem="5YL-Dq-pEg" firstAttribute="top" secondItem="I18-Yb-3iL" secondAttribute="bottom" constant="9" id="EzI-NI-6cX"/>
+                    <constraint firstItem="I18-Yb-3iL" firstAttribute="leading" secondItem="NRX-dx-sio" secondAttribute="leading" constant="69" id="MlK-QK-Kd1"/>
+                    <constraint firstItem="Apn-tI-0ru" firstAttribute="top" secondItem="NRX-dx-sio" secondAttribute="top" constant="10" id="Orr-8R-0vt"/>
+                    <constraint firstItem="4JM-QM-2Nb" firstAttribute="top" secondItem="9BX-Cz-fnm" secondAttribute="bottom" constant="1" id="S9z-dA-jXN"/>
+                    <constraint firstItem="I18-Yb-3iL" firstAttribute="top" secondItem="dul-nK-r80" secondAttribute="bottom" constant="4" id="Shs-1E-l63"/>
+                    <constraint firstItem="dul-nK-r80" firstAttribute="leading" secondItem="NRX-dx-sio" secondAttribute="leading" constant="69" id="Vam-D3-1qZ"/>
+                    <constraint firstItem="5YL-Dq-pEg" firstAttribute="leading" secondItem="NRX-dx-sio" secondAttribute="leading" id="Wma-YQ-4R0"/>
+                    <constraint firstItem="9BX-Cz-fnm" firstAttribute="leading" secondItem="dul-nK-r80" secondAttribute="trailing" constant="118" id="Wpr-kk-fLb"/>
+                    <constraint firstItem="9BX-Cz-fnm" firstAttribute="top" secondItem="NRX-dx-sio" secondAttribute="top" constant="8" id="XM0-Kv-bmj"/>
+                    <constraint firstAttribute="trailing" secondItem="5YL-Dq-pEg" secondAttribute="trailing" id="XTD-bc-gpA"/>
+                    <constraint firstAttribute="trailing" secondItem="Apn-tI-0ru" secondAttribute="trailing" constant="187" id="Xau-gT-UAK"/>
+                    <constraint firstItem="dul-nK-r80" firstAttribute="top" secondItem="NRX-dx-sio" secondAttribute="top" constant="11" id="beo-lg-7GK"/>
+                    <constraint firstItem="4JM-QM-2Nb" firstAttribute="leading" secondItem="I18-Yb-3iL" secondAttribute="trailing" constant="118" id="fhL-9F-GQZ"/>
+                    <constraint firstAttribute="trailing" secondItem="0dw-8H-ENJ" secondAttribute="trailing" constant="98" id="fl8-ZL-JNA"/>
+                    <constraint firstItem="0dw-8H-ENJ" firstAttribute="top" secondItem="Apn-tI-0ru" secondAttribute="bottom" id="gig-S7-J47"/>
+                    <constraint firstItem="I18-Yb-3iL" firstAttribute="top" secondItem="dul-nK-r80" secondAttribute="bottom" constant="4" id="odK-Yz-W8O"/>
+                    <constraint firstItem="Apn-tI-0ru" firstAttribute="leading" secondItem="9BX-Cz-fnm" secondAttribute="trailing" constant="129" id="pYJ-Rr-c7J"/>
+                    <constraint firstItem="0dw-8H-ENJ" firstAttribute="top" secondItem="Apn-tI-0ru" secondAttribute="bottom" id="rkJ-Nr-TA7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-93.5" y="-44"/>
+        </tableViewCell>
+    </objects>
+</document>

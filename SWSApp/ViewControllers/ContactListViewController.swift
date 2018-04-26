@@ -199,7 +199,12 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("performContactFilterOperation")
         print(ContactFilterMenuModel.functionRoles)
         
-        globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
+        if ContactFilterMenuModel.comingFromDetailsScreen == "YES" {
+            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.contacts(forAccount: ContactsGlobal.accountId), searchBarText: searchString)
+        }
+        else {
+            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
+        }
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
         self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"

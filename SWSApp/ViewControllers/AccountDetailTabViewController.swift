@@ -89,16 +89,7 @@ class AccountDetailTabViewController: UITableViewController {
     
     
     
-    //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //
-    //        if section == 1{
-    //            return "Crown Liquor Store"
-    //        }
-    //        else if section == 2{
-    //            return "Southern Glazer's Contact "
-    //        }
-    //        return nil
-    //    }
+   
     
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -303,8 +294,7 @@ class AccountDetailTabViewController: UITableViewController {
     
     
     @objc func viewAllContactFunction()  {
-        print("Hello World")
-        print("Hello World")
+      
         ContactFilterMenuModel.comingFromDetailsScreen = "YES"
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:account?.account_Id)
         

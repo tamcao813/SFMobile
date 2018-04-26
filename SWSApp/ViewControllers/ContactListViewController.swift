@@ -15,7 +15,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     var globalContactsForList = [Contact]()
     var accountContactsForList = [Contact]()
     var contactsAcc = [AccountContactRelation]()
-    @IBOutlet weak var noOfResultLabel: UILabel!
+   // @IBOutlet weak var noOfResultLabel: UILabel!
     
     var numberOfAccountRows = 0
     
@@ -158,7 +158,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         }
         
-        self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
+       // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
         
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
@@ -207,7 +207,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
 
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
-        self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
+       // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
         
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()

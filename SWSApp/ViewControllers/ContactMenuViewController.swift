@@ -141,7 +141,7 @@ class ContactMenuViewController: UIViewController {
         ContactFilterMenuModel.buyingPower = ""
         ContactFilterMenuModel.nobuyingPower = ""
         
-        ContactFilterMenuModel.comingFromDetailsScreen = ""
+//        ContactFilterMenuModel.comingFromDetailsScreen = ""
         
         if searchBar != nil{
             searchBar.text = ""
@@ -334,10 +334,10 @@ class ContactMenuViewController: UIViewController {
     func resetEnteredDataAndContactList(){
         searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
         
-        if ContactFilterMenuModel.comingFromDetailsScreen != "YES"{
-            self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
-        }
+        self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
         self.clearFilterModelData()
+        ContactFilterMenuModel.comingFromDetailsScreen = ""
+
     }
     
     private func isValidUserInputAtSearchFilterPanel()->Bool{

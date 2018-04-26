@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-class ContactsViewController : UIViewController {
+class ContactsViewController : UIViewController, ContactDetailsScreenDelegate {
     
     var contactListVC: ContactListViewController?
     var filterMenuVC: ContactMenuViewController?
-    
+    var contactDetails : ContactListDetailsViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class ContactsViewController : UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "ContactSegue") {
             contactListVC = segue.destination as? ContactListViewController
-//            contactListVC?.delegate = self
+            contactListVC?.delegate = self
         }
         
         if(segue.identifier == "ContactQueryFilter")
@@ -43,6 +43,18 @@ class ContactsViewController : UIViewController {
             filterMenuVC = segue.destination as? ContactMenuViewController
 //            filterMenuVC?.searchByEnteredTextDelegate = contactListVC
         }
+    }
+
+    //Used to push the screen to Details ViewController
+    func pushTheScreenToContactDetailsScreen(contactData: Contact) {
+        contactDetails = self.storyboard?.instantiateViewController(withIdentifier: "ContactListDetailsViewControllerID") as? ContactListDetailsViewController
+        
+        self.view.endEditing(true)
+        
+//        contactDetails?.accountDetailForLoggedInUser = accountData
+        self.addChildViewController(contactDetails!)
+        //self.present(accountDetails, animated: true, completion: nil)
+        self.view.addSubview((contactDetails?.view)!)
     }
 
 }

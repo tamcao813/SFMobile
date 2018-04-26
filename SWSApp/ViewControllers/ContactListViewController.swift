@@ -8,7 +8,13 @@
 
 import UIKit
 
-class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+protocol ContactDetailsScreenDelegate{
+    func pushTheScreenToContactDetailsScreen(contactData : Contact)
+}
+
+class ContactListViewController: UIViewController, UITableViewDataSource {
+    
+    var delegate : ContactDetailsScreenDelegate?
     
     let contactViewModel = ContactsViewModel()
     
@@ -541,6 +547,22 @@ extension ContactListViewController{
     }
 
 }
+
+//MARK:- TableView Delegate Methods
+extension ContactListViewController : UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.view.endEditing(true)
+        
+        let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
+        delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
+        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+        
+    }
+    
+}
+
 
 
 

@@ -76,11 +76,11 @@
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="VcJ-kO-cyU">
-                                    <rect key="frame" x="0.0" y="0.0" width="726" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="726" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAx-eP-RFc">
-                                            <rect key="frame" x="598" y="22.5" width="120" height="35"/>
+                                            <rect key="frame" x="606" y="17.5" width="120" height="35"/>
                                             <color key="backgroundColor" name="Data New"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="120" id="prQ-h8-aRm"/>
@@ -94,13 +94,13 @@
                                     </subviews>
                                     <color key="backgroundColor" name="LightGrey"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="fAx-eP-RFc" secondAttribute="trailing" constant="8" id="Dcx-OA-osc"/>
+                                        <constraint firstAttribute="trailing" secondItem="fAx-eP-RFc" secondAttribute="trailing" id="Dcx-OA-osc"/>
                                         <constraint firstItem="fAx-eP-RFc" firstAttribute="centerY" secondItem="VcJ-kO-cyU" secondAttribute="centerY" id="XPM-qP-rJP"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="180" id="bxc-L3-2ig" customClass="ContactListTableViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="108" width="726" height="180"/>
+                                        <rect key="frame" x="0.0" y="98" width="726" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bxc-L3-2ig" id="WjV-OA-Wwk">
                                             <rect key="frame" x="0.0" y="0.0" width="726" height="180"/>
@@ -415,7 +415,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qh1-oh-2LP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="600" y="-3563.28125"/>
+            <point key="canvasLocation" x="702" y="-3647"/>
         </scene>
         <!--Contact List Details View Controller-->
         <scene sceneID="aUl-2J-exI">

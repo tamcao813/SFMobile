@@ -127,7 +127,7 @@ class ContactSortUtility {
                     filteredAccountContactArray += contactListToBeSorted.filter( { return account.account_Id == $0.accountId } )
                 }
 
-                if filteredContactArray.count > 0 {
+                if filteredAccountContactArray.count > 0 {
                     let filteredNoDuplicateContactArray = filteredAccountContactArray.reduce([]) { (r, p) -> [Contact] in
                         var r2 = r
                         if !r.contains (where: { $0.contactId == p.contactId }) {

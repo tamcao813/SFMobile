@@ -15,7 +15,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     var globalContactsForList = [Contact]()
     var accountContactsForList = [Contact]()
     var contactsAcc = [AccountContactRelation]()
-    @IBOutlet weak var noOfResultLabel: UILabel!
+   // @IBOutlet weak var noOfResultLabel: UILabel!
     
     var numberOfAccountRows = 0
     
@@ -158,7 +158,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         }
         
-        self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
+       // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
         
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
@@ -199,17 +199,26 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("performContactFilterOperation")
         print(ContactFilterMenuModel.functionRoles)
         
-        globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
+        if (ContactsGlobal.accountId == "" || ContactFilterMenuModel.comingFromDetailsScreen != "YES") {
+            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
+        } else {
+            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.contacts(forAccount: ContactsGlobal.accountId), searchBarText: searchString)
+        }
+
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
-        self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
+       // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
         
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
-            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.setContentOffset(CGPoint.zero, animated: false)
+            }
         }
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
@@ -248,7 +257,10 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("\(self.noOfPages!)")
         
         if(numberOfAccountRows > 0){
-            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.setContentOffset(CGPoint.zero, animated: false)
+            }
         }
         
         for count in 1...5 {
@@ -485,8 +497,11 @@ extension ContactListViewController{
         //tableViewDisplayData = [tableViewData]
         
         if(numberOfAccountRows > 0){
-            tableView.reloadData()
-            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.setContentOffset(CGPoint.zero, animated: false)
+            }
         }
         
     }

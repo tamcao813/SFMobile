@@ -372,7 +372,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             let accVC = accountsVC as? AccountsViewController
             accVC?.filterMenuVC?.resetEnteredDataAndAccountList()
         }
-        
+        else if(previouslySelectedVCIndex == 2)// contact list view
+        {
+            // clear filter, reset data, hide keyboard
+            print("previous is contact list")
+            let conVC = contactsVC as? ContactsViewController
+            conVC?.filterMenuVC?.resetEnteredDataAndContactList()
+        }
+
         self.notificationButton?.isEnabled = true
         self.numberLabel?.isUserInteractionEnabled = true
         

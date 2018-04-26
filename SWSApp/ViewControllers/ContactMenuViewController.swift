@@ -117,7 +117,7 @@ class ContactMenuViewController: UIViewController {
         let imageView:UIImageView = UIImageView.init(image: image)
         searchTextField.leftView = nil
         //Added attributedPlaceholder with ubuntu font
-        searchTextField.attributedPlaceholder = NSAttributedString(string:"Search Field Text", attributes: [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 18)!])
+        searchTextField.attributedPlaceholder = NSAttributedString(string:"Name, Account, ID", attributes: [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 18)!])
         searchTextField.rightView = imageView
         searchTextField.rightViewMode = UITextFieldViewMode.always
     }

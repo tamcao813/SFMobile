@@ -124,41 +124,40 @@ class ContactMenuViewController: UIViewController {
     
     //Used to Clear the Model Data
     func clearFilterModelData(){
-        
+        /*
         if ContactFilterMenuModel.comingFromDetailsScreen == "YES"{
             
             ContactFilterMenuModel.comingFromDetailsScreen = "NO"
             
-        }else{
+        }*/
             
-            ContactFilterMenuModel.allContacts = ""
-            ContactFilterMenuModel.contactsOnMyRoute = ""
-            
-            ContactFilterMenuModel.allRole = ""
-            ContactFilterMenuModel.functionRoles = [String]()
-            
-            ContactFilterMenuModel.allBuyingPower = ""
-//            ContactFilterMenuModel.buyerFlags = [String]()
-            ContactFilterMenuModel.buyingPower = ""
-            ContactFilterMenuModel.nobuyingPower = ""
-
-            ContactFilterMenuModel.comingFromDetailsScreen = ""
-
-            if searchBar != nil{
-                searchBar.text = ""
-            }
-            
-            //Used to Clear the Expanded section of ContactFilter Option
-            selectedSection = -1
-            if self.expandedSectionHeaderNumber != -1{
-                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-                tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
-            }
-            
-            if tableView != nil{
-                tableView.reloadData()
-            }
+        ContactFilterMenuModel.allContacts = ""
+        ContactFilterMenuModel.contactsOnMyRoute = ""
+        
+        ContactFilterMenuModel.allRole = ""
+        ContactFilterMenuModel.functionRoles = [String]()
+        
+        ContactFilterMenuModel.allBuyingPower = ""
+        ContactFilterMenuModel.buyingPower = ""
+        ContactFilterMenuModel.nobuyingPower = ""
+        
+        ContactFilterMenuModel.comingFromDetailsScreen = ""
+        
+        if searchBar != nil{
+            searchBar.text = ""
         }
+        
+        //Used to Clear the Expanded section of ContactFilter Option
+        selectedSection = -1
+        if self.expandedSectionHeaderNumber != -1{
+            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+        }
+        
+        if tableView != nil{
+            tableView.reloadData()
+        }
+
     }
     
     //Used to check which section header was clicked

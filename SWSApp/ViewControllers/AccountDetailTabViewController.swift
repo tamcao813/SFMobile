@@ -20,20 +20,11 @@ class AccountDetailTabViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let loggerInUser = userViewModel.loggedInUser
-        
         // Get the buying power contact for this account
         if let accountId = account?.account_Id {
             contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forAccount: accountId)
-            
             contactsForSG = contactViewModel.contactsForSG(forAccount: accountId)
         }
-        
-        
-        // checking single multi location filter
-        if let acc = account{
-            print( "the single multi is \(acc.singleMultiLocationFilter)")
-        }
-        
         //just testing globalContacts here
         let globalContactas = contactViewModel.globalContacts()
         print("globalContactas.count = " + "\(globalContactas.count)")
@@ -42,6 +33,77 @@ class AccountDetailTabViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // Function to get the full address by adding all fields.
+    func getFullAddress(headerCell:UITableViewCell) {
+        if let acc = account{
+            var fullAddress = ""
+            if acc.shippingStreet == "" && acc.shippingCity == "" && acc.shippingState == "" && acc.shippingPostalCode == "" {
+                fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                
+            }else{
+                if (acc.shippingStreet != "" || acc.shippingCity != "") {
+                    if (acc.shippingState != "" || acc.shippingPostalCode != "") {
+                        fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                    }else{
+                        fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                    }
+                }else{
+                    fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
+                }
+            }
+            (headerCell as! CustomerHeaderTableViewCell).addressValue.text = fullAddress
+        }
+        
+    }
+    
+    // Battery indicator implementation....
+    func batteryIndicator(headerCell:UITableViewCell) {
+        var mtdValue:Double = ((account?.percentageLastYearMTDNetSales)! as NSString).doubleValue
+        print("MTD value is \(mtdValue)")
+        
+        if (mtdValue >= 0.0 && mtdValue < 0.4 )
+        {
+            (headerCell as! CustomerHeaderTableViewCell).batterySalesIndicator.image = UIImage(named:"Health-Pathetic")
+            
+        } else if ( 0.6 > mtdValue && mtdValue >= 0.4){
+            (headerCell as! CustomerHeaderTableViewCell).batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
+        }
+        else if ( 0.8 > mtdValue && mtdValue >= 0.6){
+            (headerCell as! CustomerHeaderTableViewCell).batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
+        }
+        else if ( 1.0 > mtdValue && mtdValue >= 0.8){
+            (headerCell as! CustomerHeaderTableViewCell).batterySalesIndicator.image = UIImage(named:"Health-Bad")
+        }
+        else if  mtdValue >= 1.0 {
+            
+            (headerCell as! CustomerHeaderTableViewCell).batterySalesIndicator.image = UIImage(named:"Health-Good")
+            
+        }
+    }
+    
+    //Past due amount value is greater than 0 than only show indicator else hide it
+    func showPastDueAmountIndicator(headerCell:UITableViewCell) {
+        if let pastDueAmmt = account?.pastDueAmountDouble{
+            if pastDueAmmt <= 0{
+                (headerCell as! CustomerHeaderTableViewCell).pastDueIndicatorImage.isHidden = true
+            }
+            else{
+                (headerCell as! CustomerHeaderTableViewCell).pastDueIndicatorImage.isHidden = false
+            }
+        }
+    }
+    
+    
+    //Getting account Type Account type
+    func showAccountType(headerCell:UITableViewCell)  {
+        if let acc = account{
+            let accountType = acc.premiseCode + " " + acc.channelTD + "\n" + acc.subChannelTD
+            (headerCell as! CustomerHeaderTableViewCell).accountTypeValue.text = accountType
+        } else {
+            (headerCell as! CustomerHeaderTableViewCell).accountTypeValue.text = ""
+        }
     }
     
     // MARK: - Table view data source
@@ -87,11 +149,7 @@ class AccountDetailTabViewController: UITableViewController {
         return cell
     }
     
-    
-    
    
-    
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
@@ -130,93 +188,24 @@ class AccountDetailTabViewController: UITableViewController {
         let  headerCell = tableView.dequeueReusableCell(withIdentifier: "customerHeaderCell") as! CustomerHeaderTableViewCell
         
         if section == 0{
-            
-            if let acc = account{
-                var fullAddress = ""
-                if acc.shippingStreet == "" && acc.shippingCity == "" && acc.shippingState == "" && acc.shippingPostalCode == "" {
-                    fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                    
-                }else{
-                    if (acc.shippingStreet != "" || acc.shippingCity != "") {
-                        if (acc.shippingState != "" || acc.shippingPostalCode != "") {
-                            fullAddress = acc.shippingStreet + " " + acc.shippingCity + "," + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                        }else{
-                            fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                        }
-                    }else{
-                        fullAddress = acc.shippingStreet + " " + acc.shippingCity + " " + acc.shippingState +  " " + acc.shippingPostalCode
-                    }
-                }
-                headerCell.addressValue.text = fullAddress
-            }
-            
+            self.getFullAddress(headerCell: headerCell)
+            self.batteryIndicator(headerCell: headerCell)
+            self.showPastDueAmountIndicator(headerCell: headerCell)
+            self.showAccountType(headerCell: headerCell)
             headerCell.accountIDValue.text = account?.accountNumber
             headerCell.phoneValue.text = account?.phone
             headerCell.licenseTypeValue.text = account?.licenseType
             headerCell.licenseNumberValue.text = account?.licenseNumber
-            headerCell.mtdSalesValue.text =  CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.mtdNetSales)!) //"$" + String(describing: account!.mtdNetSales)
-            
-            
-            // Battery indicator implementation....
-            var mtdValue:Double = ((account?.percentageLastYearMTDNetSales)! as NSString).doubleValue
-            print("MTD value is \(mtdValue)")
-            
-            if (mtdValue >= 0.0 && mtdValue < 0.4 )
-            {
-                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Pathetic")
-                
-            } else if ( 0.6 > mtdValue && mtdValue >= 0.4){
-                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Extremely Bad.png" )
-            }
-            else if ( 0.8 > mtdValue && mtdValue >= 0.6){
-                headerCell.batterySalesIndicator.image = UIImage(named: "Health-Very Bad.png")
-            }
-            else if ( 1.0 > mtdValue && mtdValue >= 0.8){
-                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Bad")
-            }
-            else if  mtdValue >= 1.0 {
-                
-                headerCell.batterySalesIndicator.image = UIImage(named:"Health-Good")
-                
-                
-            }
-            
-            
+            headerCell.mtdSalesValue.text =  CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.mtdNetSales)!)
             headerCell.creditLimitValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.creditLimit)!) 
             headerCell.totalBalanceValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.totalARBalance)!)
             headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)
-            
-            //Past due amount value is greater than 0 than only show indicator else hide it
-            if let pastDueAmmt = account?.pastDueAmountDouble{
-                if pastDueAmmt <= 0{
-                    headerCell.pastDueIndicatorImage.isHidden = true
-                }
-                else{
-                    
-                    headerCell.pastDueIndicatorImage.isHidden = false
-                    
-                }
-            }
-            
-            headerCell.pastDueValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.pastDueAmountDouble)!) //String(format: "$%.2f",(account?.pastDueAmountDouble)!)
+            headerCell.pastDueValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.pastDueAmountDouble)!)
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
-            headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate)//account?.nextDeliveryDate
-            //            headerCell.accountHealthIndicator.text = account?.percentageLastYearMTDNetSales.description
-            
+            headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate)
             //Getting only working hours from extension
             //  let workingHours = account?.operatingHours.slice(from: ":", to: "\n")
             headerCell.businessHoursValue.text = account?.operatingHours
-            
-            // getting account type value
-            if let acc = account{
-                let accountType = acc.premiseCode + " " + acc.channelTD + "\n" + acc.subChannelTD
-                headerCell.accountTypeValue.text = accountType
-                
-            } else {
-                
-                headerCell.accountTypeValue.text = ""
-            }
-            
             return headerCell
             
         }
@@ -292,12 +281,10 @@ class AccountDetailTabViewController: UITableViewController {
         
     }
     
-    
     @objc func viewAllContactFunction()  {
-      
+        
         ContactFilterMenuModel.comingFromDetailsScreen = "YES"
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:account?.account_Id)
-        
     }
     
 }

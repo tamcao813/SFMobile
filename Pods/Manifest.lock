@@ -60,6 +60,7 @@ PODS:
     - SQLCipher/common
   - SQLCipher/standard (3.4.2):
     - SQLCipher/common
+  - SwipeCellKit (2.1.0)
 
 DEPENDENCIES:
   - DropDown
@@ -70,6 +71,7 @@ DEPENDENCIES:
   - SalesforceSwiftSDK (from `https://github.com/forcedotcom/SalesforceMobileSDK-iOS`)
   - SmartStore (from `https://github.com/forcedotcom/SalesforceMobileSDK-iOS`)
   - SmartSync (from `https://github.com/forcedotcom/SalesforceMobileSDK-iOS`)
+  - SwipeCellKit (~> 2.1.0)
 
 EXTERNAL SOURCES:
   PromiseKit:
@@ -118,7 +120,8 @@ SPEC CHECKSUMS:
   SmartStore: 0293ab9b1c2795003594be512f45eabf153fe66e
   SmartSync: ceec90621311f6d4aa5fc0ea17ba699754b0dfb5
   SQLCipher: f9fcf29b2e59ced7defc2a2bdd0ebe79b40d4990
+  SwipeCellKit: 80bdb188166484d8a0d813d9fd7748ad33181815
 
-PODFILE CHECKSUM: 86fb5e6c39bf64bd084336aaa7ef62ca6c417f5c
+PODFILE CHECKSUM: d4758376ef2c04d35345218881a64a61cd046113
 
 COCOAPODS: 1.4.0

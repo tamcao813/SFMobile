@@ -10,7 +10,7 @@ import UIKit
 
 class ContactListDetailsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -23,7 +23,7 @@ class ContactListDetailsViewController: UIViewController,UITableViewDataSource,U
             let cell:ContactListAccountHeaderDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountHeaderDetails", for: indexPath) as! ContactListAccountHeaderDetails
             return cell
         }
-        else if indexPath.row == 2 {
+        else if (indexPath.row == 2 || indexPath.row == 3) {
             let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
             return cell
         }
@@ -38,9 +38,9 @@ class ContactListDetailsViewController: UIViewController,UITableViewDataSource,U
             return 580
         }
         else if indexPath.row == 1 {
-            return 120
+            return 110
         }
-        else if indexPath.row == 2 {
+        else if (indexPath.row == 2 || indexPath.row == 3) {
             return 240
         }
         return 200

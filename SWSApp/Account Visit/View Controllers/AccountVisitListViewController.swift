@@ -33,7 +33,10 @@ class AccountVisitListViewController: UIViewController {
     }
     
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
-        
+        let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
+        viewController.modalPresentationStyle = .overCurrentContext
+        self.present(viewController, animated: true)
     }
 
 }

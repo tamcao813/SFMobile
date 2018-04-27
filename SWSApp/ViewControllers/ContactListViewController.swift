@@ -78,7 +78,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         if indexPath.section == 0{
             
             let buttonCell:ContactListTableViewButtonCell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! ContactListTableViewButtonCell
-            
+            buttonCell.delegate = self
             return buttonCell
             
         }
@@ -529,6 +529,15 @@ extension ContactListViewController{
         
     }
 
+}
+
+extension ContactListViewController: ContactListTableViewButtonCellDelegate {
+    
+    func newContactButtonTapped(){
+        let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
+        let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
+        self.present(newContactVC!, animated: true, completion: nil)
+    }
 }
 
 

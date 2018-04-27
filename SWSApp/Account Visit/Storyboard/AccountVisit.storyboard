@@ -43,8 +43,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="newVisitButtonTapped:" destination="Yyq-GP-B40" eventType="touchUpInside" id="25c-uU-DjB"/>
-                                    <action selector="startOrContinueVisitButtonTapped:" destination="v9Q-k8-N2k" eventType="touchUpInside" id="Z27-6f-LOh"/>
+                                    <action selector="newVisitButtonTapped:" destination="Yyq-GP-B40" eventType="touchUpInside" id="JEG-c5-d66"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mJ4-8V-uwc">

@@ -164,6 +164,18 @@
 		8D99A3272093055200FAA71A /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99A3252093055200FAA71A /* Validations.swift */; };
 		8DD14FFD2093162D00858349 /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DD14FFC2093162D00858349 /* Contacts.storyboard */; };
 		8DD14FFE2093162D00858349 /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DD14FFC2093162D00858349 /* Contacts.storyboard */; };
+		8DD14FFF2093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564C02091B1C10056B559 /* SelectedAssociateTableViewCell.swift */; };
+		8DD150002093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564C02091B1C10056B559 /* SelectedAssociateTableViewCell.swift */; };
+		8DD150012093307700858349 /* SelectedAssociateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2564BE2091B1C10056B559 /* SelectedAssociateTableViewCell.xib */; };
+		8DD150022093307800858349 /* SelectedAssociateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2564BE2091B1C10056B559 /* SelectedAssociateTableViewCell.xib */; };
+		8DD150032093308200858349 /* AssociateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564BF2091B1C10056B559 /* AssociateTableViewCell.swift */; };
+		8DD150042093308300858349 /* AssociateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564BF2091B1C10056B559 /* AssociateTableViewCell.swift */; };
+		8DD150052093308600858349 /* AssociateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2564BD2091B1C00056B559 /* AssociateTableViewCell.xib */; };
+		8DD150062093308700858349 /* AssociateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2564BD2091B1C00056B559 /* AssociateTableViewCell.xib */; };
+		8DD15009209330E200858349 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD15007209330E100858349 /* AccountView.swift */; };
+		8DD1500A209330E200858349 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD15007209330E100858349 /* AccountView.swift */; };
+		8DD1500B209330E200858349 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15008209330E100858349 /* AccountView.xib */; };
+		8DD1500C209330E200858349 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15008209330E100858349 /* AccountView.xib */; };
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
 		91C3E599208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */; };
@@ -362,6 +374,8 @@
 		8D99A3222092D66C00FAA71A /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		8D99A3252093055200FAA71A /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
 		8DD14FFC2093162D00858349 /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
+		8DD15007209330E100858349 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		8DD15008209330E100858349 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
 		91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactFilterViewModel.swift; sourceTree = "<group>"; };
@@ -374,8 +388,6 @@
 		AE2564BE2091B1C10056B559 /* SelectedAssociateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedAssociateTableViewCell.xib; sourceTree = "<group>"; };
 		AE2564BF2091B1C10056B559 /* AssociateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateTableViewCell.swift; sourceTree = "<group>"; };
 		AE2564C02091B1C10056B559 /* SelectedAssociateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedAssociateTableViewCell.swift; sourceTree = "<group>"; };
-		AE2564C92091B2080056B559 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
-		AE2564CA2091B2080056B559 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVisitViewController.swift; sourceTree = "<group>"; };
 		AE5C974720887550004548E9 /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
 		AE5C974920888330004548E9 /* SchedulerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerComponent.swift; sourceTree = "<group>"; };
@@ -793,6 +805,8 @@
 				AE5C974920888330004548E9 /* SchedulerComponent.swift */,
 				8D99A3252093055200FAA71A /* Validations.swift */,
 				D17BD571209115CD000F38FA /* PlistMap.swift */,
+				8DD15007209330E100858349 /* AccountView.swift */,
+				8DD15008209330E100858349 /* AccountView.xib */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -1024,6 +1038,7 @@
 				8DD14FFE2093162D00858349 /* Contacts.storyboard in Resources */,
 				6D38327C20874026006805C6 /* Ubuntu-LightItalic.ttf in Resources */,
 				6D38327D20874026006805C6 /* CrimsonText-Roman.ttf in Resources */,
+				8DD150022093307800858349 /* SelectedAssociateTableViewCell.xib in Resources */,
 				6D38327E20874026006805C6 /* Ubuntu-BoldItalic.ttf in Resources */,
 				6D38327F20874026006805C6 /* Ubuntu-Regular.ttf in Resources */,
 				8D99A3212092501000FAA71A /* FamilyTableViewCell.xib in Resources */,
@@ -1035,6 +1050,7 @@
 				8D99A3152091E79C00FAA71A /* DropdownTableViewCell.xib in Resources */,
 				8D99A3092091E76900FAA71A /* ContactHoursTableViewCell.xib in Resources */,
 				6D38328320874026006805C6 /* MoreMenu.storyboard in Resources */,
+				8DD150052093308600858349 /* AssociateTableViewCell.xib in Resources */,
 				6D38328420874026006805C6 /* Localizable.strings in Resources */,
 				8D99A2F12091E6F600FAA71A /* NameTableViewCell.xib in Resources */,
 				D23C40CB208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */,
@@ -1042,14 +1058,13 @@
 				6D38328520874026006805C6 /* Ubuntu-Light.ttf in Resources */,
 				6D38328620874026006805C6 /* Ubuntu-Bold.ttf in Resources */,
 				8D99A2EA2091E63F00FAA71A /* ContactClassificationTableViewCell.xib in Resources */,
+				8DD1500C209330E200858349 /* AccountView.xib in Resources */,
 				6D38328720874026006805C6 /* Ubuntu-MediumItalic.ttf in Resources */,
 				6D38328820874026006805C6 /* Ubuntu-Italic.ttf in Resources */,
-				AE2564C22091B1C10056B559 /* AssociateTableViewCell.xib in Resources */,
 				6D38328920874026006805C6 /* UFL.txt in Resources */,
 				6D38328A20874026006805C6 /* CrimsonText-Italic.ttf in Resources */,
 				6D38328B20874026006805C6 /* SFProperty.plist in Resources */,
 				6D38328C20874026006805C6 /* Main.storyboard in Resources */,
-				AE2564CC2091B2080056B559 /* AccountView.xib in Resources */,
 				6D38328D20874026006805C6 /* LaunchScreen.storyboard in Resources */,
 				D23C40DB208DFA890006691C /* AccountVisitListTableViewCell.xib in Resources */,
 				6D38329C20875E1F006805C6 /* SFPropertydev.plist in Resources */,
@@ -1073,11 +1088,9 @@
 				AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */,
 				6DBD03282077B5EF0083419E /* CrimsonText-Roman.ttf in Resources */,
 				F2923C9E208DEA4900D797E1 /* AccountStrategy.plist in Resources */,
-				AE2564CB2091B2080056B559 /* AccountView.xib in Resources */,
 				6DBD03222077B5EF0083419E /* Ubuntu-BoldItalic.ttf in Resources */,
 				6DBD031D2077B5EF0083419E /* Ubuntu-Regular.ttf in Resources */,
 				6DBD03232077B5EF0083419E /* Ubuntu-Medium.ttf in Resources */,
-				AE2564C32091B1C10056B559 /* SelectedAssociateTableViewCell.xib in Resources */,
 				6DBD03262077B5EF0083419E /* CrimsonText-Semibold.ttf in Resources */,
 				D23C40CC208DE6590006691C /* LocationTableViewCell.xib in Resources */,
 				8DD14FFD2093162D00858349 /* Contacts.storyboard in Resources */,
@@ -1087,6 +1100,7 @@
 				D23C40CA208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */,
 				8D99A3082091E76900FAA71A /* ContactHoursTableViewCell.xib in Resources */,
 				D2EAEB8A2074EAC6005F7792 /* MoreMenu.storyboard in Resources */,
+				8DD150012093307700858349 /* SelectedAssociateTableViewCell.xib in Resources */,
 				D23C40DA208DFA890006691C /* AccountVisitListTableViewCell.xib in Resources */,
 				12C5CEF3206E1A9500BC6E7A /* Localizable.strings in Resources */,
 				6DBD03212077B5EF0083419E /* Ubuntu-Light.ttf in Resources */,
@@ -1104,10 +1118,12 @@
 				6DBD03202077B5EF0083419E /* CrimsonText-Italic.ttf in Resources */,
 				D23C409E208DCF610006691C /* AccountVisit.storyboard in Resources */,
 				D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */,
+				8DD1500B209330E200858349 /* AccountView.xib in Resources */,
 				8D99A2F62091E70900FAA71A /* PrimaryFunctionTableViewCell.xib in Resources */,
 				D26768912090B42E0060E792 /* NewContact.storyboard in Resources */,
 				D23C40B9208DE6480006691C /* AccountVisitSectionHeaderView.xib in Resources */,
 				D1FB18592062F7A40072F4C1 /* Main.storyboard in Resources */,
+				8DD150062093308700858349 /* AssociateTableViewCell.xib in Resources */,
 				D1FB18312062A7C00072F4C1 /* LaunchScreen.storyboard in Resources */,
 				6D38329B20875E00006805C6 /* SFPropertydev.plist in Resources */,
 				6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */,
@@ -1187,7 +1203,6 @@
 				"${BUILT_PRODUCTS_DIR}/SalesforceSwiftSDK/SalesforceSwiftSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/SmartStore/SmartStore.framework",
 				"${BUILT_PRODUCTS_DIR}/SmartSync/SmartSync.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftValidator/SwiftValidator.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1203,7 +1218,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SalesforceSwiftSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SmartStore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SmartSync.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftValidator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1321,6 +1335,7 @@
 				6D38325020874026006805C6 /* CustomerHeaderTableViewCell.swift in Sources */,
 				8D99A2E82091E63F00FAA71A /* ContactClassificationTableViewCell.swift in Sources */,
 				6D38325120874026006805C6 /* Contact.swift in Sources */,
+				8DD1500A209330E200858349 /* AccountView.swift in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
 				6D38325420874026006805C6 /* FilterViewModel.swift in Sources */,
@@ -1342,20 +1357,19 @@
 				6D38325A20874026006805C6 /* AccountsMenuTableTableViewCell.swift in Sources */,
 				D23C40BC208DE6480006691C /* AccountVisitSectionHeaderView.swift in Sources */,
 				6D38325B20874026006805C6 /* AccountListViewController.swift in Sources */,
-				AE2564C82091B1C10056B559 /* SelectedAssociateTableViewCell.swift in Sources */,
 				6D38325C20874026006805C6 /* XMSegmentedControl.swift in Sources */,
 				6D38325D20874026006805C6 /* GoSpotCheckViewController.swift in Sources */,
 				6D38325E20874026006805C6 /* AccountDetailTabViewController.swift in Sources */,
 				D23C4091208DCF010006691C /* Extension.swift in Sources */,
 				6D38325F20874026006805C6 /* UserViewModel.swift in Sources */,
 				8D99A2F52091E70900FAA71A /* PrimaryFunctionTableViewCell.swift in Sources */,
+				8DD150002093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,
 				12F0F89E2090B1D200160C3D /* ContactListDetailsTableViewCell.swift in Sources */,
 				F2DC2842208E6B6B0005294E /* AccountStrategyViewControllerr.swift in Sources */,
 				8D99A3012091E73F00FAA71A /* EmailTableViewCell.swift in Sources */,
 				6D38326020874026006805C6 /* Account.swift in Sources */,
 				6D38326120874026006805C6 /* ContactTableViewCell.swift in Sources */,
 				6D38326220874026006805C6 /* DateTimeUtility.swift in Sources */,
-				AE2564BC2091B1460056B559 /* SelectOpportunitiesViewController.swift in Sources */,
 				6D38326320874026006805C6 /* TransactionsViewController.swift in Sources */,
 				8D99A3192091FCAF00FAA71A /* DescriptionTableViewCell.swift in Sources */,
 				6D38326420874026006805C6 /* ActionItemsViewController.swift in Sources */,
@@ -1384,11 +1398,10 @@
 				6D38327220874026006805C6 /* SFAError.swift in Sources */,
 				6D38327320874026006805C6 /* InsightsViewController.swift in Sources */,
 				6D38327420874026006805C6 /* HomeViewController.swift in Sources */,
+				8DD150032093308200858349 /* AssociateTableViewCell.swift in Sources */,
 				8D99A31F2092501000FAA71A /* FamilyTableViewCell.swift in Sources */,
 				12F0F89F2090BABC00160C3D /* ContactListViewController.swift in Sources */,
 				6D38327520874026006805C6 /* AccountsViewController.swift in Sources */,
-				AE2564C62091B1C10056B559 /* AssociateTableViewCell.swift in Sources */,
-				AE2564CE2091B2080056B559 /* AccountView.swift in Sources */,
 				6D38327620874026006805C6 /* CalendarViewController.swift in Sources */,
 				8D99A2FB2091E71E00FAA71A /* PhoneTableViewCell.swift in Sources */,
 				F2DC2840208E6B5B0005294E /* AccountStrategyCollectionViewCell.swift in Sources */,
@@ -1423,10 +1436,10 @@
 				F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */,
 				91C3E599208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */,
 				D2EAEB8E2074EC9B005F7792 /* LoadDepositViewController.swift in Sources */,
-				AE2564B92091B1460056B559 /* ServicePurposesViewController.swift in Sources */,
 				9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */,
 				D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */,
 				12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */,
+				8DD15009209330E200858349 /* AccountView.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
 				D17BD572209115CD000F38FA /* PlistMap.swift in Sources */,
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
@@ -1462,7 +1475,6 @@
 				D104839E20683E4000A0343B /* Notification.swift in Sources */,
 				C9B63C6E208DB819008D9E14 /* CreateNoteViewController.swift in Sources */,
 				AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */,
-				AE2564C72091B1C10056B559 /* SelectedAssociateTableViewCell.swift in Sources */,
 				6F3D309F206BA066000CFFCC /* ParentViewController.swift in Sources */,
 				D23C40C8208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */,
 				8D99A3062091E76900FAA71A /* ContactHoursTableViewCell.swift in Sources */,
@@ -1475,7 +1487,6 @@
 				8D99A2E02091E14700FAA71A /* ToggleTableViewCell.swift in Sources */,
 				D2CD7F63208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
 				C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */,
-				AE2564CD2091B2080056B559 /* AccountView.swift in Sources */,
 				D1FE1D0720657B7E009CC47C /* SFAError.swift in Sources */,
 				8D99A3232092D66C00FAA71A /* CustomPicker.swift in Sources */,
 				913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */,
@@ -1485,14 +1496,15 @@
 				91C3E59E208F0F600067CF3E /* ContactMenuViewController.swift in Sources */,
 				6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */,
 				6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */,
-				AE2564BB2091B1460056B559 /* SelectOpportunitiesViewController.swift in Sources */,
 				6F3D30A0206BA066000CFFCC /* CalendarViewController.swift in Sources */,
 				F2923C9C208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift in Sources */,
 				12E47BE4208B518A00D37B74 /* ContactListDetailsTableViewCell.swift in Sources */,
+				8DD150042093308300858349 /* AssociateTableViewCell.swift in Sources */,
 				D2E12D7320736D620005B982 /* ReportsViewController.swift in Sources */,
 				8D99A30C2091E77C00FAA71A /* DateFieldTableViewCell.swift in Sources */,
 				D23C40C6208DE6590006691C /* AssociatedContactsTableViewCell.swift in Sources */,
 				D1FE1CD620654734009CC47C /* StoreDispatcher.swift in Sources */,
+				8DD14FFF2093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -416,17 +416,22 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             
         case .HomeVCIndex:
             vc = homeVC
+             ContactsGlobal.accountId = ""
         case .AccountVCIndex:
             let accVC = accountsVC as? AccountsViewController
             accVC?.accountDetails?.view.removeFromSuperview()
-            
             vc = accountsVC
+            ContactsGlobal.accountId = ""
         case .ContactsVCIndex:
-            vc = contactsVC
+            let contactVC = contactsVC as! ContactsViewController
+            vc = contactVC
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
             vc = calendarVC
+             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             vc = objectivesVC
+             ContactsGlobal.accountId = ""
             
             // have to cover all cases from defined enum, else compiler wont be happy :D
             /*default:

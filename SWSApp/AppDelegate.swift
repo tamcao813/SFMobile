@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.handleUserSwitch(fromUser, toUser: toUser)
                 }.launchError {  [unowned self] (error: Error, launchActionList: SFSDKLaunchAction) in
                     SFSDKLogger.log(type(of:self), level:.error, message:"Error during SDK launch: \(error.localizedDescription)")
-                    self.initializeAppViewState()
+//                    self.initializeAppViewState()
                     SalesforceSDKManager.shared().launch()
                 }
                 .done()

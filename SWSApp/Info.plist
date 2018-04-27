@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>SFDCOAuthLoginHost</key>
-	<string>sgws-de--dedev1.cs20.my.salesforce.com</string>
+	<string>sgws-de--detest.cs77.my.salesforce.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>CrimsonText-Bold.ttf</string>

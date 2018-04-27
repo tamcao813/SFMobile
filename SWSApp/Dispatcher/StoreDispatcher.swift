@@ -22,6 +22,7 @@ class StoreDispatcher {
     let SoupAccount = "AccountTeamMember"
     let SoupContact = "Contact"
     let SoupAccountContactRelation = "AccountContactRelation"
+    let SoupAccountNotes = "AccountNotes"
 
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
@@ -40,6 +41,7 @@ class StoreDispatcher {
         registerAccountSoup()
         registerContactSoup()
         registerACRSoup()
+        registerNotesSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -80,6 +82,14 @@ class StoreDispatcher {
             group.leave()
         }
         
+        group.enter()
+        syncDownNotes() { _ in
+            group.leave()
+        }
+        
+        
+        
+       
         //to do: syncDown other soups
         
         group.notify(queue: queue) {
@@ -766,6 +776,80 @@ class StoreDispatcher {
             .catch { error in
                 completion(error as NSError?)
         }
+    }
+    
+    func registerNotesSoup(){
+        
+        let notesQueryFields = AccountNotes.AccountNotesFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...notesQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: notesQueryFields[i], indexType: kSoupIndexTypeString, columnName: notesQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        do {
+            try sfaStore.registerSoup(SoupAccountNotes, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupAccountNotes soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    func syncDownNotes(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "SELECT Id,LastModifiedDate,Name,OwnerId,SGWS_Account__c,SGWS_Description__c FROM SGWS_Account_Notes__c"
+        
+        print("soql notes query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
+            SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupAccountNotes)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> Notes syncDownNote() done >>>>>")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownNotes() >>>>>>>"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownNotes()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    func fetchAccountsNotes()->[AccountNotes]{
+        
+        var acctNotes: [AccountNotes] = []
+        let notesFields = AccountNotes.AccountNotesFields.map{"{AccountNotes:\($0)}"}
+        let soapQuery = "Select \(notesFields.joined(separator: ",")) FROM {AccountNotes}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        print("Result of account notes is \(result)")
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let accountNotesArray = AccountNotes(withAry: ary)
+                acctNotes.append(accountNotesArray)
+            }
+        }
+        else if error != nil {
+            print("fetch account notes  " + " error:" + (error?.localizedDescription)!)
+        }
+        return acctNotes
     }
 }
 

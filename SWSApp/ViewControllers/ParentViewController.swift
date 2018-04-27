@@ -10,7 +10,6 @@ import UIKit
 import DropDown
 import Reachability
 
-
 struct SelectedMoreButton {
     static var selectedItem : Int = -1
 }
@@ -38,9 +37,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     var notificationsView:UIView?
     var filterMenuModel = AccountsMenuViewController()
-    var contactFilterMenuModel = ContactMenuViewController()
-    
+    //
     var previouslySelectedVCIndex = 0
+    
+    var ifMoreVC = false
+    
+    let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
     
     // keep the views loaded
     //home VC
@@ -61,8 +63,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // calendar VC
     lazy var calendarVC : UIViewController? = {
         let calendarTabVC = self.storyboard?.instantiateViewController(withIdentifier: "CalendarViewControllerID")
-//        let planVisitStoryboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-//        let calendarTabVC = planVisitStoryboard.instantiateViewController(withIdentifier: "PlanVisitViewControllerID")
+        
+        //let planVisitStoryboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+        //let calendarTabVC = planVisitStoryboard.instantiateViewController(withIdentifier: "PlanVisitViewControllerID")
         return calendarTabVC
     }()
     // objectives VC
@@ -78,6 +81,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }()
     
     var reachability = Reachability()!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -88,7 +92,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // show the relevant tab
         displayCurrentTab(0)
         
-   
         reachability.whenReachable = { reachability in
             if reachability.connection == .wifi {
                 print("Reachable via WiFi")
@@ -96,8 +99,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 print("Reachable via Cellular")
             }
             self.wifiIconButton?.image = UIImage(named: "Online")
-            
         }
+        
         reachability.whenUnreachable = { _ in
             print("Not reachable")
             self.wifiIconButton?.image = UIImage(named: "Offline")
@@ -109,14 +112,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             print("Unable to start notifier")
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -131,8 +132,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
     }
     
-    
-    
     // # MARK: setUpMenuBar
     private func setUpMenuBar()
     {
@@ -142,6 +141,17 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         wifiIconButton = UIBarButtonItem(image: UIImage(named: "Online"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         wifiIconButton?.isEnabled = false
         //let numberButton = UIBarButtonItem(image: UIImage(named: "blueCircle-Small"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        
+        //Used to setup notification label and Logo
+        self.setupTopMenuIcons()
+        
+        //Used to show the Persistant Menu items
+        self.setupTopMenuItems()
+        
+    }
+    
+    
+    private func setupTopMenuIcons(){
         
         let userInitialLabel:UILabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
         userInitialLabel.font  = UIFont.boldSystemFont(ofSize: 13)
@@ -173,16 +183,19 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // left buttons
         
         // Logo Button with Label....
-//        let logoLabel:UIImageView = UIImageView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))
-//        logoLabel.image = UIImage(named: "logo")
-//        logoLabel.layer.cornerRadius = 10/2
-//        logoLabel.clipsToBounds = true
-//        let logoBarButton = UIBarButtonItem.init(customView: logoLabel)
+        //        let logoLabel:UIImageView = UIImageView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))
+        //        logoLabel.image = UIImage(named: "logo")
+        //        logoLabel.layer.cornerRadius = 10/2
+        //        logoLabel.clipsToBounds = true
+        //        let logoBarButton = UIBarButtonItem.init(customView: logoLabel)
         
         let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         logoButton.isEnabled = false
         self.navigationItem.leftBarButtonItem = logoButton
         
+    }
+    
+    private func setupTopMenuItems(){
         
         // get the menu items from localized strings
         let menuItem1 = NSLocalizedString("Home", comment: "Home")
@@ -224,7 +237,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             //show more drop down()
             showMoreDropDown(selectedIndex: selectedSegment)
             filterMenuModel.clearFilterModelData()
-            contactFilterMenuModel.clearFilterModelData()
         }
     }
     
@@ -232,9 +244,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     private func showMoreDropDown(selectedIndex: Int)
     {
         moreDropDown.anchorView = topMenuBar
-        
-        
-        
         // number of menus in persisten menubar
         //let numberOfMenuTabsInPersistentMenu = 5
         moreDropDown.bottomOffset = CGPoint(x: ((topMenuBar?.frame.size.width)!-((topMenuBar?.frame.size.width)!/6.0)), y:(moreDropDown.anchorView?.plainView.bounds.height)!)
@@ -254,75 +263,64 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.moreDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
         self.moreDropDown.textColor =  UIColor.gray
         
+        self.selectedDropDownOption(selectedIndex : selectedIndex)
+    }
+    
+    private func selectedDropDownOption(selectedIndex : Int){
         moreDropDown.selectionAction = { (index: Int, item: String) in
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
-            let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
             let currentViewController = self.displayCurrentTab(selectedIndex)
             
-            for view in self.view.subviews{
-                
-                // Set the identifier for globalNotification view
-                if(view.restorationIdentifier == "globalNotification"){
-                    view.removeFromSuperview()
-                }
-            }
+            self.removeSubviews()
+            
             currentViewController?.view.addSubview(moreVC1.view)
             
             SelectedMoreButton.selectedItem = index
             //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
             switch index {
             case 0:
-                let actionItemsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ActionItemsViewControllerID")
-                moreVC1.view.addSubview((actionItemsVC.view)!)
-               
-                self.moreDropDownSelectionIndex = index
+                self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: index)
+                
             case 1:
-                let accountVisitsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "AccountVisitsControllerID")
-                moreVC1.view.addSubview((accountVisitsVC.view)!)
+                self.instantiateViewController(identifier: "AccountVisitsControllerID", moreOptionVC: moreVC1, index: index)
+//                accountVisitsVC.view.frame = self.contentView.bounds
+//                self.contentView.addSubview((accountVisitsVC.view)!)
+//                self.currentViewController = accountVisitsVC
+
                 self.moreDropDownSelectionIndex = index
             case 2:
-                let insightsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "InsightsViewControllerID")
-                moreVC1.view.addSubview((insightsVC.view)!)
-                self.moreDropDownSelectionIndex = index
+                self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)
+                
             case 3:
-                let reportsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ReportsViewControllerID")
-                moreVC1.view.addSubview((reportsVC.view)!)
-                self.moreDropDownSelectionIndex = index
+                self.instantiateViewController(identifier: "AccountVisitsControllerID", moreOptionVC: moreVC1, index: index)
+                
             case 4:
-                let notificationsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID")
-                moreVC1.view.addSubview((notificationsVC.view)!)
-                notificationsVC.view.frame.origin.y = -63.5
-                self.moreDropDownSelectionIndex = index
+                self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: index)
+                //notificationsVC.view.frame.origin.y = -63.5
+                
             case 5:
-                let chatterVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ChatterViewControllerID")
-                moreVC1.view.addSubview((chatterVC.view)!)
-                self.moreDropDownSelectionIndex = index
+                self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
+                
             case 6:
-                let topazVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "TopazViewControllerID")
-                moreVC1.view.addSubview((topazVC.view)!)
-                self.moreDropDownSelectionIndex = index
+                self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
+                
             case 7:
-                let loadDepositVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "IDDViewControllerID")
-                moreVC1.view.addSubview((loadDepositVC.view)!)
-                self.moreDropDownSelectionIndex = index
+                self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
+                
             case 8:
-                let goSpotCheckVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "GoSpotViewControllerID")
-                moreVC1.view.addSubview((goSpotCheckVC.view)!)
-                self.moreDropDownSelectionIndex = index
+                self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
+                
             default:
                 break
-                
-                
             }
-            
-            //just print for now
-            //            print("Selected item: \(item) at index: \(index)")
-            //            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
-            //            moreVC1.moreLabel.text = item
-            
         }
         // display the dropdown
         moreDropDown.show()
+        
+        self.dropDownSelectedRow()
+    }
+    
+    private func dropDownSelectedRow(){
         
         // Dictionary to maitian the last selection
         if(self.moreDropDownSelectionIndex != -1){
@@ -330,7 +328,23 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 moreDropDown.selectRow(selection)
             }
         }
+    }
+    
+    private func removeSubviews(){
         
+        for view in self.view.subviews{
+            
+            // Set the identifier for globalNotification view
+            if(view.restorationIdentifier == "globalNotification"){
+                view.removeFromSuperview()
+            }
+        }
+    }
+    
+    private func instantiateViewController(identifier : String , moreOptionVC : MoreViewController, index : Int){
+        let loadController = moreMenuStoryboard.instantiateViewController(withIdentifier: identifier)
+        moreOptionVC.view.addSubview((loadController.view)!)
+        self.moreDropDownSelectionIndex = index
     }
     
     // # MARK: displayCurrentTab
@@ -341,7 +355,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.addChildViewController(vc)
             vc.didMove(toParentViewController: self)
             
-            
             vc.view.frame = self.contentView.bounds
             self.contentView.addSubview(vc.view)
             self.currentViewController = vc
@@ -349,65 +362,77 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         return currentViewController
     }
     
-    // # MARK: viewControllerForSelectedSegmentIndex
-    // get the respective view controller as per the selected index of menu from menubar
-     func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
-        
-        self.view.endEditing(true)
-        
-        if index != 1{
-            filterMenuModel.clearFilterModelData()
-           
-        }
-        if index != 2{
-            
-            let accVC = contactsVC as? ContactsViewController
-            accVC?.filterMenuVC?.clearFilterModelData()
-        }
-        
-        if(previouslySelectedVCIndex == 1)// account list view
-        {
+    
+    private func clearAccountFilterModel(){
+        //account list view
+        if(previouslySelectedVCIndex == 1) {
             // clear filter, reset data, hide keyboard
             print("previous is account list")
             let accVC = accountsVC as? AccountsViewController
             accVC?.filterMenuVC?.resetEnteredDataAndAccountList()
         }
-        else if(previouslySelectedVCIndex == 2)// contact list view
+    }
+    
+    private func clearContactsFilterModel(){
+        if(previouslySelectedVCIndex == 2)// contact list view
         {
             // clear filter, reset data, hide keyboard
             print("previous is contact list")
             let conVC = contactsVC as? ContactsViewController
             conVC?.filterMenuVC?.resetEnteredDataAndContactList()
         }
-
+        
+    }
+    
+    // # MARK: viewControllerForSelectedSegmentIndex
+    // get the respective view controller as per the selected index of menu from menubar
+    private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
+        
+        self.view.endEditing(true)
+        
+        if index != 1{
+            filterMenuModel.clearFilterModelData()
+        }
+        
+        if index != 2{
+            
+            let accVC = contactsVC as? ContactsViewController
+            accVC?.filterMenuVC?.clearFilterModelData()
+        }
+        
+        self.clearAccountFilterModel()
+        
+        self.clearContactsFilterModel()
+    
+        
         self.notificationButton?.isEnabled = true
         self.numberLabel?.isUserInteractionEnabled = true
         
-        var ifMoreVC = false
         let selectedVC:GlobalConstants.persistenMenuTabVCIndex = GlobalConstants.persistenMenuTabVCIndex(rawValue: index)!
         
         if(GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex != selectedVC) {
             self.moreDropDownSelectionIndex = -1
         }
         
-        
+        ifMoreVC = false
         var vc: UIViewController?
         switch selectedVC {
+            
         case .HomeVCIndex:
             vc = homeVC
-            ContactsGlobal.accountId = ""
+             ContactsGlobal.accountId = ""
         case .AccountVCIndex:
             let accVC = accountsVC as? AccountsViewController
             accVC?.accountDetails?.view.removeFromSuperview()
             vc = accountsVC
             ContactsGlobal.accountId = ""
-           case .ContactsVCIndex:
+        case .ContactsVCIndex:
             let contactVC = contactsVC as! ContactsViewController
             vc = contactVC
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
             vc = calendarVC
-            ContactsGlobal.accountId = ""
+             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             vc = objectivesVC
              ContactsGlobal.accountId = ""
@@ -423,24 +448,26 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
         
         previouslySelectedVCIndex = index
+        self.removePresentedViewControllers()
+        
+        return vc
+    }
+    
+    private func removePresentedViewControllers(){
         
         if(!ifMoreVC){
             if let mVC = self.moreVC {
                 mVC.view.removeFromSuperview()
             }
-            
         }
-        
         
         if(!ifMoreVC){
             for view in self.view.subviews{
-                
                 if(view.restorationIdentifier == "globalNotification"){
                     view.removeFromSuperview()
                 }
             }
         }
-        return vc
     }
     
     @objc func notificationButtonPressed(sender: UIBarButtonItem){
@@ -457,6 +484,5 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.numberLabel?.isUserInteractionEnabled = false
         }
     }
-    
 }
 

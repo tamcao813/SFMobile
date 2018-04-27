@@ -283,7 +283,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 
             case 1:
                 self.instantiateViewController(identifier: "AccountVisitsControllerID", moreOptionVC: moreVC1, index: index)
-                
+//                accountVisitsVC.view.frame = self.contentView.bounds
+//                self.contentView.addSubview((accountVisitsVC.view)!)
+//                self.currentViewController = accountVisitsVC
+
+                self.moreDropDownSelectionIndex = index
             case 2:
                 self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)
                 

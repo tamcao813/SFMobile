@@ -408,7 +408,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             accVC?.accountDetails?.view.removeFromSuperview()
             vc = accountsVC
             ContactsGlobal.accountId = ""
-           case .ContactsVCIndex:
+        case .ContactsVCIndex:
             let contactVC = contactsVC as! ContactsViewController
             vc = contactVC
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)

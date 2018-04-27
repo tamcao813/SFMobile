@@ -155,6 +155,10 @@
 		C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */; };
 		C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */; };
 		C9B63C6E208DB819008D9E14 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */; };
+		C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B95098209307C900792AD3 /* AccountNotes.swift */; };
+		C9B9509B2093081D00792AD3 /* AccountsNotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */; };
+		C9B9509C209339E800792AD3 /* AccountNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B95098209307C900792AD3 /* AccountNotes.swift */; };
+		C9B9509D20933B8300792AD3 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */; };
 		D10483962068381A00A0343B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483952068381A00A0343B /* Contact.swift */; };
 		D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483992068398F00A0343B /* HomeTableViewController.swift */; };
 		D104839E20683E4000A0343B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D104839D20683E4000A0343B /* Notification.swift */; };
@@ -296,6 +300,8 @@
 		C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
 		C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
+		C9B95098209307C900792AD3 /* AccountNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotes.swift; sourceTree = "<group>"; };
+		C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsNotesViewModel.swift; sourceTree = "<group>"; };
 		D10483952068381A00A0343B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		D10483992068398F00A0343B /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		D104839D20683E4000A0343B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
@@ -476,6 +482,7 @@
 				D125134120648C4F00CD6CB4 /* Account.swift */,
 				D10483952068381A00A0343B /* Contact.swift */,
 				D104839D20683E4000A0343B /* Notification.swift */,
+				C9B95098209307C900792AD3 /* AccountNotes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -615,6 +622,7 @@
 				D1FCDE0C20733024005F956D /* UserViewModel.swift */,
 				D1FCDE0B20733024005F956D /* FilterViewModel.swift */,
 				91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */,
+				C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1080,6 +1088,7 @@
 				91C3E59C208F0F4F0067CF3E /* ContactsViewController.swift in Sources */,
 				6D38325920874026006805C6 /* CurrencyFormatter.swift in Sources */,
 				6D38325A20874026006805C6 /* AccountsMenuTableTableViewCell.swift in Sources */,
+				C9B9509D20933B8300792AD3 /* NotesViewController.swift in Sources */,
 				6D38325B20874026006805C6 /* AccountListViewController.swift in Sources */,
 				AE2564C82091B1C10056B559 /* SelectedAssociateTableViewCell.swift in Sources */,
 				6D38325C20874026006805C6 /* XMSegmentedControl.swift in Sources */,
@@ -1108,6 +1117,7 @@
 				6D38326D20874026006805C6 /* Notification.swift in Sources */,
 				6D38326E20874026006805C6 /* ParentViewController.swift in Sources */,
 				6D38326F20874026006805C6 /* NotificationsViewController.swift in Sources */,
+				C9B9509C209339E800792AD3 /* AccountNotes.swift in Sources */,
 				6D38327020874026006805C6 /* AccountsMenuViewController.swift in Sources */,
 				6D38327120874026006805C6 /* MoreViewController.swift in Sources */,
 				AE2564BA2091B1460056B559 /* ServicePurposesViewController.swift in Sources */,
@@ -1192,12 +1202,14 @@
 				F2923CA0208DF16800D797E1 /* AccountStrategyViewControllerr.swift in Sources */,
 				91C3E59E208F0F600067CF3E /* ContactMenuViewController.swift in Sources */,
 				6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */,
+				C9B9509B2093081D00792AD3 /* AccountsNotesViewModel.swift in Sources */,
 				6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */,
 				AE2564BB2091B1460056B559 /* SelectOpportunitiesViewController.swift in Sources */,
 				6F3D30A0206BA066000CFFCC /* CalendarViewController.swift in Sources */,
 				F2923C9C208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift in Sources */,
 				12E47BE4208B518A00D37B74 /* ContactListDetailsTableViewCell.swift in Sources */,
 				D2E12D7320736D620005B982 /* ReportsViewController.swift in Sources */,
+				C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */,
 				D1FE1CD620654734009CC47C /* StoreDispatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,9 +14,6 @@
         <array key="Ubuntu-Medium.ttf">
             <string>Ubuntu-Medium</string>
         </array>
-        <array key="Ubuntu-Regular.ttf">
-            <string>Ubuntu</string>
-        </array>
     </customFonts>
     <scenes>
         <!--Create New Contact View Controller-->
@@ -28,13 +25,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaV-h6-4YX">
-                                <rect key="frame" x="40" y="40" width="227.5" height="43"/>
-                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="38"/>
+                                <rect key="frame" x="40" y="40" width="155.5" height="29.5"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnt-OW-tmP">
-                                <rect key="frame" x="964" y="42" width="40" height="40"/>
+                                <rect key="frame" x="964" y="35.5" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="K0f-Qi-9cB"/>
@@ -48,7 +45,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k9T-Ks-G1f">
-                                <rect key="frame" x="0.0" y="100" width="1024" height="668"/>
+                                <rect key="frame" x="0.0" y="86.5" width="1024" height="681.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="VPF-Bk-3Pb">
                                     <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
@@ -61,7 +58,7 @@
                                                 <constraint firstAttribute="height" constant="40" id="RxX-co-SYr"/>
                                                 <constraint firstAttribute="width" constant="120" id="ZX3-rI-hSI"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
                                             <state key="normal" title="Save">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
@@ -100,6 +97,7 @@
                         <viewLayoutGuide key="safeArea" id="kNH-Wl-Oi2"/>
                     </view>
                     <connections>
+                        <outlet property="headingLabel" destination="d55-ld-65c" id="8eu-j3-h1G"/>
                         <outlet property="tableView" destination="k9T-Ks-G1f" id="Neb-Nh-59e"/>
                     </connections>
                 </viewController>

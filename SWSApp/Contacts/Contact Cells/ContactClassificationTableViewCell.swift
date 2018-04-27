@@ -26,16 +26,9 @@ class ContactClassificationTableViewCell: UITableViewCell {
         dropdownButton.setImage(#imageLiteral(resourceName: "dropDownLight"), for: .normal)
         classificationTextField.rightView = dropdownButton
         classificationTextField.rightViewMode = .always
-        customizePicker()
-    }
-    
-    func customizePicker(){
-        let pickerView = UIPickerView()
+        let pickerView = CustomPicker().customPickerView(textField: classificationTextField)
         pickerView.delegate = self
-        pickerView.backgroundColor = .white
-        classificationTextField.inputView = pickerView
     }
-    
 }
 
 extension ContactClassificationTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {

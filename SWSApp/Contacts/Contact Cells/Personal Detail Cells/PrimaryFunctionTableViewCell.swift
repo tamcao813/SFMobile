@@ -28,11 +28,8 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
         dropdownButton.setImage(#imageLiteral(resourceName: "dropDownLight"), for: .normal)
         primaryFunctionTextField.rightView = dropdownButton
         primaryFunctionTextField.rightViewMode = .always
-
-        let pickerView = UIPickerView()
+        let pickerView = CustomPicker().customPickerView(textField: primaryFunctionTextField)
         pickerView.delegate = self
-        pickerView.backgroundColor = .white
-        primaryFunctionTextField.inputView = pickerView
     }
 }
 

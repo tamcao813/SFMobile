@@ -14,6 +14,7 @@ class CreateNewContactViewController: UIViewController {
     var firstNameTextField: UITextField!
     var lastNameTextField: UITextField!
     var preferredNameTextField: UITextField!
+    @IBOutlet weak var headingLabel: UITextField!
     
     
     override func viewDidLoad() {
@@ -56,24 +57,24 @@ class CreateNewContactViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton){
-//        var showAlert = false
+        var showAlert = false
         
         if (firstNameTextField.text?.isEmpty)! || (lastNameTextField.text?.isEmpty)! {
             firstNameTextField.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
-//            showAlert = true
+            showAlert = true
             firstNameTextField.shake()
         }else{
-//            showAlert = false
+            showAlert = false
            firstNameTextField.borderColor = .lightGray
         }
         
-//        if showAlert {
-//            let alertController = UIAlertController(title: "Alert", message:
-//                "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
-//            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-//            self.present(alertController, animated: true, completion: nil)
-//        }
+        if showAlert {
+            let alertController = UIAlertController(title: "Alert", message:
+                "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 
 }

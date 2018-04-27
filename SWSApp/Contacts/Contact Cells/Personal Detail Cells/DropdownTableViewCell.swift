@@ -25,13 +25,8 @@ class DropdownTableViewCell: UITableViewCell {
         dropdownButton.setImage(#imageLiteral(resourceName: "dropDownLight"), for: .normal)
         dropdownTextfield.rightView = dropdownButton
         dropdownTextfield.rightViewMode = .always
-    }
-    
-    func customizePicker(){
-        let pickerView = UIPickerView()
+        let pickerView = CustomPicker().customPickerView(textField: dropdownTextfield)
         pickerView.delegate = self
-        pickerView.backgroundColor = .white
-        dropdownTextfield.inputView = pickerView
     }
     
 }

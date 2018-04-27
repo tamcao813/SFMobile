@@ -46,7 +46,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oFl-wq-cAo">
-                        <rect key="frame" x="40" y="71.5" width="140" height="40"/>
+                        <rect key="frame" x="40" y="66.5" width="140" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="ZDp-VZ-R63"/>
                             <constraint firstAttribute="width" constant="140" id="wbN-Xy-yAX"/>
@@ -79,7 +79,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lxf-zo-TZx">
-                        <rect key="frame" x="200" y="71.5" width="140" height="40"/>
+                        <rect key="frame" x="200" y="66.5" width="140" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="kln-Hr-ZUs"/>
                             <constraint firstAttribute="width" constant="140" id="nxJ-TY-QTC"/>
@@ -114,11 +114,11 @@
                     <constraint firstItem="GQ0-ne-CXF" firstAttribute="top" secondItem="oU8-mN-svC" secondAttribute="bottom" constant="10" id="Fu9-CM-qtD"/>
                     <constraint firstItem="dfi-zB-2Oi" firstAttribute="leading" secondItem="GQ0-ne-CXF" secondAttribute="trailing" constant="20" id="U2p-O8-AIo"/>
                     <constraint firstItem="oFl-wq-cAo" firstAttribute="leading" secondItem="GQ0-ne-CXF" secondAttribute="leading" id="UNE-Ll-PIr"/>
-                    <constraint firstItem="Lxf-zo-TZx" firstAttribute="top" secondItem="dfi-zB-2Oi" secondAttribute="bottom" constant="10" id="Uui-O3-Xcf"/>
+                    <constraint firstItem="Lxf-zo-TZx" firstAttribute="top" secondItem="dfi-zB-2Oi" secondAttribute="bottom" constant="5" id="Uui-O3-Xcf"/>
                     <constraint firstItem="dfi-zB-2Oi" firstAttribute="width" secondItem="Lxf-zo-TZx" secondAttribute="width" id="VFB-qo-dzO"/>
                     <constraint firstItem="oU8-mN-svC" firstAttribute="leading" secondItem="AHu-x2-dVC" secondAttribute="leading" constant="40" id="ale-yb-924"/>
                     <constraint firstAttribute="bottom" secondItem="oFl-wq-cAo" secondAttribute="bottom" id="daE-jg-t0a"/>
-                    <constraint firstItem="oFl-wq-cAo" firstAttribute="top" secondItem="GQ0-ne-CXF" secondAttribute="bottom" constant="10" id="dpt-x0-vxa"/>
+                    <constraint firstItem="oFl-wq-cAo" firstAttribute="top" secondItem="GQ0-ne-CXF" secondAttribute="bottom" constant="5" id="dpt-x0-vxa"/>
                     <constraint firstItem="dfi-zB-2Oi" firstAttribute="top" secondItem="GQ0-ne-CXF" secondAttribute="top" id="zqo-Mg-TUu"/>
                 </constraints>
             </tableViewCellContentView>

@@ -121,6 +121,12 @@
                     <constraint firstItem="0dw-8H-ENJ" firstAttribute="top" secondItem="Apn-tI-0ru" secondAttribute="bottom" id="rkJ-Nr-TA7"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="emailAddrLabel" destination="0dw-8H-ENJ" id="vQ8-gF-BZ1"/>
+                <outlet property="nameLabel" destination="dul-nK-r80" id="xfx-R6-XjN"/>
+                <outlet property="phoneNumLabel" destination="4JM-QM-2Nb" id="fj4-xI-DbU"/>
+                <outlet property="roleLabel" destination="I18-Yb-3iL" id="R7V-1c-i4J"/>
+            </connections>
             <point key="canvasLocation" x="-93.5" y="-44"/>
         </tableViewCell>
     </objects>

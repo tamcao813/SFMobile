@@ -23,6 +23,7 @@
             <connections>
                 <outlet property="accountLabel" destination="fbj-P3-Fkm" id="dYS-Ux-1ty"/>
                 <outlet property="addressLabel" destination="ofh-ZY-LrN" id="6Mf-9d-9by"/>
+                <outlet property="phoneNumberLabel" destination="dWr-4N-nlb" id="rtD-sR-Z7o"/>
                 <outlet property="view" destination="iN0-l3-epB" id="8a9-42-zIY"/>
             </connections>
         </placeholder>

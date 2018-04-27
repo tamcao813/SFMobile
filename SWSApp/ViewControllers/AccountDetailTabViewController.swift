@@ -188,7 +188,6 @@ class AccountDetailTabViewController: UITableViewController {
         let  headerCell = tableView.dequeueReusableCell(withIdentifier: "customerHeaderCell") as! CustomerHeaderTableViewCell
         
         if section == 0{
-            
             self.getFullAddress(headerCell: headerCell)
             self.batteryIndicator(headerCell: headerCell)
             self.showPastDueAmountIndicator(headerCell: headerCell)
@@ -201,16 +200,12 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.creditLimitValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.creditLimit)!) 
             headerCell.totalBalanceValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.totalARBalance)!)
             headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)
-            
-            
             headerCell.pastDueValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.pastDueAmountDouble)!)
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
             headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate)
             //Getting only working hours from extension
             //  let workingHours = account?.operatingHours.slice(from: ":", to: "\n")
             headerCell.businessHoursValue.text = account?.operatingHours
-        
-            
             return headerCell
             
         }
@@ -286,12 +281,10 @@ class AccountDetailTabViewController: UITableViewController {
         
     }
     
-    
     @objc func viewAllContactFunction()  {
         
         ContactFilterMenuModel.comingFromDetailsScreen = "YES"
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:account?.account_Id)
-        
     }
     
 }

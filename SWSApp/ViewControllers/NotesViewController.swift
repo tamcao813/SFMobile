@@ -115,19 +115,19 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         return 100.0;
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        //  let editButton = UIButton( type: .system)
-        let editRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.default, title: "Edit", handler:{action, indexpath in
-            let notes = self.notesDict[indexPath.row]
-            let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
-            let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditNoteID") as! EditNoteViewController
-            (vc as! EditNoteViewController).displayEditNoteData(title: notes["title"]!, date: notes["date"]!, description: notes["description"]!)
-            self.present(vc, animated: true, completion: nil)
-            
-            print("EDIT•ACTION");
-        });
-        //editRowAction.view
-        editRowAction.backgroundColor = UIColor(named:"InitialsBackground")
+    //MARK:- Table view on Swipe EDIT and DELETE actions
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        
+        guard orientation == .right else { return nil }
+        
+        let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
+            let notes = self.tableViewData[indexPath.row] as! NSDictionary
+            self.notesTitle = notes["title"] as! String
+            self.notesDescription = notes["description"] as! String
+            self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
+        }
+        editAction.image = UIImage(named:"editIcon")
+        editAction.backgroundColor = UIColor(named:"InitialsBackground")
         
         let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
             let cell = tableView.cellForRow(at: indexPath) as! NotesTableViewCell

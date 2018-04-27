@@ -57,11 +57,16 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         let cellsToDisplay = globalContactsForList.count - currentPageIndex!
         
         
-        if section == 0{
-            let  headerCell = tableView.dequeueReusableCell(withIdentifier: "buttonCell") as! ContactListTableViewButtonCell
-                headerCell.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
-            headerCell.delegate = self
-            return headerCell
+        if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
+            numberOfAccountRows = cellsToDisplay
+            return cellsToDisplay
+        }else if (cellsToDisplay == 0) {
+            numberOfAccountRows = 0
+            return 0
+        }
+        else {
+            numberOfAccountRows = self.kPageSize
+            return self.kPageSize
         }
         
     }
@@ -273,18 +278,34 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     }
     
     @objc func reloadAllContacts(notification: NSNotification){
+
+        initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
+        updateUI()
+        print("\(self.noOfPages!)")
+        
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation({() -> Void in
+                self.tableView.reloadData()
+                if(self.numberOfAccountRows > 0){
+                    self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .none, animated: true)
+                }
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            })
+        }
+        
+        for count in 1...5 {
+            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+            pageButtonArr[count].backgroundColor = UIColor.white
+            pageButtonArr[count].setTitle(String(count), for: .normal)
+        }
+        pageButtonArr[1].backgroundColor = UIColor.lightGray
+        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        
+        
         loadContactData()
     }
     
-}
-
-extension ContactListViewController : ContactListTableViewButtonCellDelegate {
-    func newContactButtonTapped() {
-        let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
-        let createContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
-        createContactVC?.modalPresentationStyle = .overCurrentContext
-        present(createContactVC!, animated: true, completion: nil)
-    }
 }
 
 

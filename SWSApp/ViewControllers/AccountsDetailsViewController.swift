@@ -303,8 +303,17 @@ class AccountDetailsViewController : UIViewController{
             activeViewController = strategyViewController
             
         case 5:
+            
             btnActionItems?.backgroundColor = UIColor.white
             btnActionItems?.setTitleColor(UIColor.black, for: .normal)
+            
+            
+            let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
+            let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as UIViewController
+            vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(vc, animated: true, completion: nil)
+            
+    
         case 6:
             btnNotes?.backgroundColor = UIColor.white
             btnNotes?.setTitleColor(UIColor.black, for: .normal)

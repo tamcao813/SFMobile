@@ -250,7 +250,7 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="goD-Yo-bBl">
                                         <rect key="frame" x="1014" y="24" width="40" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="Close"/>
                                         <connections>
                                             <action selector="closeVCWithSender:" destination="zun-lc-HIi" eventType="touchUpInside" id="bWY-cN-AyX"/>
@@ -271,7 +271,7 @@
                                             <color key="titleColor" name="Color"/>
                                         </state>
                                         <connections>
-                                            <segue destination="mXE-Oo-LSt" kind="presentation" id="xDy-fR-T52"/>
+                                            <action selector="planActionWithSender:" destination="zun-lc-HIi" eventType="touchUpInside" id="9UA-5J-z0V"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gg-xe-lmS">
@@ -282,6 +282,9 @@
                                         <state key="normal" title="Schedule and Close">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="scheduleAndCloseWithSender:" destination="zun-lc-HIi" eventType="touchUpInside" id="dk9-e7-OZ0"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="LightGrey"/>
@@ -308,7 +311,7 @@
         <!--Select Opportunities View Controller-->
         <scene sceneID="1bq-tl-mRK">
             <objects>
-                <viewController storyboardIdentifier="SelectOpportunitiesViewController" id="mXE-Oo-LSt" customClass="SelectOpportunitiesViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectOpportunitiesViewControllerID" id="mXE-Oo-LSt" customClass="SelectOpportunitiesViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ntY-rW-iZf">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

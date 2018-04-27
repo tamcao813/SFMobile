@@ -30,8 +30,6 @@ class AccountVisitsViewController: UIViewController {
     @IBAction func planVisitClick(sender: UIButton) {
         let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
-//        viewController.view.frame = CGRect(x:0, y:0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-//        self.view.addSubview((viewController.view)!)
         self.present(viewController, animated: true)
     }
 }

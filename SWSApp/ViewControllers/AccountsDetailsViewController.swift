@@ -81,7 +81,9 @@ class AccountDetailsViewController : UIViewController{
             // call before adding child view controller's view as subview
             addChildViewController(activeVC)
             
-            activeVC.view.frame = (containerView?.bounds)!
+            let rectNewFrame: CGRect = CGRect(x: (containerView?.bounds.origin.x)!, y: (containerView?.bounds.origin.y)!, width: (containerView?.bounds.size.width)!, height: ((containerView?.bounds.size.height)!-65))
+            
+            activeVC.view.frame = rectNewFrame
             containerView?.addSubview(activeVC.view)
             
             // call before adding child view controller's view as subview
@@ -284,6 +286,7 @@ class AccountDetailsViewController : UIViewController{
             containerView?.isHidden = false
             
             let notesViewController: NotesViewController = notesStoryboard.instantiateViewController(withIdentifier: "AccountNotesID") as! NotesViewController
+            notesViewController.accountId = accountDetailForLoggedInUser?.account_Id
             activeViewController = notesViewController
             
         default:

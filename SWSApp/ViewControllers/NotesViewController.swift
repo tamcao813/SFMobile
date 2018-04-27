@@ -136,11 +136,13 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         let date = dateFormatter.date(from: serverDate)// create date from string
         
         // change to a readable time format and change to local time zone
-        dateFormatter.dateFormat = "MM/dd/YYYY h:mm a"
+        dateFormatter.dateFormat = "MM/dd/YYYY h:mma"
         dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date!)
-        print(timeStamp)
-        cell.dateLabel?.text  = timeStamp
+        
+        var dateTime = timeStamp.components(separatedBy: " ")
+        cell.dateLabel?.text  = dateTime[0]
+        cell.timeLabel?.text = dateTime[1]
         
         return cell
     }

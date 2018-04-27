@@ -202,11 +202,11 @@ class AccountsMenuViewController: UIViewController {
     @objc func sectionHeaderWasTouched(_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
         
-        let headerView = sender.view as! UITableViewHeaderFooterView
-        let section    = headerView.tag
-        let eImageView = headerView.viewWithTag(kHeaderSectionTag + section) as? UIImageView
+        let headerView = sender.view //as! UITableViewHeaderFooterView
+        let section    = headerView?.tag
+        let eImageView = headerView?.viewWithTag(kHeaderSectionTag + section!) as? UIImageView
         
-        self.selectedSection = section
+        self.selectedSection = section!
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             self.tableView.reloadData()
@@ -216,10 +216,10 @@ class AccountsMenuViewController: UIViewController {
             if FilterMenuModel.channel == ""{
                 print("Your Channel is not Selected")
             }else{
-                self.sectionHeaderOperation(section: section, eImageView: eImageView)
+                self.sectionHeaderOperation(section: section!, eImageView: eImageView)
             }
         }else{
-            self.sectionHeaderOperation(section: section, eImageView: eImageView)
+            self.sectionHeaderOperation(section: section!, eImageView: eImageView)
         }
     }
     
@@ -494,6 +494,19 @@ extension AccountsMenuViewController : UITableViewDataSource{
         return 50;
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let myLabel = UILabel()
+        myLabel.frame = CGRect(x: 15, y: 18, width: tableView.frame.size.width, height: 20)
+        myLabel.font = UIFont(name:"Ubuntu", size: 18.0)
+        myLabel.text = filterClass.sectionNames[section] as? String
+        
+        let headerView = UIView()
+        headerView.addSubview(myLabel)
+        
+        return headerView;
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (filterClass.sectionNames.count > 0) {
             return filterClass.sectionNames[section] as? String
@@ -505,9 +518,12 @@ extension AccountsMenuViewController : UITableViewDataSource{
         return 50.0;
     }
     
+    
+
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.contentView.backgroundColor = UIColor.white
+        let header = view
+        header.backgroundColor = UIColor.white
         
         if let viewWithTag = self.view.viewWithTag(kHeaderSectionTag + section) {
             viewWithTag.removeFromSuperview()

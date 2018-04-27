@@ -13,6 +13,7 @@ import PromiseKit
 import SmartStore
 import SmartSync
 
+
 class StoreDispatcher {
     static let shared = StoreDispatcher()
     static let SFADB = "SFADB"
@@ -53,8 +54,15 @@ class StoreDispatcher {
         let group = DispatchGroup()
         
         group.enter()
-        syncDownAccount() { _ in
+        downloadContactRolesPList() { _ in
             group.leave()
+        }
+        
+        group.enter()
+        syncDownAccount() { _ in
+            self.syncDownACR() { _ in
+                group.leave()
+            }
         }
         
         group.enter()
@@ -80,6 +88,44 @@ class StoreDispatcher {
         
         
     }
+    
+    func downloadContactRolesPList(_ completion:@escaping (_ error: NSError?)->()) {
+        let recordTypeId = "012i0000000PebvAAC" //"012i0000000Pf4AAAS" //(userVieModel.loggedInUser?.recordTypeId)!
+        let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Roles__c"
+        let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
+        request.endpoint = "/services/data/v41.0/"
+        
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                let response = sfRestResponse.asJsonDictionary()
+                    
+                var rolesPicklist = [String:[PlistOption]]()
+                
+                if response.count > 0 {
+                    var rolesAry = [PlistOption]()
+                
+                    if let options = response["values"] as? [[String : AnyObject]] {
+                        for option in options {
+                            let label = option["label"] as? String ?? ""
+                            let value = option["value"] as? String ?? ""
+                            let role = PlistOption(label: label, value: value)
+                        
+                            rolesAry.append(role)
+                        }
+                    
+                        rolesPicklist["Roles"] = rolesAry
+                    }
+                }
+                
+                PlistMap.sharedInstance.addToMap(self.SoupContact, map: rolesPicklist)
+                completion(nil)
+            }
+            .catch { error in
+                print(error)
+                completion(error as NSError?)
+        }
+    }
+
     
     //#pragma mark - create indexes for the soup and register the soup; only create indexes for the fields we want to query by
     
@@ -172,7 +218,7 @@ class StoreDispatcher {
         
         let fields : [String] = User.UserFields
         let userId =   SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
-
+        
         let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember Where UserId = '\(userId!)' OR User.ManagerId = '\(userId!)' limit 100"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
@@ -199,7 +245,7 @@ class StoreDispatcher {
             }
             .catch { error in
                 completion(error as NSError?)
-        }
+            }
     }
     
     func fetchAllAccountIdFromUser()->[String]{

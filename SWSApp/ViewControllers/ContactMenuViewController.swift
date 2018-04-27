@@ -117,59 +117,58 @@ class ContactMenuViewController: UIViewController {
         let imageView:UIImageView = UIImageView.init(image: image)
         searchTextField.leftView = nil
         //Added attributedPlaceholder with ubuntu font
-        searchTextField.attributedPlaceholder = NSAttributedString(string:"Search Field Text", attributes: [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 18)!])
+        searchTextField.attributedPlaceholder = NSAttributedString(string:"Name, Account, ID", attributes: [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 18)!])
         searchTextField.rightView = imageView
         searchTextField.rightViewMode = UITextFieldViewMode.always
     }
     
     //Used to Clear the Model Data
     func clearFilterModelData(){
-        
+        /*
         if ContactFilterMenuModel.comingFromDetailsScreen == "YES"{
             
             ContactFilterMenuModel.comingFromDetailsScreen = "NO"
             
-        }else{
+        }*/
             
-            ContactFilterMenuModel.allContacts = ""
-            ContactFilterMenuModel.contactsOnMyRoute = ""
-            
-            ContactFilterMenuModel.allRole = ""
-            ContactFilterMenuModel.functionRoles = [String]()
-            
-            ContactFilterMenuModel.allBuyingPower = ""
-//            ContactFilterMenuModel.buyerFlags = [String]()
-            ContactFilterMenuModel.buyingPower = ""
-            ContactFilterMenuModel.nobuyingPower = ""
-
-            ContactFilterMenuModel.comingFromDetailsScreen = ""
-
-            if searchBar != nil{
-                searchBar.text = ""
-            }
-            
-            //Used to Clear the Expanded section of ContactFilter Option
-            selectedSection = -1
-            if self.expandedSectionHeaderNumber != -1{
-                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-                tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
-            }
-            
-            if tableView != nil{
-                tableView.reloadData()
-            }
+        ContactFilterMenuModel.allContacts = ""
+        ContactFilterMenuModel.contactsOnMyRoute = ""
+        
+        ContactFilterMenuModel.allRole = ""
+        ContactFilterMenuModel.functionRoles = [String]()
+        
+        ContactFilterMenuModel.allBuyingPower = ""
+        ContactFilterMenuModel.buyingPower = ""
+        ContactFilterMenuModel.nobuyingPower = ""
+        
+//        ContactFilterMenuModel.comingFromDetailsScreen = ""
+        
+        if searchBar != nil{
+            searchBar.text = ""
         }
+        
+        //Used to Clear the Expanded section of ContactFilter Option
+        selectedSection = -1
+        if self.expandedSectionHeaderNumber != -1{
+            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+        }
+        
+        if tableView != nil{
+            tableView.reloadData()
+        }
+
     }
     
     //Used to check which section header was clicked
     @objc func sectionHeaderWasTouched(_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
         
-        let headerView = sender.view as! UITableViewHeaderFooterView
-        let section    = headerView.tag
-        let eImageView = headerView.viewWithTag(kHeaderSectionTag + section) as? UIImageView
+        let headerView = sender.view
+        let section    = headerView?.tag
+        let eImageView = headerView?.viewWithTag(kHeaderSectionTag + section!) as? UIImageView
         
-        self.selectedSection = section
+        self.selectedSection = section!
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             self.tableView.reloadData()
@@ -178,7 +177,7 @@ class ContactMenuViewController: UIViewController {
         if selectedSection >= 3{
             print("Your Channel is not Selected")
         }else{
-            self.sectionHeaderOperation(section: section, eImageView: eImageView)
+            self.sectionHeaderOperation(section: section!, eImageView: eImageView)
         }
     }
     
@@ -335,10 +334,10 @@ class ContactMenuViewController: UIViewController {
     func resetEnteredDataAndContactList(){
         searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
         
-        if ContactFilterMenuModel.comingFromDetailsScreen != "YES"{
-            self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
-        }
+        self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
         self.clearFilterModelData()
+        ContactFilterMenuModel.comingFromDetailsScreen = ""
+
     }
     
     private func isValidUserInputAtSearchFilterPanel()->Bool{
@@ -374,6 +373,7 @@ class ContactMenuViewController: UIViewController {
             
             print(" Not ValidUserInputAtSearchFilterPanel")
         }
+        self.tableView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     //Clears all the filter selection
@@ -407,6 +407,21 @@ extension ContactMenuViewController : UITableViewDataSource{
         return 50;
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let myLabel = UILabel()
+        myLabel.frame = CGRect(x: 15, y: 18, width: tableView.frame.size.width, height: 20)
+        myLabel.font = UIFont(name:"Ubuntu", size: 18.0)
+        myLabel.text = filterClass.sectionNames[section] as? String
+        
+        let headerView = UIView()
+        headerView.addSubview(myLabel)
+        
+        return headerView;
+    }
+    
+    
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (filterClass.sectionNames.count > 0) {
             return filterClass.sectionNames[section] as? String
@@ -419,8 +434,8 @@ extension ContactMenuViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.contentView.backgroundColor = UIColor.white
+        let header = view
+        header.backgroundColor = UIColor.white
         
         if let viewWithTag = self.view.viewWithTag(kHeaderSectionTag + section) {
             viewWithTag.removeFromSuperview()

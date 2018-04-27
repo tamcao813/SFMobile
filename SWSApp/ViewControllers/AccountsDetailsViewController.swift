@@ -89,40 +89,13 @@ class AccountDetailsViewController : UIViewController{
         }
     }
     
-    
     @IBAction func addNewButtonClicked(_ sender: Any) {
-        addNewDropDown.anchorView = addNewButton
         
-        addNewDropDown.bottomOffset = CGPoint(x: ((addNewButton?.frame.size.width)!-((addNewButton?.frame.size.width)!/6.0)), y:(addNewDropDown.anchorView?.plainView.bounds.height)!)
-        addNewDropDown.backgroundColor = UIColor.white
+        let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
+        let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as UIViewController
+        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(vc, animated: true, completion: nil)
         
-        let dropDownItem1 = NSLocalizedString("Visit", comment: "Visit")
-        let dropDownItem2 = NSLocalizedString("Event", comment: "Event")
-        let dropDownItem3 = NSLocalizedString("Action Item", comment: "Action Item")
-        let dropDownItem4 = NSLocalizedString("Note", comment: "Note")
-        
-        addNewDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4]
-        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
-        self.addNewDropDown.textColor = UIColor.gray
-        
-        addNewDropDown.show()
-        
-        addNewDropDown.selectionAction = {(index: Int, item: String) in
-            switch index {
-            case 0:
-                print(index)
-            case 1:
-                print(index)
-            case 2:
-                print(index)
-            case 3:
-                let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
-                let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as UIViewController
-                self.present(vc, animated: true, completion: nil)
-            default:
-                break
-            }
-        }
     }
     
     override func viewDidLoad() {

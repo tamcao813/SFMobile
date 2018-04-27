@@ -11,6 +11,16 @@ import UIKit
 
 class Validations {
     
-    
+    func isValidDate(dateString: String) -> Bool {
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "MM-dd-yyyy"
+        if let _ = dateFormatterGet.date(from: dateString) {
+            //date parsing succeeded, if you need to do additional logic, replace _ with some variable name i.e date
+            return true
+        } else {
+            // Invalid date
+            return false
+        }
+    }
     
 }

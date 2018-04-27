@@ -176,6 +176,12 @@
 		8DD1500A209330E200858349 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD15007209330E100858349 /* AccountView.swift */; };
 		8DD1500B209330E200858349 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15008209330E100858349 /* AccountView.xib */; };
 		8DD1500C209330E200858349 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15008209330E100858349 /* AccountView.xib */; };
+		8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
+		8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
+		8DD1500F2093370400858349 /* AccountStrategyEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C97208DE83B00D797E1 /* AccountStrategyEditViewController.swift */; };
+		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
+		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
+		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
 		91C3E599208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */; };
@@ -376,6 +382,7 @@
 		8DD14FFC2093162D00858349 /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
 		8DD15007209330E100858349 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8DD15008209330E100858349 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
+		8DD1501120933A0800858349 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
 		91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactFilterViewModel.swift; sourceTree = "<group>"; };
@@ -807,6 +814,7 @@
 				D17BD571209115CD000F38FA /* PlistMap.swift */,
 				8DD15007209330E100858349 /* AccountView.swift */,
 				8DD15008209330E100858349 /* AccountView.xib */,
+				8DD1501120933A0800858349 /* StringConstants.swift */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -1047,6 +1055,7 @@
 				8D99A3032091E73F00FAA71A /* EmailTableViewCell.xib in Resources */,
 				D23C40D1208DE6590006691C /* AssociatedContactsTableViewCell.xib in Resources */,
 				6D38328220874026006805C6 /* Filter.storyboard in Resources */,
+				8DD150102093370700858349 /* AccountStrategy.plist in Resources */,
 				8D99A3152091E79C00FAA71A /* DropdownTableViewCell.xib in Resources */,
 				8D99A3092091E76900FAA71A /* ContactHoursTableViewCell.xib in Resources */,
 				6D38328320874026006805C6 /* MoreMenu.storyboard in Resources */,
@@ -1059,6 +1068,7 @@
 				6D38328620874026006805C6 /* Ubuntu-Bold.ttf in Resources */,
 				8D99A2EA2091E63F00FAA71A /* ContactClassificationTableViewCell.xib in Resources */,
 				8DD1500C209330E200858349 /* AccountView.xib in Resources */,
+				8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */,
 				6D38328720874026006805C6 /* Ubuntu-MediumItalic.ttf in Resources */,
 				6D38328820874026006805C6 /* Ubuntu-Italic.ttf in Resources */,
 				6D38328920874026006805C6 /* UFL.txt in Resources */,
@@ -1117,6 +1127,7 @@
 				8D99A3202092501000FAA71A /* FamilyTableViewCell.xib in Resources */,
 				6DBD03202077B5EF0083419E /* CrimsonText-Italic.ttf in Resources */,
 				D23C409E208DCF610006691C /* AccountVisit.storyboard in Resources */,
+				8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */,
 				D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */,
 				8DD1500B209330E200858349 /* AccountView.xib in Resources */,
 				8D99A2F62091E70900FAA71A /* PrimaryFunctionTableViewCell.xib in Resources */,
@@ -1336,6 +1347,7 @@
 				8D99A2E82091E63F00FAA71A /* ContactClassificationTableViewCell.swift in Sources */,
 				6D38325120874026006805C6 /* Contact.swift in Sources */,
 				8DD1500A209330E200858349 /* AccountView.swift in Sources */,
+				8DD1500F2093370400858349 /* AccountStrategyEditViewController.swift in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
 				6D38325420874026006805C6 /* FilterViewModel.swift in Sources */,
@@ -1362,6 +1374,7 @@
 				6D38325E20874026006805C6 /* AccountDetailTabViewController.swift in Sources */,
 				D23C4091208DCF010006691C /* Extension.swift in Sources */,
 				6D38325F20874026006805C6 /* UserViewModel.swift in Sources */,
+				8DD1501320933A0800858349 /* StringConstants.swift in Sources */,
 				8D99A2F52091E70900FAA71A /* PrimaryFunctionTableViewCell.swift in Sources */,
 				8DD150002093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,
 				12F0F89E2090B1D200160C3D /* ContactListDetailsTableViewCell.swift in Sources */,
@@ -1481,6 +1494,7 @@
 				8D99A31E2092501000FAA71A /* FamilyTableViewCell.swift in Sources */,
 				8D99A3262093055200FAA71A /* Validations.swift in Sources */,
 				D2EAEB942074EF88005F7792 /* NotificationsViewController.swift in Sources */,
+				8DD1501220933A0800858349 /* StringConstants.swift in Sources */,
 				D267688E2090B41B0060E792 /* CreateNewContactViewController.swift in Sources */,
 				F209D705206CF05C001AF22F /* AccountsMenuViewController.swift in Sources */,
 				6F8BD3F12072297C006CABA8 /* MoreViewController.swift in Sources */,

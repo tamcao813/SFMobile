@@ -86,7 +86,14 @@ class CreateNewContactViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIButton){
         var showAlert = false
-        if (firstNameTextField.text?.isEmpty)!{
+        firstNameTextField.borderColor = .lightGray
+        lastNameTextField.borderColor = .lightGray
+        primaryFunctionTextField.borderColor = .lightGray
+        phoneTextField.borderColor = .lightGray
+        birthdayTextField.borderColor = .lightGray
+        anniversaryTextField.borderColor = .lightGray
+        
+        if (firstNameTextField.text?.isEmpty)! {
             firstNameTextField.borderColor = .red
             firstNameTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
@@ -106,12 +113,18 @@ class CreateNewContactViewController: UIViewController {
             phoneTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 2, section: 1), at: .top, animated: true)
             showAlert = true
+        }else if Validations().isValidDate(dateString: birthdayTextField.text!){
+            birthdayTextField.borderColor = .red
+            birthdayTextField.becomeFirstResponder()
+            tableView.scrollToRow(at: IndexPath(row: 6, section: 1), at: .top, animated: true)
+            showAlert = true
+        }else if Validations().isValidDate(dateString: anniversaryTextField.text!){
+            anniversaryTextField.borderColor = .red
+            anniversaryTextField.becomeFirstResponder()
+            tableView.scrollToRow(at: IndexPath(row: 7, section: 1), at: .top, animated: true)
+            showAlert = true
         }else{
-            showAlert = false
-            firstNameTextField.borderColor = .lightGray
-            lastNameTextField.borderColor = .lightGray
-            primaryFunctionTextField.borderColor = .lightGray
-            phoneTextField.borderColor = .lightGray
+            showAlert = false            
         }
         
         if showAlert {
@@ -119,9 +132,9 @@ class CreateNewContactViewController: UIViewController {
                 "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
             self.present(alertController, animated: true, completion: nil)
+        }else{
         }
     }
-
 }
 
 extension CreateNewContactViewController: UITableViewDataSource, UITableViewDelegate {

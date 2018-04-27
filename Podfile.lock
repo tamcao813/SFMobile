@@ -60,6 +60,7 @@ PODS:
     - SQLCipher/common
   - SQLCipher/standard (3.4.2):
     - SQLCipher/common
+  - SwiftValidator (4.0.0)
 
 DEPENDENCIES:
   - DropDown
@@ -70,6 +71,7 @@ DEPENDENCIES:
   - SalesforceSwiftSDK (from `https://github.com/forcedotcom/SalesforceMobileSDK-iOS`)
   - SmartStore (from `https://github.com/forcedotcom/SalesforceMobileSDK-iOS`)
   - SmartSync (from `https://github.com/forcedotcom/SalesforceMobileSDK-iOS`)
+  - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, branch `master`)
 
 EXTERNAL SOURCES:
   PromiseKit:
@@ -85,6 +87,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/forcedotcom/SalesforceMobileSDK-iOS
   SmartSync:
     :git: https://github.com/forcedotcom/SalesforceMobileSDK-iOS
+  SwiftValidator:
+    :branch: master
+    :git: https://github.com/jpotts18/SwiftValidator.git
 
 CHECKOUT OPTIONS:
   PromiseKit:
@@ -105,6 +110,9 @@ CHECKOUT OPTIONS:
   SmartSync:
     :commit: 9c51f4c89424878ed1acb6405f9d5e2e8784f5fa
     :git: https://github.com/forcedotcom/SalesforceMobileSDK-iOS
+  SwiftValidator:
+    :commit: ba27b0e501bf542b5c1a97bed8f706d12fb2d4f4
+    :git: https://github.com/jpotts18/SwiftValidator.git
 
 SPEC CHECKSUMS:
   CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
@@ -118,7 +126,8 @@ SPEC CHECKSUMS:
   SmartStore: 0293ab9b1c2795003594be512f45eabf153fe66e
   SmartSync: ceec90621311f6d4aa5fc0ea17ba699754b0dfb5
   SQLCipher: f9fcf29b2e59ced7defc2a2bdd0ebe79b40d4990
+  SwiftValidator: 25ded5ca1f10c05adf57f6ac82a72d28ac8d91af
 
-PODFILE CHECKSUM: 86fb5e6c39bf64bd084336aaa7ef62ca6c417f5c
+PODFILE CHECKSUM: 74006f7229186b96596b8536c268b1e9bffd43fa
 
 COCOAPODS: 1.4.0

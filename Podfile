@@ -12,6 +12,7 @@ def sf_pods
 	pod 'SalesforceSwiftSDK',	:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
 	pod 'SmartStore',		:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
 	pod 'SmartSync',			:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :branch => 'master'
 end
 
 target 'SWSApp' do

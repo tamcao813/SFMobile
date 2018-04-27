@@ -43,8 +43,19 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
 
     var globalContactCount:Int?
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {            
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if section == 0 {
+            return 1
+        }
         let cellsToDisplay = globalContactsForList.count - currentPageIndex!
+        
         
         if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
             numberOfAccountRows = cellsToDisplay
@@ -60,9 +71,18 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         
     }
     
+  
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-       
+        if indexPath.section == 0{
+            
+            let buttonCell:ContactListTableViewButtonCell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! ContactListTableViewButtonCell
+            
+            return buttonCell
+            
+        }
+        
         
         let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
         let cell:ContactListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactListTableViewCell
@@ -95,6 +115,9 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0{
+            return 60
+        }
         return 200
     }
 
@@ -213,13 +236,17 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         updateUI()
         print("\(self.noOfPages!)")
         
-        if(numberOfAccountRows > 0){
-            
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation({() -> Void in
                 self.tableView.reloadData()
-                self.tableView.setContentOffset(CGPoint.zero, animated: false)
-            }
+                if(self.numberOfAccountRows > 0){
+                    self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .none, animated: true)
+                }
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            })
         }
+        
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
             pageButtonArr[count].backgroundColor = UIColor.white
@@ -256,11 +283,15 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         updateUI()
         print("\(self.noOfPages!)")
         
-        if(numberOfAccountRows > 0){
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation({() -> Void in
                 self.tableView.reloadData()
-                self.tableView.setContentOffset(CGPoint.zero, animated: false)
-            }
+                if(self.numberOfAccountRows > 0){
+                    self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .none, animated: true)
+                }
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            })
         }
         
         for count in 1...5 {
@@ -496,12 +527,15 @@ extension ContactListViewController{
         //let tableViewData = accountsForLoggedUserOriginal[self.currentPageIndex!]
         //tableViewDisplayData = [tableViewData]
         
-        if(numberOfAccountRows > 0){
-            
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation({() -> Void in
                 self.tableView.reloadData()
-                self.tableView.setContentOffset(CGPoint.zero, animated: false)
-            }
+                if(self.numberOfAccountRows > 0){
+                    self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .none, animated: true)
+                }
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            })
         }
         
     }

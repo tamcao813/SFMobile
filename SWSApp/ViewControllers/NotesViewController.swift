@@ -186,6 +186,16 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
 
     //MARK:- On select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let notes = notesArray[indexPath.row]
+        
+        let serverDate = notes.lastModifiedDate
+        let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
+        var dateTime = getTime.components(separatedBy: " ")
+        self.notesTitle = notes.name
+        self.notesDescription = notes.accountNotesDesc
+        if(dateTime.count > 0){
+            self.notesDate = dateTime[0]
+        }
         notesDataToEdit = notesArray[indexPath.row]
         self.performSegue(withIdentifier: "editNotesSegue", sender: nil)
         

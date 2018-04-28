@@ -306,14 +306,6 @@ class ContactMenuViewController: UIViewController {
                     ContactFilterMenuModel.nobuyingPower = "YES"
                 }
             default:
-                /*
-                let titleContent = arrayContent[indexPath.section] as? NSArray
-                if let index = ContactFilterMenuModel.buyerFlags.index(of: (titleContent![indexPath.row] as? String)!) {
-                    ContactFilterMenuModel.buyerFlags.remove(at: index)
-                }
-                else {
-                    ContactFilterMenuModel.buyerFlags.append((titleContent![indexPath.row] as? String)!)
-                }*/
                 break
             }
         default:

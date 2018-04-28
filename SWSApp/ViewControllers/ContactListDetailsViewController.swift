@@ -48,19 +48,31 @@ extension ContactListDetailsViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
+            
             let cell:ContactListDetailsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "contactDetailsCell", for: indexPath) as! ContactListDetailsTableViewCell
+            cell.displayCellContent(contactDetail!)
+            
+            cell.selectionStyle = .none
             return cell
         }
         else if indexPath.row == 1 {
             let cell:ContactListAccountHeaderDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountHeaderDetails", for: indexPath) as! ContactListAccountHeaderDetails
+            
+            cell.selectionStyle = .none
             return cell
         }
         else if ((indexPath.row + 1) == countHeaderFooter + accountLinked.count) {
             let cell:ContactListAccountFooterDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountFooterDetails", for: indexPath) as! ContactListAccountFooterDetails
+            
+            cell.selectionStyle = .none
             return cell
         }
         
         let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
+        let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+        cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId,withRoles: acrDetail[(indexPath.row-2)].roles)
+
+        cell.selectionStyle = .none
         return cell
         
     }

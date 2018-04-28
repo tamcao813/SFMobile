@@ -23,13 +23,15 @@ class CreateNoteViewController : UIViewController{
     @IBOutlet weak var notesTitleTextField: UITextField!
     
     var dataDictionary:[String: Any] = [:]
-    var noteTitleText: String!
-    var noteDescriptionText: String!
+    var notesToEdit: AccountNotes!
+    
+    var isAddingNewNote: Bool = true
     
     //MARK:- View Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         textView?.layer.borderColor = UIColor.init(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1).cgColor
+        notesTitleTextField?.layer.borderColor = UIColor.init(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1).cgColor
         notesTitleTextField.delegate = self
         textView.delegate = self
     }
@@ -37,8 +39,10 @@ class CreateNoteViewController : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.textView?.text = noteDescriptionText
-        self.notesTitleTextField?.text = noteTitleText
+        if(!isAddingNewNote) {
+            self.textView?.text = notesToEdit.accountNotesDesc
+            self.notesTitleTextField?.text = notesToEdit.name
+        }
     }
     
     //MARK:- IB Button actions

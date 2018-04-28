@@ -19,15 +19,11 @@ class NotesTableViewCell : SwipeTableViewCell {
 class NotesViewController : UIViewController {
     
     var tableViewData = NSMutableArray()
-    var notesTitle: String!
-    var notesDescription: String!
-    var notesDate: String!
-    
     var accountNotesArray = [AccountNotes]()
     var accNotesViewModel = AccountsNotesViewModel()
     var accountId : String!
     var notesArray = [AccountNotes]()
-
+    var notesDataToEdit: AccountNotes!
     
 //   // var notesDict = [
 //        ["title" : "Visit: Crown Liquor Store One", "date": "Today","time" : "10:30AM","description" : "Hello 1"],
@@ -73,17 +69,6 @@ class NotesViewController : UIViewController {
     
     //MARK:- Sort Actions
     @IBAction func sortByNotesTitle(_ sender: Any) {
-        //        let sortedFriendsAscendingOrder  = notesDict.sorted(by: { ($0).title < ($1).title })
-        //        print(sortedFriendsAscendingOrder)
-        //  tableViewData = sortedFriendsAscendingOrder
-        //        notesTableView?.reloadData()
-        //        let ordered = notesDict.sorted {
-        //            guard let s1 = $0["title"], let s2 = $1["title"] else {
-        //                return false
-        //            }
-        //            return s1 < s2
-        //        }
-        //        print(ordered)
         
     }
     
@@ -95,15 +80,13 @@ class NotesViewController : UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "createNoteSegue" {
             let createNoteScreen = segue.destination as! CreateNoteViewController
-            createNoteScreen.noteTitleText = self.notesTitle
-            createNoteScreen.noteDescriptionText = self.notesDescription
+            createNoteScreen.notesToEdit = notesDataToEdit
+            createNoteScreen.isAddingNewNote = false
         }
         
         if segue.identifier == "editNotesSegue" {
             let editNoteScreen = segue.destination as! EditNoteViewController
-            editNoteScreen.notesEditTitleText = self.notesTitle
-            editNoteScreen.notesEditDescriptionText = self.notesDescription
-            editNoteScreen.notesEditDate = self.notesDate
+            editNoteScreen.notesToBeEdited = notesDataToEdit
         }
     }
     
@@ -157,9 +140,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         guard orientation == .right else { return nil }
         
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
-            let notes = self.notesArray[indexPath.row]
-            self.notesTitle = notes.name
-            self.notesDescription = notes.accountNotesDesc
+            self.notesDataToEdit = self.notesArray[indexPath.row]
             self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
         }
         editAction.image = UIImage(named:"editIcon")
@@ -205,11 +186,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
 
     //MARK:- On select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-          let notes = notesArray[indexPath.row]
-        
-        self.notesTitle = notes.name
-        self.notesDescription = notes.accountNotesDesc
-        self.notesDate = notes.lastModifiedDate
+        notesDataToEdit = notesArray[indexPath.row]
         self.performSegue(withIdentifier: "editNotesSegue", sender: nil)
         
         //        (vc as! EditNoteViewController).displayDictdata(name: tableViewData as! [Dictionary<String, String>], index: indexPath.row)

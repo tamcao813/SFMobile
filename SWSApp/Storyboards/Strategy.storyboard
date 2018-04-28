@@ -34,29 +34,127 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDS-kZ-zIa">
-                                <rect key="frame" x="1027" y="86" width="33" height="30"/>
-                                <state key="normal" title="EDIT"/>
+                                <rect key="frame" x="1001" y="57" width="90" height="38"/>
+                                <color key="backgroundColor" red="0.86274509803921573" green="0.86274509803921573" blue="0.86274509803921573" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="Eru-iJ-i5H"/>
+                                    <constraint firstAttribute="width" constant="90" id="R96-3s-GIh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                <state key="normal" title="Edit">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipsToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="Wi2-UB-ajt" kind="presentation" id="RxL-DE-Zez"/>
+                                    <segue destination="Wi2-UB-ajt" kind="presentation" modalPresentationStyle="overCurrentContext" id="RxL-DE-Zez"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rbb-rb-et4">
+                                <rect key="frame" x="0.0" y="0.0" width="977" height="763"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="YId-0Q-ayt">
+                                    <size key="itemSize" width="976" height="30"/>
+                                    <size key="headerReferenceSize" width="50" height="85"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="accountStrategyCell" id="SLd-cl-CQm" customClass="AccountStrategyCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.5" y="85" width="976" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="976" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0NM-yP-S9i">
+                                                    <rect key="frame" x="32" y="5" width="924" height="18"/>
+                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="0NM-yP-S9i" firstAttribute="top" secondItem="SLd-cl-CQm" secondAttribute="top" constant="5" id="9cq-1J-rH3"/>
+                                            <constraint firstAttribute="trailing" secondItem="0NM-yP-S9i" secondAttribute="trailing" constant="20" id="E92-t5-GqD"/>
+                                            <constraint firstItem="0NM-yP-S9i" firstAttribute="leading" secondItem="SLd-cl-CQm" secondAttribute="leading" constant="32" id="Zmf-lQ-MZn"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="lblTitleText" destination="0NM-yP-S9i" id="vk2-TK-9zL"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="accountStrategyHeaderCell" id="YFp-Hr-fOP" customClass="AccountStrategyCollectionReusableView" customModule="SWSApp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="977" height="85"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Situation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQC-BX-aHD">
+                                            <rect key="frame" x="33" y="25" width="170.5" height="22.5"/>
+                                            <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Situation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GpL-8D-gfH">
+                                            <rect key="frame" x="33" y="54.5" width="148.5" height="21"/>
+                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="GpL-8D-gfH" firstAttribute="top" secondItem="rQC-BX-aHD" secondAttribute="bottom" constant="7" id="MlL-mC-O7b"/>
+                                        <constraint firstItem="rQC-BX-aHD" firstAttribute="top" secondItem="YFp-Hr-fOP" secondAttribute="top" constant="25" id="MrJ-XW-Zz9"/>
+                                        <constraint firstItem="rQC-BX-aHD" firstAttribute="leading" secondItem="YFp-Hr-fOP" secondAttribute="leading" constant="33" id="mUd-zR-8wz"/>
+                                        <constraint firstItem="GpL-8D-gfH" firstAttribute="leading" secondItem="YFp-Hr-fOP" secondAttribute="leading" constant="33" id="q2K-Gd-gKb"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="headerLabel" destination="rQC-BX-aHD" id="sZA-DT-E51"/>
+                                        <outlet property="questionLabel" destination="GpL-8D-gfH" id="maA-cc-fp4"/>
+                                    </connections>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="Y2h-Y0-duS" id="Wcq-ow-isp"/>
+                                    <outlet property="delegate" destination="Y2h-Y0-duS" id="c3y-Aa-hPi"/>
+                                </connections>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Strategy last updated on March 25, 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWr-Gq-h3j">
+                                <rect key="frame" x="50" y="794" width="379" height="20"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="eDS-kZ-zIa" firstAttribute="top" secondItem="HUI-nA-Y0j" secondAttribute="top" constant="66" id="BDH-dj-QaZ"/>
-                            <constraint firstItem="HUI-nA-Y0j" firstAttribute="trailing" secondItem="eDS-kZ-zIa" secondAttribute="trailing" constant="52" id="UO2-jn-88k"/>
+                            <constraint firstItem="RWr-Gq-h3j" firstAttribute="leading" secondItem="HUI-nA-Y0j" secondAttribute="leading" constant="50" id="9hC-Wb-LGR"/>
+                            <constraint firstItem="eDS-kZ-zIa" firstAttribute="top" secondItem="HUI-nA-Y0j" secondAttribute="top" constant="37" id="BDH-dj-QaZ"/>
+                            <constraint firstItem="HUI-nA-Y0j" firstAttribute="trailing" secondItem="eDS-kZ-zIa" secondAttribute="trailing" constant="21" id="UO2-jn-88k"/>
+                            <constraint firstItem="HUI-nA-Y0j" firstAttribute="bottom" secondItem="RWr-Gq-h3j" secondAttribute="bottom" constant="20" id="XcF-8O-I2o"/>
+                            <constraint firstItem="RWr-Gq-h3j" firstAttribute="top" secondItem="rbb-rb-et4" secondAttribute="bottom" constant="31" id="aq3-p0-Y7H"/>
+                            <constraint firstItem="eDS-kZ-zIa" firstAttribute="leading" secondItem="rbb-rb-et4" secondAttribute="trailing" constant="24" id="oGi-QI-oxO"/>
+                            <constraint firstItem="rbb-rb-et4" firstAttribute="top" secondItem="rag-rH-gbd" secondAttribute="top" id="x4X-3M-0zV"/>
+                            <constraint firstItem="rbb-rb-et4" firstAttribute="leading" secondItem="HUI-nA-Y0j" secondAttribute="leading" id="zlT-ic-5y9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HUI-nA-Y0j"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="rbb-rb-et4" id="dkJ-kM-BcW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="srB-tn-e3d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="12" y="-1129"/>
+            <point key="canvasLocation" x="11.870503597122303" y="-1129.4964028776978"/>
         </scene>
-        <!--Account Strategy Edit View Controller-->
+        <!--Edit Account Strategy View Controller-->
         <scene sceneID="kU2-Ec-bCI">
             <objects>
-                <viewController storyboardIdentifier="AccountStrategyEditViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Wi2-UB-ajt" customClass="AccountStrategyEditViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditAccountStrategyViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Wi2-UB-ajt" customClass="EditAccountStrategyViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5lr-oN-HgL">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,26 +176,26 @@
                                 <rect key="frame" x="0.0" y="87.5" width="1112" height="743.5"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="U6S-Rf-XhF">
-                                    <size key="itemSize" width="540" height="99"/>
+                                    <size key="itemSize" width="540" height="80"/>
                                     <size key="headerReferenceSize" width="50" height="110"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyCell" id="9gq-BS-CLu" customClass="AccountStrategyCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="304" y="110" width="504" height="80"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="editAccountStrategyCell" id="9gq-BS-CLu" customClass="EditAccountStrategyCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
+                                        <rect key="frame" x="304" y="110" width="504" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="504" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="504" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDh-UF-d6Q">
-                                                    <rect key="frame" x="32" y="32" width="38" height="17"/>
+                                                    <rect key="frame" x="32" y="27" width="38" height="17"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selectedBlue" translatesAutoresizingMaskIntoConstraints="NO" id="BMp-6g-nQ1">
-                                                    <rect key="frame" x="473" y="1" width="30" height="30"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selectedBlue" translatesAutoresizingMaskIntoConstraints="NO" id="BMp-6g-nQ1">
+                                                    <rect key="frame" x="451" y="20" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="INB-aw-Rcu"/>
                                                         <constraint firstAttribute="width" constant="30" id="QUA-Vf-6Tr"/>
@@ -107,12 +205,12 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="UDh-UF-d6Q" firstAttribute="top" secondItem="9gq-BS-CLu" secondAttribute="top" constant="32" id="AXd-Nc-G2m"/>
+                                            <constraint firstItem="UDh-UF-d6Q" firstAttribute="top" secondItem="9gq-BS-CLu" secondAttribute="top" constant="27" id="AXd-Nc-G2m"/>
                                             <constraint firstItem="UDh-UF-d6Q" firstAttribute="leading" secondItem="9gq-BS-CLu" secondAttribute="leading" constant="32" id="Ahv-yW-vy3"/>
-                                            <constraint firstAttribute="trailing" secondItem="BMp-6g-nQ1" secondAttribute="trailing" constant="1" id="FJD-YX-dcO"/>
-                                            <constraint firstItem="BMp-6g-nQ1" firstAttribute="top" secondItem="9gq-BS-CLu" secondAttribute="top" constant="1" id="twd-l1-fKl"/>
+                                            <constraint firstAttribute="trailing" secondItem="BMp-6g-nQ1" secondAttribute="trailing" constant="23" id="FJD-YX-dcO"/>
+                                            <constraint firstItem="BMp-6g-nQ1" firstAttribute="top" secondItem="9gq-BS-CLu" secondAttribute="top" constant="20" id="twd-l1-fKl"/>
                                         </constraints>
-                                        <size key="customSize" width="504" height="80"/>
+                                        <size key="customSize" width="504" height="70"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
@@ -126,8 +224,8 @@
                                             <outlet property="selectedIcon" destination="BMp-6g-nQ1" id="u1P-Pa-O7s"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyCell2" id="tGF-Br-eaR" customClass="AccountStrategyCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="200" width="1072" height="410"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="editAccountStrategyNotesCell" id="tGF-Br-eaR" customClass="EditAccountStrategyCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="190" width="1072" height="410"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="1072" height="410"/>
@@ -251,7 +349,7 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AccountStrategyCollectionReusableViewID" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SectionHeader" id="eim-xt-sQd" customClass="AccountStrategyCollectionReusableView" customModule="SWSApp" customModuleProvider="target">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AccountStrategyCollectionReusableViewID" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="editAccountStrategyHeaderCell" id="eim-xt-sQd" customClass="EditAccountStrategyCollectionReusableView" customModule="SWSApp" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="1112" height="110"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 class AccountVisitListViewController: UIViewController {
 
@@ -25,7 +26,9 @@ class AccountVisitListViewController: UIViewController {
     func customizedUI(){
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
-        self.tableView.tableFooterView = UIView()
+        self.tableView.allowsSelection = true
+        self.tableView.allowsMultipleSelectionDuringEditing = true
+//        self.tableView.tableFooterView = UIView()
     }
     
     func initializingXIBs(){
@@ -33,15 +36,12 @@ class AccountVisitListViewController: UIViewController {
     }
     
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
-        let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
-        viewController.modalPresentationStyle = .overCurrentContext
-        self.present(viewController, animated: true)
+        
     }
 
 }
 
-extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataSource {
+extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
@@ -53,10 +53,54 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
+        cell?.delegate = self
         cell?.addressLabel.text = accountVisitArray[indexPath.row]["title"]
         cell?.visitStatusLabel.text = accountVisitArray[indexPath.row]["status"]
+        if accountVisitArray[indexPath.row]["status"] == "Scheduled"{
+            cell?.statusView.backgroundColor = UIColor(hexString: "#CDA635")
+        }else if accountVisitArray[indexPath.row]["status"] == "Completed"{
+            cell?.statusView.backgroundColor = UIColor(hexString: "#319553")
+        }else {
+            cell?.statusView.backgroundColor = UIColor(hexString: "#97A124")
+        }
         
         return cell!
+    }
+    
+    //MARK:- Table view on Swipe EDIT and DELETE actions
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+
+        guard orientation == .right else { return nil }
+
+        let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
+            let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
+            if self.accountVisitArray[indexPath.row]["status"] == "Scheduled"{
+                accountVisitsVC?.visitStatus = .scheduled
+            }else if self.accountVisitArray[indexPath.row]["status"] == "Completed"{
+                accountVisitsVC?.visitStatus = .completed
+            }else {
+                accountVisitsVC?.visitStatus = .inProgress
+            }
+            accountVisitsVC?.modalPresentationStyle = .overCurrentContext
+            self.present(accountVisitsVC!, animated: true, completion: nil)
+        }
+        editAction.image = UIImage(named:"editIcon")
+        editAction.backgroundColor = UIColor(named:"InitialsBackground")
+
+        let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
+
+        }
+        deleteAction.image = UIImage(named:"deletX")
+        deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
+        return [deleteAction, editAction]
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
+        var options = SwipeTableOptions()
+        options.expansionStyle = .destructive
+        options.transitionStyle = .border
+        return options
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

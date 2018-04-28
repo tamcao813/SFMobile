@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,16 +47,16 @@
                                     <action selector="newVisitButtonTapped:" destination="Yyq-GP-B40" eventType="touchUpInside" id="JEG-c5-d66"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mJ4-8V-uwc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mJ4-8V-uwc">
                                 <rect key="frame" x="0.0" y="184" width="1024" height="584"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="LightGrey"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Yyq-GP-B40" id="Yhh-3J-X30"/>
                                     <outlet property="delegate" destination="Yyq-GP-B40" id="H9r-XU-6nO"/>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="LightGrey"/>
                         <constraints>
                             <constraint firstItem="FBI-Cv-M3r" firstAttribute="bottom" secondItem="mJ4-8V-uwc" secondAttribute="bottom" id="13z-VQ-C7J"/>
                             <constraint firstItem="mJ4-8V-uwc" firstAttribute="top" secondItem="pA8-1K-Fkd" secondAttribute="bottom" constant="40" id="Alw-lN-Rjk"/>
@@ -257,5 +258,8 @@
     <resources>
         <image name="Close" width="38" height="38"/>
         <image name="delete" width="12" height="12"/>
+        <namedColor name="LightGrey">
+            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

@@ -7,14 +7,14 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class AccountVisitListTableViewCell: UITableViewCell {
+class AccountVisitListTableViewCell: SwipeTableViewCell {
 
     @IBOutlet weak var visitStatusLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var statusView: UIView!
+
 }

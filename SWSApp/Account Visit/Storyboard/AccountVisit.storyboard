@@ -28,14 +28,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pA8-1K-Fkd">
-                                <rect key="frame" x="894" y="104" width="120" height="40"/>
+                                <rect key="frame" x="894" y="30" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="BWR-Cp-J3K"/>
                                     <constraint firstAttribute="height" constant="40" id="tek-IQ-rP6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                <state key="normal" title="New Visit">
+                                <state key="normal" title="New Visit  +">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -48,7 +48,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mJ4-8V-uwc">
-                                <rect key="frame" x="0.0" y="184" width="1024" height="584"/>
+                                <rect key="frame" x="0.0" y="80" width="1024" height="688"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="3rd-Fa-L4N">
                                     <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
@@ -119,11 +119,11 @@
                         <color key="backgroundColor" name="LightGrey"/>
                         <constraints>
                             <constraint firstItem="FBI-Cv-M3r" firstAttribute="bottom" secondItem="mJ4-8V-uwc" secondAttribute="bottom" id="13z-VQ-C7J"/>
-                            <constraint firstItem="mJ4-8V-uwc" firstAttribute="top" secondItem="pA8-1K-Fkd" secondAttribute="bottom" constant="40" id="Alw-lN-Rjk"/>
+                            <constraint firstItem="mJ4-8V-uwc" firstAttribute="top" secondItem="pA8-1K-Fkd" secondAttribute="bottom" constant="10" id="Alw-lN-Rjk"/>
                             <constraint firstItem="mJ4-8V-uwc" firstAttribute="leading" secondItem="FBI-Cv-M3r" secondAttribute="leading" id="B2a-70-C08"/>
                             <constraint firstItem="FBI-Cv-M3r" firstAttribute="trailing" secondItem="mJ4-8V-uwc" secondAttribute="trailing" id="EF5-Ht-Cm3"/>
                             <constraint firstItem="FBI-Cv-M3r" firstAttribute="trailing" secondItem="pA8-1K-Fkd" secondAttribute="trailing" constant="10" id="bHn-2a-eYH"/>
-                            <constraint firstItem="pA8-1K-Fkd" firstAttribute="top" secondItem="FBI-Cv-M3r" secondAttribute="top" constant="84" id="wOF-Uz-fDi"/>
+                            <constraint firstItem="pA8-1K-Fkd" firstAttribute="top" secondItem="FBI-Cv-M3r" secondAttribute="top" constant="10" id="wOF-Uz-fDi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FBI-Cv-M3r"/>
                     </view>

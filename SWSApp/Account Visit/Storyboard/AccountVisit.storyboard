@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Account Visit List View Controller-->
+        <scene sceneID="csx-Ni-sFJ">
+            <objects>
+                <viewController storyboardIdentifier="AccountVisitListViewController" id="Yyq-GP-B40" customClass="AccountVisitListViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bro-5I-5cA">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pA8-1K-Fkd">
+                                <rect key="frame" x="894" y="30" width="120" height="40"/>
+                                <color key="backgroundColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="BWR-Cp-J3K"/>
+                                    <constraint firstAttribute="height" constant="40" id="tek-IQ-rP6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <state key="normal" title="New Visit  +">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="newVisitButtonTapped:" destination="Yyq-GP-B40" eventType="touchUpInside" id="JEG-c5-d66"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mJ4-8V-uwc">
+                                <rect key="frame" x="0.0" y="80" width="1024" height="688"/>
+                                <color key="backgroundColor" name="LightGrey"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="3rd-Fa-L4N">
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VwT-Cm-zrq">
+                                            <rect key="frame" x="0.0" y="0.0" width="512" height="44"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visit Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ktL-KZ-9ND">
+                                                    <rect key="frame" x="10" y="10" width="60.5" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="ktL-KZ-9ND" firstAttribute="top" secondItem="VwT-Cm-zrq" secondAttribute="top" constant="10" id="Lzs-fe-Qeq"/>
+                                                <constraint firstAttribute="bottom" secondItem="ktL-KZ-9ND" secondAttribute="bottom" constant="10" id="aZl-31-jpY"/>
+                                                <constraint firstItem="ktL-KZ-9ND" firstAttribute="leading" secondItem="VwT-Cm-zrq" secondAttribute="leading" constant="10" id="sWq-S9-K2A"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uel-Am-ZKP">
+                                            <rect key="frame" x="512" y="0.0" width="512" height="44"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Modified" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iV7-4w-uSk">
+                                                    <rect key="frame" x="10" y="10" width="91" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="iV7-4w-uSk" firstAttribute="leading" secondItem="Uel-Am-ZKP" secondAttribute="leading" constant="10" id="5au-Uz-rTT"/>
+                                                <constraint firstItem="iV7-4w-uSk" firstAttribute="top" secondItem="Uel-Am-ZKP" secondAttribute="top" constant="10" id="Xxq-sP-brG"/>
+                                                <constraint firstAttribute="bottom" secondItem="iV7-4w-uSk" secondAttribute="bottom" constant="10" id="bec-St-Efc"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="VwT-Cm-zrq" firstAttribute="top" secondItem="3rd-Fa-L4N" secondAttribute="top" id="181-w2-t2i"/>
+                                        <constraint firstItem="Uel-Am-ZKP" firstAttribute="leading" secondItem="VwT-Cm-zrq" secondAttribute="trailing" id="1KN-ui-ZIh"/>
+                                        <constraint firstItem="Uel-Am-ZKP" firstAttribute="top" secondItem="3rd-Fa-L4N" secondAttribute="top" id="8fr-ds-MTf"/>
+                                        <constraint firstAttribute="bottom" secondItem="Uel-Am-ZKP" secondAttribute="bottom" id="Zkg-jR-QXc"/>
+                                        <constraint firstItem="VwT-Cm-zrq" firstAttribute="leading" secondItem="3rd-Fa-L4N" secondAttribute="leading" id="dSx-O4-qze"/>
+                                        <constraint firstAttribute="bottom" secondItem="VwT-Cm-zrq" secondAttribute="bottom" id="fYI-r8-r9t"/>
+                                        <constraint firstItem="Uel-Am-ZKP" firstAttribute="width" secondItem="VwT-Cm-zrq" secondAttribute="width" id="sfU-Hv-0GU"/>
+                                        <constraint firstAttribute="trailing" secondItem="Uel-Am-ZKP" secondAttribute="trailing" id="xLQ-hG-gNt"/>
+                                    </constraints>
+                                </view>
+                                <connections>
+                                    <outlet property="dataSource" destination="Yyq-GP-B40" id="Yhh-3J-X30"/>
+                                    <outlet property="delegate" destination="Yyq-GP-B40" id="H9r-XU-6nO"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" name="LightGrey"/>
+                        <constraints>
+                            <constraint firstItem="FBI-Cv-M3r" firstAttribute="bottom" secondItem="mJ4-8V-uwc" secondAttribute="bottom" id="13z-VQ-C7J"/>
+                            <constraint firstItem="mJ4-8V-uwc" firstAttribute="top" secondItem="pA8-1K-Fkd" secondAttribute="bottom" constant="10" id="Alw-lN-Rjk"/>
+                            <constraint firstItem="mJ4-8V-uwc" firstAttribute="leading" secondItem="FBI-Cv-M3r" secondAttribute="leading" id="B2a-70-C08"/>
+                            <constraint firstItem="FBI-Cv-M3r" firstAttribute="trailing" secondItem="mJ4-8V-uwc" secondAttribute="trailing" id="EF5-Ht-Cm3"/>
+                            <constraint firstItem="FBI-Cv-M3r" firstAttribute="trailing" secondItem="pA8-1K-Fkd" secondAttribute="trailing" constant="10" id="bHn-2a-eYH"/>
+                            <constraint firstItem="pA8-1K-Fkd" firstAttribute="top" secondItem="FBI-Cv-M3r" secondAttribute="top" constant="10" id="wOF-Uz-fDi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FBI-Cv-M3r"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="mJ4-8V-uwc" id="eab-fB-4qX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wzd-gl-Sd7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="632" y="-1469"/>
+        </scene>
+        <!--Account Visit Summary View Controller-->
+        <scene sceneID="USi-wn-NWf">
+            <objects>
+                <viewController storyboardIdentifier="AccountVisitSummaryViewController" id="v9Q-k8-N2k" customClass="AccountVisitSummaryViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Atp-6A-ZgO">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Dt-tf-onC">
+                                <rect key="frame" x="50" y="40" width="80.5" height="43"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="38"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYG-9I-MTa">
+                                <rect key="frame" x="30" y="123" width="120" height="130"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0f-R3-edu">
+                                        <rect key="frame" x="44" y="20" width="32.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOU-At-7os">
+                                        <rect key="frame" x="42.5" y="45.5" width="36.5" height="36"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="32"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2-5PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYD-bt-TL4">
+                                        <rect key="frame" x="34" y="93" width="53" height="21"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.12549019607843137" green="0.25882352941176467" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="3bg-LB-ugZ"/>
+                                    <constraint firstItem="A0f-R3-edu" firstAttribute="top" secondItem="xYG-9I-MTa" secondAttribute="top" constant="20" id="5jg-ex-dfL"/>
+                                    <constraint firstItem="A0f-R3-edu" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="Gv8-Fc-ZGR"/>
+                                    <constraint firstAttribute="width" constant="120" id="IKU-b3-p3V"/>
+                                    <constraint firstItem="eOU-At-7os" firstAttribute="top" secondItem="A0f-R3-edu" secondAttribute="bottom" constant="5" id="QSb-J2-KYS"/>
+                                    <constraint firstItem="fYD-bt-TL4" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="X4f-Bi-Lpg"/>
+                                    <constraint firstItem="fYD-bt-TL4" firstAttribute="top" secondItem="eOU-At-7os" secondAttribute="bottom" constant="5" id="dxc-QN-ku9"/>
+                                    <constraint firstItem="eOU-At-7os" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="uGv-qR-8dk"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PON-ss-Nsr">
+                                <rect key="frame" x="180" y="123" width="844" height="645"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="Ess-1a-y5p">
+                                    <rect key="frame" x="0.0" y="0.0" width="844" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <connections>
+                                    <outlet property="dataSource" destination="v9Q-k8-N2k" id="oOo-62-FI5"/>
+                                    <outlet property="delegate" destination="v9Q-k8-N2k" id="8UV-Jn-VMo"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZ9-L3-SEK">
+                                <rect key="frame" x="30" y="273" width="49" height="20"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scheduled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFp-xT-3QR">
+                                <rect key="frame" x="30" y="303" width="80.5" height="20"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGd-Ri-gvD">
+                                <rect key="frame" x="30" y="353" width="120" height="40"/>
+                                <color key="backgroundColor" red="0.25882352941176467" green="0.52941176470588236" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="BoC-Lo-ofj"/>
+                                    <constraint firstAttribute="height" constant="40" id="j4s-Ye-AFD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <state key="normal" title="Start Visit">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="startOrContinueVisitButtonTapped:" destination="v9Q-k8-N2k" eventType="touchUpInside" id="xEb-za-Ug0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fh2-vm-Ac9">
+                                <rect key="frame" x="30" y="403" width="120" height="40"/>
+                                <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="GUy-Xc-Bq2"/>
+                                    <constraint firstAttribute="width" constant="120" id="NBH-lG-ZiB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <state key="normal" title="Edit Visit">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="editVisitOrNotesButtonTapped:" destination="v9Q-k8-N2k" eventType="touchUpInside" id="al8-vs-ZCe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-iM-AOQ">
+                                <rect key="frame" x="30" y="453" width="120" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="aex-pJ-A1H"/>
+                                    <constraint firstAttribute="height" constant="40" id="hdL-mC-hZq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                <state key="normal" title="   Delete Visit" image="delete">
+                                    <color key="titleColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blD-Gm-ocV">
+                                <rect key="frame" x="964" y="41.5" width="40" height="40"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="JuD-Nf-dEE"/>
+                                    <constraint firstAttribute="height" constant="40" id="hqQ-hg-xxw"/>
+                                </constraints>
+                                <state key="normal" image="Close">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="v9Q-k8-N2k" eventType="touchUpInside" id="VGM-y9-eup"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fh2-vm-Ac9" firstAttribute="top" secondItem="TGd-Ri-gvD" secondAttribute="bottom" constant="10" id="9N8-Bm-7W0"/>
+                            <constraint firstItem="FFp-xT-3QR" firstAttribute="top" secondItem="OZ9-L3-SEK" secondAttribute="bottom" constant="10" id="BDy-YD-LaO"/>
+                            <constraint firstItem="PON-ss-Nsr" firstAttribute="bottom" secondItem="BhT-dr-UMH" secondAttribute="bottom" id="FE1-Mf-zUP"/>
+                            <constraint firstItem="fh2-vm-Ac9" firstAttribute="leading" secondItem="TGd-Ri-gvD" secondAttribute="leading" id="I4D-Zz-erK"/>
+                            <constraint firstItem="xYG-9I-MTa" firstAttribute="leading" secondItem="BhT-dr-UMH" secondAttribute="leading" constant="30" id="IMv-ix-8kB"/>
+                            <constraint firstItem="blD-Gm-ocV" firstAttribute="centerY" secondItem="4Dt-tf-onC" secondAttribute="centerY" id="MOq-yq-3p4"/>
+                            <constraint firstItem="xYG-9I-MTa" firstAttribute="top" secondItem="4Dt-tf-onC" secondAttribute="bottom" constant="40" id="N98-3S-HDK"/>
+                            <constraint firstItem="FFp-xT-3QR" firstAttribute="leading" secondItem="OZ9-L3-SEK" secondAttribute="leading" id="Stv-6D-l33"/>
+                            <constraint firstItem="BhT-dr-UMH" firstAttribute="trailing" secondItem="blD-Gm-ocV" secondAttribute="trailing" constant="20" id="WW9-vz-RnI"/>
+                            <constraint firstItem="4Dt-tf-onC" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="ZGQ-Mg-Dyf"/>
+                            <constraint firstItem="OZ9-L3-SEK" firstAttribute="top" secondItem="xYG-9I-MTa" secondAttribute="bottom" constant="20" id="ZgQ-Pj-Bm1"/>
+                            <constraint firstItem="OZ9-L3-SEK" firstAttribute="leading" secondItem="xYG-9I-MTa" secondAttribute="leading" id="bWe-1i-m2e"/>
+                            <constraint firstItem="PON-ss-Nsr" firstAttribute="trailing" secondItem="BhT-dr-UMH" secondAttribute="trailing" id="dyw-cU-2kz"/>
+                            <constraint firstItem="PON-ss-Nsr" firstAttribute="top" secondItem="xYG-9I-MTa" secondAttribute="top" id="fmi-YU-zLd"/>
+                            <constraint firstItem="TGd-Ri-gvD" firstAttribute="leading" secondItem="FFp-xT-3QR" secondAttribute="leading" id="jjj-wg-Peq"/>
+                            <constraint firstItem="Dp6-iM-AOQ" firstAttribute="leading" secondItem="fh2-vm-Ac9" secondAttribute="leading" id="leK-pC-9fT"/>
+                            <constraint firstItem="PON-ss-Nsr" firstAttribute="leading" secondItem="xYG-9I-MTa" secondAttribute="trailing" constant="30" id="nky-J3-yrx"/>
+                            <constraint firstItem="TGd-Ri-gvD" firstAttribute="top" secondItem="FFp-xT-3QR" secondAttribute="bottom" constant="30" id="uXx-2n-NKf"/>
+                            <constraint firstItem="Dp6-iM-AOQ" firstAttribute="top" secondItem="fh2-vm-Ac9" secondAttribute="bottom" constant="10" id="y19-qD-Iyj"/>
+                            <constraint firstItem="4Dt-tf-onC" firstAttribute="top" secondItem="BhT-dr-UMH" secondAttribute="top" constant="20" id="zSu-XS-hO2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BhT-dr-UMH"/>
+                    </view>
+                    <connections>
+                        <outlet property="deleteVisitButton" destination="Dp6-iM-AOQ" id="AkF-qv-FfI"/>
+                        <outlet property="editVisitButton" destination="fh2-vm-Ac9" id="WU6-XR-f8N"/>
+                        <outlet property="editVisitButtonHeightConstraint" destination="GUy-Xc-Bq2" id="06o-Dq-6Oa"/>
+                        <outlet property="startVisitButton" destination="TGd-Ri-gvD" id="OVb-Z9-Fcc"/>
+                        <outlet property="startVisitButtonHeightConstraint" destination="j4s-Ye-AFD" id="YRQ-Ky-LIB"/>
+                        <outlet property="statusLabel" destination="FFp-xT-3QR" id="ifE-Qj-Pq9"/>
+                        <outlet property="tableView" destination="PON-ss-Nsr" id="u2k-4g-UEc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="35C-X1-OUV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1291" y="-1470"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Close" width="38" height="38"/>
+        <image name="delete" width="12" height="12"/>
+        <namedColor name="LightGrey">
+            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

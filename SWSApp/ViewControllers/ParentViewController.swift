@@ -80,6 +80,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         return moreTabVC
     }()
     
+    lazy var accountVisit : UIViewController? = {
+        let accountStoryboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
+        let accountVisitListVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitListViewController") as UIViewController
+        return accountVisitListVC
+    }()
+    
+    
+    
     var reachability = Reachability()!
     
     override func viewDidLoad() {
@@ -214,7 +222,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let menuItem5 = NSLocalizedString("Objectives", comment: "Objectives")
         //let menuItem6 = NSLocalizedString("More", comment: "More")
         //let menuItem6 = "More   v" // time being 6April
-        let menuItem6 = "More ..."
+        let menuItem6 = "More ⌵"
         
         let menuTitles = [menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, menuItem6]
         //let menuIcons = [UIImage(), UIImage(), UIImage(), UIImage(),UIImage(), UIImage(named: "moreArrow")!]
@@ -277,6 +285,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     private func selectedDropDownOption(selectedIndex : Int){
         moreDropDown.selectionAction = { (index: Int, item: String) in
+            
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let currentViewController = self.displayCurrentTab(selectedIndex)
             
@@ -291,11 +300,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: index)
                 
             case 1:
-                self.instantiateViewController(identifier: "AccountVisitsControllerID", moreOptionVC: moreVC1, index: index)
-//                accountVisitsVC.view.frame = self.contentView.bounds
-//                self.contentView.addSubview((accountVisitsVC.view)!)
-//                self.currentViewController = accountVisitsVC
-
+                moreVC1.view.addSubview((self.accountVisit?.view)!)
                 self.moreDropDownSelectionIndex = index
             case 2:
                 self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)

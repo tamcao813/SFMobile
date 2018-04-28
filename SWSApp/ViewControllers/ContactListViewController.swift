@@ -92,7 +92,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         if indexPath.section == 0{
             
             let buttonCell:ContactListTableViewButtonCell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! ContactListTableViewButtonCell
-            
+            buttonCell.delegate = self
             return buttonCell
             
         }
@@ -283,18 +283,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         
         loadContactData()
-        //        tableView.reloadData()
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
 
@@ -519,6 +508,15 @@ extension ContactListViewController{
         
     }
     
+}
+
+extension ContactListViewController: ContactListTableViewButtonCellDelegate {
+    
+    func newContactButtonTapped(){
+        let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
+        let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
+        self.present(newContactVC!, animated: true, completion: nil)
+    }
 }
 
 

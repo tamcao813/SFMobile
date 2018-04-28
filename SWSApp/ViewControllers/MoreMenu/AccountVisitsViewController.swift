@@ -10,11 +10,6 @@ import UIKit
 
 class AccountVisitsViewController: UIViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("Plan VC viewDidLoad")
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("AccountVisits VC will appear")

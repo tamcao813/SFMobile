@@ -25,8 +25,11 @@ class NotesViewController : UIViewController {
     
     var accountNotesArray = [AccountNotes]()
     var accNotesViewModel = AccountsNotesViewModel()
-    var accountId : String!
     var notesArray = [AccountNotes]()
+    
+    var accountId : String!
+
+   
 
     
 //   // var notesDict = [
@@ -47,7 +50,8 @@ class NotesViewController : UIViewController {
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
-                notesArray.append(accNotes)               
+                notesArray.append(accNotes)
+ 
             }
             //filtered array of notes related to my notes
              print("Notes Array \(notesArray)")
@@ -97,6 +101,7 @@ class NotesViewController : UIViewController {
             let createNoteScreen = segue.destination as! CreateNoteViewController
             createNoteScreen.noteTitleText = self.notesTitle
             createNoteScreen.noteDescriptionText = self.notesDescription
+            createNoteScreen.notes = notesArray
         }
         
         if segue.identifier == "editNotesSegue" {

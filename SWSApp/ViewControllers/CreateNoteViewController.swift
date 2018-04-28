@@ -27,6 +27,7 @@ class CreateNoteViewController : UIViewController{
     var noteDescriptionText: String!
     
     var accNotesViewModel = AccountsNotesViewModel()
+   
     
     //MARK:- View Life Cycles
     override func viewDidLoad() {
@@ -34,8 +35,8 @@ class CreateNoteViewController : UIViewController{
         textView?.layer.borderColor = UIColor.init(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1).cgColor
         notesTitleTextField.delegate = self
         textView.delegate = self
-        
-        
+       
+       self.getDateForNotes()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,13 +44,31 @@ class CreateNoteViewController : UIViewController{
         
         self.textView?.text = noteDescriptionText
         self.notesTitleTextField?.text = noteTitleText
+       
+        
+    }
+    
+    func generateRandomIDForNotes()->String  {
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        print("number in notes is \(someString)")
+        return someString
     }
     
     
     
-    func testCreateNewNotes() {
+    func getDateForNotes()  {
+        
+        let currentdate = Date()
+        print("Current date is \(currentdate)")
+        
+    }
+    
+    func createNewNotes() {
             let new_notes = AccountNotes(for: "newNotes")
-            new_notes.Id = ""
+            new_notes.Id = self.generateRandomIDForNotes()
             new_notes.lastModifiedDate = ""
             new_notes.name = self.notesTitleTextField.text!
             new_notes.ownerId = ""
@@ -112,7 +131,7 @@ class CreateNoteViewController : UIViewController{
         sendDataToTable.addDataToArray = 1
         self.dismiss(animated: true, completion: nil)
         
-        self.testCreateNewNotes()
+        self.createNewNotes()
         
     }
     

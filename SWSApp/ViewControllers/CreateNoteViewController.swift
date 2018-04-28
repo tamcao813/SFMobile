@@ -24,8 +24,11 @@ class CreateNoteViewController : UIViewController{
     
     var dataDictionary:[String: Any] = [:]
     var notesToEdit: AccountNotes!
-    
     var isAddingNewNote: Bool = true
+    var accNotesViewModel = AccountsNotesViewModel()
+    
+    var notesAccountId:String!
+   
     
     //MARK:- View Life Cycles
     override func viewDidLoad() {
@@ -34,6 +37,8 @@ class CreateNoteViewController : UIViewController{
         notesTitleTextField?.layer.borderColor = UIColor.init(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1).cgColor
         notesTitleTextField.delegate = self
         textView.delegate = self
+       
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +49,57 @@ class CreateNoteViewController : UIViewController{
             self.notesTitleTextField?.text = notesToEdit.name
         }
     }
+    
+    func generateRandomIDForNotes()->String  {
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        print("number in notes is \(someString)")
+        return someString
+    }
+    
+    
+    
+    func getDateForNotes()  {
+        
+        let currentdate = Date()
+        print("Current date is \(currentdate)")
+        
+    }
+    
+    func createNewNotes() {
+            let new_notes = AccountNotes(for: "newNotes")
+            new_notes.Id = self.generateRandomIDForNotes()
+            new_notes.lastModifiedDate = ""
+            new_notes.name = self.notesTitleTextField.text!
+            new_notes.ownerId = ""
+            new_notes.accountId = notesAccountId
+            new_notes.accountNotesDesc = self.textView.text!
+            let addNewDict: [String:Any] = [
+                
+                                             AccountNotes.AccountNotesFields[0]: new_notes.Id,
+                                             AccountNotes.AccountNotesFields[1]: new_notes.lastModifiedDate,
+                                             AccountNotes.AccountNotesFields[2]: new_notes.name,
+                                             AccountNotes.AccountNotesFields[3]: new_notes.ownerId,
+                                             AccountNotes.AccountNotesFields[4]: new_notes.accountId,
+                                             AccountNotes.AccountNotesFields[5]: new_notes.accountNotesDesc,
+            ]
+        
+        let success = accNotesViewModel.createNewNotesLocally(fields: addNewDict)
+        print("Success is here \(success)")
+        
+        //assuming online
+        if success { //upsert to local store is successful then upload to server
+            accNotesViewModel.uploadNotesToServer(fields: addNewDict, completion: { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                }
+            })
+        }
+        
+    }
+    
     
     //MARK:- IB Button actions
     @IBAction func closeButtonClicked(_ sender: Any) {
@@ -76,6 +132,9 @@ class CreateNoteViewController : UIViewController{
         sendDataToTable.dataDictionary = dataDictionary
         sendDataToTable.addDataToArray = 1
         self.dismiss(animated: true, completion: nil)
+        
+        self.createNewNotes()
+        
     }
     
 }

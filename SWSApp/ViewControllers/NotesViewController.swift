@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import SwipeCellKit
 
+
+
+
+
 class NotesTableViewCell : SwipeTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -21,8 +25,8 @@ class NotesViewController : UIViewController {
     var tableViewData = NSMutableArray()
     var accountNotesArray = [AccountNotes]()
     var accNotesViewModel = AccountsNotesViewModel()
-    var accountId : String!
     var notesArray = [AccountNotes]()
+    var accountId : String!
     var notesDataToEdit: AccountNotes!
     
 //   // var notesDict = [
@@ -40,13 +44,16 @@ class NotesViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
-                notesArray.append(accNotes)               
+                notesArray.append(accNotes)
+ 
             }
             //filtered array of notes related to my notes
              print("Notes Array \(notesArray)")
+           
         }
         
         
@@ -87,6 +94,8 @@ class NotesViewController : UIViewController {
         if segue.identifier == "editNotesSegue" {
             let editNoteScreen = segue.destination as! EditNoteViewController
             editNoteScreen.notesToBeEdited = notesDataToEdit
+            
+            
         }
     }
     

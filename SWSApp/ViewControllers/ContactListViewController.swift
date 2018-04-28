@@ -11,12 +11,10 @@ import UIKit
 class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     let contactViewModel = ContactsViewModel()
-    
     var globalContactsForList = [Contact]()
     var accountContactsForList = [Contact]()
     var contactsAcc = [AccountContactRelation]()
-   // @IBOutlet weak var noOfResultLabel: UILabel!
-    
+    // @IBOutlet weak var noOfResultLabel: UILabel!
     var numberOfAccountRows = 0
     
     //Internal
@@ -35,16 +33,36 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     var kOrignalArray:[Any]?
     var isDisabledPreviously = false
     
-    
-    
-    
     //Used for Page control operation
     @IBOutlet var pageButtonArr: [UIButton]!
-
     var globalContactCount:Int?
+    @IBOutlet weak var tableView: UITableView!
     
     
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        globalContactCount = contactViewModel.globalContacts().count
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
+        contactsAcc = contactViewModel.accountsForContacts()
+        loadContactData()
+        
+        //testContactRolePlist
+        let opts = PlistMap.sharedInstance.getPicklist("Contact", fieldname: "Roles")
+        print(opts)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK:- Table View Data Source
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -55,8 +73,6 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             return 1
         }
         let cellsToDisplay = globalContactsForList.count - currentPageIndex!
-        
-        
         if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
             numberOfAccountRows = cellsToDisplay
             return cellsToDisplay
@@ -71,8 +87,6 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         
     }
     
-  
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0{
@@ -83,10 +97,9 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             
         }
         
-        
         let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
         let cell:ContactListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactListTableViewCell
-    
+        
         let fullName = globalContact.firstName + " " + globalContact.lastName
         print("full name \(fullName)")
         cell.initialNameLabel.text = globalContact.getIntials(name: fullName)
@@ -94,17 +107,16 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         cell.phoneValueLabel.text = globalContact.phoneuNmber
         cell.emailValueLabel.text =  globalContact.email
         cell.selectionStyle = .none
-        
         var accountsName = [String]()
         for acc in contactsAcc{
             
             if(globalContact.contactId == acc.contactId){
-             accountsName.append(acc.accountName)
+                accountsName.append(acc.accountName)
             }
         }
         
         accountsName = accountsName.sorted { $0.lowercased() < $1.lowercased() }
-
+        
         let formattedaccountsName = accountsName.joined(separator: ", ")
         print(formattedaccountsName)
         cell.linkedAccountWithContact.text = "\(formattedaccountsName)"
@@ -120,41 +132,8 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         return 200
     }
-
     
     
-    @IBOutlet weak var tableView: UITableView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-         globalContactCount = contactViewModel.globalContacts().count
-         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
-            contactsAcc = contactViewModel.accountsForContacts()
-        loadContactData()
-       
-        //testContactRolePlist
-        let opts = PlistMap.sharedInstance.getPicklist("Contact", fieldname: "Roles")
-        print(opts)
- 
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        if globalContactsForList.count > 0 {
-//            pageButtonArr[1].backgroundColor = UIColor.lightGray
-//            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
-//        }
-//
-//        initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
-//        updateUI()
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "contactDetailsSegue" {
@@ -163,7 +142,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         }
     }
     
-    //Mark load contact data
+    //MARK:- load contact data
     func loadContactData() {
         
         print("loadContactData")
@@ -181,33 +160,33 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
             pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         }
         
-       // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
+        // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
         
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         
         
         self.tableView.reloadData()
-
+        
     }
     
 }
 
 //MARK:- SearchContactByEnteredTextDelegate Methodss
 extension ContactListViewController : SearchContactByEnteredTextDelegate{
-
+    
     func sortContactData(searchString: String) {
         print("sortContactData")
     }
     
     func filteringContact(filtering: Bool) {
-
+        
         print("filteringContact")
-
+        
         if !filtering {
             loadContactData()
         }
-
+        
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
             pageButtonArr[count].backgroundColor = UIColor.white
@@ -227,10 +206,10 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         } else {
             globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.contacts(forAccount: ContactsGlobal.accountId), searchBarText: searchString)
         }
-
+        
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
-       // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
+        // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
         
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
@@ -260,25 +239,25 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         
         ////////////////////////////////////
-//        initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
-//        updateUI()
-//        print("\(self.noOfPages!)")
-//
-//        if(numberOfAccountRows > 0){
-//            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-//        }
-//        for count in 1...5 {
-//            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
-//            pageButtonArr[count].backgroundColor = UIColor.white
-//            pageButtonArr[count].setTitle(String(count), for: .normal)
-//        }
-//        pageButtonArr[1].backgroundColor = UIColor.lightGray
-//        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        //        initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
+        //        updateUI()
+        //        print("\(self.noOfPages!)")
+        //
+        //        if(numberOfAccountRows > 0){
+        //            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        //        }
+        //        for count in 1...5 {
+        //            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+        //            pageButtonArr[count].backgroundColor = UIColor.white
+        //            pageButtonArr[count].setTitle(String(count), for: .normal)
+        //        }
+        //        pageButtonArr[1].backgroundColor = UIColor.lightGray
+        //        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         
     }
     
     @objc func reloadAllContacts(notification: NSNotification){
-
+        
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
@@ -304,7 +283,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         
         loadContactData()
-//        tableView.reloadData()
+        //        tableView.reloadData()
     }
     
     /*
@@ -539,7 +518,7 @@ extension ContactListViewController{
         }
         
     }
-
+    
 }
 
 

@@ -28,6 +28,7 @@ class StoreDispatcher {
     
     lazy final var sfaSyncMgr: SFSmartSyncSyncManager = SFSmartSyncSyncManager.sharedInstance(for: sfaStore)!
     
+    
     var userVieModel: UserViewModel {
         return UserViewModel()
         
@@ -36,7 +37,6 @@ class StoreDispatcher {
     //register all soups - to do: register other needed soups
     func registerSoups() {
         print("Store Path is \(String(describing: sfaStore.storePath))")
-        
         registerUserSoup()
         registerAccountSoup()
         registerContactSoup()
@@ -844,6 +844,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let accountNotesArray = AccountNotes(withAry: ary)
                 acctNotes.append(accountNotesArray)
+                print("notes array \(ary)")
             }
         }
         else if error != nil {
@@ -851,5 +852,52 @@ class StoreDispatcher {
         }
         return acctNotes
     }
+    
+    func createNewNotesLocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupAccountNotes)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func syncUpNotes(fieldsToUpload: [String:Any], completion:@escaping (_ error: NSError?)->()) {
+        
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: [fieldsToUpload], mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupAccountNotes)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncUPNotes done")
+                    let syncId = syncStateStatus.syncId
+                    print(syncId)
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncUpNotes()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncUPNotes()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    
+    
+    
 }
 

@@ -18,6 +18,8 @@ class AccountDetailsViewController : UIViewController{
     
     var accountDetailForLoggedInUser : Account?
     
+    
+    
     @IBOutlet weak var centerLabel : UILabel?
     @IBOutlet weak var lblAccountTitle : UILabel?
     @IBOutlet weak var lblAddress1 : UILabel?
@@ -94,8 +96,10 @@ class AccountDetailsViewController : UIViewController{
     @IBAction func addNewButtonClicked(_ sender: Any) {
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
-        let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as UIViewController
+        let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
+        vc.notesAccountId = accountDetailForLoggedInUser?.account_Id
         vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+       
         self.present(vc, animated: true, completion: nil)
         
     }
@@ -105,6 +109,9 @@ class AccountDetailsViewController : UIViewController{
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         containerView?.isHidden = true
+        
+       
+        
         
     }
     

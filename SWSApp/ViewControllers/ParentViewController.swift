@@ -163,6 +163,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         userInitialLabel.clipsToBounds = true
         let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel)
         
+        // adding TapGesture to userInitialLabel..
+        let userInitialLabelTap  = UITapGestureRecognizer(target: self, action:#selector(handleTap))
+        userInitialLabel.isUserInteractionEnabled = true
+        userInitialLabel.addGestureRecognizer(userInitialLabelTap)
+        
         
         self.numberLabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
         self.numberLabel?.font  = UIFont.boldSystemFont(ofSize: 8)
@@ -193,6 +198,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         logoButton.isEnabled = false
         self.navigationItem.leftBarButtonItem = logoButton
         
+    }
+    
+    @objc func handleTap()  {
+        print("Tap is identified")
     }
     
     private func setupTopMenuItems(){

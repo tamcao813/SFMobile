@@ -881,7 +881,7 @@ class StoreDispatcher {
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
-                    let meg = "ErrorDownloading: syncDownContact()"
+                    let meg = "ErrorDownloading: syncUpNotes()"
                     let userInfo: [String: Any] =
                         [
                             NSLocalizedDescriptionKey : meg,

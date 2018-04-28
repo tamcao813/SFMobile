@@ -27,8 +27,13 @@ class EditNoteViewController : UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.dateLabel?.text = notesToBeEdited.lastModifiedDate
+
+        let serverDate = notesToBeEdited.lastModifiedDate
+        let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
+        var dateTime = getTime.components(separatedBy: " ")
+        if(dateTime.count > 0){
+            self.dateLabel?.text = dateTime[0]
+        }
         self.descriptionLabel?.text = notesToBeEdited.accountNotesDesc
         self.titleLabel?.text = notesToBeEdited.name
         

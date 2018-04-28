@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>New item</key>
+	<array>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>storeName</key>
+			<string>Crown Liquor Store Two</string>
+			<key>questionId</key>
+			<string>1</string>
+			<key>storePin</key>
+			<string>4644895</string>
+			<key>storeAddress</key>
+			<string>5678 W. Main St. New York, NY 54331</string>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string>Notes</string>
+			<key>question</key>
+			<string>Enter notes below lorem ipsum dolor sit.</string>
+			<key>questionId</key>
+			<string>2</string>
+			<key>notesText</key>
+			<string>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string>Agenda Notes</string>
+			<key>subHeader</key>
+			<string></string>
+			<key>questionId</key>
+			<string>2</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string>Account Strategy</string>
+			<key>subHeader</key>
+			<string>Goals</string>
+			<key>questionId</key>
+			<string>4</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string> Meet the needs of your regulars</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string> Stay in business</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>subHeader</key>
+			<string>Success Metrics</string>
+			<key>questionId</key>
+			<string>4</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Top line sales go up</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Inventory turns go up
+</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>subHeader</key>
+			<string>Challenges</string>
+			<key>questionId</key>
+			<string>4</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Limited cash flow</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Limited storage space</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Consumers are changing a lot</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Competition is about the same</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string>Buying Motives</string>
+			<key>subHeader</key>
+			<string>Task Buying Motive</string>
+			<key>questionId</key>
+			<string>4</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Better Product/Offering</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>subHeader</key>
+			<string>Personal Buying Motive</string>
+			<key>questionId</key>
+			<string>4</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Control</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

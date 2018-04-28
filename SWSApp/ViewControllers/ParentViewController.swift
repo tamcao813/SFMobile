@@ -289,21 +289,16 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let currentViewController = self.displayCurrentTab(selectedIndex)
             
-            for view in self.view.subviews{
-                // Set the identifier for globalNotification view
-                if(view.restorationIdentifier == "globalNotification"){
-                    view.removeFromSuperview()
-                }
-            }
+            self.removeSubviews()
+            
             currentViewController?.view.addSubview(moreVC1.view)
             
             SelectedMoreButton.selectedItem = index
             //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
             switch index {
             case 0:
-                let actionItemsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ActionItemsViewControllerID")
-                moreVC1.view.addSubview((actionItemsVC.view)!)               
-                self.moreDropDownSelectionIndex = index
+                self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: index)
+                
             case 1:
                 moreVC1.view.addSubview((self.accountVisit?.view)!)
                 self.moreDropDownSelectionIndex = index

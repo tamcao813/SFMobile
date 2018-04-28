@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import SwipeCellKit
 
+
+
+
+
 class NotesTableViewCell : SwipeTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -22,11 +26,8 @@ class NotesViewController : UIViewController {
     var accountNotesArray = [AccountNotes]()
     var accNotesViewModel = AccountsNotesViewModel()
     var notesArray = [AccountNotes]()
-    
     var accountId : String!
-
-   
-
+    var notesDataToEdit: AccountNotes!
     
 //   // var notesDict = [
 //        ["title" : "Visit: Crown Liquor Store One", "date": "Today","time" : "10:30AM","description" : "Hello 1"],
@@ -43,6 +44,7 @@ class NotesViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
@@ -51,6 +53,7 @@ class NotesViewController : UIViewController {
             }
             //filtered array of notes related to my notes
              print("Notes Array \(notesArray)")
+           
         }
         
         
@@ -84,14 +87,15 @@ class NotesViewController : UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "createNoteSegue" {
             let createNoteScreen = segue.destination as! CreateNoteViewController
-            createNoteScreen.noteTitleText = self.notesTitle
-            createNoteScreen.noteDescriptionText = self.notesDescription
-            createNoteScreen.notes = notesArray
+            createNoteScreen.notesToEdit = notesDataToEdit
+            createNoteScreen.isAddingNewNote = false
         }
         
         if segue.identifier == "editNotesSegue" {
             let editNoteScreen = segue.destination as! EditNoteViewController
             editNoteScreen.notesToBeEdited = notesDataToEdit
+            
+            
         }
     }
     

@@ -24,10 +24,10 @@ class CreateNoteViewController : UIViewController{
     
     var dataDictionary:[String: Any] = [:]
     var notesToEdit: AccountNotes!
-    
     var isAddingNewNote: Bool = true
-    
     var accNotesViewModel = AccountsNotesViewModel()
+    
+    var notesAccountId:String!
    
     
     //MARK:- View Life Cycles
@@ -38,16 +38,16 @@ class CreateNoteViewController : UIViewController{
         notesTitleTextField.delegate = self
         textView.delegate = self
        
-       self.getDateForNotes()
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.textView?.text = noteDescriptionText
-        self.notesTitleTextField?.text = noteTitleText
-       
-        
+        if(!isAddingNewNote) {
+            self.textView?.text = notesToEdit.accountNotesDesc
+            self.notesTitleTextField?.text = notesToEdit.name
+        }
     }
     
     func generateRandomIDForNotes()->String  {
@@ -74,7 +74,7 @@ class CreateNoteViewController : UIViewController{
             new_notes.lastModifiedDate = ""
             new_notes.name = self.notesTitleTextField.text!
             new_notes.ownerId = ""
-            new_notes.accountId = ""
+            new_notes.accountId = notesAccountId
             new_notes.accountNotesDesc = self.textView.text!
             let addNewDict: [String:Any] = [
                 

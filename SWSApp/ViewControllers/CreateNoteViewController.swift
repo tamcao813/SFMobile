@@ -14,6 +14,10 @@ struct sendDataToTable {
     static var dataDictionary = NSMutableDictionary()
 }
 
+protocol sendNotesDataToNotesDelegate: class {
+    func displayAccountNotes()
+}
+
 class CreateNoteViewController : UIViewController{
     
     let textFieldLimit = 250 // limit for TextField
@@ -26,7 +30,7 @@ class CreateNoteViewController : UIViewController{
     var notesToEdit: AccountNotes!
     var isAddingNewNote: Bool = true
     var accNotesViewModel = AccountsNotesViewModel()
-    
+    var sendNoteDelegate : sendNotesDataToNotesDelegate?
     var notesAccountId:String!
    
     
@@ -69,9 +73,19 @@ class CreateNoteViewController : UIViewController{
     }
     
     func createNewNotes() {
+        
+        let date = Date()
+        print(date)
+        let dateFormatter = DateFormatter()
+        //let dt = dateFormatter.date(from: date)
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        print(timeStamp)
+        
             let new_notes = AccountNotes(for: "newNotes")
             new_notes.Id = self.generateRandomIDForNotes()
-            new_notes.lastModifiedDate = ""
+            new_notes.lastModifiedDate = timeStamp
             new_notes.name = self.notesTitleTextField.text!
             new_notes.ownerId = ""
             new_notes.accountId = notesAccountId
@@ -131,9 +145,9 @@ class CreateNoteViewController : UIViewController{
         dataDictionary.setValue(timeresult, forKey: "time")
         sendDataToTable.dataDictionary = dataDictionary
         sendDataToTable.addDataToArray = 1
-        self.dismiss(animated: true, completion: nil)
-        
         self.createNewNotes()
+        self.sendNoteDelegate?.displayAccountNotes()
+        self.dismiss(animated: true, completion: nil)
         
     }
     

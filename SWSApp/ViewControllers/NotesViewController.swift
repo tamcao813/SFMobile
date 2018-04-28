@@ -20,7 +20,7 @@ class NotesTableViewCell : SwipeTableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
 }
 
-class NotesViewController : UIViewController {
+class NotesViewController : UIViewController,sendNotesDataToNotesDelegate {
     
     var tableViewData = NSMutableArray()
     var accountNotesArray = [AccountNotes]()
@@ -55,12 +55,6 @@ class NotesViewController : UIViewController {
              print("Notes Array \(notesArray)")
            
         }
-        
-        
-
-//        for item in notesDict{
-//            tableViewData.add(item)
-//        }
         print(tableViewData)
         if(sendDataToTable.addDataToArray != -1){
             sendDataToTable.addDataToArray = -1
@@ -70,8 +64,14 @@ class NotesViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        notesTableView?.reloadData()
         
-        
+    }
+    
+    func displayAccountNotes() {
+        accountNotesArray = accNotesViewModel.accountsNotesForUser()
+        print(accountNotesArray)
+        notesTableView?.reloadData()
     }
     
     //MARK:- Sort Actions
@@ -118,11 +118,13 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         let notes = notesArray[indexPath.row]
         cell.titleLabel?.text = notes.name
         let serverDate = notes.lastModifiedDate
+        if(serverDate != ""){
         let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
         var dateTime = getTime.components(separatedBy: " ")
         if(dateTime.count > 0){
             cell.dateLabel?.text  = dateTime[0]
             cell.timeLabel?.text = dateTime[1]
+        }
         }
         return cell
     }

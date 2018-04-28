@@ -41,7 +41,6 @@ class ContactsViewController : UIViewController, ContactDetailsScreenDelegate {
         if(segue.identifier == "ContactQueryFilter")
         {
             filterMenuVC = segue.destination as? ContactMenuViewController
-//            filterMenuVC?.searchByEnteredTextDelegate = contactListVC
         }
     }
 
@@ -51,9 +50,8 @@ class ContactsViewController : UIViewController, ContactDetailsScreenDelegate {
         
         self.view.endEditing(true)
         
-//        contactDetails?.accountDetailForLoggedInUser = accountData
+        contactDetails?.contactDetail = contactData
         self.addChildViewController(contactDetails!)
-        //self.present(accountDetails, animated: true, completion: nil)
         self.view.addSubview((contactDetails?.view)!)
     }
 

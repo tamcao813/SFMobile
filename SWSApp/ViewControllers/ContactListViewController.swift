@@ -163,10 +163,6 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "contactDetailsSegue" {
-            let contactDetailsScreen = segue.destination as! ContactListDetailsViewController
-            // accountDetailsScreen.accountDetailForLoggedInUser = selectedAccount
-        }
     }
     
     //Mark load contact data

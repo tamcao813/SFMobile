@@ -8,9 +8,41 @@
 
 import UIKit
 
-class ContactListDetailsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class ContactListDetailsViewController: UIViewController {
+
+    var contactDetail: Contact?
+    let countHeaderFooter: Int = 3
+    var accountLinked: [AccountContactRelation]!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+        print("accountLinked: " + String(accountLinked.count))
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+}
+
+//MARK:- TableView DataSource Methods
+extension ContactListDetailsViewController : UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        guard contactDetail != nil else {
+            return 0
+        }
+        
+        return countHeaderFooter + accountLinked.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -23,15 +55,20 @@ class ContactListDetailsViewController: UIViewController,UITableViewDataSource,U
             let cell:ContactListAccountHeaderDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountHeaderDetails", for: indexPath) as! ContactListAccountHeaderDetails
             return cell
         }
-        else if (indexPath.row == 2 || indexPath.row == 3) {
-            let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
+        else if ((indexPath.row + 1) == countHeaderFooter + accountLinked.count) {
+            let cell:ContactListAccountFooterDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountFooterDetails", for: indexPath) as! ContactListAccountFooterDetails
             return cell
         }
         
-        let cell:ContactListAccountFooterDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountFooterDetails", for: indexPath) as! ContactListAccountFooterDetails
+        let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
         return cell
         
     }
+    
+}
+
+//MARK:- TableView Delegate Methods
+extension ContactListDetailsViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
@@ -40,35 +77,12 @@ class ContactListDetailsViewController: UIViewController,UITableViewDataSource,U
         else if indexPath.row == 1 {
             return 110
         }
-        else if (indexPath.row == 2 || indexPath.row == 3) {
-            return 240
+        else if ((indexPath.row + 1) == countHeaderFooter + accountLinked.count) {
+            return 200
         }
-        return 200
+        return 240
     }
     
-   
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+

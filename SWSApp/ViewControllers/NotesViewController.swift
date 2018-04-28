@@ -108,25 +108,13 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         cell.selectionStyle = .none
         let notes = notesArray[indexPath.row]
         cell.titleLabel?.text = notes.name
-        
-      //  cell.timeLabel?.text  = notes.
-        
         let serverDate = notes.lastModifiedDate
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        let date = dateFormatter.date(from: serverDate)// create date from string
-        
-        // change to a readable time format and change to local time zone
-        dateFormatter.dateFormat = "MM/dd/YYYY h:mma"
-        dateFormatter.timeZone = TimeZone.current
-        let timeStamp = dateFormatter.string(from: date!)
-        
-        var dateTime = timeStamp.components(separatedBy: " ")
-        cell.dateLabel?.text  = dateTime[0]
-        cell.timeLabel?.text = dateTime[1]
-        
+        let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
+        var dateTime = getTime.components(separatedBy: " ")
+        if(dateTime.count > 0){
+            cell.dateLabel?.text  = dateTime[0]
+            cell.timeLabel?.text = dateTime[1]
+        }
         return cell
     }
     
@@ -182,6 +170,9 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40.0;
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 25.0;
     }
 
     //MARK:- On select row

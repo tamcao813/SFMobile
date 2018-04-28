@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -162,6 +162,34 @@
                                 <rect key="frame" x="0.0" y="40" width="1112" height="794"/>
                                 <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <view key="tableFooterView" userInteractionEnabled="NO" contentMode="scaleToFill" id="eyT-5J-7RQ">
+                                    <rect key="frame" x="0.0" y="208" width="1112" height="248"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Strategy Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOh-re-GBE">
+                                            <rect key="frame" x="31" y="28" width="243" height="25"/>
+                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="22"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="29D-4h-PYp">
+                                            <rect key="frame" x="31" y="61" width="1048" height="128"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="MOh-re-GBE" firstAttribute="top" secondItem="eyT-5J-7RQ" secondAttribute="top" constant="28" id="KSH-QA-BWs"/>
+                                        <constraint firstItem="29D-4h-PYp" firstAttribute="leading" secondItem="eyT-5J-7RQ" secondAttribute="leading" constant="31" id="Laa-2r-6zT"/>
+                                        <constraint firstAttribute="trailing" secondItem="29D-4h-PYp" secondAttribute="trailing" constant="33" id="NtT-YS-YHd"/>
+                                        <constraint firstAttribute="bottom" secondItem="29D-4h-PYp" secondAttribute="bottom" constant="59" id="Qpe-9c-vgJ"/>
+                                        <constraint firstItem="29D-4h-PYp" firstAttribute="top" secondItem="MOh-re-GBE" secondAttribute="bottom" constant="8" id="VeH-Bd-gF6"/>
+                                        <constraint firstItem="MOh-re-GBE" firstAttribute="leading" secondItem="eyT-5J-7RQ" secondAttribute="leading" constant="31" id="avN-cm-9Z8"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="notesSortCellID" rowHeight="80" id="pJl-Ll-iWl">
                                         <rect key="frame" x="0.0" y="28" width="1112" height="80"/>
@@ -307,39 +335,6 @@
                                             <outlet property="titleLabel" destination="wJr-ws-KCK" id="ypZ-eZ-Rzd"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="footerCellID" rowHeight="190" id="ieO-av-QZX" userLabel="FooterCell">
-                                        <rect key="frame" x="0.0" y="208" width="1112" height="190"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ieO-av-QZX" id="pd5-rV-yWl">
-                                            <rect key="frame" x="0.0" y="0.0" width="1112" height="190"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VaY-04-wpq">
-                                                    <rect key="frame" x="15" y="55" width="1069" height="90"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="90" id="pGg-we-khZ"/>
-                                                    </constraints>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Strategy Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgd-qd-yxt">
-                                                    <rect key="frame" x="15" y="25" width="220.5" height="22.5"/>
-                                                    <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="cgd-qd-yxt" firstAttribute="top" secondItem="pd5-rV-yWl" secondAttribute="top" constant="25" id="1h0-ao-LsO"/>
-                                                <constraint firstAttribute="trailing" secondItem="VaY-04-wpq" secondAttribute="trailing" constant="28" id="7c8-KH-uUZ"/>
-                                                <constraint firstItem="cgd-qd-yxt" firstAttribute="leading" secondItem="pd5-rV-yWl" secondAttribute="leading" constant="15" id="fkp-ME-YIl"/>
-                                                <constraint firstItem="VaY-04-wpq" firstAttribute="leading" secondItem="pd5-rV-yWl" secondAttribute="leading" constant="15" id="lSh-YR-gl5"/>
-                                                <constraint firstItem="VaY-04-wpq" firstAttribute="top" secondItem="cgd-qd-yxt" secondAttribute="top" constant="30" id="uXe-YM-uPa"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BDv-f6-9Zo" id="2ty-IQ-YFb"/>
@@ -359,7 +354,7 @@
                     <connections>
                         <outlet property="notesTableView" destination="RLW-Uk-DF3" id="jpZ-48-Knc"/>
                         <segue destination="nFu-Pa-Vui" kind="presentation" identifier="createNoteSegue" modalPresentationStyle="overCurrentContext" id="KIP-kr-Jk9"/>
-                        <segue destination="EP0-BQ-qDP" kind="presentation" identifier="editNotesSegue" id="NaX-7i-Uly"/>
+                        <segue destination="EP0-BQ-qDP" kind="presentation" identifier="editNotesSegue" modalPresentationStyle="overCurrentContext" id="NaX-7i-Uly"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7iH-Vd-MTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -406,28 +401,15 @@
                                     <constraint firstAttribute="height" constant="348" id="2Sh-hv-Fcd"/>
                                 </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGQ-0P-90t">
-                                <rect key="frame" x="746" y="627" width="119" height="28"/>
-                                <color key="backgroundColor" name="LightGrey"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="119" id="BeL-Hd-wYQ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                <state key="normal" title="Delete Note">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="deleteNote:" destination="EP0-BQ-qDP" eventType="touchUpInside" id="zWG-At-vpu"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATd-eP-jvh">
-                                <rect key="frame" x="906" y="627" width="112" height="28"/>
+                                <rect key="frame" x="946" y="715" width="120" height="35"/>
                                 <color key="backgroundColor" name="Data New"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="112" id="PGW-GX-4oZ"/>
+                                    <constraint firstAttribute="width" constant="120" id="PGW-GX-4oZ"/>
+                                    <constraint firstAttribute="height" constant="35" id="ef0-Qq-AmZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                 <state key="normal" title="Edit Note">
@@ -444,20 +426,35 @@
                                     <action selector="closeWith_sender:" destination="EP0-BQ-qDP" eventType="touchUpInside" id="9Z7-fN-bxg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGQ-0P-90t">
+                                <rect key="frame" x="806" y="715" width="119" height="35"/>
+                                <color key="backgroundColor" name="LightGrey"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="119" id="BeL-Hd-wYQ"/>
+                                    <constraint firstAttribute="height" constant="35" id="oYx-L7-Z9y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                <state key="normal" title="Delete Note">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteNote:" destination="EP0-BQ-qDP" eventType="touchUpInside" id="zWG-At-vpu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vdo-yu-pZs" firstAttribute="top" secondItem="NOQ-Nv-6h7" secondAttribute="top" constant="38" id="0wn-1k-Cc5"/>
-                            <constraint firstItem="NOQ-Nv-6h7" firstAttribute="trailing" secondItem="ATd-eP-jvh" secondAttribute="trailing" constant="94" id="3AU-5d-fUI"/>
+                            <constraint firstItem="NOQ-Nv-6h7" firstAttribute="trailing" secondItem="ATd-eP-jvh" secondAttribute="trailing" constant="46" id="3AU-5d-fUI"/>
                             <constraint firstItem="8u6-vY-Mzx" firstAttribute="leading" secondItem="NOQ-Nv-6h7" secondAttribute="leading" constant="40" id="7Fo-Ax-7Rl"/>
-                            <constraint firstItem="NOQ-Nv-6h7" firstAttribute="trailing" secondItem="lGQ-0P-90t" secondAttribute="trailing" constant="247" id="9bQ-aW-ZYZ"/>
+                            <constraint firstItem="NOQ-Nv-6h7" firstAttribute="trailing" secondItem="lGQ-0P-90t" secondAttribute="trailing" constant="187" id="9bQ-aW-ZYZ"/>
                             <constraint firstItem="V5B-3m-U4W" firstAttribute="top" secondItem="8u6-vY-Mzx" secondAttribute="bottom" constant="47" id="C5a-m8-vQp"/>
                             <constraint firstItem="V5B-3m-U4W" firstAttribute="width" secondItem="cDf-vn-69f" secondAttribute="width" constant="-86" id="ELZ-ps-A0g"/>
                             <constraint firstItem="V5B-3m-U4W" firstAttribute="leading" secondItem="NOQ-Nv-6h7" secondAttribute="leading" constant="40" id="Qg8-5P-sfx"/>
-                            <constraint firstItem="NOQ-Nv-6h7" firstAttribute="bottom" secondItem="ATd-eP-jvh" secondAttribute="bottom" constant="179" id="SS5-2L-IqT"/>
+                            <constraint firstItem="NOQ-Nv-6h7" firstAttribute="bottom" secondItem="ATd-eP-jvh" secondAttribute="bottom" constant="84" id="SS5-2L-IqT"/>
                             <constraint firstItem="vdo-yu-pZs" firstAttribute="leading" secondItem="NOQ-Nv-6h7" secondAttribute="leading" constant="40" id="Tr9-jz-0ws"/>
                             <constraint firstItem="NOQ-Nv-6h7" firstAttribute="trailing" secondItem="rD2-Mb-arJ" secondAttribute="trailing" constant="46" id="gqh-2r-SIx"/>
-                            <constraint firstItem="NOQ-Nv-6h7" firstAttribute="bottom" secondItem="lGQ-0P-90t" secondAttribute="bottom" constant="179" id="oBc-VA-VjW"/>
+                            <constraint firstItem="NOQ-Nv-6h7" firstAttribute="bottom" secondItem="lGQ-0P-90t" secondAttribute="bottom" constant="84" id="oBc-VA-VjW"/>
                             <constraint firstItem="rD2-Mb-arJ" firstAttribute="top" secondItem="NOQ-Nv-6h7" secondAttribute="top" constant="30" id="oRW-q8-T0X"/>
                             <constraint firstItem="8u6-vY-Mzx" firstAttribute="top" secondItem="vdo-yu-pZs" secondAttribute="bottom" constant="37.5" id="uTb-p1-GgO"/>
                         </constraints>
@@ -478,9 +475,6 @@
     <resources>
         <image name="Close" width="38" height="38"/>
         <image name="Sort Gray" width="149" height="149"/>
-        <namedColor name="Data New">
-            <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

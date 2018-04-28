@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 //import IQKeyboardManagerSwift
 
-class AccountStrategyEditViewController: UIViewController {
+class EditAccountStrategyViewController: UIViewController {
     
     var tableViewRowDetails : NSMutableArray?
     
@@ -34,7 +34,7 @@ class AccountStrategyEditViewController: UIViewController {
             collectionViewWidth = 480
         }
         
-        let plistPath = Bundle.main.path(forResource: "AccountStrategy", ofType: ".plist", inDirectory: nil)
+        let plistPath = Bundle.main.path(forResource: "EditAccountStrategy", ofType: ".plist", inDirectory: nil)
         let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
         
@@ -87,7 +87,7 @@ class AccountStrategyEditViewController: UIViewController {
 
 
 //MARK:- UICollectionView DataSource
-extension AccountStrategyEditViewController : UICollectionViewDataSource {
+extension EditAccountStrategyViewController : UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return (tableViewRowDetails?.count)! + 1 //used to display the TectView in the Last Cell
@@ -97,10 +97,10 @@ extension AccountStrategyEditViewController : UICollectionViewDataSource {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView{
         
-        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as? AccountStrategyCollectionReusableView{
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "editAccountStrategyHeaderCell", for: indexPath) as? EditAccountStrategyCollectionReusableView{
             
             if  indexPath.section < (tableViewRowDetails?.count)! {
-                sectionHeader.presentHeaderViewData(data: tableViewRowDetails!, indexPath: indexPath)
+                sectionHeader.displayHeaderViewData(data: tableViewRowDetails!, indexPath: indexPath)
                 return sectionHeader
             }
             sectionHeader.isHidden = true
@@ -124,22 +124,22 @@ extension AccountStrategyEditViewController : UICollectionViewDataSource {
         let cell1 : UICollectionViewCell?
         
         if indexPath.section == tableViewRowDetails?.count{
-            cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell2", for: indexPath) as! AccountStrategyCollectionViewCell
-            (cell1 as! AccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
+            cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
+            (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
         }else{
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
             
-            cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath) as! AccountStrategyCollectionViewCell
-            (cell1 as! AccountStrategyCollectionViewCell).displayCellData(data: questions)
+            cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
+            (cell1 as! EditAccountStrategyCollectionViewCell).displayCellData(data: questions)
         }
         return cell1!
     }
 }
 
 //MARK:- UICollectionView Delegate
-extension AccountStrategyEditViewController : UICollectionViewDelegate , UICollectionViewDelegateFlowLayout{
+extension EditAccountStrategyViewController : UICollectionViewDelegate , UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
@@ -170,11 +170,12 @@ extension AccountStrategyEditViewController : UICollectionViewDelegate , UIColle
         }
     }
     
+    //Used for Collection view Cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == tableViewRowDetails?.count{
             return CGSize(width: textViewWidth, height: 410)
         }
-        return CGSize(width: collectionViewWidth, height: 80)
+        return CGSize(width: collectionViewWidth, height: 70)
     }
     
     //Used to set width and height of HeaderView

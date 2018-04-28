@@ -23,12 +23,18 @@ class NotesViewController : UIViewController {
     var notesDescription: String!
     var notesDate: String!
     
-    var notesDict = [
-        ["title" : "Visit: Crown Liquor Store One", "date": "Today","time" : "10:30AM","description" : "Hello 1"],
-        ["title" : "aLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 2 "],
-        ["title" : "dLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 3"],
-        ["title" : "bLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 4"],
-        ["title" : "dLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 5"]]
+    var accountNotesArray = [AccountNotes]()
+    var accNotesViewModel = AccountsNotesViewModel()
+    var accountId : String!
+    var notesArray = [AccountNotes]()
+
+    
+//   // var notesDict = [
+//        ["title" : "Visit: Crown Liquor Store One", "date": "Today","time" : "10:30AM","description" : "Hello 1"],
+//        ["title" : "aLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 2 "],
+//        ["title" : "dLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 3"],
+//        ["title" : "bLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 4"],
+//        ["title" : "dLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 5"]]
     
     
     @IBOutlet weak var notesTableView : UITableView?
@@ -38,10 +44,20 @@ class NotesViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        for item in notesDict{
-            tableViewData.add(item)
+        accountNotesArray = accNotesViewModel.accountsNotesForUser()
+        for accNotes in accountNotesArray {
+            if(accNotes.accountId == self.accountId) {
+                notesArray.append(accNotes)               
+            }
+            //filtered array of notes related to my notes
+             print("Notes Array \(notesArray)")
         }
+        
+        
+
+//        for item in notesDict{
+//            tableViewData.add(item)
+//        }
         print(tableViewData)
         if(sendDataToTable.addDataToArray != -1){
             sendDataToTable.addDataToArray = -1
@@ -97,17 +113,37 @@ class NotesViewController : UIViewController {
 //MARK:- UITable view Delegate and Datasource,SwipeTableViewCellDelegate
 extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTableViewCellDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewData.count
+        return notesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "notesTitleCellIdentifier", for: indexPath) as! NotesTableViewCell
+        
         cell.delegate = self
         cell.selectionStyle = .none
-        let notes = tableViewData[indexPath.row] as! NSDictionary
-        cell.titleLabel?.text = notes["title"]! as? String
-        cell.dateLabel?.text  = notes["date"]! as? String
-        cell.timeLabel?.text  = notes["time"]! as? String
+        let notes = notesArray[indexPath.row]
+        cell.titleLabel?.text = notes.name
+        
+      //  cell.timeLabel?.text  = notes.
+        
+        let serverDate = notes.lastModifiedDate
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        let date = dateFormatter.date(from: serverDate)// create date from string
+        
+        // change to a readable time format and change to local time zone
+        dateFormatter.dateFormat = "MM/dd/YYYY h:mma"
+        dateFormatter.timeZone = TimeZone.current
+        let timeStamp = dateFormatter.string(from: date!)
+        
+        var dateTime = timeStamp.components(separatedBy: " ")
+        cell.dateLabel?.text  = dateTime[0]
+        cell.timeLabel?.text = dateTime[1]
+        
         return cell
     }
     
@@ -121,9 +157,9 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         guard orientation == .right else { return nil }
         
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
-            let notes = self.tableViewData[indexPath.row] as! NSDictionary
-            self.notesTitle = notes["title"] as! String
-            self.notesDescription = notes["description"] as! String
+            let notes = self.notesArray[indexPath.row]
+            self.notesTitle = notes.name
+            self.notesDescription = notes.accountNotesDesc
             self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
         }
         editAction.image = UIImage(named:"editIcon")
@@ -135,7 +171,8 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
             let alert = UIAlertController(title: "Notes Delete", message: "Are you sure you want to delete?", preferredStyle: UIAlertControllerStyle.alert)
             let continueAction = UIAlertAction(title: "Delete", style: .default) { action in
                 // Handle when button is clicked
-                self.tableViewData.removeObject(at: indexPath.row)
+                //self.tableViewData.removeObject(at: indexPath.row)
+                self.notesArray.remove(at: indexPath.row)
                 self.notesTableView?.reloadData()
                 //tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             }
@@ -168,10 +205,11 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
 
     //MARK:- On select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let notes = self.tableViewData[indexPath.row] as! NSDictionary
-        self.notesTitle = notes["title"] as! String
-        self.notesDescription = notes["description"] as! String
-        self.notesDate = notes["date"] as! String
+          let notes = notesArray[indexPath.row]
+        
+        self.notesTitle = notes.name
+        self.notesDescription = notes.accountNotesDesc
+        self.notesDate = notes.lastModifiedDate
         self.performSegue(withIdentifier: "editNotesSegue", sender: nil)
         
         //        (vc as! EditNoteViewController).displayDictdata(name: tableViewData as! [Dictionary<String, String>], index: indexPath.row)

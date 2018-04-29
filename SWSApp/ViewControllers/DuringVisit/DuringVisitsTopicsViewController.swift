@@ -57,11 +57,11 @@ class  DuringVisitsTopicsViewController : UIViewController {
 
 //MARK:- UICollectionView DataSource
 extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
-
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return (collectionViewRowDetails?.count)!
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         //used to many cells under Account Strategy and Buying Motives
@@ -72,11 +72,11 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
         }
         return 1 //used to load only 1 cell for Address, Notes, Agenda
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView{
-
+        
         if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "duringVisitHeaderCell", for: indexPath) as? DuringVisitsTopicsCollectionReusableView{
             
             sectionHeader.isHidden = true
@@ -90,19 +90,19 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
         }
         return UICollectionReusableView()
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
+        
         var cell : UICollectionViewCell?
-
+        
         if indexPath.section == 0{
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell1", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
-
-
+            
+            
         }else if indexPath.section == 1{
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell2", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
-
-
+            
+            
         }else if indexPath.section >= 2{
             
             let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
@@ -110,7 +110,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
             let answers = tableContent[indexPath.row] as! NSMutableDictionary
             
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell3", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
-
+            
             (cell as! DuringVisitsTopicsCollectionViewCell).displayCellData(data: answers , indexPath : indexPath)
         }
         
@@ -126,7 +126,21 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 1{
             return CGSize(width: collectionView.frame.size.width, height: 360)
-        }else if indexPath.section >= 2{
+            
+        }else if indexPath.section == 2{//used to change the height of cell Dynamically
+            
+            let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
+            let tableContent = tableData["answers"] as! NSMutableArray
+            let questions = tableContent[indexPath.row] as! NSMutableDictionary
+            
+            let data = (questions["answerText"] as! String)
+            
+            let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15.0)])
+            let dynamicSize: CGRect = attString.boundingRect(with: CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+            
+            return dynamicSize.size
+            
+        } else if indexPath.section >= 3{
             return CGSize(width: collectionView.frame.size.width, height: 20)
         }
         return CGSize(width: collectionView.frame.size.width, height: 120)
@@ -135,12 +149,13 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
     //Used to set width and height of HeaderView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
-        //Used to display header for last cell only 
+        //Used to display header for last cell only
         if section >= 2{
             return CGSize(width: collectionView.frame.size.width  , height: 80)
         }
         return CGSize(width: 0.0, height: 0.0)
     }
+    
 }
 
 

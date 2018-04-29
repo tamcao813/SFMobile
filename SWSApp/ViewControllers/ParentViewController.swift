@@ -120,6 +120,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             print("Unable to start notifier")
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,12 +136,35 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
     @objc func showAllContacts(notification: NSNotification){
-        ContactsGlobal.accountId = notification.object as! String
+        if notification.object != nil{
+            ContactsGlobal.accountId = notification.object as! String
+        }
         print(notification.object)
         topMenuBar?.selectedSegment = 2
         displayCurrentTab(2)
         
     }
+    
+    @objc func loadMoreScreens(notification: NSNotification) {
+        
+        let data : Int = notification.object.unsafelyUnwrapped as! Int
+        
+        let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+        let currentViewController = self.displayCurrentTab(data)
+        self.removeSubviews()
+        currentViewController?.view.addSubview(moreVC1.view)
+        
+        if data == LoadThePersistantMenuScreen.chatter.rawValue {
+            self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: 5)
+            
+        }else if data == LoadThePersistantMenuScreen.actionItems.rawValue {
+            self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: 0)
+            
+        }else if  data == LoadThePersistantMenuScreen.notifications.rawValue {
+            self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: 4)
+        }
+    }
+    
     
     // # MARK: setUpMenuBar
     private func setUpMenuBar()

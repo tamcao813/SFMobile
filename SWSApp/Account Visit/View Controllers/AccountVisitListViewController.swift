@@ -118,8 +118,28 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         }
         accountVisitsVC?.modalPresentationStyle = .overCurrentContext
         present(accountVisitsVC!, animated: true, completion: nil)
+        (accountVisitsVC)?.delegate = self
     }
 }
+
+//MARK:- NavigateToContacts Delegate
+extension AccountVisitListViewController : NavigateToContactsDelegate{
+    
+    //Send a notification to Parent VC to load respective VC
+    func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        
+        if data == .contacts{
+            ContactFilterMenuModel.comingFromDetailsScreen = ""
+            ContactsGlobal.accountId = ""
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+        
+        }else {
+             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
+            
+        }
+    }
+}
+
 
 enum AccountVisitStatus : String {
     case scheduled

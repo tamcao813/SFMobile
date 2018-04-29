@@ -8,12 +8,16 @@
 
 import UIKit
 
+protocol NavigateToContactsDelegate {
+    func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
+}
+
 class AccountVisitSummaryViewController: UIViewController {
     
     var scheduledHeadingArray = ["Location","Account Situation","Goals","Challenges"]
     var inprogressHeadingArray = ["Location","Associated Contacts","Opportunities Selected","Service Purposes","Agenda Notes","Account Situation","Goals","Challenges"]
     
-    var subHeadingArray = ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.","Lorem Ipsum is simply dummy text of the printing and typesetting industry.","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."]
+    var subHeadingArray = ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.","Lorem Ipsum is simply dummy text of the printing and typesetting industry.","Lorem Ipsum is simply dummy tevarof the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."]
     var opportunitiesArray = ["Manage Returns","Delivery Fulfillnt","POS"]
     var servicePurposeArray = ["Point of sale","Store/Display Setup","Sample and Tasting"]
     
@@ -26,6 +30,8 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var deleteVisitButton: UIButton!
     
     var visitStatus: AccountVisitStatus?
+    
+    var delegate : NavigateToContactsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +91,13 @@ class AccountVisitSummaryViewController: UIViewController {
     
     @IBAction func startOrContinueVisitButtonTapped(_ sender: UIButton){
         if visitStatus == .scheduled {
+            print("Yes")
+            
+            let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
+            let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
+            (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(vc, animated: true, completion: nil)
+            (vc as DuringVisitsViewController).delegate = self
             
         }else{
             
@@ -103,6 +116,17 @@ class AccountVisitSummaryViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 }
+
+//MARK:- NavigateToContacts Delegate
+extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDelegate{
+    
+    func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
+        self.dismiss(animated: true, completion: nil)
+        delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
+        
+    }
+}
+
 
 extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDataSource {
     

@@ -68,7 +68,7 @@ extension DuringVisitsInsightsViewController : UICollectionViewDataSource {
                         at indexPath: IndexPath) -> UICollectionReusableView{
         
         if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "duringVisitInsightsHeaderCell", for: indexPath) as? DuringVisitsInsightsCollectionReusableView{
-    
+            
             sectionHeader.displayHeaderViewData(data: collectionViewRowDetails!, indexPath: indexPath)
             return sectionHeader
         }
@@ -94,13 +94,13 @@ extension DuringVisitsInsightsViewController : UICollectionViewDelegateFlowLayou
     //Used for Collection view Cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-            return CGSize(width: collectionView.frame.size.width, height: 100)
+        return CGSize(width: collectionView.frame.size.width, height: 100)
     }
     
     //Used to set width and height of HeaderView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
-            return CGSize(width: collectionView.frame.size.width  , height: 125)
+        return CGSize(width: collectionView.frame.size.width  , height: 125)
     }
 }
 

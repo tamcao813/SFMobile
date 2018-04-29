@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FamilyTableViewCell" rowHeight="132" id="hZb-am-kfv" customClass="FamilyTableViewCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="802" height="132"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hZb-am-kfv" id="AHu-x2-dVC">
+                <rect key="frame" x="0.0" y="0.0" width="802" height="131.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Family" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oU8-mN-svC">
+                        <rect key="frame" x="40" y="10" width="722" height="25.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25.5" id="eUc-8L-gt2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQ0-ne-CXF">
+                        <rect key="frame" x="40" y="45.5" width="140" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="lGL-9I-ynO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oFl-wq-cAo">
+                        <rect key="frame" x="40" y="66.5" width="140" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="ZDp-VZ-R63"/>
+                            <constraint firstAttribute="width" constant="140" id="wbN-Xy-yAX"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="hZb-am-kfv" id="6f9-zE-WFl"/>
+                        </connections>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfi-zB-2Oi">
+                        <rect key="frame" x="200" y="45.5" width="140" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="2WC-BD-St4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lxf-zo-TZx">
+                        <rect key="frame" x="200" y="66.5" width="140" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="kln-Hr-ZUs"/>
+                            <constraint firstAttribute="width" constant="140" id="nxJ-TY-QTC"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="hZb-am-kfv" id="AH6-1T-2Ve"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="oU8-mN-svC" secondAttribute="trailing" constant="40" id="0G3-BG-RAr"/>
+                    <constraint firstItem="GQ0-ne-CXF" firstAttribute="width" secondItem="oFl-wq-cAo" secondAttribute="width" id="0TM-Y5-eN2"/>
+                    <constraint firstItem="oFl-wq-cAo" firstAttribute="width" secondItem="Lxf-zo-TZx" secondAttribute="width" id="0eb-ur-RpE"/>
+                    <constraint firstItem="GQ0-ne-CXF" firstAttribute="leading" secondItem="oU8-mN-svC" secondAttribute="leading" id="10D-jl-wdm"/>
+                    <constraint firstAttribute="bottom" secondItem="Lxf-zo-TZx" secondAttribute="bottom" id="1ha-sV-VsV"/>
+                    <constraint firstItem="oU8-mN-svC" firstAttribute="top" secondItem="AHu-x2-dVC" secondAttribute="top" constant="10" id="3hc-NS-OVM"/>
+                    <constraint firstItem="Lxf-zo-TZx" firstAttribute="leading" secondItem="dfi-zB-2Oi" secondAttribute="leading" id="F81-0H-W0h"/>
+                    <constraint firstItem="GQ0-ne-CXF" firstAttribute="top" secondItem="oU8-mN-svC" secondAttribute="bottom" constant="10" id="Fu9-CM-qtD"/>
+                    <constraint firstItem="dfi-zB-2Oi" firstAttribute="leading" secondItem="GQ0-ne-CXF" secondAttribute="trailing" constant="20" id="U2p-O8-AIo"/>
+                    <constraint firstItem="oFl-wq-cAo" firstAttribute="leading" secondItem="GQ0-ne-CXF" secondAttribute="leading" id="UNE-Ll-PIr"/>
+                    <constraint firstItem="Lxf-zo-TZx" firstAttribute="top" secondItem="dfi-zB-2Oi" secondAttribute="bottom" constant="5" id="Uui-O3-Xcf"/>
+                    <constraint firstItem="dfi-zB-2Oi" firstAttribute="width" secondItem="Lxf-zo-TZx" secondAttribute="width" id="VFB-qo-dzO"/>
+                    <constraint firstItem="oU8-mN-svC" firstAttribute="leading" secondItem="AHu-x2-dVC" secondAttribute="leading" constant="40" id="ale-yb-924"/>
+                    <constraint firstAttribute="bottom" secondItem="oFl-wq-cAo" secondAttribute="bottom" id="daE-jg-t0a"/>
+                    <constraint firstItem="oFl-wq-cAo" firstAttribute="top" secondItem="GQ0-ne-CXF" secondAttribute="bottom" constant="5" id="dpt-x0-vxa"/>
+                    <constraint firstItem="dfi-zB-2Oi" firstAttribute="top" secondItem="GQ0-ne-CXF" secondAttribute="top" id="zqo-Mg-TUu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Nb9-Ia-Cty"/>
+            <connections>
+                <outlet property="dateLabel" destination="dfi-zB-2Oi" id="qKC-UW-adZ"/>
+                <outlet property="dateLabelHeightConstraint" destination="2WC-BD-St4" id="mea-ej-eTV"/>
+                <outlet property="dateTextField" destination="Lxf-zo-TZx" id="7Lo-G5-VMJ"/>
+                <outlet property="familyLabel" destination="oU8-mN-svC" id="doT-3k-xAz"/>
+                <outlet property="familyLabelHeightConstraint" destination="eUc-8L-gt2" id="2Iv-8w-gyi"/>
+                <outlet property="nameLabel" destination="GQ0-ne-CXF" id="Gbw-GQ-b0O"/>
+                <outlet property="nameLabelHeightConstraint" destination="lGL-9I-ynO" id="FZ7-xe-Rsh"/>
+                <outlet property="nameTextField" destination="oFl-wq-cAo" id="V9S-mG-dpe"/>
+            </connections>
+            <point key="canvasLocation" x="314" y="125"/>
+        </tableViewCell>
+    </objects>
+</document>

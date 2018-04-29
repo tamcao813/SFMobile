@@ -7,11 +7,11 @@ pod 'ReachabilitySwift'
 pod 'SwipeCellKit', '~> 2.1.0'
 
 def sf_pods
-	pod 'SalesforceAnalytics',	:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
-	pod 'SalesforceSDKCore',	:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
-	pod 'SalesforceSwiftSDK',	:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
-	pod 'SmartStore',		:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
-	pod 'SmartSync',			:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SalesforceAnalytics',    :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SalesforceSDKCore',    :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SalesforceSwiftSDK',    :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SmartStore',        :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SmartSync',            :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
 end
 
 target 'SWSApp' do

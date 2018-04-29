@@ -14,7 +14,7 @@ class AccountStrategyCollectionViewCell: UICollectionViewCell {
     
     //Display Collection View data
     func displayCellData(data : NSMutableDictionary, indexPath: IndexPath){
-        if indexPath.section <= 2{
+        if indexPath.section <= 4{
              lblTitleText?.text = "\u{2022} " + (data["answerText"] as! String)
         }else{
             lblTitleText?.text =  (data["answerText"] as! String)

@@ -13,9 +13,7 @@ class EditNoteViewController : UIViewController{
     
     var dictname = [Dictionary<String, String>]()
     var dictIndex: Int!
-    var notesEditTitleText: String!
-    var notesEditDescriptionText: String!
-    var notesEditDate: String!
+    var notesToBeEdited: AccountNotes!
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UITextView!
@@ -29,10 +27,15 @@ class EditNoteViewController : UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.dateLabel?.text = notesEditDate
-        self.descriptionLabel?.text = notesEditDescriptionText
-        self.titleLabel?.text = notesEditTitleText
+
+        let serverDate = notesToBeEdited.lastModifiedDate
+        let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
+        var dateTime = getTime.components(separatedBy: " ")
+        if(dateTime.count > 0){
+            self.dateLabel?.text = dateTime[0]
+        }
+        self.descriptionLabel?.text = notesToBeEdited.accountNotesDesc
+        self.titleLabel?.text = notesToBeEdited.name
         
     }
     
@@ -40,8 +43,8 @@ class EditNoteViewController : UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editToCreate" {
             let createNoteScreen = segue.destination as! CreateNoteViewController
-            createNoteScreen.noteTitleText = notesEditTitleText
-            createNoteScreen.noteDescriptionText = notesEditDescriptionText
+            createNoteScreen.notesToEdit = notesToBeEdited
+            createNoteScreen.isAddingNewNote = false
         }
     }
     

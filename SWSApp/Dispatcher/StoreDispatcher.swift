@@ -28,6 +28,7 @@ class StoreDispatcher {
     
     lazy final var sfaSyncMgr: SFSmartSyncSyncManager = SFSmartSyncSyncManager.sharedInstance(for: sfaStore)!
     
+    
     var userVieModel: UserViewModel {
         return UserViewModel()
         
@@ -36,7 +37,6 @@ class StoreDispatcher {
     //register all soups - to do: register other needed soups
     func registerSoups() {
         print("Store Path is \(String(describing: sfaStore.storePath))")
-        
         registerUserSoup()
         registerAccountSoup()
         registerContactSoup()
@@ -57,6 +57,11 @@ class StoreDispatcher {
         
         group.enter()
         downloadContactRolesPList() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        downloadContactPreferredCommmunicationPList() { _ in
             group.leave()
         }
         
@@ -136,6 +141,16 @@ class StoreDispatcher {
         }
     }
 
+    func downloadContactPreferredCommmunicationPList(_ completion:@escaping (_ error: NSError?)->()) {
+        //hard code for now until ui-api available
+        
+        var communicationPicklist = [String:[PlistOption]]()
+        communicationPicklist["PreferredCommunication"] = [PlistOption(label: "Phone", value: "Phone"), PlistOption(label: "Email", value: "Email"), PlistOption(label: "Fax", value: "Fax")]
+        
+        PlistMap.sharedInstance.addToMap(self.SoupContact, map: communicationPicklist)
+        
+        completion(nil)
+    }
     
     //#pragma mark - create indexes for the soup and register the soup; only create indexes for the fields we want to query by
     
@@ -731,6 +746,9 @@ class StoreDispatcher {
             indexSpec.append(sfIndex)
         }
         
+        let sfIndex1 = SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!
+        indexSpec.append(sfIndex1)
+        
         do {
             try sfaStore.registerSoup(SoupAccountContactRelation, withIndexSpecs: indexSpec, error: ())
             
@@ -844,6 +862,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let accountNotesArray = AccountNotes(withAry: ary)
                 acctNotes.append(accountNotesArray)
+                print("notes array \(ary)")
             }
         }
         else if error != nil {
@@ -851,5 +870,130 @@ class StoreDispatcher {
         }
         return acctNotes
     }
+    
+    func createNewNotesLocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupAccountNotes)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func syncUpNotes(fieldsToUpload: [String:Any], completion:@escaping (_ error: NSError?)->()) {
+        
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: [fieldsToUpload], mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupAccountNotes)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncUPNotes done")
+                    let syncId = syncStateStatus.syncId
+                    print(syncId)
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncUpNotes()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncUPNotes()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    func createNewContactToSoup(fields: [String:Any]) -> Bool{
+        var allFields = fields
+        allFields["attributes"] = ["type":"Contact"]
+        allFields[kSyncTargetLocal] = true
+        allFields[kSyncTargetLocallyCreated] = true
+        allFields[kSyncTargetLocallyUpdated] = false
+        allFields[kSyncTargetLocallyDeleted] = false
+        
+        let ary = sfaStore.upsertEntries([allFields], toSoup: SoupContact)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func syncUpContact(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupContact)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownContact() done")
+                    let syncId = syncStateStatus.syncId
+                    print(syncId)
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownContact()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownContact()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    func syncUpContactACR(parentFields: [String], completion:@escaping (_ error: NSError?)->()) {
+        let parentInfo = SFParentInfo.new(withSObjectType: "Contact", soupName: SoupContact)
+        
+        let childrenInfo =  SFChildrenInfo.new(withSObjectType: "AccountContactRelation", sobjectTypePlural: "AccountContactRelations", soupName: SoupAccountContactRelation, parentIdFieldName:"ContactId")
+        
+        let parentFieldsNoId = parentFields.filter{ return $0 != "Id"} //remove "Id"
+        let childrenFields: [String] = ["AccountId", "ContactId"]
+        
+        let syncUpTarget = SFParentChildrenSyncUpTarget.newSyncTarget(with: parentInfo, parentCreateFieldlist: parentFields, parentUpdateFieldlist: parentFieldsNoId, childrenInfo: childrenInfo, childrenCreateFieldlist: childrenFields, childrenUpdateFieldlist: childrenFields, relationshipType: SFParentChildrenRelationshipType.relationpshipMasterDetail)
+        
+        
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp:parentFields, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        
+        sfaSyncMgr.Promises.syncUp(target: syncUpTarget, options: syncOptions, soupName: SoupContact)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncUpContactACR() done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "Error Syncing up: syncUpContactACR()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncUpContactACR()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
 }
-

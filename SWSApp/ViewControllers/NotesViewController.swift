@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import SwipeCellKit
 
+
+
+
+
 class NotesTableViewCell : SwipeTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -19,15 +23,11 @@ class NotesTableViewCell : SwipeTableViewCell {
 class NotesViewController : UIViewController {
     
     var tableViewData = NSMutableArray()
-    var notesTitle: String!
-    var notesDescription: String!
-    var notesDate: String!
-    
     var accountNotesArray = [AccountNotes]()
     var accNotesViewModel = AccountsNotesViewModel()
-    var accountId : String!
     var notesArray = [AccountNotes]()
-
+    var accountId : String!
+    var notesDataToEdit: AccountNotes!
     
 //   // var notesDict = [
 //        ["title" : "Visit: Crown Liquor Store One", "date": "Today","time" : "10:30AM","description" : "Hello 1"],
@@ -44,13 +44,16 @@ class NotesViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
-                notesArray.append(accNotes)               
+                notesArray.append(accNotes)
+ 
             }
             //filtered array of notes related to my notes
              print("Notes Array \(notesArray)")
+           
         }
         
         
@@ -73,17 +76,6 @@ class NotesViewController : UIViewController {
     
     //MARK:- Sort Actions
     @IBAction func sortByNotesTitle(_ sender: Any) {
-        //        let sortedFriendsAscendingOrder  = notesDict.sorted(by: { ($0).title < ($1).title })
-        //        print(sortedFriendsAscendingOrder)
-        //  tableViewData = sortedFriendsAscendingOrder
-        //        notesTableView?.reloadData()
-        //        let ordered = notesDict.sorted {
-        //            guard let s1 = $0["title"], let s2 = $1["title"] else {
-        //                return false
-        //            }
-        //            return s1 < s2
-        //        }
-        //        print(ordered)
         
     }
     
@@ -95,15 +87,15 @@ class NotesViewController : UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "createNoteSegue" {
             let createNoteScreen = segue.destination as! CreateNoteViewController
-            createNoteScreen.noteTitleText = self.notesTitle
-            createNoteScreen.noteDescriptionText = self.notesDescription
+            createNoteScreen.notesToEdit = notesDataToEdit
+            createNoteScreen.isAddingNewNote = false
         }
         
         if segue.identifier == "editNotesSegue" {
             let editNoteScreen = segue.destination as! EditNoteViewController
-            editNoteScreen.notesEditTitleText = self.notesTitle
-            editNoteScreen.notesEditDescriptionText = self.notesDescription
-            editNoteScreen.notesEditDate = self.notesDate
+            editNoteScreen.notesToBeEdited = notesDataToEdit
+            
+            
         }
     }
     
@@ -125,25 +117,13 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         cell.selectionStyle = .none
         let notes = notesArray[indexPath.row]
         cell.titleLabel?.text = notes.name
-        
-      //  cell.timeLabel?.text  = notes.
-        
         let serverDate = notes.lastModifiedDate
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        let date = dateFormatter.date(from: serverDate)// create date from string
-        
-        // change to a readable time format and change to local time zone
-        dateFormatter.dateFormat = "MM/dd/YYYY h:mma"
-        dateFormatter.timeZone = TimeZone.current
-        let timeStamp = dateFormatter.string(from: date!)
-        
-        var dateTime = timeStamp.components(separatedBy: " ")
-        cell.dateLabel?.text  = dateTime[0]
-        cell.timeLabel?.text = dateTime[1]
-        
+        let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
+        var dateTime = getTime.components(separatedBy: " ")
+        if(dateTime.count > 0){
+            cell.dateLabel?.text  = dateTime[0]
+            cell.timeLabel?.text = dateTime[1]
+        }
         return cell
     }
     
@@ -157,9 +137,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         guard orientation == .right else { return nil }
         
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
-            let notes = self.notesArray[indexPath.row]
-            self.notesTitle = notes.name
-            self.notesDescription = notes.accountNotesDesc
+            self.notesDataToEdit = self.notesArray[indexPath.row]
             self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
         }
         editAction.image = UIImage(named:"editIcon")
@@ -202,14 +180,13 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40.0;
     }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 25.0;
+    }
 
     //MARK:- On select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-          let notes = notesArray[indexPath.row]
-        
-        self.notesTitle = notes.name
-        self.notesDescription = notes.accountNotesDesc
-        self.notesDate = notes.lastModifiedDate
+        notesDataToEdit = notesArray[indexPath.row]
         self.performSegue(withIdentifier: "editNotesSegue", sender: nil)
         
         //        (vc as! EditNoteViewController).displayDictdata(name: tableViewData as! [Dictionary<String, String>], index: indexPath.row)

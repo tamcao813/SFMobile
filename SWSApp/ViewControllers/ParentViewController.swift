@@ -282,10 +282,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: index)
                 
             case 1:
-                self.instantiateViewController(identifier: "AccountVisitsControllerID", moreOptionVC: moreVC1, index: index)
-//                accountVisitsVC.view.frame = self.contentView.bounds
-//                self.contentView.addSubview((accountVisitsVC.view)!)
-//                self.currentViewController = accountVisitsVC
+//                let accountVisitsVC = self.instantiateViewController(withIdentifier :"AccountVisitsControllerID", moreOptionVC: <#MoreViewController#>)
+                let storyboard = UIStoryboard(name: "MoreMenu", bundle: nil)
+                let accountVisitsVC = storyboard.instantiateViewController(withIdentifier :"AccountVisitsControllerID")
+                accountVisitsVC.view.frame = self.contentView.bounds
+                self.contentView.addSubview((accountVisitsVC.view)!)
+                self.currentViewController = accountVisitsVC
 
                 self.moreDropDownSelectionIndex = index
             case 2:

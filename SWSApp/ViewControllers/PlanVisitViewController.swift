@@ -221,6 +221,12 @@ class PlanVisitViewController: UIViewController {
         }
         return validateArray
     }
+    
+    // Get all values from all fields
+    
+    func addValuesPushToDB() {
+        
+    }
 }
     
     // MARK:- UITableView Datasource
@@ -297,6 +303,8 @@ class PlanVisitViewController: UIViewController {
                 accountView.accountLabel.text = account.accountName
                 accountView.phoneNumberLabel.text = account.phone
                 accountView.addressLabel.text = account.shippingStreet + " " + account.shippingCity + " " + account.shippingPostalCode
+                print("y", self.planLbl.frame.origin.y )
+                accountView.frame.origin = CGPoint(x:20, y:self.planLbl.frame.origin.y + 10)
                 self.scrollView.addSubview(accountView)
             } else if(self.textFieldTag == kContactTxtTag) {
                 self.textFieldTag = kSelectedContactTag

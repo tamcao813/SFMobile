@@ -48,7 +48,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField =  DesignableUITextField(frame: CGRect(x: 0, y: 30, width: 100, height: 30))
         dateTextField.rightImage = UIImage(named:"dropDown")!
         dateTextField.rightPadding = 8
-        dateTextField.text = "22-12-1967"
+        dateTextField.placeholder = "dd-mm-yyyy"
         dateTextField.font = UIFont(name:"Ubuntu", size: 12.0)
         dateTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
         dateTextField.layer.borderWidth = 1.0
@@ -61,7 +61,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         startTimeTextField.rightImage = UIImage(named:"dropDown")!
         startTimeTextField.rightPadding = 8
         startTimeTextField.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
-        startTimeTextField.text = "9:30 AM"
+        startTimeTextField.placeholder = "hh:mm"
         startTimeTextField.font = UIFont(name:"Ubuntu", size: 12.0)
         startTimeTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
         startTimeTextField.tag = 201
@@ -74,7 +74,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         endTimeTextField.rightImage = UIImage(named:"dropDown")!
         endTimeTextField.rightPadding = 8
         endTimeTextField.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
-        endTimeTextField.text = "10:15 AM"
+        endTimeTextField.placeholder = "hh:mm"
         endTimeTextField.tag = 202
         endTimeTextField.font = UIFont(name:"Ubuntu", size: 12.0)
         endTimeTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor

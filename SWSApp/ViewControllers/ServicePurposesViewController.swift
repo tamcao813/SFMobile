@@ -57,14 +57,14 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
             
             cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
             (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = tableViewRowDetails[indexPath.row]
-//            if cell1?.isSelected == true {
-//                cell1?.layer.borderWidth = 3.0
-//                cell1?.layer.borderColor = UIColor.orange.cgColor
-//            }
-//            else {
-//                cell1?.layer.borderWidth = 3.0
-//                cell1?.layer.borderColor = UIColor.clear.cgColor
-//            }
+            if cell1?.isSelected == true {
+                cell1?.layer.borderWidth = 3.0
+                cell1?.layer.borderColor = UIColor.orange.cgColor
+            }
+            else {
+                cell1?.layer.borderWidth = 3.0
+                cell1?.layer.borderColor = UIColor.clear.cgColor
+            }
 
         }
         return cell1!

@@ -198,6 +198,11 @@
 		91C3E59F208F0F600067CF3E /* ContactMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E59D208F0F600067CF3E /* ContactMenuViewController.swift */; };
 		91C3E5A1208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */; };
 		91C3E5A2208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */; };
+		AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
+		AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
+		AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
+		AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */; };
+		AE43DD04209622EC005D8DD1 /* ServicePurposesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */; };
 		AE5C974520886DD4004548E9 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
 		AE5C974820887550004548E9 /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974720887550004548E9 /* DesignableUITextField.swift */; };
 		AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974920888330004548E9 /* SchedulerComponent.swift */; };
@@ -1461,6 +1466,7 @@
 				8D99A3272093055200FAA71A /* Validations.swift in Sources */,
 				91C3E59F208F0F600067CF3E /* ContactMenuViewController.swift in Sources */,
 				8D99A3132091E79C00FAA71A /* DropdownTableViewCell.swift in Sources */,
+				AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */,
 				91C3E59C208F0F4F0067CF3E /* ContactsViewController.swift in Sources */,
 				6D38325920874026006805C6 /* CurrencyFormatter.swift in Sources */,
 				D2CD7F64208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
@@ -1481,6 +1487,7 @@
 				F2CAD23420958075001016C2 /* DuringVisitsInsightsCollectionReusableView.swift in Sources */,
 				F2CAD22E20957C23001016C2 /* OpportunitiesViewController.swift in Sources */,
 				8D99A3012091E73F00FAA71A /* EmailTableViewCell.swift in Sources */,
+				AE43DD04209622EC005D8DD1 /* ServicePurposesViewController.swift in Sources */,
 				6D38326020874026006805C6 /* Account.swift in Sources */,
 				6D38326120874026006805C6 /* ContactTableViewCell.swift in Sources */,
 				91AA8ECC2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */,
@@ -1511,6 +1518,7 @@
 				8D99A30D2091E77C00FAA71A /* DateFieldTableViewCell.swift in Sources */,
 				6D38326E20874026006805C6 /* ParentViewController.swift in Sources */,
 				D23C40C7208DE6590006691C /* AssociatedContactsTableViewCell.swift in Sources */,
+				AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */,
 				6D38326F20874026006805C6 /* NotificationsViewController.swift in Sources */,
 				C9B9509C209339E800792AD3 /* AccountNotes.swift in Sources */,
 				6D38327020874026006805C6 /* AccountsMenuViewController.swift in Sources */,
@@ -1560,6 +1568,7 @@
 				6F365320207B95850068105B /* AccountSortUtility.swift in Sources */,
 				D1FCDE0F20733025005F956D /* FilterViewModel.swift in Sources */,
 				F2AB945E2095D5000028802E /* DuringVisitsViewController.swift in Sources */,
+				AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */,
 				D23C40D2208DE6590006691C /* UnorderedListTableViewCell.swift in Sources */,
 				8D99A2EE2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */,
@@ -1644,6 +1653,7 @@
 				8D99A30C2091E77C00FAA71A /* DateFieldTableViewCell.swift in Sources */,
 				D23C40C6208DE6590006691C /* AssociatedContactsTableViewCell.swift in Sources */,
 				F2AB945A2095D4E40028802E /* AccountStrategyViewControllerr.swift in Sources */,
+				AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */,
 				C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */,
 				D1FE1CD620654734009CC47C /* StoreDispatcher.swift in Sources */,
 				8DD14FFF2093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,

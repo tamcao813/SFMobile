@@ -540,6 +540,10 @@
                                             </subviews>
                                         </view>
                                         <size key="customSize" width="1092" height="319"/>
+                                        <connections>
+                                            <outlet property="bottomView" destination="nnq-Az-219" id="BJc-zE-3qc"/>
+                                            <outlet property="textView" destination="F6o-cW-OUH" id="Wft-dQ-SR3"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

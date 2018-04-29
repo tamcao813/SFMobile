@@ -139,9 +139,11 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         guard orientation == .right else { return nil }
         
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
+            
             self.notesDataToEdit = self.notesArray[indexPath.row]
             self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
         }
+        editAction.hidesWhenSelected = true
         editAction.image = UIImage(named:"editIcon")
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
         

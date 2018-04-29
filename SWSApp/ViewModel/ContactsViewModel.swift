@@ -30,5 +30,41 @@ class ContactsViewModel{
         return StoreDispatcher.shared.fetchContactsAccounts()
     }
     
+    //for testing syncup Contact
+    func uploadContactToServer(object: Contact, completion: @escaping (_ error: NSError?)->() ) {
+        let fields: [String:Any] = object.toJson()
+        let keys = fields.map{ $0.key }
+        
+        StoreDispatcher.shared.syncUpContact(fieldsToUpload: keys, completion: {error in
+            
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                completion(error)
+            }
+            else {
+                completion(nil)
+            }
+        })
+    }
     
+    func createNewContactToSoup(object: Contact) -> Bool {
+        let fields: [String:Any] = object.toJson()
+        return StoreDispatcher.shared.createNewContactToSoup(fields: fields)
+    }
+    
+    func uploadContactACRToServer(object: Contact, completion: @escaping (_ error: NSError?)->() ) {
+        let fields: [String:Any] = object.toJson()
+        let keys = fields.map{ $0.key }
+        
+        StoreDispatcher.shared.syncUpContactACR(parentFields: keys, completion: {error in
+            
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                completion(error)
+            }
+            else {
+                completion(nil)
+            }
+        })
+    }
 }

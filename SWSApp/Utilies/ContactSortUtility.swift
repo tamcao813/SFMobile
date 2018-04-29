@@ -184,13 +184,13 @@ class ContactSortUtility {
 
             if ContactFilterMenuModel.buyingPower == "YES"{
                 enteredAnyFilterCase = true
-                filteredBuyingPowerContactArray = contactListToBeSorted.filter( { return $0.buyerFlag == "1" } )
+                filteredBuyingPowerContactArray = contactListToBeSorted.filter( { return $0.buyerFlag == true } )
             }
             
             // filter by NO Buying Power
             if ContactFilterMenuModel.nobuyingPower == "YES"{
                 enteredAnyFilterCase = true
-                filteredNoBuyingPowerContactArray = contactListToBeSorted.filter( { return $0.buyerFlag == "0" } )
+                filteredNoBuyingPowerContactArray = contactListToBeSorted.filter( { return $0.buyerFlag == false } )
             }
             
             if filteredBuyingPowerContactArray.count > 0 {

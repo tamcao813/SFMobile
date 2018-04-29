@@ -649,10 +649,8 @@
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhJ-PW-iuP">
-                                                                    <rect key="frame" x="32" y="61" width="202" height="36"/>
-                                                                    <string key="text">March 19th, 1962 (Birthday)
-January 07 (Wedding)</string>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhJ-PW-iuP">
+                                                                    <rect key="frame" x="32" y="61" width="62" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -663,11 +661,32 @@ January 07 (Wedding)</string>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Ff-HAb">
-                                                                    <rect key="frame" x="354" y="61" width="83.5" height="54"/>
-                                                                    <string key="text">Jessica (13)
-Millie (9)
-George (3)</string>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jessica (13)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Ff-HAb">
+                                                                    <rect key="frame" x="354" y="61" width="83.5" height="18"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Millie (9)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovj-6m-xta">
+                                                                    <rect key="frame" x="354" y="82" width="63" height="18"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="George (3)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjP-tR-CEu">
+                                                                    <rect key="frame" x="354" y="103" width="77" height="18"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jessica (13)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zc-pB-BOh">
+                                                                    <rect key="frame" x="354" y="124" width="84" height="18"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Millie (9)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAc-8e-Jio">
+                                                                    <rect key="frame" x="354" y="145" width="63" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -706,9 +725,21 @@ George (3)</string>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wedding" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2u-gf-OeW">
+                                                                    <rect key="frame" x="32" y="82" width="65" height="18"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
+                                                                <constraint firstItem="GjP-tR-CEu" firstAttribute="leading" secondItem="Ovj-6m-xta" secondAttribute="leading" id="3J3-Hi-DdT"/>
+                                                                <constraint firstItem="GjP-tR-CEu" firstAttribute="top" secondItem="Ovj-6m-xta" secondAttribute="bottom" constant="3" id="3sw-ff-IEM"/>
+                                                                <constraint firstItem="Ovj-6m-xta" firstAttribute="leading" secondItem="C3X-Ff-HAb" secondAttribute="leading" id="4Nz-Bt-uuF"/>
+                                                                <constraint firstItem="2zc-pB-BOh" firstAttribute="leading" secondItem="GjP-tR-CEu" secondAttribute="leading" id="55p-0r-KZt"/>
+                                                                <constraint firstItem="2zc-pB-BOh" firstAttribute="top" secondItem="GjP-tR-CEu" secondAttribute="bottom" constant="3" id="69K-Pw-V3v"/>
+                                                                <constraint firstItem="Ovj-6m-xta" firstAttribute="top" secondItem="C3X-Ff-HAb" secondAttribute="bottom" constant="3" id="7Jj-LR-JBw"/>
                                                                 <constraint firstItem="xvJ-b2-x5Y" firstAttribute="top" secondItem="ioK-4x-4Xg" secondAttribute="bottom" constant="50" id="A1O-Mn-2IG"/>
                                                                 <constraint firstItem="ioK-4x-4Xg" firstAttribute="centerY" secondItem="P6L-1Q-jYw" secondAttribute="centerY" id="Af5-G2-GK9"/>
                                                                 <constraint firstItem="C3X-Ff-HAb" firstAttribute="top" secondItem="P6L-1Q-jYw" secondAttribute="bottom" constant="3" id="Avu-de-yCb"/>
@@ -716,8 +747,12 @@ George (3)</string>
                                                                 <constraint firstItem="gFd-Og-cbr" firstAttribute="top" secondItem="ioK-4x-4Xg" secondAttribute="bottom" constant="3" id="D2i-vc-Rie"/>
                                                                 <constraint firstItem="lhJ-PW-iuP" firstAttribute="leading" secondItem="FPM-1K-SIr" secondAttribute="leading" id="D3D-YP-bOE"/>
                                                                 <constraint firstItem="jwz-4r-N0A" firstAttribute="leading" secondItem="xvJ-b2-x5Y" secondAttribute="leading" id="G5h-ro-5DJ"/>
+                                                                <constraint firstItem="O2u-gf-OeW" firstAttribute="leading" secondItem="lhJ-PW-iuP" secondAttribute="leading" id="LK9-YR-BOe"/>
+                                                                <constraint firstItem="IAc-8e-Jio" firstAttribute="leading" secondItem="2zc-pB-BOh" secondAttribute="leading" id="OpV-Ex-s2W"/>
+                                                                <constraint firstItem="IAc-8e-Jio" firstAttribute="top" secondItem="2zc-pB-BOh" secondAttribute="bottom" constant="3" id="PfS-J7-Pd4"/>
                                                                 <constraint firstItem="P6L-1Q-jYw" firstAttribute="centerY" secondItem="FPM-1K-SIr" secondAttribute="centerY" id="eW0-qW-2mS"/>
                                                                 <constraint firstItem="ioK-4x-4Xg" firstAttribute="leading" secondItem="gFd-Og-cbr" secondAttribute="leading" id="gjz-S0-UxQ"/>
+                                                                <constraint firstItem="O2u-gf-OeW" firstAttribute="top" secondItem="lhJ-PW-iuP" secondAttribute="bottom" constant="3" id="ilU-zz-nYO"/>
                                                                 <constraint firstItem="C3X-Ff-HAb" firstAttribute="leading" secondItem="P6L-1Q-jYw" secondAttribute="leading" id="phu-q6-MPP"/>
                                                                 <constraint firstItem="FPM-1K-SIr" firstAttribute="top" secondItem="K4B-1O-7JX" secondAttribute="top" constant="42" id="qQb-FH-vzU"/>
                                                                 <constraint firstItem="xvJ-b2-x5Y" firstAttribute="leading" secondItem="ioK-4x-4Xg" secondAttribute="leading" id="sEd-ya-rVd"/>
@@ -734,6 +769,12 @@ George (3)</string>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferred Contact Method" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AZ-m2-Epr">
+                                                                    <rect key="frame" x="32" y="42" width="169" height="16"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCe-fl-siH">
                                                                     <rect key="frame" x="354" y="42" width="39" height="16"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
@@ -744,12 +785,6 @@ George (3)</string>
                                                                     <rect key="frame" x="354" y="61" width="98" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferred Contact Method" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AZ-m2-Epr">
-                                                                    <rect key="frame" x="32" y="42" width="169" height="16"/>
-                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -807,10 +842,26 @@ George (3)</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
+                                            <outlet property="birthdayValueLabel" destination="lhJ-PW-iuP" id="5vI-Un-yup"/>
+                                            <outlet property="child1ValueLabel" destination="C3X-Ff-HAb" id="8wJ-qL-tej"/>
+                                            <outlet property="child2ValueLabel" destination="Ovj-6m-xta" id="gg4-uM-gwE"/>
+                                            <outlet property="child3ValueLabel" destination="GjP-tR-CEu" id="bmj-L4-WnO"/>
+                                            <outlet property="child4ValueLabel" destination="2zc-pB-BOh" id="Rin-5N-fp6"/>
+                                            <outlet property="child5ValueLabel" destination="IAc-8e-Jio" id="aKB-Sd-CGB"/>
+                                            <outlet property="contactHoursValueLabel" destination="iZy-yX-TsA" id="PRR-zO-g5c"/>
+                                            <outlet property="departmentValueLabel" destination="SOW-EY-gyX" id="k7z-Dk-LXv"/>
+                                            <outlet property="dislikesValueLabel" destination="jwz-4r-N0A" id="i7c-FR-hZf"/>
                                             <outlet property="emailValueLabel" destination="igj-sB-ORn" id="3kX-Ij-VEC"/>
+                                            <outlet property="faxValueLabel" destination="9NB-MY-UeU" id="VzK-rE-oEO"/>
                                             <outlet property="initialNameLabel" destination="mbD-Lr-cSO" id="Cyg-6v-jUN"/>
+                                            <outlet property="likesValueLabel" destination="gFd-Og-cbr" id="kqK-RV-zhX"/>
                                             <outlet property="nameValueLabel" destination="iGy-Dc-aP5" id="Bug-LY-O11"/>
+                                            <outlet property="notesValueLabel" destination="JP4-cd-X80" id="sAj-fr-WZL"/>
                                             <outlet property="phoneValueLabel" destination="3wd-a0-8Fd" id="jKl-jo-33v"/>
+                                            <outlet property="preferredContactMethodValueLabel" destination="3AZ-m2-Epr" id="Dzo-RZ-20Q"/>
+                                            <outlet property="preferredNameValueLabel" destination="KEe-lH-Vlo" id="xx7-K0-m7F"/>
+                                            <outlet property="titleValueLabel" destination="MTG-Pp-pDV" id="njY-W6-Rxi"/>
+                                            <outlet property="weddingValueLabel" destination="O2u-gf-OeW" id="JkH-GX-WYn"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactListAccountHeaderDetails" rowHeight="110" id="MD9-Hq-1d9" customClass="ContactListAccountHeaderDetails" customModule="SWSApp" customModuleProvider="target">
@@ -1050,7 +1101,7 @@ New York, NY 54331</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PA3-i8-nhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1580" y="-3977"/>
+            <point key="canvasLocation" x="1579.6875" y="-3977.34375"/>
         </scene>
         <!--Contact Menu View Controller-->
         <scene sceneID="47X-J1-uRM">
@@ -1081,13 +1132,13 @@ New York, NY 54331</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcD-eK-Ax7">
-                                                    <rect key="frame" x="15" y="3" width="37" height="27.5"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHB-dj-eb3">
-                                                    <rect key="frame" x="12" y="10" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDf-nS-fSv">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -1164,10 +1215,10 @@ New York, NY 54331</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPg-Z4-Iba">
-                                                    <rect key="frame" x="15" y="36" width="203" height="50"/>
+                                                    <rect key="frame" x="15" y="36" width="203" height="49.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zip Code or City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD4-Z3-Iua">
-                                                            <rect key="frame" x="5" y="0.0" width="203" height="50"/>
+                                                            <rect key="frame" x="5" y="0.0" width="203" height="49.5"/>
                                                             <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <textInputTraits key="textInputTraits"/>

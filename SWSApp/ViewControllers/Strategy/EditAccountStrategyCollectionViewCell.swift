@@ -28,13 +28,6 @@ class EditAccountStrategyCollectionViewCell: UICollectionViewCell {
             selectedIcon?.image = UIImage(named: "selectedBlue")//isHidden = false
         }
     }
-    
-    override var isSelected: Bool {
-        didSet {
-            self.layer.borderWidth = 3.0
-            self.layer.borderColor = isSelected ? UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor : UIColor.clear.cgColor
-        }
-    }
 }
 
 

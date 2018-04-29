@@ -136,17 +136,17 @@ class PlanVisitViewController: UIViewController {
     @IBAction func scheduleAndClose(sender: UIButton) {
         
         let uiAlertController = UIAlertController(// create new instance alert  controller
-            title: "Any Changes Won’t be Saved",
-            message: "Would you still like to close?",
+            title: "Alert",
+            message: "Are you sure you want to close?",
             preferredStyle:.alert)
         
         uiAlertController.addAction(// add Custom action on Event is Cancel
-            UIAlertAction.init(title: "Cancel", style: .default, handler: { (UIAlertAction) in
+            UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
                 uiAlertController.dismiss(animated: true, completion: nil)
             }))
         
         uiAlertController.addAction(// add Custom action on Event is Cancel
-            UIAlertAction.init(title: "Ok", style: .default, handler: { (UIAlertAction) in
+            UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
                 uiAlertController.dismiss(animated: true, completion: nil)
                 self.dismiss(animated: true)
             }))

@@ -57,14 +57,6 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
             
             cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
             (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = tableViewRowDetails[indexPath.row]
-            if cell1?.isSelected == true {
-                cell1?.layer.borderWidth = 3.0
-                cell1?.layer.borderColor = UIColor.orange.cgColor
-            }
-            else {
-                cell1?.layer.borderWidth = 3.0
-                cell1?.layer.borderColor = UIColor.clear.cgColor
-            }
 
         }
         return cell1!
@@ -81,22 +73,12 @@ extension ServicePurposesViewController : UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath)
         if cell?.isSelected == true {
             cell?.layer.borderWidth = 3.0
-            cell?.layer.borderColor = UIColor.orange.cgColor
+            cell?.layer.borderColor = UIColor(red: 66/255, green: 135/255, blue: 194/255, alpha: 1.0).cgColor
         }
         else {
             cell?.layer.borderWidth = 3.0
             cell?.layer.borderColor = UIColor.clear.cgColor
         }
-    }
-    
-    private func collectionView(collectionView: UICollectionView, shouldSelectItemAt indexPath: NSIndexPath) -> Bool {
-        if let selectedItems = collectionView.indexPathsForSelectedItems {
-            if selectedItems.contains(indexPath as IndexPath) {
-                collectionView.deselectItem(at: indexPath as IndexPath, animated: true)
-                return false
-            }
-        }
-        return true
     }
 }
 

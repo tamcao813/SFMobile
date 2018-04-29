@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContactClassificationTableViewCell" rowHeight="241" id="JMJ-f4-iCl" customClass="ContactClassificationTableViewCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="802" height="241"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JMJ-f4-iCl" id="22B-cQ-nvx">
+                <rect key="frame" x="0.0" y="0.0" width="802" height="240.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Contact Classification" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHX-2o-UkG">
+                        <rect key="frame" x="40" y="10" width="200" height="20.5"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Other" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gQq-5d-Cm1">
+                        <rect key="frame" x="40" y="51" width="180" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="f5J-kn-kD7"/>
+                            <constraint firstAttribute="width" constant="180" id="qPJ-v4-d4B"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </textField>
+                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please Spicfy*" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dgE-ZU-L9v">
+                        <rect key="frame" x="300" y="51" width="180" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="180" id="0WJ-iF-Ev3"/>
+                            <constraint firstAttribute="height" constant="40" id="Uzq-2v-Qko"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="* Denotes Required Fields" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUc-xp-VgZ">
+                        <rect key="frame" x="40" y="135" width="722" height="20.5"/>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="CUc-xp-VgZ" secondAttribute="bottom" constant="10" id="3d5-dU-qmN"/>
+                    <constraint firstItem="CUc-xp-VgZ" firstAttribute="leading" secondItem="gQq-5d-Cm1" secondAttribute="leading" id="5Wb-DJ-HLP"/>
+                    <constraint firstItem="kHX-2o-UkG" firstAttribute="leading" secondItem="22B-cQ-nvx" secondAttribute="leading" constant="40" id="5ck-ta-Fq3"/>
+                    <constraint firstItem="CUc-xp-VgZ" firstAttribute="top" secondItem="gQq-5d-Cm1" secondAttribute="bottom" constant="20" id="BbX-iZ-SMm"/>
+                    <constraint firstItem="kHX-2o-UkG" firstAttribute="top" secondItem="22B-cQ-nvx" secondAttribute="top" constant="10" id="Lca-ya-nBT"/>
+                    <constraint firstItem="dgE-ZU-L9v" firstAttribute="top" secondItem="gQq-5d-Cm1" secondAttribute="top" id="OMK-P5-MDZ"/>
+                    <constraint firstAttribute="trailing" secondItem="kHX-2o-UkG" secondAttribute="trailing" constant="562" id="bvf-B6-ZbI"/>
+                    <constraint firstAttribute="trailing" secondItem="CUc-xp-VgZ" secondAttribute="trailing" constant="40" id="cBm-1q-GB4"/>
+                    <constraint firstItem="gQq-5d-Cm1" firstAttribute="top" secondItem="kHX-2o-UkG" secondAttribute="bottom" constant="20" id="lLx-LS-LPH"/>
+                    <constraint firstItem="gQq-5d-Cm1" firstAttribute="leading" secondItem="kHX-2o-UkG" secondAttribute="leading" id="pwS-Ce-6BM"/>
+                    <constraint firstItem="dgE-ZU-L9v" firstAttribute="leading" secondItem="gQq-5d-Cm1" secondAttribute="trailing" constant="80" id="teF-Wr-1vT"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="huN-lA-526"/>
+            <connections>
+                <outlet property="classificationTextField" destination="gQq-5d-Cm1" id="HMg-K5-837"/>
+                <outlet property="otherTextField" destination="dgE-ZU-L9v" id="3Kf-Hf-QLu"/>
+            </connections>
+            <point key="canvasLocation" x="314" y="206.5"/>
+        </tableViewCell>
+    </objects>
+</document>

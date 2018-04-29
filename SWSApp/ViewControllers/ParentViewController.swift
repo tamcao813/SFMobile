@@ -80,6 +80,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         return moreTabVC
     }()
     
+    lazy var accountVisit : UIViewController? = {
+        let accountStoryboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
+        let accountVisitListVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitListViewController") as UIViewController
+        return accountVisitListVC
+    }()
+    
+    
+    
     var reachability = Reachability()!
     
     override func viewDidLoad() {
@@ -112,6 +120,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             print("Unable to start notifier")
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,12 +136,35 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
     @objc func showAllContacts(notification: NSNotification){
-        ContactsGlobal.accountId = notification.object as! String
+        if notification.object != nil{
+            ContactsGlobal.accountId = notification.object as! String
+        }
         print(notification.object)
         topMenuBar?.selectedSegment = 2
         displayCurrentTab(2)
         
     }
+    
+    @objc func loadMoreScreens(notification: NSNotification) {
+        
+        let data : Int = notification.object.unsafelyUnwrapped as! Int
+        
+        let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+        let currentViewController = self.displayCurrentTab(data)
+        self.removeSubviews()
+        currentViewController?.view.addSubview(moreVC1.view)
+        
+        if data == LoadThePersistantMenuScreen.chatter.rawValue {
+            self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: 5)
+            
+        }else if data == LoadThePersistantMenuScreen.actionItems.rawValue {
+            self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: 0)
+            
+        }else if  data == LoadThePersistantMenuScreen.notifications.rawValue {
+            self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: 4)
+        }
+    }
+    
     
     // # MARK: setUpMenuBar
     private func setUpMenuBar()
@@ -223,7 +257,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let menuItem5 = NSLocalizedString("Objectives", comment: "Objectives")
         //let menuItem6 = NSLocalizedString("More", comment: "More")
         //let menuItem6 = "More   v" // time being 6April
-        let menuItem6 = "More ..."
+        let menuItem6 = "More ⌵"
         
         let menuTitles = [menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, menuItem6]
         //let menuIcons = [UIImage(), UIImage(), UIImage(), UIImage(),UIImage(), UIImage(named: "moreArrow")!]
@@ -286,6 +320,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     private func selectedDropDownOption(selectedIndex : Int){
         moreDropDown.selectionAction = { (index: Int, item: String) in
+            
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let currentViewController = self.displayCurrentTab(selectedIndex)
             
@@ -300,11 +335,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: index)
                 
             case 1:
-                self.instantiateViewController(identifier: "AccountVisitsControllerID", moreOptionVC: moreVC1, index: index)
-//                accountVisitsVC.view.frame = self.contentView.bounds
-//                self.contentView.addSubview((accountVisitsVC.view)!)
-//                self.currentViewController = accountVisitsVC
-
+                moreVC1.view.addSubview((self.accountVisit?.view)!)
                 self.moreDropDownSelectionIndex = index
             case 2:
                 self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)
@@ -421,7 +452,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.clearAccountFilterModel()
         
         self.clearContactsFilterModel()
-    
+        
         
         self.notificationButton?.isEnabled = true
         self.numberLabel?.isUserInteractionEnabled = true
@@ -438,7 +469,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             
         case .HomeVCIndex:
             vc = homeVC
-             ContactsGlobal.accountId = ""
+            ContactsGlobal.accountId = ""
         case .AccountVCIndex:
             let accVC = accountsVC as? AccountsViewController
             accVC?.accountDetails?.view.removeFromSuperview()
@@ -446,14 +477,16 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             ContactsGlobal.accountId = ""
         case .ContactsVCIndex:
             let contactVC = contactsVC as! ContactsViewController
+            contactVC.contactDetails?.view.removeFromSuperview()
+            
             vc = contactVC
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
             vc = calendarVC
-             ContactsGlobal.accountId = ""
+            ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             vc = objectivesVC
-             ContactsGlobal.accountId = ""
+            ContactsGlobal.accountId = ""
             
             // have to cover all cases from defined enum, else compiler wont be happy :D
             /*default:

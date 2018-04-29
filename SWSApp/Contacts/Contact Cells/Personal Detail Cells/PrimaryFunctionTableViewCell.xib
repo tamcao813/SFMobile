@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PrimaryFunctionTableViewCell" rowHeight="106" id="ua4-aU-lyp" customClass="PrimaryFunctionTableViewCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="802" height="106"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ua4-aU-lyp" id="qKY-Ni-PbW">
+                <rect key="frame" x="0.0" y="0.0" width="802" height="105.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Primary Function / Role*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STK-Qf-eK5">
+                        <rect key="frame" x="40" y="10" width="250" height="25.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="250" id="q1f-cU-OMB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shc-aP-O1C">
+                        <rect key="frame" x="330" y="10" width="200" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="Wuf-iY-ViM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fB-fr-kGu">
+                        <rect key="frame" x="629" y="10" width="133" height="20.5"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-Mi-9Cv">
+                        <rect key="frame" x="40" y="56" width="200" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="QH5-gx-R4f"/>
+                            <constraint firstAttribute="width" constant="200" id="t1u-TD-iz6"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="ua4-aU-lyp" id="dMZ-Kq-iNR"/>
+                        </connections>
+                    </textField>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Helper Text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ugg-RE-inI">
+                        <rect key="frame" x="330" y="55.5" width="200" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="Zv5-e8-QbB"/>
+                            <constraint firstAttribute="height" constant="40" id="jz6-BT-Gy7"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="ua4-aU-lyp" id="doY-gr-VC1"/>
+                        </connections>
+                    </textField>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Helper Text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5nJ-i1-lkW">
+                        <rect key="frame" x="629" y="55.5" width="200" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="FRI-sQ-udA"/>
+                            <constraint firstAttribute="width" constant="200" id="aoX-HN-U7V"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="ua4-aU-lyp" id="EbT-eF-7eR"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="STK-Qf-eK5" firstAttribute="leading" secondItem="qKY-Ni-PbW" secondAttribute="leading" constant="40" id="GPC-y1-xxj"/>
+                    <constraint firstItem="Ugg-RE-inI" firstAttribute="leading" secondItem="shc-aP-O1C" secondAttribute="leading" id="JFu-Xr-oZ3"/>
+                    <constraint firstItem="5nJ-i1-lkW" firstAttribute="leading" secondItem="4fB-fr-kGu" secondAttribute="leading" id="KUK-1b-Adv"/>
+                    <constraint firstItem="4fB-fr-kGu" firstAttribute="leading" secondItem="shc-aP-O1C" secondAttribute="trailing" constant="99" id="Ssd-Tu-bOj"/>
+                    <constraint firstItem="Buq-Mi-9Cv" firstAttribute="leading" secondItem="STK-Qf-eK5" secondAttribute="leading" id="U5j-fP-ezh"/>
+                    <constraint firstAttribute="bottom" secondItem="Buq-Mi-9Cv" secondAttribute="bottom" constant="10" id="UIs-Lg-4cm"/>
+                    <constraint firstItem="Buq-Mi-9Cv" firstAttribute="top" secondItem="STK-Qf-eK5" secondAttribute="bottom" constant="20" id="UQg-Je-n6r"/>
+                    <constraint firstItem="STK-Qf-eK5" firstAttribute="top" secondItem="qKY-Ni-PbW" secondAttribute="top" constant="10" id="ZlY-xz-y9g"/>
+                    <constraint firstItem="shc-aP-O1C" firstAttribute="leading" secondItem="STK-Qf-eK5" secondAttribute="trailing" constant="40" id="njm-8W-6Qm"/>
+                    <constraint firstItem="4fB-fr-kGu" firstAttribute="top" secondItem="shc-aP-O1C" secondAttribute="top" id="sba-x3-4Je"/>
+                    <constraint firstAttribute="bottom" secondItem="Ugg-RE-inI" secondAttribute="bottom" constant="10" id="tff-XQ-PSa"/>
+                    <constraint firstAttribute="trailing" secondItem="4fB-fr-kGu" secondAttribute="trailing" constant="40" id="wQC-Ag-yoQ"/>
+                    <constraint firstAttribute="bottom" secondItem="5nJ-i1-lkW" secondAttribute="bottom" constant="10" id="yYg-EU-ew3"/>
+                    <constraint firstItem="shc-aP-O1C" firstAttribute="top" secondItem="STK-Qf-eK5" secondAttribute="top" id="zZD-kQ-hGa"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="LSi-FF-fMe"/>
+            <connections>
+                <outlet property="departmentTextField" destination="5nJ-i1-lkW" id="vIX-Ze-LZg"/>
+                <outlet property="primaryFunctionTextField" destination="Buq-Mi-9Cv" id="sc0-lO-mkB"/>
+                <outlet property="titleTextField" destination="Ugg-RE-inI" id="igR-sA-3SR"/>
+            </connections>
+            <point key="canvasLocation" x="314" y="112"/>
+        </tableViewCell>
+    </objects>
+</document>

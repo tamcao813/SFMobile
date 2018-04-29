@@ -9,21 +9,20 @@
 import Foundation
 
 class Contact {
-    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate", "AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","SGWS_Buyer_Flag__c","SGWS_Roles__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Preferred_Communication_Method__c","SGWS_Notes__c", "LastModifiedBy.Name","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c"]
+    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buyer_Flag__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c"]
     
     var contactId: String
     var name: String
     var firstName: String
     var lastName: String
-    //var preferredName: String
     var phoneuNmber: String
     var email: String
-    var birthDate: Date
+    var birthDate: String
+    var buyerFlag: Bool
     var accountId: String
     var accountSite: String
-    var sccountSiteNumber: String
+    var accountSiteNumber: String
     var functionRole: String
-    var buyerFlag: String
     var title: String
     var department:String
     var preferredName:String
@@ -47,9 +46,10 @@ class Contact {
     var favouriteActivities:String
     var lifeEvents:String
     var lifeEventDate:String
+    //var recordTypeDeveloperName = "Customer"
     
-
-
+    
+    
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
         self.init(json: resultDict)
@@ -60,15 +60,14 @@ class Contact {
         name = json["Name"] as? String ?? ""
         firstName = json["FirstName"] as? String ?? ""
         lastName = json["LastName"] as? String ?? ""
-        //preferredName = json["PreferredName"] as! String
         phoneuNmber = json["Phone"] as? String ?? ""
         email = json["Email"] as? String ?? ""
-        birthDate = json["Birthdate"] as? Date ?? Date() //need to check if ok to have a default or make it a string
+        birthDate = json["Birthdate"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
         accountSite = json["Account.SWS_Account_Site__c"] as? String ?? ""
-        sccountSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
+        accountSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
         functionRole = json["SGWS_Roles__c"] as? String ?? ""
-        buyerFlag = json["SGWS_Buyer_Flag__c"] as? String ?? ""
+        buyerFlag = json["SGWS_Buyer_Flag__c"] as? Bool ?? false
         title = json["Title"] as? String ?? ""
         department = json["Department"] as? String ?? ""
         preferredName = json["SGWS_Preferred_Name__c"] as? String ?? ""
@@ -88,11 +87,147 @@ class Contact {
         child5Birthday = json["SGWS_Child_5_Birthday__c"] as? String ?? ""
         anniversary = json["SGWS_Anniversary__c"] as? String ?? ""
         likes = json["SGWS_Likes__c"] as? String ?? ""
-        dislikes = json["SGWS_Disikes__c"] as? String ?? ""
+        dislikes = json["SGWS_Dislikes__c"] as? String ?? ""
         favouriteActivities = json["SGWS_Favorite_Activities__c"] as? String ?? ""
         lifeEvents = json["SGWS_Life_Events__c"] as? String ?? ""
         lifeEventDate = json["SGWS_Life_Events_Date__c"] as? String ?? ""
+        //recordTypeDeveloperName = json["RecordType.DeveloperName"] as? String ?? ""
+    }
+    
+    func toJson() -> [String:Any] {
+        var json = [String:Any]()
         
+        json["Id"] = contactId
+        
+        if firstName.count > 0 {
+            json["FirstName"] = firstName
+        }
+        
+        if lastName.count > 0 {
+            json["LastName"] = lastName
+        }
+        
+        if accountId.count > 0 {
+            json["AccountId"] = accountId
+        }
+        
+        if phoneuNmber.count > 0 {
+            json["Phone"] = phoneuNmber
+        }
+        
+        if email.count > 0 {
+            json["Email"] = email
+        }
+        
+        if birthDate.count > 0 {
+            json["Birthdate"] = birthDate
+        }
+        /* //Unable to create/update field - check with SF team
+         if accountSiteNumber.count > 0 {
+         json["SGWS_Account_Site_Number__c"] = accountSiteNumber
+         }
+         */
+        if functionRole.count > 0 {
+            json["SGWS_Roles__c"] = functionRole
+        }
+        
+        json["SGWS_Buyer_Flag__c"] = buyerFlag ? "true" : "false"
+        
+        if title.count > 0 {
+            json["Title"] = title
+        }
+        
+        if department.count > 0 {
+            json["Department"] = department
+        }
+        
+        if preferredName.count > 0 {
+            json["SGWS_Preferred_Name__c"] = preferredName
+        }
+        
+        if contactHours.count > 0 {
+            json["SGWS_Contact_Hours__c"] = contactHours
+        }
+        
+        if preferredCommunicationMethod.count > 0 {
+            json["SGWS_Preferred_Communication_Method__c"] = preferredCommunicationMethod
+        }
+        
+        if sgwsNotes.count > 0 {
+            json["SGWS_Notes__c"] = sgwsNotes
+        }
+        
+        //json["LastModifiedBy.Name"] = lastModifiedByName //don't save to soup or sync up
+        
+        if child1Name.count > 0 {
+            json["SGWS_Child_1_Name__c"] = child1Name
+        }
+        
+        if child1Birthday.count > 0 {
+            json["SGWS_Child_1_Birthday__c"] = child1Birthday
+        }
+        
+        if child2Name.count > 0 {
+            json["SGWS_Child_2_Name__c"] = child2Name
+        }
+        
+        if child2Birthday.count > 0 {
+            json["SGWS_Child_2_Birthday__c"] = child2Birthday
+        }
+        
+        if child3Name.count > 0 {
+            json["SGWS_Child_3_Name__c"] = child3Name
+        }
+        
+        if child3Birthday.count > 0 {
+            json["SGWS_Child_3_Birthday__c"] = child3Birthday
+        }
+        
+        if child4Name.count > 0 {
+            json["SGWS_Child_4_Name__c"] = child4Name
+        }
+        
+        if child4Birthday.count > 0 {
+            json["SGWS_Child_4_Birthday__c"] = child4Birthday
+        }
+        
+        if child5Name.count > 0 {
+            json["SGWS_Child_5_Name__c"] = child5Name
+        }
+        
+        if child5Birthday.count > 0 {
+            json["SGWS_Child_5_Birthday__c"] = child5Birthday
+        }
+        
+        if anniversary.count > 0 {
+            json["SGWS_Anniversary__c"] = anniversary
+        }
+        
+        if likes.count > 0 {
+            json["SGWS_Likes__c"] = likes
+        }
+        
+        if dislikes.count > 0 {
+            json["SGWS_Dislikes__c"] = dislikes
+        }
+        
+        if favouriteActivities.count > 0 {
+            json["SGWS_Favorite_Activities__c"] = favouriteActivities
+        }
+        
+        if lifeEvents.count > 0 {
+            json["SGWS_Life_Events__c"] = lifeEvents
+        }
+        
+        if lifeEventDate.count > 0 {
+            json["SGWS_Life_Events_Date__c"] = lifeEventDate
+        }
+        /*
+         if recordTypeDeveloperName.count > 0 {
+         json["RecordType.DeveloperName"] = recordTypeDeveloperName
+         }
+         */
+        return json
     }
     
     init(for: String) {
@@ -100,15 +235,14 @@ class Contact {
         name = ""
         firstName = ""
         lastName = ""
-        //preferredName = ""
         phoneuNmber = ""
         email = ""
-        birthDate = Date()
+        birthDate = ""
         accountId = ""
         accountSite = ""
-        sccountSiteNumber = ""
+        accountSiteNumber = ""
         functionRole = ""
-        buyerFlag = ""
+        buyerFlag = false
         title = ""
         department = ""
         preferredName = ""
@@ -132,6 +266,49 @@ class Contact {
         favouriteActivities = ""
         lifeEvents = ""
         lifeEventDate = ""
+        //recordTypeDeveloperName = "Customer"
+    }
+    
+    static func mockNewContact1() -> Contact {
+        let contact = Contact(for: "mockup")
+        contact.contactId =  ""
+        contact.accountId = "001m000000cHLmTAAW" //I think we need this
+        let n = Int(arc4random_uniform(1000) + 35)
+        contact.firstName = "Greg" + "\(n)"
+        contact.lastName = "Opa" + "\(n)"
+        contact.phoneuNmber = "(716) 666-8888"
+        contact.email = "greg@ttdesk.com"
+        contact.birthDate = "1950-06-01"
+        //contact.accountSiteNumber = "0070"
+        contact.functionRole = "Owner"
+        contact.buyerFlag = true
+        contact.child1Birthday = "2018-01-01"
+        contact.anniversary = "2002-12-25"
+        /*
+         contact.preferredCommunicationMethod = ""
+         contact.title = ""
+         contact.department = ""
+         contact.preferredName = ""
+         contact.contactHours = ""
+         contact.sgwsNotes = ""
+         contact.child1Name = ""
+         contact.child1Birthday = ""
+         contact.child2Name = ""
+         contact.child2Birthday = ""
+         contact.child3Name = ""
+         contact.child3Birthday = ""
+         contact.child4Name = ""
+         contact.child4Birthday = ""
+         contact.child5Name = ""
+         contact.child5Birthday = ""
+         contact.likes = ""
+         contact.dislikes = ""
+         contact.favouriteActivities = ""
+         contact.lifeEvents = ""
+         contact.lifeEventDate = ""
+         */
+        
+        return contact
     }
     
     static func mockBuyingPowerContact1() -> Contact {
@@ -237,7 +414,7 @@ class Contact {
                 return name
             }
         }
-
+        
         
         let initials = name.components(separatedBy: " ")
         print(initials)
@@ -254,10 +431,11 @@ class Contact {
             print(firstChar)
         }
         
-//        let initials = name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
+        //        let initials = name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
         
-       // print("My Initials are \(initials)")
+        // print("My Initials are \(initials)")
         return firstChar
     }
     
 }
+

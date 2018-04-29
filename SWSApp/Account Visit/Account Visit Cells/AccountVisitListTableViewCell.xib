@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountVisitListTableViewCell" rowHeight="101" id="KGk-i7-Jjw" customClass="AccountVisitListTableViewCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="564" height="101"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="564" height="100.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06J-g9-xkz">
+                        <rect key="frame" x="0.0" y="5" width="10" height="90.5"/>
+                        <color key="backgroundColor" name="Data New"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="AZo-rQ-l3U"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dh-St-gLe">
+                        <rect key="frame" x="10" y="5" width="277" height="90.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ai-bs-GDB">
+                                <rect key="frame" x="20" y="36.5" width="41" height="18"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5ai-bs-GDB" firstAttribute="centerY" secondItem="0dh-St-gLe" secondAttribute="centerY" id="8dz-wO-fUq"/>
+                            <constraint firstItem="5ai-bs-GDB" firstAttribute="leading" secondItem="0dh-St-gLe" secondAttribute="leading" constant="20" id="BHk-r8-rzN"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="smV-VM-zun">
+                        <rect key="frame" x="287" y="5" width="277" height="90.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agr-o1-0UK">
+                                <rect key="frame" x="10" y="67.5" width="41" height="18"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="10:30 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNs-9v-ND1">
+                                <rect key="frame" x="10" y="39.5" width="68.5" height="18"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="March 30th 2018" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlt-Ac-bFn">
+                                <rect key="frame" x="10" y="10" width="122.5" height="19.5"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hNs-9v-ND1" firstAttribute="top" secondItem="jlt-Ac-bFn" secondAttribute="bottom" constant="10" id="0J2-bZ-d5E"/>
+                            <constraint firstItem="agr-o1-0UK" firstAttribute="leading" secondItem="smV-VM-zun" secondAttribute="leading" constant="10" id="5eh-34-PQL"/>
+                            <constraint firstItem="hNs-9v-ND1" firstAttribute="leading" secondItem="smV-VM-zun" secondAttribute="leading" constant="10" id="63g-dx-21y"/>
+                            <constraint firstItem="jlt-Ac-bFn" firstAttribute="top" secondItem="smV-VM-zun" secondAttribute="top" constant="10" id="Deu-XH-gf7"/>
+                            <constraint firstAttribute="bottom" secondItem="agr-o1-0UK" secondAttribute="bottom" constant="10" id="Irb-NE-TdG"/>
+                            <constraint firstItem="jlt-Ac-bFn" firstAttribute="leading" secondItem="smV-VM-zun" secondAttribute="leading" constant="10" id="eLK-gM-eFV"/>
+                            <constraint firstItem="agr-o1-0UK" firstAttribute="top" secondItem="hNs-9v-ND1" secondAttribute="bottom" constant="10" id="pZB-WI-wRs"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" name="LightGrey"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="smV-VM-zun" secondAttribute="bottom" constant="5" id="4hT-wk-mWj"/>
+                    <constraint firstAttribute="bottom" secondItem="0dh-St-gLe" secondAttribute="bottom" constant="5" id="4kH-X1-iQN"/>
+                    <constraint firstAttribute="bottom" secondItem="06J-g9-xkz" secondAttribute="bottom" constant="5" id="CU2-Xw-AfI"/>
+                    <constraint firstItem="smV-VM-zun" firstAttribute="width" secondItem="0dh-St-gLe" secondAttribute="width" id="G8W-Pt-EU8"/>
+                    <constraint firstAttribute="trailing" secondItem="smV-VM-zun" secondAttribute="trailing" id="L2k-7c-zyq"/>
+                    <constraint firstItem="06J-g9-xkz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Onb-vZ-gse"/>
+                    <constraint firstItem="smV-VM-zun" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Orx-Nf-N01"/>
+                    <constraint firstItem="smV-VM-zun" firstAttribute="leading" secondItem="0dh-St-gLe" secondAttribute="trailing" id="Qsu-Ul-rLd"/>
+                    <constraint firstItem="0dh-St-gLe" firstAttribute="leading" secondItem="06J-g9-xkz" secondAttribute="trailing" id="Zf8-Ud-G1H"/>
+                    <constraint firstItem="06J-g9-xkz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="bRe-Iu-hAv"/>
+                    <constraint firstItem="0dh-St-gLe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="t9k-gf-Vd1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addressLabel" destination="5ai-bs-GDB" id="Atm-fc-LZ3"/>
+                <outlet property="dateLabel" destination="jlt-Ac-bFn" id="o0E-6Q-TmP"/>
+                <outlet property="statusView" destination="06J-g9-xkz" id="rKZ-El-RK4"/>
+                <outlet property="timeLabel" destination="hNs-9v-ND1" id="fJm-na-T5d"/>
+                <outlet property="visitStatusLabel" destination="agr-o1-0UK" id="JIz-IM-9mr"/>
+            </connections>
+            <point key="canvasLocation" x="114" y="36.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="Data New">
+            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LightGrey">
+            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

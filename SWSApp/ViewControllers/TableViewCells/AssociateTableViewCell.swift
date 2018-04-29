@@ -16,9 +16,12 @@ class AssociateTableViewCell: UITableViewCell {
     @IBOutlet weak var roleLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var phoneNumLabel: UILabel!
+    @IBOutlet weak var initialNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.initialNameLabel.layer.cornerRadius = 40/2
+        self.initialNameLabel.clipsToBounds = true
         
         // Initialization code
     }

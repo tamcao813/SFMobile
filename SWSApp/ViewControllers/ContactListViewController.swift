@@ -8,7 +8,13 @@
 
 import UIKit
 
-class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+protocol ContactDetailsScreenDelegate{
+    func pushTheScreenToContactDetailsScreen(contactData : Contact)
+}
+
+class ContactListViewController: UIViewController, UITableViewDataSource {
+    
+    var delegate : ContactDetailsScreenDelegate?
     
     let contactViewModel = ContactsViewModel()
     var globalContactsForList = [Contact]()
@@ -46,10 +52,6 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
         contactsAcc = contactViewModel.accountsForContacts()
         loadContactData()
-        
-        //testContactRolePlist
-        let opts = PlistMap.sharedInstance.getPicklist("Contact", fieldname: "Roles")
-        print(opts)
         
     }
     
@@ -92,7 +94,7 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
         if indexPath.section == 0{
             
             let buttonCell:ContactListTableViewButtonCell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! ContactListTableViewButtonCell
-            
+            buttonCell.delegate = self
             return buttonCell
             
         }
@@ -136,10 +138,6 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "contactDetailsSegue" {
-            let contactDetailsScreen = segue.destination as! ContactListDetailsViewController
-            // accountDetailsScreen.accountDetailForLoggedInUser = selectedAccount
-        }
     }
     
     //MARK:- load contact data
@@ -283,18 +281,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         
         loadContactData()
-        //        tableView.reloadData()
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
 
@@ -520,6 +507,31 @@ extension ContactListViewController{
     }
     
 }
+
+extension ContactListViewController: ContactListTableViewButtonCellDelegate {
+    
+    func newContactButtonTapped(){
+        let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
+        let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
+        self.present(newContactVC!, animated: true, completion: nil)
+    }
+}
+
+//MARK:- TableView Delegate Methods
+extension ContactListViewController : UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.view.endEditing(true)
+        
+        let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
+        delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
+        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+        
+    }
+    
+}
+
 
 
 

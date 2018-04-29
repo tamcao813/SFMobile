@@ -99,13 +99,6 @@ class ContactMenuTableTableViewCell: UITableViewCell {
                     self.dropDownImageView.image = UIImage.init(named: "Checkbox")
                 }
             default:
-                /*
-                if ContactFilterMenuModel.buyerFlags.contains(self.filterLabel.text!) {
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }
-                else {
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }*/
                 break
             }
             

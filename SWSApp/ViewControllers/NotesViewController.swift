@@ -44,7 +44,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {

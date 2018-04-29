@@ -164,7 +164,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel)
         
         // adding TapGesture to userInitialLabel..
-        let userInitialLabelTap  = UITapGestureRecognizer(target: self, action:#selector(handleTap))
+        let userInitialLabelTap  = UITapGestureRecognizer(target: self, action:#selector(SyncUpData))
         userInitialLabel.isUserInteractionEnabled = true
         userInitialLabel.addGestureRecognizer(userInitialLabelTap)
         
@@ -200,8 +200,17 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
     }
     
-    @objc func handleTap()  {
-        print("Tap is identified")
+    // MARK: SyncUp Data
+    @objc func SyncUpData()  {
+        
+        // Sync Up Notes
+            AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","LastModifiedDate","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                }
+            })
+        
+        
     }
     
     private func setupTopMenuItems(){

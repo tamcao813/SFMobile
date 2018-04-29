@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -358,8 +358,8 @@
                     </view>
                     <connections>
                         <outlet property="notesTableView" destination="RLW-Uk-DF3" id="jpZ-48-Knc"/>
-                        <segue destination="nFu-Pa-Vui" kind="presentation" identifier="createNoteSegue" modalPresentationStyle="overCurrentContext" id="KIP-kr-Jk9"/>
                         <segue destination="EP0-BQ-qDP" kind="presentation" identifier="editNotesSegue" modalPresentationStyle="overCurrentContext" id="NaX-7i-Uly"/>
+                        <segue destination="nFu-Pa-Vui" kind="presentation" identifier="createNoteSegue" id="2C3-CV-b8r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7iH-Vd-MTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -488,6 +488,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KIP-kr-Jk9"/>
+        <segue reference="2C3-CV-b8r"/>
     </inferredMetricsTieBreakers>
 </document>

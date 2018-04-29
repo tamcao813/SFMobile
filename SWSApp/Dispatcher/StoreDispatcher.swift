@@ -746,6 +746,9 @@ class StoreDispatcher {
             indexSpec.append(sfIndex)
         }
         
+        let sfIndex1 = SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!
+        indexSpec.append(sfIndex1)
+        
         do {
             try sfaStore.registerSoup(SoupAccountContactRelation, withIndexSpecs: indexSpec, error: ())
             

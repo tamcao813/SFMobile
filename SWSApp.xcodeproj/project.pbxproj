@@ -32,7 +32,6 @@
 		6D38325420874026006805C6 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FCDE0B20733024005F956D /* FilterViewModel.swift */; };
 		6D38325520874026006805C6 /* AccountsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */; };
 		6D38325620874026006805C6 /* LoadDepositViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EAEB8D2074EC9B005F7792 /* LoadDepositViewController.swift */; };
-		6D38325720874026006805C6 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483992068398F00A0343B /* HomeTableViewController.swift */; };
 		6D38325820874026006805C6 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */; };
 		6D38325920874026006805C6 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D725052083A845000E7015 /* CurrencyFormatter.swift */; };
 		6D38325A20874026006805C6 /* AccountsMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */; };
@@ -185,6 +184,12 @@
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
+		91AA8EC92095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
+		91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
+		91AA8ECB2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */; };
+		91AA8ECC2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */; };
+		91AA8ECD2095CCCC00787D83 /* ContactListAccountHeaderDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */; };
+		91AA8ECE2095CCCC00787D83 /* ContactListAccountHeaderDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */; };
 		91C3E599208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */; };
 		91C3E59A208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */; };
 		91C3E59B208F0F4E0067CF3E /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23929E42075E3E90039A924 /* ContactsViewController.swift */; };
@@ -208,7 +213,6 @@
 		C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B95098209307C900792AD3 /* AccountNotes.swift */; };
 		C9B9509C209339E800792AD3 /* AccountNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B95098209307C900792AD3 /* AccountNotes.swift */; };
 		D10483962068381A00A0343B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483952068381A00A0343B /* Contact.swift */; };
-		D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483992068398F00A0343B /* HomeTableViewController.swift */; };
 		D104839E20683E4000A0343B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D104839D20683E4000A0343B /* Notification.swift */; };
 		D125134220648C4F00CD6CB4 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134120648C4F00CD6CB4 /* Account.swift */; };
 		D125134420648E1000CD6CB4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134320648E1000CD6CB4 /* User.swift */; };
@@ -280,8 +284,6 @@
 		F2062E5E2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2062E5D2091ED6E0005DD2A /* DuringVisit.storyboard */; };
 		F2062E5F2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2062E5D2091ED6E0005DD2A /* DuringVisit.storyboard */; };
 		F209D705206CF05C001AF22F /* AccountsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */; };
-		F20C1A2420933A1000D2351C /* DuringVisitsInsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C1A2320933A1000D2351C /* DuringVisitsInsightsViewController.swift */; };
-		F20C1A2520933A1000D2351C /* DuringVisitsInsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C1A2320933A1000D2351C /* DuringVisitsInsightsViewController.swift */; };
 		F20C1A27209347EA00D2351C /* Insights.plist in Resources */ = {isa = PBXBuildFile; fileRef = F20C1A26209347EA00D2351C /* Insights.plist */; };
 		F20C1A28209347EA00D2351C /* Insights.plist in Resources */ = {isa = PBXBuildFile; fileRef = F20C1A26209347EA00D2351C /* Insights.plist */; };
 		F20C1A2A20934C8B00D2351C /* DuringVisitsInsightsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C1A2920934C8B00D2351C /* DuringVisitsInsightsCollectionReusableView.swift */; };
@@ -291,34 +293,31 @@
 		F20C1A3020937C3800D2351C /* AccountsNotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */; };
 		F2590105209216ED00C2E354 /* DuringVisitTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2590104209216ED00C2E354 /* DuringVisitTopics.plist */; };
 		F2590106209216ED00C2E354 /* DuringVisitTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2590104209216ED00C2E354 /* DuringVisitTopics.plist */; };
-		F259010820921DEA00C2E354 /* DuringVisitsTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010720921DEA00C2E354 /* DuringVisitsTopicsViewController.swift */; };
 		F259010B2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */; };
 		F259010E2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010D2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift */; };
 		F259010F2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010D2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift */; };
 		F2923C9A208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */; };
 		F2923C9C208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C9B208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift */; };
 		F2923C9E208DEA4900D797E1 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
-		F2923CA0208DF16800D797E1 /* AccountStrategyViewControllerr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C9F208DF16800D797E1 /* AccountStrategyViewControllerr.swift */; };
-		F2A2ACA020926E73003C7B3E /* DuringVisitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A2AC9F20926E73003C7B3E /* DuringVisitsViewController.swift */; };
 		F2AB94552095CBA90028802E /* AlertUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB94542095CBA90028802E /* AlertUtility.swift */; };
 		F2AB94562095CBA90028802E /* AlertUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB94542095CBA90028802E /* AlertUtility.swift */; };
+		F2AB94592095D4E40028802E /* EditAccountStrategyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB94572095D4E40028802E /* EditAccountStrategyViewController.swift */; };
+		F2AB945A2095D4E40028802E /* AccountStrategyViewControllerr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB94582095D4E40028802E /* AccountStrategyViewControllerr.swift */; };
+		F2AB945E2095D5000028802E /* DuringVisitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB945B2095D5000028802E /* DuringVisitsViewController.swift */; };
+		F2AB945F2095D5000028802E /* DuringVisitsTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB945C2095D5000028802E /* DuringVisitsTopicsViewController.swift */; };
+		F2AB94602095D5000028802E /* DuringVisitsInsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB945D2095D5000028802E /* DuringVisitsInsightsViewController.swift */; };
 		F2CAD22D20957C23001016C2 /* OpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CAD22C20957C23001016C2 /* OpportunitiesViewController.swift */; };
 		F2CAD22E20957C23001016C2 /* OpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CAD22C20957C23001016C2 /* OpportunitiesViewController.swift */; };
-		F2CAD23120958064001016C2 /* DuringVisitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A2AC9F20926E73003C7B3E /* DuringVisitsViewController.swift */; };
-		F2CAD23220958067001016C2 /* DuringVisitsTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010720921DEA00C2E354 /* DuringVisitsTopicsViewController.swift */; };
 		F2CAD2332095806C001016C2 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */; };
 		F2CAD23420958075001016C2 /* DuringVisitsInsightsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C1A2920934C8B00D2351C /* DuringVisitsInsightsCollectionReusableView.swift */; };
 		F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */; };
 		F2DC2840208E6B5B0005294E /* AccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */; };
 		F2DC2841208E6B600005294E /* AccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C9B208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift */; };
-		F2DC2842208E6B6B0005294E /* AccountStrategyViewControllerr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C9F208DF16800D797E1 /* AccountStrategyViewControllerr.swift */; };
 		F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */; };
-		F2FD2C2420919ABF00037BB2 /* EditAccountStrategyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2320919ABE00037BB2 /* EditAccountStrategyViewController.swift */; };
 		F2FD2C2720919AE300037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */; };
 		F2FD2C2820919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */; };
 		F2FD2C2920919AF600037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */; };
 		F2FD2C2A20919AFA00037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */; };
-		F2FD2C2B20919B0100037BB2 /* EditAccountStrategyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2320919ABE00037BB2 /* EditAccountStrategyViewController.swift */; };
 		F2FD2C2D20919B1A00037BB2 /* EditAccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */; };
 		F2FD2C2E20919B2500037BB2 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		F2FD2C2F20919B2900037BB2 /* EditAccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */; };
@@ -423,6 +422,9 @@
 		8DD1501120933A0800858349 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
+		91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountLinkDetails.swift; sourceTree = "<group>"; };
+		91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountFooterDetails.swift; sourceTree = "<group>"; };
+		91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountHeaderDetails.swift; sourceTree = "<group>"; };
 		91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactFilterViewModel.swift; sourceTree = "<group>"; };
 		91C3E59D208F0F600067CF3E /* ContactMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMenuViewController.swift; sourceTree = "<group>"; };
 		91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMenuTableTableViewCell.swift; sourceTree = "<group>"; };
@@ -447,7 +449,6 @@
 		C9B95098209307C900792AD3 /* AccountNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotes.swift; sourceTree = "<group>"; };
 		C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsNotesViewModel.swift; sourceTree = "<group>"; };
 		D10483952068381A00A0343B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
-		D10483992068398F00A0343B /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		D104839D20683E4000A0343B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		D125134120648C4F00CD6CB4 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		D125134320648E1000CD6CB4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -502,26 +503,26 @@
 		D2EAEB932074EF88005F7792 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		F2062E5D2091ED6E0005DD2A /* DuringVisit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DuringVisit.storyboard; sourceTree = "<group>"; };
 		F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuViewController.swift; sourceTree = "<group>"; };
-		F20C1A2320933A1000D2351C /* DuringVisitsInsightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsViewController.swift; sourceTree = "<group>"; };
 		F20C1A26209347EA00D2351C /* Insights.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Insights.plist; sourceTree = "<group>"; };
 		F20C1A2920934C8B00D2351C /* DuringVisitsInsightsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsCollectionReusableView.swift; sourceTree = "<group>"; };
 		F20C1A2C20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsCollectionViewCell.swift; sourceTree = "<group>"; };
 		F23929E42075E3E90039A924 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		F2590104209216ED00C2E354 /* DuringVisitTopics.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DuringVisitTopics.plist; sourceTree = "<group>"; };
-		F259010720921DEA00C2E354 /* DuringVisitsTopicsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsViewController.swift; sourceTree = "<group>"; };
 		F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsCollectionViewCell.swift; sourceTree = "<group>"; };
 		F259010D2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsCollectionReusableView.swift; sourceTree = "<group>"; };
 		F2923C95208DE47700D797E1 /* Strategy.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Strategy.storyboard; sourceTree = "<group>"; };
 		F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStrategyCollectionViewCell.swift; sourceTree = "<group>"; };
 		F2923C9B208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStrategyCollectionReusableView.swift; sourceTree = "<group>"; };
 		F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AccountStrategy.plist; sourceTree = "<group>"; };
-		F2923C9F208DF16800D797E1 /* AccountStrategyViewControllerr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStrategyViewControllerr.swift; sourceTree = "<group>"; };
-		F2A2AC9F20926E73003C7B3E /* DuringVisitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsViewController.swift; sourceTree = "<group>"; };
 		F2AB94542095CBA90028802E /* AlertUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtility.swift; sourceTree = "<group>"; };
+		F2AB94572095D4E40028802E /* EditAccountStrategyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyViewController.swift; sourceTree = "<group>"; };
+		F2AB94582095D4E40028802E /* AccountStrategyViewControllerr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountStrategyViewControllerr.swift; sourceTree = "<group>"; };
+		F2AB945B2095D5000028802E /* DuringVisitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuringVisitsViewController.swift; sourceTree = "<group>"; };
+		F2AB945C2095D5000028802E /* DuringVisitsTopicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsViewController.swift; sourceTree = "<group>"; };
+		F2AB945D2095D5000028802E /* DuringVisitsInsightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsViewController.swift; sourceTree = "<group>"; };
 		F2CAD22C20957C23001016C2 /* OpportunitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesViewController.swift; sourceTree = "<group>"; };
 		F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsDetailsViewController.swift; sourceTree = "<group>"; };
-		F2FD2C2320919ABE00037BB2 /* EditAccountStrategyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyViewController.swift; sourceTree = "<group>"; };
 		F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionViewCell.swift; sourceTree = "<group>"; };
 		F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionReusableView.swift; sourceTree = "<group>"; };
 		F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EditAccountStrategy.plist; sourceTree = "<group>"; };
@@ -568,9 +569,7 @@
 		128B1A9B206BAE43004E148A /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				128B1A9C206BAE5E004E148A /* ContactTableViewCell.swift */,
 				F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */,
-				91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */,
 				12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */,
 				AEF951172089C7800083EA47 /* AccountTableViewCell.swift */,
 				AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */,
@@ -578,8 +577,13 @@
 				AE2564BD2091B1C00056B559 /* AssociateTableViewCell.xib */,
 				AE2564C02091B1C10056B559 /* SelectedAssociateTableViewCell.swift */,
 				AE2564BE2091B1C10056B559 /* SelectedAssociateTableViewCell.xib */,
+				128B1A9C206BAE5E004E148A /* ContactTableViewCell.swift */,
+				91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */,
 				12E47BDF208A254900D37B74 /* ContactListTableViewCell.swift */,
 				12E47BE3208B518A00D37B74 /* ContactListDetailsTableViewCell.swift */,
+				91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */,
+				91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */,
+				91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -806,19 +810,18 @@
 				D276DE662075028500086901 /* MoreMenu */,
 				128B1A9B206BAE43004E148A /* TableViewCells */,
 				6F3D30A3206BA59C000CFFCC /* XMSegmentedControl.swift */,
-				12E47BDD208A21C900D37B74 /* ContactListViewController.swift */,
-				12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */,
 				6F3D3099206BA064000CFFCC /* AccountsViewController.swift */,
 				F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */,
 				F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */,
 				F23929E42075E3E90039A924 /* ContactsViewController.swift */,
 				91C3E59D208F0F600067CF3E /* ContactMenuViewController.swift */,
+				12E47BDD208A21C900D37B74 /* ContactListViewController.swift */,
+				12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */,
 				6F3D309B206BA065000CFFCC /* CalendarViewController.swift */,
 				128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */,
 				6F3D309D206BA065000CFFCC /* HomeViewController.swift */,
 				D24E5B0A2073635D00641814 /* ObjectivesViewController.swift */,
 				6F3D309A206BA065000CFFCC /* ParentViewController.swift */,
-				D10483992068398F00A0343B /* HomeTableViewController.swift */,
 				6F8BD3EA20720281006CABA8 /* AccountListViewController.swift */,
 				6F8BD3F02072297C006CABA8 /* MoreViewController.swift */,
 				AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */,
@@ -964,10 +967,10 @@
 		F2CAD22F20957E51001016C2 /* Strategy */ = {
 			isa = PBXGroup;
 			children = (
-				F2923C9F208DF16800D797E1 /* AccountStrategyViewControllerr.swift */,
+				F2AB94582095D4E40028802E /* AccountStrategyViewControllerr.swift */,
+				F2AB94572095D4E40028802E /* EditAccountStrategyViewController.swift */,
 				F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */,
 				F2923C9B208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift */,
-				F2FD2C2320919ABE00037BB2 /* EditAccountStrategyViewController.swift */,
 				F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */,
 				F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */,
 			);
@@ -977,9 +980,9 @@
 		F2CAD23020957E91001016C2 /* DuringVisit */ = {
 			isa = PBXGroup;
 			children = (
-				F2A2AC9F20926E73003C7B3E /* DuringVisitsViewController.swift */,
-				F259010720921DEA00C2E354 /* DuringVisitsTopicsViewController.swift */,
-				F20C1A2320933A1000D2351C /* DuringVisitsInsightsViewController.swift */,
+				F2AB945D2095D5000028802E /* DuringVisitsInsightsViewController.swift */,
+				F2AB945C2095D5000028802E /* DuringVisitsTopicsViewController.swift */,
+				F2AB945B2095D5000028802E /* DuringVisitsViewController.swift */,
 				F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */,
 				F259010D2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift */,
 				F20C1A2C20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift */,
@@ -1448,13 +1451,11 @@
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
 				6D38325420874026006805C6 /* FilterViewModel.swift in Sources */,
-				F2CAD23220958067001016C2 /* DuringVisitsTopicsViewController.swift in Sources */,
 				8D99A2EF2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				91C3E59A208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */,
 				6D38325520874026006805C6 /* AccountsDetailsViewController.swift in Sources */,
 				6D38325620874026006805C6 /* LoadDepositViewController.swift in Sources */,
 				8D99A2E12091E14700FAA71A /* ToggleTableViewCell.swift in Sources */,
-				6D38325720874026006805C6 /* HomeTableViewController.swift in Sources */,
 				D23C40D9208DFA890006691C /* AccountVisitListTableViewCell.swift in Sources */,
 				6D38325820874026006805C6 /* GlobalConstants.swift in Sources */,
 				8D99A3272093055200FAA71A /* Validations.swift in Sources */,
@@ -1468,6 +1469,7 @@
 				D23C40BC208DE6480006691C /* AccountVisitSectionHeaderView.swift in Sources */,
 				6D38325B20874026006805C6 /* AccountListViewController.swift in Sources */,
 				6D38325C20874026006805C6 /* XMSegmentedControl.swift in Sources */,
+				91AA8ECE2095CCCC00787D83 /* ContactListAccountHeaderDetails.swift in Sources */,
 				6D38325D20874026006805C6 /* GoSpotCheckViewController.swift in Sources */,
 				6D38325E20874026006805C6 /* AccountDetailTabViewController.swift in Sources */,
 				D23C4091208DCF010006691C /* Extension.swift in Sources */,
@@ -1478,20 +1480,17 @@
 				12F0F89E2090B1D200160C3D /* ContactListDetailsTableViewCell.swift in Sources */,
 				F2CAD23420958075001016C2 /* DuringVisitsInsightsCollectionReusableView.swift in Sources */,
 				F2CAD22E20957C23001016C2 /* OpportunitiesViewController.swift in Sources */,
-				F2DC2842208E6B6B0005294E /* AccountStrategyViewControllerr.swift in Sources */,
 				8D99A3012091E73F00FAA71A /* EmailTableViewCell.swift in Sources */,
 				6D38326020874026006805C6 /* Account.swift in Sources */,
 				6D38326120874026006805C6 /* ContactTableViewCell.swift in Sources */,
+				91AA8ECC2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */,
 				6D38326220874026006805C6 /* DateTimeUtility.swift in Sources */,
 				6D38326320874026006805C6 /* TransactionsViewController.swift in Sources */,
 				8D99A3192091FCAF00FAA71A /* DescriptionTableViewCell.swift in Sources */,
-				F2CAD23120958064001016C2 /* DuringVisitsViewController.swift in Sources */,
 				F20C1A3020937C3800D2351C /* AccountsNotesViewModel.swift in Sources */,
 				6D38326420874026006805C6 /* ActionItemsViewController.swift in Sources */,
 				F2FD2C2920919AF600037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */,
 				12F0F89D2090B1C000160C3D /* ContactListTableViewCell.swift in Sources */,
-				F20C1A2520933A1000D2351C /* DuringVisitsInsightsViewController.swift in Sources */,
-				F2FD2C2B20919B0100037BB2 /* EditAccountStrategyViewController.swift in Sources */,
 				91C3E5A2208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */,
 				F20C1A2E20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift in Sources */,
 				6D38326620874026006805C6 /* MBProgressHUD.m in Sources */,
@@ -1502,6 +1501,7 @@
 				D23C408F208DCF010006691C /* AccountVisitSummaryViewController.swift in Sources */,
 				6D38326920874026006805C6 /* AppDelegate.swift in Sources */,
 				6D38326A20874026006805C6 /* AccountsViewModel.swift in Sources */,
+				91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */,
 				D23C40D5208DE6590006691C /* LocationTableViewCell.swift in Sources */,
 				D23C40C9208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */,
 				6D38326B20874026006805C6 /* ContactsViewModel.swift in Sources */,
@@ -1541,13 +1541,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91AA8EC92095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */,
 				D23C40BB208DE6480006691C /* AccountVisitSectionHeaderView.swift in Sources */,
 				8D99A3002091E73F00FAA71A /* EmailTableViewCell.swift in Sources */,
 				D23C40D8208DFA890006691C /* AccountVisitListTableViewCell.swift in Sources */,
 				12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */,
 				8D99A3182091FCAF00FAA71A /* DescriptionTableViewCell.swift in Sources */,
 				F259010E2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift in Sources */,
-				F259010820921DEA00C2E354 /* DuringVisitsTopicsViewController.swift in Sources */,
 				AE5C974820887550004548E9 /* DesignableUITextField.swift in Sources */,
 				AE5C974520886DD4004548E9 /* PlanVisitViewController.swift in Sources */,
 				91C3E59B208F0F4E0067CF3E /* ContactsViewController.swift in Sources */,
@@ -1559,6 +1559,7 @@
 				12E47BDE208A21C900D37B74 /* ContactListViewController.swift in Sources */,
 				6F365320207B95850068105B /* AccountSortUtility.swift in Sources */,
 				D1FCDE0F20733025005F956D /* FilterViewModel.swift in Sources */,
+				F2AB945E2095D5000028802E /* DuringVisitsViewController.swift in Sources */,
 				D23C40D2208DE6590006691C /* UnorderedListTableViewCell.swift in Sources */,
 				8D99A2EE2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */,
@@ -1568,7 +1569,6 @@
 				F2FD2C2720919AE300037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */,
 				D2EAEB8E2074EC9B005F7792 /* LoadDepositViewController.swift in Sources */,
 				9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */,
-				D104839A2068398F00A0343B /* HomeTableViewController.swift in Sources */,
 				12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */,
 				8DD15009209330E200858349 /* AccountView.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
@@ -1592,6 +1592,7 @@
 				D2EAEB8C2074EC1E005F7792 /* TransactionsViewController.swift in Sources */,
 				D2EAEB922074EDBE005F7792 /* ActionItemsViewController.swift in Sources */,
 				4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */,
+				91AA8ECD2095CCCC00787D83 /* ContactListAccountHeaderDetails.swift in Sources */,
 				D23C40D4208DE6590006691C /* LocationTableViewCell.swift in Sources */,
 				D23C4090208DCF010006691C /* Extension.swift in Sources */,
 				AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */,
@@ -1600,13 +1601,14 @@
 				D125134420648E1000CD6CB4 /* User.swift in Sources */,
 				D1FB18272062A7C00072F4C1 /* AppDelegate.swift in Sources */,
 				D23C408E208DCF010006691C /* AccountVisitSummaryViewController.swift in Sources */,
-				F2FD2C2420919ABF00037BB2 /* EditAccountStrategyViewController.swift in Sources */,
+				F2AB94592095D4E40028802E /* EditAccountStrategyViewController.swift in Sources */,
 				D1FCDE1120733025005F956D /* AccountsViewModel.swift in Sources */,
 				8D99A2F42091E70900FAA71A /* PrimaryFunctionTableViewCell.swift in Sources */,
 				D1FCDE1220733025005F956D /* ContactsViewModel.swift in Sources */,
 				D24E5B0B2073635D00641814 /* ObjectivesViewController.swift in Sources */,
 				F2FD2C2820919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */,
 				D104839E20683E4000A0343B /* Notification.swift in Sources */,
+				91AA8ECB2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */,
 				C9B63C6E208DB819008D9E14 /* CreateNoteViewController.swift in Sources */,
 				AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */,
 				6F3D309F206BA066000CFFCC /* ParentViewController.swift in Sources */,
@@ -1622,26 +1624,26 @@
 				F20C1A2D20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift in Sources */,
 				6F8BD3F12072297C006CABA8 /* MoreViewController.swift in Sources */,
 				8D99A2E02091E14700FAA71A /* ToggleTableViewCell.swift in Sources */,
+				F2AB945F2095D5000028802E /* DuringVisitsTopicsViewController.swift in Sources */,
 				D2CD7F63208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
 				C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */,
 				D1FE1D0720657B7E009CC47C /* SFAError.swift in Sources */,
 				8D99A3232092D66C00FAA71A /* CustomPicker.swift in Sources */,
 				913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */,
-				F2A2ACA020926E73003C7B3E /* DuringVisitsViewController.swift in Sources */,
 				D2E12D7120736C4B0005B982 /* InsightsViewController.swift in Sources */,
 				12F0F89A208FA6BD00160C3D /* AccountContactRelation.swift in Sources */,
-				F2923CA0208DF16800D797E1 /* AccountStrategyViewControllerr.swift in Sources */,
 				91C3E59E208F0F600067CF3E /* ContactMenuViewController.swift in Sources */,
 				6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */,
-				F20C1A2420933A1000D2351C /* DuringVisitsInsightsViewController.swift in Sources */,
 				6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */,
 				6F3D30A0206BA066000CFFCC /* CalendarViewController.swift in Sources */,
 				F2923C9C208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift in Sources */,
 				12E47BE4208B518A00D37B74 /* ContactListDetailsTableViewCell.swift in Sources */,
 				8DD150042093308300858349 /* AssociateTableViewCell.swift in Sources */,
+				F2AB94602095D5000028802E /* DuringVisitsInsightsViewController.swift in Sources */,
 				D2E12D7320736D620005B982 /* ReportsViewController.swift in Sources */,
 				8D99A30C2091E77C00FAA71A /* DateFieldTableViewCell.swift in Sources */,
 				D23C40C6208DE6590006691C /* AssociatedContactsTableViewCell.swift in Sources */,
+				F2AB945A2095D4E40028802E /* AccountStrategyViewControllerr.swift in Sources */,
 				C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */,
 				D1FE1CD620654734009CC47C /* StoreDispatcher.swift in Sources */,
 				8DD14FFF2093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,

@@ -163,25 +163,48 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     @IBAction func contactsClicked(sender : UIButton){
-        self.dismiss(animated: true, completion: nil)
-        delegate?.NavigateToAccountVisitSummary(data: .contacts)
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.NavigateToAccountVisitSummary(data: .contacts)
+            
+        }) {
+            print("No")
+        }
     }
     
     @IBAction func chatterClicked(sender : UIButton){
-        self.dismiss(animated: true, completion: nil)
-        delegate?.NavigateToAccountVisitSummary(data: .chatter)
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
+            
+        }) {
+            
+        }
     }
     
     @IBAction func actionItemsClicked(sender : UIButton){
-        self.dismiss(animated: true, completion: nil)
-        delegate?.NavigateToAccountVisitSummary(data: .actionItems)
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.NavigateToAccountVisitSummary(data: .actionItems)
+            
+        }) {
+            
+        }
     }
     
     @IBAction func notificationsClicked(sender : UIButton){
-        self.dismiss(animated: true, completion: nil)
-        delegate?.NavigateToAccountVisitSummary(data: .notifications)
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
+            
+        }) {
+            
+        }
     }
-    
 }
 
 

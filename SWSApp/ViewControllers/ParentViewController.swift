@@ -443,7 +443,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.clearAccountFilterModel()
         
         self.clearContactsFilterModel()
-    
+        
         
         self.notificationButton?.isEnabled = true
         self.numberLabel?.isUserInteractionEnabled = true
@@ -460,7 +460,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             
         case .HomeVCIndex:
             vc = homeVC
-             ContactsGlobal.accountId = ""
+            ContactsGlobal.accountId = ""
         case .AccountVCIndex:
             let accVC = accountsVC as? AccountsViewController
             accVC?.accountDetails?.view.removeFromSuperview()
@@ -469,15 +469,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         case .ContactsVCIndex:
             let contactVC = contactsVC as! ContactsViewController
             contactVC.contactDetails?.view.removeFromSuperview()
-
+            
             vc = contactVC
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
             vc = calendarVC
-             ContactsGlobal.accountId = ""
+            ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             vc = objectivesVC
-             ContactsGlobal.accountId = ""
+            ContactsGlobal.accountId = ""
             
             // have to cover all cases from defined enum, else compiler wont be happy :D
             /*default:

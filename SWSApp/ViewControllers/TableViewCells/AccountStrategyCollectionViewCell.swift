@@ -2,7 +2,7 @@
 //  AccountStrategyCollectionViewCell.swift
 //  SWSApp
 //
-//  Created by r.a.jantakal on 23/04/18.
+//  Created by r.a.jantakal on 24/04/18.
 //  Copyright © 2018 maria.min-hui.yu. All rights reserved.
 //
 
@@ -10,33 +10,14 @@ import UIKit
 
 class AccountStrategyCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var centerLabel : UILabel?
-    @IBOutlet weak var textView : UITextView?
-    @IBOutlet weak var bottomView : UIView?
-    @IBOutlet weak var selectedIcon : UIImageView?
+    @IBOutlet weak var lblTitleText : UILabel?
     
     //Display Collection View data
-    func displayCellData(data : NSMutableDictionary){
-        self.centerLabel?.text = (data["answerText"] as! String)
-        
-        if (data["isSelected"] as! String) == "NO"{
-            self.layer.borderColor = UIColor.white.cgColor
-            selectedIcon?.isHidden = true
+    func displayCellData(data : NSMutableDictionary, indexPath: IndexPath){
+        if indexPath.section <= 2{
+             lblTitleText?.text = "\u{2022} " + (data["answerText"] as! String)
         }else{
-            self.layer.borderColor = UIColor(named: "Data New")?.cgColor
-            selectedIcon?.isHidden = false
+            lblTitleText?.text =  (data["answerText"] as! String)
         }
-    }
-}
-
-
-//MARK:- UITextView Delegate
-extension AccountStrategyCollectionViewCell : UITextViewDelegate{
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n"{
-            self.endEditing(true)
-        }
-        return true
     }
 }

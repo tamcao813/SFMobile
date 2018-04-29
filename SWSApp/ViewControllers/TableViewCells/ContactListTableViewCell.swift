@@ -32,19 +32,23 @@ class ContactListTableViewCell: UITableViewCell {
 
 }
 
+protocol ContactListTableViewButtonCellDelegate : NSObjectProtocol {
+    func newContactButtonTapped()
+}
+
 class ContactListTableViewButtonCell: UITableViewCell {
     
-    
     @IBOutlet weak var newContactButton: UIButton!
+    weak var delegate: ContactListTableViewButtonCellDelegate?
     
     @IBOutlet weak var noOfResultLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         self.newContactButton.layer.cornerRadius = 4
         newContactButton.clipsToBounds = true
-        // Initialization code
     }
     
-    
-    
+    @IBAction func newContactButtonTapped(_ sender: UIButton){
+        delegate?.newContactButtonTapped()
+    }
 }

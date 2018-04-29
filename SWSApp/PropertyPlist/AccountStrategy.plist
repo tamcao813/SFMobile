@@ -8,95 +8,20 @@
 			<key>headerText</key>
 			<string>Account Situation</string>
 			<key>question</key>
-			<string>The Customer Wants To:*</string>
-			<key>questionId</key>
-			<string>1</string>
-			<key>selectionType</key>
-			<string>1</string>
-			<key>answers</key>
-			<array>
-				<dict>
-					<key>answerText</key>
-					<string>Blaze Its Own Path</string>
-					<key>isSelected</key>
-					<string>NO</string>
-					<key>answerId</key>
-					<string>11</string>
-				</dict>
-				<dict>
-					<key>answerText</key>
-					<string>Meet The Needs Of Its Regulars</string>
-					<key>isSelected</key>
-					<string>NO</string>
-					<key>answerId</key>
-					<string>12</string>
-				</dict>
-				<dict>
-					<key>answerText</key>
-					<string>Stay in Business</string>
-					<key>isSelected</key>
-					<string>NO</string>
-					<key>answerId</key>
-					<string>13</string>
-				</dict>
-				<dict>
-					<key>answerText</key>
-					<string>Grow And Expand</string>
-					<key>isSelected</key>
-					<string>NO</string>
-					<key>answerId</key>
-					<string>13</string>
-				</dict>
-				<dict>
-					<key>answerText</key>
-					<string>Decreasing</string>
-					<key>isSelected</key>
-					<string>NO</string>
-					<key>answerId</key>
-					<string>13</string>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>headerText</key>
 			<string></string>
-			<key>question</key>
-			<string>The customer’s consumbers are changing:*</string>
 			<key>questionId</key>
-			<string>2</string>
-			<key>selectionType</key>
-			<string>2</string>
+			<string>1</string>
 			<key>answers</key>
 			<array>
 				<dict>
 					<key>answerText</key>
-					<string>Very Little</string>
-					<key>isSelected</key>
-					<string>NO</string>
+					<string>Crown Liquor Store #03 is an off-premise liquor store in Miami, FL.</string>
 					<key>answerId</key>
 					<string>11</string>
 				</dict>
 				<dict>
 					<key>answerText</key>
-					<string>Increasing</string>
-					<key>isSelected</key>
-					<string>NO</string>
-					<key>answerId</key>
-					<string>12</string>
-				</dict>
-				<dict>
-					<key>answerText</key>
-					<string>Somewhat</string>
-					<key>isSelected</key>
-					<string>NO</string>
-					<key>answerId</key>
-					<string>12</string>
-				</dict>
-				<dict>
-					<key>answerText</key>
-					<string>About The Same</string>
-					<key>isSelected</key>
-					<string>NO</string>
+					<string>I will spend my time developing a product strategy for you that helps you achieve your goals and understnads your challenges.</string>
 					<key>answerId</key>
 					<string>12</string>
 				</dict>
@@ -106,34 +31,49 @@
 			<key>headerText</key>
 			<string></string>
 			<key>question</key>
-			<string>The customer will know they have won when they see improvement in:*</string>
+			<string>Goals</string>
 			<key>questionId</key>
 			<string>2</string>
-			<key>selectionType</key>
-			<string>1</string>
 			<key>answers</key>
 			<array>
 				<dict>
 					<key>answerText</key>
-					<string>Top Line Sales</string>
-					<key>isSelected</key>
-					<string>NO</string>
+					<string>You want to meet the needs of your regulars and stay in business.</string>
 					<key>answerId</key>
 					<string>11</string>
 				</dict>
 				<dict>
 					<key>answerText</key>
-					<string>Limited Cash Flow</string>
-					<key>isSelected</key>
-					<string>NO</string>
+					<string>You know you are succedding when you see your top line sales go up and your inventory turns go up.</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>question</key>
+			<string>Challenges</string>
+			<key>questionId</key>
+			<string>2</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>You have limited cash flow and limited storage space.</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Your consumers are changing a lot.</string>
 					<key>answerId</key>
 					<string>12</string>
 				</dict>
 				<dict>
 					<key>answerText</key>
-					<string>Inventory Is Hard To Manage</string>
-					<key>isSelected</key>
-					<string>NO</string>
+					<string>Your competition is about the same.</string>
 					<key>answerId</key>
 					<string>12</string>
 				</dict>
@@ -143,36 +83,94 @@
 			<key>headerText</key>
 			<string>Buying Motives</string>
 			<key>question</key>
-			<string>Task Buying Motives*</string>
+			<string>Task Buying Motives</string>
 			<key>questionId</key>
 			<string>3</string>
-			<key>selectionType</key>
-			<string>2</string>
 			<key>answers</key>
 			<array>
 				<dict>
 					<key>answerText</key>
 					<string>More Profit</string>
-					<key>isSelected</key>
-					<string>NO</string>
 					<key>answerId</key>
 					<string>11</string>
 				</dict>
 				<dict>
 					<key>answerText</key>
 					<string>Better Product/Offering</string>
-					<key>isSelected</key>
-					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Faster Pull-Through</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Less Coast</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Less Effort</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>question</key>
+			<string>Personal Buying Motives</string>
+			<key>questionId</key>
+			<string>3</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Control</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Approval</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Recognition</string>
 					<key>answerId</key>
 					<string>12</string>
 				</dict>
 				<dict>
 					<key>answerText</key>
 					<string>Respect (For Expertise)</string>
-					<key>isSelected</key>
-					<string>NO</string>
 					<key>answerId</key>
 					<string>12</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string>Additional Notes</string>
+			<key>question</key>
+			<string></string>
+			<key>questionId</key>
+			<string>4</string>
+			<key>selectionType</key>
+			<string>1</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus rutrum elit nec sollicitudin dignissim. Nullam luctus leo eu urna eleifend finibus. Cras diam ante, faucibus id neque in, sollicitudin porta quam. Nulla posuere elementum ligula. Morbi condimentum lacinia mi. Nulla quis lacus vel ligula rhoncus efficitur pretium ac purus. In hac habitasse platea dictumst. Duis tempor efficitur turpis eu mattis. Morbi sed tortor quam. Suspendisse potenti. Donec pretium justo a lectus aliquam, eget vehicula massa ornare. Sed vel lectus id lacus rutrum egestas ut a eros.</string>
+					<key>answerId</key>
+					<string>11</string>
 				</dict>
 			</array>
 		</dict>

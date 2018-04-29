@@ -15,6 +15,8 @@ class AccountStrategyViewController : UIViewController{
     
     @IBOutlet weak var collectionView : UICollectionView?
     
+    
+    //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Account Strategy Screen Loaded")
@@ -50,6 +52,8 @@ class AccountStrategyViewController : UIViewController{
         
     }
     
+    
+    //MARK:- Button Actions
     @IBAction func editButtonClicked(sender : UIButton){
         
         

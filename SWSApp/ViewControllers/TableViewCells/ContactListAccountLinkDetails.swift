@@ -12,7 +12,8 @@ class ContactListAccountLinkDetails: UITableViewCell {
 
     @IBOutlet weak var accountNameValueLabel: UILabel!
     @IBOutlet weak var accountNumberValueLabel: UILabel!
-    @IBOutlet weak var accountAddressValueLabel: UILabel!
+    @IBOutlet weak var accountAddress1ValueLabel: UILabel!
+    @IBOutlet weak var accountAddress2ValueLabel: UILabel!
     @IBOutlet weak var accountRolesValueLabel: UILabel!
     @IBOutlet weak var accountLinkButton: UIButton!
     @IBOutlet weak var accountEditButton: UIButton!
@@ -37,7 +38,8 @@ class ContactListAccountLinkDetails: UITableViewCell {
         
         accountNameValueLabel.text = accountList![0].accountName
         accountNumberValueLabel.text = accountList![0].accountNumber
-        accountAddressValueLabel.text = ""
+        accountAddress1ValueLabel.text = accountList![0].shippingStreet
+        accountAddress2ValueLabel.text = accountList![0].shippingCity + ", " + accountList![0].shippingState + " " + accountList![0].shippingPostalCode
         accountRolesValueLabel.text = roles
 
     }

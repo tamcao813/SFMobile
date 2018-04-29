@@ -58,6 +58,7 @@ class AccountDetailsViewController : UIViewController{
     let contactsStoryboard = UIStoryboard.init(name: "AccountsContactsVC", bundle: nil)
     let notesStoryboard = UIStoryboard.init(name: "Notes", bundle: nil)
     let strategyStoryboard = UIStoryboard.init(name: "Strategy", bundle: nil)
+    let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
     
     private var activeViewController: UIViewController? {
         didSet {
@@ -260,9 +261,14 @@ class AccountDetailsViewController : UIViewController{
         case 2:
             btnInsights?.backgroundColor = UIColor.white
             btnInsights?.setTitleColor(UIColor.black, for: .normal)
+            
         case 3:
+            containerView?.isHidden = false
             btnOpportunities?.backgroundColor = UIColor.white
             btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
+            
+            let opportunitiesViewController: OpportunitiesViewController = mainStoryboard.instantiateViewController(withIdentifier: "OpportunitiesViewControllerID") as! OpportunitiesViewController
+            activeViewController = opportunitiesViewController
         case 4:
             containerView?.isHidden = false
             btnStrategy?.backgroundColor = UIColor.white
@@ -276,13 +282,6 @@ class AccountDetailsViewController : UIViewController{
             btnActionItems?.backgroundColor = UIColor.white
             btnActionItems?.setTitleColor(UIColor.black, for: .normal)
             
-            
-            let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
-            let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as UIViewController
-            vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            self.present(vc, animated: true, completion: nil)
-            
-    
         case 6:
             btnNotes?.backgroundColor = UIColor.white
             btnNotes?.setTitleColor(UIColor.black, for: .normal)

@@ -9,6 +9,17 @@
 import Foundation
 import UIKit
 
+enum LoadThePersistantMenuScreen : Int{
+    case contacts = 0
+    case chatter
+    case actionItems
+    case notifications
+}
+
+protocol NavigateToAccountVisitSummaryDelegate {
+    func NavigateToAccountVisitSummary(data : LoadThePersistantMenuScreen)
+}
+
 class  DuringVisitsViewController : UIViewController {
     
     @IBOutlet weak var containerView : UIView?
@@ -23,6 +34,8 @@ class  DuringVisitsViewController : UIViewController {
     @IBOutlet weak var btnEditAccountStrategy : UIButton?
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
     
+    
+    var delegate : NavigateToAccountVisitSummaryDelegate?
     
     
     private var activeViewController: UIViewController? {
@@ -95,6 +108,19 @@ class  DuringVisitsViewController : UIViewController {
         
     }
     
+    @IBAction func transactionClicked(sender : UIButton){
+        UIApplication.shared.open(URL(string : "http://www.google.com")!, options: [:], completionHandler: { (status) in
+            
+        })
+    }
+    
+    @IBAction func goSpotClicked(sender : UIButton){
+        
+        UIApplication.shared.open(URL(string : "http://www.google.com")!, options: [:], completionHandler: { (status) in
+            
+        })
+    }
+    
     @IBAction func backButtonClicked(sender : UIButton){
         
         btnBack?.isHidden = true
@@ -128,17 +154,35 @@ class  DuringVisitsViewController : UIViewController {
         
     }
     
-    
     @IBAction func loadEditAccountStrategy(sender : UIButton){
-        
-        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
+        let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditAccountStrategyViewControllerID") as UIViewController
+        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(vc, animated: true, completion: nil)
         
     }
+    
+    @IBAction func contactsClicked(sender : UIButton){
+        self.dismiss(animated: true, completion: nil)
+        delegate?.NavigateToAccountVisitSummary(data: .contacts)
+    }
+    
+    @IBAction func chatterClicked(sender : UIButton){
+        self.dismiss(animated: true, completion: nil)
+        delegate?.NavigateToAccountVisitSummary(data: .chatter)
+    }
+    
+    @IBAction func actionItemsClicked(sender : UIButton){
+        self.dismiss(animated: true, completion: nil)
+        delegate?.NavigateToAccountVisitSummary(data: .actionItems)
+    }
+    
+    @IBAction func notificationsClicked(sender : UIButton){
+        self.dismiss(animated: true, completion: nil)
+        delegate?.NavigateToAccountVisitSummary(data: .notifications)
+    }
+    
 }
-
-
-
-
 
 
 

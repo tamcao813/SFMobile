@@ -32,6 +32,9 @@ class EditAccountStrategyViewController: UIViewController {
         }else if self.view.frame.size.width == 1024.0{
             textViewWidth = 1015
             collectionViewWidth = 480
+        }else if self.view.frame.size.width == 1366.0{
+            textViewWidth = 1360
+            collectionViewWidth = 650
         }
         
         let plistPath = Bundle.main.path(forResource: "EditAccountStrategy", ofType: ".plist", inDirectory: nil)

@@ -26,10 +26,10 @@ class AccountStrategyViewController : UIViewController{
         print(dictionary!)
         
         
-//        if let flowLayout: UICollectionViewFlowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout{
-//            flowLayout.estimatedItemSize = CGSize(width: 1, height: 100)
-//
-//        }
+        //        if let flowLayout: UICollectionViewFlowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout{
+        //            flowLayout.estimatedItemSize = CGSize(width: 1, height: 100)
+        //
+        //        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +62,7 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return (tableViewRowDetails?.count)!
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let tableData = tableViewRowDetails![section] as! NSDictionary
         let tableContent = tableData["answers"] as! NSMutableArray
@@ -91,13 +91,13 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
             //let constraintRect = CGSize(width: self.view.frame.size.width, height: CGFloat.greatestFiniteMagnitude)
             let data = (questions["answerText"] as! String)
             
-            let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20.0)])
+            let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)])
             let dynamicSize: CGRect = attString.boundingRect(with: CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
             
             return dynamicSize.size
         }
-
-        return CGSize(width: (self.collectionView?.frame.size.width)!, height: 30)
+        
+        return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)
         
         //let bounds = data
         //let boundingBox = data.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont(name: Constants.strings.fontName, size: 30)!], context: nil)
@@ -111,12 +111,18 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
         let questions = tableContent[indexPath.row] as! NSMutableDictionary
         
         let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "accountStrategyCell", for: indexPath) as! AccountStrategyCollectionViewCell
-         //cell1.contentView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
+        //cell1.contentView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
         cell1.displayCellData(data: questions , indexPath: indexPath)
         //cell1.contentView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
-
+        
         return cell1
         
+    }
+    
+    //Used to set width and height of HeaderView
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        return CGSize(width: collectionView.frame.size.width, height: 75)
     }
 }
 

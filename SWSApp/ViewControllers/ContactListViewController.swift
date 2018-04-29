@@ -8,7 +8,13 @@
 
 import UIKit
 
-class ContactListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+protocol ContactDetailsScreenDelegate{
+    func pushTheScreenToContactDetailsScreen(contactData : Contact)
+}
+
+class ContactListViewController: UIViewController, UITableViewDataSource {
+    
+    var delegate : ContactDetailsScreenDelegate?
     
     let contactViewModel = ContactsViewModel()
     var globalContactsForList = [Contact]()
@@ -132,10 +138,6 @@ class ContactListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "contactDetailsSegue" {
-            let contactDetailsScreen = segue.destination as! ContactListDetailsViewController
-            // accountDetailsScreen.accountDetailForLoggedInUser = selectedAccount
-        }
     }
     
     //MARK:- load contact data
@@ -514,6 +516,22 @@ extension ContactListViewController: ContactListTableViewButtonCellDelegate {
         self.present(newContactVC!, animated: true, completion: nil)
     }
 }
+
+//MARK:- TableView Delegate Methods
+extension ContactListViewController : UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.view.endEditing(true)
+        
+        let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
+        delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
+        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+        
+    }
+    
+}
+
 
 
 

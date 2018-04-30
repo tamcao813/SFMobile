@@ -89,7 +89,7 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row == tableViewRowDetails.count {
-            return CGSize(width: self.view.frame.size.width, height: 319);
+            return CGSize(width: self.view.frame.size.width/1.0, height: 319);
         } else {
             return CGSize(width: self.view.frame.size.width/1.1, height: 75);
         }

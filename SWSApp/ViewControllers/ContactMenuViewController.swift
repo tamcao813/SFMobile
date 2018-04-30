@@ -18,7 +18,7 @@ protocol SearchContactByEnteredTextDelegate: class {
 class ContactMenuViewController: UIViewController {
 
     let kHeaderSectionTag: Int = 7900;
-    var expandedSectionHeaderNumber: Int = -1
+    var expandedSectionHeaderNumber: Int = 0
     var expandedSectionHeader: UITableViewHeaderFooterView!
     weak var searchByEnteredTextDelegate: SearchContactByEnteredTextDelegate?
     
@@ -28,7 +28,7 @@ class ContactMenuViewController: UIViewController {
     @IBOutlet weak var searchBar : UISearchBar!
     
     //Used for selected section in TableView
-    var selectedSection = -1
+    var selectedSection = 0
     
     var contactForLoggedUserFiltered = [Account]()
     
@@ -78,7 +78,7 @@ class ContactMenuViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.clearFilterModelData()
+        self.clearFilterModelData(clearcontactsOnMyRoute: false)
         
     }
     
@@ -123,16 +123,13 @@ class ContactMenuViewController: UIViewController {
     }
     
     //Used to Clear the Model Data
-    func clearFilterModelData(){
-        /*
-        if ContactFilterMenuModel.comingFromDetailsScreen == "YES"{
-            
-            ContactFilterMenuModel.comingFromDetailsScreen = "NO"
-            
-        }*/
-            
+    func clearFilterModelData(clearcontactsOnMyRoute: Bool){
+        
         ContactFilterMenuModel.allContacts = ""
         ContactFilterMenuModel.contactsOnMyRoute = ""
+        if !clearcontactsOnMyRoute {
+            ContactFilterMenuModel.contactsOnMyRoute = "YES"
+        }
         
         ContactFilterMenuModel.allRole = ""
         ContactFilterMenuModel.functionRoles = [String]()
@@ -149,9 +146,22 @@ class ContactMenuViewController: UIViewController {
         
         //Used to Clear the Expanded section of ContactFilter Option
         selectedSection = -1
+        if !clearcontactsOnMyRoute {
+            ContactFilterMenuModel.contactsOnMyRoute = "YES"
+            selectedSection = 0
+            self.expandedSectionHeaderNumber = 0
+        }
+
         if self.expandedSectionHeaderNumber != -1{
-            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+            if self.expandedSectionHeaderNumber == 0, ContactFilterMenuModel.contactsOnMyRoute == "YES" {
+                
+            }
+            else {
+                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+                if cImageView != nil {
+                    tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+                }
+            }
         }
         
         if tableView != nil{
@@ -327,7 +337,7 @@ class ContactMenuViewController: UIViewController {
         searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
         
         self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
-        self.clearFilterModelData()
+        self.clearFilterModelData(clearcontactsOnMyRoute: false)
         ContactFilterMenuModel.comingFromDetailsScreen = ""
 
     }
@@ -370,8 +380,9 @@ class ContactMenuViewController: UIViewController {
     
     //Clears all the filter selection
     @IBAction func clearButton(_ sender: Any) {
-        self.clearFilterModelData()
+        self.clearFilterModelData(clearcontactsOnMyRoute: true)
         self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
+
     }
 
 }

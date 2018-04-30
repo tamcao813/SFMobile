@@ -143,12 +143,15 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     //MARK:- load contact data
     func loadContactData() {
         
-        print("loadContactData")
         if ContactsGlobal.accountId == "" {
-            globalContactsForList = contactViewModel.globalContacts()
+
+            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: "")
+
         }else{
+            
             globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
             print("globalContactsForList.count  = \(globalContactsForList.count)")
+            
         }
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         

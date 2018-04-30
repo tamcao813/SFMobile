@@ -437,7 +437,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if index != 2{
             
             let accVC = contactsVC as? ContactsViewController
-            accVC?.filterMenuVC?.clearFilterModelData()
+            accVC?.filterMenuVC?.clearFilterModelData(clearcontactsOnMyRoute: false)
         }
         
         self.clearAccountFilterModel()

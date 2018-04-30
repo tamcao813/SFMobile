@@ -10,8 +10,11 @@ import UIKit
 
 class ContactListDetailsViewController: UIViewController {
 
+    @IBOutlet weak var contactDetailsTableView: UITableView!
+
     var contactDetail: Contact?
-    let countHeaderFooter: Int = 3
+    let countHeaderFooter: Int = 2
+    let countLinkHeader: Int = 1
     var accountLinked: [AccountContactRelation]!
 
     override func viewDidLoad() {
@@ -24,7 +27,6 @@ class ContactListDetailsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
-        print("accountLinked: " + String(accountLinked.count))
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,7 +44,10 @@ extension ContactListDetailsViewController : UITableViewDataSource {
             return 0
         }
         
-        return countHeaderFooter + accountLinked.count
+        if accountLinked.count == 0 {
+            return countHeaderFooter
+        }
+        return countHeaderFooter + accountLinked.count + countLinkHeader
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,14 +61,17 @@ extension ContactListDetailsViewController : UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         }
-        else if indexPath.row == 1 {
+        else if accountLinked.count > 0 , indexPath.row == 1 {
             let cell:ContactListAccountHeaderDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountHeaderDetails", for: indexPath) as! ContactListAccountHeaderDetails
+            cell.displayCellContent(contactDetail!)
 
             cell.selectionStyle = .none
             return cell
         }
-        else if ((indexPath.row + 1) == countHeaderFooter + accountLinked.count) {
+        else if (accountLinked.count > 0 && ((indexPath.row + 1) == countHeaderFooter + accountLinked.count + countLinkHeader)) ||
+            (accountLinked.count == 0 && ((indexPath.row + 1) == countHeaderFooter)) {
             let cell:ContactListAccountFooterDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountFooterDetails", for: indexPath) as! ContactListAccountFooterDetails
+            cell.displayCellContent(contactDetail!)
             cell.linkNewAccountContactButton.addTarget(self, action: #selector(actionLinkNewAccountContactDetails), for: .touchUpInside)
 
             cell.selectionStyle = .none
@@ -74,10 +82,10 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
         cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId,withRoles: acrDetail[(indexPath.row-2)].roles)
 
-        cell.unlinkAccountContactButton.tag = indexPath.row - (countHeaderFooter-1)
+        cell.unlinkAccountContactButton.tag = indexPath.row - countHeaderFooter
         cell.unlinkAccountContactButton.addTarget(self, action: #selector(actionUnlinkAccountContactDetails), for: .touchUpInside)
 
-        cell.editAccountContactButton.tag = indexPath.row - (countHeaderFooter-1)
+        cell.editAccountContactButton.tag = indexPath.row - countHeaderFooter
         cell.editAccountContactButton.addTarget(self, action: #selector(actionEditAccountContactDetails), for: .touchUpInside)
 
         cell.selectionStyle = .none
@@ -91,7 +99,24 @@ extension ContactListDetailsViewController : UITableViewDataSource {
     }
 
     @objc func actionUnlinkAccountContactDetails(sender:UIButton!) {
+        
         print("actionUnlinkAccountContactDetails Clicked " + String(sender.tag))
+        
+        UIView.performWithoutAnimation({() -> Void in
+            contactDetailsTableView.beginUpdates()
+            accountLinked.remove(at: sender.tag)
+            contactDetailsTableView.deleteRows(at: [IndexPath(row: (sender.tag + countHeaderFooter), section: 0)], with: .fade)
+            if accountLinked.count == 0 {
+                contactDetailsTableView.deleteRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
+            }
+            contactDetailsTableView.endUpdates()
+            if accountLinked.count != 0 {
+                for n in 0...accountLinked.count {
+                    contactDetailsTableView.reloadRows(at: [IndexPath(row: (n + countHeaderFooter), section: 0)], with: .none)
+                }
+            }
+        })
+
     }
 
     @objc func actionEditAccountContactDetails(sender:UIButton!) {
@@ -111,10 +136,11 @@ extension ContactListDetailsViewController : UITableViewDelegate {
         if indexPath.row == 0 {
             return 580
         }
-        else if indexPath.row == 1 {
+        else if accountLinked.count > 0 , indexPath.row == 1 {
             return 110
         }
-        else if ((indexPath.row + 1) == countHeaderFooter + accountLinked.count) {
+        else if (accountLinked.count > 0 && ((indexPath.row + 1) == countHeaderFooter + accountLinked.count + countLinkHeader)) ||
+            (accountLinked.count == 0 && ((indexPath.row + 1) == countHeaderFooter)) {
             return 200
         }
         return 240

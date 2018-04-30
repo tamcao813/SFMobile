@@ -10,6 +10,7 @@ import UIKit
 
 class ContactListAccountFooterDetails: UITableViewCell {
 
+    @IBOutlet weak var accountModifiedValueLabel: UILabel!
     @IBOutlet weak var linkNewAccountContactButton: UIButton!
 
     override func awakeFromNib() {
@@ -21,6 +22,21 @@ class ContactListAccountFooterDetails: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+
+    func displayCellContent(_ contactDetails: Contact) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SZ"
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        
+        if let date: Date = dateFormatter.date(from: contactDetails.lastModifiedDate) {
+            dateFormatter.dateFormat = "MMM d, yyyy"
+            accountModifiedValueLabel.text = "Last updated on " + dateFormatter.string(from: date) + " by " + contactDetails.lastModifiedByName
+        }
+        else {
+            accountModifiedValueLabel.text = "Last updated by " + contactDetails.lastModifiedByName
+        }
+
     }
 
 }

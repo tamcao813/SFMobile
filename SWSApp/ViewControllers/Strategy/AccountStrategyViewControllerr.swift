@@ -14,7 +14,7 @@ class AccountStrategyViewController : UIViewController{
     var tableViewRowDetails : NSMutableArray?
     
     @IBOutlet weak var collectionView : UICollectionView?
-    
+    let strategyViewModel = StrategyQAViewModel()
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -24,9 +24,9 @@ class AccountStrategyViewController : UIViewController{
         let plistPath = Bundle.main.path(forResource: "AccountStrategy", ofType: ".plist", inDirectory: nil)
         let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
-        
         print(dictionary!)
         
+        strategyViewModel.getStrategyQuestionAnswer()
         
         //        if let flowLayout: UICollectionViewFlowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout{
         //            flowLayout.estimatedItemSize = CGSize(width: 1, height: 100)

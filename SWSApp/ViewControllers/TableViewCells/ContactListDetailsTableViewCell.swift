@@ -74,7 +74,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         preferredNameValueLabel.text = contactDetails.preferredName
         titleValueLabel.text = contactDetails.title
         departmentValueLabel.text = contactDetails.department
-        faxValueLabel.text = "TBD"
+        faxValueLabel.text = contactDetails.fax
         contactHoursValueLabel.text =  contactDetails.contactHours
         
     }

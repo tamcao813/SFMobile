@@ -10,6 +10,7 @@ import UIKit
 
 protocol ContactDetailsScreenDelegate{
     func pushTheScreenToContactDetailsScreen(contactData : Contact)
+    func clearAllMenu()
 }
 
 class ContactListViewController: UIViewController, UITableViewDataSource {
@@ -149,6 +150,8 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 
         }else{
             
+            delegate?.clearAllMenu()
+
             globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
             print("globalContactsForList.count  = \(globalContactsForList.count)")
             

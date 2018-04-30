@@ -587,9 +587,9 @@
 				91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */,
 				12E47BDF208A254900D37B74 /* ContactListTableViewCell.swift */,
 				12E47BE3208B518A00D37B74 /* ContactListDetailsTableViewCell.swift */,
-				91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */,
 				91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */,
 				91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */,
+				91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";

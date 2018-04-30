@@ -10,6 +10,8 @@ import UIKit
 
 class ContactListAccountFooterDetails: UITableViewCell {
 
+    @IBOutlet weak var linkNewAccountContactButton: UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

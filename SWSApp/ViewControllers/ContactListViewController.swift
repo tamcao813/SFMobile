@@ -112,11 +112,17 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
             }
         }
         
-        accountsName = accountsName.sorted { $0.lowercased() < $1.lowercased() }
-        
-        let formattedaccountsName = accountsName.joined(separator: ", ")
-        print(formattedaccountsName)
-        cell.linkedAccountWithContact.text = "\(formattedaccountsName)"
+        if(accountsName.count > 0){
+            accountsName = accountsName.sorted { $0.lowercased() < $1.lowercased() }
+            
+            let formattedaccountsName = accountsName.joined(separator: ", ")
+            print(formattedaccountsName)
+            cell.linkedAccountWithContact.text = "\(formattedaccountsName)"
+            
+        } else {
+            cell.linkedAccountWithContact.text = "This contact is not linked to any of your Accounts"
+            
+        }
         
         return cell
         
@@ -531,9 +537,9 @@ extension ContactListViewController : UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
         
-        let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
-        delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
-        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+//        let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
+//        delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
+//        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
         
     }
     

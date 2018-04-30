@@ -56,15 +56,37 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 #pragma mark - Class methods
 
 + (instancetype)showHUDAddedTo:(UIView *)view animated:(BOOL)animated {
-    MBProgressHUD *hud = [[self alloc] initWithView:view];
+    UIWindow* window = [[UIApplication sharedApplication] keyWindow];
+    MBProgressHUD *hud = [[self alloc] initWithView:window];
     hud.removeFromSuperViewOnHide = YES;
-    [view addSubview:hud];
+    [window addSubview:hud];
+    [hud showAnimated:animated];
+    return hud;
+}
+
++ (instancetype)showHUDOnWindow:(BOOL)animated {
+    UIWindow* window = [[UIApplication sharedApplication] keyWindow];
+    MBProgressHUD *hud = [[self alloc] initWithView:window];
+    hud.removeFromSuperViewOnHide = YES;
+    [window addSubview:hud];
     [hud showAnimated:animated];
     return hud;
 }
 
 + (BOOL)hideHUDForView:(UIView *)view animated:(BOOL)animated {
     MBProgressHUD *hud = [self HUDForView:view];
+    if (hud != nil) {
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hideAnimated:animated];
+        return YES;
+    }
+    return NO;
+}
+
+
++ (BOOL)hideHUDForWindow:(BOOL)animated {
+    UIWindow* window = [[UIApplication sharedApplication] keyWindow];
+    MBProgressHUD *hud = [self HUDForView:window];
     if (hud != nil) {
         hud.removeFromSuperViewOnHide = YES;
         [hud hideAnimated:animated];

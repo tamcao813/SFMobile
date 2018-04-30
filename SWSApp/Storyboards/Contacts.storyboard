@@ -471,9 +471,10 @@
                                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     Daniel Brown" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7c-5B-dBd">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     Daniel Brown" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7c-5B-dBd">
                                                                             <rect key="frame" x="40" y="0.0" width="296" height="40"/>
                                                                             <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="24"/>
+                                                                            <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -485,7 +486,7 @@
                                                                     </constraints>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Uh8-sQ-5MQ">
-                                                                    <rect key="frame" x="368" y="40" width="192" height="40"/>
+                                                                    <rect key="frame" x="368" y="40" width="240" height="40"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2o7-K8-7ln">
                                                                             <rect key="frame" x="0.0" y="0.0" width="41" height="20"/>
@@ -494,7 +495,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(337) 598-6325" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wd-a0-8Fd">
-                                                                            <rect key="frame" x="0.0" y="20" width="192" height="20"/>
+                                                                            <rect key="frame" x="0.0" y="20" width="240" height="20"/>
                                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -509,7 +510,7 @@
                                                                     </constraints>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="sM4-KV-DJ1">
-                                                                    <rect key="frame" x="560" y="40" width="268" height="40"/>
+                                                                    <rect key="frame" x="608" y="40" width="220" height="40"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKJ-1d-CrJ">
                                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="20"/>
@@ -518,7 +519,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shubham94611@gmail.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igj-sB-ORn">
-                                                                            <rect key="frame" x="0.0" y="20" width="263" height="20"/>
+                                                                            <rect key="frame" x="0.0" y="20" width="215" height="20"/>
                                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -561,7 +562,7 @@
                                                                 <constraint firstItem="Uh8-sQ-5MQ" firstAttribute="centerY" secondItem="7lV-vd-9N4" secondAttribute="centerY" id="82T-LN-qC6"/>
                                                                 <constraint firstItem="zg0-MV-9lB" firstAttribute="centerY" secondItem="sM4-KV-DJ1" secondAttribute="centerY" id="HRE-Bg-rLx"/>
                                                                 <constraint firstAttribute="trailing" secondItem="dSn-1j-eEq" secondAttribute="trailing" id="VBm-Uv-aHZ"/>
-                                                                <constraint firstItem="Uh8-sQ-5MQ" firstAttribute="width" secondItem="eEV-NC-If7" secondAttribute="width" multiplier="0.2" id="ZHn-r8-Hia"/>
+                                                                <constraint firstItem="Uh8-sQ-5MQ" firstAttribute="width" secondItem="eEV-NC-If7" secondAttribute="width" multiplier="0.25" id="ZHn-r8-Hia"/>
                                                                 <constraint firstItem="7lV-vd-9N4" firstAttribute="centerY" secondItem="eEV-NC-If7" secondAttribute="centerY" id="abN-bu-OZc"/>
                                                                 <constraint firstAttribute="height" constant="120" id="bPE-NW-MUI"/>
                                                                 <constraint firstItem="dSn-1j-eEq" firstAttribute="leading" secondItem="eEV-NC-If7" secondAttribute="leading" constant="6" id="frb-fa-bX1"/>
@@ -615,25 +616,25 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fax" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="trf-KK-r0K">
-                                                                    <rect key="frame" x="560" y="42" width="21.5" height="16"/>
+                                                                    <rect key="frame" x="608" y="42" width="21.5" height="16"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(337) 598-6325" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9NB-MY-UeU">
-                                                                    <rect key="frame" x="560" y="61" width="109.5" height="18"/>
+                                                                    <rect key="frame" x="608" y="61" width="109.5" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dp7-eY-4nO">
-                                                                    <rect key="frame" x="810" y="42" width="91" height="16"/>
+                                                                    <rect key="frame" x="758" y="42" width="91" height="16"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8-5PM, M-F" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZy-yX-TsA">
-                                                                    <rect key="frame" x="810" y="61" width="145" height="18"/>
+                                                                    <rect key="frame" x="758" y="61" width="197" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -656,7 +657,7 @@
                                                                 <constraint firstItem="SOW-EY-gyX" firstAttribute="centerY" secondItem="MTG-Pp-pDV" secondAttribute="centerY" id="7oY-bS-kAu"/>
                                                                 <constraint firstAttribute="bottom" secondItem="aoY-t8-OuY" secondAttribute="bottom" id="7tp-Ma-Qhn"/>
                                                                 <constraint firstItem="KEe-lH-Vlo" firstAttribute="leading" secondItem="xHY-NX-7Br" secondAttribute="leading" id="9FP-hN-mbS"/>
-                                                                <constraint firstItem="Dp7-eY-4nO" firstAttribute="leading" secondItem="trf-KK-r0K" secondAttribute="leading" constant="250" id="9lM-LA-wx3"/>
+                                                                <constraint firstItem="Dp7-eY-4nO" firstAttribute="leading" secondItem="trf-KK-r0K" secondAttribute="leading" constant="150" id="9lM-LA-wx3"/>
                                                                 <constraint firstItem="MTG-Pp-pDV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KEe-lH-Vlo" secondAttribute="trailing" constant="5" id="A21-eQ-Cud"/>
                                                                 <constraint firstItem="iZy-yX-TsA" firstAttribute="leading" secondItem="Dp7-eY-4nO" secondAttribute="leading" id="DXV-ic-KjX"/>
                                                                 <constraint firstItem="KEe-lH-Vlo" firstAttribute="centerY" secondItem="dpC-NL-o5h" secondAttribute="centerY" constant="10" id="ETq-Yn-2zs"/>
@@ -733,25 +734,25 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ioK-4x-4Xg">
-                                                                    <rect key="frame" x="560" y="42" width="32" height="16"/>
+                                                                    <rect key="frame" x="608" y="42" width="32" height="16"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vacations, books, netflix." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFd-Og-cbr">
-                                                                    <rect key="frame" x="560" y="61" width="181" height="18"/>
+                                                                    <rect key="frame" x="608" y="61" width="181" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dislikes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvJ-b2-x5Y">
-                                                                    <rect key="frame" x="560" y="108" width="48.5" height="16"/>
+                                                                    <rect key="frame" x="608" y="108" width="48.5" height="16"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cold weather, Mondays, traffic jams." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwz-4r-N0A">
-                                                                    <rect key="frame" x="560" y="127" width="262.5" height="18"/>
+                                                                    <rect key="frame" x="608" y="127" width="262.5" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1125,7 +1126,7 @@
                                         <rect key="frame" x="0.0" y="958" width="1024" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eQy-lk-T2Y" id="t08-9G-LrM">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last updated on March 25, 2018 by Mark Sharpie" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enT-D7-rEc">
@@ -1213,13 +1214,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcD-eK-Ax7">
-                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27.5"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHB-dj-eb3">
-                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="10" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDf-nS-fSv">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -1296,10 +1297,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPg-Z4-Iba">
-                                                    <rect key="frame" x="15" y="36" width="203" height="49.5"/>
+                                                    <rect key="frame" x="15" y="36" width="203" height="50"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zip Code or City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD4-Z3-Iua">
-                                                            <rect key="frame" x="5" y="0.0" width="203" height="49.5"/>
+                                                            <rect key="frame" x="5" y="0.0" width="203" height="50"/>
                                                             <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <textInputTraits key="textInputTraits"/>

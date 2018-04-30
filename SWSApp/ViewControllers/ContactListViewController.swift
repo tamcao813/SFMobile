@@ -10,6 +10,7 @@ import UIKit
 
 protocol ContactDetailsScreenDelegate{
     func pushTheScreenToContactDetailsScreen(contactData : Contact)
+    func clearAllMenu()
 }
 
 class ContactListViewController: UIViewController, UITableViewDataSource {
@@ -137,12 +138,17 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     //MARK:- load contact data
     func loadContactData() {
         
-        print("loadContactData")
         if ContactsGlobal.accountId == "" {
-            globalContactsForList = contactViewModel.globalContacts()
+
+            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: "")
+
         }else{
+            
+            delegate?.clearAllMenu()
+
             globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
             print("globalContactsForList.count  = \(globalContactsForList.count)")
+            
         }
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         

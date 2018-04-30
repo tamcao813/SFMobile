@@ -22,7 +22,7 @@ class StoreDispatcher {
     let SoupAccount = "AccountTeamMember"
     let SoupContact = "Contact"
     let SoupAccountContactRelation = "AccountContactRelation"
-    let SoupAccountNotes = "AccountNotes"
+    let SoupAccountNotes = "SGWS_Account_Notes__c"
 
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
@@ -805,7 +805,8 @@ class StoreDispatcher {
             let sfIndex = SFSoupIndex(path: notesQueryFields[i], indexType: kSoupIndexTypeString, columnName: notesQueryFields[i])!
             indexSpec.append(sfIndex)
         }
-        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:nil)!)
+
         do {
             try sfaStore.registerSoup(SoupAccountNotes, withIndexSpecs: indexSpec, error: ())
             
@@ -850,8 +851,8 @@ class StoreDispatcher {
     func fetchAccountsNotes()->[AccountNotes]{
         
         var acctNotes: [AccountNotes] = []
-        let notesFields = AccountNotes.AccountNotesFields.map{"{AccountNotes:\($0)}"}
-        let soapQuery = "Select \(notesFields.joined(separator: ",")) FROM {AccountNotes}"
+        let notesFields = AccountNotes.AccountNotesFields.map{"{SGWS_Account_Notes__c:\($0)}"}
+        let soapQuery = "Select \(notesFields.joined(separator: ",")) FROM {SGWS_Account_Notes__c}"
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -886,9 +887,9 @@ class StoreDispatcher {
         }
     }
     
-    func syncUpNotes(fieldsToUpload: [String:Any], completion:@escaping (_ error: NSError?)->()) {
+    func syncUpNotes(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
         
-        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: [fieldsToUpload], mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
         
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupAccountNotes)
             .done { syncStateStatus in

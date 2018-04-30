@@ -361,8 +361,8 @@
                     </view>
                     <connections>
                         <outlet property="notesTableView" destination="RLW-Uk-DF3" id="jpZ-48-Knc"/>
-                        <segue destination="nFu-Pa-Vui" kind="presentation" identifier="createNoteSegue" modalPresentationStyle="overCurrentContext" id="KIP-kr-Jk9"/>
                         <segue destination="EP0-BQ-qDP" kind="presentation" identifier="editNotesSegue" modalPresentationStyle="overCurrentContext" id="NaX-7i-Uly"/>
+                        <segue destination="nFu-Pa-Vui" kind="presentation" identifier="createNoteSegue" id="2C3-CV-b8r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7iH-Vd-MTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -491,6 +491,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KIP-kr-Jk9"/>
+        <segue reference="2C3-CV-b8r"/>
     </inferredMetricsTieBreakers>
 </document>

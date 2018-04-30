@@ -20,7 +20,7 @@ class NotesTableViewCell : SwipeTableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
 }
 
-class NotesViewController : UIViewController {
+class NotesViewController : UIViewController,sendNotesDataToNotesDelegate {
     
     var tableViewData = NSMutableArray()
     var accountNotesArray = [AccountNotes]()
@@ -44,7 +44,7 @@ class NotesViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
@@ -55,12 +55,6 @@ class NotesViewController : UIViewController {
              print("Notes Array \(notesArray)")
            
         }
-        
-        
-
-//        for item in notesDict{
-//            tableViewData.add(item)
-//        }
         print(tableViewData)
         if(sendDataToTable.addDataToArray != -1){
             sendDataToTable.addDataToArray = -1
@@ -70,8 +64,14 @@ class NotesViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        notesTableView?.reloadData()
         
-        
+    }
+    
+    func displayAccountNotes() {
+        accountNotesArray = accNotesViewModel.accountsNotesForUser()
+        print(accountNotesArray)
+        notesTableView?.reloadData()
     }
     
     //MARK:- Sort Actions
@@ -118,11 +118,13 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         let notes = notesArray[indexPath.row]
         cell.titleLabel?.text = notes.name
         let serverDate = notes.lastModifiedDate
+        if(serverDate != ""){
         let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
         var dateTime = getTime.components(separatedBy: " ")
         if(dateTime.count > 0){
             cell.dateLabel?.text  = dateTime[0]
             cell.timeLabel?.text = dateTime[1]
+        }
         }
         return cell
     }
@@ -137,9 +139,11 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         guard orientation == .right else { return nil }
         
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
+            
             self.notesDataToEdit = self.notesArray[indexPath.row]
             self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
         }
+        editAction.hidesWhenSelected = true
         editAction.image = UIImage(named:"editIcon")
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
         

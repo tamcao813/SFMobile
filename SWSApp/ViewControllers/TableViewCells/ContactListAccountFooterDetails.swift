@@ -25,7 +25,18 @@ class ContactListAccountFooterDetails: UITableViewCell {
     }
 
     func displayCellContent(_ contactDetails: Contact) {
-        accountModifiedValueLabel.text = "Last updated by " + contactDetails.lastModifiedByName
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SZ"
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        
+        if let date: Date = dateFormatter.date(from: contactDetails.lastModifiedDate) {
+            dateFormatter.dateFormat = "MMM d, yyyy"
+            accountModifiedValueLabel.text = "Last updated on " + dateFormatter.string(from: date) + " by " + contactDetails.lastModifiedByName
+        }
+        else {
+            accountModifiedValueLabel.text = "Last updated by " + contactDetails.lastModifiedByName
+        }
+
     }
 
 }

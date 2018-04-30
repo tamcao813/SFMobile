@@ -1134,7 +1134,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last updated on March 25, 2018 by Mark Sharpie" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enT-D7-rEc">
-                                                    <rect key="frame" x="64" y="50" width="955" height="18"/>
+                                                    <rect key="frame" x="64" y="50" width="352.5" height="18"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu-MediumItalic" family="Ubuntu" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1157,10 +1157,10 @@
                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="enT-D7-rEc" firstAttribute="top" secondItem="t08-9G-LrM" secondAttribute="top" constant="50" id="6dB-Ia-HJW"/>
-                                                <constraint firstAttribute="trailing" secondItem="enT-D7-rEc" secondAttribute="trailing" constant="5" id="G73-kV-55u"/>
                                                 <constraint firstAttribute="trailing" secondItem="lZM-jd-z41" secondAttribute="trailing" constant="32" id="LtY-SA-Wa7"/>
                                                 <constraint firstItem="enT-D7-rEc" firstAttribute="leading" secondItem="t08-9G-LrM" secondAttribute="leading" constant="64" id="Nw9-kK-Dj8"/>
                                                 <constraint firstItem="lZM-jd-z41" firstAttribute="centerY" secondItem="enT-D7-rEc" secondAttribute="centerY" id="btk-Vm-aWV"/>
+                                                <constraint firstItem="lZM-jd-z41" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="enT-D7-rEc" secondAttribute="trailing" constant="5" id="pfw-c0-Z66"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

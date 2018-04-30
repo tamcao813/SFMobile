@@ -146,6 +146,7 @@ class ContactMenuViewController: UIViewController {
         
         //Used to Clear the Expanded section of ContactFilter Option
         selectedSection = -1
+        self.expandedSectionHeaderNumber = -1
         if !clearcontactsOnMyRoute {
             ContactFilterMenuModel.contactsOnMyRoute = "YES"
             selectedSection = 0

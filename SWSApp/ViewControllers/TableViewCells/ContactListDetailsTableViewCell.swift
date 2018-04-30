@@ -104,7 +104,8 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         
         if let date: Date = dateFormatter.date(from: dateString) {
-            dateFormatter.dateFormat = "MMM d, yyyy"
+//            dateFormatter.dateFormat = "MMM d, yyyy"
+            dateFormatter.dateFormat = "MM/DD/YYYY"
             labelToDisplay.text = dateFormatter.string(from: date) + " (" + textToDisply + ")"
         }
         

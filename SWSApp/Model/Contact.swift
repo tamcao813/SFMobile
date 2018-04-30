@@ -48,7 +48,8 @@ class Contact {
     var lifeEvents:String
     var lifeEventDate:String
     var fax:String
-    
+    var contactClassification: String
+    var otherReason: String
     
     
     convenience init(withAry ary: [Any]) {
@@ -94,6 +95,8 @@ class Contact {
         lifeEvents = json["SGWS_Life_Events__c"] as? String ?? ""
         lifeEventDate = json["SGWS_Life_Events_Date__c"] as? String ?? ""
         fax = json["Fax"] as? String ?? ""
+        contactClassification = json["contact_classification"] as? String ?? ""
+        otherReason = json["other_reason_classification"] as? String ?? ""
     }
     
     func toJson() -> [String:Any] {
@@ -228,6 +231,14 @@ class Contact {
         if fax.count > 0 {
             json["Fax"] = fax
         }
+        
+        if contactClassification.count > 0{
+            json["contact_classification"] = contactClassification
+        }
+        
+        if otherReason.count > 0{
+            json["other_reason_classification"] = otherReason
+        }
 
         return json
     }
@@ -270,6 +281,8 @@ class Contact {
         lifeEvents = ""
         lifeEventDate = ""
         fax = ""
+        contactClassification = ""
+        otherReason = ""
     }
     
     static func mockNewContact1() -> Contact {

@@ -168,8 +168,9 @@ class CreateNewContactViewController: UIViewController {
         newContact.likes = likeTextView.text!
         newContact.dislikes = dislikeTextView.text!
         newContact.sgwsNotes = notesTextView.text!
-        //        newContact.fax
-//        newContact.contactClassification        
+        newContact.fax = faxTextField.text!
+        newContact.contactClassification = contactClassificationTextField.text!
+        newContact.otherReason = otherReasonTextField.text!
         let success = ContactsViewModel().createNewContactToSoup(object: newContact)
         if success {
             self.delegate.updateContactList()

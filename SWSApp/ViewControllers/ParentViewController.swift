@@ -236,7 +236,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     // MARK: SyncUp Data
     @objc func SyncUpData()  {
-        
+        MBProgressHUD.show(onWindow: true)
         // Sync Up Notes
             AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","LastModifiedDate","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
                 if error != nil {

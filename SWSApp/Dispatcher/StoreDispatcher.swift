@@ -872,6 +872,22 @@ class StoreDispatcher {
         return acctNotes
     }
     
+    func editNotesLocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupAccountNotes)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) Notes is edited and saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving edited Notes" )
+            return false
+        }
+    }
+    
     func createNewNotesLocally(fieldsToUpload: [String:Any]) -> Bool{
         
         let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupAccountNotes)
@@ -885,6 +901,15 @@ class StoreDispatcher {
         else {
             return false
         }
+    }
+    
+    func fetchNoteFromStore(note: AccountNotes) -> AccountNotes {
+        
+        let noteEntry = sfaStore.lookupSoupEntryId(forSoupName: SoupAccountNotes, forFieldPath: "Id", fieldValue: note.Id, error: nil)
+        let noteArr = sfaStore.retrieveEntries([noteEntry], fromSoup: SoupAccountNotes)
+        
+       return noteArr[0] as! AccountNotes
+
     }
     
     func syncUpNotes(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {

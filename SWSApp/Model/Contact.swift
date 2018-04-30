@@ -15,7 +15,7 @@ class Contact {
     var name: String
     var firstName: String
     var lastName: String
-    var phoneuNmber: String
+    var phoneNumber: String
     var email: String
     var birthDate: String
     var buyerFlag: Bool
@@ -60,7 +60,7 @@ class Contact {
         name = json["Name"] as? String ?? ""
         firstName = json["FirstName"] as? String ?? ""
         lastName = json["LastName"] as? String ?? ""
-        phoneuNmber = json["Phone"] as? String ?? ""
+        phoneNumber = json["Phone"] as? String ?? ""
         email = json["Email"] as? String ?? ""
         birthDate = json["Birthdate"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
@@ -111,8 +111,8 @@ class Contact {
             json["AccountId"] = accountId
         }
         
-        if phoneuNmber.count > 0 {
-            json["Phone"] = phoneuNmber
+        if phoneNumber.count > 0 {
+            json["Phone"] = phoneNumber
         }
         
         if email.count > 0 {
@@ -235,7 +235,7 @@ class Contact {
         name = ""
         firstName = ""
         lastName = ""
-        phoneuNmber = ""
+        phoneNumber = ""
         email = ""
         birthDate = ""
         accountId = ""
@@ -276,7 +276,7 @@ class Contact {
         let n = Int(arc4random_uniform(1000) + 35)
         contact.firstName = "Greg" + "\(n)"
         contact.lastName = "Opa" + "\(n)"
-        contact.phoneuNmber = "(716) 666-8888"
+        contact.phoneNumber = "(716) 666-8888"
         contact.email = "greg@ttdesk.com"
         contact.birthDate = "1950-06-01"
         //contact.accountSiteNumber = "0070"
@@ -315,7 +315,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  "111AAW"
         contact.name = "Daniel Brown"
-        contact.phoneuNmber = "(676) 738-76277"
+        contact.phoneNumber = "(676) 738-76277"
         contact.email = "daniel@eec.com"
         contact.functionRole = "Buying power"
         
@@ -326,7 +326,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId = "111ASD"
         contact.name = "Justin Timber"
-        contact.phoneuNmber = "(765) 764-5634"
+        contact.phoneNumber = "(765) 764-5634"
         contact.email = "justin@bhd.com"
         contact.functionRole = "Buying Power"
         return contact
@@ -337,7 +337,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId = "212ASD"
         contact.name = "Amber Heard"
-        contact.phoneuNmber = "(734) 732 8734"
+        contact.phoneNumber = "(734) 732 8734"
         contact.email = "Amber@bhd.com"
         contact.functionRole = "Buying Power"
         return contact
@@ -348,7 +348,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  "xxxAAW"
         contact.name = "Devin Miller"
-        contact.phoneuNmber = "(123) 643-2465"
+        contact.phoneNumber = "(123) 643-2465"
         contact.email = "Devin@abc.com"
         contact.functionRole = "SG"
         
@@ -359,7 +359,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  "xxx001"
         contact.name = "Keaton Mckinneyr"
-        contact.phoneuNmber = "(123) 245-6677"
+        contact.phoneNumber = "(123) 245-6677"
         contact.email = "Keaton@ffc.com"
         contact.functionRole = "SG"  //made-up
         
@@ -370,7 +370,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  "AGH007"
         contact.name = "James Bond"
-        contact.phoneuNmber = "(145) 276-7543"
+        contact.phoneNumber = "(145) 276-7543"
         contact.email = "James@ffc.com"
         contact.functionRole = "SG"  //made-up
         
@@ -380,7 +380,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  "xBHJD"
         contact.name = "Rosh Jacob"
-        contact.phoneuNmber = "(423) 643-2465"
+        contact.phoneNumber = "(423) 643-2465"
         contact.email = "Rosh@abc.com"
         contact.functionRole = "SG"
         

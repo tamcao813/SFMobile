@@ -11,6 +11,7 @@ import SalesforceSDKCore
 import SalesforceSwiftSDK
 import PromiseKit
 import Reachability
+import DropDown
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -85,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         initializeAppViewState()
         SalesforceSDKManager.shared().launch()
-        
+        DropDown.startListeningToKeyboard()
         return true
     }
     

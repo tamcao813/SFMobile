@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
+protocol CreateNewContactViewControllerDelegate : NSObjectProtocol{
+    func updateContactList()
+}
 
 class CreateNewContactViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     var firstNameTextField: UITextField!
     var lastNameTextField: UITextField!
@@ -40,15 +44,18 @@ class CreateNewContactViewController: UIViewController {
     var familyDate4Textfield: UITextField!
     var familyDate5Textfield: UITextField!
     @IBOutlet weak var headingLabel: UITextField!
+    var doesHaveBuyingPower: Bool = false
+    weak var delegate: CreateNewContactViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
         initializingXIBs()
+        IQKeyboardManager.shared.enable = true
     }
     
-    func addingValidator(){
-        
+    deinit {
+        IQKeyboardManager.shared.enable = false
     }
     
     func customizedUI(){
@@ -57,6 +64,8 @@ class CreateNewContactViewController: UIViewController {
     }
     
     func initializingXIBs(){
+        self.tableView.register(UINib(nibName: "SearchAccountTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchAccountTableViewCell")
+        
         self.tableView.register(UINib(nibName: "ToggleTableViewCell", bundle: nil), forCellReuseIdentifier: "ToggleTableViewCell")
         
         self.tableView.register(UINib(nibName: "ContactClassificationTableViewCell", bundle: nil), forCellReuseIdentifier: "ContactClassificationTableViewCell")
@@ -92,8 +101,16 @@ class CreateNewContactViewController: UIViewController {
         phoneTextField.borderColor = .lightGray
         birthdayTextField.borderColor = .lightGray
         anniversaryTextField.borderColor = .lightGray
+        otherReasonTextField.borderColor = .lightGray
         
-        if (firstNameTextField.text?.isEmpty)! {
+        if !doesHaveBuyingPower && contactClassificationTextField.text == "Other"{
+            if (otherReasonTextField.text?.isEmpty)! {
+                otherReasonTextField.borderColor = .red
+                otherReasonTextField.becomeFirstResponder()
+                tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: true)
+                showAlert = true
+            }
+        }else if (firstNameTextField.text?.isEmpty)! {
             firstNameTextField.borderColor = .red
             firstNameTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
@@ -108,32 +125,70 @@ class CreateNewContactViewController: UIViewController {
             primaryFunctionTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 1, section: 1), at: .top, animated: true)
             showAlert = true
-        }else if (phoneTextField.text?.isEmpty)! {
-            phoneTextField.borderColor = .red
-            phoneTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 2, section: 1), at: .top, animated: true)
-            showAlert = true
-        }else if Validations().isValidDate(dateString: birthdayTextField.text!){
-            birthdayTextField.borderColor = .red
-            birthdayTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 6, section: 1), at: .top, animated: true)
-            showAlert = true
-        }else if Validations().isValidDate(dateString: anniversaryTextField.text!){
-            anniversaryTextField.borderColor = .red
-            anniversaryTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 7, section: 1), at: .top, animated: true)
-            showAlert = true
         }else{
-            showAlert = false            
+            showAlert = false
         }
-        
+
         if showAlert {
             let alertController = UIAlertController(title: "Alert", message:
                 "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }else{
+            createContactLocally()
         }
+    }
+    
+    func createContactLocally(){
+        let newContact = Contact(for: "NewContact")
+        newContact.contactId = ""
+        newContact.buyerFlag = doesHaveBuyingPower
+        newContact.firstName = firstNameTextField.text!
+        newContact.lastName = lastNameTextField.text!
+        newContact.preferredName = preferredNameTextField.text!
+        newContact.functionRole = primaryFunctionTextField.text!
+        newContact.title = titleTextField.text!
+        newContact.department = departmentTextField.text!
+        newContact.phoneNumber = phoneTextField.text!
+        newContact.email = emailTextField.text!
+        newContact.contactHours = contactHoursTextField.text!
+        newContact.preferredCommunicationMethod = preferredCommunicationTextField.text!
+        newContact.birthDate = birthdayTextField.text!
+        newContact.anniversary = anniversaryTextField.text!
+        newContact.child1Name = familyName1Textfield.text!
+        newContact.child1Birthday = familyDate1Textfield.text!
+        newContact.child2Name = familyName2Textfield.text!
+        newContact.child2Birthday = familyDate2Textfield.text!
+        newContact.child3Name = familyName3Textfield.text!
+        newContact.child3Birthday = familyDate3Textfield.text!
+        newContact.child4Name = familyName4Textfield.text!
+        newContact.child4Birthday = familyDate4Textfield.text!
+        newContact.child5Name = familyName5Textfield.text!
+        newContact.child5Birthday = familyDate5Textfield.text!
+        newContact.likes = likeTextView.text!
+        newContact.dislikes = dislikeTextView.text!
+        newContact.sgwsNotes = notesTextView.text!
+        //        newContact.fax
+//        newContact.contactClassification        
+        let success = ContactsViewModel().createNewContactToSoup(object: newContact)
+        if success {
+            self.delegate.updateContactList()
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            let alertController = UIAlertController(title: "Alert", message:
+                "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }        
+       
+        //assuming online
+//        if success { //upsert to local store is successful then upload to server
+//            accNotesViewModel.uploadNotesToServer(fields: addNewDict, completion: { error in
+//                if error != nil {
+//                    print(error?.localizedDescription ?? "error")
+//                }
+//            })
+//        }
     }
 }
 
@@ -146,7 +201,11 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 3
+            if doesHaveBuyingPower {
+                return 2
+            }else{
+                return 3
+            }
         case 1:
             return 9
         case 2:
@@ -165,10 +224,11 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 0:
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
+                cell?.delegate = self
                 return cell!
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
@@ -207,7 +267,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return cell!
             case 5:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownTableViewCell") as? DropdownTableViewCell
-                preferredCommunicationTextField = cell?.dropdownTextfield
+                preferredCommunicationTextField = cell?.dropdownTextfield                
                 return cell!
             case 6:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
@@ -282,5 +342,12 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         default:
             return UITableViewCell()
         }
+    }
+}
+
+extension CreateNewContactViewController: ToggleTableViewCellDelegate {
+    func buyingPowerChanged(buyingPower: Bool) {
+        doesHaveBuyingPower = buyingPower
+        self.tableView.reloadData()
     }
 }

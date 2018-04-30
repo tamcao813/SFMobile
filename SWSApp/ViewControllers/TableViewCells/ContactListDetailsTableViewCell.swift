@@ -64,7 +64,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         let fullName = contactDetails.firstName + " " + contactDetails.lastName
         initialNameLabel.text = contactDetails.getIntials(name: fullName)
         nameValueLabel.text = "    " + fullName
-        phoneValueLabel.text = contactDetails.phoneuNmber
+        phoneValueLabel.text = contactDetails.phoneNumber
         emailValueLabel.text =  contactDetails.email
 
     }

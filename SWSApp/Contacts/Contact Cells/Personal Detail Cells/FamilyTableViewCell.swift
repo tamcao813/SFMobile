@@ -14,7 +14,7 @@ class FamilyTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var dateTextField: UITextField!
+    @IBOutlet weak var dateTextField: CustomUITextField!
     @IBOutlet weak var familyLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var nameLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var dateLabelHeightConstraint: NSLayoutConstraint!
@@ -27,11 +27,8 @@ class FamilyTableViewCell: UITableViewCell {
     func customizedUI(){
         dateTextField.addPaddingLeft(10)
         nameTextField.addPaddingLeft(10)
-//        let dropdownButton : UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-//        dropdownButton.setImage(#imageLiteral(resourceName: "calendar"), for: .normal)
-//        dateTextField.rightView = dropdownButton
-//        dateTextField.rightViewMode = .always
         assignDatePicker()
+        addToolbar(textField: dateTextField)
     }
     
     func assignDatePicker(){
@@ -47,9 +44,36 @@ class FamilyTableViewCell: UITableViewCell {
         dateFormatter.timeStyle = .none
         dateTextField.text = dateFormatter.string(from: sender.date)
     }
+    
+    func addToolbar(textField: UITextField){
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([spaceButton,doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        textField.inputAccessoryView = toolBar
+    }
+    
+    @objc func donePicker(){
+        dateTextField.resignFirstResponder()
+    }
 }
 
 extension FamilyTableViewCell: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let datePickerView:UIDatePicker = UIDatePicker()
+        datePickerView.datePickerMode = UIDatePickerMode.date
+        textField.inputView = datePickerView
+        datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
     }

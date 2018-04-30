@@ -257,7 +257,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let menuItem5 = NSLocalizedString("Objectives", comment: "Objectives")
         //let menuItem6 = NSLocalizedString("More", comment: "More")
         //let menuItem6 = "More   v" // time being 6April
-        let menuItem6 = "More ⌵"
+        let menuItem6 = "More ..."
         
         let menuTitles = [menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, menuItem6]
         //let menuIcons = [UIImage(), UIImage(), UIImage(), UIImage(),UIImage(), UIImage(named: "moreArrow")!]

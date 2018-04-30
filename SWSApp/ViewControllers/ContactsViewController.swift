@@ -39,7 +39,7 @@ class ContactsViewController : UIViewController, ContactDetailsScreenDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "ContactSegue") {
             contactListVC = segue.destination as? ContactListViewController
-            contactListVC?.delegate = self
+//            contactListVC?.delegate = self
         }
         
         if(segue.identifier == "ContactQueryFilter")

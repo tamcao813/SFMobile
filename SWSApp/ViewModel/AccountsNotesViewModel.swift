@@ -19,7 +19,7 @@ class AccountsNotesViewModel {
         return StoreDispatcher.shared.createNewNotesLocally(fieldsToUpload:fields)
     }
     
-    func uploadNotesToServer(fields: [String:Any], completion: @escaping (_ error: NSError?)->() ) {
+    func uploadNotesToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
         StoreDispatcher.shared.syncUpNotes(fieldsToUpload: fields, completion: {error in
             
             if error != nil {

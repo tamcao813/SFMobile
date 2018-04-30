@@ -8,10 +8,16 @@
 
 import Foundation
 import UIKit
+import SmartStore
+import SmartSync
 
 struct sendDataToTable {
     static var addDataToArray = -1
     static var dataDictionary = NSMutableDictionary()
+}
+
+protocol sendNotesDataToNotesDelegate{
+    func displayAccountNotes()
 }
 
 class CreateNoteViewController : UIViewController{
@@ -26,9 +32,10 @@ class CreateNoteViewController : UIViewController{
     var notesToEdit: AccountNotes!
     var isAddingNewNote: Bool = true
     var accNotesViewModel = AccountsNotesViewModel()
-    
+    var sendNoteDelegate : sendNotesDataToNotesDelegate?
     var notesAccountId:String!
-   
+    var notesOwnerId:String!
+
     
     //MARK:- View Life Cycles
     override func viewDidLoad() {
@@ -69,34 +76,45 @@ class CreateNoteViewController : UIViewController{
     }
     
     func createNewNotes() {
-            let new_notes = AccountNotes(for: "newNotes")
-            new_notes.Id = self.generateRandomIDForNotes()
-            new_notes.lastModifiedDate = ""
-            new_notes.name = self.notesTitleTextField.text!
-            new_notes.ownerId = ""
-            new_notes.accountId = notesAccountId
-            new_notes.accountNotesDesc = self.textView.text!
-            let addNewDict: [String:Any] = [
-                
-                                             AccountNotes.AccountNotesFields[0]: new_notes.Id,
-                                             AccountNotes.AccountNotesFields[1]: new_notes.lastModifiedDate,
-                                             AccountNotes.AccountNotesFields[2]: new_notes.name,
-                                             AccountNotes.AccountNotesFields[3]: new_notes.ownerId,
-                                             AccountNotes.AccountNotesFields[4]: new_notes.accountId,
-                                             AccountNotes.AccountNotesFields[5]: new_notes.accountNotesDesc,
-            ]
+        
+        let date = Date()
+        print(date)
+        let dateFormatter = DateFormatter()
+        //let dt = dateFormatter.date(from: date)
+        // dateFormatter.timeZone = TimeZone
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        print(timeStamp)
+        
+        let new_notes = AccountNotes(for: "newNotes")
+        new_notes.Id = self.generateRandomIDForNotes()
+        new_notes.lastModifiedDate = timeStamp
+        new_notes.name = self.notesTitleTextField.text!
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        new_notes.ownerId = (appDelegate.loggedInUser?.userId)!
+        new_notes.accountId = notesAccountId
+        new_notes.accountNotesDesc = self.textView.text!
+        let attributeDict = ["type":"SGWS_Account_Notes__c"]
+        
+        let addNewDict: [String:Any] = [
+            
+            AccountNotes.AccountNotesFields[0]: new_notes.Id,
+            AccountNotes.AccountNotesFields[1]: new_notes.lastModifiedDate,
+            AccountNotes.AccountNotesFields[2]: new_notes.name,
+            AccountNotes.AccountNotesFields[3]: new_notes.ownerId,
+            AccountNotes.AccountNotesFields[4]: new_notes.accountId,
+            AccountNotes.AccountNotesFields[5]: new_notes.accountNotesDesc,
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
         
         let success = accNotesViewModel.createNewNotesLocally(fields: addNewDict)
         print("Success is here \(success)")
         
-        //assuming online
-        if success { //upsert to local store is successful then upload to server
-            accNotesViewModel.uploadNotesToServer(fields: addNewDict, completion: { error in
-                if error != nil {
-                    print(error?.localizedDescription ?? "error")
-                }
-            })
-        }
+        // Show the alert if not saved
         
     }
     
@@ -131,10 +149,13 @@ class CreateNoteViewController : UIViewController{
         dataDictionary.setValue(timeresult, forKey: "time")
         sendDataToTable.dataDictionary = dataDictionary
         sendDataToTable.addDataToArray = 1
-        self.dismiss(animated: true, completion: nil)
-        
         self.createNewNotes()
         
+        self.dismiss(animated: true, completion: {
+            self.sendNoteDelegate?.displayAccountNotes()
+
+            
+        })        
     }
     
 }

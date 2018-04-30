@@ -51,19 +51,21 @@ extension ContactListDetailsViewController : UITableViewDataSource {
             
             let cell:ContactListDetailsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "contactDetailsCell", for: indexPath) as! ContactListDetailsTableViewCell
             cell.displayCellContent(contactDetail!)
+            cell.editContactButton.addTarget(self, action: #selector(actionEditContactDetails), for: .touchUpInside)
             
             cell.selectionStyle = .none
             return cell
         }
         else if indexPath.row == 1 {
             let cell:ContactListAccountHeaderDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountHeaderDetails", for: indexPath) as! ContactListAccountHeaderDetails
-            
+
             cell.selectionStyle = .none
             return cell
         }
         else if ((indexPath.row + 1) == countHeaderFooter + accountLinked.count) {
             let cell:ContactListAccountFooterDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountFooterDetails", for: indexPath) as! ContactListAccountFooterDetails
-            
+            cell.linkNewAccountContactButton.addTarget(self, action: #selector(actionLinkNewAccountContactDetails), for: .touchUpInside)
+
             cell.selectionStyle = .none
             return cell
         }
@@ -72,9 +74,32 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
         cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId,withRoles: acrDetail[(indexPath.row-2)].roles)
 
+        cell.unlinkAccountContactButton.tag = indexPath.row - (countHeaderFooter-1)
+        cell.unlinkAccountContactButton.addTarget(self, action: #selector(actionUnlinkAccountContactDetails), for: .touchUpInside)
+
+        cell.editAccountContactButton.tag = indexPath.row - (countHeaderFooter-1)
+        cell.editAccountContactButton.addTarget(self, action: #selector(actionEditAccountContactDetails), for: .touchUpInside)
+
         cell.selectionStyle = .none
         return cell
         
+    }
+    
+    //MARK:- TableView Cell Button Actions
+    @objc func actionEditContactDetails(sender:UIButton!) {
+        print("actionEditContactDetails Clicked")
+    }
+
+    @objc func actionUnlinkAccountContactDetails(sender:UIButton!) {
+        print("actionUnlinkAccountContactDetails Clicked " + String(sender.tag))
+    }
+
+    @objc func actionEditAccountContactDetails(sender:UIButton!) {
+        print("actionEditAccountContactDetails Clicked " + String(sender.tag))
+    }
+
+    @objc func actionLinkNewAccountContactDetails(sender:UIButton!) {
+        print("actionLinkNewAccountContactDetails Clicked")
     }
     
 }

@@ -894,6 +894,7 @@
                                             <outlet property="contactHoursValueLabel" destination="iZy-yX-TsA" id="PRR-zO-g5c"/>
                                             <outlet property="departmentValueLabel" destination="SOW-EY-gyX" id="k7z-Dk-LXv"/>
                                             <outlet property="dislikesValueLabel" destination="jwz-4r-N0A" id="i7c-FR-hZf"/>
+                                            <outlet property="editContactButton" destination="zg0-MV-9lB" id="GID-yF-Cg1"/>
                                             <outlet property="emailValueLabel" destination="igj-sB-ORn" id="3kX-Ij-VEC"/>
                                             <outlet property="faxValueLabel" destination="9NB-MY-UeU" id="VzK-rE-oEO"/>
                                             <outlet property="initialNameLabel" destination="mbD-Lr-cSO" id="Cyg-6v-jUN"/>
@@ -1116,13 +1117,15 @@
                                             <outlet property="accountNameValueLabel" destination="SlG-Qs-RYA" id="DAf-9u-tFX"/>
                                             <outlet property="accountNumberValueLabel" destination="34w-YE-4tP" id="Or8-Js-LPT"/>
                                             <outlet property="accountRolesValueLabel" destination="9kZ-4x-K9B" id="2cw-YI-xei"/>
+                                            <outlet property="editAccountContactButton" destination="JFL-vA-MAM" id="gMf-RQ-mu1"/>
+                                            <outlet property="unlinkAccountContactButton" destination="UM7-7F-Fbp" id="FlE-1g-FMx"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactListAccountFooterDetails" rowHeight="200" id="eQy-lk-T2Y" customClass="ContactListAccountFooterDetails" customModule="SWSApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="958" width="1024" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eQy-lk-T2Y" id="t08-9G-LrM">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="199.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last updated on March 25, 2018 by Mark Sharpie" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enT-D7-rEc">
@@ -1155,6 +1158,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="linkNewAccountContactButton" destination="lZM-jd-z41" id="y2O-T8-zuh"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
@@ -1207,13 +1213,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcD-eK-Ax7">
-                                                    <rect key="frame" x="15" y="3" width="37" height="27.5"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHB-dj-eb3">
-                                                    <rect key="frame" x="12" y="10" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDf-nS-fSv">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -1290,10 +1296,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPg-Z4-Iba">
-                                                    <rect key="frame" x="15" y="36" width="203" height="50"/>
+                                                    <rect key="frame" x="15" y="36" width="203" height="49.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zip Code or City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD4-Z3-Iua">
-                                                            <rect key="frame" x="5" y="0.0" width="203" height="50"/>
+                                                            <rect key="frame" x="5" y="0.0" width="203" height="49.5"/>
                                                             <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <textInputTraits key="textInputTraits"/>

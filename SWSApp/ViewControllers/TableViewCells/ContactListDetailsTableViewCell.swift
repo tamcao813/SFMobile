@@ -15,6 +15,8 @@ class ContactListDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var phoneValueLabel: UILabel!
     @IBOutlet weak var emailValueLabel: UILabel!
 
+    @IBOutlet weak var editContactButton: UIButton!
+
     @IBOutlet weak var preferredNameValueLabel: UILabel!
     @IBOutlet weak var titleValueLabel: UILabel!
     @IBOutlet weak var departmentValueLabel: UILabel!

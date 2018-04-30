@@ -18,6 +18,9 @@ class ContactListAccountLinkDetails: UITableViewCell {
     @IBOutlet weak var accountLinkButton: UIButton!
     @IBOutlet weak var accountEditButton: UIButton!
     
+    @IBOutlet weak var unlinkAccountContactButton: UIButton!
+    @IBOutlet weak var editAccountContactButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

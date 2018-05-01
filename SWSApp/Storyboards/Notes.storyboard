@@ -147,6 +147,7 @@
                         <viewLayoutGuide key="safeArea" id="zBj-j6-Zkl"/>
                     </view>
                     <connections>
+                        <outlet property="editNotel_Label" destination="pmB-ZB-trr" id="y69-wA-Zty"/>
                         <outlet property="notesTitleTextField" destination="xHu-uK-I5K" id="vtE-ry-QCY"/>
                         <outlet property="textView" destination="FQN-jX-iEl" id="izt-TR-oMX"/>
                     </connections>

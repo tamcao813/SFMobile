@@ -28,6 +28,8 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     var notesArray = [AccountNotes]()
     var accountId : String!
     var notesDataToEdit: AccountNotes!
+   
+    
     
     //   // var notesDict = [
     //        ["title" : "Visit: Crown Liquor Store One", "date": "Today","time" : "10:30AM","description" : "Hello 1"],
@@ -127,12 +129,14 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
             createNoteScreen.notesToEdit = notesDataToEdit
             createNoteScreen.isAddingNewNote = false
             createNoteScreen.sendNoteDelegate = self
+            
         }
         
         if segue.identifier == "editNotesSegue" {
             let editNoteScreen = segue.destination as! EditNoteViewController
             editNoteScreen.notesToBeEdited = notesDataToEdit
             editNoteScreen.delegate = self
+           
             
         }
     }

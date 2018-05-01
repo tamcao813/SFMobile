@@ -12,6 +12,8 @@
 		128B1A9A206BADF8004E148A /* AccountDetailTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */; };
 		128B1A9D206BAE5E004E148A /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B1A9C206BAE5E004E148A /* ContactTableViewCell.swift */; };
 		12A37D1D20776F0D0036ED36 /* AccountsContactsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A37D1C20776F0D0036ED36 /* AccountsContactsVC.storyboard */; };
+		12B7362C209768350063F847 /* StrategyQA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B7362B209768350063F847 /* StrategyQA.swift */; };
+		12B7362E209777CC0063F847 /* StrategyQAViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B7362D209777CC0063F847 /* StrategyQAViewModel.swift */; };
 		12BBEDBA2094511D00797CD9 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */; };
 		12C5CEF3206E1A9500BC6E7A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12C5CEF2206E1A9500BC6E7A /* Localizable.strings */; };
 		12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */; };
@@ -357,6 +359,8 @@
 		128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailTabViewController.swift; sourceTree = "<group>"; };
 		128B1A9C206BAE5E004E148A /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		12A37D1C20776F0D0036ED36 /* AccountsContactsVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AccountsContactsVC.storyboard; sourceTree = "<group>"; };
+		12B7362B209768350063F847 /* StrategyQA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrategyQA.swift; sourceTree = "<group>"; };
+		12B7362D209777CC0063F847 /* StrategyQAViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrategyQAViewModel.swift; sourceTree = "<group>"; };
 		12C5CEF2206E1A9500BC6E7A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -708,6 +712,7 @@
 			isa = PBXGroup;
 			children = (
 				12F0F899208FA6BD00160C3D /* AccountContactRelation.swift */,
+				12B7362B209768350063F847 /* StrategyQA.swift */,
 				D125134320648E1000CD6CB4 /* User.swift */,
 				D125134120648C4F00CD6CB4 /* Account.swift */,
 				D10483952068381A00A0343B /* Contact.swift */,
@@ -861,6 +866,7 @@
 				D1FCDE0B20733024005F956D /* FilterViewModel.swift */,
 				91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */,
 				C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */,
+				12B7362D209777CC0063F847 /* StrategyQAViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1583,6 +1589,7 @@
 				6F365320207B95850068105B /* AccountSortUtility.swift in Sources */,
 				D1FCDE0F20733025005F956D /* FilterViewModel.swift in Sources */,
 				F2AB945E2095D5000028802E /* DuringVisitsViewController.swift in Sources */,
+				12B7362E209777CC0063F847 /* StrategyQAViewModel.swift in Sources */,
 				AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */,
 				D23C40D2208DE6590006691C /* UnorderedListTableViewCell.swift in Sources */,
 				8D99A2EE2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
@@ -1642,6 +1649,7 @@
 				8D99A3262093055200FAA71A /* Validations.swift in Sources */,
 				D2EAEB942074EF88005F7792 /* NotificationsViewController.swift in Sources */,
 				8DD1501220933A0800858349 /* StringConstants.swift in Sources */,
+				12B7362C209768350063F847 /* StrategyQA.swift in Sources */,
 				D267688E2090B41B0060E792 /* CreateNewContactViewController.swift in Sources */,
 				F209D705206CF05C001AF22F /* AccountsMenuViewController.swift in Sources */,
 				F2CAD22D20957C23001016C2 /* OpportunitiesViewController.swift in Sources */,

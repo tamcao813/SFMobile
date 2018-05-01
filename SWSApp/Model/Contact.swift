@@ -9,7 +9,9 @@
 import Foundation
 
 class Contact {
+    
     static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buyer_Flag__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","LastModifiedDate","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","Fax","SGWS_Other_Specification__c","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c", "SGWS_Contact_Classification__c"]
+    
     
     var contactId: String
     var name: String
@@ -239,7 +241,7 @@ class Contact {
         if otherSpecification.count > 0{
             json["SGWS_Other_Specification__c"] = otherSpecification
         }
-
+        
         return json
     }
     

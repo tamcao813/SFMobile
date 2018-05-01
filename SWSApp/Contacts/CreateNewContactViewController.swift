@@ -172,6 +172,14 @@ class CreateNewContactViewController: UIViewController {
         newContact.contactClassification = contactClassificationTextField.text!
         newContact.otherSpecification = otherReasonTextField.text!
         
+        /*
+         if contactClassificationTextField.text! == "Other"{
+         newContact.contactClassification = otherReasonTextField.text!
+         }else{
+         newContact.contactClassification = contactClassificationTextField.text!
+         }
+        */
+        
         let success = ContactsViewModel().createNewContactToSoup(object: newContact)
         
         if success {

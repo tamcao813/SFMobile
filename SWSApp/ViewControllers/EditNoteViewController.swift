@@ -119,7 +119,7 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
     
     
     func editNote() {
-        return
+        
         let date = Date()
         print(date)
         let dateFormatter = DateFormatter()

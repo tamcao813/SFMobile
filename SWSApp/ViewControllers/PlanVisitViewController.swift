@@ -13,7 +13,7 @@ let kContactTxtTag = 101
 let kSelectedContactTag = 102
 
 class PlanVisitViewController: UIViewController {
-
+    
     var associatedSelectedContact = [Contact]()
     var searchAccounts = [Account]()
     var nonSelectedContact = [Contact]()
@@ -136,7 +136,7 @@ class PlanVisitViewController: UIViewController {
             let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
             self.present(viewController, animated: true)
         }
-
+        
     }
     
     @IBAction func scheduleAndClose(sender: UIButton) {
@@ -200,12 +200,12 @@ class PlanVisitViewController: UIViewController {
         if (self.searchAccountTxt.isHidden == false){
             self.searchAccountTxt.borderColor = UIColor.red
             self.searchAccountTxt.layer.borderWidth = 2.0
-             validate = false
+            validate = false
             validateArray.append(validate)
         } else {
             self.searchAccountTxt.layer.borderWidth = 1.0
             self.searchAccountTxt.borderColor = UIColor(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1.0)
-             validate = true
+            validate = true
             validateArray.append(validate)
         }
         
@@ -234,17 +234,17 @@ class PlanVisitViewController: UIViewController {
         
     }
 }
-    
-    // MARK:- UITableView Datasource
 
-    extension PlanVisitViewController : UITableViewDataSource{
+// MARK:- UITableView Datasource
+
+extension PlanVisitViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count: Int = 0
         if(textFieldTag == kSelectedContactTag) {
             count = associatedSelectedContact.count
         } else if(textFieldTag == kAccountTxtTag) {
-//            count = accountViewModel.accountsForLoggedUser.count
+            //            count = accountViewModel.accountsForLoggedUser.count
             count = searchAccounts.count
         } else if(textFieldTag == kContactTxtTag) {
             count = nonSelectedContact.count
@@ -252,40 +252,40 @@ class PlanVisitViewController: UIViewController {
         return count
     }
 }
-    
-    // MARK:- UITableView Delegates
 
-    extension PlanVisitViewController : UITableViewDelegate {
+// MARK:- UITableView Delegates
+
+extension PlanVisitViewController : UITableViewDelegate {
     
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-            if(textFieldTag == kAccountTxtTag) {
-                let cell: AccountTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath) as! AccountTableViewCell
-                let account = searchAccounts[indexPath.row]
-                cell.accountLabel.text = account.accountName
-                cell.phoneNumberLabel.text = account.phone
-                cell.addressLabel.text = account.shippingStreet + " " + account.shippingCity + " " + account.shippingPostalCode
-                return cell
-            } else if(textFieldTag == kContactTxtTag) {
-                let cell: AssociateTableViewCell = tableView.dequeueReusableCell(withIdentifier: "AssociateTableViewCell", for: indexPath as IndexPath) as! AssociateTableViewCell
-                let contacts = nonSelectedContact[indexPath.row]
-                cell.initialNameLabel.text = contacts.getIntials(name: contacts.name)
-                cell.nameLabel.text = contacts.name
-                cell.emailAddrLabel.text = contacts.email
-                cell.phoneNumLabel.text = contacts.phoneuNmber
-                cell.roleLabel.text = contacts.functionRole
-                return cell
-            } else {
-                let cell: SelectedAssociateTableViewCell = tableView.dequeueReusableCell(withIdentifier: "SelectedAssociateTableViewCell", for: indexPath as IndexPath) as! SelectedAssociateTableViewCell
-                cell.removeButton.tag = indexPath.row
-                let contacts = associatedSelectedContact[indexPath.row]
-                cell.initialNameLabel.text = contacts.getIntials(name: contacts.name)
-                cell.nameLabel.text = contacts.name
-                cell.emailAddrLabel.text = contacts.email
-                cell.phoneNumLabel.text = contacts.phoneuNmber
-                cell.roleLabel.text = contacts.functionRole
-                return cell
-            }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if(textFieldTag == kAccountTxtTag) {
+            let cell: AccountTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath) as! AccountTableViewCell
+            let account = searchAccounts[indexPath.row]
+            cell.accountLabel.text = account.accountName
+            cell.phoneNumberLabel.text = account.phone
+            cell.addressLabel.text = account.shippingStreet + " " + account.shippingCity + " " + account.shippingPostalCode
+            return cell
+        } else if(textFieldTag == kContactTxtTag) {
+            let cell: AssociateTableViewCell = tableView.dequeueReusableCell(withIdentifier: "AssociateTableViewCell", for: indexPath as IndexPath) as! AssociateTableViewCell
+            let contacts = nonSelectedContact[indexPath.row]
+            cell.initialNameLabel.text = contacts.getIntials(name: contacts.name)
+            cell.nameLabel.text = contacts.name
+            cell.emailAddrLabel.text = contacts.email
+            cell.phoneNumLabel.text = contacts.phoneNumber
+            cell.roleLabel.text = contacts.functionRole
+            return cell
+        } else {
+            let cell: SelectedAssociateTableViewCell = tableView.dequeueReusableCell(withIdentifier: "SelectedAssociateTableViewCell", for: indexPath as IndexPath) as! SelectedAssociateTableViewCell
+            cell.removeButton.tag = indexPath.row
+            let contacts = associatedSelectedContact[indexPath.row]
+            cell.initialNameLabel.text = contacts.getIntials(name: contacts.name)
+            cell.nameLabel.text = contacts.name
+            cell.emailAddrLabel.text = contacts.email
+            cell.phoneNumLabel.text = contacts.phoneNumber
+            cell.roleLabel.text = contacts.functionRole
+            return cell
+        }
         
     }
     
@@ -325,73 +325,73 @@ class PlanVisitViewController: UIViewController {
                 self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
                 
                 self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(62 * self.associatedSelectedContact.count) + 40)
-                }
             }
-        }
-    
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-        {
-        return 62.0;//Choose your custom row height
         }
     }
     
-    // MARK:- TextFieldDelegates
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 62.0;//Choose your custom row height
+    }
+}
 
-    extension PlanVisitViewController : UITextFieldDelegate{
+// MARK:- TextFieldDelegates
+
+extension PlanVisitViewController : UITextFieldDelegate{
     
-        func textFieldDidBeginEditing(_ textField: UITextField) {
-
-            switch textField.tag {
-            case kAccountTxtTag:
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        switch textField.tag {
+        case kAccountTxtTag:
+            myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 206))
+            textFieldTag = textField.tag
+            myTableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: "MyCell")
+            searchAccounts = self.accountViewModel.accountsForLoggedUser
+            myTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+            myTableView.dataSource = self
+            myTableView.delegate = self
+            self.scrollView.addSubview(myTableView)
+        case kContactTxtTag:
+            if (self.getNonSelectedContacts().count != 0) {
                 myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 206))
                 textFieldTag = textField.tag
-                myTableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: "MyCell")
-                searchAccounts = self.accountViewModel.accountsForLoggedUser
+                myTableView.register(UINib(nibName: "AssociateTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociateTableViewCell")
+                nonSelectedContact = self.getNonSelectedContacts()
                 myTableView.separatorStyle = UITableViewCellSeparatorStyle.none
                 myTableView.dataSource = self
                 myTableView.delegate = self
                 self.scrollView.addSubview(myTableView)
-            case kContactTxtTag:
-                if (self.getNonSelectedContacts().count != 0) {
-                    myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 206))
-                    textFieldTag = textField.tag
-                    myTableView.register(UINib(nibName: "AssociateTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociateTableViewCell")
-                    nonSelectedContact = self.getNonSelectedContacts()
-                    myTableView.separatorStyle = UITableViewCellSeparatorStyle.none
-                    myTableView.dataSource = self
-                    myTableView.delegate = self
-                    self.scrollView.addSubview(myTableView)
-                }
-            default:
-                print("default")
             }
+        default:
+            print("default")
         }
-        
-        func textFieldDidEndEditing(_ textField: UITextField) {
-            print("textFieldDidEndEditing")
-        }
-        
-        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-        {
-            if(textFieldTag == kAccountTxtTag) {
-                if string.isEmpty {
-                    searchAccounts = self.accountViewModel.accountsForLoggedUser
-                    myTableView.reloadData()
-                } else {
-                    searchAccounts = self.getAccountData(searchStr: string)
-                    myTableView.reloadData()
-                }
-            } else if (textFieldTag == kContactTxtTag) {
-                if string.isEmpty {
-                    nonSelectedContact = self.getNonSelectedContacts()
-                    myTableView.reloadData()
-                } else {
-                    nonSelectedContact = self.getContactstData(searchStr: string)
-                    myTableView.reloadData()
-                }
-            }
-            
-            return true
-        }
-}
+    }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("textFieldDidEndEditing")
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        if(textFieldTag == kAccountTxtTag) {
+            if string.isEmpty {
+                searchAccounts = self.accountViewModel.accountsForLoggedUser
+                myTableView.reloadData()
+            } else {
+                searchAccounts = self.getAccountData(searchStr: string)
+                myTableView.reloadData()
+            }
+        } else if (textFieldTag == kContactTxtTag) {
+            if string.isEmpty {
+                nonSelectedContact = self.getNonSelectedContacts()
+                myTableView.reloadData()
+            } else {
+                nonSelectedContact = self.getContactstData(searchStr: string)
+                myTableView.reloadData()
+            }
+        }
+        
+        return true
+    }
+}
+

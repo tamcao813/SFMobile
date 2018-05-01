@@ -236,7 +236,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     // MARK: SyncUp Data
     @objc func SyncUpData()  {
-        
+        MBProgressHUD.show(onWindow: true)
         // Sync Up Notes
             AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","LastModifiedDate","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
                 if error != nil {
@@ -257,7 +257,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let menuItem5 = NSLocalizedString("Objectives", comment: "Objectives")
         //let menuItem6 = NSLocalizedString("More", comment: "More")
         //let menuItem6 = "More   v" // time being 6April
-        let menuItem6 = "More ⌵"
+        let menuItem6 = "More ..."
         
         let menuTitles = [menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, menuItem6]
         //let menuIcons = [UIImage(), UIImage(), UIImage(), UIImage(),UIImage(), UIImage(named: "moreArrow")!]
@@ -446,7 +446,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if index != 2{
             
             let accVC = contactsVC as? ContactsViewController
-            accVC?.filterMenuVC?.clearFilterModelData()
+            accVC?.filterMenuVC?.clearFilterModelData(clearcontactsOnMyRoute: false)
         }
         
         self.clearAccountFilterModel()
@@ -478,7 +478,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         case .ContactsVCIndex:
             let contactVC = contactsVC as! ContactsViewController
             contactVC.contactDetails?.view.removeFromSuperview()
-            
             vc = contactVC
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:

@@ -10,12 +10,13 @@ import UIKit
 import SwipeCellKit
 
 class AccountVisitListViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     var accountVisitArray = [
         ["title" : "Visit: Crown Liquor Store One", "status" : "Scheduled"],
         ["title" : "Visit: Crown Liquor Store One", "status" : "In Progress"],
-        ["title" : "Visit: Crown Liquor Store One", "status" : "Completed"]]
+        ["title" : "Visit: Crown Liquor Store One", "status" : "Completed"],
+        ["title" : "Visit: Crown Liquor Store One", "status" : "Planned"]]
     
     var tableViewData : [Visit]?
     
@@ -36,13 +37,13 @@ class AccountVisitListViewController: UIViewController {
         print(tableViewData)
         
     }
-
+    
     func customizedUI(){
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
         self.tableView.allowsSelection = true
         self.tableView.allowsMultipleSelectionDuringEditing = true
-//        self.tableView.tableFooterView = UIView()
+        //        self.tableView.tableFooterView = UIView()
     }
     
     func initializingXIBs(){
@@ -55,7 +56,7 @@ class AccountVisitListViewController: UIViewController {
         viewController.modalPresentationStyle = .overCurrentContext
         self.present(viewController, animated: true)
     }
-
+    
 }
 
 extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
@@ -92,9 +93,9 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     //MARK:- Table view on Swipe EDIT and DELETE actions
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-
+        
         guard orientation == .right else { return nil }
-
+        
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
@@ -110,9 +111,9 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         }
         editAction.image = UIImage(named:"editIcon")
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
-
+        
         let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
-
+            
         }
         deleteAction.image = UIImage(named:"deletX")
         deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
@@ -133,10 +134,11 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
             accountVisitsVC?.visitStatus = .scheduled
         }else if accountVisitArray[indexPath.row]["status"] == "Completed"{
             accountVisitsVC?.visitStatus = .completed
-        }else {
+        }else if accountVisitArray[indexPath.row]["status"] == "In Progress"{
             accountVisitsVC?.visitStatus = .inProgress
+        }else if accountVisitArray[indexPath.row]["status"] == "Planned"{
+            accountVisitsVC?.modalPresentationStyle = .overCurrentContext
         }
-        accountVisitsVC?.modalPresentationStyle = .overCurrentContext
         present(accountVisitsVC!, animated: true, completion: nil)
         (accountVisitsVC)?.delegate = self
     }
@@ -146,15 +148,13 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 extension AccountVisitListViewController : NavigateToContactsDelegate{
     
     //Send a notification to Parent VC to load respective VC
-    func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {
-        
+    func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {        
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
             ContactsGlobal.accountId = ""
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
-        
         }else {
-             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
             
         }
     }
@@ -165,4 +165,5 @@ enum AccountVisitStatus : String {
     case scheduled
     case inProgress
     case completed
+    case planned
 }

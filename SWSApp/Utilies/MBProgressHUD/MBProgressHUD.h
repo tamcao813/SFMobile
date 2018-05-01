@@ -102,6 +102,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)showHUDAddedTo:(UIView *)view animated:(BOOL)animated;
 
++ (instancetype)showHUDOnWindow:(BOOL)animated;
+
 /// @name Showing and hiding
 
 /**
@@ -119,6 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (BOOL)hideHUDForView:(UIView *)view animated:(BOOL)animated;
 
++ (BOOL)hideHUDForWindow:(BOOL)animated;
 /**
  * Finds the top-most HUD subview that hasn't finished and returns it.
  *

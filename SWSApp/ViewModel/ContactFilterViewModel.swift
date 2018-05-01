@@ -24,13 +24,12 @@ let ContacLocationCell = "customContactCell2"
 struct ContactFilterMenuModel {
     
     static var allContacts = ""
-    static var contactsOnMyRoute = ""
+    static var contactsOnMyRoute = "YES"
     
     static var allRole = ""
     static var functionRoles = [String]()
     
     static var allBuyingPower = ""
-//    static var buyerFlags = [String]()
     static var buyingPower = ""
     static var nobuyingPower = ""
 

@@ -10,6 +10,8 @@ import UIKit
 
 class ContactListAccountHeaderDetails: UITableViewCell {
 
+    @IBOutlet weak var accountLinkedToValueLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,4 +23,8 @@ class ContactListAccountHeaderDetails: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    func displayCellContent(_ contactDetails: Contact) {
+        accountLinkedToValueLabel.text = "Accounts Linked to " + contactDetails.firstName
+    }
+    
 }

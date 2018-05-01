@@ -9,13 +9,13 @@
 import Foundation
 
 class Contact {
-    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buyer_Flag__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c"]
+    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buyer_Flag__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","LastModifiedDate","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c","Fax","SGWS_Contact_Classification__c"]
     
     var contactId: String
     var name: String
     var firstName: String
     var lastName: String
-    var phoneuNmber: String
+    var phoneNumber: String
     var email: String
     var birthDate: String
     var buyerFlag: Bool
@@ -30,6 +30,7 @@ class Contact {
     var preferredCommunicationMethod:String
     var sgwsNotes:String
     var lastModifiedByName:String
+    var lastModifiedDate:String
     var child1Name:String
     var child1Birthday:String
     var child2Name:String
@@ -46,8 +47,8 @@ class Contact {
     var favouriteActivities:String
     var lifeEvents:String
     var lifeEventDate:String
-    //var recordTypeDeveloperName = "Customer"
-    
+    var fax:String
+    var contactClassification: String
     
     
     convenience init(withAry ary: [Any]) {
@@ -60,7 +61,7 @@ class Contact {
         name = json["Name"] as? String ?? ""
         firstName = json["FirstName"] as? String ?? ""
         lastName = json["LastName"] as? String ?? ""
-        phoneuNmber = json["Phone"] as? String ?? ""
+        phoneNumber = json["Phone"] as? String ?? ""
         email = json["Email"] as? String ?? ""
         birthDate = json["Birthdate"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
@@ -75,6 +76,7 @@ class Contact {
         preferredCommunicationMethod = json["SGWS_Preferred_Communication_Method__c"] as? String ?? ""
         sgwsNotes = json["SGWS_Notes__c"] as? String ?? ""
         lastModifiedByName = json["LastModifiedBy.Name"] as? String ?? ""
+        lastModifiedDate = json["LastModifiedDate"] as? String ?? ""
         child1Name = json["SGWS_Child_1_Name__c"] as? String ?? ""
         child1Birthday = json["SGWS_Child_1_Birthday__c"] as? String ?? ""
         child2Name = json["SGWS_Child_2_Name__c"] as? String ?? ""
@@ -91,7 +93,8 @@ class Contact {
         favouriteActivities = json["SGWS_Favorite_Activities__c"] as? String ?? ""
         lifeEvents = json["SGWS_Life_Events__c"] as? String ?? ""
         lifeEventDate = json["SGWS_Life_Events_Date__c"] as? String ?? ""
-        //recordTypeDeveloperName = json["RecordType.DeveloperName"] as? String ?? ""
+        fax = json["Fax"] as? String ?? ""
+        contactClassification = json["SGWS_Contact_Classification__c"] as? String ?? ""
     }
     
     func toJson() -> [String:Any] {
@@ -111,8 +114,8 @@ class Contact {
             json["AccountId"] = accountId
         }
         
-        if phoneuNmber.count > 0 {
-            json["Phone"] = phoneuNmber
+        if phoneNumber.count > 0 {
+            json["Phone"] = phoneNumber
         }
         
         if email.count > 0 {
@@ -222,11 +225,14 @@ class Contact {
         if lifeEventDate.count > 0 {
             json["SGWS_Life_Events_Date__c"] = lifeEventDate
         }
-        /*
-         if recordTypeDeveloperName.count > 0 {
-         json["RecordType.DeveloperName"] = recordTypeDeveloperName
-         }
-         */
+        
+        if fax.count > 0 {
+            json["Fax"] = fax
+        }
+        
+        if contactClassification.count > 0{
+            json["SGWS_Contact_Classification__c"] = contactClassification
+        }
         return json
     }
     
@@ -235,7 +241,7 @@ class Contact {
         name = ""
         firstName = ""
         lastName = ""
-        phoneuNmber = ""
+        phoneNumber = ""
         email = ""
         birthDate = ""
         accountId = ""
@@ -250,6 +256,7 @@ class Contact {
         preferredCommunicationMethod = ""
         sgwsNotes = ""
         lastModifiedByName = ""
+        lastModifiedDate = ""
         child1Name = ""
         child1Birthday = ""
         child2Name = ""
@@ -266,7 +273,8 @@ class Contact {
         favouriteActivities = ""
         lifeEvents = ""
         lifeEventDate = ""
-        //recordTypeDeveloperName = "Customer"
+        fax = ""
+        contactClassification = ""
     }
     
     static func mockNewContact1() -> Contact {
@@ -276,7 +284,7 @@ class Contact {
         let n = Int(arc4random_uniform(1000) + 35)
         contact.firstName = "Greg" + "\(n)"
         contact.lastName = "Opa" + "\(n)"
-        contact.phoneuNmber = "(716) 666-8888"
+        contact.phoneNumber = "(716) 666-8888"
         contact.email = "greg@ttdesk.com"
         contact.birthDate = "1950-06-01"
         //contact.accountSiteNumber = "0070"
@@ -315,7 +323,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  "111AAW"
         contact.name = "Daniel Brown"
-        contact.phoneuNmber = "(676) 738-76277"
+        contact.phoneNumber = "(676) 738-76277"
         contact.email = "daniel@eec.com"
         contact.functionRole = "Buying power"
         
@@ -326,7 +334,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId = "111ASD"
         contact.name = "Justin Timber"
-        contact.phoneuNmber = "(765) 764-5634"
+        contact.phoneNumber = "(765) 764-5634"
         contact.email = "justin@bhd.com"
         contact.functionRole = "Buying Power"
         return contact
@@ -337,7 +345,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId = "212ASD"
         contact.name = "Amber Heard"
-        contact.phoneuNmber = "(734) 732 8734"
+        contact.phoneNumber = "(734) 732 8734"
         contact.email = "Amber@bhd.com"
         contact.functionRole = "Buying Power"
         return contact
@@ -348,7 +356,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  "xxxAAW"
         contact.name = "Devin Miller"
-        contact.phoneuNmber = "(123) 643-2465"
+        contact.phoneNumber = "(123) 643-2465"
         contact.email = "Devin@abc.com"
         contact.functionRole = "SG"
         
@@ -359,7 +367,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  "xxx001"
         contact.name = "Keaton Mckinneyr"
-        contact.phoneuNmber = "(123) 245-6677"
+        contact.phoneNumber = "(123) 245-6677"
         contact.email = "Keaton@ffc.com"
         contact.functionRole = "SG"  //made-up
         
@@ -370,7 +378,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  "AGH007"
         contact.name = "James Bond"
-        contact.phoneuNmber = "(145) 276-7543"
+        contact.phoneNumber = "(145) 276-7543"
         contact.email = "James@ffc.com"
         contact.functionRole = "SG"  //made-up
         
@@ -380,7 +388,7 @@ class Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  "xBHJD"
         contact.name = "Rosh Jacob"
-        contact.phoneuNmber = "(423) 643-2465"
+        contact.phoneNumber = "(423) 643-2465"
         contact.email = "Rosh@abc.com"
         contact.functionRole = "SG"
         

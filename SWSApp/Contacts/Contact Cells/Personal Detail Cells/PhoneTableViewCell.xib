@@ -42,7 +42,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(334) 424-0366" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qVC-Xw-ew3">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(334) 424-0366" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qVC-Xw-ew3" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
                         <rect key="frame" x="40" y="56" width="180" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="180" id="AhO-ws-tnY"/>
@@ -50,7 +50,7 @@
                         </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                 <real key="value" value="1"/>
@@ -66,7 +66,7 @@
                             <outlet property="delegate" destination="N0C-5o-1zq" id="WbI-e4-MHg"/>
                         </connections>
                     </textField>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(555) 555-5555" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R2B-Nt-P66">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(555) 555-5555" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R2B-Nt-P66" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
                         <rect key="frame" x="260" y="55.5" width="180" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="180" id="5xP-nf-PCR"/>
@@ -74,7 +74,7 @@
                         </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                 <real key="value" value="1"/>

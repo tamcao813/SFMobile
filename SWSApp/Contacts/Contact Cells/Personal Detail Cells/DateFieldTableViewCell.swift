@@ -11,7 +11,8 @@ import UIKit
 class DateFieldTableViewCell: UITableViewCell {
 
     @IBOutlet weak var headerLabel: UILabel!
-    @IBOutlet weak var dateTextfield: UITextField!
+    @IBOutlet weak var dateTextfield: CustomUITextField!
+    var selectedDate = NSDate()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,11 +22,7 @@ class DateFieldTableViewCell: UITableViewCell {
     func customUI() {
         dateTextfield.addPaddingLeft(10)
         dateTextfield.delegate = self
-//        let dropdownButton : UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-//        dropdownButton.setImage(#imageLiteral(resourceName: "calendar"), for: .normal)
-//        dateTextfield.rightView = dropdownButton
-//        dateTextfield.rightViewMode = .always
-//        customizePicker()
+        addToolbar(textField: dateTextfield)
     }
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
@@ -33,6 +30,26 @@ class DateFieldTableViewCell: UITableViewCell {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         dateTextfield.text = dateFormatter.string(from: sender.date)
+    }
+    
+    func addToolbar(textField: UITextField){        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([spaceButton,doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        textField.inputAccessoryView = toolBar
+    }
+    
+    @objc func donePicker(){
+        dateTextfield.resignFirstResponder()
     }
 }
 

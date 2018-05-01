@@ -83,4 +83,8 @@ class ContactsViewController : UIViewController, ContactDetailsScreenDelegate {
         self.view.addSubview((contactDetails?.view)!)
     }
 
+    func clearAllMenu() {
+        filterMenuVC?.clearFilterModelData(clearcontactsOnMyRoute: true)
+    }
+    
 }

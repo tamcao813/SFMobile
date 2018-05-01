@@ -50,6 +50,8 @@ class AccountVisitSummaryViewController: UIViewController {
             statusLabel.text = "In Progress"
         case .completed?:
             statusLabel.text = "Completed"
+        case .planned?:
+            statusLabel.text = "Planned"
         default:
             break
         }
@@ -84,6 +86,12 @@ class AccountVisitSummaryViewController: UIViewController {
             startVisitButtonHeightConstraint.constant = 0
             editVisitButton.setTitle("Edit Notes", for: .normal)
             deleteVisitButton.isHidden = true
+        case .planned?:
+            editVisitButtonHeightConstraint.constant = 40
+            startVisitButtonHeightConstraint.constant = 40
+            editVisitButton.setTitle("Edit Visit", for: .normal)
+            startVisitButton.setTitle("Start Visit", for: .normal)
+            deleteVisitButton.isHidden = false
         default:
             break
         }
@@ -91,14 +99,11 @@ class AccountVisitSummaryViewController: UIViewController {
     
     @IBAction func startOrContinueVisitButtonTapped(_ sender: UIButton){
         if visitStatus == .scheduled {
-            print("Yes")
-            
             let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             self.present(vc, animated: true, completion: nil)
             (vc as DuringVisitsViewController).delegate = self
-            
         }else{
             
         }
@@ -136,6 +141,8 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             return scheduledHeadingArray.count
         case .inProgress?, .completed?:
             return inprogressHeadingArray.count
+        case .planned?:
+            return inprogressHeadingArray.count
         default:
             return 0
         }
@@ -162,6 +169,8 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             default:
                 return 0
             }
+        case .planned?:
+            return 1
         default:
             return 0
         }
@@ -193,6 +202,8 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case .inProgress?:
             headerView?.headerLabel.text = inprogressHeadingArray[section]
         case .completed?:
+            headerView?.headerLabel.text = inprogressHeadingArray[section]
+        case .planned?:
             headerView?.headerLabel.text = inprogressHeadingArray[section]
         default:
             break
@@ -242,6 +253,18 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             case 5 ... 7:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
                 cell?.SubheadingLabel.text = subHeadingArray[indexPath.section - 5]
+                return cell!
+            default:
+                return UITableViewCell()
+            }
+        case .planned?:
+            switch indexPath.section {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as? LocationTableViewCell
+                return cell!
+            case 1 ... 3:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+                cell?.SubheadingLabel.text = subHeadingArray[indexPath.section - 1]
                 return cell!
             default:
                 return UITableViewCell()

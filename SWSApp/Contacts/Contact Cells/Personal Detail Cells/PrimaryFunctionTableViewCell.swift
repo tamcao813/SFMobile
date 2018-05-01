@@ -9,11 +9,12 @@
 import UIKit
 
 class PrimaryFunctionTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var primaryFunctionTextField: UITextField!
+    
+    @IBOutlet weak var primaryFunctionTextField: CustomUITextField!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var departmentTextField: UITextField!
-    var pickOption = ["one", "two", "three", "seven", "fifteen"]
+    var pickerOption = [PlistOption]()
+    var selectedPrimaryFunctionOption : PlistOption!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +22,8 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     }
     
     func customizedUI(){
+        let opts = PlistMap.sharedInstance.getPicklist("Contact", fieldname: "Roles")
+        pickerOption = opts
         primaryFunctionTextField.addPaddingLeft(10)
         titleTextField.addPaddingLeft(10)
         departmentTextField.addPaddingLeft(10)
@@ -28,8 +31,39 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
         dropdownButton.setImage(#imageLiteral(resourceName: "dropDownLight"), for: .normal)
         primaryFunctionTextField.rightView = dropdownButton
         primaryFunctionTextField.rightViewMode = .always
-        let pickerView = CustomPicker().customPickerView(textField: primaryFunctionTextField)
+        addPickerView(textField: primaryFunctionTextField)
+    }
+    
+    func addPickerView(textField: UITextField){
+        let pickerView = UIPickerView()
+        pickerView.backgroundColor = .white
         pickerView.delegate = self
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.cancelPicker))
+        
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        textField.inputView = pickerView
+        textField.inputAccessoryView = toolBar
+    }
+    
+    @objc func donePicker(){
+        if let selectedValue = selectedPrimaryFunctionOption {
+            primaryFunctionTextField.text = selectedValue.value
+        }
+        primaryFunctionTextField.resignFirstResponder()
+    }
+    
+    @objc func cancelPicker(){
+        primaryFunctionTextField.resignFirstResponder()
     }
 }
 
@@ -40,15 +74,15 @@ extension PrimaryFunctionTableViewCell: UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickOption.count
+        return pickerOption.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickOption[row]
+        return pickerOption[row].value
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        primaryFunctionTextField.text = pickOption[row]
+        selectedPrimaryFunctionOption = pickerOption[row]
     }
 }
 

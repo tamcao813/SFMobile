@@ -25,7 +25,7 @@ class AccountTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
-        self.selectedBackgroundView!.backgroundColor = selected ? .red : nil
+//        self.selectedBackgroundView!.backgroundColor = selected ? .red : nil
         if (selected) {
             self.layer.borderColor = UIColor(red: 66/255, green: 135/255, blue: 194/255, alpha: 1.0).cgColor
             self.layer.borderWidth = 2.0

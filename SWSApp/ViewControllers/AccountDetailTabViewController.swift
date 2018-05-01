@@ -143,7 +143,7 @@ class AccountDetailTabViewController: UITableViewController {
         let contact = ary[indexPath.row]
         cell.emailLabel.text = contact.email
         cell.nameLabel.text = contact.name
-        cell.phoneNumberLabel.text = contact.phoneuNmber
+        cell.phoneNumberLabel.text = contact.phoneNumber
         cell.function_RoleLabel.text = contact.functionRole
         cell.initialsLabel.text = contact.getIntials(name: contact.name)
         return cell

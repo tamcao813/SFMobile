@@ -101,6 +101,9 @@
                                                     <state key="normal" title="New Contact  +">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="newContactButtonTapped:" destination="dCh-bF-6nj" eventType="touchUpInside" id="DX1-a5-3Xb"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

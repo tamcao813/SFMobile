@@ -12,6 +12,7 @@ def sf_pods
     pod 'SalesforceSwiftSDK',    :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
     pod 'SmartStore',        :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
     pod 'SmartSync',            :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'IQKeyboardManagerSwift'
 end
 
 target 'SWSApp' do

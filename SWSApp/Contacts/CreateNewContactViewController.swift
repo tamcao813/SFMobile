@@ -103,6 +103,8 @@ class CreateNewContactViewController: UIViewController {
         anniversaryTextField.borderColor = .lightGray
         otherReasonTextField.borderColor = .lightGray
         
+        //need to check an account has been selected for this contact - UI needs to get the account name from the dropdown and then get get it's accountId - better yet, the dropDown has both Acconut name and Id
+        
         if !doesHaveBuyingPower && contactClassificationTextField.text == "Other"{
             if (otherReasonTextField.text?.isEmpty)! {
                 otherReasonTextField.borderColor = .red
@@ -153,24 +155,50 @@ class CreateNewContactViewController: UIViewController {
         newContact.email = emailTextField.text!
         newContact.contactHours = contactHoursTextField.text!
         newContact.preferredCommunicationMethod = preferredCommunicationTextField.text!
+        if newContact.preferredCommunicationMethod == "Select One" {
+            newContact.preferredCommunicationMethod = ""
+        }
         newContact.birthDate = birthdayTextField.text!
+        if newContact.birthDate == "Select" {
+            newContact.birthDate = ""
+        }
         newContact.anniversary = anniversaryTextField.text!
+        if newContact.anniversary == "Select" {
+            newContact.anniversary = ""
+        }
         newContact.child1Name = familyName1Textfield.text!
         newContact.child1Birthday = familyDate1Textfield.text!
+        if newContact.child1Birthday == "Select" {
+            newContact.child1Birthday = ""
+        }
         newContact.child2Name = familyName2Textfield.text!
         newContact.child2Birthday = familyDate2Textfield.text!
+        if newContact.child2Birthday == "Select" {
+            newContact.child2Birthday = ""
+        }
         newContact.child3Name = familyName3Textfield.text!
         newContact.child3Birthday = familyDate3Textfield.text!
+        if newContact.child3Birthday == "Select" {
+            newContact.child3Birthday = ""
+        }
         newContact.child4Name = familyName4Textfield.text!
         newContact.child4Birthday = familyDate4Textfield.text!
+        if newContact.child4Birthday == "Select" {
+            newContact.child4Birthday = ""
+        }
         newContact.child5Name = familyName5Textfield.text!
         newContact.child5Birthday = familyDate5Textfield.text!
+        if newContact.child5Birthday == "Select" {
+            newContact.child5Birthday = ""
+        }
         newContact.likes = likeTextView.text!
         newContact.dislikes = dislikeTextView.text!
         newContact.sgwsNotes = notesTextView.text!
         newContact.fax = faxTextField.text!
         newContact.contactClassification = contactClassificationTextField.text!
         newContact.otherSpecification = otherReasonTextField.text!
+        
+        newContact.accountId = "001m000000cHLmTAAW" //need to get this from the account dropdown selected option
         
         /*
          if contactClassificationTextField.text! == "Other"{
@@ -182,9 +210,19 @@ class CreateNewContactViewController: UIViewController {
         
         let success = ContactsViewModel().createNewContactToSoup(object: newContact)
         
+        //sync up to Contact which will update ACR, then for now we need to sync down ACR
         if success {
-            self.delegate.updateContactList()
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: {
+                ContactsViewModel().uploadContactToServerAndSyncDownACR(object: newContact, completion: { error in
+
+                    if error == nil {
+                        self.delegate.updateContactList()
+                    }
+                    else {
+                        print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
+                    }
+                })
+            })
         } else {
             let alertController = UIAlertController(title: "Alert", message:
                 "Unable to create the new contact in local database", preferredStyle: UIAlertControllerStyle.alert)

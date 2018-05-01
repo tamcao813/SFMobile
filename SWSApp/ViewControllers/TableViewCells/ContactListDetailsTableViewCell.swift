@@ -82,7 +82,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
     func displayThirdRowCellContent(_ contactDetails: Contact) {
         
         displayEventContent(birthdayValueLabel, textToDisply: "Birthday", dateString: contactDetails.birthDate)
-        displayEventContent(weddingValueLabel, textToDisply: "Wedding", dateString: contactDetails.anniversary)
+        displayEventContent(weddingValueLabel, textToDisply: "Anniversary", dateString: contactDetails.anniversary)
         
         displayChildContent(child1ValueLabel, textToDisply: contactDetails.child1Name, dateString: contactDetails.child1Birthday)
         displayChildContent(child2ValueLabel, textToDisply: contactDetails.child2Name, dateString: contactDetails.child2Birthday)

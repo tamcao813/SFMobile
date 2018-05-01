@@ -25,6 +25,9 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
     var dictname = [Dictionary<String, String>]()
     var dictIndex: Int!
     var notesToBeEdited: AccountNotes!
+   
+   
+    
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UITextView!
@@ -50,6 +53,8 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         self.descriptionLabel?.text = notesToBeEdited.accountNotesDesc
         self.titleLabel?.text = notesToBeEdited.name
         
+        
+        
     }
     
     //MARK:- segue connection
@@ -59,6 +64,7 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
             createNoteScreen.notesToEdit = notesToBeEdited
             createNoteScreen.isAddingNewNote = false
             createNoteScreen.sendNoteDelegate = self
+            createNoteScreen.comingFromNotesVC = true
         }
     }
     

@@ -30,6 +30,7 @@ class CreateNoteViewController : UIViewController{
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var notesTitleTextField: UITextField!
+    @IBOutlet weak var editNotel_Label: UILabel!
     
     var dataDictionary:[String: Any] = [:]
     var notesToEdit: AccountNotes!
@@ -38,6 +39,8 @@ class CreateNoteViewController : UIViewController{
     var sendNoteDelegate : sendNotesDataToNotesDelegate?
     var notesAccountId:String!
     var notesOwnerId:String!
+    var comingFromNotesVC:Bool?
+    
 
     
     //MARK:- View Life Cycles
@@ -57,6 +60,15 @@ class CreateNoteViewController : UIViewController{
         if(!isAddingNewNote) {
             self.textView?.text = notesToEdit.accountNotesDesc
             self.notesTitleTextField?.text = notesToEdit.name
+        }
+        
+        if comingFromNotesVC == true{
+            
+            self.editNotel_Label.text = "Edit Note"
+        }
+        else {
+            
+             self.editNotel_Label.text = "Add Note"
         }
     }
     

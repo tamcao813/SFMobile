@@ -10,8 +10,8 @@ import UIKit
 
 class PhoneTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var phoneTextField: UITextField!
-    @IBOutlet weak var faxTextField: UITextField!
+    @IBOutlet weak var phoneTextField: CustomUITextField!
+    @IBOutlet weak var faxTextField: CustomUITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()

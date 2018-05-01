@@ -24,7 +24,7 @@ class EditAccountStrategyViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        //IQKeyboardManager.sharedManager().enable = true
+//        IQKeyboardManager.sharedManager().enable = true
         
         if self.view.frame.size.width == 1112.0{
             textViewWidth = 1105

@@ -24,7 +24,7 @@ class StoreDispatcher {
     let SoupAccountContactRelation = "AccountContactRelation"
     let SoupAccountNotes = "SGWS_Account_Notes__c"
     let SoupStrategyQA = "SGWS_Response__c"
-
+    
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
     lazy final var sfaSyncMgr: SFSmartSyncSyncManager = SFSmartSyncSyncManager.sharedInstance(for: sfaStore)!
@@ -32,9 +32,8 @@ class StoreDispatcher {
     
     var userVieModel: UserViewModel {
         return UserViewModel()
-        
     }
-    
+
     //register all soups - to do: register other needed soups
     func registerSoups() {
         print("Store Path is \(String(describing: sfaStore.storePath))")
@@ -58,12 +57,7 @@ class StoreDispatcher {
         let group = DispatchGroup()
         
         group.enter()
-        downloadContactRolesPList() { _ in
-            group.leave()
-        }
-        
-        group.enter()
-        downloadContactPreferredCommmunicationPList() { _ in
+        downloadContactPLists() { _ in
             group.leave()
         }
         
@@ -111,8 +105,48 @@ class StoreDispatcher {
         
     }
     
-    func downloadContactRolesPList(_ completion:@escaping (_ error: NSError?)->()) {
-        let recordTypeId = "012i0000000PebvAAC" //"012i0000000Pf4AAAS" //(userVieModel.loggedInUser?.recordTypeId)!
+    func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {
+        let query = "SELECT id FROM RecordType where DeveloperName = 'customer' and isActive = true and SobjectType = 'Contact'"
+        
+        SFRestAPI.sharedInstance().performSOQLQuery(query, fail: {
+            (error, response) in
+            print(error?.localizedDescription as Any)
+            completion(error! as NSError)
+            
+        }) { (data, response) in  //success
+            if let data = data, data.count > 0 {
+                let response:[Any]  = data[AnyHashable("records")] as! [Any]
+                let dict:[String: Any] = response[0] as! [String: Any]
+                let recordTypeId: String = dict["Id"] as! String
+                print(recordTypeId)
+                
+                let queue = DispatchQueue(label: "concurrent")
+                let group = DispatchGroup()
+                
+                group.enter()
+                self.downloadContactRolesPList(recordTypeId: recordTypeId) { _ in
+                    group.leave()
+                }
+                
+                group.enter()
+                self.downloadContactPreferredCommmunicationPList(recordTypeId: recordTypeId) { _ in
+                    group.leave()
+                }
+                
+                group.enter()
+                self.downloadContactClassificationPList(recordTypeId: recordTypeId) { _ in
+                    group.leave()
+                }
+                
+                group.notify(queue: queue) {
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
+    func downloadContactRolesPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
+        let recordTypeId = recordTypeId //"012i0000000PebvAAC" //"012i0000000Pf4AAAS" //(userVieModel.loggedInUser?.recordTypeId)!
         let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Roles__c"
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
         request.endpoint = "/services/data/v41.0/"
@@ -120,44 +154,107 @@ class StoreDispatcher {
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
                 let response = sfRestResponse.asJsonDictionary()
-                    
+                
                 var rolesPicklist = [String:[PlistOption]]()
                 
                 if response.count > 0 {
                     var rolesAry = [PlistOption]()
-                
+                    
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
                             let value = option["value"] as? String ?? ""
                             let role = PlistOption(label: label, value: value)
-                        
+                            
                             rolesAry.append(role)
                         }
-                    
+                        
                         rolesPicklist["Roles"] = rolesAry
                     }
                 }
                 
-                PlistMap.sharedInstance.addToMap(self.SoupContact, map: rolesPicklist)
+                PlistMap.sharedInstance.addToMap(field: "ContactRoles", map: rolesPicklist["Roles"]! )
                 completion(nil)
             }
             .catch { error in
-                print(error)
+                print("roles plist error: " + error.localizedDescription)
                 completion(error as NSError?)
         }
     }
-
-    func downloadContactPreferredCommmunicationPList(_ completion:@escaping (_ error: NSError?)->()) {
-        //hard code for now until ui-api available
+    
+    func downloadContactPreferredCommmunicationPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
+        let recordTypeId = recordTypeId
+        let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Preferred_Communication_Method__c"
+        let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
+        request.endpoint = "/services/data/v41.0/"
         
-        var communicationPicklist = [String:[PlistOption]]()
-        communicationPicklist["PreferredCommunication"] = [PlistOption(label: "Phone", value: "Phone"), PlistOption(label: "Email", value: "Email"), PlistOption(label: "Fax", value: "Fax")]
-        
-        PlistMap.sharedInstance.addToMap(self.SoupContact, map: communicationPicklist)
-        
-        completion(nil)
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                let response = sfRestResponse.asJsonDictionary()
+                
+                var communicationPicklist = [String:[PlistOption]]()
+                
+                if response.count > 0 {
+                    var ary = [PlistOption]()
+                    
+                    if let options = response["values"] as? [[String : AnyObject]] {
+                        for option in options {
+                            let label = option["label"] as? String ?? ""
+                            let value = option["value"] as? String ?? ""
+                            let preferred = PlistOption(label: label, value: value)
+                            
+                            ary.append(preferred)
+                        }
+                        
+                        communicationPicklist["PreferredCommunication"] = ary
+                    }
+                }
+                
+                PlistMap.sharedInstance.addToMap(field: "ContactPreferredCommunication", map: communicationPicklist["PreferredCommunication"]!)
+                completion(nil)
+            }
+            .catch { error in
+                print("preferredCommunication plist error: " + error.localizedDescription)
+                completion(error as NSError?)
+        }
     }
+    
+    func downloadContactClassificationPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
+        let recordTypeId = recordTypeId
+        let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Contact_Classification__c"
+        let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
+        request.endpoint = "/services/data/v41.0/"
+        
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                let response = sfRestResponse.asJsonDictionary()
+                
+                var classificationPicklist = [String:[PlistOption]]()
+                
+                if response.count > 0 {
+                    var ary = [PlistOption]()
+                    
+                    if let options = response["values"] as? [[String : AnyObject]] {
+                        for option in options {
+                            let label = option["label"] as? String ?? ""
+                            let value = option["value"] as? String ?? ""
+                            let preferred = PlistOption(label: label, value: value)
+                            
+                            ary.append(preferred)
+                        }
+                        classificationPicklist["Classification"] = ary
+                    }
+                }
+                
+                PlistMap.sharedInstance.addToMap(field: "ContactClassification", map: classificationPicklist["Classification"]!)
+                completion(nil)
+            }
+            .catch { error in
+                print("Classification plist error: " + error.localizedDescription)
+                completion(error as NSError?)
+        }
+    }
+    
     
     //#pragma mark - create indexes for the soup and register the soup; only create indexes for the fields we want to query by
     
@@ -231,10 +328,20 @@ class StoreDispatcher {
         let contactQueryFields = Contact.ContactFields
         
         var indexSpec:[SFSoupIndex] = []
-        for i in 0...contactQueryFields.count - 1 {
+        for i in 0...contactQueryFields.count - 4 {
             let sfIndex = SFSoupIndex(path: contactQueryFields[i], indexType: kSoupIndexTypeString, columnName: contactQueryFields[i])!
             indexSpec.append(sfIndex)
         }
+        
+        var sfIndex1 = SFSoupIndex(path: contactQueryFields[contactQueryFields.count - 3], indexType: kSoupIndexTypeFullText, columnName: contactQueryFields[contactQueryFields.count - 3])!
+        indexSpec.append(sfIndex1)
+        sfIndex1 = SFSoupIndex(path: contactQueryFields[contactQueryFields.count - 2], indexType: kSoupIndexTypeFullText, columnName: contactQueryFields[contactQueryFields.count - 2])!
+        indexSpec.append(sfIndex1)
+        sfIndex1 = SFSoupIndex(path: contactQueryFields[contactQueryFields.count - 1], indexType: kSoupIndexTypeFullText, columnName: contactQueryFields[contactQueryFields.count - 1])!
+        indexSpec.append(sfIndex1)
+        
+        sfIndex1 = SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!
+        indexSpec.append(sfIndex1)
         
         do {
             try sfaStore.registerSoup(SoupContact, withIndexSpecs: indexSpec, error: ())
@@ -572,7 +679,7 @@ class StoreDispatcher {
             }
         }
         else if error != nil {
-            print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
+            print("fetchContactsWithBuyingPower " + " error:" + (error?.localizedDescription)!)
         }
         return contactAry
     }
@@ -603,7 +710,7 @@ class StoreDispatcher {
             }
         }
         else if error != nil {
-            print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
+            print("fetchContactsForSG" + " error:" + (error?.localizedDescription)!)
             
         }
         print("SG Contacts are \(contactAry)")
@@ -684,7 +791,7 @@ class StoreDispatcher {
             }
         }
         else if error != nil {
-            print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
+            print("fetchContacts" + " error:" + (error?.localizedDescription)!)
         }
         return contactAry
     }
@@ -812,7 +919,8 @@ class StoreDispatcher {
             let sfIndex = SFSoupIndex(path: notesQueryFields[i], indexType: kSoupIndexTypeString, columnName: notesQueryFields[i])!
             indexSpec.append(sfIndex)
         }
-        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:nil)!)
+        
+        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
 
         do {
             try sfaStore.registerSoup(SoupAccountNotes, withIndexSpecs: indexSpec, error: ())

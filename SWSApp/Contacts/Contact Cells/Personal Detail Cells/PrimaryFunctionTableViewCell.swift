@@ -22,7 +22,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     }
     
     func customizedUI(){
-        let opts = PlistMap.sharedInstance.getPicklist("Contact", fieldname: "Roles")
+        let opts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactRoles")
         pickerOption = opts
         primaryFunctionTextField.addPaddingLeft(10)
         titleTextField.addPaddingLeft(10)

@@ -170,14 +170,16 @@ class CreateNewContactViewController: UIViewController {
         newContact.sgwsNotes = notesTextView.text!
         newContact.fax = faxTextField.text!
         newContact.contactClassification = contactClassificationTextField.text!
-        newContact.otherReason = otherReasonTextField.text!
+        newContact.otherSpecification = otherReasonTextField.text!
+        
         let success = ContactsViewModel().createNewContactToSoup(object: newContact)
+        
         if success {
             self.delegate.updateContactList()
             self.dismiss(animated: true, completion: nil)
-        }else{
+        } else {
             let alertController = UIAlertController(title: "Alert", message:
-                "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
+                "Unable to create the new contact in local database", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }        

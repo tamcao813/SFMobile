@@ -17,10 +17,24 @@ class AccountVisitListViewController: UIViewController {
         ["title" : "Visit: Crown Liquor Store One", "status" : "In Progress"],
         ["title" : "Visit: Crown Liquor Store One", "status" : "Completed"]]
     
+    var tableViewData : [Visit]?
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
         initializingXIBs()
+        getTheDataFromDB()
+    }
+    
+    func getTheDataFromDB(){
+        let visitArray = VisitsViewModel()
+        
+        tableViewData = visitArray.visitsForUser()
+        
+        print(tableViewData)
+        
     }
 
     func customizedUI(){
@@ -51,21 +65,27 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accountVisitArray.count
+        return tableViewData!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
         cell?.delegate = self
-        cell?.addressLabel.text = accountVisitArray[indexPath.row]["title"]
-        cell?.visitStatusLabel.text = accountVisitArray[indexPath.row]["status"]
-        if accountVisitArray[indexPath.row]["status"] == "Scheduled"{
-            cell?.statusView.backgroundColor = UIColor(hexString: "#CDA635")
-        }else if accountVisitArray[indexPath.row]["status"] == "Completed"{
-            cell?.statusView.backgroundColor = UIColor(hexString: "#319553")
-        }else {
-            cell?.statusView.backgroundColor = UIColor(hexString: "#97A124")
-        }
+        
+        let celldata = tableViewData![indexPath.row]
+        cell?.displayCellData(data: celldata)
+        
+        
+        
+       // cell?.addressLabel.text = accountVisitArray[indexPath.row]["title"]
+        //cell?.visitStatusLabel.text = accountVisitArray[indexPath.row]["status"]
+//        if accountVisitArray[indexPath.row]["status"] == "Scheduled"{
+//            cell?.statusView.backgroundColor = UIColor(hexString: "#CDA635")
+//        }else if accountVisitArray[indexPath.row]["status"] == "Completed"{
+//            cell?.statusView.backgroundColor = UIColor(hexString: "#319553")
+//        }else {
+//            cell?.statusView.backgroundColor = UIColor(hexString: "#97A124")
+//        }
         
         return cell!
     }

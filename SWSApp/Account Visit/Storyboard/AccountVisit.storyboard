@@ -58,7 +58,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="512" height="44"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visit Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ktL-KZ-9ND">
-                                                    <rect key="frame" x="10" y="10" width="60.5" height="24"/>
+                                                    <rect key="frame" x="20" y="10" width="60.5" height="24"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                                             <constraints>
                                                 <constraint firstItem="ktL-KZ-9ND" firstAttribute="top" secondItem="VwT-Cm-zrq" secondAttribute="top" constant="10" id="Lzs-fe-Qeq"/>
                                                 <constraint firstAttribute="bottom" secondItem="ktL-KZ-9ND" secondAttribute="bottom" constant="10" id="aZl-31-jpY"/>
-                                                <constraint firstItem="ktL-KZ-9ND" firstAttribute="leading" secondItem="VwT-Cm-zrq" secondAttribute="leading" constant="10" id="sWq-S9-K2A"/>
+                                                <constraint firstItem="ktL-KZ-9ND" firstAttribute="leading" secondItem="VwT-Cm-zrq" secondAttribute="leading" constant="20" id="sWq-S9-K2A"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uel-Am-ZKP">

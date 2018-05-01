@@ -16,5 +16,12 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var statusView: UIView!
-
+    
+    func displayCellData(data : Visit){
+        self.addressLabel.text = data.accountName
+        self.visitStatusLabel.text = data.status
+        self.dateLabel.text = data.startDate
+        self.timeLabel.text = data.status
+        
+    }
 }

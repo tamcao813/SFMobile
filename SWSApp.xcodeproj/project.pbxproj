@@ -322,6 +322,8 @@
 		F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */; };
 		F2F10AD72096FC6C008B7F88 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F10AD62096FC6C008B7F88 /* Visit.swift */; };
 		F2F10AD82096FC6C008B7F88 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F10AD62096FC6C008B7F88 /* Visit.swift */; };
+		F2F10ADA20972BDF008B7F88 /* VisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F10AD920972BDF008B7F88 /* VisitsViewModel.swift */; };
+		F2F10ADB20972BDF008B7F88 /* VisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F10AD920972BDF008B7F88 /* VisitsViewModel.swift */; };
 		F2FD2C2720919AE300037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */; };
 		F2FD2C2820919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */; };
 		F2FD2C2920919AF600037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */; };
@@ -532,6 +534,7 @@
 		F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsDetailsViewController.swift; sourceTree = "<group>"; };
 		F2F10AD62096FC6C008B7F88 /* Visit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Visit.swift; sourceTree = "<group>"; };
+		F2F10AD920972BDF008B7F88 /* VisitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitsViewModel.swift; sourceTree = "<group>"; };
 		F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionViewCell.swift; sourceTree = "<group>"; };
 		F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionReusableView.swift; sourceTree = "<group>"; };
 		F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EditAccountStrategy.plist; sourceTree = "<group>"; };
@@ -857,6 +860,7 @@
 				D1FCDE0B20733024005F956D /* FilterViewModel.swift */,
 				91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */,
 				C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */,
+				F2F10AD920972BDF008B7F88 /* VisitsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1462,6 +1466,7 @@
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
 				6D38325420874026006805C6 /* FilterViewModel.swift in Sources */,
+				F2F10ADB20972BDF008B7F88 /* VisitsViewModel.swift in Sources */,
 				8D99A2EF2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				91C3E59A208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */,
 				6D38325520874026006805C6 /* AccountsDetailsViewController.swift in Sources */,
@@ -1590,6 +1595,7 @@
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
 				D17BD572209115CD000F38FA /* PlistMap.swift in Sources */,
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
+				F2F10ADA20972BDF008B7F88 /* VisitsViewModel.swift in Sources */,
 				F2F10AD72096FC6C008B7F88 /* Visit.swift in Sources */,
 				12E47BE2208B458C00D37B74 /* ContactListDetailsViewController.swift in Sources */,
 				F20C1A2F20937C3700D2351C /* AccountsNotesViewModel.swift in Sources */,

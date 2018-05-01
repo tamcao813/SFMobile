@@ -23,6 +23,8 @@ class StoreDispatcher {
     let SoupContact = "Contact"
     let SoupAccountContactRelation = "AccountContactRelation"
     let SoupAccountNotes = "SGWS_Account_Notes__c"
+    let SoupVisit = "WorkOrder"
+    
 
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
@@ -42,6 +44,7 @@ class StoreDispatcher {
         registerContactSoup()
         registerACRSoup()
         registerNotesSoup()
+        registerVisitSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -89,6 +92,11 @@ class StoreDispatcher {
         
         group.enter()
         syncDownNotes() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownVisits() { _ in
             group.leave()
         }
         
@@ -815,6 +823,86 @@ class StoreDispatcher {
         }
         
     }
+    
+    func registerVisitSoup(){
+        
+        let visitsQueryFields = Visit.VisitsFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...visitsQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: visitsQueryFields[i], indexType: kSoupIndexTypeString, columnName: visitsQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:nil)!)
+        
+        do {
+            try sfaStore.registerSoup(SoupVisit, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupAccountNotes soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    
+    func syncDownVisits(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "select Id,Subject, AccountId,Account.Name,Account.AccountNumber,Account.BillingAddress,ContactId, Contact.Name,Contact.Phone,Contact.Email,Contact.SGWS_Roles__c,SGWS_Appointment_Status__c, StartDate,EndDate, SGWS_Visit_Purpose__c, Description, SGWS_Agenda_Notes__c,Status from WorkOrder"
+        
+        print("soql visit query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
+            SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupVisit)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> visit syncDownVisit() done >>>>>")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownVisit() >>>>>>>"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownVisit()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    
+    func fetchVisits()->[Visit]{
+        
+        var visit: [Visit] = []
+        let visitFields = Visit.VisitsFields.map{"{WorkOrder:\($0)}"}
+        let soapQuery = "Select \(visitFields.joined(separator: ",")) FROM {WorkOrder}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        print("Result of visits is \(result)")
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let visitArray = Visit(withAry: ary)
+                visit.append(visitArray)
+                print("notes array \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch account notes  " + " error:" + (error?.localizedDescription)!)
+        }
+        return visit
+    }
+
+    
     
     func syncDownNotes(_ completion:@escaping (_ error: NSError?)->()) {
         

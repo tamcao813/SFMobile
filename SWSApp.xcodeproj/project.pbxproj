@@ -12,6 +12,14 @@
 		1268ED47209868170027013D /* NoteSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1268ED46209868170027013D /* NoteSortUtility.swift */; };
 		128B1A9A206BADF8004E148A /* AccountDetailTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */; };
 		128B1A9D206BAE5E004E148A /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B1A9C206BAE5E004E148A /* ContactTableViewCell.swift */; };
+		129A69952099995F00642B14 /* StrategyQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A69942099995F00642B14 /* StrategyQuestions.swift */; };
+		129A69962099995F00642B14 /* StrategyQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A69942099995F00642B14 /* StrategyQuestions.swift */; };
+		129A69982099A3AF00642B14 /* StrategyQuestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A69972099A3AF00642B14 /* StrategyQuestionsViewModel.swift */; };
+		129A69992099A3AF00642B14 /* StrategyQuestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A69972099A3AF00642B14 /* StrategyQuestionsViewModel.swift */; };
+		129A699B2099A9BB00642B14 /* StrategyAnswers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A699A2099A9BB00642B14 /* StrategyAnswers.swift */; };
+		129A699C2099A9BB00642B14 /* StrategyAnswers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A699A2099A9BB00642B14 /* StrategyAnswers.swift */; };
+		129A699E2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A699D2099BB8300642B14 /* StrategyAnswersViewModel.swift */; };
+		129A699F2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A699D2099BB8300642B14 /* StrategyAnswersViewModel.swift */; };
 		12A37D1D20776F0D0036ED36 /* AccountsContactsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A37D1C20776F0D0036ED36 /* AccountsContactsVC.storyboard */; };
 		12B7362C209768350063F847 /* StrategyQA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B7362B209768350063F847 /* StrategyQA.swift */; };
 		12B7362E209777CC0063F847 /* StrategyQAViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B7362D209777CC0063F847 /* StrategyQAViewModel.swift */; };
@@ -364,6 +372,10 @@
 		1268ED46209868170027013D /* NoteSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSortUtility.swift; sourceTree = "<group>"; };
 		128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailTabViewController.swift; sourceTree = "<group>"; };
 		128B1A9C206BAE5E004E148A /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		129A69942099995F00642B14 /* StrategyQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrategyQuestions.swift; sourceTree = "<group>"; };
+		129A69972099A3AF00642B14 /* StrategyQuestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrategyQuestionsViewModel.swift; sourceTree = "<group>"; };
+		129A699A2099A9BB00642B14 /* StrategyAnswers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrategyAnswers.swift; sourceTree = "<group>"; };
+		129A699D2099BB8300642B14 /* StrategyAnswersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrategyAnswersViewModel.swift; sourceTree = "<group>"; };
 		12A37D1C20776F0D0036ED36 /* AccountsContactsVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AccountsContactsVC.storyboard; sourceTree = "<group>"; };
 		12B7362B209768350063F847 /* StrategyQA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrategyQA.swift; sourceTree = "<group>"; };
 		12B7362D209777CC0063F847 /* StrategyQAViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrategyQAViewModel.swift; sourceTree = "<group>"; };
@@ -719,12 +731,14 @@
 			isa = PBXGroup;
 			children = (
 				12F0F899208FA6BD00160C3D /* AccountContactRelation.swift */,
-				12B7362B209768350063F847 /* StrategyQA.swift */,
 				D125134320648E1000CD6CB4 /* User.swift */,
 				D125134120648C4F00CD6CB4 /* Account.swift */,
 				D10483952068381A00A0343B /* Contact.swift */,
 				D104839D20683E4000A0343B /* Notification.swift */,
 				C9B95098209307C900792AD3 /* AccountNotes.swift */,
+				12B7362B209768350063F847 /* StrategyQA.swift */,
+				129A69942099995F00642B14 /* StrategyQuestions.swift */,
+				129A699A2099A9BB00642B14 /* StrategyAnswers.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -875,6 +889,8 @@
 				91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */,
 				C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */,
 				12B7362D209777CC0063F847 /* StrategyQAViewModel.swift */,
+				129A69972099A3AF00642B14 /* StrategyQuestionsViewModel.swift */,
+				129A699D2099BB8300642B14 /* StrategyAnswersViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1499,6 +1515,7 @@
 				8D99A3132091E79C00FAA71A /* DropdownTableViewCell.swift in Sources */,
 				AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */,
 				91C3E59C208F0F4F0067CF3E /* ContactsViewController.swift in Sources */,
+				129A699C2099A9BB00642B14 /* StrategyAnswers.swift in Sources */,
 				6D38325920874026006805C6 /* CurrencyFormatter.swift in Sources */,
 				D2CD7F64208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
 				D26768892090B1BB0060E792 /* ContactListTableViewCell.swift in Sources */,
@@ -1547,10 +1564,12 @@
 				D23C40C9208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */,
 				6D38326B20874026006805C6 /* ContactsViewModel.swift in Sources */,
 				6D38326C20874026006805C6 /* ObjectivesViewController.swift in Sources */,
+				129A699F2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */,
 				6D38326D20874026006805C6 /* Notification.swift in Sources */,
 				8D99A3242092D66C00FAA71A /* CustomPicker.swift in Sources */,
 				8D99A30D2091E77C00FAA71A /* DateFieldTableViewCell.swift in Sources */,
 				6D38326E20874026006805C6 /* ParentViewController.swift in Sources */,
+				129A69962099995F00642B14 /* StrategyQuestions.swift in Sources */,
 				D23C40C7208DE6590006691C /* AssociatedContactsTableViewCell.swift in Sources */,
 				AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */,
 				6D38326F20874026006805C6 /* NotificationsViewController.swift in Sources */,
@@ -1569,6 +1588,7 @@
 				6D38327520874026006805C6 /* AccountsViewController.swift in Sources */,
 				6D38327620874026006805C6 /* CalendarViewController.swift in Sources */,
 				8D99A2FB2091E71E00FAA71A /* PhoneTableViewCell.swift in Sources */,
+				129A69992099A3AF00642B14 /* StrategyQuestionsViewModel.swift in Sources */,
 				F2DC2840208E6B5B0005294E /* AccountStrategyCollectionViewCell.swift in Sources */,
 				F2AB94562095CBA90028802E /* AlertUtility.swift in Sources */,
 				6D38327720874026006805C6 /* ReportsViewController.swift in Sources */,
@@ -1620,6 +1640,7 @@
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
 				12E47BE2208B458C00D37B74 /* ContactListDetailsViewController.swift in Sources */,
 				F20C1A2F20937C3700D2351C /* AccountsNotesViewModel.swift in Sources */,
+				129A699B2099A9BB00642B14 /* StrategyAnswers.swift in Sources */,
 				6F8BD3EB20720281006CABA8 /* AccountListViewController.swift in Sources */,
 				6F3D30A4206BA59D000CFFCC /* XMSegmentedControl.swift in Sources */,
 				D2676885208F3C8F0060E792 /* AccountVisitViewController.swift in Sources */,
@@ -1629,6 +1650,7 @@
 				F2AB94552095CBA90028802E /* AlertUtility.swift in Sources */,
 				D1FCDE1020733025005F956D /* UserViewModel.swift in Sources */,
 				D125134220648C4F00CD6CB4 /* Account.swift in Sources */,
+				129A69982099A3AF00642B14 /* StrategyQuestionsViewModel.swift in Sources */,
 				8D99A2E72091E63F00FAA71A /* ContactClassificationTableViewCell.swift in Sources */,
 				8D99A2FA2091E71E00FAA71A /* PhoneTableViewCell.swift in Sources */,
 				128B1A9D206BAE5E004E148A /* ContactTableViewCell.swift in Sources */,
@@ -1644,6 +1666,7 @@
 				121D740F207E73070046BE41 /* String+PartString.swift in Sources */,
 				D125134420648E1000CD6CB4 /* User.swift in Sources */,
 				D1FB18272062A7C00072F4C1 /* AppDelegate.swift in Sources */,
+				129A69952099995F00642B14 /* StrategyQuestions.swift in Sources */,
 				D23C408E208DCF010006691C /* AccountVisitSummaryViewController.swift in Sources */,
 				F2AB94592095D4E40028802E /* EditAccountStrategyViewController.swift in Sources */,
 				D1FCDE1120733025005F956D /* AccountsViewModel.swift in Sources */,
@@ -1691,6 +1714,7 @@
 				8D99A30C2091E77C00FAA71A /* DateFieldTableViewCell.swift in Sources */,
 				D23C40C6208DE6590006691C /* AssociatedContactsTableViewCell.swift in Sources */,
 				F2AB945A2095D4E40028802E /* AccountStrategyViewControllerr.swift in Sources */,
+				129A699E2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */,
 				AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */,
 				C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */,
 				D1FE1CD620654734009CC47C /* StoreDispatcher.swift in Sources */,

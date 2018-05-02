@@ -31,13 +31,13 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateLabel.font = UIFont(name:"Ubuntu", size: 12.0)
         self.addSubview(dateLabel)
         
-        let startTimeLabel = UILabel(frame: CGRect(x: 140, y: 5, width: 100, height: 21))
+        let startTimeLabel = UILabel(frame: CGRect(x: 150, y: 5, width: 100, height: 21))
         startTimeLabel.text = "Start Time"
         startTimeLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
         startTimeLabel.font = UIFont(name:"Ubuntu", size: 12.0)
         self.addSubview(startTimeLabel)
         
-        let endTimeLabel = UILabel(frame: CGRect(x: 260, y: 5, width: 100, height: 21))
+        let endTimeLabel = UILabel(frame: CGRect(x: 270, y: 5, width: 100, height: 21))
         endTimeLabel.text = "End Time"
         endTimeLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
         endTimeLabel.font = UIFont(name:"Ubuntu", size: 12.0)
@@ -45,8 +45,8 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         
         // Set DesignableUITextField size and position
         
-        dateTextField =  DesignableUITextField(frame: CGRect(x: 0, y: 30, width: 100, height: 30))
-        dateTextField.rightImage = UIImage(named:"dropDown")!
+        dateTextField =  DesignableUITextField(frame: CGRect(x: 0, y: 30, width: 110, height: 30))
+        dateTextField.rightImage = UIImage(named:"Calender_Icon")!
         dateTextField.rightPadding = 8
         dateTextField.placeholder = "dd-mm-yyyy"
         dateTextField.font = UIFont(name:"Ubuntu", size: 12.0)
@@ -57,27 +57,27 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField.delegate = self
         self.addSubview(dateTextField)
         
-        startTimeTextField =  DesignableUITextField(frame: CGRect(x: 140, y: 30, width: 100, height: 30))
-        startTimeTextField.rightImage = UIImage(named:"dropDown")!
+        startTimeTextField =  DesignableUITextField(frame: CGRect(x: 150, y: 30, width: 100, height: 30))
+        startTimeTextField.rightImage = UIImage(named:"dropDownLight")!
         startTimeTextField.rightPadding = 8
-        startTimeTextField.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
+        startTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
         startTimeTextField.placeholder = "hh:mm"
         startTimeTextField.font = UIFont(name:"Ubuntu", size: 12.0)
-        startTimeTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
+        startTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
         startTimeTextField.tag = 201
         startTimeTextField.layer.borderWidth = 1.0
         startTimeTextField.borderStyle = UITextBorderStyle.roundedRect
         startTimeTextField.delegate = self
         self.addSubview(startTimeTextField)
         
-        endTimeTextField =  DesignableUITextField(frame: CGRect(x: 260, y: 30, width: 100, height: 30))
-        endTimeTextField.rightImage = UIImage(named:"dropDown")!
+        endTimeTextField =  DesignableUITextField(frame: CGRect(x: 270, y: 30, width: 100, height: 30))
+        endTimeTextField.rightImage = UIImage(named:"dropDownLight")!
         endTimeTextField.rightPadding = 8
-        endTimeTextField.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
+        endTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
         endTimeTextField.placeholder = "hh:mm"
         endTimeTextField.tag = 202
         endTimeTextField.font = UIFont(name:"Ubuntu", size: 12.0)
-        endTimeTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
+        endTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
         endTimeTextField.layer.borderWidth = 1.0
         endTimeTextField.borderStyle = UITextBorderStyle.roundedRect
         endTimeTextField.delegate = self
@@ -96,7 +96,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField.tag {
         case 200:
-           self.dateView(textField: textField)
+            self.dateView(textField: textField)
         case 201:
             self.timeView(textField: textField)
         case 202:
@@ -122,7 +122,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
         if (sender.tag == 201) {
-           startTimeTextField.text = dateFormatter.string(from: sender.date)
+            startTimeTextField.text = dateFormatter.string(from: sender.date)
         } else {
             endTimeTextField.text = dateFormatter.string(from: sender.date)
         }

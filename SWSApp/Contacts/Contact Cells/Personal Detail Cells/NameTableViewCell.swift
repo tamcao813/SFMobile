@@ -24,6 +24,18 @@ class NameTableViewCell: UITableViewCell {
         lastNameTextField.addPaddingLeft(10)
         preferredNameTextField.addPaddingLeft(10)
     }
+    
+    func displayCellContent(contactDetail: Contact?){
+        if let firstName = contactDetail?.firstName, firstName != "" {
+            firstNameTextField.text = firstName
+        }
+        if let lastName = contactDetail?.lastName, lastName != "" {
+            lastNameTextField.text = lastName
+        }
+        if let preferredName = contactDetail?.preferredName, preferredName != "" {
+            preferredNameTextField.text = preferredName
+        }
+    }
 }
 
 extension NameTableViewCell: UITextFieldDelegate {

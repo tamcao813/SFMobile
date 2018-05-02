@@ -53,11 +53,10 @@ extension ContactListDetailsViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            
             let cell:ContactListDetailsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "contactDetailsCell", for: indexPath) as! ContactListDetailsTableViewCell
             cell.displayCellContent(contactDetail!)
             cell.editContactButton.addTarget(self, action: #selector(actionEditContactDetails), for: .touchUpInside)
-            
+            cell.delegate = self
             cell.selectionStyle = .none
             return cell
         }
@@ -148,4 +147,14 @@ extension ContactListDetailsViewController : UITableViewDelegate {
     
 }
 
-
+extension ContactListDetailsViewController : ContactListDetailsTableViewCellDelegate {
+    func editContactButtonTapped() {
+        let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
+        let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
+//        newContactVC?.delegate = self
+        newContactVC?.isinEditingMode = true
+        newContactVC?.contactDetail = contactDetail
+        
+        self.present(newContactVC!, animated: true, completion: nil)
+    }
+}

@@ -525,7 +525,7 @@ extension ContactListViewController: ContactListTableViewButtonCellDelegate {
     func newContactButtonTapped(){
         let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
         let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
-        newContactVC?.delegate = self
+        newContactVC?.delegate = self        
         self.present(newContactVC!, animated: true, completion: nil)
     }
 }

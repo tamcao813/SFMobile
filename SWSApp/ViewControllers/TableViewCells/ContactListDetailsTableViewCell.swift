@@ -7,6 +7,9 @@
 //
 
 import UIKit
+protocol ContactListDetailsTableViewCellDelegate: NSObjectProtocol {
+    func editContactButtonTapped()
+}
 
 class ContactListDetailsTableViewCell: UITableViewCell {
 
@@ -35,6 +38,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var preferredContactMethodValueLabel: UILabel!
     @IBOutlet weak var notesValueLabel: UILabel!
+    weak var delegate: ContactListDetailsTableViewCellDelegate!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -132,6 +136,10 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         preferredContactMethodValueLabel.text = contactDetails.preferredCommunicationMethod
         notesValueLabel.text = contactDetails.sgwsNotes
         
+    }
+    
+    @IBAction func editContactButtonTapped(_ sender: UIButton){
+        self.delegate.editContactButtonTapped()
     }
     
 }

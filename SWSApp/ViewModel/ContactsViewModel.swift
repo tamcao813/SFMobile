@@ -55,6 +55,7 @@ class ContactsViewModel{
             
             if error != nil {
                 print(error?.localizedDescription ?? "error")
+                print("Contacts Sync up failed")
                 completion(error)
             }
             else {

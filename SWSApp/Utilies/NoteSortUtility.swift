@@ -29,13 +29,11 @@ class NoteSortUtility {
         static func sortAccountsByNotesDateModified(accountNotesToBeSorted: [AccountNotes], ascending: Bool) -> [AccountNotes]{
     
             var dateSortedNotesList = [AccountNotes]()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-mm-dd"
     
             if(ascending == true) {
-                dateSortedNotesList = accountNotesToBeSorted.sorted(by:{ dateFormatter.date(from: $0.lastModifiedDate)?.compare(dateFormatter.date(from :$1.lastModifiedDate)!) == .orderedAscending })
+                dateSortedNotesList = accountNotesToBeSorted.sorted(by:{ ($0.lastModifiedDate).compare(($1.lastModifiedDate)) == .orderedAscending })
             } else {
-                dateSortedNotesList = accountNotesToBeSorted.sorted(by:{ dateFormatter.date(from :$0.lastModifiedDate)?.compare(dateFormatter.date(from :$1.lastModifiedDate)!) == .orderedDescending })
+                dateSortedNotesList = accountNotesToBeSorted.sorted(by:{ ($0.lastModifiedDate).compare(($1.lastModifiedDate)) == .orderedDescending })
             }
         return dateSortedNotesList
         }

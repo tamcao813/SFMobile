@@ -244,7 +244,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 }
             })
         
-        
+        // Contacts Sync Up
+        ContactsViewModel().uploadContactToServerAndSyncDownACR(completion: { error in
+            if error != nil {
+                print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
+                MBProgressHUD.hide(forWindow: true)
+            }
+        })
     }
     
     private func setupTopMenuItems(){

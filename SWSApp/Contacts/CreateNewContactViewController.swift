@@ -224,7 +224,7 @@ class CreateNewContactViewController: UIViewController {
          */
         var success: Bool!
         if isNewContact {
-            success = ContactsViewModel().createNewContactToSoup(object: newContact)
+            success = ContactsViewModel().createNewContactToSoup(object: newContact,accountObject: accountSelected)
         }else{
             success = ContactsViewModel().editNewContactToSoup(object: newContact)
         }
@@ -232,16 +232,9 @@ class CreateNewContactViewController: UIViewController {
         //sync up to Contact which will update ACR, then for now we need to sync down ACR
         if success {
             self.dismiss(animated: true, completion: {
-                ContactsViewModel().uploadContactToServerAndSyncDownACR(object: newContact, completion: { error in
-                    if error == nil {
-                        if self.isNewContact {
-                            self.delegate.updateContactList()
-                        }
-                    }
-                    else {
-                        print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
-                    }
-                })
+                if self.isNewContact {
+                    self.delegate.updateContactList()
+                }                
             })
         } else {
             let alertController = UIAlertController(title: "Alert", message:

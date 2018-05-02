@@ -214,6 +214,9 @@ class CreateNewContactViewController: UIViewController {
             //            newContact.otherSpecification = otherReasonTextField.text!
             newContact.accountId = accountSelected.account_Id
         }
+        else {
+            newContact.accountId = (contactDetail?.accountId)!
+        }
         
         /*
          if contactClassificationTextField.text! == "Other"{

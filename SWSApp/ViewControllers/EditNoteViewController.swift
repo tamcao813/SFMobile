@@ -84,21 +84,6 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
             return
         }
         
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd yyyy"
-        let datetime = formatter.string(from: date)
-        let timeformat = DateFormatter ()
-        timeformat.dateFormat = "h:mm a"
-        let timeresult = timeformat.string(from: date)
-        
-        let dataDictionary = NSMutableDictionary()
-        dataDictionary.setValue(titleLabel?.text, forKey: "title")
-        dataDictionary.setValue(descriptionLabel?.text, forKey: "description")
-        dataDictionary.setValue(datetime, forKey: "date")
-        dataDictionary.setValue(timeresult, forKey: "time")
-        sendDataToTable.dataDictionary = dataDictionary
-        sendDataToTable.addDataToArray = 1
         self.editNote()
         self.dismiss(animated: true, completion: nil)
     }

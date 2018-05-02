@@ -30,10 +30,11 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     var notesDataToEdit: AccountNotes!
     var isSorting = false
     var isAscendingNotesName = false
-    var isAscendingNotesDate = false
+    var isAscendingNotesDate = true
     //sort data to display
     var sortedNotesList = [AccountNotes]()
     var tableViewDisplayData = [AccountNotes]()
+    var originalAccountNotesList = [AccountNotes]()
     
     @IBOutlet weak var notesTableView : UITableView?
     
@@ -52,7 +53,8 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
             //filtered array of notes related to my notes
             print("Notes Array \(notesArray)")
         }
-        
+        originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: notesArray, ascending: false)
+        tableViewDisplayData = originalAccountNotesList
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,12 +101,12 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         
             if isAscendingNotesName == true{
                 isAscendingNotesName = false
-                sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: accountNotesArray, ascending: true)
+                sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: notesArray, ascending: true)
             }
             else
             {
                 isAscendingNotesName = true
-                 sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: accountNotesArray, ascending: false)
+                 sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: notesArray, ascending: false)
             }
         
         //self.accountListTableView.reloadData()
@@ -130,12 +132,12 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         
         if isAscendingNotesDate == true{
             isAscendingNotesDate = false
-            sortedNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: accountNotesArray, ascending: true)
+            sortedNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: notesArray, ascending: true)
         }
         else
         {
             isAscendingNotesDate = true
-            sortedNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: accountNotesArray, ascending: false)
+            sortedNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: notesArray, ascending: false)
         }
         
         //self.accountListTableView.reloadData()
@@ -149,7 +151,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
             createNoteScreen.notesToEdit = notesDataToEdit
             createNoteScreen.isAddingNewNote = false
             createNoteScreen.sendNoteDelegate = self
-            
+            createNoteScreen.modalPresentationStyle = .overCurrentContext
         }
         
         if segue.identifier == "editNotesSegue" {
@@ -168,7 +170,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
 
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
-                notesArray.append(accNotes)
+                tableViewDisplayData.append(accNotes)
                 
             }
             //filtered array of notes related to my notes
@@ -220,7 +222,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
             
-            self.notesDataToEdit = self.notesArray[indexPath.row]
+            self.notesDataToEdit = self.tableViewDisplayData[indexPath.row]
             self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
         }
         editAction.hidesWhenSelected = true
@@ -230,7 +232,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
             let cell = tableView.cellForRow(at: indexPath) as! NotesTableViewCell
             let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
-            let alert = UIAlertController(title: "Notes Delete", message: "Are you sure you want to delete?", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Notes Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
             let continueAction = UIAlertAction(title: "Delete", style: .default) { action in
                 // Handle when button is clicked
                 //self.tableViewData.removeObject(at: indexPath.row)

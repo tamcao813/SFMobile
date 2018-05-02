@@ -98,9 +98,12 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-            if self.accountVisitArray[indexPath.row]["status"] == "Scheduled"{
+            
+            let data : Visit = self.tableViewData![indexPath.row]
+            
+            if data.status == "Scheduled"{
                 accountVisitsVC?.visitStatus = .scheduled
-            }else if self.accountVisitArray[indexPath.row]["status"] == "Completed"{
+            }else if data.status  == "Completed"{
                 accountVisitsVC?.visitStatus = .completed
             }else {
                 accountVisitsVC?.visitStatus = .inProgress
@@ -131,16 +134,20 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
         let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-        if accountVisitArray[indexPath.row]["status"] == "Scheduled"{
+        
+        let data : Visit = tableViewData![indexPath.row]
+        
+        if data.status == "Scheduled"{
             accountVisitsVC?.visitStatus = .scheduled
-        }else if accountVisitArray[indexPath.row]["status"] == "Completed"{
+        }else if data.status  == "Completed"{
             accountVisitsVC?.visitStatus = .completed
-        }else if accountVisitArray[indexPath.row]["status"] == "In Progress"{
+        }else if data.status  == "In-Progress"{
             accountVisitsVC?.visitStatus = .inProgress
-        }else if accountVisitArray[indexPath.row]["status"] == "Planned"{
+        }else if data.status  == "Planned"{
             accountVisitsVC?.modalPresentationStyle = .overCurrentContext
         }
         present(accountVisitsVC!, animated: true, completion: nil)
+        accountVisitsVC?.modalPresentationStyle = .overCurrentContext
         (accountVisitsVC)?.delegate = self
     }
 }
@@ -158,6 +165,10 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
             
         }
+    }
+    
+    func navigateToAccountScreen() {
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
 }
 

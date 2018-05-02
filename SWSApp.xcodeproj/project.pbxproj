@@ -346,6 +346,8 @@
 		F2FD2C2F20919B2900037BB2 /* EditAccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */; };
 		F2FDA1482099D925000921A8 /* VisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FDA1472099D924000921A8 /* VisitsViewModel.swift */; };
 		F2FDA14A2099D92D000921A8 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FDA1492099D92D000921A8 /* Visit.swift */; };
+		F2FDA14B2099DEEA000921A8 /* ServicePurposes.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */; };
+		F2FDA14C2099DEEA000921A8 /* ServicePurposes.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */; };
 		F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -1219,6 +1221,7 @@
 				6D38328B20874026006805C6 /* SFProperty.plist in Resources */,
 				6D38328C20874026006805C6 /* Main.storyboard in Resources */,
 				F2FD2C2F20919B2900037BB2 /* EditAccountStrategy.plist in Resources */,
+				F2FDA14C2099DEEA000921A8 /* ServicePurposes.plist in Resources */,
 				6D38328D20874026006805C6 /* LaunchScreen.storyboard in Resources */,
 				D23C40DB208DFA890006691C /* AccountVisitListTableViewCell.xib in Resources */,
 				F2062E5F2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */,
@@ -1291,6 +1294,7 @@
 				6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */,
 				AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */,
 				8D99A2F02091E6F600FAA71A /* NameTableViewCell.xib in Resources */,
+				F2FDA14B2099DEEA000921A8 /* ServicePurposes.plist in Resources */,
 				8D99A31A2091FCAF00FAA71A /* DescriptionTableViewCell.xib in Resources */,
 				6DBD03272077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf in Resources */,
 				12A37D1D20776F0D0036ED36 /* AccountsContactsVC.storyboard in Resources */,

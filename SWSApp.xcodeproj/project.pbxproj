@@ -203,6 +203,8 @@
 		AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
 		AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */; };
 		AE43DD04209622EC005D8DD1 /* ServicePurposesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */; };
+		AE43DD0620970BC3005D8DD1 /* ServicePurposes.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */; };
+		AE43DD0720970BC7005D8DD1 /* ServicePurposes.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */; };
 		AE5C974520886DD4004548E9 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
 		AE5C974820887550004548E9 /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974720887550004548E9 /* DesignableUITextField.swift */; };
 		AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974920888330004548E9 /* SchedulerComponent.swift */; };
@@ -440,6 +442,7 @@
 		AE2564BE2091B1C10056B559 /* SelectedAssociateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedAssociateTableViewCell.xib; sourceTree = "<group>"; };
 		AE2564BF2091B1C10056B559 /* AssociateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateTableViewCell.swift; sourceTree = "<group>"; };
 		AE2564C02091B1C10056B559 /* SelectedAssociateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedAssociateTableViewCell.swift; sourceTree = "<group>"; };
+		AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ServicePurposes.plist; sourceTree = "<group>"; };
 		AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVisitViewController.swift; sourceTree = "<group>"; };
 		AE5C974720887550004548E9 /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
 		AE5C974920888330004548E9 /* SchedulerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerComponent.swift; sourceTree = "<group>"; };
@@ -789,6 +792,7 @@
 				F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */,
 				F2590104209216ED00C2E354 /* DuringVisitTopics.plist */,
 				F20C1A26209347EA00D2351C /* Insights.plist */,
+				AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */,
 			);
 			path = PropertyPlist;
 			sourceTree = "<group>";
@@ -1141,6 +1145,7 @@
 				D23C40BA208DE6480006691C /* AccountVisitSectionHeaderView.xib in Resources */,
 				8DD14FFE2093162D00858349 /* Contacts.storyboard in Resources */,
 				6D38327C20874026006805C6 /* Ubuntu-LightItalic.ttf in Resources */,
+				AE43DD0720970BC7005D8DD1 /* ServicePurposes.plist in Resources */,
 				6D38327D20874026006805C6 /* CrimsonText-Roman.ttf in Resources */,
 				8DD150022093307800858349 /* SelectedAssociateTableViewCell.xib in Resources */,
 				6D38327E20874026006805C6 /* Ubuntu-BoldItalic.ttf in Resources */,
@@ -1230,6 +1235,7 @@
 				8D99A3142091E79C00FAA71A /* DropdownTableViewCell.xib in Resources */,
 				8D99A3202092501000FAA71A /* FamilyTableViewCell.xib in Resources */,
 				6DBD03202077B5EF0083419E /* CrimsonText-Italic.ttf in Resources */,
+				AE43DD0620970BC3005D8DD1 /* ServicePurposes.plist in Resources */,
 				D23C409E208DCF610006691C /* AccountVisit.storyboard in Resources */,
 				8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */,
 				D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */,

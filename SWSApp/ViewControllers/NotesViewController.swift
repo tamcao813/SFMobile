@@ -101,12 +101,12 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         
             if isAscendingNotesName == true{
                 isAscendingNotesName = false
-                sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: notesArray, ascending: true)
+                sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: tableViewDisplayData, ascending: true)
             }
             else
             {
                 isAscendingNotesName = true
-                 sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: notesArray, ascending: false)
+                 sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: tableViewDisplayData, ascending: false)
             }
         
         //self.accountListTableView.reloadData()
@@ -132,12 +132,12 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         
         if isAscendingNotesDate == true{
             isAscendingNotesDate = false
-            sortedNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: notesArray, ascending: true)
+            sortedNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: tableViewDisplayData, ascending: true)
         }
         else
         {
             isAscendingNotesDate = true
-            sortedNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: notesArray, ascending: false)
+            sortedNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: tableViewDisplayData, ascending: false)
         }
         
         //self.accountListTableView.reloadData()

@@ -70,17 +70,17 @@ class ContactsViewModel{
     
     func createNewContactToSoup(object: Contact, accountObject: Account) -> Bool {
         let contactfields: [String:Any] = object.toJson()
+        
+        let newACR = AccountContactRelation(for: "newACR")
+        newACR.accountId = object.accountId
+        newACR.accountName = accountObject.accountName
+        newACR.contactId = object.contactId
+        newACR.contactName = object.firstName + " " + object.lastName
+        newACR.roles = object.functionRole
+        newACR.sgwsSiteNumber = (userVieModel.loggedInUser?.userSite)!
+        let acrFields: [String:Any] = newACR.toJson()
+        StoreDispatcher.shared.createNewEntryInACR(fields: acrFields)
         return StoreDispatcher.shared.createNewContactToSoup(fields: contactfields)
-//        let newACR = AccountContactRelation(for: "newACR")
-//        newACR.accountId = object.accountId
-//        newACR.accountName = accountObject.accountName
-//        newACR.contactId = object.contactId
-//        newACR.contactName = object.firstName + " " + object.lastName
-//        newACR.roles = object.functionRole
-//        newACR.sgwsSiteNumber = (userVieModel.loggedInUser?.userSite)!
-//        let acrFields: [String:Any] = newACR.toJson()
-//        StoreDispatcher.shared.createNewEntryInACR(fields: acrFields)
-//        return StoreDispatcher.shared.createNewContactToSoup(fields: contactfields)
     }
     
     func editNewContactToSoup(object: Contact) -> Bool {

@@ -234,6 +234,7 @@ class CreateNewContactViewController: UIViewController {
             self.dismiss(animated: true, completion: {
                 if self.isNewContact {
                     self.delegate.updateContactList()
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
                 }                
             })
         } else {

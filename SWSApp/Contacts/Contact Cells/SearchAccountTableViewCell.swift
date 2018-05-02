@@ -49,6 +49,7 @@ class SearchAccountTableViewCell: UITableViewCell {
     
     func customizedUI(){
         searchAccountsString = []
+        searchAccounts = []
         searchAccounts = self.accountViewModel.accountsForLoggedUser
         for account in searchAccounts {
             searchAccountsString.append(account.accountName)
@@ -77,6 +78,7 @@ extension SearchAccountTableViewCell: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
         searchAccountsString = []
         searchAccounts = []
         searchAccounts = self.getAccountData(searchStr: string)

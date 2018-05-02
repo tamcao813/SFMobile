@@ -10,6 +10,20 @@ import UIKit
 
 class ContactSortUtility {
 
+    static func searchContactByContactId(_ contactId:String)->Contact?
+    {
+        
+        let contactList = ContactsViewModel().globalContacts().filter( { return $0.contactId == contactId } )
+        if contactList.count > 0 {
+            return contactList[0]
+        }
+        else {
+            return nil
+        }
+        
+    }
+    
+
     static func sortByContactNameAlphabetically(contactsListToBeSorted:[Contact], ascending:Bool)->[Contact]
     {
         

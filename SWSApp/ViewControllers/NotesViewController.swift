@@ -30,19 +30,10 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     var notesDataToEdit: AccountNotes!
     var isSorting = false
     var isAscendingNotesName = false
+    var isAscendingNotesDate = false
     //sort data to display
     var sortedNotesList = [AccountNotes]()
     var tableViewDisplayData = [AccountNotes]()
-    
-   // tableViewDisplayData
-    
-    //   // var notesDict = [
-    //        ["title" : "Visit: Crown Liquor Store One", "date": "Today","time" : "10:30AM","description" : "Hello 1"],
-    //        ["title" : "aLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 2 "],
-    //        ["title" : "dLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 3"],
-    //        ["title" : "bLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 4"],
-    //        ["title" : "dLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 5"]]
-    
     
     @IBOutlet weak var notesTableView : UITableView?
     
@@ -57,23 +48,16 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
                 notesArray.append(accNotes)
-                
             }
             //filtered array of notes related to my notes
             print("Notes Array \(notesArray)")
-            
         }
-        print(tableViewData)
-        if(sendDataToTable.addDataToArray != -1){
-            sendDataToTable.addDataToArray = -1
-            tableViewData.add(sendDataToTable.dataDictionary)
-        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         notesTableView?.reloadData()
-
     }
     
     func displayAccountNotes() {
@@ -81,6 +65,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         print(accountNotesArray)
         notesTableView?.reloadData()
     }
+    
     func navigateToNotesViewController() {
         print("Reload the data")
     
@@ -94,16 +79,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
             print("Notes Array \(notesArray)")
             
         }
-        //        print(tableViewData)
-        //        if(sendDataToTable.addDataToArray != -1){
-        //            sendDataToTable.addDataToArray = -1
-        //            tableViewData.add(sendDataToTable.dataDictionary)
-        //        }
-        
         notesTableView?.reloadData()
-        
-        
-        
     }
     
     func noteCreated() {
@@ -149,7 +125,21 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     }
     
     @IBAction func sortByDate(_ sender: Any) {
+        print("sortNotesListByDatemodified")
+        isSorting = true
         
+        if isAscendingNotesDate == true{
+            isAscendingNotesDate = false
+            sortedNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: accountNotesArray, ascending: true)
+        }
+        else
+        {
+            isAscendingNotesDate = true
+            sortedNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: accountNotesArray, ascending: false)
+        }
+        
+        //self.accountListTableView.reloadData()
+        self.updateTheTableViewDataAccordingly()
     }
     
     //MARK:- Segue connection
@@ -244,7 +234,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
             let continueAction = UIAlertAction(title: "Delete", style: .default) { action in
                 // Handle when button is clicked
                 //self.tableViewData.removeObject(at: indexPath.row)
-                self.notesArray.remove(at: indexPath.row)
+                self.tableViewDisplayData.remove(at: indexPath.row)
                 self.notesTableView?.reloadData()
                 //tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             }
@@ -280,7 +270,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
 
     //MARK:- On select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        notesDataToEdit = notesArray[indexPath.row]
+        notesDataToEdit = tableViewDisplayData[indexPath.row]
         self.performSegue(withIdentifier: "editNotesSegue", sender: nil)
         
         //        (vc as! EditNoteViewController).displayDictdata(name: tableViewData as! [Dictionary<String, String>], index: indexPath.row)

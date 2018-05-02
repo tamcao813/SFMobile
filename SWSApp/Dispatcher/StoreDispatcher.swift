@@ -25,6 +25,7 @@ class StoreDispatcher {
     let SoupAccountNotes = "SGWS_Account_Notes__c"
     let SoupVisit = "WorkOrder"
     
+    let SoupStrategyQA = "SGWS_Response__c"
 
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
@@ -45,6 +46,7 @@ class StoreDispatcher {
         registerACRSoup()
         registerNotesSoup()
         registerVisitSoup()
+        registerStrategyQASoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -100,7 +102,10 @@ class StoreDispatcher {
             group.leave()
         }
         
-        
+        group.enter()
+        syncDownStrategyQA() { _ in
+            group.leave()
+        }
         
        
         //to do: syncDown other soups

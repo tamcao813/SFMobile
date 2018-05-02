@@ -77,9 +77,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         cell?.displayCellData(data: celldata)
         
         
-        
-       // cell?.addressLabel.text = accountVisitArray[indexPath.row]["title"]
-        //cell?.visitStatusLabel.text = accountVisitArray[indexPath.row]["status"]
+//        cell?.addressLabel.text = accountVisitArray[indexPath.row]["title"]
+//        cell?.visitStatusLabel.text = accountVisitArray[indexPath.row]["status"]
 //        if accountVisitArray[indexPath.row]["status"] == "Scheduled"{
 //            cell?.statusView.backgroundColor = UIColor(hexString: "#CDA635")
 //        }else if accountVisitArray[indexPath.row]["status"] == "Completed"{
@@ -109,6 +108,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
             accountVisitsVC?.modalPresentationStyle = .overCurrentContext
             self.present(accountVisitsVC!, animated: true, completion: nil)
         }
+        
+        editAction.hidesWhenSelected = true
         editAction.image = UIImage(named:"editIcon")
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
         

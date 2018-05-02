@@ -10,6 +10,20 @@ import UIKit
 
 class ContactSortUtility {
 
+    static func searchContactByContactId(_ contactId:String)->Contact?
+    {
+        
+        let contactList = ContactsViewModel().globalContacts().filter( { return $0.contactId == contactId } )
+        if contactList.count > 0 {
+            return contactList[0]
+        }
+        else {
+            return nil
+        }
+        
+    }
+    
+
     static func sortByContactNameAlphabetically(contactsListToBeSorted:[Contact], ascending:Bool)->[Contact]
     {
         
@@ -203,6 +217,17 @@ class ContactSortUtility {
         }
         
         return (enteredAnyFilterCase, filteredContactArray)
+        
+    }
+    
+    static func formatContactClassification(contactToBeFormatted : Contact)-> (String) {
+        
+        if contactToBeFormatted.buyerFlag {
+            return "Buyer"
+        }
+        else {
+            return contactToBeFormatted.contactClassification
+        }
         
     }
     

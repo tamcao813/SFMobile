@@ -35,6 +35,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var child5ValueLabel: UILabel!
     @IBOutlet weak var likesValueLabel: UILabel!
     @IBOutlet weak var dislikesValueLabel: UILabel!
+    @IBOutlet weak var favoriteActivitiesValueLabel: UILabel!
 
     @IBOutlet weak var preferredContactMethodValueLabel: UILabel!
     @IBOutlet weak var notesValueLabel: UILabel!
@@ -67,7 +68,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         
         let fullName = contactDetails.firstName + " " + contactDetails.lastName
         initialNameLabel.text = contactDetails.getIntials(name: fullName)
-        nameValueLabel.text = "    " + fullName
+        nameValueLabel.text = fullName
         phoneValueLabel.text = contactDetails.phoneNumber
         emailValueLabel.text =  contactDetails.email
 
@@ -96,6 +97,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
 
         likesValueLabel.text = contactDetails.likes
         dislikesValueLabel.text = contactDetails.dislikes
+        favoriteActivitiesValueLabel.text = contactDetails.favouriteActivities
         
     }
     
@@ -104,13 +106,14 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         labelToDisplay.text = ""
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-DD"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         
         if let date: Date = dateFormatter.date(from: dateString) {
 //            dateFormatter.dateFormat = "MMM d, yyyy"
-            dateFormatter.dateFormat = "MM/DD/YYYY"
-            labelToDisplay.text = dateFormatter.string(from: date) + " (" + textToDisply + ")"
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+//            labelToDisplay.text = dateFormatter.string(from: date) + " (" + textToDisply + ")"
+            labelToDisplay.text = dateFormatter.string(from: date)
         }
         
     }

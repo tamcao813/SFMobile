@@ -23,10 +23,7 @@ class StrategyQA {
     var LastModifiedDate:String
     var OwnerId:String
     
-    
-    
-    
-    
+
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(StrategyQA.StrategyQAFields, ary))
         self.init(json: resultDict)

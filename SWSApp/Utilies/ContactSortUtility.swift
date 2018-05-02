@@ -206,4 +206,15 @@ class ContactSortUtility {
         
     }
     
+    static func formatContactClassification(contactToBeFormatted : Contact)-> (String) {
+        
+        if contactToBeFormatted.buyerFlag {
+            return "Buyer"
+        }
+        else {
+            return contactToBeFormatted.contactClassification
+        }
+        
+    }
+    
 }

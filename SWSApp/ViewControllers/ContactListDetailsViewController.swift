@@ -43,10 +43,10 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         guard contactDetail != nil else {
             return 0
         }
-        
+        /*
         if accountLinked.count == 0 {
             return countHeaderFooter
-        }
+        }*/
         return countHeaderFooter + accountLinked.count + countLinkHeader
     }
     
@@ -61,15 +61,19 @@ extension ContactListDetailsViewController : UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         }
-        else if accountLinked.count > 0 , indexPath.row == 1 {
+        else if indexPath.row == 1 {
             let cell:ContactListAccountHeaderDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountHeaderDetails", for: indexPath) as! ContactListAccountHeaderDetails
-            cell.displayCellContent(contactDetail!)
+            if accountLinked.count == 0 {
+                cell.displayEmptyCellContent()
+            }
+            else {
+                cell.displayCellContent(contactDetail!)
+            }
 
             cell.selectionStyle = .none
             return cell
         }
-        else if (accountLinked.count > 0 && ((indexPath.row + 1) == countHeaderFooter + accountLinked.count + countLinkHeader)) ||
-            (accountLinked.count == 0 && ((indexPath.row + 1) == countHeaderFooter)) {
+        else if (indexPath.row + 1) == countHeaderFooter + accountLinked.count + countLinkHeader {
             let cell:ContactListAccountFooterDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountFooterDetails", for: indexPath) as! ContactListAccountFooterDetails
             cell.displayCellContent(contactDetail!)
             cell.linkNewAccountContactButton.addTarget(self, action: #selector(actionLinkNewAccountContactDetails), for: .touchUpInside)
@@ -80,7 +84,7 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         
         let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
         let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
-        cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId,withRoles: acrDetail[(indexPath.row-2)].roles)
+        cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId, withRoles: acrDetail[(indexPath.row-2)].roles, forClassification: ContactSortUtility.formatContactClassification(contactToBeFormatted: contactDetail!))
 
         cell.unlinkAccountContactButton.tag = indexPath.row - countHeaderFooter
         cell.unlinkAccountContactButton.addTarget(self, action: #selector(actionUnlinkAccountContactDetails), for: .touchUpInside)
@@ -102,12 +106,24 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         
         print("actionUnlinkAccountContactDetails Clicked " + String(sender.tag))
         
+        if accountLinked.count == 1 {
+            
+            let alert = UIAlertController(title: nil, message: "Each Contact must be linked to at least one Account.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
+            
+            return
+        }
+        
         UIView.performWithoutAnimation({() -> Void in
             contactDetailsTableView.beginUpdates()
             accountLinked.remove(at: sender.tag)
             contactDetailsTableView.deleteRows(at: [IndexPath(row: (sender.tag + countHeaderFooter), section: 0)], with: .fade)
+
             if accountLinked.count == 0 {
-                contactDetailsTableView.deleteRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
+//                contactDetailsTableView.deleteRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
+                contactDetailsTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
             }
             contactDetailsTableView.endUpdates()
             if accountLinked.count != 0 {
@@ -136,11 +152,10 @@ extension ContactListDetailsViewController : UITableViewDelegate {
         if indexPath.row == 0 {
             return 580
         }
-        else if accountLinked.count > 0 , indexPath.row == 1 {
+        else if indexPath.row == 1 {
             return 100
         }
-        else if (accountLinked.count > 0 && ((indexPath.row + 1) == countHeaderFooter + accountLinked.count + countLinkHeader)) ||
-            (accountLinked.count == 0 && ((indexPath.row + 1) == countHeaderFooter)) {
+        else if (indexPath.row + 1) == countHeaderFooter + accountLinked.count + countLinkHeader {
             return 200
         }
         return 240

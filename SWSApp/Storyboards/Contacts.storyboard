@@ -498,7 +498,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(337) 598-6325" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wd-a0-8Fd">
-                                                                            <rect key="frame" x="0.0" y="16" width="240" height="20"/>
+                                                                            <rect key="frame" x="0.0" y="16" width="109.5" height="20"/>
                                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -690,8 +690,8 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K4B-1O-7JX">
                                                             <rect key="frame" x="0.0" y="240" width="960" height="180"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Life Events" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPM-1K-SIr">
-                                                                    <rect key="frame" x="32" y="42" width="69.5" height="16"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPM-1K-SIr">
+                                                                    <rect key="frame" x="32" y="42" width="54" height="16"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -702,8 +702,14 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anniversary" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4mG-HI-AY7">
+                                                                    <rect key="frame" x="182" y="42" width="75.5" height="16"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wedding" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2u-gf-OeW">
-                                                                    <rect key="frame" x="32" y="82" width="65" height="18"/>
+                                                                    <rect key="frame" x="182" y="61" width="65" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -714,31 +720,31 @@
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jessica (13)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Ff-HAb">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jessica (13)" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Ff-HAb">
                                                                     <rect key="frame" x="368" y="61" width="83.5" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Millie (9)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovj-6m-xta">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Millie (9)" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovj-6m-xta">
                                                                     <rect key="frame" x="368" y="82" width="63" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="George (3)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjP-tR-CEu">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="George (3)" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjP-tR-CEu">
                                                                     <rect key="frame" x="368" y="103" width="77" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jessica (13)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zc-pB-BOh">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jessica (13)" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zc-pB-BOh">
                                                                     <rect key="frame" x="368" y="124" width="83.5" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Millie (9)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAc-8e-Jio">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Millie (9)" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAc-8e-Jio">
                                                                     <rect key="frame" x="368" y="145" width="63" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
@@ -750,20 +756,32 @@
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vacations, books, netflix." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFd-Og-cbr">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vacations, books, netflix." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFd-Og-cbr">
                                                                     <rect key="frame" x="608" y="61" width="181" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dislikes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvJ-b2-x5Y">
-                                                                    <rect key="frame" x="608" y="108" width="48.5" height="16"/>
+                                                                    <rect key="frame" x="608" y="84" width="48.5" height="16"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cold weather, Mondays, traffic jams." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwz-4r-N0A">
-                                                                    <rect key="frame" x="608" y="127" width="262.5" height="18"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cold weather, Mondays, traffic jams." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwz-4r-N0A">
+                                                                    <rect key="frame" x="608" y="103" width="262.5" height="18"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorite Activities" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fhg-TI-S9A">
+                                                                    <rect key="frame" x="608" y="126" width="113.5" height="16"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cold weather, Mondays, traffic jams." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vcw-He-DNB">
+                                                                    <rect key="frame" x="608" y="145" width="262.5" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -781,31 +799,38 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
+                                                                <constraint firstItem="O2u-gf-OeW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lhJ-PW-iuP" secondAttribute="trailing" constant="5" id="0TM-Qx-Ppa"/>
                                                                 <constraint firstItem="GjP-tR-CEu" firstAttribute="leading" secondItem="Ovj-6m-xta" secondAttribute="leading" id="3J3-Hi-DdT"/>
+                                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="O2u-gf-OeW" secondAttribute="bottom" constant="5" id="3cR-me-hbs"/>
                                                                 <constraint firstItem="GjP-tR-CEu" firstAttribute="top" secondItem="Ovj-6m-xta" secondAttribute="bottom" constant="3" id="3sw-ff-IEM"/>
                                                                 <constraint firstItem="Ovj-6m-xta" firstAttribute="leading" secondItem="C3X-Ff-HAb" secondAttribute="leading" id="4Nz-Bt-uuF"/>
                                                                 <constraint firstItem="2zc-pB-BOh" firstAttribute="leading" secondItem="GjP-tR-CEu" secondAttribute="leading" id="55p-0r-KZt"/>
                                                                 <constraint firstItem="2zc-pB-BOh" firstAttribute="top" secondItem="GjP-tR-CEu" secondAttribute="bottom" constant="3" id="69K-Pw-V3v"/>
+                                                                <constraint firstItem="O2u-gf-OeW" firstAttribute="leading" secondItem="4mG-HI-AY7" secondAttribute="leading" id="6Ni-Yc-yXb"/>
                                                                 <constraint firstItem="gFd-Og-cbr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ovj-6m-xta" secondAttribute="trailing" constant="5" id="7EQ-K2-EJe"/>
                                                                 <constraint firstItem="Ovj-6m-xta" firstAttribute="top" secondItem="C3X-Ff-HAb" secondAttribute="bottom" constant="3" id="7Jj-LR-JBw"/>
-                                                                <constraint firstItem="Ovj-6m-xta" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="O2u-gf-OeW" secondAttribute="trailing" constant="5" id="8HH-NE-OsN"/>
-                                                                <constraint firstItem="xvJ-b2-x5Y" firstAttribute="top" secondItem="ioK-4x-4Xg" secondAttribute="bottom" constant="50" id="A1O-Mn-2IG"/>
                                                                 <constraint firstItem="ioK-4x-4Xg" firstAttribute="centerY" secondItem="P6L-1Q-jYw" secondAttribute="centerY" id="Af5-G2-GK9"/>
                                                                 <constraint firstItem="C3X-Ff-HAb" firstAttribute="top" secondItem="P6L-1Q-jYw" secondAttribute="bottom" constant="3" id="Avu-de-yCb"/>
+                                                                <constraint firstItem="C3X-Ff-HAb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="O2u-gf-OeW" secondAttribute="trailing" constant="5" id="C8l-YO-hFL"/>
                                                                 <constraint firstAttribute="bottom" secondItem="I9E-6R-Wte" secondAttribute="bottom" id="CgN-vo-kVl"/>
                                                                 <constraint firstItem="gFd-Og-cbr" firstAttribute="top" secondItem="ioK-4x-4Xg" secondAttribute="bottom" constant="3" id="D2i-vc-Rie"/>
                                                                 <constraint firstItem="lhJ-PW-iuP" firstAttribute="leading" secondItem="FPM-1K-SIr" secondAttribute="leading" id="D3D-YP-bOE"/>
                                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="jwz-4r-N0A" secondAttribute="bottom" constant="5" id="Ecf-KZ-gd0"/>
                                                                 <constraint firstItem="jwz-4r-N0A" firstAttribute="leading" secondItem="xvJ-b2-x5Y" secondAttribute="leading" id="G5h-ro-5DJ"/>
-                                                                <constraint firstItem="xvJ-b2-x5Y" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gFd-Og-cbr" secondAttribute="bottom" constant="3" id="JLU-bm-CHL"/>
-                                                                <constraint firstItem="O2u-gf-OeW" firstAttribute="leading" secondItem="lhJ-PW-iuP" secondAttribute="leading" id="LK9-YR-BOe"/>
+                                                                <constraint firstItem="jwz-4r-N0A" firstAttribute="leading" secondItem="Fhg-TI-S9A" secondAttribute="leading" id="Iuq-3h-UJb"/>
                                                                 <constraint firstItem="IAc-8e-Jio" firstAttribute="leading" secondItem="2zc-pB-BOh" secondAttribute="leading" id="OpV-Ex-s2W"/>
                                                                 <constraint firstItem="IAc-8e-Jio" firstAttribute="top" secondItem="2zc-pB-BOh" secondAttribute="bottom" constant="3" id="PfS-J7-Pd4"/>
+                                                                <constraint firstItem="Fhg-TI-S9A" firstAttribute="top" secondItem="xvJ-b2-x5Y" secondAttribute="bottom" constant="26" id="UTg-Pc-yGL"/>
+                                                                <constraint firstItem="vcw-He-DNB" firstAttribute="top" secondItem="Fhg-TI-S9A" secondAttribute="bottom" constant="3" id="Urg-fb-CEM"/>
+                                                                <constraint firstItem="O2u-gf-OeW" firstAttribute="top" secondItem="4mG-HI-AY7" secondAttribute="bottom" constant="3" id="WcY-GA-Ibj"/>
+                                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="lhJ-PW-iuP" secondAttribute="bottom" constant="5" id="XDa-sp-TBN"/>
                                                                 <constraint firstItem="jwz-4r-N0A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2zc-pB-BOh" secondAttribute="trailing" constant="5" id="YSI-uF-Azj"/>
+                                                                <constraint firstItem="Fhg-TI-S9A" firstAttribute="leading" secondItem="vcw-He-DNB" secondAttribute="leading" id="az9-rI-hBX"/>
+                                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vcw-He-DNB" secondAttribute="trailing" constant="5" id="cWA-iZ-oxX"/>
+                                                                <constraint firstItem="4mG-HI-AY7" firstAttribute="centerY" secondItem="FPM-1K-SIr" secondAttribute="centerY" id="ccz-b2-GU3"/>
                                                                 <constraint firstItem="P6L-1Q-jYw" firstAttribute="centerY" secondItem="FPM-1K-SIr" secondAttribute="centerY" id="eW0-qW-2mS"/>
                                                                 <constraint firstItem="ioK-4x-4Xg" firstAttribute="leading" secondItem="gFd-Og-cbr" secondAttribute="leading" id="gjz-S0-UxQ"/>
                                                                 <constraint firstItem="gFd-Og-cbr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="C3X-Ff-HAb" secondAttribute="trailing" constant="5" id="i9j-VA-m4j"/>
-                                                                <constraint firstItem="O2u-gf-OeW" firstAttribute="top" secondItem="lhJ-PW-iuP" secondAttribute="bottom" constant="3" id="ilU-zz-nYO"/>
                                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jwz-4r-N0A" secondAttribute="trailing" constant="5" id="nkA-1m-rR9"/>
                                                                 <constraint firstItem="C3X-Ff-HAb" firstAttribute="leading" secondItem="P6L-1Q-jYw" secondAttribute="leading" id="phu-q6-MPP"/>
                                                                 <constraint firstItem="gFd-Og-cbr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="GjP-tR-CEu" secondAttribute="trailing" constant="5" id="qCB-18-bV6"/>
@@ -813,9 +838,9 @@
                                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gFd-Og-cbr" secondAttribute="trailing" constant="5" id="rhr-me-x2J"/>
                                                                 <constraint firstItem="xvJ-b2-x5Y" firstAttribute="leading" secondItem="ioK-4x-4Xg" secondAttribute="leading" id="sEd-ya-rVd"/>
                                                                 <constraint firstItem="lhJ-PW-iuP" firstAttribute="top" secondItem="FPM-1K-SIr" secondAttribute="bottom" constant="3" id="t6N-1T-r3U"/>
+                                                                <constraint firstItem="xvJ-b2-x5Y" firstAttribute="top" secondItem="ioK-4x-4Xg" secondAttribute="bottom" constant="26" id="uvE-FX-x8J"/>
                                                                 <constraint firstItem="jwz-4r-N0A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IAc-8e-Jio" secondAttribute="trailing" constant="5" id="wEe-uJ-xzn"/>
                                                                 <constraint firstItem="jwz-4r-N0A" firstAttribute="top" secondItem="xvJ-b2-x5Y" secondAttribute="bottom" constant="3" id="wL8-BZ-AlP"/>
-                                                                <constraint firstItem="C3X-Ff-HAb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lhJ-PW-iuP" secondAttribute="trailing" constant="5" id="wWn-4X-fw5"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7JB-Th-NCT">
@@ -886,6 +911,7 @@
                                                         <constraint firstItem="dpC-NL-o5h" firstAttribute="trailing" secondItem="eEV-NC-If7" secondAttribute="trailing" id="jCq-yw-Pzl"/>
                                                         <constraint firstItem="K4B-1O-7JX" firstAttribute="height" secondItem="dpC-NL-o5h" secondAttribute="height" multiplier="1.5" id="mFn-Kk-n7S"/>
                                                         <constraint firstItem="K4B-1O-7JX" firstAttribute="leading" secondItem="dpC-NL-o5h" secondAttribute="leading" id="nE3-pq-4Is"/>
+                                                        <constraint firstItem="4mG-HI-AY7" firstAttribute="leading" secondItem="yLb-Xp-j2M" secondAttribute="leading" id="oUq-Mm-lWV"/>
                                                         <constraint firstItem="eEV-NC-If7" firstAttribute="leading" secondItem="98P-1f-BZc" secondAttribute="leading" id="rS7-YK-q1j"/>
                                                         <constraint firstItem="K4B-1O-7JX" firstAttribute="trailing" secondItem="dpC-NL-o5h" secondAttribute="trailing" id="snF-b9-JJE"/>
                                                         <constraint firstItem="P6L-1Q-jYw" firstAttribute="leading" secondItem="vKf-gw-EcU" secondAttribute="leading" id="u59-za-du4"/>
@@ -915,6 +941,7 @@
                                             <outlet property="dislikesValueLabel" destination="jwz-4r-N0A" id="i7c-FR-hZf"/>
                                             <outlet property="editContactButton" destination="zg0-MV-9lB" id="GID-yF-Cg1"/>
                                             <outlet property="emailValueLabel" destination="igj-sB-ORn" id="3kX-Ij-VEC"/>
+                                            <outlet property="favoriteActivitiesValueLabel" destination="vcw-He-DNB" id="esY-yG-hUE"/>
                                             <outlet property="faxValueLabel" destination="9NB-MY-UeU" id="VzK-rE-oEO"/>
                                             <outlet property="initialNameLabel" destination="mbD-Lr-cSO" id="Cyg-6v-jUN"/>
                                             <outlet property="likesValueLabel" destination="gFd-Og-cbr" id="kqK-RV-zhX"/>
@@ -969,9 +996,10 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3R-71-c8H">
                                                             <rect key="frame" x="0.0" y="0.0" width="960" height="130"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SjA-y6-6wX">
+                                                                <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SjA-y6-6wX">
                                                                     <rect key="frame" x="0.0" y="0.0" width="960" height="10"/>
-                                                                    <color key="backgroundColor" name="LightGrey"/>
+                                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="10" id="2Gq-Nx-YDb"/>
                                                                     </constraints>
@@ -1093,8 +1121,14 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Influencer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kZ-4x-K9B">
-                                                                    <rect key="frame" x="32" y="58" width="923" height="18"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Influencer" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kZ-4x-K9B">
+                                                                    <rect key="frame" x="32" y="59" width="74" height="18"/>
+                                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buyer Influencer Other" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyu-YV-x82">
+                                                                    <rect key="frame" x="368" y="36" width="167.5" height="18"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1102,9 +1136,13 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fyu-YV-x82" secondAttribute="trailing" constant="5" id="15P-ds-Z1g"/>
+                                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="9kZ-4x-K9B" secondAttribute="bottom" constant="5" id="AAg-4B-0de"/>
                                                                 <constraint firstItem="kJl-cS-SKC" firstAttribute="centerY" secondItem="1Cd-uW-EhI" secondAttribute="centerY" constant="-10" id="E7q-gj-bTN"/>
-                                                                <constraint firstAttribute="trailing" secondItem="9kZ-4x-K9B" secondAttribute="trailing" constant="5" id="Sct-Be-33A"/>
-                                                                <constraint firstItem="9kZ-4x-K9B" firstAttribute="centerY" secondItem="1Cd-uW-EhI" secondAttribute="centerY" constant="12" id="ie2-0d-Vde"/>
+                                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fyu-YV-x82" secondAttribute="bottom" constant="5" id="FDN-me-uAY"/>
+                                                                <constraint firstItem="9kZ-4x-K9B" firstAttribute="top" secondItem="kJl-cS-SKC" secondAttribute="bottom" constant="5" id="GX0-kU-6RA"/>
+                                                                <constraint firstItem="fyu-YV-x82" firstAttribute="top" secondItem="kJl-cS-SKC" secondAttribute="top" id="Vy8-MV-mNa"/>
+                                                                <constraint firstItem="fyu-YV-x82" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9kZ-4x-K9B" secondAttribute="trailing" constant="5" id="je4-Jx-O9Q"/>
                                                                 <constraint firstItem="9kZ-4x-K9B" firstAttribute="leading" secondItem="kJl-cS-SKC" secondAttribute="leading" id="p0z-Oj-8cv"/>
                                                             </constraints>
                                                         </view>
@@ -1112,6 +1150,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="C3R-71-c8H" firstAttribute="leading" secondItem="iwx-tO-XIL" secondAttribute="leading" id="ImE-bx-jDC"/>
+                                                        <constraint firstItem="PbD-pu-WDZ" firstAttribute="leading" secondItem="fyu-YV-x82" secondAttribute="leading" id="Pvu-ih-NrS"/>
                                                         <constraint firstAttribute="trailing" secondItem="1Cd-uW-EhI" secondAttribute="trailing" id="QVP-Vu-Y7m"/>
                                                         <constraint firstItem="1Cd-uW-EhI" firstAttribute="top" secondItem="C3R-71-c8H" secondAttribute="bottom" id="W80-LV-06f"/>
                                                         <constraint firstAttribute="trailing" secondItem="C3R-71-c8H" secondAttribute="trailing" id="ftO-ks-M5s"/>
@@ -1135,6 +1174,7 @@
                                         <connections>
                                             <outlet property="accountAddress1ValueLabel" destination="PbD-pu-WDZ" id="0UW-Uy-Ug0"/>
                                             <outlet property="accountAddress2ValueLabel" destination="G4H-97-buH" id="I60-wW-cFK"/>
+                                            <outlet property="accountBuyerInfluencerOtherValueLabel" destination="fyu-YV-x82" id="h3X-fU-dG7"/>
                                             <outlet property="accountEditButton" destination="JFL-vA-MAM" id="llT-tb-PR6"/>
                                             <outlet property="accountLinkButton" destination="UM7-7F-Fbp" id="JAM-Ob-x9B"/>
                                             <outlet property="accountNameValueLabel" destination="SlG-Qs-RYA" id="DAf-9u-tFX"/>

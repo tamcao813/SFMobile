@@ -218,6 +218,8 @@
 		AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
 		AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */; };
 		AE43DD04209622EC005D8DD1 /* ServicePurposesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */; };
+		AE43DD0620970BC3005D8DD1 /* ServicePurposes.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */; };
+		AE43DD0720970BC7005D8DD1 /* ServicePurposes.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */; };
 		AE5C974520886DD4004548E9 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
 		AE5C974820887550004548E9 /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974720887550004548E9 /* DesignableUITextField.swift */; };
 		AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974920888330004548E9 /* SchedulerComponent.swift */; };
@@ -226,6 +228,8 @@
 		AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */; };
 		BDC2971F8C914488A5B7964D /* Pods_SWSApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */; };
 		BEB744DE3D3763CB271C360C /* Pods_SWSApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */; };
+		C955CD272099982F003DADA1 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */; };
+		C955CD282099A040003DADA1 /* NoteSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1268ED46209868170027013D /* NoteSortUtility.swift */; };
 		C96B39162094B417000F4F55 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */; };
 		C9B63C68208DB6DB008D9E14 /* Notes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B63C67208DB6DB008D9E14 /* Notes.storyboard */; };
 		C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */; };
@@ -465,6 +469,7 @@
 		AE2564BE2091B1C10056B559 /* SelectedAssociateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedAssociateTableViewCell.xib; sourceTree = "<group>"; };
 		AE2564BF2091B1C10056B559 /* AssociateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateTableViewCell.swift; sourceTree = "<group>"; };
 		AE2564C02091B1C10056B559 /* SelectedAssociateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedAssociateTableViewCell.swift; sourceTree = "<group>"; };
+		AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ServicePurposes.plist; sourceTree = "<group>"; };
 		AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVisitViewController.swift; sourceTree = "<group>"; };
 		AE5C974720887550004548E9 /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
 		AE5C974920888330004548E9 /* SchedulerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerComponent.swift; sourceTree = "<group>"; };
@@ -819,6 +824,7 @@
 				F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */,
 				F2590104209216ED00C2E354 /* DuringVisitTopics.plist */,
 				F20C1A26209347EA00D2351C /* Insights.plist */,
+				AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */,
 			);
 			path = PropertyPlist;
 			sourceTree = "<group>";
@@ -1175,6 +1181,7 @@
 				D23C40BA208DE6480006691C /* AccountVisitSectionHeaderView.xib in Resources */,
 				8DD14FFE2093162D00858349 /* Contacts.storyboard in Resources */,
 				6D38327C20874026006805C6 /* Ubuntu-LightItalic.ttf in Resources */,
+				AE43DD0720970BC7005D8DD1 /* ServicePurposes.plist in Resources */,
 				6D38327D20874026006805C6 /* CrimsonText-Roman.ttf in Resources */,
 				8DD150022093307800858349 /* SelectedAssociateTableViewCell.xib in Resources */,
 				6D38327E20874026006805C6 /* Ubuntu-BoldItalic.ttf in Resources */,
@@ -1266,6 +1273,7 @@
 				8D99A3142091E79C00FAA71A /* DropdownTableViewCell.xib in Resources */,
 				8D99A3202092501000FAA71A /* FamilyTableViewCell.xib in Resources */,
 				6DBD03202077B5EF0083419E /* CrimsonText-Italic.ttf in Resources */,
+				AE43DD0620970BC3005D8DD1 /* ServicePurposes.plist in Resources */,
 				D23C409E208DCF610006691C /* AccountVisit.storyboard in Resources */,
 				8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */,
 				D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */,
@@ -1524,6 +1532,7 @@
 				8D99A2F52091E70900FAA71A /* PrimaryFunctionTableViewCell.swift in Sources */,
 				8DD150002093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,
 				12F0F89E2090B1D200160C3D /* ContactListDetailsTableViewCell.swift in Sources */,
+				C955CD282099A040003DADA1 /* NoteSortUtility.swift in Sources */,
 				F2CAD23420958075001016C2 /* DuringVisitsInsightsCollectionReusableView.swift in Sources */,
 				F2CAD22E20957C23001016C2 /* OpportunitiesViewController.swift in Sources */,
 				8D99A3012091E73F00FAA71A /* EmailTableViewCell.swift in Sources */,
@@ -1538,6 +1547,7 @@
 				6D38326420874026006805C6 /* ActionItemsViewController.swift in Sources */,
 				F2FD2C2920919AF600037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */,
 				12F0F89D2090B1C000160C3D /* ContactListTableViewCell.swift in Sources */,
+				C955CD272099982F003DADA1 /* NotesViewController.swift in Sources */,
 				C96B39162094B417000F4F55 /* EditNoteViewController.swift in Sources */,
 				91C3E5A2208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */,
 				F20C1A2E20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift in Sources */,

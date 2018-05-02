@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>New item</key>
+	<array>
+		<dict>
+			<key>headerText</key>
+			<string>Account Situation</string>
+			<key>subHeader</key>
+			<string>Goals</string>
+			<key>answers</key>
+			<array>
+				<string>Meet the needs of your regulars</string>
+				<string>Stay in business</string>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>subHeader</key>
+			<string>Success Metrics</string>
+			<key>answers</key>
+			<array>
+				<string>Top line sales go up</string>
+				<string>Inventory turns go up</string>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>subHeader</key>
+			<string>Challenges</string>
+			<key>answers</key>
+			<array>
+				<string>Limited cash flow</string>
+				<string>Limited storage space</string>
+				<string>Consumers are changing a lot</string>
+				<string>Competition is about the same</string>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string>Buying Motives</string>
+			<key>subHeader</key>
+			<string>Task Buying Motive</string>
+			<key>answers</key>
+			<array>
+				<string>Better Product/Offering</string>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string>Service Purposes</string>
+			<key>subHeader</key>
+			<string>Select all that apply.</string>
+			<key>answers</key>
+			<array>
+				<string>Point of Sale</string>
+				<string>Store/Display Setup</string>
+				<string> Sample and Tasting</string>
+				<string>Inventory Issue</string>
+				<string> Price Change</string>
+				<string> License and Credit Status Issue</string>
+				<string> In-Store Promotion</string>
+				<string> Payment Pick-up</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

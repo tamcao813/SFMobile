@@ -25,7 +25,7 @@ protocol sendNotesDataToNotesDelegate{
 
 class CreateNoteViewController : UIViewController{
     
-    let textFieldLimit = 250 // limit for TextField
+    let textFieldLimit = 80 // limit for TextField
     let textViewLimit = 30000 // limit for TextView
     
     @IBOutlet weak var textView: UITextView!
@@ -48,6 +48,7 @@ class CreateNoteViewController : UIViewController{
         super.viewDidLoad()
         textView?.layer.borderColor = UIColor.init(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1).cgColor
         notesTitleTextField?.layer.borderColor = UIColor.init(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1).cgColor
+      //  notesTitleTextField.layer.cornerRadius = 
         notesTitleTextField.delegate = self
         textView.delegate = self
        
@@ -146,7 +147,7 @@ class CreateNoteViewController : UIViewController{
     @IBAction func saveAndCloseButtonClicked(_ sender: Any) {
         
         if(isAddingNewNote){
-        if ((notesTitleTextField?.text)!.isEmpty){
+            if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
             // create the alert
             let alert = UIAlertController(title: "Notes", message: "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))

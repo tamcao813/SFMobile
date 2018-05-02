@@ -8,33 +8,47 @@
 
 import Foundation
 import UIKit
+import SmartStore
+import SmartSync
 
 struct sendDataToTable {
     static var addDataToArray = -1
     static var dataDictionary = NSMutableDictionary()
 }
 
+protocol sendNotesDataToNotesDelegate{
+    func displayAccountNotes()
+    func dismissEditNote()
+    func noteCreated()
+
+}
+
 class CreateNoteViewController : UIViewController{
     
-    let textFieldLimit = 250 // limit for TextField
+    let textFieldLimit = 80 // limit for TextField
     let textViewLimit = 30000 // limit for TextView
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var notesTitleTextField: UITextField!
+    @IBOutlet weak var editNotel_Label: UILabel!
     
     var dataDictionary:[String: Any] = [:]
     var notesToEdit: AccountNotes!
     var isAddingNewNote: Bool = true
     var accNotesViewModel = AccountsNotesViewModel()
-    
+    var sendNoteDelegate : sendNotesDataToNotesDelegate?
     var notesAccountId:String!
-   
+    var notesOwnerId:String!
+    var comingFromNotesVC:Bool?
+    
+
     
     //MARK:- View Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         textView?.layer.borderColor = UIColor.init(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1).cgColor
         notesTitleTextField?.layer.borderColor = UIColor.init(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1).cgColor
+      //  notesTitleTextField.layer.cornerRadius = 
         notesTitleTextField.delegate = self
         textView.delegate = self
        
@@ -47,6 +61,15 @@ class CreateNoteViewController : UIViewController{
         if(!isAddingNewNote) {
             self.textView?.text = notesToEdit.accountNotesDesc
             self.notesTitleTextField?.text = notesToEdit.name
+        }
+        
+        if comingFromNotesVC == true{
+            
+            self.editNotel_Label.text = "Edit Note"
+        }
+        else {
+            
+             self.editNotel_Label.text = "Add Note"
         }
     }
     
@@ -69,37 +92,52 @@ class CreateNoteViewController : UIViewController{
     }
     
     func createNewNotes() {
-            let new_notes = AccountNotes(for: "newNotes")
-            new_notes.Id = self.generateRandomIDForNotes()
-            new_notes.lastModifiedDate = ""
-            new_notes.name = self.notesTitleTextField.text!
-            new_notes.ownerId = ""
-            new_notes.accountId = notesAccountId
-            new_notes.accountNotesDesc = self.textView.text!
-            let addNewDict: [String:Any] = [
-                
-                                             AccountNotes.AccountNotesFields[0]: new_notes.Id,
-                                             AccountNotes.AccountNotesFields[1]: new_notes.lastModifiedDate,
-                                             AccountNotes.AccountNotesFields[2]: new_notes.name,
-                                             AccountNotes.AccountNotesFields[3]: new_notes.ownerId,
-                                             AccountNotes.AccountNotesFields[4]: new_notes.accountId,
-                                             AccountNotes.AccountNotesFields[5]: new_notes.accountNotesDesc,
-            ]
+        
+        let date = Date()
+        print(date)
+        let dateFormatter = DateFormatter()
+        //let dt = dateFormatter.date(from: date)
+        // dateFormatter.timeZone = TimeZone
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        print(timeStamp)
+        
+        let new_notes = AccountNotes(for: "newNotes")
+        new_notes.Id = self.generateRandomIDForNotes()
+        new_notes.lastModifiedDate = timeStamp
+        new_notes.name = self.notesTitleTextField.text!
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        new_notes.ownerId = (appDelegate.loggedInUser?.userId)!
+        new_notes.accountId = notesAccountId
+        new_notes.accountNotesDesc = self.textView.text!
+        let attributeDict = ["type":"SGWS_Account_Notes__c"]
+        
+        let addNewDict: [String:Any] = [
+            
+            AccountNotes.AccountNotesFields[0]: new_notes.Id,
+            AccountNotes.AccountNotesFields[1]: new_notes.lastModifiedDate,
+            AccountNotes.AccountNotesFields[2]: new_notes.name,
+            AccountNotes.AccountNotesFields[3]: new_notes.ownerId,
+            AccountNotes.AccountNotesFields[4]: new_notes.accountId,
+            AccountNotes.AccountNotesFields[5]: new_notes.accountNotesDesc,
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
         
         let success = accNotesViewModel.createNewNotesLocally(fields: addNewDict)
         print("Success is here \(success)")
         
-        //assuming online
-        if success { //upsert to local store is successful then upload to server
-            accNotesViewModel.uploadNotesToServer(fields: addNewDict, completion: { error in
-                if error != nil {
-                    print(error?.localizedDescription ?? "error")
-                }
-            })
-        }
+        // Show the alert if not saved
         
     }
-    
+    //
+//    if(!isAddingNewNote) {
+//    self.textView?.text = notesToEdit.accountNotesDesc
+//    self.notesTitleTextField?.text = notesToEdit.name
+//    }
     
     //MARK:- IB Button actions
     @IBAction func closeButtonClicked(_ sender: Any) {
@@ -108,7 +146,8 @@ class CreateNoteViewController : UIViewController{
     
     @IBAction func saveAndCloseButtonClicked(_ sender: Any) {
         
-        if ((notesTitleTextField?.text)!.isEmpty){
+        if(isAddingNewNote){
+            if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
             // create the alert
             let alert = UIAlertController(title: "Notes", message: "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
@@ -131,11 +170,74 @@ class CreateNoteViewController : UIViewController{
         dataDictionary.setValue(timeresult, forKey: "time")
         sendDataToTable.dataDictionary = dataDictionary
         sendDataToTable.addDataToArray = 1
-        self.dismiss(animated: true, completion: nil)
-        
         self.createNewNotes()
         
+        self.dismiss(animated: true, completion: {
+            self.sendNoteDelegate?.displayAccountNotes()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
+
+            //self.sendNoteDelegate?.noteCreated()
+        })
+        } else {
+            self.editNote()
+            self.dismiss(animated: true, completion: {
+                self.sendNoteDelegate?.dismissEditNote()
+                self.sendNoteDelegate?.displayAccountNotes()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
+
+                
+                
+            })
+        }
     }
+    
+    
+//    if ((titleLabel?.text)!.isEmpty){
+//    // create the alert
+//    let alert = UIAlertController(title: "Notes", message: "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
+//    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+//    self.present(alert, animated: true, completion: nil)
+//    return
+//    }
+    
+
+
+@IBAction func editNote(_ sender: Any) {
+   // self.performSegue(withIdentifier: "editToCreate", sender: nil)
+}
+
+
+func editNote() {
+    
+    let date = Date()
+    print(date)
+    let dateFormatter = DateFormatter()
+    //let dt = dateFormatter.date(from: date)
+    // dateFormatter.timeZone = TimeZone
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+    let timeStamp = dateFormatter.string(from: date)
+    print(timeStamp)
+    
+    notesToEdit.lastModifiedDate = timeStamp
+    let attributeDict = ["type":"SGWS_Account_Notes__c"]
+    
+    let editNoteDict: [String:Any] = [
+        
+        AccountNotes.AccountNotesFields[1]: notesToEdit.lastModifiedDate,
+        AccountNotes.AccountNotesFields[2]: notesToEdit.name,
+        AccountNotes.AccountNotesFields[5]: notesToEdit.accountNotesDesc,
+        kSyncTargetLocal:true,
+        kSyncTargetLocallyCreated:false,
+        kSyncTargetLocallyUpdated:true,
+        kSyncTargetLocallyDeleted:false,
+        "attributes":attributeDict]
+    
+    let success = AccountsNotesViewModel().editNotesLocally(fields: editNoteDict)
+    print("Success is here \(success)")
+    
+    // Show the alert if not saved
+    
+}
     
 }
 

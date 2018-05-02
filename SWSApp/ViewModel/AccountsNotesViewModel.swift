@@ -18,8 +18,11 @@ class AccountsNotesViewModel {
     func createNewNotesLocally(fields: [String:Any]) -> Bool {
         return StoreDispatcher.shared.createNewNotesLocally(fieldsToUpload:fields)
     }
+    func editNotesLocally(fields: [String:Any]) -> Bool {
+        return StoreDispatcher.shared.editNotesLocally(fieldsToUpload:fields)
+    }
     
-    func uploadNotesToServer(fields: [String:Any], completion: @escaping (_ error: NSError?)->() ) {
+    func uploadNotesToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
         StoreDispatcher.shared.syncUpNotes(fieldsToUpload: fields, completion: {error in
             
             if error != nil {
@@ -27,6 +30,8 @@ class AccountsNotesViewModel {
                 completion(error)
             }
             else {
+                MBProgressHUD.hide(forWindow: true)
+
                 completion(nil)
             }
         })

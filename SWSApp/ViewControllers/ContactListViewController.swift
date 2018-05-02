@@ -10,6 +10,7 @@ import UIKit
 
 protocol ContactDetailsScreenDelegate{
     func pushTheScreenToContactDetailsScreen(contactData : Contact)
+    func clearAllMenu()
 }
 
 class ContactListViewController: UIViewController, UITableViewDataSource {
@@ -48,20 +49,14 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        globalContactCount = contactViewModel.globalContacts().count
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
+        fetchContacts()
+    }
+    
+    func fetchContacts(){
+        globalContactCount = contactViewModel.globalContacts().count
         contactsAcc = contactViewModel.accountsForContacts()
         loadContactData()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK:- Table View Data Source
@@ -106,7 +101,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         print("full name \(fullName)")
         cell.initialNameLabel.text = globalContact.getIntials(name: fullName)
         cell.nameValueLabel.text = fullName
-        cell.phoneValueLabel.text = globalContact.phoneuNmber
+        cell.phoneValueLabel.text = globalContact.phoneNumber
         cell.emailValueLabel.text =  globalContact.email
         cell.selectionStyle = .none
         var accountsName = [String]()
@@ -117,11 +112,17 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
             }
         }
         
-        accountsName = accountsName.sorted { $0.lowercased() < $1.lowercased() }
-        
-        let formattedaccountsName = accountsName.joined(separator: ", ")
-        print(formattedaccountsName)
-        cell.linkedAccountWithContact.text = "\(formattedaccountsName)"
+        if(accountsName.count > 0){
+            accountsName = accountsName.sorted { $0.lowercased() < $1.lowercased() }
+            
+            let formattedaccountsName = accountsName.joined(separator: ", ")
+            print(formattedaccountsName)
+            cell.linkedAccountWithContact.text = "\(formattedaccountsName)"
+            
+        } else {
+            cell.linkedAccountWithContact.text = "This contact is not linked to any of your Accounts"
+            
+        }
         
         return cell
         
@@ -143,12 +144,17 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     //MARK:- load contact data
     func loadContactData() {
         
-        print("loadContactData")
         if ContactsGlobal.accountId == "" {
-            globalContactsForList = contactViewModel.globalContacts()
+
+            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: "")
+
         }else{
+            
+            delegate?.clearAllMenu()
+
             globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
             print("globalContactsForList.count  = \(globalContactsForList.count)")
+            
         }
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
@@ -508,11 +514,18 @@ extension ContactListViewController{
     
 }
 
+extension ContactListViewController : CreateNewContactViewControllerDelegate {
+    func updateContactList() {
+        fetchContacts()
+    }
+}
+
 extension ContactListViewController: ContactListTableViewButtonCellDelegate {
     
     func newContactButtonTapped(){
         let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
         let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
+        newContactVC?.delegate = self
         self.present(newContactVC!, animated: true, completion: nil)
     }
 }

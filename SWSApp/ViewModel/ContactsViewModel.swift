@@ -47,6 +47,24 @@ class ContactsViewModel{
         })
     }
     
+    func uploadContactToServerAndSyncDownACR(object: Contact, completion: @escaping (_ error: NSError?)->() ) {
+        let fields: [String:Any] = object.toJson()
+        let keys = fields.map{ $0.key }
+        
+        StoreDispatcher.shared.syncUpContact(fieldsToUpload: keys, completion: {error in
+            
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                completion(error)
+            }
+            else {
+                StoreDispatcher.shared.syncDownACR( { error in
+                    completion(error)
+                })
+            }
+        })
+    }
+    
     func createNewContactToSoup(object: Contact) -> Bool {
         let fields: [String:Any] = object.toJson()
         return StoreDispatcher.shared.createNewContactToSoup(fields: fields)

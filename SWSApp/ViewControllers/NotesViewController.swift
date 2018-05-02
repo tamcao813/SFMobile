@@ -20,21 +20,28 @@ class NotesTableViewCell : SwipeTableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
 }
 
-class NotesViewController : UIViewController {
-    
+class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, NavigateToNotesVCDelegate {
+
     var tableViewData = NSMutableArray()
     var accountNotesArray = [AccountNotes]()
     var accNotesViewModel = AccountsNotesViewModel()
     var notesArray = [AccountNotes]()
     var accountId : String!
     var notesDataToEdit: AccountNotes!
+    var isSorting = false
+    var isAscendingNotesName = false
+    //sort data to display
+    var sortedNotesList = [AccountNotes]()
+    var tableViewDisplayData = [AccountNotes]()
     
-//   // var notesDict = [
-//        ["title" : "Visit: Crown Liquor Store One", "date": "Today","time" : "10:30AM","description" : "Hello 1"],
-//        ["title" : "aLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 2 "],
-//        ["title" : "dLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 3"],
-//        ["title" : "bLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 4"],
-//        ["title" : "dLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 5"]]
+   // tableViewDisplayData
+    
+    //   // var notesDict = [
+    //        ["title" : "Visit: Crown Liquor Store One", "date": "Today","time" : "10:30AM","description" : "Hello 1"],
+    //        ["title" : "aLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 2 "],
+    //        ["title" : "dLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 3"],
+    //        ["title" : "bLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 4"],
+    //        ["title" : "dLorem Ipsum dolor sit", "date": "March 30th 2018","time" : "10:30AM","description" : "Hello 5"]]
     
     
     @IBOutlet weak var notesTableView : UITableView?
@@ -44,23 +51,18 @@ class NotesViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+    NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotesList), name: NSNotification.Name("refreshNotesList"), object: nil)
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
+        tableViewDisplayData = accountNotesArray
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
                 notesArray.append(accNotes)
- 
+                
             }
             //filtered array of notes related to my notes
-             print("Notes Array \(notesArray)")
-           
+            print("Notes Array \(notesArray)")
+            
         }
-        
-        
-
-//        for item in notesDict{
-//            tableViewData.add(item)
-//        }
         print(tableViewData)
         if(sendDataToTable.addDataToArray != -1){
             sendDataToTable.addDataToArray = -1
@@ -70,13 +72,80 @@ class NotesViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        notesTableView?.reloadData()
+
+    }
+    
+    func displayAccountNotes() {
+        accountNotesArray = accNotesViewModel.accountsNotesForUser()
+        print(accountNotesArray)
+        notesTableView?.reloadData()
+    }
+    func navigateToNotesViewController() {
+        print("Reload the data")
+    
+        accountNotesArray = accNotesViewModel.accountsNotesForUser()
+        for accNotes in accountNotesArray {
+            if(accNotes.accountId == self.accountId) {
+                notesArray.append(accNotes)
+                
+            }
+            //filtered array of notes related to my notes
+            print("Notes Array \(notesArray)")
+            
+        }
+        //        print(tableViewData)
+        //        if(sendDataToTable.addDataToArray != -1){
+        //            sendDataToTable.addDataToArray = -1
+        //            tableViewData.add(sendDataToTable.dataDictionary)
+        //        }
+        
+        notesTableView?.reloadData()
         
         
+        
+    }
+    
+    func noteCreated() {
+ 
+        
+    }
+    
+    func dismissEditNote() {
+        print("NotesViewController:dismissEditNote")
     }
     
     //MARK:- Sort Actions
     @IBAction func sortByNotesTitle(_ sender: Any) {
         
+        print("sortNotesListByNotesName")
+        isSorting = true
+        
+            if isAscendingNotesName == true{
+                isAscendingNotesName = false
+                sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: accountNotesArray, ascending: true)
+            }
+            else
+            {
+                isAscendingNotesName = true
+                 sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: accountNotesArray, ascending: false)
+            }
+        
+        //self.accountListTableView.reloadData()
+        self.updateTheTableViewDataAccordingly()
+        
+    }
+    
+    func updateTheTableViewDataAccordingly(){
+        if(isSorting)
+        {
+            tableViewDisplayData = sortedNotesList
+        }
+        else
+        {
+            tableViewDisplayData = notesArray
+        }
+          notesTableView?.reloadData()
     }
     
     @IBAction func sortByDate(_ sender: Any) {
@@ -89,24 +158,45 @@ class NotesViewController : UIViewController {
             let createNoteScreen = segue.destination as! CreateNoteViewController
             createNoteScreen.notesToEdit = notesDataToEdit
             createNoteScreen.isAddingNewNote = false
+            createNoteScreen.sendNoteDelegate = self
+            
         }
         
         if segue.identifier == "editNotesSegue" {
             let editNoteScreen = segue.destination as! EditNoteViewController
             editNoteScreen.notesToBeEdited = notesDataToEdit
-            
+            editNoteScreen.delegate = self
+           
             
         }
     }
     
+    @objc func refreshNotesList(notification: NSNotification){
+        accountNotesArray = []
+        notesArray = []
+        accountNotesArray = accNotesViewModel.accountsNotesForUser()
+
+        for accNotes in accountNotesArray {
+            if(accNotes.accountId == self.accountId) {
+                notesArray.append(accNotes)
+                
+            }
+            //filtered array of notes related to my notes
+            print("Notes Array \(notesArray)")
+            
+        }
+        notesTableView?.reloadData()
+
     
+    }
     
 }
 //MARK:- UITable view Delegate and Datasource,SwipeTableViewCellDelegate
 extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTableViewCellDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notesArray.count
+        return tableViewDisplayData.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -115,14 +205,16 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         
         cell.delegate = self
         cell.selectionStyle = .none
-        let notes = notesArray[indexPath.row]
+        let notes = tableViewDisplayData[indexPath.row]
         cell.titleLabel?.text = notes.name
         let serverDate = notes.lastModifiedDate
+        if(serverDate != ""){
         let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
         var dateTime = getTime.components(separatedBy: " ")
         if(dateTime.count > 0){
             cell.dateLabel?.text  = dateTime[0]
             cell.timeLabel?.text = dateTime[1]
+        }
         }
         return cell
     }
@@ -137,9 +229,11 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         guard orientation == .right else { return nil }
         
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
+            
             self.notesDataToEdit = self.notesArray[indexPath.row]
             self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
         }
+        editAction.hidesWhenSelected = true
         editAction.image = UIImage(named:"editIcon")
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
         

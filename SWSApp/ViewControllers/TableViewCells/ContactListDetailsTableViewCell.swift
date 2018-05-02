@@ -64,7 +64,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         let fullName = contactDetails.firstName + " " + contactDetails.lastName
         initialNameLabel.text = contactDetails.getIntials(name: fullName)
         nameValueLabel.text = "    " + fullName
-        phoneValueLabel.text = contactDetails.phoneuNmber
+        phoneValueLabel.text = contactDetails.phoneNumber
         emailValueLabel.text =  contactDetails.email
 
     }
@@ -74,7 +74,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         preferredNameValueLabel.text = contactDetails.preferredName
         titleValueLabel.text = contactDetails.title
         departmentValueLabel.text = contactDetails.department
-        faxValueLabel.text = "TBD"
+        faxValueLabel.text = contactDetails.fax
         contactHoursValueLabel.text =  contactDetails.contactHours
         
     }
@@ -82,7 +82,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
     func displayThirdRowCellContent(_ contactDetails: Contact) {
         
         displayEventContent(birthdayValueLabel, textToDisply: "Birthday", dateString: contactDetails.birthDate)
-        displayEventContent(weddingValueLabel, textToDisply: "Wedding", dateString: contactDetails.anniversary)
+        displayEventContent(weddingValueLabel, textToDisply: "Anniversary", dateString: contactDetails.anniversary)
         
         displayChildContent(child1ValueLabel, textToDisply: contactDetails.child1Name, dateString: contactDetails.child1Birthday)
         displayChildContent(child2ValueLabel, textToDisply: contactDetails.child2Name, dateString: contactDetails.child2Birthday)
@@ -104,7 +104,8 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         
         if let date: Date = dateFormatter.date(from: dateString) {
-            dateFormatter.dateFormat = "MMM d, yyyy"
+//            dateFormatter.dateFormat = "MMM d, yyyy"
+            dateFormatter.dateFormat = "MM/DD/YYYY"
             labelToDisplay.text = dateFormatter.string(from: date) + " (" + textToDisply + ")"
         }
         
@@ -119,8 +120,9 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         
         if let date: Date = dateFormatter.date(from: dateString) {
-            print(dateString)
-            labelToDisplay.text = textToDisply + " (" + String(date.age) + ")"
+//            labelToDisplay.text = textToDisply + " (" + String(date.age) + ")"
+            dateFormatter.dateFormat = "MM/DD/YYYY"
+            labelToDisplay.text = textToDisply + " (" + dateFormatter.string(from: date) + ")"
         }
         
     }
@@ -130,37 +132,6 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         preferredContactMethodValueLabel.text = contactDetails.preferredCommunicationMethod
         notesValueLabel.text = contactDetails.sgwsNotes
         
-    }
-    
-}
-
-extension Date {
-    
-    //An integer representation of age from the date object (read-only).
-    var age: Int {
-        get {
-            let now = Date()
-            let calendar = Calendar.current
-            
-            let ageComponents = calendar.dateComponents([.year], from: self, to: now)
-            let age = ageComponents.year!
-            return age
-        }
-    }
-    
-    init(year: Int, month: Int, day: Int) {
-        var dc = DateComponents()
-        dc.year = year
-        dc.month = month
-        dc.day = day
-        
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
-        if let date = calendar.date(from: dc) {
-            self.init(timeInterval: 0, since: date)
-        } else {
-            fatalError("Date component values were invalid.")
-        }
     }
     
 }

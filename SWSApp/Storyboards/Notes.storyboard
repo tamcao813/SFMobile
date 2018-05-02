@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -13,9 +13,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
         <array key="Ubuntu-Light.ttf">
             <string>Ubuntu-Light</string>
         </array>
@@ -59,6 +56,11 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipsToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="reload" destination="W6E-gb-7vA" eventType="editingDidEndOnExit" id="bwZ-Xb-ge9"/>
@@ -150,6 +152,7 @@
                         <viewLayoutGuide key="safeArea" id="zBj-j6-Zkl"/>
                     </view>
                     <connections>
+                        <outlet property="editNotel_Label" destination="pmB-ZB-trr" id="y69-wA-Zty"/>
                         <outlet property="notesTitleTextField" destination="xHu-uK-I5K" id="vtE-ry-QCY"/>
                         <outlet property="textView" destination="FQN-jX-iEl" id="izt-TR-oMX"/>
                     </connections>
@@ -207,7 +210,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUO-iM-iN6" userLabel="BackgroundLable">
-                                                    <rect key="frame" x="20" y="5" width="1072" height="70"/>
+                                                    <rect key="frame" x="20" y="0.0" width="1072" height="75"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -265,7 +268,7 @@
                                                     </connections>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="WKc-kh-B9p" firstAttribute="centerY" secondItem="s3q-Dg-5J8" secondAttribute="centerY" id="540-5O-6Uh"/>
                                                 <constraint firstItem="gma-yx-m0l" firstAttribute="centerY" secondItem="s3q-Dg-5J8" secondAttribute="centerY" id="9WT-xw-WpC"/>
@@ -274,10 +277,10 @@
                                                 <constraint firstItem="oUO-iM-iN6" firstAttribute="leading" secondItem="s3q-Dg-5J8" secondAttribute="leading" constant="20" id="OYt-Y4-jqt"/>
                                                 <constraint firstItem="gma-yx-m0l" firstAttribute="leading" secondItem="s3q-Dg-5J8" secondAttribute="leading" constant="609.5" id="YwW-cx-NgC"/>
                                                 <constraint firstItem="WKc-kh-B9p" firstAttribute="leading" secondItem="oUO-iM-iN6" secondAttribute="leading" constant="30" id="peg-16-Kgg"/>
-                                                <constraint firstItem="oUO-iM-iN6" firstAttribute="top" secondItem="s3q-Dg-5J8" secondAttribute="top" constant="5" id="rLK-o8-eRF"/>
+                                                <constraint firstItem="oUO-iM-iN6" firstAttribute="top" secondItem="s3q-Dg-5J8" secondAttribute="top" id="rLK-o8-eRF"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" name="LightGrey"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="notesTitleCellIdentifier" rowHeight="100" id="nMQ-FB-OIv" customClass="NotesTableViewCell" customModule="SWSApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="108" width="1112" height="100"/>
@@ -361,8 +364,8 @@
                     </view>
                     <connections>
                         <outlet property="notesTableView" destination="RLW-Uk-DF3" id="jpZ-48-Knc"/>
-                        <segue destination="nFu-Pa-Vui" kind="presentation" identifier="createNoteSegue" modalPresentationStyle="overCurrentContext" id="KIP-kr-Jk9"/>
                         <segue destination="EP0-BQ-qDP" kind="presentation" identifier="editNotesSegue" modalPresentationStyle="overCurrentContext" id="NaX-7i-Uly"/>
+                        <segue destination="nFu-Pa-Vui" kind="presentation" identifier="createNoteSegue" id="2C3-CV-b8r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7iH-Vd-MTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -487,10 +490,10 @@
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightGrey">
-            <color red="0.94099998470000001" green="0.95700001720000005" blue="0.96899998190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KIP-kr-Jk9"/>
+        <segue reference="2C3-CV-b8r"/>
     </inferredMetricsTieBreakers>
 </document>

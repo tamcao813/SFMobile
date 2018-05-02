@@ -50,11 +50,14 @@ class ContactsViewController : UIViewController, ContactDetailsScreenDelegate {
 
     func testPlist() {
         //testContactRolePlist
-        let opts = PlistMap.sharedInstance.getPicklist("Contact", fieldname: "Roles")
+        let opts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactRoles")
         print(opts)
         
-        let preferredOpts = PlistMap.sharedInstance.getPicklist("Contact", fieldname: "PreferredCommunication")
+        let preferredOpts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactPreferredCommunication")
         print(preferredOpts)
+        
+        let classificationOpts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactClassification")
+        print(classificationOpts)
     }
     
     func testCreateNewContact() {
@@ -83,4 +86,8 @@ class ContactsViewController : UIViewController, ContactDetailsScreenDelegate {
         self.view.addSubview((contactDetails?.view)!)
     }
 
+    func clearAllMenu() {
+        filterMenuVC?.clearFilterModelData(clearcontactsOnMyRoute: true)
+    }
+    
 }

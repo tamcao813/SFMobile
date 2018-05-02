@@ -16,21 +16,19 @@ struct PlistOption {
 class PlistMap {
     
     static let sharedInstance: PlistMap = PlistMap()
-    fileprivate var picklistMap:[String:[String:[PlistOption]]]!  //[SoupName:[FieldName:[PlistOption]]]
+    fileprivate var picklistMap:[String:[PlistOption]]!  //[FieldName:[PlistOption]]
     
     fileprivate init() {
-        picklistMap = [String:[String:[PlistOption]]]()
+        picklistMap = [String:[PlistOption]]()
     }
     
-    func addToMap(_ soup:String, map:[String:[PlistOption]]) {
-        picklistMap[soup] = map
+    func addToMap(field: String, map:[PlistOption]) {
+        picklistMap[field] = map
     }
     
-    func getPicklist(_ soupname:String, fieldname:String) -> [PlistOption] {
-        if let dict = picklistMap[soupname] {
-            if let opts = dict[fieldname] {
-                return opts
-            }
+    func getPicklist(fieldname:String) -> [PlistOption] {
+        if let opts = picklistMap[fieldname] {
+            return opts
         }
         
         return [PlistOption]()

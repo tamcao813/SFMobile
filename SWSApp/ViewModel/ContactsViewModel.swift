@@ -71,6 +71,12 @@ class ContactsViewModel{
         return StoreDispatcher.shared.createNewContactToSoup(fields: fields)
     }
     
+    func editNewContactToSoup(object: Contact) -> Bool {
+        let fields: [String:Any] = object.toJson()
+        return StoreDispatcher.shared.editContactToSoup(fields: fields)
+    }
+    
+    
     func uploadContactACRToServer(object: Contact, completion: @escaping (_ error: NSError?)->() ) {
         let fields: [String:Any] = object.toJson()
         let keys = fields.map{ $0.key }

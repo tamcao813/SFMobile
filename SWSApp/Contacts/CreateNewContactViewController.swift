@@ -142,17 +142,17 @@ class CreateNewContactViewController: UIViewController {
         }else if (firstNameTextField.text?.isEmpty)! {
             firstNameTextField.borderColor = .red
             firstNameTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             showAlert = true
         } else if (lastNameTextField.text?.isEmpty)! {
             lastNameTextField.borderColor = .red
             lastNameTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             showAlert = true
         }else if (primaryFunctionTextField.text?.isEmpty)! {
             primaryFunctionTextField.borderColor = .red
             primaryFunctionTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 1, section: 1), at: .top, animated: true)
+            tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
             showAlert = true
         }else{
             showAlert = false
@@ -222,8 +222,12 @@ class CreateNewContactViewController: UIViewController {
          newContact.contactClassification = contactClassificationTextField.text!
          }
          */
-        
-        let success = ContactsViewModel().createNewContactToSoup(object: newContact)
+        var success: Bool!
+        if isNewContact {
+            success = ContactsViewModel().createNewContactToSoup(object: newContact)
+        }else{
+            success = ContactsViewModel().editNewContactToSoup(object: newContact)
+        }
         
         //sync up to Contact which will update ACR, then for now we need to sync down ACR
         if success {

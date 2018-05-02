@@ -28,8 +28,13 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     var notesArray = [AccountNotes]()
     var accountId : String!
     var notesDataToEdit: AccountNotes!
-   
+    var isSorting = false
+    var isAscendingNotesName = false
+    //sort data to display
+    var sortedNotesList = [AccountNotes]()
+    var tableViewDisplayData = [AccountNotes]()
     
+   // tableViewDisplayData
     
     //   // var notesDict = [
     //        ["title" : "Visit: Crown Liquor Store One", "date": "Today","time" : "10:30AM","description" : "Hello 1"],
@@ -48,6 +53,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         super.viewDidLoad()
     NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotesList), name: NSNotification.Name("refreshNotesList"), object: nil)
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
+        tableViewDisplayData = accountNotesArray
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
                 notesArray.append(accNotes)
@@ -77,8 +83,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     }
     func navigateToNotesViewController() {
         print("Reload the data")
-        
-        
+    
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
@@ -102,10 +107,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     }
     
     func noteCreated() {
-        
-        
-        
-        
+ 
         
     }
     
@@ -116,6 +118,34 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     //MARK:- Sort Actions
     @IBAction func sortByNotesTitle(_ sender: Any) {
         
+        print("sortNotesListByNotesName")
+        isSorting = true
+        
+            if isAscendingNotesName == true{
+                isAscendingNotesName = false
+                sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: accountNotesArray, ascending: true)
+            }
+            else
+            {
+                isAscendingNotesName = true
+                 sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: accountNotesArray, ascending: false)
+            }
+        
+        //self.accountListTableView.reloadData()
+        self.updateTheTableViewDataAccordingly()
+        
+    }
+    
+    func updateTheTableViewDataAccordingly(){
+        if(isSorting)
+        {
+            tableViewDisplayData = sortedNotesList
+        }
+        else
+        {
+            tableViewDisplayData = notesArray
+        }
+          notesTableView?.reloadData()
     }
     
     @IBAction func sortByDate(_ sender: Any) {
@@ -164,8 +194,9 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
 //MARK:- UITable view Delegate and Datasource,SwipeTableViewCellDelegate
 extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTableViewCellDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notesArray.count
+        return tableViewDisplayData.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -174,7 +205,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         
         cell.delegate = self
         cell.selectionStyle = .none
-        let notes = notesArray[indexPath.row]
+        let notes = tableViewDisplayData[indexPath.row]
         cell.titleLabel?.text = notes.name
         let serverDate = notes.lastModifiedDate
         if(serverDate != ""){

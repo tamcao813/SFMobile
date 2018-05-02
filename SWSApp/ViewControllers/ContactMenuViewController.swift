@@ -256,69 +256,21 @@ class ContactMenuViewController: UIViewController {
     }
     
     //Dropdown Single selection option clicked and is assigned to model class
-    func tableViewCellClickedSingleSelection(indexPath : IndexPath , arrayContent : Array<Any>) {
+    func tableViewCellClickedSingleSelection(indexPath : IndexPath, arrayContent : Array<Any>) {
         
         switch indexPath.section {
         case 0:
             
-            switch indexPath.row {
-            case 0:
-                ContactFilterMenuModel.allContacts = "YES"
-                ContactFilterMenuModel.contactsOnMyRoute = "NO"
-            case 1:
-                ContactFilterMenuModel.allContacts = "NO"
-                ContactFilterMenuModel.contactsOnMyRoute = "YES"
-            default:
-                break
-            }
+            contactsCellClickedSingleSelection(indexPath)
+
         case 1:
             
-            switch indexPath.row {
-                
-            case 0:
-                if ContactFilterMenuModel.allRole == "YES"{
-                    ContactFilterMenuModel.allRole = "NO"
-                }
-                else {
-                    ContactFilterMenuModel.allRole = "YES"
-                }
-            default:
-                let titleContent = arrayContent[indexPath.section] as? NSArray
-                if let index = ContactFilterMenuModel.functionRoles.index(of: (titleContent![indexPath.row] as? String)!) {
-                    ContactFilterMenuModel.functionRoles.remove(at: index)
-                }
-                else {
-                    ContactFilterMenuModel.functionRoles.append((titleContent![indexPath.row] as? String)!)
-                }
-                break
-            }
+            roleCellClickedSingleSelection(indexPath, arrayContent: arrayContent)
+
         case 2:
             
-            switch indexPath.row {
-            case 0:
-                if ContactFilterMenuModel.allBuyingPower == "YES"{
-                    ContactFilterMenuModel.allBuyingPower = "NO"
-                }
-                else {
-                    ContactFilterMenuModel.allBuyingPower = "YES"
-                }
-            case 1:
-                if ContactFilterMenuModel.buyingPower == "YES"{
-                    ContactFilterMenuModel.buyingPower = "NO"
-                }
-                else {
-                    ContactFilterMenuModel.buyingPower = "YES"
-                }
-            case 2:
-                if ContactFilterMenuModel.nobuyingPower == "YES"{
-                    ContactFilterMenuModel.nobuyingPower = "NO"
-                }
-                else {
-                    ContactFilterMenuModel.nobuyingPower = "YES"
-                }
-            default:
-                break
-            }
+            buyingPowerCellClickedSingleSelection(indexPath)
+
         default:
             break
 
@@ -326,6 +278,72 @@ class ContactMenuViewController: UIViewController {
         
         tableView.reloadData()
         
+    }
+    
+    func contactsCellClickedSingleSelection(_ indexPath: IndexPath) {
+    
+        switch indexPath.row {
+        case 0:
+            ContactFilterMenuModel.allContacts = "YES"
+            ContactFilterMenuModel.contactsOnMyRoute = "NO"
+        case 1:
+            ContactFilterMenuModel.allContacts = "NO"
+            ContactFilterMenuModel.contactsOnMyRoute = "YES"
+        default:
+            break
+        }
+
+    }
+    
+    func roleCellClickedSingleSelection(_ indexPath: IndexPath, arrayContent : Array<Any>) {
+        switch indexPath.row {
+            
+        case 0:
+            if ContactFilterMenuModel.allRole == "YES"{
+                ContactFilterMenuModel.allRole = "NO"
+            }
+            else {
+                ContactFilterMenuModel.allRole = "YES"
+            }
+        default:
+            let titleContent = arrayContent[indexPath.section] as? NSArray
+            if let index = ContactFilterMenuModel.functionRoles.index(of: (titleContent![indexPath.row] as? String)!) {
+                ContactFilterMenuModel.functionRoles.remove(at: index)
+            }
+            else {
+                ContactFilterMenuModel.functionRoles.append((titleContent![indexPath.row] as? String)!)
+            }
+            break
+        }
+        
+    }
+
+    func buyingPowerCellClickedSingleSelection(_ indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            if ContactFilterMenuModel.allBuyingPower == "YES"{
+                ContactFilterMenuModel.allBuyingPower = "NO"
+            }
+            else {
+                ContactFilterMenuModel.allBuyingPower = "YES"
+            }
+        case 1:
+            if ContactFilterMenuModel.buyingPower == "YES"{
+                ContactFilterMenuModel.buyingPower = "NO"
+            }
+            else {
+                ContactFilterMenuModel.buyingPower = "YES"
+            }
+        case 2:
+            if ContactFilterMenuModel.nobuyingPower == "YES"{
+                ContactFilterMenuModel.nobuyingPower = "NO"
+            }
+            else {
+                ContactFilterMenuModel.nobuyingPower = "YES"
+            }
+        default:
+            break
+        }
     }
     
     //Data to pass for Respective Cell Class

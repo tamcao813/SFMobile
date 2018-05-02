@@ -41,66 +41,15 @@ class ContactMenuTableTableViewCell: UITableViewCell {
         switch indexPath.section{
         case 0:
             
-            switch indexPath.row{
-            case 0:
-                if ContactFilterMenuModel.allContacts == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "radioSelected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
-                }
-            case 1:
-                if ContactFilterMenuModel.contactsOnMyRoute == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "radioSelected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
-                }
-            default:
-                break
-            }
+            displayContactCellContent(indexPath)
             
         case 1:
             
-            switch indexPath.row{
-            case 0:
-                if ContactFilterMenuModel.allRole == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
-            default:
-                if ContactFilterMenuModel.functionRoles.contains(self.filterLabel.text!) {
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }
-                else {
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
-                break
-            }
+            displayRoleCellContent(indexPath)
             
         case 2:
             
-            switch indexPath.row{
-            case 0:
-                if ContactFilterMenuModel.allBuyingPower == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
-            case 1:
-                if ContactFilterMenuModel.buyingPower == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
-            case 2:
-                if ContactFilterMenuModel.nobuyingPower == "YES"{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-                }else{
-                    self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-                }
-            default:
-                break
-            }
+            displayBuyingPowerCellContent(indexPath)
             
         default:
             break
@@ -108,6 +57,75 @@ class ContactMenuTableTableViewCell: UITableViewCell {
         }
     }
     
+    func displayContactCellContent(_ indexPath : IndexPath){
+        
+        switch indexPath.row{
+        case 0:
+            if ContactFilterMenuModel.allContacts == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+            }
+        case 1:
+            if ContactFilterMenuModel.contactsOnMyRoute == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+            }
+        default:
+            break
+        }
+        
+    }
+    
+    func displayRoleCellContent(_ indexPath : IndexPath){
+
+        switch indexPath.row{
+        case 0:
+            if ContactFilterMenuModel.allRole == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+        default:
+            if ContactFilterMenuModel.functionRoles.contains(self.filterLabel.text!) {
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }
+            else {
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            break
+        }
+
+    }
+
+    func displayBuyingPowerCellContent(_ indexPath : IndexPath){
+
+        switch indexPath.row{
+        case 0:
+            if ContactFilterMenuModel.allBuyingPower == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+        case 1:
+            if ContactFilterMenuModel.buyingPower == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+        case 2:
+            if ContactFilterMenuModel.nobuyingPower == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+        default:
+            break
+        }
+
+    }
+
     //Used to display Location item cell content
     func displayLocationItemCellContent( indexPath : IndexPath , placeHolderText : String){
         

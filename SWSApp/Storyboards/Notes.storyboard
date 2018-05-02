@@ -56,6 +56,11 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipsToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="reload" destination="W6E-gb-7vA" eventType="editingDidEndOnExit" id="bwZ-Xb-ge9"/>
@@ -263,7 +268,7 @@
                                                     </connections>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="LightGrey"/>
                                             <constraints>
                                                 <constraint firstItem="WKc-kh-B9p" firstAttribute="centerY" secondItem="s3q-Dg-5J8" secondAttribute="centerY" id="540-5O-6Uh"/>
                                                 <constraint firstItem="gma-yx-m0l" firstAttribute="centerY" secondItem="s3q-Dg-5J8" secondAttribute="centerY" id="9WT-xw-WpC"/>
@@ -275,7 +280,7 @@
                                                 <constraint firstItem="oUO-iM-iN6" firstAttribute="top" secondItem="s3q-Dg-5J8" secondAttribute="top" constant="5" id="rLK-o8-eRF"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" name="LightGrey"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="notesTitleCellIdentifier" rowHeight="100" id="nMQ-FB-OIv" customClass="NotesTableViewCell" customModule="SWSApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="108" width="1112" height="100"/>
@@ -483,6 +488,9 @@
         <image name="Sort Gray" width="149" height="149"/>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LightGrey">
+            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightGrey">
             <color red="0.94099998470000001" green="0.95700001720000005" blue="0.96899998190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

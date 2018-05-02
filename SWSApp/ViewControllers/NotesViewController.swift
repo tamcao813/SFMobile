@@ -164,8 +164,8 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     }
     
     @objc func refreshNotesList(notification: NSNotification){
-        accountNotesArray = []
-        notesArray = []
+        accountNotesArray.removeAll()
+        tableViewDisplayData.removeAll()
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
 
         for accNotes in accountNotesArray {
@@ -174,11 +174,12 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
                 
             }
             //filtered array of notes related to my notes
-            print("Notes Array \(notesArray)")
+            print("Notes Array \(tableViewDisplayData)")
             
         }
+        originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: tableViewDisplayData, ascending: false)
+        tableViewDisplayData = originalAccountNotesList
         notesTableView?.reloadData()
-
     
     }
     

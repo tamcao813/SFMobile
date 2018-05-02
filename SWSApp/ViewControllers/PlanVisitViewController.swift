@@ -78,13 +78,14 @@ class PlanVisitViewController: UIViewController {
         {
             if let tag = userInfo["tag"] as? Int {
                 self.associatedSelectedContact.remove(at: tag)
+                self.searchContactTxt.resignFirstResponder()
                 self.associatedContactTableView.reloadData()
                 if (self.associatedSelectedContact.count > 0) {
-                    self.associatedContactTableView.frame = CGRect(x: self.searchContactTxt.frame.origin.x, y: self.searchContactTxt.frame.origin.y + self.searchContactTxt.frame.size.height + 40, width: self.searchContactTxt.frame.size.width, height: CGFloat(62 * self.associatedSelectedContact.count))
+                    self.associatedContactTableView.frame = CGRect(x: self.searchContactTxt.frame.origin.x, y: self.searchContactTxt.frame.origin.y + self.searchContactTxt.frame.size.height + 40, width: self.searchContactTxt.frame.size.width, height: CGFloat(102 * self.associatedSelectedContact.count))
                     
                     self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
                     
-                    self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(62 * self.associatedSelectedContact.count) + 40)
+                    self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count) + 40)
                 } else {
                     self.associatedContactTableView.isHidden = true
                     
@@ -314,17 +315,20 @@ extension PlanVisitViewController : UITableViewDelegate {
                 self.searchContactTxt.resignFirstResponder()
                 self.associatedContactTableView.reloadData()
                 
-                self.associatedContactTableView.frame = CGRect(x: self.searchContactTxt.frame.origin.x, y: self.searchContactTxt.frame.origin.y + self.searchContactTxt.frame.size.height + 40, width: self.searchContactTxt.frame.size.width, height: CGFloat(62 * self.associatedSelectedContact.count))
+                self.associatedContactTableView.frame = CGRect(x: self.searchContactTxt.frame.origin.x, y: self.searchContactTxt.frame.origin.y + self.searchContactTxt.frame.size.height + 40, width: self.searchContactTxt.frame.size.width, height: CGFloat(102 * self.associatedSelectedContact.count))
                 
                 self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
                 
-                self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(62 * self.associatedSelectedContact.count) + 40)
+                self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count))
             }
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
+        if tableView == self.associatedContactTableView {
+            return 102.0;
+        }
         return 62.0;//Choose your custom row height
     }
 }
@@ -388,4 +392,3 @@ extension PlanVisitViewController : UITextFieldDelegate{
         return true
     }
 }
-

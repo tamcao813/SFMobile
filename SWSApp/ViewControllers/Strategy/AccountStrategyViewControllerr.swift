@@ -14,7 +14,10 @@ class AccountStrategyViewController : UIViewController{
     var tableViewRowDetails : NSMutableArray?
     
     @IBOutlet weak var collectionView : UICollectionView?
-    let strategyViewModel = StrategyQAViewModel()
+    let strategyQAViewModel = StrategyQAViewModel()
+    let strategyQuestionsViewModel = StrategyQuestionsViewModel()
+    let strategyAnswersViewModel = StrategyAnswersViewModel()
+    
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -26,7 +29,9 @@ class AccountStrategyViewController : UIViewController{
         tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
         print(dictionary!)
         
-        strategyViewModel.getStrategyQuestionAnswer()
+        strategyQAViewModel.getStrategyQuestionAnswer()
+        strategyQuestionsViewModel.getStrategyQuestions()
+        strategyAnswersViewModel.getStrategyAnswers()
         
         //        if let flowLayout: UICollectionViewFlowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout{
         //            flowLayout.estimatedItemSize = CGSize(width: 1, height: 100)

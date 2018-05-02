@@ -44,6 +44,10 @@ class PlanVisitViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(PlanVisitViewController.closeView(notification:)), name: Notification.Name("CLOSEACCOUNTVIEW"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PlanVisitViewController.removeAssociate(notification:)), name: Notification.Name("REMOVEASSOCIATE"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PlanVisitViewController.validateDate(notification:)), name: Notification.Name("VALIDATEFIELDS"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+
         
         self.associatedContactTableView = UITableView(frame: CGRect(x: 10, y: 300, width: self.searchAccountTxt.frame.size.width, height: 206))
         self.associatedContactTableView.register(UINib(nibName: "SelectedAssociateTableViewCell", bundle: nil), forCellReuseIdentifier: "SelectedAssociateTableViewCell")
@@ -71,9 +75,13 @@ class PlanVisitViewController: UIViewController {
     
     // MARK:- Notification
     
+    @objc func validateDate(notification: Notification){
+        let arr = validatefields()
+        print("arr", arr)
+    }
+    
     @objc func removeAssociate(notification: Notification){
         //Take Action on Notification
-        print("hi")
         if let userInfo = notification.userInfo // or use if you know the type  [AnyHashable : Any]
         {
             if let tag = userInfo["tag"] as? Int {
@@ -114,6 +122,22 @@ class PlanVisitViewController: UIViewController {
         
         // Remove contact array
         nonSelectedContact.removeAll()
+    }
+    
+    @objc func keyboardWillShow(notification:NSNotification){
+        //give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
+        var userInfo = notification.userInfo!
+        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        var contentInset:UIEdgeInsets = self.scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height
+        scrollView.contentInset = contentInset
+    }
+    
+    @objc func keyboardWillHide(notification:NSNotification){
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
     }
     
     // MARK:- IBAction

@@ -27,4 +27,8 @@ class ContactListAccountHeaderDetails: UITableViewCell {
         accountLinkedToValueLabel.text = "Accounts Linked to " + contactDetails.firstName
     }
     
+    func displayEmptyCellContent() {
+        accountLinkedToValueLabel.text = "This contact is not linked to any of your Accounts."
+    }
+    
 }

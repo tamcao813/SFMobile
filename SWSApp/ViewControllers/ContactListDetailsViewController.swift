@@ -25,8 +25,11 @@ class ContactListDetailsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+        contactDetail = ContactSortUtility.searchContactByContactId((contactDetail?.contactId)!)
+        if contactDetail != nil {
+            accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+            contactDetailsTableView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -151,10 +154,8 @@ extension ContactListDetailsViewController : ContactListDetailsTableViewCellDele
     func editContactButtonTapped() {
         let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
         let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
-//        newContactVC?.delegate = self
-        newContactVC?.isinEditingMode = true
-        newContactVC?.contactDetail = contactDetail
-        
+        newContactVC?.isNewContact = false
+        newContactVC?.contactDetail = contactDetail        
         self.present(newContactVC!, animated: true, completion: nil)
     }
 }

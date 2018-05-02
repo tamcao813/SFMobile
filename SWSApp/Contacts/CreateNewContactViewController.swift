@@ -16,6 +16,7 @@ class CreateNewContactViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeaderLabel: UILabel!
+    var searchAccountTextField: UITextField!
     var firstNameTextField: UITextField!
     var lastNameTextField: UITextField!
     var preferredNameTextField: UITextField!
@@ -47,8 +48,9 @@ class CreateNewContactViewController: UIViewController {
     @IBOutlet weak var headingLabel: UITextField!
     var doesHaveBuyingPower: Bool = false
     weak var delegate: CreateNewContactViewControllerDelegate!
-    var isinEditingMode: Bool = false
+    var isNewContact: Bool = true
     var contactDetail: Contact?
+    var accountSelected : Account!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,11 +66,15 @@ class CreateNewContactViewController: UIViewController {
     func customizedUI(){
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
-        if isinEditingMode {
-            pageHeaderLabel.text = "Edit Personal Details"
-        }else{
+        if isNewContact {
             pageHeaderLabel.text = "New Contact"
+        }else{
+            pageHeaderLabel.text = "Edit Personal Details"
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     func initializingXIBs(){
@@ -95,6 +101,9 @@ class CreateNewContactViewController: UIViewController {
         self.tableView.register(UINib(nibName: "DateFieldTableViewCell", bundle: nil), forCellReuseIdentifier: "DateFieldTableViewCell")
         
         self.tableView.register(UINib(nibName: "FamilyTableViewCell", bundle: nil), forCellReuseIdentifier: "FamilyTableViewCell")
+        
+        self.tableView.register(UINib(nibName: "AccountContactLinkTableViewCell", bundle: nil), forCellReuseIdentifier: "DropDownCell")
+        
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
@@ -109,14 +118,21 @@ class CreateNewContactViewController: UIViewController {
         phoneTextField.borderColor = .lightGray
         birthdayTextField.borderColor = .lightGray
         anniversaryTextField.borderColor = .lightGray
-        if !isinEditingMode {
+        if isNewContact {
+            searchAccountTextField.borderColor = .lightGray
+        }
+        
+        if isNewContact && !doesHaveBuyingPower{
             otherReasonTextField.borderColor = .lightGray
         }
         
         
         //need to check an account has been selected for this contact - UI needs to get the account name from the dropdown and then get get it's accountId - better yet, the dropDown has both Acconut name and Id
-        
-        if !isinEditingMode && !doesHaveBuyingPower && contactClassificationTextField.text == "Other"{
+        if isNewContact && accountSelected == nil {
+            showAlert = true
+            searchAccountTextField.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }else if isNewContact && !doesHaveBuyingPower && contactClassificationTextField.text == "Other"{
             if (otherReasonTextField.text?.isEmpty)! {
                 otherReasonTextField.borderColor = .red
                 otherReasonTextField.becomeFirstResponder()
@@ -141,7 +157,7 @@ class CreateNewContactViewController: UIViewController {
         }else{
             showAlert = false
         }
-
+        
         if showAlert {
             let alertController = UIAlertController(title: "Alert", message:
                 "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
@@ -193,13 +209,11 @@ class CreateNewContactViewController: UIViewController {
         newContact.dislikes = dislikeTextView.text!
         newContact.sgwsNotes = notesTextView.text!
         newContact.fax = faxTextField.text!
-        if !isinEditingMode {
+        if isNewContact {
             newContact.contactClassification = contactClassificationTextField.text!
-//            newContact.otherSpecification = otherReasonTextField.text!
+            //            newContact.otherSpecification = otherReasonTextField.text!
+            newContact.accountId = accountSelected.account_Id
         }
-        
-        
-        newContact.accountId = "001m000000cHLmTAAW" //need to get this from the account dropdown selected option
         
         /*
          if contactClassificationTextField.text! == "Other"{
@@ -207,7 +221,7 @@ class CreateNewContactViewController: UIViewController {
          }else{
          newContact.contactClassification = contactClassificationTextField.text!
          }
-        */
+         */
         
         let success = ContactsViewModel().createNewContactToSoup(object: newContact)
         
@@ -215,9 +229,10 @@ class CreateNewContactViewController: UIViewController {
         if success {
             self.dismiss(animated: true, completion: {
                 ContactsViewModel().uploadContactToServerAndSyncDownACR(object: newContact, completion: { error in
-
                     if error == nil {
-                        self.delegate.updateContactList()
+                        if self.isNewContact {
+                            self.delegate.updateContactList()
+                        }
                     }
                     else {
                         print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
@@ -236,24 +251,40 @@ class CreateNewContactViewController: UIViewController {
 extension CreateNewContactViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            if isinEditingMode {
-                return 0
+            if isNewContact {
+                return 1
             }else{
-                if doesHaveBuyingPower {
-                    return 2
-                }else{
-                    return 3
-                }
-            }            
+                return 0
+            }
         case 1:
-            return 9
+            if isNewContact {
+                if accountSelected != nil {
+                    return 1 //accountSelected.count
+                }else{
+                    return 0
+                }
+            }else{
+                return 0
+            }
         case 2:
+            if isNewContact {
+                if doesHaveBuyingPower {
+                    return 1
+                }else{
+                    return 2
+                }
+            }else{
+                return 0
+            }            
+        case 3:
+            return 9
+        case 4:
             return 8
         default:
             return 0
@@ -267,15 +298,26 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
+            searchAccountTextField = cell?.searchContactTextField
+            cell?.delegate = self
+            return cell!
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell") as? AccountContactLinkTableViewCell
+            cell?.containerTrailingConstraint.constant = 40
+            cell?.containerLeadingConstraint.constant = 40
+            cell?.delegate = self
+            if let account = accountSelected {
+                cell?.displayCellContent(account: account)
+            }
+            return cell!
+        case 2:
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
-                return cell!
-            case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
                 return cell!
-            case 2:
+            case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
                 contactClassificationTextField = cell?.classificationTextField
                 otherReasonTextField = cell?.otherTextField
@@ -283,7 +325,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             default:
                 return UITableViewCell()
             }
-        case 1:
+        case 3:
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "NameTableViewCell") as? NameTableViewCell
@@ -352,7 +394,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             default:
                 return UITableViewCell()
             }
-        case 2:
+        case 4:
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "FamilyTableViewCell") as? FamilyTableViewCell
@@ -463,5 +505,19 @@ extension CreateNewContactViewController: ToggleTableViewCellDelegate {
     func buyingPowerChanged(buyingPower: Bool) {
         doesHaveBuyingPower = buyingPower
         self.tableView.reloadData()
+    }
+}
+
+extension CreateNewContactViewController: SearchAccountTableViewCellDelegate {
+    func accountSelected(account : Account) {
+        accountSelected = account
+        tableView.reloadData()
+    }
+}
+
+extension CreateNewContactViewController: AccountContactLinkTableViewCellDelegate {
+    func removeAccount() {
+        accountSelected = nil
+        tableView.reloadData()
     }
 }

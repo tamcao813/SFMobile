@@ -137,7 +137,7 @@ extension ContactListDetailsViewController : UITableViewDelegate {
             return 580
         }
         else if accountLinked.count > 0 , indexPath.row == 1 {
-            return 110
+            return 100
         }
         else if (accountLinked.count > 0 && ((indexPath.row + 1) == countHeaderFooter + accountLinked.count + countLinkHeader)) ||
             (accountLinked.count == 0 && ((indexPath.row + 1) == countHeaderFooter)) {

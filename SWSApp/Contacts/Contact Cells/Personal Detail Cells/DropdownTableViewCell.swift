@@ -21,7 +21,7 @@ class DropdownTableViewCell: UITableViewCell {
     }
     
     func customUI() {
-        let opts = PlistMap.sharedInstance.getPicklist("Contact", fieldname: "PreferredCommunication")
+        let opts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactPreferredCommunication")
         pickerOption = opts
         dropdownTextfield.addPaddingLeft(10)
         let dropdownButton : UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 30))

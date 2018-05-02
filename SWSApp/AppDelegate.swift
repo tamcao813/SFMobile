@@ -42,44 +42,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        let reachability = Reachability.init()
-        let alert = UIAlertController(title: "Alert", message: "The internet connection appears to be offline.", preferredStyle: UIAlertControllerStyle.alert)
-        reachability?.whenReachable = { reachability in
-            SalesforceSwiftSDKManager.initSDK()
-                .Builder.configure { (appconfig: SFSDKAppConfig) -> Void in
-                    appconfig.oauthScopes = ["web", "api"]
-                    appconfig.remoteAccessConsumerKey = self.RemoteAccessConsumerKey
-                    appconfig.oauthRedirectURI = self.OAuthRedirectURI
-                }.postInit {
-                    SFUserAccountManager.sharedInstance().advancedAuthConfiguration = SFOAuthAdvancedAuthConfiguration.require;
-                    
-                }
-                .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
-                    let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
-                    SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
-                    
-                    //setup StoreDispatcher by registering soups
-                    StoreDispatcher.shared.registerSoups()
-                    
-                    self.setupRootViewController()
-                    
-                }.postLogout {  [unowned self] in
-                    self.handleSdkManagerLogout()
-                }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
-                    self.handleUserSwitch(fromUser, toUser: toUser)
-                }.launchError {  [unowned self] (error: Error, launchActionList: SFSDKLaunchAction) in
-                    SFSDKLogger.log(type(of:self), level:.error, message:"Error during SDK launch: \(error.localizedDescription)")
-//                    self.initializeAppViewState()
-                    SalesforceSDKManager.shared().launch()
-                }
-                .done()
-        }
-        
-        do {
-            try reachability?.startNotifier()
-        } catch {
-            print("Unable to start notifier")
-        }
+        SalesforceSwiftSDKManager.initSDK()
+            .Builder.configure { (appconfig: SFSDKAppConfig) -> Void in
+                appconfig.oauthScopes = ["web", "api"]
+                appconfig.remoteAccessConsumerKey = self.RemoteAccessConsumerKey
+                appconfig.oauthRedirectURI = self.OAuthRedirectURI
+            }.postInit {
+                SFUserAccountManager.sharedInstance().advancedAuthConfiguration = SFOAuthAdvancedAuthConfiguration.require;
+            }
+            .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
+                let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
+                SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
+                //setup StoreDispatcher by registering soups
+                StoreDispatcher.shared.registerSoups()
+                self.setupRootViewController()
+            }.postLogout {  [unowned self] in
+                self.handleSdkManagerLogout()
+            }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
+                self.handleUserSwitch(fromUser, toUser: toUser)
+            }.launchError {  [unowned self] (error: Error, launchActionList: SFSDKLaunchAction) in
+                SFSDKLogger.log(type(of:self), level:.error, message:"Error during SDK launch: \(error.localizedDescription)")
+                //                    self.initializeAppViewState()
+                SalesforceSDKManager.shared().launch()
+            }
+            .done()
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

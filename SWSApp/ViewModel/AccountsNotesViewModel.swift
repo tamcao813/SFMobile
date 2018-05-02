@@ -30,6 +30,13 @@ class AccountsNotesViewModel {
                 completion(error)
             }
             else {
+                
+                StoreDispatcher.shared.downloadAllSoups({ (error) in
+                    if error != nil {
+                        print("PostSyncUp:downloadAllSoups")
+                    }
+                    MBProgressHUD.hide(forWindow: true)
+                })
                 MBProgressHUD.hide(forWindow: true)
 
                 completion(nil)

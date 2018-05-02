@@ -26,6 +26,8 @@ class StoreDispatcher {
     let SoupVisit = "WorkOrder"
     
     let SoupStrategyQA = "SGWS_Response__c"
+    let SoupStrategyQuestion = "SGWS_Question__c"
+    let SoupStrategyAnswers = "SGWS_Answer__c"
     
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
@@ -46,6 +48,8 @@ class StoreDispatcher {
         registerNotesSoup()
         registerVisitSoup()
         registerStrategyQASoup()
+        registerStrategyQuestions()
+        registerStrategyAnswers()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -881,9 +885,7 @@ class StoreDispatcher {
     func syncDownACR(_ completion:@escaping (_ error: NSError?)->()) {
         
         let accIdsString = fetchAllAccountIds().joined(separator: "','")
-        
         print("account  ids \(accIdsString)")
-        
         let accIdsFormattedString = "'" + accIdsString + "'"
         
         let soqlQuery = "Select Id,Account.Name, Roles, AccountId, ContactId, Contact.name, SGWS_Account_Site_Number__c From AccountContactRelation WHERE AccountId IN (\(accIdsFormattedString))"
@@ -1278,8 +1280,8 @@ class StoreDispatcher {
         }
     }
     
+    // Fetch StrategyQA...
     func fetchStrategyQA()->[StrategyQA]{
-        
         var strategyQA: [StrategyQA] = []
         let strategyFields = StrategyQA.StrategyQAFields.map{"{SGWS_Response__c:\($0)}"}
         let soapQuery = "Select \(strategyFields.joined(separator: ",")) FROM {SGWS_Response__c}"
@@ -1301,5 +1303,164 @@ class StoreDispatcher {
         }
         return strategyQA
     }
+    
+    // Register StrategyQuestion Soup
+    func registerStrategyQuestions(){
+        
+        let strategyQuestionQueryFields = StrategyQuestions.StrategyQuestionsFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...strategyQuestionQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: strategyQuestionQueryFields[i], indexType: kSoupIndexTypeString, columnName: strategyQuestionQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:nil)!)
+        
+        do {
+            try sfaStore.registerSoup(SoupStrategyQuestion, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupStrategyQuestion soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    // SyncDown StrategyQuestions Soup
+    
+    func syncDownStrategyQuestions(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Description__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c FROM SGWS_Question__c"
+        
+        print("soql syncDownStrategyQuestions query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
+            SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupStrategyQuestion)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>>  syncDownStrategyQuestions() done >>>>>")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownStrategyQuestions() >>>>>>>"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownStrategyQuestions()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    // Fetch StrategyQuestions...
+    func fetchStrategyQuestions()->[StrategyQuestions]{
+        var strategyQuestions: [StrategyQuestions] = []
+        let strategyQuestionsFields = StrategyQuestions.StrategyQuestionsFields.map{"{SGWS_Question__c:\($0)}"}
+        let soapQuery = "Select \(strategyQuestionsFields.joined(separator: ",")) FROM {SGWS_Question__c}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        print("Result StrategyQuestions is \(result)")
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let strategyQuestionsArray = StrategyQuestions(withAry: ary)
+                strategyQuestions.append(strategyQuestionsArray)
+                print("strategyQuestions array \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch strategy Questions  " + " error:" + (error?.localizedDescription)!)
+        }
+        return strategyQuestions
+    }
+    
+    // Register StrategyAnswers Soup
+    func registerStrategyAnswers(){
+        
+        let strategyAnswersQueryFields = StrategyAnswers.StrategyAnswersFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...strategyAnswersQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: strategyAnswersQueryFields[i], indexType: kSoupIndexTypeString, columnName: strategyAnswersQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:nil)!)
+        
+        do {
+            try sfaStore.registerSoup(SoupStrategyAnswers, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupStrategyAnswers soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    // SyncDown StrategyAnswers Soup
+    func syncDownStrategyAnswers(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "SELECT Id,Name,SGWS_Answer_Description__c,SGWS_Deactivate_Answer__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Answer__c"
+        
+        print("soql syncDownStrategyAnswers query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
+            SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupStrategyAnswers)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>>  syncDownStrategyAnswers() done >>>>>")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownStrategyAnswers() >>>>>>>"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownStrategyAnswers()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    // Fetch StrategyQuestions...
+    func fetchStrategyAnswers()->[StrategyAnswers]{
+        var strategyAnswers: [StrategyAnswers] = []
+        let strategyAnswersFields = StrategyAnswers.StrategyAnswersFields.map{"{SGWS_Answer__c:\($0)}"}
+        let soapQuery = "Select \(strategyAnswersFields.joined(separator: ",")) FROM {SGWS_Answer__c}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        print("Result StrategyAnswers is \(result)")
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let strategyAnswersArray = StrategyAnswers(withAry: ary)
+                strategyAnswers.append(strategyAnswersArray)
+                print("strategyAnswers array \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch strategy Answers  " + " error:" + (error?.localizedDescription)!)
+        }
+        return strategyAnswers
+    }
+    
+    
     
 }

@@ -32,6 +32,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var child5ValueLabel: UILabel!
     @IBOutlet weak var likesValueLabel: UILabel!
     @IBOutlet weak var dislikesValueLabel: UILabel!
+    @IBOutlet weak var favoriteActivitiesValueLabel: UILabel!
 
     @IBOutlet weak var preferredContactMethodValueLabel: UILabel!
     @IBOutlet weak var notesValueLabel: UILabel!
@@ -82,7 +83,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
     func displayThirdRowCellContent(_ contactDetails: Contact) {
         
         displayEventContent(birthdayValueLabel, textToDisply: "Birthday", dateString: contactDetails.birthDate)
-        displayEventContent(weddingValueLabel, textToDisply: "Wedding", dateString: contactDetails.anniversary)
+        displayEventContent(weddingValueLabel, textToDisply: "Anniversary", dateString: contactDetails.anniversary)
         
         displayChildContent(child1ValueLabel, textToDisply: contactDetails.child1Name, dateString: contactDetails.child1Birthday)
         displayChildContent(child2ValueLabel, textToDisply: contactDetails.child2Name, dateString: contactDetails.child2Birthday)
@@ -92,6 +93,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
 
         likesValueLabel.text = contactDetails.likes
         dislikesValueLabel.text = contactDetails.dislikes
+        favoriteActivitiesValueLabel.text = contactDetails.favouriteActivities
         
     }
     
@@ -100,13 +102,14 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         labelToDisplay.text = ""
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-DD"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         
         if let date: Date = dateFormatter.date(from: dateString) {
 //            dateFormatter.dateFormat = "MMM d, yyyy"
-            dateFormatter.dateFormat = "MM/DD/YYYY"
-            labelToDisplay.text = dateFormatter.string(from: date) + " (" + textToDisply + ")"
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+//            labelToDisplay.text = dateFormatter.string(from: date) + " (" + textToDisply + ")"
+            labelToDisplay.text = dateFormatter.string(from: date)
         }
         
     }

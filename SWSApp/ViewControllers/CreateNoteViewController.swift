@@ -11,11 +11,6 @@ import UIKit
 import SmartStore
 import SmartSync
 
-struct sendDataToTable {
-    static var addDataToArray = -1
-    static var dataDictionary = NSMutableDictionary()
-}
-
 protocol sendNotesDataToNotesDelegate{
     func displayAccountNotes()
     func dismissEditNote()
@@ -25,7 +20,7 @@ protocol sendNotesDataToNotesDelegate{
 
 class CreateNoteViewController : UIViewController{
     
-    let textFieldLimit = 250 // limit for TextField
+    let textFieldLimit = 80 // limit for TextField
     let textViewLimit = 30000 // limit for TextView
     
     @IBOutlet weak var textView: UITextView!
@@ -48,6 +43,7 @@ class CreateNoteViewController : UIViewController{
         super.viewDidLoad()
         textView?.layer.borderColor = UIColor.init(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1).cgColor
         notesTitleTextField?.layer.borderColor = UIColor.init(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1).cgColor
+      //  notesTitleTextField.layer.cornerRadius = 
         notesTitleTextField.delegate = self
         textView.delegate = self
        
@@ -146,29 +142,13 @@ class CreateNoteViewController : UIViewController{
     @IBAction func saveAndCloseButtonClicked(_ sender: Any) {
         
         if(isAddingNewNote){
-        if ((notesTitleTextField?.text)!.isEmpty){
+            if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
             // create the alert
-            let alert = UIAlertController(title: "Notes", message: "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldError, preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return
         }
-        
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd yyyy"
-        let datetime = formatter.string(from: date)
-        let timeformat = DateFormatter ()
-        timeformat.dateFormat = "h:mm a"
-        let timeresult = timeformat.string(from: date)
-        
-        let dataDictionary = NSMutableDictionary()
-        dataDictionary.setValue(notesTitleTextField?.text, forKey: "title")
-        dataDictionary.setValue(textView?.text, forKey: "description")
-        dataDictionary.setValue(datetime, forKey: "date")
-        dataDictionary.setValue(timeresult, forKey: "time")
-        sendDataToTable.dataDictionary = dataDictionary
-        sendDataToTable.addDataToArray = 1
         self.createNewNotes()
         
         self.dismiss(animated: true, completion: {

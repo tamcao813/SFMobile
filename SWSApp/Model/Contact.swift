@@ -9,7 +9,11 @@
 import Foundation
 
 class Contact {
-    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buyer_Flag__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","LastModifiedDate","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c","Fax","SGWS_Contact_Classification__c"]
+    
+    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buyer_Flag__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","LastModifiedDate","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","Fax","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c", "SGWS_Contact_Classification__c"]
+    
+    // Have removed ,"SGWS_Other_Specification__c" as it was causing Contact load failure // TBD
+    
     
     var contactId: String
     var name: String
@@ -49,6 +53,7 @@ class Contact {
     var lifeEventDate:String
     var fax:String
     var contactClassification: String
+    var otherSpecification: String
     
     
     convenience init(withAry ary: [Any]) {
@@ -95,6 +100,7 @@ class Contact {
         lifeEventDate = json["SGWS_Life_Events_Date__c"] as? String ?? ""
         fax = json["Fax"] as? String ?? ""
         contactClassification = json["SGWS_Contact_Classification__c"] as? String ?? ""
+        otherSpecification = json["SGWS_Other_Specification__c"] as? String ?? ""
     }
     
     func toJson() -> [String:Any] {
@@ -233,6 +239,11 @@ class Contact {
         if contactClassification.count > 0{
             json["SGWS_Contact_Classification__c"] = contactClassification
         }
+        
+        if otherSpecification.count > 0{
+            json["SGWS_Other_Specification__c"] = otherSpecification
+        }
+        
         return json
     }
     
@@ -275,6 +286,7 @@ class Contact {
         lifeEventDate = ""
         fax = ""
         contactClassification = ""
+        otherSpecification = ""
     }
     
     static func mockNewContact1() -> Contact {
@@ -292,29 +304,6 @@ class Contact {
         contact.buyerFlag = true
         contact.child1Birthday = "2018-01-01"
         contact.anniversary = "2002-12-25"
-        /*
-         contact.preferredCommunicationMethod = ""
-         contact.title = ""
-         contact.department = ""
-         contact.preferredName = ""
-         contact.contactHours = ""
-         contact.sgwsNotes = ""
-         contact.child1Name = ""
-         contact.child1Birthday = ""
-         contact.child2Name = ""
-         contact.child2Birthday = ""
-         contact.child3Name = ""
-         contact.child3Birthday = ""
-         contact.child4Name = ""
-         contact.child4Birthday = ""
-         contact.child5Name = ""
-         contact.child5Birthday = ""
-         contact.likes = ""
-         contact.dislikes = ""
-         contact.favouriteActivities = ""
-         contact.lifeEvents = ""
-         contact.lifeEventDate = ""
-         */
         
         return contact
     }

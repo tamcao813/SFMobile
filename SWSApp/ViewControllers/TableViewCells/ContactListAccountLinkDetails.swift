@@ -33,7 +33,7 @@ class ContactListAccountLinkDetails: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func displayCellContent(_ accountId: String, withRoles roles: String){
+    func displayCellContent(_ accountId: String, withRoles roles: String, forClassification classification: String) {
         
         let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: accountId)
         guard accountList != nil, (accountList?.count)! > 0  else {
@@ -45,7 +45,7 @@ class ContactListAccountLinkDetails: UITableViewCell {
         accountAddress1ValueLabel.text = accountList![0].shippingStreet
         accountAddress2ValueLabel.text = accountList![0].shippingCity + ", " + accountList![0].shippingState + " " + accountList![0].shippingPostalCode
         accountRolesValueLabel.text = roles
-        accountBuyerInfluencerOtherValueLabel.text = accountList![0].licenseTypeDescription
+        accountBuyerInfluencerOtherValueLabel.text = classification
 
     }
 }

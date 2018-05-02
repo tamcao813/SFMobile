@@ -84,7 +84,7 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         
         let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
         let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
-        cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId,withRoles: acrDetail[(indexPath.row-2)].roles)
+        cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId, withRoles: acrDetail[(indexPath.row-2)].roles, forClassification: ContactSortUtility.formatContactClassification(contactToBeFormatted: contactDetail!))
 
         cell.unlinkAccountContactButton.tag = indexPath.row - countHeaderFooter
         cell.unlinkAccountContactButton.addTarget(self, action: #selector(actionUnlinkAccountContactDetails), for: .touchUpInside)
@@ -108,12 +108,12 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         
         if accountLinked.count == 1 {
             
-            let alert = UIAlertController(title: nil, message: "This contact is not linked to any of your Accounts.", preferredStyle: .alert)
-            
+            let alert = UIAlertController(title: nil, message: "Each Contact must be linked to at least one Account.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             
             self.present(alert, animated: true)
             
+            return
         }
         
         UIView.performWithoutAnimation({() -> Void in

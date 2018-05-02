@@ -11,11 +11,6 @@ import UIKit
 import SmartStore
 import SmartSync
 
-struct sendDataToTable {
-    static var addDataToArray = -1
-    static var dataDictionary = NSMutableDictionary()
-}
-
 protocol sendNotesDataToNotesDelegate{
     func displayAccountNotes()
     func dismissEditNote()
@@ -149,27 +144,11 @@ class CreateNoteViewController : UIViewController{
         if(isAddingNewNote){
             if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
             // create the alert
-            let alert = UIAlertController(title: "Notes", message: "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldError, preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return
         }
-        
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd yyyy"
-        let datetime = formatter.string(from: date)
-        let timeformat = DateFormatter ()
-        timeformat.dateFormat = "h:mm a"
-        let timeresult = timeformat.string(from: date)
-        
-        let dataDictionary = NSMutableDictionary()
-        dataDictionary.setValue(notesTitleTextField?.text, forKey: "title")
-        dataDictionary.setValue(textView?.text, forKey: "description")
-        dataDictionary.setValue(datetime, forKey: "date")
-        dataDictionary.setValue(timeresult, forKey: "time")
-        sendDataToTable.dataDictionary = dataDictionary
-        sendDataToTable.addDataToArray = 1
         self.createNewNotes()
         
         self.dismiss(animated: true, completion: {

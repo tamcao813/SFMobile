@@ -32,63 +32,48 @@
             <rect key="frame" x="0.0" y="0.0" width="909" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234 E. Main St. Newyork NY 54331" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="220" translatesAutoresizingMaskIntoConstraints="NO" id="ofh-ZY-LrN">
-                    <rect key="frame" x="422" y="14" width="177" height="61"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="177" id="DUc-2v-CoY"/>
-                        <constraint firstAttribute="height" constant="61" id="Yps-Xe-RqC"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5644897" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWr-4N-nlb">
-                    <rect key="frame" x="39" y="51" width="219" height="17"/>
+                    <rect key="frame" x="33" y="58" width="219" height="17"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="17" id="8ye-db-xiE"/>
-                        <constraint firstAttribute="width" constant="219" id="rMA-8M-Jur"/>
+                        <constraint firstAttribute="height" constant="17" id="0De-1a-lH9"/>
+                        <constraint firstAttribute="width" constant="219" id="zhK-Op-sSX"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crown Liquor Store One" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbj-P3-Fkm">
-                    <rect key="frame" x="39" y="25" width="219" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crown Liquor Store " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbj-P3-Fkm">
+                    <rect key="frame" x="33" y="31" width="291" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="219" id="MD1-dm-60j"/>
-                        <constraint firstAttribute="height" constant="21" id="qeS-Ed-v8c"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="22h-e0-yxg"/>
+                        <constraint firstAttribute="width" constant="291" id="aZK-dw-Ozi"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oNP-B7-KTd">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oNP-B7-KTd">
                     <rect key="frame" x="832" y="31" width="38" height="38"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="38" id="jlc-ld-EAf"/>
-                        <constraint firstAttribute="width" constant="38" id="lGk-jI-tLg"/>
-                    </constraints>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                     <state key="normal" image="Close"/>
                     <connections>
                         <action selector="closeViewWithSender:" destination="-1" eventType="touchUpInside" id="c9V-EH-V8s"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1234 E. Main St. Newyork NY 54331" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="220" translatesAutoresizingMaskIntoConstraints="NO" id="ofh-ZY-LrN">
+                    <rect key="frame" x="422" y="20" width="247" height="61"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" name="Color"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="dWr-4N-nlb" secondAttribute="bottom" constant="32" id="5Q4-da-t3C"/>
-                <constraint firstItem="dWr-4N-nlb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="39" id="9Wf-rn-WeM"/>
-                <constraint firstItem="dWr-4N-nlb" firstAttribute="top" secondItem="fbj-P3-Fkm" secondAttribute="bottom" constant="5" id="A3I-W1-K80"/>
-                <constraint firstItem="ofh-ZY-LrN" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="14" id="AUD-cd-hmf"/>
-                <constraint firstItem="fbj-P3-Fkm" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="25" id="Odd-d4-oLr"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="oNP-B7-KTd" secondAttribute="trailing" constant="39" id="WZ5-ab-7VC"/>
-                <constraint firstItem="oNP-B7-KTd" firstAttribute="leading" secondItem="ofh-ZY-LrN" secondAttribute="trailing" constant="233" id="YwK-n4-WRw"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="oNP-B7-KTd" secondAttribute="bottom" constant="31" id="Z9D-vg-Kxg"/>
-                <constraint firstItem="oNP-B7-KTd" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="31" id="gc1-TS-67D"/>
-                <constraint firstItem="dWr-4N-nlb" firstAttribute="top" secondItem="fbj-P3-Fkm" secondAttribute="bottom" constant="5" id="kG9-v6-SXK"/>
-                <constraint firstItem="ofh-ZY-LrN" firstAttribute="leading" secondItem="dWr-4N-nlb" secondAttribute="trailing" constant="164" id="oZp-ub-bRf"/>
-                <constraint firstItem="fbj-P3-Fkm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="39" id="prP-ce-YpW"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ofh-ZY-LrN" secondAttribute="bottom" constant="25" id="z0V-eF-BRZ"/>
+                <constraint firstItem="dWr-4N-nlb" firstAttribute="top" secondItem="fbj-P3-Fkm" secondAttribute="bottom" constant="2" id="NRo-Nm-dNi"/>
+                <constraint firstItem="dWr-4N-nlb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="33" id="Q0Q-ok-fUX"/>
+                <constraint firstItem="fbj-P3-Fkm" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="31" id="bc4-Da-BSx"/>
+                <constraint firstItem="fbj-P3-Fkm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="33" id="vIE-8L-fn1"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

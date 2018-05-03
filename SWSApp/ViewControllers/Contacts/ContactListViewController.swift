@@ -54,6 +54,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     }
     
     func fetchContacts(){
+        contactsAcc = []
         globalContactCount = contactViewModel.globalContacts().count
         contactsAcc = contactViewModel.accountsForContacts()
         loadContactData()
@@ -287,6 +288,16 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         
         loadContactData()
+        
+        if ContactFilterMenuModel.comingFromDetailsScreen == "YES", ContactFilterMenuModel.selectedContactId != "" {
+
+            guard let selectedContact = ContactSortUtility.searchContactByContactId(ContactFilterMenuModel.selectedContactId) else {
+                return
+            }
+            delegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
+
+        }
+        
     }
     
 }
@@ -526,6 +537,7 @@ extension ContactListViewController: ContactListTableViewButtonCellDelegate {
         let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
         let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
         newContactVC?.delegate = self
+        newContactVC?.isNewContact = true
         self.present(newContactVC!, animated: true, completion: nil)
     }
 }

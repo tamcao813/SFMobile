@@ -20,6 +20,11 @@ class ContactHoursTableViewCell: UITableViewCell {
         contactHoursTextField.addPaddingLeft(10)
     }
     
+    func displayCellContent(contactDetail: Contact?){
+        if let contactHours = contactDetail?.contactHours, contactHours != "" {
+            contactHoursTextField.text = contactHours
+        }
+    }
 }
 
 extension ContactHoursTableViewCell: UITextFieldDelegate {

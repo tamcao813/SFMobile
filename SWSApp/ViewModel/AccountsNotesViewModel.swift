@@ -22,6 +22,10 @@ class AccountsNotesViewModel {
         return StoreDispatcher.shared.editNotesLocally(fieldsToUpload:fields)
     }
     
+    func deleteNotesLocally(fields: [String:Any]) -> Bool {
+        return StoreDispatcher.shared.deleteNotesLocally(fieldsToUpload:fields)
+    }
+    
     func uploadNotesToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
         StoreDispatcher.shared.syncUpNotes(fieldsToUpload: fields, completion: {error in
             

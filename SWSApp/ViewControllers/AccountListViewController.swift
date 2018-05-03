@@ -75,6 +75,9 @@ class AccountsListViewController: UIViewController {
     
     //MARK:- ViewLifeCycle
     override func viewDidLoad() {
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
+        
         //isAscending = true
         accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
         print(accountsForLoggedUserOriginal.count)
@@ -88,10 +91,6 @@ class AccountsListViewController: UIViewController {
         
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToDetailsScreen), name: NSNotification.Name("loadDetailsScreen"), object: nil)
-        
         
     }
     
@@ -120,6 +119,18 @@ class AccountsListViewController: UIViewController {
         }
     }
     
+    //MARK:- Account List Notification
+    @objc func reloadAllAccounts(notification: NSNotification){
+        
+        let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: FilterMenuModel.selectedAccountId)
+        guard accountList != nil, (accountList?.count)! > 0  else {
+            return;
+        }
+
+        delegate?.pushTheScreenToDetailsScreen(accountData: accountList![0])
+
+    }
+        
     //MARK:- Account List Sorting related
     @IBAction func sortAccountListByAccountName(_ sender: Any)
     {

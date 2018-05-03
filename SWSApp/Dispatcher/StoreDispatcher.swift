@@ -1077,7 +1077,32 @@ class StoreDispatcher {
     
     func editNotesLocally(fieldsToUpload: [String:Any]) -> Bool{
         
-        let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupAccountNotes)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountNotes, withOrderPath: "LastModifiedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedNote = [String: Any]()
+        
+        for  singleNote in result{
+            var singleNoteModif = singleNote as! [String:Any]
+            let singleNoteModifValue = singleNoteModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == singleNoteModifValue){
+                singleNoteModif["Name"] = fieldsToUpload["Name"]
+                singleNoteModif["SGWS_Description__c"] = fieldsToUpload["SGWS_Description__c"]
+                singleNoteModif["__local__"] = true
+                
+                singleNoteModif["__locally_updated__"] = true
+                
+                singleNoteModif["LastModifiedDate"] = fieldsToUpload["LastModifiedDate"]
+                editedNote = singleNoteModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedNote], toSoup: SoupAccountNotes)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
@@ -1090,6 +1115,46 @@ class StoreDispatcher {
             return false
         }
     }
+    
+    func deleteNotesLocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountNotes, withOrderPath: "LastModifiedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedNote = [String: Any]()
+        
+        for  singleNote in result{
+            var singleNoteModif = singleNote as! [String:Any]
+            let singleNoteModifValue = singleNoteModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == singleNoteModifValue){
+
+                singleNoteModif["__local__"] = true
+                
+                singleNoteModif["__locally_deleted__"] = true
+                
+                editedNote = singleNoteModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedNote], toSoup: SoupAccountNotes)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) Notes is deleted  successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in deleting  Notes" )
+            return false
+        }
+    }
+    
     
     func createNewNotesLocally(fieldsToUpload: [String:Any]) -> Bool{
         
@@ -1149,6 +1214,51 @@ class StoreDispatcher {
         allFields[kSyncTargetLocal] = true
         allFields[kSyncTargetLocallyCreated] = true
         allFields[kSyncTargetLocallyUpdated] = false
+        allFields[kSyncTargetLocallyDeleted] = false
+        
+        let ary = sfaStore.upsertEntries([allFields], toSoup: SoupContact)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func createNewEntryInACR(fields: [String:Any]) -> Bool{
+        var allFields = fields
+        allFields["attributes"] = ["type":"AccountContactRelation"]
+        allFields[kSyncTargetLocal] = true
+        allFields[kSyncTargetLocallyCreated] = true
+        allFields[kSyncTargetLocallyUpdated] = false
+        allFields[kSyncTargetLocallyDeleted] = false
+        
+        let ary = sfaStore.upsertEntries([allFields], toSoup: SoupAccountContactRelation)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
+
+    
+    
+    
+    func editContactToSoup(fields: [String:Any]) -> Bool{
+        var allFields = fields
+        allFields["attributes"] = ["type":"Contact"]
+        allFields[kSyncTargetLocal] = true
+        allFields[kSyncTargetLocallyCreated] = false
+        allFields[kSyncTargetLocallyUpdated] = true
         allFields[kSyncTargetLocallyDeleted] = false
         
         let ary = sfaStore.upsertEntries([allFields], toSoup: SoupContact)

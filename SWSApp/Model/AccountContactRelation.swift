@@ -34,4 +34,48 @@ class AccountContactRelation {
         sgwsSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
         
     }
+    
+    init(for: String) {
+        acrId = ""
+        accountName = ""
+        roles = ""
+        accountId = ""
+        contactId = ""
+        contactName = ""
+        sgwsSiteNumber = ""
+    }
+    
+    func toJson() -> [String:Any] {
+        var json = [String:Any]()
+        
+        if acrId.count > 0{
+            acrId = json["Id"] as? String ?? ""
+        }
+        
+        if accountName.count > 0 {
+            json["Account.Name"] = accountName
+        }
+        
+        if roles.count > 0{
+            json["Roles"] = roles
+        }
+        
+        if accountId.count > 0 {
+            json["AccountId"] = accountId
+        }
+        
+        if contactId.count > 0{
+            json["ContactId"] = contactId
+        }
+        
+        if contactName.count > 0 {
+            json["Contact.name"] = contactName
+        }
+        
+        if sgwsSiteNumber.count > 0 {
+            json["SGWS_Account_Site_Number__c"] = sgwsSiteNumber
+        }
+        
+        return json
+    }
 }

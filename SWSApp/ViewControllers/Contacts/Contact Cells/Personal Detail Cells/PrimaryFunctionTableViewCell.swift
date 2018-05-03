@@ -34,6 +34,20 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
         addPickerView(textField: primaryFunctionTextField)
     }
     
+    func displayCellContent(contactDetail: Contact?){
+        if let title = contactDetail?.title, title != "" {
+            titleTextField.text =  title
+        }
+        
+        if let department = contactDetail?.department, department != "" {
+            departmentTextField.text = department
+        }
+        
+        if let role = contactDetail?.functionRole, role != "" {
+            primaryFunctionTextField.text = role
+        }
+    }
+    
     func addPickerView(textField: UITextField){
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white

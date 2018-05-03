@@ -23,6 +23,14 @@ class PhoneTableViewCell: UITableViewCell {
         faxTextField.addPaddingLeft(10)
     }
     
+    func displayCellContent(contactDetail: Contact?){
+        if let phone = contactDetail?.phoneNumber, phone != "" {
+            phoneTextField.text = phone
+        }
+        if let fax = contactDetail?.fax, fax != "" {
+            faxTextField.text = fax
+        }
+    }
 }
 
 extension PhoneTableViewCell: UITextFieldDelegate {

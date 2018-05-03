@@ -287,6 +287,16 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         
         loadContactData()
+        
+        if ContactFilterMenuModel.comingFromDetailsScreen == "YES", ContactFilterMenuModel.selectedContactId != "" {
+
+            guard let selectedContact = ContactSortUtility.searchContactByContactId(ContactFilterMenuModel.selectedContactId) else {
+                return
+            }
+            delegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
+
+        }
+        
     }
     
 }

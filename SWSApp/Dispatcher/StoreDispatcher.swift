@@ -105,14 +105,20 @@ class StoreDispatcher {
             group.leave()
         }
         
-       
+        group.enter()
+        syncDownStrategyQuestions() { _ in
+            group.leave()
+        }
+        group.enter()
+        syncDownStrategyAnswers() { _ in
+            group.leave()
+        }
+        
         //to do: syncDown other soups
         
         group.notify(queue: queue) {
             completion(nil)
         }
-        
-        
     }
     
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {

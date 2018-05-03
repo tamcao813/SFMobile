@@ -118,6 +118,28 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         
         let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
             
+            let cell = tableView.cellForRow(at: indexPath) as! AccountVisitListTableViewCell
+            let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
+            
+            
+//            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Cancel", errorAlertActionTitle2: "Delete", viewControllerUsed: self, action1: {
+//                print("Cancel")
+//                closure
+//            }, action2: {
+//                print("Delete")
+//                closure
+//            })
+            
+            
+            
+            let alert = UIAlertController(title: "Visit Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
+            
+            let continueAction = UIAlertAction(title: "Delete", style: .default , handler: closure)
+            alert.addAction(continueAction)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: closure))
+            self.present(alert, animated: true, completion: nil)
+            
+            
         }
         deleteAction.image = UIImage(named:"deletX")
         deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
@@ -126,7 +148,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
         var options = SwipeTableOptions()
-        options.expansionStyle = .destructive
+        //options.expansionStyle = .
         options.transitionStyle = .border
         return options
     }

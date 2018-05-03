@@ -158,6 +158,13 @@ class CreateNoteViewController : UIViewController{
             //self.sendNoteDelegate?.noteCreated()
         })
         } else {
+            if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
+                // create the alert
+                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldError, preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
             self.editNote()
             self.dismiss(animated: true, completion: {
                 self.sendNoteDelegate?.dismissEditNote()

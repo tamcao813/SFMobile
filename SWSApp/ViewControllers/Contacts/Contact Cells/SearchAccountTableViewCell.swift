@@ -39,6 +39,7 @@ class SearchAccountTableViewCell: UITableViewCell {
         accountsDropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
                 guard let cell = cell as? AccountContactLinkTableViewCell else { return }
             cell.deleteButton.isHidden = true
+            cell.displayCellContent(account: self.searchAccounts[index])
             }
         accountsDropDown.cellHeight = 100
         accountsDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
@@ -60,7 +61,8 @@ class SearchAccountTableViewCell: UITableViewCell {
         
     func getAccountData(searchStr: String) -> [Account] {
         let account = self.accountViewModel.accountsForLoggedUser
-        let arr = account.filter( { return $0.accountName.contains(searchStr) } )
+        let arr = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
+        print(arr)
         return arr
     }
     
@@ -78,14 +80,21 @@ extension SearchAccountTableViewCell: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        searchAccountsString = []
-        searchAccounts = []
-        searchAccounts = self.getAccountData(searchStr: string)
+//        print(textField.text)
+        searchAccounts = [Account]()
+        searchAccountsString = [String]()
+        let searchString = searchContactTextField.text! + string
+        if searchString == "" {
+            searchAccounts = self.accountViewModel.accountsForLoggedUser
+        }else{
+            searchAccounts = self.getAccountData(searchStr: searchString)
+        }
         for account in searchAccounts {
             searchAccountsString.append(account.accountName)
         }
+        accountsDropDown.dataSource = searchAccountsString
         accountsDropDown.reloadAllComponents()
+        accountsDropDown.show()
         return true
     }
 }

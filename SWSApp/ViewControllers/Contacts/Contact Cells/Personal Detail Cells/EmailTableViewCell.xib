@@ -13,6 +13,9 @@
         <array key="Ubuntu-Medium.ttf">
             <string>Ubuntu-Medium</string>
         </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -40,7 +43,7 @@
                             <constraint firstAttribute="width" constant="260" id="UMP-tb-P5f"/>
                         </constraints>
                         <nil key="textColor"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">

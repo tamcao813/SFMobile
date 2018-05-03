@@ -13,6 +13,9 @@
         <array key="Ubuntu-Medium.ttf">
             <string>Ubuntu-Medium</string>
         </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -30,14 +33,14 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select One" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BsY-jB-eTf" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select One" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BsY-jB-eTf" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
                         <rect key="frame" x="40" y="56" width="200" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="IC4-qw-3Xc"/>
                             <constraint firstAttribute="height" constant="40" id="ThS-HK-hm3"/>
                         </constraints>
                         <nil key="textColor"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                         <textInputTraits key="textInputTraits"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">

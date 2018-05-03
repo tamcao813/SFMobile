@@ -16,6 +16,10 @@ protocol  NavigateToNotesVCDelegate {
 }
 
 class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
+    func navigateToNotesSection() {
+        
+    }
+    
 
     
 

@@ -21,6 +21,9 @@ class NotesTableViewCell : SwipeTableViewCell {
 }
 
 class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, NavigateToNotesVCDelegate {
+    func navigateToNotesSection() {
+    }
+    
 
     var tableViewData = NSMutableArray()
     var accountNotesArray = [AccountNotes]()

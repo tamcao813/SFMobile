@@ -15,6 +15,18 @@ protocol SendDataToContainerDelegate {
 }
 
 class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDelegate{
+    func displayAccountNotes() {
+        
+    }
+    
+    func dismissEditNote() {
+        
+    }
+    
+    func noteCreated() {
+        
+    }
+    
     
     var accountDetailForLoggedInUser : Account?
     var goingFromAccountDetails = true

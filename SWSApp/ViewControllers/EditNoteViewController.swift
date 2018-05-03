@@ -118,7 +118,7 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         let attributeDict = ["type":"SGWS_Account_Notes__c"]
         
         let editNoteDict: [String:Any] = [
-            
+            AccountNotes.AccountNotesFields[0]: notesToBeEdited.Id,
             AccountNotes.AccountNotesFields[1]: notesToBeEdited.lastModifiedDate,
             AccountNotes.AccountNotesFields[2]: notesToBeEdited.name,
             AccountNotes.AccountNotesFields[5]: notesToBeEdited.accountNotesDesc,
@@ -138,7 +138,37 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
     @IBAction func deleteNote(_ sender: Any) {
         
         // dictname.remove(at: dictIndex)
-        self.dismiss(animated: true, completion: nil)
+        
+        let date = Date()
+        print(date)
+        let dateFormatter = DateFormatter()
+        //let dt = dateFormatter.date(from: date)
+        // dateFormatter.timeZone = TimeZone
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        print(timeStamp)
+        
+        notesToBeEdited.lastModifiedDate = timeStamp
+        let attributeDict = ["type":"SGWS_Account_Notes__c"]
+        
+        let editNoteDict: [String:Any] = [
+            AccountNotes.AccountNotesFields[0]: notesToBeEdited.Id,
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:false,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:true,
+            "attributes":attributeDict]
+        
+        let success = AccountsNotesViewModel().deleteNotesLocally(fields: editNoteDict)
+        print("Note is deleted \(success)")
+        
+        if(success){
+        self.dismiss(animated: true, completion: {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesListPostDelete"), object:nil)
+        })
+        } else {
+            //Alert errors 
+        }
     }
     
     

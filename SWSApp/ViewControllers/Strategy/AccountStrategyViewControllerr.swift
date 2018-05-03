@@ -29,7 +29,29 @@ class AccountStrategyViewController : UIViewController{
         tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
         print(dictionary!)
         
-        strategyQAViewModel.getStrategyQuestionAnswer()
+        let data = strategyQAViewModel.getStrategyQuestionAnswer()
+        
+        let tableViewData = NSMutableArray()
+        
+        for item in data{
+            var dict = NSMutableDictionary()
+            
+            dict.setValue(item.SGWS_Question__r_SGWS_Question_Type__c, forKey: "headerText")
+            dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
+            dict.setValue(item.Id, forKey: "id")
+            //////dict.setValue(item., forKey: )
+            
+            if !(tableViewData.contains(["SGWS_Question_Description__c": item.SGWS_Question_Description__c])){
+                
+            }
+            
+            var answersArray = NSMutableArray()
+            for answerData in answersArray{
+                
+            }
+            
+            var answersDictionary = NSMutableDictionary()
+        }
         strategyQuestionsViewModel.getStrategyQuestions()
         strategyAnswersViewModel.getStrategyAnswers()
         

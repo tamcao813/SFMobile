@@ -11,11 +11,12 @@ import UIKit
 import SmartStore
 import SmartSync
 
-protocol sendNotesDataToNotesDelegate{
-    func displayAccountNotes()
-    func dismissEditNote()
-    func noteCreated()
+@objc protocol sendNotesDataToNotesDelegate{
+    @objc optional func displayAccountNotes()
+    @objc optional func dismissEditNote()
+    @objc optional func noteCreated()
 
+    @objc optional func navigateToNotesSection()
 }
 
 class CreateNoteViewController : UIViewController{
@@ -35,6 +36,7 @@ class CreateNoteViewController : UIViewController{
     var notesAccountId:String!
     var notesOwnerId:String!
     var comingFromNotesVC:Bool?
+    var comingFromAccountDetails:Bool?
     
 
     
@@ -152,16 +154,23 @@ class CreateNoteViewController : UIViewController{
         self.createNewNotes()
         
         self.dismiss(animated: true, completion: {
-            self.sendNoteDelegate?.displayAccountNotes()
+            self.sendNoteDelegate?.displayAccountNotes!()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
+            
+            if self.comingFromAccountDetails == true{
+                
+                self.sendNoteDelegate?.navigateToNotesSection!()
+                
+            }
+            
 
             //self.sendNoteDelegate?.noteCreated()
         })
         } else {
             self.editNote()
             self.dismiss(animated: true, completion: {
-                self.sendNoteDelegate?.dismissEditNote()
-                self.sendNoteDelegate?.displayAccountNotes()
+                self.sendNoteDelegate?.dismissEditNote!()
+                self.sendNoteDelegate?.displayAccountNotes!()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
 
                 

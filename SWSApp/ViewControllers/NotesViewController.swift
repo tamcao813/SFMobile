@@ -35,6 +35,8 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     var sortedNotesList = [AccountNotes]()
     var tableViewDisplayData = [AccountNotes]()
     var originalAccountNotesList = [AccountNotes]()
+   
+    
     
     @IBOutlet weak var notesTableView : UITableView?
     
@@ -254,7 +256,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
         var options = SwipeTableOptions()
-        options.transitionStyle = .border
+        options.transitionStyle = .drag
         return options
     }
     

@@ -48,34 +48,28 @@ class AccountContactRelation {
     func toJson() -> [String:Any] {
         var json = [String:Any]()
         
-        if acrId.count > 0{
-            acrId = json["Id"] as? String ?? ""
-        }
-        
         if accountName.count > 0 {
-            accountName = json["Account.Name"] as? String ?? ""
+            json["Account.Name"] = accountName
         }
         
         if roles.count > 0{
-            roles = json["Roles"] as? String ?? ""
+            json["Roles"] = roles
         }
         
         if accountId.count > 0 {
-            accountId = json["AccountId"] as? String ?? ""
+            json["AccountId"] = accountId
         }
         
         if contactId.count > 0{
-            contactId = json["ContactId"] as? String ?? ""
-            contactName = json["Contact.name"] as? String ?? ""
-            
+            json["ContactId"] = contactId
         }
         
         if contactName.count > 0 {
-            contactName = json["Contact.name"] as? String ?? ""
+            json["Contact.name"] = contactName
         }
         
         if sgwsSiteNumber.count > 0 {
-            sgwsSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
+            json["SGWS_Account_Site_Number__c"] = sgwsSiteNumber
         }
         
         return json

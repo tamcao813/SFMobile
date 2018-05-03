@@ -224,7 +224,8 @@ class CreateNewContactViewController: UIViewController {
          */
         var success: Bool!
         if isNewContact {
-            success = ContactsViewModel().createNewContactToSoup(object: newContact,accountObject: accountSelected)
+            success = ContactsViewModel().createNewContactToSoup(object: newContact)
+            let arcSuccess = ContactsViewModel().createARCDictionary(contactObject: newContact, accountObject: accountSelected)
         }else{
             success = ContactsViewModel().editNewContactToSoup(object: newContact)
         }

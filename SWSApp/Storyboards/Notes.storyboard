@@ -268,7 +268,7 @@
                                                     </connections>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="WKc-kh-B9p" firstAttribute="centerY" secondItem="s3q-Dg-5J8" secondAttribute="centerY" id="540-5O-6Uh"/>
                                                 <constraint firstItem="gma-yx-m0l" firstAttribute="centerY" secondItem="s3q-Dg-5J8" secondAttribute="centerY" id="9WT-xw-WpC"/>
@@ -323,7 +323,7 @@
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="wJr-ws-KCK" firstAttribute="top" secondItem="8B9-Ta-gLc" secondAttribute="topMargin" constant="28" id="4Kw-DR-jWk"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wJr-ws-KCK" secondAttribute="trailing" constant="20" symbolic="YES" id="Mta-jr-PgG"/>
@@ -353,7 +353,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RLW-Uk-DF3" firstAttribute="bottom" secondItem="Zpw-Z3-ieL" secondAttribute="bottom" id="R3h-Cg-vq0"/>
                             <constraint firstItem="RLW-Uk-DF3" firstAttribute="leading" secondItem="Zpw-Z3-ieL" secondAttribute="leading" id="Ucm-Mx-Buy"/>

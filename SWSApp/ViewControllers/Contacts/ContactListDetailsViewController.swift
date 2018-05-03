@@ -153,6 +153,28 @@ extension ContactListDetailsViewController : UITableViewDelegate {
         return 240
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.view.endEditing(true)
+
+        if indexPath.row == 0 {
+            return
+        }
+        else if indexPath.row == 1 {
+            return
+        }
+        else if (indexPath.row + 1) == countHeaderFooter + accountLinked.count + countLinkHeader {
+            return
+        }
+        
+        FilterMenuModel.comingFromDetailsScreen = "YES"
+        let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+        FilterMenuModel.selectedAccountId = acrDetail[(indexPath.row-2)].accountId
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+
+    }
+    
 }
 
 extension ContactListDetailsViewController : ContactListDetailsTableViewCellDelegate {

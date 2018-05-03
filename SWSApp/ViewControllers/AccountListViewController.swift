@@ -13,6 +13,10 @@ protocol DetailsScreenDelegate{
     func dismissKeyBoard()
 }
 
+struct ScreenLoadFromParent {
+    static var loadedFromParent = "NO"
+}
+
 class AccountsListViewController: UIViewController {
     
     @IBOutlet weak var accountListTableView: UITableView!
@@ -71,8 +75,10 @@ class AccountsListViewController: UIViewController {
     
     //MARK:- ViewLifeCycle
     override func viewDidLoad() {
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
+        
         //isAscending = true
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccounts), name: NSNotification.Name("refreshAccounts"), object: nil)
         accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
         print(accountsForLoggedUserOriginal.count)
         
@@ -85,21 +91,24 @@ class AccountsListViewController: UIViewController {
         
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
+        
     }
     
-    @objc func refreshAccounts(){
-        accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
-        print(accountsForLoggedUserOriginal.count)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //self.navigationController?.isNavigationBarHidden = true
         
-        tableViewDisplayData = accountsForLoggedUserOriginal
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        if accountsForLoggedUserOriginal.count > 0 {
-            pageButtonArr[1].backgroundColor = UIColor.lightGray
-            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
-        }
         
-        initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
-        updateUI()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
     }
     
     //MARK:- Segue Methods
@@ -110,6 +119,18 @@ class AccountsListViewController: UIViewController {
         }
     }
     
+    //MARK:- Account List Notification
+    @objc func reloadAllAccounts(notification: NSNotification){
+        
+        let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: FilterMenuModel.selectedAccountId)
+        guard accountList != nil, (accountList?.count)! > 0  else {
+            return;
+        }
+
+        delegate?.pushTheScreenToDetailsScreen(accountData: accountList![0])
+
+    }
+        
     //MARK:- Account List Sorting related
     @IBAction func sortAccountListByAccountName(_ sender: Any)
     {

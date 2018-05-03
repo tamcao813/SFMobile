@@ -23,6 +23,8 @@ class StoreDispatcher {
     let SoupContact = "Contact"
     let SoupAccountContactRelation = "AccountContactRelation"
     let SoupAccountNotes = "SGWS_Account_Notes__c"
+    let SoupVisit = "WorkOrder"
+    
     let SoupStrategyQA = "SGWS_Response__c"
     let SoupStrategyQuestion = "SGWS_Question__c"
     let SoupStrategyAnswers = "SGWS_Answer__c"
@@ -44,6 +46,7 @@ class StoreDispatcher {
         registerContactSoup()
         registerACRSoup()
         registerNotesSoup()
+        registerVisitSoup()
         registerStrategyQASoup()
         registerStrategyQuestions()
         registerStrategyAnswers()
@@ -93,21 +96,14 @@ class StoreDispatcher {
         }
         
         group.enter()
+        syncDownVisits() { _ in
+            group.leave()
+        }
+        
+        group.enter()
         syncDownStrategyQA() { _ in
             group.leave()
         }
-        
-        group.enter()
-        syncDownStrategyQuestions() { _ in
-            group.leave()
-        }
-       
-        group.enter()
-        syncDownStrategyAnswers() { _ in
-            group.leave()
-        }
-        
-        
         
        
         //to do: syncDown other soups
@@ -943,6 +939,86 @@ class StoreDispatcher {
         
     }
     
+    func registerVisitSoup(){
+        
+        let visitsQueryFields = Visit.VisitsFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...visitsQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: visitsQueryFields[i], indexType: kSoupIndexTypeString, columnName: visitsQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:nil)!)
+        
+        do {
+            try sfaStore.registerSoup(SoupVisit, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupAccountNotes soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    
+    func syncDownVisits(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "select Id,Subject, AccountId,Account.Name,Account.AccountNumber,Account.BillingAddress,ContactId, Contact.Name,Contact.Phone,Contact.Email,Contact.SGWS_Roles__c,SGWS_Appointment_Status__c, StartDate,EndDate, SGWS_Visit_Purpose__c, Description, SGWS_Agenda_Notes__c,Status from WorkOrder"
+        
+        print("soql visit query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
+            SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupVisit)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> visit syncDownVisit() done >>>>>")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownVisit() >>>>>>>"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownVisit()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    
+    func fetchVisits()->[Visit]{
+        
+        var visit: [Visit] = []
+        let visitFields = Visit.VisitsFields.map{"{WorkOrder:\($0)}"}
+        let soapQuery = "Select \(visitFields.joined(separator: ",")) FROM {WorkOrder}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        print("Result of visits is \(result)")
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let visitArray = Visit(withAry: ary)
+                visit.append(visitArray)
+                print("notes array \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch account notes  " + " error:" + (error?.localizedDescription)!)
+        }
+        return visit
+    }
+
+    
+    
     func syncDownNotes(_ completion:@escaping (_ error: NSError?)->()) {
         
         let soqlQuery = "SELECT Id,LastModifiedDate,Name,OwnerId,SGWS_Account__c,SGWS_Description__c FROM SGWS_Account_Notes__c"
@@ -1138,6 +1214,51 @@ class StoreDispatcher {
         allFields[kSyncTargetLocal] = true
         allFields[kSyncTargetLocallyCreated] = true
         allFields[kSyncTargetLocallyUpdated] = false
+        allFields[kSyncTargetLocallyDeleted] = false
+        
+        let ary = sfaStore.upsertEntries([allFields], toSoup: SoupContact)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func createNewEntryInACR(fields: [String:Any]) -> Bool{
+        var allFields = fields
+        allFields["attributes"] = ["type":"AccountContactRelation"]
+        allFields[kSyncTargetLocal] = true
+        allFields[kSyncTargetLocallyCreated] = true
+        allFields[kSyncTargetLocallyUpdated] = false
+        allFields[kSyncTargetLocallyDeleted] = false
+        
+        let ary = sfaStore.upsertEntries([allFields], toSoup: SoupAccountContactRelation)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
+
+    
+    
+    
+    func editContactToSoup(fields: [String:Any]) -> Bool{
+        var allFields = fields
+        allFields["attributes"] = ["type":"Contact"]
+        allFields[kSyncTargetLocal] = true
+        allFields[kSyncTargetLocallyCreated] = false
+        allFields[kSyncTargetLocallyUpdated] = true
         allFields[kSyncTargetLocallyDeleted] = false
         
         let ary = sfaStore.upsertEntries([allFields], toSoup: SoupContact)

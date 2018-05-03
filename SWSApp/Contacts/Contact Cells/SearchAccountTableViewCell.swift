@@ -7,29 +7,57 @@
 //
 
 import UIKit
+import DropDown
+
+protocol SearchAccountTableViewCellDelegate: NSObjectProtocol {
+    func accountSelected(account: Account)
+}
 
 class SearchAccountTableViewCell: UITableViewCell {
 
     @IBOutlet weak var searchContactTextField: DesignableUITextField!
-    @IBOutlet weak var accountsTableView: UITableView!
-    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     var searchAccounts = [Account]()
+    var searchAccountsString = [String]()
     let accountViewModel = AccountsViewModel()
+    let accountsDropDown = DropDown()
+    weak var delegate: SearchAccountTableViewCellDelegate!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         customizedUI()
+        addingDropdown()
     }
     
-    func customizedUI(){        
-        accountsTableView.register(UINib(nibName: "LocationTableViewCell", bundle: nil), forCellReuseIdentifier: "LocationTableViewCell")
+    func addingDropdown(){
+        accountsDropDown.anchorView =  searchContactTextField
+        accountsDropDown.width = (UIScreen.main.bounds.width - 80)
+        accountsDropDown.dataSource = searchAccountsString
+        accountsDropDown.bottomOffset = CGPoint(x: 0, y: searchContactTextField.frame.height)
+        accountsDropDown.backgroundColor = UIColor.white
+        accountsDropDown.direction = .bottom
+        accountsDropDown.cellNib = UINib(nibName: "AccountContactLinkTableViewCell", bundle: nil)
+        accountsDropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
+                guard let cell = cell as? AccountContactLinkTableViewCell else { return }
+            cell.deleteButton.isHidden = true
+            }
+        accountsDropDown.cellHeight = 100
+        accountsDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.delegate.accountSelected(account: self.searchAccounts[index])
+            self.searchContactTextField.resignFirstResponder()
+        }
+    }
+    
+    func customizedUI(){
+        searchAccountsString = []
+        searchAccounts = []
         searchAccounts = self.accountViewModel.accountsForLoggedUser
-        accountsTableView.delegate = self
-        accountsTableView.dataSource = self
+        for account in searchAccounts {
+            searchAccountsString.append(account.accountName)
+        }
+        DropDown.startListeningToKeyboard()
         searchContactTextField.delegate = self
     }
-    
-    
+        
     func getAccountData(searchStr: String) -> [Account] {
         let account = self.accountViewModel.accountsForLoggedUser
         let arr = account.filter( { return $0.accountName.contains(searchStr) } )
@@ -41,8 +69,7 @@ class SearchAccountTableViewCell: UITableViewCell {
 extension SearchAccountTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        heightConstraint.constant = 200
-        self.setNeedsLayout()
+        accountsDropDown.show()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -51,39 +78,14 @@ extension SearchAccountTableViewCell: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string.isEmpty {
-            searchAccounts = self.accountViewModel.accountsForLoggedUser
-            accountsTableView.reloadData()
-        } else {
-            searchAccounts = self.getAccountData(searchStr: string)
-            accountsTableView.reloadData()
+        
+        searchAccountsString = []
+        searchAccounts = []
+        searchAccounts = self.getAccountData(searchStr: string)
+        for account in searchAccounts {
+            searchAccountsString.append(account.accountName)
         }
+        accountsDropDown.reloadAllComponents()
         return true
-    }
-}
-
-extension SearchAccountTableViewCell: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchAccounts.count;
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: LocationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as! LocationTableViewCell
-//        let account = searchAccounts[indexPath.row]
-//        cell.accountLabel.text = account.accountName
-//        cell.phoneNumberLabel.text = account.phone
-//        cell.addressLabel.text = account.shippingStreet + " " + account.shippingCity + " " + account.shippingPostalCode
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        searchContactTextField.text = values[indexPath.row]
-//        tableView.isHidden = true
-//        searchContactTextField.endEditing(true)
     }
 }

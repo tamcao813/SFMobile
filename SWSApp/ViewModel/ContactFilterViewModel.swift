@@ -34,5 +34,6 @@ struct ContactFilterMenuModel {
     static var nobuyingPower = ""
 
     static var comingFromDetailsScreen = ""
-    
+    static var selectedContactId = ""
+
 }

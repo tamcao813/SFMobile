@@ -119,9 +119,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         } catch {
             print("Unable to start notifier")
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
     }
     
@@ -135,13 +138,22 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // Dispose of any resources that can be recreated.
     }
     
+    @objc func showAllAccounts(notification: NSNotification){
+        topMenuBar?.selectedSegment = 1
+        _ = displayCurrentTab(1)
+        
+        ScreenLoadFromParent.loadedFromParent = "YES"
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadDetailsScreen"), object:nil)
+    }
+    
     @objc func showAllContacts(notification: NSNotification){
         if notification.object != nil{
             ContactsGlobal.accountId = notification.object as! String
         }
         print(notification.object)
         topMenuBar?.selectedSegment = 2
-        displayCurrentTab(2)
+        _ = displayCurrentTab(2)
         
     }
     
@@ -244,7 +256,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 }
             })
         
-        
+        // Contacts Sync Up
+        ContactsViewModel().uploadContactToServerAndSyncDownACR(completion: { error in
+            if error != nil {
+                print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
+                MBProgressHUD.hide(forWindow: true)
+            }
+        })
     }
     
     private func setupTopMenuItems(){

@@ -308,7 +308,6 @@ class AccountsListViewController: UIViewController {
     
     @objc func navigateToDetailsScreen(){
         
-        
         if ScreenLoadFromParent.loadedFromParent == "YES"{
             ScreenLoadFromParent.loadedFromParent = "NO"
             

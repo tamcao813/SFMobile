@@ -27,16 +27,46 @@ class AccountStrategyViewController : UIViewController{
         let plistPath = Bundle.main.path(forResource: "AccountStrategy", ofType: ".plist", inDirectory: nil)
         let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
-        print(dictionary!)
+        //print(dictionary!)
         
-        strategyQAViewModel.getStrategyQuestionAnswer()
+        //strategyQAViewModel.getStrategyQuestionAnswer()
+        
+        let data = strategyQAViewModel.getStrategyQuestionAnswer()
+        
+        let tableViewData = NSMutableArray()
+        
+        for item in data{
+            
+            let dict = NSMutableDictionary()
+
+//            SGWS_Question_Description__c
+            if (tableViewData.contains(["headerText": item.SGWS_Question_Description__c])) {
+                
+                dict.setValue(item.SGWS_Question__r_SGWS_Question_Type__c, forKey: "headerText")
+                dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
+                dict.setValue(item.Id, forKey: "id")
+                
+            }else{
+                
+                dict.setValue(item.SGWS_Question__r_SGWS_Question_Type__c, forKey: "headerText")
+                dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
+                dict.setValue(item.Id, forKey: "id")
+                
+
+            }
+            
+            
+            print(dict)
+        }
+
+        
+        
+        
+        
+        
         strategyQuestionsViewModel.getStrategyQuestions()
         strategyAnswersViewModel.getStrategyAnswers()
         
-        //        if let flowLayout: UICollectionViewFlowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout{
-        //            flowLayout.estimatedItemSize = CGSize(width: 1, height: 100)
-        //
-        //        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

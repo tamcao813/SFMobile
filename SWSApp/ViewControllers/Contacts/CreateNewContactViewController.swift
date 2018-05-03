@@ -8,6 +8,9 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SmartStore
+import SmartSync
+
 protocol CreateNewContactViewControllerDelegate : NSObjectProtocol{
     func updateContactList()
 }
@@ -222,6 +225,9 @@ class CreateNewContactViewController: UIViewController {
         
         //sync up to Contact which will update ACR, then for now we need to sync down ACR
         if success {
+//            let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
+//            present(SmartStoreViewController, animated: true, completion: nil)
+            
             self.dismiss(animated: true, completion: {
                 self.delegate.updateContactList()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)

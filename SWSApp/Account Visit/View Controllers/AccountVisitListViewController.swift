@@ -18,10 +18,24 @@ class AccountVisitListViewController: UIViewController {
         ["title" : "Visit: Crown Liquor Store One", "status" : "Completed"],
         ["title" : "Visit: Crown Liquor Store One", "status" : "Planned"]]
     
+    var tableViewData : [Visit]?
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
         initializingXIBs()
+        getTheDataFromDB()
+    }
+    
+    func getTheDataFromDB(){
+        let visitArray = VisitsViewModel()
+        
+        tableViewData = visitArray.visitsForUser()
+        
+        print(tableViewData)
+        
     }
     
     func customizedUI(){
@@ -52,21 +66,26 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accountVisitArray.count
+        return tableViewData!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
         cell?.delegate = self
-        cell?.addressLabel.text = accountVisitArray[indexPath.row]["title"]
-        cell?.visitStatusLabel.text = accountVisitArray[indexPath.row]["status"]
-        if accountVisitArray[indexPath.row]["status"] == "Scheduled"{
-            cell?.statusView.backgroundColor = UIColor(hexString: "#CDA635")
-        }else if accountVisitArray[indexPath.row]["status"] == "Completed"{
-            cell?.statusView.backgroundColor = UIColor(hexString: "#319553")
-        }else if accountVisitArray[indexPath.row]["status"] == "Planned" {
-            cell?.statusView.backgroundColor = UIColor(hexString: "#97A124")
-        }
+        
+        let celldata = tableViewData![indexPath.row]
+        cell?.displayCellData(data: celldata)
+        
+        
+//        cell?.addressLabel.text = accountVisitArray[indexPath.row]["title"]
+//        cell?.visitStatusLabel.text = accountVisitArray[indexPath.row]["status"]
+//        if accountVisitArray[indexPath.row]["status"] == "Scheduled"{
+//            cell?.statusView.backgroundColor = UIColor(hexString: "#CDA635")
+//        }else if accountVisitArray[indexPath.row]["status"] == "Completed"{
+//            cell?.statusView.backgroundColor = UIColor(hexString: "#319553")
+//        }else {
+//            cell?.statusView.backgroundColor = UIColor(hexString: "#97A124")
+//        }
         
         return cell!
     }
@@ -79,9 +98,12 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-            if self.accountVisitArray[indexPath.row]["status"] == "Scheduled"{
+            
+            let data : Visit = self.tableViewData![indexPath.row]
+            
+            if data.status == "Scheduled"{
                 accountVisitsVC?.visitStatus = .scheduled
-            }else if self.accountVisitArray[indexPath.row]["status"] == "Completed"{
+            }else if data.status  == "Completed"{
                 accountVisitsVC?.visitStatus = .completed
             }else {
                 accountVisitsVC?.visitStatus = .inProgress
@@ -89,6 +111,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
             accountVisitsVC?.modalPresentationStyle = .overCurrentContext
             self.present(accountVisitsVC!, animated: true, completion: nil)
         }
+        
+        editAction.hidesWhenSelected = true
         editAction.image = UIImage(named:"editIcon")
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
         
@@ -110,16 +134,20 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
         let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-        if accountVisitArray[indexPath.row]["status"] == "Scheduled"{
+        
+        let data : Visit = tableViewData![indexPath.row]
+        
+        if data.status == "Scheduled"{
             accountVisitsVC?.visitStatus = .scheduled
-        }else if accountVisitArray[indexPath.row]["status"] == "Completed"{
+        }else if data.status  == "Completed"{
             accountVisitsVC?.visitStatus = .completed
-        }else if accountVisitArray[indexPath.row]["status"] == "In Progress"{
+        }else if data.status  == "In-Progress"{
             accountVisitsVC?.visitStatus = .inProgress
-        }else if accountVisitArray[indexPath.row]["status"] == "Planned"{
+        }else if data.status  == "Planned"{
             accountVisitsVC?.modalPresentationStyle = .overCurrentContext
         }
         present(accountVisitsVC!, animated: true, completion: nil)
+        accountVisitsVC?.modalPresentationStyle = .overCurrentContext
         (accountVisitsVC)?.delegate = self
     }
 }
@@ -137,6 +165,10 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
             
         }
+    }
+    
+    func navigateToAccountScreen() {
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
 }
 

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DropDownCell" rowHeight="100" id="YxK-cq-yEg" customClass="AccountContactLinkTableViewCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="625" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YxK-cq-yEg" id="dAM-qO-ist">
+                <rect key="frame" x="0.0" y="0.0" width="625" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHS-6q-i9g">
+                        <rect key="frame" x="0.0" y="0.0" width="625" height="80"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qVn-gF-RL3">
+                                <rect key="frame" x="0.0" y="0.0" width="312.5" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crown Liquor Store One" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Et-QC-Y7T">
+                                        <rect key="frame" x="20" y="15" width="272.5" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="Cd6-U2-mry"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5644897" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wA6-D9-dny">
+                                        <rect key="frame" x="20" y="44.5" width="272.5" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="oTa-4z-jbb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="wA6-D9-dny" firstAttribute="leading" secondItem="8Et-QC-Y7T" secondAttribute="leading" id="46y-MI-erH"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Et-QC-Y7T" secondAttribute="trailing" constant="20" id="928-Db-09G"/>
+                                    <constraint firstAttribute="height" constant="80" id="Bbe-w5-ZUl"/>
+                                    <constraint firstAttribute="trailing" secondItem="wA6-D9-dny" secondAttribute="trailing" constant="20" id="PHX-in-9DJ"/>
+                                    <constraint firstItem="wA6-D9-dny" firstAttribute="top" secondItem="8Et-QC-Y7T" secondAttribute="bottom" constant="10" id="VS9-pJ-pgk"/>
+                                    <constraint firstItem="8Et-QC-Y7T" firstAttribute="leading" secondItem="qVn-gF-RL3" secondAttribute="leading" constant="20" id="hEY-a6-AsH"/>
+                                    <constraint firstItem="8Et-QC-Y7T" firstAttribute="top" secondItem="qVn-gF-RL3" secondAttribute="top" constant="15" id="yiS-2b-RM0"/>
+                                    <constraint firstAttribute="bottom" secondItem="wA6-D9-dny" secondAttribute="bottom" constant="15" id="zqI-w9-6Md"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L5g-9k-EOT">
+                                <rect key="frame" x="312.5" y="0.0" width="312.5" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234 E. Main St." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0o-4z-QME">
+                                        <rect key="frame" x="20" y="15" width="194.5" height="50"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWx-uI-dTS">
+                                        <rect key="frame" x="234.5" y="21" width="38" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="38" id="dIt-OE-bBK"/>
+                                            <constraint firstAttribute="height" constant="38" id="wrU-Fv-Vzw"/>
+                                        </constraints>
+                                        <state key="normal" image="Close"/>
+                                        <connections>
+                                            <action selector="deleteButtonTapped:" destination="YxK-cq-yEg" eventType="touchUpInside" id="KU1-dS-YCZ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="q0o-4z-QME" firstAttribute="leading" secondItem="L5g-9k-EOT" secondAttribute="leading" constant="20" id="3AX-w7-zWa"/>
+                                    <constraint firstItem="gWx-uI-dTS" firstAttribute="leading" secondItem="q0o-4z-QME" secondAttribute="trailing" constant="20" id="6sQ-uT-6RC"/>
+                                    <constraint firstAttribute="trailing" secondItem="gWx-uI-dTS" secondAttribute="trailing" constant="40" id="EPN-oW-WQb"/>
+                                    <constraint firstItem="q0o-4z-QME" firstAttribute="top" secondItem="L5g-9k-EOT" secondAttribute="top" constant="15" id="TdS-8j-nxF"/>
+                                    <constraint firstItem="gWx-uI-dTS" firstAttribute="centerY" secondItem="L5g-9k-EOT" secondAttribute="centerY" id="dIG-Zv-NJk"/>
+                                    <constraint firstAttribute="bottom" secondItem="q0o-4z-QME" secondAttribute="bottom" constant="15" id="vqX-ff-zib"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qVn-gF-RL3" firstAttribute="height" secondItem="L5g-9k-EOT" secondAttribute="height" id="AEm-Ou-yot"/>
+                            <constraint firstItem="L5g-9k-EOT" firstAttribute="top" secondItem="zHS-6q-i9g" secondAttribute="top" id="GdS-YE-iyu"/>
+                            <constraint firstItem="qVn-gF-RL3" firstAttribute="leading" secondItem="zHS-6q-i9g" secondAttribute="leading" id="NMs-HF-7hO"/>
+                            <constraint firstAttribute="bottom" secondItem="L5g-9k-EOT" secondAttribute="bottom" id="VJY-XC-f4j"/>
+                            <constraint firstItem="L5g-9k-EOT" firstAttribute="leading" secondItem="qVn-gF-RL3" secondAttribute="trailing" id="kdk-uR-fiL"/>
+                            <constraint firstItem="L5g-9k-EOT" firstAttribute="width" secondItem="qVn-gF-RL3" secondAttribute="width" id="oYE-ie-bvg"/>
+                            <constraint firstAttribute="trailing" secondItem="L5g-9k-EOT" secondAttribute="trailing" id="tvp-uq-UwZ"/>
+                            <constraint firstItem="qVn-gF-RL3" firstAttribute="top" secondItem="zHS-6q-i9g" secondAttribute="top" id="ySM-Zc-Yo6"/>
+                            <constraint firstAttribute="bottom" secondItem="qVn-gF-RL3" secondAttribute="bottom" id="yuU-71-8gM"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="zHS-6q-i9g" firstAttribute="leading" secondItem="dAM-qO-ist" secondAttribute="leading" id="B8M-yP-tiF"/>
+                    <constraint firstAttribute="bottom" secondItem="zHS-6q-i9g" secondAttribute="bottom" id="Y36-JP-9qi"/>
+                    <constraint firstItem="zHS-6q-i9g" firstAttribute="top" secondItem="dAM-qO-ist" secondAttribute="top" id="seT-BG-aWC"/>
+                    <constraint firstAttribute="trailing" secondItem="zHS-6q-i9g" secondAttribute="trailing" id="zoZ-bH-GFK"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="7B6-se-vcg"/>
+            <connections>
+                <outlet property="accountLabel" destination="8Et-QC-Y7T" id="byi-9F-upo"/>
+                <outlet property="addressLabel" destination="q0o-4z-QME" id="bKZ-uS-Tuh"/>
+                <outlet property="containerLeadingConstraint" destination="B8M-yP-tiF" id="GHe-q5-tsf"/>
+                <outlet property="containerTrailingConstraint" destination="zoZ-bH-GFK" id="l90-Tv-LfE"/>
+                <outlet property="deleteButton" destination="gWx-uI-dTS" id="Wqi-jl-SIz"/>
+                <outlet property="optionLabel" destination="8Et-QC-Y7T" id="AMv-kv-aHH"/>
+                <outlet property="phoneNumberLabel" destination="wA6-D9-dny" id="sUr-Db-NgN"/>
+            </connections>
+            <point key="canvasLocation" x="30.5" y="80"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Close" width="38" height="38"/>
+    </resources>
+</document>

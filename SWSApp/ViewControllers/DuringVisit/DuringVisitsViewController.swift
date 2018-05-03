@@ -163,7 +163,9 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     @IBAction func contactsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+        
+        
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             
             self.dismiss(animated: true, completion: nil)
             self.delegate?.NavigateToAccountVisitSummary(data: .contacts)
@@ -174,7 +176,7 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     @IBAction func chatterClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             
             self.dismiss(animated: true, completion: nil)
             self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
@@ -185,7 +187,7 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     @IBAction func actionItemsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             
             self.dismiss(animated: true, completion: nil)
             self.delegate?.NavigateToAccountVisitSummary(data: .actionItems)
@@ -196,7 +198,7 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     @IBAction func notificationsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             
             self.dismiss(animated: true, completion: nil)
             self.delegate?.NavigateToAccountVisitSummary(data: .notifications)

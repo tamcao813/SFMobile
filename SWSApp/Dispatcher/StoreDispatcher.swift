@@ -119,8 +119,6 @@ class StoreDispatcher {
         group.notify(queue: queue) {
             completion(nil)
         }
-        
-        
     }
     
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {

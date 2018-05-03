@@ -27,16 +27,18 @@ class DateFieldTableViewCell: UITableViewCell {
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateTextfield.text = dateFormatter.string(from: sender.date)
+        dateFormatter.dateFormat = "MMM-dd-yyyy"
+        let dateString = dateFormatter.string(from: sender.date)
+        let date = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateTextfield.text = dateFormatter.string(from: date!)
     }
     
     func addToolbar(textField: UITextField){        
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+//        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.donePicker))

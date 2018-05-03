@@ -41,9 +41,11 @@ class FamilyTableViewCell: UITableViewCell {
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateTextField.text = dateFormatter.string(from: sender.date)
+        dateFormatter.dateFormat = "MMM-dd-yyyy"
+        let dateString = dateFormatter.string(from: sender.date)
+        let date = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateTextField.text = dateFormatter.string(from: date!)
     }
     
     func addToolbar(textField: UITextField){

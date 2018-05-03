@@ -322,6 +322,19 @@ class AccountsListViewController: UIViewController {
         self.updateTheTableViewDataAccordingly()
     }
     
+    
+    @objc func navigateToDetailsScreen(){
+        
+        if ScreenLoadFromParent.loadedFromParent == "YES"{
+            ScreenLoadFromParent.loadedFromParent = "NO"
+            
+            if tableViewDisplayData.count > 0{
+                let account:Account = tableViewDisplayData[0]
+                delegate?.pushTheScreenToDetailsScreen(accountData: account)
+            }
+        }
+    }
+    
     //MARK:- sort by entered text
     func sortAccountsData(searchString: String)
     {

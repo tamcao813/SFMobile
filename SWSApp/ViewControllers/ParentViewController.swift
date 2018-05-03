@@ -142,6 +142,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         topMenuBar?.selectedSegment = 1
         _ = displayCurrentTab(1)
         
+        ScreenLoadFromParent.loadedFromParent = "YES"
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadDetailsScreen"), object:nil)
     }
     
     @objc func showAllContacts(notification: NSNotification){
@@ -172,15 +175,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }else if  data == LoadThePersistantMenuScreen.notifications.rawValue {
             self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: 4)
         }
-    }
-    
-    @objc func showAllAccounts(notification: NSNotification) {
-        topMenuBar?.selectedSegment = 1
-        displayCurrentTab(1)
-        
-        ScreenLoadFromParent.loadedFromParent = "YES"
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadDetailsScreen"), object:nil)
     }
     
     

@@ -13,6 +13,10 @@ protocol DetailsScreenDelegate{
     func dismissKeyBoard()
 }
 
+struct ScreenLoadFromParent {
+    static var loadedFromParent = "NO"
+}
+
 class AccountsListViewController: UIViewController {
     
     @IBOutlet weak var accountListTableView: UITableView!

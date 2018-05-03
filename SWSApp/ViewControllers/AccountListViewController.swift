@@ -122,12 +122,18 @@ class AccountsListViewController: UIViewController {
     //MARK:- Account List Notification
     @objc func reloadAllAccounts(notification: NSNotification){
         
-        let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: FilterMenuModel.selectedAccountId)
-        guard accountList != nil, (accountList?.count)! > 0  else {
-            return;
+        if FilterMenuModel.selectedAccountId != "" {
+            
+            let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: FilterMenuModel.selectedAccountId)
+            guard accountList != nil, (accountList?.count)! > 0  else {
+                return;
+            }
+            
+            delegate?.pushTheScreenToDetailsScreen(accountData: accountList![0])
+            
+            FilterMenuModel.selectedAccountId = ""
+            
         }
-
-        delegate?.pushTheScreenToDetailsScreen(accountData: accountList![0])
 
     }
         

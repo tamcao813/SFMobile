@@ -158,12 +158,7 @@ class CreateNewContactViewController: UIViewController {
             showAlert = false
         }
         
-        if showAlert {
-            let alertController = UIAlertController(title: "Alert", message:
-                "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-        }else{
+        if !showAlert {            
             createContactLocally()
         }
     }
@@ -234,6 +229,11 @@ class CreateNewContactViewController: UIViewController {
                 self.delegate.updateContactList()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
             })
+        }else{
+            let alertController = UIAlertController(title: "Alert", message:
+                "Unable to create the new contact in local database", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 }

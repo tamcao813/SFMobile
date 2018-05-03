@@ -234,11 +234,6 @@ class CreateNewContactViewController: UIViewController {
                 self.delegate.updateContactList()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
             })
-        } else {
-            let alertController = UIAlertController(title: "Alert", message:
-                "Unable to create the new contact in local database", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-            self.present(alertController, animated: true, completion: nil)
         }
     }
 }
@@ -278,7 +273,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return 0
             }            
         case 3:
-            return 9
+            return 8
         case 4:
             return 8
         default:

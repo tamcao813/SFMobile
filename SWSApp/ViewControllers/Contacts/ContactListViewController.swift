@@ -296,6 +296,8 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
             }
             delegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
 
+            ContactFilterMenuModel.selectedContactId = ""
+
         }
         
     }

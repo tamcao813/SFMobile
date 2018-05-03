@@ -13,6 +13,10 @@ protocol DetailsScreenDelegate{
     func dismissKeyBoard()
 }
 
+struct ScreenLoadFromParent {
+    static var loadedFromParent = "NO"
+}
+
 class AccountsListViewController: UIViewController {
     
     @IBOutlet weak var accountListTableView: UITableView!
@@ -84,6 +88,11 @@ class AccountsListViewController: UIViewController {
         
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToDetailsScreen), name: NSNotification.Name("loadDetailsScreen"), object: nil)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -294,6 +303,20 @@ class AccountsListViewController: UIViewController {
         
         //self.accountListTableView.reloadData()
         self.updateTheTableViewDataAccordingly()
+    }
+    
+    
+    @objc func navigateToDetailsScreen(){
+        
+        
+        if ScreenLoadFromParent.loadedFromParent == "YES"{
+            ScreenLoadFromParent.loadedFromParent = "NO"
+            
+            if tableViewDisplayData.count > 0{
+                let account:Account = tableViewDisplayData[0]
+                delegate?.pushTheScreenToDetailsScreen(accountData: account)
+            }
+        }
     }
     
     //MARK:- sort by entered text

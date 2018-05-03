@@ -10,6 +10,8 @@ import UIKit
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
+    
+    func navigateToAccountScreen()
 }
 
 class AccountVisitSummaryViewController: UIViewController {
@@ -120,15 +122,21 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBAction func closeButtonTapped(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
+    
 }
 
 //MARK:- NavigateToContacts Delegate
-extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDelegate{
+extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDelegate , NavigateToAccountAccountVisitSummaryDelegate{
     
     func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
         self.dismiss(animated: true, completion: nil)
         delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
         
+    }
+    
+    func navigateToAccountVisitSummaryScreen() {
+        self.dismiss(animated: true, completion: nil)
+        delegate?.navigateToAccountScreen()
     }
 }
 
@@ -218,6 +226,9 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             switch indexPath.section {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as? LocationTableViewCell
+                
+                cell?.delegate = self
+                
                 return cell!
             case 1 ... 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
@@ -230,6 +241,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             switch indexPath.section {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as? LocationTableViewCell
+                cell?.delegate = self
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "AssociatedContactsTableViewCell") as? AssociatedContactsTableViewCell
@@ -261,6 +273,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             switch indexPath.section {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as? LocationTableViewCell
+                cell?.delegate = self
                 return cell!
             case 1 ... 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell

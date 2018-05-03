@@ -146,6 +146,8 @@ class AccountDetailTabViewController: UITableViewController {
         cell.phoneNumberLabel.text = contact.phoneNumber
         cell.function_RoleLabel.text = contact.functionRole
         cell.initialsLabel.text = contact.getIntials(name: contact.name)
+
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -281,6 +283,28 @@ class AccountDetailTabViewController: UITableViewController {
         
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.view.endEditing(true)
+        
+        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+        var ary: [Contact] = []
+        if indexPath.section == 1 {
+            ary = contactsWithBuyingPower
+        }
+        else if indexPath.section == 2 {
+            ary = contactsForSG
+            
+        }
+        else {
+            return
+        }
+        let contact = ary[indexPath.row]
+        ContactFilterMenuModel.selectedContactId = contact.contactId
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+
+    }
+
     @objc func viewAllContactFunction()  {
         
         ContactFilterMenuModel.comingFromDetailsScreen = "YES"
@@ -288,4 +312,3 @@ class AccountDetailTabViewController: UITableViewController {
     }
     
 }
-

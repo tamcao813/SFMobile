@@ -131,6 +131,7 @@
 		8D10B2782099ABFA00C8A86C /* AccountContactLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D10B2742099ABFA00C8A86C /* AccountContactLinkTableViewCell.xib */; };
 		8D10B27A2099DF0E00C8A86C /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D10B2792099DF0E00C8A86C /* Contacts.storyboard */; };
 		8D10B27B2099DF0E00C8A86C /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D10B2792099DF0E00C8A86C /* Contacts.storyboard */; };
+		8D10B282209B01B600C8A86C /* ContactListDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */; };
 		8D8C450C2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C450A2096E75D0099204C /* SearchAccountTableViewCell.swift */; };
 		8D8C450D2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C450A2096E75D0099204C /* SearchAccountTableViewCell.swift */; };
 		8D8C450E2096E75D0099204C /* SearchAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C450B2096E75D0099204C /* SearchAccountTableViewCell.xib */; };
@@ -694,6 +695,30 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8D10B280209B012E00C8A86C /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				8D99A2E42091E61100FAA71A /* Contact Cells */,
+				F23929E42075E3E90039A924 /* ContactsViewController.swift */,
+				91C3E59D208F0F600067CF3E /* ContactMenuViewController.swift */,
+				12E47BDD208A21C900D37B74 /* ContactListViewController.swift */,
+				12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */,
+				D267688D2090B41B0060E792 /* CreateNewContactViewController.swift */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+		8D10B281209B018200C8A86C /* Account Visit */ = {
+			isa = PBXGroup;
+			children = (
+				D23C40B6208DE6470006691C /* Header View */,
+				D23C40BD208DE6580006691C /* Account Visit Cells */,
+				D2CD7F62208E01B20016B4FB /* AccountVisitListViewController.swift */,
+				D23C4088208DCEFF0006691C /* AccountVisitSummaryViewController.swift */,
+			);
+			path = "Account Visit";
+			sourceTree = "<group>";
+		};
 		8D99A2E42091E61100FAA71A /* Contact Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -786,8 +811,6 @@
 		D1FB18252062A7C00072F4C1 /* SWSApp */ = {
 			isa = PBXGroup;
 			children = (
-				D267688C2090B4010060E792 /* Contacts */,
-				D23C4086208DCED30006691C /* Account Visit */,
 				D1FB18262062A7C00072F4C1 /* AppDelegate.swift */,
 				D1FCDE13207332B9005F956D /* Dispatcher */,
 				D1FCDE0A20732199005F956D /* ViewModel */,
@@ -840,6 +863,8 @@
 		D1FB18572062F76C0072F4C1 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				D23C409D208DCF610006691C /* AccountVisit.storyboard */,
+				D26768902090B42E0060E792 /* NewContact.storyboard */,
 				8D10B2792099DF0E00C8A86C /* Contacts.storyboard */,
 				D1FB18582062F7A40072F4C1 /* Main.storyboard */,
 				AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */,
@@ -856,16 +881,14 @@
 		D1FB185A2062F86C0072F4C1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				8D10B281209B018200C8A86C /* Account Visit */,
+				8D10B280209B012E00C8A86C /* Contacts */,
 				D276DE662075028500086901 /* MoreMenu */,
 				128B1A9B206BAE43004E148A /* TableViewCells */,
 				6F3D30A3206BA59C000CFFCC /* XMSegmentedControl.swift */,
 				6F3D3099206BA064000CFFCC /* AccountsViewController.swift */,
 				F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */,
 				F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */,
-				F23929E42075E3E90039A924 /* ContactsViewController.swift */,
-				91C3E59D208F0F600067CF3E /* ContactMenuViewController.swift */,
-				12E47BDD208A21C900D37B74 /* ContactListViewController.swift */,
-				12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */,
 				6F3D309B206BA065000CFFCC /* CalendarViewController.swift */,
 				128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */,
 				6F3D309D206BA065000CFFCC /* HomeViewController.swift */,
@@ -914,6 +937,7 @@
 		D1FE1D0320657B47009CC47C /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
+				8D99A3222092D66C00FAA71A /* CustomPicker.swift */,
 				9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */,
 				6F36531F207B95850068105B /* AccountSortUtility.swift */,
 				1268ED46209868170027013D /* NoteSortUtility.swift */,
@@ -934,17 +958,6 @@
 				8DD1501120933A0800858349 /* StringConstants.swift */,
 			);
 			path = Utilies;
-			sourceTree = "<group>";
-		};
-		D23C4086208DCED30006691C /* Account Visit */ = {
-			isa = PBXGroup;
-			children = (
-				D23C40DD208DFEE80006691C /* Storyboard */,
-				D23C40DC208DFEBF0006691C /* View Controllers */,
-				D23C40BD208DE6580006691C /* Account Visit Cells */,
-				D23C40B6208DE6470006691C /* Header View */,
-			);
-			path = "Account Visit";
 			sourceTree = "<group>";
 		};
 		D23C40B6208DE6470006691C /* Header View */ = {
@@ -971,34 +984,6 @@
 				D23C40D7208DFA890006691C /* AccountVisitListTableViewCell.xib */,
 			);
 			path = "Account Visit Cells";
-			sourceTree = "<group>";
-		};
-		D23C40DC208DFEBF0006691C /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				D2CD7F62208E01B20016B4FB /* AccountVisitListViewController.swift */,
-				D23C4088208DCEFF0006691C /* AccountVisitSummaryViewController.swift */,
-			);
-			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		D23C40DD208DFEE80006691C /* Storyboard */ = {
-			isa = PBXGroup;
-			children = (
-				D23C409D208DCF610006691C /* AccountVisit.storyboard */,
-			);
-			path = Storyboard;
-			sourceTree = "<group>";
-		};
-		D267688C2090B4010060E792 /* Contacts */ = {
-			isa = PBXGroup;
-			children = (
-				8D99A2E42091E61100FAA71A /* Contact Cells */,
-				D267688D2090B41B0060E792 /* CreateNewContactViewController.swift */,
-				D26768902090B42E0060E792 /* NewContact.storyboard */,
-				8D99A3222092D66C00FAA71A /* CustomPicker.swift */,
-			);
-			path = Contacts;
 			sourceTree = "<group>";
 		};
 		D276DE662075028500086901 /* MoreMenu */ = {
@@ -1541,6 +1526,7 @@
 				8DD1501320933A0800858349 /* StringConstants.swift in Sources */,
 				8D99A2F52091E70900FAA71A /* PrimaryFunctionTableViewCell.swift in Sources */,
 				8DD150002093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,
+				8D10B282209B01B600C8A86C /* ContactListDetailsViewController.swift in Sources */,
 				12F0F89E2090B1D200160C3D /* ContactListDetailsTableViewCell.swift in Sources */,
 				C955CD282099A040003DADA1 /* NoteSortUtility.swift in Sources */,
 				F2CAD23420958075001016C2 /* DuringVisitsInsightsCollectionReusableView.swift in Sources */,

@@ -186,10 +186,8 @@ class CreateNewContactViewController: UIViewController {
         newContact.phoneNumber = phoneTextField.text!
         newContact.email = emailTextField.text!
         newContact.contactHours = contactHoursTextField.text!
-        newContact.preferredCommunicationMethod = preferredCommunicationTextField.text!
-        if newContact.preferredCommunicationMethod == "Select One" {
-            newContact.preferredCommunicationMethod = ""
-        }
+        
+        newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
         newContact.birthDate = (birthdayTextField.text! == "Select") ? "" : birthdayTextField.text!
         
@@ -222,17 +220,10 @@ class CreateNewContactViewController: UIViewController {
         else {
             newContact.accountId = (contactDetail?.accountId)!
         }
-        
-        /*
-         if contactClassificationTextField.text! == "Other"{
-         newContact.contactClassification = otherReasonTextField.text!
-         }else{
-         newContact.contactClassification = contactClassificationTextField.text!
-         }
-         */
         var success: Bool!
         if isNewContact {
-            success = ContactsViewModel().createNewContactToSoup(object: newContact,accountObject: accountSelected)
+            success = ContactsViewModel().createNewContactToSoup(object: newContact)
+            let arcSuccess = ContactsViewModel().createARCDictionary(contactObject: newContact, accountObject: accountSelected)
         }else{
             success = ContactsViewModel().editNewContactToSoup(object: newContact)
         }
@@ -240,10 +231,8 @@ class CreateNewContactViewController: UIViewController {
         //sync up to Contact which will update ACR, then for now we need to sync down ACR
         if success {
             self.dismiss(animated: true, completion: {
-                if self.isNewContact {
-                    self.delegate.updateContactList()
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
-                }                
+                self.delegate.updateContactList()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
             })
         } else {
             let alertController = UIAlertController(title: "Alert", message:
@@ -332,74 +321,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return UITableViewCell()
             }
         case 3:
-            switch indexPath.row {
-            case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "NameTableViewCell") as? NameTableViewCell
-                firstNameTextField = cell?.firstNameTextField
-                lastNameTextField = cell?.lastNameTextField
-                preferredNameTextField = cell?.preferredNameTextField
-                if let contactDetail = contactDetail {
-                    cell?.displayCellContent(contactDetail: contactDetail)
-                }
-                return cell!
-            case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
-                if let contactDetail = contactDetail {
-                    cell?.displayCellContent(contactDetail: contactDetail)
-                }
-                departmentTextField = cell?.departmentTextField
-                titleTextField = cell?.titleTextField
-                primaryFunctionTextField = cell?.primaryFunctionTextField
-                return cell!
-            case 2:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "PhoneTableViewCell") as? PhoneTableViewCell
-                phoneTextField = cell?.phoneTextField
-                faxTextField = cell?.faxTextField
-                
-                if let contactDetail = contactDetail {
-                    cell?.displayCellContent(contactDetail: contactDetail)
-                }
-                return cell!
-            case 3:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "EmailTableViewCell") as? EmailTableViewCell
-                emailTextField = cell?.emailTextField
-                if let contactDetail = contactDetail {
-                    cell?.displayCellContent(contactDetail: contactDetail)
-                }
-                return cell!
-            case 4:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ContactHoursTableViewCell") as? ContactHoursTableViewCell
-                contactHoursTextField = cell?.contactHoursTextField
-                if let contactDetail = contactDetail {
-                    cell?.displayCellContent(contactDetail: contactDetail)
-                }
-                return cell!
-            case 5:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownTableViewCell") as? DropdownTableViewCell
-                preferredCommunicationTextField = cell?.dropdownTextfield
-                if let preferredCommunicationMethod = contactDetail?.preferredCommunicationMethod, preferredCommunicationMethod != ""{
-                    cell?.dropdownTextfield.text = preferredCommunicationMethod
-                }
-                return cell!
-            case 6:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
-                cell?.headerLabel.text = "Birthday"
-                birthdayTextField = cell?.dateTextfield
-                if let birthDate = contactDetail?.birthDate, birthDate != "" {
-                    cell?.dateTextfield.text = birthDate
-                }
-                return cell!
-            case 7:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
-                cell?.headerLabel.text = "Anniversary"
-                anniversaryTextField = cell?.dateTextfield
-                if let anniversaryDate = contactDetail?.anniversary, anniversaryDate != "" {
-                    cell?.dateTextfield.text = anniversaryDate
-                }
-                return cell!
-            default:
-                return UITableViewCell()
-            }
+            return getPersonalDetailsCells(indexPath: indexPath)
         case 4:
             switch indexPath.row {
             case 0:
@@ -501,6 +423,77 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             default:
                 return UITableViewCell()
             }
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    func getPersonalDetailsCells(indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NameTableViewCell") as? NameTableViewCell
+            firstNameTextField = cell?.firstNameTextField
+            lastNameTextField = cell?.lastNameTextField
+            preferredNameTextField = cell?.preferredNameTextField
+            if let contactDetail = contactDetail {
+                cell?.displayCellContent(contactDetail: contactDetail)
+            }
+            return cell!
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
+            if let contactDetail = contactDetail {
+                cell?.displayCellContent(contactDetail: contactDetail)
+            }
+            departmentTextField = cell?.departmentTextField
+            titleTextField = cell?.titleTextField
+            primaryFunctionTextField = cell?.primaryFunctionTextField
+            return cell!
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PhoneTableViewCell") as? PhoneTableViewCell
+            phoneTextField = cell?.phoneTextField
+            faxTextField = cell?.faxTextField
+            
+            if let contactDetail = contactDetail {
+                cell?.displayCellContent(contactDetail: contactDetail)
+            }
+            return cell!
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EmailTableViewCell") as? EmailTableViewCell
+            emailTextField = cell?.emailTextField
+            if let contactDetail = contactDetail {
+                cell?.displayCellContent(contactDetail: contactDetail)
+            }
+            return cell!
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactHoursTableViewCell") as? ContactHoursTableViewCell
+            contactHoursTextField = cell?.contactHoursTextField
+            if let contactDetail = contactDetail {
+                cell?.displayCellContent(contactDetail: contactDetail)
+            }
+            return cell!
+        case 5:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownTableViewCell") as? DropdownTableViewCell
+            preferredCommunicationTextField = cell?.dropdownTextfield
+            if let preferredCommunicationMethod = contactDetail?.preferredCommunicationMethod, preferredCommunicationMethod != ""{
+                cell?.dropdownTextfield.text = preferredCommunicationMethod
+            }
+            return cell!
+        case 6:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
+            cell?.headerLabel.text = "Birthday"
+            birthdayTextField = cell?.dateTextfield
+            if let birthDate = contactDetail?.birthDate, birthDate != "" {
+                cell?.dateTextfield.text = birthDate
+            }
+            return cell!
+        case 7:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
+            cell?.headerLabel.text = "Anniversary"
+            anniversaryTextField = cell?.dateTextfield
+            if let anniversaryDate = contactDetail?.anniversary, anniversaryDate != "" {
+                cell?.dateTextfield.text = anniversaryDate
+            }
+            return cell!
         default:
             return UITableViewCell()
         }

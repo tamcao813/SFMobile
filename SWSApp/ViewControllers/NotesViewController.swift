@@ -21,7 +21,7 @@ class NotesTableViewCell : SwipeTableViewCell {
 }
 
 class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, NavigateToNotesVCDelegate {
-
+    
     var tableViewData = NSMutableArray()
     var accountNotesArray = [AccountNotes]()
     var accNotesViewModel = AccountsNotesViewModel()
@@ -43,7 +43,8 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotesList), name: NSNotification.Name("refreshNotesList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotesList), name: NSNotification.Name("refreshNotesList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotesListAfterDelete), name: NSNotification.Name("refreshNotesListPostDelete"), object: nil)
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         tableViewDisplayData = accountNotesArray
         for accNotes in accountNotesArray {
@@ -70,7 +71,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     
     func navigateToNotesViewController() {
         print("Reload the data")
-    
+        
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
@@ -85,7 +86,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     }
     
     func noteCreated() {
- 
+        
         
     }
     
@@ -99,15 +100,15 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         print("sortNotesListByNotesName")
         isSorting = true
         
-            if isAscendingNotesName == true{
-                isAscendingNotesName = false
-                sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: tableViewDisplayData, ascending: true)
-            }
-            else
-            {
-                isAscendingNotesName = true
-                 sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: tableViewDisplayData, ascending: false)
-            }
+        if isAscendingNotesName == true{
+            isAscendingNotesName = false
+            sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: tableViewDisplayData, ascending: true)
+        }
+        else
+        {
+            isAscendingNotesName = true
+            sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: tableViewDisplayData, ascending: false)
+        }
         
         //self.accountListTableView.reloadData()
         self.updateTheTableViewDataAccordingly()
@@ -123,7 +124,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         {
             tableViewDisplayData = notesArray
         }
-          notesTableView?.reloadData()
+        notesTableView?.reloadData()
     }
     
     @IBAction func sortByDate(_ sender: Any) {
@@ -158,16 +159,17 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
             let editNoteScreen = segue.destination as! EditNoteViewController
             editNoteScreen.notesToBeEdited = notesDataToEdit
             editNoteScreen.delegate = self
-           
+            
             
         }
     }
     
     @objc func refreshNotesList(notification: NSNotification){
+        print("NSNotification")
         accountNotesArray.removeAll()
         tableViewDisplayData.removeAll()
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
-
+        
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
                 tableViewDisplayData.append(accNotes)
@@ -180,7 +182,28 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: tableViewDisplayData, ascending: false)
         tableViewDisplayData = originalAccountNotesList
         notesTableView?.reloadData()
+        
+    }
     
+    @objc func refreshNotesListAfterDelete(notification: NSNotification){
+        print("Delete")
+        accountNotesArray.removeAll()
+        tableViewDisplayData.removeAll()
+        accountNotesArray = accNotesViewModel.accountsNotesForUser()
+        
+        for accNotes in accountNotesArray {
+            if(accNotes.accountId == self.accountId) {
+                tableViewDisplayData.append(accNotes)
+                
+            }
+            //filtered array of notes related to my notes
+            print("Notes Array \(tableViewDisplayData)")
+            
+        }
+        originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: tableViewDisplayData, ascending: false)
+        tableViewDisplayData = originalAccountNotesList
+        notesTableView?.reloadData()
+        
     }
     
 }
@@ -202,12 +225,12 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         cell.titleLabel?.text = notes.name
         let serverDate = notes.lastModifiedDate
         if(serverDate != ""){
-        let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
-        var dateTime = getTime.components(separatedBy: " ")
-        if(dateTime.count > 0){
-            cell.dateLabel?.text  = dateTime[0]
-            cell.timeLabel?.text = dateTime[1]
-        }
+            let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
+            var dateTime = getTime.components(separatedBy: " ")
+            if(dateTime.count > 0){
+                cell.dateLabel?.text  = dateTime[0]
+                cell.timeLabel?.text = dateTime[1]
+            }
         }
         return cell
     }
@@ -270,7 +293,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 25.0;
     }
-
+    
     //MARK:- On select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         notesDataToEdit = tableViewDisplayData[indexPath.row]

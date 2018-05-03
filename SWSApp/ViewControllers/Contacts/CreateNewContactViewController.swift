@@ -164,13 +164,12 @@ class CreateNewContactViewController: UIViewController {
     }
     
     func createContactLocally(){
-        let newContact = Contact(for: "NewContact")
-        if isNewContact {
-            newContact.contactId = ""
+        var newContact = Contact(for: "NewContact")
+        
+        if !isNewContact {
+            newContact = contactDetail!
         }
-        else {
-            newContact.contactId = (contactDetail?.contactId)!
-        }
+        
         newContact.buyerFlag = doesHaveBuyingPower
         newContact.firstName = firstNameTextField.text!
         newContact.lastName = lastNameTextField.text!
@@ -212,9 +211,7 @@ class CreateNewContactViewController: UIViewController {
             //            newContact.otherSpecification = otherReasonTextField.text!
             newContact.accountId = accountSelected.account_Id
         }
-        else {
-            newContact.accountId = (contactDetail?.accountId)!
-        }
+        
         var success: Bool!
         if isNewContact {
             success = ContactsViewModel().createNewContactToSoup(object: newContact)

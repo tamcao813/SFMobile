@@ -215,8 +215,19 @@ class CreateNoteViewController : UIViewController{
         notesToEdit.lastModifiedDate = timeStamp
         let attributeDict = ["type":"SGWS_Account_Notes__c"]
         
+        if(notesToEdit.accountNotesDesc != self.textView.text){
+            notesToEdit.accountNotesDesc = self.textView.text
+        }
+        if(notesToEdit.name != self.notesTitleTextField.text){
+            if let noteTitle = self.notesTitleTextField.text{
+                notesToEdit.name = noteTitle
+            }
+        }   
+        
+        
+        
         let editNoteDict: [String:Any] = [
-            
+            AccountNotes.AccountNotesFields[0]: notesToEdit.Id,
             AccountNotes.AccountNotesFields[1]: notesToEdit.lastModifiedDate,
             AccountNotes.AccountNotesFields[2]: notesToEdit.name,
             AccountNotes.AccountNotesFields[5]: notesToEdit.accountNotesDesc,

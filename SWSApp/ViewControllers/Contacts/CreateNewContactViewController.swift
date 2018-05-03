@@ -309,6 +309,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
+                cell?.displayCellContents()
                 contactClassificationTextField = cell?.classificationTextField
                 otherReasonTextField = cell?.otherTextField
                 return cell!

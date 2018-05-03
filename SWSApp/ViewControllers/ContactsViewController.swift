@@ -61,18 +61,18 @@ class ContactsViewController : UIViewController, ContactDetailsScreenDelegate {
     }
     
     func testCreateNewContact() {
-        let new_contact = Contact.mockNewContact1() //need to have "Id" field
-        
-        let success = contactViewModel.createNewContactToSoup(object: new_contact)
-        
-        //assuming online
-        if success { //if upsert to local store is successful then upload to server
-            contactViewModel.uploadContactACRToServer(object: new_contact, completion: { error in
-                if error != nil {
-                    print(error?.localizedDescription ?? "error")
-                }
-            })
-        }
+//        let new_contact = Contact.mockNewContact1() //need to have "Id" field
+//        
+//        let success = contactViewModel.createNewContactToSoup(object: new_contact, accountObject: <#Account#>)
+//        
+//        //assuming online
+//        if success { //if upsert to local store is successful then upload to server
+//            contactViewModel.uploadContactACRToServer(object: new_contact, completion: { error in
+//                if error != nil {
+//                    print(error?.localizedDescription ?? "error")
+//                }
+//            })
+//        }
     }
     
     //Used to push the screen to Details ViewController

@@ -294,6 +294,7 @@ class AccountDetailTabViewController: UITableViewController {
         }
         else if indexPath.section == 2 {
             ary = contactsForSG
+            return
             
         }
         else {

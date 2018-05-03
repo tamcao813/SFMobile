@@ -24,6 +24,9 @@ class PlanVisitViewController: UIViewController {
     let accountViewModel = AccountsViewModel()
     var conatctViewModel = ContactsViewModel()
     
+    var visitArray = [Visit]()
+    var visitViewModel = VisitsViewModel()
+    
     // MARK:- IBOutlets
     
     @IBOutlet var searchAccountLbl: UILabel!
@@ -39,6 +42,9 @@ class PlanVisitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Plan VC viewDidLoad")
+        
+        visitArray = visitViewModel.visitsForUser()
+        
         
         searchContactTxt.isEnabled = false
         

@@ -150,7 +150,7 @@ extension ContactListDetailsViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 580
+            return 650
         }
         else if indexPath.row == 1 {
             return 100

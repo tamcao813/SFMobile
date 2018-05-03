@@ -73,7 +73,7 @@ class ContactsViewModel{
         return StoreDispatcher.shared.createNewContactToSoup(fields: contactfields)
     }
     
-    func createARCDictionary(contactObject: Contact, accountObject: Account){
+    func createARCDictionary(contactObject: Contact, accountObject: Account) -> Bool{        
         let newACR = AccountContactRelation(for: "newACR")
         newACR.accountId = contactObject.accountId
         newACR.accountName = accountObject.accountName
@@ -82,7 +82,7 @@ class ContactsViewModel{
         newACR.roles = contactObject.functionRole
         newACR.sgwsSiteNumber = (userVieModel.loggedInUser?.userSite)!
         let acrFields: [String:Any] = newACR.toJson()
-        StoreDispatcher.shared.createNewEntryInACR(fields: acrFields)
+        return StoreDispatcher.shared.createNewEntryInACR(fields: acrFields)
     }
     
     func editNewContactToSoup(object: Contact) -> Bool {

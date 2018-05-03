@@ -25,11 +25,7 @@ class ContactListDetailsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        contactDetail = ContactSortUtility.searchContactByContactId((contactDetail?.contactId)!)
-        if contactDetail != nil {
-            accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
-            contactDetailsTableView.reloadData()
-        }
+        accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
     }
 }
 
@@ -186,7 +182,19 @@ extension ContactListDetailsViewController : ContactListDetailsTableViewCellDele
         let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
         let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
         newContactVC?.isNewContact = false
-        newContactVC?.contactDetail = contactDetail        
+        newContactVC?.contactDetail = contactDetail
+        newContactVC?.delegate = self
         self.present(newContactVC!, animated: true, completion: nil)
     }
 }
+
+extension ContactListDetailsViewController : CreateNewContactViewControllerDelegate {
+    func updateContactList() {
+        let contact = ContactSortUtility.searchContactByContactId((contactDetail?.contactId)!)
+        if contact != nil {
+            accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contact?.contactId)!)
+            contactDetailsTableView.reloadData()
+        }
+    }
+}
+

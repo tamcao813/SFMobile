@@ -124,6 +124,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -170,6 +172,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }else if  data == LoadThePersistantMenuScreen.notifications.rawValue {
             self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: 4)
         }
+    }
+    
+    @objc func showAllAccounts(notification: NSNotification) {
+        topMenuBar?.selectedSegment = 1
+        displayCurrentTab(1)
+        
+        ScreenLoadFromParent.loadedFromParent = "YES"
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadDetailsScreen"), object:nil)
     }
     
     
@@ -251,7 +262,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 }
             })
         
-        
+        // Contacts Sync Up
+        ContactsViewModel().uploadContactToServerAndSyncDownACR(completion: { error in
+            if error != nil {
+                print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
+                MBProgressHUD.hide(forWindow: true)
+            }
+        })
     }
     
     private func setupTopMenuItems(){

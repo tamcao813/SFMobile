@@ -222,7 +222,7 @@ class CreateNoteViewController : UIViewController{
             if let noteTitle = self.notesTitleTextField.text{
                 notesToEdit.name = noteTitle
             }
-        }   
+        }
         
         
         

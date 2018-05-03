@@ -231,10 +231,8 @@ class CreateNewContactViewController: UIViewController {
         //sync up to Contact which will update ACR, then for now we need to sync down ACR
         if success {
             self.dismiss(animated: true, completion: {
-                if self.isNewContact {
-                    self.delegate.updateContactList()
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
-                }                
+                self.delegate.updateContactList()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
             })
         } else {
             let alertController = UIAlertController(title: "Alert", message:

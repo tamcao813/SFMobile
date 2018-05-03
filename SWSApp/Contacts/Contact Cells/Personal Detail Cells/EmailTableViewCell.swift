@@ -20,6 +20,12 @@ class EmailTableViewCell: UITableViewCell {
         emailTextField.addPaddingLeft(10)
     }
     
+    func displayCellContent(contactDetail: Contact?){
+        if let email = contactDetail?.email, email != "" {
+            emailTextField.text = email
+        }
+    }
+    
 }
 
 extension EmailTableViewCell: UITextFieldDelegate {

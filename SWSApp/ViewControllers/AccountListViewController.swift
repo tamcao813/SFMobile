@@ -76,6 +76,7 @@ class AccountsListViewController: UIViewController {
     //MARK:- ViewLifeCycle
     override func viewDidLoad() {
         //isAscending = true
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccounts), name: NSNotification.Name("refreshAccounts"), object: nil)
         accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
         print(accountsForLoggedUserOriginal.count)
         
@@ -95,21 +96,19 @@ class AccountsListViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //self.navigationController?.isNavigationBarHidden = true
+    @objc func refreshAccounts(){
+        accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+        print(accountsForLoggedUserOriginal.count)
         
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        tableViewDisplayData = accountsForLoggedUserOriginal
         
+        if accountsForLoggedUserOriginal.count > 0 {
+            pageButtonArr[1].backgroundColor = UIColor.lightGray
+            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+        }
         
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+        initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
+        updateUI()
     }
     
     //MARK:- Segue Methods

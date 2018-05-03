@@ -98,6 +98,7 @@
                     </view>
                     <connections>
                         <outlet property="headingLabel" destination="d55-ld-65c" id="8eu-j3-h1G"/>
+                        <outlet property="pageHeaderLabel" destination="BaV-h6-4YX" id="gOS-zn-pvm"/>
                         <outlet property="tableView" destination="k9T-Ks-G1f" id="Neb-Nh-59e"/>
                     </connections>
                 </viewController>

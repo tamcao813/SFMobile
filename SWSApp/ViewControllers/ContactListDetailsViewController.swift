@@ -25,15 +25,12 @@ class ContactListDetailsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+        contactDetail = ContactSortUtility.searchContactByContactId((contactDetail?.contactId)!)
+        if contactDetail != nil {
+            accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+            contactDetailsTableView.reloadData()
+        }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 }
 
 //MARK:- TableView DataSource Methods
@@ -53,11 +50,10 @@ extension ContactListDetailsViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            
             let cell:ContactListDetailsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "contactDetailsCell", for: indexPath) as! ContactListDetailsTableViewCell
             cell.displayCellContent(contactDetail!)
             cell.editContactButton.addTarget(self, action: #selector(actionEditContactDetails), for: .touchUpInside)
-            
+            cell.delegate = self
             cell.selectionStyle = .none
             return cell
         }
@@ -163,4 +159,12 @@ extension ContactListDetailsViewController : UITableViewDelegate {
     
 }
 
-
+extension ContactListDetailsViewController : ContactListDetailsTableViewCellDelegate {
+    func editContactButtonTapped() {
+        let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
+        let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
+        newContactVC?.isNewContact = false
+        newContactVC?.contactDetail = contactDetail        
+        self.present(newContactVC!, animated: true, completion: nil)
+    }
+}

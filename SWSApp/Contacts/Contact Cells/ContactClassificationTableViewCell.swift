@@ -12,12 +12,17 @@ class ContactClassificationTableViewCell: UITableViewCell {
     
     @IBOutlet weak var classificationTextField: CustomUITextField!
     @IBOutlet weak var otherTextField: UITextField!
-    var pickOption = ["Influencer", "Other"]
-    var selectedOption: String!
+    var pickerOption = [PlistOption]()
+    var selectedOption : PlistOption!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         customized()
+    }
+    
+    func displayCellContents(){
+        let classificationOpts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactClassification")
+        pickerOption = classificationOpts
     }
     
     func customized(){
@@ -55,14 +60,14 @@ class ContactClassificationTableViewCell: UITableViewCell {
     
     @objc func donePicker(){
         if let selectedValue = selectedOption {
-            classificationTextField.text = selectedValue
-        }
-        classificationTextField.resignFirstResponder()
-        if selectedOption == "Other" {
-            otherTextField.isHidden = false
-        }else{
-            otherTextField.isHidden = true
-        }
+            classificationTextField.text = selectedValue.value
+            classificationTextField.resignFirstResponder()
+            if selectedOption.value == "Other" {
+                otherTextField.isHidden = false
+            }else{
+                otherTextField.isHidden = true
+            }
+        }        
     }
     
     @objc func cancelPicker(){
@@ -77,15 +82,15 @@ extension ContactClassificationTableViewCell: UIPickerViewDelegate, UIPickerView
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickOption.count
+        return pickerOption.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickOption[row]
+        return pickerOption[row].value
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedOption = pickOption[row]
+        selectedOption = pickerOption[row]
     }
 }
 

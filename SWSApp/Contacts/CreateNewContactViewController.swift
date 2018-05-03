@@ -186,10 +186,8 @@ class CreateNewContactViewController: UIViewController {
         newContact.phoneNumber = phoneTextField.text!
         newContact.email = emailTextField.text!
         newContact.contactHours = contactHoursTextField.text!
-        newContact.preferredCommunicationMethod = preferredCommunicationTextField.text!
-        if newContact.preferredCommunicationMethod == "Select One" {
-            newContact.preferredCommunicationMethod = ""
-        }
+        
+        newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
         newContact.birthDate = (birthdayTextField.text! == "Select") ? "" : birthdayTextField.text!
         
@@ -222,14 +220,6 @@ class CreateNewContactViewController: UIViewController {
         else {
             newContact.accountId = (contactDetail?.accountId)!
         }
-        
-        /*
-         if contactClassificationTextField.text! == "Other"{
-         newContact.contactClassification = otherReasonTextField.text!
-         }else{
-         newContact.contactClassification = contactClassificationTextField.text!
-         }
-         */
         var success: Bool!
         if isNewContact {
             success = ContactsViewModel().createNewContactToSoup(object: newContact)

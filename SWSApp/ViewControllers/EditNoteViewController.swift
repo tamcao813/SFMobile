@@ -16,12 +16,10 @@ protocol  NavigateToNotesVCDelegate {
 }
 
 class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
-
-    
-
-    
-
-    
+    func navigateToNotesSection() {
+        
+    }
+  
     var dictname = [Dictionary<String, String>]()
     var dictIndex: Int!
     var notesToBeEdited: AccountNotes!
@@ -84,7 +82,7 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
             return
         }
         
-        self.editNote()
+      //  self.editNote()
         self.dismiss(animated: true, completion: nil)
     }
     

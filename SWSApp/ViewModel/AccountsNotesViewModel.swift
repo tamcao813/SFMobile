@@ -32,6 +32,7 @@ class AccountsNotesViewModel {
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 completion(error)
+                MBProgressHUD.hide(forWindow: true)
             }
             else {
                 

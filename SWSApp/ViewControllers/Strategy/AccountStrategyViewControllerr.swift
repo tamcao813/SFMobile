@@ -36,8 +36,9 @@ class AccountStrategyViewController : UIViewController{
         let tableViewData = NSMutableArray()
         
         for item in data{
+            var dict = NSMutableDictionary()
             
-            let dict = NSMutableDictionary()
+          //  let dict = NSMutableDictionary()
 
 //            SGWS_Question_Description__c
             if (tableViewData.contains(["headerText": item.SGWS_Question_Description__c])) {

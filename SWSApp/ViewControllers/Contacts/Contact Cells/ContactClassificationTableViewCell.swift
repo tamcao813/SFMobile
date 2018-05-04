@@ -67,7 +67,8 @@ class ContactClassificationTableViewCell: UITableViewCell {
             }else{
                 otherTextField.isHidden = true
             }
-        }        
+        }
+        classificationTextField.resignFirstResponder()
     }
     
     @objc func cancelPicker(){

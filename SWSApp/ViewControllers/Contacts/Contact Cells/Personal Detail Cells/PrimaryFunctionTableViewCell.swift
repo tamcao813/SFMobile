@@ -96,7 +96,9 @@ extension PrimaryFunctionTableViewCell: UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedPrimaryFunctionOption = pickerOption[row]
+        if pickerOption.count > 0 {
+            selectedPrimaryFunctionOption = pickerOption[row]
+        }
     }
 }
 

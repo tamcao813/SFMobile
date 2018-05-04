@@ -1257,28 +1257,68 @@ class StoreDispatcher {
     }
 
     
-    
-    
-    func editContactToSoup(fields: [String:Any]) -> Bool{
-        var allFields = fields
-        allFields["attributes"] = ["type":"Contact"]
-        allFields[kSyncTargetLocal] = true
-        allFields[kSyncTargetLocallyCreated] = false
-        allFields[kSyncTargetLocallyUpdated] = true
-        allFields[kSyncTargetLocallyDeleted] = false
+    func editContactsLocally(fieldsToUpload: [String:Any]) -> Bool{
         
-        let ary = sfaStore.upsertEntries([allFields], toSoup: SoupContact)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupContact, withOrderPath: "LastModifiedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedContact = [String: Any]()
+        
+        for  contact in result{
+            var contactModified = contact as! [String:Any]
+            let singleContactModifValue = contactModified["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == singleContactModifValue){
+                contactModified["FirstName"] = fieldsToUpload["FirstName"]
+                contactModified["Email"] = fieldsToUpload["Email"]
+                contactModified["__local__"] = true
+                contactModified["__locally_updated__"] = true
+                contactModified["__locally_deleted__"] = false
+                contactModified["__locally_created__"] = false
+
+                editedContact = contactModified
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedContact], toSoup: SoupContact)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
-            print(result)
+            print("\(result) Contact is edited and saved successfully" )
             print(soupEntryId!)
             return true
         }
         else {
+            print(" Error in saving edited Notes" )
             return false
         }
     }
+    
+    
+//    func editContactToSoup(fields: [String:Any]) -> Bool{
+//        var allFields = fields
+//        allFields["attributes"] = ["type":"Contact"]
+//        allFields[kSyncTargetLocal] = true
+//        allFields[kSyncTargetLocallyCreated] = false
+//        allFields[kSyncTargetLocallyUpdated] = true
+//        allFields[kSyncTargetLocallyDeleted] = false
+//
+//        let ary = sfaStore.upsertEntries([allFields], toSoup: SoupContact)
+//        if ary.count > 0 {
+//            var result = ary[0] as! [String:Any]
+//            let soupEntryId = result["_soupEntryId"]
+//            print(result)
+//            print(soupEntryId!)
+//            return true
+//        }
+//        else {
+//            return false
+//        }
+//    }
     
     func syncUpContact(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
         let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)

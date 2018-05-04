@@ -35,6 +35,7 @@ class CreateNewContactViewController: UIViewController {
     var preferredCommunicationTextField: UITextField!
     var birthdayTextField: UITextField!
     var anniversaryTextField: UITextField!
+    var favouriteTextView: UITextView!
     var likeTextView: UITextView!
     var dislikeTextView: UITextView!
     var notesTextView: UITextView!
@@ -173,6 +174,7 @@ class CreateNewContactViewController: UIViewController {
             newContact = contactDetail!
         }
         
+        newContact.name = newContact.firstName + " " + newContact.lastName
         newContact.buyerFlag = doesHaveBuyingPower
         newContact.firstName = firstNameTextField.text!
         newContact.lastName = lastNameTextField.text!
@@ -183,6 +185,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.phoneNumber = phoneTextField.text!
         newContact.email = emailTextField.text!
         newContact.contactHours = contactHoursTextField.text!
+        newContact.favouriteActivities = favouriteTextView.text!
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
@@ -278,7 +281,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 3:
             return 8
         case 4:
-            return 8
+            return 9
         default:
             return 0
         }
@@ -397,13 +400,21 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return cell!
             case 5:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
+                cell?.headerLabel.text = "Favourites"
+                favouriteTextView = cell?.descriptionTextView
+                if let fav = contactDetail?.favouriteActivities, fav != "" {
+                    cell?.descriptionTextView.text = fav
+                }
+                return cell!
+            case 6:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Likes"
                 likeTextView = cell?.descriptionTextView
                 if let likes = contactDetail?.likes, likes != "" {
                     cell?.descriptionTextView.text = likes
                 }
                 return cell!
-            case 6:
+            case 7:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Dislikes"
                 dislikeTextView = cell?.descriptionTextView
@@ -411,7 +422,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                     cell?.descriptionTextView.text = dislikes
                 }
                 return cell!
-            case 7:
+            case 8:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Notes"
                 notesTextView = cell?.descriptionTextView

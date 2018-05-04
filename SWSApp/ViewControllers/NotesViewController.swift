@@ -159,6 +159,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
             createNoteScreen.isAddingNewNote = false
             createNoteScreen.sendNoteDelegate = self
             createNoteScreen.modalPresentationStyle = .overCurrentContext
+            createNoteScreen.comingFromNotesVC = true
         }
         
         if segue.identifier == "editNotesSegue" {
@@ -268,14 +269,18 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
         
         let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let ownerId = appDelegate.loggedInUser?.userId
+            self.notesDataToEdit = self.tableViewDisplayData[indexPath.row]
+            //Delete is allowed only for Note owner
+            if(ownerId == self.notesDataToEdit.ownerId){
             let cell = tableView.cellForRow(at: indexPath) as! NotesTableViewCell
             let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
             let notesDelete = self.tableViewDisplayData[indexPath.row]
             let alert = UIAlertController(title: "Notes Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
             let continueAction = UIAlertAction(title: "Delete", style: .default) { action in
                 // Handle when button is clicked
-                //self.tableViewData.removeObject(at: indexPath.row)
-                //soumin
                 self.tableViewDisplayData.remove(at: indexPath.row)
                 self.notesTableView?.reloadData()
 
@@ -290,13 +295,15 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
                 
                 let success = AccountsNotesViewModel().deleteNotesLocally(fields: editNoteDict)
                 print("Note is deleted \(success)")
- 
             }
             alert.addAction(continueAction)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: closure))
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
+            }else{
+                return
+            }
         }
         deleteAction.image = UIImage(named:"deletX")
         deleteAction.backgroundColor = UIColor(named:"InitialsBackground")

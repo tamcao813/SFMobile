@@ -455,6 +455,8 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             preferredNameTextField = cell?.preferredNameTextField
             if let contactDetail = contactDetail {
                 cell?.displayCellContent(contactDetail: contactDetail)
+                cell?.firstNameTextField.isEnabled = false
+                cell?.lastNameTextField.isEnabled = false
             }
             return cell!
         case 1:

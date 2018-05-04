@@ -145,7 +145,7 @@ class CreateNoteViewController : UIViewController{
         if(isAddingNewNote){
             if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
                 // create the alert
-                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldError, preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldInNoted, preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
@@ -168,7 +168,7 @@ class CreateNoteViewController : UIViewController{
         } else {
             if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
                 // create the alert
-                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldError, preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldInNoted, preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return

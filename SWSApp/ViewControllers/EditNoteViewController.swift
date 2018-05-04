@@ -66,10 +66,6 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         }
     }
     
-//    func displayDictdata(name:[Dictionary<String, String>], index: Int){
-//        dictname = name
-//        dictIndex = index
-//    }
     
     //MARK:- IB  button actions
     @IBAction func close(_sender: Any){
@@ -106,8 +102,6 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         let date = Date()
         print(date)
         let dateFormatter = DateFormatter()
-        //let dt = dateFormatter.date(from: date)
-        // dateFormatter.timeZone = TimeZone
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let timeStamp = dateFormatter.string(from: date)
         print(timeStamp)
@@ -135,13 +129,14 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
     
     @IBAction func deleteNote(_ sender: Any) {
         
-        // dictname.remove(at: dictIndex)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let ownerId = appDelegate.loggedInUser?.userId
+        //Delete is allowed only for Note owner
+        if(ownerId == self.notesToBeEdited.ownerId){
         
         let date = Date()
         print(date)
         let dateFormatter = DateFormatter()
-        //let dt = dateFormatter.date(from: date)
-        // dateFormatter.timeZone = TimeZone
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let timeStamp = dateFormatter.string(from: date)
         print(timeStamp)
@@ -159,13 +154,15 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         
         let success = AccountsNotesViewModel().deleteNotesLocally(fields: editNoteDict)
         print("Note is deleted \(success)")
-        
         if(success){
         self.dismiss(animated: true, completion: {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesListPostDelete"), object:nil)
         })
         } else {
             //Alert errors 
+        }
+        }else{
+            return
         }
     }
     

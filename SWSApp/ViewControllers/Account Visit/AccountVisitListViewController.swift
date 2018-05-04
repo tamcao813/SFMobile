@@ -158,7 +158,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
         
         let data : Visit = tableViewData![indexPath.row]
-        
+        PlanVistManager.sharedInstance.visit = tableViewData![indexPath.row]
+        PlanVistManager.sharedInstance.editPlanVisit = true
         if data.status == "Scheduled"{
             accountVisitsVC?.visitStatus = .scheduled
         }else if data.status  == "Completed"{

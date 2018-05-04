@@ -8,12 +8,18 @@
 
 import Foundation
 
+//MARK: Add Protocol here.
+protocol CloseAccountViewDelegate: class {
+    func closeAccountView()
+}
+
 class AccountView: UIView {
     
     @IBOutlet var view:UIView!
     @IBOutlet weak var accountLabel: UILabel!
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+     weak var delegate: CloseAccountViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,7 +41,7 @@ class AccountView: UIView {
     
     @IBAction func closeView(sender: UIButton) {
         self.removeFromSuperview()
-        NotificationCenter.default.post(name: Notification.Name("CLOSEACCOUNTVIEW"), object: nil)
+        delegate?.closeAccountView()
 
     }
 }

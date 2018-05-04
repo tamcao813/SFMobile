@@ -1257,12 +1257,6 @@ class StoreDispatcher {
             return false
         }
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountNotes, withOrderPath: "LastModifiedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
-        
-        var error : NSError?
-        let result2 = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
-        
-        print(result2)
     }
     
     func createNewEntryInACR(fields: [String:Any]) -> Bool{

@@ -1061,7 +1061,7 @@ class StoreDispatcher {
         
         var acctNotes: [AccountNotes] = []
         let notesFields = AccountNotes.AccountNotesFields.map{"{SGWS_Account_Notes__c:\($0)}"}
-        let soapQuery = "Select \(notesFields.joined(separator: ",")) FROM {SGWS_Account_Notes__c}"
+        let soapQuery = "Select * FROM {SGWS_Account_Notes__c}"
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -1069,8 +1069,28 @@ class StoreDispatcher {
         print("Result of account notes is \(result)")
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
+                
+                let modifResult = result[i] as! [Any]
+                let item = modifResult[1]
+                let subItem = item as! [String:Any]
+                
+                let flag = subItem["__locally_deleted__"] as! Bool
+                // if deleted skip
+                if(flag){
+                    continue
+                }
+                
+                var newarr = [Any]()
+                
+                newarr.append(modifResult[4])
+                newarr.append(modifResult[5])
+                newarr.append(modifResult[6])
+                newarr.append(modifResult[7])
+                newarr.append(modifResult[8])
+                newarr.append(modifResult[9])
+                
                 let ary:[Any] = result[i] as! [Any]
-                let accountNotesArray = AccountNotes(withAry: ary)
+                let accountNotesArray = AccountNotes(withAry: newarr)
                 acctNotes.append(accountNotesArray)
                 print("notes array \(ary)")
             }
@@ -1099,8 +1119,9 @@ class StoreDispatcher {
                 singleNoteModif["Name"] = fieldsToUpload["Name"]
                 singleNoteModif["SGWS_Description__c"] = fieldsToUpload["SGWS_Description__c"]
                 singleNoteModif["__local__"] = true
-                
                 singleNoteModif["__locally_updated__"] = true
+                singleNoteModif["__locally_deleted__"] = false
+                singleNoteModif["__locally_created__"] = false
                 
                 singleNoteModif["LastModifiedDate"] = fieldsToUpload["LastModifiedDate"]
                 editedNote = singleNoteModif
@@ -1196,6 +1217,8 @@ class StoreDispatcher {
                     print("syncUPNotes done")
                     let syncId = syncStateStatus.syncId
                     print(syncId)
+                    //Refresh Notes List view
+                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
@@ -1233,6 +1256,7 @@ class StoreDispatcher {
         else {
             return false
         }
+        
     }
     
     func createNewEntryInACR(fields: [String:Any]) -> Bool{

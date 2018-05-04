@@ -63,9 +63,12 @@ class Contact {
     
     init(json: [String: Any]) {
         contactId = json["Id"] as! String
-        name = json["Name"] as? String ?? ""
         firstName = json["FirstName"] as? String ?? ""
         lastName = json["LastName"] as? String ?? ""
+        name = json["Name"] as? String ?? ""
+        if(name == ""){
+            name = firstName + " " + lastName
+        }
         phoneNumber = json["Phone"] as? String ?? ""
         email = json["Email"] as? String ?? ""
         birthDate = json["Birthdate"] as? String ?? ""

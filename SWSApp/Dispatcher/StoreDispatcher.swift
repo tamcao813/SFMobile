@@ -24,7 +24,6 @@ class StoreDispatcher {
     let SoupAccountContactRelation = "AccountContactRelation"
     let SoupAccountNotes = "SGWS_Account_Notes__c"
     let SoupVisit = "WorkOrder"
-    
     let SoupStrategyQA = "SGWS_Response__c"
     let SoupStrategyQuestion = "SGWS_Question__c"
     let SoupStrategyAnswers = "SGWS_Answer__c"
@@ -114,6 +113,7 @@ class StoreDispatcher {
             group.leave()
         }
         
+       
         //to do: syncDown other soups
         
         group.notify(queue: queue) {
@@ -1553,7 +1553,7 @@ class StoreDispatcher {
         }
     }
     
-    // Fetch StrategyQuestions...
+    // Fetch StrategyAnswers...
     func fetchStrategyAnswers()->[StrategyAnswers]{
         var strategyAnswers: [StrategyAnswers] = []
         let strategyAnswersFields = StrategyAnswers.StrategyAnswersFields.map{"{SGWS_Answer__c:\($0)}"}

@@ -14,9 +14,23 @@ protocol SendDataToContainerDelegate {
     func passTheViewControllerToBeLoadedInContainerView(index : Int)
 }
 
-class AccountDetailsViewController : UIViewController{
+class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDelegate{
+    func displayAccountNotes() {
+        
+    }
+    
+    func dismissEditNote() {
+        
+    }
+    
+    func noteCreated() {
+        
+    }
+    
     
     var accountDetailForLoggedInUser : Account?
+    var goingFromAccountDetails = true
+    
     
     
     
@@ -99,9 +113,19 @@ class AccountDetailsViewController : UIViewController{
         let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
         let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
         vc.notesAccountId = accountDetailForLoggedInUser?.account_Id
+        vc.comingFromAccountDetails = goingFromAccountDetails
         vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
        
         self.present(vc, animated: true, completion: nil)
+        vc.sendNoteDelegate = self
+        
+    }
+    
+    func navigateToNotesSection() {
+        
+        let button = UIButton()
+        button.tag = 6
+        self.itemsClicked(sender: button)
         
     }
     

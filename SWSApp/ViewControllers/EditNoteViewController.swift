@@ -16,12 +16,10 @@ protocol  NavigateToNotesVCDelegate {
 }
 
 class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
-
-    
-
-    
-
-    
+    func navigateToNotesSection() {
+        
+    }
+  
     var dictname = [Dictionary<String, String>]()
     var dictIndex: Int!
     var notesToBeEdited: AccountNotes!

@@ -34,7 +34,7 @@ class StrategyQA {
         SGWS_Account__c = json["SGWS_Account__c"] as? String ?? ""
         SGWS_Question__r_Id = json["SGWS_Question__r.Id"] as? String ?? ""
         SGWS_Answer_Options__r_Id = json["SGWS_Answer_Options__r.Id"] as? String ?? ""
-        SGWS_Question__r_SGWS_Question_Type__c = json["GWS_Question__r.SGWS_Question_Type__c"] as? String ?? ""
+        SGWS_Question__r_SGWS_Question_Type__c = json["SGWS_Question__r.SGWS_Question_Type__c"] as? String ?? ""
         SGWS_Question__r_SGWS_Question_Sub_Type__c = json["SGWS_Question__r.SGWS_Question_Sub_Type__c"] as? String ?? ""
         SGWS_Question_Description__c = json["SGWS_Question_Description__c"] as?String ?? ""
         SGWS_Answer__c = json["SGWS_Answer__c"] as? String ?? ""

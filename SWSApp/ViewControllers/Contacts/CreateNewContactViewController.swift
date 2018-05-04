@@ -182,10 +182,10 @@ class CreateNewContactViewController: UIViewController {
             newContact = contactDetail!
         }
         
-        newContact.name = newContact.firstName + " " + newContact.lastName
         newContact.buyerFlag = doesHaveBuyingPower
         newContact.firstName = firstNameTextField.text!
         newContact.lastName = lastNameTextField.text!
+        newContact.name = newContact.firstName + " " + newContact.lastName
         newContact.preferredName = preferredNameTextField.text!
         newContact.functionRole = primaryFunctionTextField.text!
         newContact.title = titleTextField.text!

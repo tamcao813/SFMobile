@@ -69,7 +69,8 @@ class ContactsViewModel{
     }
     
     func createNewContactToSoup(object: Contact) -> Bool {
-        let contactfields: [String:Any] = object.toJson()
+        var contactfields: [String:Any] = object.toJson()
+        contactfields.removeValue(forKey: "_soupEntryId")
         return StoreDispatcher.shared.createNewContactToSoup(fields: contactfields)
     }
     

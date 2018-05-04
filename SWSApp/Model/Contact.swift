@@ -52,10 +52,12 @@ class Contact {
     var fax:String
     var contactClassification: String
     var otherSpecification: String
+    var _soupEntryId: Int
+
     
     
-    convenience init(withAry ary: [Any]) {
-        let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
+    convenience init(withAry resultDict: [String:Any]) {
+      //  let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
         self.init(json: resultDict)
     }
     
@@ -103,6 +105,8 @@ class Contact {
         fax = json["Fax"] as? String ?? ""
         contactClassification = json["SGWS_Contact_Classification__c"] as? String ?? ""
         otherSpecification = json["SGWS_Other_Specification__c"] as? String ?? ""
+        _soupEntryId = json["_soupEntryId"] as? Int ?? 0
+
     }
     
     func toJson() -> [String:Any] { //only pak the fields we need
@@ -205,6 +209,8 @@ class Contact {
         
         json["SGWS_Other_Specification__c"] = otherSpecification
         
+        json["_soupEntryId"] = _soupEntryId
+        
         return json
     }
     
@@ -249,6 +255,7 @@ class Contact {
         fax = ""
         contactClassification = ""
         otherSpecification = ""
+        _soupEntryId = 0
     }
     
     static func mockNewContact1() -> Contact {

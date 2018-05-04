@@ -54,7 +54,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     }
     
     func fetchContacts(){
-        contactsAcc = []
+        contactsAcc = [AccountContactRelation]()
         globalContactCount = contactViewModel.globalContacts().count
         contactsAcc = contactViewModel.accountsForContacts()
         loadContactData()
@@ -262,11 +262,10 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     }
     
     @objc func reloadAllContacts(notification: NSNotification){
-        
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
-        
+
         DispatchQueue.main.async {
             UIView.performWithoutAnimation({() -> Void in
                 self.tableView.reloadData()
@@ -277,7 +276,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
                 self.tableView.endUpdates()
             })
         }
-        
+
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
             pageButtonArr[count].backgroundColor = UIColor.white
@@ -285,10 +284,10 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         }
         pageButtonArr[1].backgroundColor = UIColor.lightGray
         pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
-        
-        
+
+
         loadContactData()
-        
+
         if ContactFilterMenuModel.comingFromDetailsScreen == "YES", ContactFilterMenuModel.selectedContactId != "" {
 
             guard let selectedContact = ContactSortUtility.searchContactByContactId(ContactFilterMenuModel.selectedContactId) else {
@@ -296,8 +295,9 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
             }
             delegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
 
+            ContactFilterMenuModel.selectedContactId = ""
+
         }
-        
     }
     
 }

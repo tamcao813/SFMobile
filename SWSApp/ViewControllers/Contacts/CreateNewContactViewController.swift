@@ -8,6 +8,9 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SmartStore
+import SmartSync
+
 protocol CreateNewContactViewControllerDelegate : NSObjectProtocol{
     func updateContactList()
 }
@@ -158,24 +161,18 @@ class CreateNewContactViewController: UIViewController {
             showAlert = false
         }
         
-        if showAlert {
-            let alertController = UIAlertController(title: "Alert", message:
-                "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-        }else{
+        if !showAlert {            
             createContactLocally()
         }
     }
     
     func createContactLocally(){
-        let newContact = Contact(for: "NewContact")
-        if isNewContact {
-            newContact.contactId = ""
+        var newContact = Contact(for: "NewContact")
+        
+        if !isNewContact {
+            newContact = contactDetail!
         }
-        else {
-            newContact.contactId = (contactDetail?.contactId)!
-        }
+        
         newContact.buyerFlag = doesHaveBuyingPower
         newContact.firstName = firstNameTextField.text!
         newContact.lastName = lastNameTextField.text!
@@ -217,9 +214,7 @@ class CreateNewContactViewController: UIViewController {
             //            newContact.otherSpecification = otherReasonTextField.text!
             newContact.accountId = accountSelected.account_Id
         }
-        else {
-            newContact.accountId = (contactDetail?.accountId)!
-        }
+        
         var success: Bool!
         if isNewContact {
             success = ContactsViewModel().createNewContactToSoup(object: newContact)
@@ -230,11 +225,14 @@ class CreateNewContactViewController: UIViewController {
         
         //sync up to Contact which will update ACR, then for now we need to sync down ACR
         if success {
+//            let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
+//            present(SmartStoreViewController, animated: true, completion: nil)
+            
             self.dismiss(animated: true, completion: {
                 self.delegate.updateContactList()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
             })
-        } else {
+        }else{
             let alertController = UIAlertController(title: "Alert", message:
                 "Unable to create the new contact in local database", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
@@ -278,7 +276,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return 0
             }            
         case 3:
-            return 9
+            return 8
         case 4:
             return 8
         default:
@@ -314,6 +312,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
+                cell?.displayCellContents()
                 contactClassificationTextField = cell?.classificationTextField
                 otherReasonTextField = cell?.otherTextField
                 return cell!

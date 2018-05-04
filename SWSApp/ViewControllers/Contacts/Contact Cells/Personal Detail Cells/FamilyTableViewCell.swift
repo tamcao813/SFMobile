@@ -26,6 +26,7 @@ class FamilyTableViewCell: UITableViewCell {
     
     func customizedUI(){
         dateTextField.addPaddingLeft(10)
+        dateTextField.tag = 1
         nameTextField.addPaddingLeft(10)
         assignDatePicker()
         addToolbar(textField: dateTextField)
@@ -40,9 +41,11 @@ class FamilyTableViewCell: UITableViewCell {
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateTextField.text = dateFormatter.string(from: sender.date)
+        dateFormatter.dateFormat = "MMM-dd-yyyy"
+        let dateString = dateFormatter.string(from: sender.date)
+        let date = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateTextField.text = dateFormatter.string(from: date!)
     }
     
     func addToolbar(textField: UITextField){
@@ -67,11 +70,14 @@ class FamilyTableViewCell: UITableViewCell {
 }
 
 extension FamilyTableViewCell: UITextFieldDelegate {
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        let datePickerView:UIDatePicker = UIDatePicker()
-        datePickerView.datePickerMode = UIDatePickerMode.date
-        textField.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        if textField.tag == 1{
+            let datePickerView:UIDatePicker = UIDatePicker()
+            datePickerView.datePickerMode = UIDatePickerMode.date
+            textField.inputView = datePickerView
+            datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

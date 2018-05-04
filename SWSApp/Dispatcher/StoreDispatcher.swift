@@ -24,7 +24,6 @@ class StoreDispatcher {
     let SoupAccountContactRelation = "AccountContactRelation"
     let SoupAccountNotes = "SGWS_Account_Notes__c"
     let SoupVisit = "WorkOrder"
-    
     let SoupStrategyQA = "SGWS_Response__c"
     let SoupStrategyQuestion = "SGWS_Question__c"
     let SoupStrategyAnswers = "SGWS_Answer__c"
@@ -105,14 +104,21 @@ class StoreDispatcher {
             group.leave()
         }
         
+        group.enter()
+        syncDownStrategyQuestions() { _ in
+            group.leave()
+        }
+        group.enter()
+        syncDownStrategyAnswers() { _ in
+            group.leave()
+        }
+        
        
         //to do: syncDown other soups
         
         group.notify(queue: queue) {
             completion(nil)
         }
-        
-        
     }
     
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {
@@ -1577,7 +1583,7 @@ class StoreDispatcher {
         }
     }
     
-    // Fetch StrategyQuestions...
+    // Fetch StrategyAnswers...
     func fetchStrategyAnswers()->[StrategyAnswers]{
         var strategyAnswers: [StrategyAnswers] = []
         let strategyAnswersFields = StrategyAnswers.StrategyAnswersFields.map{"{SGWS_Answer__c:\($0)}"}

@@ -11,7 +11,8 @@ import Foundation
 class Contact {
     
     static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buyer_Flag__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","LastModifiedDate","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","Fax","SGWS_Other_Specification__c","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c", "SGWS_Contact_Classification__c"]
-
+    
+    
     var contactId: String
     var name: String
     var firstName: String
@@ -100,30 +101,20 @@ class Contact {
         otherSpecification = json["SGWS_Other_Specification__c"] as? String ?? ""
     }
     
-    func toJson() -> [String:Any] {
+    func toJson() -> [String:Any] { //only pak the fields we need
         var json = [String:Any]()
         
         json["Id"] = contactId
         
-        if firstName.count > 0 {
-            json["FirstName"] = firstName
-        }
+        json["FirstName"] = firstName
         
-        if lastName.count > 0 {
-            json["LastName"] = lastName
-        }
+        json["LastName"] = lastName
         
-        if accountId.count > 0 {
-            json["AccountId"] = accountId
-        }
+        json["AccountId"] = accountId
         
-        if phoneNumber.count > 0 {
-            json["Phone"] = phoneNumber
-        }
+        json["Phone"] = phoneNumber
         
-        if email.count > 0 {
-            json["Email"] = email
-        }
+        json["Email"] = email
         
         if birthDate.count > 0 {
             json["Birthdate"] = birthDate
@@ -133,73 +124,54 @@ class Contact {
          json["SGWS_Account_Site_Number__c"] = accountSiteNumber
          }
          */
-        if functionRole.count > 0 {
+        
+        if functionRole.count > 0 { //plist
             json["SGWS_Roles__c"] = functionRole
         }
         
         json["SGWS_Buyer_Flag__c"] = buyerFlag ? "true" : "false"
         
-        if title.count > 0 {
-            json["Title"] = title
-        }
+        json["Title"] = title
         
-        if department.count > 0 {
-            json["Department"] = department
-        }
+        json["Department"] = department
         
-        if preferredName.count > 0 {
-            json["SGWS_Preferred_Name__c"] = preferredName
-        }
+        json["SGWS_Preferred_Name__c"] = preferredName
         
-        if contactHours.count > 0 {
-            json["SGWS_Contact_Hours__c"] = contactHours
-        }
+        json["SGWS_Contact_Hours__c"] = contactHours
         
-        if preferredCommunicationMethod.count > 0 {
+        if preferredCommunicationMethod.count > 0 { //plist
             json["SGWS_Preferred_Communication_Method__c"] = preferredCommunicationMethod
         }
         
-        if sgwsNotes.count > 0 {
-            json["SGWS_Notes__c"] = sgwsNotes
-        }
+        json["SGWS_Notes__c"] = sgwsNotes
         
         //json["LastModifiedBy.Name"] = lastModifiedByName //don't save to soup or sync up
         
-        if child1Name.count > 0 {
-            json["SGWS_Child_1_Name__c"] = child1Name
-        }
+        json["SGWS_Child_1_Name__c"] = child1Name
         
         if child1Birthday.count > 0 {
             json["SGWS_Child_1_Birthday__c"] = child1Birthday
         }
         
-        if child2Name.count > 0 {
-            json["SGWS_Child_2_Name__c"] = child2Name
-        }
+        json["SGWS_Child_2_Name__c"] = child2Name
         
         if child2Birthday.count > 0 {
             json["SGWS_Child_2_Birthday__c"] = child2Birthday
         }
         
-        if child3Name.count > 0 {
-            json["SGWS_Child_3_Name__c"] = child3Name
-        }
+        json["SGWS_Child_3_Name__c"] = child3Name
         
         if child3Birthday.count > 0 {
             json["SGWS_Child_3_Birthday__c"] = child3Birthday
         }
         
-        if child4Name.count > 0 {
-            json["SGWS_Child_4_Name__c"] = child4Name
-        }
+        json["SGWS_Child_4_Name__c"] = child4Name
         
         if child4Birthday.count > 0 {
             json["SGWS_Child_4_Birthday__c"] = child4Birthday
         }
         
-        if child5Name.count > 0 {
-            json["SGWS_Child_5_Name__c"] = child5Name
-        }
+        json["SGWS_Child_5_Name__c"] = child5Name
         
         if child5Birthday.count > 0 {
             json["SGWS_Child_5_Birthday__c"] = child5Birthday
@@ -209,43 +181,32 @@ class Contact {
             json["SGWS_Anniversary__c"] = anniversary
         }
         
-        if likes.count > 0 {
-            json["SGWS_Likes__c"] = likes
-        }
+        json["SGWS_Likes__c"] = likes
         
-        if dislikes.count > 0 {
-            json["SGWS_Dislikes__c"] = dislikes
-        }
+        json["SGWS_Dislikes__c"] = dislikes
         
-        if favouriteActivities.count > 0 {
-            json["SGWS_Favorite_Activities__c"] = favouriteActivities
-        }
+        json["SGWS_Favorite_Activities__c"] = favouriteActivities
         
-        if lifeEvents.count > 0 {
-            json["SGWS_Life_Events__c"] = lifeEvents
-        }
+        json["SGWS_Life_Events__c"] = lifeEvents
         
         if lifeEventDate.count > 0 {
             json["SGWS_Life_Events_Date__c"] = lifeEventDate
         }
         
-        if fax.count > 0 {
-            json["Fax"] = fax
-        }
+        json["Fax"] = fax
         
-        if contactClassification.count > 0{
+        if contactClassification.count > 0 { //plist
             json["SGWS_Contact_Classification__c"] = contactClassification
         }
         
-        if otherSpecification.count > 0{
-            json["SGWS_Other_Specification__c"] = otherSpecification
-        }
+        json["SGWS_Other_Specification__c"] = otherSpecification
         
         return json
     }
     
     init(for: String) {
-        contactId = ""
+        let n = Int(arc4random_uniform(100000000))
+        contactId = "\(n)"
         name = ""
         firstName = ""
         lastName = ""
@@ -289,18 +250,23 @@ class Contact {
     static func mockNewContact1() -> Contact {
         let contact = Contact(for: "mockup")
         contact.contactId =  ""
-        contact.accountId = "001m000000cHLmTAAW" //I think we need this
+        contact.accountId = "001m000000cHLa7AAG" //001m000000cHLmTAAW" //I think we need this
         let n = Int(arc4random_uniform(1000) + 35)
         contact.firstName = "Greg" + "\(n)"
         contact.lastName = "Opa" + "\(n)"
         contact.phoneNumber = "(716) 666-8888"
-        contact.email = "greg@ttdesk.com"
-        contact.birthDate = "1950-06-01"
+        contact.email = ""  //greg@ttdesk.com"
+        contact.likes = ""
+        contact.preferredCommunicationMethod = "Phone"
+        contact.otherSpecification = ""
+        contact.child4Name = ""
+        contact.contactClassification = "Influencer"
+        //contact.birthDate = "1950-06-01"
         //contact.accountSiteNumber = "0070"
-        contact.functionRole = "Owner"
-        contact.buyerFlag = true
-        contact.child1Birthday = "2018-01-01"
-        contact.anniversary = "2002-12-25"
+        //contact.functionRole = "Owner"
+        //contact.buyerFlag = true
+        //contact.child1Birthday = "2018-01-01"
+        //contact.anniversary = "2002-12-25"
         
         return contact
     }

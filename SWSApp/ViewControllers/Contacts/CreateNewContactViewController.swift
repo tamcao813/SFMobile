@@ -140,23 +140,31 @@ class CreateNewContactViewController: UIViewController {
             if (otherReasonTextField.text?.isEmpty)! {
                 otherReasonTextField.borderColor = .red
                 otherReasonTextField.becomeFirstResponder()
-                tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: true)
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 2), at: .top, animated: true)
                 showAlert = true
             }
         }else if (firstNameTextField.text?.isEmpty)! {
             firstNameTextField.borderColor = .red
             firstNameTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            }else{
+                
+            }
             showAlert = true
         } else if (lastNameTextField.text?.isEmpty)! {
             lastNameTextField.borderColor = .red
             lastNameTextField.becomeFirstResponder()
+            if isNewContact {
             tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            }
             showAlert = true
         }else if (primaryFunctionTextField.text?.isEmpty)! {
             primaryFunctionTextField.borderColor = .red
             primaryFunctionTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            }
             showAlert = true
         }else{
             showAlert = false

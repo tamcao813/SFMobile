@@ -450,13 +450,15 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "NameTableViewCell") as? NameTableViewCell
+            if !isNewContact {
+                cell?.firstNameTextField.isEnabled = false
+                cell?.lastNameTextField.isEnabled = false
+            }
             firstNameTextField = cell?.firstNameTextField
             lastNameTextField = cell?.lastNameTextField
             preferredNameTextField = cell?.preferredNameTextField
             if let contactDetail = contactDetail {
-                cell?.displayCellContent(contactDetail: contactDetail)
-                cell?.firstNameTextField.isEnabled = false
-                cell?.lastNameTextField.isEnabled = false
+                cell?.displayCellContent(contactDetail: contactDetail)                
             }
             return cell!
         case 1:

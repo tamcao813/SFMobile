@@ -1118,10 +1118,20 @@ class StoreDispatcher {
             if(fieldsIdValue == singleNoteModifValue){
                 singleNoteModif["Name"] = fieldsToUpload["Name"]
                 singleNoteModif["SGWS_Description__c"] = fieldsToUpload["SGWS_Description__c"]
-                singleNoteModif["__local__"] = true
-                singleNoteModif["__locally_updated__"] = true
-                singleNoteModif["__locally_deleted__"] = false
-                singleNoteModif["__locally_created__"] = false
+                singleNoteModif[kSyncTargetLocal] = true
+                
+                let createdFlag = singleNoteModif[kSyncTargetLocallyCreated] as! Bool
+                
+                if(createdFlag){
+                    singleNoteModif[kSyncTargetLocallyUpdated] = false
+                    singleNoteModif[kSyncTargetLocallyCreated] = true
+
+                }else {
+                    singleNoteModif[kSyncTargetLocallyCreated] = false
+                    singleNoteModif[kSyncTargetLocallyUpdated] = true
+
+                }
+                singleNoteModif[kSyncTargetLocallyDeleted] = false
                 
                 singleNoteModif["LastModifiedDate"] = fieldsToUpload["LastModifiedDate"]
                 editedNote = singleNoteModif

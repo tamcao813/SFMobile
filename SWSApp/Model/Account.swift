@@ -9,7 +9,7 @@
 import Foundation
 
 class Account {
-    static let AccountFields: [String] = ["Account.SGWS_Account_Health_Grade__c","Account.Name","Account.AccountNumber","Account.SWS_Total_CY_MTD_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.IS_Next_Delivery_Date__c","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SGWS_Single_Multi_Locations_Filter__c","Account.Google_Place_Formatted_Phone__c","Account.SWS_Status_Description__c","AccountId","Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c"]
+    static let AccountFields: [String] = ["Account.SGWS_Account_Health_Grade__c","Account.Name","Account.AccountNumber","Account.SWS_Total_CY_MTD_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.IS_Next_Delivery_Date__c","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SGWS_Single_Multi_Locations_Filter__c","Account.Google_Place_Formatted_Phone__c","Account.SWS_Status_Description__c","AccountId","Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c","Account.SurveyId__c"]
     //,,,
 //  ,,,,,,,,,,,,"Account.ShippingGeocodeAccuracy",,,,,"Account.SWS_License_Status__c",,"Account.SGWS_Account_Health_Grade__c",,"Account.SWS_License_Type_Description__c"]
     
@@ -54,10 +54,8 @@ class Account {
     var acctDescStatus: String
     var account_Id: String
     var percentageLastYearR12NetSales:String
-    
-
-    
     var pastDueAmountDouble: Double
+    var surveyId:String
   
   
     convenience init(withAry ary: [Any]) {
@@ -112,6 +110,7 @@ class Account {
         actionItem = 2 //need to get from query
         
         pastDueAmountDouble = Double(pastDueAmount)!
+        surveyId = json["Account.SurveyId__c"] as? String ?? ""
       
      
     }
@@ -157,6 +156,7 @@ class Account {
         account_Id = ""
         pastDueAmountDouble = 0.0
         percentageLastYearR12NetSales = ""
+        surveyId = ""
       
        
        

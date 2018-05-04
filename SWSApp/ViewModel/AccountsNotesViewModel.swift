@@ -32,7 +32,9 @@ class AccountsNotesViewModel {
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 completion(error)
-                MBProgressHUD.hide(forWindow: true)
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(forWindow: true)
+                }
             }
             else {
                 
@@ -40,9 +42,13 @@ class AccountsNotesViewModel {
                     if error != nil {
                         print("PostSyncUp:downloadAllSoups")
                     }
-                    MBProgressHUD.hide(forWindow: true)
+                    DispatchQueue.main.async {
+                        MBProgressHUD.hide(forWindow: true)
+                    }
                 })
-                MBProgressHUD.hide(forWindow: true)
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(forWindow: true)
+                }
 
                 completion(nil)
             }

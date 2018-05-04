@@ -251,8 +251,16 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
             
-            self.notesDataToEdit = self.tableViewDisplayData[indexPath.row]
-            self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let ownerId = appDelegate.loggedInUser?.userId
+            //Edit is allowed only for Note owner
+            if(ownerId == self.notesDataToEdit.ownerId){
+                self.notesDataToEdit = self.tableViewDisplayData[indexPath.row]
+                self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
+            } else {
+                return
+            }
+
         }
         editAction.hidesWhenSelected = true
         editAction.image = UIImage(named:"editIcon")
@@ -265,6 +273,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
             let continueAction = UIAlertAction(title: "Delete", style: .default) { action in
                 // Handle when button is clicked
                 //self.tableViewData.removeObject(at: indexPath.row)
+                //soumin
                 self.tableViewDisplayData.remove(at: indexPath.row)
                 self.notesTableView?.reloadData()
                 //tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)

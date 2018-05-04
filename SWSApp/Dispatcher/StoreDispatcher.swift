@@ -68,6 +68,12 @@ class StoreDispatcher {
         }
         
         group.enter()
+        downloadVisitPLists() { _ in
+            group.leave()
+        }
+        
+        
+        group.enter()
         syncDownAccount() { _ in
             self.syncDownACR() { _ in
                 group.leave()
@@ -153,6 +159,7 @@ class StoreDispatcher {
                 self.downloadContactClassificationPList(recordTypeId: recordTypeId) { _ in
                     group.leave()
                 }
+                
                 
                 group.notify(queue: queue) {
                     completion(nil)
@@ -271,6 +278,76 @@ class StoreDispatcher {
         }
     }
     
+    
+    func downloadVisitPLists(_ completion:@escaping (_ error: NSError?)->()) {
+        let query = "SELECT id FROM RecordType where SobjectType = 'WorkOrder'"
+        
+        SFRestAPI.sharedInstance().performSOQLQuery(query, fail: {
+            (error, response) in
+            print(error?.localizedDescription as Any)
+            completion(error! as NSError)
+            
+        }) { (data, response) in  //success
+            if let data = data, data.count > 0 {
+                let response:[Any]  = data[AnyHashable("records")] as! [Any]
+                let dict:[String: Any] = response[0] as! [String: Any]
+                let recordTypeId: String = dict["Id"] as! String
+                print(recordTypeId)
+                
+                let queue = DispatchQueue(label: "concurrent")
+                let group = DispatchGroup()
+        
+                
+                group.enter()
+                self.downloadVisitPurposetPList(recordTypeId: recordTypeId) { _ in
+                    group.leave()
+                }
+                
+                group.notify(queue: queue) {
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    func downloadVisitPurposetPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
+        let recordTypeId = recordTypeId
+        let path = "ui-api/object-info/WorkOrder/picklist-values/" + recordTypeId + "/SGWS_Visit_Purpose__c"
+        let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
+        request.endpoint = "/services/data/v41.0/"
+        
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                let response = sfRestResponse.asJsonDictionary()
+                
+                var visitPicklist = [String:[PlistOption]]()
+                if response.count > 0 {
+                    var ary = [PlistOption]()
+                    
+                    if let options = response["values"] as? [[String : AnyObject]] {
+                        for option in options {
+                            let label = option["label"] as? String ?? ""
+                            let value = option["value"] as? String ?? ""
+                            let preferred = PlistOption(label: label, value: value)
+                            
+                            ary.append(preferred)
+                        }
+                        visitPicklist["VisitPurpose"] = ary
+                    }
+                }
+                
+                PlistMap.sharedInstance.addToMap(field: "AccountVisitPurpose", map: visitPicklist["VisitPurpose"]!)
+                print("VisitPurpose PickList Downloaded \(visitPicklist["VisitPurpose"]!)")
+                completion(nil)
+            }
+            .catch { error in
+                print("Visit_Purpose plist error: " + error.localizedDescription)
+                completion(error as NSError?)
+        }
+    }
     
     //#pragma mark - create indexes for the soup and register the soup; only create indexes for the fields we want to query by
     

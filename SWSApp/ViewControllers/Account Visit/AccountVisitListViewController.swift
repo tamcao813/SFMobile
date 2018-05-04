@@ -182,6 +182,10 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
             ContactsGlobal.accountId = ""
+
+            // Added this line so that Contact detail view is not launched for this scenario.
+            ContactFilterMenuModel.selectedContactId = ""
+
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
         }else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
@@ -190,6 +194,10 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     }
     
     func navigateToAccountScreen() {
+        
+        // Added this line so that Account detail view is not launched for this scenario.
+        FilterMenuModel.selectedAccountId = ""
+
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
 }

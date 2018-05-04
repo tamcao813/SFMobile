@@ -84,7 +84,7 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
             return
         }
         
-        self.editNote()
+      //  self.editNote()
         self.dismiss(animated: true, completion: nil)
     }
     

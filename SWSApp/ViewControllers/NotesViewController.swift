@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwipeCellKit
+import SmartSync
 
 
 
@@ -254,8 +255,8 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let ownerId = appDelegate.loggedInUser?.userId
             //Edit is allowed only for Note owner
+            self.notesDataToEdit = self.tableViewDisplayData[indexPath.row]
             if(ownerId == self.notesDataToEdit.ownerId){
-                self.notesDataToEdit = self.tableViewDisplayData[indexPath.row]
                 self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
             } else {
                 return
@@ -269,6 +270,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
             let cell = tableView.cellForRow(at: indexPath) as! NotesTableViewCell
             let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
+            let notesDelete = self.tableViewDisplayData[indexPath.row]
             let alert = UIAlertController(title: "Notes Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
             let continueAction = UIAlertAction(title: "Delete", style: .default) { action in
                 // Handle when button is clicked
@@ -276,7 +278,19 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
                 //soumin
                 self.tableViewDisplayData.remove(at: indexPath.row)
                 self.notesTableView?.reloadData()
-                //tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+
+                let attributeDict = ["type":"SGWS_Account_Notes__c"]
+                let editNoteDict: [String:Any] = [
+                    AccountNotes.AccountNotesFields[0]: notesDelete.Id,
+                    kSyncTargetLocal:true,
+                    kSyncTargetLocallyCreated:false,
+                    kSyncTargetLocallyUpdated:false,
+                    kSyncTargetLocallyDeleted:true,
+                    "attributes":attributeDict]
+                
+                let success = AccountsNotesViewModel().deleteNotesLocally(fields: editNoteDict)
+                print("Note is deleted \(success)")
+ 
             }
             alert.addAction(continueAction)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: closure))

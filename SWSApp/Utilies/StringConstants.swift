@@ -11,6 +11,7 @@ import Foundation
 class StringConstants {
     
     static let emptyFieldError = "Please enter the required fields"
+    static let emptyFieldInNoted = "Please correct required fields"
     static let invalidName = "Please enter a valid name"
     static let invalidEmail = "Please enter a valid email"
     static let invalidDate = "Please enter a valid date"

@@ -68,6 +68,12 @@ class StoreDispatcher {
         }
         
         group.enter()
+        downloadVisitPLists() { _ in
+            group.leave()
+        }
+        
+        
+        group.enter()
         syncDownAccount() { _ in
             self.syncDownACR() { _ in
                 group.leave()
@@ -153,6 +159,7 @@ class StoreDispatcher {
                 self.downloadContactClassificationPList(recordTypeId: recordTypeId) { _ in
                     group.leave()
                 }
+                
                 
                 group.notify(queue: queue) {
                     completion(nil)
@@ -271,6 +278,76 @@ class StoreDispatcher {
         }
     }
     
+    
+    func downloadVisitPLists(_ completion:@escaping (_ error: NSError?)->()) {
+        let query = "SELECT id FROM RecordType where SobjectType = 'WorkOrder'"
+        
+        SFRestAPI.sharedInstance().performSOQLQuery(query, fail: {
+            (error, response) in
+            print(error?.localizedDescription as Any)
+            completion(error! as NSError)
+            
+        }) { (data, response) in  //success
+            if let data = data, data.count > 0 {
+                let response:[Any]  = data[AnyHashable("records")] as! [Any]
+                let dict:[String: Any] = response[0] as! [String: Any]
+                let recordTypeId: String = dict["Id"] as! String
+                print(recordTypeId)
+                
+                let queue = DispatchQueue(label: "concurrent")
+                let group = DispatchGroup()
+        
+                
+                group.enter()
+                self.downloadVisitPurposetPList(recordTypeId: recordTypeId) { _ in
+                    group.leave()
+                }
+                
+                group.notify(queue: queue) {
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    func downloadVisitPurposetPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
+        let recordTypeId = recordTypeId
+        let path = "ui-api/object-info/WorkOrder/picklist-values/" + recordTypeId + "/SGWS_Visit_Purpose__c"
+        let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
+        request.endpoint = "/services/data/v41.0/"
+        
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                let response = sfRestResponse.asJsonDictionary()
+                
+                var visitPicklist = [String:[PlistOption]]()
+                if response.count > 0 {
+                    var ary = [PlistOption]()
+                    
+                    if let options = response["values"] as? [[String : AnyObject]] {
+                        for option in options {
+                            let label = option["label"] as? String ?? ""
+                            let value = option["value"] as? String ?? ""
+                            let preferred = PlistOption(label: label, value: value)
+                            
+                            ary.append(preferred)
+                        }
+                        visitPicklist["VisitPurpose"] = ary
+                    }
+                }
+                
+                PlistMap.sharedInstance.addToMap(field: "AccountVisitPurpose", map: visitPicklist["VisitPurpose"]!)
+                print("VisitPurpose PickList Downloaded \(visitPicklist["VisitPurpose"]!)")
+                completion(nil)
+            }
+            .catch { error in
+                print("Visit_Purpose plist error: " + error.localizedDescription)
+                completion(error as NSError?)
+        }
+    }
     
     //#pragma mark - create indexes for the soup and register the soup; only create indexes for the fields we want to query by
     
@@ -1033,6 +1110,82 @@ class StoreDispatcher {
         return visit
     }
 
+    func registerVisitSchedulerSoup(){
+        
+        let visitsQueryFields = PlanVisit.planVisitFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...visitsQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: visitsQueryFields[i], indexType: kSoupIndexTypeString, columnName: visitsQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:nil)!)
+        
+        do {
+            try sfaStore.registerSoup(SoupVisit, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupAccountNotes soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    
+    func syncDownSchedulerVisits(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "select Id,Subject, AccountId,Account.Name,Account.AccountNumber,Account.BillingAddress,ContactId, Contact.Name,Contact.Phone,Contact.Email,Contact.SGWS_Roles__c,SGWS_Appointment_Status__c, StartDate,EndDate, SGWS_Visit_Purpose__c, Description, SGWS_Agenda_Notes__c,Status from WorkOrder"
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
+            SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupVisit)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> visit syncDownVisit() done >>>>>")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownVisit() >>>>>>>"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownVisit()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    
+    func fetchSchedulerVisits()->[PlanVisit] {
+        
+        var visit: [PlanVisit] = []
+        let visitFields = PlanVisit.planVisitFields.map{"{WorkOrder:\($0)}"}
+        let soapQuery = "Select \(visitFields.joined(separator: ",")) FROM {WorkOrder}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        print("Result of visits is \(result)")
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let visitArray = PlanVisit(withAry: ary)
+                visit.append(visitArray)
+                print("notes array \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch account notes  " + " error:" + (error?.localizedDescription)!)
+        }
+        return visit
+    }
+    
     
     
     func syncDownNotes(_ completion:@escaping (_ error: NSError?)->()) {
@@ -1128,10 +1281,20 @@ class StoreDispatcher {
             if(fieldsIdValue == singleNoteModifValue){
                 singleNoteModif["Name"] = fieldsToUpload["Name"]
                 singleNoteModif["SGWS_Description__c"] = fieldsToUpload["SGWS_Description__c"]
-                singleNoteModif["__local__"] = true
-                singleNoteModif["__locally_updated__"] = true
-                singleNoteModif["__locally_deleted__"] = false
-                singleNoteModif["__locally_created__"] = false
+                singleNoteModif[kSyncTargetLocal] = true
+                
+                let createdFlag = singleNoteModif[kSyncTargetLocallyCreated] as! Bool
+                
+                if(createdFlag){
+                    singleNoteModif[kSyncTargetLocallyUpdated] = false
+                    singleNoteModif[kSyncTargetLocallyCreated] = true
+
+                }else {
+                    singleNoteModif[kSyncTargetLocallyCreated] = false
+                    singleNoteModif[kSyncTargetLocallyUpdated] = true
+
+                }
+                singleNoteModif[kSyncTargetLocallyDeleted] = false
                 
                 singleNoteModif["LastModifiedDate"] = fieldsToUpload["LastModifiedDate"]
                 editedNote = singleNoteModif

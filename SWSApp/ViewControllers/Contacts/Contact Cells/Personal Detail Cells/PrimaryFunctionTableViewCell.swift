@@ -72,6 +72,13 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     @objc func donePicker(){
         if let selectedValue = selectedPrimaryFunctionOption {
             primaryFunctionTextField.text = selectedValue.value
+        }else{
+            if pickerOption.count > 0 {
+                selectedPrimaryFunctionOption = pickerOption[0]
+                if let selectedValue = selectedPrimaryFunctionOption {
+                    primaryFunctionTextField.text = selectedValue.value
+                }
+            }
         }
         primaryFunctionTextField.resignFirstResponder()
     }

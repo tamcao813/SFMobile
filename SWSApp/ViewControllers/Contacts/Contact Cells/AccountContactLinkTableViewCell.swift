@@ -24,7 +24,7 @@ class AccountContactLinkTableViewCell: DropDownCell {
     weak var delegate : AccountContactLinkTableViewCellDelegate!
     
     func displayCellContent(account: Account){
-        phoneNumberLabel.text = account.phone
+        phoneNumberLabel.text = account.accountNumber
         accountLabel.text = account.accountName
         var fullAddress = ""
         if account.shippingStreet == "" && account.shippingCity == "" && account.shippingState == "" && account.shippingPostalCode == "" {

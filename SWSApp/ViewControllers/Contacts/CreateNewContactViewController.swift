@@ -208,7 +208,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.child2Birthday = (familyDate2Textfield.text! == "Select") ? "" : familyDate2Textfield.text!
         
         newContact.child3Name = familyName3Textfield.text!
-        newContact.child2Birthday = (familyDate3Textfield.text! == "Select") ? "" : familyDate3Textfield.text!
+        newContact.child3Birthday = (familyDate3Textfield.text! == "Select") ? "" : familyDate3Textfield.text!
         
         newContact.child4Name = familyName4Textfield.text!
         newContact.child4Birthday = (familyDate4Textfield.text! == "Select") ? "" : familyDate4Textfield.text!

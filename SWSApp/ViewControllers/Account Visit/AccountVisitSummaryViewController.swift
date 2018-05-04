@@ -116,6 +116,11 @@ class AccountVisitSummaryViewController: UIViewController {
             
         }else{
             
+            PlanVistManager.sharedInstance.editPlanVisit = true
+            let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
+            viewController.modalPresentationStyle = .overCurrentContext
+            self.present(viewController, animated: true)
         }
     }
     

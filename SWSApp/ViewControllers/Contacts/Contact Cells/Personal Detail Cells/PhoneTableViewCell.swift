@@ -39,7 +39,7 @@ extension PhoneTableViewCell: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if (textField == self.phoneTextField){
+        if (textField == self.phoneTextField || textField == self.faxTextField){
             let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
             let components = newString.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
             

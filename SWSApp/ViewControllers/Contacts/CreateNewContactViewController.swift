@@ -176,6 +176,15 @@ class CreateNewContactViewController: UIViewController {
                 tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
             }
             showAlert = true
+        }else if emailTextField.text != "" && !Validations().isValidEmail(testStr: emailTextField.text!){
+            emailTextField.borderColor = .red
+            emailTextField.becomeFirstResponder()
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            }else{
+                tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
+            }
+            showAlert = true
         }
         else{
             showAlert = false
@@ -236,31 +245,40 @@ class CreateNewContactViewController: UIViewController {
             newContact.accountId = accountSelected.account_Id
         }
         
-        if isNewContact {
-            var showAlert = false
-            globalContacts = ContactsViewModel().globalContacts()
-            let firstNameMatchArray = globalContacts.filter( { return $0.firstName.lowercased().contains(newContact.firstName) } )
-            if firstNameMatchArray.count > 0 {
-                showAlert = true
-            }
-            let lastNameMatchArray = globalContacts.filter( { return $0.lastName.lowercased().contains(newContact.lastName) } )
-            if lastNameMatchArray.count > 0 {
-                showAlert = true
-            }
-            
-            let phoneNameMatchArray = globalContacts.filter( { return $0.phoneNumber.lowercased().contains(newContact.phoneNumber) } )
-            if phoneNameMatchArray.count > 0 {
-                showAlert = true
-            }
-            
-            if showAlert {
-                let alertController = UIAlertController(title: "Error", message:
-                    "A duplicate contact with the same name and phone or name and email has been detected", preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-                self.present(alertController, animated: true, completion: nil)
-                return
+        //        if isNewContact {
+        var showAlert = false
+        globalContacts = ContactsViewModel().globalContacts()
+        if globalContacts.count > 0 {
+            for index in 0 ... globalContacts.count - 1 {
+                if globalContacts[index].contactId == newContact.contactId {
+                    globalContacts.remove(at: index)
+                    break
+                }
             }
         }
+        
+        let firstNameMatchArray = globalContacts.filter( { return $0.firstName.lowercased().contains(newContact.firstName) } )
+        if firstNameMatchArray.count > 0 {
+            showAlert = true
+        }
+        let lastNameMatchArray = globalContacts.filter( { return $0.lastName.lowercased().contains(newContact.lastName) } )
+        if lastNameMatchArray.count > 0 {
+            showAlert = true
+        }
+        
+        let phoneNameMatchArray = globalContacts.filter( { return $0.phoneNumber.lowercased().contains(newContact.phoneNumber) } )
+        if phoneNameMatchArray.count > 0 {
+            showAlert = true
+        }
+        
+        if showAlert {
+            let alertController = UIAlertController(title: "Error", message:
+                "A duplicate contact with the same name and phone or name and email has been detected", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        //        }
         
         
         var success: Bool!
@@ -273,8 +291,8 @@ class CreateNewContactViewController: UIViewController {
         
         //sync up to Contact which will update ACR, then for now we need to sync down ACR
         if success {
-//            let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
-//            present(SmartStoreViewController, animated: true, completion: nil)
+            //            let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
+            //            present(SmartStoreViewController, animated: true, completion: nil)
             
             self.dismiss(animated: true, completion: {
                 self.delegate.updateContactList()

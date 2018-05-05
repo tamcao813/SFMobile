@@ -251,20 +251,24 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     @objc func SyncUpData()  {
         MBProgressHUD.show(onWindow: true)
         // Sync Up Notes
-//            AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","LastModifiedDate","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
-//                if error != nil {
-//                    print(error?.localizedDescription ?? "error")
-//                }
-//            })
+            AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","LastModifiedDate","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                }
+            })
         
         // Contacts Sync Up
         ContactsViewModel().uploadContactToServerAndSyncDownACR(completion: { error in
             if error != nil {
                 MBProgressHUD.hide(forWindow: true)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+
                 print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
             }else{
                 print("Contacts uploaded to server  Successfully")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
                 MBProgressHUD.hide(forWindow: true)
+                
             }
         })
     }

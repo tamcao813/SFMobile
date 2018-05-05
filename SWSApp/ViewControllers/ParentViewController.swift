@@ -260,7 +260,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // Contacts Sync Up
         ContactsViewModel().uploadContactToServerAndSyncDownACR(completion: { error in
             if error != nil {
+                MBProgressHUD.hide(forWindow: true)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+
                 print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
+            }else{
+                print("Contacts uploaded to server  Successfully")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+                MBProgressHUD.hide(forWindow: true)
+                
             }
         })
     }

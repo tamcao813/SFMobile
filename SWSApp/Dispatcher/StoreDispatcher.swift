@@ -594,9 +594,9 @@ class StoreDispatcher {
         let userid:String = (userVieModel.loggedInUser?.userId)!
         let siteid:String = (userVieModel.loggedInUser?.userSite)!
         
-        let fields : [String] = Contact.ContactFields
+        let fields = "Select Id,Name,FirstName,LastName,Phone,Email,Birthdate,SGWS_Buying_Power__c,AccountId,Account.SWS_Account_Site__c,SGWS_Account_Site_Number__c,Title,Department,SGWS_Preferred_Name__c,SGWS_Contact_Hours__c,SGWS_Notes__c,LastModifiedBy.Name,LastModifiedDate,SGWS_Child_1_Name__c,SGWS_Child_1_Birthday__c,SGWS_Child_2_Name__c,SGWS_Child_2_Birthday__c,SGWS_Child_3_Name__c,SGWS_Child_3_Birthday__c,SGWS_Child_4_Name__c,SGWS_Child_4_Birthday__c,SGWS_Child_5_Name__c,SGWS_Child_5_Birthday__c,SGWS_Anniversary__c,SGWS_Likes__c,SGWS_Dislikes__c,SGWS_Favorite_Activities__c,SGWS_Life_Events__c,SGWS_Life_Events_Date__c,Fax,SGWS_Other_Specification__c,SGWS_Roles__c,SGWS_Preferred_Communication_Method__c,SGWS_Contact_Classification__c"
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from Contact where SGWS_Account_Site_Number__c = '\(siteid)' and RecordType.DeveloperName = 'Customer' " //and AccountId IN(Select AccountId from AccountTeamMember where UserId = '\(userid)' "
+        let soqlQuery = "\(fields) from Contact where SGWS_Account_Site_Number__c = '\(siteid)' and RecordType.DeveloperName = 'Customer' " //and AccountId IN(Select AccountId from AccountTeamMember where UserId = '\(userid)' "
         
         //let soqlQuery = "Select Id from Contact where SGWS_Account_Site_Number__c = '\(siteid)' "
         
@@ -757,7 +757,7 @@ class StoreDispatcher {
         var contactAry: [Contact] = []
         
         let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:SGWS_Buyer_Flag__c} = 1 AND {Contact:AccountId} = '\(accountId)' "
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:SGWS_Buying_Power__c} = 1 AND {Contact:AccountId} = '\(accountId)' "
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
@@ -767,7 +767,8 @@ class StoreDispatcher {
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
-                let contact = Contact(withAry: ary)
+                let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
+                let contact = Contact(withAry: resultDict)
                 contactAry.append(contact)
             }
         }
@@ -795,7 +796,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let user = User(withAry: ary)
                 
-                let json:[String:Any] = [ "Id":user.id, "Name":user.userName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Account_Site_Number__c":user.userSite,"SGWS_Buyer_Flag__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                let json:[String:Any] = [ "Id":user.id, "Name":user.userName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Account_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
                 
                 let contact =  Contact.init(json: json)
                 
@@ -819,18 +820,26 @@ class StoreDispatcher {
         
         let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} " //where {Contact:SGWS_Account_Site_Number__c} = '\(siteid)' and {Contact:RecordType.DeveloperName} = 'Customer' and {Contact:AccountId} IN(Select {Contact:AccountId} from {Contact:AccountTeamMember where UserId = '\(userid)' "
-        
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupContact, withOrderPath: "LastModifiedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
         
         var error : NSError?
-        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-       
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
-        if (error == nil && result.count > 0) {
+        
+//        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} " //where {Contact:SGWS_Account_Site_Number__c} = '\(siteid)' and {Contact:RecordType.DeveloperName} = 'Customer' and {Contact:AccountId} IN(Select {Contact:AccountId} from {Contact:AccountTeamMember where UserId = '\(userid)' "
+//
+//        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+ //       var error : NSError?
+//        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+//
+//
+        if (result.count > 0) {
             for i in 0...result.count - 1 {
-                let ary:[Any] = result[i] as! [Any]
-                let contact = Contact(withAry: ary)
+                var singleNoteModif = result[i] as! [String:Any]
+
+               // let ary:[Any] = result[i] as! [Any]
+                let contact = Contact(withAry: singleNoteModif)
                 contactAry.append(contact)
             }
         }
@@ -879,7 +888,8 @@ class StoreDispatcher {
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
-                let contact = Contact(withAry: ary)
+                let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
+                let contact = Contact(withAry: resultDict)
                 contactAry.append(contact)
             }
         }
@@ -1442,18 +1452,43 @@ class StoreDispatcher {
             return false
         }
     }
-
-    
     
     
     func editContactToSoup(fields: [String:Any]) -> Bool{
         var allFields = fields
         allFields["attributes"] = ["type":"Contact"]
         allFields[kSyncTargetLocal] = true
-        allFields[kSyncTargetLocallyCreated] = false
-        allFields[kSyncTargetLocallyUpdated] = true
-        allFields[kSyncTargetLocallyDeleted] = false
         
+        
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupContact, withOrderPath: "LastModifiedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        for  singleContact in result{
+            var singleContactModif = singleContact as! [String:Any]
+            let singleContactModifValue = singleContactModif["Id"] as! String
+            let fieldsIdValue = allFields["Id"] as! String
+            
+            if(fieldsIdValue == singleContactModifValue){
+                
+                let createdFlag = singleContactModif[kSyncTargetLocallyCreated] as! Bool
+                if(createdFlag){
+                    allFields[kSyncTargetLocallyUpdated] = false
+                    allFields[kSyncTargetLocallyCreated] = true
+                    
+                }else {
+                    allFields[kSyncTargetLocallyCreated] = false
+                    allFields[kSyncTargetLocallyUpdated] = true
+                    
+                }
+                
+            }
+        }
+
+        
+        allFields[kSyncTargetLocallyDeleted] = false
+
         let ary = sfaStore.upsertEntries([allFields], toSoup: SoupContact)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]

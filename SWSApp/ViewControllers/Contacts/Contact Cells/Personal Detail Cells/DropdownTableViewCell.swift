@@ -55,6 +55,13 @@ class DropdownTableViewCell: UITableViewCell {
     @objc func donePicker(){
         if let selectedValue = selectedOption {
             dropdownTextfield.text = selectedValue.value
+        }else{
+            if pickerOption.count > 0 {
+                selectedOption = pickerOption[0]
+                if let selectedValue = selectedOption {
+                    dropdownTextfield.text = selectedValue.value
+                }
+            }
         }
         dropdownTextfield.resignFirstResponder()
     }
@@ -80,7 +87,9 @@ extension DropdownTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedOption = pickerOption[row]
+        if pickerOption.count > 0 {
+            selectedOption = pickerOption[row]
+        }
     }
 }
 

@@ -67,7 +67,22 @@ class ContactClassificationTableViewCell: UITableViewCell {
             }else{
                 otherTextField.isHidden = true
             }
-        }        
+        }else{
+            if pickerOption.count > 0 {
+                selectedOption = pickerOption[0]
+            }
+            if let selectedValue = selectedOption {
+                classificationTextField.text = selectedValue.value
+                classificationTextField.resignFirstResponder()
+                if selectedOption.value == "Other" {
+                    otherTextField.isHidden = false
+                }else{
+                    otherTextField.isHidden = true
+                }
+            }
+        }
+        
+        classificationTextField.resignFirstResponder()
     }
     
     @objc func cancelPicker(){

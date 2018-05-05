@@ -69,7 +69,8 @@ class ContactsViewModel{
     }
     
     func createNewContactToSoup(object: Contact) -> Bool {
-        let contactfields: [String:Any] = object.toJson()
+        var contactfields: [String:Any] = object.toJson()
+        contactfields.removeValue(forKey: "_soupEntryId")
         return StoreDispatcher.shared.createNewContactToSoup(fields: contactfields)
     }
     
@@ -86,9 +87,12 @@ class ContactsViewModel{
     }
     
     func editNewContactToSoup(object: Contact) -> Bool {
+        
         let fields: [String:Any] = object.toJson()
         return StoreDispatcher.shared.editContactToSoup(fields: fields)
     }
+    
+    
     
     
     func uploadContactACRToServer(object: Contact, completion: @escaping (_ error: NSError?)->() ) {

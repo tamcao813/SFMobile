@@ -17,6 +17,7 @@ class AccountStrategyViewController : UIViewController{
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
     let strategyAnswersViewModel = StrategyAnswersViewModel()
+    var strategyAnswers = [StrategyAnswers]()
     
     
     //MARK:- View Life Cycle
@@ -66,7 +67,8 @@ class AccountStrategyViewController : UIViewController{
         
         
         strategyQuestionsViewModel.getStrategyQuestions()
-        strategyAnswersViewModel.getStrategyAnswers()
+        
+       strategyAnswers = strategyAnswersViewModel.getStrategyAnswers()
         
     }
     

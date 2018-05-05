@@ -22,7 +22,7 @@ class StrategyQuestions {
     
     
     convenience init(withAry ary: [Any]) {
-        let resultDict = Dictionary(uniqueKeysWithValues: zip(StrategyQA.StrategyQAFields, ary))
+        let resultDict = Dictionary(uniqueKeysWithValues: zip(StrategyQuestions.StrategyQuestionsFields, ary))
         self.init(json: resultDict)
     }
     

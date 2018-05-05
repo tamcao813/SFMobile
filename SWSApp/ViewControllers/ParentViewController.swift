@@ -263,6 +263,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
             }
         })
+      
     }
     
     private func setupTopMenuItems(){

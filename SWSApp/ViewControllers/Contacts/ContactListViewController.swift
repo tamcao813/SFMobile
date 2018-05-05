@@ -265,6 +265,9 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     }
     
     @objc func reloadAllContacts(notification: NSNotification){
+        contactsAcc = [AccountContactRelation]()
+        globalContactCount = contactViewModel.globalContacts().count
+        contactsAcc = contactViewModel.accountsForContacts()
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")

@@ -149,8 +149,6 @@ class CreateNewContactViewController: UIViewController {
             firstNameTextField.becomeFirstResponder()
             if isNewContact {
                 tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
-            }else{
-                
             }
             showAlert = true
         } else if lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
@@ -165,9 +163,21 @@ class CreateNewContactViewController: UIViewController {
             primaryFunctionTextField.becomeFirstResponder()
             if isNewContact {
                 tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            }else{
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
             }
             showAlert = true
-        }else{
+        }else if phoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" && emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
+            phoneTextField.borderColor = .red
+            phoneTextField.becomeFirstResponder()
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            }else{
+                tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
+            }
+            showAlert = true
+        }
+        else{
             showAlert = false
         }
         

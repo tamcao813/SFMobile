@@ -76,8 +76,8 @@ class Contact {
         accountSite = json["Account.SWS_Account_Site__c"] as? String ?? ""
         accountSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
         functionRole = json["SGWS_Roles__c"] as? String ?? ""
-        buyerFlag = json["SGWS_Buyer_Flag__c"] as? Bool ?? false
-        let buyerFlagString = json["SGWS_Buyer_Flag__c"] as? String ?? ""
+        buyerFlag = json["SGWS_Buying_Power__c"] as? Bool ?? false
+        let buyerFlagString = json["SGWS_Buying_Power__c"] as? String ?? ""
         if buyerFlagString == "true" {
             buyerFlag = true
         }

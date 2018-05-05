@@ -55,6 +55,7 @@ class CreateNewContactViewController: UIViewController {
     var isNewContact: Bool = true
     var contactDetail: Contact?
     var accountSelected : Account!
+    var globalContacts = [Contact]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,7 +144,7 @@ class CreateNewContactViewController: UIViewController {
                 tableView.scrollToRow(at: IndexPath(row: 1, section: 2), at: .top, animated: true)
                 showAlert = true
             }
-        }else if (firstNameTextField.text?.isEmpty)! {
+        }else if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             firstNameTextField.borderColor = .red
             firstNameTextField.becomeFirstResponder()
             if isNewContact {
@@ -152,14 +153,14 @@ class CreateNewContactViewController: UIViewController {
                 
             }
             showAlert = true
-        } else if (lastNameTextField.text?.isEmpty)! {
+        } else if lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             lastNameTextField.borderColor = .red
             lastNameTextField.becomeFirstResponder()
             if isNewContact {
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             }
             showAlert = true
-        }else if (primaryFunctionTextField.text?.isEmpty)! {
+        } else if primaryFunctionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             primaryFunctionTextField.borderColor = .red
             primaryFunctionTextField.becomeFirstResponder()
             if isNewContact {
@@ -224,6 +225,33 @@ class CreateNewContactViewController: UIViewController {
             //            newContact.otherSpecification = otherReasonTextField.text!
             newContact.accountId = accountSelected.account_Id
         }
+        
+        if isNewContact {
+            var showAlert = false
+            globalContacts = ContactsViewModel().globalContacts()
+            let firstNameMatchArray = globalContacts.filter( { return $0.firstName.lowercased().contains(newContact.firstName) } )
+            if firstNameMatchArray.count > 0 {
+                showAlert = true
+            }
+            let lastNameMatchArray = globalContacts.filter( { return $0.lastName.lowercased().contains(newContact.lastName) } )
+            if lastNameMatchArray.count > 0 {
+                showAlert = true
+            }
+            
+            let phoneNameMatchArray = globalContacts.filter( { return $0.phoneNumber.lowercased().contains(newContact.phoneNumber) } )
+            if phoneNameMatchArray.count > 0 {
+                showAlert = true
+            }
+            
+            if showAlert {
+                let alertController = UIAlertController(title: "Error", message:
+                    "A duplicate contact with the same name and phone or name and email has been detected", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
+        }
+        
         
         var success: Bool!
         if isNewContact {

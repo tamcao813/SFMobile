@@ -53,11 +53,11 @@ class Contact {
     var contactClassification: String
     var otherSpecification: String
     var _soupEntryId: Int
-
+    
     
     
     convenience init(withAry resultDict: [String:Any]) {
-      //  let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
+        //  let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
         self.init(json: resultDict)
     }
     
@@ -78,7 +78,7 @@ class Contact {
         functionRole = json["SGWS_Roles__c"] as? String ?? ""
         buyerFlag = json["SGWS_Buyer_Flag__c"] as? Bool ?? false
         let buyerFlagString = json["SGWS_Buyer_Flag__c"] as? String ?? ""
-        if buyerFlagString == "1" {
+        if buyerFlagString == "true" {
             buyerFlag = true
         }
         title = json["Title"] as? String ?? ""
@@ -109,7 +109,7 @@ class Contact {
         contactClassification = json["SGWS_Contact_Classification__c"] as? String ?? ""
         otherSpecification = json["SGWS_Other_Specification__c"] as? String ?? ""
         _soupEntryId = json["_soupEntryId"] as? Int ?? 0
-
+        
     }
     
     func toJson() -> [String:Any] { //only pak the fields we need

@@ -144,6 +144,9 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     
     //MARK:- load contact data
     func loadContactData() {
+        //reset ACR data
+        contactsAcc.removeAll()
+        contactsAcc = contactViewModel.accountsForContacts()
         
         if ContactsGlobal.accountId == "" {
 

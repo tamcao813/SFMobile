@@ -12,9 +12,8 @@ class DropdownTableViewCell: UITableViewCell {
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var dropdownTextfield: CustomUITextField!
-    var pickerOption = [PlistOption]()
-    var selectedOption : PlistOption!
-    var contactDetail: Contact?
+    var pickerOption:NSArray = []
+    var selectedOption = Dictionary<String, String>()
     
     override func awakeFromNib() {
         super.awakeFromNib()

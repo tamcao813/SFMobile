@@ -569,29 +569,29 @@ extension PlanVisitViewController : UITextFieldDelegate{
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let accountId = appDelegate.loggedInUser?.accountId
-       
+       print("Account id in plan is \(accountId)")
         
         
        let new_visit = PlanVisit(for: "newVisit")
         
         
-        new_visit.Id = "54338"
+        new_visit.Id = "23338"
         new_visit.subject = "Need some help"
         new_visit.accountId = accountId!
         new_visit.accountName = "efececv"
         new_visit.accountNumber = "5342437"
         new_visit.accountBillingAddress = "htbgfv"
-        new_visit.contactId = "0030t00000IhkVlAAJ"
+        new_visit.contactId = " "
         new_visit.contactName = "trfvwvV"
         new_visit.contactPhone = "9576y4"
         new_visit.contactEmail = "shutgrbv11@gmail.com"
         new_visit.contactSGWS_Roles = "Buying"
-        new_visit.sgwsAppointmentStatus = "Appointment Confirmed"
+        new_visit.sgwsAppointmentStatus = "Appointment Confirmed" 
         new_visit.startDate = "2012-05-14T20:21:00"
         new_visit.endDate = "2012-05-14T20:21:00"
         new_visit.sgwsVisitPurpose = "Inventory Issue"
         new_visit.description = "Hetgbyto"
-        new_visit.sgwsAgendaNotes = "rkvmlkv"
+        new_visit.sgwsAgendaNotes = "Currently checking SyncUp"
         new_visit.status = "InProgress"
         new_visit.lastModifiedDate = "2012-05-14T20:21:00"
  

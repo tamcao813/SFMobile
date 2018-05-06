@@ -114,7 +114,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
     
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM yyyy"
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         dateTextField.text = dateFormatter.string(from: datePickerView.date)
         self.endEditing(true)// To resign the inputView on clicking done.
         NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
@@ -129,6 +129,18 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         } else {
             endTimeTextField.text = dateFormatter.string(from: datePickerView.date)
         }
+        if (!startTimeTextField.text!.isEmpty && !endTimeTextField.text!.isEmpty) {
+            if convertToDate(dateString: startTimeTextField.text!).compare(convertToDate(dateString: endTimeTextField.text!)) == .orderedDescending {
+                endTimeTextField.text! = ""
+                
+                let alert = UIAlertView()
+                alert.title = "Alert"
+                alert.message = "Start Time should be lesser than End Time"
+                alert.addButton(withTitle: "OK")
+                alert.show()
+            }
+        }
+
         self.endEditing(true)// To resign the inputView on clicking done.
         NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
     }
@@ -188,6 +200,14 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
 
         textField.inputView = inputView
         textField.inputAccessoryView = toolBar
+    }
+    
+    func convertToDate(dateString: String) -> Date {
+        let dateformatter = DateFormatter()
+        dateformatter.timeStyle = .medium
+        dateformatter.dateFormat = "hh:mm a"
+        let dateFromString = dateformatter.date(from: dateString)
+        return dateFromString!
     }
     
 }

@@ -35,6 +35,7 @@ class CreateNewContactViewController: UIViewController {
     var preferredCommunicationTextField: UITextField!
     var birthdayTextField: UITextField!
     var anniversaryTextField: UITextField!
+    var favouriteTextView: UITextView!
     var likeTextView: UITextView!
     var dislikeTextView: UITextView!
     var notesTextView: UITextView!
@@ -54,6 +55,7 @@ class CreateNewContactViewController: UIViewController {
     var isNewContact: Bool = true
     var contactDetail: Contact?
     var accountSelected : Account!
+    var globalContacts = [Contact]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,25 +141,52 @@ class CreateNewContactViewController: UIViewController {
             if (otherReasonTextField.text?.isEmpty)! {
                 otherReasonTextField.borderColor = .red
                 otherReasonTextField.becomeFirstResponder()
-                tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: true)
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 2), at: .top, animated: true)
                 showAlert = true
             }
-        }else if (firstNameTextField.text?.isEmpty)! {
+        }else if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             firstNameTextField.borderColor = .red
             firstNameTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            }
             showAlert = true
-        } else if (lastNameTextField.text?.isEmpty)! {
+        } else if lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             lastNameTextField.borderColor = .red
             lastNameTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            }
             showAlert = true
-        }else if (primaryFunctionTextField.text?.isEmpty)! {
+        } else if primaryFunctionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             primaryFunctionTextField.borderColor = .red
             primaryFunctionTextField.becomeFirstResponder()
-            tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            }else{
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            }
             showAlert = true
-        }else{
+        }else if phoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" && emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
+            phoneTextField.borderColor = .red
+            phoneTextField.becomeFirstResponder()
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            }else{
+                tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
+            }
+            showAlert = true
+        }else if emailTextField.text != "" && !Validations().isValidEmail(testStr: emailTextField.text!){
+            emailTextField.borderColor = .red
+            emailTextField.becomeFirstResponder()
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            }else{
+                tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
+            }
+            showAlert = true
+        }
+        else{
             showAlert = false
         }
         
@@ -183,6 +212,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.phoneNumber = phoneTextField.text!
         newContact.email = emailTextField.text!
         newContact.contactHours = contactHoursTextField.text!
+        newContact.favouriteActivities = favouriteTextView.text!
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
@@ -197,7 +227,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.child2Birthday = (familyDate2Textfield.text! == "Select") ? "" : familyDate2Textfield.text!
         
         newContact.child3Name = familyName3Textfield.text!
-        newContact.child2Birthday = (familyDate3Textfield.text! == "Select") ? "" : familyDate3Textfield.text!
+        newContact.child3Birthday = (familyDate3Textfield.text! == "Select") ? "" : familyDate3Textfield.text!
         
         newContact.child4Name = familyName4Textfield.text!
         newContact.child4Birthday = (familyDate4Textfield.text! == "Select") ? "" : familyDate4Textfield.text!
@@ -215,6 +245,42 @@ class CreateNewContactViewController: UIViewController {
             newContact.accountId = accountSelected.account_Id
         }
         
+        //        if isNewContact {
+        var showAlert = false
+        globalContacts = ContactsViewModel().globalContacts()
+        if globalContacts.count > 0 {
+            for index in 0 ... globalContacts.count - 1 {
+                if globalContacts[index].contactId == newContact.contactId {
+                    globalContacts.remove(at: index)
+                    break
+                }
+            }
+        }
+        
+        let firstNameMatchArray = globalContacts.filter( { return $0.firstName.lowercased().contains(newContact.firstName) } )
+        if firstNameMatchArray.count > 0 {
+            showAlert = true
+        }
+        let lastNameMatchArray = globalContacts.filter( { return $0.lastName.lowercased().contains(newContact.lastName) } )
+        if lastNameMatchArray.count > 0 {
+            showAlert = true
+        }
+        
+        let phoneNameMatchArray = globalContacts.filter( { return $0.phoneNumber.lowercased().contains(newContact.phoneNumber) } )
+        if phoneNameMatchArray.count > 0 {
+            showAlert = true
+        }
+        
+        if showAlert {
+            let alertController = UIAlertController(title: "Error", message:
+                "A duplicate contact with the same name and phone or name and email has been detected", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        //        }
+        
+        
         var success: Bool!
         if isNewContact {
             success = ContactsViewModel().createNewContactToSoup(object: newContact)
@@ -225,8 +291,8 @@ class CreateNewContactViewController: UIViewController {
         
         //sync up to Contact which will update ACR, then for now we need to sync down ACR
         if success {
-//            let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
-//            present(SmartStoreViewController, animated: true, completion: nil)
+            //            let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
+            //            present(SmartStoreViewController, animated: true, completion: nil)
             
             self.dismiss(animated: true, completion: {
                 self.delegate.updateContactList()
@@ -278,7 +344,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 3:
             return 8
         case 4:
-            return 8
+            return 9
         default:
             return 0
         }
@@ -397,13 +463,21 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return cell!
             case 5:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
+                cell?.headerLabel.text = "Favourites"
+                favouriteTextView = cell?.descriptionTextView
+                if let fav = contactDetail?.favouriteActivities, fav != "" {
+                    cell?.descriptionTextView.text = fav
+                }
+                return cell!
+            case 6:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Likes"
                 likeTextView = cell?.descriptionTextView
                 if let likes = contactDetail?.likes, likes != "" {
                     cell?.descriptionTextView.text = likes
                 }
                 return cell!
-            case 6:
+            case 7:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Dislikes"
                 dislikeTextView = cell?.descriptionTextView
@@ -411,7 +485,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                     cell?.descriptionTextView.text = dislikes
                 }
                 return cell!
-            case 7:
+            case 8:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Notes"
                 notesTextView = cell?.descriptionTextView
@@ -431,13 +505,15 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "NameTableViewCell") as? NameTableViewCell
+            if !isNewContact {
+                cell?.firstNameTextField.isEnabled = false
+                cell?.lastNameTextField.isEnabled = false
+            }
             firstNameTextField = cell?.firstNameTextField
             lastNameTextField = cell?.lastNameTextField
             preferredNameTextField = cell?.preferredNameTextField
             if let contactDetail = contactDetail {
-                cell?.displayCellContent(contactDetail: contactDetail)
-                cell?.firstNameTextField.isEnabled = false
-                cell?.lastNameTextField.isEnabled = false
+                cell?.displayCellContent(contactDetail: contactDetail)                
             }
             return cell!
         case 1:

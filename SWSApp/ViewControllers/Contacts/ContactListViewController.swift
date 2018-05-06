@@ -144,6 +144,9 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     
     //MARK:- load contact data
     func loadContactData() {
+        //reset ACR data
+        contactsAcc.removeAll()
+        contactsAcc = contactViewModel.accountsForContacts()
         
         if ContactsGlobal.accountId == "" {
 
@@ -262,6 +265,9 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     }
     
     @objc func reloadAllContacts(notification: NSNotification){
+        contactsAcc = [AccountContactRelation]()
+        globalContactCount = contactViewModel.globalContacts().count
+        contactsAcc = contactViewModel.accountsForContacts()
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")

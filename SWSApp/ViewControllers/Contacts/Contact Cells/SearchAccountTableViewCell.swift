@@ -8,6 +8,7 @@
 
 import UIKit
 import DropDown
+import IQKeyboardManagerSwift
 
 protocol SearchAccountTableViewCellDelegate: NSObjectProtocol {
     func accountSelected(account: Account)
@@ -21,6 +22,7 @@ class SearchAccountTableViewCell: UITableViewCell {
     let accountViewModel = AccountsViewModel()
     let accountsDropDown = DropDown()
     weak var delegate: SearchAccountTableViewCellDelegate!
+    var search:String=""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,11 +43,13 @@ class SearchAccountTableViewCell: UITableViewCell {
             cell.deleteButton.isHidden = true
             cell.displayCellContent(account: self.searchAccounts[index])
             }
-        accountsDropDown.cellHeight = 100
+        accountsDropDown.cellHeight = 70
         accountsDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.delegate.accountSelected(account: self.searchAccounts[index])
             self.searchContactTextField.resignFirstResponder()
         }
+        self.accountsDropDown.textFont = UIFont(name: "Ubuntu-Bold", size: 16)!
+//        self.moreDropDown.textColor =  UIColor.gray
     }
     
     func customizedUI(){
@@ -76,18 +80,24 @@ extension SearchAccountTableViewCell: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        if accountsDropDown != nil {
+            accountsDropDown.hide()
+        }
         return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        print(textField.text)
         searchAccounts = [Account]()
         searchAccountsString = [String]()
-        let searchString = searchContactTextField.text! + string
-        if searchString == "" {
+        if string.isEmpty{
+            search = String(search.characters.dropLast())
+        }else{
+            search = textField.text!+string
+        }
+        if search == "" {
             searchAccounts = self.accountViewModel.accountsForLoggedUser
         }else{
-            searchAccounts = self.getAccountData(searchStr: searchString)
+            searchAccounts = self.getAccountData(searchStr: search)
         }
         for account in searchAccounts {
             searchAccountsString.append(account.accountName)

@@ -15,6 +15,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     @IBOutlet weak var departmentTextField: UITextField!
     var pickerOption = [PlistOption]()
     var selectedPrimaryFunctionOption : PlistOption!
+    var contactDetail: Contact?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,7 +35,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
         addPickerView(textField: primaryFunctionTextField)
     }
     
-    func displayCellContent(contactDetail: Contact?){
+    func displayCellContent(){
         if let title = contactDetail?.title, title != "" {
             titleTextField.text =  title
         }
@@ -112,5 +113,11 @@ extension PrimaryFunctionTableViewCell: UIPickerViewDelegate, UIPickerViewDataSo
 extension PrimaryFunctionTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        contactDetail?.functionRole = primaryFunctionTextField.text!
+        contactDetail?.title = titleTextField.text!
+        contactDetail?.department = departmentTextField.text!
     }
 }

@@ -40,6 +40,7 @@ class SearchAccountTableViewCell: UITableViewCell {
         accountsDropDown.cellNib = UINib(nibName: "AccountContactLinkTableViewCell", bundle: nil)
         accountsDropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
                 guard let cell = cell as? AccountContactLinkTableViewCell else { return }
+//            cell.containerView.borderColor = .clear
             cell.deleteButton.isHidden = true
             cell.displayCellContent(account: self.searchAccounts[index])
             }

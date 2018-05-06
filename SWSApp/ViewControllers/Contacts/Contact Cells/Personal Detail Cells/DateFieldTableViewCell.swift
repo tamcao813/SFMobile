@@ -13,6 +13,7 @@ class DateFieldTableViewCell: UITableViewCell {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var dateTextfield: CustomUITextField!
     var selectedDate = NSDate()
+    var contactDetail: Contact?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,6 +24,15 @@ class DateFieldTableViewCell: UITableViewCell {
         dateTextfield.addPaddingLeft(10)
         dateTextfield.delegate = self
         addToolbar(textField: dateTextfield)
+    }
+    
+    func displayCellContent(){
+        if dateTextfield.tag == 1{
+            dateTextfield.text = contactDetail?.birthDate
+        }else{
+            dateTextfield.text = contactDetail?.anniversary
+        }
+        
     }
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
@@ -38,7 +48,6 @@ class DateFieldTableViewCell: UITableViewCell {
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
-//        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.donePicker))
@@ -61,6 +70,11 @@ extension DateFieldTableViewCell: UITextFieldDelegate {
         datePickerView.datePickerMode = UIDatePickerMode.date
         textField.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        if textField.tag == 1{
+            contactDetail?.birthDate = textField.text!
+        }else {
+            contactDetail?.anniversary = textField.text!
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

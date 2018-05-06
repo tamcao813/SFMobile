@@ -11,6 +11,8 @@ import UIKit
 class EmailTableViewCell: UITableViewCell {
 
     @IBOutlet weak var emailTextField: UITextField!
+    var contactDetail: Contact?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         customizedUI()
@@ -20,7 +22,7 @@ class EmailTableViewCell: UITableViewCell {
         emailTextField.addPaddingLeft(10)
     }
     
-    func displayCellContent(contactDetail: Contact?){
+    func displayCellContent(){
         if let email = contactDetail?.email, email != "" {
             emailTextField.text = email
         }
@@ -31,6 +33,10 @@ class EmailTableViewCell: UITableViewCell {
 extension EmailTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        contactDetail?.email = emailTextField.text!
     }
 }
 

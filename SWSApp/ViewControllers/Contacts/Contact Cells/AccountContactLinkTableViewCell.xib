@@ -107,10 +107,10 @@
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                <color key="value" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                <real key="value" value="1"/>
+                                <real key="value" value="0.5"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -128,11 +128,12 @@
                 <outlet property="addressLabel" destination="q0o-4z-QME" id="bKZ-uS-Tuh"/>
                 <outlet property="containerLeadingConstraint" destination="B8M-yP-tiF" id="GHe-q5-tsf"/>
                 <outlet property="containerTrailingConstraint" destination="zoZ-bH-GFK" id="l90-Tv-LfE"/>
+                <outlet property="containerView" destination="zHS-6q-i9g" id="qAJ-c4-OpT"/>
                 <outlet property="deleteButton" destination="gWx-uI-dTS" id="Wqi-jl-SIz"/>
                 <outlet property="optionLabel" destination="8Et-QC-Y7T" id="AMv-kv-aHH"/>
                 <outlet property="phoneNumberLabel" destination="wA6-D9-dny" id="sUr-Db-NgN"/>
             </connections>
-            <point key="canvasLocation" x="30.5" y="66.5"/>
+            <point key="canvasLocation" x="137" y="-26"/>
         </tableViewCell>
     </objects>
     <resources>

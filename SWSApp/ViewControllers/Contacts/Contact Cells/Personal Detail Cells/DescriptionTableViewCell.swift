@@ -44,4 +44,9 @@ extension DescriptionTableViewCell: UITextViewDelegate {
             contactDetail?.sgwsNotes = descriptionTextView.text!
         }
     }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        CreateNewContactViewController.createNewGlobals.userInput = true
+        return true
+    }
 }

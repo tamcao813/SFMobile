@@ -61,6 +61,11 @@ class DropdownTableViewCell: UITableViewCell {
     @objc func donePicker(){
         if !selectedOption.isEmpty {
             dropdownTextfield.text = selectedOption["value"]
+        }else{
+            if pickerOption.count > 0 {
+                selectedOption = pickerOption[0] as! [String : String]
+                dropdownTextfield.text = selectedOption["value"]
+            }
         }
         dropdownTextfield.resignFirstResponder()
     }
@@ -97,6 +102,10 @@ extension DropdownTableViewCell: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         contactDetail?.preferredCommunicationMethod = dropdownTextfield.text!
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewContactViewController.createNewGlobals.userInput = true
     }
 }
 

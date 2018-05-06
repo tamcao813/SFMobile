@@ -555,9 +555,11 @@ extension ContactListViewController : UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
         
-        let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
-        delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
-        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+        if indexPath.section == 1 {
+            let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
+            delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
+            ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+        }
         
     }
     

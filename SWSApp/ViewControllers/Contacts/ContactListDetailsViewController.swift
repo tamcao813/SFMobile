@@ -76,7 +76,7 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         
         let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
         let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
-        cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId, withRoles: acrDetail[(indexPath.row-2)].roles, forClassification: ContactSortUtility.formatContactClassification(contactToBeFormatted: contactDetail!))
+        cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId, withRoles: (contactDetail?.functionRole)!, forClassification: ContactSortUtility.formatContactClassification(contactToBeFormatted: contactDetail!))
 
         cell.unlinkAccountContactButton.tag = indexPath.row - countHeaderFooter
         cell.unlinkAccountContactButton.addTarget(self, action: #selector(actionUnlinkAccountContactDetails), for: .touchUpInside)

@@ -80,9 +80,16 @@ class ContactsViewModel{
         
         var selectedAccountName = ""
         
+        let accounts = AccountsViewModel().accountsForLoggedUser
+
+        
         for acr in acrData {
             if(acr.accountId == contactObject.accountId){
                 selectedAccountName = acr.accountName
+                if(!selectedAccountName.isEmpty){
+                    print("My acr name \(selectedAccountName)")
+                    break
+                }
             }
         }
         let newACR = AccountContactRelation(for: "newACR")

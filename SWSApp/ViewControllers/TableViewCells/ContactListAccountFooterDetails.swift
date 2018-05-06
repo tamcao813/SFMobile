@@ -31,10 +31,10 @@ class ContactListAccountFooterDetails: UITableViewCell {
         
         if let date: Date = dateFormatter.date(from: contactDetails.lastModifiedDate) {
             dateFormatter.dateFormat = "MMM d, yyyy"
-            accountModifiedValueLabel.text = "Last updated on " + dateFormatter.string(from: date) + " by " + contactDetails.lastModifiedByName
+            accountModifiedValueLabel.text = "Last updated on " + dateFormatter.string(from: date) + " by " + contactDetails.name
         }
         else {
-            accountModifiedValueLabel.text = "Last updated by " + contactDetails.lastModifiedByName
+            accountModifiedValueLabel.text = "Last updated by " + contactDetails.name
         }
 
     }

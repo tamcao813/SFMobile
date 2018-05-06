@@ -18,6 +18,7 @@ class FamilyTableViewCell: UITableViewCell {
     @IBOutlet weak var familyLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var nameLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var dateLabelHeightConstraint: NSLayoutConstraint!
+    var contactDetail: Contact?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,10 +27,28 @@ class FamilyTableViewCell: UITableViewCell {
     
     func customizedUI(){
         dateTextField.addPaddingLeft(10)
-        dateTextField.tag = 1
         nameTextField.addPaddingLeft(10)
         assignDatePicker()
         addToolbar(textField: dateTextField)
+    }
+    
+    func displayCellContent(){
+        if nameTextField.tag == 1 || dateTextField.tag == 1{
+            nameTextField.text! = (contactDetail?.child1Name)!
+            dateTextField.text! = (contactDetail?.child1Birthday)!
+        }else if nameTextField.tag == 2 || dateTextField.tag == 2 {
+            nameTextField.text! = (contactDetail?.child2Name)!
+            dateTextField.text! = (contactDetail?.child2Birthday)!
+        }else if nameTextField.tag == 3 || dateTextField.tag == 3{
+            nameTextField.text! = (contactDetail?.child3Name)!
+            dateTextField.text! = (contactDetail?.child3Birthday)!
+        }else if nameTextField.tag == 4 || dateTextField.tag == 4{
+            nameTextField.text! = (contactDetail?.child4Name)!
+            dateTextField.text! = (contactDetail?.child4Birthday)!
+        }else{
+            nameTextField.text! = (contactDetail?.child5Name)!
+            dateTextField.text! = (contactDetail?.child5Birthday)!
+        }
     }
     
     func assignDatePicker(){
@@ -72,7 +91,7 @@ class FamilyTableViewCell: UITableViewCell {
 extension FamilyTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.tag == 1{
+        if textField == dateTextField{
             let datePickerView:UIDatePicker = UIDatePicker()
             datePickerView.datePickerMode = UIDatePickerMode.date
             textField.inputView = datePickerView
@@ -82,6 +101,25 @@ extension FamilyTableViewCell: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        if textField.tag == 1 {
+            contactDetail?.child1Name = nameTextField.text!
+            contactDetail?.child1Birthday = dateTextField.text!
+        }else if textField.tag == 2 {
+            contactDetail?.child2Name = nameTextField.text!
+            contactDetail?.child3Birthday = dateTextField.text!
+        }else if textField.tag == 3 {
+            contactDetail?.child3Name = nameTextField.text!
+            contactDetail?.child3Birthday = dateTextField.text!
+        }else if textField.tag == 4{
+            contactDetail?.child4Name = nameTextField.text!
+            contactDetail?.child4Birthday = dateTextField.text!
+        }else{
+            contactDetail?.child5Name = nameTextField.text!
+            contactDetail?.child5Birthday = dateTextField.text!
+        }
     }
 }
 

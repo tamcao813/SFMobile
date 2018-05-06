@@ -14,10 +14,15 @@ class DropdownTableViewCell: UITableViewCell {
     @IBOutlet weak var dropdownTextfield: CustomUITextField!
     var pickerOption:NSArray = []
     var selectedOption = Dictionary<String, String>()
+    var contactDetail: Contact?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         customUI()
+    }
+    
+    func displayCellContent(){
+        dropdownTextfield.text = contactDetail?.preferredCommunicationMethod
     }
     
     func customUI() {
@@ -88,6 +93,10 @@ extension DropdownTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
 extension DropdownTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        contactDetail?.preferredCommunicationMethod = dropdownTextfield.text!
     }
 }
 

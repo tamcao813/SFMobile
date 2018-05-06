@@ -22,6 +22,7 @@ class AccountContactLinkTableViewCell: DropDownCell {
     @IBOutlet weak var containerTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerLeadingConstraint: NSLayoutConstraint!
     weak var delegate : AccountContactLinkTableViewCellDelegate!
+    @IBOutlet weak var containerView: UIView!
     
     func displayCellContent(account: Account){
         phoneNumberLabel.text = account.accountNumber
@@ -41,7 +42,7 @@ class AccountContactLinkTableViewCell: DropDownCell {
                 fullAddress = account.shippingStreet + " " + account.shippingCity + " " + account.shippingState +  " " + account.shippingPostalCode
             }
         }
-        addressLabel?.text = fullAddress
+        addressLabel?.text = fullAddress        
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton){

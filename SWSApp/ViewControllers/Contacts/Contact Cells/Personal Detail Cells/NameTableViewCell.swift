@@ -13,6 +13,7 @@ class NameTableViewCell: UITableViewCell {
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var preferredNameTextField: UITextField!
+    var contactDetail: Contact?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,7 +26,7 @@ class NameTableViewCell: UITableViewCell {
         preferredNameTextField.addPaddingLeft(10)
     }
     
-    func displayCellContent(contactDetail: Contact?){
+    func displayCellContent(){
         if let firstName = contactDetail?.firstName, firstName != "" {
             firstNameTextField.text = firstName
         }
@@ -41,5 +42,11 @@ class NameTableViewCell: UITableViewCell {
 extension NameTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        contactDetail?.firstName = firstNameTextField.text!
+        contactDetail?.lastName  = lastNameTextField.text!
+        contactDetail?.preferredName = preferredNameTextField.text!
     }
 }

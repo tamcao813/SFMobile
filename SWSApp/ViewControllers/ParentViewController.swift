@@ -499,7 +499,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if(GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex != selectedVC) {
             self.moreDropDownSelectionIndex = -1
         }
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         ifMoreVC = false
         var vc: UIViewController?
         switch selectedVC {
@@ -514,7 +514,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             ContactsGlobal.accountId = ""
         case .ContactsVCIndex:
             let contactVC = contactsVC as! ContactsViewController
+            contactVC.contactDetails?.willMove(toParentViewController: nil)
             contactVC.contactDetails?.view.removeFromSuperview()
+            contactVC.contactDetails?.removeFromParentViewController()
             vc = contactVC
 //            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
@@ -534,6 +536,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             break
         }
         
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         previouslySelectedVCIndex = index
         self.removePresentedViewControllers()
         

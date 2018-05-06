@@ -202,7 +202,11 @@ class CreateNewContactViewController: UIViewController {
             newContact = contactDetail!
         }
         
-        newContact.buyerFlag = doesHaveBuyingPower
+        if(isNewContact){
+            newContact.buyerFlag = doesHaveBuyingPower
+        } else {
+            newContact.buyerFlag = (contactDetail?.buyerFlag)!
+        }
         newContact.firstName = firstNameTextField.text!
         newContact.lastName = lastNameTextField.text!
         newContact.preferredName = preferredNameTextField.text!

@@ -74,10 +74,20 @@ class ContactsViewModel{
         return StoreDispatcher.shared.createNewContactToSoup(fields: contactfields)
     }
     
-    func createARCDictionary(contactObject: Contact, accountObject: Account) -> Bool{        
+    func createARCDictionary(contactObject: Contact, accountObject: Account) -> Bool{
+        
+        let acrData = ContactsViewModel().accountsForContacts()
+        
+        var selectedAccountName = ""
+        
+        for acr in acrData {
+            if(acr.accountId == contactObject.accountId){
+                selectedAccountName = acr.accountName
+            }
+        }
         let newACR = AccountContactRelation(for: "newACR")
         newACR.accountId = contactObject.accountId
-        newACR.accountName = accountObject.accountName
+        newACR.accountName = selectedAccountName
         newACR.contactId = contactObject.contactId
         newACR.contactName = contactObject.firstName + " " + contactObject.lastName
         newACR.roles = contactObject.functionRole

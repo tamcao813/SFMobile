@@ -75,6 +75,11 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     @objc func donePicker(){
         if !selectedPrimaryFunctionOption.isEmpty {
             primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"]
+        }else{
+            if pickerOption.count > 0 {
+                selectedPrimaryFunctionOption = pickerOption[0] as! [String : String]
+                primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"]
+            }
         }
         primaryFunctionTextField.resignFirstResponder()
     }
@@ -106,6 +111,10 @@ extension PrimaryFunctionTableViewCell: UIPickerViewDelegate, UIPickerViewDataSo
 extension PrimaryFunctionTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewContactViewController.createNewGlobals.userInput = true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

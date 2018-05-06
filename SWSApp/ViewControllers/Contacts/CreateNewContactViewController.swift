@@ -17,6 +17,11 @@ protocol CreateNewContactViewControllerDelegate : NSObjectProtocol{
 
 class CreateNewContactViewController: UIViewController {
     
+    
+    struct  createNewGlobals {
+        static var userInput = false
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeaderLabel: UILabel!
     var searchAccountTextField: UITextField!
@@ -113,15 +118,22 @@ class CreateNewContactViewController: UIViewController {
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
-        let alertController = UIAlertController(title: "Error", message: StringConstants.discardChangesConfirmation, preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+        if  createNewGlobals.userInput {
+            let alertController = UIAlertController(title: "Error", message: StringConstants.discardChangesConfirmation, preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                createNewGlobals.userInput = false
+                self.dismiss(animated: true, completion: nil)
+            }))
+            alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }else{
             self.dismiss(animated: true, completion: nil)
-        }))
-        alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
+        }
+        
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton){
+        phoneTextField.text = Validations().validatePhoneNumber(phoneNumber: phoneTextField.text!)
         errorLabel.text = ""
         firstNameTextField.borderColor = .lightGray
         lastNameTextField.borderColor = .lightGray
@@ -318,6 +330,7 @@ class CreateNewContactViewController: UIViewController {
         if success {
             self.dismiss(animated: true, completion: {
                 self.delegate.updateContactList()
+                createNewGlobals.userInput = false
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
             })
         }else{

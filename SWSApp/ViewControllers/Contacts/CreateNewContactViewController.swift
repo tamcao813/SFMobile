@@ -207,6 +207,12 @@ class CreateNewContactViewController: UIViewController {
             newContact = contactDetail!
         }
         
+        if(isNewContact){
+            newContact.buyerFlag = true
+        } else {
+            newContact.buyerFlag = (contactDetail?.buyerFlag)!
+        }
+        
         newContact.buyerFlag = true//doesHaveBuyingPower
         newContact.firstName = firstNameTextField.text!
         newContact.lastName = lastNameTextField.text!

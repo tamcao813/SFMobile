@@ -44,6 +44,10 @@ extension NameTableViewCell: UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewContactViewController.createNewGlobals.userInput = true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         contactDetail?.firstName = firstNameTextField.text!
         contactDetail?.lastName  = lastNameTextField.text!

@@ -97,6 +97,7 @@ extension FamilyTableViewCell: UITextFieldDelegate {
             textField.inputView = datePickerView
             datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
         }
+        CreateNewContactViewController.createNewGlobals.userInput = true        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

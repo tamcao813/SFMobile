@@ -30,5 +30,34 @@ class Validations {
         let result = emailTest.evaluate(with: testStr)
         return result
     }
+    func validatePhoneNumber(phoneNumber: String) -> String{
+        let newString = phoneNumber as NSString
+        let components = newString.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
+        let decimalString = components.joined(separator: "") as NSString
+        let length = decimalString.length
+        let hasLeadingOne = length > 0 && decimalString.character(at: 0) == (1 as unichar)
+        
+        var index = 0 as Int
+        let formattedString = NSMutableString()
+        
+        if hasLeadingOne {
+            formattedString.append("1 ")
+            index += 1
+        }
+        if (length - index) > 3 {
+            let areaCode = decimalString.substring(with: NSMakeRange(index, 3))
+            formattedString.appendFormat("(%@)", areaCode)
+            index += 3
+        }
+        if length - index > 3 {
+            let prefix = decimalString.substring(with: NSMakeRange(index, 3))
+            formattedString.appendFormat("%@-", prefix)
+            index += 3
+        }
+        
+        let remainder = decimalString.substring(from: index)
+        formattedString.append(remainder)
+        return formattedString as String
+    }
 }
 

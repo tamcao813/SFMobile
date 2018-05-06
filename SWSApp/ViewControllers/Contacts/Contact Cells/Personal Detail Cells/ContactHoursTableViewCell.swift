@@ -34,6 +34,10 @@ extension ContactHoursTableViewCell: UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewContactViewController.createNewGlobals.userInput = true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         contactDetail?.contactHours = contactHoursTextField.text!
     }

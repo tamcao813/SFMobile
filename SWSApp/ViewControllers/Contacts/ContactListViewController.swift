@@ -49,6 +49,8 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        globalContactCount = 0
+        currentPageIndex = 0
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
         fetchContacts()
     }
@@ -192,7 +194,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("filteringContact")
         
         if !filtering {
-            loadContactData()
+            fetchContacts()
         }
         
         for count in 1...5 {

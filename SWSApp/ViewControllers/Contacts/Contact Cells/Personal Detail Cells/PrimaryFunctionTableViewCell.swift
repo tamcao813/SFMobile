@@ -15,6 +15,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     @IBOutlet weak var departmentTextField: UITextField!
     var pickerOption:NSArray = []
     var selectedPrimaryFunctionOption  = Dictionary<String, String>()
+    var contactDetail: Contact?
     
     override func awakeFromNib() {
         super.awakeFromNib()

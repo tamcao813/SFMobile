@@ -23,7 +23,9 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     }
     
     func customizedUI(){
-        let opts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactRoles")
+        //        let opts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactRoles")
+        let opts = PlistMap.sharedInstance.readPList(plist: "/ContactRoles.plist")
+        
         pickerOption = opts
         primaryFunctionTextField.addPaddingLeft(10)
         titleTextField.addPaddingLeft(10)
@@ -71,15 +73,8 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     }
     
     @objc func donePicker(){
-        if let selectedValue = selectedPrimaryFunctionOption {
-            primaryFunctionTextField.text = selectedValue.value
-        }else{
-            if pickerOption.count > 0 {
-                selectedPrimaryFunctionOption = pickerOption[0]
-                if let selectedValue = selectedPrimaryFunctionOption {
-                    primaryFunctionTextField.text = selectedValue.value
-                }
-            }
+        if !selectedPrimaryFunctionOption.isEmpty {
+            primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"]
         }
         primaryFunctionTextField.resignFirstResponder()
     }
@@ -100,13 +95,11 @@ extension PrimaryFunctionTableViewCell: UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerOption[row].value
+        return (pickerOption[row] as! Dictionary<String, String>)["value"]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerOption.count > 0 {
-            selectedPrimaryFunctionOption = pickerOption[row]
-        }
+        selectedPrimaryFunctionOption = (pickerOption[row] as! Dictionary<String, String>)
     }
 }
 

@@ -34,4 +34,15 @@ class PlistMap {
         return [PlistOption]()
     }
     
+    //Read Plist For Service Purposes
+    
+    func readPList(plist:String) -> NSArray {
+        
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let path = documentDirectory.appending(plist)
+        let array = NSArray(contentsOfFile: path)
+        return array!
+        
+    }
+    
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 class DropdownTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var dropdownTextfield: CustomUITextField!
     var pickerOption = [PlistOption]()
@@ -26,7 +26,8 @@ class DropdownTableViewCell: UITableViewCell {
     }
     
     func customUI() {
-        let opts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactPreferredCommunication")
+        //        let opts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactPreferredCommunication")
+        let opts = PlistMap.sharedInstance.readPList(plist: "/ContactPreferred.plist")
         pickerOption = opts
         dropdownTextfield.addPaddingLeft(10)
         let dropdownButton : UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 30))
@@ -58,15 +59,8 @@ class DropdownTableViewCell: UITableViewCell {
     }
     
     @objc func donePicker(){
-        if let selectedValue = selectedOption {
-            dropdownTextfield.text = selectedValue.value
-        }else{
-            if pickerOption.count > 0 {
-                selectedOption = pickerOption[0]
-                if let selectedValue = selectedOption {
-                    dropdownTextfield.text = selectedValue.value
-                }
-            }
+        if !selectedOption.isEmpty {
+            dropdownTextfield.text = selectedOption["value"]
         }
         dropdownTextfield.resignFirstResponder()
     }
@@ -88,13 +82,11 @@ extension DropdownTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerOption[row].value
+        return (pickerOption[row] as! Dictionary<String, String>)["value"]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerOption.count > 0 {
-            selectedOption = pickerOption[row]
-        }
+        selectedOption = (pickerOption[row] as! Dictionary<String, String>)
     }
 }
 

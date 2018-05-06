@@ -168,6 +168,35 @@ class StoreDispatcher {
         }
     }
     
+    // Create PList For Service Purposes
+    
+    func createPList(plist:String, plistObject:[[String : AnyObject]]) {
+        
+        let fileManager = FileManager.default
+        
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let path = documentDirectory.appending(plist)
+        if(!fileManager.fileExists(atPath: path)){
+            
+            var tempArr = [Dictionary<String, String>]()
+            var targetDict = [String: String]()
+            for object in plistObject {
+                for (key, value) in object {
+                    if let value = value as? String {
+                        targetDict[key] = value
+                    }
+                }
+                tempArr.append(targetDict)
+            }
+            
+            let isWritten = (tempArr as NSArray).write(toFile: path, atomically: true)
+            print("is the file created: \(isWritten)")
+            
+        } else {
+            print("file exists")
+        }
+    }
+    
     func downloadContactRolesPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId //"012i0000000PebvAAC" //"012i0000000Pf4AAAS" //(userVieModel.loggedInUser?.recordTypeId)!
         let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Roles__c"
@@ -182,7 +211,7 @@ class StoreDispatcher {
                 
                 if response.count > 0 {
                     var rolesAry = [PlistOption]()
-                    
+                    self.createPList(plist: "/ContactRoles.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -220,6 +249,7 @@ class StoreDispatcher {
                 if response.count > 0 {
                     var ary = [PlistOption]()
                     
+                    self.createPList(plist: "/ContactPreferred.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -256,7 +286,7 @@ class StoreDispatcher {
                 
                 if response.count > 0 {
                     var ary = [PlistOption]()
-                    
+                    self.createPList(plist: "/ContactClassification.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""

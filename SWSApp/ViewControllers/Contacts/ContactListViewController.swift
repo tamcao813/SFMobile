@@ -108,13 +108,28 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         cell.emailValueLabel.text =  globalContact.email
         cell.selectionStyle = .none
         var accountsName = [String]()
+        
+        
         for acc in contactsAcc{
             
             if(globalContact.contactId == acc.contactId){
-                accountsName.append(acc.accountName)
+                if(!acc.accountName.isEmpty){
+                    print("my account names \(acc.accountName) \(acc.contactId) \(acc.contactName) \(acc.accountId)")
+                    accountsName.append(acc.accountName)
+                    break
+                }
+                else { // acr table is not populated so reading from accounts table.
+                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: acc.accountId)
+                    guard accountList != nil, (accountList?.count)! > 0  else {
+                        continue
+                    }
+
+                    accountsName.append(accountList![0].accountName)
+                    break
+                }
             }
+            
         }
-        
         if(accountsName.count > 0){
             accountsName = accountsName.sorted { $0.lowercased() < $1.lowercased() }
             

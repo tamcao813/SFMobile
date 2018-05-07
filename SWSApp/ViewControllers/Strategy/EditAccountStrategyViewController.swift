@@ -35,7 +35,7 @@ class EditAccountStrategyViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         //createStrategy()
         
-        createStrategy()
+        
         IQKeyboardManager.shared.enable = true
         
         if self.view.frame.size.width == 1112.0{
@@ -138,7 +138,7 @@ class EditAccountStrategyViewController: UIViewController {
         tableViewRowDetails = tableViewData
         
 
-        
+        createStrategy()
         
         
     }
@@ -375,14 +375,47 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
     func createStrategy() {
         let new_Strategy = StrategyQA(for: "NewStrategy")
         
-       
         new_Strategy.Id = ""
-        new_Strategy.OwnerId = "005m0000002pSmiAAE"
-        new_Strategy.SGWS_Account__c = "001m000000cHLa7AAG"
-        new_Strategy.SGWS_Answer_Description_List__c = "Testing with syncup,Coca Cola"
-        new_Strategy.SGWS_Answer_Options__r_Id = ""
-        new_Strategy.SGWS_Notes__c = "I like to eat chips"
+        new_Strategy.OwnerId = ""
+        new_Strategy.SGWS_Account__c = ""
+        new_Strategy.SGWS_Notes__c = "chips"
+        
+        let answersSelected = NSMutableArray()
+        
+        for q in tableViewRowDetails!{
+            
+            let item = q as! NSMutableDictionary
+            
+            let dict = item["answers"] as! NSMutableArray
+            
+            for answers in dict{
+                
+                let answerDict = answers as! NSMutableDictionary
+                
+                let isSelected = answerDict["isSelected"] as! String
+                
+                if isSelected == "YES"{
+                    let answer = answerDict["answerText"] as! String
+                    answersSelected.add(answer)
+                }
+                
+            }
+        }
+        
+        let answerSelected  = answersSelected.componentsJoined(by: ",")
+        var answerString = ""
+        if answersSelected.count > 0{
+            
+            answerString = answerSelected
+        }
+        
+        //print("")
+        
+        
+        new_Strategy.SGWS_Answer_Description_List__c = answerString
+        // new_Strategy.SGWS_Answer_Options__r_Id = ""
         new_Strategy.SGWS_Question__r_Id = ""
+        
         let attributeDict = ["type":"SGWS_Response__c"]
         
         let addNewDict: [String:Any] = [
@@ -399,7 +432,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             kSyncTargetLocallyUpdated:false,
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
-
+        
         let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
         print("Success is here \(success)")
         

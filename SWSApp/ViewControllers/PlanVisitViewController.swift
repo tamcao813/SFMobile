@@ -463,8 +463,10 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             let contactObj = associatedSelectedContact[0]
             PlanVistManager.sharedInstance.contactId = contactObj.contactId
         }
-        let accountObj = searchAccounts[0]
-        PlanVistManager.sharedInstance.accountId = accountObj.account_Id
+        if !searchAccounts.isEmpty {
+            let accountObj = searchAccounts[0]
+            PlanVistManager.sharedInstance.accountId = accountObj.account_Id
+        }
         if ((schedulerComponentView.dateTextField.text != nil) && (schedulerComponentView.startTimeTextField.text != nil)) {
             PlanVistManager.sharedInstance.startDate = self.getDataTimeinStr(date: schedulerComponentView.dateTextField.text!, time: schedulerComponentView.startTimeTextField.text!)
         }

@@ -190,7 +190,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         
         let uiAlertController = UIAlertController(// create new instance alert  controller
             title: "Alert",
-            message: "Are you sure you want to close?",
+            message: "Any changes will not be saved. Are you sure you want to close?",
             preferredStyle:.alert)
         
         uiAlertController.addAction(// add Custom action on Event is Cancel

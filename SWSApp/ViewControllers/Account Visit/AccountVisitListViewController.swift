@@ -141,6 +141,11 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 
 //MARK:- NavigateToContacts Delegate
 extension AccountVisitListViewController : NavigateToContactsDelegate{
+    func navigateToVisitListing() {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
     //Send a notification to Parent VC to load respective VC
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {        

@@ -209,7 +209,7 @@ class CreateNewContactViewController: UIViewController {
             }
             errorLabel.text = StringConstants.emptyFieldError
             return
-        }else if phoneTextField.text != "" && phoneTextField.text?.characters.count != 13{
+        }else if phoneTextField.text != "" && Validations().removeSpecialCharsFromString(text: phoneTextField.text!).characters.count != 10{
             phoneTextField.borderColor = .red
             phoneTextField.becomeFirstResponder()
             if isNewContact {
@@ -219,7 +219,7 @@ class CreateNewContactViewController: UIViewController {
             }
             errorLabel.text = "Please correct error above"
             return
-        }else if faxTextField.text != "" && faxTextField.text?.characters.count != 13{
+        }else if faxTextField.text != "" && Validations().removeSpecialCharsFromString(text: faxTextField.text!).characters.count != 10{
             faxTextField.borderColor = .red
             faxTextField.becomeFirstResponder()
             if isNewContact {

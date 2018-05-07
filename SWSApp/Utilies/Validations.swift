@@ -90,5 +90,11 @@ class Validations {
         }
         return firstChar
     }
+    
+    func removeSpecialCharsFromString(text: String) -> String {
+        let okayChars : Set<Character> =
+            Set("1234567890".characters)
+        return String(text.characters.filter {okayChars.contains($0) })
+    }
 }
 

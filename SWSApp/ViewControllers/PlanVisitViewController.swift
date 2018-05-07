@@ -111,7 +111,6 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         searchContactTxt.isEnabled = false
         if self.myTableView != nil {
             self.myTableView.removeFromSuperview()
-            self.containerView.removeFromSuperview()
         }
         
         
@@ -536,7 +535,6 @@ extension PlanVisitViewController : UITableViewDelegate {
             self.myTableView.alpha = 0
         }) { _ in
             self.myTableView.removeFromSuperview()
-            self.containerView.removeFromSuperview()
             if(self.textFieldTag == kAccountTxtTag) {
                 self.searchAccountLbl.isHidden = true
                 self.searchAccountTxt.isHidden = true
@@ -587,45 +585,24 @@ extension PlanVisitViewController : UITextFieldDelegate{
         
         switch textField.tag {
         case kAccountTxtTag:
-            myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 310))
-            containerView = UIView(frame:CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width + 10, height: 320))
-            containerView.backgroundColor = UIColor.clear
-            containerView.layer.shadowColor = UIColor.darkGray.cgColor
-            containerView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-            containerView.layer.shadowOpacity = 1.0
-            containerView.layer.shadowRadius = 2
-            
-            myTableView.layer.cornerRadius = 10
-            myTableView.layer.masksToBounds = true
-            self.view.addSubview(containerView)
-            containerView.addSubview(myTableView)
+            myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 310))
             textFieldTag = textField.tag
             myTableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: "MyCell")
             searchAccounts = self.accountViewModel.accountsForLoggedUser
             myTableView.separatorStyle = UITableViewCellSeparatorStyle.none
             myTableView.dataSource = self
             myTableView.delegate = self
-            self.scrollView.addSubview(containerView)
+            self.scrollView.addSubview(myTableView)
         case kContactTxtTag:
             if (self.getNonSelectedContacts().count != 0) {
-                myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 310))
-                containerView = UIView(frame:CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width + 10, height: 320))
-                containerView.backgroundColor = UIColor.clear
-                containerView.layer.shadowColor = UIColor.darkGray.cgColor
-                containerView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-                containerView.layer.shadowOpacity = 1.0
-                containerView.layer.shadowRadius = 2
-                
-                myTableView.layer.cornerRadius = 10
-                myTableView.layer.masksToBounds = true
-                self.view.addSubview(containerView)
+                myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 310))
                 textFieldTag = textField.tag
                 myTableView.register(UINib(nibName: "AssociateTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociateTableViewCell")
                 nonSelectedContact = self.getNonSelectedContacts()
                 myTableView.separatorStyle = UITableViewCellSeparatorStyle.none
                 myTableView.dataSource = self
                 myTableView.delegate = self
-                self.scrollView.addSubview(containerView)
+                self.scrollView.addSubview(myTableView)
             }
         default:
             print("default")

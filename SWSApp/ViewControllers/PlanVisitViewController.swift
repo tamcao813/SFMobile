@@ -12,6 +12,10 @@ let kAccountTxtTag = 100
 let kContactTxtTag = 101
 let kSelectedContactTag = 102
 
+protocol PlanVisitViewControllerDelegate: NSObjectProtocol {
+    func refershList()
+}
+
 class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     
     var associatedSelectedContact = [Contact]()
@@ -28,6 +32,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     var editVist:Visit? = Visit(for: "")
     var editContact:Contact? = Contact(for: "")
     var tableViewData : [PlanVisit]?
+    weak var delegate: PlanVisitViewControllerDelegate!
     
     // MARK:- IBOutlets
     
@@ -202,6 +207,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
                 uiAlertController.dismiss(animated: true, completion: nil)
                 self.planVist?.status = "Schedule"
+                self.delegate.refershList()
                 self.dismiss(animated: true)
             }))
         self.present(uiAlertController, animated: true, completion: nil)

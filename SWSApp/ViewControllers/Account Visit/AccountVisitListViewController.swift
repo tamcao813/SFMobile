@@ -12,15 +12,7 @@ import SwipeCellKit
 class AccountVisitListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var accountVisitArray = [
-        ["title" : "Visit: Crown Liquor Store One", "status" : "Scheduled"],
-        ["title" : "Visit: Crown Liquor Store One", "status" : "In Progress"],
-        ["title" : "Visit: Crown Liquor Store One", "status" : "Completed"],
-        ["title" : "Visit: Crown Liquor Store One", "status" : "Planned"]]
-    
-    var tableViewData : [Visit]?
-    
-    
+    var tableViewDataArray : [Visit]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +22,10 @@ class AccountVisitListViewController: UIViewController {
     }
     
     func getTheDataFromDB(){
+        tableViewDataArray = [Visit]()
         let visitArray = VisitsViewModel()
-        
-        tableViewData = visitArray.visitsForUser()
-        
-        print(tableViewData)
-        
+        tableViewDataArray = visitArray.visitsForUser()
+        tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
     }
     
     func customizedUI(){
@@ -52,8 +42,9 @@ class AccountVisitListViewController: UIViewController {
     
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
         let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
+        let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID") as! PlanVisitViewController
         viewController.modalPresentationStyle = .overCurrentContext
+        viewController.delegate = self
         self.present(viewController, animated: true)
     }
     
@@ -66,13 +57,13 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewData!.count
+        return tableViewDataArray!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
         cell?.delegate = self
-        let celldata = tableViewData![indexPath.row]
+        let celldata = tableViewDataArray![indexPath.row]
         cell?.displayCellData(data: celldata)
         return cell!
     }
@@ -86,7 +77,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             
-            let data : Visit = self.tableViewData![indexPath.row]
+            let data : Visit = self.tableViewDataArray![indexPath.row]
             
             if data.status == "Scheduled"{
                 accountVisitsVC?.visitStatus = .scheduled
@@ -130,8 +121,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
         let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
         
-        let data : Visit = tableViewData![indexPath.row]
-        PlanVistManager.sharedInstance.visit = tableViewData![indexPath.row]
+        let data : Visit = tableViewDataArray![indexPath.row]
+        PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.editPlanVisit = true
         if data.status == "Scheduled"{
             accountVisitsVC?.visitStatus = .scheduled
@@ -174,6 +165,13 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
         FilterMenuModel.selectedAccountId = ""
 
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+    }
+}
+
+extension AccountVisitListViewController: PlanVisitViewControllerDelegate {
+    func refershList() {
+        getTheDataFromDB()
+        tableView.reloadData()
     }
 }
 

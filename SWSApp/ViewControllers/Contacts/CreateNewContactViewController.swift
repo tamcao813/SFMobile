@@ -118,18 +118,19 @@ class CreateNewContactViewController: UIViewController {
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
-        if  createNewGlobals.userInput {
-            let alertController = UIAlertController(title: "Error", message: StringConstants.discardChangesConfirmation, preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-                createNewGlobals.userInput = false
+        DispatchQueue.main.async {
+            if  createNewGlobals.userInput {
+                let alertController = UIAlertController(title: "Error", message: StringConstants.discardChangesConfirmation, preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                    createNewGlobals.userInput = false
+                    self.dismiss(animated: true, completion: nil)
+                }))
+                alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }else{
                 self.dismiss(animated: true, completion: nil)
-            }))
-            alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-        }else{
-            self.dismiss(animated: true, completion: nil)
+            }
         }
-        
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton){

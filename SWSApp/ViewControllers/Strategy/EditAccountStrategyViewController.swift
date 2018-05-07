@@ -404,16 +404,16 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         print("Success is here \(success)")
         
 
-//        if success == true{
-//
-//            let fields: [String] = StrategyQA.StrategyQAFields
-//            strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in
-//                if error != nil {
-//                    print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
-//                }
-//            })
-//
-//        }
+        if success == true{
+
+            let fields: [String] = StrategyQA.StrategyQAFields
+            strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in
+                if error != nil {
+                    print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
+                }
+            })
+
+        }
 
         
         

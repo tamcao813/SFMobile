@@ -68,7 +68,7 @@ class CreateNewContactViewController: UIViewController {
         super.viewDidLoad()
         if let id = contactId {
             contactDetail = ContactSortUtility.searchContactByContactId(id)
-        }        
+        }
         customizedUI()
         initializingXIBs()
         IQKeyboardManager.shared.enable = true
@@ -295,34 +295,15 @@ class CreateNewContactViewController: UIViewController {
         
         // Checkin Duplicate Entry
         for contact in globalContacts {
-            if contact.firstName == newContact.firstName {
-                showAlert = true
-                break
+            if contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.phoneNumber == newContact.phoneNumber || contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.email == newContact.email {
+                let alertController = UIAlertController(title: "Error", message:
+                    "A duplicate contact with the same name and phone or name and email has been detected", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+                return
             }
         }
-        
-        for contact in globalContacts {
-            if contact.lastName == newContact.lastName {
-                showAlert = true
-                break
-            }
-        }
-        
-        for contact in globalContacts {
-            if contact.phoneNumber == newContact.phoneNumber {
-                showAlert = true
-                break
-            }
-        }
-        
-        if showAlert {
-            let alertController = UIAlertController(title: "Error", message:
-                "A duplicate contact with the same name and phone or name and email has been detected", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        
+            
         var success: Bool!
         if isNewContact {
             success = ContactsViewModel().createNewContactToSoup(object: newContact)

@@ -471,7 +471,6 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy4.SGWS_Notes__c = "DDDDDD"
         new_Strategy4.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
         
-        
         let addNewDict4: [String:Any] = [
             StrategyQA.StrategyQAFields[0]:new_Strategy4.Id,
             StrategyQA.StrategyQAFields[11]:new_Strategy4.OwnerId,

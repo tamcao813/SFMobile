@@ -108,6 +108,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         self.searchAccountLbl.isHidden = false
         self.searchAccountTxt.isHidden = false
         searchContactTxt.isEnabled = false
+        associatedSelectedContact.removeAll()
         if self.myTableView != nil {
             self.myTableView.removeFromSuperview()
         }

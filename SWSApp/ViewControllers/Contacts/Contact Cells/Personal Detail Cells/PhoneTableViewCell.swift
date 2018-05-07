@@ -27,7 +27,8 @@ class PhoneTableViewCell: UITableViewCell {
     
     func displayCellContent(){
         if let phone = contactDetail?.phoneNumber, phone != "" {
-            phoneTextField.text = phone
+            phoneTextField.text = phone            
+            
         }
         if let fax = contactDetail?.fax, fax != "" {
             faxTextField.text = fax
@@ -46,55 +47,29 @@ extension PhoneTableViewCell: UITextFieldDelegate {
         }else{
             search = textField.text!+string
         }
-        if (search.characters.count) > 10{
+        
+        if (removeSpecialCharsFromString(text: search).characters.count) > 10{
             return false
         }
         return true
     }
     
+    func removeSpecialCharsFromString(text: String) -> String {
+        let okayChars : Set<Character> =
+            Set("1234567890".characters)
+        return String(text.characters.filter {okayChars.contains($0) })
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        search = textField.text!
         CreateNewContactViewController.createNewGlobals.userInput = true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        let newString = textField.text! as NSString
-        let components = newString.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
-        let decimalString = components.joined(separator: "") as NSString
-        let length = decimalString.length
-        let hasLeadingOne = length > 0 && decimalString.character(at: 0) == (1 as unichar)
-        
-        var index = 0 as Int
-        let formattedString = NSMutableString()
-        
-        if hasLeadingOne {
-            formattedString.append("1 ")
-            index += 1
-        }
-        if (length - index) > 3 {
-            let areaCode = decimalString.substring(with: NSMakeRange(index, 3))
-            formattedString.appendFormat("(%@) ", areaCode)
-            index += 3
-        }
-        if length - index > 3 {
-            let prefix = decimalString.substring(with: NSMakeRange(index, 3))
-            formattedString.appendFormat("%@-", prefix)
-            index += 3
-        }
-        
-        let remainder = decimalString.substring(from: index)
-        formattedString.append(remainder)
-        textField.text = formattedString as String
-                
+    func textFieldDidEndEditing(_ textField: UITextField) {        
+        textField.text = Validations().validatePhoneNumber(phoneNumber: phoneTextField.text!)
         contactDetail?.phoneNumber = phoneTextField.text!
         contactDetail?.fax = faxTextField.text!
-    }
-    
-//    func validate(value: String) -> Bool {
-//        let PHONE_REGEX = "^.*?..*?.()."
-//        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
-//        let result =  phoneTest.evaluate(with: value)
-//        return result
-//    }
+    }       
 }
 
 extension String {

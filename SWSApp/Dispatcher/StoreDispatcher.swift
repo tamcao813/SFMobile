@@ -85,10 +85,10 @@ class StoreDispatcher {
             group.leave()
         }
         
-//        group.enter()
-//        syncDownContact() { _ in
-//            group.leave()
-//        }
+        group.enter()
+        syncDownContact() { _ in
+            group.leave()
+        }
         
         group.enter()
         syncDownACR() { _ in

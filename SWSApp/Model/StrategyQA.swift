@@ -8,7 +8,7 @@
 
 import Foundation
 class StrategyQA {
-    static let StrategyQAFields: [String] = ["Id","SGWS_Account__c","SGWS_Question__r.Id","SGWS_Answer_Options__r.Id","SGWS_Question__r.SGWS_Question_Type__c","SGWS_Question__r.SGWS_Question_Sub_Type__c","SGWS_Question_Description__c","SGWS_Answer__c","SGWS_Notes__c","LastModifiedById","LastModifiedDate","OwnerId"]
+    static let StrategyQAFields: [String] = ["Id","SGWS_Account__c","SGWS_Question__r.Id","SGWS_Answer_Options__r.Id","SGWS_Question__r.SGWS_Question_Type__c","SGWS_Question__r.SGWS_Question_Sub_Type__c","SGWS_Question_Description__c","SGWS_Answer__c","SGWS_Notes__c","LastModifiedById","LastModifiedDate","OwnerId","SGWS_Answer_Description_List__c"]
     
     var Id:String
     var SGWS_Account__c:String
@@ -22,6 +22,7 @@ class StrategyQA {
     var LastModifiedById:String
     var LastModifiedDate:String
     var OwnerId:String
+    var SGWS_Answer_Description_List__c : String
     
 
     convenience init(withAry ary: [Any]) {
@@ -42,6 +43,7 @@ class StrategyQA {
         LastModifiedById = json["LastModifiedById"] as? String ?? ""
         LastModifiedDate =  json["LastModifiedDate"] as? String ?? ""
         OwnerId = json["OwnerId"] as? String ?? ""
+        SGWS_Answer_Description_List__c = json["SGWS_Answer_Description_List__c"] as? String ?? ""
     }
     
     init(for: String) {
@@ -57,6 +59,7 @@ class StrategyQA {
         LastModifiedById = ""
         LastModifiedDate = ""
         OwnerId = ""
+        SGWS_Answer_Description_List__c = ""
         
-}
+    }
 }

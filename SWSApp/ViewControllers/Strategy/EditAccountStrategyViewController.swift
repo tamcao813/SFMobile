@@ -8,23 +8,29 @@
 
 import Foundation
 import UIKit
-//import IQKeyboardManagerSwift
+import IQKeyboardManagerSwift
 
 class EditAccountStrategyViewController: UIViewController {
     
     var tableViewRowDetails : NSMutableArray?
+    let strategyQuestionsViewModel = StrategyQuestionsViewModel()
+    let strategyAnswersViewModel = StrategyAnswersViewModel()
     
     @IBOutlet weak var collectionView : UICollectionView?
+
+    
     
     var textViewWidth = 0.0
     var collectionViewWidth = 0.0
+    
+    
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared.enable = true
         
         if self.view.frame.size.width == 1112.0{
             textViewWidth = 1105
@@ -37,11 +43,98 @@ class EditAccountStrategyViewController: UIViewController {
             collectionViewWidth = 650
         }
         
-        let plistPath = Bundle.main.path(forResource: "EditAccountStrategy", ofType: ".plist", inDirectory: nil)
-        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
-        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
+//        let plistPath = Bundle.main.path(forResource: "EditAccountStrategy", ofType: ".plist", inDirectory: nil)
+//        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
+//        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
+//        print(dictionary!)
         
-        print(dictionary!)
+        let question = strategyQuestionsViewModel.getStrategyQuestions()
+        let answer = strategyAnswersViewModel.getStrategyAnswers()
+        
+        
+        
+        let tableViewData = NSMutableArray()
+        
+        //Get the questions based on survey ID
+        
+        var headerCheck = false
+        
+        //Write a func to get header Count
+        for header in self.getHeader(){
+
+            for questionData in question{
+                
+                let dict = NSMutableDictionary()
+                
+                //execute only for account situation (headers only)
+                if questionData.SGWS_Question_Type__c != header {
+                    continue
+                }
+                
+                //Used to keep Header only once
+                for q in tableViewData{
+                    
+                    let dictionary = q as! NSDictionary
+                    print(dictionary)
+                    
+                    let header = dictionary["header"] as? String
+                    
+                    if questionData.SGWS_Question_Type__c == header{
+                        
+                        headerCheck = true
+
+                    }
+                }
+                
+                if !headerCheck{
+                    dict.setValue(questionData.SGWS_Question_Type__c, forKey: "header") //Main Header
+                }else{
+                    dict.setValue("", forKey: "header")
+                }
+                
+                headerCheck = false
+                
+                dict.setValue(questionData.SGWS_Question_Description__c, forKey: "subHeader") //Added Subheader
+                dict.setValue(questionData.Id, forKey: "id")
+                
+                let answerArray = NSMutableArray()
+                for answerData in answer{
+                    
+                    if answerData.SGWS_Question__c == questionData.Id{
+                        
+                        let answerTemp = answerData.SGWS_Answer_Description__c
+                        
+                        let answerTempArray = answerTemp.components(separatedBy: ",")
+                        print(answerTempArray.count)
+                        
+                        if answerTempArray.count > 0{
+                            
+                            for ans in answerTempArray{
+                                
+                                let answerDict = NSMutableDictionary()
+                                answerDict.setValue(ans, forKey: "answerText")
+                                answerDict.setValue(answerData.Id, forKey: "answerId")
+                                
+                                answerDict.setValue("NO", forKey: "isSelected")
+                                //answerDict.setValue(answerData.OwnerId, forKey: "ownerId")
+                                
+                                answerArray.add(answerDict)
+                            }
+                        }
+                        dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
+                    }
+                }
+                tableViewData.add(dict)
+            }
+        }
+        
+        print(tableViewData)
+        tableViewRowDetails = tableViewData
+        
+
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,23 +160,101 @@ class EditAccountStrategyViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func showAlert(){
+        
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            
+            self.dismiss(animated: true, completion: nil)
+            
+        }) {
+            print("No")
+        }
+    }
+    
+
+    func validateAllFields()-> Bool{
+        
+        for index in tableViewRowDetails!{
+            
+            let tableData = index as! NSDictionary
+            let tableContent = tableData["answers"] as! NSMutableArray
+            
+            let namePredicate = NSPredicate(format: "isSelected = %@","NO");
+            
+            let filteredArray = tableContent.filter { namePredicate.evaluate(with: $0) };
+            
+            
+            for isSelectedDict in filteredArray{
+                
+                let selectedKey = isSelectedDict as! NSMutableDictionary
+                
+                let data = selectedKey["isSelected"] as! String
+                
+                if data == "NO"{
+                    return false
+                }
+            }
+       }
+        return true
+    }
+    
+    
+    
+    func getHeader()-> [String]{
+        var headerArray = [String]()
+    
+        //Get unique headernames once
+        let question = strategyQuestionsViewModel.getStrategyQuestions()
+        
+        for questionHeaders in question{
+            
+           let que = questionHeaders.SGWS_Question_Type__c
+            
+            if !(headerArray.contains(que)){
+                headerArray.append(que)
+            }
+        }
+        
+        print(headerArray)
+        
+        return headerArray
+    }
+    
+    
+    
+    
+    
     //MARK:- Button Actions
     @IBAction func saveButtonAction(sender : UIButton){
         print("Save button Clicked")
         
+        let validateFields = self.validateAllFields()
         
+        if validateFields{
+            
+            print("Success")
+            
+        }else{
+            
+            
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("", errorMessage: "Please Enter required fields", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                
+            }, action2: {
+                
+            })
+        }
     }
     
     @IBAction func cancelButtonAction(sender : UIButton){
         print("Cancel button Clicked")
         
-        
+        self.showAlert()
     }
     
     @IBAction func closeButtonAction(sender : UIButton){
         print("Close button Clicked")
         
-        self.dismiss(animated: true, completion: nil)
+        self.showAlert()
         
     }
 }
@@ -93,7 +264,10 @@ class EditAccountStrategyViewController: UIViewController {
 extension EditAccountStrategyViewController : UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return (tableViewRowDetails?.count)! + 1 //used to display the TectView in the Last Cell
+        if (tableViewRowDetails!.count > 0 || tableViewRowDetails != nil) {
+            return (tableViewRowDetails?.count)! + 1//used to display the TectView in the Last Cell
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -156,19 +330,19 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
             
             //Used for Single selection = 1 or Multiselection = 2
-            if (tableData["selectionType"] as! String) == "1"{
-                for setData in tableContent{
-                    let data = setData as! NSMutableDictionary
-                    data.setValue("NO", forKey: "isSelected")
-                }
-                questions.setValue("YES", forKey: "isSelected")
-            }else{
+            //if (tableData["selectionType"] as! String) == "1"{
+            //    for setData in tableContent{
+            //        let data = setData as! NSMutableDictionary
+            //        data.setValue("NO", forKey: "isSelected")
+            //    }
+            //    questions.setValue("YES", forKey: "isSelected")
+            //}else{
                 if (questions["isSelected"] as! String) == "NO"{
                     questions.setValue("YES", forKey: "isSelected")
                 }else{
                     questions.setValue("NO", forKey: "isSelected")
                 }
-            }
+            //}
             collectionView.reloadData()
         }
     }

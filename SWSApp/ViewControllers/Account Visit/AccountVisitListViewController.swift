@@ -42,7 +42,7 @@ class AccountVisitListViewController: UIViewController {
         let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID") as! PlanVisitViewController
         viewController.modalPresentationStyle = .overCurrentContext
-        viewController.delegate = self
+//        viewController.delegate = self
         self.present(viewController, animated: true)
     }
     
@@ -121,7 +121,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         let data : Visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.editPlanVisit = true
-        (accountVisitsVC)?.delegate = self
+//        (accountVisitsVC)?.delegate = self
         accountVisitsVC?.visitObject = data
         DispatchQueue.main.async {
             self.present(accountVisitsVC!, animated: true, completion: nil)
@@ -157,12 +157,12 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     }
 }
 
-extension AccountVisitListViewController: PlanVisitViewControllerDelegate {
-    func refershList() {
-        getTheDataFromDB()
-        tableView.reloadData()
-    }
-}
+//extension AccountVisitListViewController: PlanVisitViewControllerDelegate {
+//    func refershList() {
+//        getTheDataFromDB()
+//        tableView.reloadData()
+//    }
+//}
 
 
 enum AccountVisitStatus : String {

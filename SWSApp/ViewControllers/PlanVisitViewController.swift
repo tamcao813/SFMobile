@@ -13,9 +13,9 @@ let kAccountTxtTag = 100
 let kContactTxtTag = 101
 let kSelectedContactTag = 102
 
-protocol PlanVisitViewControllerDelegate: NSObjectProtocol {
-    func refershList()
-}
+//protocol PlanVisitViewControllerDelegate: NSObjectProtocol {
+//    func refershList()
+//}
 
 class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     
@@ -33,7 +33,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     var editVist:Visit? = Visit(for: "")
     var editContact:Contact? = Contact(for: "")
     var tableViewData : [PlanVisit]?
-    weak var delegate: PlanVisitViewControllerDelegate!
+//    weak var delegate: PlanVisitViewControllerDelegate!
     var visitViewModel = VisitSchedulerViewModel()
     
     
@@ -238,7 +238,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             PlanVistManager.sharedInstance.status = "Schedule"
             self.insetValuesToDB()
              createNewVisit()
-            self.delegate.refershList()
+//            self.delegate.refershList()
             self.dismiss(animated: true)
         }
     }

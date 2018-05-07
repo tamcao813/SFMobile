@@ -180,7 +180,10 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             title: "Alert",
             message: "Any changes will not be saved. Are you sure you want to close?",
             preferredStyle:.alert)
-        
+        if (self.myTableView != nil) {
+            self.myTableView.removeFromSuperview()
+            self.view.endEditing(true)
+        }
         uiAlertController.addAction(// add Custom action on Event is Cancel
             UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
                 uiAlertController.dismiss(animated: true, completion: nil)
@@ -358,15 +361,17 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     
     func getAccountData(searchStr: String) -> [Account] {
         let account = self.accountViewModel.accountsForLoggedUser
-        let arr = account.filter( { return $0.accountName.contains(searchStr) } )
+        let arr = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
+        print(arr)
         return arr
     }
+
     
     // Get contact array after searching keyword
     
     func getContactstData(searchStr: String) -> [Contact] {
         let contact = self.getNonSelectedContacts()
-        let arr = contact.filter( { return $0.name.contains(searchStr) } )
+        let arr = contact.filter( { return $0.name.lowercased().contains(searchStr.lowercased()) } )
         return arr
     }
     
@@ -483,7 +488,7 @@ extension PlanVisitViewController : UITableViewDataSource{
         if(textFieldTag == kSelectedContactTag) {
             count = associatedSelectedContact.count
         } else if(textFieldTag == kAccountTxtTag) {
-            count = searchAccounts.count
+            count = self.searchAccounts.count
         } else if(textFieldTag == kContactTxtTag) {
             count = nonSelectedContact.count
         }
@@ -499,9 +504,9 @@ extension PlanVisitViewController : UITableViewDelegate {
         
         if(textFieldTag == kAccountTxtTag) {
             let cell: AccountTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath) as! AccountTableViewCell
-            let account = searchAccounts[indexPath.row]
+            let account = self.searchAccounts[indexPath.row]
             cell.accountLabel.text = account.accountName
-            cell.phoneNumberLabel.text = account.account_Id
+            cell.phoneNumberLabel.text = account.accountNumber
             cell.addressLabel.text = account.shippingStreet + " " + account.shippingCity + " " + account.shippingPostalCode
             return cell
         } else if(textFieldTag == kContactTxtTag) {
@@ -546,7 +551,7 @@ extension PlanVisitViewController : UITableViewDelegate {
                 self.accountID = account.account_Id
                 self.accountView.delegate = self
                 self.accountView.accountLabel.text = account.accountName
-                self.accountView.phoneNumberLabel.text = account.account_Id
+                self.accountView.phoneNumberLabel.text = account.accountNumber
                 self.accountView.addressLabel.text = account.shippingStreet + " " + account.shippingCity + " " + account.shippingPostalCode
                 self.accountView.frame.origin = CGPoint(x:20, y:self.planLbl.frame.origin.y + 10)
                 self.scrollView.addSubview(self.accountView)
@@ -616,10 +621,10 @@ extension PlanVisitViewController : UITextFieldDelegate{
     {
         if(textFieldTag == kAccountTxtTag) {
             if string.isEmpty {
-                searchAccounts = self.accountViewModel.accountsForLoggedUser
+                self.searchAccounts = self.accountViewModel.accountsForLoggedUser
                 myTableView.reloadData()
             } else {
-                searchAccounts = self.getAccountData(searchStr: string)
+                self.searchAccounts = self.getAccountData(searchStr: textField.text!+string)
                 myTableView.reloadData()
             }
         } else if (textFieldTag == kContactTxtTag) {
@@ -627,7 +632,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
                 nonSelectedContact = self.getNonSelectedContacts()
                 myTableView.reloadData()
             } else {
-                nonSelectedContact = self.getContactstData(searchStr: string)
+                nonSelectedContact = self.getContactstData(searchStr: textField.text!+string)
                 myTableView.reloadData()
             }
         }

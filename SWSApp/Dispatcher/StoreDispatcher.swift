@@ -1894,5 +1894,23 @@ class StoreDispatcher {
     }
     
     
+    // create new Strategy QA Locally
+    
+    func createNewStrategyQALocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupStrategyQA)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    
     
 }

@@ -210,6 +210,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         } else {
             PlanVistManager.sharedInstance.status = "inProgress"
             self.insetValuesToDB()
+            createNewVisit()
             let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
             self.present(viewController, animated: true)
@@ -233,8 +234,10 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             self.present(uiAlertController, animated: true, completion: nil)
             
         } else {
+            
             PlanVistManager.sharedInstance.status = "Schedule"
             self.insetValuesToDB()
+             createNewVisit()
             self.delegate.refershList()
             self.dismiss(animated: true)
         }

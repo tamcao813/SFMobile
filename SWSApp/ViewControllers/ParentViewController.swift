@@ -282,6 +282,25 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 
             }
         })
+        
+        // Visits (WorkOrder) Sync Up
+        VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status"], completion:{ error in
+            if error != nil {
+                MBProgressHUD.hide(forWindow: true)
+                print(error?.localizedDescription ?? "error")
+            }
+        } )
+        
+         // Strategy QA(SGWS_Response__c) Sync Up
+        
+        let fields: [String] = StrategyQA.StrategyQAFields
+        StrategyQAViewModel().uploadStrategyQAToServer(fields: fields, completion: { error in
+            if error != nil {
+                 MBProgressHUD.hide(forWindow: true)
+                print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
+            }
+        })
+        
       
     }
     

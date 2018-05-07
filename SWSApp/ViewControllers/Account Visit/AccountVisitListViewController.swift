@@ -21,6 +21,7 @@ class AccountVisitListViewController: UIViewController {
         getTheDataFromDB()
     }
     
+    
     @objc func refreshAccountList(){
         getTheDataFromDB()
     }

@@ -651,7 +651,6 @@ extension PlanVisitViewController : UITextFieldDelegate{
         
         new_visit.subject = (planVist?.subject)!
         new_visit.accountId = PlanVistManager.sharedInstance.accountId
-
         new_visit.sgwsAppointmentStatus = (planVist?.sgwsAppointmentStatus)!
         new_visit.startDate =  PlanVistManager.sharedInstance.startDate //"2018-05-02T14:00:00.000Z"
         new_visit.endDate = PlanVistManager.sharedInstance.endDate //"2018-05-02T15:00:00.000Z"
@@ -684,17 +683,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
         let success = visitViewModel.createNewVisitLocally(fields: addNewDict)
         print("Success is here \(success)")
         
-        if success == true{
-            
-            let fields: [String] = PlanVisit.planVisitFields
-            
-            visitViewModel.uploadVisitToServer(fields: fields, completion: { error in
-                
-                if error != nil {
-                    print("Upload Visit to Server " + (error?.localizedDescription)!)
-                }
-            })
-            
+
         }
         
         // Show the alert if not saved
@@ -702,4 +691,4 @@ extension PlanVisitViewController : UITextFieldDelegate{
     }
     
     
-}
+

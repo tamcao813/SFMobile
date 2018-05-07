@@ -1752,13 +1752,13 @@ class StoreDispatcher {
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-        print("Result StrategyQuestions is \(result)")
+       // print("Result StrategyQuestions is \(result)")
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
                 let strategyQuestionsArray = StrategyQuestions(withAry: ary)
                 strategyQuestions.append(strategyQuestionsArray)
-                print("strategyQuestions array \(ary)")
+                //print("strategyQuestions array \(ary)")
             }
         }
         else if error != nil {
@@ -1830,13 +1830,13 @@ class StoreDispatcher {
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-        print("Result StrategyAnswers is \(result)")
+        //print("Result StrategyAnswers is \(result)")
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
                 let strategyAnswersArray = StrategyAnswers(withAry: ary)
                 strategyAnswers.append(strategyAnswersArray)
-                print("strategyAnswers array \(ary)")
+                //print("strategyAnswers array \(ary)")
             }
         }
         else if error != nil {
@@ -1905,6 +1905,34 @@ class StoreDispatcher {
         }
         else {
             return false
+        }
+    }
+    
+    func syncUpStrategyQA(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
+        
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupStrategyQA)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncUp Strategy QA done")
+                    let syncId = syncStateStatus.syncId
+                    print(syncId)
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncUPStrategyQA()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncUPStrategyQA()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
         }
     }
     

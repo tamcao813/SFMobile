@@ -80,8 +80,10 @@ class DateFieldTableViewCell: UITableViewCell {
 extension DateFieldTableViewCell: UITextFieldDelegate {    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        CreateNewContactViewController.createNewGlobals.userInput = true
-//        datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        CreateNewContactViewController.createNewGlobals.userInput = true        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.tag == 1{
             contactDetail?.birthDate = textField.text!
         }else {

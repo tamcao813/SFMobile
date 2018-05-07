@@ -197,20 +197,22 @@ class AccountStrategyViewController : UIViewController{
         
         
         
-        
-        
-        let strategyNotes = data.last?.SGWS_Notes__c
-        
-        if strategyNotes != ""{
-            let dict = NSMutableDictionary()
-            dict.setValue("Account Strategy Notes", forKey: "header")
-            dict.setValue("", forKey: "subHeader")
-            let notesArray = NSMutableArray()
-            let notesAnswerDict = NSMutableDictionary()
-            notesAnswerDict.setValue(strategyNotes!, forKey: "answerText")
-            notesArray.add(notesAnswerDict)
-            dict.setValue(notesArray, forKey: "answers")
-            modifiedArray.add(dict)
+        if data.count > 0{
+            
+            let strategyNotes = data.last?.SGWS_Notes__c
+            
+            if strategyNotes != ""{
+                let dict = NSMutableDictionary()
+                dict.setValue("Account Strategy Notes", forKey: "header")
+                dict.setValue("", forKey: "subHeader")
+                let notesArray = NSMutableArray()
+                let notesAnswerDict = NSMutableDictionary()
+                notesAnswerDict.setValue(strategyNotes!, forKey: "answerText")
+                notesArray.add(notesAnswerDict)
+                dict.setValue(notesArray, forKey: "answers")
+                modifiedArray.add(dict)
+            }
+            
         }
         
         

@@ -133,7 +133,10 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         let ownerId = appDelegate.loggedInUser?.userId
         //Delete is allowed only for Note owner
         if(ownerId == self.notesToBeEdited.ownerId){
-        
+        let alert = UIAlertController(title: "Notes Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
+        let continueAction = UIAlertAction(title: "Delete", style: .default) {
+            action in
+            
         let date = Date()
         print(date)
         let dateFormatter = DateFormatter()
@@ -141,11 +144,11 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         let timeStamp = dateFormatter.string(from: date)
         print(timeStamp)
         
-        notesToBeEdited.lastModifiedDate = timeStamp
+            self.notesToBeEdited.lastModifiedDate = timeStamp
         let attributeDict = ["type":"SGWS_Account_Notes__c"]
         
         let editNoteDict: [String:Any] = [
-            AccountNotes.AccountNotesFields[0]: notesToBeEdited.Id,
+            AccountNotes.AccountNotesFields[0]: self.notesToBeEdited.Id,
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:false,
             kSyncTargetLocallyUpdated:false,
@@ -161,6 +164,12 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         } else {
             //Alert errors 
         }
+            }
+            alert.addAction(continueAction)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+            
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
         }else{
             return
         }

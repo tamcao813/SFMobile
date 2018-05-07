@@ -12,8 +12,8 @@ class ContactClassificationTableViewCell: UITableViewCell {
     
     @IBOutlet weak var classificationTextField: CustomUITextField!
     @IBOutlet weak var otherTextField: UITextField!
-    var pickerOption = [PlistOption]()
-    var selectedOption : PlistOption!
+    var pickerOption:NSArray = []
+    var selectedOption = Dictionary<String, String>()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,7 +21,9 @@ class ContactClassificationTableViewCell: UITableViewCell {
     }
     
     func displayCellContents(){
-        let classificationOpts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactClassification")
+        //        let classificationOpts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactClassification")
+        let classificationOpts = PlistMap.sharedInstance.readPList(plist: "/ContactClassification.plist")
+        
         pickerOption = classificationOpts
     }
     
@@ -59,15 +61,15 @@ class ContactClassificationTableViewCell: UITableViewCell {
     }
     
     @objc func donePicker(){
-        if let selectedValue = selectedOption {
-            classificationTextField.text = selectedValue.value
+        if !selectedOption.isEmpty {
+            classificationTextField.text = selectedOption["value"]
             classificationTextField.resignFirstResponder()
-            if selectedOption.value == "Other" {
+            if selectedOption["value"] == "Other" {
                 otherTextField.isHidden = false
             }else{
                 otherTextField.isHidden = true
             }
-        }        
+        }
     }
     
     @objc func cancelPicker(){
@@ -86,12 +88,12 @@ extension ContactClassificationTableViewCell: UIPickerViewDelegate, UIPickerView
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerOption[row].value
+        return (pickerOption[row] as! Dictionary<String, String>)["value"]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerOption.count > 0 {
-            selectedOption = pickerOption[row]
+            selectedOption = (pickerOption[row] as! Dictionary<String, String>)
         }
     }
 }
@@ -99,5 +101,9 @@ extension ContactClassificationTableViewCell: UIPickerViewDelegate, UIPickerView
 extension ContactClassificationTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewContactViewController.createNewGlobals.userInput = true
     }
 }

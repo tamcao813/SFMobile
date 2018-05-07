@@ -13,6 +13,8 @@ class DateFieldTableViewCell: UITableViewCell {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var dateTextfield: CustomUITextField!
     var selectedDate = NSDate()
+    var contactDetail: Contact?
+    let datePickerView:UIDatePicker = UIDatePicker()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,6 +25,16 @@ class DateFieldTableViewCell: UITableViewCell {
         dateTextfield.addPaddingLeft(10)
         dateTextfield.delegate = self
         addToolbar(textField: dateTextfield)
+        datePickerView.datePickerMode = UIDatePickerMode.date
+        dateTextfield.inputView = datePickerView
+    }
+    
+    func displayCellContent(){
+        if dateTextfield.tag == 1{
+            dateTextfield.text = contactDetail?.birthDate
+        }else{
+            dateTextfield.text = contactDetail?.anniversary
+        }
     }
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
@@ -38,29 +50,43 @@ class DateFieldTableViewCell: UITableViewCell {
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
-//        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.donePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.cancelPicker))
         
-        toolBar.setItems([spaceButton,doneButton], animated: false)
+        toolBar.setItems([cancelButton,spaceButton,doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
         textField.inputAccessoryView = toolBar
     }
     
     @objc func donePicker(){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM-dd-yyyy"
+        let dateString = dateFormatter.string(from: datePickerView.date)
+        let date = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateTextfield.text = dateFormatter.string(from: date!)
+        dateTextfield.resignFirstResponder()
+    }
+    
+    @objc func cancelPicker(){
         dateTextfield.resignFirstResponder()
     }
 }
 
-extension DateFieldTableViewCell: UITextFieldDelegate {
+extension DateFieldTableViewCell: UITextFieldDelegate {    
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        let datePickerView:UIDatePicker = UIDatePicker()
-        datePickerView.datePickerMode = UIDatePickerMode.date
-        textField.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        CreateNewContactViewController.createNewGlobals.userInput = true
+//        datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        if textField.tag == 1{
+            contactDetail?.birthDate = textField.text!
+        }else {
+            contactDetail?.anniversary = textField.text!
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

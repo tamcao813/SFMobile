@@ -49,6 +49,8 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        globalContactCount = 0
+        currentPageIndex = 0
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
         fetchContacts()
     }
@@ -106,13 +108,28 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         cell.emailValueLabel.text =  globalContact.email
         cell.selectionStyle = .none
         var accountsName = [String]()
+        
+        
         for acc in contactsAcc{
             
             if(globalContact.contactId == acc.contactId){
-                accountsName.append(acc.accountName)
+                if(!acc.accountName.isEmpty){
+                    print("my account names \(acc.accountName) \(acc.contactId) \(acc.contactName) \(acc.accountId)")
+                    accountsName.append(acc.accountName)
+                    break
+                }
+                else { // acr table is not populated so reading from accounts table.
+                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: acc.accountId)
+                    guard accountList != nil, (accountList?.count)! > 0  else {
+                        continue
+                    }
+
+                    accountsName.append(accountList![0].accountName)
+                    break
+                }
             }
+            
         }
-        
         if(accountsName.count > 0){
             accountsName = accountsName.sorted { $0.lowercased() < $1.lowercased() }
             
@@ -144,6 +161,9 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     
     //MARK:- load contact data
     func loadContactData() {
+        //reset ACR data
+        contactsAcc.removeAll()
+        contactsAcc = contactViewModel.accountsForContacts()
         
         if ContactsGlobal.accountId == "" {
 
@@ -189,7 +209,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("filteringContact")
         
         if !filtering {
-            loadContactData()
+            fetchContacts()
         }
         
         for count in 1...5 {
@@ -262,6 +282,9 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     }
     
     @objc func reloadAllContacts(notification: NSNotification){
+        contactsAcc = [AccountContactRelation]()
+        globalContactCount = contactViewModel.globalContacts().count
+        contactsAcc = contactViewModel.accountsForContacts()
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
@@ -549,9 +572,11 @@ extension ContactListViewController : UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
         
-        let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
-        delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
-        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+        if indexPath.section == 1 {
+            let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
+            delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
+            ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+        }
         
     }
     

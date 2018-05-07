@@ -69,14 +69,32 @@ class ContactsViewModel{
     }
     
     func createNewContactToSoup(object: Contact) -> Bool {
-        let contactfields: [String:Any] = object.toJson()
+        var contactfields: [String:Any] = object.toJson()
+        contactfields.removeValue(forKey: "_soupEntryId")
         return StoreDispatcher.shared.createNewContactToSoup(fields: contactfields)
     }
     
-    func createARCDictionary(contactObject: Contact, accountObject: Account) -> Bool{        
+    func createARCDictionary(contactObject: Contact, accountObject: Account) -> Bool{
+        
+        let acrData = ContactsViewModel().accountsForContacts()
+        
+        var selectedAccountName = ""
+        
+//        let accounts = AccountsViewModel().accountsForLoggedUser
+
+        
+        for acr in acrData {
+            if(acr.accountId == contactObject.accountId){
+                selectedAccountName = acr.accountName
+                if(!selectedAccountName.isEmpty){
+                    print("My acr name \(selectedAccountName)")
+                    break
+                }
+            }
+        }
         let newACR = AccountContactRelation(for: "newACR")
         newACR.accountId = contactObject.accountId
-        newACR.accountName = accountObject.accountName
+        newACR.accountName = selectedAccountName
         newACR.contactId = contactObject.contactId
         newACR.contactName = contactObject.firstName + " " + contactObject.lastName
         newACR.roles = contactObject.functionRole
@@ -86,9 +104,12 @@ class ContactsViewModel{
     }
     
     func editNewContactToSoup(object: Contact) -> Bool {
+        
         let fields: [String:Any] = object.toJson()
         return StoreDispatcher.shared.editContactToSoup(fields: fields)
     }
+    
+    
     
     
     func uploadContactACRToServer(object: Contact, completion: @escaping (_ error: NSError?)->() ) {

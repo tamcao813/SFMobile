@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -291,13 +291,16 @@
                         <viewLayoutGuide key="safeArea" id="BhT-dr-UMH"/>
                     </view>
                     <connections>
+                        <outlet property="dayLabel" destination="eOU-At-7os" id="ZxH-7P-MIs"/>
                         <outlet property="deleteVisitButton" destination="Dp6-iM-AOQ" id="AkF-qv-FfI"/>
                         <outlet property="editVisitButton" destination="fh2-vm-Ac9" id="WU6-XR-f8N"/>
                         <outlet property="editVisitButtonHeightConstraint" destination="GUy-Xc-Bq2" id="06o-Dq-6Oa"/>
+                        <outlet property="monthLabel" destination="A0f-R3-edu" id="ITS-6N-Fae"/>
                         <outlet property="startVisitButton" destination="TGd-Ri-gvD" id="OVb-Z9-Fcc"/>
                         <outlet property="startVisitButtonHeightConstraint" destination="j4s-Ye-AFD" id="YRQ-Ky-LIB"/>
                         <outlet property="statusLabel" destination="FFp-xT-3QR" id="ifE-Qj-Pq9"/>
                         <outlet property="tableView" destination="PON-ss-Nsr" id="u2k-4g-UEc"/>
+                        <outlet property="timeLabel" destination="fYD-bt-TL4" id="9pG-pw-4kh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="35C-X1-OUV" userLabel="First Responder" sceneMemberID="firstResponder"/>

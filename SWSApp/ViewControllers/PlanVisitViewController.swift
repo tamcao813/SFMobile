@@ -70,6 +70,10 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         self.scrollView.addSubview(self.associatedContactTableView)
         self.associatedContactTableView.isHidden = true
         self.textFieldTag = kSelectedContactTag
+        
+        //self.createNewVisit()
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -206,6 +210,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         } else {
             PlanVistManager.sharedInstance.status = "inProgress"
             self.insetValuesToDB()
+            createNewVisit()
             let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
             self.present(viewController, animated: true)
@@ -229,8 +234,10 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             self.present(uiAlertController, animated: true, completion: nil)
             
         } else {
+            
             PlanVistManager.sharedInstance.status = "Schedule"
             self.insetValuesToDB()
+             createNewVisit()
             self.delegate.refershList()
             self.dismiss(animated: true)
         }
@@ -302,6 +309,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         
     }
     
+   
     func editDate() {
         editVist = PlanVistManager.sharedInstance.visit
         
@@ -639,4 +647,71 @@ extension PlanVisitViewController : UITextFieldDelegate{
         
         return true
     }
+    
+    
+    // saving a visit locally
+    
+    func createNewVisit() {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let accountId = appDelegate.loggedInUser?.accountId
+       print("Account id in plan is \(accountId)")
+        
+        
+       let new_visit = PlanVisit(for: "newVisit")
+        
+        
+        new_visit.subject = (planVist?.subject)!
+        new_visit.accountId = PlanVistManager.sharedInstance.accountId
+
+        new_visit.sgwsAppointmentStatus = (planVist?.sgwsAppointmentStatus)!
+        new_visit.startDate =  PlanVistManager.sharedInstance.startDate //"2018-05-02T14:00:00.000Z"
+        new_visit.endDate = PlanVistManager.sharedInstance.endDate //"2018-05-02T15:00:00.000Z"
+        new_visit.sgwsVisitPurpose = (planVist?.sgwsVisitPurpose)!
+        new_visit.description = (planVist?.description)!
+        new_visit.sgwsAgendaNotes = (planVist?.sgwsAgendaNotes)!
+        new_visit.status = PlanVistManager.sharedInstance.status
+        let attributeDict = ["type":"WorkOrder"]
+ 
+        
+        let addNewDict: [String:Any] = [
+            
+            PlanVisit.planVisitFields[0]: new_visit.Id,
+            PlanVisit.planVisitFields[1]: new_visit.subject,
+            PlanVisit.planVisitFields[2]: new_visit.accountId,
+            PlanVisit.planVisitFields[3]: new_visit.sgwsAppointmentStatus,
+            PlanVisit.planVisitFields[4]: new_visit.startDate,
+            PlanVisit.planVisitFields[5]: new_visit.endDate,
+            PlanVisit.planVisitFields[6]: new_visit.sgwsVisitPurpose,
+            PlanVisit.planVisitFields[7]: new_visit.description,
+            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
+            PlanVisit.planVisitFields[9]: new_visit.status,
+     
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success = visitViewModel.createNewVisitLocally(fields: addNewDict)
+        print("Success is here \(success)")
+        
+        if success == true{
+            
+            let fields: [String] = PlanVisit.planVisitFields
+            
+            visitViewModel.uploadVisitToServer(fields: fields, completion: { error in
+                
+                if error != nil {
+                    print("Upload Visit to Server " + (error?.localizedDescription)!)
+                }
+            })
+            
+        }
+        
+        // Show the alert if not saved
+        
+    }
+    
+    
 }

@@ -54,10 +54,8 @@ class Account {
     var acctDescStatus: String
     var account_Id: String
     var percentageLastYearR12NetSales:String
-    
-
-    
     var pastDueAmountDouble: Double
+    
   
   
     convenience init(withAry ary: [Any]) {
@@ -112,6 +110,7 @@ class Account {
         actionItem = 2 //need to get from query
         
         pastDueAmountDouble = Double(pastDueAmount)!
+       
       
      
     }
@@ -157,6 +156,7 @@ class Account {
         account_Id = ""
         pastDueAmountDouble = 0.0
         percentageLastYearR12NetSales = ""
+       
       
        
        

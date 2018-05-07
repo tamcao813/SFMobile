@@ -20,6 +20,7 @@ class AccountStrategyViewController : UIViewController{
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
     let strategyAnswersViewModel = StrategyAnswersViewModel()
+    var strategyAnswers = [StrategyAnswers]()
     
     
     //MARK:- View Life Cycle
@@ -197,127 +198,9 @@ class AccountStrategyViewController : UIViewController{
         
         
         
+        strategyQuestionsViewModel.getStrategyQuestions()
         
-        
-        let strategyNotes = data.last?.SGWS_Notes__c
-        
-        if strategyNotes != ""{
-            let dict = NSMutableDictionary()
-            dict.setValue("Account Strategy Notes", forKey: "header")
-            dict.setValue("", forKey: "subHeader")
-            let notesArray = NSMutableArray()
-            let notesAnswerDict = NSMutableDictionary()
-            notesAnswerDict.setValue(strategyNotes!, forKey: "answerText")
-            notesArray.add(notesAnswerDict)
-            dict.setValue(notesArray, forKey: "answers")
-            modifiedArray.add(dict)
-        }
-        
-        
-        
-        tableViewRowDetails = modifiedArray
-        
-        
-        
-        
-        //Hide the Label
-        if tableViewRowDetails!.count > 0 {
-            self.lblNoData?.isHidden = true
-        }else{
-            self.lblNoData?.isHidden = false
-        }
-        
-        
-        
-        
-        
-        
-        //for item in data{
-            
-          //  let dict = NSMutableDictionary()
-          //  let answerArray = NSMutableArray()
-            
-            //            if dict.count > 0{
-            //
-            //                let values = dict.allValues
-            //
-            //            }
-            
-            
-            //            if tableViewData.count > 0 {
-            //
-            //                for item1 in tableViewData{
-            //
-            //                    let dict = item1 as! NSMutableDictionary
-            //
-            //                    if(dict["headerText"] == item.SGWS_Question__r_SGWS_Question_Type__c){
-            //
-            //
-            //                    }else{
-            //
-            //
-            //                    }
-            //                }
-            //            }
-            
-            
-//
-//            if (tableViewData.contains(["headerText" : item.SGWS_Question__r_SGWS_Question_Type__c])) {
-//
-//                dict.setValue("", forKey: "headerText")
-//
-//                if (tableViewData.contains(["subHeader": item.SGWS_Question__r_SGWS_Question_Sub_Type__c])) {
-//
-//                    dict.setValue("", forKey: "subHeader")
-//
-//                }else{
-//                    dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
-//
-//                }
-//
-//                //need a for loop for Answers
-//
-//
-//
-//
-//
-//                dict.setValue(item.Id, forKey: "id")
-//                //answerArray.add(item.SGWS_Answer__c)
-//
-//            }else{
-//
-//                dict.setValue(item.SGWS_Question__r_SGWS_Question_Type__c, forKey: "headerText")
-//
-//
-//                if (tableViewData.contains(["subHeader" : item.SGWS_Question__r_SGWS_Question_Sub_Type__c])) {
-//
-//                    dict.setValue("", forKey: "subHeader")
-//
-//                }else{
-//                    dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
-//
-//                }
-//
-//                //need a for loop for Answers
-//
-//
-//
-//
-//
-//                dict.setValue(item.Id, forKey: "id")
-//                //answerArray.add(item.SGWS_Answer__c)
-//
-//            }
-//
-//            //dict.setValue(answerArray, forKey: "answerArray")
-//            tableViewData.add(dict)
-//
-//        }
-//
-//
-        
-        
-        
+       strategyAnswers = strategyAnswersViewModel.getStrategyAnswers()
         
     }
     

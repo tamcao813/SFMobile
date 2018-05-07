@@ -282,6 +282,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 
             }
         })
+      
     }
     
     private func setupTopMenuItems(){

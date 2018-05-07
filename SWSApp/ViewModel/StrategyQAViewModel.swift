@@ -14,7 +14,7 @@ class StrategyQAViewModel {
     }
     
 //    func <#name#>(<#parameters#>) -> <#return type#> {
-        <#function body#>
+ //       <#function body#>
 //    }
     
     

@@ -396,20 +396,20 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             "attributes":attributeDict]
 
         //let success = visitViewModel.createNewVisitLocally(fields: addNewDict)
-        print("Success is here \(success)")
-        
-        if success == true{
-            
-            let fields: [String] = PlanVisit.planVisitFields
-            
-            //visitViewModel.uploadVisitToServer(fields: fields, completion: { error in
-                
-                if error != nil {
-                    print("Upload Visit to Server " + (error?.localizedDescription)!)
-                }
-            })
-            
-        }
+//        print("Success is here \(success)")
+//
+//        if success == true{
+//
+//            let fields: [String] = PlanVisit.planVisitFields
+//
+//            //visitViewModel.uploadVisitToServer(fields: fields, completion: { error in
+//
+//                if error != nil {
+//                    print("Upload Visit to Server " + (error?.localizedDescription)!)
+//                }
+//            })
+//
+//        }
 
         
         

@@ -239,7 +239,7 @@ class EditAccountStrategyViewController: UIViewController {
             
             //Get The Selected Data in the array for Question And
             
-            tableViewRowDetails
+            //tableViewRowDetails
             
             
             
@@ -375,12 +375,12 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         let new_Strategy = StrategyQA(for: "NewStrategy")
         new_Strategy.Id = ""
         new_Strategy.OwnerId = ""
-        new_Strategy.SGWS_Account__c = 
+        new_Strategy.SGWS_Account__c =
         
-        new_Strategy.SGWS_Answer_Description_List__c = ""
-        new_Strategy.SGWS_Answer_Options__r_Id = ""
-        new_Strategy.SGWS_Notes__c = "chips"
-        new_Strategy.SGWS_Question__r_Id = ""
+//        new_Strategy.SGWS_Answer_Description_List__c = ""
+//        new_Strategy.SGWS_Answer_Options__r_Id = ""
+//        new_Strategy.SGWS_Notes__c = "chips"
+//        new_Strategy.SGWS_Question__r_Id = ""
         
         let attributeDict = ["type":"SGWS_Response__c"]
         

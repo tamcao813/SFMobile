@@ -60,13 +60,18 @@ extension PhoneTableViewCell: UITextFieldDelegate {
         return String(text.characters.filter {okayChars.contains($0) })
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {        
         search = textField.text!
         CreateNewContactViewController.createNewGlobals.userInput = true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {        
-        textField.text = Validations().validatePhoneNumber(phoneNumber: phoneTextField.text!)
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == phoneTextField {
+            textField.text = Validations().validatePhoneNumber(phoneNumber: phoneTextField.text!)
+        }else{
+            textField.text = Validations().validatePhoneNumber(phoneNumber: faxTextField.text!)
+        }
+        
         contactDetail?.phoneNumber = phoneTextField.text!
         contactDetail?.fax = faxTextField.text!
     }       

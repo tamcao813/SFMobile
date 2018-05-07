@@ -47,7 +47,7 @@ class Validations {
         }
         if (length - index) > 3 {
             let areaCode = decimalString.substring(with: NSMakeRange(index, 3))
-            formattedString.appendFormat("(%@)", areaCode)
+            formattedString.appendFormat("(%@) ", areaCode)
             index += 3
         }
         if length - index > 3 {
@@ -59,6 +59,36 @@ class Validations {
         let remainder = decimalString.substring(from: index)
         formattedString.append(remainder)
         return formattedString as String
+    }
+    
+    func getIntials(name: String) -> String{
+        if name == "" { return "" }
+        
+        let nameSep = name.components(separatedBy: " ")
+        if (nameSep == [name]) || (nameSep == ["", nameSep[1]]) || (nameSep == [nameSep[0], ""])  {
+            if name.count >= 2 {
+                return String(name.prefix(2))
+            }
+            else {
+                return name
+            }
+        }
+        
+        let initials = name.components(separatedBy: " ")
+        print(initials)
+        var firstChar = ""
+        
+        if(initials[0] != "") {
+            var firstCharIndex = initials[0].index(initials[0].startIndex, offsetBy: 1)
+            firstChar = initials[0].substring(to: firstCharIndex)
+            print(firstChar)
+        }
+        if(initials[1] != "") {
+            var firstCharIndex = initials[1].index(initials[1].startIndex, offsetBy: 1)
+            firstChar = firstChar+initials[1].substring(to: firstCharIndex)
+            print(firstChar)
+        }
+        return firstChar
     }
 }
 

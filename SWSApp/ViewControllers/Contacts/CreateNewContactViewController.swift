@@ -10,6 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import SmartStore
 import SmartSync
+import DropDown
 
 protocol CreateNewContactViewControllerDelegate : NSObjectProtocol{
     func updateContactList()
@@ -63,6 +64,7 @@ class CreateNewContactViewController: UIViewController {
     var accountSelected : Account!
     var globalContacts = [Contact]()
     @IBOutlet weak var errorLabel: UILabel!
+    var accountsDropDown : DropDown?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +124,10 @@ class CreateNewContactViewController: UIViewController {
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
+        self.view.endEditing(true)
+        if let dropdown = accountsDropDown{
+            dropdown.hide()
+        }
         DispatchQueue.main.async {
             if  createNewGlobals.userInput {
                 let alertController = UIAlertController(title: "Error", message: StringConstants.discardChangesConfirmation, preferredStyle: UIAlertControllerStyle.alert)
@@ -400,6 +406,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
             searchAccountTextField = cell?.searchContactTextField
+            accountsDropDown = cell?.accountsDropDown
             cell?.delegate = self
             return cell!
         case 1:

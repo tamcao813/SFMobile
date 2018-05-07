@@ -15,14 +15,19 @@ class AssociatedContactsTableViewCell: UITableViewCell {
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var functionRoleLabel: UILabel!
+    @IBOutlet weak var containerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerView: UIView!
     
     override func awakeFromNib() {
-        super.awakeFromNib()
-        
+        super.awakeFromNib()        
     }
     
-    func customizedUI(){
-        
+    func displayCellContent(visit: Visit){
+        nameLabel.text = visit.contactName
+        phoneLabel.text = visit.contactPhone
+        emailLabel.text = visit.contactEmail
+        functionRoleLabel.text = visit.contactSGWS_Roles
+        initialsLabel.text = Validations().getIntials(name: visit.contactName)
     }
     
 }

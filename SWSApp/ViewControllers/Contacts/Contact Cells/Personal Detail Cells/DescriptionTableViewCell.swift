@@ -21,9 +21,9 @@ class DescriptionTableViewCell: UITableViewCell {
     
     func displayCellContent(){
         if descriptionTextView.tag == 1 {
-            descriptionTextView.text! = (contactDetail?.dislikes)!
-        }else if descriptionTextView.tag == 2 {
             descriptionTextView.text! = (contactDetail?.likes)!
+        }else if descriptionTextView.tag == 2 {
+            descriptionTextView.text! = (contactDetail?.dislikes)!
         }else if descriptionTextView.tag == 3 {
             descriptionTextView.text! = (contactDetail?.favouriteActivities)!
         }else{
@@ -35,9 +35,9 @@ class DescriptionTableViewCell: UITableViewCell {
 extension DescriptionTableViewCell: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.tag == 1 {
-            contactDetail?.dislikes = descriptionTextView.text!
-        }else if textView.tag == 2 {
             contactDetail?.likes = descriptionTextView.text!
+        }else if textView.tag == 2 {
+            contactDetail?.dislikes = descriptionTextView.text!
         }else if textView.tag == 3 {
             contactDetail?.favouriteActivities = descriptionTextView.text!
         }else{

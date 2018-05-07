@@ -58,6 +58,7 @@ class CreateNewContactViewController: UIViewController {
     var doesHaveBuyingPower: Bool = true
     weak var delegate: CreateNewContactViewControllerDelegate!
     var isNewContact: Bool = true
+    var contactId: String?
     var contactDetail: Contact?
     var accountSelected : Account!
     var globalContacts = [Contact]()
@@ -65,6 +66,9 @@ class CreateNewContactViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let id = contactId {
+            contactDetail = ContactSortUtility.searchContactByContactId(id)
+        }        
         customizedUI()
         initializingXIBs()
         IQKeyboardManager.shared.enable = true
@@ -118,18 +122,19 @@ class CreateNewContactViewController: UIViewController {
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
-        if  createNewGlobals.userInput {
-            let alertController = UIAlertController(title: "Error", message: StringConstants.discardChangesConfirmation, preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-                createNewGlobals.userInput = false
+        DispatchQueue.main.async {
+            if  createNewGlobals.userInput {
+                let alertController = UIAlertController(title: "Error", message: StringConstants.discardChangesConfirmation, preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                    createNewGlobals.userInput = false
+                    self.dismiss(animated: true, completion: nil)
+                }))
+                alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }else{
                 self.dismiss(animated: true, completion: nil)
-            }))
-            alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-        }else{
-            self.dismiss(animated: true, completion: nil)
+            }
         }
-        
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton){
@@ -514,7 +519,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return cell!
             case 5:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
-                cell?.headerLabel.text = "Dislikes"
+                cell?.headerLabel.text = "Likes"
                 dislikeTextView = cell?.descriptionTextView
                 if let dislikes = contactDetail?.dislikes, dislikes != "" {
                     cell?.contactDetail = contactDetail
@@ -524,7 +529,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return cell!
             case 6:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
-                cell?.headerLabel.text = "Likes"
+                cell?.headerLabel.text = "Dislikes"
                 likeTextView = cell?.descriptionTextView
                 if let likes = contactDetail?.likes, likes != "" {
                     cell?.contactDetail = contactDetail

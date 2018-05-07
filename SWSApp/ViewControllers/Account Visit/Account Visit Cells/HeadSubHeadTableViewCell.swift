@@ -9,10 +9,15 @@
 import UIKit
 
 class HeadSubHeadTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var headingLabel: UILabel!    
     @IBOutlet weak var SubheadingLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    func displayCellCOntent(){
+    
     }
 }

@@ -16,16 +16,6 @@ protocol NavigateToContactsDelegate {
 
 class AccountVisitSummaryViewController: UIViewController {
     
-    var scheduledArray = [["title":"Goals","desc":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."],
-                          ["title":"Success Metrics","desc":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."],
-                          ["title":"Challenges","desc":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."]]
-    var buyingMotives = [["title":"Task Buying Motive","desc":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."],
-                         ["title":"Perosnal Buying Motive","desc":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."]]
-    
-    var inprogressHeadingArray = ["Location","Associated Contacts","Opportunities Selected","Service Purposes","Agenda Notes","Account Situation","Goals","Challenges"]
-    
-    var opportunitiesArray = ["Manage Returns","Delivery Fulfillnt","POS"]
-    var servicePurposeArray = ["Point of sale","Store/Display Setup","Sample and Tasting"]
     var visitObject: Visit?
     var accountObject: Account?
     
@@ -41,7 +31,7 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     
     var visitStatus: AccountVisitStatus?
-    var visitObject : Visit?
+//    var visitObject : Visit?
     var delegate : NavigateToContactsDelegate?
     
     override func viewDidLoad() {

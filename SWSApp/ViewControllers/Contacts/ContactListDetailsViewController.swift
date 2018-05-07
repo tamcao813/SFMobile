@@ -190,10 +190,21 @@ extension ContactListDetailsViewController : ContactListDetailsTableViewCellDele
 
 extension ContactListDetailsViewController : CreateNewContactViewControllerDelegate {
     func updateContactList() {
+        
         let contact = ContactSortUtility.searchContactByContactId((contactDetail?.contactId)!)
         if contact != nil {
+            
             accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contact?.contactId)!)
-            contactDetailsTableView.reloadData()
+            
+            contactDetail = contact
+            DispatchQueue.main.async {
+                UIView.performWithoutAnimation({() -> Void in
+                    self.contactDetailsTableView.reloadData()
+                    self.contactDetailsTableView.beginUpdates()
+                    self.contactDetailsTableView.endUpdates()
+                })
+            }
+
         }
     }
 }

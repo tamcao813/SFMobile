@@ -121,9 +121,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         
         let data : Visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
-        PlanVistManager.sharedInstance.editPlanVisit = true
         accountVisitsVC?.visitObject = data
-        if data.status == "Scheduled"{
+        if data.status == "Scheduled" || data.status  == "Schedule" {
             accountVisitsVC?.visitStatus = .scheduled
         }else if data.status  == "Completed"{
             accountVisitsVC?.visitStatus = .completed

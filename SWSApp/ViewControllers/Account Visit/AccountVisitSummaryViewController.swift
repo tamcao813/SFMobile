@@ -36,9 +36,12 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var editVisitButton: UIButton!
     @IBOutlet weak var startVisitButton: UIButton!
     @IBOutlet weak var deleteVisitButton: UIButton!
+    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
     var visitStatus: AccountVisitStatus?
-    
+    var visitObject : Visit?
     var delegate : NavigateToContactsDelegate?
     
     override func viewDidLoad() {
@@ -55,6 +58,7 @@ class AccountVisitSummaryViewController: UIViewController {
         UICustomizations()
         initializingXIBs()
         refactoringUIOnApplicationStatusBasis()
+         self.getStartDateAndEndTime()
     }
     
     func UICustomizations(){
@@ -75,6 +79,33 @@ class AccountVisitSummaryViewController: UIViewController {
         deleteVisitButton.setImage(image, for: .normal)
         deleteVisitButton.tintColor = UIColor(hexString: "#4287C2")
         deleteVisitButton.setTitle("    Delete", for: .normal)
+    }
+    
+    func getStartDateAndEndTime() {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" //Your date format
+        let date = dateFormatter.date(from: (visitObject?.startDate)!) //according t
+        dateFormatter.dateFormat = "MMM" //Your date format
+        let month = dateFormatter.string(from: date!)
+        monthLabel.text = month
+        dateFormatter.dateFormat = "dd" //Your date format
+        let day = dateFormatter.string(from: date!)
+        dayLabel.text = day
+        dateFormatter.dateFormat = "H" //Your date format
+        
+        let startTime = dateFormatter.string(from: date!)
+        
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" //Your date format
+        let endDate = dateFormatter1.date(from: (visitObject?.endDate)!) //according t
+        dateFormatter1.dateFormat = "H a" //Your date format
+        dateFormatter1.amSymbol = "AM"
+        dateFormatter1.pmSymbol = "PM"
+        let endTime = dateFormatter1.string(from: endDate!)
+        
+        timeLabel.text = startTime + "-" + endTime
+        
     }
     
     func initializingXIBs(){
@@ -115,7 +146,7 @@ class AccountVisitSummaryViewController: UIViewController {
     }
     
     @IBAction func startOrContinueVisitButtonTapped(_ sender: UIButton){
-        if visitStatus == .scheduled {
+        if visitStatus == .scheduled  || visitStatus == .planned{
             let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
@@ -123,19 +154,38 @@ class AccountVisitSummaryViewController: UIViewController {
             (vc as DuringVisitsViewController).delegate = self
         }else{
             
+            let storyboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+            let vc: SelectOpportunitiesViewController = storyboard.instantiateViewController(withIdentifier: "SelectOpportunitiesViewControllerID") as! SelectOpportunitiesViewController
+            (vc as SelectOpportunitiesViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(vc, animated: true, completion: nil)
+
         }
     }
     
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
-        if visitStatus == .completed {
-            
-        }else{
-            
+        switch visitStatus {
+        case .scheduled?:
             PlanVistManager.sharedInstance.editPlanVisit = true
             let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
             viewController.modalPresentationStyle = .overCurrentContext
             self.present(viewController, animated: true)
+        case .inProgress?:
+            print("In progress")
+        case .completed?:
+            let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier :"EditAgendaNoteID") as? EditAgendaNoteViewController
+            viewController?.editNotesText = (self.visitObject?.description)!
+            viewController?.modalPresentationStyle = .overCurrentContext
+            self.present(viewController!, animated: true)
+        case .planned?:
+            PlanVistManager.sharedInstance.editPlanVisit = true
+            let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
+            viewController.modalPresentationStyle = .overCurrentContext
+            self.present(viewController, animated: true)
+        default:
+            break
         }
     }
     

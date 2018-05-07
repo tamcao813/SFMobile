@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManagerSwift
+
 
 enum LoadThePersistantMenuScreen : Int{
     case contacts = 0
@@ -80,6 +82,8 @@ class  DuringVisitsViewController : UIViewController {
         let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
         let duringVisitVC: DuringVisitsTopicsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsTopicsViewControllerID") as! DuringVisitsTopicsViewController
         activeViewController = duringVisitVC
+        
+        IQKeyboardManager.shared.enable = true
         
     }
     

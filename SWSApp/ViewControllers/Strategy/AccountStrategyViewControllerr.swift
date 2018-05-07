@@ -96,7 +96,7 @@ class AccountStrategyViewController : UIViewController{
                     }
                 }
                 dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
-            
+                
                 tableViewData.add(dict)
                 
             }
@@ -145,53 +145,53 @@ class AccountStrategyViewController : UIViewController{
         
         
         
-//
-//       // let modofiedArray = NSMutableArray()
-//
-//        for item in tableViewRowDetails! {
-//
-//            let modifiedDictionary = NSMutableDictionary()
-//
-//            let dict = item as! NSMutableDictionary
-//            let header = dict["header"] as! String
-//            let subHeader = dict["subHeader"] as! String
-//            let answerArray = dict["answers"] as? NSMutableArray
-//
-//            modifiedDictionary.setValue(header, forKey: "header")
-//            modifiedDictionary.setValue(subHeader, forKey: "subHeader")
-//
-//
-//
-//            if tableViewData.count > 1{
-//
-//
-//
-//            }
-//                for data in tableViewData{
-//
-//                    let newDict = data as! NSMutableDictionary
-//                    let newHeader = newDict["subHeader"] as! String
-//                    let newAnswerArray = newDict["answers"] as? NSMutableArray
-//
-//                    if subHeader == newHeader{
-//
-//                        for answerItems in (newAnswerArray)!{
-//
-//                            let newData = answerItems as! NSMutableDictionary
-//                            answerArray?.add(newData)
-//                        }
-//                        modifiedDictionary.setValue(answerArray, forKey: "answers")
-//                        modofiedArray.add(modifiedDictionary)
-//                    }else{
-//                        break
-//                    }
-//                }
-//
-//
-//
-//
-//
-//        }
+        //
+        //       // let modofiedArray = NSMutableArray()
+        //
+        //        for item in tableViewRowDetails! {
+        //
+        //            let modifiedDictionary = NSMutableDictionary()
+        //
+        //            let dict = item as! NSMutableDictionary
+        //            let header = dict["header"] as! String
+        //            let subHeader = dict["subHeader"] as! String
+        //            let answerArray = dict["answers"] as? NSMutableArray
+        //
+        //            modifiedDictionary.setValue(header, forKey: "header")
+        //            modifiedDictionary.setValue(subHeader, forKey: "subHeader")
+        //
+        //
+        //
+        //            if tableViewData.count > 1{
+        //
+        //
+        //
+        //            }
+        //                for data in tableViewData{
+        //
+        //                    let newDict = data as! NSMutableDictionary
+        //                    let newHeader = newDict["subHeader"] as! String
+        //                    let newAnswerArray = newDict["answers"] as? NSMutableArray
+        //
+        //                    if subHeader == newHeader{
+        //
+        //                        for answerItems in (newAnswerArray)!{
+        //
+        //                            let newData = answerItems as! NSMutableDictionary
+        //                            answerArray?.add(newData)
+        //                        }
+        //                        modifiedDictionary.setValue(answerArray, forKey: "answers")
+        //                        modofiedArray.add(modifiedDictionary)
+        //                    }else{
+        //                        break
+        //                    }
+        //                }
+        //
+        //
+        //
+        //
+        //
+        //        }
         
         
         
@@ -233,88 +233,88 @@ class AccountStrategyViewController : UIViewController{
         
         
         //for item in data{
-            
-          //  let dict = NSMutableDictionary()
-          //  let answerArray = NSMutableArray()
-            
-            //            if dict.count > 0{
-            //
-            //                let values = dict.allValues
-            //
-            //            }
-            
-            
-            //            if tableViewData.count > 0 {
-            //
-            //                for item1 in tableViewData{
-            //
-            //                    let dict = item1 as! NSMutableDictionary
-            //
-            //                    if(dict["headerText"] == item.SGWS_Question__r_SGWS_Question_Type__c){
-            //
-            //
-            //                    }else{
-            //
-            //
-            //                    }
-            //                }
-            //            }
-            
-            
-//
-//            if (tableViewData.contains(["headerText" : item.SGWS_Question__r_SGWS_Question_Type__c])) {
-//
-//                dict.setValue("", forKey: "headerText")
-//
-//                if (tableViewData.contains(["subHeader": item.SGWS_Question__r_SGWS_Question_Sub_Type__c])) {
-//
-//                    dict.setValue("", forKey: "subHeader")
-//
-//                }else{
-//                    dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
-//
-//                }
-//
-//                //need a for loop for Answers
-//
-//
-//
-//
-//
-//                dict.setValue(item.Id, forKey: "id")
-//                //answerArray.add(item.SGWS_Answer__c)
-//
-//            }else{
-//
-//                dict.setValue(item.SGWS_Question__r_SGWS_Question_Type__c, forKey: "headerText")
-//
-//
-//                if (tableViewData.contains(["subHeader" : item.SGWS_Question__r_SGWS_Question_Sub_Type__c])) {
-//
-//                    dict.setValue("", forKey: "subHeader")
-//
-//                }else{
-//                    dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
-//
-//                }
-//
-//                //need a for loop for Answers
-//
-//
-//
-//
-//
-//                dict.setValue(item.Id, forKey: "id")
-//                //answerArray.add(item.SGWS_Answer__c)
-//
-//            }
-//
-//            //dict.setValue(answerArray, forKey: "answerArray")
-//            tableViewData.add(dict)
-//
-//        }
-//
-//
+        
+        //  let dict = NSMutableDictionary()
+        //  let answerArray = NSMutableArray()
+        
+        //            if dict.count > 0{
+        //
+        //                let values = dict.allValues
+        //
+        //            }
+        
+        
+        //            if tableViewData.count > 0 {
+        //
+        //                for item1 in tableViewData{
+        //
+        //                    let dict = item1 as! NSMutableDictionary
+        //
+        //                    if(dict["headerText"] == item.SGWS_Question__r_SGWS_Question_Type__c){
+        //
+        //
+        //                    }else{
+        //
+        //
+        //                    }
+        //                }
+        //            }
+        
+        
+        //
+        //            if (tableViewData.contains(["headerText" : item.SGWS_Question__r_SGWS_Question_Type__c])) {
+        //
+        //                dict.setValue("", forKey: "headerText")
+        //
+        //                if (tableViewData.contains(["subHeader": item.SGWS_Question__r_SGWS_Question_Sub_Type__c])) {
+        //
+        //                    dict.setValue("", forKey: "subHeader")
+        //
+        //                }else{
+        //                    dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
+        //
+        //                }
+        //
+        //                //need a for loop for Answers
+        //
+        //
+        //
+        //
+        //
+        //                dict.setValue(item.Id, forKey: "id")
+        //                //answerArray.add(item.SGWS_Answer__c)
+        //
+        //            }else{
+        //
+        //                dict.setValue(item.SGWS_Question__r_SGWS_Question_Type__c, forKey: "headerText")
+        //
+        //
+        //                if (tableViewData.contains(["subHeader" : item.SGWS_Question__r_SGWS_Question_Sub_Type__c])) {
+        //
+        //                    dict.setValue("", forKey: "subHeader")
+        //
+        //                }else{
+        //                    dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
+        //
+        //                }
+        //
+        //                //need a for loop for Answers
+        //
+        //
+        //
+        //
+        //
+        //                dict.setValue(item.Id, forKey: "id")
+        //                //answerArray.add(item.SGWS_Answer__c)
+        //
+        //            }
+        //
+        //            //dict.setValue(answerArray, forKey: "answerArray")
+        //            tableViewData.add(dict)
+        //
+        //        }
+        //
+        //
         
         
         

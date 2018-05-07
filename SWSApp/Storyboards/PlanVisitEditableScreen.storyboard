@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -251,7 +252,7 @@
                                         </subviews>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="goD-Yo-bBl">
-                                        <rect key="frame" x="1014" y="24" width="40" height="40"/>
+                                        <rect key="frame" x="1038" y="24" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="Close"/>
                                         <connections>
@@ -411,14 +412,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Demo_Opportunities" translatesAutoresizingMaskIntoConstraints="NO" id="avR-KW-wPp">
-                                        <rect key="frame" x="24" y="37" width="1065" height="543"/>
+                                        <rect key="frame" x="24" y="37" width="1065" height="466"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZB-RK-7X6">
-                                <rect key="frame" x="1014" y="24" width="40" height="40"/>
+                                <rect key="frame" x="1038" y="24" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Close"/>
                                 <connections>
@@ -641,7 +642,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxh-Y1-kia">
-                                <rect key="frame" x="1014" y="24" width="40" height="40"/>
+                                <rect key="frame" x="1038" y="24" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Close"/>
                                 <connections>
@@ -690,6 +691,106 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P55-W9-DBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--Edit Agenda Note View Controller-->
+        <scene sceneID="xNQ-k2-HvX">
+            <objects>
+                <viewController storyboardIdentifier="EditAgendaNoteID" id="8QP-qA-qc5" customClass="EditAgendaNoteViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EEV-AW-lTs">
+                        <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0wv-tq-0KJ">
+                                <rect key="frame" x="34" y="33" width="1048" height="768"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Edit Visit Note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSU-Zc-QUd">
+                                        <rect key="frame" x="32" y="20" width="533" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="41" id="5zf-E6-FA1"/>
+                                            <constraint firstAttribute="width" constant="533" id="qbU-gO-I4D"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BYT-Cp-cJS">
+                                        <rect key="frame" x="20" y="105" width="1008" height="228"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="228" id="igH-3K-GKg"/>
+                                            <constraint firstAttribute="width" constant="1008" id="sTU-QK-cMS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgb-Uh-zpx">
+                                        <rect key="frame" x="1000" y="21" width="38" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="niS-x9-Udw"/>
+                                            <constraint firstAttribute="width" constant="38" id="yme-HT-yim"/>
+                                        </constraints>
+                                        <state key="normal" image="Close"/>
+                                        <connections>
+                                            <action selector="closeVCWithSender:" destination="8QP-qA-qc5" eventType="touchUpInside" id="oEW-fE-pwH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qak-eE-eFm">
+                                        <rect key="frame" x="853" y="697" width="144" height="40"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="biq-6y-Lgt"/>
+                                            <constraint firstAttribute="width" constant="144" id="eB9-E8-Kq0"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                        <state key="normal" title="Save and Close">
+                                            <color key="titleColor" name="Color"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveAndCloseWithSender:" destination="8QP-qA-qc5" eventType="touchUpInside" id="lEe-uS-eoF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="BYT-Cp-cJS" firstAttribute="leading" secondItem="0wv-tq-0KJ" secondAttribute="leading" constant="20" id="14J-xl-9W5"/>
+                                    <constraint firstItem="hgb-Uh-zpx" firstAttribute="top" secondItem="0wv-tq-0KJ" secondAttribute="top" constant="21" id="2RM-Wf-NDF"/>
+                                    <constraint firstAttribute="trailing" secondItem="BYT-Cp-cJS" secondAttribute="trailing" constant="20" id="6fC-lO-eAN"/>
+                                    <constraint firstAttribute="trailing" secondItem="hgb-Uh-zpx" secondAttribute="trailing" constant="10" id="DNe-Nl-aTy"/>
+                                    <constraint firstItem="hgb-Uh-zpx" firstAttribute="leading" secondItem="OSU-Zc-QUd" secondAttribute="trailing" constant="435" id="FNR-4h-HbU"/>
+                                    <constraint firstItem="OSU-Zc-QUd" firstAttribute="top" secondItem="0wv-tq-0KJ" secondAttribute="top" constant="20" id="Pmr-2n-3Q6"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qak-eE-eFm" secondAttribute="trailing" constant="51" id="Qd7-AZ-IlC"/>
+                                    <constraint firstAttribute="bottom" secondItem="Qak-eE-eFm" secondAttribute="bottom" constant="31" id="Y6s-iw-itI"/>
+                                    <constraint firstItem="BYT-Cp-cJS" firstAttribute="top" secondItem="OSU-Zc-QUd" secondAttribute="bottom" constant="44" id="eIy-mi-Ry3"/>
+                                    <constraint firstItem="OSU-Zc-QUd" firstAttribute="leading" secondItem="0wv-tq-0KJ" secondAttribute="leading" constant="32" id="jns-wX-12x"/>
+                                    <constraint firstAttribute="width" secondItem="0wv-tq-0KJ" secondAttribute="height" multiplier="131:96" id="s0O-ha-dVv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0wv-tq-0KJ" firstAttribute="leading" secondItem="ah6-QD-kQu" secondAttribute="leading" constant="34" id="38Z-rr-JMe"/>
+                            <constraint firstItem="0wv-tq-0KJ" firstAttribute="top" secondItem="ah6-QD-kQu" secondAttribute="top" constant="13" id="Ush-Y9-y3t"/>
+                            <constraint firstItem="ah6-QD-kQu" firstAttribute="trailing" secondItem="0wv-tq-0KJ" secondAttribute="trailing" constant="30" id="VKB-yq-j4P"/>
+                            <constraint firstItem="ah6-QD-kQu" firstAttribute="bottom" secondItem="0wv-tq-0KJ" secondAttribute="bottom" constant="33" id="f5R-RD-YDH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ah6-QD-kQu"/>
+                    </view>
+                    <connections>
+                        <outlet property="bgView" destination="0wv-tq-0KJ" id="0a1-73-vGG"/>
+                        <outlet property="descriptionTextView" destination="BYT-Cp-cJS" id="awS-tp-KvV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DyR-h2-rWV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4308.9928057553961" y="-1365.4676258992806"/>
+        </scene>
     </scenes>
     <resources>
         <image name="BreadScrum_1" width="232" height="25"/>
@@ -702,6 +803,9 @@
         <image name="Transparent" width="1134" height="567"/>
         <image name="dropDownLight" width="10" height="15"/>
         <image name="searchIcon" width="14" height="14"/>
+        <namedColor name="Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

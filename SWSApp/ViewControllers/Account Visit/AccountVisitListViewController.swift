@@ -60,6 +60,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
+        //cell?.delegate = self as! SwipeTableViewCellDelegate
         let celldata = tableViewDataArray![indexPath.row]
         cell?.displayCellData(data: celldata)
         return cell!

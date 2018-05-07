@@ -12,11 +12,9 @@ class StrategyQAViewModel {
     func getStrategyQuestionAnswer() -> [StrategyQA] {
         return StoreDispatcher.shared.fetchStrategyQA()
     }
-    
-//    func <#name#>(<#parameters#>) -> <#return type#> {
- //       <#function body#>
-//    }
-    
+    func createNewStrategyQALocally(fields: [String:Any]) -> Bool {
+        return StoreDispatcher.shared.createNewStrategyQALocally(fieldsToUpload:fields)
+    }
     
     
 }

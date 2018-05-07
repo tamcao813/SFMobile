@@ -10,6 +10,13 @@ import Foundation
 
 class SelectOpportunitiesViewController: UIViewController {
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("Plan VC will disappear")
+        PlanVistManager.sharedInstance.editPlanVisit = false
+    }
+    
+    
     // MARK:- IBAction
     
     @IBAction func closeVC(sender: UIButton) {

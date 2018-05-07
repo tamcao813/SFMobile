@@ -14,6 +14,9 @@ class AccountStrategyViewController : UIViewController{
     var tableViewRowDetails : NSMutableArray?
     
     @IBOutlet weak var collectionView : UICollectionView?
+    @IBOutlet weak var lblLastModifiedDate : UILabel?
+    @IBOutlet weak var lblNoData : UILabel?
+    
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
     let strategyAnswersViewModel = StrategyAnswersViewModel()
@@ -25,42 +28,171 @@ class AccountStrategyViewController : UIViewController{
         super.viewDidLoad()
         print("Account Strategy Screen Loaded")
         
-        let plistPath = Bundle.main.path(forResource: "AccountStrategy", ofType: ".plist", inDirectory: nil)
-        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
-        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
+        //let plistPath = Bundle.main.path(forResource: "AccountStrategy", ofType: ".plist", inDirectory: nil)
+        //let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
+        //tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
         //print(dictionary!)
         
-        //strategyQAViewModel.getStrategyQuestionAnswer()
         
         let data = strategyQAViewModel.getStrategyQuestionAnswer()
         
         let tableViewData = NSMutableArray()
+        var dict : NSMutableDictionary!
         
-        for item in data{
-            var dict = NSMutableDictionary()
+        var headerCheck = false
+        
+        //Write a func to get header Count
+        for header in self.getHeader(){
             
-          //  let dict = NSMutableDictionary()
-
-//            SGWS_Question_Description__c
-            if (tableViewData.contains(["headerText": item.SGWS_Question_Description__c])) {
+            for queAndAns in data{
                 
-                dict.setValue(item.SGWS_Question__r_SGWS_Question_Type__c, forKey: "headerText")
-                dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
-                dict.setValue(item.Id, forKey: "id")
+                dict = NSMutableDictionary()
                 
-            }else{
+                //execute only for account situation (headers only)
+                if queAndAns.SGWS_Question__r_SGWS_Question_Type__c != header {
+                    continue
+                }
                 
-                dict.setValue(item.SGWS_Question__r_SGWS_Question_Type__c, forKey: "headerText")
-                dict.setValue(item.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")
-                dict.setValue(item.Id, forKey: "id")
+                //Used to keep Header only once
+                for q in tableViewData{
+                    
+                    let dictionary = q as! NSDictionary
+                    print(dictionary)
+                    
+                    let header = dictionary["header"] as? String
+                    
+                    if queAndAns.SGWS_Question__r_SGWS_Question_Type__c == header{
+                        
+                        headerCheck = true
+                        
+                    }
+                }
                 
-
+                //Prevent the Subheader inserting Again
+                //DIDNT WORK OUT
+                
+                if !headerCheck{
+                    dict.setValue(queAndAns.SGWS_Question__r_SGWS_Question_Type__c, forKey: "header") //Main Header
+                }else{
+                    dict.setValue("", forKey: "header")
+                }
+                
+                headerCheck = false
+                
+                dict.setValue(queAndAns.SGWS_Question__r_SGWS_Question_Sub_Type__c, forKey: "subHeader")    //Added Subheader
+                dict.setValue(queAndAns.Id, forKey: "id")
+                
+                let answerArray = NSMutableArray()
+                
+                let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
+                
+                if answerListArray.count > 0 {
+                    
+                    for ans in answerListArray{
+                        
+                        let answerDict = NSMutableDictionary()
+                        answerDict.setValue(ans, forKey: "answerText")
+                        
+                        answerArray.add(answerDict)
+                    }
+                }
+                dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
+            
+                tableViewData.add(dict)
+                
             }
-            
-            
-            print(dict)
         }
-
+        
+        print(tableViewData)
+        
+        
+        let modifiedArray = NSMutableArray()
+        
+        for subHeaders in self.getSubHeader(){
+            
+            //Get the Subheader filtered in a loop
+            let namePredicate = NSPredicate(format: "subHeader = %@",subHeaders);
+            
+            let filteredArray = tableViewData.filter { namePredicate.evaluate(with: $0) };
+            
+            print(filteredArray)
+            
+            let newArray = NSMutableArray()
+            for item in filteredArray{
+                let tempDict = item as! NSMutableDictionary
+                let ary = tempDict["answers"] as! NSMutableArray
+                
+                for data in ary{
+                    let dic = data as! NSMutableDictionary
+                    newArray.add(dic)
+                    
+                }
+            }
+            let dictionary = NSMutableDictionary()
+            dictionary.setValue(newArray, forKey: "answers")
+            
+            let data1 = filteredArray[0] as! NSMutableDictionary
+            let head1 = data1["header"] as! String
+            let subHead1 = data1["subHeader"] as! String
+            
+            dictionary.setValue(head1, forKey: "header")
+            dictionary.setValue(subHead1, forKey: "subHeader")
+            
+            modifiedArray.add(dictionary)
+            
+        }
+        
+        print(modifiedArray)
+        
+        
+        
+//
+//       // let modofiedArray = NSMutableArray()
+//
+//        for item in tableViewRowDetails! {
+//
+//            let modifiedDictionary = NSMutableDictionary()
+//
+//            let dict = item as! NSMutableDictionary
+//            let header = dict["header"] as! String
+//            let subHeader = dict["subHeader"] as! String
+//            let answerArray = dict["answers"] as? NSMutableArray
+//
+//            modifiedDictionary.setValue(header, forKey: "header")
+//            modifiedDictionary.setValue(subHeader, forKey: "subHeader")
+//
+//
+//
+//            if tableViewData.count > 1{
+//
+//
+//
+//            }
+//                for data in tableViewData{
+//
+//                    let newDict = data as! NSMutableDictionary
+//                    let newHeader = newDict["subHeader"] as! String
+//                    let newAnswerArray = newDict["answers"] as? NSMutableArray
+//
+//                    if subHeader == newHeader{
+//
+//                        for answerItems in (newAnswerArray)!{
+//
+//                            let newData = answerItems as! NSMutableDictionary
+//                            answerArray?.add(newData)
+//                        }
+//                        modifiedDictionary.setValue(answerArray, forKey: "answers")
+//                        modofiedArray.add(modifiedDictionary)
+//                    }else{
+//                        break
+//                    }
+//                }
+//
+//
+//
+//
+//
+//        }
         
         
         
@@ -90,6 +222,42 @@ class AccountStrategyViewController : UIViewController{
         
     }
     
+    func getHeader()-> [String]{
+        var headerArray = [String]()
+        
+        //Get unique headernames once
+        let data = strategyQAViewModel.getStrategyQuestionAnswer()
+        for questionHeaders in data{
+            
+            let que = questionHeaders.SGWS_Question__r_SGWS_Question_Type__c
+            if que != "" {
+                if !(headerArray.contains(que)){
+                    headerArray.append(que)
+                }
+            }
+        }
+        print(headerArray)
+        return headerArray
+    }
+    
+    func getSubHeader()-> [String]{
+        var subHeaderArray = [String]()
+        
+        //Get unique headernames once
+        let data = strategyQAViewModel.getStrategyQuestionAnswer()
+        for questionHeaders in data{
+            
+            let que = questionHeaders.SGWS_Question__r_SGWS_Question_Sub_Type__c
+            if que != "" {
+                if !(subHeaderArray.contains(que)){
+                    subHeaderArray.append(que)
+                }
+            }
+        }
+        print(subHeaderArray)
+        return subHeaderArray
+    }
+    
     
     //MARK:- Button Actions
     @IBAction func editButtonClicked(sender : UIButton){
@@ -103,6 +271,7 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return (tableViewRowDetails?.count)!
+        //return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -134,7 +303,7 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
             let data = (questions["answerText"] as! String)
             
             let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)])
-            let dynamicSize: CGRect = attString.boundingRect(with: CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+            let dynamicSize: CGRect = attString.boundingRect(with: CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: NSStringDrawingContext.init())
             
             return dynamicSize.size
         }
@@ -154,7 +323,7 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
         
         let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "accountStrategyCell", for: indexPath) as! AccountStrategyCollectionViewCell
         //cell1.contentView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
-        cell1.displayCellData(data: questions , indexPath: indexPath)
+        cell1.displayCellData(data: questions , indexPath: indexPath, arrayData: tableViewRowDetails!)
         //cell1.contentView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
         
         return cell1

@@ -231,6 +231,7 @@
 		AE5C974520886DD4004548E9 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
 		AE5C974820887550004548E9 /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974720887550004548E9 /* DesignableUITextField.swift */; };
 		AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974920888330004548E9 /* SchedulerComponent.swift */; };
+		AE8F41E9209F73500033F81D /* SchedulerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974920888330004548E9 /* SchedulerComponent.swift */; };
 		AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF951172089C7800083EA47 /* AccountTableViewCell.swift */; };
 		AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */; };
 		AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */; };
@@ -1531,6 +1532,7 @@
 				D23C40D9208DFA890006691C /* AccountVisitListTableViewCell.swift in Sources */,
 				6D38325820874026006805C6 /* GlobalConstants.swift in Sources */,
 				8D99A3272093055200FAA71A /* Validations.swift in Sources */,
+				AE8F41E9209F73500033F81D /* SchedulerComponent.swift in Sources */,
 				91C3E59F208F0F600067CF3E /* ContactMenuViewController.swift in Sources */,
 				8D99A3132091E79C00FAA71A /* DropdownTableViewCell.swift in Sources */,
 				AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */,

@@ -16,7 +16,7 @@ class StrategyAnswers {
     var SGWS_Deactivate_Answer__c: String
     var SGWS_Question_Description__c: String
     var SGWS_Question__c:String
-    
+    //var OwnerId : String
     
     
     
@@ -32,7 +32,7 @@ class StrategyAnswers {
         SGWS_Deactivate_Answer__c = json["SGWS_Deactivate_Answer__c"] as? String ?? ""
         SGWS_Question_Description__c = json["SGWS_Question_Description__c"] as? String ?? ""
         SGWS_Question__c = json["SGWS_Question__c"] as?String ?? ""
-        
+        //OwnerId = json["OwnerId"] as?String ?? ""
         
     }
     
@@ -43,7 +43,7 @@ class StrategyAnswers {
         SGWS_Deactivate_Answer__c =  ""
         SGWS_Question_Description__c =  ""
         SGWS_Question__c = ""
-       
+        //OwnerId = ""
         
         
     }

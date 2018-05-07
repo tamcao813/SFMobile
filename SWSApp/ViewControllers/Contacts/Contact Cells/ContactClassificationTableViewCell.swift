@@ -102,4 +102,8 @@ extension ContactClassificationTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewContactViewController.createNewGlobals.userInput = true
+    }
 }

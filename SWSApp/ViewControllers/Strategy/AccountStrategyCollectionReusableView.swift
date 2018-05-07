@@ -17,7 +17,7 @@ class AccountStrategyCollectionReusableView: UICollectionReusableView {
     //Used to present the header data
     func displayHeaderViewData(data : NSMutableArray , indexPath : IndexPath){
         let headerQuestion = data[indexPath.section] as! NSDictionary
-        self.headerLabel?.text = (headerQuestion["headerText"] as! String)
-        self.questionLabel?.text = (headerQuestion["question"] as! String)
+        self.headerLabel?.text = (headerQuestion["header"] as! String)
+        self.questionLabel?.text = (headerQuestion["subHeader"] as! String)
     }
 }

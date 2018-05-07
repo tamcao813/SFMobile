@@ -11,6 +11,8 @@ import UIKit
 class ContactHoursTableViewCell: UITableViewCell {
     
     @IBOutlet weak var contactHoursTextField: UITextField!
+    var contactDetail: Contact?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         customizedUI()
@@ -20,7 +22,7 @@ class ContactHoursTableViewCell: UITableViewCell {
         contactHoursTextField.addPaddingLeft(10)
     }
     
-    func displayCellContent(contactDetail: Contact?){
+    func displayCellContent(){
         if let contactHours = contactDetail?.contactHours, contactHours != "" {
             contactHoursTextField.text = contactHours
         }
@@ -30,5 +32,13 @@ class ContactHoursTableViewCell: UITableViewCell {
 extension ContactHoursTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewContactViewController.createNewGlobals.userInput = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        contactDetail?.contactHours = contactHoursTextField.text!
     }
 }

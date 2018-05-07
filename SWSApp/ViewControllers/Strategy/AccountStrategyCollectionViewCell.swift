@@ -13,8 +13,8 @@ class AccountStrategyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblTitleText : UILabel?
     
     //Display Collection View data
-    func displayCellData(data : NSMutableDictionary, indexPath: IndexPath){
-        if indexPath.section <= 4{
+    func displayCellData(data : NSMutableDictionary, indexPath: IndexPath , arrayData : NSMutableArray){
+        if indexPath.section < arrayData.count - 1{
              lblTitleText?.text = "\u{2022} " + (data["answerText"] as! String)
         }else{
             lblTitleText?.text =  (data["answerText"] as! String)

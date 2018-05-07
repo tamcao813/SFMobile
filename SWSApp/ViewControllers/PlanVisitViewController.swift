@@ -13,6 +13,10 @@ let kAccountTxtTag = 100
 let kContactTxtTag = 101
 let kSelectedContactTag = 102
 
+protocol PlanVisitViewControllerDelegate: NSObjectProtocol {
+    func refershList()
+}
+
 class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     
     var associatedSelectedContact = [Contact]()
@@ -47,7 +51,6 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Plan VC viewDidLoad")
-        
         searchContactTxt.isEnabled = false
         self.getTheDataFromDB()
         print("PlanVistManager.sharedInstance.visit", PlanVistManager.sharedInstance.visit as Any)
@@ -221,6 +224,53 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             self.dismiss(animated: true)
         }
         
+    }
+    
+    @IBAction func planAction(sender: UIButton) {
+        let validateArray = validatefields()
+        if validateArray.contains(false) {
+            let uiAlertController = UIAlertController(// create new instance alert  controller
+                title: "Alert",
+                message: "Please correct required fields and user will have to address before saving again​",
+                preferredStyle:.alert)
+            
+            uiAlertController.addAction(// add Custom action on Event is Cancel
+                UIAlertAction.init(title: "OK", style: .default, handler: { (UIAlertAction) in
+                    uiAlertController.dismiss(animated: true, completion: nil)
+                }))
+            self.present(uiAlertController, animated: true, completion: nil)
+            
+        } else {
+            PlanVistManager.sharedInstance.status = "inProgress"
+            self.insetValuesToDB()
+            let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
+            self.present(viewController, animated: true)
+        }
+        
+    }
+    
+    @IBAction func scheduleAndClose(sender: UIButton) {
+        let validateArray = validatefields()
+        
+        if validateArray.contains(false) {
+            let uiAlertController = UIAlertController(// create new instance alert  controller
+                title: "Alert",
+                message: "Please correct required fields” and user will have to address before saving again​",
+                preferredStyle:.alert)
+            
+            uiAlertController.addAction(// add Custom action on Event is Cancel
+                UIAlertAction.init(title: "OK", style: .default, handler: { (UIAlertAction) in
+                    uiAlertController.dismiss(animated: true, completion: nil)
+                }))
+            self.present(uiAlertController, animated: true, completion: nil)
+            
+        } else {
+            PlanVistManager.sharedInstance.status = "Schedule"
+            self.insetValuesToDB()
+            self.delegate.refershList()
+            self.dismiss(animated: true)
+        }
     }
     
     // MARK:- Custom Methods
@@ -431,7 +481,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
                 if (textField.text?.isEmpty)! {
                     textField.layer.borderWidth = 2.0
                     textField.borderColor = UIColor.red
-                    validate = true
+                    validate = false
                     validateArray.append(validate)
                 } else {
                     textField.layer.borderWidth = 1.0
@@ -447,6 +497,55 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     // Get all values from all fields
     
     func addValuesPushToDB() {
+        
+    }
+    
+    func getDataTimeinStr(date:String, time: String) -> String {
+        
+        let timeFormatter = DateFormatter()
+        
+        timeFormatter.dateFormat = "hh:mm a"
+        
+        let fullTime = timeFormatter.date(from: time)
+        
+        timeFormatter.dateFormat = "HH:mm:ss"
+        
+        let formattedTime = timeFormatter.string(from: fullTime!)
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        let fullDate = dateFormatter.date(from: date)
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let formattedDate = dateFormatter.string(from: fullDate!)
+        
+        let formattedDateTime = formattedDate + "T" + formattedTime
+        
+        return formattedDateTime
+    }
+    
+    // Get all details to push to server
+    
+    func insetValuesToDB() {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if !associatedSelectedContact.isEmpty {
+            let contactObj = associatedSelectedContact[0]
+            PlanVistManager.sharedInstance.contactId = contactObj.contactId
+        }
+        let accountObj = searchAccounts[0]
+        PlanVistManager.sharedInstance.accountId = accountObj.account_Id
+        if ((schedulerComponentView.dateTextField.text != nil) && (schedulerComponentView.startTimeTextField.text != nil)) {
+            PlanVistManager.sharedInstance.startDate = self.getDataTimeinStr(date: schedulerComponentView.dateTextField.text!, time: schedulerComponentView.startTimeTextField.text!)
+        }
+        
+        if ((schedulerComponentView.dateTextField.text != nil) && (schedulerComponentView.endTimeTextField.text != nil)) {
+            PlanVistManager.sharedInstance.endDate = self.getDataTimeinStr(date: schedulerComponentView.dateTextField.text!, time: schedulerComponentView.endTimeTextField.text!)
+        }
+        PlanVistManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
         
     }
     

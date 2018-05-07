@@ -18,13 +18,13 @@ class EditAccountStrategyCollectionReusableView: UICollectionReusableView {
     func displayHeaderViewData(data : NSMutableArray , indexPath : IndexPath){
         self.isHidden = false
         let headerQuestion = data[indexPath.section] as! NSDictionary
-        self.headerLabel?.text = (headerQuestion["headerText"] as! String)
-        self.questionLabel?.text = (headerQuestion["question"] as! String)
+        self.headerLabel?.text = (headerQuestion["header"] as! String)
+        self.questionLabel?.text = (headerQuestion["subHeader"] as! String)
         
-        if (headerQuestion["selectionType"] as! String) == "1"{
-            self.selectionLabel?.text = "Single Select"
-        }else{
-            self.selectionLabel?.text = "Multi Select"
-        }
+//        if (headerQuestion["selectionType"] as! String) == "1"{
+//            self.selectionLabel?.text = "Single Select"
+//        }else{
+//            self.selectionLabel?.text = "Multi Select"
+//        }
     }
 }

@@ -81,6 +81,9 @@ class Contact {
         if buyerFlagString == "true" {
             buyerFlag = true
         }
+        if buyerFlagString == "1" {
+            buyerFlag = true
+        }
         title = json["Title"] as? String ?? ""
         department = json["Department"] as? String ?? ""
         preferredName = json["SGWS_Preferred_Name__c"] as? String ?? ""
@@ -127,6 +130,8 @@ class Contact {
         
         json["Email"] = email
         
+        json["LastModifiedDate"] = lastModifiedDate
+        
         if birthDate.count > 0 {
             json["Birthdate"] = birthDate
         }
@@ -156,7 +161,7 @@ class Contact {
         
         json["SGWS_Notes__c"] = sgwsNotes
         
-        //json["LastModifiedBy.Name"] = lastModifiedByName //don't save to soup or sync up
+        json["LastModifiedBy.Name"] = lastModifiedByName //don't save to soup or sync up // TBD
         
         json["SGWS_Child_1_Name__c"] = child1Name
         

@@ -380,7 +380,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy.SGWS_Account__c = "001m000000cHSKbAAO"
         new_Strategy.SGWS_Answer_Description_List__c = "Recognition,Approval"
         //new_Strategy.SGWS_Answer_Options__r_Id = ""
-        new_Strategy.SGWS_Notes__c = "Teena "
+        new_Strategy.SGWS_Notes__c = "AAAAAA "
         new_Strategy.SGWS_Question__r_Id = "a4vm00000009NL0AAM"
         
         let attributeDict = ["type":"SGWS_Response__c"]
@@ -401,7 +401,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             "attributes":attributeDict]
         
         let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
-        print("Success is here \(success)")
+        print("Success 1 is here \(success)")
         
         let new_Strategy2 = StrategyQA(for: "NewStrategy2")
 
@@ -410,7 +410,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy2.SGWS_Account__c = "001m000000cHSKbAAO"
         new_Strategy2.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
         //new_Strategy.SGWS_Answer_Options__r_Id = ""
-        new_Strategy2.SGWS_Notes__c = "Meena"
+        new_Strategy2.SGWS_Notes__c = "BBBBBB"
         new_Strategy2.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
         
         
@@ -430,10 +430,68 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             "attributes":attributeDict]
         
         let success2 = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict2)
-        print("Success is here \(success2)")
+        print("Success 2 is here \(success2)")
+        
+        let new_Strategy3 = StrategyQA(for: "NewStrategy3")
+        
+        new_Strategy3.Id = ""
+        new_Strategy3.OwnerId = "005m0000002pSmiAAE"
+        new_Strategy3.SGWS_Account__c = "001m000000cHSKbAAO"
+        new_Strategy3.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
+        //new_Strategy.SGWS_Answer_Options__r_Id = ""
+        new_Strategy3.SGWS_Notes__c = "CCCCCC"
+        new_Strategy3.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
         
         
-                if success || success2 == true{
+        let addNewDict3: [String:Any] = [
+            StrategyQA.StrategyQAFields[0]:new_Strategy3.Id,
+            StrategyQA.StrategyQAFields[11]:new_Strategy3.OwnerId,
+            StrategyQA.StrategyQAFields[1]:new_Strategy3.SGWS_Account__c,
+            StrategyQA.StrategyQAFields[12]:new_Strategy3.SGWS_Answer_Description_List__c,
+            //   StrategyQA.StrategyQAFields[3]:new_Strategy2.SGWS_Answer_Options__r_Id,
+            StrategyQA.StrategyQAFields[8]:new_Strategy3.SGWS_Notes__c,
+            StrategyQA.StrategyQAFields[2]:new_Strategy3.SGWS_Question__r_Id,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success3 = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict3)
+        print("Success 3 is here \(success3)")
+        
+        let new_Strategy4 = StrategyQA(for: "NewStrategy4")
+        
+        new_Strategy4.Id = ""
+        new_Strategy4.OwnerId = "005m0000002pSmiAAE"
+        new_Strategy4.SGWS_Account__c = "001m000000cHSKbAAO"
+        new_Strategy4.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
+        //new_Strategy.SGWS_Answer_Options__r_Id = ""
+        new_Strategy4.SGWS_Notes__c = "DDDDDD"
+        new_Strategy4.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
+        
+        
+        let addNewDict4: [String:Any] = [
+            StrategyQA.StrategyQAFields[0]:new_Strategy4.Id,
+            StrategyQA.StrategyQAFields[11]:new_Strategy4.OwnerId,
+            StrategyQA.StrategyQAFields[1]:new_Strategy4.SGWS_Account__c,
+            StrategyQA.StrategyQAFields[12]:new_Strategy4.SGWS_Answer_Description_List__c,
+            //   StrategyQA.StrategyQAFields[3]:new_Strategy2.SGWS_Answer_Options__r_Id,
+            StrategyQA.StrategyQAFields[8]:new_Strategy4.SGWS_Notes__c,
+            StrategyQA.StrategyQAFields[2]:new_Strategy4.SGWS_Question__r_Id,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success4 = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict4)
+        print("Success 4 is here \(success3)")
+        
+
+                if success || success2 || success3 || success4 == true{
         
                     let fields: [String] = StrategyQA.StrategyQAFields
                     strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in

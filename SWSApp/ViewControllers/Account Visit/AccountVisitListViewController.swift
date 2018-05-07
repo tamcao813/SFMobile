@@ -116,21 +116,12 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
-        let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-        
+        let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController        
         let data : Visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.editPlanVisit = true
-        if data.status == "Scheduled"{
-            accountVisitsVC?.visitStatus = .scheduled
-        }else if data.status  == "Completed"{
-            accountVisitsVC?.visitStatus = .completed
-        }else if data.status  == "In-Progress"{
-            accountVisitsVC?.visitStatus = .inProgress
-        }else if data.status  == "Planned"{
-            accountVisitsVC?.visitStatus = .planned
-        }
         (accountVisitsVC)?.delegate = self
+        accountVisitsVC?.visitObject = data
         DispatchQueue.main.async {
             self.present(accountVisitsVC!, animated: true, completion: nil)
         }

@@ -21,7 +21,7 @@
         <!--Account Visit List View Controller-->
         <scene sceneID="csx-Ni-sFJ">
             <objects>
-                <viewController storyboardIdentifier="AccountVisitListViewController" automaticallyAdjustsScrollViewInsets="NO" id="Yyq-GP-B40" customClass="AccountVisitListViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountVisitListViewController" id="Yyq-GP-B40" customClass="AccountVisitListViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bro-5I-5cA">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

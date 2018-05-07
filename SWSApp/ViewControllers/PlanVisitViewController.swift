@@ -71,7 +71,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         self.associatedContactTableView.isHidden = true
         self.textFieldTag = kSelectedContactTag
         
-        self.createNewVisit()
+        //self.createNewVisit()
         
         
     }

@@ -239,11 +239,10 @@ class EditAccountStrategyViewController: UIViewController {
         if validateFields{
             print("Success")
             
-            //Get The Selected Data in the array for Question And
-            
-            
-            
             print("Success")
+            
+            
+            
             
             
             
@@ -374,9 +373,9 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
     
     
     func createStrategy() {
-        
         let new_Strategy = StrategyQA(for: "NewStrategy")
         
+       
         new_Strategy.Id = ""
         new_Strategy.OwnerId = "005m0000002pSmiAAE"
         new_Strategy.SGWS_Account__c = "001m000000cHLa7AAG"
@@ -400,21 +399,22 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             kSyncTargetLocallyUpdated:false,
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
-        
+
         let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
         print("Success is here \(success)")
         
-        
-        //        if success == true{
-        //
-        //            let fields: [String] = StrategyQA.StrategyQAFields
-        //            strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in
-        //                if error != nil {
-        //                    print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
-        //                }
-        //            })
-        //
-        //        }
+
+//        if success == true{
+//
+//            let fields: [String] = StrategyQA.StrategyQAFields
+//            strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in
+//                if error != nil {
+//                    print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
+//                }
+//            })
+//
+//        }
+
         
         
         

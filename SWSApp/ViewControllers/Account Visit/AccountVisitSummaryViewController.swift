@@ -101,8 +101,7 @@ class AccountVisitSummaryViewController: UIViewController {
             endTime = dateFormatter1.string(from: endDate!)
         }
 
-        timeLabel.text = startTime + "-" + endTime
-        
+
     }
     
     func initializingXIBs(){

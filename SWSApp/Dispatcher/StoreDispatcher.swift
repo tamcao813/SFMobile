@@ -787,8 +787,8 @@ class StoreDispatcher {
         var contactAry: [Contact] = []
         
         let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:SGWS_Buying_Power__c} = 1 AND {Contact:AccountId} = '\(accountId)' "
-        
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:AccountId} = '\(accountId)' "
+
         let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -799,7 +799,12 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
                 let contact = Contact(withAry: resultDict)
-                contactAry.append(contact)
+                if contact.buyerFlag {
+                    contactAry.append(contact)
+                }
+                else if contact.contactClassification == "Influencer" {
+                    contactAry.append(contact)
+                }
             }
         }
         else if error != nil {

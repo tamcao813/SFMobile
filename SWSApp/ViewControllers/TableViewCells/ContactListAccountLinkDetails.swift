@@ -43,7 +43,12 @@ class ContactListAccountLinkDetails: UITableViewCell {
         accountNameValueLabel.text = accountList![0].accountName
         accountNumberValueLabel.text = accountList![0].accountNumber
         accountAddress1ValueLabel.text = accountList![0].shippingStreet
-        accountAddress2ValueLabel.text = accountList![0].shippingCity + ", " + accountList![0].shippingState + " " + accountList![0].shippingPostalCode
+        if accountList![0].shippingCity != "" {
+            accountAddress2ValueLabel.text = accountList![0].shippingCity + ", " + accountList![0].shippingState + " " + accountList![0].shippingPostalCode
+        }
+        else {
+            accountAddress2ValueLabel.text = ""
+        }
         accountRolesValueLabel.text = roles
         accountBuyerInfluencerOtherValueLabel.text = classification
 

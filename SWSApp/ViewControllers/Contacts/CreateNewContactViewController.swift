@@ -219,6 +219,13 @@ class CreateNewContactViewController: UIViewController {
             newContact = contactDetail!
         }
         
+        let date = Date()
+        print(date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        
+        
         if(isNewContact){
             newContact.buyerFlag = true
         } else {
@@ -226,6 +233,8 @@ class CreateNewContactViewController: UIViewController {
         }
         newContact.firstName = firstNameTextField.text!
         newContact.lastName = lastNameTextField.text!
+        newContact.name = newContact.firstName + " " + newContact.lastName
+        newContact.lastModifiedByName = newContact.name
         newContact.preferredName = preferredNameTextField.text!
         newContact.functionRole = primaryFunctionTextField.text!
         newContact.title = titleTextField.text!
@@ -234,6 +243,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.email = emailTextField.text!
         newContact.contactHours = contactHoursTextField.text!
         newContact.favouriteActivities = favouriteTextView.text!
+        newContact.lastModifiedDate = timeStamp
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         

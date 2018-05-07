@@ -127,6 +127,8 @@ class Contact {
         
         json["Email"] = email
         
+        json["LastModifiedDate"] = lastModifiedDate
+        
         if birthDate.count > 0 {
             json["Birthdate"] = birthDate
         }

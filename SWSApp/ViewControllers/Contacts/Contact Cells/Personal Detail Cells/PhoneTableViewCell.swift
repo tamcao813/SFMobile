@@ -87,7 +87,7 @@ extension PhoneTableViewCell: UITextFieldDelegate {
                 
         contactDetail?.phoneNumber = phoneTextField.text!
         contactDetail?.fax = faxTextField.text!
-    }
+    }       
 }
 
 extension String {

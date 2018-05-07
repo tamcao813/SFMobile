@@ -130,7 +130,16 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
             endTimeTextField.text = dateFormatter.string(from: datePickerView.date)
         }
         if (!startTimeTextField.text!.isEmpty && !endTimeTextField.text!.isEmpty) {
-            if convertToDate(dateString: startTimeTextField.text!).compare(convertToDate(dateString: endTimeTextField.text!)) == .orderedDescending {
+            if convertToDate(dateString: startTimeTextField.text!) == convertToDate(dateString: endTimeTextField.text!)  {
+                endTimeTextField.text! = ""
+                
+                let alert = UIAlertView()
+                alert.title = "Alert"
+                alert.message = "Start Time should be lesser than End Time"
+                alert.addButton(withTitle: "OK")
+                alert.show()
+                
+            } else if convertToDate(dateString: startTimeTextField.text!).compare(convertToDate(dateString: endTimeTextField.text!)) == .orderedDescending  {
                 endTimeTextField.text! = ""
                 
                 let alert = UIAlertView()

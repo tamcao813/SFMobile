@@ -30,6 +30,7 @@ class Validations {
         let result = emailTest.evaluate(with: testStr)
         return result
     }
+    
     func validatePhoneNumber(phoneNumber: String) -> String{
         let newString = phoneNumber as NSString
         let components = newString.components(separatedBy: NSCharacterSet.decimalDigits.inverted)

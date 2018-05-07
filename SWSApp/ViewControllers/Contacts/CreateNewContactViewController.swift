@@ -203,6 +203,26 @@ class CreateNewContactViewController: UIViewController {
             }
             errorLabel.text = StringConstants.emptyFieldError
             return
+        }else if phoneTextField.text != "" && phoneTextField.text?.characters.count != 13{
+            phoneTextField.borderColor = .red
+            phoneTextField.becomeFirstResponder()
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            }else{
+                tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
+            }
+            errorLabel.text = "Please correct error above"
+            return
+        }else if faxTextField.text != "" && faxTextField.text?.characters.count != 13{
+            faxTextField.borderColor = .red
+            faxTextField.becomeFirstResponder()
+            if isNewContact {
+                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
+            }else{
+                tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
+            }
+            errorLabel.text = "Please correct error above"
+            return
         }else if emailTextField.text != "" && !Validations().isValidEmail(testStr: emailTextField.text!){
             emailTextField.borderColor = .red
             emailTextField.becomeFirstResponder()

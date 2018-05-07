@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwipeCellKit
 
 class AccountVisitListViewController: UIViewController {
     
@@ -33,7 +32,6 @@ class AccountVisitListViewController: UIViewController {
         self.tableView.estimatedRowHeight = 100
         self.tableView.allowsSelection = true
         self.tableView.allowsMultipleSelectionDuringEditing = true
-        //        self.tableView.tableFooterView = UIView()
     }
     
     func initializingXIBs(){
@@ -50,7 +48,7 @@ class AccountVisitListViewController: UIViewController {
     
 }
 
-extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
+extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
@@ -62,60 +60,59 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
-        cell?.delegate = self
         let celldata = tableViewDataArray![indexPath.row]
         cell?.displayCellData(data: celldata)
         return cell!
     }
     
     //MARK:- Table view on Swipe EDIT and DELETE actions
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        
-        guard orientation == .right else { return nil }
-        
-        let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
-            let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
-            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-            
-            let data : Visit = self.tableViewDataArray![indexPath.row]
-            
-            if data.status == "Scheduled"{
-                accountVisitsVC?.visitStatus = .scheduled
-            }else if data.status  == "Completed"{
-                accountVisitsVC?.visitStatus = .completed
-            }else {
-                accountVisitsVC?.visitStatus = .inProgress
-            }
-            accountVisitsVC?.modalPresentationStyle = .overCurrentContext
-            self.present(accountVisitsVC!, animated: true, completion: nil)
-        }
-        
-        editAction.hidesWhenSelected = true
-        editAction.image = UIImage(named:"editIcon")
-        editAction.backgroundColor = UIColor(named:"InitialsBackground")
-        
-        let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
-            let cell = tableView.cellForRow(at: indexPath) as! AccountVisitListTableViewCell
-            let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
-            let alert = UIAlertController(title: "Visit Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
-            let continueAction = UIAlertAction(title: "Delete", style: .default , handler: closure)
-            alert.addAction(continueAction)
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: closure))
-            self.present(alert, animated: true, completion: nil)
-            
-            
-        }
-        deleteAction.image = #imageLiteral(resourceName: "deletX")
-        deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
-        return [deleteAction, editAction]
-    }
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+//
+//        guard orientation == .right else { return nil }
+//
+//        let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
+//            let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
+//            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
+//
+//            let data : Visit = self.tableViewDataArray![indexPath.row]
+//
+//            if data.status == "Scheduled"{
+//                accountVisitsVC?.visitStatus = .scheduled
+//            }else if data.status  == "Completed"{
+//                accountVisitsVC?.visitStatus = .completed
+//            }else {
+//                accountVisitsVC?.visitStatus = .inProgress
+//            }
+//            accountVisitsVC?.modalPresentationStyle = .overCurrentContext
+//            self.present(accountVisitsVC!, animated: true, completion: nil)
+//        }
+//
+//        editAction.hidesWhenSelected = true
+//        editAction.image = UIImage(named:"editIcon")
+//        editAction.backgroundColor = UIColor(named:"InitialsBackground")
+//
+//        let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
+//            let cell = tableView.cellForRow(at: indexPath) as! AccountVisitListTableViewCell
+//            let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
+//            let alert = UIAlertController(title: "Visit Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
+//            let continueAction = UIAlertAction(title: "Delete", style: .default , handler: closure)
+//            alert.addAction(continueAction)
+//            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: closure))
+//            self.present(alert, animated: true, completion: nil)
+//
+//
+//        }
+//        deleteAction.image = #imageLiteral(resourceName: "deletX")
+//        deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
+//        return [deleteAction, editAction]
+//    }
     
-    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
-        var options = SwipeTableOptions()
-        //options.expansionStyle = .
-        options.transitionStyle = .border
-        return options
-    }
+//    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
+//        var options = SwipeTableOptions()
+//        //options.expansionStyle = .
+//        options.transitionStyle = .border
+//        return options
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
@@ -131,7 +128,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         }else if data.status  == "In-Progress"{
             accountVisitsVC?.visitStatus = .inProgress
         }else if data.status  == "Planned"{
-            accountVisitsVC?.modalPresentationStyle = .overCurrentContext
+            accountVisitsVC?.visitStatus = .planned
         }
         (accountVisitsVC)?.delegate = self
         DispatchQueue.main.async {

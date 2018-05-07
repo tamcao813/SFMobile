@@ -28,6 +28,7 @@
 		12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */; };
 		12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */; };
 		12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D725052083A845000E7015 /* CurrencyFormatter.swift */; };
+		12E06C9920A0594C00A6C9E4 /* PlanVistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E06C9820A0594B00A6C9E4 /* PlanVistManager.swift */; };
 		12E47BDE208A21C900D37B74 /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BDD208A21C900D37B74 /* ContactListViewController.swift */; };
 		12E47BE2208B458C00D37B74 /* ContactListDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */; };
 		12E47BE4208B518A00D37B74 /* ContactListDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE3208B518A00D37B74 /* ContactListDetailsTableViewCell.swift */; };
@@ -223,8 +224,6 @@
 		AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
 		AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */; };
 		AE43DD04209622EC005D8DD1 /* ServicePurposesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */; };
-		AE43DD18209C7293005D8DD1 /* PlanVistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43DD17209C7293005D8DD1 /* PlanVistManager.swift */; };
-		AE43DD19209C7293005D8DD1 /* PlanVistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43DD17209C7293005D8DD1 /* PlanVistManager.swift */; };
 		AE43DD1B209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43DD1A209C73EF005D8DD1 /* VisitSchedulerViewModel.swift */; };
 		AE43DD1C209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43DD1A209C73EF005D8DD1 /* VisitSchedulerViewModel.swift */; };
 		AE43DD1E209C7401005D8DD1 /* PlanVisit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43DD1D209C7401005D8DD1 /* PlanVisit.swift */; };
@@ -396,6 +395,7 @@
 		12C5CEF4206E1C1A00BC6E7A /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		12D725052083A845000E7015 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
+		12E06C9820A0594B00A6C9E4 /* PlanVistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanVistManager.swift; sourceTree = "<group>"; };
 		12E47BDD208A21C900D37B74 /* ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewController.swift; sourceTree = "<group>"; };
 		12E47BDF208A254900D37B74 /* ContactListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListTableViewCell.swift; sourceTree = "<group>"; };
 		12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListDetailsViewController.swift; sourceTree = "<group>"; };
@@ -485,7 +485,6 @@
 		AE2564BF2091B1C10056B559 /* AssociateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateTableViewCell.swift; sourceTree = "<group>"; };
 		AE2564C02091B1C10056B559 /* SelectedAssociateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedAssociateTableViewCell.swift; sourceTree = "<group>"; };
 		AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ServicePurposes.plist; sourceTree = "<group>"; };
-		AE43DD17209C7293005D8DD1 /* PlanVistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanVistManager.swift; sourceTree = "<group>"; };
 		AE43DD1A209C73EF005D8DD1 /* VisitSchedulerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitSchedulerViewModel.swift; sourceTree = "<group>"; };
 		AE43DD1D209C7401005D8DD1 /* PlanVisit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanVisit.swift; sourceTree = "<group>"; };
 		AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVisitViewController.swift; sourceTree = "<group>"; };
@@ -776,7 +775,6 @@
 		AE43DD16209C727C005D8DD1 /* New Group */ = {
 			isa = PBXGroup;
 			children = (
-				AE43DD17209C7293005D8DD1 /* PlanVistManager.swift */,
 			);
 			path = "New Group";
 			sourceTree = "<group>";
@@ -920,6 +918,7 @@
 				6F3D309A206BA065000CFFCC /* ParentViewController.swift */,
 				6F8BD3EA20720281006CABA8 /* AccountListViewController.swift */,
 				6F8BD3F02072297C006CABA8 /* MoreViewController.swift */,
+				12E06C9820A0594B00A6C9E4 /* PlanVistManager.swift */,
 				AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */,
 				AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */,
 				AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */,
@@ -1586,7 +1585,6 @@
 				D23C40C9208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */,
 				6D38326B20874026006805C6 /* ContactsViewModel.swift in Sources */,
 				6D38326C20874026006805C6 /* ObjectivesViewController.swift in Sources */,
-				AE43DD19209C7293005D8DD1 /* PlanVistManager.swift in Sources */,
 				129A699F2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */,
 				6D38326D20874026006805C6 /* Notification.swift in Sources */,
 				8D99A3242092D66C00FAA71A /* CustomPicker.swift in Sources */,
@@ -1721,8 +1719,8 @@
 				F2FDA14A2099D92D000921A8 /* Visit.swift in Sources */,
 				F2CAD22D20957C23001016C2 /* OpportunitiesViewController.swift in Sources */,
 				F20C1A2D20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift in Sources */,
+				12E06C9920A0594C00A6C9E4 /* PlanVistManager.swift in Sources */,
 				6F8BD3F12072297C006CABA8 /* MoreViewController.swift in Sources */,
-				AE43DD18209C7293005D8DD1 /* PlanVistManager.swift in Sources */,
 				8D99A2E02091E14700FAA71A /* ToggleTableViewCell.swift in Sources */,
 				8D8C450C2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */,
 				AE43DD1B209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */,

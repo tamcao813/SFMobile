@@ -319,7 +319,14 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     }
     
     func getNonSelectedContacts() -> [Contact] {
-        var tempContacts = conatctViewModel.contacts(forAccount: accountID)
+        var tempContacts = [Contact]()
+        if conatctViewModel.contacts(forAccount: accountID).count > 5 {
+            tempContacts = conatctViewModel.contacts(forAccount: accountID)
+            tempContacts.removeSubrange(5...)
+        } else {
+            tempContacts = conatctViewModel.contacts(forAccount: accountID)
+        }
+//        var tempContacts = conatctViewModel.contacts(forAccount: accountID)
         for selectedContact in associatedSelectedContact {
             for contact in tempContacts {
                 if (contact.contactId == selectedContact.contactId)
@@ -444,6 +451,7 @@ extension PlanVisitViewController : UITableViewDelegate {
         } else {
             let cell: SelectedAssociateTableViewCell = tableView.dequeueReusableCell(withIdentifier: "SelectedAssociateTableViewCell", for: indexPath as IndexPath) as! SelectedAssociateTableViewCell
             cell.removeButton.tag = indexPath.row
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
             let contacts = associatedSelectedContact[indexPath.row]
             cell.initialNameLabel.text = contacts.getIntials(name: contacts.name)
             cell.nameLabel.text = contacts.name

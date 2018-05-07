@@ -380,7 +380,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy.SGWS_Account__c = "001m000000cHSKbAAO"
         new_Strategy.SGWS_Answer_Description_List__c = "Recognition,Approval"
         //new_Strategy.SGWS_Answer_Options__r_Id = ""
-        new_Strategy.SGWS_Notes__c = "AAAAAA "
+        new_Strategy.SGWS_Notes__c = "EEEEE "
         new_Strategy.SGWS_Question__r_Id = "a4vm00000009NL0AAM"
         
         let attributeDict = ["type":"SGWS_Response__c"]
@@ -410,7 +410,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy2.SGWS_Account__c = "001m000000cHSKbAAO"
         new_Strategy2.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
         //new_Strategy.SGWS_Answer_Options__r_Id = ""
-        new_Strategy2.SGWS_Notes__c = "BBBBBB"
+        new_Strategy2.SGWS_Notes__c = "FFFFF"
         new_Strategy2.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
         
         
@@ -439,7 +439,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy3.SGWS_Account__c = "001m000000cHSKbAAO"
         new_Strategy3.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
         //new_Strategy.SGWS_Answer_Options__r_Id = ""
-        new_Strategy3.SGWS_Notes__c = "CCCCCC"
+        new_Strategy3.SGWS_Notes__c = "GGGGGGG"
         new_Strategy3.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
         
         
@@ -468,7 +468,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy4.SGWS_Account__c = "001m000000cHSKbAAO"
         new_Strategy4.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
         //new_Strategy.SGWS_Answer_Options__r_Id = ""
-        new_Strategy4.SGWS_Notes__c = "DDDDDD"
+        new_Strategy4.SGWS_Notes__c = "HHHHHHH"
         new_Strategy4.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
         
         let addNewDict4: [String:Any] = [
@@ -490,17 +490,6 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         print("Success 4 is here \(success3)")
         
 
-                if success || success2 || success3 || success4 == true{
-        
-                    let fields: [String] = StrategyQA.StrategyQAFields
-                    strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in
-                        if error != nil {
-                            print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
-                        }
-                    })
-        
-                }
-        
         
         
         

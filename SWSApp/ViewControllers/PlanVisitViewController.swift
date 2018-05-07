@@ -200,7 +200,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         if validateArray.contains(false) {
             errorLbl.isHidden = false
         } else {
-            PlanVistManager.sharedInstance.status = "inProgress"
+            PlanVistManager.sharedInstance.status = "In-Progress"
             errorLbl.isHidden = true
             self.insetValuesToDB()
             createNewVisit()
@@ -219,7 +219,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             
         } else {
             
-            PlanVistManager.sharedInstance.status = "Schedule"
+            PlanVistManager.sharedInstance.status = "Scheduled"
             errorLbl.isHidden = true
             self.insetValuesToDB()
              createNewVisit()

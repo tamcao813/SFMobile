@@ -72,21 +72,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
         cell?.delegate = self
-        
         let celldata = tableViewData![indexPath.row]
         cell?.displayCellData(data: celldata)
-        
-        
-//        cell?.addressLabel.text = accountVisitArray[indexPath.row]["title"]
-//        cell?.visitStatusLabel.text = accountVisitArray[indexPath.row]["status"]
-//        if accountVisitArray[indexPath.row]["status"] == "Scheduled"{
-//            cell?.statusView.backgroundColor = UIColor(hexString: "#CDA635")
-//        }else if accountVisitArray[indexPath.row]["status"] == "Completed"{
-//            cell?.statusView.backgroundColor = UIColor(hexString: "#319553")
-//        }else {
-//            cell?.statusView.backgroundColor = UIColor(hexString: "#97A124")
-//        }
-        
         return cell!
     }
     
@@ -117,23 +104,9 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
         
         let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
-            
             let cell = tableView.cellForRow(at: indexPath) as! AccountVisitListTableViewCell
             let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
-            
-            
-//            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Cancel", errorAlertActionTitle2: "Delete", viewControllerUsed: self, action1: {
-//                print("Cancel")
-//                closure
-//            }, action2: {
-//                print("Delete")
-//                closure
-//            })
-            
-            
-            
             let alert = UIAlertController(title: "Visit Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
-            
             let continueAction = UIAlertAction(title: "Delete", style: .default , handler: closure)
             alert.addAction(continueAction)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: closure))
@@ -141,7 +114,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
             
             
         }
-        deleteAction.image = UIImage(named:"deletX")
+        deleteAction.image = #imageLiteral(resourceName: "deletX")
         deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
         return [deleteAction, editAction]
     }
@@ -169,9 +142,10 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         }else if data.status  == "Planned"{
             accountVisitsVC?.modalPresentationStyle = .overCurrentContext
         }
-        present(accountVisitsVC!, animated: true, completion: nil)
-        accountVisitsVC?.modalPresentationStyle = .overCurrentContext
         (accountVisitsVC)?.delegate = self
+        DispatchQueue.main.async {
+            self.present(accountVisitsVC!, animated: true, completion: nil)
+        }
     }
 }
 

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -28,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pA8-1K-Fkd">
-                                <rect key="frame" x="894" y="30" width="120" height="40"/>
+                                <rect key="frame" x="894" y="10" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="BWR-Cp-J3K"/>
@@ -48,7 +47,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mJ4-8V-uwc">
-                                <rect key="frame" x="0.0" y="80" width="1024" height="688"/>
+                                <rect key="frame" x="0.0" y="60" width="1024" height="708"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="3rd-Fa-L4N">
                                     <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
@@ -114,7 +113,7 @@
                             <constraint firstItem="mJ4-8V-uwc" firstAttribute="leading" secondItem="FBI-Cv-M3r" secondAttribute="leading" id="B2a-70-C08"/>
                             <constraint firstItem="FBI-Cv-M3r" firstAttribute="trailing" secondItem="mJ4-8V-uwc" secondAttribute="trailing" id="EF5-Ht-Cm3"/>
                             <constraint firstItem="FBI-Cv-M3r" firstAttribute="trailing" secondItem="pA8-1K-Fkd" secondAttribute="trailing" constant="10" id="bHn-2a-eYH"/>
-                            <constraint firstItem="pA8-1K-Fkd" firstAttribute="top" secondItem="Bro-5I-5cA" secondAttribute="top" constant="30" id="wOF-Uz-fDi"/>
+                            <constraint firstItem="pA8-1K-Fkd" firstAttribute="top" secondItem="Bro-5I-5cA" secondAttribute="top" constant="10" id="wOF-Uz-fDi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FBI-Cv-M3r"/>
                     </view>
@@ -129,7 +128,7 @@
         <!--Account Visit Summary View Controller-->
         <scene sceneID="USi-wn-NWf">
             <objects>
-                <viewController storyboardIdentifier="AccountVisitSummaryViewController" id="v9Q-k8-N2k" customClass="AccountVisitSummaryViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountVisitSummaryViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="v9Q-k8-N2k" customClass="AccountVisitSummaryViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Atp-6A-ZgO">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

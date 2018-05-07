@@ -1619,11 +1619,13 @@ class StoreDispatcher {
         }
         
     }
-     // SyncDown StrategyQA Soup
     
+     //SyncDown StrategyQA Soup
     func syncDownStrategyQA(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id,SGWS_Account__c,SGWS_Question__r.Id,SGWS_Answer_Options__r.Id,SGWS_Question__r.SGWS_Question_Type__c,SGWS_Question__r.SGWS_Question_Sub_Type__c,SGWS_Question_Description__c,SGWS_Answer__c,SGWS_Notes__c,LastModifiedById,LastModifiedDate,OwnerId FROM SGWS_Response__c ORDER BY SGWS_Question__r.SGWS_Sorting_Order__c"
+       let soqlQuery = "SELECT Id,SGWS_Account__c,SGWS_Question__r.Id,SGWS_Answer_Options__r.Id,SGWS_Question__r.SGWS_Question_Type__c,SGWS_Question__r.SGWS_Question_Sub_Type__c,SGWS_Question_Description__c,SGWS_Answer__c,SGWS_Notes__c,LastModifiedById,LastModifiedDate,OwnerId, SGWS_Answer_Description_List__c  FROM SGWS_Response__c where SGWS_Account__c ='001m000000cHTdgAAG'"
+        
+        //let soqlQuery = "SELECT Id,SGWS_Account__c,SGWS_Question__r.Id,SGWS_Answer_Options__r.Id,SGWS_Question__r.SGWS_Question_Type__c,SGWS_Question__r.SGWS_Question_Sub_Type__c,SGWS_Question_Description__c,SGWS_Answer__c,SGWS_Notes__c,LastModifiedById,LastModifiedDate,OwnerId,SGWS_Answer_Description_List__c FROM SGWS_Response__c ORDER BY SGWS_Question__r.SGWS_Sorting_Order__c"
         
         print("soql syncDownStrategyQA query is \(soqlQuery)")
         
@@ -1702,7 +1704,7 @@ class StoreDispatcher {
     
     func syncDownStrategyQuestions(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Description__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c FROM SGWS_Question__c"
+        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Description__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c FROM SGWS_Question__c where SGWS_Survey_ID__c in ('a0am0000002jgc3AAA')"
         
         print("soql syncDownStrategyQuestions query is \(soqlQuery)")
         

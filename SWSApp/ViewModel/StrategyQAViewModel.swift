@@ -13,6 +13,10 @@ class StrategyQAViewModel {
         return StoreDispatcher.shared.fetchStrategyQA()
     }
     
+//    func <#name#>(<#parameters#>) -> <#return type#> {
+ //       <#function body#>
+//    }
+    
     
     
 }

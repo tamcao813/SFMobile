@@ -24,6 +24,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     var nonSelectedContact = [Contact]()
     private var myTableView: UITableView!
     private var associatedContactTableView: UITableView!
+    private var containerView: UIView!
     var textFieldTag: Int = 0
     var accountID: String = ""
     let accountViewModel = AccountsViewModel()
@@ -222,7 +223,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             errorLbl.isHidden = true
             self.insetValuesToDB()
              createNewVisit()
-//            self.delegate.refershList()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             self.dismiss(animated: true)
         }
     }

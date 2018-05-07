@@ -136,7 +136,7 @@ class AccountVisitSummaryViewController: UIViewController {
     }
     
     @IBAction func startOrContinueVisitButtonTapped(_ sender: UIButton){
-        if visitStatus == .scheduled  || visitStatus == .planned{
+        if visitStatus == .scheduled  || visitStatus == .planned || visitStatus == .inProgress{
             let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext

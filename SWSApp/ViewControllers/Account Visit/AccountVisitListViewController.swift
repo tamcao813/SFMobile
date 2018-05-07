@@ -15,8 +15,13 @@ class AccountVisitListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountList), name: NSNotification.Name("refreshAccountList"), object: nil)
         customizedUI()
         initializingXIBs()
+        getTheDataFromDB()
+    }
+    
+    @objc func refreshAccountList(){
         getTheDataFromDB()
     }
     
@@ -25,6 +30,11 @@ class AccountVisitListViewController: UIViewController {
         let visitArray = VisitsViewModel()
         tableViewDataArray = visitArray.visitsForUser()
         tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        tableView.reloadData()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshAccountList"), object: nil)
     }
     
     func customizedUI(){
@@ -120,7 +130,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController        
         let data : Visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
-//        (accountVisitsVC)?.delegate = self
+        PlanVistManager.sharedInstance.editPlanVisit = true
+        (accountVisitsVC)?.delegate = self
         accountVisitsVC?.visitObject = data
         DispatchQueue.main.async {
             self.present(accountVisitsVC!, animated: true, completion: nil)

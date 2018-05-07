@@ -37,6 +37,8 @@
 		12F0F89E2090B1D200160C3D /* ContactListDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE3208B518A00D37B74 /* ContactListDetailsTableViewCell.swift */; };
 		12F0F89F2090BABC00160C3D /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BDD208A21C900D37B74 /* ContactListViewController.swift */; };
 		4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */; };
+		4AE1195520A0AD720095BBA3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1FB18322062A7C00072F4C1 /* Info.plist */; };
+		4AE1195620A0AD740095BBA3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1FB18322062A7C00072F4C1 /* Info.plist */; };
 		6D38325020874026006805C6 /* CustomerHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */; };
 		6D38325120874026006805C6 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483952068381A00A0343B /* Contact.swift */; };
 		6D38325220874026006805C6 /* ChatterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E12D7420736E0C0005B982 /* ChatterViewController.swift */; };
@@ -1169,7 +1171,7 @@
 					D1FB18222062A7C00072F4C1 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					D1FB18362062A7C00072F4C1 = {
 						CreatedOnToolsVersion = 9.2;
@@ -1222,6 +1224,7 @@
 				6D38327F20874026006805C6 /* Ubuntu-Regular.ttf in Resources */,
 				8D99A3212092501000FAA71A /* FamilyTableViewCell.xib in Resources */,
 				6D38328020874026006805C6 /* Ubuntu-Medium.ttf in Resources */,
+				4AE1195620A0AD740095BBA3 /* Info.plist in Resources */,
 				6D38328120874026006805C6 /* CrimsonText-Semibold.ttf in Resources */,
 				8D99A3032091E73F00FAA71A /* EmailTableViewCell.xib in Resources */,
 				D23C40D1208DE6590006691C /* AssociatedContactsTableViewCell.xib in Resources */,
@@ -1323,6 +1326,7 @@
 				8DD150062093308700858349 /* AssociateTableViewCell.xib in Resources */,
 				D1FB18312062A7C00072F4C1 /* LaunchScreen.storyboard in Resources */,
 				6D38329B20875E00006805C6 /* SFPropertydev.plist in Resources */,
+				4AE1195520A0AD720095BBA3 /* Info.plist in Resources */,
 				6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */,
 				AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */,
 				8DA1343220A0597B006A62DE /* LocationTableViewCell.xib in Resources */,
@@ -1979,17 +1983,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
 				INFOPLIST_FILE = SWSApp/Info.plist;
 				INFOPLIST_OUTPUT_FORMAT = XML;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
+				PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2004,17 +2008,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
 				INFOPLIST_FILE = SWSApp/Info.plist;
 				INFOPLIST_OUTPUT_FORMAT = XML;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
+				PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;

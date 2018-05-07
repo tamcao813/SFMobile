@@ -74,26 +74,33 @@ class AccountVisitSummaryViewController: UIViewController {
     func getStartDateAndEndTime() {
         
         let dateFormatter = DateFormatter()
+        var startTime = ""
+        var endTime = ""
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" //Your date format
         let date = dateFormatter.date(from: (visitObject?.startDate)!) //according t
-        dateFormatter.dateFormat = "MMM" //Your date format
-        let month = dateFormatter.string(from: date!)
-        monthLabel.text = month
-        dateFormatter.dateFormat = "dd" //Your date format
-        let day = dateFormatter.string(from: date!)
-        dayLabel.text = day
-        dateFormatter.dateFormat = "H" //Your date format
-        
-        let startTime = dateFormatter.string(from: date!)
+        if date != nil {
+            dateFormatter.dateFormat = "MMM" //Your date format
+            let month = dateFormatter.string(from: date!)
+            monthLabel.text = month
+            dateFormatter.dateFormat = "dd" //Your date format
+            let day = dateFormatter.string(from: date!)
+            dayLabel.text = day
+            dateFormatter.dateFormat = "H" //Your date format
+            startTime = dateFormatter.string(from: date!)
+        }
+
         
         let dateFormatter1 = DateFormatter()
         dateFormatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" //Your date format
         let endDate = dateFormatter1.date(from: (visitObject?.endDate)!) //according t
-        dateFormatter1.dateFormat = "H a" //Your date format
-        dateFormatter1.amSymbol = "AM"
-        dateFormatter1.pmSymbol = "PM"
-        let endTime = dateFormatter1.string(from: endDate!)
         
+        if endDate != nil {
+            dateFormatter1.dateFormat = "H a" //Your date format
+            dateFormatter1.amSymbol = "AM"
+            dateFormatter1.pmSymbol = "PM"
+            endTime = dateFormatter1.string(from: endDate!)
+        }
+
         timeLabel.text = startTime + "-" + endTime
         
     }

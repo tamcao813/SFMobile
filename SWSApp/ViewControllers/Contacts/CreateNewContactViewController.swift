@@ -235,7 +235,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.firstName = firstNameTextField.text!
         newContact.lastName = lastNameTextField.text!
         newContact.name = newContact.firstName + " " + newContact.lastName
-        newContact.lastModifiedByName = newContact.name
+        newContact.lastModifiedByName = (UserViewModel().loggedInUser?.userName)!
         newContact.preferredName = preferredNameTextField.text!
         newContact.functionRole = primaryFunctionTextField.text!
         newContact.title = titleTextField.text!

@@ -80,7 +80,7 @@ class ContactsViewModel{
         
         var selectedAccountName = ""
         
-        let accounts = AccountsViewModel().accountsForLoggedUser
+//        let accounts = AccountsViewModel().accountsForLoggedUser
 
         
         for acr in acrData {

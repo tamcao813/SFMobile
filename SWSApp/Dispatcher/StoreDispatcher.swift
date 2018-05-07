@@ -787,7 +787,7 @@ class StoreDispatcher {
         var contactAry: [Contact] = []
         
         let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:SGWS_Buying_Power__c} = 1 OR  {Contact:SGWS_Buying_Power__c} = 'true' OR {Contact:SGWS_Contact_Classification__c} = 'Influencer' AND {Contact:AccountId} = '\(accountId)' "
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:SGWS_Buying_Power__c} = 1 AND {Contact:AccountId} = '\(accountId)' "
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         

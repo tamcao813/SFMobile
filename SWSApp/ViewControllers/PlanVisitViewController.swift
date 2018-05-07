@@ -203,7 +203,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             PlanVistManager.sharedInstance.status = "In-Progress"
             errorLbl.isHidden = true
             self.insetValuesToDB()
-            createNewVisit()
+           // createNewVisit()
             let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
             self.present(viewController, animated: true)

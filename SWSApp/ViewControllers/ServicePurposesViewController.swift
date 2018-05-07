@@ -7,18 +7,23 @@
 //
 
 import Foundation
+import SmartSync
 
 class ServicePurposesViewController: UIViewController {
     
     @IBOutlet weak var collectionView : UICollectionView?
+    @IBOutlet weak var textView : UITextView?
     var tableViewRowDetails : NSMutableArray?
     var selectedValuesList = [String]()
     var count = 0
+    var planVist:PlanVisit? = PlanVisit(for: "")
+    let visitViewModel = VisitSchedulerViewModel()
     
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         print("ServicePurposesViewController")
         
         let plistPath = Bundle.main.path(forResource: "ServicePurposes", ofType: ".plist", inDirectory: nil)
@@ -104,6 +109,9 @@ class ServicePurposesViewController: UIViewController {
     }
     
     @IBAction func saveAndClose(sender: UIButton) {
+        
+        createNewVisit()
+        
         self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }
@@ -215,6 +223,9 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
             if indexPath.row == readServicePurposePList().count {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
+                
+                //PlanVistManager.sharedInstance.sgwsAgendaNotes = ((cell1 as! EditAccountStrategyCollectionViewCell).textView?.text)!
+                
             } else {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = (readServicePurposePList()[indexPath.row] as! Dictionary<String, String>)["value"]
@@ -294,4 +305,52 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
             return 0.0
         }
     }
+    
+    func createNewVisit() {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let accountId = appDelegate.loggedInUser?.accountId
+        print("Account id in plan is \(accountId)")
+        
+        
+        let new_visit = PlanVisit(for: "newVisit")
+        
+        new_visit.subject = (planVist?.subject)!
+        new_visit.accountId = PlanVistManager.sharedInstance.accountId
+        new_visit.sgwsAppointmentStatus = (planVist?.sgwsAppointmentStatus)!
+        new_visit.startDate =  PlanVistManager.sharedInstance.startDate //"2018-05-02T14:00:00.000Z"
+        new_visit.endDate = PlanVistManager.sharedInstance.endDate //"2018-05-02T15:00:00.000Z"
+        new_visit.sgwsVisitPurpose = (planVist?.sgwsVisitPurpose)!
+        new_visit.description = (planVist?.description)!
+        new_visit.sgwsAgendaNotes = PlanVistManager.sharedInstance.sgwsAgendaNotes
+        new_visit.status = PlanVistManager.sharedInstance.status
+        let attributeDict = ["type":"WorkOrder"]
+        
+        
+        let addNewDict: [String:Any] = [
+            
+            PlanVisit.planVisitFields[0]: new_visit.Id,
+            PlanVisit.planVisitFields[1]: new_visit.subject,
+            PlanVisit.planVisitFields[2]: new_visit.accountId,
+            PlanVisit.planVisitFields[3]: new_visit.sgwsAppointmentStatus,
+            PlanVisit.planVisitFields[4]: new_visit.startDate,
+            PlanVisit.planVisitFields[5]: new_visit.endDate,
+            PlanVisit.planVisitFields[6]: new_visit.sgwsVisitPurpose,
+            PlanVisit.planVisitFields[7]: new_visit.description,
+            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
+            PlanVisit.planVisitFields[9]: new_visit.status,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success = visitViewModel.createNewVisitLocally(fields: addNewDict)
+        print("Success is here \(success)")
+        
+        
+    }
+    
+    
 }

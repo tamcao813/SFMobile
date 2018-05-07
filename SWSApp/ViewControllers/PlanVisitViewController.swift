@@ -177,39 +177,50 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     @IBAction func planAction(sender: UIButton) {
         let validateArray = validatefields()
         if validateArray.contains(false) {
-            print("yes")
+            let uiAlertController = UIAlertController(// create new instance alert  controller
+                title: "Alert",
+                message: "Please correct required fields” and user will have to address before saving again​",
+                preferredStyle:.alert)
+            
+            uiAlertController.addAction(// add Custom action on Event is Cancel
+                UIAlertAction.init(title: "OK", style: .default, handler: { (UIAlertAction) in
+                    uiAlertController.dismiss(animated: true, completion: nil)
+                }))
+            self.present(uiAlertController, animated: true, completion: nil)
+            
         } else {
+            PlanVistManager.sharedInstance.status = "inProgress"
+            self.insetValuesToDB()
+            self.createNewVisit()
             let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
             self.present(viewController, animated: true)
-            self.planVist?.status = "Planned"
-            self.planVist?.accountId  = self.accountID
-            self.planVist?.accountName  = self.accountView.accountLabel.text!
-            self.planVist?.contactPhone = self.accountView.phoneNumberLabel.text!
-            self.planVist?.accountBillingAddress  = self.accountView.addressLabel.text!
         }
         
     }
     
     @IBAction func scheduleAndClose(sender: UIButton) {
+        let validateArray = validatefields()
         
-        let uiAlertController = UIAlertController(// create new instance alert  controller
-            title: "Alert",
-            message: "Are you sure you want to close?",
-            preferredStyle:.alert)
+        if validateArray.contains(false) {
+            let uiAlertController = UIAlertController(// create new instance alert  controller
+                title: "Alert",
+                message: "Please correct required fields” and user will have to address before saving again​",
+                preferredStyle:.alert)
+            
+            uiAlertController.addAction(// add Custom action on Event is Cancel
+                UIAlertAction.init(title: "OK", style: .default, handler: { (UIAlertAction) in
+                    uiAlertController.dismiss(animated: true, completion: nil)
+                }))
+            self.present(uiAlertController, animated: true, completion: nil)
+            
+        } else {
+            PlanVistManager.sharedInstance.status = "Schedule"
+            self.insetValuesToDB()
+            self.createNewVisit()
+            self.dismiss(animated: true)
+        }
         
-        uiAlertController.addAction(// add Custom action on Event is Cancel
-            UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
-                uiAlertController.dismiss(animated: true, completion: nil)
-            }))
-        
-        uiAlertController.addAction(// add Custom action on Event is Cancel
-            UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
-                uiAlertController.dismiss(animated: true, completion: nil)
-                self.planVist?.status = "Schedule"
-                self.dismiss(animated: true)
-            }))
-        self.present(uiAlertController, animated: true, completion: nil)
     }
     
     // MARK:- Custom Methods
@@ -272,6 +283,55 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         }
         
     }
+    
+    func getDataTimeinStr(date:String, time: String) -> String {
+        
+        let timeFormatter = DateFormatter()
+        
+        timeFormatter.dateFormat = "hh:mm a"
+        
+        let fullTime = timeFormatter.date(from: time)
+        
+        timeFormatter.dateFormat = "HH:mm:ss"
+        
+        let formattedTime = timeFormatter.string(from: fullTime!)
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        let fullDate = dateFormatter.date(from: date)
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let formattedDate = dateFormatter.string(from: fullDate!)
+        
+        let formattedDateTime = formattedDate + "T" + formattedTime
+        
+        return formattedDateTime
+    }
+    
+    func insetValuesToDB() {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if !associatedSelectedContact.isEmpty {
+            let contactObj = associatedSelectedContact[0]
+            PlanVistManager.sharedInstance.contactId = contactObj.contactId
+        }
+        let accountObj = searchAccounts[0]
+        PlanVistManager.sharedInstance.accountId = accountObj.account_Id
+        if ((schedulerComponentView.dateTextField.text != nil) && (schedulerComponentView.startTimeTextField.text != nil)) {
+            PlanVistManager.sharedInstance.startDate = self.getDataTimeinStr(date: schedulerComponentView.dateTextField.text!, time: schedulerComponentView.startTimeTextField.text!)
+        }
+        
+        if ((schedulerComponentView.dateTextField.text != nil) && (schedulerComponentView.endTimeTextField.text != nil)) {
+            PlanVistManager.sharedInstance.endDate = self.getDataTimeinStr(date: schedulerComponentView.dateTextField.text!, time: schedulerComponentView.endTimeTextField.text!)
+        }
+        PlanVistManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
+        
+        
+    }
+    
     
     func editDate() {
         editVist = PlanVistManager.sharedInstance.visit
@@ -575,49 +635,31 @@ extension PlanVisitViewController : UITextFieldDelegate{
        let new_visit = PlanVisit(for: "newVisit")
         
         
-        new_visit.Id = "23338"
-        new_visit.subject = "Need some help"
-        new_visit.accountId = accountId!
-        new_visit.accountName = "efececv"
-        new_visit.accountNumber = "5342437"
-        new_visit.accountBillingAddress = "htbgfv"
-        new_visit.contactId = " "
-        new_visit.contactName = "trfvwvV"
-        new_visit.contactPhone = "9576y4"
-        new_visit.contactEmail = "shutgrbv11@gmail.com"
-        new_visit.contactSGWS_Roles = "Buying"
-        new_visit.sgwsAppointmentStatus = "Appointment Confirmed" 
-        new_visit.startDate = "2012-05-14T20:21:00"
-        new_visit.endDate = "2012-05-14T20:21:00"
-        new_visit.sgwsVisitPurpose = "Inventory Issue"
-        new_visit.description = "Hetgbyto"
-        new_visit.sgwsAgendaNotes = "Currently checking SyncUp"
-        new_visit.status = "InProgress"
-        new_visit.lastModifiedDate = "2012-05-14T20:21:00"
- 
+        new_visit.subject = (planVist?.subject)!
+        new_visit.accountId = PlanVistManager.sharedInstance.accountId
+
+        new_visit.sgwsAppointmentStatus = (planVist?.sgwsAppointmentStatus)!
+        new_visit.startDate =  PlanVistManager.sharedInstance.startDate //"2018-05-02T14:00:00.000Z"
+        new_visit.endDate = PlanVistManager.sharedInstance.endDate //"2018-05-02T15:00:00.000Z"
+        new_visit.sgwsVisitPurpose = (planVist?.sgwsVisitPurpose)!
+        new_visit.description = (planVist?.description)!
+        new_visit.sgwsAgendaNotes = (planVist?.sgwsAgendaNotes)!
+        new_visit.status = PlanVistManager.sharedInstance.status
         let attributeDict = ["type":"WorkOrder"]
+ 
         
         let addNewDict: [String:Any] = [
             
             PlanVisit.planVisitFields[0]: new_visit.Id,
             PlanVisit.planVisitFields[1]: new_visit.subject,
             PlanVisit.planVisitFields[2]: new_visit.accountId,
-            PlanVisit.planVisitFields[3]: new_visit.accountName,
-            PlanVisit.planVisitFields[4]: new_visit.accountNumber,
-            PlanVisit.planVisitFields[5]: new_visit.accountBillingAddress,
-            PlanVisit.planVisitFields[6]: new_visit.contactId,
-            PlanVisit.planVisitFields[7]: new_visit.contactName,
-            PlanVisit.planVisitFields[8]: new_visit.contactPhone,
-            PlanVisit.planVisitFields[9]: new_visit.contactEmail,
-            PlanVisit.planVisitFields[10]: new_visit.contactSGWS_Roles,
-            PlanVisit.planVisitFields[11]: new_visit.sgwsAppointmentStatus,
-            PlanVisit.planVisitFields[12]: new_visit.startDate,
-            PlanVisit.planVisitFields[13]: new_visit.endDate,
-            PlanVisit.planVisitFields[14]: new_visit.sgwsVisitPurpose,
-            PlanVisit.planVisitFields[15]: new_visit.description,
-            PlanVisit.planVisitFields[16]: new_visit.sgwsAgendaNotes,
-            PlanVisit.planVisitFields[17]: new_visit.status,
-            PlanVisit.planVisitFields[18]: new_visit.lastModifiedDate,
+            PlanVisit.planVisitFields[3]: new_visit.sgwsAppointmentStatus,
+            PlanVisit.planVisitFields[4]: new_visit.startDate,
+            PlanVisit.planVisitFields[5]: new_visit.endDate,
+            PlanVisit.planVisitFields[6]: new_visit.sgwsVisitPurpose,
+            PlanVisit.planVisitFields[7]: new_visit.description,
+            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
+            PlanVisit.planVisitFields[9]: new_visit.status,
      
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,

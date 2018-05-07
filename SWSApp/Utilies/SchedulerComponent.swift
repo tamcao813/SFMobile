@@ -118,7 +118,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField.text = dateFormatter.string(from: datePickerView.date)
         self.endEditing(true)// To resign the inputView on clicking done.
         NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
-
+        
     }
     
     @objc func handleTimePicker(sender: UIDatePicker) {
@@ -140,7 +140,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
                 alert.show()
             }
         }
-
+        
         self.endEditing(true)// To resign the inputView on clicking done.
         NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
     }
@@ -182,6 +182,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         inputView.backgroundColor = UIColor.white
         datePickerView.frame.origin = CGPoint(x: self.frame.width/1.2, y: 20)
         datePickerView.datePickerMode = .time
+        datePickerView.minuteInterval = 15
         datePickerView.minimumDate = NSDate() as Date
         inputView.addSubview(datePickerView) // add date picker to UIView
         
@@ -197,7 +198,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         doneButton.tag = textField.tag
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
-
+        
         textField.inputView = inputView
         textField.inputAccessoryView = toolBar
     }

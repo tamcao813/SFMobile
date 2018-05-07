@@ -10,8 +10,6 @@ import Foundation
 
 class ServicePurposesViewController: UIViewController {
     
-    var collectionViewRowDetails = [["Price Change","false"],[" License and Credit Status Issue","false"],[" In-Store Promotion","false"],["Payment Pick-up","false"],["Order and Delivery Issue","false"],[" Pick-up/Return","Policy Change","false"],[" A/R, Credit Management","false"],["Point of Sale","false"],["Store/Display Setup","false"],["Sample and Tasting","false"],["Sample and Tasting","false"],["Sample and Tasting","false"],["Sample and Tasting","false"],["Sample and Tasting","false"]]
-    
     @IBOutlet weak var collectionView : UICollectionView?
     var tableViewRowDetails : NSMutableArray?
     var selectedValuesList = [String]()
@@ -87,14 +85,13 @@ class ServicePurposesViewController: UIViewController {
                 preferredStyle:.alert)
             
             uiAlertController.addAction(// add Custom action on Event is Cancel
-                UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
-                    uiAlertController.dismiss(animated: true, completion: nil)
-                }))
-            
-            uiAlertController.addAction(// add Custom action on Event is Cancel
                 UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
                     uiAlertController.dismiss(animated: true, completion: nil)
                     self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }))
+            uiAlertController.addAction(// add Custom action on Event is Cancel
+                UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
+                    uiAlertController.dismiss(animated: true, completion: nil)
                 }))
             self.present(uiAlertController, animated: true, completion: nil)
         } else {

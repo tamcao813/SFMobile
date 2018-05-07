@@ -10,6 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import SmartStore
 import SmartSync
+import DropDown
 
 protocol CreateNewContactViewControllerDelegate : NSObjectProtocol{
     func updateContactList()
@@ -63,6 +64,7 @@ class CreateNewContactViewController: UIViewController {
     var accountSelected : Account!
     var globalContacts = [Contact]()
     @IBOutlet weak var errorLabel: UILabel!
+    var accountsDropDown : DropDown?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +124,10 @@ class CreateNewContactViewController: UIViewController {
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
+        self.view.endEditing(true)
+        if let dropdown = accountsDropDown{
+            dropdown.hide()
+        }
         DispatchQueue.main.async {
             if  createNewGlobals.userInput {
                 let alertController = UIAlertController(title: "Error", message: StringConstants.discardChangesConfirmation, preferredStyle: UIAlertControllerStyle.alert)
@@ -203,7 +209,7 @@ class CreateNewContactViewController: UIViewController {
             }
             errorLabel.text = StringConstants.emptyFieldError
             return
-        }else if phoneTextField.text != "" && phoneTextField.text?.characters.count != 13{
+        }else if phoneTextField.text != "" && Validations().removeSpecialCharsFromString(text: phoneTextField.text!).characters.count != 10{
             phoneTextField.borderColor = .red
             phoneTextField.becomeFirstResponder()
             if isNewContact {
@@ -213,7 +219,7 @@ class CreateNewContactViewController: UIViewController {
             }
             errorLabel.text = "Please correct error above"
             return
-        }else if faxTextField.text != "" && faxTextField.text?.characters.count != 13{
+        }else if faxTextField.text != "" && Validations().removeSpecialCharsFromString(text: faxTextField.text!).characters.count != 10{
             faxTextField.borderColor = .red
             faxTextField.becomeFirstResponder()
             if isNewContact {
@@ -400,6 +406,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
             searchAccountTextField = cell?.searchContactTextField
+            accountsDropDown = cell?.accountsDropDown
             cell?.delegate = self
             return cell!
         case 1:

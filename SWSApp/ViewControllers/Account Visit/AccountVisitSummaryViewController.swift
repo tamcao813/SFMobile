@@ -16,16 +16,8 @@ protocol NavigateToContactsDelegate {
 
 class AccountVisitSummaryViewController: UIViewController {
     
-    var scheduledArray = [["title":"Goals","desc":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."],
-                                  ["title":"Success Metrics","desc":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."],
-                                  ["title":"Challenges","desc":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."]]
-    var buyingMotives = [["title":"Task Buying Motive","desc":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."],
-                         ["title":"Perosnal Buying Motive","desc":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."]]
-    
-    var inprogressHeadingArray = ["Location","Associated Contacts","Opportunities Selected","Service Purposes","Agenda Notes","Account Situation","Goals","Challenges"]
-    
-    var opportunitiesArray = ["Manage Returns","Delivery Fulfillnt","POS"]
-    var servicePurposeArray = ["Point of sale","Store/Display Setup","Sample and Tasting"]
+    var visitObject: Visit?
+    var accountObject: Account?
     
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -39,11 +31,20 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     
     var visitStatus: AccountVisitStatus?
-    var visitObject : Visit?
+//    var visitObject : Visit?
     var delegate : NavigateToContactsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let accounts = AccountsViewModel().accountsForLoggedUser
+        if let accountId = visitObject?.accountId {
+            for account in accounts {
+                if account.account_Id == accountId {
+                    accountObject = account
+                    break
+                }
+            }
+        }
         UICustomizations()
         initializingXIBs()
         refactoringUIOnApplicationStatusBasis()
@@ -53,18 +54,17 @@ class AccountVisitSummaryViewController: UIViewController {
     func UICustomizations(){
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
-        switch visitStatus {
-        case .scheduled?:
-            statusLabel.text = "Scheduled"
-        case .inProgress?:
-            statusLabel.text = "In Progress"
-        case .completed?:
-            statusLabel.text = "Completed"
-        case .planned?:
-            statusLabel.text = "Planned"
-        default:
-            break
+        if visitObject?.status == "Schedule" || visitObject?.status == "Scheduled"{
+            visitStatus = .scheduled
+        }else if visitObject?.status == "InProgress" || visitObject?.status == "In-Progress"{
+            visitStatus = .inProgress
+        }else if visitObject?.status == "Completed"{
+            visitStatus = .completed
+        }else if visitObject?.status == "Planned"{
+            visitStatus = .planned
         }
+        statusLabel.text = visitObject?.status
+        tableView.reloadData()
         let image = #imageLiteral(resourceName: "delete").withRenderingMode(.alwaysTemplate)
         deleteVisitButton.setImage(image, for: .normal)
         deleteVisitButton.tintColor = UIColor(hexString: "#4287C2")
@@ -103,6 +103,7 @@ class AccountVisitSummaryViewController: UIViewController {
         self.tableView.register(UINib(nibName: "HeadSubHeadTableViewCell", bundle: nil), forCellReuseIdentifier: "HeadSubHeadTableViewCell")
         self.tableView.register(UINib(nibName: "AssociatedContactsTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociatedContactsTableViewCell")
         self.tableView.register(UINib(nibName: "UnorderedListTableViewCell", bundle: nil), forCellReuseIdentifier: "UnorderedListTableViewCell")
+        self.tableView.register(UINib(nibName: "ButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ButtonTableViewCell")
     }
     
     func refactoringUIOnApplicationStatusBasis(){
@@ -205,62 +206,41 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func numberOfSections(in tableView: UITableView) -> Int {
         switch visitStatus {
         case .scheduled?:
-            return 3
-        case .inProgress?, .completed?:
-            return inprogressHeadingArray.count
-        case .planned?:
-            return inprogressHeadingArray.count
+            return 2
+        case .inProgress?,.planned?,.completed?:
+            return 5
         default:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch visitStatus {
         case .scheduled?:
             switch section {
             case 0:
-                return 1
+                return 50
             case 1:
-                return scheduledArray.count
-            case 2:
-                return buyingMotives.count
+                return 0
             default:
                 return 0
             }
+        case .inProgress?,.planned?,.completed?:
+            switch section {
+            case 0:
+                return 50
+            case 1:
+                return 30            
+            default:
+                return 0
+            }
+            return 5
         default:
             return 0
-        }
-    }
-
-            
-//        case .inProgress?, .completed?:
-//
-//            case 1:
-//                return 2
-//            case 2:
-//                return opportunitiesArray.count
-//            case 3:
-//                return servicePurposeArray.count
-//            case 4:
-//                return 1
-//            case 5 ... 7:
-//                return 1
-//            default:
-//                return 0
-//            }
-//        case .planned?:
-//            return 1
-//        default:
-//            return 0
-//        }
-//    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 50
-        }else{
-            return 30
         }
     }
     
@@ -281,19 +261,36 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             switch section {
             case 0:
                 headerView?.headerLabel.text = "Location"
-            case 1:
-                headerView?.headerLabel.text = "Account Strategy"
-            case 2:
-                headerView?.headerLabel.text = "Buying Motives"
             default:
                 break
             }
-//        case .inProgress?:
-//            headerView?.headerLabel.text = inprogressHeadingArray[section]
-//        case .completed?:
-//            headerView?.headerLabel.text = inprogressHeadingArray[section]
-//        case .planned?:
-//            headerView?.headerLabel.text = inprogressHeadingArray[section]
+        case .inProgress?:
+            switch section {
+            case 0:
+                headerView?.headerLabel.text = "Location"
+            case 1:
+                headerView?.headerLabel.text = "Associated Contacts"
+            default:
+                break
+            }
+        case .completed?:
+            switch section {
+            case 0:
+                headerView?.headerLabel.text = "Location"
+            case 1:
+                headerView?.headerLabel.text = "Associated Contacts"
+            default:
+                break
+            }
+        case .planned?:
+            switch section {
+            case 0:
+                headerView?.headerLabel.text = "Location"
+            case 1:
+                headerView?.headerLabel.text = "Associated Contacts"
+            default:
+                break
+            }
         default:
             break
         }
@@ -306,70 +303,67 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case .scheduled?:
             switch indexPath.section {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as? LocationTableViewCell
-                cell?.delegate = self                
-                return cell!
+                return getLocationCell()
             case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-                cell?.headingLabel.text = scheduledArray[indexPath.row]["title"]
-                cell?.SubheadingLabel.text = scheduledArray[indexPath.row]["desc"]
-                return cell!
-            case 2:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-                cell?.headingLabel.text = buyingMotives[indexPath.row]["title"]
-                cell?.SubheadingLabel.text = buyingMotives[indexPath.row]["desc"]
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
+                cell?.delegate = self
                 return cell!
             default:
                 return UITableViewCell()
             }
-//        case .inProgress?, .completed?:
-//            switch indexPath.section {
-//            case 0:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as? LocationTableViewCell
-//                cell?.delegate = self
-//                return cell!
-//            case 1:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "AssociatedContactsTableViewCell") as? AssociatedContactsTableViewCell
-//                return cell!
-//            case 2:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "UnorderedListTableViewCell") as?
-//                    UnorderedListTableViewCell
-//                cell?.listItemLabel.text = opportunitiesArray[indexPath.row]
-//                cell?.listSymbol.image = #imageLiteral(resourceName: "Notify Me Check")
-//                return cell!
-//            case 3:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "UnorderedListTableViewCell") as?
-//                    UnorderedListTableViewCell
-//                cell?.listItemLabel.text = servicePurposeArray[indexPath.row]
-//                cell?.listSymbol.image = #imageLiteral(resourceName: "bullet")
-//                return cell!
-//            case 4:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-//                cell?.SubheadingLabel.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-//                return cell!
-//            case 5 ... 7:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-////                cell?.SubheadingLabel.text = subHeadingArray[indexPath.section - 5]
-//                return cell!
-//            default:
-//                return UITableViewCell()
-//            }
-//        case .planned?:
-//            switch indexPath.section {
-//            case 0:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as? LocationTableViewCell
-//                cell?.delegate = self
-//                return cell!
-//            case 1 ... 3:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-////                cell?.SubheadingLabel.text = subHeadingArray[indexPath.section - 1]
-//                return cell!
-//            default:
-//                return UITableViewCell()
-//            }
+        case .inProgress?,.completed?,.planned?:
+            switch indexPath.section {
+            case 0:
+                return getLocationCell()
+            case 1:
+                return getConatactCell()
+            case 2:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+                cell?.headingLabel.text = "Service Purposes"
+                cell?.SubheadingLabel.text = visitObject?.sgwsVisitPurpose
+                return cell!
+            case 3:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+                cell?.headingLabel.text = "Agenda Notes"
+                cell?.SubheadingLabel.text = visitObject?.sgwsAgendaNotes
+                return cell!
+            case 4:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
+                cell?.delegate = self
+                return cell!
+            default:
+                return UITableViewCell()
+            }
         default:
             return UITableViewCell()
         }
     }
+    
+    func getLocationCell() -> LocationTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationTableViewCell") as? LocationTableViewCell
+        cell?.delegate = self
+        cell?.account = accountObject
+        cell?.displayCellContent()
+        return cell!
+    }
+    
+    func getConatactCell() -> AssociatedContactsTableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AssociatedContactsTableViewCell") as? AssociatedContactsTableViewCell
+        
+        if let contactId = visitObject?.contactId, contactId != "" {
+            cell?.containerHeightConstraint.constant = 100
+            cell?.containerView.isHidden = false
+            cell?.displayCellContent(visit: visitObject!)
+        }else{
+            cell?.containerHeightConstraint.constant = 0
+            cell?.containerView.isHidden = true            
+        }
+        return cell!
+    }
 }
 
+extension AccountVisitSummaryViewController: ButtonTableViewCellDelegate {
+    func accountStrategyButtonTapped() {
+        
+    }
+}

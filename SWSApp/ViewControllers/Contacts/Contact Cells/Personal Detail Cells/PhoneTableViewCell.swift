@@ -48,25 +48,24 @@ extension PhoneTableViewCell: UITextFieldDelegate {
             search = textField.text!+string
         }
         
-        if (removeSpecialCharsFromString(text: search).characters.count) > 10{
+        if (Validations().removeSpecialCharsFromString(text: search).characters.count) > 10{
             return false
         }
         return true
     }
     
-    func removeSpecialCharsFromString(text: String) -> String {
-        let okayChars : Set<Character> =
-            Set("1234567890".characters)
-        return String(text.characters.filter {okayChars.contains($0) })
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {        
         search = textField.text!
         CreateNewContactViewController.createNewGlobals.userInput = true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {        
-        textField.text = Validations().validatePhoneNumber(phoneNumber: phoneTextField.text!)
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == phoneTextField {
+            textField.text = Validations().validatePhoneNumber(phoneNumber: phoneTextField.text!)
+        }else{
+            textField.text = Validations().validatePhoneNumber(phoneNumber: faxTextField.text!)
+        }
+        
         contactDetail?.phoneNumber = phoneTextField.text!
         contactDetail?.fax = faxTextField.text!
     }       

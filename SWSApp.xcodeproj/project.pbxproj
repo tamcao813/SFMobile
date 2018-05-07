@@ -185,6 +185,14 @@
 		8D99A3242092D66C00FAA71A /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99A3222092D66C00FAA71A /* CustomPicker.swift */; };
 		8D99A3262093055200FAA71A /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99A3252093055200FAA71A /* Validations.swift */; };
 		8D99A3272093055200FAA71A /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99A3252093055200FAA71A /* Validations.swift */; };
+		8DA1343020A0597B006A62DE /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA1342E20A0597A006A62DE /* LocationTableViewCell.swift */; };
+		8DA1343120A0597B006A62DE /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA1342E20A0597A006A62DE /* LocationTableViewCell.swift */; };
+		8DA1343220A0597B006A62DE /* LocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DA1342F20A0597B006A62DE /* LocationTableViewCell.xib */; };
+		8DA1343320A0597B006A62DE /* LocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DA1342F20A0597B006A62DE /* LocationTableViewCell.xib */; };
+		8DA1343620A070EC006A62DE /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA1343420A070EC006A62DE /* ButtonTableViewCell.swift */; };
+		8DA1343720A070EC006A62DE /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA1343420A070EC006A62DE /* ButtonTableViewCell.swift */; };
+		8DA1343820A070EC006A62DE /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DA1343520A070EC006A62DE /* ButtonTableViewCell.xib */; };
+		8DA1343920A070EC006A62DE /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DA1343520A070EC006A62DE /* ButtonTableViewCell.xib */; };
 		8DD14FFF2093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564C02091B1C10056B559 /* SelectedAssociateTableViewCell.swift */; };
 		8DD150002093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564C02091B1C10056B559 /* SelectedAssociateTableViewCell.swift */; };
 		8DD150012093307700858349 /* SelectedAssociateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2564BE2091B1C10056B559 /* SelectedAssociateTableViewCell.xib */; };
@@ -234,6 +242,8 @@
 		AE8F41E9209F73500033F81D /* SchedulerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974920888330004548E9 /* SchedulerComponent.swift */; };
 		AE8F41EE20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */; };
 		AE8F41EF20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */; };
+		AE8F41F420A09F1B0033F81D /* UIView+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */; };
+		AE8F41F520A09F1B0033F81D /* UIView+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */; };
 		AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF951172089C7800083EA47 /* AccountTableViewCell.swift */; };
 		AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */; };
 		AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */; };
@@ -282,16 +292,12 @@
 		D23C40C9208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C40BF208DE6580006691C /* HeadSubHeadTableViewCell.swift */; };
 		D23C40CA208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23C40C0208DE6580006691C /* UnorderedListTableViewCell.xib */; };
 		D23C40CB208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23C40C0208DE6580006691C /* UnorderedListTableViewCell.xib */; };
-		D23C40CC208DE6590006691C /* LocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23C40C1208DE6580006691C /* LocationTableViewCell.xib */; };
-		D23C40CD208DE6590006691C /* LocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23C40C1208DE6580006691C /* LocationTableViewCell.xib */; };
 		D23C40CE208DE6590006691C /* HeadSubHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23C40C2208DE6580006691C /* HeadSubHeadTableViewCell.xib */; };
 		D23C40CF208DE6590006691C /* HeadSubHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23C40C2208DE6580006691C /* HeadSubHeadTableViewCell.xib */; };
 		D23C40D0208DE6590006691C /* AssociatedContactsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23C40C3208DE6580006691C /* AssociatedContactsTableViewCell.xib */; };
 		D23C40D1208DE6590006691C /* AssociatedContactsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23C40C3208DE6580006691C /* AssociatedContactsTableViewCell.xib */; };
 		D23C40D2208DE6590006691C /* UnorderedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C40C4208DE6580006691C /* UnorderedListTableViewCell.swift */; };
 		D23C40D3208DE6590006691C /* UnorderedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C40C4208DE6580006691C /* UnorderedListTableViewCell.swift */; };
-		D23C40D4208DE6590006691C /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C40C5208DE6580006691C /* LocationTableViewCell.swift */; };
-		D23C40D5208DE6590006691C /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C40C5208DE6580006691C /* LocationTableViewCell.swift */; };
 		D23C40D8208DFA890006691C /* AccountVisitListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C40D6208DFA890006691C /* AccountVisitListTableViewCell.swift */; };
 		D23C40D9208DFA890006691C /* AccountVisitListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C40D6208DFA890006691C /* AccountVisitListTableViewCell.swift */; };
 		D23C40DA208DFA890006691C /* AccountVisitListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23C40D7208DFA890006691C /* AccountVisitListTableViewCell.xib */; };
@@ -469,6 +475,10 @@
 		8D99A31D2092501000FAA71A /* FamilyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FamilyTableViewCell.xib; sourceTree = "<group>"; };
 		8D99A3222092D66C00FAA71A /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		8D99A3252093055200FAA71A /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
+		8DA1342E20A0597A006A62DE /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
+		8DA1342F20A0597B006A62DE /* LocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableViewCell.xib; sourceTree = "<group>"; };
+		8DA1343420A070EC006A62DE /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
+		8DA1343520A070EC006A62DE /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
 		8DD15007209330E100858349 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8DD15008209330E100858349 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
 		8DD1501120933A0800858349 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
@@ -494,6 +504,7 @@
 		AE5C974720887550004548E9 /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
 		AE5C974920888330004548E9 /* SchedulerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerComponent.swift; sourceTree = "<group>"; };
 		AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAgendaNoteViewController.swift; sourceTree = "<group>"; };
+		AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Properties.swift"; sourceTree = "<group>"; };
 		AEF951172089C7800083EA47 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
 		AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanVisitEditableScreen.storyboard; sourceTree = "<group>"; };
@@ -536,11 +547,9 @@
 		D23C40BE208DE6580006691C /* AssociatedContactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedContactsTableViewCell.swift; sourceTree = "<group>"; };
 		D23C40BF208DE6580006691C /* HeadSubHeadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadSubHeadTableViewCell.swift; sourceTree = "<group>"; };
 		D23C40C0208DE6580006691C /* UnorderedListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnorderedListTableViewCell.xib; sourceTree = "<group>"; };
-		D23C40C1208DE6580006691C /* LocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableViewCell.xib; sourceTree = "<group>"; };
 		D23C40C2208DE6580006691C /* HeadSubHeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadSubHeadTableViewCell.xib; sourceTree = "<group>"; };
 		D23C40C3208DE6580006691C /* AssociatedContactsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssociatedContactsTableViewCell.xib; sourceTree = "<group>"; };
 		D23C40C4208DE6580006691C /* UnorderedListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnorderedListTableViewCell.swift; sourceTree = "<group>"; };
-		D23C40C5208DE6580006691C /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		D23C40D6208DFA890006691C /* AccountVisitListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVisitListTableViewCell.swift; sourceTree = "<group>"; };
 		D23C40D7208DFA890006691C /* AccountVisitListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountVisitListTableViewCell.xib; sourceTree = "<group>"; };
 		D24E5B0A2073635D00641814 /* ObjectivesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectivesViewController.swift; sourceTree = "<group>"; };
@@ -986,6 +995,7 @@
 				8DD15007209330E100858349 /* AccountView.swift */,
 				8DD15008209330E100858349 /* AccountView.xib */,
 				8DD1501120933A0800858349 /* StringConstants.swift */,
+				AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -1006,12 +1016,14 @@
 				D23C40C3208DE6580006691C /* AssociatedContactsTableViewCell.xib */,
 				D23C40BF208DE6580006691C /* HeadSubHeadTableViewCell.swift */,
 				D23C40C2208DE6580006691C /* HeadSubHeadTableViewCell.xib */,
-				D23C40C5208DE6580006691C /* LocationTableViewCell.swift */,
-				D23C40C1208DE6580006691C /* LocationTableViewCell.xib */,
+				8DA1342E20A0597A006A62DE /* LocationTableViewCell.swift */,
+				8DA1342F20A0597B006A62DE /* LocationTableViewCell.xib */,
 				D23C40C4208DE6580006691C /* UnorderedListTableViewCell.swift */,
 				D23C40C0208DE6580006691C /* UnorderedListTableViewCell.xib */,
 				D23C40D6208DFA890006691C /* AccountVisitListTableViewCell.swift */,
 				D23C40D7208DFA890006691C /* AccountVisitListTableViewCell.xib */,
+				8DA1343420A070EC006A62DE /* ButtonTableViewCell.swift */,
+				8DA1343520A070EC006A62DE /* ButtonTableViewCell.xib */,
 			);
 			path = "Account Visit Cells";
 			sourceTree = "<group>";
@@ -1198,6 +1210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D23C409F208DCF610006691C /* AccountVisit.storyboard in Resources */,
+				8DA1343920A070EC006A62DE /* ButtonTableViewCell.xib in Resources */,
 				D26768922090B42E0060E792 /* NewContact.storyboard in Resources */,
 				8D99A31B2091FCAF00FAA71A /* DescriptionTableViewCell.xib in Resources */,
 				8D99A2F72091E70900FAA71A /* PrimaryFunctionTableViewCell.xib in Resources */,
@@ -1235,6 +1248,7 @@
 				6D38328920874026006805C6 /* UFL.txt in Resources */,
 				6D38328A20874026006805C6 /* CrimsonText-Italic.ttf in Resources */,
 				F20C1A28209347EA00D2351C /* Insights.plist in Resources */,
+				8DA1343320A0597B006A62DE /* LocationTableViewCell.xib in Resources */,
 				F2590106209216ED00C2E354 /* DuringVisitTopics.plist in Resources */,
 				6D38328B20874026006805C6 /* SFProperty.plist in Resources */,
 				6D38328C20874026006805C6 /* Main.storyboard in Resources */,
@@ -1252,7 +1266,6 @@
 				8D99A2E32091E14700FAA71A /* ToggleTableViewCell.xib in Resources */,
 				6D38329020874026006805C6 /* AccountsContactsVC.storyboard in Resources */,
 				6D38329120874026006805C6 /* Assets.xcassets in Resources */,
-				D23C40CD208DE6590006691C /* LocationTableViewCell.xib in Resources */,
 				6D38329220874026006805C6 /* CrimsonText-BoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1268,11 +1281,11 @@
 				6DBD03222077B5EF0083419E /* Ubuntu-BoldItalic.ttf in Resources */,
 				8D10B27A2099DF0E00C8A86C /* Contacts.storyboard in Resources */,
 				F2062E5E2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */,
+				8DA1343820A070EC006A62DE /* ButtonTableViewCell.xib in Resources */,
 				6DBD031D2077B5EF0083419E /* Ubuntu-Regular.ttf in Resources */,
 				F2590105209216ED00C2E354 /* DuringVisitTopics.plist in Resources */,
 				6DBD03232077B5EF0083419E /* Ubuntu-Medium.ttf in Resources */,
 				6DBD03262077B5EF0083419E /* CrimsonText-Semibold.ttf in Resources */,
-				D23C40CC208DE6590006691C /* LocationTableViewCell.xib in Resources */,
 				8D99A3022091E73F00FAA71A /* EmailTableViewCell.xib in Resources */,
 				8D99A2FC2091E71E00FAA71A /* PhoneTableViewCell.xib in Resources */,
 				F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */,
@@ -1312,6 +1325,7 @@
 				6D38329B20875E00006805C6 /* SFPropertydev.plist in Resources */,
 				6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */,
 				AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */,
+				8DA1343220A0597B006A62DE /* LocationTableViewCell.xib in Resources */,
 				8D99A2F02091E6F600FAA71A /* NameTableViewCell.xib in Resources */,
 				F2FDA14B2099DEEA000921A8 /* ServicePurposes.plist in Resources */,
 				8D99A31A2091FCAF00FAA71A /* DescriptionTableViewCell.xib in Resources */,
@@ -1519,6 +1533,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2676886208F40330060E792 /* AccountVisitViewController.swift in Sources */,
+				AE8F41F520A09F1B0033F81D /* UIView+Properties.swift in Sources */,
 				6D38325020874026006805C6 /* CustomerHeaderTableViewCell.swift in Sources */,
 				8D8C450D2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */,
 				8D99A2E82091E63F00FAA71A /* ContactClassificationTableViewCell.swift in Sources */,
@@ -1550,6 +1565,7 @@
 				D23C40BC208DE6480006691C /* AccountVisitSectionHeaderView.swift in Sources */,
 				6D38325B20874026006805C6 /* AccountListViewController.swift in Sources */,
 				6D38325C20874026006805C6 /* XMSegmentedControl.swift in Sources */,
+				8DA1343120A0597B006A62DE /* LocationTableViewCell.swift in Sources */,
 				91AA8ECE2095CCCC00787D83 /* ContactListAccountHeaderDetails.swift in Sources */,
 				6D38325D20874026006805C6 /* GoSpotCheckViewController.swift in Sources */,
 				6D38325E20874026006805C6 /* AccountDetailTabViewController.swift in Sources */,
@@ -1585,10 +1601,10 @@
 				6D38326820874026006805C6 /* User.swift in Sources */,
 				D267688F2090B41B0060E792 /* CreateNewContactViewController.swift in Sources */,
 				D23C408F208DCF010006691C /* AccountVisitSummaryViewController.swift in Sources */,
+				8DA1343720A070EC006A62DE /* ButtonTableViewCell.swift in Sources */,
 				6D38326920874026006805C6 /* AppDelegate.swift in Sources */,
 				6D38326A20874026006805C6 /* AccountsViewModel.swift in Sources */,
 				91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */,
-				D23C40D5208DE6590006691C /* LocationTableViewCell.swift in Sources */,
 				D23C40C9208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */,
 				6D38326B20874026006805C6 /* ContactsViewModel.swift in Sources */,
 				6D38326C20874026006805C6 /* ObjectivesViewController.swift in Sources */,
@@ -1690,10 +1706,11 @@
 				6FE55BAA2080DA19006A9A80 /* DateTimeUtility.swift in Sources */,
 				D2EAEB8C2074EC1E005F7792 /* TransactionsViewController.swift in Sources */,
 				D2EAEB922074EDBE005F7792 /* ActionItemsViewController.swift in Sources */,
+				AE8F41F420A09F1B0033F81D /* UIView+Properties.swift in Sources */,
 				4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */,
 				8D10B2752099ABFA00C8A86C /* AccountContactLinkTableViewCell.swift in Sources */,
+				8DA1343620A070EC006A62DE /* ButtonTableViewCell.swift in Sources */,
 				91AA8ECD2095CCCC00787D83 /* ContactListAccountHeaderDetails.swift in Sources */,
-				D23C40D4208DE6590006691C /* LocationTableViewCell.swift in Sources */,
 				D23C4090208DCF010006691C /* Extension.swift in Sources */,
 				AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */,
 				8D99A3122091E79C00FAA71A /* DropdownTableViewCell.swift in Sources */,
@@ -1718,6 +1735,7 @@
 				D23C40C8208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */,
 				8D99A3062091E76900FAA71A /* ContactHoursTableViewCell.swift in Sources */,
 				8D99A31E2092501000FAA71A /* FamilyTableViewCell.swift in Sources */,
+				8DA1343020A0597B006A62DE /* LocationTableViewCell.swift in Sources */,
 				8D99A3262093055200FAA71A /* Validations.swift in Sources */,
 				D2EAEB942074EF88005F7792 /* NotificationsViewController.swift in Sources */,
 				8DD1501220933A0800858349 /* StringConstants.swift in Sources */,

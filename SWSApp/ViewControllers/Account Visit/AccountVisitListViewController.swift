@@ -42,7 +42,7 @@ class AccountVisitListViewController: UIViewController {
         let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID") as! PlanVisitViewController
         viewController.modalPresentationStyle = .overCurrentContext
-        viewController.delegate = self
+//        viewController.delegate = self
         self.present(viewController, animated: true)
     }
     
@@ -117,21 +117,12 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
-        let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-        
+        let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController        
         let data : Visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+        PlanVistManager.sharedInstance.editPlanVisit = true
+//        (accountVisitsVC)?.delegate = self
         accountVisitsVC?.visitObject = data
-        if data.status == "Scheduled" || data.status  == "Schedule" {
-            accountVisitsVC?.visitStatus = .scheduled
-        }else if data.status  == "Completed"{
-            accountVisitsVC?.visitStatus = .completed
-        }else if data.status  == "InProgress" || data.status  == "In-Progress"{
-            accountVisitsVC?.visitStatus = .inProgress
-        }else if data.status  == "Planned"{
-            accountVisitsVC?.visitStatus = .planned
-        }
-        (accountVisitsVC)?.delegate = self
         DispatchQueue.main.async {
             self.present(accountVisitsVC!, animated: true, completion: nil)
         }
@@ -166,12 +157,12 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     }
 }
 
-extension AccountVisitListViewController: PlanVisitViewControllerDelegate {
-    func refershList() {
-        getTheDataFromDB()
-        tableView.reloadData()
-    }
-}
+//extension AccountVisitListViewController: PlanVisitViewControllerDelegate {
+//    func refershList() {
+//        getTheDataFromDB()
+//        tableView.reloadData()
+//    }
+//}
 
 
 enum AccountVisitStatus : String {

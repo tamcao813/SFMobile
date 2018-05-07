@@ -182,7 +182,7 @@ extension ContactListDetailsViewController : ContactListDetailsTableViewCellDele
         let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
         let newContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "CreateNewContactViewController") as? CreateNewContactViewController
         newContactVC?.isNewContact = false
-        newContactVC?.contactDetail = contactDetail
+        newContactVC?.contactId = contactDetail?.contactId
         newContactVC?.delegate = self
         self.present(newContactVC!, animated: true, completion: nil)
     }

@@ -21,7 +21,7 @@
         <!--Create New Contact View Controller-->
         <scene sceneID="Ifg-d7-Xo9">
             <objects>
-                <viewController storyboardIdentifier="CreateNewContactViewController" id="CHl-y7-t6n" customClass="CreateNewContactViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateNewContactViewController" modalPresentationStyle="overFullScreen" id="CHl-y7-t6n" customClass="CreateNewContactViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xMS-cy-q9H">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

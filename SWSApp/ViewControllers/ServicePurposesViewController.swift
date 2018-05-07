@@ -26,7 +26,48 @@ class ServicePurposesViewController: UIViewController {
         let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
         
+        if !PlistMap.sharedInstance.getPicklist(fieldname: "AccountVisitPurpose").isEmpty {
+            self.createPlistForSevicePurpose()
+        }
         print(dictionary!)
+    }
+    
+    // MARK:- Custom Methods
+    
+    //Read Plist For Service Purposes
+    
+    func readServicePurposePList() -> NSArray {
+        
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let path = documentDirectory.appending("/SevicePurpose.plist")
+        let array = NSArray(contentsOfFile: path)
+        return array!
+        
+    }
+    
+    // Create PList For Service Purposes
+    
+    func createPlistForSevicePurpose() {
+        
+        let fileManager = FileManager.default
+        
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let path = documentDirectory.appending("/SevicePurpose.plist")
+        
+        if(!fileManager.fileExists(atPath: path)){
+            
+            var tempArr = [Dictionary<String, String>]()
+            for object in PlistMap.sharedInstance.getPicklist(fieldname: "AccountVisitPurpose") {
+                let populatedDictionary = ["label": object.label, "value": object.value]
+                tempArr.append(populatedDictionary)
+            }
+            
+            let isWritten = (tempArr as NSArray).write(toFile: path, atomically: true)
+            print("is the file created: \(isWritten)")
+            
+        } else {
+            print("file exists")
+        }
     }
     
     // MARK:- IBAction
@@ -50,11 +91,12 @@ class ServicePurposesViewController: UIViewController {
         uiAlertController.addAction(// add Custom action on Event is Cancel
             UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
                 uiAlertController.dismiss(animated: true, completion: nil)
-self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
             }))
         self.present(uiAlertController, animated: true, completion: nil)
     }
 }
+
 
 //MARK:- UICollectionView DataSource
 extension ServicePurposesViewController : UICollectionViewDataSource {
@@ -93,21 +135,29 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
             
         case UICollectionElementKindSectionHeader:
             
-            if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "planVisitHeaderCell", for: indexPath) as? UICollectionReusableView{
-                
-                let label:UILabel = sectionHeader.viewWithTag(200) as! UILabel
-                let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
-                label.text = (tableData["headerText"] as! String)
-                
-                let subLabel:UILabel = sectionHeader.viewWithTag(201) as! UILabel
-                subLabel.text = (tableData["subHeader"] as! String)
-                let headerTxt = (tableData["headerText"] as! String)
-                if headerTxt.isEmpty {subLabel.frame.origin.y = 10 }
+            if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "planVisitHeaderCell", for: indexPath) as? UICollectionReusableView {
                 
                 if indexPath.section == 4 {
+                    
+                    let label:UILabel = sectionHeader.viewWithTag(200) as! UILabel
+                    label.text = "Service Purposes"
+                    
+                    let subLabel:UILabel = sectionHeader.viewWithTag(201) as! UILabel
+                    subLabel.text = "Select all that apply."
+                    
                     sectionHeader.backgroundColor = UIColor.clear
                     label.frame.origin.y = 60
                     subLabel.frame.origin.y = 90
+                } else {
+                    
+                    let label:UILabel = sectionHeader.viewWithTag(200) as! UILabel
+                    let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
+                    label.text = (tableData["headerText"] as! String)
+                    
+                    let subLabel:UILabel = sectionHeader.viewWithTag(201) as! UILabel
+                    subLabel.text = (tableData["subHeader"] as! String)
+                    let headerTxt = (tableData["headerText"] as! String)
+                    if headerTxt.isEmpty {subLabel.frame.origin.y = 10 }
                 }
                 
                 return sectionHeader
@@ -136,11 +186,13 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
         let tableData = tableViewRowDetails![section] as! NSDictionary
         let tableContent = tableData["answers"] as! NSMutableArray
         if section == 4 {
-            return tableContent.count + 1
+            if (readServicePurposePList().count != 0) {
+                return readServicePurposePList().count + 1
+            }
+            return 0
         } else {
             return tableContent.count
         }
-        
     }
     
     
@@ -148,17 +200,13 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
         
         let cell1 : UICollectionViewCell?
         
-        print("section", indexPath.section)
-        
         if indexPath.section == 4 {
-            let tableData = tableViewRowDetails![indexPath.section] as! NSDictionary
-            let tableContent = tableData["answers"] as! NSMutableArray
-            if indexPath.row == tableContent.count {
+            if indexPath.row == readServicePurposePList().count {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
             } else {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
-                (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = collectionViewRowDetails[indexPath.row][0]
+                (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = (readServicePurposePList()[indexPath.row] as! Dictionary<String, String>)["value"]
             }
         } else {
             
@@ -179,7 +227,7 @@ extension ServicePurposesViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
-        if indexPath.row != collectionViewRowDetails.count {
+        if indexPath.section == 4 {
             let cell = collectionView.cellForItem(at: indexPath) as! EditAccountStrategyCollectionViewCell
             cell.layer.borderWidth = 3.0
             if collectionViewRowDetails[indexPath.row][1] == "true" {
@@ -204,9 +252,9 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if indexPath.section == 4 {
-            let tableData = tableViewRowDetails![indexPath.section] as! NSDictionary
-            let tableContent = tableData["answers"] as! NSMutableArray
-            if indexPath.row == tableContent.count {
+            //            let tableData = tableViewRowDetails![indexPath.section] as! NSDictionary
+            //            let tableContent = tableData["answers"] as! NSMutableArray
+            if indexPath.row == readServicePurposePList().count {
                 return CGSize(width: self.view.frame.size.width, height: 319);
             } else {
                 return CGSize(width: self.view.frame.size.width/1.03, height: 75);

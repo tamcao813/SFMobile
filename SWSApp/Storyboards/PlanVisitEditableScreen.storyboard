@@ -289,7 +289,7 @@
                                             <action selector="scheduleAndCloseWithSender:" destination="zun-lc-HIi" eventType="touchUpInside" id="dk9-e7-OZ0"/>
                                         </connections>
                                     </button>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BreadScrum_1" translatesAutoresizingMaskIntoConstraints="NO" id="6tl-B1-0jd">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BreadScrum_1" translatesAutoresizingMaskIntoConstraints="NO" id="6tl-B1-0jd">
                                         <rect key="frame" x="440" y="28" width="232" height="25"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </imageView>
@@ -379,7 +379,7 @@
                                             <action selector="backVCWithSender:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="G2c-bm-O2j"/>
                                         </connections>
                                     </button>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BreadScrum_2" translatesAutoresizingMaskIntoConstraints="NO" id="Rfu-2B-4TX">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BreadScrum_2" translatesAutoresizingMaskIntoConstraints="NO" id="Rfu-2B-4TX">
                                         <rect key="frame" x="440" y="28" width="232" height="25"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </imageView>
@@ -488,7 +488,7 @@
                                             <action selector="backVCWithSender:" destination="2CD-Zp-IIL" eventType="touchUpInside" id="UdQ-nt-daN"/>
                                         </connections>
                                     </button>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BreadScrum_3" translatesAutoresizingMaskIntoConstraints="NO" id="dwD-zy-Xcm">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BreadScrum_3" translatesAutoresizingMaskIntoConstraints="NO" id="dwD-zy-Xcm">
                                         <rect key="frame" x="440" y="31" width="232" height="25"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </imageView>

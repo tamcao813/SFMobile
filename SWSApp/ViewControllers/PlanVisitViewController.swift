@@ -272,7 +272,12 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         let city = editVist?.accountBillingAddress.slice(from: "city", to: ",")?.stripped
         let state = editVist?.accountBillingAddress.slice(from: "state", to: ",")?.stripped
         let postalCode = editVist?.accountBillingAddress.slice(from: "postalCode", to: ",")?.stripped
-        self.accountView.addressLabel.text = street! + " " + city! + " " + state! + " " + postalCode!
+        
+        //TODO : Added to avoid crash---> Vipin
+        if street != nil || city != nil || state != nil || postalCode != nil{
+            self.accountView.addressLabel.text = street! + " " + city! + " " + state! + " " + postalCode!
+        }
+        
         self.accountView.frame.origin = CGPoint(x:20, y:self.planLbl.frame.origin.y + 10)
         self.scrollView.addSubview(self.accountView)
     }

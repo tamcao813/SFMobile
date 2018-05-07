@@ -23,6 +23,7 @@ class EditAccountStrategyViewController: UIViewController {
 
     
     
+    
     var textViewWidth = 0.0
     var collectionViewWidth = 0.0
     
@@ -32,6 +33,7 @@ class EditAccountStrategyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        //createStrategy()
         
         createStrategy()
         IQKeyboardManager.shared.enable = true
@@ -235,31 +237,34 @@ class EditAccountStrategyViewController: UIViewController {
         let validateFields = self.validateAllFields()
         
         if validateFields{
+            print("Success")
+            
+            //Get The Selected Data in the array for Question And
+            
+            
             
             print("Success")
             
-        }else{
             
+            
+        }else{
             
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("", errorMessage: "Please Enter required fields", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                 
             }, action2: {
-                
+                    
             })
         }
     }
     
     @IBAction func cancelButtonAction(sender : UIButton){
         print("Cancel button Clicked")
-        
         self.showAlert()
     }
     
     @IBAction func closeButtonAction(sender : UIButton){
         print("Close button Clicked")
-        
         self.showAlert()
-        
     }
 }
 
@@ -371,6 +376,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
     func createStrategy() {
         
         let new_Strategy = StrategyQA(for: "NewStrategy")
+        
         new_Strategy.Id = ""
         new_Strategy.OwnerId = "005m0000002pSmiAAE"
         new_Strategy.SGWS_Account__c = "001m000000cHLa7AAG"

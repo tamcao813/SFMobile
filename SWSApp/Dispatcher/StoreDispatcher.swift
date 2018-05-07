@@ -1845,6 +1845,55 @@ class StoreDispatcher {
         return strategyAnswers
     }
     
+    // create new Strategy QA Locally
+    
+    func createNewStrategyQALocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupStrategyQA)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    // SyncUp Strategy QA ....
+    
+    
+    func syncUpStrategyQA(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
+        
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupAccountNotes)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncUp Strategy QA done")
+                    let syncId = syncStateStatus.syncId
+                    print(syncId)
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncUPStrategyQA()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncUPStrategyQA()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    
     
      //MARK:- saving visit locally and SyncUp Visit
     

@@ -104,7 +104,7 @@ class AccountVisitSummaryViewController: UIViewController {
     }
     
     @IBAction func startOrContinueVisitButtonTapped(_ sender: UIButton){
-        if visitStatus == .scheduled {
+        if visitStatus == .scheduled  || visitStatus == .planned{
             let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
@@ -112,6 +112,11 @@ class AccountVisitSummaryViewController: UIViewController {
             (vc as DuringVisitsViewController).delegate = self
         }else{
             
+            let storyboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+            let vc: SelectOpportunitiesViewController = storyboard.instantiateViewController(withIdentifier: "SelectOpportunitiesViewControllerID") as! SelectOpportunitiesViewController
+            (vc as SelectOpportunitiesViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(vc, animated: true, completion: nil)
+
         }
     }
     

@@ -60,6 +60,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
+        //cell?.delegate = self as! SwipeTableViewCellDelegate
         let celldata = tableViewDataArray![indexPath.row]
         cell?.displayCellData(data: celldata)
         return cell!
@@ -125,7 +126,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
             accountVisitsVC?.visitStatus = .scheduled
         }else if data.status  == "Completed"{
             accountVisitsVC?.visitStatus = .completed
-        }else if data.status  == "In-Progress"{
+        }else if data.status  == "InProgress" || data.status  == "In-Progress"{
             accountVisitsVC?.visitStatus = .inProgress
         }else if data.status  == "Planned"{
             accountVisitsVC?.visitStatus = .planned

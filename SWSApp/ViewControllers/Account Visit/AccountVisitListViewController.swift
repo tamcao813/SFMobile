@@ -120,7 +120,6 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController        
         let data : Visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
-        PlanVistManager.sharedInstance.editPlanVisit = true
 //        (accountVisitsVC)?.delegate = self
         accountVisitsVC?.visitObject = data
         DispatchQueue.main.async {

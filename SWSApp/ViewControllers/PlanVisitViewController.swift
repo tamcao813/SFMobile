@@ -585,7 +585,6 @@ extension PlanVisitViewController : UITextFieldDelegate{
         switch textField.tag {
         case kAccountTxtTag:
             myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 310))
-            myTableView.dropShadow(color: .lightGray, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
             textFieldTag = textField.tag
             myTableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: "MyCell")
             searchAccounts = self.accountViewModel.accountsForLoggedUser
@@ -596,7 +595,6 @@ extension PlanVisitViewController : UITextFieldDelegate{
         case kContactTxtTag:
             if (self.getNonSelectedContacts().count != 0) {
                 myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 310))
-                myTableView.dropShadow(color: .lightGray, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
                 textFieldTag = textField.tag
                 myTableView.register(UINib(nibName: "AssociateTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociateTableViewCell")
                 nonSelectedContact = self.getNonSelectedContacts()

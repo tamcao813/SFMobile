@@ -85,10 +85,10 @@ class StoreDispatcher {
             group.leave()
         }
         
-        group.enter()
-        syncDownContact() { _ in
-            group.leave()
-        }
+//        group.enter()
+//        syncDownContact() { _ in
+//            group.leave()
+//        }
         
         group.enter()
         syncDownACR() { _ in
@@ -1752,13 +1752,13 @@ class StoreDispatcher {
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-        print("Result StrategyQuestions is \(result)")
+       // print("Result StrategyQuestions is \(result)")
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
                 let strategyQuestionsArray = StrategyQuestions(withAry: ary)
                 strategyQuestions.append(strategyQuestionsArray)
-                print("strategyQuestions array \(ary)")
+                //print("strategyQuestions array \(ary)")
             }
         }
         else if error != nil {
@@ -1830,13 +1830,13 @@ class StoreDispatcher {
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-        print("Result StrategyAnswers is \(result)")
+        //print("Result StrategyAnswers is \(result)")
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
                 let strategyAnswersArray = StrategyAnswers(withAry: ary)
                 strategyAnswers.append(strategyAnswersArray)
-                print("strategyAnswers array \(ary)")
+                //print("strategyAnswers array \(ary)")
             }
         }
         else if error != nil {
@@ -1912,7 +1912,7 @@ class StoreDispatcher {
         
         let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
         
-        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupAccountNotes)
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupStrategyQA)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print("syncUp Strategy QA done")

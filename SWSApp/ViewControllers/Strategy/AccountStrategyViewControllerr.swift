@@ -56,7 +56,7 @@ class AccountStrategyViewController : UIViewController{
                 for q in tableViewData{
                     
                     let dictionary = q as! NSDictionary
-                    print(dictionary)
+                  //  print(dictionary)
                     
                     let header = dictionary["header"] as? String
                     
@@ -102,7 +102,7 @@ class AccountStrategyViewController : UIViewController{
             }
         }
         
-        print(tableViewData)
+     //   print(tableViewData)
         
         
         let modifiedArray = NSMutableArray()
@@ -114,7 +114,7 @@ class AccountStrategyViewController : UIViewController{
             
             let filteredArray = tableViewData.filter { namePredicate.evaluate(with: $0) };
             
-            print(filteredArray)
+         //   print(filteredArray)
             
             let newArray = NSMutableArray()
             for item in filteredArray{
@@ -141,7 +141,7 @@ class AccountStrategyViewController : UIViewController{
             
         }
         
-        print(modifiedArray)
+     //   print(modifiedArray)
         
         
         
@@ -353,7 +353,7 @@ class AccountStrategyViewController : UIViewController{
                 }
             }
         }
-        print(headerArray)
+        //print(headerArray)
         return headerArray
     }
     
@@ -371,7 +371,7 @@ class AccountStrategyViewController : UIViewController{
                 }
             }
         }
-        print(subHeaderArray)
+       // print(subHeaderArray)
         return subHeaderArray
     }
     

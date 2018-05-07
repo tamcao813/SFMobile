@@ -81,7 +81,7 @@ class EditAccountStrategyViewController: UIViewController {
                 for q in tableViewData{
                     
                     let dictionary = q as! NSDictionary
-                    print(dictionary)
+                   // print(dictionary)
                     
                     let header = dictionary["header"] as? String
                     
@@ -134,7 +134,7 @@ class EditAccountStrategyViewController: UIViewController {
             }
         }
         
-        print(tableViewData)
+       // print(tableViewData)
         tableViewRowDetails = tableViewData
         
 
@@ -221,7 +221,7 @@ class EditAccountStrategyViewController: UIViewController {
             }
         }
         
-        print(headerArray)
+       // print(headerArray)
         
         return headerArray
     }
@@ -378,10 +378,10 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy.Id = ""
         new_Strategy.OwnerId = "005m0000002pSmiAAE"
         new_Strategy.SGWS_Account__c = "001m000000cHSKbAAO"
-        new_Strategy.SGWS_Answer_Description_List__c = "I need to buy lamborghini"
-        new_Strategy.SGWS_Answer_Options__r_Id = ""
-        new_Strategy.SGWS_Notes__c = "chips"
-        new_Strategy.SGWS_Question__r_Id = ""
+        new_Strategy.SGWS_Answer_Description_List__c = "Recognition,Approval"
+        //new_Strategy.SGWS_Answer_Options__r_Id = ""
+        new_Strategy.SGWS_Notes__c = "Teena "
+        new_Strategy.SGWS_Question__r_Id = "a4vm00000009NL0AAM"
         
         let attributeDict = ["type":"SGWS_Response__c"]
         
@@ -390,7 +390,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             StrategyQA.StrategyQAFields[11]:new_Strategy.OwnerId,
             StrategyQA.StrategyQAFields[1]:new_Strategy.SGWS_Account__c,
             StrategyQA.StrategyQAFields[12]:new_Strategy.SGWS_Answer_Description_List__c,
-            StrategyQA.StrategyQAFields[3]:new_Strategy.SGWS_Answer_Options__r_Id,
+          //  StrategyQA.StrategyQAFields[3]:new_Strategy.SGWS_Answer_Options__r_Id,
             StrategyQA.StrategyQAFields[8]:new_Strategy.SGWS_Notes__c,
             StrategyQA.StrategyQAFields[2]:new_Strategy.SGWS_Question__r_Id,
             
@@ -403,8 +403,37 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
         print("Success is here \(success)")
         
+        let new_Strategy2 = StrategyQA(for: "NewStrategy2")
+
+        new_Strategy2.Id = ""
+        new_Strategy2.OwnerId = "005m0000002pSmiAAE"
+        new_Strategy2.SGWS_Account__c = "001m000000cHSKbAAO"
+        new_Strategy2.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
+        //new_Strategy.SGWS_Answer_Options__r_Id = ""
+        new_Strategy2.SGWS_Notes__c = "Meena"
+        new_Strategy2.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
         
-                if success == true{
+        
+        let addNewDict2: [String:Any] = [
+            StrategyQA.StrategyQAFields[0]:new_Strategy2.Id,
+            StrategyQA.StrategyQAFields[11]:new_Strategy2.OwnerId,
+            StrategyQA.StrategyQAFields[1]:new_Strategy2.SGWS_Account__c,
+            StrategyQA.StrategyQAFields[12]:new_Strategy2.SGWS_Answer_Description_List__c,
+         //   StrategyQA.StrategyQAFields[3]:new_Strategy2.SGWS_Answer_Options__r_Id,
+            StrategyQA.StrategyQAFields[8]:new_Strategy2.SGWS_Notes__c,
+            StrategyQA.StrategyQAFields[2]:new_Strategy2.SGWS_Question__r_Id,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success2 = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict2)
+        print("Success is here \(success2)")
+        
+        
+                if success || success2 == true{
         
                     let fields: [String] = StrategyQA.StrategyQAFields
                     strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in

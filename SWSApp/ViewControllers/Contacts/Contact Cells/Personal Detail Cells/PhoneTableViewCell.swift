@@ -88,13 +88,6 @@ extension PhoneTableViewCell: UITextFieldDelegate {
         contactDetail?.phoneNumber = phoneTextField.text!
         contactDetail?.fax = faxTextField.text!
     }
-    
-//    func validate(value: String) -> Bool {
-//        let PHONE_REGEX = "^.*?..*?.()."
-//        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
-//        let result =  phoneTest.evaluate(with: value)
-//        return result
-//    }
 }
 
 extension String {

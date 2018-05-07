@@ -131,7 +131,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         }else if data.status  == "In-Progress"{
             accountVisitsVC?.visitStatus = .inProgress
         }else if data.status  == "Planned"{
-            accountVisitsVC?.modalPresentationStyle = .overCurrentContext
+            accountVisitsVC?.visitStatus = .planned
         }
         (accountVisitsVC)?.delegate = self
         DispatchQueue.main.async {

@@ -14,6 +14,7 @@ class ServicePurposesViewController: UIViewController {
     
     @IBOutlet weak var collectionView : UICollectionView?
     var tableViewRowDetails : NSMutableArray?
+    var selectedValuesList = [String]()
     var count = 0
     
     //MARK:- View Life Cycle
@@ -29,6 +30,11 @@ class ServicePurposesViewController: UIViewController {
         if !PlistMap.sharedInstance.getPicklist(fieldname: "AccountVisitPurpose").isEmpty {
             self.createPlistForSevicePurpose()
         }
+        
+        for _ in 0...readServicePurposePList().count {
+            selectedValuesList.append("false")
+        }
+        
         print(dictionary!)
     }
     
@@ -72,28 +78,36 @@ class ServicePurposesViewController: UIViewController {
     
     // MARK:- IBAction
     
+    @IBAction func closeVC(sender: UIButton) {
+        if selectedValuesList.contains("true") {
+            //do something
+            let uiAlertController = UIAlertController(// create new instance alert  controller
+                title: "Alert",
+                message: "Any changes will not be saved. Are you sure you want to close?",
+                preferredStyle:.alert)
+            
+            uiAlertController.addAction(// add Custom action on Event is Cancel
+                UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
+                    uiAlertController.dismiss(animated: true, completion: nil)
+                }))
+            
+            uiAlertController.addAction(// add Custom action on Event is Cancel
+                UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
+                    uiAlertController.dismiss(animated: true, completion: nil)
+                    self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }))
+            self.present(uiAlertController, animated: true, completion: nil)
+        } else {
+            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func backVC(sender: UIButton) {
         self.dismiss(animated: true)
     }
     
     @IBAction func saveAndClose(sender: UIButton) {
-        
-        let uiAlertController = UIAlertController(// create new instance alert  controller
-            title: "Alert",
-            message: "Any changes will not be saved. Are you sure you want to close?",
-            preferredStyle:.alert)
-        
-        uiAlertController.addAction(// add Custom action on Event is Cancel
-            UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
-                uiAlertController.dismiss(animated: true, completion: nil)
-            }))
-        
-        uiAlertController.addAction(// add Custom action on Event is Cancel
-            UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
-                uiAlertController.dismiss(animated: true, completion: nil)
-                self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-            }))
-        self.present(uiAlertController, animated: true, completion: nil)
+        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -230,14 +244,14 @@ extension ServicePurposesViewController : UICollectionViewDelegate {
         if indexPath.section == 4 {
             let cell = collectionView.cellForItem(at: indexPath) as! EditAccountStrategyCollectionViewCell
             cell.layer.borderWidth = 3.0
-            if collectionViewRowDetails[indexPath.row][1] == "true" {
+            if selectedValuesList[indexPath.row] == "true" {
                 cell.layer.borderColor = UIColor.clear.cgColor
-                collectionViewRowDetails[indexPath.row][1] = "false"
+                selectedValuesList[indexPath.row] = "false"
                 cell.selectedIcon?.isHidden = true
             }
             else {
                 cell.layer.borderColor = UIColor(red: 66/255, green: 135/255, blue: 194/255, alpha: 1.0).cgColor
-                collectionViewRowDetails[indexPath.row][1] = "true"
+                selectedValuesList[indexPath.row] = "true"
                 cell.selectedIcon?.isHidden = false
             }
         }

@@ -42,6 +42,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     @IBOutlet var searchAccountLbl: UILabel!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var planLbl: UILabel!
+    @IBOutlet var errorLbl: UILabel!
     @IBOutlet var bottomView: UIView!
     @IBOutlet var searchAccountTxt: DesignableUITextField!
     @IBOutlet var searchContactTxt: DesignableUITextField!
@@ -181,34 +182,25 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             preferredStyle:.alert)
         
         uiAlertController.addAction(// add Custom action on Event is Cancel
-            UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
-                uiAlertController.dismiss(animated: true, completion: nil)
-            }))
-        
-        uiAlertController.addAction(// add Custom action on Event is Cancel
             UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
                 uiAlertController.dismiss(animated: true, completion: nil)
                 self.dismiss(animated: true)
             }))
+        uiAlertController.addAction(// add Custom action on Event is Cancel
+            UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
+                uiAlertController.dismiss(animated: true, completion: nil)
+            }))
+        
         self.present(uiAlertController, animated: true, completion: nil)
     }
     
     @IBAction func planAction(sender: UIButton) {
         let validateArray = validatefields()
         if validateArray.contains(false) {
-            let uiAlertController = UIAlertController(// create new instance alert  controller
-                title: "Alert",
-                message: "Please correct required fields and user will have to address before saving again​",
-                preferredStyle:.alert)
-            
-            uiAlertController.addAction(// add Custom action on Event is Cancel
-                UIAlertAction.init(title: "OK", style: .default, handler: { (UIAlertAction) in
-                    uiAlertController.dismiss(animated: true, completion: nil)
-                }))
-            self.present(uiAlertController, animated: true, completion: nil)
-            
+            errorLbl.isHidden = false
         } else {
             PlanVistManager.sharedInstance.status = "inProgress"
+            errorLbl.isHidden = true
             self.insetValuesToDB()
             createNewVisit()
             let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
@@ -222,20 +214,12 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         let validateArray = validatefields()
         
         if validateArray.contains(false) {
-            let uiAlertController = UIAlertController(// create new instance alert  controller
-                title: "Alert",
-                message: "Please correct required fields” and user will have to address before saving again​",
-                preferredStyle:.alert)
-            
-            uiAlertController.addAction(// add Custom action on Event is Cancel
-                UIAlertAction.init(title: "OK", style: .default, handler: { (UIAlertAction) in
-                    uiAlertController.dismiss(animated: true, completion: nil)
-                }))
-            self.present(uiAlertController, animated: true, completion: nil)
+            errorLbl.isHidden = false
             
         } else {
             
             PlanVistManager.sharedInstance.status = "Schedule"
+            errorLbl.isHidden = true
             self.insetValuesToDB()
              createNewVisit()
 //            self.delegate.refershList()
@@ -355,7 +339,8 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     }
     
     func getNonSelectedContacts() -> [Contact] {
-        var tempContacts = conatctViewModel.contacts(forAccount: accountID)
+//        var tempContacts = conatctViewModel.contacts(forAccount: accountID)
+        var tempContacts = conatctViewModel.globalContacts()
         for selectedContact in associatedSelectedContact {
             for contact in tempContacts {
                 if (contact.contactId == selectedContact.contactId)
@@ -516,7 +501,7 @@ extension PlanVisitViewController : UITableViewDelegate {
             let cell: AccountTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath) as! AccountTableViewCell
             let account = searchAccounts[indexPath.row]
             cell.accountLabel.text = account.accountName
-            cell.phoneNumberLabel.text = account.phone
+            cell.phoneNumberLabel.text = account.account_Id
             cell.addressLabel.text = account.shippingStreet + " " + account.shippingCity + " " + account.shippingPostalCode
             return cell
         } else if(textFieldTag == kContactTxtTag) {
@@ -561,7 +546,7 @@ extension PlanVisitViewController : UITableViewDelegate {
                 self.accountID = account.account_Id
                 self.accountView.delegate = self
                 self.accountView.accountLabel.text = account.accountName
-                self.accountView.phoneNumberLabel.text = account.phone
+                self.accountView.phoneNumberLabel.text = account.account_Id
                 self.accountView.addressLabel.text = account.shippingStreet + " " + account.shippingCity + " " + account.shippingPostalCode
                 self.accountView.frame.origin = CGPoint(x:20, y:self.planLbl.frame.origin.y + 10)
                 self.scrollView.addSubview(self.accountView)
@@ -599,7 +584,8 @@ extension PlanVisitViewController : UITextFieldDelegate{
         
         switch textField.tag {
         case kAccountTxtTag:
-            myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 206))
+            myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 310))
+            myTableView.dropShadow(color: .lightGray, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
             textFieldTag = textField.tag
             myTableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: "MyCell")
             searchAccounts = self.accountViewModel.accountsForLoggedUser
@@ -609,7 +595,8 @@ extension PlanVisitViewController : UITextFieldDelegate{
             self.scrollView.addSubview(myTableView)
         case kContactTxtTag:
             if (self.getNonSelectedContacts().count != 0) {
-                myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 206))
+                myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 310))
+                myTableView.dropShadow(color: .lightGray, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
                 textFieldTag = textField.tag
                 myTableView.register(UINib(nibName: "AssociateTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociateTableViewCell")
                 nonSelectedContact = self.getNonSelectedContacts()

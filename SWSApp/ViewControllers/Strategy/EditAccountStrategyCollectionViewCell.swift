@@ -55,6 +55,8 @@ extension EditAccountStrategyCollectionViewCell : UITextViewDelegate{
         
         StrategyNotes.accountStrategyNotes = textView.text
         
+        PlanVistManager.sharedInstance.sgwsAgendaNotes = textView.text
+        
     }
     
     

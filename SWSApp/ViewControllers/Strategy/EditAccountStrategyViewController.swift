@@ -16,9 +16,11 @@ class EditAccountStrategyViewController: UIViewController {
     var tableViewRowDetails : NSMutableArray?
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
     let strategyAnswersViewModel = StrategyAnswersViewModel()
+    let strategyQAViewModel = StrategyQAViewModel()
     
     @IBOutlet weak var collectionView : UICollectionView?
 
+    
     
     
     var textViewWidth = 0.0
@@ -30,6 +32,7 @@ class EditAccountStrategyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        createStrategy()
         
         IQKeyboardManager.shared.enable = true
         
@@ -232,33 +235,35 @@ class EditAccountStrategyViewController: UIViewController {
         let validateFields = self.validateAllFields()
         
         if validateFields{
-            
-            createStrategy()
-            
             print("Success")
             
-        }else{
+            //Get The Selected Data in the array for Question And
             
+            tableViewRowDetails
+            
+            
+            
+            
+            
+            
+        }else{
             
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("", errorMessage: "Please Enter required fields", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                 
             }, action2: {
-                
+                    
             })
         }
     }
     
     @IBAction func cancelButtonAction(sender : UIButton){
         print("Cancel button Clicked")
-        
         self.showAlert()
     }
     
     @IBAction func closeButtonAction(sender : UIButton){
         print("Close button Clicked")
-        
         self.showAlert()
-        
     }
 }
 
@@ -367,15 +372,14 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
     }
     
     func createStrategy() {
-        
-        
         let new_Strategy = StrategyQA(for: "NewStrategy")
         new_Strategy.Id = ""
         new_Strategy.OwnerId = ""
-        new_Strategy.SGWS_Account__c = ""
+        new_Strategy.SGWS_Account__c = 
+        
         new_Strategy.SGWS_Answer_Description_List__c = ""
         new_Strategy.SGWS_Answer_Options__r_Id = ""
-        new_Strategy.SGWS_Notes__c = ""
+        new_Strategy.SGWS_Notes__c = "chips"
         new_Strategy.SGWS_Question__r_Id = ""
         
         let attributeDict = ["type":"SGWS_Response__c"]
@@ -385,9 +389,9 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             StrategyQA.StrategyQAFields[1]:new_Strategy.OwnerId,
             StrategyQA.StrategyQAFields[2]:new_Strategy.SGWS_Account__c,
             StrategyQA.StrategyQAFields[3]:new_Strategy.SGWS_Answer_Description_List__c,
-            StrategyQA.StrategyQAFields[0]:new_Strategy.SGWS_Answer_Options__r_Id,
-            StrategyQA.StrategyQAFields[0]:new_Strategy.SGWS_Notes__c,
-            StrategyQA.StrategyQAFields[0]:new_Strategy.SGWS_Question__r_Id,
+            StrategyQA.StrategyQAFields[4]:new_Strategy.SGWS_Answer_Options__r_Id,
+            StrategyQA.StrategyQAFields[5]:new_Strategy.SGWS_Notes__c,
+            StrategyQA.StrategyQAFields[6]:new_Strategy.SGWS_Question__r_Id,
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,
@@ -395,17 +399,16 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
 
-        //let success = visitViewModel.createNewVisitLocally(fields: addNewDict)
-//        print("Success is here \(success)")
-//
+        let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
+        print("Success is here \(success)")
+        
+
 //        if success == true{
 //
-//            let fields: [String] = PlanVisit.planVisitFields
-//
-//            //visitViewModel.uploadVisitToServer(fields: fields, completion: { error in
-//
+//            let fields: [String] = StrategyQA.StrategyQAFields
+//            strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in
 //                if error != nil {
-//                    print("Upload Visit to Server " + (error?.localizedDescription)!)
+//                    print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
 //                }
 //            })
 //

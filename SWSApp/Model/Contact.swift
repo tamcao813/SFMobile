@@ -81,6 +81,9 @@ class Contact {
         if buyerFlagString == "true" {
             buyerFlag = true
         }
+        if buyerFlagString == "1" {
+            buyerFlag = true
+        }
         title = json["Title"] as? String ?? ""
         department = json["Department"] as? String ?? ""
         preferredName = json["SGWS_Preferred_Name__c"] as? String ?? ""

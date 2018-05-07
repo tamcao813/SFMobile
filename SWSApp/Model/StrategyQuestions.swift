@@ -8,7 +8,7 @@
 
 import Foundation
 class StrategyQuestions {
-    static let StrategyQuestionsFields: [String] = ["Id","Name","SGWS_Deactivate__c","SGWS_Question_Description__c","SGWS_Question_Sub_Type__c","SGWS_Question_Type__c","SGWS_Sorting_Order__c","SGWS_Survey_ID__c"]
+    static let StrategyQuestionsFields: [String] = ["Id","Name","SGWS_Deactivate__c","SGWS_Question_Description__c","SGWS_Question_Sub_Type__c","SGWS_Question_Type__c","SGWS_Sorting_Order__c","SGWS_Survey_ID__c","SGWS_Answer__c"]
     
     var Id:String
     var Name:String
@@ -18,11 +18,11 @@ class StrategyQuestions {
     var SGWS_Question_Type__c: String
     var SGWS_Sorting_Order__c:String
     var SGWS_Survey_ID__c:String
-   
+    var SGWS_Answer__c : String
     
     
     convenience init(withAry ary: [Any]) {
-        let resultDict = Dictionary(uniqueKeysWithValues: zip(StrategyQA.StrategyQAFields, ary))
+        let resultDict = Dictionary(uniqueKeysWithValues: zip(StrategyQuestions.StrategyQuestionsFields, ary))
         self.init(json: resultDict)
     }
     
@@ -35,7 +35,7 @@ class StrategyQuestions {
         SGWS_Question_Type__c = json["SGWS_Question_Type__c"] as? String ?? ""
         SGWS_Sorting_Order__c = json["SGWS_Sorting_Order__c"] as?String ?? ""
         SGWS_Survey_ID__c = json["SGWS_Survey_ID__c"] as? String ?? ""
-        
+        SGWS_Answer__c = json["SGWS_Answer__c"] as? String ?? ""
     }
     
     init(for: String) {
@@ -47,7 +47,7 @@ class StrategyQuestions {
         SGWS_Question_Type__c =  ""
         SGWS_Sorting_Order__c = ""
         SGWS_Survey_ID__c = ""
-       
+        SGWS_Answer__c = ""
         
     }
 }

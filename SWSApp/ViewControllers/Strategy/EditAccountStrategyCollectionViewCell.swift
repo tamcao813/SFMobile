@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct StrategyNotes {
+    static var accountStrategyNotes = ""
+}
+
 class EditAccountStrategyCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var centerLabel : UILabel?
@@ -42,4 +46,16 @@ extension EditAccountStrategyCollectionViewCell : UITextViewDelegate{
         }
         return true
     }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        StrategyNotes.accountStrategyNotes = textView.text
+        
+    }
+    
+    
 }

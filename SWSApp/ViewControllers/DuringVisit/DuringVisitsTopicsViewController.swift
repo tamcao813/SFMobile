@@ -13,22 +13,73 @@ class  DuringVisitsTopicsViewController : UIViewController {
     
     @IBOutlet weak var collectionView : UICollectionView?
     
+    var visitObject : Visit?
+    
     var collectionViewRowDetails : NSMutableArray?
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let plistPath = Bundle.main.path(forResource: "DuringVisitTopics", ofType: ".plist", inDirectory: nil)
-        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
-        collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
+        //let plistPath = Bundle.main.path(forResource: "DuringVisitTopics", ofType: ".plist", inDirectory: nil)
+        //let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
+        //collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
         
-        print(dictionary!)
+        //print(dictionary!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let mainArray = NSMutableArray()
+        
+        let addressDict = NSMutableDictionary()
+        addressDict.setValue(visitObject?.accountName, forKey: "storeName")
+        addressDict.setValue(visitObject?.accountNumber, forKey: "accountNumber")
+        //addressDict.setValue("", forKey: "headerText")
+                
+        let address = visitObject?.accountBillingAddress
+        
+        if address != ""{
+            
+            let data = self.convertToDictionary(text: address!)
+            
+            
+            guard let street = data!["street"] as? String else{
+                return
+            }
+            guard let city = data!["city"] as? String else{
+                return
+            }
+            guard let postalCode = data!["postalCode"] as? String else {
+                return
+            }
+            let addressString = street + " " + city + " " + postalCode
+            
+            addressDict.setValue(addressString, forKey: "storeAddress")
+            mainArray.add(addressDict)
+            
+        }
+
+        let visitNotes = visitObject?.description
+        let displayDataDict = NSMutableDictionary()
+        displayDataDict.setValue("Visit Notes", forKey: "headerText")
+        displayDataDict.setValue(visitNotes, forKey: "notesText")
+        mainArray.add(displayDataDict)
+        
+        let agendaNotes = visitObject?.sgwsAgendaNotes
+        let agentDict = NSMutableDictionary()
+        agentDict.setValue("Agenda Notes", forKey: "headerText")
+        agentDict.setValue("", forKey: "subHeader")
+        let agentArray = NSMutableArray()
+        let agentAnswerDict = NSMutableDictionary()
+        agentAnswerDict.setValue(agendaNotes, forKey: "answerText")
+        agentArray.add(agentAnswerDict)
+        agentDict.setValue(agentArray, forKey: "answers")
+        mainArray.add(agentDict)
+        
+        collectionViewRowDetails = mainArray
+        print(mainArray)
         
     }
     
@@ -43,6 +94,18 @@ class  DuringVisitsTopicsViewController : UIViewController {
         
         
     }
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
     
     //MARK:-
     
@@ -95,13 +158,15 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
         
         var cell : UICollectionViewCell?
         
+        let cellData = collectionViewRowDetails![indexPath.section] as! NSDictionary
+        
         if indexPath.section == 0{
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell1", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
-            
+            (cell as! DuringVisitsTopicsCollectionViewCell).displayAddressCellData(data: cellData)
             
         }else if indexPath.section == 1{
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell2", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
-            
+            (cell as! DuringVisitsTopicsCollectionViewCell).displayNotesCellData(data: cellData)
             
         }else if indexPath.section >= 2{
             

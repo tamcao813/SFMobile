@@ -12,6 +12,7 @@ protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
     
     func navigateToAccountScreen()
+    
 }
 
 class AccountVisitSummaryViewController: UIViewController {
@@ -140,6 +141,8 @@ class AccountVisitSummaryViewController: UIViewController {
             let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            (vc as DuringVisitsViewController).visitObject = visitObject
+            
             self.present(vc, animated: true, completion: nil)
             (vc as DuringVisitsViewController).delegate = self
         }else{
@@ -181,12 +184,18 @@ class AccountVisitSummaryViewController: UIViewController {
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
+        
+        
     }
     
 }
 
 //MARK:- NavigateToContacts Delegate
 extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDelegate , NavigateToAccountAccountVisitSummaryDelegate{
+    
+    func navigateToAccountVisitingScreen() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
         self.dismiss(animated: true, completion: nil)
@@ -198,6 +207,8 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
         self.dismiss(animated: true, completion: nil)
         delegate?.navigateToAccountScreen()
     }
+    
+    
 }
 
 

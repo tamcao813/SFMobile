@@ -18,6 +18,7 @@ class ServicePurposesViewController: UIViewController {
     var count = 0
     var planVist:PlanVisit? = PlanVisit(for: "")
     let visitViewModel = VisitSchedulerViewModel()
+    var selectedPurposesValuesList = [String]()
     
     //MARK:- View Life Cycle
     
@@ -109,6 +110,7 @@ class ServicePurposesViewController: UIViewController {
     }
     
     @IBAction func saveAndClose(sender: UIButton) {
+       
         
         createNewVisit()
         
@@ -255,10 +257,12 @@ extension ServicePurposesViewController : UICollectionViewDelegate {
             if selectedValuesList[indexPath.row] == "true" {
                 cell.layer.borderColor = UIColor.clear.cgColor
                 selectedValuesList[indexPath.row] = "false"
+                selectedPurposesValuesList = selectedPurposesValuesList.filter{$0 != (cell.centerLabel?.text)!}
                 cell.selectedIcon?.isHidden = true
             }
             else {
                 cell.layer.borderColor = UIColor(red: 66/255, green: 135/255, blue: 194/255, alpha: 1.0).cgColor
+                selectedPurposesValuesList.append((cell.centerLabel?.text)!)
                 selectedValuesList[indexPath.row] = "true"
                 cell.selectedIcon?.isHidden = false
             }
@@ -307,7 +311,7 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
     }
     
     func createNewVisit() {
-        
+        let stringRepresentation = selectedPurposesValuesList.joined(separator: ";")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let accountId = appDelegate.loggedInUser?.accountId
         print("Account id in plan is \(accountId)")
@@ -320,7 +324,7 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
         new_visit.sgwsAppointmentStatus = (planVist?.sgwsAppointmentStatus)!
         new_visit.startDate =  PlanVistManager.sharedInstance.startDate //"2018-05-02T14:00:00.000Z"
         new_visit.endDate = PlanVistManager.sharedInstance.endDate //"2018-05-02T15:00:00.000Z"
-        new_visit.sgwsVisitPurpose = (planVist?.sgwsVisitPurpose)!
+        new_visit.sgwsVisitPurpose = stringRepresentation
         new_visit.description = (planVist?.description)!
         new_visit.sgwsAgendaNotes = PlanVistManager.sharedInstance.sgwsAgendaNotes
         new_visit.status = PlanVistManager.sharedInstance.status

@@ -36,7 +36,23 @@ class ServicePurposesViewController: UIViewController {
     }
     
     @IBAction func saveAndClose(sender: UIButton) {
-        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        
+        let uiAlertController = UIAlertController(// create new instance alert  controller
+            title: "Alert",
+            message: "Any changes will not be saved. Are you sure you want to close?",
+            preferredStyle:.alert)
+        
+        uiAlertController.addAction(// add Custom action on Event is Cancel
+            UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
+                uiAlertController.dismiss(animated: true, completion: nil)
+            }))
+        
+        uiAlertController.addAction(// add Custom action on Event is Cancel
+            UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
+                uiAlertController.dismiss(animated: true, completion: nil)
+self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            }))
+        self.present(uiAlertController, animated: true, completion: nil)
     }
 }
 

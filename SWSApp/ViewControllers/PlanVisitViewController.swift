@@ -34,6 +34,8 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     var editContact:Contact? = Contact(for: "")
     var tableViewData : [PlanVisit]?
     weak var delegate: PlanVisitViewControllerDelegate!
+    var visitViewModel = VisitSchedulerViewModel()
+    
     
     // MARK:- IBOutlets
     
@@ -229,17 +231,9 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         } else {
             PlanVistManager.sharedInstance.status = "Schedule"
             self.insetValuesToDB()
+            self.delegate.refershList()
             self.dismiss(animated: true)
         }
-        
-        uiAlertController.addAction(// add Custom action on Event is Cancel
-            UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
-                uiAlertController.dismiss(animated: true, completion: nil)
-                self.planVist?.status = "Schedule"
-                self.delegate.refershList()
-                self.dismiss(animated: true)
-            }))
-        self.present(uiAlertController, animated: true, completion: nil)
     }
     
     // MARK:- Custom Methods

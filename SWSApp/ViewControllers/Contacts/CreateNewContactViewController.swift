@@ -58,6 +58,7 @@ class CreateNewContactViewController: UIViewController {
     var doesHaveBuyingPower: Bool = true
     weak var delegate: CreateNewContactViewControllerDelegate!
     var isNewContact: Bool = true
+    var contactId: String?
     var contactDetail: Contact?
     var accountSelected : Account!
     var globalContacts = [Contact]()
@@ -65,6 +66,9 @@ class CreateNewContactViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let id = contactId {
+            contactDetail = ContactSortUtility.searchContactByContactId(id)
+        }        
         customizedUI()
         initializingXIBs()
         IQKeyboardManager.shared.enable = true

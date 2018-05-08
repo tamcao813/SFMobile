@@ -310,6 +310,15 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
         }
     }
     
+    func generateRandomIDForNotes()->String  {
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        print("number in notes is \(someString)")
+        return someString
+    }
+    
     func createNewVisit() {
         let stringRepresentation = selectedPurposesValuesList.joined(separator: ";")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -319,6 +328,7 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
         
         let new_visit = PlanVisit(for: "newVisit")
         
+        new_visit.Id = self.generateRandomIDForNotes()
         new_visit.subject = (planVist?.subject)!
         new_visit.accountId = PlanVistManager.sharedInstance.accountId
         new_visit.sgwsAppointmentStatus = (planVist?.sgwsAppointmentStatus)!

@@ -641,6 +641,14 @@ extension PlanVisitViewController : UITextFieldDelegate{
         return true
     }
     
+    func generateRandomIDForVisit()->String  {
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        print("random Id for Visit  is \(someString)")
+        return someString
+    }
     
     // saving a visit locally
     
@@ -653,7 +661,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
         
        let new_visit = PlanVisit(for: "newVisit")
         
-        
+        new_visit.Id = self.generateRandomIDForVisit()
         new_visit.subject = (planVist?.subject)!
         new_visit.accountId = PlanVistManager.sharedInstance.accountId
         new_visit.sgwsAppointmentStatus = (planVist?.sgwsAppointmentStatus)!

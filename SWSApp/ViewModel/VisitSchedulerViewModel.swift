@@ -18,6 +18,12 @@ class VisitSchedulerViewModel {
         return StoreDispatcher.shared.createNewVisitLocally(fieldsToUpload:fields)
     }
     
+    
+    func deleteVisitLocally(fields: [String:Any]) -> Bool {
+        return StoreDispatcher.shared.deleteVisitsLocally(fieldsToUpload:fields)
+    }
+    
+    
     func uploadVisitToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
         
         StoreDispatcher.shared.syncUpVisits(fieldsToUpload: fields, completion: {error in

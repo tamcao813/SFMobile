@@ -1126,8 +1126,8 @@ class StoreDispatcher {
     func fetchVisits()->[Visit]{
         
         var visit: [Visit] = []
-        let visitFields = Visit.VisitsFields.map{"{WorkOrder:\($0)}"}
-        let soapQuery = "Select \(visitFields.joined(separator: ",")) FROM {WorkOrder}"
+        
+        let soapQuery = "Select * FROM {WorkOrder}"
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -1135,16 +1135,71 @@ class StoreDispatcher {
         print("Result of visits is \(result)")
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
+                
+                let modifResult = result[i] as! [Any]
+                let item = modifResult[1]
+                let subItem = item as! [String:Any]
+                
+                let flag = subItem["__locally_deleted__"] as! Bool
+                // if deleted skip
+                if(flag){
+                    continue
+                }
+                
+                var newarr = [Any]()
+                
+                newarr.append(modifResult[4])
+                newarr.append(modifResult[5])
+                newarr.append(modifResult[6])
+                newarr.append(modifResult[7])
+                newarr.append(modifResult[8])
+                newarr.append(modifResult[9])
+                newarr.append(modifResult[10])
+                newarr.append(modifResult[11])
+                newarr.append(modifResult[12])
+                newarr.append(modifResult[13])
+                newarr.append(modifResult[14])
+                newarr.append(modifResult[15])
+                newarr.append(modifResult[16])
+                newarr.append(modifResult[17])
+                newarr.append(modifResult[18])
+                newarr.append(modifResult[19])
+                newarr.append(modifResult[20])
+                newarr.append(modifResult[21])
+                newarr.append(modifResult[22])
+
+                
                 let ary:[Any] = result[i] as! [Any]
-                let visitArray = Visit(withAry: ary)
+                let visitArray = Visit(withAry: newarr)
                 visit.append(visitArray)
-                print("notes array \(ary)")
+                print("Visit array \(ary)")
             }
         }
         else if error != nil {
-            print("fetch account notes  " + " error:" + (error?.localizedDescription)!)
+            print("fetch visit  " + " error:" + (error?.localizedDescription)!)
         }
         return visit
+        ////
+//        var visit: [Visit] = []
+//        let visitFields = Visit.VisitsFields.map{"{WorkOrder:\($0)}"}
+//        let soapQuery = "Select \(visitFields.joined(separator: ",")) FROM {WorkOrder}"
+//        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+//        
+//        var error : NSError?
+//        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+//        print("Result of visits is \(result)")
+//        if (error == nil && result.count > 0) {
+//            for i in 0...result.count - 1 {
+//                let ary:[Any] = result[i] as! [Any]
+//                let visitArray = Visit(withAry: ary)
+//                visit.append(visitArray)
+//                print("notes array \(ary)")
+//            }
+//        }
+//        else if error != nil {
+//            print("fetch account notes  " + " error:" + (error?.localizedDescription)!)
+//        }
+//        return visit
     }
 
     func registerVisitSchedulerSoup(){
@@ -1933,6 +1988,45 @@ class StoreDispatcher {
             }
             .catch { error in
                 completion(error as NSError?)
+        }
+    }
+    
+    func deleteVisitsLocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupVisit, withOrderPath: "LastModifiedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedVisit = [String: Any]()
+        
+        for  singleVisit in result{
+            var singleVisitModif = singleVisit as! [String:Any]
+            let singleVisitModifValue = singleVisitModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == singleVisitModifValue){
+                
+                singleVisitModif["__local__"] = true
+                
+                singleVisitModif["__locally_deleted__"] = true
+                
+                editedVisit = singleVisitModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedVisit], toSoup: SoupVisit)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) Visit is deleted  successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in deleting  Visit" )
+            return false
         }
     }
     

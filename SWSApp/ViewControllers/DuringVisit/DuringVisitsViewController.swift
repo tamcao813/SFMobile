@@ -184,15 +184,13 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     @IBAction func contactsClicked(sender : UIButton){
-        
-        
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummary(data: .contacts)
-            
-        }) {
-            print("No")
+        DispatchQueue.main.async {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {                
+                self.dismiss(animated: false, completion: nil)
+                self.delegate?.NavigateToAccountVisitSummary(data: .contacts)
+            }) {
+                print("No")
+            }
         }
     }
     

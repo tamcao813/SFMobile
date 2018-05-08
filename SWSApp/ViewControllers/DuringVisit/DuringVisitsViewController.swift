@@ -144,8 +144,8 @@ class  DuringVisitsViewController : UIViewController {
         
         let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
         let duringVisitVC: DuringVisitsTopicsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsTopicsViewControllerID") as! DuringVisitsTopicsViewController
+        duringVisitVC.visitObject = visitObject
         activeViewController = duringVisitVC
-        
     }
     
     @IBAction func saveContinueAndComplete(sender : UIButton){

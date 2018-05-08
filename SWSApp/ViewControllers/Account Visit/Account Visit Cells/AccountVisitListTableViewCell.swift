@@ -29,8 +29,6 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
         
         self.addressLabel.text = accountObject?.accountName
         self.visitStatusLabel.text = data.status
-        //self.dateLabel.text = data.startDate
-        //self.timeLabel.text = data.status
         
         let lastModifiedDate = data.lastModifiedDate
         if(lastModifiedDate != ""){

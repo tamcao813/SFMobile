@@ -30,8 +30,12 @@ class AccountVisitListViewController: UIViewController {
         tableViewDataArray = [Visit]()
         let visitArray = VisitsViewModel()
         tableViewDataArray = visitArray.visitsForUser()
-        tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
-        tableView.reloadData()
+        tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation({() -> Void in
+                self.tableView.reloadData()
+            })
+        }
     }
     
     deinit {

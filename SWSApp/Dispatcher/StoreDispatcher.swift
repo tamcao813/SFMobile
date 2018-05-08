@@ -75,7 +75,11 @@ class StoreDispatcher {
         
         group.enter()
         syncDownAccount() { _ in
+            
             self.syncDownACR() { _ in
+            }
+            // Downlaod response after Sync down Account
+            self.syncDownStrategyQA() { _ in
                 group.leave()
             }
         }
@@ -105,10 +109,6 @@ class StoreDispatcher {
             group.leave()
         }
         
-        group.enter()
-        syncDownStrategyQA() { _ in
-            group.leave()
-        }
         
         group.enter()
         syncDownStrategyQuestions() { _ in
@@ -781,6 +781,48 @@ class StoreDispatcher {
         return accountAry
     }
     
+    //Contacts
+    func fetchStrategy(forAccount accountId: String) -> [StrategyQA] {
+        
+        print("fetchStrategy \(accountId)")
+        var strategyAry: [StrategyQA] = []
+        
+        //let fields = StrategyQA.StrategyQAFields.map{"{\(SoupStrategyQA):\($0)}"}
+        let soqlQuery = "SELECT {SGWS_Response__c:Id},{SGWS_Response__c:SGWS_Answer_Description_List__c},{SGWS_Question__c:Id},{SGWS_Question__c:SGWS_Question_Type__c},{SGWS_Question__c:SGWS_Question_Sub_Type__c},{SGWS_Response__c:SGWS_Notes__c} from {SGWS_Response__c} INNER JOIN {SGWS_Question__c} where {SGWS_Question__c:Id} = {SGWS_Response__c:SGWS_Question__c} AND {SGWS_Response__c:SGWS_Account__c} = '\(accountId)' "
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                
+//                  let accountId =
+//                let answers =  result[2]
+//
+//                let ownerId =  result[3]
+//
+//                let header =  result[4]
+//
+//                let subHeader =  result[5]
+//
+               // ["Id","SGWS_Account__c","SGWS_Question_Sub_Type__c","SGWS_Question__c","SGWS_Notes__c","LastModifiedById","LastModifiedDate","OwnerId","SGWS_Answer_Description_List__c"]
+                
+                let json:[String:Any] = [ "SGWS_Account__c":ary[0], "SGWS_Question_Sub_Type__c":ary[4], "SGWS_Question__c":ary[3], "SGWS_Answer_Description_List__c":ary[1],"SGWS_Notes__c":ary[5]]
+
+               let strategy = StrategyQA.init(json: json)
+                strategyAry.append(strategy)
+          
+            }
+        }
+        else if error != nil {
+            print("fetchStrategyQA " + " error:" + (error?.localizedDescription)!)
+        }
+        return strategyAry
+        
+    }
     
     //Contacts
     func fetchContactsWithBuyingPower(forAccount accountId: String) -> [Contact] {
@@ -1687,7 +1729,14 @@ class StoreDispatcher {
      //SyncDown StrategyQA Soup
     func syncDownStrategyQA(_ completion:@escaping (_ error: NSError?)->()) {
         
-       let soqlQuery = "SELECT Id,SGWS_Account__c,SGWS_Question__r.Id,SGWS_Answer_Options__r.Id,SGWS_Question__r.SGWS_Question_Type__c,SGWS_Question__r.SGWS_Question_Sub_Type__c,SGWS_Question_Description__c,SGWS_Answer__c,SGWS_Notes__c,LastModifiedById,LastModifiedDate,OwnerId, SGWS_Answer_Description_List__c  FROM SGWS_Response__c where SGWS_Account__c ='001m000000cHTdgAAG'"
+        
+        let accIdsString = fetchAllAccountIds().joined(separator: "','")
+        print("account  ids \(accIdsString)")
+        let accIdsFormattedString = "'" + accIdsString + "'"
+        
+        //["Id","SGWS_Account__c","SGWS_Question_Sub_Type__c","SGWS_Question__c","SGWS_Notes__c","LastModifiedById","LastModifiedDate","OwnerId","SGWS_Answer_Description_List__c"]
+        
+       let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Response__c"
         
         //let soqlQuery = "SELECT Id,SGWS_Account__c,SGWS_Question__r.Id,SGWS_Answer_Options__r.Id,SGWS_Question__r.SGWS_Question_Type__c,SGWS_Question__r.SGWS_Question_Sub_Type__c,SGWS_Question_Description__c,SGWS_Answer__c,SGWS_Notes__c,LastModifiedById,LastModifiedDate,OwnerId,SGWS_Answer_Description_List__c FROM SGWS_Response__c ORDER BY SGWS_Question__r.SGWS_Sorting_Order__c"
         
@@ -1721,6 +1770,13 @@ class StoreDispatcher {
     
     // Fetch StrategyQA...
     func fetchStrategyQA()->[StrategyQA]{
+        
+        ///
+//        let soqlQuery = "SELECT Id,SGWS_Account__c,SGWS_Question__c,SGWS_Question__r.SGWS_Question_Type__c,SGWS_Question__r.SGWS_Question_Sub_Type__c,SGWS_Question_Description__c,SGWS_Answer_Description_List__c,SGWS_Notes__c,LastModifiedById,LastModifiedDate,OwnerId FROM SGWS_Response__c ORDER BY SGWS_Question__r.SGWS_Sorting_Order__c"
+//
+//        ["Id","SGWS_Account__c","SGWS_Question_Sub_Type__c","SGWS_Question__c","SGWS_Notes__c","LastModifiedById","LastModifiedDate","OwnerId","SGWS_Answer_Description_List__c"]
+        //
+        
         var strategyQA: [StrategyQA] = []
         let strategyFields = StrategyQA.StrategyQAFields.map{"{SGWS_Response__c:\($0)}"}
         let soapQuery = "Select \(strategyFields.joined(separator: ",")) FROM {SGWS_Response__c}"
@@ -1768,7 +1824,7 @@ class StoreDispatcher {
     
     func syncDownStrategyQuestions(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Description__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c FROM SGWS_Question__c where SGWS_Survey_ID__c in ('a0am0000002jgc3AAA')"
+        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c FROM SGWS_Question__c where SGWS_Survey_ID__c in ('a0am0000002jgc3AAA')"
         
         print("soql syncDownStrategyQuestions query is \(soqlQuery)")
         

@@ -69,7 +69,7 @@
                                                             <constraint firstAttribute="height" constant="50" id="psv-Dv-vaT"/>
                                                         </constraints>
                                                         <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="image" keyPath="rightImage" value="searchIcon"/>
@@ -104,7 +104,7 @@
                                                         <rect key="frame" x="40" y="271" width="1012" height="50"/>
                                                         <color key="backgroundColor" name="Color"/>
                                                         <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="image" keyPath="rightImage" value="searchIcon"/>
@@ -354,8 +354,11 @@
                                 <rect key="frame" x="0.0" y="752" width="1112" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmw-8X-Woa">
-                                        <rect key="frame" x="1058" y="26" width="30" height="28"/>
+                                        <rect key="frame" x="1038" y="26" width="50" height="28"/>
                                         <color key="backgroundColor" red="0.25882352941176467" green="0.52941176470588236" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="0yd-6x-d2o"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                         <state key="normal" title="Plan">
                                             <color key="titleColor" name="Color"/>
@@ -365,8 +368,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gg-xe-lmS">
-                                        <rect key="frame" x="917" y="26" width="123" height="28"/>
+                                        <rect key="frame" x="870" y="26" width="150" height="28"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="ysI-fn-ivl"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                         <state key="normal" title="Schedule and Close">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>

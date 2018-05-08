@@ -162,7 +162,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
             
             if(success){
-                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
                 self.dismiss(animated: true, completion: nil)
             }
             

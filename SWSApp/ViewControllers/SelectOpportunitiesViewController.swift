@@ -21,6 +21,7 @@ class SelectOpportunitiesViewController: UIViewController {
     
     @IBAction func closeVC(sender: UIButton) {
         //STATEMACHINE:No State Change
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
@@ -32,6 +33,7 @@ class SelectOpportunitiesViewController: UIViewController {
     @IBAction func saveAndClose(sender: UIButton) {
         //STATEMACHINE:If you com tho this Screen its in Planned state
         PlanVistManager.sharedInstance.status = "Scheduled"
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

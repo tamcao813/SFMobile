@@ -155,6 +155,7 @@ class  DuringVisitsViewController : UIViewController {
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
             PlanVistManager.sharedInstance.status = "Completed"
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             self.dismiss(animated: true, completion: nil)
             delegate?.navigateToAccountVisitingScreen()
             return

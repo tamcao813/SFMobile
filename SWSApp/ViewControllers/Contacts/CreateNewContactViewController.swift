@@ -441,10 +441,10 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "FamilyTableViewCell") as? FamilyTableViewCell
                 familyDate1Textfield = cell?.dateTextField
                 familyName1Textfield = cell?.nameTextField
+                cell?.nameTextField.tag = 1
+                cell?.dateTextField.tag = 1
                 if let childName = contactDetail?.child1Name, childName != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.nameTextField.tag = 1
-                    cell?.dateTextField.tag = 1
                     cell?.displayCellContent()                    
                 }
                 
@@ -459,10 +459,10 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 cell?.nameLabelHeightConstraint.constant = 0
                 familyDate2Textfield = cell?.dateTextField
                 familyName2Textfield = cell?.nameTextField
+                cell?.nameTextField.tag = 2
+                cell?.dateTextField.tag = 2
                 if let childName = contactDetail?.child2Name, childName != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.nameTextField.tag = 2
-                    cell?.dateTextField.tag = 2
                     cell?.displayCellContent()
                 }
                 
@@ -477,10 +477,10 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 cell?.nameLabelHeightConstraint.constant = 0
                 familyDate3Textfield = cell?.dateTextField
                 familyName3Textfield = cell?.nameTextField
+                cell?.nameTextField.tag = 3
+                cell?.dateTextField.tag = 3
                 if let childName = contactDetail?.child3Name, childName != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.nameTextField.tag = 3
-                    cell?.dateTextField.tag = 3
                     cell?.displayCellContent()
                 }
                 
@@ -495,10 +495,10 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 cell?.nameLabelHeightConstraint.constant = 0
                 familyDate4Textfield = cell?.dateTextField
                 familyName4Textfield = cell?.nameTextField
+                cell?.nameTextField.tag = 4
+                cell?.dateTextField.tag = 4
                 if let childName = contactDetail?.child4Name, childName != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.nameTextField.tag = 4
-                    cell?.dateTextField.tag = 4
                     cell?.displayCellContent()
                 }
                 
@@ -513,10 +513,10 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 cell?.nameLabelHeightConstraint.constant = 0
                 familyDate5Textfield = cell?.dateTextField
                 familyName5Textfield = cell?.nameTextField
+                cell?.nameTextField.tag = 5
+                cell?.dateTextField.tag = 5
                 if let childName = contactDetail?.child5Name, childName != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.nameTextField.tag = 5
-                    cell?.dateTextField.tag = 5
                     cell?.displayCellContent()
                 }
                 
@@ -528,9 +528,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Likes"
                 dislikeTextView = cell?.descriptionTextView
+                cell?.descriptionTextView.tag = 1
                 if let dislikes = contactDetail?.dislikes, dislikes != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.descriptionTextView.tag = 1
                     cell?.displayCellContent()
                 }
                 return cell!
@@ -538,9 +538,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Dislikes"
                 likeTextView = cell?.descriptionTextView
+                cell?.descriptionTextView.tag = 2
                 if let likes = contactDetail?.likes, likes != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.descriptionTextView.tag = 2
                     cell?.displayCellContent()
                 }
                 return cell!
@@ -548,9 +548,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Favourites Activities"
                 favouriteTextView = cell?.descriptionTextView
+                cell?.descriptionTextView.tag = 3
                 if let fav = contactDetail?.favouriteActivities, fav != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.descriptionTextView.tag = 3
                     cell?.displayCellContent()
                 }
                 return cell!
@@ -558,9 +558,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Notes"
                 notesTextView = cell?.descriptionTextView
+                cell?.descriptionTextView.tag = 4
                 if let notes = contactDetail?.sgwsNotes, notes != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.descriptionTextView.tag = 4
                     cell?.displayCellContent()
                 }
                 return cell!
@@ -635,9 +635,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
             cell?.headerLabel.text = "Birthday"
             birthdayTextField = cell?.dateTextfield
+            cell?.dateTextfield.tag = 1
             if let birthDate = contactDetail?.birthDate, birthDate != "" {
-                cell?.contactDetail = contactDetail
-                cell?.dateTextfield.tag = 1
+                cell?.contactDetail = contactDetail                
                 cell?.displayCellContent()
             }
             return cell!
@@ -645,9 +645,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
             cell?.headerLabel.text = "Anniversary"
             anniversaryTextField = cell?.dateTextfield
+            cell?.dateTextfield.tag = 2
             if let anniversaryDate = contactDetail?.anniversary, anniversaryDate != "" {
                 cell?.contactDetail = contactDetail
-                cell?.dateTextfield.tag = 2
                 cell?.displayCellContent()
             }
             return cell!

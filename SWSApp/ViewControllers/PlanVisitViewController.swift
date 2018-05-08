@@ -221,7 +221,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         if validateArray.contains(false) {
             errorLbl.isHidden = false
         } else {
-            PlanVistManager.sharedInstance.status = "Scheduled"
+            PlanVistManager.sharedInstance.visit?.status = "Scheduled"
             errorLbl.isHidden = true
             self.insetValuesToDB()
            // createNewVisit()
@@ -240,10 +240,26 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             
         } else {
             
-            PlanVistManager.sharedInstance.status = "Scheduled"
+//            PlanVistManager.sharedInstance.status = "Scheduled"
+            PlanVistManager.sharedInstance.visit?.status = "Scheduled"
+
             errorLbl.isHidden = true
             self.insetValuesToDB()
-             createNewVisit()
+            
+            //Edit the visit
+
+            if((PlanVistManager.sharedInstance.visit?.Id) != nil){
+                
+                let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+                print(status)
+                
+            } else{
+                
+                //First Time A Visit is created and Saved
+                createNewVisit()
+                
+            }
+
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             self.dismiss(animated: true)
         }
@@ -714,7 +730,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
         new_visit.sgwsVisitPurpose = (planVist?.sgwsVisitPurpose)!
         new_visit.description = (planVist?.description)!
         new_visit.sgwsAgendaNotes = (planVist?.sgwsAgendaNotes)!
-        new_visit.status = PlanVistManager.sharedInstance.status
+        new_visit.status = (PlanVistManager.sharedInstance.visit?.status)!
         let attributeDict = ["type":"WorkOrder"]
  
         
@@ -742,8 +758,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
         
 
         }
-        
-        // Show the alert if not saved
+    
         
     }
     

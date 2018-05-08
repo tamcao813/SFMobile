@@ -31,7 +31,11 @@ class SelectOpportunitiesViewController: UIViewController {
     
     @IBAction func saveAndClose(sender: UIButton) {
         //STATEMACHINE:If you com tho this Screen its in Planned state
-        PlanVistManager.sharedInstance.status = "Scheduled"
+        
+        PlanVistManager.sharedInstance.visit?.status = "Planned"
+        
+        PlanVistManager.sharedInstance.editAndSaveVisit()
+        
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

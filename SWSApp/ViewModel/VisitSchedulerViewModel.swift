@@ -40,5 +40,10 @@ class VisitSchedulerViewModel {
         })
         
 }
+    
+    func editVisitToSoup(fields: [String:Any]) -> Bool {
+        return StoreDispatcher.shared.editVisit(fields:fields)
+    }
+    
 
 }

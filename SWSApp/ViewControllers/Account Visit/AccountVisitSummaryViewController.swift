@@ -232,11 +232,11 @@ class AccountVisitSummaryViewController: UIViewController {
 extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDelegate , NavigateToAccountAccountVisitSummaryDelegate{
     
     func navigateToAccountVisitingScreen() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
     }
     
     func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
         delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
         
     }

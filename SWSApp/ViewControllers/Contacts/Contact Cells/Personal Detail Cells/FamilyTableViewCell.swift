@@ -121,7 +121,7 @@ extension FamilyTableViewCell: UITextFieldDelegate {
             contactDetail?.child1Birthday = dateTextField.text!
         }else if textField.tag == 2 {
             contactDetail?.child2Name = nameTextField.text!
-            contactDetail?.child3Birthday = dateTextField.text!
+            contactDetail?.child2Birthday = dateTextField.text!
         }else if textField.tag == 3 {
             contactDetail?.child3Name = nameTextField.text!
             contactDetail?.child3Birthday = dateTextField.text!

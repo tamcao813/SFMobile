@@ -22,6 +22,9 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     var associatedSelectedContact = [Contact]()
     var searchAccounts = [Account]()
     var nonSelectedContact = [Contact]()
+    
+    var selectedAccount: Int = -1
+
     private var myTableView: UITableView!
     private var associatedContactTableView: UITableView!
     private var containerView: UIView!
@@ -110,6 +113,9 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     func closeAccountView() {
         
         //Take Action on Notification
+        
+        self.selectedAccount = -1
+        
         self.searchAccountLbl.isHidden = false
         self.searchAccountTxt.isHidden = false
         searchContactTxt.isEnabled = false
@@ -464,13 +470,17 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     
     func insetValuesToDB() {
         
+        if selectedAccount == -1 {
+            return
+        }
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if !associatedSelectedContact.isEmpty {
             let contactObj = associatedSelectedContact[0]
             PlanVistManager.sharedInstance.contactId = contactObj.contactId
         }
         if !searchAccounts.isEmpty {
-            let accountObj = searchAccounts[0]
+            let accountObj = searchAccounts[selectedAccount]
             PlanVistManager.sharedInstance.accountId = accountObj.account_Id
         }
         if ((schedulerComponentView.dateTextField.text != nil) && (schedulerComponentView.startTimeTextField.text != nil)) {
@@ -564,6 +574,7 @@ extension PlanVisitViewController : UITableViewDelegate {
                 self.accountView = AccountView(frame: CGRect(x: self.planLbl.frame.origin.x - 20, y:
                     self.planLbl.frame.origin.y + 20, width: self.searchAccountTxt.frame.size.width, height: 100))
                 let account = self.searchAccounts[indexPath.row]
+                self.selectedAccount = indexPath.row
                 self.accountID = account.account_Id
                 self.accountView.delegate = self
                 self.accountView.accountLabel.text = account.accountName

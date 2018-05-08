@@ -24,7 +24,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     var nonSelectedContact = [Contact]()
     
     var selectedAccount: Int = -1
-
+    
     private var myTableView: UITableView!
     private var associatedContactTableView: UITableView!
     private var containerView: UIView!
@@ -37,7 +37,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     var editVist:Visit? = Visit(for: "")
     var editContact:Contact? = Contact(for: "")
     var tableViewData : [PlanVisit]?
-//    weak var delegate: PlanVisitViewControllerDelegate!
+    //    weak var delegate: PlanVisitViewControllerDelegate!
     var visitViewModel = VisitSchedulerViewModel()
     
     
@@ -129,11 +129,11 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         
         self.associatedContactTableView.isHidden = true
         bottomViewSpacing.constant = 30
-
-        /* TBD
-        self.bottomView.frame = CGRect(x: 0, y: self.searchContactTxt.frame.origin.y +  self.searchContactTxt.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
         
-        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height)*/
+        /* TBD
+         self.bottomView.frame = CGRect(x: 0, y: self.searchContactTxt.frame.origin.y +  self.searchContactTxt.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
+         
+         self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height)*/
         
         // Remove contact array
         nonSelectedContact.removeAll()
@@ -158,19 +158,19 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
                     self.associatedContactTableView.frame = CGRect(x: self.searchContactTxt.frame.origin.x, y: self.searchContactTxt.frame.origin.y + self.searchContactTxt.frame.size.height + 40, width: self.searchContactTxt.frame.size.width, height: CGFloat(102 * self.associatedSelectedContact.count))
                     
                     bottomViewSpacing.constant = 30 + associatedContactTableView.frame.height + 20
-
-                    /* TBD
-                    self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
                     
-                    self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count) + 40)*/
+                    /* TBD
+                     self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
+                     
+                     self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count) + 40)*/
                 } else {
                     self.associatedContactTableView.isHidden = true
                     bottomViewSpacing.constant = 30
-
-                    /* TBD
-                    self.bottomView.frame = CGRect(x: 0, y: self.searchContactTxt.frame.origin.y +  self.searchContactTxt.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
                     
-                    self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height)*/
+                    /* TBD
+                     self.bottomView.frame = CGRect(x: 0, y: self.searchContactTxt.frame.origin.y +  self.searchContactTxt.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
+                     
+                     self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height)*/
                 }
             }
         }
@@ -195,25 +195,18 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     // MARK:- IBAction
     
     @IBAction func closeVC(sender: UIButton) {
-        let uiAlertController = UIAlertController(// create new instance alert  controller
-            title: "Alert",
-            message: "Any changes will not be saved. Are you sure you want to close?",
-            preferredStyle:.alert)
-        if (self.myTableView != nil) {
-            self.myTableView.removeFromSuperview()
-            self.view.endEditing(true)
+        DispatchQueue.main.async {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to ?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                if (self.myTableView != nil) {
+                    self.myTableView.removeFromSuperview()
+                    self.view.endEditing(true)
+                }
+                self.dismiss(animated: true, completion: nil)
+            }){
+                
+            }
         }
-        uiAlertController.addAction(// add Custom action on Event is Cancel
-            UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
-                uiAlertController.dismiss(animated: true, completion: nil)
-                self.dismiss(animated: true)
-            }))
-        uiAlertController.addAction(// add Custom action on Event is Cancel
-            UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
-                uiAlertController.dismiss(animated: true, completion: nil)
-            }))
         
-        self.present(uiAlertController, animated: true, completion: nil)
     }
     
     @IBAction func planAction(sender: UIButton) {
@@ -224,7 +217,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             PlanVistManager.sharedInstance.status = "Scheduled"
             errorLbl.isHidden = true
             self.insetValuesToDB()
-           // createNewVisit()
+            // createNewVisit()
             let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
             self.present(viewController, animated: true)
@@ -243,7 +236,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             PlanVistManager.sharedInstance.status = "Scheduled"
             errorLbl.isHidden = true
             self.insetValuesToDB()
-             createNewVisit()
+            createNewVisit()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             self.dismiss(animated: true)
         }
@@ -273,16 +266,36 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         self.accountID = (editVist?.accountId)!
         self.accountView.delegate = self
         self.accountView.accountLabel.text = editVist?.accountName
-        self.accountView.phoneNumberLabel.text = editVist?.contactPhone
-        let street = editVist?.accountBillingAddress.slice(from: "street", to: ",")?.stripped
-        let city = editVist?.accountBillingAddress.slice(from: "city", to: ",")?.stripped
-        let state = editVist?.accountBillingAddress.slice(from: "state", to: ",")?.stripped
-        let postalCode = editVist?.accountBillingAddress.slice(from: "postalCode", to: ",")?.stripped
-        
-        //TODO : Added to avoid crash---> Vipin
-        if street != nil || city != nil || state != nil || postalCode != nil{
-            self.accountView.addressLabel.text = street! + " " + city! + " " + state! + " " + postalCode!
+        self.accountView.phoneNumberLabel.text = editVist?.accountNumber
+        var accountObject: Account?
+        let accounts = AccountsViewModel().accountsForLoggedUser
+        if let accountId = editVist?.accountId {
+            for account in accounts {
+                if account.account_Id == accountId {
+                    accountObject = account
+                    break
+                }
+            }
         }
+        
+        var fullAddress = ""
+        if let shippingStreet = accountObject?.shippingStreet, let shippingCity = accountObject?.shippingCity , let shippingState = accountObject?.shippingState, let shippingPostalCode = accountObject?.shippingPostalCode{
+            // latitudeDouble and longitudeDouble are non-optional in here
+            if shippingStreet == "" && shippingCity == "" && shippingState == "" && shippingPostalCode == "" {
+                fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+            }else{
+                if (shippingStreet != "" || shippingCity != "") {
+                    if (shippingState != "" || shippingPostalCode != "") {
+                        fullAddress = "\(shippingStreet) \(shippingCity), \(shippingState) \(shippingPostalCode)"
+                    }else{
+                        fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                    }
+                }else{
+                    fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                }
+            }
+        }
+        self.accountView.addressLabel.text = fullAddress
         
         self.accountView.frame.origin = CGPoint(x:20, y:self.planLbl.frame.origin.y + 10)
         self.scrollView.addSubview(self.accountView)
@@ -309,16 +322,16 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             self.associatedContactTableView.frame = CGRect(x: self.searchContactTxt.frame.origin.x, y: self.searchContactTxt.frame.origin.y + self.searchContactTxt.frame.size.height + 40, width: self.searchContactTxt.frame.size.width, height: CGFloat(102 * self.associatedSelectedContact.count))
             
             bottomViewSpacing.constant = 30 + associatedContactTableView.frame.height + 20
-
-            /* TBD
-            self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
             
-            self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count))*/
+            /* TBD
+             self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
+             
+             self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count))*/
         }
         
     }
     
-   
+    
     func editDate() {
         editVist = PlanVistManager.sharedInstance.visit
         
@@ -380,7 +393,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     }
     
     func getNonSelectedContacts() -> [Contact] {
-//        var tempContacts = conatctViewModel.contacts(forAccount: accountID)
+        //        var tempContacts = conatctViewModel.contacts(forAccount: accountID)
         var tempContacts = conatctViewModel.globalContacts()
         for selectedContact in associatedSelectedContact {
             for contact in tempContacts {
@@ -403,7 +416,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         print(arr)
         return arr
     }
-
+    
     
     // Get contact array after searching keyword
     
@@ -608,11 +621,11 @@ extension PlanVisitViewController : UITableViewDelegate {
                 
                 self.associatedContactTableView.frame = CGRect(x: self.searchContactTxt.frame.origin.x, y: self.searchContactTxt.frame.origin.y + self.searchContactTxt.frame.size.height + 40, width: self.searchContactTxt.frame.size.width, height: CGFloat(102 * self.associatedSelectedContact.count))
                 self.bottomViewSpacing.constant = 30 + self.associatedContactTableView.frame.height + 20
-
-                /* TBD
-                self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
                 
-                self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count)) */
+                /* TBD
+                 self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
+                 
+                 self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count)) */
             }
         }
     }
@@ -700,10 +713,10 @@ extension PlanVisitViewController : UITextFieldDelegate{
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let accountId = appDelegate.loggedInUser?.accountId
-       print("Account id in plan is \(accountId)")
+        print("Account id in plan is \(accountId)")
         
         
-       let new_visit = PlanVisit(for: "newVisit")
+        let new_visit = PlanVisit(for: "newVisit")
         
         new_visit.Id = self.generateRandomIDForVisit()
         new_visit.subject = (planVist?.subject)!
@@ -716,7 +729,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
         new_visit.sgwsAgendaNotes = (planVist?.sgwsAgendaNotes)!
         new_visit.status = PlanVistManager.sharedInstance.status
         let attributeDict = ["type":"WorkOrder"]
- 
+        
         
         let addNewDict: [String:Any] = [
             
@@ -730,7 +743,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
             PlanVisit.planVisitFields[7]: new_visit.description,
             PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
             PlanVisit.planVisitFields[9]: new_visit.status,
-     
+            
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,
             kSyncTargetLocallyUpdated:false,
@@ -740,12 +753,12 @@ extension PlanVisitViewController : UITextFieldDelegate{
         let success = visitViewModel.createNewVisitLocally(fields: addNewDict)
         print("Success is here \(success)")
         
-
-        }
-        
-        // Show the alert if not saved
         
     }
     
+    // Show the alert if not saved
     
+}
+
+
 

@@ -29,6 +29,7 @@ class DropdownTableViewCell: UITableViewCell {
         //        let opts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactPreferredCommunication")
         let opts = PlistMap.sharedInstance.readPList(plist: "/ContactPreferred.plist")
         pickerOption = opts
+        dropdownTextfield.backgroundColor = UIColor.clear
         dropdownTextfield.addPaddingLeft(10)
         let dropdownButton : UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 30))
         dropdownButton.setImage(#imageLiteral(resourceName: "dropDownLight"), for: .normal)

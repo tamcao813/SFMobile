@@ -10,6 +10,12 @@ import Foundation
 import UIKit
 import DropDown
 
+struct AccountId {
+    static var selectedAccountId = ""
+}
+
+
+
 protocol SendDataToContainerDelegate {
     func passTheViewControllerToBeLoadedInContainerView(index : Int)
 }
@@ -163,6 +169,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
    
     
     func setupDetailsScreenUI(){
+        
+        AccountId.selectedAccountId = (accountDetailForLoggedInUser?.account_Id)!
         
         lblAccountTitle?.text = accountDetailForLoggedInUser?.accountName
         lblActionItem?.text = String(describing: accountDetailForLoggedInUser!.actionItem)

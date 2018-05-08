@@ -16,5 +16,9 @@ class StrategyQAViewModel {
         return StoreDispatcher.shared.createNewStrategyQALocally(fieldsToUpload:fields)
     }
     
+    func fetchStrategy(acc: String)->[StrategyQA]{
+        
+        return StoreDispatcher.shared.fetchStrategy(forAccount: acc)
+    }
     
 }

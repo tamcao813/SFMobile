@@ -39,10 +39,10 @@ class AccountView: UIView {
         fatalError("This class does not support NSCoding")
     }
     
-    @IBAction func closeView(sender: UIButton) {
+    @IBAction func closeAction(_ sender: Any) {
         self.removeFromSuperview()
         delegate?.closeAccountView()
-
     }
+    
 }
 

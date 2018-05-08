@@ -396,8 +396,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             case 2:
                 self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)                
             case 3:
-                self.instantiateViewController(identifier: "AccountVisitsControllerID", moreOptionVC: moreVC1, index: index)
-                
+                self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
             case 4:
                 self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: index)
                 //notificationsVC.view.frame.origin.y = -63.5

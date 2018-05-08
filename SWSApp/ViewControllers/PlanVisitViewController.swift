@@ -342,8 +342,9 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     func getDate(date: String) -> String {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" // This formate is input formated .
-        
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" // This formate is input formated .
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss" // This formate is input formated .
+
         let formateDate = dateFormatter.date(from:(date))!
         dateFormatter.dateFormat = "dd-MM-yyyy" // Output Formated
         
@@ -353,8 +354,9 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     func getTime(date: String) -> String {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" // This formate is input formated .
-        
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" // This formate is input formated .
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss" // This formate is input formated .
+
         let formateDate = dateFormatter.date(from:(editVist?.startDate)!)!
         dateFormatter.dateFormat = "hh:mm a" // Output Formated
         dateFormatter.amSymbol = "AM"

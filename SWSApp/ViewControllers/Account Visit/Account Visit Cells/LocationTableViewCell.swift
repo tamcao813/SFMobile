@@ -29,37 +29,23 @@ class LocationTableViewCell: UITableViewCell {
         accountNumberLabel.text = account?.accountNumber
         accountLabel.text = account?.accountName
         var fullAddress = ""
-      
-        
-        if let shippingStreet = account?.shippingStreet as? String, let shippingCity = account?.shippingCity as? String , let shippingState = account?.shippingState as? String, let shippingPostalCode = account?.shippingPostalCode as? String{
+        if let shippingStreet = account?.shippingStreet, let shippingCity = account?.shippingCity , let shippingState = account?.shippingState, let shippingPostalCode = account?.shippingPostalCode{
             // latitudeDouble and longitudeDouble are non-optional in here
-        
-        
-        
-        if shippingStreet == "" && shippingCity == "" && shippingState == "" && shippingPostalCode == "" {
-            
-            fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
-
-//            fullAddress = account?.shippingStreet + " " + account?.shippingCity + " " + account?.shippingState +  " " + account?.shippingPostalCode
-        }else{
-            if (shippingStreet != "" || shippingCity != "") {
-                if (shippingState != "" || shippingPostalCode != "") {
-
-                    fullAddress = "\(shippingStreet) \(shippingCity), \(shippingState) \(shippingPostalCode)"
-//                    fullAddress = account?.shippingStreet + " " + account?.shippingCity + "," + " " + account?.shippingState +  " " + account?.shippingPostalCode
-                }else{
-                      fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
-//                    fullAddress = account?.shippingStreet + " " + account?.shippingCity + " " + account?.shippingState +  " " + account?.shippingPostalCode
-                }
-            }else{
+            if shippingStreet == "" && shippingCity == "" && shippingState == "" && shippingPostalCode == "" {
                 fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
-//                fullAddress = account?.shippingStreet + " " + account?.shippingCity + " " + account?.shippingState +  " " + account?.shippingPostalCode
+            }else{
+                if (shippingStreet != "" || shippingCity != "") {
+                    if (shippingState != "" || shippingPostalCode != "") {
+                        fullAddress = "\(shippingStreet) \(shippingCity), \(shippingState) \(shippingPostalCode)"
+                    }else{
+                        fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                    }
+                }else{
+                    fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                }
             }
-      }
         }
         addressLabel?.text = fullAddress
-        
-            
     }
     
  

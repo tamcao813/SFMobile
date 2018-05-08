@@ -33,7 +33,6 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     
     var visitStatus: AccountVisitStatus?
-//    var visitObject : Visit?
     var delegate : NavigateToContactsDelegate?
     
     override func viewDidLoad() {
@@ -78,8 +77,10 @@ class AccountVisitSummaryViewController: UIViewController {
         let dateFormatter = DateFormatter()
         var startTime = ""
         var endTime = ""
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" //Your date format
-        let date = dateFormatter.date(from: (visitObject?.startDate)!) //according t
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        let date = dateFormatter.date(from: (visitObject?.startDate)!) //according to date format
+        print(date ?? "")
         if date != nil {
             dateFormatter.dateFormat = "MMM" //Your date format
             let month = dateFormatter.string(from: date!)
@@ -87,22 +88,24 @@ class AccountVisitSummaryViewController: UIViewController {
             dateFormatter.dateFormat = "dd" //Your date format
             let day = dateFormatter.string(from: date!)
             dayLabel.text = day
-            dateFormatter.dateFormat = "H" //Your date format
+            dateFormatter.dateFormat = "HH:mm a" //Your date format
+            dateFormatter.amSymbol = "AM"
+            dateFormatter.pmSymbol = "PM"
             startTime = dateFormatter.string(from: date!)
         }
-
         
         let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" //Your date format
+        dateFormatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter1.timeZone = TimeZone(abbreviation: "UTC")
         let endDate = dateFormatter1.date(from: (visitObject?.endDate)!) //according t
         
         if endDate != nil {
-            dateFormatter1.dateFormat = "H a" //Your date format
+            dateFormatter1.dateFormat = "HH:mm a"
             dateFormatter1.amSymbol = "AM"
             dateFormatter1.pmSymbol = "PM"
-            endTime = dateFormatter1.string(from: endDate!)
+            endTime = dateFormatter.string(from: endDate!)
         }
-
+        timeLabel.text = "\(startTime)-\(endTime)"
 
     }
     
@@ -221,8 +224,6 @@ class AccountVisitSummaryViewController: UIViewController {
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
-        
-        
     }
     
 }
@@ -241,11 +242,13 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     }
     
     func navigateToAccountVisitSummaryScreen() {
-        self.dismiss(animated: true, completion: nil)
-        delegate?.navigateToAccountScreen()
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to ?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.navigateToAccountScreen()
+        }){
+            
+        }
     }
-    
-    
 }
 
 

@@ -154,8 +154,8 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2-5PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYD-bt-TL4">
-                                        <rect key="frame" x="34" y="86.5" width="53" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2-5PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="fYD-bt-TL4">
+                                        <rect key="frame" x="5" y="86.5" width="110" height="21"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -163,12 +163,14 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.12549019607843137" green="0.25882352941176467" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="fYD-bt-TL4" secondAttribute="trailing" constant="5" id="0EL-Po-N2K"/>
                                     <constraint firstAttribute="height" constant="130" id="3bg-LB-ugZ"/>
                                     <constraint firstItem="A0f-R3-edu" firstAttribute="top" secondItem="xYG-9I-MTa" secondAttribute="top" constant="20" id="5jg-ex-dfL"/>
                                     <constraint firstItem="A0f-R3-edu" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="Gv8-Fc-ZGR"/>
                                     <constraint firstAttribute="width" constant="120" id="IKU-b3-p3V"/>
                                     <constraint firstItem="eOU-At-7os" firstAttribute="top" secondItem="A0f-R3-edu" secondAttribute="bottom" constant="5" id="QSb-J2-KYS"/>
                                     <constraint firstItem="fYD-bt-TL4" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="X4f-Bi-Lpg"/>
+                                    <constraint firstItem="fYD-bt-TL4" firstAttribute="leading" secondItem="xYG-9I-MTa" secondAttribute="leading" constant="5" id="cTe-hZ-vzi"/>
                                     <constraint firstItem="fYD-bt-TL4" firstAttribute="top" secondItem="eOU-At-7os" secondAttribute="bottom" constant="5" id="dxc-QN-ku9"/>
                                     <constraint firstItem="eOU-At-7os" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="uGv-qR-8dk"/>
                                 </constraints>

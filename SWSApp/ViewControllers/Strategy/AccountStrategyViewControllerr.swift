@@ -86,17 +86,17 @@ class AccountStrategyViewController : UIViewController{
                 
                 let answerArray = NSMutableArray()
                 
-                let answerListArray = queAndAns.SGWS_Answer_Description_List__c//.components(separatedBy: ",")
+                let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
                 
-//                if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
-//
-//                    for ans in answerListArray{
+                if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
+
+                    for ans in answerListArray{
                         let answerDict = NSMutableDictionary()
-                        answerDict.setValue(answerListArray, forKey: "answerText")
+                        answerDict.setValue(ans, forKey: "answerText")
                         answerArray.add(answerDict)
-//                        print("infinity4")
-//                    }
-//                }
+                        print("infinity4")
+                    }
+                }
                 
                 
                 dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
@@ -175,9 +175,7 @@ class AccountStrategyViewController : UIViewController{
                 dict.setValue(notesArray, forKey: "answers")
                 modifiedArray.add(dict)
             }
-
         }
-        
         
         
         tableViewRowDetails = modifiedArray
@@ -190,8 +188,6 @@ class AccountStrategyViewController : UIViewController{
             self.lblNoData?.isHidden = false
             self.lblLastModifiedDate?.isHidden = true
         }
-        
- 
         
     }
     

@@ -33,7 +33,7 @@ class EditAccountStrategyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        createStrategy()
+        //createStrategy()
         
         
         IQKeyboardManager.shared.enable = true
@@ -138,6 +138,7 @@ class EditAccountStrategyViewController: UIViewController {
         tableViewRowDetails = tableViewData
         
 
+       // createStrategy()
         
         
     }
@@ -232,30 +233,30 @@ class EditAccountStrategyViewController: UIViewController {
     @IBAction func saveButtonAction(sender : UIButton){
         print("Save button Clicked")
         
-        createStrategy()
+        //createStrategy()
         
         
         //VALIDATION IS NEEDED HERE 
-//
-//        let validateFields = self.validateAllFields()
-//
-//        if validateFields{
-//            print("Success")
-//
-//
-//
-//
-//
-//
-//
-//        }else{
-//
-//            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("", errorMessage: "Please Enter required fields", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-//
-//            }, action2: {
-//
-//            })
-//        }
+
+        let validateFields = self.validateAllFields()
+
+        if validateFields{
+            print("Success")
+
+
+
+
+
+
+
+        }else{
+
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("", errorMessage: "Please Enter required fields", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+
+            }, action2: {
+
+            })
+        }
     }
     
     @IBAction func cancelButtonAction(sender : UIButton){
@@ -374,91 +375,107 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
     }
     
     
-    func createStrategy() {
-        let new_Strategy = StrategyQA(for: "NewStrategy")
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        new_Strategy.OwnerId = (appDelegate.loggedInUser?.userId)!
-        
-        new_Strategy.SGWS_Account__c = AccountId.selectedAccountId
-        new_Strategy.SGWS_Notes__c = StrategyNotes.accountStrategyNotes
-        
-        let attributeDict = ["type":"SGWS_Response__c"]
-        
-        let addNewDict: [String:Any] = [
-            StrategyQA.StrategyQAFields[0]:new_Strategy.Id,
-            StrategyQA.StrategyQAFields[11]:new_Strategy.OwnerId,
-            StrategyQA.StrategyQAFields[1]:new_Strategy.SGWS_Account__c,
-            StrategyQA.StrategyQAFields[12]:new_Strategy.SGWS_Answer_Description_List__c,
-          //  StrategyQA.StrategyQAFields[3]:new_Strategy.SGWS_Answer_Options__r_Id,
-            StrategyQA.StrategyQAFields[8]:new_Strategy.SGWS_Notes__c,
-            StrategyQA.StrategyQAFields[2]:new_Strategy.SGWS_Question__r_Id,
-            
-            let questionId = item["id"] as! String //Question Id
-            
-            
-            for answers in dict{
-                
-                let answerDict = answers as! NSMutableDictionary
-                
-                let isSelected = answerDict["isSelected"] as! String
-                
-                if isSelected == "YES"{
-                    let answer = answerDict["answerText"] as! String
-                    answersSelected.add(answer)
-                }
-            }
-            
-            //answersSelected are answers selected bu user for this Question Id
-            
-            // I can say i can write my response to DB
-            let answerSelectedFormatted  = "testing"// answersSelected.componentsJoined(by: ",")
-
-            
-            
-            
-            new_Strategy.SGWS_Answer_Description_List__c = answerSelectedFormatted
-        //    new_Strategy.SGWS_Answer_Options__r_Id = ""
-            new_Strategy.SGWS_Question__c =  questionId
-            
-            
-            let attributeDict = ["type":"SGWS_Response__c"]
-            
-            
-            let addNewDict: [String:Any] = [
-                StrategyQA.StrategyQAFields[7]:new_Strategy.OwnerId,
-                StrategyQA.StrategyQAFields[1]:new_Strategy.SGWS_Account__c,
-                StrategyQA.StrategyQAFields[8]:new_Strategy.SGWS_Answer_Description_List__c,
-                StrategyQA.StrategyQAFields[4]:new_Strategy.SGWS_Notes__c,
-                StrategyQA.StrategyQAFields[3]:new_Strategy.SGWS_Question__c,
-                
-                kSyncTargetLocal:true,
-                kSyncTargetLocallyCreated:true,
-                kSyncTargetLocallyUpdated:false,
-                kSyncTargetLocallyDeleted:false,
-                "attributes":attributeDict]
-            
-            let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
-            print("Success is here \(success)")
-            
-            break
-            
-            //
-        }
-        
-        
-      
-        
-        
-        let success4 = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict4)
-        print("Success 4 is here \(success3)")
-        
-
-        
-        
-        
-    }
+//    func createStrategy() {
+//        let new_Strategy = StrategyQA(for: "NewStrategy")
+//
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//
+//        new_Strategy.OwnerId = (appDelegate.loggedInUser?.userId)!
+//
+//        new_Strategy.SGWS_Account__c = AccountId.selectedAccountId
+//        new_Strategy.SGWS_Notes__c = StrategyNotes.accountStrategyNotes
+//
+//        let answersSelected = NSMutableArray()
+//
+//        for q in tableViewRowDetails!{
+//
+//            let item = q as! NSMutableDictionary
+//
+//            let dict = item["answers"] as! NSMutableArray
+//
+//            let questionId = item["id"] as! String //Question Id
+//
+//
+//            for answers in dict{
+//
+//                let answerDict = answers as! NSMutableDictionary
+//
+//                let isSelected = answerDict["isSelected"] as! String
+//
+//                if isSelected == "YES"{
+//                    let answer = answerDict["answerText"] as! String
+//                    answersSelected.add(answer)
+//                }
+//            }
+//
+//            kSyncTargetLocal:true,
+//            kSyncTargetLocallyCreated:true,
+//            kSyncTargetLocallyUpdated:false,
+//            kSyncTargetLocallyDeleted:false,
+//            "attributes":attributeDict]
+//
+//
+//        let new_Strategy3 = StrategyQA(for: "NewStrategy3")
+//
+//        new_Strategy3.Id = ""
+//        new_Strategy3.OwnerId = "005m0000002pSmiAAE"
+//        new_Strategy3.SGWS_Account__c = "001m000000cHSKbAAO"
+//        new_Strategy3.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
+//        //new_Strategy.SGWS_Answer_Options__r_Id = ""
+//        new_Strategy3.SGWS_Notes__c = "GGGGGGG"
+//        new_Strategy3.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
+//
+//
+//        let addNewDict3: [String:Any] = [
+//            StrategyQA.StrategyQAFields[0]:new_Strategy3.Id,
+//            StrategyQA.StrategyQAFields[11]:new_Strategy3.OwnerId,
+//            StrategyQA.StrategyQAFields[1]:new_Strategy3.SGWS_Account__c,
+//            StrategyQA.StrategyQAFields[12]:new_Strategy3.SGWS_Answer_Description_List__c,
+//            //   StrategyQA.StrategyQAFields[3]:new_Strategy2.SGWS_Answer_Options__r_Id,
+//            StrategyQA.StrategyQAFields[8]:new_Strategy3.SGWS_Notes__c,
+//            StrategyQA.StrategyQAFields[2]:new_Strategy3.SGWS_Question__r_Id,
+//
+//            kSyncTargetLocal:true,
+//            kSyncTargetLocallyCreated:true,
+//            kSyncTargetLocallyUpdated:false,
+//            kSyncTargetLocallyDeleted:false,
+//            "attributes":attributeDict]
+//
+//        let success3 = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict3)
+//        print("Success 3 is here \(success3)")
+//
+//        let new_Strategy4 = StrategyQA(for: "NewStrategy4")
+//
+//        new_Strategy4.Id = ""
+//        new_Strategy4.OwnerId = "005m0000002pSmiAAE"
+//        new_Strategy4.SGWS_Account__c = "001m000000cHSKbAAO"
+//        new_Strategy4.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
+//        //new_Strategy.SGWS_Answer_Options__r_Id = ""
+//        new_Strategy4.SGWS_Notes__c = "HHHHHHH"
+//        new_Strategy4.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
+//
+//        let addNewDict4: [String:Any] = [
+//            StrategyQA.StrategyQAFields[0]:new_Strategy4.Id,
+//            StrategyQA.StrategyQAFields[11]:new_Strategy4.OwnerId,
+//            StrategyQA.StrategyQAFields[1]:new_Strategy4.SGWS_Account__c,
+//            StrategyQA.StrategyQAFields[12]:new_Strategy4.SGWS_Answer_Description_List__c,
+//            //   StrategyQA.StrategyQAFields[3]:new_Strategy2.SGWS_Answer_Options__r_Id,
+//            StrategyQA.StrategyQAFields[8]:new_Strategy4.SGWS_Notes__c,
+//            StrategyQA.StrategyQAFields[2]:new_Strategy4.SGWS_Question__r_Id,
+//
+//            kSyncTargetLocal:true,
+//            kSyncTargetLocallyCreated:true,
+//            kSyncTargetLocallyUpdated:false,
+//            kSyncTargetLocallyDeleted:false,
+//            "attributes":attributeDict]
+//
+//        let success4 = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict4)
+//        print("Success 4 is here \(success3)")
+//
+//
+//        }
+//
+    
     
 }
 

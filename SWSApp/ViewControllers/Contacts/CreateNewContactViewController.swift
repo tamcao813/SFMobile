@@ -130,13 +130,12 @@ class CreateNewContactViewController: UIViewController {
         }
         DispatchQueue.main.async {
             if  createNewGlobals.userInput {
-                let alertController = UIAlertController(title: "Error", message: StringConstants.discardChangesConfirmation, preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                     createNewGlobals.userInput = false
                     self.dismiss(animated: true, completion: nil)
-                }))
-                alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
-                self.present(alertController, animated: true, completion: nil)
+                }){
+                    
+                }
             }else{
                 self.dismiss(animated: true, completion: nil)
             }
@@ -322,7 +321,7 @@ class CreateNewContactViewController: UIViewController {
         // Checkin Duplicate Entry
         for contact in globalContacts {
             if contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.phoneNumber == newContact.phoneNumber || contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.email == newContact.email {
-                let alertController = UIAlertController(title: "Error", message:
+                let alertController = UIAlertController(title: "Alert", message:
                     "A duplicate contact with the same name and phone or name and email has been detected", preferredStyle: UIAlertControllerStyle.alert)
                 alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
                 self.present(alertController, animated: true, completion: nil)

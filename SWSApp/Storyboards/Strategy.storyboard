@@ -54,8 +54,8 @@
                                     <segue destination="GDN-cb-nRD" kind="presentation" modalPresentationStyle="overCurrentContext" id="oZe-xy-RHZ"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gOG-uA-kRW">
-                                <rect key="frame" x="0.0" y="0.0" width="977" height="765"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gOG-uA-kRW">
+                                <rect key="frame" x="0.0" y="11" width="977" height="765"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="n0L-wX-fw7">
                                     <size key="itemSize" width="976" height="30"/>
@@ -140,12 +140,12 @@
                         <constraints>
                             <constraint firstItem="17S-vj-Wd6" firstAttribute="centerY" secondItem="sdF-XD-axo" secondAttribute="centerY" id="4al-Od-hwU"/>
                             <constraint firstItem="sdF-XD-axo" firstAttribute="trailing" secondItem="HY3-oi-mmZ" secondAttribute="trailing" constant="21" id="5g9-Nn-MvU"/>
-                            <constraint firstItem="gOG-uA-kRW" firstAttribute="top" secondItem="Jb4-kb-baz" secondAttribute="top" id="CDX-SI-XBm"/>
+                            <constraint firstItem="gOG-uA-kRW" firstAttribute="top" secondItem="Jb4-kb-baz" secondAttribute="top" constant="11" id="CDX-SI-XBm"/>
                             <constraint firstItem="HY3-oi-mmZ" firstAttribute="top" secondItem="sdF-XD-axo" secondAttribute="top" constant="37" id="PyK-z0-lP5"/>
                             <constraint firstItem="FZE-sy-J5P" firstAttribute="leading" secondItem="sdF-XD-axo" secondAttribute="leading" constant="36" id="WOZ-pS-eUA"/>
                             <constraint firstItem="HY3-oi-mmZ" firstAttribute="leading" secondItem="gOG-uA-kRW" secondAttribute="trailing" constant="24" id="cHw-Hq-5sx"/>
                             <constraint firstItem="sdF-XD-axo" firstAttribute="bottom" secondItem="FZE-sy-J5P" secondAttribute="bottom" constant="20" id="fdp-Uc-2zj"/>
-                            <constraint firstItem="FZE-sy-J5P" firstAttribute="top" secondItem="gOG-uA-kRW" secondAttribute="bottom" constant="31" id="l6Z-Lx-LbJ"/>
+                            <constraint firstItem="FZE-sy-J5P" firstAttribute="top" secondItem="gOG-uA-kRW" secondAttribute="bottom" constant="20" id="l6Z-Lx-LbJ"/>
                             <constraint firstItem="gOG-uA-kRW" firstAttribute="leading" secondItem="sdF-XD-axo" secondAttribute="leading" id="st5-t5-yqQ"/>
                             <constraint firstItem="17S-vj-Wd6" firstAttribute="centerX" secondItem="sdF-XD-axo" secondAttribute="centerX" id="t21-tc-FSC"/>
                         </constraints>

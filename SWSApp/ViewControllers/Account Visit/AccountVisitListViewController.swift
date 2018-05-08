@@ -30,8 +30,12 @@ class AccountVisitListViewController: UIViewController {
         tableViewDataArray = [Visit]()
         let visitArray = VisitsViewModel()
         tableViewDataArray = visitArray.visitsForUser()
-        tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
-        tableView.reloadData()
+        tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation({() -> Void in
+                self.tableView.reloadData()
+            })
+        }
     }
     
     deinit {
@@ -141,8 +145,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 
 //MARK:- NavigateToContacts Delegate
 extension AccountVisitListViewController : NavigateToContactsDelegate{
-    func navigateToVisitListing() {
-        
+    func navigateToVisitListing() {        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -152,33 +155,20 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
             ContactsGlobal.accountId = ""
-
             // Added this line so that Contact detail view is not launched for this scenario.
             ContactFilterMenuModel.selectedContactId = ""
-
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
         }else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
-            
         }
     }
     
     func navigateToAccountScreen() {
-        
         // Added this line so that Account detail view is not launched for this scenario.
         FilterMenuModel.selectedAccountId = ""
-
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
 }
-
-//extension AccountVisitListViewController: PlanVisitViewControllerDelegate {
-//    func refershList() {
-//        getTheDataFromDB()
-//        tableView.reloadData()
-//    }
-//}
-
 
 enum AccountVisitStatus : String {
     case scheduled

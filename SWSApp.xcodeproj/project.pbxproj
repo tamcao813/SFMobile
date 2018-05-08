@@ -787,13 +787,6 @@
 			path = "Personal Detail Cells";
 			sourceTree = "<group>";
 		};
-		AE43DD16209C727C005D8DD1 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		D125133E206480E400CD6CB4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -847,7 +840,6 @@
 		D1FB18252062A7C00072F4C1 /* SWSApp */ = {
 			isa = PBXGroup;
 			children = (
-				AE43DD16209C727C005D8DD1 /* New Group */,
 				D1FB18262062A7C00072F4C1 /* AppDelegate.swift */,
 				D1FCDE13207332B9005F956D /* Dispatcher */,
 				D1FCDE0A20732199005F956D /* ViewModel */,

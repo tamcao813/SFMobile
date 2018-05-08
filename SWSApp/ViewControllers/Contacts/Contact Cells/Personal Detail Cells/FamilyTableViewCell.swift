@@ -85,6 +85,17 @@ class FamilyTableViewCell: UITableViewCell {
     
     @objc func donePicker(){
         dateTextField.resignFirstResponder()
+        if dateTextField.tag == 1 {
+            contactDetail?.child1Birthday = dateTextField.text!
+        }else if dateTextField.tag == 2 {
+            contactDetail?.child3Birthday = dateTextField.text!
+        }else if dateTextField.tag == 3 {
+            contactDetail?.child3Birthday = dateTextField.text!
+        }else if dateTextField.tag == 4{
+            contactDetail?.child4Birthday = dateTextField.text!
+        }else{
+            contactDetail?.child5Birthday = dateTextField.text!
+        }
     }
 }
 

@@ -32,7 +32,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     var accountID: String = ""
     let accountViewModel = AccountsViewModel()
     var conatctViewModel = ContactsViewModel()
-    var accountView = AccountView()
+    lazy var  accountView = AccountView()
     var planVist:PlanVisit? = PlanVisit(for: "")
     var editVist:Visit? = Visit(for: "")
     var editContact:Contact? = Contact(for: "")

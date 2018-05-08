@@ -27,28 +27,25 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         
         let dateLabel = UILabel(frame: CGRect(x: 0, y: 5, width: 100, height: 21))
         dateLabel.text = "Date of Visit"
-//        dateLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
-        dateLabel.textColor = UIColor.darkGray
+        dateLabel.textColor = UIColor(fromHexValue: "#9A9A9A")
         dateLabel.font = UIFont(name:"Ubuntu", size: 14.0)
         self.addSubview(dateLabel)
         
-        let startTimeLabel = UILabel(frame: CGRect(x: 150, y: 5, width: 100, height: 21))
+        let startTimeLabel = UILabel(frame: CGRect(x: 230, y: 5, width: 100, height: 21))
         startTimeLabel.text = "Start Time"
-//        startTimeLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
-        startTimeLabel.textColor = UIColor.darkGray
+        startTimeLabel.textColor = UIColor(fromHexValue: "#9A9A9A")
         startTimeLabel.font = UIFont(name:"Ubuntu", size: 14.0)
         self.addSubview(startTimeLabel)
         
-        let endTimeLabel = UILabel(frame: CGRect(x: 270, y: 5, width: 100, height: 21))
+        let endTimeLabel = UILabel(frame: CGRect(x: 380, y: 5, width: 100, height: 21))
         endTimeLabel.text = "End Time"
-//        endTimeLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
-        endTimeLabel.textColor = UIColor.darkGray
+        endTimeLabel.textColor = UIColor(fromHexValue: "#9A9A9A")
         endTimeLabel.font = UIFont(name:"Ubuntu", size: 14.0)
         self.addSubview(endTimeLabel)
         
         // Set DesignableUITextField size and position
         
-        dateTextField =  DesignableUITextField(frame: CGRect(x: 0, y: 30, width: 110, height: 30))
+        dateTextField =  DesignableUITextField(frame: CGRect(x: 0, y: 30, width: 180, height: 40))
         dateTextField.rightImage = UIImage(named:"Calender_Icon")!
         dateTextField.rightPadding = 8
         dateTextField.placeholder = "dd-mm-yyyy"
@@ -60,7 +57,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField.delegate = self
         self.addSubview(dateTextField)
         
-        startTimeTextField =  DesignableUITextField(frame: CGRect(x: 150, y: 30, width: 100, height: 30))
+        startTimeTextField =  DesignableUITextField(frame: CGRect(x: 230, y: 30, width: 100, height: 40))
         startTimeTextField.rightImage = UIImage(named:"dropDownLight")!
         startTimeTextField.rightPadding = 8
         startTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
@@ -73,7 +70,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         startTimeTextField.delegate = self
         self.addSubview(startTimeTextField)
         
-        endTimeTextField =  DesignableUITextField(frame: CGRect(x: 270, y: 30, width: 100, height: 30))
+        endTimeTextField =  DesignableUITextField(frame: CGRect(x: 380, y: 30, width: 100, height: 40))
         endTimeTextField.rightImage = UIImage(named:"dropDownLight")!
         endTimeTextField.rightPadding = 8
         endTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)

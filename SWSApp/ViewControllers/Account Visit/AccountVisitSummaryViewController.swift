@@ -199,10 +199,13 @@ class AccountVisitSummaryViewController: UIViewController {
         switch visitStatus {
         case .scheduled?:
             PlanVistManager.sharedInstance.editPlanVisit = true
-            let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
-            viewController.modalPresentationStyle = .overCurrentContext
-            self.present(viewController, animated: true)
+            let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+            createVisitViewController.isEditingMode = false
+            createVisitViewController.visitId = visitObject?.Id
+            //        createVisitViewController.delegate = self
+            DispatchQueue.main.async {
+                self.present(createVisitViewController, animated: true)
+            }
         case .inProgress?:
             print("In progress")
         case .completed?:

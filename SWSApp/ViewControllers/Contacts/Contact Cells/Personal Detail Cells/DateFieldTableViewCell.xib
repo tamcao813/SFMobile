@@ -35,8 +35,15 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bHq-Ee-2mw">
                         <rect key="frame" x="40" y="55.5" width="180" height="40"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Calender" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-xI-G2x">
+                                <rect key="frame" x="150" y="-0.5" width="20" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="a48-7v-FMB"/>
+                                    <constraint firstAttribute="width" constant="20" id="zvy-OL-dlj"/>
+                                </constraints>
+                            </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KnQ-3a-zmi" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="180" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="DeJ-HX-BG5"/>
                                 </constraints>
@@ -47,19 +54,12 @@
                                     <outlet property="delegate" destination="Q08-d9-3wb" id="86S-Rd-yAG"/>
                                 </connections>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Calender" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-xI-G2x">
-                                <rect key="frame" x="150" y="0.0" width="20" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="a48-7v-FMB"/>
-                                    <constraint firstAttribute="width" constant="20" id="zvy-OL-dlj"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ghD-xI-G2x" secondAttribute="trailing" constant="10" id="1YB-Kd-mCm"/>
-                            <constraint firstItem="ghD-xI-G2x" firstAttribute="leading" secondItem="KnQ-3a-zmi" secondAttribute="trailing" id="6cE-aB-vTX"/>
                             <constraint firstAttribute="width" constant="180" id="KqS-eY-JjA"/>
+                            <constraint firstAttribute="trailing" secondItem="KnQ-3a-zmi" secondAttribute="trailing" id="LVV-B6-hNx"/>
                             <constraint firstItem="ghD-xI-G2x" firstAttribute="top" secondItem="bHq-Ee-2mw" secondAttribute="top" id="SA1-3W-4n2"/>
                             <constraint firstAttribute="bottom" secondItem="KnQ-3a-zmi" secondAttribute="bottom" id="a5F-oo-A7g"/>
                             <constraint firstItem="KnQ-3a-zmi" firstAttribute="top" secondItem="bHq-Ee-2mw" secondAttribute="top" id="gkZ-V8-ftK"/>
@@ -96,6 +96,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Calender" width="148" height="166"/>
+        <image name="Calender" width="30" height="33"/>
     </resources>
 </document>

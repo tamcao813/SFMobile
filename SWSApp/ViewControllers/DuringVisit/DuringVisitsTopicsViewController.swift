@@ -20,7 +20,7 @@ class  DuringVisitsTopicsViewController : UIViewController {
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collectionViewRowDetails = NSMutableArray()
         //let plistPath = Bundle.main.path(forResource: "DuringVisitTopics", ofType: ".plist", inDirectory: nil)
         //let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         //collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
@@ -44,16 +44,18 @@ class  DuringVisitsTopicsViewController : UIViewController {
             
             let data = self.convertToDictionary(text: address!)
             
-            
-            guard let street = data!["street"] as? String else{
-                return
-            }
-            guard let city = data!["city"] as? String else{
-                return
-            }
-            guard let postalCode = data!["postalCode"] as? String else {
-                return
-            }
+            let street = data!["street"] as? String ?? ""
+//            guard let street = data!["street"] as? String else{
+//                return
+//            }
+            let city = data!["city"] as? String ?? ""
+//            guard let city = data!["city"] as? String else{
+//                return
+//            }
+            let postalCode = data!["postalCode"] as? String ?? ""
+//            guard let postalCode = data!["postalCode"] as? String else {
+//                return
+//            }
             let addressString = street + " " + city + " " + postalCode
             
             addressDict.setValue(addressString, forKey: "storeAddress")

@@ -232,19 +232,21 @@ class AccountVisitSummaryViewController: UIViewController {
 extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDelegate , NavigateToAccountAccountVisitSummaryDelegate{
     
     func navigateToAccountVisitingScreen() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
     }
     
     func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
         delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
         
     }
     
     func navigateToAccountVisitSummaryScreen() {
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to ?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.navigateToAccountScreen()
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+                self.delegate?.navigateToAccountScreen()
+            }
         }){
             
         }

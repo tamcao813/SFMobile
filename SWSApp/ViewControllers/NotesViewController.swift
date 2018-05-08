@@ -19,13 +19,15 @@ class NotesTableViewCell : SwipeTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    
 }
 
 class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, NavigateToNotesVCDelegate {
     func navigateToNotesSection() {
     }
     
-
+    let strategyQAViewModel = StrategyQAViewModel()
+    
     var tableViewData = NSMutableArray()
     var accountNotesArray = [AccountNotes]()
     var accNotesViewModel = AccountsNotesViewModel()
@@ -43,7 +45,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     
     
     @IBOutlet weak var notesTableView : UITableView?
-    
+    @IBOutlet weak var strategyNotes : UITextView?
     
     //MARK:- ViewLifeCycle
     
@@ -62,6 +64,13 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         }
         originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: notesArray, ascending: false)
         tableViewDisplayData = originalAccountNotesList
+        
+        let data = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
+        if data.count > 0{
+            let strategyNotes = (data.last?.SGWS_Notes__c)!
+            self.strategyNotes?.text = strategyNotes
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

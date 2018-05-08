@@ -29,5 +29,9 @@ class StrategyQAViewModel {
         })
     }
     
+    func fetchStrategy(acc: String)->[StrategyQA]{
+        
+        return StoreDispatcher.shared.fetchStrategy(forAccount: acc)
+    }
     
 }

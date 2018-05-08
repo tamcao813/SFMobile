@@ -27,20 +27,23 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         
         let dateLabel = UILabel(frame: CGRect(x: 0, y: 5, width: 100, height: 21))
         dateLabel.text = "Date of Visit"
-        dateLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
-        dateLabel.font = UIFont(name:"Ubuntu", size: 12.0)
+//        dateLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
+        dateLabel.textColor = UIColor.darkGray
+        dateLabel.font = UIFont(name:"Ubuntu", size: 14.0)
         self.addSubview(dateLabel)
         
         let startTimeLabel = UILabel(frame: CGRect(x: 150, y: 5, width: 100, height: 21))
         startTimeLabel.text = "Start Time"
-        startTimeLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
-        startTimeLabel.font = UIFont(name:"Ubuntu", size: 12.0)
+//        startTimeLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
+        startTimeLabel.textColor = UIColor.darkGray
+        startTimeLabel.font = UIFont(name:"Ubuntu", size: 14.0)
         self.addSubview(startTimeLabel)
         
         let endTimeLabel = UILabel(frame: CGRect(x: 270, y: 5, width: 100, height: 21))
         endTimeLabel.text = "End Time"
-        endTimeLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
-        endTimeLabel.font = UIFont(name:"Ubuntu", size: 12.0)
+//        endTimeLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
+        endTimeLabel.textColor = UIColor.darkGray
+        endTimeLabel.font = UIFont(name:"Ubuntu", size: 14.0)
         self.addSubview(endTimeLabel)
         
         // Set DesignableUITextField size and position
@@ -49,7 +52,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField.rightImage = UIImage(named:"Calender_Icon")!
         dateTextField.rightPadding = 8
         dateTextField.placeholder = "dd-mm-yyyy"
-        dateTextField.font = UIFont(name:"Ubuntu", size: 12.0)
+        dateTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         dateTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
         dateTextField.layer.borderWidth = 1.0
         dateTextField.tag = 200
@@ -62,7 +65,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         startTimeTextField.rightPadding = 8
         startTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
         startTimeTextField.placeholder = "hh:mm"
-        startTimeTextField.font = UIFont(name:"Ubuntu", size: 12.0)
+        startTimeTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         startTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
         startTimeTextField.tag = 201
         startTimeTextField.layer.borderWidth = 1.0
@@ -76,7 +79,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         endTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
         endTimeTextField.placeholder = "hh:mm"
         endTimeTextField.tag = 202
-        endTimeTextField.font = UIFont(name:"Ubuntu", size: 12.0)
+        endTimeTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         endTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
         endTimeTextField.layer.borderWidth = 1.0
         endTimeTextField.borderStyle = UITextBorderStyle.roundedRect
@@ -118,7 +121,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField.text = dateFormatter.string(from: datePickerView.date)
         self.endEditing(true)// To resign the inputView on clicking done.
         NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
-
+        
     }
     
     @objc func handleTimePicker(sender: UIDatePicker) {
@@ -130,7 +133,16 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
             endTimeTextField.text = dateFormatter.string(from: datePickerView.date)
         }
         if (!startTimeTextField.text!.isEmpty && !endTimeTextField.text!.isEmpty) {
-            if convertToDate(dateString: startTimeTextField.text!).compare(convertToDate(dateString: endTimeTextField.text!)) == .orderedDescending {
+            if convertToDate(dateString: startTimeTextField.text!) == convertToDate(dateString: endTimeTextField.text!)  {
+                endTimeTextField.text! = ""
+                
+                let alert = UIAlertView()
+                alert.title = "Alert"
+                alert.message = "Start Time should be lesser than End Time"
+                alert.addButton(withTitle: "OK")
+                alert.show()
+                
+            } else if convertToDate(dateString: startTimeTextField.text!).compare(convertToDate(dateString: endTimeTextField.text!)) == .orderedDescending  {
                 endTimeTextField.text! = ""
                 
                 let alert = UIAlertView()
@@ -140,7 +152,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
                 alert.show()
             }
         }
-
+        
         self.endEditing(true)// To resign the inputView on clicking done.
         NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
     }
@@ -182,6 +194,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         inputView.backgroundColor = UIColor.white
         datePickerView.frame.origin = CGPoint(x: self.frame.width/1.2, y: 20)
         datePickerView.datePickerMode = .time
+        datePickerView.minuteInterval = 15
         datePickerView.minimumDate = NSDate() as Date
         inputView.addSubview(datePickerView) // add date picker to UIView
         
@@ -197,7 +210,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         doneButton.tag = textField.tag
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
-
+        
         textField.inputView = inputView
         textField.inputAccessoryView = toolBar
     }

@@ -59,7 +59,7 @@ class AccountStrategyViewController : UIViewController{
                 for q in tableViewData{
                     
                     let dictionary = q as! NSDictionary
-                    print(dictionary)
+                  //  print(dictionary)
                     
                     let header = dictionary["header"] as? String
                     
@@ -107,7 +107,7 @@ class AccountStrategyViewController : UIViewController{
             print("infinity2")
         }
         
-        print(tableViewData)
+     //   print(tableViewData)
         
         
         let modifiedArray = NSMutableArray()
@@ -155,7 +155,7 @@ class AccountStrategyViewController : UIViewController{
             
         }
         
-        print(modifiedArray)
+     //   print(modifiedArray)
         
         
         
@@ -227,7 +227,7 @@ class AccountStrategyViewController : UIViewController{
                 }
             }
         }
-        print(headerArray)
+        //print(headerArray)
         return headerArray
     }
     
@@ -245,7 +245,7 @@ class AccountStrategyViewController : UIViewController{
                 }
             }
         }
-        print(subHeaderArray)
+       // print(subHeaderArray)
         return subHeaderArray
     }
     

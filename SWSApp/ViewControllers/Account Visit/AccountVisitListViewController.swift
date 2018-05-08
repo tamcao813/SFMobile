@@ -15,8 +15,14 @@ class AccountVisitListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountList), name: NSNotification.Name("refreshAccountList"), object: nil)
         customizedUI()
         initializingXIBs()
+        getTheDataFromDB()
+    }
+    
+    
+    @objc func refreshAccountList(){
         getTheDataFromDB()
     }
     
@@ -24,7 +30,16 @@ class AccountVisitListViewController: UIViewController {
         tableViewDataArray = [Visit]()
         let visitArray = VisitsViewModel()
         tableViewDataArray = visitArray.visitsForUser()
-        tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation({() -> Void in
+                self.tableView.reloadData()
+            })
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshAccountList"), object: nil)
     }
     
     func customizedUI(){
@@ -42,7 +57,7 @@ class AccountVisitListViewController: UIViewController {
         let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID") as! PlanVisitViewController
         viewController.modalPresentationStyle = .overCurrentContext
-        viewController.delegate = self
+//        viewController.delegate = self
         self.present(viewController, animated: true)
     }
     
@@ -117,21 +132,11 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
-        let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-        
+        let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController        
         let data : Visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
-        accountVisitsVC?.visitObject = data
-        if data.status == "Scheduled" || data.status  == "Schedule" {
-            accountVisitsVC?.visitStatus = .scheduled
-        }else if data.status  == "Completed"{
-            accountVisitsVC?.visitStatus = .completed
-        }else if data.status  == "InProgress" || data.status  == "In-Progress"{
-            accountVisitsVC?.visitStatus = .inProgress
-        }else if data.status  == "Planned"{
-            accountVisitsVC?.visitStatus = .planned
-        }
         (accountVisitsVC)?.delegate = self
+        accountVisitsVC?.visitObject = data
         DispatchQueue.main.async {
             self.present(accountVisitsVC!, animated: true, completion: nil)
         }
@@ -140,39 +145,30 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 
 //MARK:- NavigateToContacts Delegate
 extension AccountVisitListViewController : NavigateToContactsDelegate{
+    func navigateToVisitListing() {        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
     //Send a notification to Parent VC to load respective VC
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {        
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
             ContactsGlobal.accountId = ""
-
             // Added this line so that Contact detail view is not launched for this scenario.
             ContactFilterMenuModel.selectedContactId = ""
-
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
         }else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
-            
         }
     }
     
     func navigateToAccountScreen() {
-        
         // Added this line so that Account detail view is not launched for this scenario.
         FilterMenuModel.selectedAccountId = ""
-
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
 }
-
-extension AccountVisitListViewController: PlanVisitViewControllerDelegate {
-    func refershList() {
-        getTheDataFromDB()
-        tableView.reloadData()
-    }
-}
-
 
 enum AccountVisitStatus : String {
     case scheduled

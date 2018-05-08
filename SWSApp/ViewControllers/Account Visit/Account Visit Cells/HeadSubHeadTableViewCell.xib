@@ -51,8 +51,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="SubheadingLabel" destination="sef-cp-f51" id="rve-8o-NTn"/>
-                <outlet property="headingLabel" destination="PLw-rv-JNY" id="O0I-QL-PTt"/>
+                <outlet property="SubheadingLabel" destination="sef-cp-f51" id="qdv-cB-g7X"/>
+                <outlet property="headingLabel" destination="PLw-rv-JNY" id="xrp-Fi-eg7"/>
             </connections>
             <point key="canvasLocation" x="-42.5" y="33"/>
         </tableViewCell>

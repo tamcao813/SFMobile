@@ -31,15 +31,15 @@ class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell {
         notesView?.layer.borderColor = UIColor.lightGray.cgColor//(named: "LightGrey")?.cgColor
     }
     
-    func displayAddressCellData(){
-        
-        
-        
+    func displayAddressCellData(data : NSDictionary){
+        lblStoreName?.text = data["storeName"] as? String
+        lblPinCode?.text = data["accountNumber"] as? String
+        lblAddress?.text = data["storeAddress"] as? String
     }
     
-    func displayNotesCellData(){
+    func displayNotesCellData(data : NSDictionary){
         
-        
+        lblNotesDescription?.text = data["notesText"] as? String
         
     }
     

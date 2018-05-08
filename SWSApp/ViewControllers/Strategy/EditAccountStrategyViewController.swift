@@ -33,7 +33,7 @@ class EditAccountStrategyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        //createStrategy()
+        createStrategy()
         
         
         IQKeyboardManager.shared.enable = true
@@ -81,7 +81,7 @@ class EditAccountStrategyViewController: UIViewController {
                 for q in tableViewData{
                     
                     let dictionary = q as! NSDictionary
-                    print(dictionary)
+                   // print(dictionary)
                     
                     let header = dictionary["header"] as? String
                     
@@ -134,7 +134,7 @@ class EditAccountStrategyViewController: UIViewController {
             }
         }
         
-        print(tableViewData)
+       // print(tableViewData)
         tableViewRowDetails = tableViewData
         
 
@@ -219,7 +219,7 @@ class EditAccountStrategyViewController: UIViewController {
             }
         }
         
-        print(headerArray)
+       // print(headerArray)
         
         return headerArray
     }
@@ -384,13 +384,16 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy.SGWS_Account__c = AccountId.selectedAccountId
         new_Strategy.SGWS_Notes__c = StrategyNotes.accountStrategyNotes
         
-        let answersSelected = NSMutableArray()
+        let attributeDict = ["type":"SGWS_Response__c"]
         
-        for q in tableViewRowDetails!{
-            
-            let item = q as! NSMutableDictionary
-            
-            let dict = item["answers"] as! NSMutableArray
+        let addNewDict: [String:Any] = [
+            StrategyQA.StrategyQAFields[0]:new_Strategy.Id,
+            StrategyQA.StrategyQAFields[11]:new_Strategy.OwnerId,
+            StrategyQA.StrategyQAFields[1]:new_Strategy.SGWS_Account__c,
+            StrategyQA.StrategyQAFields[12]:new_Strategy.SGWS_Answer_Description_List__c,
+          //  StrategyQA.StrategyQAFields[3]:new_Strategy.SGWS_Answer_Options__r_Id,
+            StrategyQA.StrategyQAFields[8]:new_Strategy.SGWS_Notes__c,
+            StrategyQA.StrategyQAFields[2]:new_Strategy.SGWS_Question__r_Id,
             
             let questionId = item["id"] as! String //Question Id
             
@@ -448,17 +451,10 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
       
         
         
-        //        if success == true{
-        //
-        //            let fields: [String] = StrategyQA.StrategyQAFields
-        //            strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in
-        //                if error != nil {
-        //                    print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
-        //                }
-        //            })
-        //
-        //        }
+        let success4 = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict4)
+        print("Success 4 is here \(success3)")
         
+
         
         
         

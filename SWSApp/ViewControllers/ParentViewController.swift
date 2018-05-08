@@ -125,7 +125,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
     }
     
@@ -282,6 +282,25 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 
             }
         })
+        
+        // Visits (WorkOrder) Sync Up
+        VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status"], completion:{ error in
+            if error != nil {
+                MBProgressHUD.hide(forWindow: true)
+                print(error?.localizedDescription ?? "error")
+            }
+        } )
+        
+         // Strategy QA(SGWS_Response__c) Sync Up
+        
+        let fields: [String] = StrategyQA.StrategyQAFields
+        StrategyQAViewModel().uploadStrategyQAToServer(fields: fields, completion: { error in
+            if error != nil {
+                 MBProgressHUD.hide(forWindow: true)
+                print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
+            }
+        })
+        
       
     }
     
@@ -377,8 +396,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             case 2:
                 self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)                
             case 3:
-                self.instantiateViewController(identifier: "AccountVisitsControllerID", moreOptionVC: moreVC1, index: index)
-                
+                self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
             case 4:
                 self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: index)
                 //notificationsVC.view.frame.origin.y = -63.5

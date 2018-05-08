@@ -20,6 +20,7 @@ enum LoadThePersistantMenuScreen : Int{
 
 protocol NavigateToAccountVisitSummaryDelegate {
     func NavigateToAccountVisitSummary(data : LoadThePersistantMenuScreen)
+    func navigateToAccountVisitingScreen()
 }
 
 class  DuringVisitsViewController : UIViewController {
@@ -36,6 +37,7 @@ class  DuringVisitsViewController : UIViewController {
     @IBOutlet weak var btnEditAccountStrategy : UIButton?
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
     
+    var visitObject: Visit?
     
     var delegate : NavigateToAccountVisitSummaryDelegate?
     
@@ -81,6 +83,9 @@ class  DuringVisitsViewController : UIViewController {
         
         let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
         let duringVisitVC: DuringVisitsTopicsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsTopicsViewControllerID") as! DuringVisitsTopicsViewController
+        
+        duringVisitVC.visitObject = visitObject
+        
         activeViewController = duringVisitVC
         
         IQKeyboardManager.shared.enable = true
@@ -90,6 +95,7 @@ class  DuringVisitsViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+
         
     }
     
@@ -144,6 +150,16 @@ class  DuringVisitsViewController : UIViewController {
     
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
+        if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue"{
+            PlanVistManager.sharedInstance.status = "In-Progress"
+        }
+        else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
+            PlanVistManager.sharedInstance.status = "Completed"
+            self.dismiss(animated: true, completion: nil)
+            delegate?.navigateToAccountVisitingScreen()
+            return
+        }
+        
         btnBack?.isHidden = false
         imgDiscussion?.image = UIImage(named: "Small Status Good")
         imgInsights?.image = UIImage(named: "selectedButton")
@@ -155,6 +171,7 @@ class  DuringVisitsViewController : UIViewController {
         let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
         let duringVisitVC: DuringVisitsInsightsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsInsightsViewControllerID") as! DuringVisitsInsightsViewController
         activeViewController = duringVisitVC
+        
         
     }
     

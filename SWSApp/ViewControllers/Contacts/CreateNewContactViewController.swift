@@ -10,6 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import SmartStore
 import SmartSync
+import DropDown
 
 protocol CreateNewContactViewControllerDelegate : NSObjectProtocol{
     func updateContactList()
@@ -63,6 +64,7 @@ class CreateNewContactViewController: UIViewController {
     var accountSelected : Account!
     var globalContacts = [Contact]()
     @IBOutlet weak var errorLabel: UILabel!
+    var accountsDropDown : DropDown?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,15 +124,18 @@ class CreateNewContactViewController: UIViewController {
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
+        self.view.endEditing(true)
+        if let dropdown = accountsDropDown{
+            dropdown.hide()
+        }
         DispatchQueue.main.async {
             if  createNewGlobals.userInput {
-                let alertController = UIAlertController(title: "Error", message: StringConstants.discardChangesConfirmation, preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                     createNewGlobals.userInput = false
                     self.dismiss(animated: true, completion: nil)
-                }))
-                alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
-                self.present(alertController, animated: true, completion: nil)
+                }){
+                    
+                }
             }else{
                 self.dismiss(animated: true, completion: nil)
             }
@@ -203,7 +208,7 @@ class CreateNewContactViewController: UIViewController {
             }
             errorLabel.text = StringConstants.emptyFieldError
             return
-        }else if phoneTextField.text != "" && phoneTextField.text?.characters.count != 13{
+        }else if phoneTextField.text != "" && Validations().removeSpecialCharsFromString(text: phoneTextField.text!).characters.count != 10{
             phoneTextField.borderColor = .red
             phoneTextField.becomeFirstResponder()
             if isNewContact {
@@ -213,7 +218,7 @@ class CreateNewContactViewController: UIViewController {
             }
             errorLabel.text = "Please correct error above"
             return
-        }else if faxTextField.text != "" && faxTextField.text?.characters.count != 13{
+        }else if faxTextField.text != "" && Validations().removeSpecialCharsFromString(text: faxTextField.text!).characters.count != 10{
             faxTextField.borderColor = .red
             faxTextField.becomeFirstResponder()
             if isNewContact {
@@ -316,7 +321,7 @@ class CreateNewContactViewController: UIViewController {
         // Checkin Duplicate Entry
         for contact in globalContacts {
             if contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.phoneNumber == newContact.phoneNumber || contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.email == newContact.email {
-                let alertController = UIAlertController(title: "Error", message:
+                let alertController = UIAlertController(title: "Alert", message:
                     "A duplicate contact with the same name and phone or name and email has been detected", preferredStyle: UIAlertControllerStyle.alert)
                 alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
                 self.present(alertController, animated: true, completion: nil)
@@ -400,6 +405,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
             searchAccountTextField = cell?.searchContactTextField
+            accountsDropDown = cell?.accountsDropDown
             cell?.delegate = self
             return cell!
         case 1:
@@ -435,10 +441,10 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "FamilyTableViewCell") as? FamilyTableViewCell
                 familyDate1Textfield = cell?.dateTextField
                 familyName1Textfield = cell?.nameTextField
+                cell?.nameTextField.tag = 1
+                cell?.dateTextField.tag = 1
                 if let childName = contactDetail?.child1Name, childName != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.nameTextField.tag = 1
-                    cell?.dateTextField.tag = 1
                     cell?.displayCellContent()                    
                 }
                 
@@ -453,10 +459,10 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 cell?.nameLabelHeightConstraint.constant = 0
                 familyDate2Textfield = cell?.dateTextField
                 familyName2Textfield = cell?.nameTextField
+                cell?.nameTextField.tag = 2
+                cell?.dateTextField.tag = 2
                 if let childName = contactDetail?.child2Name, childName != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.nameTextField.tag = 2
-                    cell?.dateTextField.tag = 2
                     cell?.displayCellContent()
                 }
                 
@@ -471,10 +477,10 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 cell?.nameLabelHeightConstraint.constant = 0
                 familyDate3Textfield = cell?.dateTextField
                 familyName3Textfield = cell?.nameTextField
+                cell?.nameTextField.tag = 3
+                cell?.dateTextField.tag = 3
                 if let childName = contactDetail?.child3Name, childName != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.nameTextField.tag = 3
-                    cell?.dateTextField.tag = 3
                     cell?.displayCellContent()
                 }
                 
@@ -489,10 +495,10 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 cell?.nameLabelHeightConstraint.constant = 0
                 familyDate4Textfield = cell?.dateTextField
                 familyName4Textfield = cell?.nameTextField
+                cell?.nameTextField.tag = 4
+                cell?.dateTextField.tag = 4
                 if let childName = contactDetail?.child4Name, childName != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.nameTextField.tag = 4
-                    cell?.dateTextField.tag = 4
                     cell?.displayCellContent()
                 }
                 
@@ -507,10 +513,10 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 cell?.nameLabelHeightConstraint.constant = 0
                 familyDate5Textfield = cell?.dateTextField
                 familyName5Textfield = cell?.nameTextField
+                cell?.nameTextField.tag = 5
+                cell?.dateTextField.tag = 5
                 if let childName = contactDetail?.child5Name, childName != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.nameTextField.tag = 5
-                    cell?.dateTextField.tag = 5
                     cell?.displayCellContent()
                 }
                 
@@ -522,9 +528,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Likes"
                 dislikeTextView = cell?.descriptionTextView
+                cell?.descriptionTextView.tag = 1
                 if let dislikes = contactDetail?.dislikes, dislikes != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.descriptionTextView.tag = 1
                     cell?.displayCellContent()
                 }
                 return cell!
@@ -532,9 +538,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Dislikes"
                 likeTextView = cell?.descriptionTextView
+                cell?.descriptionTextView.tag = 2
                 if let likes = contactDetail?.likes, likes != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.descriptionTextView.tag = 2
                     cell?.displayCellContent()
                 }
                 return cell!
@@ -542,9 +548,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Favourites Activities"
                 favouriteTextView = cell?.descriptionTextView
+                cell?.descriptionTextView.tag = 3
                 if let fav = contactDetail?.favouriteActivities, fav != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.descriptionTextView.tag = 3
                     cell?.displayCellContent()
                 }
                 return cell!
@@ -552,9 +558,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Notes"
                 notesTextView = cell?.descriptionTextView
+                cell?.descriptionTextView.tag = 4
                 if let notes = contactDetail?.sgwsNotes, notes != "" {
                     cell?.contactDetail = contactDetail
-                    cell?.descriptionTextView.tag = 4
                     cell?.displayCellContent()
                 }
                 return cell!
@@ -629,9 +635,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
             cell?.headerLabel.text = "Birthday"
             birthdayTextField = cell?.dateTextfield
+            cell?.dateTextfield.tag = 1
             if let birthDate = contactDetail?.birthDate, birthDate != "" {
-                cell?.contactDetail = contactDetail
-                cell?.dateTextfield.tag = 1
+                cell?.contactDetail = contactDetail                
                 cell?.displayCellContent()
             }
             return cell!
@@ -639,9 +645,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
             cell?.headerLabel.text = "Anniversary"
             anniversaryTextField = cell?.dateTextfield
+            cell?.dateTextfield.tag = 2
             if let anniversaryDate = contactDetail?.anniversary, anniversaryDate != "" {
                 cell?.contactDetail = contactDetail
-                cell?.dateTextfield.tag = 2
                 cell?.displayCellContent()
             }
             return cell!

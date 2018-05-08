@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SmartSync
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
@@ -140,6 +141,36 @@ class AccountVisitSummaryViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
+        
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
+            
+            let attributeDict = ["type":"WorkOrder"]
+            let visitNoteDict: [String:Any] = [
+                Visit.VisitsFields[0]: self.visitObject!.Id,
+                kSyncTargetLocal:true,
+                kSyncTargetLocallyCreated:false,
+                kSyncTargetLocallyUpdated:false,
+                kSyncTargetLocallyDeleted:true,
+                "attributes":attributeDict]
+            
+            let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
+            
+            if(success){
+                
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+            
+        }) {
+            
+            print("Cancel")
+        }
+        
+
+        
     }
     
     @IBAction func startOrContinueVisitButtonTapped(_ sender: UIButton){

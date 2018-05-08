@@ -150,7 +150,10 @@ class  DuringVisitsViewController : UIViewController {
     
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
-        if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
+        if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue"{
+            PlanVistManager.sharedInstance.status = "In-Progress"
+        }
+        else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
             PlanVistManager.sharedInstance.status = "Completed"
             self.dismiss(animated: true, completion: nil)
             delegate?.navigateToAccountVisitingScreen()

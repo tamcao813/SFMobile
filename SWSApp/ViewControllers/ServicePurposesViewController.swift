@@ -24,7 +24,8 @@ class ServicePurposesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        //STATEMACHINE:If you com tho this Screen its in Planned state
+        PlanVistManager.sharedInstance.status = "Scheduled"
         print("ServicePurposesViewController")
         
         let plistPath = Bundle.main.path(forResource: "ServicePurposes", ofType: ".plist", inDirectory: nil)

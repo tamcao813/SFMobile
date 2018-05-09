@@ -138,7 +138,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         let data : Visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
         (accountVisitsVC)?.delegate = self
-        accountVisitsVC?.visitObject = data
+        accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
         DispatchQueue.main.async {
             self.present(accountVisitsVC!, animated: true, completion: nil)
         }

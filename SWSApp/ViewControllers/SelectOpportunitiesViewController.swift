@@ -21,6 +21,7 @@ class SelectOpportunitiesViewController: UIViewController {
     
     @IBAction func closeVC(sender: UIButton) {
         //STATEMACHINE:No State Change
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

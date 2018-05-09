@@ -38,29 +38,28 @@ class  DuringVisitsTopicsViewController : UIViewController {
         addressDict.setValue(visitObject?.accountNumber, forKey: "accountNumber")
         //addressDict.setValue("", forKey: "headerText")
                 
-        let address = visitObject?.accountBillingAddress
+        if let address = visitObject?.accountBillingAddress {
         
-        if address != ""{
-            
-            let data = self.convertToDictionary(text: address!)
-            
-            let street = data!["street"] as? String ?? ""
-//            guard let street = data!["street"] as? String else{
-//                return
-//            }
-            let city = data!["city"] as? String ?? ""
-//            guard let city = data!["city"] as? String else{
-//                return
-//            }
-            let postalCode = data!["postalCode"] as? String ?? ""
-//            guard let postalCode = data!["postalCode"] as? String else {
-//                return
-//            }
-            let addressString = street + " " + city + " " + postalCode
-            
-            addressDict.setValue(addressString, forKey: "storeAddress")
-            mainArray.add(addressDict)
-            
+            if address != ""{
+                let data = self.convertToDictionary(text: address)
+                
+                let street = data!["street"] as? String ?? ""
+    //            guard let street = data!["street"] as? String else{
+    //                return
+    //            }
+                let city = data!["city"] as? String ?? ""
+    //            guard let city = data!["city"] as? String else{
+    //                return
+    //            }
+                let postalCode = data!["postalCode"] as? String ?? ""
+    //            guard let postalCode = data!["postalCode"] as? String else {
+    //                return
+    //            }
+                let addressString = street + " " + city + " " + postalCode
+                
+                addressDict.setValue(addressString, forKey: "storeAddress")
+                mainArray.add(addressDict)
+            }
         }
 
         let visitNotes = visitObject?.description

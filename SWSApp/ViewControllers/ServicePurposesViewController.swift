@@ -94,6 +94,7 @@ class ServicePurposesViewController: UIViewController {
             uiAlertController.addAction(// add Custom action on Event is Cancel
                 UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
                     uiAlertController.dismiss(animated: true, completion: nil)
+                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
                     self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 }))
             uiAlertController.addAction(// add Custom action on Event is Cancel
@@ -102,6 +103,7 @@ class ServicePurposesViewController: UIViewController {
                 }))
             self.present(uiAlertController, animated: true, completion: nil)
         } else {
+             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         }
     }

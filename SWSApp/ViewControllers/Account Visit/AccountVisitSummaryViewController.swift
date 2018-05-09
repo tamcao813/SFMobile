@@ -18,7 +18,7 @@ protocol NavigateToContactsDelegate {
 
 class AccountVisitSummaryViewController: UIViewController {
     
-    var visitObject: Visit?
+    var visitId: String?
     var accountObject: Account?
     
     @IBOutlet weak var statusLabel: UILabel!
@@ -31,25 +31,61 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    var selectedContact: Contact!
+    var visitObject: Visit?
     
     var visitStatus: AccountVisitStatus?
     var delegate : NavigateToContactsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let accounts = AccountsViewModel().accountsForLoggedUser
-        if let accountId = visitObject?.accountId {
-            for account in accounts {
-                if account.account_Id == accountId {
-                    accountObject = account
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchVisit()
+        UICustomizations()
+        initializingXIBs()
+        refactoringUIOnApplicationStatusBasis()
+    }
+    
+    func fetchVisit(){
+        if let id = visitId{
+            let visitArray = VisitsViewModel().visitsForUser()
+            for visit in visitArray {
+                if visit.Id == visitId {
+                    visitObject = visit
                     break
                 }
             }
         }
-        UICustomizations()
-        initializingXIBs()
-        refactoringUIOnApplicationStatusBasis()
-         self.getStartDateAndEndTime()
+        fetchAccountDetails()
+        fetchContactDetails()
+    }
+    
+    func fetchAccountDetails(){
+        if let accountId = visitObject?.accountId {
+            let accountsArray = AccountsViewModel().accountsForLoggedUser
+            for account in accountsArray{
+                if account.account_Id == accountId {
+                    accountObject = account
+                }
+            }
+        }
+    }
+    
+    func fetchContactDetails(){
+        if let contactId = visitObject?.contactId {
+            let contactsArray = ContactsViewModel().globalContacts()
+            for contact in contactsArray {
+                if contact.contactId == contactId {
+                    selectedContact = contact
+                    break
+                }
+                
+            }
+        }
+        tableView.reloadData()
     }
     
     func UICustomizations(){
@@ -70,6 +106,7 @@ class AccountVisitSummaryViewController: UIViewController {
         deleteVisitButton.setImage(image, for: .normal)
         deleteVisitButton.tintColor = UIColor(hexString: "#4287C2")
         deleteVisitButton.setTitle("    Delete", for: .normal)
+        self.getStartDateAndEndTime()
     }
     
     func getStartDateAndEndTime() {
@@ -245,14 +282,14 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     }
     
     func navigateToAccountVisitSummaryScreen() {
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to ?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to ?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                 self.dismiss(animated: true, completion: nil)
                 self.delegate?.navigateToAccountScreen()
+            }){
+                
             }
-        }){
-            
-        }
+        }        
     }
 }
 
@@ -411,10 +448,10 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func getConatactCell() -> AssociatedContactsTableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssociatedContactsTableViewCell") as? AssociatedContactsTableViewCell
         
-        if let contactId = visitObject?.contactId, contactId != "" {
+        if let contactId = selectedContact, contactId.contactId != "" {
             cell?.containerHeightConstraint.constant = 100
             cell?.containerView.isHidden = false
-            cell?.displayCellContent(visit: visitObject!)
+            cell?.displayCellContent(contact: contactId)
         }else{
             cell?.containerHeightConstraint.constant = 0
             cell?.containerView.isHidden = true            

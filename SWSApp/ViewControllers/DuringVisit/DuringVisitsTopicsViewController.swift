@@ -245,7 +245,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
         if indexPath.section == 1{
             return CGSize(width: collectionView.frame.size.width, height: 360)
             
-        }else if indexPath.section == 2{//used to change the height of cell Dynamically
+        }else if indexPath.section == 20{//used to change the height of cell Dynamically
             
             let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
@@ -258,7 +258,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
             
             return dynamicSize.size
             
-        } else if indexPath.section >= 3{
+        } else if indexPath.section >= 2{
             return CGSize(width: collectionView.frame.size.width, height: 20)
         }
         return CGSize(width: collectionView.frame.size.width, height: 120)

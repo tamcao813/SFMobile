@@ -130,11 +130,6 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         self.associatedContactTableView.isHidden = true
         bottomViewSpacing.constant = 30
         
-        /* TBD
-         self.bottomView.frame = CGRect(x: 0, y: self.searchContactTxt.frame.origin.y +  self.searchContactTxt.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
-         
-         self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height)*/
-        
         // Remove contact array
         nonSelectedContact.removeAll()
     }
@@ -159,18 +154,10 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
                     
                     bottomViewSpacing.constant = 30 + associatedContactTableView.frame.height + 20
                     
-                    /* TBD
-                     self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
-                     
-                     self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count) + 40)*/
                 } else {
                     self.associatedContactTableView.isHidden = true
                     bottomViewSpacing.constant = 30
                     
-                    /* TBD
-                     self.bottomView.frame = CGRect(x: 0, y: self.searchContactTxt.frame.origin.y +  self.searchContactTxt.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
-                     
-                     self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height)*/
                 }
             }
         }
@@ -340,10 +327,6 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             
             bottomViewSpacing.constant = 30 + associatedContactTableView.frame.height + 20
             
-            /* TBD
-             self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
-             
-             self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count))*/
         }
         
     }
@@ -639,10 +622,6 @@ extension PlanVisitViewController : UITableViewDelegate {
                 self.associatedContactTableView.frame = CGRect(x: self.searchContactTxt.frame.origin.x, y: self.searchContactTxt.frame.origin.y + self.searchContactTxt.frame.size.height + 40, width: self.searchContactTxt.frame.size.width, height: CGFloat(102 * self.associatedSelectedContact.count))
                 self.bottomViewSpacing.constant = 30 + self.associatedContactTableView.frame.height + 20
                 
-                /* TBD
-                 self.bottomView.frame = CGRect(x: 0, y: self.associatedContactTableView.frame.origin.y +  self.associatedContactTableView.frame.size.height + 20, width: self.bottomView.frame.size.width, height: self.bottomView.frame.size.height)
-                 
-                 self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + CGFloat(102 * self.associatedSelectedContact.count)) */
             }
         }
     }

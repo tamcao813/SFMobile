@@ -229,8 +229,8 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
         
         FilterMenuModel.comingFromDetailsScreen = "YES"
         FilterMenuModel.selectedAccountId = (accountObject?.account_Id)!
-        delegate?.navigateToVisitSummaryScreen()
-        self.dismiss(animated: true, completion: nil)
+//        delegate?.navigateToVisitSummaryScreen()
+//        self.dismiss(animated: true, completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
         
     }

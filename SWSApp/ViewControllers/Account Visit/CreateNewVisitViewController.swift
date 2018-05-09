@@ -47,10 +47,19 @@ class CreateNewVisitViewController: UIViewController {
         customizedUI()
         fetchVisit()
         IQKeyboardManager.shared.enable = true
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     deinit {
         IQKeyboardManager.shared.enable = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        reloadTableView()
     }
     
     func fetchVisit(){
@@ -91,6 +100,19 @@ class CreateNewVisitViewController: UIViewController {
         }
     }
     
+    @objc func keyboardWillShow(_ notification:Notification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height + 120, 0)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification:Notification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        }
+    }
     
     func customizedUI(){
         self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -323,9 +345,24 @@ class CreateNewVisitViewController: UIViewController {
         
         let fullTime = timeFormatter.date(from: time)
         
-        timeFormatter.dateFormat = "HH:mm:ss"
+        var formattedTime:String = ""
         
-        let formattedTime = timeFormatter.string(from: fullTime!)
+        if fullTime != nil {
+            
+            timeFormatter.dateFormat = "HH:mm:ss"
+            
+            formattedTime = timeFormatter.string(from: fullTime!)
+        } else {
+            
+            timeFormatter.dateFormat = "HH:mm a"
+            
+            let fullTime = timeFormatter.date(from: time)
+            
+            timeFormatter.dateFormat = "HH:mm:ss"
+            
+            formattedTime = timeFormatter.string(from: fullTime!)
+            
+        }
         
         let dateFormatter = DateFormatter()
         

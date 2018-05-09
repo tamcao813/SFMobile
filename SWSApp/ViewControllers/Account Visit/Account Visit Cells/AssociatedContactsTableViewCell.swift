@@ -22,12 +22,12 @@ class AssociatedContactsTableViewCell: UITableViewCell {
         super.awakeFromNib()        
     }
     
-    func displayCellContent(visit: Visit){
-        nameLabel.text = visit.contactName
-        phoneLabel.text = visit.contactPhone
-        emailLabel.text = visit.contactEmail
-        functionRoleLabel.text = visit.contactSGWS_Roles
-        initialsLabel.text = Validations().getIntials(name: visit.contactName)
+    func displayCellContent(contact: Contact){
+        nameLabel.text = contact.name
+        phoneLabel.text = contact.phoneNumber
+        emailLabel.text = contact.email
+        functionRoleLabel.text = contact.functionRole
+        initialsLabel.text = Validations().getIntials(name: contact.name)
     }
     
 }

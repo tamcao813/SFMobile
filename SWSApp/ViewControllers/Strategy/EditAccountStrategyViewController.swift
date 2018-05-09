@@ -31,7 +31,7 @@ class EditAccountStrategyViewController: UIViewController {
     
     var textViewWidth = 0.0
     var collectionViewWidth = 0.0
-    
+    var strategyQAResponse:[StrategyQA] = []
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -60,7 +60,7 @@ class EditAccountStrategyViewController: UIViewController {
         let question = strategyQuestionsViewModel.getStrategyQuestions()
         let answer = strategyAnswersViewModel.getStrategyAnswers()
         
-        //let strategyQAResponse = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
+        strategyQAResponse = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
         
         
         let tableViewData = NSMutableArray()
@@ -122,12 +122,7 @@ class EditAccountStrategyViewController: UIViewController {
                             for ans in answerTempArray{
                                 
                                 //Check for Response__C if the Anwer matched isSelected YES
-                                
-                                
-                                
-                                
-                                
-                                
+
                                 let answerDict = NSMutableDictionary()
                                 answerDict.setValue(ans, forKey: "answerText")
                                 answerDict.setValue(answerData.Id, forKey: "answerId")
@@ -271,8 +266,18 @@ class EditAccountStrategyViewController: UIViewController {
 
         if validateFields{
             print("Success")
+            
+            // Have i edited or created new Strategy
+            
+            if(strategyQAResponse.count > 0){
+                
 
-            createStrategy()
+                
+            } else {
+                
+                createStrategy()
+                
+            }
 
         }else{
 
@@ -444,6 +449,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             new_Strategy.SGWS_Question__c =  questionId
             
             
+            
             let attributeDict = ["type":"SGWS_Response__c"]
             
             
@@ -460,6 +466,11 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
                 kSyncTargetLocallyDeleted:false,
                 "attributes":attributeDict]
             
+//             If( this){
+  //              new_Strategy.Id = response.Id
+//                   let success = editStrategy(strategyQAResponse: new_Strategy)
+//                }
+            
             let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
             print("Success is here \(success)")
             
@@ -474,17 +485,47 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             })
         }
         
-        //        if success == true{
-        //
-        //            let fields: [String] = StrategyQA.StrategyQAFields
-        //            strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in
-        //                if error != nil {
-        //                    print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
-        //                }
-        //            })
-        //
-        //        }
-        
+    }
+    
+    func editStrategy(strategyQAResponse : StrategyQA){
+    
+    //answersSelected are answers selected bu user for this Question Id
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let editStrategy = StrategyQA(for: "NewStrategy")
+    
+    //Use ths same ID of the data base row that we are modifying
+    editStrategy.Id = strategyQAResponse.Id
+    editStrategy.OwnerId = (appDelegate.loggedInUser?.userId)!
+    editStrategy.SGWS_Account__c = AccountId.selectedAccountId
+    editStrategy.SGWS_Notes__c = strategyQAResponse.SGWS_Notes__c
+    // I can say i can write my response to DB
+    
+    editStrategy.SGWS_Answer_Description_List__c = strategyQAResponse.SGWS_Answer_Description_List__c
+    //    new_Strategy.SGWS_Answer_Options__r_Id = ""
+    editStrategy.SGWS_Question__c =  strategyQAResponse.SGWS_Question__c
+    
+    
+    let attributeDict = ["type":"SGWS_Response__c"]
+    
+    
+    let addNewDict: [String:Any] = [
+    StrategyQA.StrategyQAFields[0]:editStrategy.Id,
+    StrategyQA.StrategyQAFields[7]:editStrategy.OwnerId,
+    StrategyQA.StrategyQAFields[1]:editStrategy.SGWS_Account__c,
+    StrategyQA.StrategyQAFields[8]:editStrategy.SGWS_Answer_Description_List__c,
+    StrategyQA.StrategyQAFields[4]:editStrategy.SGWS_Notes__c,
+    StrategyQA.StrategyQAFields[3]:editStrategy.SGWS_Question__c,
+    
+    kSyncTargetLocal:true,
+    kSyncTargetLocallyCreated:false,
+    kSyncTargetLocallyUpdated:true,
+    kSyncTargetLocallyDeleted:false,
+    "attributes":attributeDict]
+    
+    let success = strategyQAViewModel.editStrategyQALocally(fields: addNewDict)
+    print("Edit strategy Success is here \(success)")
+    
+    
     }
 }
 

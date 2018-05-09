@@ -2018,6 +2018,70 @@ class StoreDispatcher {
         }
     }
     
+    // edit  Strategy QA Locally
+    func editStrategyQALocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        
+        //["Id","SGWS_Account__c","SGWS_Question_Sub_Type__c","SGWS_Question__c","SGWS_Notes__c","LastModifiedById","LastModifiedDate","OwnerId","SGWS_Answer_Description_List__c"]
+        var allFields = fieldsToUpload
+        allFields["attributes"] = ["type":"WorkOrder"]
+        allFields[kSyncTargetLocal] = true
+        var ary = [Any]()
+        
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupStrategyQA, withOrderPath: "LastModifiedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        for  singleVisit in result{
+            var singleVisitModif = singleVisit as! [String:Any]
+            let singleVisitModifValue = singleVisitModif["Id"] as! String
+            let fieldsIdValue = allFields["Id"] as! String
+            
+            if(fieldsIdValue == singleVisitModifValue){
+                
+                let createdFlag = singleVisitModif[kSyncTargetLocallyCreated] as! Bool
+                
+                singleVisitModif["SGWS_Account__c"] = allFields["SGWS_Account__c"]
+                singleVisitModif["SGWS_Question__c"] = allFields["SGWS_Question__c"]
+                singleVisitModif["SGWS_Answer_Description_List__c"] = allFields["SGWS_Answer_Description_List__c"]
+                singleVisitModif["SGWS_Notes__c"] = allFields["SGWS_Notes__c"]
+                singleVisitModif["LastModifiedDate"] = allFields["LastModifiedDate"]
+                singleVisitModif["OwnerId"] = allFields["OwnerId"]
+
+
+                if(createdFlag){
+                    singleVisitModif[kSyncTargetLocal] = true
+                    singleVisitModif[kSyncTargetLocallyUpdated] = false
+                    singleVisitModif[kSyncTargetLocallyCreated] = true
+                    
+                }else {
+                    singleVisitModif[kSyncTargetLocal] = true
+                    singleVisitModif[kSyncTargetLocallyCreated] = false
+                    singleVisitModif[kSyncTargetLocallyUpdated] = true
+                    
+                }
+                singleVisitModif[kSyncTargetLocallyDeleted] = false
+                ary = sfaStore.upsertEntries([singleVisitModif], toSoup: SoupVisit)
+                break
+                
+            }
+        }
+        
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+
+    }
+    
+    
     func syncUpStrategyQA(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
         
         let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)

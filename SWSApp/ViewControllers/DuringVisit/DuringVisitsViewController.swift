@@ -114,7 +114,14 @@ class  DuringVisitsViewController : UIViewController {
     
     //MARK:- IBAction Methods
     @IBAction func closeButtonClicked(sender : UIButton){
-        self.dismiss(animated: true, completion: nil)
+        
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            
+            self.dismiss(animated: true, completion: nil)
+            
+        }) {
+            print("No")
+        }
         
     }
     

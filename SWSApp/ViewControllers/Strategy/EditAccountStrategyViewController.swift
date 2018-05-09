@@ -415,7 +415,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy.SGWS_Notes__c = StrategyNotes.accountStrategyNotes
         
        // let answersSelected = NSMutableArray()
-        
+        //one object of tableViewRowDetails is linked to which response object
         for q in tableViewRowDetails!{
             
             let item = q as! NSMutableDictionary
@@ -468,7 +468,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             
 //             If( this){
   //              new_Strategy.Id = response.Id
-//                   let success = editStrategy(strategyQAResponse: new_Strategy)
+   //                let success = editStrategy(editStrategy(strategyQAResponse: new_Strategy, reponseObjectId: Id)
 //                }
             
             let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
@@ -487,14 +487,14 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         
     }
     
-    func editStrategy(strategyQAResponse : StrategyQA){
+    func editStrategy(strategyQAResponse : StrategyQA, reponseObjectId: String){
     
     //answersSelected are answers selected bu user for this Question Id
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let editStrategy = StrategyQA(for: "NewStrategy")
     
     //Use ths same ID of the data base row that we are modifying
-    editStrategy.Id = strategyQAResponse.Id
+    editStrategy.Id = reponseObjectId
     editStrategy.OwnerId = (appDelegate.loggedInUser?.userId)!
     editStrategy.SGWS_Account__c = AccountId.selectedAccountId
     editStrategy.SGWS_Notes__c = strategyQAResponse.SGWS_Notes__c

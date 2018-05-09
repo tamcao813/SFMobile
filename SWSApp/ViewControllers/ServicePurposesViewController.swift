@@ -266,20 +266,27 @@ extension ServicePurposesViewController : UICollectionViewDelegate {
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
         if indexPath.section == 4 {
-            let cell = collectionView.cellForItem(at: indexPath) as! EditAccountStrategyCollectionViewCell
-            cell.layer.borderWidth = 3.0
-            if selectedValuesList[indexPath.row] == "true" {
-                cell.layer.borderColor = UIColor.clear.cgColor
-                selectedValuesList[indexPath.row] = "false"
-                selectedPurposesValuesList = selectedPurposesValuesList.filter{$0 != (cell.centerLabel?.text)!}
-                cell.selectedIcon?.isHidden = true
+            if indexPath.row == readServicePurposePList().count {
+                print("last Cell")
+                
+            } else {
+                
+                let cell = collectionView.cellForItem(at: indexPath) as! EditAccountStrategyCollectionViewCell
+                cell.layer.borderWidth = 3.0
+                if selectedValuesList[indexPath.row] == "true" {
+                    cell.layer.borderColor = UIColor.clear.cgColor
+                    selectedValuesList[indexPath.row] = "false"
+                    selectedPurposesValuesList = selectedPurposesValuesList.filter{$0 != (cell.centerLabel?.text)!}
+                    cell.selectedIcon?.isHidden = true
+                }
+                else {
+                    cell.layer.borderColor = UIColor(red: 66/255, green: 135/255, blue: 194/255, alpha: 1.0).cgColor
+                    selectedPurposesValuesList.append((cell.centerLabel?.text)!)
+                    selectedValuesList[indexPath.row] = "true"
+                    cell.selectedIcon?.isHidden = false
+                }
             }
-            else {
-                cell.layer.borderColor = UIColor(red: 66/255, green: 135/255, blue: 194/255, alpha: 1.0).cgColor
-                selectedPurposesValuesList.append((cell.centerLabel?.text)!)
-                selectedValuesList[indexPath.row] = "true"
-                cell.selectedIcon?.isHidden = false
-            }
+
         }
     }
 }

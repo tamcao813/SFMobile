@@ -438,6 +438,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             // I can say i can write my response to DB
             let answerSelectedFormatted  =  answersCommaSeperated.componentsJoined(by: ",")
             
+            
             new_Strategy.SGWS_Answer_Description_List__c = answerSelectedFormatted
             //    new_Strategy.SGWS_Answer_Options__r_Id = ""
             new_Strategy.SGWS_Question__c =  questionId

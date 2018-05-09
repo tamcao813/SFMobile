@@ -11,6 +11,10 @@ import UIKit
 import IQKeyboardManagerSwift
 import SmartSync
 
+protocol RefreshStrategyScreenDelegate {
+    func refreshStrategyScreenToLoadNewData()
+}
+
 class EditAccountStrategyViewController: UIViewController {
     
     var tableViewRowDetails : NSMutableArray?
@@ -18,15 +22,15 @@ class EditAccountStrategyViewController: UIViewController {
     let strategyAnswersViewModel = StrategyAnswersViewModel()
     var strategyQAViewModel = StrategyQAViewModel()
     
+    var delegate : RefreshStrategyScreenDelegate?
     
     @IBOutlet weak var collectionView : UICollectionView?
 
-    
+    var strategyArray : NSMutableArray?
     
     
     var textViewWidth = 0.0
     var collectionViewWidth = 0.0
-    
     
     
     //MARK:- View Life Cycle
@@ -34,7 +38,6 @@ class EditAccountStrategyViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //createStrategy()
-        
         
         IQKeyboardManager.shared.enable = true
         
@@ -57,6 +60,7 @@ class EditAccountStrategyViewController: UIViewController {
         let question = strategyQuestionsViewModel.getStrategyQuestions()
         let answer = strategyAnswersViewModel.getStrategyAnswers()
         
+        //let strategyQAResponse = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
         
         
         let tableViewData = NSMutableArray()
@@ -117,10 +121,10 @@ class EditAccountStrategyViewController: UIViewController {
                             
                             for ans in answerTempArray{
                                 
-                                
-                                
-                                
                                 //Check for Response__C if the Anwer matched isSelected YES
+                                
+                                
+                                
                                 
                                 
                                 
@@ -144,10 +148,37 @@ class EditAccountStrategyViewController: UIViewController {
        // print(tableViewData)
         tableViewRowDetails = tableViewData
         
-
-       // createStrategy()
         
         
+        //Write a logic to show the UI that particular Answer is selected
+        for strategy in strategyArray!{
+            
+            let strategyDict = strategy as! NSMutableDictionary
+            let strategyArray = strategyDict["answers"] as! NSMutableArray
+            var answerText = ""
+            
+            for answer in strategyArray{
+                let answerDict = answer as! NSMutableDictionary
+                answerText = answerDict["answerText"] as! String
+            
+                for editStrategy in tableViewRowDetails!{
+                    
+                    let editStrategyDict = editStrategy as! NSMutableDictionary
+                    let editStrategyArray = editStrategyDict["answers"] as! NSMutableArray
+                
+                    for answer in editStrategyArray{
+                        let answerDict = answer as! NSMutableDictionary
+                        let editAnswerText = answerDict["answerText"] as! String
+                        
+                        if answerText == editAnswerText{
+                            
+                            answerDict.setValue("YES", forKey: "isSelected")
+                            break
+                        }
+                    }
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,7 +195,6 @@ class EditAccountStrategyViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         //StrategyNotes.accountStrategyNotes = ""
     }
     
@@ -184,33 +214,30 @@ class EditAccountStrategyViewController: UIViewController {
         }
     }
     
-
+    //Validation for any 1 answer has to be Selected for a question
     func validateAllFields()-> Bool{
+       var oneAnswerSelected = false
         
         for index in tableViewRowDetails!{
-            
+            oneAnswerSelected = false
             let tableData = index as! NSDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             
-            let namePredicate = NSPredicate(format: "isSelected = %@","NO");
-            
-            let filteredArray = tableContent.filter { namePredicate.evaluate(with: $0) };
-            
-            for isSelectedDict in filteredArray{
-                
-                let selectedKey = isSelectedDict as! NSMutableDictionary
-                
-                let data = selectedKey["isSelected"] as! String
-                
-                if data == "NO"{
-                    return false
-
+                for data in tableContent{
+                    
+                    let selectedKey = data as! NSMutableDictionary
+                    
+                    let data = selectedKey["isSelected"] as! String
+                    
+                    if data == "YES"{
+                        
+                        oneAnswerSelected = true
+                        
+                    }
                 }
             }
-       }
-        return true
+        return oneAnswerSelected
     }
-    
     
     
     func getHeader()-> [String]{
@@ -227,14 +254,8 @@ class EditAccountStrategyViewController: UIViewController {
                 headerArray.append(que)
             }
         }
-        
-       // print(headerArray)
-        
         return headerArray
     }
-    
-    
-    
     
     
     //MARK:- Button Actions
@@ -251,8 +272,7 @@ class EditAccountStrategyViewController: UIViewController {
         if validateFields{
             print("Success")
 
-
-
+            createStrategy()
 
         }else{
 
@@ -379,7 +399,6 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         return CGSize(width: 50.0, height: 110)
     }
     
-    
     func createStrategy() {
         let new_Strategy = StrategyQA(for: "NewStrategy")
         
@@ -390,7 +409,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy.SGWS_Account__c = AccountId.selectedAccountId
         new_Strategy.SGWS_Notes__c = StrategyNotes.accountStrategyNotes
         
-        let answersSelected = NSMutableArray()
+       // let answersSelected = NSMutableArray()
         
         for q in tableViewRowDetails!{
             
@@ -400,6 +419,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             
             let questionId = item["id"] as! String //Question Id
             
+            let answersCommaSeperated = NSMutableArray()
             
             for answers in dict{
                 
@@ -409,17 +429,14 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
                 
                 if isSelected == "YES"{
                     let answer = answerDict["answerText"] as! String
-                    answersSelected.add(answer)
+                    answersCommaSeperated.add(answer)
                 }
             }
             
             //answersSelected are answers selected bu user for this Question Id
             
             // I can say i can write my response to DB
-            let answerSelectedFormatted  = "testing"// answersSelected.componentsJoined(by: ",")
-            
-            
-            
+            let answerSelectedFormatted  =  answersCommaSeperated.componentsJoined(by: ",")
             
             new_Strategy.SGWS_Answer_Description_List__c = answerSelectedFormatted
             //    new_Strategy.SGWS_Answer_Options__r_Id = ""
@@ -445,14 +462,16 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
             print("Success is here \(success)")
             
-            break
             
-            //
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                
+                self.dismiss(animated: true, completion: nil)
+                self.delegate?.refreshStrategyScreenToLoadNewData()
+                
+            }, action2: {
+                
+            })
         }
-        
-        
-        
-        
         
         //        if success == true{
         //
@@ -465,124 +484,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         //
         //        }
         
-        
-        
-        
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    func createStrategy() {
-//        let new_Strategy = StrategyQA(for: "NewStrategy")
-//
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//
-//        new_Strategy.OwnerId = (appDelegate.loggedInUser?.userId)!
-//
-//        new_Strategy.SGWS_Account__c = AccountId.selectedAccountId
-//        new_Strategy.SGWS_Notes__c = StrategyNotes.accountStrategyNotes
-//
-//        let answersSelected = NSMutableArray()
-//
-//        for q in tableViewRowDetails!{
-//
-//            let item = q as! NSMutableDictionary
-//
-//            let dict = item["answers"] as! NSMutableArray
-//
-//            let questionId = item["id"] as! String //Question Id
-//
-//
-//            for answers in dict{
-//
-//                let answerDict = answers as! NSMutableDictionary
-//
-//                let isSelected = answerDict["isSelected"] as! String
-//
-//                if isSelected == "YES"{
-//                    let answer = answerDict["answerText"] as! String
-//                    answersSelected.add(answer)
-//                }
-//            }
-//
-//            kSyncTargetLocal:true,
-//            kSyncTargetLocallyCreated:true,
-//            kSyncTargetLocallyUpdated:false,
-//            kSyncTargetLocallyDeleted:false,
-//            "attributes":attributeDict]
-//
-//
-//        let new_Strategy3 = StrategyQA(for: "NewStrategy3")
-//
-//        new_Strategy3.Id = ""
-//        new_Strategy3.OwnerId = "005m0000002pSmiAAE"
-//        new_Strategy3.SGWS_Account__c = "001m000000cHSKbAAO"
-//        new_Strategy3.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
-//        //new_Strategy.SGWS_Answer_Options__r_Id = ""
-//        new_Strategy3.SGWS_Notes__c = "GGGGGGG"
-//        new_Strategy3.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
-//
-//
-//        let addNewDict3: [String:Any] = [
-//            StrategyQA.StrategyQAFields[0]:new_Strategy3.Id,
-//            StrategyQA.StrategyQAFields[11]:new_Strategy3.OwnerId,
-//            StrategyQA.StrategyQAFields[1]:new_Strategy3.SGWS_Account__c,
-//            StrategyQA.StrategyQAFields[12]:new_Strategy3.SGWS_Answer_Description_List__c,
-//            //   StrategyQA.StrategyQAFields[3]:new_Strategy2.SGWS_Answer_Options__r_Id,
-//            StrategyQA.StrategyQAFields[8]:new_Strategy3.SGWS_Notes__c,
-//            StrategyQA.StrategyQAFields[2]:new_Strategy3.SGWS_Question__r_Id,
-//
-//            kSyncTargetLocal:true,
-//            kSyncTargetLocallyCreated:true,
-//            kSyncTargetLocallyUpdated:false,
-//            kSyncTargetLocallyDeleted:false,
-//            "attributes":attributeDict]
-//
-//        let success3 = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict3)
-//        print("Success 3 is here \(success3)")
-//
-//        let new_Strategy4 = StrategyQA(for: "NewStrategy4")
-//
-//        new_Strategy4.Id = ""
-//        new_Strategy4.OwnerId = "005m0000002pSmiAAE"
-//        new_Strategy4.SGWS_Account__c = "001m000000cHSKbAAO"
-//        new_Strategy4.SGWS_Answer_Description_List__c = "Better Product/Offering,Less Effort"
-//        //new_Strategy.SGWS_Answer_Options__r_Id = ""
-//        new_Strategy4.SGWS_Notes__c = "HHHHHHH"
-//        new_Strategy4.SGWS_Question__r_Id = "a4vm00000009NL5AAM"
-//
-//        let addNewDict4: [String:Any] = [
-//            StrategyQA.StrategyQAFields[0]:new_Strategy4.Id,
-//            StrategyQA.StrategyQAFields[11]:new_Strategy4.OwnerId,
-//            StrategyQA.StrategyQAFields[1]:new_Strategy4.SGWS_Account__c,
-//            StrategyQA.StrategyQAFields[12]:new_Strategy4.SGWS_Answer_Description_List__c,
-//            //   StrategyQA.StrategyQAFields[3]:new_Strategy2.SGWS_Answer_Options__r_Id,
-//            StrategyQA.StrategyQAFields[8]:new_Strategy4.SGWS_Notes__c,
-//            StrategyQA.StrategyQAFields[2]:new_Strategy4.SGWS_Question__r_Id,
-//
-//            kSyncTargetLocal:true,
-//            kSyncTargetLocallyCreated:true,
-//            kSyncTargetLocallyUpdated:false,
-//            kSyncTargetLocallyDeleted:false,
-//            "attributes":attributeDict]
-//
-//        let success4 = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict4)
-//        print("Success 4 is here \(success3)")
-//
-//
-//        }
-//
-    
-    
 }
 
 

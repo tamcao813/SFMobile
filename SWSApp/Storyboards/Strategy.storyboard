@@ -51,7 +51,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="GDN-cb-nRD" kind="presentation" modalPresentationStyle="overCurrentContext" id="oZe-xy-RHZ"/>
+                                    <action selector="editButtonClickedWithSender:" destination="d4b-uZ-psi" eventType="touchUpInside" id="jk7-fi-Hon"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gOG-uA-kRW">
@@ -155,6 +155,7 @@
                         <outlet property="collectionView" destination="gOG-uA-kRW" id="dym-43-NDa"/>
                         <outlet property="lblLastModifiedDate" destination="FZE-sy-J5P" id="pHt-dK-p7k"/>
                         <outlet property="lblNoData" destination="17S-vj-Wd6" id="pga-h1-dD0"/>
+                        <segue destination="GDN-cb-nRD" kind="presentation" identifier="editStrategySegue" modalPresentationStyle="overCurrentContext" id="lZW-Zm-Fkq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgh-5G-dhT" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -183,6 +183,13 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
         
         return cell!
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
+        
+    }
 }
 
 

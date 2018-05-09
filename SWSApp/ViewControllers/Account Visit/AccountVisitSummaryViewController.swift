@@ -224,9 +224,8 @@ class AccountVisitSummaryViewController: UIViewController {
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             (vc as DuringVisitsViewController).visitObject = visitObject
-            
-            self.present(vc, animated: true, completion: nil)
             (vc as DuringVisitsViewController).delegate = self
+            self.present(vc, animated: true, completion: nil)
         }else{
             
             let storyboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
@@ -473,3 +472,18 @@ extension AccountVisitSummaryViewController: ButtonTableViewCellDelegate {
         
     }
 }
+
+extension AccountVisitSummaryViewController : NavigateToVisitSummaryScreenDelegate{
+   
+    func navigateToVisitSummaryScreen() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+
+
+
+
+
+

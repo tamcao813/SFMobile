@@ -135,6 +135,24 @@
 		8D10B27A2099DF0E00C8A86C /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D10B2792099DF0E00C8A86C /* Contacts.storyboard */; };
 		8D10B27B2099DF0E00C8A86C /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D10B2792099DF0E00C8A86C /* Contacts.storyboard */; };
 		8D10B282209B01B600C8A86C /* ContactListDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */; };
+		8D17A5C620A1F7A000ABC9DC /* CreateNewVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5C520A1F7A000ABC9DC /* CreateNewVisitViewController.swift */; };
+		8D17A5C720A1F7A000ABC9DC /* CreateNewVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5C520A1F7A000ABC9DC /* CreateNewVisitViewController.swift */; };
+		8D17A5CA20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5C820A1FFB600ABC9DC /* SearchForContactTableViewCell.swift */; };
+		8D17A5CB20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5C820A1FFB600ABC9DC /* SearchForContactTableViewCell.swift */; };
+		8D17A5CC20A1FFB600ABC9DC /* SearchForContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D17A5C920A1FFB600ABC9DC /* SearchForContactTableViewCell.xib */; };
+		8D17A5CD20A1FFB600ABC9DC /* SearchForContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D17A5C920A1FFB600ABC9DC /* SearchForContactTableViewCell.xib */; };
+		8D17A5D020A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5CE20A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift */; };
+		8D17A5D120A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5CE20A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift */; };
+		8D17A5D220A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D17A5CF20A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib */; };
+		8D17A5D320A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D17A5CF20A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib */; };
+		8D17A5D620A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5D420A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift */; };
+		8D17A5D720A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5D420A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift */; };
+		8D17A5D820A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D17A5D520A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib */; };
+		8D17A5D920A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D17A5D520A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib */; };
+		8D17A5DD20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5DB20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift */; };
+		8D17A5DE20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5DB20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift */; };
+		8D17A5DF20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D17A5DC20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib */; };
+		8D17A5E020A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D17A5DC20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib */; };
 		8D8C450C2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C450A2096E75D0099204C /* SearchAccountTableViewCell.swift */; };
 		8D8C450D2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C450A2096E75D0099204C /* SearchAccountTableViewCell.swift */; };
 		8D8C450E2096E75D0099204C /* SearchAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C450B2096E75D0099204C /* SearchAccountTableViewCell.xib */; };
@@ -451,6 +469,15 @@
 		8D10B2732099ABFA00C8A86C /* AccountContactLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactLinkTableViewCell.swift; sourceTree = "<group>"; };
 		8D10B2742099ABFA00C8A86C /* AccountContactLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountContactLinkTableViewCell.xib; sourceTree = "<group>"; };
 		8D10B2792099DF0E00C8A86C /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
+		8D17A5C520A1F7A000ABC9DC /* CreateNewVisitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVisitViewController.swift; sourceTree = "<group>"; };
+		8D17A5C820A1FFB600ABC9DC /* SearchForContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForContactTableViewCell.swift; sourceTree = "<group>"; };
+		8D17A5C920A1FFB600ABC9DC /* SearchForContactTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchForContactTableViewCell.xib; sourceTree = "<group>"; };
+		8D17A5CE20A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactVisitLinkTableViewCell.swift; sourceTree = "<group>"; };
+		8D17A5CF20A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactVisitLinkTableViewCell.xib; sourceTree = "<group>"; };
+		8D17A5D420A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContactLinkToVisitTableViewCell.swift; sourceTree = "<group>"; };
+		8D17A5D520A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewContactLinkToVisitTableViewCell.xib; sourceTree = "<group>"; };
+		8D17A5DB20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleAppointmentTableViewCell.swift; sourceTree = "<group>"; };
+		8D17A5DC20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleAppointmentTableViewCell.xib; sourceTree = "<group>"; };
 		8D8C450A2096E75D0099204C /* SearchAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAccountTableViewCell.swift; sourceTree = "<group>"; };
 		8D8C450B2096E75D0099204C /* SearchAccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchAccountTableViewCell.xib; sourceTree = "<group>"; };
 		8D99A2DE2091E14700FAA71A /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
@@ -738,12 +765,29 @@
 		8D10B281209B018200C8A86C /* Account Visit */ = {
 			isa = PBXGroup;
 			children = (
+				8D17A5DA20A2248D00ABC9DC /* Create Visit Cells */,
 				D23C40B6208DE6470006691C /* Header View */,
 				D23C40BD208DE6580006691C /* Account Visit Cells */,
 				D2CD7F62208E01B20016B4FB /* AccountVisitListViewController.swift */,
 				D23C4088208DCEFF0006691C /* AccountVisitSummaryViewController.swift */,
+				8D17A5C520A1F7A000ABC9DC /* CreateNewVisitViewController.swift */,
 			);
 			path = "Account Visit";
+			sourceTree = "<group>";
+		};
+		8D17A5DA20A2248D00ABC9DC /* Create Visit Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8D17A5C820A1FFB600ABC9DC /* SearchForContactTableViewCell.swift */,
+				8D17A5C920A1FFB600ABC9DC /* SearchForContactTableViewCell.xib */,
+				8D17A5CE20A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift */,
+				8D17A5CF20A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib */,
+				8D17A5D420A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift */,
+				8D17A5D520A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib */,
+				8D17A5DB20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift */,
+				8D17A5DC20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib */,
+			);
+			path = "Create Visit Cells";
 			sourceTree = "<group>";
 		};
 		8D99A2E42091E61100FAA71A /* Contact Cells */ = {
@@ -1210,6 +1254,7 @@
 				8D99A2F72091E70900FAA71A /* PrimaryFunctionTableViewCell.xib in Resources */,
 				D23C40BA208DE6480006691C /* AccountVisitSectionHeaderView.xib in Resources */,
 				6D38327C20874026006805C6 /* Ubuntu-LightItalic.ttf in Resources */,
+				8D17A5D320A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib in Resources */,
 				6D38327D20874026006805C6 /* CrimsonText-Roman.ttf in Resources */,
 				8DD150022093307800858349 /* SelectedAssociateTableViewCell.xib in Resources */,
 				6D38327E20874026006805C6 /* Ubuntu-BoldItalic.ttf in Resources */,
@@ -1228,6 +1273,7 @@
 				8D8C450F2096E75D0099204C /* SearchAccountTableViewCell.xib in Resources */,
 				8DD150052093308600858349 /* AssociateTableViewCell.xib in Resources */,
 				6D38328420874026006805C6 /* Localizable.strings in Resources */,
+				8D17A5D920A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib in Resources */,
 				8D99A2F12091E6F600FAA71A /* NameTableViewCell.xib in Resources */,
 				D23C40CB208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */,
 				D23C40CF208DE6590006691C /* HeadSubHeadTableViewCell.xib in Resources */,
@@ -1242,6 +1288,7 @@
 				6D38328820874026006805C6 /* Ubuntu-Italic.ttf in Resources */,
 				6D38328920874026006805C6 /* UFL.txt in Resources */,
 				6D38328A20874026006805C6 /* CrimsonText-Italic.ttf in Resources */,
+				8D17A5E020A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib in Resources */,
 				F20C1A28209347EA00D2351C /* Insights.plist in Resources */,
 				8DA1343320A0597B006A62DE /* LocationTableViewCell.xib in Resources */,
 				F2590106209216ED00C2E354 /* DuringVisitTopics.plist in Resources */,
@@ -1249,6 +1296,7 @@
 				6D38328C20874026006805C6 /* Main.storyboard in Resources */,
 				F2FD2C2F20919B2900037BB2 /* EditAccountStrategy.plist in Resources */,
 				F2FDA14C2099DEEA000921A8 /* ServicePurposes.plist in Resources */,
+				8D17A5CD20A1FFB600ABC9DC /* SearchForContactTableViewCell.xib in Resources */,
 				6D38328D20874026006805C6 /* LaunchScreen.storyboard in Resources */,
 				D23C40DB208DFA890006691C /* AccountVisitListTableViewCell.xib in Resources */,
 				F2062E5F2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */,
@@ -1269,6 +1317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D17A5DF20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib in Resources */,
 				6DBD03252077B5EF0083419E /* Ubuntu-LightItalic.ttf in Resources */,
 				AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */,
 				6DBD03282077B5EF0083419E /* CrimsonText-Roman.ttf in Resources */,
@@ -1277,6 +1326,7 @@
 				8D10B27A2099DF0E00C8A86C /* Contacts.storyboard in Resources */,
 				F2062E5E2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */,
 				8DA1343820A070EC006A62DE /* ButtonTableViewCell.xib in Resources */,
+				8D17A5CC20A1FFB600ABC9DC /* SearchForContactTableViewCell.xib in Resources */,
 				6DBD031D2077B5EF0083419E /* Ubuntu-Regular.ttf in Resources */,
 				F2590105209216ED00C2E354 /* DuringVisitTopics.plist in Resources */,
 				6DBD03232077B5EF0083419E /* Ubuntu-Medium.ttf in Resources */,
@@ -1292,6 +1342,7 @@
 				8D8C450E2096E75D0099204C /* SearchAccountTableViewCell.xib in Resources */,
 				12C5CEF3206E1A9500BC6E7A /* Localizable.strings in Resources */,
 				6DBD03212077B5EF0083419E /* Ubuntu-Light.ttf in Resources */,
+				8D17A5D220A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib in Resources */,
 				6DBD031F2077B5EF0083419E /* Ubuntu-Bold.ttf in Resources */,
 				C9B63C68208DB6DB008D9E14 /* Notes.storyboard in Resources */,
 				F20C1A27209347EA00D2351C /* Insights.plist in Resources */,
@@ -1301,6 +1352,7 @@
 				D23C40D0208DE6590006691C /* AssociatedContactsTableViewCell.xib in Resources */,
 				8D99A30E2091E77C00FAA71A /* DateFieldTableViewCell.xib in Resources */,
 				8D99A2E22091E14700FAA71A /* ToggleTableViewCell.xib in Resources */,
+				8D17A5D820A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib in Resources */,
 				6DBD031A2077B5EF0083419E /* UFL.txt in Resources */,
 				8D99A3142091E79C00FAA71A /* DropdownTableViewCell.xib in Resources */,
 				8D99A3202092501000FAA71A /* FamilyTableViewCell.xib in Resources */,
@@ -1536,6 +1588,7 @@
 				6D38325120874026006805C6 /* Contact.swift in Sources */,
 				8DD1500A209330E200858349 /* AccountView.swift in Sources */,
 				AE8F41EF20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */,
+				8D17A5D120A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
 				8DD1500F2093370400858349 /* (null) in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
@@ -1554,8 +1607,10 @@
 				AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */,
 				91C3E59C208F0F4F0067CF3E /* ContactsViewController.swift in Sources */,
 				129A699C2099A9BB00642B14 /* StrategyAnswers.swift in Sources */,
+				8D17A5D720A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
 				6D38325920874026006805C6 /* CurrencyFormatter.swift in Sources */,
 				D2CD7F64208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
+				8D17A5CB20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */,
 				D26768892090B1BB0060E792 /* ContactListTableViewCell.swift in Sources */,
 				6D38325A20874026006805C6 /* AccountsMenuTableTableViewCell.swift in Sources */,
 				D23C40BC208DE6480006691C /* AccountVisitSectionHeaderView.swift in Sources */,
@@ -1597,6 +1652,7 @@
 				6D38326820874026006805C6 /* User.swift in Sources */,
 				D267688F2090B41B0060E792 /* CreateNewContactViewController.swift in Sources */,
 				D23C408F208DCF010006691C /* AccountVisitSummaryViewController.swift in Sources */,
+				8D17A5DE20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */,
 				8DA1343720A070EC006A62DE /* ButtonTableViewCell.swift in Sources */,
 				6D38326920874026006805C6 /* AppDelegate.swift in Sources */,
 				6D38326A20874026006805C6 /* AccountsViewModel.swift in Sources */,
@@ -1637,6 +1693,7 @@
 				6D38327720874026006805C6 /* ReportsViewController.swift in Sources */,
 				F2DC2841208E6B600005294E /* AccountStrategyCollectionReusableView.swift in Sources */,
 				12BBEDBA2094511D00797CD9 /* CreateNoteViewController.swift in Sources */,
+				8D17A5C720A1F7A000ABC9DC /* CreateNewVisitViewController.swift in Sources */,
 				F2CAD2332095806C001016C2 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */,
 				6D38327820874026006805C6 /* StoreDispatcher.swift in Sources */,
 			);
@@ -1685,6 +1742,7 @@
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
 				12E47BE2208B458C00D37B74 /* ContactListDetailsViewController.swift in Sources */,
 				F20C1A2F20937C3700D2351C /* AccountsNotesViewModel.swift in Sources */,
+				8D17A5C620A1F7A000ABC9DC /* CreateNewVisitViewController.swift in Sources */,
 				129A699B2099A9BB00642B14 /* StrategyAnswers.swift in Sources */,
 				6F8BD3EB20720281006CABA8 /* AccountListViewController.swift in Sources */,
 				6F3D30A4206BA59D000CFFCC /* XMSegmentedControl.swift in Sources */,
@@ -1693,6 +1751,7 @@
 				D26768882090B1BA0060E792 /* ContactListTableViewCell.swift in Sources */,
 				128B1A9A206BADF8004E148A /* AccountDetailTabViewController.swift in Sources */,
 				F2AB94552095CBA90028802E /* AlertUtility.swift in Sources */,
+				8D17A5CA20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */,
 				D1FCDE1020733025005F956D /* UserViewModel.swift in Sources */,
 				D125134220648C4F00CD6CB4 /* Account.swift in Sources */,
 				129A69982099A3AF00642B14 /* StrategyQuestionsViewModel.swift in Sources */,
@@ -1702,6 +1761,7 @@
 				6FE55BAA2080DA19006A9A80 /* DateTimeUtility.swift in Sources */,
 				D2EAEB8C2074EC1E005F7792 /* TransactionsViewController.swift in Sources */,
 				D2EAEB922074EDBE005F7792 /* ActionItemsViewController.swift in Sources */,
+				8D17A5D020A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
 				AE8F41F420A09F1B0033F81D /* UIView+Properties.swift in Sources */,
 				4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */,
 				8D10B2752099ABFA00C8A86C /* AccountContactLinkTableViewCell.swift in Sources */,
@@ -1747,6 +1807,7 @@
 				8D8C450C2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */,
 				AE43DD1B209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */,
 				F2AB945F2095D5000028802E /* DuringVisitsTopicsViewController.swift in Sources */,
+				8D17A5D620A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
 				D2CD7F63208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
 				C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */,
 				D1FE1D0720657B7E009CC47C /* SFAError.swift in Sources */,
@@ -1766,6 +1827,7 @@
 				8D99A30C2091E77C00FAA71A /* DateFieldTableViewCell.swift in Sources */,
 				D23C40C6208DE6590006691C /* AssociatedContactsTableViewCell.swift in Sources */,
 				F2AB945A2095D4E40028802E /* AccountStrategyViewControllerr.swift in Sources */,
+				8D17A5DD20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */,
 				129A699E2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */,
 				AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */,
 				C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */,

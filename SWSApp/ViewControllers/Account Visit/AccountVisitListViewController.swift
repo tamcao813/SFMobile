@@ -54,11 +54,9 @@ class AccountVisitListViewController: UIViewController {
     }
     
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
-        let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID") as! PlanVisitViewController
-        viewController.modalPresentationStyle = .overCurrentContext
-//        viewController.delegate = self
-        self.present(viewController, animated: true)
+        let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+        createVisitViewController.isEditingMode = false
+        self.present(createVisitViewController, animated: true)
     }
     
 }
@@ -136,7 +134,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         let data : Visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
         (accountVisitsVC)?.delegate = self
-        accountVisitsVC?.visitObject = data
+        accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
         DispatchQueue.main.async {
             self.present(accountVisitsVC!, animated: true, completion: nil)
         }

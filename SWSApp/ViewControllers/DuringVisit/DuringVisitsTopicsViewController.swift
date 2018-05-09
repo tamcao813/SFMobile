@@ -220,7 +220,9 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        
+        FilterMenuModel.comingFromDetailsScreen = "YES"
+        //FilterMenuModel.selectedAccountId = <Populate the account id>
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
         
     }
 }

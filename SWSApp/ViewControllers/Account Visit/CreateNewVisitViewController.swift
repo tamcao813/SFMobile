@@ -41,6 +41,8 @@ class CreateNewVisitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        errorLbl.text = ""
+        errorLbl.isHidden = false
         initializeNibs()
         customizedUI()
         fetchVisit()
@@ -168,7 +170,9 @@ class CreateNewVisitViewController: UIViewController {
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
                 let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-                self.dismiss(animated: true)
+                let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+                let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
+                self.present(viewController, animated: true)
             }else{
                 createNewVisit(dismiss: false)
             }
@@ -325,10 +329,8 @@ class CreateNewVisitViewController: UIViewController {
         
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         let fullDate = dateFormatter.date(from: date)
-        
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         let formattedDate = dateFormatter.string(from: fullDate!)

@@ -122,7 +122,7 @@ class ServicePurposesViewController: UIViewController {
             //Take Purpose List
             let stringRepresentation = selectedPurposesValuesList.joined(separator: ";")
             PlanVistManager.sharedInstance.sgwsVisitPurpose = stringRepresentation
-            
+           // PlanVistManager.sharedInstance.sgwsAgendaNotes =
             let status = PlanVistManager.sharedInstance.editAndSaveVisit()
             print(status)
             

@@ -233,14 +233,14 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             
         } else {
             
-//            PlanVistManager.sharedInstance.status = "Scheduled"
+            //            PlanVistManager.sharedInstance.status = "Scheduled"
             PlanVistManager.sharedInstance.visit?.status = "Scheduled"
-
+            
             errorLbl.isHidden = true
             self.insetValuesToDB()
             
             //Edit the visit
-
+            
             if((PlanVistManager.sharedInstance.visit?.Id) != nil){
                 
                 let status = PlanVistManager.sharedInstance.editAndSaveVisit()
@@ -253,7 +253,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
                 createNewVisit()
                 
             }
-
+            
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             self.dismiss(animated: true)
         }
@@ -771,15 +771,14 @@ extension PlanVisitViewController : UITextFieldDelegate{
         let success = visitViewModel.createNewVisitLocally(fields: addNewDict)
         print("Success is here \(success)")
         
-
-        }
-    
         
     }
     
-    // Show the alert if not saved
     
 }
+
+// Show the alert if not saved
+
 
 
 

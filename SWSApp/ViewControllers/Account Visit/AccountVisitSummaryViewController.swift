@@ -41,6 +41,11 @@ class AccountVisitSummaryViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchVisit()
@@ -253,10 +258,13 @@ class AccountVisitSummaryViewController: UIViewController {
             self.present(viewController!, animated: true)
         case .planned?:
             PlanVistManager.sharedInstance.editPlanVisit = true
-            let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
-            viewController.modalPresentationStyle = .overCurrentContext
-            self.present(viewController, animated: true)
+            let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+            createVisitViewController.isEditingMode = false
+            createVisitViewController.visitId = visitObject?.Id
+            //        createVisitViewController.delegate = self
+            DispatchQueue.main.async {
+                self.present(createVisitViewController, animated: true)
+            }
         default:
             break
         }
@@ -413,7 +421,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
                 cell?.headingLabel.text = "Opportunities Selected"
-//                cell?.SubheadingLabel.text = visitObject?.sgwsVisitPurpose
+                cell?.SubheadingLabel.text = ""
                 return cell!
             case 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell

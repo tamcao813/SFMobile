@@ -56,12 +56,13 @@ class PlanVistManager {
             new_visit.sgwsAppointmentStatus = (visit?.sgwsAppointmentStatus)!
             new_visit.startDate =  (visit?.startDate)!
             new_visit.endDate = (visit?.endDate)!
-            new_visit.sgwsVisitPurpose = (visit?.sgwsVisitPurpose)!
-            new_visit.description = (visit?.description)!
-            new_visit.sgwsAgendaNotes = (visit?.sgwsAgendaNotes)!
+            new_visit.sgwsVisitPurpose = PlanVistManager.sharedInstance.sgwsVisitPurpose
+            new_visit.sgwsAgendaNotes = PlanVistManager.sharedInstance.sgwsAgendaNotes
             new_visit.status = (visit?.status)!
+            new_visit.description = (visit?.description)!
+
             let attributeDict = ["type":"WorkOrder"]
-            
+        
             
             let addNewDict: [String:Any] = [
                 

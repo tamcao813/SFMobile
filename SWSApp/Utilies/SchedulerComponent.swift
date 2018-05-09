@@ -123,7 +123,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
     
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateTextField.text = dateFormatter.string(from: datePickerView.date)
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.

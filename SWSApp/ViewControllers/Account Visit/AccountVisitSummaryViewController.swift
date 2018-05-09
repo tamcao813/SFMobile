@@ -18,7 +18,7 @@ protocol NavigateToContactsDelegate {
 
 class AccountVisitSummaryViewController: UIViewController {
     
-    var visitObject: Visit?
+    var visitId: String?
     var accountObject: Account?
     
     @IBOutlet weak var statusLabel: UILabel!
@@ -31,25 +31,66 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    var selectedContact: Contact!
+    var visitObject: Visit?
     
     var visitStatus: AccountVisitStatus?
     var delegate : NavigateToContactsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let accounts = AccountsViewModel().accountsForLoggedUser
-        if let accountId = visitObject?.accountId {
-            for account in accounts {
-                if account.account_Id == accountId {
-                    accountObject = account
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchVisit()
+        UICustomizations()
+        initializingXIBs()
+        refactoringUIOnApplicationStatusBasis()
+    }
+    
+    func fetchVisit(){
+        if let id = visitId{
+            let visitArray = VisitsViewModel().visitsForUser()
+            for visit in visitArray {
+                if visit.Id == visitId {
+                    visitObject = visit
                     break
                 }
             }
         }
-        UICustomizations()
-        initializingXIBs()
-        refactoringUIOnApplicationStatusBasis()
-         self.getStartDateAndEndTime()
+        fetchAccountDetails()
+        fetchContactDetails()
+    }
+    
+    func fetchAccountDetails(){
+        if let accountId = visitObject?.accountId {
+            let accountsArray = AccountsViewModel().accountsForLoggedUser
+            for account in accountsArray{
+                if account.account_Id == accountId {
+                    accountObject = account
+                }
+            }
+        }
+    }
+    
+    func fetchContactDetails(){
+        if let contactId = visitObject?.contactId {
+            let contactsArray = ContactsViewModel().globalContacts()
+            for contact in contactsArray {
+                if contact.contactId == contactId {
+                    selectedContact = contact
+                    break
+                }
+                
+            }
+        }
+        tableView.reloadData()
     }
     
     func UICustomizations(){
@@ -70,6 +111,7 @@ class AccountVisitSummaryViewController: UIViewController {
         deleteVisitButton.setImage(image, for: .normal)
         deleteVisitButton.tintColor = UIColor(hexString: "#4287C2")
         deleteVisitButton.setTitle("    Delete", for: .normal)
+        self.getStartDateAndEndTime()
     }
     
     func getStartDateAndEndTime() {
@@ -162,7 +204,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
             
             if(success){
-                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
                 self.dismiss(animated: true, completion: nil)
             }
             
@@ -199,10 +241,13 @@ class AccountVisitSummaryViewController: UIViewController {
         switch visitStatus {
         case .scheduled?:
             PlanVistManager.sharedInstance.editPlanVisit = true
-            let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
-            viewController.modalPresentationStyle = .overCurrentContext
-            self.present(viewController, animated: true)
+            let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+            createVisitViewController.isEditingMode = false
+            createVisitViewController.visitId = visitObject?.Id
+            //        createVisitViewController.delegate = self
+            DispatchQueue.main.async {
+                self.present(createVisitViewController, animated: true)
+            }
         case .inProgress?:
             print("In progress")
         case .completed?:
@@ -213,10 +258,13 @@ class AccountVisitSummaryViewController: UIViewController {
             self.present(viewController!, animated: true)
         case .planned?:
             PlanVistManager.sharedInstance.editPlanVisit = true
-            let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
-            viewController.modalPresentationStyle = .overCurrentContext
-            self.present(viewController, animated: true)
+            let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+            createVisitViewController.isEditingMode = false
+            createVisitViewController.visitId = visitObject?.Id
+            //        createVisitViewController.delegate = self
+            DispatchQueue.main.async {
+                self.present(createVisitViewController, animated: true)
+            }
         default:
             break
         }
@@ -246,10 +294,10 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
             DispatchQueue.main.async {
                 self.dismiss(animated: true, completion: nil)
                 self.delegate?.navigateToAccountScreen()
+            }){
+                
             }
-        }){
-            
-        }
+        }        
     }
 }
 
@@ -261,7 +309,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case .scheduled?:
             return 2
         case .inProgress?,.planned?,.completed?:
-            return 5
+            return 6
         default:
             return 0
         }
@@ -372,15 +420,20 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 return getConatactCell()
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+                cell?.headingLabel.text = "Opportunities Selected"
+                cell?.SubheadingLabel.text = ""
+                return cell!
+            case 3:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
                 cell?.headingLabel.text = "Service Purposes"
                 cell?.SubheadingLabel.text = visitObject?.sgwsVisitPurpose
                 return cell!
-            case 3:
+            case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
                 cell?.headingLabel.text = "Agenda Notes"
                 cell?.SubheadingLabel.text = visitObject?.sgwsAgendaNotes
                 return cell!
-            case 4:
+            case 5:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
                 cell?.delegate = self
                 return cell!
@@ -403,10 +456,10 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func getConatactCell() -> AssociatedContactsTableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssociatedContactsTableViewCell") as? AssociatedContactsTableViewCell
         
-        if let contactId = visitObject?.contactId, contactId != "" {
+        if let contactId = selectedContact, contactId.contactId != "" {
             cell?.containerHeightConstraint.constant = 100
             cell?.containerView.isHidden = false
-            cell?.displayCellContent(visit: visitObject!)
+            cell?.displayCellContent(contact: contactId)
         }else{
             cell?.containerHeightConstraint.constant = 0
             cell?.containerView.isHidden = true            

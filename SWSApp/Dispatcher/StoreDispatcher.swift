@@ -1956,7 +1956,7 @@ class StoreDispatcher {
     }
     
     
-    func createNewVisitLocally(fieldsToUpload: [String:Any]) -> Bool{
+    func createNewVisitLocally(fieldsToUpload: [String:Any]) -> (Bool,Int){
         
         let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupVisit)
         if ary.count > 0 {
@@ -1964,10 +1964,10 @@ class StoreDispatcher {
             let soupEntryId = result["_soupEntryId"]
             print(result)
             print(soupEntryId!)
-            return true
+            return (true,soupEntryId as! Int)
         }
         else {
-            return false
+            return (false,0)
         }
     }
     
@@ -2085,6 +2085,67 @@ class StoreDispatcher {
         }
     }
     
+    
+    func editVisit(fields: [String:Any]) -> Bool{
+        var allFields = fields
+        allFields["attributes"] = ["type":"WorkOrder"]
+        allFields[kSyncTargetLocal] = true
+        var ary = [Any]()
+        
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupVisit, withOrderPath: "LastModifiedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        for  singleVisit in result{
+            var singleVisitModif = singleVisit as! [String:Any]
+            let singleVisitModifValue = singleVisitModif["Id"] as! String
+            let fieldsIdValue = allFields["Id"] as! String
+            
+            if(fieldsIdValue == singleVisitModifValue){
+                
+                let createdFlag = singleVisitModif[kSyncTargetLocallyCreated] as! Bool
+                
+                singleVisitModif["Id"] = allFields["Id"]
+                singleVisitModif["Subject"] = allFields["Subject"]
+                singleVisitModif["AccountId"] = allFields["AccountId"]
+                singleVisitModif["SGWS_Appointment_Status__c"] = allFields["SGWS_Appointment_Status__c"]
+                singleVisitModif["StartDate"] = allFields["StartDate"]
+                singleVisitModif["EndDate"] = allFields["EndDate"]
+                singleVisitModif["SGWS_Visit_Purpose__c"] = allFields["SGWS_Visit_Purpose__c"]
+                singleVisitModif["Description"] = allFields["Description"]
+                singleVisitModif["SGWS_Agenda_Notes__c"] = allFields["SGWS_Agenda_Notes__c"]
+                singleVisitModif["Status"] = allFields["Status"]
+                
+                if(createdFlag){
+                    singleVisitModif[kSyncTargetLocal] = true
+                    singleVisitModif[kSyncTargetLocallyUpdated] = false
+                    singleVisitModif[kSyncTargetLocallyCreated] = true
+                    
+                }else {
+                    singleVisitModif[kSyncTargetLocal] = true
+                    singleVisitModif[kSyncTargetLocallyCreated] = false
+                    singleVisitModif[kSyncTargetLocallyUpdated] = true
+                    
+                }
+                singleVisitModif[kSyncTargetLocallyDeleted] = false
+                ary = sfaStore.upsertEntries([singleVisitModif], toSoup: SoupVisit)
+                break
+                
+            }
+        }
+        
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
     
     
 }

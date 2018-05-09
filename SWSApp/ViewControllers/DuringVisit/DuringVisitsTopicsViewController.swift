@@ -14,18 +14,31 @@ class  DuringVisitsTopicsViewController : UIViewController {
     @IBOutlet weak var collectionView : UICollectionView?
     
     var visitObject : Visit?
-    
+    var accountObject: Account?
     var collectionViewRowDetails : NSMutableArray?
+    
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewRowDetails = NSMutableArray()
+        fetchAccountDetails()
         //let plistPath = Bundle.main.path(forResource: "DuringVisitTopics", ofType: ".plist", inDirectory: nil)
         //let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         //collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
         
         //print(dictionary!)
+    }
+    
+    func fetchAccountDetails(){
+        if let accountId = visitObject?.accountId {
+            let accountsArray = AccountsViewModel().accountsForLoggedUser
+            for account in accountsArray{
+                if account.account_Id == accountId {
+                    accountObject = account
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,34 +47,54 @@ class  DuringVisitsTopicsViewController : UIViewController {
         let mainArray = NSMutableArray()
         
         let addressDict = NSMutableDictionary()
-        addressDict.setValue(visitObject?.accountName, forKey: "storeName")
-        addressDict.setValue(visitObject?.accountNumber, forKey: "accountNumber")
+        addressDict.setValue(accountObject?.accountName, forKey: "storeName")
+        addressDict.setValue(accountObject?.accountNumber, forKey: "accountNumber")
         //addressDict.setValue("", forKey: "headerText")
-                
-        let address = visitObject?.accountBillingAddress
         
-        if address != ""{
-            
-            let data = self.convertToDictionary(text: address!)
-            
-            let street = data!["street"] as? String ?? ""
-//            guard let street = data!["street"] as? String else{
-//                return
-//            }
-            let city = data!["city"] as? String ?? ""
-//            guard let city = data!["city"] as? String else{
-//                return
-//            }
-            let postalCode = data!["postalCode"] as? String ?? ""
-//            guard let postalCode = data!["postalCode"] as? String else {
-//                return
-//            }
-            let addressString = street + " " + city + " " + postalCode
-            
-            addressDict.setValue(addressString, forKey: "storeAddress")
-            mainArray.add(addressDict)
-            
+        var fullAddress = ""
+        if let shippingStreet = accountObject?.shippingStreet, let shippingCity = accountObject?.shippingCity , let shippingState = accountObject?.shippingState, let shippingPostalCode = accountObject?.shippingPostalCode{
+            // latitudeDouble and longitudeDouble are non-optional in here
+            if shippingStreet == "" && shippingCity == "" && shippingState == "" && shippingPostalCode == "" {
+                fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+            }else{
+                if (shippingStreet != "" || shippingCity != "") {
+                    if (shippingState != "" || shippingPostalCode != "") {
+                        fullAddress = "\(shippingStreet) \(shippingCity), \(shippingState) \(shippingPostalCode)"
+                    }else{
+                        fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                    }
+                }else{
+                    fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                }
+            }
         }
+        addressDict.setValue(fullAddress, forKey: "storeAddress")
+        mainArray.add(addressDict)
+        
+//        addressLabel?.text = fullAddress
+        
+//        if let address = accountObject.accountBillingAddress {
+//
+//            if address != ""{
+//                let data = self.convertToDictionary(text: address)
+//
+//                let street = data!["street"] as? String ?? ""
+//    //            guard let street = data!["street"] as? String else{
+//    //                return
+//    //            }
+//                let city = data!["city"] as? String ?? ""
+//    //            guard let city = data!["city"] as? String else{
+//    //                return
+//    //            }
+//                let postalCode = data!["postalCode"] as? String ?? ""
+//    //            guard let postalCode = data!["postalCode"] as? String else {
+//    //                return
+//    //            }
+//                let addressString = street + " " + city + " " + postalCode
+//
+//
+//            }
+//        }
 
         let visitNotes = visitObject?.description
         let displayDataDict = NSMutableDictionary()

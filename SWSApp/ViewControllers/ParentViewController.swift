@@ -269,24 +269,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             }else{
                 print("Contacts uploaded to server  Successfully")
                 
-                StoreDispatcher.shared.downloadAllSoups({ (error) in
-                    if error != nil {
-                        print("PostSyncUp:downloadAllSoups")
-                    }
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
-
-                    DispatchQueue.main.async {
-                        MBProgressHUD.hide(forWindow: true)
-                    }
-                })
-                
             }
         })
         
         // Visits (WorkOrder) Sync Up
-        VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status"], completion:{ error in
+        VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","ContactId"], completion:{ error in
             if error != nil {
-                MBProgressHUD.hide(forWindow: true)
                 print(error?.localizedDescription ?? "error")
             }
         } )
@@ -296,11 +284,25 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let fields: [String] = StrategyQA.StrategyQAFields
         StrategyQAViewModel().uploadStrategyQAToServer(fields: fields, completion: { error in
             if error != nil {
-                 MBProgressHUD.hide(forWindow: true)
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(forWindow: true)
+                }
                 print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
             }
         })
         
+        StoreDispatcher.shared.downloadAllSoups({ (error) in
+            if error != nil {
+                print("PostSyncUp:downloadAllSoups")
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+            
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(forWindow: true)
+            }
+        })
+        
+          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
       
     }
     

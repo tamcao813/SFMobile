@@ -54,11 +54,13 @@ class AccountVisitListViewController: UIViewController {
     }
     
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
-        let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID") as! PlanVisitViewController
-        viewController.modalPresentationStyle = .overCurrentContext
-//        viewController.delegate = self
-        self.present(viewController, animated: true)
+        let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+        createVisitViewController.isEditingMode = false
+        
+        //Reset the PlanVistManager
+        PlanVistManager.sharedInstance.visit = nil
+        
+        self.present(createVisitViewController, animated: true)
     }
     
 }
@@ -136,7 +138,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         let data : Visit = tableViewDataArray![indexPath.row]
         PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
         (accountVisitsVC)?.delegate = self
-        accountVisitsVC?.visitObject = data
+        accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
         DispatchQueue.main.async {
             self.present(accountVisitsVC!, animated: true, completion: nil)
         }
@@ -154,7 +156,9 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {        
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
-            ContactsGlobal.accountId = ""
+            if let visit = PlanVistManager.sharedInstance.visit{
+            ContactsGlobal.accountId = visit.accountId
+            }
             // Added this line so that Contact detail view is not launched for this scenario.
             ContactFilterMenuModel.selectedContactId = ""
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)

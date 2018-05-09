@@ -77,6 +77,7 @@ extension SearchAccountTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         accountsDropDown.show()
+        CreateNewVisitViewController.createNewVisitViewControllerGlobals.userInput = true
         CreateNewContactViewController.createNewGlobals.userInput = true        
     }
     

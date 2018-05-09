@@ -25,7 +25,7 @@ class ServicePurposesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //STATEMACHINE:If you com tho this Screen its in Planned state
-        PlanVistManager.sharedInstance.status = "Scheduled"
+        PlanVistManager.sharedInstance.visit?.status = "Scheduled"
         print("ServicePurposesViewController")
         
         let plistPath = Bundle.main.path(forResource: "ServicePurposes", ofType: ".plist", inDirectory: nil)
@@ -94,6 +94,7 @@ class ServicePurposesViewController: UIViewController {
             uiAlertController.addAction(// add Custom action on Event is Cancel
                 UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
                     uiAlertController.dismiss(animated: true, completion: nil)
+                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
                     self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 }))
             uiAlertController.addAction(// add Custom action on Event is Cancel
@@ -102,6 +103,7 @@ class ServicePurposesViewController: UIViewController {
                 }))
             self.present(uiAlertController, animated: true, completion: nil)
         } else {
+             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         }
     }
@@ -113,7 +115,18 @@ class ServicePurposesViewController: UIViewController {
     @IBAction func saveAndClose(sender: UIButton) {
        
         
-        createNewVisit()
+        if((PlanVistManager.sharedInstance.visit?.Id) != nil){
+            
+            PlanVistManager.sharedInstance.visit?.status = "Planned"
+            
+            //Take Purpose List
+            let stringRepresentation = selectedPurposesValuesList.joined(separator: ";")
+            PlanVistManager.sharedInstance.sgwsVisitPurpose = stringRepresentation
+           // PlanVistManager.sharedInstance.sgwsAgendaNotes =
+            let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+            print(status)
+            
+        }
         
         self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
@@ -310,62 +323,5 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
             return 0.0
         }
     }
-    
-    func generateRandomIDForNotes()->String  {
-        //  Make a variable equal to a random number....
-        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
-        // convert the UInt32 to some other  types
-        let someString:String = String(randomNum)
-        print("number in notes is \(someString)")
-        return someString
-    }
-    
-    func createNewVisit() {
-        let stringRepresentation = selectedPurposesValuesList.joined(separator: ";")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let accountId = appDelegate.loggedInUser?.accountId
-        print("Account id in plan is \(accountId)")
-        
-        
-        let new_visit = PlanVisit(for: "newVisit")
-        
-        new_visit.Id = self.generateRandomIDForNotes()
-        new_visit.subject = (planVist?.subject)!
-        new_visit.accountId = PlanVistManager.sharedInstance.accountId
-        new_visit.sgwsAppointmentStatus = (planVist?.sgwsAppointmentStatus)!
-        new_visit.startDate =  PlanVistManager.sharedInstance.startDate //"2018-05-02T14:00:00.000Z"
-        new_visit.endDate = PlanVistManager.sharedInstance.endDate //"2018-05-02T15:00:00.000Z"
-        new_visit.sgwsVisitPurpose = stringRepresentation
-        new_visit.description = (planVist?.description)!
-        new_visit.sgwsAgendaNotes = PlanVistManager.sharedInstance.sgwsAgendaNotes
-        new_visit.status = PlanVistManager.sharedInstance.status
-        let attributeDict = ["type":"WorkOrder"]
-        
-        
-        let addNewDict: [String:Any] = [
-            
-            PlanVisit.planVisitFields[0]: new_visit.Id,
-            PlanVisit.planVisitFields[1]: new_visit.subject,
-            PlanVisit.planVisitFields[2]: new_visit.accountId,
-            PlanVisit.planVisitFields[3]: new_visit.sgwsAppointmentStatus,
-            PlanVisit.planVisitFields[4]: new_visit.startDate,
-            PlanVisit.planVisitFields[5]: new_visit.endDate,
-            PlanVisit.planVisitFields[6]: new_visit.sgwsVisitPurpose,
-            PlanVisit.planVisitFields[7]: new_visit.description,
-            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
-            PlanVisit.planVisitFields[9]: new_visit.status,
-            
-            kSyncTargetLocal:true,
-            kSyncTargetLocallyCreated:true,
-            kSyncTargetLocallyUpdated:false,
-            kSyncTargetLocallyDeleted:false,
-            "attributes":attributeDict]
-        
-        let success = visitViewModel.createNewVisitLocally(fields: addNewDict)
-        print("Success is here \(success)")
-        
-        
-    }
-    
     
 }

@@ -24,10 +24,18 @@ class EditAgendaNoteViewController: UIViewController {
     //MARK:- IBAction
     
     @IBAction func closeVC(sender: UIButton) {
+        
         self.dismiss(animated: true)
     }
     
     @IBAction func saveAndClose(sender: UIButton) {
+        
+        PlanVistManager.sharedInstance.visit?.description = descriptionTextView.text
+        
+        PlanVistManager.sharedInstance.editAndSaveVisit()
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+        
         self.dismiss(animated: true)
     }
 }

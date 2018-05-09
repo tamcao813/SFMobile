@@ -302,7 +302,7 @@ class CreateNewVisitViewController: UIViewController {
         if(success){
             let visit = Visit(for: "")
             //Add the soup entry Id
-            visit.Id = String((success,Id).1)
+            visit.Id = new_visit.Id//String((success,Id).1)
             visit.accountId = new_visit.accountId
             visit.contactId = new_visit.contactId
             visit.startDate = new_visit.startDate

@@ -34,6 +34,7 @@ class CreateNewVisitViewController: UIViewController {
     
     struct createNewVisitViewControllerGlobals {
         static var userInput = false
+        static var isContactField = false
         static var startDateField = ""
         static var startTimeField = ""
         static var endTimeField = ""
@@ -103,7 +104,8 @@ class CreateNewVisitViewController: UIViewController {
     @objc func keyboardWillShow(_ notification:Notification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height + 120, 0)
+            if createNewVisitViewControllerGlobals.isContactField {
+                self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height + 100, 0) }
         }
     }
     
@@ -454,6 +456,7 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             return UITableViewCell()
         }
     }
+
     
     func getDate(stringDate: String) -> String {
         let dateFormatter = DateFormatter()

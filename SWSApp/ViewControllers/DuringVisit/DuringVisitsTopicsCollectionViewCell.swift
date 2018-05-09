@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell {
+class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell,UITextViewDelegate {
     
     //Address Cell
     @IBOutlet weak var lblStoreName : UILabel?
@@ -39,10 +39,10 @@ class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell {
     
     func displayNotesCellData(data : NSDictionary){
         
-        lblNotesDescription?.text = data["notesText"] as? String
+//        lblNotesDescription?.text = data["notesText"] as? String
+        lblNotesDescription?.text = PlanVistManager.sharedInstance.visit?.description
         //Save the Visit Notes in Visit
         PlanVistManager.sharedInstance.visit?.description = (lblNotesDescription?.text)!
-        
     }
     
     //Display Collection View data
@@ -53,6 +53,11 @@ class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell {
         }else{
            self.lblCenterLabel?.text = (data["answerText"] as! String)
         }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print("exampleTextView: END EDIT")
+        PlanVistManager.sharedInstance.visit?.description = (lblNotesDescription?.text)!
     }
 }
 

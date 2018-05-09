@@ -297,7 +297,7 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to ?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                 self.dismiss(animated: true, completion: nil)
                 self.delegate?.navigateToAccountScreen()
             }){
@@ -432,7 +432,10 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             case 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
                 cell?.headingLabel.text = "Service Purposes"
-                cell?.SubheadingLabel.text = visitObject?.sgwsVisitPurpose
+                let str = visitObject?.sgwsVisitPurpose.replacingOccurrences(of: ";", with: "\n • ")
+                if str != nil {
+                    cell?.SubheadingLabel.text = " • " + str!
+                }
                 return cell!
             case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell

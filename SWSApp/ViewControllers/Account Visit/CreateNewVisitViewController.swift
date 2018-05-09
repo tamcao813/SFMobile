@@ -9,23 +9,34 @@
 import UIKit
 import DropDown
 import IQKeyboardManagerSwift
+import SmartSync
 
 class CreateNewVisitViewController: UIViewController {
-
+    
     @IBOutlet weak var headingLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var accountsDropdown: DropDown!
     var contactsDropdown: DropDown!
     var isEditingMode = false
-    var searchAccountTextField: UITextField!
-    var contactsAccountTextField: UITextField!
     var selectedAccount: Account!
     var selectedContact: Contact!
     var visitId: String!
     var visitObject: Visit?
+    @IBOutlet weak var errorLbl: UILabel!
+    var visitViewModel = VisitSchedulerViewModel()
+    
+    //TextFields
+    var searchAccountTextField: UITextField!
+    var contactsAccountTextField: UITextField!
+    var startDate: UITextField!
+    var startTime: UITextField!
+    var endTime: UITextField!
     
     struct createNewVisitViewControllerGlobals {
         static var userInput = false
+        static var startDateField = ""
+        static var startTimeField = ""
+        static var endTimeField = ""
     }
     
     override func viewDidLoad() {
@@ -124,7 +135,208 @@ class CreateNewVisitViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
+    
+    @IBAction func planButtonTapped(sender: UIButton) {
+//        PlanVistManager.sharedInstance.visit?.status = "Scheduled"
+        if selectedAccount == nil {
+            searchAccountTextField.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return
+        }else if (startDate.text?.isEmpty)! {
+            startDate.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return
+        }else if (startTime.text?.isEmpty)! {
+            startTime.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return
+        }else if (endTime.text?.isEmpty)! {
+            contactsAccountTextField.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return
+        }else{
+            errorLbl.text = ""
+            if let visit = PlanVistManager.sharedInstance.visit{
+                PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
+                if let contact = selectedContact {
+                    PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+                }
+                PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
+                PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+                let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+                self.dismiss(animated: true)
+            }else{
+                createNewVisit(dismiss: false)
+            }
+        }
+    }
+    
+    @IBAction func scheduleAndClose(sender: UIButton) {
+        if selectedAccount == nil {
+            searchAccountTextField.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return
+        }else if (startDate.text?.isEmpty)! {
+            startDate.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return
+        }else if (startTime.text?.isEmpty)! {
+            startTime.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return
+        }else if (endTime.text?.isEmpty)! {
+            contactsAccountTextField.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return
+        }else{
+            errorLbl.text = ""
+            PlanVistManager.sharedInstance.visit?.status = "Scheduled"
+//            visitObject?.accountId = selectedAccount.account_Id
+//            visitObject?.startDate = getDataTimeinStr(date: startDate.text!, time: startTime.text!)
+//            visitObject?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+//            if let contact = selectedContact {
+//                visitObject?.contactId = contact.contactId
+//            }else{
+//                visitObject?.contactId = ""
+//            }
+            if let visit = PlanVistManager.sharedInstance.visit{
+                PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
+                if let contact = selectedContact {
+                    PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+                }
+                PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
+                PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+                let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+                self.dismiss(animated: true)
+            }else{
+                createNewVisit(dismiss: true)
+            }
+        }
+    }
+    
+    func createNewVisit(dismiss: Bool) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let accountId = appDelegate.loggedInUser?.accountId
+        print("Account id in plan is \(accountId)")
+        PlanVistManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
+        
+        let new_visit = PlanVisit(for: "newVisit")
+        new_visit.Id = self.generateRandomIDForVisit()
+        //        new_visit.subject = (visitObject?.subject)!
+        new_visit.accountId = selectedAccount.account_Id//PlanVistManager.sharedInstance.accountId
+        if let contact = selectedContact {
+            new_visit.contactId = contact.contactId
+        }else{
+            new_visit.contactId = ""
+        }
+        //        new_visit.sgwsAppointmentStatus = (visitObject?.sgwsAppointmentStatus)!
+        new_visit.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)//PlanVistManager.sharedInstance.startDate //"2018-05-02T14:00:00.000Z"
+        new_visit.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)//PlanVistManager.sharedInstance.endDate //"2018-05-02T15:00:00.000Z"
+        //        new_visit.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+        //        new_visit.description = (visitObject?.description)!
+        //        new_visit.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+        if dismiss {
+            new_visit.status = "Scheduled"
+        }else{
+            new_visit.status = "Planned"
+        }
+        
+        let attributeDict = ["type":"WorkOrder"]
+        
+        
+        let addNewDict: [String:Any] = [
+            
+            PlanVisit.planVisitFields[0]: new_visit.Id,
+//            PlanVisit.planVisitFields[1]: new_visit.subject,
+            PlanVisit.planVisitFields[2]: new_visit.accountId,
+//            PlanVisit.planVisitFields[3]: new_visit.sgwsAppointmentStatus,
+            PlanVisit.planVisitFields[4]: new_visit.startDate,
+            PlanVisit.planVisitFields[5]: new_visit.endDate,
+//            PlanVisit.planVisitFields[6]: new_visit.sgwsVisitPurpose,
+//            PlanVisit.planVisitFields[7]: new_visit.description,
+//            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
+            PlanVisit.planVisitFields[9]: new_visit.status,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let (success,Id) = visitViewModel.createNewVisitLocally(fields: addNewDict)
+        
+        if(success){
+            let visit = Visit(for: "")
+            //Add the soup entry Id
+            visit.Id = String((success,Id).1)
+            visit.accountId = new_visit.accountId
+            visit.contactId = new_visit.contactId
+            visit.startDate = new_visit.startDate
+            visit.endDate = new_visit.endDate
+            visit.status = new_visit.status
+            visit.description = new_visit.description
+            visit.sgwsAgendaNotes = new_visit.sgwsAgendaNotes
+            visit.sgwsVisitPurpose = new_visit.sgwsVisitPurpose
+            
+            PlanVistManager.sharedInstance.visit = visit
+        }
 
+        print("Success is here \(success)")
+        if(success){
+            if dismiss {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+                self.dismiss(animated: true)
+            }else{
+                let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+                let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
+                self.present(viewController, animated: true)
+            }
+        }
+    }
+    
+    func generateRandomIDForVisit()->String  {
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        print("random Id for Visit  is \(someString)")
+        return someString
+    }
+    
+    func getDataTimeinStr(date:String, time: String) -> String {
+        
+        let timeFormatter = DateFormatter()
+        
+        timeFormatter.dateFormat = "hh:mm a"
+        
+        let fullTime = timeFormatter.date(from: time)
+        
+        timeFormatter.dateFormat = "HH:mm:ss"
+        
+        let formattedTime = timeFormatter.string(from: fullTime!)
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        let fullDate = dateFormatter.date(from: date)
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let formattedDate = dateFormatter.string(from: fullDate!)
+        
+        let formattedDateTime = formattedDate + "T" + formattedTime
+        
+        return formattedDateTime
+    }
 }
 
 extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSource {
@@ -176,7 +388,7 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             return cell!
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchForContactTableViewCell") as? SearchForContactTableViewCell
-            searchAccountTextField = cell?.searchContactTextField
+            contactsAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.contactDropDown
             cell?.delegate = self
             return cell!
@@ -189,11 +401,14 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             return cell!
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleAppointmentTableViewCell") as? ScheduleAppointmentTableViewCell
+            startDate = cell?.schedulerComponentView.dateTextField
+            startTime = cell?.schedulerComponentView.startTimeTextField
+            endTime = cell?.schedulerComponentView.endTimeTextField
             if let visit = visitObject {
                 cell?.schedulerComponentView.dateTextField.text = self.getDate(stringDate: visit.startDate)
                 cell?.schedulerComponentView.startTimeTextField.text = self.getTime(stringDate: visit.startDate)
                 cell?.schedulerComponentView.endTimeTextField.text = self.getTime(stringDate: visit.endDate)
-//                cell?.layoutIfNeeded()
+                cell?.layoutIfNeeded()
             }
             return cell!
         default:
@@ -229,6 +444,7 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
         }
         return ""
     }
+    
 }
 
 extension CreateNewVisitViewController: SearchAccountTableViewCellDelegate {

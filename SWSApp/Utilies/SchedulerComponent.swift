@@ -107,7 +107,16 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print("qweqwe")
+        switch textField.tag {
+        case 200:
+            CreateNewVisitViewController.createNewVisitViewControllerGlobals.startTimeField = dateTextField.text!
+        case 201:
+            CreateNewVisitViewController.createNewVisitViewControllerGlobals.startTimeField = startTimeTextField.text!
+        case 202:
+            CreateNewVisitViewController.createNewVisitViewControllerGlobals.startTimeField = endTimeTextField.text!
+        default:
+            print("default")
+        }
     }
     
     // MARK - Custom Methods
@@ -116,6 +125,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         dateTextField.text = dateFormatter.string(from: datePickerView.date)
+        resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
         NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
         
@@ -150,12 +160,14 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
             }
         }
         
+        resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
         NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
     }
     
     @objc func doneButton(sender:UIButton)
     {
+        resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
     }
     
@@ -220,4 +232,9 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         return dateFromString!
     }
     
+    func resignTextField(){
+        dateTextField.resignFirstResponder()
+        startTimeTextField.resignFirstResponder()
+        endTimeTextField.resignFirstResponder()
+    }
 }

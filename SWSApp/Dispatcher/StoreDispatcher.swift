@@ -1957,7 +1957,7 @@ class StoreDispatcher {
     }
     
     
-    func createNewVisitLocally(fieldsToUpload: [String:Any]) -> Bool{
+    func createNewVisitLocally(fieldsToUpload: [String:Any]) -> (Bool,Int){
         
         let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupVisit)
         if ary.count > 0 {
@@ -1965,10 +1965,10 @@ class StoreDispatcher {
             let soupEntryId = result["_soupEntryId"]
             print(result)
             print(soupEntryId!)
-            return true
+            return (true,soupEntryId as! Int)
         }
         else {
-            return false
+            return (false,0)
         }
     }
     
@@ -2117,8 +2117,6 @@ class StoreDispatcher {
                 singleVisitModif["Description"] = allFields["Description"]
                 singleVisitModif["SGWS_Agenda_Notes__c"] = allFields["SGWS_Agenda_Notes__c"]
                 singleVisitModif["Status"] = allFields["Status"]
-                singleVisitModif["Status"] = allFields["Status"]
-
                 
                 if(createdFlag){
                     singleVisitModif[kSyncTargetLocal] = true

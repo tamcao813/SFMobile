@@ -162,7 +162,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
             
             if(success){
-                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
                 self.dismiss(animated: true, completion: nil)
             }
             
@@ -264,7 +264,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case .scheduled?:
             return 2
         case .inProgress?,.planned?,.completed?:
-            return 5
+            return 6
         default:
             return 0
         }
@@ -375,15 +375,20 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 return getConatactCell()
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+                cell?.headingLabel.text = "Opportunities Selected"
+//                cell?.SubheadingLabel.text = visitObject?.sgwsVisitPurpose
+                return cell!
+            case 3:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
                 cell?.headingLabel.text = "Service Purposes"
                 cell?.SubheadingLabel.text = visitObject?.sgwsVisitPurpose
                 return cell!
-            case 3:
+            case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
                 cell?.headingLabel.text = "Agenda Notes"
                 cell?.SubheadingLabel.text = visitObject?.sgwsAgendaNotes
                 return cell!
-            case 4:
+            case 5:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
                 cell?.delegate = self
                 return cell!

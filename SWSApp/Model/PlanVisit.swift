@@ -10,7 +10,7 @@ import Foundation
 
 class PlanVisit {
     
-    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","LastModifiedDate"]
+    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","LastModifiedDate","ContactId"]
     
     var Id : String
     var subject : String
@@ -23,6 +23,8 @@ class PlanVisit {
     var sgwsAgendaNotes : String
     var status : String
     var lastModifiedDate : String
+    var contactId : String
+
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(PlanVisit.planVisitFields, ary))
@@ -42,6 +44,8 @@ class PlanVisit {
         sgwsAgendaNotes = json["SGWS_Agenda_Notes__c"] as? String ?? ""
         status = json["Status"] as? String ?? ""
         lastModifiedDate = json["LastModifiedDate"] as? String ?? ""
+        contactId = json["ContactId"] as? String ?? ""
+
     }
     
     init(for: String) {
@@ -57,5 +61,6 @@ class PlanVisit {
         sgwsAgendaNotes = ""
         status = ""
         lastModifiedDate = ""
+        contactId = ""
     }
 }

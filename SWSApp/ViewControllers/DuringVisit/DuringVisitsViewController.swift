@@ -156,6 +156,7 @@ class  DuringVisitsViewController : UIViewController {
             
             //Save the data in DB
             let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
             PlanVistManager.sharedInstance.visit?.status = "Completed"
@@ -163,6 +164,7 @@ class  DuringVisitsViewController : UIViewController {
             
             //Save the data in DB
             let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             delegate?.navigateToAccountVisitingScreen()
             return
         }

@@ -14,7 +14,7 @@ class VisitSchedulerViewModel {
         return StoreDispatcher.shared.fetchSchedulerVisits()
     }
     
-    func createNewVisitLocally(fields: [String:Any]) -> Bool {
+    func createNewVisitLocally(fields: [String:Any]) -> (Bool,Int) {
         return StoreDispatcher.shared.createNewVisitLocally(fieldsToUpload:fields)
     }
     

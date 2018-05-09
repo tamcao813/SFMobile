@@ -50,12 +50,12 @@ class PlanVistManager {
             let accountId = appDelegate.loggedInUser?.accountId
 
             let new_visit = PlanVisit(for: "newVisit")
-            
+            new_visit.Id = (visit?.Id)!
             new_visit.subject = (visit?.subject)!
             new_visit.accountId = visit!.accountId
             new_visit.sgwsAppointmentStatus = (visit?.sgwsAppointmentStatus)!
             new_visit.startDate =  (visit?.startDate)!
-        new_visit.endDate = (visit?.endDate)!
+            new_visit.endDate = (visit?.endDate)!
             new_visit.sgwsVisitPurpose = (visit?.sgwsVisitPurpose)!
             new_visit.description = (visit?.description)!
             new_visit.sgwsAgendaNotes = (visit?.sgwsAgendaNotes)!
@@ -83,6 +83,7 @@ class PlanVistManager {
                 "attributes":attributeDict]
             
             let success = VisitSchedulerViewModel().editVisitToSoup(fields: addNewDict)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             print("Success is here \(success)")
             
         

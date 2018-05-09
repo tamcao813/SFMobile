@@ -251,6 +251,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             if((PlanVistManager.sharedInstance.visit?.Id) != nil){
                 
                 let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
                 print(status)
                 
             } else{
@@ -716,7 +717,8 @@ extension PlanVisitViewController : UITextFieldDelegate{
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let accountId = appDelegate.loggedInUser?.accountId
-       print("Account id in plan is \(accountId)")
+        print("Account id in plan is \(String(describing: accountId))")
+        
         
         
        let new_visit = PlanVisit(for: "newVisit")

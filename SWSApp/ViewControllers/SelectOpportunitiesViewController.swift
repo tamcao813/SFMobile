@@ -35,7 +35,7 @@ class SelectOpportunitiesViewController: UIViewController {
         PlanVistManager.sharedInstance.visit?.status = "Planned"
         
         PlanVistManager.sharedInstance.editAndSaveVisit()
-        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

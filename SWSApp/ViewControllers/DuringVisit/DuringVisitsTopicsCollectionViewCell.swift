@@ -40,6 +40,8 @@ class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell {
     func displayNotesCellData(data : NSDictionary){
         
         lblNotesDescription?.text = data["notesText"] as? String
+        //Save the Visit Notes in Visit
+        PlanVistManager.sharedInstance.visit?.description = (lblNotesDescription?.text)!
         
     }
     

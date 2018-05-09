@@ -56,6 +56,10 @@ class AccountVisitListViewController: UIViewController {
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
         let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
         createVisitViewController.isEditingMode = false
+        
+        //Reset the PlanVistManager
+        PlanVistManager.sharedInstance.visit = nil
+        
         self.present(createVisitViewController, animated: true)
     }
     
@@ -152,7 +156,9 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {        
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
-            ContactsGlobal.accountId = ""
+            if let visit = PlanVistManager.sharedInstance.visit{
+            ContactsGlobal.accountId = visit.accountId
+            }
             // Added this line so that Contact detail view is not launched for this scenario.
             ContactFilterMenuModel.selectedContactId = ""
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)

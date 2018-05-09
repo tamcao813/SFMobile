@@ -174,6 +174,9 @@
                                         <state key="normal" title="Plan">
                                             <color key="titleColor" name="Color"/>
                                         </state>
+                                        <connections>
+                                            <action selector="planButtonTappedWithSender:" destination="w9a-dQ-lU2" eventType="touchUpInside" id="rpU-oC-JuD"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DpY-gt-cqR">
                                         <rect key="frame" x="782" y="26" width="150" height="28"/>
@@ -185,6 +188,9 @@
                                         <state key="normal" title="Schedule and Close">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="scheduleAndCloseWithSender:" destination="w9a-dQ-lU2" eventType="touchUpInside" id="Loy-5v-vNI"/>
+                                        </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BreadScrum_1" translatesAutoresizingMaskIntoConstraints="NO" id="yjd-gA-cfU">
                                         <rect key="frame" x="396" y="22" width="232" height="25"/>
@@ -240,6 +246,7 @@
                         <viewLayoutGuide key="safeArea" id="wtb-gW-Oj2"/>
                     </view>
                     <connections>
+                        <outlet property="errorLbl" destination="ydP-gK-7Qf" id="P3i-8K-xrf"/>
                         <outlet property="headingLabel" destination="TNv-xc-DFU" id="wwG-yx-cx9"/>
                         <outlet property="tableView" destination="V6W-IB-uQR" id="rLd-4j-uAv"/>
                     </connections>

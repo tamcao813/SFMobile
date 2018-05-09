@@ -151,12 +151,20 @@ class  DuringVisitsViewController : UIViewController {
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
         if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue"{
-            PlanVistManager.sharedInstance.status = "In-Progress"
+            PlanVistManager.sharedInstance.visit?.status = "In-Progress"
+           // PlanVistManager.sharedInstance.visit?.description =
+            
+            //Save the data in DB
+            let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
-            PlanVistManager.sharedInstance.status = "Completed"
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+            PlanVistManager.sharedInstance.visit?.status = "Completed"
             self.dismiss(animated: true, completion: nil)
+            
+            //Save the data in DB
+            let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             delegate?.navigateToAccountVisitingScreen()
             return
         }

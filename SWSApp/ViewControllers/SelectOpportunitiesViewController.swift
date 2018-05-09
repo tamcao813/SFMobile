@@ -32,7 +32,10 @@ class SelectOpportunitiesViewController: UIViewController {
     
     @IBAction func saveAndClose(sender: UIButton) {
         //STATEMACHINE:If you com tho this Screen its in Planned state
-        PlanVistManager.sharedInstance.status = "Scheduled"
+        
+        PlanVistManager.sharedInstance.visit?.status = "Planned"
+        
+        PlanVistManager.sharedInstance.editAndSaveVisit()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }

@@ -1128,7 +1128,6 @@ class StoreDispatcher {
         } catch let error as NSError {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupAccountNotes soup: \(error.localizedDescription)")
         }
-        
     }
     
     
@@ -1824,7 +1823,7 @@ class StoreDispatcher {
     
     func syncDownStrategyQuestions(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c FROM SGWS_Question__c where SGWS_Survey_ID__c in ('a0am0000002jgc3AAA')"
+        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c,SGWS_Question_Description__c FROM SGWS_Question__c"// where SGWS_Survey_ID__c in ('a4r0t00000055xY')"
         
         print("soql syncDownStrategyQuestions query is \(soqlQuery)")
         

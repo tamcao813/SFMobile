@@ -31,18 +31,38 @@ class AccountStrategyViewController : UIViewController{
 //        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
 //        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
 //        print(dictionary!)
-//
-//        return
+        
+        self.loadTheDataFromStrategyQA()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        
+    }
+    
+    func loadTheDataFromStrategyQA(){
         
         let data = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
-        
-       // let data = strategyQAViewModel.getStrategyQuestionAnswer()
+        // let data = strategyQAViewModel.getStrategyQuestionAnswer()
         
         let tableViewData = NSMutableArray()
         var dict : NSMutableDictionary!
         
         var headerCheck = false
-        
         //Write a func to get header Count
         for header in self.getHeader(data:data){
             
@@ -59,19 +79,16 @@ class AccountStrategyViewController : UIViewController{
                 for q in tableViewData{
                     
                     let dictionary = q as! NSDictionary
-                  //  print(dictionary)
                     
                     let header = dictionary["header"] as? String
                     
                     if queAndAns.SGWS_Question__c == header!{
                         
                         headerCheck = true
-                        print("infinity 5")
                     }
                 }
                 
                 //Prevent the Subheader inserting Again
-                //DIDNT WORK OUT
                 
                 if !headerCheck{
                     dict.setValue(queAndAns.SGWS_Question__c, forKey: "header") //Main Header
@@ -86,29 +103,30 @@ class AccountStrategyViewController : UIViewController{
                 
                 let answerArray = NSMutableArray()
                 
-                let answerListArray = queAndAns.SGWS_Answer_Description_List__c//.components(separatedBy: ",")
+                let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
                 
-//                if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
-//
-//                    for ans in answerListArray{
+                if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
+                    
+                    for ans in answerListArray{
                         let answerDict = NSMutableDictionary()
-                        answerDict.setValue(answerListArray, forKey: "answerText")
+                        answerDict.setValue(ans, forKey: "answerText")
                         answerArray.add(answerDict)
-//                        print("infinity4")
-//                    }
-//                }
-                
+                    }
+                }
                 
                 dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
                 
                 tableViewData.add(dict)
-                print("infinity1")
             }
-            print("infinity2")
         }
+        //print(tableViewData)
         
-     //   print(tableViewData)
+        self.loadTheSubheaders(data: data, tableViewData: tableViewData)
         
+    }
+    
+    //Used to load the Strategy Subheader Questions
+    func loadTheSubheaders(data : [StrategyQA] , tableViewData : NSMutableArray){
         
         let modifiedArray = NSMutableArray()
         
@@ -142,7 +160,6 @@ class AccountStrategyViewController : UIViewController{
             dictionary.setValue(newArray, forKey: "answers")
             
             
-            
             let data1 = filteredArray[0] as! NSMutableDictionary
             let head1 = data1["header"] as! String
             let subHead1 = data1["subHeader"] as! String
@@ -155,16 +172,17 @@ class AccountStrategyViewController : UIViewController{
             
         }
         
-     //   print(modifiedArray)
-        
-        
+       self.loadDateAndLastMOdifiedDate(data: data, modifiedArray: modifiedArray)
+    }
+    
+    func loadDateAndLastMOdifiedDate(data :[StrategyQA] , modifiedArray : NSMutableArray ){
         
         //USED TO SHOW THE NOTES
         if data.count > 0 {
-
-            let strategyNotes = (data.last?.SGWS_Notes__c)!
-
-            if strategyNotes != "" || strategyNotes != nil {
+            
+            let strategyNotes = (data.first?.SGWS_Notes__c)!
+            
+            if strategyNotes != "" {
                 let dict = NSMutableDictionary()
                 dict.setValue("Account Strategy Notes", forKey: "header")
                 dict.setValue("", forKey: "subHeader")
@@ -175,11 +193,24 @@ class AccountStrategyViewController : UIViewController{
                 dict.setValue(notesArray, forKey: "answers")
                 modifiedArray.add(dict)
             }
-
+            
+            print(modifiedArray)
+            
+            let lastModifiedDate = data.first?.LastModifiedDate
+            print(lastModifiedDate!)
+            
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+//            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+//
+//            let newModifiedDate = dateFormatter.date(from: modifiedDate!)
+//            dateFormatter.dateFormat = "MMM dd, YYYY"
+//            let formattedDate = dateFormatter.string(from: newModifiedDate!)
+//            lblLastModifiedDate?.text = "Account Strategy Lasy Updated on " + formattedDate
+            
         }
         
-        
-        
+        //Assign the data to Array and reload the data
         tableViewRowDetails = modifiedArray
         
         //Hide the Label
@@ -190,32 +221,11 @@ class AccountStrategyViewController : UIViewController{
             self.lblNoData?.isHidden = false
             self.lblLastModifiedDate?.isHidden = true
         }
-        
- 
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        
-    }
     
     func getHeader(data:[StrategyQA])-> [String]{
         var headerArray = [String]()
-        
         //Get unique headernames once
         //let data = strategyQAViewModel.getStrategyQuestionAnswer()
         for questionHeaders in data{
@@ -233,7 +243,6 @@ class AccountStrategyViewController : UIViewController{
     
     func getSubHeader(data:[StrategyQA])-> [String]{
         var subHeaderArray = [String]()
-        
         //Get unique headernames once
        // let data = strategyQAViewModel.getStrategyQuestionAnswer()
         for questionHeaders in data{
@@ -245,15 +254,35 @@ class AccountStrategyViewController : UIViewController{
                 }
             }
         }
-       // print(subHeaderArray)
         return subHeaderArray
     }
     
+    //MARK:- Button Actions
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "editStrategySegue") {
+            let editStrategy = segue.destination as? EditAccountStrategyViewController
+            editStrategy?.strategyArray = tableViewRowDetails
+            editStrategy?.delegate = self
+        }
+    }
     
     //MARK:- Button Actions
     @IBAction func editButtonClicked(sender : UIButton){
+        performSegue(withIdentifier: "editStrategySegue", sender: nil)
         
+    }
+}
+
+//MARK:- RefreshStrategyScreenDelegate
+extension AccountStrategyViewController : RefreshStrategyScreenDelegate{
+    
+    func refreshStrategyScreenToLoadNewData() {
         
+        self.loadTheDataFromStrategyQA()
+        
+        DispatchQueue.main.async {
+            self.collectionView?.reloadData()
+        }
     }
 }
 
@@ -284,19 +313,25 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.section == (tableViewRowDetails?.count)! {//Used to make the Additional notes Dynamic
+        if indexPath.section == (tableViewRowDetails?.count)! - 1 {//Used to make the Additional notes Dynamic
             
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
             
             //let constraintRect = CGSize(width: self.view.frame.size.width, height: CGFloat.greatestFiniteMagnitude)
+            
             let data = (questions["answerText"] as! String)
             
-            let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)])
-            let dynamicSize: CGRect = attString.boundingRect(with: CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+            //let data = "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  "
             
-            return dynamicSize.size
+            if data != ""{
+                let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18.0)])
+                let dynamicSize: CGRect = attString.boundingRect(with: CGSize(width: collectionView.frame.size.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+                
+                return dynamicSize.size
+                
+            }
         }
         
         return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)

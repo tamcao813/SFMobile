@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+
+protocol NavigateToVisitSummaryScreenDelegate {
+    func navigateToVisitSummaryScreen()
+}
+
 class  DuringVisitsTopicsViewController : UIViewController {
     
     @IBOutlet weak var collectionView : UICollectionView?
@@ -16,6 +21,8 @@ class  DuringVisitsTopicsViewController : UIViewController {
     var visitObject : Visit?
     var accountObject: Account?
     var collectionViewRowDetails : NSMutableArray?
+    
+    var delegate : NavigateToVisitSummaryScreenDelegate?
     
     
     //MARK:- View Life Cycle
@@ -215,6 +222,17 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
         }
         
         return cell!
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        FilterMenuModel.comingFromDetailsScreen = "YES"
+        FilterMenuModel.selectedAccountId = (accountObject?.account_Id)!
+        delegate?.navigateToVisitSummaryScreen()
+        self.dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+        
     }
 }
 

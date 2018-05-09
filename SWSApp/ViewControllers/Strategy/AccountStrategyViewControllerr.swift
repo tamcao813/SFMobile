@@ -268,6 +268,7 @@ class AccountStrategyViewController : UIViewController{
     
     //MARK:- Button Actions
     @IBAction func editButtonClicked(sender : UIButton){
+        LoadEditStrategyFromDuringVisit.editStrategy = "0"
         performSegue(withIdentifier: "editStrategySegue", sender: nil)
         
     }

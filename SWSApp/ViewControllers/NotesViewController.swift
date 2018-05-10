@@ -241,7 +241,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         cell.titleLabel?.text = notes.name
         let serverDate = notes.lastModifiedDate
         if(serverDate != ""){
-            let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
+            let getTime =  DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: serverDate)
             var dateTime = getTime.components(separatedBy: " ")
             if(dateTime.count > 0){
                 cell.dateLabel?.text  = dateTime[0]

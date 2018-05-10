@@ -217,13 +217,13 @@ class EditAccountStrategyViewController: UIViewController {
     
     func showAlert(){
         
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+        //AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             
             self.dismiss(animated: true, completion: nil)
             
-        }) {
-            print("No")
-        }
+        //}) {
+         //   print("No")
+       // }
     }
     
     //Validation for any 1 answer has to be Selected for a question

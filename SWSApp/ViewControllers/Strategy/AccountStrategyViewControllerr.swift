@@ -276,7 +276,7 @@ class AccountStrategyViewController : UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "editStrategySegue") {
             let editStrategy = segue.destination as? EditAccountStrategyViewController
-            editStrategy?.strategyArray = tableViewRowDetails
+            editStrategy?.strategyArray = tableViewRowDetails!
             editStrategy?.delegate = self
         }
     }

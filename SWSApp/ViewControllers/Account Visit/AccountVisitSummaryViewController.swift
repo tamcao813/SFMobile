@@ -11,9 +11,7 @@ import SmartSync
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
-    
     func navigateToAccountScreen()
-    
 }
 
 class AccountVisitSummaryViewController: UIViewController {
@@ -39,19 +37,25 @@ class AccountVisitSummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountList"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchVisit()
-        UICustomizations()
         initializingXIBs()
         refactoringUIOnApplicationStatusBasis()
+    }
+    
+    @objc func refreshVisit(){
+        fetchVisit()
+    }
+    
+    
+    @objc func refreshSummaryScreen(){
+        print("visit", PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose)
+        fetchVisit()
+        tableView.reloadData()
     }
     
     func fetchVisit(){
@@ -66,6 +70,7 @@ class AccountVisitSummaryViewController: UIViewController {
         }
         fetchAccountDetails()
         fetchContactDetails()
+        UICustomizations()
     }
     
     func fetchAccountDetails(){
@@ -110,7 +115,7 @@ class AccountVisitSummaryViewController: UIViewController {
         let image = #imageLiteral(resourceName: "delete").withRenderingMode(.alwaysTemplate)
         deleteVisitButton.setImage(image, for: .normal)
         deleteVisitButton.tintColor = UIColor(hexString: "#4287C2")
-        deleteVisitButton.setTitle("    Delete", for: .normal)
+        deleteVisitButton.setTitle("    Delete Visit", for: .normal)
         self.getStartDateAndEndTime()
     }
     
@@ -121,31 +126,38 @@ class AccountVisitSummaryViewController: UIViewController {
         var endTime = ""
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        let date = dateFormatter.date(from: (visitObject?.startDate)!) //according to date format
+        var date = Date()
+        if visitObject?.startDate != nil {
+            date = dateFormatter.date(from: (visitObject?.startDate)!)!
+        }
+        //according to date format
         print(date ?? "")
         if date != nil {
             dateFormatter.dateFormat = "MMM" //Your date format
-            let month = dateFormatter.string(from: date!)
+            let month = dateFormatter.string(from: date)
             monthLabel.text = month
             dateFormatter.dateFormat = "dd" //Your date format
-            let day = dateFormatter.string(from: date!)
+            let day = dateFormatter.string(from: date)
             dayLabel.text = day
-            dateFormatter.dateFormat = "HH:mm a" //Your date format
+            dateFormatter.dateFormat = "hh:mm a" //Your date format
             dateFormatter.amSymbol = "AM"
             dateFormatter.pmSymbol = "PM"
-            startTime = dateFormatter.string(from: date!)
+            startTime = dateFormatter.string(from: date)
         }
         
         let dateFormatter1 = DateFormatter()
         dateFormatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter1.timeZone = TimeZone(abbreviation: "UTC")
-        let endDate = dateFormatter1.date(from: (visitObject?.endDate)!) //according t
+        var endDate = Date()
+        if visitObject?.endDate != nil  {
+            endDate = dateFormatter1.date(from: (visitObject?.endDate)!)! //according t
+        }
         
-        if endDate != nil {
-            dateFormatter1.dateFormat = "HH:mm a"
+        if endDate != nil {//|| endDate != "" {
+            dateFormatter1.dateFormat = "hh:mm a"
             dateFormatter1.amSymbol = "AM"
             dateFormatter1.pmSymbol = "PM"
-            endTime = dateFormatter.string(from: endDate!)
+            endTime = dateFormatter.string(from: endDate)
         }
         timeLabel.text = "\(startTime)-\(endTime)"
 
@@ -243,7 +255,8 @@ class AccountVisitSummaryViewController: UIViewController {
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             createVisitViewController.visitId = visitObject?.Id
-            //        createVisitViewController.delegate = self
+//            createVisitViewController.delegate = self
+            PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -259,8 +272,9 @@ class AccountVisitSummaryViewController: UIViewController {
             PlanVistManager.sharedInstance.editPlanVisit = true
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
+            PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             createVisitViewController.visitId = visitObject?.Id
-            //        createVisitViewController.delegate = self
+//            createVisitViewController.delegate = self
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -290,7 +304,7 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to ?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                 self.dismiss(animated: true, completion: nil)
                 self.delegate?.navigateToAccountScreen()
             }){
@@ -425,7 +439,10 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             case 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
                 cell?.headingLabel.text = "Service Purposes"
-                cell?.SubheadingLabel.text = visitObject?.sgwsVisitPurpose
+                let str = visitObject?.sgwsVisitPurpose.replacingOccurrences(of: ";", with: "\n • ")
+                if !(str?.isEmpty)! {
+                    cell?.SubheadingLabel.text = " • " + str!
+                } else { cell?.SubheadingLabel.text = ""}
                 return cell!
             case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
@@ -480,8 +497,6 @@ extension AccountVisitSummaryViewController : NavigateToVisitSummaryScreenDelega
     }
     
 }
-
-
 
 
 

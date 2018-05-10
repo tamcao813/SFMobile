@@ -89,6 +89,10 @@ extension SearchAccountTableViewCell: UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.text = ""
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         searchAccounts = [Account]()
         searchAccountsString = [String]()

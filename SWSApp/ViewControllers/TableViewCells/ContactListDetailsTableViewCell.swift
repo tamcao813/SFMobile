@@ -110,9 +110,7 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         
         if let date: Date = dateFormatter.date(from: dateString) {
-//            dateFormatter.dateFormat = "MMM d, yyyy"
             dateFormatter.dateFormat = "MM/dd/yyyy"
-//            labelToDisplay.text = dateFormatter.string(from: date) + " (" + textToDisply + ")"
             labelToDisplay.text = dateFormatter.string(from: date)
         }
         
@@ -127,9 +125,11 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         
         if let date: Date = dateFormatter.date(from: dateString) {
-//            labelToDisplay.text = textToDisply + " (" + String(date.age) + ")"
             dateFormatter.dateFormat = "MM/dd/yyyy"
             labelToDisplay.text = textToDisply + " (" + dateFormatter.string(from: date) + ")"
+        }
+        else {
+            labelToDisplay.text = textToDisply
         }
         
     }

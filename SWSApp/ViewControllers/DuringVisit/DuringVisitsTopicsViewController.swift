@@ -124,19 +124,7 @@ class  DuringVisitsTopicsViewController : UIViewController {
         print(mainArray)
         
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        
-    }
-    
+
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
             do {
@@ -147,15 +135,7 @@ class  DuringVisitsTopicsViewController : UIViewController {
         }
         return nil
     }
-    
-    
-    //MARK:-
-    
-    
-    
-    
-    
-    //MARK:- IBActions
+
 }
 
 
@@ -226,12 +206,24 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        print("1111111111111111111111111111")
+        print(indexPath)
+        print("2222222222222222222222222222")
         FilterMenuModel.comingFromDetailsScreen = "YES"
         FilterMenuModel.selectedAccountId = (accountObject?.account_Id)!
-        delegate?.navigateToVisitSummaryScreen()
-        self.dismiss(animated: true, completion: nil)
+//        delegate?.navigateToVisitSummaryScreen()
+//        self.dismiss(animated: true, completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+//        if indexPath.section == 0{
+//            DispatchQueue.main.async {
+//                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+//                    self.dismiss(animated: true, completion: nil)
+//                    self.delegate?.navigateToAccountScreen()
+//                }){
+//
+//                }
+//            }
+//        }
         
     }
 }
@@ -245,7 +237,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
         if indexPath.section == 1{
             return CGSize(width: collectionView.frame.size.width, height: 360)
             
-        }else if indexPath.section == 2{//used to change the height of cell Dynamically
+        }else if indexPath.section == 20{//used to change the height of cell Dynamically
             
             let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
@@ -258,7 +250,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
             
             return dynamicSize.size
             
-        } else if indexPath.section >= 3{
+        } else if indexPath.section >= 2{
             return CGSize(width: collectionView.frame.size.width, height: 20)
         }
         return CGSize(width: collectionView.frame.size.width, height: 120)

@@ -51,6 +51,10 @@ class AccountVisitSummaryViewController: UIViewController {
         fetchVisit()
     }
     
+    @objc func refreshSummaryScreen(){
+        
+    }
+    
     func fetchVisit(){
         if let id = visitId{
             let visitArray = VisitsViewModel().visitsForUser()
@@ -248,7 +252,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             createVisitViewController.visitId = visitObject?.Id
-            createVisitViewController.delegate = self
+//            createVisitViewController.delegate = self
             PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
@@ -267,7 +271,7 @@ class AccountVisitSummaryViewController: UIViewController {
             createVisitViewController.isEditingMode = false
             PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             createVisitViewController.visitId = visitObject?.Id
-            createVisitViewController.delegate = self
+//            createVisitViewController.delegate = self
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -489,13 +493,6 @@ extension AccountVisitSummaryViewController : NavigateToVisitSummaryScreenDelega
         self.dismiss(animated: true, completion: nil)
     }
     
-}
-
-extension AccountVisitSummaryViewController : CreateNewVisitViewControllerDelegate {
-    
-    func updateVisit(){
-        fetchVisit()
-    }
 }
 
 

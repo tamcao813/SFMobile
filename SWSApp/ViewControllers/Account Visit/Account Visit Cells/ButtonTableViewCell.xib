@@ -39,6 +39,9 @@
                                 <real key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="accountStrategyButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ldl-r9-kRk"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

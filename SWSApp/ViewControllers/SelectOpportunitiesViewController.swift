@@ -40,4 +40,19 @@ class SelectOpportunitiesViewController: UIViewController {
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func loadStrategyScreen(sender : UIButton){
+        
+        let accountId = PlanVistManager.sharedInstance.visit?.accountId
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
+        let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
+        StrategyScreenLoadFrom.isLoadFromStrategy = "1"
+        
+        AccountId.selectedAccountId = accountId!
+        
+        (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(vc, animated: true, completion: nil)
+        
+    }
+    
 }

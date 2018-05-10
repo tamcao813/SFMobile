@@ -495,6 +495,15 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
 extension AccountVisitSummaryViewController: ButtonTableViewCellDelegate {
     func accountStrategyButtonTapped() {
         
+        let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
+        let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
+        StrategyScreenLoadFrom.isLoadFromStrategy = "1"
+        
+        AccountId.selectedAccountId = (accountObject?.account_Id)!
+        
+        (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(vc, animated: true, completion: nil)
+        
     }
 }
 
@@ -503,7 +512,6 @@ extension AccountVisitSummaryViewController : NavigateToVisitSummaryScreenDelega
     func navigateToVisitSummaryScreen() {
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 

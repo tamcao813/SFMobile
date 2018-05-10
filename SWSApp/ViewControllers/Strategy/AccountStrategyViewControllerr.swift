@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+struct StrategyScreenLoadFrom {
+    static var isLoadFromStrategy = "0"
+}
+
 class AccountStrategyViewController : UIViewController{
     
     var tableViewRowDetails : NSMutableArray?
@@ -17,6 +21,9 @@ class AccountStrategyViewController : UIViewController{
     @IBOutlet weak var lblLastModifiedDate : UILabel?
     @IBOutlet weak var lblNoData : UILabel?
     @IBOutlet weak var btnEdit : UIButton?
+    
+    @IBOutlet weak var editIcon : UIButton?
+    @IBOutlet weak var closeIcon : UIButton?
     
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
@@ -33,7 +40,18 @@ class AccountStrategyViewController : UIViewController{
 //        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
 //        print(dictionary!)
         
+        if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
+            editIcon?.isHidden = false
+            closeIcon?.isHidden = true
+        }else{
+            editIcon?.isHidden = true
+            closeIcon?.isHidden = false
+        }
+        
+        
         self.loadTheDataFromStrategyQA()
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,6 +136,8 @@ class AccountStrategyViewController : UIViewController{
                 
                 let answerArray = NSMutableArray()
                 
+                let answerArrayStr = NSMutableArray()
+                
                 let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
                 
                 if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
@@ -127,7 +147,13 @@ class AccountStrategyViewController : UIViewController{
                         answerDict.setValue(ans, forKey: "answerText")
                         answerArray.add(answerDict)
                     }
+                    
+                    for ans in answerListArray{
+                        answerArrayStr.add(ans)
+                    }
                 }
+                let answerListString = answerArrayStr.componentsJoined(by: ",")
+                dict.setValue(answerListString, forKey: "answerStrings")
                 
                 dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
                 
@@ -160,6 +186,9 @@ class AccountStrategyViewController : UIViewController{
             print(filteredArray)
             
             let newArray = NSMutableArray()
+            
+            let stringArray = NSMutableArray()
+            
             for item in filteredArray{
                 
                 let tempDict = item as! NSMutableDictionary
@@ -169,18 +198,24 @@ class AccountStrategyViewController : UIViewController{
                     let dic = data as! NSMutableDictionary
                     newArray.add(dic)
                     
+                    let text = dic["answerText"] as! String
+                    stringArray.add(text)
                 }
             }
             let dictionary = NSMutableDictionary()
             dictionary.setValue(newArray, forKey: "answers")
             
+            let text = stringArray.componentsJoined(by: ",")
             
             let data1 = filteredArray[0] as! NSMutableDictionary
             let head1 = data1["header"] as! String
             let subHead1 = data1["subHeader"] as! String
+            let id = data1["id"] as! String
             
             dictionary.setValue(head1, forKey: "header")
             dictionary.setValue(subHead1, forKey: "subHeader")
+            dictionary.setValue(text, forKey: "answerStrings")
+            dictionary.setValue(id, forKey: "id")
             
             modifiedArray.add(dictionary)
             print("infinity3")
@@ -197,7 +232,7 @@ class AccountStrategyViewController : UIViewController{
             
             let strategyNotes = (data.first?.SGWS_Notes__c)!
             
-            if strategyNotes != "" {
+            //if strategyNotes != "" {
                 let dict = NSMutableDictionary()
                 dict.setValue("Account Strategy Notes", forKey: "header")
                 dict.setValue("", forKey: "subHeader")
@@ -207,7 +242,7 @@ class AccountStrategyViewController : UIViewController{
                 notesArray.add(notesAnswerDict)
                 dict.setValue(notesArray, forKey: "answers")
                 modifiedArray.add(dict)
-            }
+            //}
             
             print(modifiedArray)
             
@@ -281,11 +316,22 @@ class AccountStrategyViewController : UIViewController{
         }
     }
     
+    //StrategyScreenLoadFrom.isLoadFromStrategy == "1"
+    
+    
     //MARK:- Button Actions
     @IBAction func editButtonClicked(sender : UIButton){
         LoadEditStrategyFromDuringVisit.editStrategy = "0"
-        performSegue(withIdentifier: "editStrategySegue", sender: nil)
         
+        if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
+            performSegue(withIdentifier: "editStrategySegue", sender: nil)
+            
+        }else{
+            
+            //Used Same method to Dismiss the Strategy
+            StrategyScreenLoadFrom.isLoadFromStrategy = "0"
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 

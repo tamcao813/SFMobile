@@ -217,13 +217,13 @@ class EditAccountStrategyViewController: UIViewController {
     
     func showAlert(){
         
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+        //AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             
             self.dismiss(animated: true, completion: nil)
             
-        }) {
-            print("No")
-        }
+        //}) {
+         //   print("No")
+       // }
     }
     
     //Validation for any 1 answer has to be Selected for a question
@@ -514,14 +514,14 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
                     }
                     
                     
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                    //AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                         
                         self.dismiss(animated: true, completion: nil)
                         self.delegate?.refreshStrategyScreenToLoadNewData()
                         
-                    }, action2: {
+                    //}, action2: {
                         
-                    })
+                    //})
                     break
                 }
                 
@@ -593,14 +593,14 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
                // }
                 
                 
-                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                //AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                     
                     self.dismiss(animated: true, completion: nil)
                     self.delegate?.refreshStrategyScreenToLoadNewData()
                     
-                }, action2: {
+               // }, action2: {
                     
-                })
+               // })
                 
             }
             

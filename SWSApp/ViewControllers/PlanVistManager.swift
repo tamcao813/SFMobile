@@ -56,10 +56,11 @@ class PlanVistManager {
             new_visit.sgwsAppointmentStatus = (visit?.sgwsAppointmentStatus)!
             new_visit.startDate =  (visit?.startDate)!
             new_visit.endDate = (visit?.endDate)!
-            new_visit.sgwsVisitPurpose = PlanVistManager.sharedInstance.sgwsVisitPurpose
-            new_visit.sgwsAgendaNotes = PlanVistManager.sharedInstance.sgwsAgendaNotes
+        new_visit.sgwsVisitPurpose = (PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose)!
+        new_visit.sgwsAgendaNotes = (PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes)!
             new_visit.status = (visit?.status)!
             new_visit.description = (visit?.description)!
+            new_visit.contactId = (visit?.contactId)!
 
             let attributeDict = ["type":"WorkOrder"]
         
@@ -76,6 +77,7 @@ class PlanVistManager {
                 PlanVisit.planVisitFields[7]: new_visit.description,
                 PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
                 PlanVisit.planVisitFields[9]: new_visit.status,
+                PlanVisit.planVisitFields[11]: new_visit.contactId,
                 
                 kSyncTargetLocal:true,
                 kSyncTargetLocallyCreated:true,

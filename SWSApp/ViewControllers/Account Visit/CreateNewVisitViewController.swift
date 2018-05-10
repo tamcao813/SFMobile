@@ -189,7 +189,7 @@ class CreateNewVisitViewController: UIViewController {
             if let visit = PlanVistManager.sharedInstance.visit{
                 PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
                 if let contact = selectedContact {
-                    PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+                    PlanVistManager.sharedInstance.visit?.contactId = selectedContact.contactId
                 }
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
@@ -238,7 +238,7 @@ class CreateNewVisitViewController: UIViewController {
             if let visit = PlanVistManager.sharedInstance.visit{
                 PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
                 if let contact = selectedContact {
-                    PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+                    PlanVistManager.sharedInstance.visit?.contactId = selectedContact.contactId
                 }
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
@@ -292,6 +292,7 @@ class CreateNewVisitViewController: UIViewController {
 //            PlanVisit.planVisitFields[7]: new_visit.description,
 //            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
             PlanVisit.planVisitFields[9]: new_visit.status,
+            PlanVisit.planVisitFields[11]: new_visit.contactId,
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,

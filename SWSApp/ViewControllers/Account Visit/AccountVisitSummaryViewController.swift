@@ -261,7 +261,7 @@ class AccountVisitSummaryViewController: UIViewController {
             createVisitViewController.visitId = visitObject?.Id
 //            createVisitViewController.delegate = self
             PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVistManager.sharedInstance.visit?.description = (visitObject?.sgwsAgendaNotes)!
+            PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -273,14 +273,14 @@ class AccountVisitSummaryViewController: UIViewController {
             viewController?.editNotesText = (self.visitObject?.description)!
             viewController?.modalPresentationStyle = .overCurrentContext
             PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVistManager.sharedInstance.visit?.description = (visitObject?.sgwsAgendaNotes)!
+            PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             self.present(viewController!, animated: true)
         case .planned?:
             PlanVistManager.sharedInstance.editPlanVisit = true
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVistManager.sharedInstance.visit?.description = (visitObject?.sgwsAgendaNotes)!
+            PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             createVisitViewController.visitId = visitObject?.Id
 //            createVisitViewController.delegate = self
             DispatchQueue.main.async {

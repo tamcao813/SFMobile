@@ -271,10 +271,10 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
             if indexPath.row == readServicePurposePList().count {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
-                if !PlanVistManager.sharedInstance.description.isEmpty {
-                    (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = PlanVistManager.sharedInstance.description
+                if !(PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes.isEmpty)! {
+                    (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes
                 }
-                //PlanVistManager.sharedInstance.sgwsAgendaNotes = ((cell1 as! EditAccountStrategyCollectionViewCell).textView?.text)!
+//                PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = ((cell1 as! EditAccountStrategyCollectionViewCell).textView?.text)!
                 
             } else {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell

@@ -124,12 +124,12 @@
                                     <outlet property="delegate" destination="d4b-uZ-psi" id="E3v-rh-Vaa"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Strategy last updated on March 25, 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZE-sy-J5P">
-                                <rect key="frame" x="36" y="796" width="347" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Strategy last updated on " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZE-sy-J5P">
+                                <rect key="frame" x="36" y="796" width="237.5" height="18"/>
                                 <fontDescription key="fontDescription" name="Ubuntu-Italic" family="Ubuntu" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17S-vj-Wd6">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17S-vj-Wd6">
                                 <rect key="frame" x="169.5" y="418.5" width="774.5" height="17"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                 <nil key="textColor"/>

@@ -15,6 +15,9 @@ class StrategyQAViewModel {
     func createNewStrategyQALocally(fields: [String:Any]) -> Bool {
         return StoreDispatcher.shared.createNewStrategyQALocally(fieldsToUpload:fields)
     }
+    func editStrategyQALocally(fields: [String:Any]) -> Bool {
+        return StoreDispatcher.shared.editStrategyQALocally(fieldsToUpload:fields)
+    }
     func uploadStrategyQAToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
         StoreDispatcher.shared.syncUpStrategyQA(fieldsToUpload: fields, completion: {error in
             

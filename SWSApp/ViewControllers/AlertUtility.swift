@@ -26,6 +26,16 @@ class AlertUtilities: NSObject {
         
         viewControllerUsed.present(alert, animated:true, completion: nil)
     }
+    
+    class func generateRandomIDForNewEntry()->String  {
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        print("number in notes is \(someString)")
+        return someString
+    }
+    
 }
 
 

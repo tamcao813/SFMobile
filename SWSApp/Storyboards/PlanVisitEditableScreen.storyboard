@@ -859,10 +859,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BYT-Cp-cJS">
-                                        <rect key="frame" x="20" y="105" width="1008" height="228"/>
+                                        <rect key="frame" x="20" y="105" width="1008" height="562"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="228" id="igH-3K-GKg"/>
+                                            <constraint firstAttribute="height" constant="562" id="igH-3K-GKg"/>
                                             <constraint firstAttribute="width" constant="1008" id="sTU-QK-cMS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>

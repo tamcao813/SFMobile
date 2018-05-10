@@ -136,7 +136,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7GF-3v-UVq">
-                                <rect key="frame" x="1038" y="34" width="38" height="38"/>
+                                <rect key="frame" x="1053" y="34" width="38" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="74g-1Z-P2j"/>
                                     <constraint firstAttribute="width" constant="38" id="Fuw-vl-mY7"/>
@@ -152,7 +152,7 @@
                             <constraint firstItem="17S-vj-Wd6" firstAttribute="centerY" secondItem="sdF-XD-axo" secondAttribute="centerY" id="4al-Od-hwU"/>
                             <constraint firstItem="sdF-XD-axo" firstAttribute="trailing" secondItem="HY3-oi-mmZ" secondAttribute="trailing" constant="21" id="5g9-Nn-MvU"/>
                             <constraint firstItem="gOG-uA-kRW" firstAttribute="top" secondItem="Jb4-kb-baz" secondAttribute="top" constant="11" id="CDX-SI-XBm"/>
-                            <constraint firstItem="sdF-XD-axo" firstAttribute="trailing" secondItem="7GF-3v-UVq" secondAttribute="trailing" constant="36" id="Eq9-U4-9ds"/>
+                            <constraint firstItem="sdF-XD-axo" firstAttribute="trailing" secondItem="7GF-3v-UVq" secondAttribute="trailing" constant="21" id="Eq9-U4-9ds"/>
                             <constraint firstItem="7GF-3v-UVq" firstAttribute="top" secondItem="sdF-XD-axo" secondAttribute="top" constant="14" id="Pju-y4-fMC"/>
                             <constraint firstItem="HY3-oi-mmZ" firstAttribute="top" secondItem="sdF-XD-axo" secondAttribute="top" constant="37" id="PyK-z0-lP5"/>
                             <constraint firstItem="FZE-sy-J5P" firstAttribute="leading" secondItem="sdF-XD-axo" secondAttribute="leading" constant="36" id="WOZ-pS-eUA"/>
@@ -165,6 +165,7 @@
                         <viewLayoutGuide key="safeArea" id="sdF-XD-axo"/>
                     </view>
                     <connections>
+                        <outlet property="btnEdit" destination="HY3-oi-mmZ" id="GW9-PP-W8r"/>
                         <outlet property="closeIcon" destination="7GF-3v-UVq" id="HRp-aF-3ZQ"/>
                         <outlet property="collectionView" destination="gOG-uA-kRW" id="dym-43-NDa"/>
                         <outlet property="editIcon" destination="HY3-oi-mmZ" id="W6n-Uw-QsW"/>

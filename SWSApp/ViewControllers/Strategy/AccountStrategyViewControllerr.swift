@@ -136,6 +136,8 @@ class AccountStrategyViewController : UIViewController{
                 
                 let answerArray = NSMutableArray()
                 
+                let answerArrayStr = NSMutableArray()
+                
                 let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
                 
                 if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
@@ -145,7 +147,13 @@ class AccountStrategyViewController : UIViewController{
                         answerDict.setValue(ans, forKey: "answerText")
                         answerArray.add(answerDict)
                     }
+                    
+                    for ans in answerListArray{
+                        answerArrayStr.add(ans)
+                    }
                 }
+                let answerListString = answerArrayStr.componentsJoined(by: ",")
+                dict.setValue(answerListString, forKey: "answerStrings")
                 
                 dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
                 
@@ -178,6 +186,9 @@ class AccountStrategyViewController : UIViewController{
             print(filteredArray)
             
             let newArray = NSMutableArray()
+            
+            let stringArray = NSMutableArray()
+            
             for item in filteredArray{
                 
                 let tempDict = item as! NSMutableDictionary
@@ -187,18 +198,24 @@ class AccountStrategyViewController : UIViewController{
                     let dic = data as! NSMutableDictionary
                     newArray.add(dic)
                     
+                    let text = dic["answerText"] as! String
+                    stringArray.add(text)
                 }
             }
             let dictionary = NSMutableDictionary()
             dictionary.setValue(newArray, forKey: "answers")
             
+            let text = stringArray.componentsJoined(by: ",")
             
             let data1 = filteredArray[0] as! NSMutableDictionary
             let head1 = data1["header"] as! String
             let subHead1 = data1["subHeader"] as! String
+            let id = data1["id"] as! String
             
             dictionary.setValue(head1, forKey: "header")
             dictionary.setValue(subHead1, forKey: "subHeader")
+            dictionary.setValue(text, forKey: "answerStrings")
+            dictionary.setValue(id, forKey: "id")
             
             modifiedArray.add(dictionary)
             print("infinity3")

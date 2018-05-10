@@ -514,14 +514,14 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
                     }
                     
                     
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                    //AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                         
                         self.dismiss(animated: true, completion: nil)
                         self.delegate?.refreshStrategyScreenToLoadNewData()
                         
-                    }, action2: {
+                    //}, action2: {
                         
-                    })
+                    //})
                     break
                 }
                 
@@ -593,14 +593,14 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
                // }
                 
                 
-                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                //AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                     
                     self.dismiss(animated: true, completion: nil)
                     self.delegate?.refreshStrategyScreenToLoadNewData()
                     
-                }, action2: {
+               // }, action2: {
                     
-                })
+               // })
                 
             }
             

@@ -11,9 +11,7 @@ import SmartSync
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
-    
     func navigateToAccountScreen()
-    
 }
 
 class AccountVisitSummaryViewController: UIViewController {
@@ -39,19 +37,18 @@ class AccountVisitSummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountList"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchVisit()
-        UICustomizations()
         initializingXIBs()
         refactoringUIOnApplicationStatusBasis()
+    }
+    
+    @objc func refreshVisit(){
+        fetchVisit()
     }
     
     func fetchVisit(){
@@ -66,6 +63,7 @@ class AccountVisitSummaryViewController: UIViewController {
         }
         fetchAccountDetails()
         fetchContactDetails()
+        UICustomizations()
     }
     
     func fetchAccountDetails(){
@@ -134,7 +132,7 @@ class AccountVisitSummaryViewController: UIViewController {
             dateFormatter.dateFormat = "dd" //Your date format
             let day = dateFormatter.string(from: date)
             dayLabel.text = day
-            dateFormatter.dateFormat = "HH:mm a" //Your date format
+            dateFormatter.dateFormat = "hh:mm a" //Your date format
             dateFormatter.amSymbol = "AM"
             dateFormatter.pmSymbol = "PM"
             startTime = dateFormatter.string(from: date)
@@ -149,7 +147,7 @@ class AccountVisitSummaryViewController: UIViewController {
         }
         
         if endDate != nil {//|| endDate != "" {
-            dateFormatter1.dateFormat = "HH:mm a"
+            dateFormatter1.dateFormat = "hh:mm a"
             dateFormatter1.amSymbol = "AM"
             dateFormatter1.pmSymbol = "PM"
             endTime = dateFormatter.string(from: endDate)

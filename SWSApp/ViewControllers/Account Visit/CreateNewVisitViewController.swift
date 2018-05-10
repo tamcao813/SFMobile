@@ -319,8 +319,8 @@ class CreateNewVisitViewController: UIViewController {
 
         print("Success is here \(success)")
         if(success){
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             if dismiss {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
                 self.dismiss(animated: true)
             }else{
                 let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)

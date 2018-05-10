@@ -78,10 +78,22 @@ class StoreDispatcher {
             
             self.syncDownACR() { _ in
             }
-            // Downlaod response after Sync down Account
+            
+            // stage 2 Downlaod response after Sync down Account
             self.syncDownStrategyQA() { _ in
-                group.leave()
             }
+            
+            // Stage 2 StrategyQuestions downlaod need survey Id's which are downlaoded in Account
+            self.syncDownStrategyQuestions() { _ in
+                
+                //Stage 3 do only when we have all questions
+                self.syncDownStrategyAnswers() { _ in
+                    group.leave()
+                }
+                
+            }
+
+            
         }
         
         group.enter()
@@ -109,17 +121,6 @@ class StoreDispatcher {
             group.leave()
         }
         
-        
-        group.enter()
-        syncDownStrategyQuestions() { _ in
-            group.leave()
-        }
-        group.enter()
-        syncDownStrategyAnswers() { _ in
-            group.leave()
-        }
-        
-       
         //to do: syncDown other soups
         
         group.notify(queue: queue) {
@@ -430,13 +431,8 @@ class StoreDispatcher {
             SFSoupIndex(path: "Account.Google_Place_Formatted_Phone__c", indexType: kSoupIndexTypeString, columnName: "Account.Google_Place_Formatted_Phone__c")!,
              SFSoupIndex(path: "Account.SWS_Status_Description__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_Status_Description__c")!,
              SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!,
-            SFSoupIndex(path: "Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c")!
-            
-            
-             
-            
-            // SFSoupIndex(path: "Account.ShippingLatitude", indexType: kSoupIndexTypeFloating, columnName: "Account.ShippingLatitude")!,
-           // SFSoupIndex(path: "Account.ShippingLongitude", indexType: kSoupIndexTypeFloating, columnName: "Account.ShippingLongitude")!
+            SFSoupIndex(path: "Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c")!,
+            SFSoupIndex(path: "Account.SGWS_SurveyId__c", indexType: kSoupIndexTypeString, columnName: "Account.SGWS_SurveyId__c")!
         ]
         let indexSpecs: [AnyObject] = SFSoupIndex.asArraySoupIndexes(indexes) as [AnyObject]
         
@@ -590,7 +586,7 @@ class StoreDispatcher {
         
         //,,Account.SWS_Premise_Code__c
         
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
        
         //,,,
         
@@ -743,6 +739,33 @@ class StoreDispatcher {
         print(accountIdsArray)
 
         return accountIdsArray
+    }
+    
+    func fetchAllAccountsSurveyIds()->[String]{
+        
+        var surveyIdsArray:[String] = []
+        
+        let soqlQuery = "Select {AccountTeamMember:Account.SGWS_SurveyId__c} FROM {AccountTeamMember}"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                if(ary[0] is NSNull){
+                } else {
+                    surveyIdsArray.append(ary[0] as! String)
+                }
+                
+            }
+        }
+        print(surveyIdsArray)
+        
+        return surveyIdsArray
     }
     
     func fetchAccounts(forUser userid: String) -> [Account] {
@@ -1735,7 +1758,8 @@ class StoreDispatcher {
         
         //["Id","SGWS_Account__c","SGWS_Question_Sub_Type__c","SGWS_Question__c","SGWS_Notes__c","LastModifiedById","LastModifiedDate","OwnerId","SGWS_Answer_Description_List__c"]
         
-       let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Response__c"
+       let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Response__c" 
+        // account Ids
         
         //let soqlQuery = "SELECT Id,SGWS_Account__c,SGWS_Question__r.Id,SGWS_Answer_Options__r.Id,SGWS_Question__r.SGWS_Question_Type__c,SGWS_Question__r.SGWS_Question_Sub_Type__c,SGWS_Question_Description__c,SGWS_Answer__c,SGWS_Notes__c,LastModifiedById,LastModifiedDate,OwnerId,SGWS_Answer_Description_List__c FROM SGWS_Response__c ORDER BY SGWS_Question__r.SGWS_Sorting_Order__c"
         
@@ -1823,7 +1847,11 @@ class StoreDispatcher {
     
     func syncDownStrategyQuestions(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c,SGWS_Question_Description__c FROM SGWS_Question__c"// where SGWS_Survey_ID__c in ('a4r0t00000055xY')"
+        let surveyIdsString = fetchAllAccountsSurveyIds().joined(separator: "','")
+        
+        let surveyIdsFormattedString = "'" + surveyIdsString + "'"
+        
+        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c,SGWS_Question_Description__c FROM SGWS_Question__c where SGWS_Survey_ID__c IN (\(surveyIdsFormattedString))"
         
         print("soql syncDownStrategyQuestions query is \(soqlQuery)")
         
@@ -1854,10 +1882,20 @@ class StoreDispatcher {
     }
     
     // Fetch StrategyQuestions...
-    func fetchStrategyQuestions()->[StrategyQuestions]{
+    func fetchStrategyQuestions(forAccount accountId:String)->[StrategyQuestions]{
         var strategyQuestions: [StrategyQuestions] = []
+        
+        // get questions for only applicable surveyID for this account
+        let surveyIdArray = fetchAllSurveyIdsForAccoount(accountId: accountId)//.joined(separator: "','")
+        
+        if(surveyIdArray.count > 0){
+        
+        let uniqueSurvey = surveyIdArray[0] as! String
+        
+        
         let strategyQuestionsFields = StrategyQuestions.StrategyQuestionsFields.map{"{SGWS_Question__c:\($0)}"}
-        let soapQuery = "Select \(strategyQuestionsFields.joined(separator: ",")) FROM {SGWS_Question__c}"
+        
+            let soapQuery = "Select \(strategyQuestionsFields.joined(separator: ",")) FROM {SGWS_Question__c} Where {SGWS_Question__c:SGWS_Survey_ID__c} = '\(uniqueSurvey)' order By {SGWS_Question__c:SGWS_Sorting_Order__c}"
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -1874,8 +1912,34 @@ class StoreDispatcher {
         else if error != nil {
             print("fetch strategy Questions  " + " error:" + (error?.localizedDescription)!)
         }
+        }
         return strategyQuestions
     }
+    
+    func fetchAllQuestionsId()->[String]{
+        
+        var questionIdsArray:[String] = []
+        
+        let soqlQuery = "Select {SGWS_Question__c:Id} FROM {SGWS_Question__c}"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                questionIdsArray.append(ary[0] as! String)
+                
+            }
+        }
+        print(questionIdsArray)
+        
+        return questionIdsArray
+    }
+    
     
     // Register StrategyAnswers Soup
     func registerStrategyAnswers(){
@@ -1901,7 +1965,14 @@ class StoreDispatcher {
     // SyncDown StrategyAnswers Soup
     func syncDownStrategyAnswers(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id,Name,SGWS_Answer_Description__c,SGWS_Deactivate_Answer__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Answer__c"
+        // Get All question Id's and Format as string with comma separator
+        let questionIdArray = fetchAllQuestionsId().joined(separator: "','")
+        
+        // Formatted questionIdArray String with adding "'" at start and end
+        let formattedquestionIdArray = "'" + questionIdArray + "'"
+        
+        
+        let soqlQuery = "SELECT Id,Name,SGWS_Answer_Description__c,SGWS_Deactivate_Answer__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Answer__c WHERE SGWS_Question__c IN (\(formattedquestionIdArray))"//"// for only downloaded question
         
         print("soql syncDownStrategyAnswers query is \(soqlQuery)")
         
@@ -2021,8 +2092,6 @@ class StoreDispatcher {
     // edit  Strategy QA Locally
     func editStrategyQALocally(fieldsToUpload: [String:Any]) -> Bool{
         
-        
-        //["Id","SGWS_Account__c","SGWS_Question_Sub_Type__c","SGWS_Question__c","SGWS_Notes__c","LastModifiedById","LastModifiedDate","OwnerId","SGWS_Answer_Description_List__c"]
         var allFields = fieldsToUpload
         allFields["attributes"] = ["type":"WorkOrder"]
         allFields[kSyncTargetLocal] = true
@@ -2062,7 +2131,7 @@ class StoreDispatcher {
                     
                 }
                 singleVisitModif[kSyncTargetLocallyDeleted] = false
-                ary = sfaStore.upsertEntries([singleVisitModif], toSoup: SoupVisit)
+                ary = sfaStore.upsertEntries([singleVisitModif], toSoup: SoupStrategyQA)
                 break
                 
             }
@@ -2209,6 +2278,34 @@ class StoreDispatcher {
         else {
             return false
         }
+    }
+    
+    func fetchAllSurveyIdsForAccoount(accountId:String)->[String]{
+        
+        var surveyIdsArray:[String] = []
+        
+        let soqlQuery = "Select {AccountTeamMember:Account.SGWS_SurveyId__c} FROM {AccountTeamMember} Where {AccountTeamMember:AccountId} = '\(accountId)'"
+
+       // let soqlQuery = "Select {SGWS_Question__c:Id} FROM {SGWS_Question__c}"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                if(ary[0] is NSNull){
+                } else {
+                surveyIdsArray.append(ary[0] as! String)
+                }
+            }
+        }
+        print(surveyIdsArray)
+        
+        return surveyIdsArray
     }
     
     

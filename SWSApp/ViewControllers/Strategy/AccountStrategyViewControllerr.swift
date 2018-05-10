@@ -16,6 +16,7 @@ class AccountStrategyViewController : UIViewController{
     @IBOutlet weak var collectionView : UICollectionView?
     @IBOutlet weak var lblLastModifiedDate : UILabel?
     @IBOutlet weak var lblNoData : UILabel?
+    @IBOutlet weak var btnEdit : UIButton?
     
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
@@ -57,6 +58,15 @@ class AccountStrategyViewController : UIViewController{
     func loadTheDataFromStrategyQA(){
         
         let data = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
+        
+        let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
+        
+        //If no surveys for this account disbale the edit strategy button
+        if question.count == 0{
+            
+            btnEdit?.isHidden = true
+            lblNoData?.text = "No Survey assigned for this Account."
+        }
         // let data = strategyQAViewModel.getStrategyQuestionAnswer()
         
         let tableViewData = NSMutableArray()

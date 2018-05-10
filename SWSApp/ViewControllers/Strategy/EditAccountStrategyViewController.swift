@@ -25,7 +25,7 @@ class EditAccountStrategyViewController: UIViewController {
     var delegate : RefreshStrategyScreenDelegate?
     
     @IBOutlet weak var collectionView : UICollectionView?
-
+    
     var strategyArray : NSMutableArray?
     
     
@@ -57,8 +57,13 @@ class EditAccountStrategyViewController: UIViewController {
 //        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
 //        print(dictionary!)
         
-        let question = strategyQuestionsViewModel.getStrategyQuestions()
-        let answer = strategyAnswersViewModel.getStrategyAnswers()
+        let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
+        
+        //If no surveys for this account disbale the edit strategy button
+        if question.count == 0{
+            return
+        }
+         let answer = strategyAnswersViewModel.getStrategyAnswers()
         
         strategyQAResponse = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
         
@@ -108,6 +113,7 @@ class EditAccountStrategyViewController: UIViewController {
                 dict.setValue(questionData.Id, forKey: "id")
                 
                 let answerArray = NSMutableArray()
+                
                 for answerData in answer{
                     
                     if answerData.SGWS_Question__c == questionData.Id{
@@ -239,7 +245,7 @@ class EditAccountStrategyViewController: UIViewController {
         var headerArray = [String]()
     
         //Get unique headernames once
-        let question = strategyQuestionsViewModel.getStrategyQuestions()
+        let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
         
         for questionHeaders in question{
             
@@ -474,15 +480,16 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
             print("Success is here \(success)")
             
-            
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-                
-                self.dismiss(animated: true, completion: nil)
-                self.delegate?.refreshStrategyScreenToLoadNewData()
-                
-            }, action2: {
-                
-            })
+            self.dismiss(animated: true, completion: nil)
+//
+//            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+//
+//                self.dismiss(animated: true, completion: nil)
+//                self.delegate?.refreshStrategyScreenToLoadNewData()
+//
+//            }, action2: {
+//
+//            })
         }
         
     }

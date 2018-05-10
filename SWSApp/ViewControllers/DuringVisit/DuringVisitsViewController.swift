@@ -194,6 +194,8 @@ class  DuringVisitsViewController : UIViewController {
         let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
         let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditAccountStrategyViewControllerID") as UIViewController
         vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        
+        LoadEditStrategyFromDuringVisit.editStrategy = "1"
         self.present(vc, animated: true, completion: nil)
         
     }

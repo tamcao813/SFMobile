@@ -51,10 +51,6 @@ class AccountVisitSummaryViewController: UIViewController {
         fetchVisit()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-    }
     
     @objc func refreshSummaryScreen(){
         print("visit", PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose)
@@ -119,7 +115,7 @@ class AccountVisitSummaryViewController: UIViewController {
         let image = #imageLiteral(resourceName: "delete").withRenderingMode(.alwaysTemplate)
         deleteVisitButton.setImage(image, for: .normal)
         deleteVisitButton.tintColor = UIColor(hexString: "#4287C2")
-        deleteVisitButton.setTitle("    Delete", for: .normal)
+        deleteVisitButton.setTitle("    Delete Visit", for: .normal)
         self.getStartDateAndEndTime()
     }
     

@@ -11,6 +11,10 @@ import DropDown
 import IQKeyboardManagerSwift
 import SmartSync
 
+protocol CreateNewVisitViewControllerDelegate:NSObjectProtocol {
+    func updateVisit()
+}
+
 class CreateNewVisitViewController: UIViewController {
     
     @IBOutlet weak var headingLabel: UILabel!
@@ -31,6 +35,7 @@ class CreateNewVisitViewController: UIViewController {
     var startDate: UITextField!
     var startTime: UITextField!
     var endTime: UITextField!
+    var delegate: CreateNewVisitViewControllerDelegate!
     
     struct createNewVisitViewControllerGlobals {
         static var userInput = false
@@ -243,6 +248,7 @@ class CreateNewVisitViewController: UIViewController {
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
                 let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+                self.delegate.updateVisit()
                 self.dismiss(animated: true)
             }else{
                 createNewVisit(dismiss: true)
@@ -321,6 +327,7 @@ class CreateNewVisitViewController: UIViewController {
         if(success){
             if dismiss {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+                self.delegate.updateVisit()
                 self.dismiss(animated: true)
             }else{
                 let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)

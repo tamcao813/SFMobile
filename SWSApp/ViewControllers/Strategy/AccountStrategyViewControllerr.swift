@@ -16,6 +16,7 @@ class AccountStrategyViewController : UIViewController{
     @IBOutlet weak var collectionView : UICollectionView?
     @IBOutlet weak var lblLastModifiedDate : UILabel?
     @IBOutlet weak var lblNoData : UILabel?
+    @IBOutlet weak var btnEdit : UIButton?
     
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
@@ -57,6 +58,20 @@ class AccountStrategyViewController : UIViewController{
     func loadTheDataFromStrategyQA(){
         
         let data = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
+        
+        let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
+        
+        //If no surveys for this account disbale the edit strategy button
+        if question.count == 0{
+            btnEdit?.isHidden = true
+            lblNoData?.isHidden = false
+            lblNoData?.text = "No Survey assigned for this Account."
+        }else{
+            btnEdit?.isHidden = false
+            lblNoData?.text = "The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now."
+            lblNoData?.isHidden = true
+            
+        }
         // let data = strategyQAViewModel.getStrategyQuestionAnswer()
         
         let tableViewData = NSMutableArray()
@@ -261,7 +276,7 @@ class AccountStrategyViewController : UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "editStrategySegue") {
             let editStrategy = segue.destination as? EditAccountStrategyViewController
-            editStrategy?.strategyArray = tableViewRowDetails
+            editStrategy?.strategyArray = tableViewRowDetails!
             editStrategy?.delegate = self
         }
     }
@@ -314,7 +329,7 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.section == (tableViewRowDetails?.count)! - 1 {//Used to make the Additional notes Dynamic
+        if indexPath.section == (tableViewRowDetails?.count)!  {//Used to make the Additional notes Dynamic
             
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray

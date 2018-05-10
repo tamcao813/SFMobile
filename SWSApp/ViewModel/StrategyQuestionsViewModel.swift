@@ -9,8 +9,8 @@
 import Foundation
 class StrategyQuestionsViewModel {
     
-    func getStrategyQuestions() -> [StrategyQuestions] {
-        return StoreDispatcher.shared.fetchStrategyQuestions()
+    func getStrategyQuestions(accountId: String) -> [StrategyQuestions] {
+        return StoreDispatcher.shared.fetchStrategyQuestions(forAccount: accountId)
     }
     
     

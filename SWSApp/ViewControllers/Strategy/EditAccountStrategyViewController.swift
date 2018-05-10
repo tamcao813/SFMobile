@@ -25,13 +25,13 @@ class EditAccountStrategyViewController: UIViewController {
     var delegate : RefreshStrategyScreenDelegate?
     
     @IBOutlet weak var collectionView : UICollectionView?
-
-    var strategyArray : NSMutableArray?
+    
+    var strategyArray = NSMutableArray()
     
     
     var textViewWidth = 0.0
     var collectionViewWidth = 0.0
-    
+    var strategyQAResponse:[StrategyQA] = []
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -57,10 +57,15 @@ class EditAccountStrategyViewController: UIViewController {
 //        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
 //        print(dictionary!)
         
-        let question = strategyQuestionsViewModel.getStrategyQuestions()
-        let answer = strategyAnswersViewModel.getStrategyAnswers()
+        let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
         
-        //let strategyQAResponse = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
+        //If no surveys for this account disbale the edit strategy button
+        if question.count == 0{
+            
+        }
+         let answer = strategyAnswersViewModel.getStrategyAnswers()
+        
+        strategyQAResponse = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
         
         
         let tableViewData = NSMutableArray()
@@ -108,6 +113,7 @@ class EditAccountStrategyViewController: UIViewController {
                 dict.setValue(questionData.Id, forKey: "id")
                 
                 let answerArray = NSMutableArray()
+                
                 for answerData in answer{
                     
                     if answerData.SGWS_Question__c == questionData.Id{
@@ -122,12 +128,7 @@ class EditAccountStrategyViewController: UIViewController {
                             for ans in answerTempArray{
                                 
                                 //Check for Response__C if the Anwer matched isSelected YES
-                                
-                                
-                                
-                                
-                                
-                                
+
                                 let answerDict = NSMutableDictionary()
                                 answerDict.setValue(ans, forKey: "answerText")
                                 answerDict.setValue(answerData.Id, forKey: "answerId")
@@ -138,7 +139,11 @@ class EditAccountStrategyViewController: UIViewController {
                                 answerArray.add(answerDict)
                             }
                         }
+                        
                         dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
+                        
+                        let answersDescription = answerArray.componentsJoined(by: ",")
+                        dict.setValue(answersDescription, forKey: "answerStrings")
                     }
                 }
                 tableViewData.add(dict)
@@ -153,7 +158,7 @@ class EditAccountStrategyViewController: UIViewController {
             //Write a logic to show the UI that particular Answer is selected
             if strategyArray != nil {
                 
-                for strategy in strategyArray!{
+                for strategy in strategyArray{
                     
                     let strategyDict = strategy as! NSMutableDictionary
                     let strategyArray = strategyDict["answers"] as! NSMutableArray
@@ -251,7 +256,7 @@ class EditAccountStrategyViewController: UIViewController {
         var headerArray = [String]()
     
         //Get unique headernames once
-        let question = strategyQuestionsViewModel.getStrategyQuestions()
+        let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
         
         for questionHeaders in question{
             
@@ -278,8 +283,18 @@ class EditAccountStrategyViewController: UIViewController {
 
         if validateFields{
             print("Success")
+            
+            // Have i edited or created new Strategy
+            
+            //if(strategyQAResponse.count > 0){
+                
 
-            createStrategy()
+                
+            //} else {
+                
+                createStrategy()
+                
+            //}
 
         }else{
 
@@ -407,6 +422,9 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
     }
     
     func createStrategy() {
+        
+        let responseChange = false
+        
         let new_Strategy = StrategyQA(for: "NewStrategy")
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -416,82 +434,218 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         new_Strategy.SGWS_Account__c = AccountId.selectedAccountId
         new_Strategy.SGWS_Notes__c = StrategyNotes.accountStrategyNotes
         
-       // let answersSelected = NSMutableArray()
+        //print()
         
+       // let answersSelected = NSMutableArray()
+        //one object of tableViewRowDetails is linked to which response object
         for q in tableViewRowDetails!{
+        
             
-            let item = q as! NSMutableDictionary
-            
-            let dict = item["answers"] as! NSMutableArray
-            
-            let questionId = item["id"] as! String //Question Id
-            
-            let answersCommaSeperated = NSMutableArray()
-            
-            for answers in dict{
+            if strategyArray.count > 0{
                 
-                let answerDict = answers as! NSMutableDictionary
-                
-                let isSelected = answerDict["isSelected"] as! String
-                
-                if isSelected == "YES"{
-                    let answer = answerDict["answerText"] as! String
-                    answersCommaSeperated.add(answer)
+                for r in strategyArray{
+                    
+                    
+                    let response = r as! NSMutableDictionary
+                    let ansStr = response["answerStrings"] as! String
+                    let responseId = response["id"] as! String
+                    
+                    let item = q as! NSMutableDictionary
+                    
+                    let dict = item["answers"] as! NSMutableArray
+                    
+                    //let ansStr1 = item["answerStrings"] as! String
+                    
+                    let questionId = item["id"] as! String //Question Id
+                    
+                    let answersCommaSeperated = NSMutableArray()
+                    
+                    for answers in dict{
+                        
+                        let answerDict = answers as! NSMutableDictionary
+                        
+                        let isSelected = answerDict["isSelected"] as! String
+                        
+                        if isSelected == "YES"{
+                            let answer = answerDict["answerText"] as! String
+                            answersCommaSeperated.add(answer)
+                        }
+                    }
+                    
+                    //answersSelected are answers selected bu user for this Question Id
+                    
+                    // I can say i can write my response to DB
+                    let answerSelectedFormatted  =  answersCommaSeperated.componentsJoined(by: ",")
+                    
+                    
+                    new_Strategy.SGWS_Answer_Description_List__c = answerSelectedFormatted
+                    //    new_Strategy.SGWS_Answer_Options__r_Id = ""
+                    new_Strategy.SGWS_Question__c =  questionId
+                    
+                    
+                    
+                    let attributeDict = ["type":"SGWS_Response__c"]
+                    let localId = AlertUtilities.generateRandomIDForNewEntry()
+                    
+                    let addNewDict: [String:Any] = [
+                        StrategyQA.StrategyQAFields[0]:localId,
+                        StrategyQA.StrategyQAFields[7]:new_Strategy.OwnerId,
+                        StrategyQA.StrategyQAFields[1]:new_Strategy.SGWS_Account__c,
+                        StrategyQA.StrategyQAFields[8]:new_Strategy.SGWS_Answer_Description_List__c,
+                        StrategyQA.StrategyQAFields[4]:new_Strategy.SGWS_Notes__c,
+                        StrategyQA.StrategyQAFields[3]:new_Strategy.SGWS_Question__c,
+                        
+                        kSyncTargetLocal:true,
+                        kSyncTargetLocallyCreated:true,
+                        kSyncTargetLocallyUpdated:false,
+                        kSyncTargetLocallyDeleted:false,
+                        "attributes":attributeDict]
+                    
+                    
+                    if ansStr != answerSelectedFormatted {
+                        
+                        let success = self.editStrategy(strategyQAResponse: new_Strategy, reponseObjectId: responseId)
+                        print("Edit Success is here \(success)")
+                        
+                    }else{
+                        let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
+                        print("New Success is here \(success)")
+                        
+                    }
+                    
+                    
+                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                        
+                        self.dismiss(animated: true, completion: nil)
+                        self.delegate?.refreshStrategyScreenToLoadNewData()
+                        
+                    }, action2: {
+                        
+                    })
+                    break
                 }
+                
+            }else{
+
+                
+                let item = q as! NSMutableDictionary
+                
+                let dict = item["answers"] as! NSMutableArray
+                
+                let ansStr1 = item["answerStrings"] as! String
+                
+                
+                let questionId = item["id"] as! String //Question Id
+                
+                let answersCommaSeperated = NSMutableArray()
+                
+                for answers in dict{
+                    
+                    let answerDict = answers as! NSMutableDictionary
+                    
+                    let isSelected = answerDict["isSelected"] as! String
+                    
+                    if isSelected == "YES"{
+                        let answer = answerDict["answerText"] as! String
+                        answersCommaSeperated.add(answer)
+                    }
+                }
+                
+                //answersSelected are answers selected bu user for this Question Id
+                
+                // I can say i can write my response to DB
+                let answerSelectedFormatted  =  answersCommaSeperated.componentsJoined(by: ",")
+                
+                
+                new_Strategy.SGWS_Answer_Description_List__c = answerSelectedFormatted
+                //    new_Strategy.SGWS_Answer_Options__r_Id = ""
+                new_Strategy.SGWS_Question__c =  questionId
+                
+                
+                
+                
+                let attributeDict = ["type":"SGWS_Response__c"]
+                let localId = AlertUtilities.generateRandomIDForNewEntry()
+                
+                let addNewDict: [String:Any] = [
+                    StrategyQA.StrategyQAFields[0]:localId,
+                    StrategyQA.StrategyQAFields[1]:new_Strategy.SGWS_Account__c,
+                    StrategyQA.StrategyQAFields[8]:new_Strategy.SGWS_Answer_Description_List__c,
+                    StrategyQA.StrategyQAFields[4]:new_Strategy.SGWS_Notes__c,
+                    StrategyQA.StrategyQAFields[3]:new_Strategy.SGWS_Question__c,
+                    
+                    kSyncTargetLocal:true,
+                    kSyncTargetLocallyCreated:true,
+                    kSyncTargetLocallyUpdated:false,
+                    kSyncTargetLocallyDeleted:false,
+                    "attributes":attributeDict]
+                
+                
+               // if ansStr == ansStr1 {
+                    
+              //      let success = self.editStrategy(strategyQAResponse: new_Strategy, reponseObjectId: responseId)
+            //        print("Edit Success is here \(success)")
+                    
+              //  }else{
+                    let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
+                    print("New Success is here \(success)")
+                    
+               // }
+                
+                
+                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                    
+                    self.dismiss(animated: true, completion: nil)
+                    self.delegate?.refreshStrategyScreenToLoadNewData()
+                    
+                }, action2: {
+                    
+                })
+                
             }
             
-            //answersSelected are answers selected bu user for this Question Id
-            
-            // I can say i can write my response to DB
-            let answerSelectedFormatted  =  answersCommaSeperated.componentsJoined(by: ",")
-            
-            
-            new_Strategy.SGWS_Answer_Description_List__c = answerSelectedFormatted
-            //    new_Strategy.SGWS_Answer_Options__r_Id = ""
-            new_Strategy.SGWS_Question__c =  questionId
-            
-            
-            let attributeDict = ["type":"SGWS_Response__c"]
-            
-            
-            let addNewDict: [String:Any] = [
-                StrategyQA.StrategyQAFields[7]:new_Strategy.OwnerId,
-                StrategyQA.StrategyQAFields[1]:new_Strategy.SGWS_Account__c,
-                StrategyQA.StrategyQAFields[8]:new_Strategy.SGWS_Answer_Description_List__c,
-                StrategyQA.StrategyQAFields[4]:new_Strategy.SGWS_Notes__c,
-                StrategyQA.StrategyQAFields[3]:new_Strategy.SGWS_Question__c,
-                
-                kSyncTargetLocal:true,
-                kSyncTargetLocallyCreated:true,
-                kSyncTargetLocallyUpdated:false,
-                kSyncTargetLocallyDeleted:false,
-                "attributes":attributeDict]
-            
-            let success = strategyQAViewModel.createNewStrategyQALocally(fields: addNewDict)
-            print("Success is here \(success)")
-            
-            
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-                
-                self.dismiss(animated: true, completion: nil)
-                self.delegate?.refreshStrategyScreenToLoadNewData()
-                
-            }, action2: {
-                
-            })
         }
-        
-        //        if success == true{
-        //
-        //            let fields: [String] = StrategyQA.StrategyQAFields
-        //            strategyQAViewModel.uploadStrategyQAToServer(fields: fields, completion: { error in
-        //                if error != nil {
-        //                    print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
-        //                }
-        //            })
-        //
-        //        }
-        
+    }
+    
+    func editStrategy(strategyQAResponse : StrategyQA, reponseObjectId: String){
+    
+    //answersSelected are answers selected bu user for this Question Id
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let editStrategy = StrategyQA(for: "NewStrategy")
+    
+    //Use ths same ID of the data base row that we are modifying
+    editStrategy.Id = reponseObjectId
+    editStrategy.OwnerId = (appDelegate.loggedInUser?.userId)!
+    editStrategy.SGWS_Account__c = AccountId.selectedAccountId
+    editStrategy.SGWS_Notes__c = strategyQAResponse.SGWS_Notes__c
+    // I can say i can write my response to DB
+    
+    editStrategy.SGWS_Answer_Description_List__c = strategyQAResponse.SGWS_Answer_Description_List__c
+    //    new_Strategy.SGWS_Answer_Options__r_Id = ""
+    editStrategy.SGWS_Question__c =  strategyQAResponse.SGWS_Question__c
+    
+    
+    let attributeDict = ["type":"SGWS_Response__c"]
+    
+    
+    let addNewDict: [String:Any] = [
+    StrategyQA.StrategyQAFields[0]:editStrategy.Id,
+    StrategyQA.StrategyQAFields[7]:editStrategy.OwnerId,
+    StrategyQA.StrategyQAFields[1]:editStrategy.SGWS_Account__c,
+    StrategyQA.StrategyQAFields[8]:editStrategy.SGWS_Answer_Description_List__c,
+    StrategyQA.StrategyQAFields[4]:editStrategy.SGWS_Notes__c,
+    StrategyQA.StrategyQAFields[3]:editStrategy.SGWS_Question__c,
+    
+    kSyncTargetLocal:true,
+    kSyncTargetLocallyCreated:false,
+    kSyncTargetLocallyUpdated:true,
+    kSyncTargetLocallyDeleted:false,
+    "attributes":attributeDict]
+    
+    let success = strategyQAViewModel.editStrategyQALocally(fields: addNewDict)
+    print("Edit strategy Success is here \(success)")
+    
+    
     }
 }
 

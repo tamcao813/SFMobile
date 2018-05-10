@@ -32,17 +32,17 @@ class OpportunitiesViewController : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
-        let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
+//        let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
+//        let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
+//
+//        let authUrl: String = instanceUrl + "/secur/frontdoor.jsp?sid=" + accessToken + "&retURL="
+//        let accountUrl: String = authUrl +  endUrl
+//
+//        //let url = URL (string: "https://sgws-de--dedev1.lightning.force.com/one/one.app?source=alohaHeader#/sObject/Event/home")
         
-        let authUrl: String = instanceUrl + "/secur/frontdoor.jsp?sid=" + accessToken + "&retURL="
-        let accountUrl: String = authUrl +  endUrl
-        
-        //let url = URL (string: "https://sgws-de--dedev1.lightning.force.com/one/one.app?source=alohaHeader#/sObject/Event/home")
-        
-        let url  =  URL(string:authUrl+accountUrl)
-        let requestObj = URLRequest(url: url!)
-        webView?.loadRequest(requestObj)
+//        let url  =  URL(string:authUrl+accountUrl)
+//        let requestObj = URLRequest(url: url!)
+//        webView?.loadRequest(requestObj)
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -48,7 +48,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField =  DesignableUITextField(frame: CGRect(x: 0, y: 30, width: 180, height: 40))
         dateTextField.rightImage = UIImage(named:"Calender_Icon")!
         dateTextField.rightPadding = 8
-        dateTextField.placeholder = "dd-mm-yyyy"
+        dateTextField.placeholder = "yyyy-MM-dd"
         dateTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         dateTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
         dateTextField.layer.borderWidth = 1.0
@@ -127,8 +127,8 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField.text = dateFormatter.string(from: datePickerView.date)
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
-        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
-        
+//        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
+//
     }
     
     @objc func handleTimePicker(sender: UIDatePicker) {
@@ -162,7 +162,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
-        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
+//        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
     }
     
     @objc func doneButton(sender:UIButton)
@@ -228,8 +228,16 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         let dateformatter = DateFormatter()
         dateformatter.timeStyle = .medium
         dateformatter.dateFormat = "hh:mm a"
-        let dateFromString = dateformatter.date(from: dateString)
-        return dateFromString!
+        var dateFromString = Date()
+        if dateformatter.date(from:(dateString)) != nil {
+            dateFromString = dateformatter.date(from: dateString)!
+        } else {
+            dateformatter.timeStyle = .medium
+            dateformatter.dateFormat = "HH:mm a"
+            dateFromString = dateformatter.date(from: dateString)!
+        }
+        
+        return dateFromString
     }
     
     func resignTextField(){

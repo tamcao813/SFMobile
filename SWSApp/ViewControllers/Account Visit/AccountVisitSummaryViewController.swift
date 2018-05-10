@@ -142,7 +142,7 @@ class AccountVisitSummaryViewController: UIViewController {
         dateFormatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter1.timeZone = TimeZone(abbreviation: "UTC")
         var endDate = Date()
-        if visitObject!.endDate != nil || visitObject!.endDate != ""  {
+        if visitObject?.endDate != nil  {
             endDate = dateFormatter1.date(from: (visitObject?.endDate)!)! //according t
         }
         
@@ -248,7 +248,8 @@ class AccountVisitSummaryViewController: UIViewController {
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             createVisitViewController.visitId = visitObject?.Id
-            //        createVisitViewController.delegate = self
+            createVisitViewController.delegate = self
+            PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -264,8 +265,9 @@ class AccountVisitSummaryViewController: UIViewController {
             PlanVistManager.sharedInstance.editPlanVisit = true
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
+            PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             createVisitViewController.visitId = visitObject?.Id
-            //        createVisitViewController.delegate = self
+            createVisitViewController.delegate = self
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -431,9 +433,9 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
                 cell?.headingLabel.text = "Service Purposes"
                 let str = visitObject?.sgwsVisitPurpose.replacingOccurrences(of: ";", with: "\n • ")
-                if str != nil {
+                if !(str?.isEmpty)! {
                     cell?.SubheadingLabel.text = " • " + str!
-                }
+                } else { cell?.SubheadingLabel.text = ""}
                 return cell!
             case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
@@ -489,7 +491,12 @@ extension AccountVisitSummaryViewController : NavigateToVisitSummaryScreenDelega
     
 }
 
-
+extension AccountVisitSummaryViewController : CreateNewVisitViewControllerDelegate {
+    
+    func updateVisit(){
+        fetchVisit()
+    }
+}
 
 
 

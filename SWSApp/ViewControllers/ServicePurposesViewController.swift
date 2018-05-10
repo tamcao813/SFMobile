@@ -19,6 +19,7 @@ class ServicePurposesViewController: UIViewController {
     var planVist:PlanVisit? = PlanVisit(for: "")
     let visitViewModel = VisitSchedulerViewModel()
     var selectedPurposesValuesList = [String]()
+    var selectedPurposes = [Int]()
     
     //MARK:- View Life Cycle
     
@@ -36,8 +37,29 @@ class ServicePurposesViewController: UIViewController {
             self.createPlistForSevicePurpose()
         }
         
+        var planArray = PlanVistManager.sharedInstance.sgwsVisitPurpose.components(separatedBy: ";")
+        for var i in (0..<readServicePurposePList().count)
+        {
+            for var j in (0..<planArray.count)
+            {
+                if ((readServicePurposePList()[i] as! Dictionary<String, String>)["value"] == planArray[j])
+                {
+                    selectedPurposes.append(i)
+                }
+            }
+        }
+        
         for _ in 0...readServicePurposePList().count {
             selectedValuesList.append("false")
+        }
+        
+        for var i in (0..<selectedValuesList.count) {
+            for var j in (0..<selectedPurposes.count) {
+                if (selectedPurposes[j] == i) {
+                    selectedValuesList[i] = "true"
+                }
+            }
+            
         }
         
         print(dictionary!)
@@ -245,6 +267,14 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
             } else {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = (readServicePurposePList()[indexPath.row] as! Dictionary<String, String>)["value"]
+                cell1?.layer.borderWidth = 3.0
+                if selectedValuesList[indexPath.row] == "true" {
+                    cell1?.layer.borderColor = UIColor(red: 66/255, green: 135/255, blue: 194/255, alpha: 1.0).cgColor
+                    (cell1 as! EditAccountStrategyCollectionViewCell).selectedIcon?.isHidden = false
+                } else {
+                    cell1?.layer.borderColor = UIColor.clear.cgColor
+                    (cell1 as! EditAccountStrategyCollectionViewCell).selectedIcon?.isHidden = true
+                }
             }
         } else {
             

@@ -149,9 +149,13 @@ class AccountVisitSummaryViewController: UIViewController {
         dateFormatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter1.timeZone = TimeZone(abbreviation: "UTC")
         var endDate = Date()
-        if visitObject?.endDate != nil  {
+        guard let eDate = visitObject?.endDate else {
             endDate = dateFormatter1.date(from: (visitObject?.endDate)!)! //according t
+            return
         }
+//        if visitObject?.endDate != nil  {
+//            endDate = dateFormatter1.date(from: (visitObject?.endDate)!)! //according t
+//        }
         
         if endDate != nil {//|| endDate != "" {
             dateFormatter1.dateFormat = "hh:mm a"
@@ -257,6 +261,7 @@ class AccountVisitSummaryViewController: UIViewController {
             createVisitViewController.visitId = visitObject?.Id
 //            createVisitViewController.delegate = self
             PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+            PlanVistManager.sharedInstance.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -273,6 +278,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+            PlanVistManager.sharedInstance.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             createVisitViewController.visitId = visitObject?.Id
 //            createVisitViewController.delegate = self
             DispatchQueue.main.async {

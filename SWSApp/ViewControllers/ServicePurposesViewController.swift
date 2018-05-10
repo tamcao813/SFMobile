@@ -37,16 +37,16 @@ class ServicePurposesViewController: UIViewController {
             self.createPlistForSevicePurpose()
         }
         
-        if !PlanVistManager.sharedInstance.sgwsVisitPurpose.isEmpty {
-            selectedPurposesValuesList = PlanVistManager.sharedInstance.sgwsVisitPurpose.components(separatedBy: ";")
+        if !(PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose.isEmpty)! {
+            selectedPurposesValuesList = (PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";"))!
         }
         
-        var planArray = PlanVistManager.sharedInstance.sgwsVisitPurpose.components(separatedBy: ";")
+        var planArray = PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";")
         for var i in (0..<readServicePurposePList().count)
         {
-            for var j in (0..<planArray.count)
+            for var j in (0..<planArray!.count)
             {
-                if ((readServicePurposePList()[i] as! Dictionary<String, String>)["value"] == planArray[j])
+                if ((readServicePurposePList()[i] as! Dictionary<String, String>)["value"] == planArray![j])
                 {
                     selectedPurposes.append(i)
                 }
@@ -67,6 +67,12 @@ class ServicePurposesViewController: UIViewController {
         }
         
         print(dictionary!)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+//        PlanVistManager.sharedInstance.sgwsVisitPurpose = ""
+//        PlanVistManager.sharedInstance.sgwsAgendaNotes = ""
     }
     
     // MARK:- Custom Methods
@@ -147,7 +153,7 @@ class ServicePurposesViewController: UIViewController {
             
             //Take Purpose List
             let stringRepresentation = selectedPurposesValuesList.joined(separator: ";")
-            PlanVistManager.sharedInstance.sgwsVisitPurpose = stringRepresentation
+            PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = stringRepresentation
            // PlanVistManager.sharedInstance.sgwsAgendaNotes =
             let status = PlanVistManager.sharedInstance.editAndSaveVisit()
             print(status)
@@ -265,8 +271,8 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
             if indexPath.row == readServicePurposePList().count {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
-                if !PlanVistManager.sharedInstance.sgwsAgendaNotes.isEmpty {
-                    (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = PlanVistManager.sharedInstance.sgwsAgendaNotes
+                if !PlanVistManager.sharedInstance.description.isEmpty {
+                    (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = PlanVistManager.sharedInstance.description
                 }
                 //PlanVistManager.sharedInstance.sgwsAgendaNotes = ((cell1 as! EditAccountStrategyCollectionViewCell).textView?.text)!
                 

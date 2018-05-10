@@ -59,8 +59,6 @@ class AccountVisitListViewController: UIViewController {
         
         //Reset the PlanVistManager
         PlanVistManager.sharedInstance.visit = nil
-        PlanVistManager.sharedInstance.sgwsVisitPurpose = ""
-        PlanVistManager.sharedInstance.sgwsAgendaNotes = ""
         
         self.present(createVisitViewController, animated: true)
     }

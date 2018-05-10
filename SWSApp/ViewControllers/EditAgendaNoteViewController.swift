@@ -32,7 +32,7 @@ class EditAgendaNoteViewController: UIViewController {
         
         PlanVistManager.sharedInstance.visit?.description = descriptionTextView.text
         
-        PlanVistManager.sharedInstance.editAndSaveVisit()
+        let status = PlanVistManager.sharedInstance.editAndSaveVisit()
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
         

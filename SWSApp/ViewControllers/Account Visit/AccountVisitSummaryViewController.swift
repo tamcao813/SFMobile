@@ -11,9 +11,7 @@ import SmartSync
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
-    
     func navigateToAccountScreen()
-    
 }
 
 class AccountVisitSummaryViewController: UIViewController {
@@ -39,15 +37,18 @@ class AccountVisitSummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshSummaryScreen), name: NSNotification.Name("refreshVisitSummaryScreen"), object: nil)        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountList"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchVisit()
-        UICustomizations()
         initializingXIBs()
         refactoringUIOnApplicationStatusBasis()
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshVisitSummaryScreen"), object: nil)
+    @objc func refreshVisit(){
+        fetchVisit()
     }
     
     @objc func refreshSummaryScreen(){
@@ -66,6 +67,7 @@ class AccountVisitSummaryViewController: UIViewController {
         }
         fetchAccountDetails()
         fetchContactDetails()
+        UICustomizations()
     }
     
     func fetchAccountDetails(){
@@ -134,7 +136,7 @@ class AccountVisitSummaryViewController: UIViewController {
             dateFormatter.dateFormat = "dd" //Your date format
             let day = dateFormatter.string(from: date)
             dayLabel.text = day
-            dateFormatter.dateFormat = "HH:mm a" //Your date format
+            dateFormatter.dateFormat = "hh:mm a" //Your date format
             dateFormatter.amSymbol = "AM"
             dateFormatter.pmSymbol = "PM"
             startTime = dateFormatter.string(from: date)
@@ -149,7 +151,7 @@ class AccountVisitSummaryViewController: UIViewController {
         }
         
         if endDate != nil {//|| endDate != "" {
-            dateFormatter1.dateFormat = "HH:mm a"
+            dateFormatter1.dateFormat = "hh:mm a"
             dateFormatter1.amSymbol = "AM"
             dateFormatter1.pmSymbol = "PM"
             endTime = dateFormatter.string(from: endDate)
@@ -250,7 +252,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             createVisitViewController.visitId = visitObject?.Id
-            createVisitViewController.delegate = self
+//            createVisitViewController.delegate = self
             PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
@@ -269,7 +271,7 @@ class AccountVisitSummaryViewController: UIViewController {
             createVisitViewController.isEditingMode = false
             PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             createVisitViewController.visitId = visitObject?.Id
-            createVisitViewController.delegate = self
+//            createVisitViewController.delegate = self
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -491,13 +493,6 @@ extension AccountVisitSummaryViewController : NavigateToVisitSummaryScreenDelega
         self.dismiss(animated: true, completion: nil)
     }
     
-}
-
-extension AccountVisitSummaryViewController : CreateNewVisitViewControllerDelegate {
-    
-    func updateVisit(){
-        fetchVisit()
-    }
 }
 
 

@@ -20,6 +20,8 @@ class ServicePurposesViewController: UIViewController {
     let visitViewModel = VisitSchedulerViewModel()
     var selectedPurposesValuesList = [String]()
     
+    var accountObject: Account?
+    
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
@@ -41,6 +43,8 @@ class ServicePurposesViewController: UIViewController {
         }
         
         print(dictionary!)
+        
+        //Used to get the Account id of the user
     }
     
     // MARK:- Custom Methods
@@ -128,88 +132,104 @@ class ServicePurposesViewController: UIViewController {
             
         }
         
+        DispatchQueue.main.async{
         self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            
+        }
     }
+    
+    
+    @IBAction func loadStrategyScreen(sender : UIButton){
+        
+        let accountId = PlanVistManager.sharedInstance.visit?.accountId
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
+        let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
+        StrategyScreenLoadFrom.isLoadFromStrategy = "1"
+        
+        AccountId.selectedAccountId = accountId!
+        
+        (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(vc, animated: true, completion: nil)
+        
+    }
+    
 }
 
 
 //MARK:- UICollectionView DataSource
 extension ServicePurposesViewController : UICollectionViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return (tableViewRowDetails?.count)! //used to display the TectView in the Last Cell
-    }
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        return (tableViewRowDetails?.count)! //used to display the TectView in the Last Cell
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
-        let tableData = tableViewRowDetails![section] as! NSMutableDictionary
-        let headerTxt = (tableData["headerText"] as! String)
-        if section == 4 {
+
+//        let tableData = tableViewRowDetails![section] as! NSMutableDictionary
+//        let headerTxt = (tableData["headerText"] as! String)
+//        if section == 4 {
             return CGSize(width: self.view.frame.size.width, height: 150);
-        } else {
-            if headerTxt.isEmpty {
-                return CGSize(width: view.frame.width, height: 40)
-            }
-            return CGSize(width: view.frame.width, height: 90)
-        }
+//        }
+//        else {
+//            if headerTxt.isEmpty {
+//                return CGSize(width: view.frame.width, height: 40)
+//            }
+//            return CGSize(width: view.frame.width, height: 90)
+//        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if section == 3 {
-            return CGSize(width: self.view.frame.size.width, height: 50);
-        } else {
-            return CGSize(width: 0, height: 0);
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+//        if section == 3 {
+//            return CGSize(width: self.view.frame.size.width, height: 50);
+//        }
+//        else {
+//            return CGSize(width: 0, height: 0);
+//        }
+//    }
     
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView{
-        
+
         switch kind {
-            
+
         case UICollectionElementKindSectionHeader:
-            
+
             if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "planVisitHeaderCell", for: indexPath) as? UICollectionReusableView {
-                
-                if indexPath.section == 4 {
-                    
+
+//                if indexPath.section == 4 {
+
                     let label:UILabel = sectionHeader.viewWithTag(200) as! UILabel
                     label.text = "Service Purposes"
-                    
+
                     let subLabel:UILabel = sectionHeader.viewWithTag(201) as! UILabel
                     subLabel.text = "Select all that apply."
-                    
+
                     sectionHeader.backgroundColor = UIColor.clear
                     label.frame.origin.y = 60
                     subLabel.frame.origin.y = 90
-                } else {
-                    
-                    let label:UILabel = sectionHeader.viewWithTag(200) as! UILabel
-                    let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
-                    label.text = (tableData["headerText"] as! String)
-                    
-                    let subLabel:UILabel = sectionHeader.viewWithTag(201) as! UILabel
-                    subLabel.text = (tableData["subHeader"] as! String)
-                    let headerTxt = (tableData["headerText"] as! String)
-                    if headerTxt.isEmpty {subLabel.frame.origin.y = 10 }
-                }
-                
+//                }
+
+//                else {
+//
+//                    let label:UILabel = sectionHeader.viewWithTag(200) as! UILabel
+//                    let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
+//                    label.text = (tableData["headerText"] as! String)
+//
+//                    let subLabel:UILabel = sectionHeader.viewWithTag(201) as! UILabel
+//                    subLabel.text = (tableData["subHeader"] as! String)
+//                    let headerTxt = (tableData["headerText"] as! String)
+//                    if headerTxt.isEmpty {subLabel.frame.origin.y = 10 }
+//                }
+
                 return sectionHeader
             }
-            
-        case UICollectionElementKindSectionFooter:
-            
-            if let sectionFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "planVisitFooterCell", for: indexPath) as? UICollectionReusableView {
-                print("footer");
-                
-                return sectionFooter
-            }
-            
+
         default:
             assert(false, "Unexpected element kind")
         }
-        
+
         return UICollectionReusableView()
     }
     
@@ -218,24 +238,25 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
         
         //        return collectionViewRowDetails.count + 1
         
-        let tableData = tableViewRowDetails![section] as! NSDictionary
-        let tableContent = tableData["answers"] as! NSMutableArray
-        if section == 4 {
-            if (readServicePurposePList().count != 0) {
+//        let tableData = tableViewRowDetails![section] as! NSDictionary
+//        let tableContent = tableData["answers"] as! NSMutableArray
+//        if section == 4 {
+//            if (readServicePurposePList().count != 0) {
                 return readServicePurposePList().count + 1
-            }
-            return 0
-        } else {
-            return tableContent.count
-        }
+//            }
+//        }
+//        return 0
+//        else {
+//            return tableContent.count
+//        }
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell1 : UICollectionViewCell?
+        var cell1 : UICollectionViewCell?
         
-        if indexPath.section == 4 {
+//        if indexPath.section == 4 {
             if indexPath.row == readServicePurposePList().count {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
@@ -246,14 +267,16 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = (readServicePurposePList()[indexPath.row] as! Dictionary<String, String>)["value"]
             }
-        } else {
-            
-            cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "planVisitCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
-            let label:UILabel = cell1!.viewWithTag(300) as! UILabel
-            let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
-            let tableContent = tableData["answers"] as! NSMutableArray
-            label.text = " • " + (tableContent[indexPath.row] as! String)
-        }
+//        }
+        
+//        else {
+//
+//            cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "planVisitCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
+//            let label:UILabel = cell1!.viewWithTag(300) as! UILabel
+//            let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
+//            let tableContent = tableData["answers"] as! NSMutableArray
+//            label.text = " • " + (tableContent[indexPath.row] as! String)
+//        }
         
         return cell1!
     }
@@ -265,7 +288,7 @@ extension ServicePurposesViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
-        if indexPath.section == 4 {
+        //if indexPath.section == 4 {
             if indexPath.row == readServicePurposePList().count {
                 print("last Cell")
                 
@@ -287,18 +310,18 @@ extension ServicePurposesViewController : UICollectionViewDelegate {
                 }
             }
 
-        }
+        //}
     }
 }
 
 //MARK:- UICollectionView DelegateFlowLayout
 extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        if indexPath.section == 4 {
+
+//        if indexPath.section == 4 {
             //            let tableData = tableViewRowDetails![indexPath.section] as! NSDictionary
             //            let tableContent = tableData["answers"] as! NSMutableArray
             if indexPath.row == readServicePurposePList().count {
@@ -306,29 +329,30 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
             } else {
                 return CGSize(width: self.view.frame.size.width/1.03, height: 75);
             }
-        } else {
-            return CGSize(width: self.view.frame.size.width/1.0, height: 35);
-        }
+//        } else {
+//            return CGSize(width: self.view.frame.size.width/1.0, height: 35);
+//        }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        if section == 4 {
+//        if section == 4 {
             return 10.0
-        } else {
-            return 0.0
-        }
+//        } else {
+//            return 0.0
+//        }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout
         collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if section == 4 {
+//        if section == 4 {
             return 10.0
-        } else {
-            return 0.0
-        }
+//        } else {
+//            return 0.0
+//        }
     }
-    
+
 }
+

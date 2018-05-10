@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+struct StrategyScreenLoadFrom {
+    static var isLoadFromStrategy = "0"
+}
+
 class AccountStrategyViewController : UIViewController{
     
     var tableViewRowDetails : NSMutableArray?
@@ -16,6 +20,9 @@ class AccountStrategyViewController : UIViewController{
     @IBOutlet weak var collectionView : UICollectionView?
     @IBOutlet weak var lblLastModifiedDate : UILabel?
     @IBOutlet weak var lblNoData : UILabel?
+    
+    @IBOutlet weak var editIcon : UIButton?
+    @IBOutlet weak var closeIcon : UIButton?
     
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
@@ -32,7 +39,18 @@ class AccountStrategyViewController : UIViewController{
 //        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
 //        print(dictionary!)
         
+        if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
+            editIcon?.isHidden = false
+            closeIcon?.isHidden = true
+        }else{
+            editIcon?.isHidden = true
+            closeIcon?.isHidden = false
+        }
+        
+        
         self.loadTheDataFromStrategyQA()
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -182,7 +200,7 @@ class AccountStrategyViewController : UIViewController{
             
             let strategyNotes = (data.first?.SGWS_Notes__c)!
             
-            if strategyNotes != "" {
+            //if strategyNotes != "" {
                 let dict = NSMutableDictionary()
                 dict.setValue("Account Strategy Notes", forKey: "header")
                 dict.setValue("", forKey: "subHeader")
@@ -192,7 +210,7 @@ class AccountStrategyViewController : UIViewController{
                 notesArray.add(notesAnswerDict)
                 dict.setValue(notesArray, forKey: "answers")
                 modifiedArray.add(dict)
-            }
+            //}
             
             print(modifiedArray)
             
@@ -266,11 +284,22 @@ class AccountStrategyViewController : UIViewController{
         }
     }
     
+    //StrategyScreenLoadFrom.isLoadFromStrategy == "1"
+    
+    
     //MARK:- Button Actions
     @IBAction func editButtonClicked(sender : UIButton){
         LoadEditStrategyFromDuringVisit.editStrategy = "0"
-        performSegue(withIdentifier: "editStrategySegue", sender: nil)
         
+        if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
+            performSegue(withIdentifier: "editStrategySegue", sender: nil)
+            
+        }else{
+            
+            //Used Same method to Dismiss the Strategy
+            StrategyScreenLoadFrom.isLoadFromStrategy = "0"
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 

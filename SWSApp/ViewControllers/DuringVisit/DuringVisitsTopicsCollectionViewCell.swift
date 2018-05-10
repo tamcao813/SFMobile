@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol NavigateToStrategyFromDuringVisitsDelegate {
+    func navigateToStrategyScreen()
+}
+
 class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell,UITextViewDelegate {
     
     //Address Cell
@@ -24,6 +28,8 @@ class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell,UITextViewDeleg
     
     //Account Situation Cell
     @IBOutlet weak var lblCenterLabel : UILabel?
+    
+    var delegate : NavigateToStrategyFromDuringVisitsDelegate?
     
     
     override func awakeFromNib() {
@@ -58,6 +64,12 @@ class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell,UITextViewDeleg
     func textViewDidEndEditing(_ textView: UITextView) {
         print("exampleTextView: END EDIT")
         PlanVistManager.sharedInstance.visit?.description = (lblNotesDescription?.text)!
+    }
+    
+    
+    @IBAction func accountStrategyButtonClicked(sender : UIButton){
+        delegate?.navigateToStrategyScreen()
+        
     }
 }
 

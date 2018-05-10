@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -109,10 +109,10 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="duringVisitCell2" id="lKX-jB-duc" customClass="DuringVisitsTopicsCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="210" width="1000" height="360"/>
+                                        <rect key="frame" x="12" y="210" width="1000" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="360"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visit Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20y-wE-jOK">
@@ -128,10 +128,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KeU-E2-JrY">
-                                                    <rect key="frame" x="20" y="77" width="959.5" height="263"/>
+                                                    <rect key="frame" x="20" y="77" width="959.5" height="180"/>
                                                     <subviews>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SQ3-qJ-HpX">
-                                                            <rect key="frame" x="8" y="8" width="943.5" height="247"/>
+                                                            <rect key="frame" x="8" y="2" width="944" height="176"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
@@ -143,8 +143,8 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="SQ3-qJ-HpX" firstAttribute="top" secondItem="KeU-E2-JrY" secondAttribute="top" constant="8" id="A4Y-3x-68s"/>
-                                                        <constraint firstAttribute="bottom" secondItem="SQ3-qJ-HpX" secondAttribute="bottom" constant="8" id="Fee-9f-zXm"/>
+                                                        <constraint firstItem="SQ3-qJ-HpX" firstAttribute="top" secondItem="KeU-E2-JrY" secondAttribute="top" constant="2" id="A4Y-3x-68s"/>
+                                                        <constraint firstAttribute="bottom" secondItem="SQ3-qJ-HpX" secondAttribute="bottom" constant="2" id="Fee-9f-zXm"/>
                                                         <constraint firstAttribute="trailing" secondItem="SQ3-qJ-HpX" secondAttribute="trailing" constant="8" id="VxW-St-5XS"/>
                                                         <constraint firstItem="SQ3-qJ-HpX" firstAttribute="leading" secondItem="KeU-E2-JrY" secondAttribute="leading" constant="8" id="y50-AV-9xH"/>
                                                     </constraints>
@@ -163,12 +163,12 @@
                                             <constraint firstItem="20y-wE-jOK" firstAttribute="leading" secondItem="lKX-jB-duc" secondAttribute="leading" constant="20" id="6lH-Zg-TGw"/>
                                             <constraint firstItem="KeU-E2-JrY" firstAttribute="top" secondItem="p1f-Ml-DLF" secondAttribute="bottom" constant="24" id="DPf-ln-1ye"/>
                                             <constraint firstItem="p1f-Ml-DLF" firstAttribute="top" secondItem="20y-wE-jOK" secondAttribute="bottom" constant="10.5" id="N6g-Dg-ZGv"/>
-                                            <constraint firstAttribute="bottom" secondItem="KeU-E2-JrY" secondAttribute="bottom" constant="20" id="Oe5-3X-G1I"/>
+                                            <constraint firstAttribute="bottom" secondItem="KeU-E2-JrY" secondAttribute="bottom" constant="43" id="Oe5-3X-G1I"/>
                                             <constraint firstItem="20y-wE-jOK" firstAttribute="top" secondItem="lKX-jB-duc" secondAttribute="top" constant="20" id="Yr0-Vl-BoC"/>
                                             <constraint firstItem="p1f-Ml-DLF" firstAttribute="leading" secondItem="lKX-jB-duc" secondAttribute="leading" constant="19.5" id="gZJ-iX-Gts"/>
                                             <constraint firstAttribute="trailing" secondItem="KeU-E2-JrY" secondAttribute="trailing" constant="20.5" id="sU4-8W-8Jx"/>
                                         </constraints>
-                                        <size key="customSize" width="1000" height="360"/>
+                                        <size key="customSize" width="1000" height="300"/>
                                         <connections>
                                             <outlet property="lblNotesContent" destination="p1f-Ml-DLF" id="GsZ-Hg-XJD"/>
                                             <outlet property="lblNotesDescription" destination="SQ3-qJ-HpX" id="j1W-b2-xtA"/>
@@ -176,8 +176,38 @@
                                             <outlet property="notesView" destination="KeU-E2-JrY" id="f7h-mn-i6P"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="duringVisitCell" id="cFd-GU-vCk" customClass="DuringVisitsTopicsCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="510" width="1000" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rq4-tS-qPB">
+                                                    <rect key="frame" x="25" y="23" width="202" height="35"/>
+                                                    <color key="backgroundColor" name="Data New"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="202" id="fx2-5L-f1O"/>
+                                                        <constraint firstAttribute="height" constant="35" id="r4l-GA-umX"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="20"/>
+                                                    <state key="normal" title="Account Strategy">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="accountStrategyButtonClickedWithSender:" destination="cFd-GU-vCk" eventType="touchUpInside" id="lFs-0Y-CuN"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="rq4-tS-qPB" firstAttribute="leading" secondItem="cFd-GU-vCk" secondAttribute="leading" constant="25" id="Epv-CP-4dP"/>
+                                            <constraint firstItem="rq4-tS-qPB" firstAttribute="top" secondItem="cFd-GU-vCk" secondAttribute="top" constant="23" id="Qap-Nn-C1T"/>
+                                        </constraints>
+                                        <size key="customSize" width="1000" height="80"/>
+                                    </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="duringVisitCell3" id="QoP-xg-xZa" customClass="DuringVisitsTopicsCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="570" width="1000" height="30"/>
+                                        <rect key="frame" x="12" y="590" width="1000" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="30"/>
@@ -798,6 +828,9 @@
         <image name="selectedButton" width="20" height="20"/>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Data New">
+            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Good">
             <color red="0.2310000062" green="0.63899999860000001" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

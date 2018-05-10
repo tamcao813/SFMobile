@@ -109,6 +109,11 @@ class  DuringVisitsTopicsViewController : UIViewController {
         displayDataDict.setValue(visitNotes, forKey: "notesText")
         mainArray.add(displayDataDict)
         
+        let strategyDictionary = NSMutableDictionary()
+        strategyDictionary.setValue("Account Strategy", forKey: "headerText")
+        strategyDictionary.setValue("Load the Account Strategy", forKey: "subHeader")
+        mainArray.add(strategyDictionary)
+        
         let agendaNotes = visitObject?.sgwsAgendaNotes
         let agentDict = NSMutableDictionary()
         agentDict.setValue("Agenda Notes", forKey: "headerText")
@@ -119,6 +124,8 @@ class  DuringVisitsTopicsViewController : UIViewController {
         agentArray.add(agentAnswerDict)
         agentDict.setValue(agentArray, forKey: "answers")
         mainArray.add(agentDict)
+        
+
         
         collectionViewRowDetails = mainArray
         print(mainArray)
@@ -156,6 +163,9 @@ class  DuringVisitsTopicsViewController : UIViewController {
     
     
     //MARK:- IBActions
+    
+    
+    
 }
 
 
@@ -170,7 +180,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         //used to many cells under Account Strategy and Buying Motives
-        if section >= 2{
+        if section >= 3{
             let tableData = collectionViewRowDetails![section] as! NSDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             return tableContent.count
@@ -186,7 +196,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
             
             sectionHeader.isHidden = true
             
-            if indexPath.section >= 2{
+            if indexPath.section >= 3{
                 sectionHeader.isHidden = false
                 sectionHeader.displayHeaderViewData(data: collectionViewRowDetails!, indexPath: indexPath)
             }
@@ -210,7 +220,11 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell2", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
             (cell as! DuringVisitsTopicsCollectionViewCell).displayNotesCellData(data: cellData)
             
-        }else if indexPath.section >= 2{
+        }else if indexPath.section == 2{
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
+            (cell as! DuringVisitsTopicsCollectionViewCell).delegate = self
+            
+        }else if indexPath.section >= 3{
             
             let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
@@ -219,6 +233,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell3", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
             
             (cell as! DuringVisitsTopicsCollectionViewCell).displayCellData(data: answers , indexPath : indexPath)
+            
         }
         
         return cell!
@@ -232,6 +247,9 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
 //        delegate?.navigateToVisitSummaryScreen()
 //        self.dismiss(animated: true, completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+        
+        
+        
         
     }
 }
@@ -258,7 +276,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
             
             return dynamicSize.size
             
-        } else if indexPath.section >= 2{
+        } else if indexPath.section >= 3{
             return CGSize(width: collectionView.frame.size.width, height: 20)
         }
         return CGSize(width: collectionView.frame.size.width, height: 120)
@@ -268,13 +286,38 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
         //Used to display header for last cell only
-        if section >= 2{
+        if section >= 3{
             return CGSize(width: collectionView.frame.size.width  , height: 80)
         }
         return CGSize(width: 0.0, height: 0.0)
     }
     
 }
+
+
+//MARK:- NavigateToStrategyFromDuringVisits Delegate
+extension DuringVisitsTopicsViewController : NavigateToStrategyFromDuringVisitsDelegate{
+    
+    func navigateToStrategyScreen() {
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
+        let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
+        StrategyScreenLoadFrom.isLoadFromStrategy = "1"
+        
+        AccountId.selectedAccountId = (accountObject?.account_Id)!
+        
+        (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(vc, animated: true, completion: nil)
+        
+    }
+}
+
+
+
+
+
+
+
 
 
 

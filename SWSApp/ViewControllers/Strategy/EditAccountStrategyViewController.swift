@@ -61,7 +61,7 @@ class EditAccountStrategyViewController: UIViewController {
         
         //If no surveys for this account disbale the edit strategy button
         if question.count == 0{
-            return
+            
         }
          let answer = strategyAnswersViewModel.getStrategyAnswers()
         
@@ -282,15 +282,15 @@ class EditAccountStrategyViewController: UIViewController {
             
             // Have i edited or created new Strategy
             
-            if(strategyQAResponse.count > 0){
+            //if(strategyQAResponse.count > 0){
                 
 
                 
-            } else {
+            //} else {
                 
                 createStrategy()
                 
-            }
+            //}
 
         }else{
 

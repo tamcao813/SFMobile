@@ -2140,6 +2140,7 @@ class StoreDispatcher {
             let soupEntryId = result["_soupEntryId"]
             print(result)
             print(soupEntryId!)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitSummaryScreen"), object:nil)
             return true
         }
         else {

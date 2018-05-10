@@ -39,19 +39,19 @@ class AccountVisitSummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshSummaryScreen), name: NSNotification.Name("refreshVisitSummaryScreen"), object: nil)        
         fetchVisit()
         UICustomizations()
         initializingXIBs()
         refactoringUIOnApplicationStatusBasis()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshVisitSummaryScreen"), object: nil)
+    }
+    
+    @objc func refreshSummaryScreen(){
+        
     }
     
     func fetchVisit(){
@@ -250,7 +250,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             createVisitViewController.visitId = visitObject?.Id
-            //        createVisitViewController.delegate = self
+            createVisitViewController.delegate = self
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -267,7 +267,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             createVisitViewController.visitId = visitObject?.Id
-            //        createVisitViewController.delegate = self
+            createVisitViewController.delegate = self
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -491,7 +491,12 @@ extension AccountVisitSummaryViewController : NavigateToVisitSummaryScreenDelega
     
 }
 
-
+extension AccountVisitSummaryViewController : CreateNewVisitViewControllerDelegate {
+    
+    func updateVisit(){
+        fetchVisit()
+    }
+}
 
 
 

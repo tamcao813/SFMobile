@@ -40,17 +40,17 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="duringVisitCell1" id="WLd-UT-wFT" customClass="DuringVisitsTopicsCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="90" width="1000" height="120"/>
+                                        <rect key="frame" x="12" y="90" width="1000" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gja-QI-7Ai">
-                                                    <rect key="frame" x="20" y="9" width="960" height="100"/>
+                                                    <rect key="frame" x="20" y="10" width="960" height="80"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crown Liquor Store Two" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhO-lI-fux">
-                                                            <rect key="frame" x="25" y="34" width="286" height="20"/>
+                                                            <rect key="frame" x="25" y="25" width="286" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="286" id="bsz-F2-Q39"/>
                                                             </constraints>
@@ -59,13 +59,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4644895" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bW-r6-ox2">
-                                                            <rect key="frame" x="25" y="55" width="67.5" height="20"/>
+                                                            <rect key="frame" x="25" y="46" width="67.5" height="20"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5678 W. Main St. New York, NY 54331" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fy5-Wo-f3L">
-                                                            <rect key="frame" x="338" y="34" width="285" height="41"/>
+                                                            <rect key="frame" x="338" y="25" width="285" height="41"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="285" id="ae5-S3-6oZ"/>
                                                                 <constraint firstAttribute="height" constant="41" id="r3a-X6-l5n"/>
@@ -78,10 +78,10 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="2bW-r6-ox2" firstAttribute="top" secondItem="fhO-lI-fux" secondAttribute="bottom" constant="1.5" id="5k8-Ja-Gy5"/>
-                                                        <constraint firstItem="fhO-lI-fux" firstAttribute="top" secondItem="gja-QI-7Ai" secondAttribute="top" constant="34" id="7uS-s9-ErX"/>
+                                                        <constraint firstItem="fhO-lI-fux" firstAttribute="top" secondItem="gja-QI-7Ai" secondAttribute="top" constant="25" id="7uS-s9-ErX"/>
                                                         <constraint firstItem="fhO-lI-fux" firstAttribute="leading" secondItem="gja-QI-7Ai" secondAttribute="leading" constant="25" id="AS0-Rr-IJr"/>
                                                         <constraint firstItem="Fy5-Wo-f3L" firstAttribute="leading" secondItem="2bW-r6-ox2" secondAttribute="trailing" constant="245.5" id="JqD-da-1Gk"/>
-                                                        <constraint firstItem="Fy5-Wo-f3L" firstAttribute="top" secondItem="gja-QI-7Ai" secondAttribute="top" constant="34" id="L2C-4d-XRp"/>
+                                                        <constraint firstItem="Fy5-Wo-f3L" firstAttribute="top" secondItem="gja-QI-7Ai" secondAttribute="top" constant="25" id="L2C-4d-XRp"/>
                                                         <constraint firstItem="2bW-r6-ox2" firstAttribute="leading" secondItem="gja-QI-7Ai" secondAttribute="leading" constant="25" id="MKc-Ur-kT1"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -95,12 +95,12 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="gja-QI-7Ai" firstAttribute="top" secondItem="WLd-UT-wFT" secondAttribute="top" constant="9" id="RLs-Hi-Jne"/>
+                                            <constraint firstItem="gja-QI-7Ai" firstAttribute="top" secondItem="WLd-UT-wFT" secondAttribute="top" constant="10" id="RLs-Hi-Jne"/>
                                             <constraint firstAttribute="trailing" secondItem="gja-QI-7Ai" secondAttribute="trailing" constant="20" id="Uzb-cK-PXU"/>
                                             <constraint firstItem="gja-QI-7Ai" firstAttribute="leading" secondItem="WLd-UT-wFT" secondAttribute="leading" constant="20" id="f2l-O9-fS0"/>
-                                            <constraint firstAttribute="bottom" secondItem="gja-QI-7Ai" secondAttribute="bottom" constant="11" id="rfN-ZG-s0x"/>
+                                            <constraint firstAttribute="bottom" secondItem="gja-QI-7Ai" secondAttribute="bottom" constant="10" id="rfN-ZG-s0x"/>
                                         </constraints>
-                                        <size key="customSize" width="1000" height="120"/>
+                                        <size key="customSize" width="1000" height="100"/>
                                         <connections>
                                             <outlet property="addressView" destination="gja-QI-7Ai" id="zTo-fv-glN"/>
                                             <outlet property="lblAddress" destination="Fy5-Wo-f3L" id="1Ap-ru-nlf"/>
@@ -109,10 +109,10 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="duringVisitCell2" id="lKX-jB-duc" customClass="DuringVisitsTopicsCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="210" width="1000" height="300"/>
+                                        <rect key="frame" x="12" y="190" width="1000" height="250"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="300"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visit Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20y-wE-jOK">
@@ -128,10 +128,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KeU-E2-JrY">
-                                                    <rect key="frame" x="20" y="77" width="959.5" height="180"/>
+                                                    <rect key="frame" x="20" y="77" width="960" height="150"/>
                                                     <subviews>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SQ3-qJ-HpX">
-                                                            <rect key="frame" x="8" y="2" width="944" height="176"/>
+                                                            <rect key="frame" x="6" y="4" width="944" height="138"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
@@ -143,10 +143,10 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="SQ3-qJ-HpX" firstAttribute="top" secondItem="KeU-E2-JrY" secondAttribute="top" constant="2" id="A4Y-3x-68s"/>
-                                                        <constraint firstAttribute="bottom" secondItem="SQ3-qJ-HpX" secondAttribute="bottom" constant="2" id="Fee-9f-zXm"/>
-                                                        <constraint firstAttribute="trailing" secondItem="SQ3-qJ-HpX" secondAttribute="trailing" constant="8" id="VxW-St-5XS"/>
-                                                        <constraint firstItem="SQ3-qJ-HpX" firstAttribute="leading" secondItem="KeU-E2-JrY" secondAttribute="leading" constant="8" id="y50-AV-9xH"/>
+                                                        <constraint firstItem="SQ3-qJ-HpX" firstAttribute="top" secondItem="KeU-E2-JrY" secondAttribute="top" constant="4" id="A4Y-3x-68s"/>
+                                                        <constraint firstAttribute="bottom" secondItem="SQ3-qJ-HpX" secondAttribute="bottom" constant="8" id="Fee-9f-zXm"/>
+                                                        <constraint firstAttribute="trailing" secondItem="SQ3-qJ-HpX" secondAttribute="trailing" constant="9.5" id="VxW-St-5XS"/>
+                                                        <constraint firstItem="SQ3-qJ-HpX" firstAttribute="leading" secondItem="KeU-E2-JrY" secondAttribute="leading" constant="6" id="y50-AV-9xH"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
@@ -163,12 +163,12 @@
                                             <constraint firstItem="20y-wE-jOK" firstAttribute="leading" secondItem="lKX-jB-duc" secondAttribute="leading" constant="20" id="6lH-Zg-TGw"/>
                                             <constraint firstItem="KeU-E2-JrY" firstAttribute="top" secondItem="p1f-Ml-DLF" secondAttribute="bottom" constant="24" id="DPf-ln-1ye"/>
                                             <constraint firstItem="p1f-Ml-DLF" firstAttribute="top" secondItem="20y-wE-jOK" secondAttribute="bottom" constant="10.5" id="N6g-Dg-ZGv"/>
-                                            <constraint firstAttribute="bottom" secondItem="KeU-E2-JrY" secondAttribute="bottom" constant="43" id="Oe5-3X-G1I"/>
+                                            <constraint firstAttribute="bottom" secondItem="KeU-E2-JrY" secondAttribute="bottom" constant="23" id="Oe5-3X-G1I"/>
                                             <constraint firstItem="20y-wE-jOK" firstAttribute="top" secondItem="lKX-jB-duc" secondAttribute="top" constant="20" id="Yr0-Vl-BoC"/>
                                             <constraint firstItem="p1f-Ml-DLF" firstAttribute="leading" secondItem="lKX-jB-duc" secondAttribute="leading" constant="19.5" id="gZJ-iX-Gts"/>
                                             <constraint firstAttribute="trailing" secondItem="KeU-E2-JrY" secondAttribute="trailing" constant="20.5" id="sU4-8W-8Jx"/>
                                         </constraints>
-                                        <size key="customSize" width="1000" height="300"/>
+                                        <size key="customSize" width="1000" height="250"/>
                                         <connections>
                                             <outlet property="lblNotesContent" destination="p1f-Ml-DLF" id="GsZ-Hg-XJD"/>
                                             <outlet property="lblNotesDescription" destination="SQ3-qJ-HpX" id="j1W-b2-xtA"/>
@@ -177,7 +177,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="duringVisitCell" id="cFd-GU-vCk" customClass="DuringVisitsTopicsCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="510" width="1000" height="80"/>
+                                        <rect key="frame" x="12" y="440" width="1000" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="80"/>
@@ -207,7 +207,7 @@
                                         <size key="customSize" width="1000" height="80"/>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="duringVisitCell3" id="QoP-xg-xZa" customClass="DuringVisitsTopicsCollectionViewCell" customModule="SWSApp" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="590" width="1000" height="30"/>
+                                        <rect key="frame" x="12" y="520" width="1000" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="1000" height="30"/>

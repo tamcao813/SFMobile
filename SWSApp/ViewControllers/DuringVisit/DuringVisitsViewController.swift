@@ -164,7 +164,7 @@ class  DuringVisitsViewController : UIViewController {
             let status = PlanVistManager.sharedInstance.editAndSaveVisit()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
         }
-        else if btnSaveContinueComplete?.titleLabel?.text == "Save & Close"{
+        else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
             PlanVistManager.sharedInstance.visit?.status = "Completed"
             self.dismiss(animated: true, completion: nil)
             
@@ -181,7 +181,7 @@ class  DuringVisitsViewController : UIViewController {
         
         btnDiscussion?.setTitle("", for: .normal)
         btnInsights?.setTitle("Insights", for: .normal)
-        btnSaveContinueComplete?.setTitle("Save & Close", for: .normal)
+        btnSaveContinueComplete?.setTitle("Complete", for: .normal)
         
         let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
         let duringVisitVC: DuringVisitsInsightsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsInsightsViewControllerID") as! DuringVisitsInsightsViewController

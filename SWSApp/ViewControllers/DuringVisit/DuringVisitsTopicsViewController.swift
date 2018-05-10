@@ -250,7 +250,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
     //Used for Collection view Cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 1{
-            return CGSize(width: collectionView.frame.size.width, height: 360)
+            return CGSize(width: collectionView.frame.size.width, height: 250)
             
         }else if indexPath.section == 20{//used to change the height of cell Dynamically
             
@@ -268,7 +268,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
         } else if indexPath.section >= 3{
             return CGSize(width: collectionView.frame.size.width, height: 20)
         }
-        return CGSize(width: collectionView.frame.size.width, height: 120)
+        return CGSize(width: collectionView.frame.size.width, height: 100)
     }
     
     //Used to set width and height of HeaderView
@@ -280,7 +280,6 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
         }
         return CGSize(width: 0.0, height: 0.0)
     }
-    
 }
 
 
@@ -300,12 +299,6 @@ extension DuringVisitsTopicsViewController : NavigateToStrategyFromDuringVisitsD
         
     }
 }
-
-
-
-
-
-
 
 
 

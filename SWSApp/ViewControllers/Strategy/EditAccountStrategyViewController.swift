@@ -148,37 +148,40 @@ class EditAccountStrategyViewController: UIViewController {
        // print(tableViewData)
         tableViewRowDetails = tableViewData
         
-        
-        
-        //Write a logic to show the UI that particular Answer is selected
-        for strategy in strategyArray!{
+        if strategyArray != nil {
             
-            let strategyDict = strategy as! NSMutableDictionary
-            let strategyArray = strategyDict["answers"] as! NSMutableArray
-            var answerText = ""
-            
-            for answer in strategyArray{
-                let answerDict = answer as! NSMutableDictionary
-                answerText = answerDict["answerText"] as! String
-            
-                for editStrategy in tableViewRowDetails!{
-                    
-                    let editStrategyDict = editStrategy as! NSMutableDictionary
-                    let editStrategyArray = editStrategyDict["answers"] as! NSMutableArray
+            for strategy in strategyArray!{
                 
-                    for answer in editStrategyArray{
-                        let answerDict = answer as! NSMutableDictionary
-                        let editAnswerText = answerDict["answerText"] as! String
+                let strategyDict = strategy as! NSMutableDictionary
+                let strategyArray = strategyDict["answers"] as! NSMutableArray
+                var answerText = ""
+                
+                for answer in strategyArray{
+                    let answerDict = answer as! NSMutableDictionary
+                    answerText = answerDict["answerText"] as! String
+                    
+                    for editStrategy in tableViewRowDetails!{
                         
-                        if answerText == editAnswerText{
+                        let editStrategyDict = editStrategy as! NSMutableDictionary
+                        let editStrategyArray = editStrategyDict["answers"] as! NSMutableArray
+                        
+                        for answer in editStrategyArray{
+                            let answerDict = answer as! NSMutableDictionary
+                            let editAnswerText = answerDict["answerText"] as! String
                             
-                            answerDict.setValue("YES", forKey: "isSelected")
-                            break
+                            if answerText == editAnswerText{
+                                
+                                answerDict.setValue("YES", forKey: "isSelected")
+                                break
+                            }
                         }
                     }
                 }
             }
         }
+        
+        //Write a logic to show the UI that particular Answer is selected
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

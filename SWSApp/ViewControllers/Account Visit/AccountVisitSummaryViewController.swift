@@ -51,10 +51,6 @@ class AccountVisitSummaryViewController: UIViewController {
         fetchVisit()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-    }
     
     @objc func refreshSummaryScreen(){
         print("visit", PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose)

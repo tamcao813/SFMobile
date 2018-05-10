@@ -39,12 +39,16 @@ class ServicePurposesViewController: UIViewController {
             self.createPlistForSevicePurpose()
         }
         
-        var planArray = PlanVistManager.sharedInstance.sgwsVisitPurpose.components(separatedBy: ";")
+        if !(PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose.isEmpty)! {
+            selectedPurposesValuesList = (PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";"))!
+        }
+        
+        var planArray = PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";")
         for var i in (0..<readServicePurposePList().count)
         {
-            for var j in (0..<planArray.count)
+            for var j in (0..<planArray!.count)
             {
-                if ((readServicePurposePList()[i] as! Dictionary<String, String>)["value"] == planArray[j])
+                if ((readServicePurposePList()[i] as! Dictionary<String, String>)["value"] == planArray![j])
                 {
                     selectedPurposes.append(i)
                 }
@@ -67,6 +71,12 @@ class ServicePurposesViewController: UIViewController {
         print(dictionary!)
         
         //Used to get the Account id of the user
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+//        PlanVistManager.sharedInstance.sgwsVisitPurpose = ""
+//        PlanVistManager.sharedInstance.sgwsAgendaNotes = ""
     }
     
     // MARK:- Custom Methods
@@ -147,7 +157,7 @@ class ServicePurposesViewController: UIViewController {
             
             //Take Purpose List
             let stringRepresentation = selectedPurposesValuesList.joined(separator: ";")
-            PlanVistManager.sharedInstance.sgwsVisitPurpose = stringRepresentation
+            PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = stringRepresentation
            // PlanVistManager.sharedInstance.sgwsAgendaNotes =
             let status = PlanVistManager.sharedInstance.editAndSaveVisit()
             print(status)
@@ -282,8 +292,10 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
             if indexPath.row == readServicePurposePList().count {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
-                
-                //PlanVistManager.sharedInstance.sgwsAgendaNotes = ((cell1 as! EditAccountStrategyCollectionViewCell).textView?.text)!
+                if !(PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes.isEmpty)! {
+                    (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes
+                }
+//                PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = ((cell1 as! EditAccountStrategyCollectionViewCell).textView?.text)!
                 
             } else {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell

@@ -2249,6 +2249,7 @@ class StoreDispatcher {
                 singleVisitModif["Description"] = allFields["Description"]
                 singleVisitModif["SGWS_Agenda_Notes__c"] = allFields["SGWS_Agenda_Notes__c"]
                 singleVisitModif["Status"] = allFields["Status"]
+                singleVisitModif["ContactId"] = allFields["ContactId"]
                 
                 if(createdFlag){
                     singleVisitModif[kSyncTargetLocal] = true

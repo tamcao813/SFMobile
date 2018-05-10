@@ -142,18 +142,7 @@ class  DuringVisitsTopicsViewController : UIViewController {
         }
         return nil
     }
-    
-    
-    //MARK:-
-    
-    
-    
-    
-    
-    //MARK:- IBActions
-    
-    
-    
+
 }
 
 

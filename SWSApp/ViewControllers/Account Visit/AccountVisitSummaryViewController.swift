@@ -50,8 +50,15 @@ class AccountVisitSummaryViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshVisitSummaryScreen"), object: nil)
     }
     
-    @objc func refreshSummaryScreen(){
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         
+    }
+    
+    @objc func refreshSummaryScreen(){
+        print("visit", PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose)
+        fetchVisit()
+        tableView.reloadData()
     }
     
     func fetchVisit(){

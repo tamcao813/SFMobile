@@ -228,8 +228,16 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         let dateformatter = DateFormatter()
         dateformatter.timeStyle = .medium
         dateformatter.dateFormat = "hh:mm a"
-        let dateFromString = dateformatter.date(from: dateString)
-        return dateFromString!
+        var dateFromString = Date()
+        if dateformatter.date(from:(dateString)) != nil {
+            dateFromString = dateformatter.date(from: dateString)!
+        } else {
+            dateformatter.timeStyle = .medium
+            dateformatter.dateFormat = "HH:mm a"
+            dateFromString = dateformatter.date(from: dateString)!
+        }
+        
+        return dateFromString
     }
     
     func resignTextField(){

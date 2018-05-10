@@ -11,9 +11,7 @@ import SmartSync
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
-    
     func navigateToAccountScreen()
-    
 }
 
 class AccountVisitSummaryViewController: UIViewController {
@@ -39,19 +37,25 @@ class AccountVisitSummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshSummaryScreen), name: NSNotification.Name("refreshVisitSummaryScreen"), object: nil)        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountList"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchVisit()
-        UICustomizations()
         initializingXIBs()
         refactoringUIOnApplicationStatusBasis()
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshVisitSummaryScreen"), object: nil)
+    @objc func refreshVisit(){
+        fetchVisit()
     }
     
+    
     @objc func refreshSummaryScreen(){
-        
+        print("visit", PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose)
+        fetchVisit()
+        tableView.reloadData()
     }
     
     func fetchVisit(){
@@ -66,6 +70,7 @@ class AccountVisitSummaryViewController: UIViewController {
         }
         fetchAccountDetails()
         fetchContactDetails()
+        UICustomizations()
     }
     
     func fetchAccountDetails(){
@@ -110,7 +115,7 @@ class AccountVisitSummaryViewController: UIViewController {
         let image = #imageLiteral(resourceName: "delete").withRenderingMode(.alwaysTemplate)
         deleteVisitButton.setImage(image, for: .normal)
         deleteVisitButton.tintColor = UIColor(hexString: "#4287C2")
-        deleteVisitButton.setTitle("    Delete", for: .normal)
+        deleteVisitButton.setTitle("    Delete Visit", for: .normal)
         self.getStartDateAndEndTime()
     }
     
@@ -134,7 +139,7 @@ class AccountVisitSummaryViewController: UIViewController {
             dateFormatter.dateFormat = "dd" //Your date format
             let day = dateFormatter.string(from: date)
             dayLabel.text = day
-            dateFormatter.dateFormat = "HH:mm a" //Your date format
+            dateFormatter.dateFormat = "hh:mm a" //Your date format
             dateFormatter.amSymbol = "AM"
             dateFormatter.pmSymbol = "PM"
             startTime = dateFormatter.string(from: date)
@@ -144,12 +149,12 @@ class AccountVisitSummaryViewController: UIViewController {
         dateFormatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter1.timeZone = TimeZone(abbreviation: "UTC")
         var endDate = Date()
-        if visitObject!.endDate != nil || visitObject!.endDate != ""  {
+        if visitObject?.endDate != nil  {
             endDate = dateFormatter1.date(from: (visitObject?.endDate)!)! //according t
         }
         
         if endDate != nil {//|| endDate != "" {
-            dateFormatter1.dateFormat = "HH:mm a"
+            dateFormatter1.dateFormat = "hh:mm a"
             dateFormatter1.amSymbol = "AM"
             dateFormatter1.pmSymbol = "PM"
             endTime = dateFormatter.string(from: endDate)
@@ -250,7 +255,8 @@ class AccountVisitSummaryViewController: UIViewController {
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             createVisitViewController.visitId = visitObject?.Id
-            createVisitViewController.delegate = self
+//            createVisitViewController.delegate = self
+            PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -266,8 +272,9 @@ class AccountVisitSummaryViewController: UIViewController {
             PlanVistManager.sharedInstance.editPlanVisit = true
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
+            PlanVistManager.sharedInstance.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             createVisitViewController.visitId = visitObject?.Id
-            createVisitViewController.delegate = self
+//            createVisitViewController.delegate = self
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -433,9 +440,9 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
                 cell?.headingLabel.text = "Service Purposes"
                 let str = visitObject?.sgwsVisitPurpose.replacingOccurrences(of: ";", with: "\n • ")
-                if str != nil {
+                if !(str?.isEmpty)! {
                     cell?.SubheadingLabel.text = " • " + str!
-                }
+                } else { cell?.SubheadingLabel.text = ""}
                 return cell!
             case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
@@ -496,13 +503,6 @@ extension AccountVisitSummaryViewController : NavigateToVisitSummaryScreenDelega
    
     func navigateToVisitSummaryScreen() {
         self.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension AccountVisitSummaryViewController : CreateNewVisitViewControllerDelegate {
-    
-    func updateVisit(){
-        fetchVisit()
     }
 }
 

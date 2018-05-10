@@ -488,6 +488,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             print("Success is here \(success)")
             
             self.dismiss(animated: true, completion: nil)
+            self.delegate?.refreshStrategyScreenToLoadNewData()
 //
 //            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Save Complete", errorMessage: "Your Data is Saved, Sync up later", errorAlertActionTitle: "ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
 //

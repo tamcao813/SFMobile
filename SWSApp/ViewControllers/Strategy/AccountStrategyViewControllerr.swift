@@ -63,9 +63,14 @@ class AccountStrategyViewController : UIViewController{
         
         //If no surveys for this account disbale the edit strategy button
         if question.count == 0{
-            
             btnEdit?.isHidden = true
+            lblNoData?.isHidden = false
             lblNoData?.text = "No Survey assigned for this Account."
+        }else{
+            btnEdit?.isHidden = false
+            lblNoData?.text = "The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now."
+            lblNoData?.isHidden = true
+            
         }
         // let data = strategyQAViewModel.getStrategyQuestionAnswer()
         
@@ -324,7 +329,7 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.section == (tableViewRowDetails?.count)! - 1 {//Used to make the Additional notes Dynamic
+        if indexPath.section == (tableViewRowDetails?.count)!  {//Used to make the Additional notes Dynamic
             
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray

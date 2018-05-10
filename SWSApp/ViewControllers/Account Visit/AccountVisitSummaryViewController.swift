@@ -144,11 +144,11 @@ class AccountVisitSummaryViewController: UIViewController {
         dateFormatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter1.timeZone = TimeZone(abbreviation: "UTC")
         var endDate = Date()
-        if visitObject?.endDate != nil {
+        if visitObject!.endDate != nil || visitObject!.endDate != ""  {
             endDate = dateFormatter1.date(from: (visitObject?.endDate)!)! //according t
         }
         
-        if endDate != nil {
+        if endDate != nil {//|| endDate != "" {
             dateFormatter1.dateFormat = "HH:mm a"
             dateFormatter1.amSymbol = "AM"
             dateFormatter1.pmSymbol = "PM"

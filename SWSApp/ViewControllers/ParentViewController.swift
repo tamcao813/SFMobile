@@ -251,7 +251,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     @objc func SyncUpData()  {
         MBProgressHUD.show(onWindow: true)
         // Sync Up Notes
-            AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","LastModifiedDate","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
+            AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
                 if error != nil {
                     print(error?.localizedDescription ?? "error")
                 }
@@ -281,8 +281,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
          // Strategy QA(SGWS_Response__c) Sync Up
         
-        let fields: [String] = StrategyQA.StrategyQAFields
-        StrategyQAViewModel().uploadStrategyQAToServer(fields: fields, completion: { error in
+        //let fields: [String] = StrategyQA.StrategyQAFields
+        StrategyQAViewModel().uploadStrategyQAToServer(fields: ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c"], completion: { error in
             if error != nil {
                 DispatchQueue.main.async {
                     MBProgressHUD.hide(forWindow: true)

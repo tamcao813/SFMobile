@@ -252,6 +252,7 @@ class CreateNewContactViewController: UIViewController {
         let date = Date()
         print(date)
         let dateFormatter = DateFormatter()
+        
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let timeStamp = dateFormatter.string(from: date)
         

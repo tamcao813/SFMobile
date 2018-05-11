@@ -76,6 +76,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     var addNewDropDown = DropDown()
     
     let contactsStoryboard = UIStoryboard.init(name: "AccountsContactsVC", bundle: nil)
+    let accountOverViewStoryboard = UIStoryboard.init(name: "AccountOverView", bundle: nil)
     let notesStoryboard = UIStoryboard.init(name: "Notes", bundle: nil)
     let strategyStoryboard = UIStoryboard.init(name: "Strategy", bundle: nil)
     let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -139,10 +140,11 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         super.viewDidLoad()
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
-        containerView?.isHidden = true
+        //containerView?.isHidden = true
         
-       
-        
+       let button = UIButton()
+        button.tag = 0
+        self.itemsClicked(sender: button)
         
     }
     
@@ -278,8 +280,13 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         
         switch sender.tag {
         case 0:
+            containerView?.isHidden = false
             btnOverview?.backgroundColor = UIColor.white
             btnOverview?.setTitleColor(UIColor.black, for: .normal)
+            let accountOverView: AccountOverViewViewController = accountOverViewStoryboard.instantiateViewController(withIdentifier: "AccountOverViewID")  as! AccountOverViewViewController
+            activeViewController = accountOverView
+            
+            
         case 1:
             containerView?.isHidden = false
             btnDetails?.backgroundColor = UIColor.white

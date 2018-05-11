@@ -87,6 +87,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         return accountVisitListVC
     }()
     
+    lazy var actionItem : ActionItemsListViewController? = {
+        let actionItemStoryboard: UIStoryboard = UIStoryboard(name: "ActionItem", bundle: nil)
+        let actiomItemListVC = actionItemStoryboard.instantiateViewController(withIdentifier: "ActionItemsListViewController") as! ActionItemsListViewController
+        return actiomItemListVC
+    }()
+    
     
     
     var reachability = Reachability()!
@@ -391,7 +397,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
             switch index {
             case 0:
-                self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: index)
+                moreVC1.view.addSubview((self.actionItem?.view)!)
+                self.moreDropDownSelectionIndex = index
             case 1:
                 moreVC1.view.addSubview((self.accountVisit?.view)!)
                 self.moreDropDownSelectionIndex = index

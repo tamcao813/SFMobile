@@ -28,7 +28,8 @@ class WRWeekViewFlowLayout: UICollectionViewFlowLayout {
     var minuteHeight: CGFloat { return hourHeight / 60 }
     
     let displayHeaderBackgroundAtOrigin = true
-    let gridThickness: CGFloat = UIScreen.main.scale == 2 ? 0.5 : 1.0
+    let gridThickness: CGFloat = UIScreen.main.scale > 1 ? 1 : 0.5
+    var gridVerticalThickness: CGFloat = UIScreen.main.scale > 1 ? 1 : 0.5
     let minOverlayZ = 1000  // Allows for 900 items in a section without z overlap issues
     let minCellZ = 100      // Allows for 100 items in a section's background
     let minBackgroundZ = 0
@@ -187,7 +188,7 @@ class WRWeekViewFlowLayout: UICollectionViewFlowLayout {
             layoutAttributesForDecorationView(at: IndexPath(row: 0, section: 0),
                                               ofKind: DecorationViewKinds.currentTimeIndicator,
                                               withItemCache: currentTimeIndicatorAttributes)
-        let timeY = calendarContentMinX + nearbyint(CGFloat(currentTimeComponents.hour!) * hourHeight
+        let timeY = calendarContentMinY + nearbyint(CGFloat(currentTimeComponents.hour!) * hourHeight
             + CGFloat(currentTimeComponents.minute!) * minuteHeight)
         
         let currentTimeIndicatorMinY: CGFloat = timeY - nearbyint(currentTimeIndicatorSize.height / 2.0)
@@ -331,9 +332,9 @@ class WRWeekViewFlowLayout: UICollectionViewFlowLayout {
             layoutAttributesForDecorationView(at: IndexPath(item: 0, section: section),
                                               ofKind: DecorationViewKinds.verticalGridline,
                                               withItemCache: verticalGridlineAttributes)
-        attributes.frame = CGRect(x: nearbyint(sectionX - gridThickness / 2.0),
+        attributes.frame = CGRect(x: nearbyint(sectionX - gridVerticalThickness / 2.0),
                                   y: calendarGridMinY,
-                                  width: gridThickness,
+                                  width: gridVerticalThickness,
                                   height: sectionHeight)
         attributes.zIndex = zIndexForElementKind(DecorationViewKinds.verticalGridline)
     }
@@ -384,7 +385,7 @@ class WRWeekViewFlowLayout: UICollectionViewFlowLayout {
                                                                                           withItemCache: horizontalGridlineAttributes)
             let horizontalGridlineMinY = nearbyint(calendarStartY + (divisionHeight * CGFloat(division)) - (gridThickness / 2.0))
             attributes.frame = CGRect(x: calendarStartX, y: horizontalGridlineMinY, width: gridlineWidth, height: gridThickness)
-            attributes.alpha = 0.3
+//            attributes.alpha = 0.3
             attributes.zIndex = zIndexForElementKind(DecorationViewKinds.horizontalGridline)
             
             _gridlineIndex += 1

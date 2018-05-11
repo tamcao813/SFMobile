@@ -59,8 +59,14 @@ public class WRWeekView: UIView {
         flowLayout = WRWeekViewFlowLayout()
         flowLayout.delegate = self
         
+        flowLayout.hourHeight = 65 // TBD all needs to be configurable
+        flowLayout.rowHeaderWidth = 70
+        flowLayout.columnHeaderHeight = 70
+        flowLayout.hourGridDivisionValue = .minutes_30
+
         if calendarType == .day {
             flowLayout.columnHeaderHeight = 0 // TBD this should be moved to View Controller
+            flowLayout.gridVerticalThickness = 0
         }
         
         collectionView = UICollectionView(frame: bounds, collectionViewLayout: flowLayout)

@@ -11,6 +11,7 @@ import UIKit
 
 struct StrategyScreenLoadFrom {
     static var isLoadFromStrategy = "0"
+    static var strategyNotes = ""
 }
 
 class AccountStrategyViewController : UIViewController{
@@ -20,7 +21,6 @@ class AccountStrategyViewController : UIViewController{
     @IBOutlet weak var collectionView : UICollectionView?
     @IBOutlet weak var lblLastModifiedDate : UILabel?
     @IBOutlet weak var lblNoData : UILabel?
-    @IBOutlet weak var btnEdit : UIButton?
     
     @IBOutlet weak var editIcon : UIButton?
     @IBOutlet weak var closeIcon : UIButton?
@@ -35,10 +35,10 @@ class AccountStrategyViewController : UIViewController{
         super.viewDidLoad()
         print("Account Strategy Screen Loaded")
         
-//        let plistPath = Bundle.main.path(forResource: "AccountStrategy", ofType: ".plist", inDirectory: nil)
-//        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
-//        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
-//        print(dictionary!)
+        //        let plistPath = Bundle.main.path(forResource: "AccountStrategy", ofType: ".plist", inDirectory: nil)
+        //        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
+        //        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
+        //        print(dictionary!)
         
         if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
             editIcon?.isHidden = false
@@ -51,7 +51,7 @@ class AccountStrategyViewController : UIViewController{
         
         self.loadTheDataFromStrategyQA()
         
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,17 +75,26 @@ class AccountStrategyViewController : UIViewController{
     
     func loadTheDataFromStrategyQA(){
         
+        //
+        
+        // let json:[String:Any] = [ "SGWS_Account__c":ary[2],"Id":ary[0], "SGWS_Question_Sub_Type__c":ary[4], "SGWS_Question__c":ary[3], "SGWS_Answer_Description_List__c":ary[1],"SGWS_Notes__c":ary[5]]
+        
         let data = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
         
         let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
         
         //If no surveys for this account disbale the edit strategy button
         if question.count == 0{
-            btnEdit?.isHidden = true
+            editIcon?.isHidden = true
             lblNoData?.isHidden = false
             lblNoData?.text = "No Survey assigned for this Account."
         }else{
-            btnEdit?.isHidden = false
+            if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
+                editIcon?.isHidden = false
+            }else{
+                editIcon?.isHidden = true
+            }
+            
             lblNoData?.text = "The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now."
             lblNoData?.isHidden = true
             
@@ -143,18 +152,25 @@ class AccountStrategyViewController : UIViewController{
                 if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
                     
                     for ans in answerListArray{
-                        let answerDict = NSMutableDictionary()
-                        answerDict.setValue(ans, forKey: "answerText")
-                        answerArray.add(answerDict)
-                    }
-                    
-                    for ans in answerListArray{
-                        answerArrayStr.add(ans)
+                        if !(answerArrayStr.contains(ans)){
+                            answerArrayStr.add(ans)
+                            
+                            let answerDict = NSMutableDictionary()
+                            answerDict.setValue(ans, forKey: "answerText")
+                            answerArray.add(answerDict)
+                        }
                     }
                 }
+                
+                //                let myVar = "c"
+                //                let myDict: [String: Int] = ["a": 0, "b": 1, "c": 2]
+                //                if myDict.keys.contains(myVar) {
+                //                    print(myVar)
+                //                }
+                //let arrayOfSetValues = answerListArray
+                
                 let answerListString = answerArrayStr.componentsJoined(by: ",")
                 dict.setValue(answerListString, forKey: "answerStrings")
-                
                 dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
                 
                 tableViewData.add(dict)
@@ -222,7 +238,7 @@ class AccountStrategyViewController : UIViewController{
             
         }
         
-       self.loadDateAndLastMOdifiedDate(data: data, modifiedArray: modifiedArray)
+        self.loadDateAndLastMOdifiedDate(data: data, modifiedArray: modifiedArray)
     }
     
     func loadDateAndLastMOdifiedDate(data :[StrategyQA] , modifiedArray : NSMutableArray ){
@@ -230,18 +246,19 @@ class AccountStrategyViewController : UIViewController{
         //USED TO SHOW THE NOTES
         if data.count > 0 {
             
-            let strategyNotes = (data.first?.SGWS_Notes__c)!
+            let strategyNotes = (data.last?.SGWS_Notes__c)!
+            StrategyScreenLoadFrom.strategyNotes = strategyNotes
             
             //if strategyNotes != "" {
-                let dict = NSMutableDictionary()
-                dict.setValue("Account Strategy Notes", forKey: "header")
-                dict.setValue("", forKey: "subHeader")
-                let notesArray = NSMutableArray()
-                let notesAnswerDict = NSMutableDictionary()
-                notesAnswerDict.setValue(strategyNotes, forKey: "answerText")
-                notesArray.add(notesAnswerDict)
-                dict.setValue(notesArray, forKey: "answers")
-                modifiedArray.add(dict)
+            let dict = NSMutableDictionary()
+            dict.setValue("Account Strategy Notes", forKey: "header")
+            dict.setValue("", forKey: "subHeader")
+            let notesArray = NSMutableArray()
+            let notesAnswerDict = NSMutableDictionary()
+            notesAnswerDict.setValue(strategyNotes, forKey: "answerText")
+            notesArray.add(notesAnswerDict)
+            dict.setValue(notesArray, forKey: "answers")
+            modifiedArray.add(dict)
             //}
             
             print(modifiedArray)
@@ -249,14 +266,14 @@ class AccountStrategyViewController : UIViewController{
             let lastModifiedDate = data.first?.LastModifiedDate
             print(lastModifiedDate!)
             
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-//            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-//
-//            let newModifiedDate = dateFormatter.date(from: modifiedDate!)
-//            dateFormatter.dateFormat = "MMM dd, YYYY"
-//            let formattedDate = dateFormatter.string(from: newModifiedDate!)
-//            lblLastModifiedDate?.text = "Account Strategy Lasy Updated on " + formattedDate
+            //            let dateFormatter = DateFormatter()
+            //            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            //            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            //
+            //            let newModifiedDate = dateFormatter.date(from: modifiedDate!)
+            //            dateFormatter.dateFormat = "MMM dd, YYYY"
+            //            let formattedDate = dateFormatter.string(from: newModifiedDate!)
+            //            lblLastModifiedDate?.text = "Account Strategy Lasy Updated on " + formattedDate
             
         }
         
@@ -294,7 +311,7 @@ class AccountStrategyViewController : UIViewController{
     func getSubHeader(data:[StrategyQA])-> [String]{
         var subHeaderArray = [String]()
         //Get unique headernames once
-       // let data = strategyQAViewModel.getStrategyQuestionAnswer()
+        // let data = strategyQAViewModel.getStrategyQuestionAnswer()
         for questionHeaders in data{
             
             let que = questionHeaders.SGWS_Question_Sub_Type__c
@@ -321,7 +338,6 @@ class AccountStrategyViewController : UIViewController{
     
     //MARK:- Button Actions
     @IBAction func editButtonClicked(sender : UIButton){
-        LoadEditStrategyFromDuringVisit.editStrategy = "0"
         
         if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
             performSegue(withIdentifier: "editStrategySegue", sender: nil)
@@ -339,6 +355,7 @@ class AccountStrategyViewController : UIViewController{
 extension AccountStrategyViewController : RefreshStrategyScreenDelegate{
     
     func refreshStrategyScreenToLoadNewData() {
+        tableViewRowDetails?.removeAllObjects()
         
         self.loadTheDataFromStrategyQA()
         

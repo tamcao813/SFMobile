@@ -32,7 +32,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HY3-oi-mmZ">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HY3-oi-mmZ">
                                 <rect key="frame" x="1001" y="57" width="90" height="38"/>
                                 <color key="backgroundColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -135,7 +135,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7GF-3v-UVq">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7GF-3v-UVq">
                                 <rect key="frame" x="1053" y="34" width="38" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="74g-1Z-P2j"/>
@@ -165,7 +165,6 @@
                         <viewLayoutGuide key="safeArea" id="sdF-XD-axo"/>
                     </view>
                     <connections>
-                        <outlet property="btnEdit" destination="HY3-oi-mmZ" id="GW9-PP-W8r"/>
                         <outlet property="closeIcon" destination="7GF-3v-UVq" id="HRp-aF-3ZQ"/>
                         <outlet property="collectionView" destination="gOG-uA-kRW" id="dym-43-NDa"/>
                         <outlet property="editIcon" destination="HY3-oi-mmZ" id="W6n-Uw-QsW"/>

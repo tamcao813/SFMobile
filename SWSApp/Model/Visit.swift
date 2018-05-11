@@ -10,7 +10,7 @@ import Foundation
 
 class Visit{
     
-    static let VisitsFields: [String] = ["Id","Subject","AccountId","Account.Name","Account.AccountNumber","Account.BillingAddress","ContactId","Contact.Name","Contact.Phone","Contact.Email","Contact.SGWS_Roles__c","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","LastModifiedDate"]
+    static let VisitsFields: [String] = ["Id","Subject","AccountId","Account.Name","Account.AccountNumber","Account.BillingAddress","ContactId","Contact.Name","Contact.Phone","Contact.Email","Contact.SGWS_Roles__c","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c"]
     
     var Id : String
     var subject : String
@@ -57,7 +57,7 @@ class Visit{
         description = json["Description"] as? String ?? ""
         sgwsAgendaNotes = json["SGWS_Agenda_Notes__c"] as? String ?? ""
         status = json["Status"] as? String ?? ""
-        lastModifiedDate = json["LastModifiedDate"] as? String ?? ""
+        lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
     }
     
     init(for: String) {

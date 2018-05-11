@@ -27,7 +27,7 @@ class ContactListAccountFooterDetails: UITableViewCell {
     func displayCellContent(_ contactDetails: Contact) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SZ"
-        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        dateFormatter.timeZone = TimeZone.current
         
         if let date: Date = dateFormatter.date(from: contactDetails.lastModifiedDate) {
             dateFormatter.dateFormat = "MMM d, yyyy"

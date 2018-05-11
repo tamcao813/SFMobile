@@ -228,7 +228,7 @@ class CreateNoteViewController : UIViewController{
         
         let editNoteDict: [String:Any] = [
             AccountNotes.AccountNotesFields[0]: notesToEdit.Id,
-           // AccountNotes.AccountNotesFields[1]: notesToEdit.lastModifiedDate,
+            AccountNotes.AccountNotesFields[1]: notesToEdit.lastModifiedDate,
             AccountNotes.AccountNotesFields[2]: notesToEdit.name,
             AccountNotes.AccountNotesFields[5]: notesToEdit.accountNotesDesc,
             kSyncTargetLocal:true,

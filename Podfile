@@ -5,6 +5,7 @@ use_frameworks!
 pod 'DropDown'
 pod 'ReachabilitySwift'
 pod 'SwipeCellKit', '~> 2.1.0'
+pod 'DateToolsSwift'
 
 def sf_pods
     pod 'SalesforceAnalytics',    :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'

@@ -82,19 +82,20 @@ public class WRWeekView: UIView {
     }
     
     func registerViewClasses() {
-        let podBundle = Bundle(for: WRWeekView.self)
-        let bundleURL = podBundle.url(forResource: "WRCalendarView", withExtension: "bundle")
-        let bundle = Bundle(url: bundleURL!)!
+//        let podBundle = Bundle(for: WRWeekView.self)
+//        let bundleURL = podBundle.url(forResource: "WRCalendarView", withExtension: "bundle")
+//        let bundle = Bundle(url: bundleURL!)!
 
         //cell
-        collectionView.register(UINib.init(nibName: WREventCell.className, bundle: bundle),
+        collectionView.register(UINib.init(nibName: WREventCell.className, bundle: nil),
                                 forCellWithReuseIdentifier: ReuseIdentifiers.defaultCell)
         
         //supplementary
-        collectionView.register(UINib.init(nibName: WRColumnHeader.className, bundle: bundle),
+        print(WRColumnHeader.className)
+        collectionView.register(UINib.init(nibName: WRColumnHeader.className, bundle: nil),
                                 forSupplementaryViewOfKind: SupplementaryViewKinds.columnHeader,
                                 withReuseIdentifier: ReuseIdentifiers.columnHeader)
-        collectionView.register(UINib.init(nibName: WRRowHeader.className, bundle: bundle),
+        collectionView.register(UINib.init(nibName: WRRowHeader.className, bundle: nil),
                                 forSupplementaryViewOfKind: SupplementaryViewKinds.rowHeader,
                                 withReuseIdentifier: ReuseIdentifiers.rowHeader)
         
@@ -113,7 +114,7 @@ public class WRWeekView: UIView {
                             forDecorationViewOfKind: DecorationViewKinds.cornerHeader)
         flowLayout.register(WRCurrentTimeGridline.self,
                             forDecorationViewOfKind: DecorationViewKinds.currentTimeGridline)
-        flowLayout.register(UINib(nibName: WRCurrentTimeIndicator.className, bundle: bundle),
+        flowLayout.register(UINib(nibName: WRCurrentTimeIndicator.className, bundle: nil),
                              forDecorationViewOfKind: DecorationViewKinds.currentTimeIndicator)
     }
     
@@ -229,7 +230,7 @@ public class WRWeekView: UIView {
         guard !loading else { return }
         DispatchQueue.main.async { [unowned self] in
             self.loading = true
-            self.daysToShow = self.daysToShow + self.daysToShowOnScreen
+            self.daysToShow = self.daysToShow + self.daysToShowOnScreen // TBD this needs to calculated on how many past months to show
             self.forceReload(false)
             self.loading = false
         }
@@ -239,7 +240,7 @@ public class WRWeekView: UIView {
         guard !loading else { return }
         DispatchQueue.main.async { [unowned self] in
             self.loading = true
-            self.daysToShow = self.daysToShow + self.daysToShowOnScreen
+            self.daysToShow = self.daysToShow + self.daysToShowOnScreen // TBD this needs to calculated on how many upcoming months to show
             self.initDate = self.initDate - self.daysToShowOnScreen.days
             self.forceReload(false)
             self.setCurrentPage(self.currentPage + 1, animated: false)

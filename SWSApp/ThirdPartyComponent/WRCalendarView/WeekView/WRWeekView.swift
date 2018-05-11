@@ -35,7 +35,7 @@ public class WRWeekView: UIView {
     
     public weak var delegate: WRWeekViewDelegate?
     
-    public var calendarType: CalendarType = .week {
+    public var calendarType: CalendarType = .day {
         didSet {
             isFirst = true
             updateView()
@@ -58,6 +58,10 @@ public class WRWeekView: UIView {
         
         flowLayout = WRWeekViewFlowLayout()
         flowLayout.delegate = self
+        
+        if calendarType == .day {
+            flowLayout.columnHeaderHeight = 0 // TBD this should be moved to View Controller
+        }
         
         collectionView = UICollectionView(frame: bounds, collectionViewLayout: flowLayout)
         collectionView.delegate = self
@@ -91,7 +95,6 @@ public class WRWeekView: UIView {
                                 forCellWithReuseIdentifier: ReuseIdentifiers.defaultCell)
         
         //supplementary
-        print(WRColumnHeader.className)
         collectionView.register(UINib.init(nibName: WRColumnHeader.className, bundle: nil),
                                 forSupplementaryViewOfKind: SupplementaryViewKinds.columnHeader,
                                 withReuseIdentifier: ReuseIdentifiers.columnHeader)
@@ -120,7 +123,12 @@ public class WRWeekView: UIView {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        flowLayout.sectionWidth = (frame.width - flowLayout.rowHeaderWidth) / CGFloat(daysToShowOnScreen)
+        if calendarType == .day {
+            flowLayout.sectionWidth = (frame.width - flowLayout.rowHeaderWidth) / CGFloat(daysToShowOnScreen)
+        }
+        else {
+            flowLayout.sectionWidth = (frame.width - flowLayout.rowHeaderWidth) / CGFloat(daysToShowOnScreen-2) // TBD This (-2) should come from configuration to hide Sat and Sun
+        }
     }
     
     @objc func tapHandler(_ recognizer: UITapGestureRecognizer) {
@@ -203,7 +211,11 @@ public class WRWeekView: UIView {
         case .week:
             daysToShowOnScreen = 7
             let weekComponent = Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: calendarDate)
-            startDate = Calendar.current.date(from: weekComponent)
+            
+            var customCalendar = Calendar.current // TBD This should be configurable to start from Monday
+            customCalendar.firstWeekday = 2
+
+            startDate = customCalendar.date(from: weekComponent)
         case .day:
             daysToShowOnScreen = 1
             startDate = calendarDate

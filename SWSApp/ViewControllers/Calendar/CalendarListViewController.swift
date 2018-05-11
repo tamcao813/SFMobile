@@ -39,7 +39,8 @@ class CalendarListViewController: UIViewController {
     // MARK: - WRCalendarView
     func setupCalendarData() {
         weekView.setCalendarDate(Date())
-        weekView.delegate = self
+        weekView.delegate = self        
+        weekView.calendarType = .day
     }
     
 }

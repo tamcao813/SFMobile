@@ -257,6 +257,17 @@ class CreateNewVisitViewController: UIViewController {
         PlanVistManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
         
         let new_visit = PlanVisit(for: "newVisit")
+        
+        //Get Current date and time
+        let date = Date()
+        print(date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        
+        //added the last modified App date and time
+        new_visit.lastModifiedDate = timeStamp
+        
         new_visit.Id = self.generateRandomIDForVisit()
         //        new_visit.subject = (visitObject?.subject)!
         new_visit.accountId = selectedAccount.account_Id//PlanVistManager.sharedInstance.accountId
@@ -283,6 +294,7 @@ class CreateNewVisitViewController: UIViewController {
         let addNewDict: [String:Any] = [
             
             PlanVisit.planVisitFields[0]: new_visit.Id,
+            PlanVisit.planVisitFields[10]: new_visit.lastModifiedDate,
 //            PlanVisit.planVisitFields[1]: new_visit.subject,
             PlanVisit.planVisitFields[2]: new_visit.accountId,
 //            PlanVisit.planVisitFields[3]: new_visit.sgwsAppointmentStatus,
@@ -314,6 +326,7 @@ class CreateNewVisitViewController: UIViewController {
             visit.description = new_visit.description
             visit.sgwsAgendaNotes = new_visit.sgwsAgendaNotes
             visit.sgwsVisitPurpose = new_visit.sgwsVisitPurpose
+            visit.lastModifiedDate = new_visit.lastModifiedDate
             
             PlanVistManager.sharedInstance.visit = visit
         }

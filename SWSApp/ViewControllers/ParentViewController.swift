@@ -250,38 +250,44 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // MARK: SyncUp Data
     @objc func SyncUpData()  {
         MBProgressHUD.show(onWindow: true)
-        // Sync Up Notes
-            AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
-                if error != nil {
-                    print(error?.localizedDescription ?? "error")
-                }
-            })
         
+        let group = DispatchGroup()
+        // Sync Up Notes
+        group.enter()
+        AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+            }
+            group.leave()
+        })
+
         // Contacts Sync Up
+        group.enter()
         ContactsViewModel().uploadContactToServerAndSyncDownACR(completion: { error in
             if error != nil {
-                
                 DispatchQueue.main.async {
                     MBProgressHUD.hide(forWindow: true)
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
                 print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
-            }else{
+            } else{
                 print("Contacts uploaded to server  Successfully")
-                
             }
+            group.leave()
         })
-        
+          
         // Visits (WorkOrder) Sync Up
+        group.enter()
         VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","ContactId"], completion:{ error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
             }
+            group.leave()
         } )
         
-         // Strategy QA(SGWS_Response__c) Sync Up
-        
+        // Strategy QA(SGWS_Response__c) Sync Up
         //let fields: [String] = StrategyQA.StrategyQAFields
+        group.enter()
         StrategyQAViewModel().uploadStrategyQAToServer(fields: ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c"], completion: { error in
             if error != nil {
                 DispatchQueue.main.async {
@@ -289,21 +295,22 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 }
                 print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
             }
+            group.leave()
         })
         
-        StoreDispatcher.shared.downloadAllSoups({ (error) in
-            if error != nil {
-                print("PostSyncUp:downloadAllSoups")
-            }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
-            
-            DispatchQueue.main.async {
-                MBProgressHUD.hide(forWindow: true)
-            }
-        })
-        
-          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
-      
+        //Download all soups only after all above async operations complete
+        group.notify(queue: .main) {
+            StoreDispatcher.shared.downloadAllSoups({ (error) in
+                if error != nil {
+                    print("PostSyncUp:downloadAllSoups")
+                }
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(forWindow: true)
+                }
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+            })
+        }
     }
     
     private func setupTopMenuItems(){

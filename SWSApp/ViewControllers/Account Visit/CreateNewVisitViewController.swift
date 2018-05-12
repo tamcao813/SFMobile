@@ -356,43 +356,17 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     func getDataTimeinStr(date:String, time: String) -> String {
-        
-        let timeFormatter = DateFormatter()
-        
-        timeFormatter.dateFormat = "hh:mm a"
-        
-        let fullTime = timeFormatter.date(from: time)
-        
-        var formattedTime:String = ""
-        
-        if fullTime != nil {
-            
-            timeFormatter.dateFormat = "HH:mm:ss"
-            
-            formattedTime = timeFormatter.string(from: fullTime!)
-        } else {
-            
-            timeFormatter.dateFormat = "HH:mm a"
-            
-            let fullTime = timeFormatter.date(from: time)
-            
-            timeFormatter.dateFormat = "HH:mm:ss"
-            
-            formattedTime = timeFormatter.string(from: fullTime!)
-            
-        }
-        
         let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let fullDate = dateFormatter.date(from: date)
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let formattedDate = dateFormatter.string(from: fullDate!)
-        
-        let formattedDateTime = formattedDate + "T" + formattedTime
-        
-        return formattedDateTime
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+        //Concatenate date and time first later convert the DateTime string to Date
+        var string = date + "T" + time
+        if let dateFromString = dateFormatter.date(from: string) {
+            //again assign the dateFormat and current timezone to get proper string else it will return the UTC format string
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            string = dateFormatter.string(from: dateFromString)
+        }
+        return string
     }
 }
 
@@ -476,12 +450,18 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
     
     func getDate(stringDate: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        let dateDate = dateFormatter.date(from: stringDate)
-        if dateDate != nil {
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm a"
+        dateFormatter.timeZone = TimeZone.current
+        var date = dateFormatter.date(from: stringDate)
+        if date == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            date = dateFormatter.date(from: stringDate)
+        }
+        
+        if date != nil {
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            return dateFormatter.string(from: dateDate!)
+            return dateFormatter.string(from: date!)
         }
         return ""
     }
@@ -490,12 +470,17 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
     
     func getTime(stringDate: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        let date = dateFormatter.date(from: stringDate)
-        
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+        dateFormatter.timeZone = TimeZone.current
+        var date = dateFormatter.date(from: stringDate)
+        if date == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            date = dateFormatter.date(from: stringDate)
+        }
         if date != nil {
-            dateFormatter.dateFormat = "HH:mm a"
+            //Use lowercase hh:mm to show time in 12 hrs format
+            dateFormatter.dateFormat = "hh:mm a"
             dateFormatter.amSymbol = "AM"
             dateFormatter.pmSymbol = "PM"
             return dateFormatter.string(from: date!)

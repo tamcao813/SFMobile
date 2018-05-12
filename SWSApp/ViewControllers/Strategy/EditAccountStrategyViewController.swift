@@ -441,7 +441,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         
         // let answersSelected = NSMutableArray()
         //one object of tableViewRowDetails is linked to which response object
-        for q in 0...tableViewRowDetails!.count{
+        for q in 0...tableViewRowDetails!.count - 1{
             
             if strategyArray.count > 0{
                 

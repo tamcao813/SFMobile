@@ -37,8 +37,10 @@ class AccountVisitSummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -50,10 +52,8 @@ class AccountVisitSummaryViewController: UIViewController {
     @objc func refreshVisit(){
         fetchVisit()
     }
-    
-    
+
     @objc func refreshSummaryScreen(){
-        print("visit", PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose)
         fetchVisit()
         tableView.reloadData()
     }
@@ -244,7 +244,8 @@ class AccountVisitSummaryViewController: UIViewController {
             let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
             
             if(success){
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+                
                 self.dismiss(animated: true, completion: nil)
             }
             
@@ -283,7 +284,6 @@ class AccountVisitSummaryViewController: UIViewController {
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             createVisitViewController.visitId = visitObject?.Id
-//            createVisitViewController.delegate = self
             PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             DispatchQueue.main.async {
@@ -306,7 +306,6 @@ class AccountVisitSummaryViewController: UIViewController {
             PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
             PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             createVisitViewController.visitId = visitObject?.Id
-//            createVisitViewController.delegate = self
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -325,12 +324,17 @@ class AccountVisitSummaryViewController: UIViewController {
 extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDelegate , NavigateToAccountAccountVisitSummaryDelegate{
     
     func navigateToAccountVisitingScreen() {
+        DispatchQueue.main.async {
         self.dismiss(animated: false, completion: nil)
+        }
     }
     
     func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
-        self.dismiss(animated: false, completion: nil)
-        delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
+        DispatchQueue.main.async {
+            self.dismiss(animated: false, completion: nil)
+            self.delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
+        }
+        
         
     }
     

@@ -196,7 +196,9 @@ class CreateNewVisitViewController: UIViewController {
                 let status = PlanVistManager.sharedInstance.editAndSaveVisit()
                 let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
                 let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
-                self.present(viewController, animated: true)
+                DispatchQueue.main.async {
+                    self.present(viewController, animated: true)
+                }
             }else{
                 createNewVisit(dismiss: false)
             }
@@ -243,7 +245,9 @@ class CreateNewVisitViewController: UIViewController {
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
                 let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-                self.dismiss(animated: true)
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true)
+                }
             }else{
                 createNewVisit(dismiss: true)
             }
@@ -333,15 +337,17 @@ class CreateNewVisitViewController: UIViewController {
 
         print("Success is here \(success)")
         if(success){
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             if dismiss {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
-//                self.delegate.updateVisit()
-                self.dismiss(animated: true)
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true)
+                }
             }else{
                 let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
                 let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
-                self.present(viewController, animated: true)
+                DispatchQueue.main.async {
+                    self.present(viewController, animated: true)
+                }
             }
         }
     }

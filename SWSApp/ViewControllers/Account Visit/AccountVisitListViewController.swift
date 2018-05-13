@@ -15,14 +15,14 @@ class AccountVisitListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountList), name: NSNotification.Name("refreshAccountList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         customizedUI()
         initializingXIBs()
         getTheDataFromDB()
     }
     
     
-    @objc func refreshAccountList(){
+    @objc func refreshAccountVisitList(){
         getTheDataFromDB()
     }
     
@@ -39,7 +39,7 @@ class AccountVisitListViewController: UIViewController {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshAccountList"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshAccountVisitList"), object: nil)
     }
     
     func customizedUI(){
@@ -59,8 +59,9 @@ class AccountVisitListViewController: UIViewController {
         
         //Reset the PlanVistManager
         PlanVistManager.sharedInstance.visit = nil
-        
-        self.present(createVisitViewController, animated: true)
+        DispatchQueue.main.async {
+            self.present(createVisitViewController, animated: true)
+        }        
     }
     
 }

@@ -528,7 +528,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             case 5:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Likes"
-                dislikeTextView = cell?.descriptionTextView
+                likeTextView = cell?.descriptionTextView
                 cell?.descriptionTextView.tag = 1
                 if let dislikes = contactDetail?.dislikes, dislikes != "" {
                     cell?.contactDetail = contactDetail
@@ -538,7 +538,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             case 6:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Dislikes"
-                likeTextView = cell?.descriptionTextView
+                dislikeTextView = cell?.descriptionTextView
                 cell?.descriptionTextView.tag = 2
                 if let likes = contactDetail?.likes, likes != "" {
                     cell?.contactDetail = contactDetail

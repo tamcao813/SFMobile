@@ -358,12 +358,11 @@ class CreateNewVisitViewController: UIViewController {
     func getDataTimeinStr(date:String, time: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-        //Concatenate date and time first later convert the DateTime string to Date
         var string = date + "T" + time
         if let dateFromString = dateFormatter.date(from: string) {
-            //again assign the dateFormat and current timezone to get proper string else it will return the UTC format string
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-            dateFormatter.timeZone = TimeZone.current
+            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter.timeZone = TimeZone(identifier:"UTC")
             string = dateFormatter.string(from: dateFromString)
         }
         return string
@@ -447,18 +446,16 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
 
-    
     func getDate(stringDate: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm a"
-        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         var date = dateFormatter.date(from: stringDate)
         if date == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
             date = dateFormatter.date(from: stringDate)
         }
-        
         if date != nil {
             dateFormatter.dateFormat = "yyyy-MM-dd"
             return dateFormatter.string(from: date!)
@@ -466,18 +463,23 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
         return ""
     }
     
-    
-    
     func getTime(stringDate: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         var date = dateFormatter.date(from: stringDate)
         if date == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
             date = dateFormatter.date(from: stringDate)
         }
+        if date != nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            let localTimeZoneString = dateFormatter.string(from: date!)
+            date = dateFormatter.date(from: localTimeZoneString)
+        }
+        
         if date != nil {
             //Use lowercase hh:mm to show time in 12 hrs format
             dateFormatter.dateFormat = "hh:mm a"
@@ -487,7 +489,7 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
         }
         return ""
     }
-    
+
 }
 
 extension CreateNewVisitViewController: SearchAccountTableViewCellDelegate {

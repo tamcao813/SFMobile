@@ -186,7 +186,7 @@ class CreateNewVisitViewController: UIViewController {
         }else{
             errorLbl.text = ""
             if let visit = PlanVistManager.sharedInstance.visit{
-                PlanVistManager.sharedInstance.visit?.accountId = visit.accountId
+                PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
                 if let contact = selectedContact {
                     PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
                 }else{
@@ -232,7 +232,7 @@ class CreateNewVisitViewController: UIViewController {
             errorLbl.text = ""
             PlanVistManager.sharedInstance.visit?.status = "Scheduled"
             if let visit = PlanVistManager.sharedInstance.visit{
-                PlanVistManager.sharedInstance.visit?.accountId = visit.accountId
+                PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
                 if let contact = selectedContact {
                     PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
                 }else{

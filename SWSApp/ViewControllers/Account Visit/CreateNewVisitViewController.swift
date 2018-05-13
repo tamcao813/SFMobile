@@ -48,8 +48,6 @@ class CreateNewVisitViewController: UIViewController {
         customizedUI()
         fetchVisit()
         IQKeyboardManager.shared.enable = true
-        
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -189,7 +187,7 @@ class CreateNewVisitViewController: UIViewController {
             if let visit = PlanVistManager.sharedInstance.visit{
                 PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
                 if let contact = selectedContact {
-                    PlanVistManager.sharedInstance.visit?.contactId = selectedContact.contactId
+                    PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
                 }
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
@@ -229,18 +227,10 @@ class CreateNewVisitViewController: UIViewController {
         }else{
             errorLbl.text = ""
             PlanVistManager.sharedInstance.visit?.status = "Scheduled"
-//            visitObject?.accountId = selectedAccount.account_Id
-//            visitObject?.startDate = getDataTimeinStr(date: startDate.text!, time: startTime.text!)
-//            visitObject?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
-//            if let contact = selectedContact {
-//                visitObject?.contactId = contact.contactId
-//            }else{
-//                visitObject?.contactId = ""
-//            }
             if let visit = PlanVistManager.sharedInstance.visit{
                 PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
                 if let contact = selectedContact {
-                    PlanVistManager.sharedInstance.visit?.contactId = selectedContact.contactId
+                    PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
                 }
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
@@ -257,7 +247,7 @@ class CreateNewVisitViewController: UIViewController {
     func createNewVisit(dismiss: Bool) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let accountId = appDelegate.loggedInUser?.accountId
-        print("Account id in plan is \(accountId)")
+//        print("Account id in plan is \(accountId)")
         PlanVistManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
         
         let new_visit = PlanVisit(for: "newVisit")

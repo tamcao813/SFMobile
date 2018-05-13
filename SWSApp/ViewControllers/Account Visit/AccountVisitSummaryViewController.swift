@@ -46,7 +46,6 @@ class AccountVisitSummaryViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchVisit()
         initializingXIBs()
-        refactoringUIOnApplicationStatusBasis()
     }
     
     @objc func refreshVisit(){
@@ -112,6 +111,7 @@ class AccountVisitSummaryViewController: UIViewController {
         deleteVisitButton.tintColor = UIColor(hexString: "#4287C2")
         deleteVisitButton.setTitle("    Delete Visit", for: .normal)
         self.getStartDateAndEndTime()
+        refactoringUIOnApplicationStatusBasis()
     }
     
     func getStartDateAndEndTime() {

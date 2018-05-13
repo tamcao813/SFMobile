@@ -563,7 +563,6 @@ extension EditAccountStrategyViewController : UICollectionViewDataSource {
             sectionHeader.isHidden = true
             return sectionHeader
         }
-        
         return UICollectionReusableView()
     }
     

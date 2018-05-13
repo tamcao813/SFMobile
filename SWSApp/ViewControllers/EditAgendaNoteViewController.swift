@@ -27,7 +27,9 @@ class EditAgendaNoteViewController: UIViewController {
     //MARK:- IBAction
     
     @IBAction func closeVC(sender: UIButton) {
-        self.dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
+        }
     }
     
     @IBAction func saveAndClose(sender: UIButton) {

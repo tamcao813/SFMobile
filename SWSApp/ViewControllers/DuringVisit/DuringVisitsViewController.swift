@@ -101,6 +101,9 @@ class  DuringVisitsViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let accountId = PlanVistManager.sharedInstance.visit?.accountId
+        AccountId.selectedAccountId = accountId!
+        
         self.loadTheDataFromStrategyQA()
         
     }
@@ -296,7 +299,7 @@ class  DuringVisitsViewController : UIViewController {
         if data.count > 0 {
             
             let strategyNotes = (data.first?.SGWS_Notes__c)!
-            StrategyScreenLoadFrom.strategyNotes = strategyNotes
+            //StrategyScreenLoadFrom.strategyNotes = strategyNotes
             
             //if strategyNotes != "" {
             let dict = NSMutableDictionary()
@@ -312,8 +315,8 @@ class  DuringVisitsViewController : UIViewController {
             
             print(modifiedArray)
             
-            let lastModifiedDate = data.first?.LastModifiedDate
-            print(lastModifiedDate!)
+            //let lastModifiedDate = data.first?.LastModifiedDate
+            //print(lastModifiedDate!)
             
             //            let dateFormatter = DateFormatter()
             //            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
@@ -460,7 +463,7 @@ class  DuringVisitsViewController : UIViewController {
         vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         (vc as! EditAccountStrategyViewController).strategyArray = tableViewRowDetails
         self.present(vc, animated: true, completion: nil)
-        
+        (vc as! EditAccountStrategyViewController).delegate = self
         
     }
     
@@ -510,6 +513,13 @@ class  DuringVisitsViewController : UIViewController {
 }
 
 
+//MARK:- RefreshStrategyScreen Delegate
+extension DuringVisitsViewController : RefreshStrategyScreenDelegate{
+    
+    func refreshStrategyScreenToLoadNewData(){
+        self.loadTheDataFromStrategyQA()
+    }
+}
 
 
 

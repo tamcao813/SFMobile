@@ -11,7 +11,6 @@ import UIKit
 
 struct StrategyScreenLoadFrom {
     static var isLoadFromStrategy = "0"
-    static var strategyNotes = ""
 }
 
 class AccountStrategyViewController : UIViewController{
@@ -48,10 +47,12 @@ class AccountStrategyViewController : UIViewController{
             closeIcon?.isHidden = false
         }
         
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            //flowLayout.estimatedItemSize = CGSize(width: 1024, height: 200)//CGSizeMake(1, 1)
+            flowLayout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1)//UIEdgeInsetsMake(10, 10, 10, 10)
+        }
         
         self.loadTheDataFromStrategyQA()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +63,6 @@ class AccountStrategyViewController : UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         
         
     }
@@ -246,8 +246,8 @@ class AccountStrategyViewController : UIViewController{
         //USED TO SHOW THE NOTES
         if data.count > 0 {
             
-            let strategyNotes = (data.last?.SGWS_Notes__c)!
-            StrategyScreenLoadFrom.strategyNotes = strategyNotes
+            let strategyNotes = (data.first?.SGWS_Notes__c)!
+            //StrategyScreenLoadFrom.strategyNotes = strategyNotes
             
             //if strategyNotes != "" {
             let dict = NSMutableDictionary()
@@ -266,15 +266,16 @@ class AccountStrategyViewController : UIViewController{
             let lastModifiedDate = data.first?.LastModifiedDate
             print(lastModifiedDate!)
             
-            //            let dateFormatter = DateFormatter()
-            //            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            //            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-            //
-            //            let newModifiedDate = dateFormatter.date(from: modifiedDate!)
-            //            dateFormatter.dateFormat = "MMM dd, YYYY"
-            //            let formattedDate = dateFormatter.string(from: newModifiedDate!)
-            //            lblLastModifiedDate?.text = "Account Strategy Lasy Updated on " + formattedDate
-            
+            if(lastModifiedDate != ""){
+                let getTime = DateTimeUtility.convertUtcDatetoReadableDateLikeStrategy(dateString: lastModifiedDate)
+                var dateTime = getTime.components(separatedBy: ",")
+                
+                if(dateTime.count > 0){
+                    let firstPart  = dateTime[0]
+                    let lastPart = dateTime[1]
+                    self.lblLastModifiedDate?.text = "Account Strategy last updated on " + firstPart + ", " + lastPart
+                }
+            }
         }
         
         //Assign the data to Array and reload the data
@@ -290,7 +291,6 @@ class AccountStrategyViewController : UIViewController{
         }
     }
     
-    
     func getHeader(data:[StrategyQA])-> [String]{
         var headerArray = [String]()
         //Get unique headernames once
@@ -304,7 +304,6 @@ class AccountStrategyViewController : UIViewController{
                 }
             }
         }
-        //print(headerArray)
         return headerArray
     }
     
@@ -324,7 +323,7 @@ class AccountStrategyViewController : UIViewController{
         return subHeaderArray
     }
     
-    //MARK:- Button Actions
+    //MARK:- Segue Methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "editStrategySegue") {
             let editStrategy = segue.destination as? EditAccountStrategyViewController
@@ -332,9 +331,6 @@ class AccountStrategyViewController : UIViewController{
             editStrategy?.delegate = self
         }
     }
-    
-    //StrategyScreenLoadFrom.isLoadFromStrategy == "1"
-    
     
     //MARK:- Button Actions
     @IBAction func editButtonClicked(sender : UIButton){
@@ -392,32 +388,26 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.section == (tableViewRowDetails?.count)!  {//Used to make the Additional notes Dynamic
+        if indexPath.section == (tableViewRowDetails?.count)! - 1 {//Used to make the Additional notes Dynamic
             
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
             
-            //let constraintRect = CGSize(width: self.view.frame.size.width, height: CGFloat.greatestFiniteMagnitude)
-            
             let data = (questions["answerText"] as! String)
             
-            //let data = "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  "
-            
-            if data != ""{
-                let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18.0)])
-                let dynamicSize: CGRect = attString.boundingRect(with: CGSize(width: collectionView.frame.size.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-                
-                return dynamicSize.size
-                
+            if data.count > 115{
+                if data != ""{
+                    let constraintRect = CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
+                    let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18.0)])
+                    let dynamicSize: CGRect = attString.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, context: nil)
+                    return dynamicSize.size
+                }
+            }else{
+                return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)
             }
         }
-        
         return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)
-        
-        //let bounds = data
-        //let boundingBox = data.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont(name: Constants.strings.fontName, size: 30)!], context: nil)
-        //return CGSizeMake(boundingBox.width, boundingBox.height); //(width,hight)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -427,10 +417,9 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
         let questions = tableContent[indexPath.row] as! NSMutableDictionary
         
         let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "accountStrategyCell", for: indexPath) as! AccountStrategyCollectionViewCell
-        //cell1.contentView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
+        cell1.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         cell1.displayCellData(data: questions , indexPath: indexPath, arrayData: tableViewRowDetails!)
-        //cell1.contentView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
-        
+        //cell1.lblTitleText?.preferredMaxLayoutWidth = 50//.preferredMaxLayoutWidth = 50
         return cell1
         
     }

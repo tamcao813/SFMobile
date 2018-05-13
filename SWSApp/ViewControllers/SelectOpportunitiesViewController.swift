@@ -21,23 +21,26 @@ class SelectOpportunitiesViewController: UIViewController {
     
     @IBAction func closeVC(sender: UIButton) {
         //STATEMACHINE:No State Change
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+        DispatchQueue.main.async {
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func backVC(sender: UIButton) {
         //STATEMACHINE:No State Change
-        self.dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
+        }
     }
     
     @IBAction func saveAndClose(sender: UIButton) {
         //STATEMACHINE:If you com tho this Screen its in Planned state
-        
         PlanVistManager.sharedInstance.visit?.status = "Planned"
-        
         PlanVistManager.sharedInstance.editAndSaveVisit()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func loadStrategyScreen(sender : UIButton){
@@ -51,7 +54,9 @@ class SelectOpportunitiesViewController: UIViewController {
         AccountId.selectedAccountId = accountId!
         
         (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        self.present(vc, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(vc, animated: true, completion: nil)
+        }
         
     }
     

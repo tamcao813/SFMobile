@@ -76,10 +76,10 @@ extension SearchForContactTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         CreateNewVisitViewController.createNewVisitViewControllerGlobals.isContactField = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
             self.contactDropDown.show()
             CreateNewVisitViewController.createNewVisitViewControllerGlobals.userInput = true
-        })
+//        })
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

@@ -313,7 +313,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                     MBProgressHUD.hide(forWindow: true)
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             })
         }
     }

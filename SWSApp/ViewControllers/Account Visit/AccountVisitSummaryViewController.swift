@@ -52,11 +52,6 @@ class AccountVisitSummaryViewController: UIViewController {
     @objc func refreshVisit(){
         fetchVisit()
     }
-
-    @objc func refreshSummaryScreen(){
-        fetchVisit()
-        tableView.reloadData()
-    }
     
     func fetchVisit(){
         if let id = visitId{

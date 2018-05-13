@@ -188,6 +188,8 @@ class CreateNewVisitViewController: UIViewController {
                 PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
                 if let contact = selectedContact {
                     PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+                }else{
+                    PlanVistManager.sharedInstance.visit?.contactId = ""
                 }
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
@@ -231,6 +233,8 @@ class CreateNewVisitViewController: UIViewController {
                 PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
                 if let contact = selectedContact {
                     PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+                }else{
+                    PlanVistManager.sharedInstance.visit?.contactId = ""
                 }
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
@@ -490,6 +494,7 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
 
 extension CreateNewVisitViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
+        createNewVisitViewControllerGlobals.userInput = true
         selectedAccount = account
         reloadTableView()
     }
@@ -497,6 +502,7 @@ extension CreateNewVisitViewController: SearchAccountTableViewCellDelegate {
 
 extension CreateNewVisitViewController: AccountContactLinkTableViewCellDelegate {
     func removeAccount() {
+        createNewVisitViewControllerGlobals.userInput = true
         selectedAccount = nil
         reloadTableView()
     }
@@ -504,6 +510,7 @@ extension CreateNewVisitViewController: AccountContactLinkTableViewCellDelegate 
 
 extension CreateNewVisitViewController: SearchForContactTableViewCellDelegate {
     func contactSelected(contact: Contact) {
+        createNewVisitViewControllerGlobals.userInput = true
         selectedContact = contact
         reloadTableView()
     }
@@ -511,6 +518,7 @@ extension CreateNewVisitViewController: SearchForContactTableViewCellDelegate {
 
 extension CreateNewVisitViewController: ContactVisitLinkTableViewCellDelegate {
     func removeContact(){
+        createNewVisitViewControllerGlobals.userInput = true
         selectedContact = nil
         reloadTableView()
     }

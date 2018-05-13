@@ -15,19 +15,16 @@ struct StrategyScreenLoadFrom {
 
 class AccountStrategyViewController : UIViewController{
     
-    var tableViewRowDetails : NSMutableArray?
-    
     @IBOutlet weak var collectionView : UICollectionView?
     @IBOutlet weak var lblLastModifiedDate : UILabel?
     @IBOutlet weak var lblNoData : UILabel?
-    
     @IBOutlet weak var editIcon : UIButton?
     @IBOutlet weak var closeIcon : UIButton?
     
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
     let strategyAnswersViewModel = StrategyAnswersViewModel()
-    
+    var tableViewRowDetails : NSMutableArray?
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -49,9 +46,8 @@ class AccountStrategyViewController : UIViewController{
         
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
             //flowLayout.estimatedItemSize = CGSize(width: 1024, height: 200)//CGSizeMake(1, 1)
-            flowLayout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1)//UIEdgeInsetsMake(10, 10, 10, 10)
+            flowLayout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1)
         }
-        
         self.loadTheDataFromStrategyQA()
     }
     
@@ -73,9 +69,8 @@ class AccountStrategyViewController : UIViewController{
         
     }
     
+    //Get the necessary data to Load Strategy_Response__C
     func loadTheDataFromStrategyQA(){
-        
-        //
         
         // let json:[String:Any] = [ "SGWS_Account__c":ary[2],"Id":ary[0], "SGWS_Question_Sub_Type__c":ary[4], "SGWS_Question__c":ary[3], "SGWS_Answer_Description_List__c":ary[1],"SGWS_Notes__c":ary[5]]
         
@@ -97,9 +92,7 @@ class AccountStrategyViewController : UIViewController{
             
             lblNoData?.text = "The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now."
             lblNoData?.isHidden = true
-            
         }
-        // let data = strategyQAViewModel.getStrategyQuestionAnswer()
         
         let tableViewData = NSMutableArray()
         var dict : NSMutableDictionary!
@@ -111,7 +104,6 @@ class AccountStrategyViewController : UIViewController{
             for queAndAns in data{
                 
                 dict = NSMutableDictionary()
-                
                 //execute only for account situation (headers only)
                 if queAndAns.SGWS_Question__c != header {
                     continue
@@ -121,17 +113,13 @@ class AccountStrategyViewController : UIViewController{
                 for q in tableViewData{
                     
                     let dictionary = q as! NSDictionary
-                    
                     let header = dictionary["header"] as? String
-                    
                     if queAndAns.SGWS_Question__c == header!{
-                        
                         headerCheck = true
                     }
                 }
                 
                 //Prevent the Subheader inserting Again
-                
                 if !headerCheck{
                     dict.setValue(queAndAns.SGWS_Question__c, forKey: "header") //Main Header
                 }else{
@@ -139,14 +127,11 @@ class AccountStrategyViewController : UIViewController{
                 }
                 
                 headerCheck = false
-                
                 dict.setValue(queAndAns.SGWS_Question_Sub_Type__c, forKey: "subHeader")    //Added Subheader
                 dict.setValue(queAndAns.Id, forKey: "id")
                 
                 let answerArray = NSMutableArray()
-                
                 let answerArrayStr = NSMutableArray()
-                
                 let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
                 
                 if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
@@ -154,21 +139,12 @@ class AccountStrategyViewController : UIViewController{
                     for ans in answerListArray{
                         if !(answerArrayStr.contains(ans)){
                             answerArrayStr.add(ans)
-                            
                             let answerDict = NSMutableDictionary()
                             answerDict.setValue(ans, forKey: "answerText")
                             answerArray.add(answerDict)
                         }
                     }
                 }
-                
-                //                let myVar = "c"
-                //                let myDict: [String: Int] = ["a": 0, "b": 1, "c": 2]
-                //                if myDict.keys.contains(myVar) {
-                //                    print(myVar)
-                //                }
-                //let arrayOfSetValues = answerListArray
-                
                 let answerListString = answerArrayStr.componentsJoined(by: ",")
                 dict.setValue(answerListString, forKey: "answerStrings")
                 dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
@@ -176,10 +152,7 @@ class AccountStrategyViewController : UIViewController{
                 tableViewData.add(dict)
             }
         }
-        //print(tableViewData)
-        
         self.loadTheSubheaders(data: data, tableViewData: tableViewData)
-        
     }
     
     //Used to load the Strategy Subheader Questions
@@ -191,18 +164,14 @@ class AccountStrategyViewController : UIViewController{
             
             //Get the Subheader filtered in a loop
             let namePredicate = NSPredicate(format: "subHeader = %@",subHeaders);
-            
             let filteredArray = tableViewData.filter { namePredicate.evaluate(with: $0) };
-            
             
             if(filteredArray.count == 0){
                 return
             }
-            
             print(filteredArray)
             
             let newArray = NSMutableArray()
-            
             let stringArray = NSMutableArray()
             
             for item in filteredArray{
@@ -222,7 +191,6 @@ class AccountStrategyViewController : UIViewController{
             dictionary.setValue(newArray, forKey: "answers")
             
             let text = stringArray.componentsJoined(by: ",")
-            
             let data1 = filteredArray[0] as! NSMutableDictionary
             let head1 = data1["header"] as! String
             let subHead1 = data1["subHeader"] as! String
@@ -234,13 +202,11 @@ class AccountStrategyViewController : UIViewController{
             dictionary.setValue(id, forKey: "id")
             
             modifiedArray.add(dictionary)
-            print("infinity3")
-            
         }
-        
         self.loadDateAndLastMOdifiedDate(data: data, modifiedArray: modifiedArray)
     }
     
+    //Get the Last Modified date and Last Updtaed Notes to Display in UI
     func loadDateAndLastMOdifiedDate(data :[StrategyQA] , modifiedArray : NSMutableArray ){
         
         //USED TO SHOW THE NOTES
@@ -291,6 +257,7 @@ class AccountStrategyViewController : UIViewController{
         }
     }
     
+    //Get the Unique Header for the Questions
     func getHeader(data:[StrategyQA])-> [String]{
         var headerArray = [String]()
         //Get unique headernames once
@@ -307,6 +274,7 @@ class AccountStrategyViewController : UIViewController{
         return headerArray
     }
     
+    //Get the Unique SubHeader for the Questions
     func getSubHeader(data:[StrategyQA])-> [String]{
         var subHeaderArray = [String]()
         //Get unique headernames once
@@ -339,7 +307,6 @@ class AccountStrategyViewController : UIViewController{
             performSegue(withIdentifier: "editStrategySegue", sender: nil)
             
         }else{
-            
             //Used Same method to Dismiss the Strategy
             StrategyScreenLoadFrom.isLoadFromStrategy = "0"
             self.dismiss(animated: true, completion: nil)

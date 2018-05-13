@@ -459,7 +459,9 @@ class  DuringVisitsViewController : UIViewController {
         let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditAccountStrategyViewControllerID") as! EditAccountStrategyViewController
         vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         (vc as! EditAccountStrategyViewController).strategyArray = tableViewRowDetails
-        self.present(vc, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(vc, animated: true, completion: nil)
+        }
         (vc as! EditAccountStrategyViewController).delegate = self
         
     }

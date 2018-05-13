@@ -133,24 +133,24 @@ class  DuringVisitsViewController : UIViewController {
         
         let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
         
-//        //If no surveys for this account disbale the edit strategy button
+        //        //If no surveys for this account disbale the edit strategy button
         if question.count == 0{
-//            editIcon?.isHidden = true
-//            lblNoData?.isHidden = false
-//            lblNoData?.text = "No Survey assigned for this Account."
+            //            editIcon?.isHidden = true
+            //            lblNoData?.isHidden = false
+            //            lblNoData?.text = "No Survey assigned for this Account."
             btnEditAccountStrategy?.isHidden = true
         }else{
-//            if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
-//                editIcon?.isHidden = false
-//            }else{
-//                editIcon?.isHidden = true
+            //            if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
+            //                editIcon?.isHidden = false
+            //            }else{
+            //                editIcon?.isHidden = true
             btnEditAccountStrategy?.isHidden = false
         }
-//
-//            lblNoData?.text = "The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now."
-//            lblNoData?.isHidden = true
-//
-//        }
+        //
+        //            lblNoData?.text = "The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now."
+        //            lblNoData?.isHidden = true
+        //
+        //        }
         // let data = strategyQAViewModel.getStrategyQuestionAnswer()
         
         let tableViewData = NSMutableArray()
@@ -333,13 +333,13 @@ class  DuringVisitsViewController : UIViewController {
         tableViewRowDetails = modifiedArray
         
         //Hide the Label
-//        if tableViewRowDetails!.count > 0 {
-//            self.lblNoData?.isHidden = true
-//            self.lblLastModifiedDate?.isHidden = false
-//        }else{
-//            self.lblNoData?.isHidden = false
-//            self.lblLastModifiedDate?.isHidden = true
-//        }
+        //        if tableViewRowDetails!.count > 0 {
+        //            self.lblNoData?.isHidden = true
+        //            self.lblLastModifiedDate?.isHidden = false
+        //        }else{
+        //            self.lblNoData?.isHidden = false
+        //            self.lblLastModifiedDate?.isHidden = true
+        //        }
     }
     
     
@@ -383,7 +383,7 @@ class  DuringVisitsViewController : UIViewController {
     @IBAction func closeButtonClicked(sender : UIButton){
         
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             self.dismiss(animated: true, completion: nil)
             
         }) {
@@ -406,7 +406,7 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     @IBAction func backButtonClicked(sender : UIButton){
-        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         btnBack?.isHidden = true
         imgDiscussion?.image = UIImage(named: "selectedButton")
         imgInsights?.image = UIImage(named: "selectedGrey")
@@ -426,18 +426,17 @@ class  DuringVisitsViewController : UIViewController {
         
         if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue"{
             PlanVistManager.sharedInstance.visit?.status = "In-Progress"
-            
             //Save the data in DB
             let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
             PlanVistManager.sharedInstance.visit?.status = "Completed"
-            self.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async{
+                self.dismiss(animated: true, completion: nil)
+            }
             
             //Save the data in DB
             let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
             delegate?.navigateToAccountVisitingScreen()
             return
         }
@@ -453,8 +452,6 @@ class  DuringVisitsViewController : UIViewController {
         let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
         let duringVisitVC: DuringVisitsInsightsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsInsightsViewControllerID") as! DuringVisitsInsightsViewController
         activeViewController = duringVisitVC
-        
-        
     }
     
     @IBAction func loadEditAccountStrategy(sender : UIButton){
@@ -480,10 +477,10 @@ class  DuringVisitsViewController : UIViewController {
     
     @IBAction func chatterClicked(sender : UIButton){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
-            
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+                self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
+            }
         }) {
             
         }
@@ -491,10 +488,8 @@ class  DuringVisitsViewController : UIViewController {
     
     @IBAction func actionItemsClicked(sender : UIButton){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            
             self.dismiss(animated: true, completion: nil)
             self.delegate?.NavigateToAccountVisitSummary(data: .actionItems)
-            
         }) {
             
         }
@@ -502,7 +497,6 @@ class  DuringVisitsViewController : UIViewController {
     
     @IBAction func notificationsClicked(sender : UIButton){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            
             self.dismiss(animated: true, completion: nil)
             self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
             

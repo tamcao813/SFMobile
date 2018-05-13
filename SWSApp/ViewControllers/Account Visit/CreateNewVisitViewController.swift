@@ -48,8 +48,6 @@ class CreateNewVisitViewController: UIViewController {
         customizedUI()
         fetchVisit()
         IQKeyboardManager.shared.enable = true
-        
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -64,7 +62,8 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     func fetchVisit(){
-        if let id = visitId{
+        //if let id = visitId{
+        if let _ = visitId{
             let visitArray = VisitsViewModel().visitsForUser()
             for visit in visitArray {
                 if visit.Id == visitId {
@@ -111,7 +110,7 @@ class CreateNewVisitViewController: UIViewController {
     
     @objc func keyboardWillHide(_ notification:Notification) {
         
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         }
     }
@@ -163,7 +162,7 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     @IBAction func planButtonTapped(sender: UIButton) {
-//        PlanVistManager.sharedInstance.visit?.status = "Scheduled"
+        //        PlanVistManager.sharedInstance.visit?.status = "Scheduled"
         if selectedAccount == nil {
             searchAccountTextField.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -189,14 +188,19 @@ class CreateNewVisitViewController: UIViewController {
             if let visit = PlanVistManager.sharedInstance.visit{
                 PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
                 if let contact = selectedContact {
-                    PlanVistManager.sharedInstance.visit?.contactId = selectedContact.contactId
+                    PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+                }else{
+                    PlanVistManager.sharedInstance.visit?.contactId = ""
                 }
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
-                let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+                // let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+                let _ = PlanVistManager.sharedInstance.editAndSaveVisit()
                 let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
                 let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
-                self.present(viewController, animated: true)
+                DispatchQueue.main.async {
+                    self.present(viewController, animated: true)
+                }
             }else{
                 createNewVisit(dismiss: false)
             }
@@ -227,23 +231,20 @@ class CreateNewVisitViewController: UIViewController {
         }else{
             errorLbl.text = ""
             PlanVistManager.sharedInstance.visit?.status = "Scheduled"
-//            visitObject?.accountId = selectedAccount.account_Id
-//            visitObject?.startDate = getDataTimeinStr(date: startDate.text!, time: startTime.text!)
-//            visitObject?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
-//            if let contact = selectedContact {
-//                visitObject?.contactId = contact.contactId
-//            }else{
-//                visitObject?.contactId = ""
-//            }
             if let visit = PlanVistManager.sharedInstance.visit{
                 PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
                 if let contact = selectedContact {
-                    PlanVistManager.sharedInstance.visit?.contactId = selectedContact.contactId
+                    PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+                }else{
+                    PlanVistManager.sharedInstance.visit?.contactId = ""
                 }
                 PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
                 PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
-                let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-                self.dismiss(animated: true)
+                //let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+                let _ = PlanVistManager.sharedInstance.editAndSaveVisit()
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true)
+                }
             }else{
                 createNewVisit(dismiss: true)
             }
@@ -252,8 +253,6 @@ class CreateNewVisitViewController: UIViewController {
     
     func createNewVisit(dismiss: Bool) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let accountId = appDelegate.loggedInUser?.accountId
-        print("Account id in plan is \(accountId)")
         PlanVistManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
         
         let new_visit = PlanVisit(for: "newVisit")
@@ -269,19 +268,14 @@ class CreateNewVisitViewController: UIViewController {
         new_visit.lastModifiedDate = timeStamp
         
         new_visit.Id = self.generateRandomIDForVisit()
-        //        new_visit.subject = (visitObject?.subject)!
-        new_visit.accountId = selectedAccount.account_Id//PlanVistManager.sharedInstance.accountId
+        new_visit.accountId = selectedAccount.account_Id
         if let contact = selectedContact {
             new_visit.contactId = contact.contactId
         }else{
             new_visit.contactId = ""
         }
-        //        new_visit.sgwsAppointmentStatus = (visitObject?.sgwsAppointmentStatus)!
-        new_visit.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)//PlanVistManager.sharedInstance.startDate //"2018-05-02T14:00:00.000Z"
-        new_visit.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)//PlanVistManager.sharedInstance.endDate //"2018-05-02T15:00:00.000Z"
-        //        new_visit.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-        //        new_visit.description = (visitObject?.description)!
-        //        new_visit.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+        new_visit.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
+        new_visit.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
         if dismiss {
             new_visit.status = "Scheduled"
         }else{
@@ -289,20 +283,18 @@ class CreateNewVisitViewController: UIViewController {
         }
         
         let attributeDict = ["type":"WorkOrder"]
-        
-        
         let addNewDict: [String:Any] = [
             
             PlanVisit.planVisitFields[0]: new_visit.Id,
             PlanVisit.planVisitFields[10]: new_visit.lastModifiedDate,
-//            PlanVisit.planVisitFields[1]: new_visit.subject,
+            //            PlanVisit.planVisitFields[1]: new_visit.subject,
             PlanVisit.planVisitFields[2]: new_visit.accountId,
-//            PlanVisit.planVisitFields[3]: new_visit.sgwsAppointmentStatus,
+            //            PlanVisit.planVisitFields[3]: new_visit.sgwsAppointmentStatus,
             PlanVisit.planVisitFields[4]: new_visit.startDate,
             PlanVisit.planVisitFields[5]: new_visit.endDate,
-//            PlanVisit.planVisitFields[6]: new_visit.sgwsVisitPurpose,
-//            PlanVisit.planVisitFields[7]: new_visit.description,
-//            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
+            //            PlanVisit.planVisitFields[6]: new_visit.sgwsVisitPurpose,
+            //            PlanVisit.planVisitFields[7]: new_visit.description,
+            //            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
             PlanVisit.planVisitFields[9]: new_visit.status,
             PlanVisit.planVisitFields[11]: new_visit.contactId,
             
@@ -312,7 +304,8 @@ class CreateNewVisitViewController: UIViewController {
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
         
-        let (success,Id) = visitViewModel.createNewVisitLocally(fields: addNewDict)
+        //let (success,Id) = visitViewModel.createNewVisitLocally(fields: addNewDict)
+        let (success,_) = visitViewModel.createNewVisitLocally(fields: addNewDict)
         
         if(success){
             let visit = Visit(for: "")
@@ -330,18 +323,20 @@ class CreateNewVisitViewController: UIViewController {
             
             PlanVistManager.sharedInstance.visit = visit
         }
-
+        
         print("Success is here \(success)")
         if(success){
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             if dismiss {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
-//                self.delegate.updateVisit()
-                self.dismiss(animated: true)
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true)
+                }
             }else{
                 let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
                 let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
-                self.present(viewController, animated: true)
+                DispatchQueue.main.async {
+                    self.present(viewController, animated: true)
+                }
             }
         }
     }
@@ -356,43 +351,16 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     func getDataTimeinStr(date:String, time: String) -> String {
-        
-        let timeFormatter = DateFormatter()
-        
-        timeFormatter.dateFormat = "hh:mm a"
-        
-        let fullTime = timeFormatter.date(from: time)
-        
-        var formattedTime:String = ""
-        
-        if fullTime != nil {
-            
-            timeFormatter.dateFormat = "HH:mm:ss"
-            
-            formattedTime = timeFormatter.string(from: fullTime!)
-        } else {
-            
-            timeFormatter.dateFormat = "HH:mm a"
-            
-            let fullTime = timeFormatter.date(from: time)
-            
-            timeFormatter.dateFormat = "HH:mm:ss"
-            
-            formattedTime = timeFormatter.string(from: fullTime!)
-            
-        }
-        
         let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let fullDate = dateFormatter.date(from: date)
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let formattedDate = dateFormatter.string(from: fullDate!)
-        
-        let formattedDateTime = formattedDate + "T" + formattedTime
-        
-        return formattedDateTime
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+        var string = date + "T" + time
+        if let dateFromString = dateFormatter.date(from: string) {
+            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter.timeZone = TimeZone(identifier:"UTC")
+            string = dateFormatter.string(from: dateFromString)
+        }
+        return string
     }
 }
 
@@ -472,30 +440,44 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             return UITableViewCell()
         }
     }
-
     
     func getDate(stringDate: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        let dateDate = dateFormatter.date(from: stringDate)
-        if dateDate != nil {
+        var date = dateFormatter.date(from: stringDate)
+        if date == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            date = dateFormatter.date(from: stringDate)
+        }
+        if date != nil {
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            return dateFormatter.string(from: dateDate!)
+            return dateFormatter.string(from: date!)
         }
         return ""
     }
-    
-    
     
     func getTime(stringDate: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        let date = dateFormatter.date(from: stringDate)
+        var date = dateFormatter.date(from: stringDate)
+        if date == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            date = dateFormatter.date(from: stringDate)
+        }
+        if date != nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            let localTimeZoneString = dateFormatter.string(from: date!)
+            date = dateFormatter.date(from: localTimeZoneString)
+        }
         
         if date != nil {
-            dateFormatter.dateFormat = "HH:mm a"
+            //Use lowercase hh:mm to show time in 12 hrs format
+            dateFormatter.dateFormat = "hh:mm a"
             dateFormatter.amSymbol = "AM"
             dateFormatter.pmSymbol = "PM"
             return dateFormatter.string(from: date!)
@@ -507,6 +489,7 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
 
 extension CreateNewVisitViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
+        createNewVisitViewControllerGlobals.userInput = true
         selectedAccount = account
         reloadTableView()
     }
@@ -514,6 +497,7 @@ extension CreateNewVisitViewController: SearchAccountTableViewCellDelegate {
 
 extension CreateNewVisitViewController: AccountContactLinkTableViewCellDelegate {
     func removeAccount() {
+        createNewVisitViewControllerGlobals.userInput = true
         selectedAccount = nil
         reloadTableView()
     }
@@ -521,6 +505,7 @@ extension CreateNewVisitViewController: AccountContactLinkTableViewCellDelegate 
 
 extension CreateNewVisitViewController: SearchForContactTableViewCellDelegate {
     func contactSelected(contact: Contact) {
+        createNewVisitViewControllerGlobals.userInput = true
         selectedContact = contact
         reloadTableView()
     }
@@ -528,6 +513,7 @@ extension CreateNewVisitViewController: SearchForContactTableViewCellDelegate {
 
 extension CreateNewVisitViewController: ContactVisitLinkTableViewCellDelegate {
     func removeContact(){
+        createNewVisitViewControllerGlobals.userInput = true
         selectedContact = nil
         reloadTableView()
     }

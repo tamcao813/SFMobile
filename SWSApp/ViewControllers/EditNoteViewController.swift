@@ -111,7 +111,7 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         
         let editNoteDict: [String:Any] = [
             AccountNotes.AccountNotesFields[0]: notesToBeEdited.Id,
-           // AccountNotes.AccountNotesFields[1]: notesToBeEdited.lastModifiedDate,
+            AccountNotes.AccountNotesFields[1]: notesToBeEdited.lastModifiedDate,
             AccountNotes.AccountNotesFields[2]: notesToBeEdited.name,
             AccountNotes.AccountNotesFields[5]: notesToBeEdited.accountNotesDesc,
             kSyncTargetLocal:true,

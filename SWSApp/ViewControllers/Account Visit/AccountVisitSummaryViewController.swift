@@ -120,51 +120,75 @@ class AccountVisitSummaryViewController: UIViewController {
     }
     
     func getStartDateAndEndTime() {
-        
         let dateFormatter = DateFormatter()
-        var startTime = ""
-        var endTime = ""
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        var date = Date()
-        if visitObject?.startDate != nil {
-            date = dateFormatter.date(from: (visitObject?.startDate)!)!
-        }
-        //according to date format
-        print(date ?? "")
-        if date != nil {
-            dateFormatter.dateFormat = "MMM" //Your date format
-            let month = dateFormatter.string(from: date)
-            monthLabel.text = month
-            dateFormatter.dateFormat = "dd" //Your date format
-            let day = dateFormatter.string(from: date)
-            dayLabel.text = day
-            dateFormatter.dateFormat = "hh:mm a" //Your date format
-            dateFormatter.amSymbol = "AM"
-            dateFormatter.pmSymbol = "PM"
-            startTime = dateFormatter.string(from: date)
-        }
         
-        let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        dateFormatter1.timeZone = TimeZone(abbreviation: "UTC")
-        var endDate = Date()
-        guard let eDate = visitObject?.endDate else {
-            endDate = dateFormatter1.date(from: (visitObject?.endDate)!)! //according t
+        guard let visitStartDateString = visitObject?.startDate else {
+            //TODO: handle it in better way, Ideally visitObject.startDate should never be null
             return
         }
-//        if visitObject?.endDate != nil  {
-//            endDate = dateFormatter1.date(from: (visitObject?.endDate)!)! //according t
-//        }
         
-        if endDate != nil {//|| endDate != "" {
-            dateFormatter1.dateFormat = "hh:mm a"
-            dateFormatter1.amSymbol = "AM"
-            dateFormatter1.pmSymbol = "PM"
-            endTime = dateFormatter.string(from: endDate)
+        var date = dateFormatter.date(from: visitStartDateString)
+        if date == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            date = dateFormatter.date(from: visitStartDateString)
         }
+        if date != nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            let localTimeZoneString = dateFormatter.string(from: date!)
+            date = dateFormatter.date(from: localTimeZoneString)
+        }
+        var startTime = ""
+        var endTime = ""
+       
+        guard let formattedStartDate = date else {
+            //TODO: handle it in better way, Ideally formattedDate should never be null
+            return
+        }
+        //according to date format
+        dateFormatter.dateFormat = "MMM" //Your date format
+        let month = dateFormatter.string(from: formattedStartDate)
+        monthLabel.text = month
+        dateFormatter.dateFormat = "dd" //Your date format
+        let day = dateFormatter.string(from: formattedStartDate)
+        dayLabel.text = day
+        dateFormatter.dateFormat = "hh:mm a" //Your date format
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        startTime = dateFormatter.string(from: formattedStartDate)
+    
+        guard let visitEndDateString = visitObject?.endDate else {
+            //TODO: handle it in better way, Ideally visitObject.enddate should never be null
+            return
+        }
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        var visitEndDate = dateFormatter.date(from: visitEndDateString)
+        if visitEndDate == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            date = dateFormatter.date(from: visitEndDateString)
+        }
+        if visitEndDate != nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            let localTimeZoneString = dateFormatter.string(from: visitEndDate!)
+            visitEndDate = dateFormatter.date(from: localTimeZoneString)
+        }
+        
+        guard let formattedEndDate = visitEndDate else {
+            //TODO: handle it in better way, Ideally formattedEndDate should never be null
+            return
+        }
+        dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        endTime = dateFormatter.string(from: formattedEndDate)
         timeLabel.text = "\(startTime)-\(endTime)"
-
     }
     
     func initializingXIBs(){

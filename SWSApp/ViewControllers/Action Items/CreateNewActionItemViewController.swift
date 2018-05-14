@@ -8,6 +8,7 @@
 
 import UIKit
 import DropDown
+import IQKeyboardManagerSwift
 
 class CreateNewActionItemViewController: UIViewController {
 
@@ -17,10 +18,12 @@ class CreateNewActionItemViewController: UIViewController {
     var accountDropDown: DropDown?
     var selectedAccount: Account?
     var actionItemId: String?
+    var actionItemObject : ActionItem?
     var actionItemDescriptionTextView: UITextView!
     var actionTitleTextField: UITextField!
     var searchAccountTextField: UITextField!
     var dueDateTextField: UITextField!
+    var dateTextFieldContainerView: UIView!
     var isEditingMode = false
     struct createActionItemsGlobals {
         static var userInput = false
@@ -30,6 +33,11 @@ class CreateNewActionItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
+        IQKeyboardManager.shared.enable = true
+    }
+    
+    deinit {
+        IQKeyboardManager.shared.enable = false
     }
     
     func customizedUI(){
@@ -68,14 +76,17 @@ class CreateNewActionItemViewController: UIViewController {
     }
     
     @IBAction func saveAndCloseButtonTapped(_ sender: UIButton){
-        
+        actionTitleTextField.borderColor = .lightGray
+        searchAccountTextField.borderColor = .lightGray
+        actionItemDescriptionTextView.borderColor = .lightGray
+        dueDateTextField.borderColor = .lightGray
         if (actionTitleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)!  {
             actionTitleTextField.borderColor = .red
             actionTitleTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return
-        }else if selectedAccount != nil {
+        }else if selectedAccount == nil {
             searchAccountTextField.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
@@ -86,11 +97,13 @@ class CreateNewActionItemViewController: UIViewController {
             errorLabel.text = StringConstants.emptyFieldError
             return
         }else if (dueDateTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
-            dueDateTextField.borderColor = .red
+            dateTextFieldContainerView.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return
         }
+        errorLabel.text = ""
+//        else if 
         print("Creating Action Item")
     }
 
@@ -152,6 +165,8 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
             dueDateTextField = cell?.dateTextfield
+            dateTextFieldContainerView = cell?.dateTextFieldContainerView
+            cell?.datePickerView.minimumDate = Date()
             cell?.headerLabel.text = "Due Date"
             return cell!
         default:

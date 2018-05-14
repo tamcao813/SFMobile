@@ -23,7 +23,7 @@ class ActionItemsListViewController: UIViewController {
         self.tableView.estimatedRowHeight = 100
         self.tableView.tableFooterView = UIView()
         actionItemsArray.append(ActionItem(id: "1", title: "Action Item 1", dueDate: "2018-02-15", account: "Crown Liquor Store", status: .complete, description: "Action Item 1 Crown Liquor Store", isItUrgent: true))
-        actionItemsArray.append(ActionItem(id: "1", title: "Action Item 1", dueDate: "2018-02-15", account: "Crown Liquor Store", status: .open, description: "Action Item 1 Crown Liquor Store", isItUrgent: false))
+        actionItemsArray.append(ActionItem(id: "2", title: "Action Item 1", dueDate: "2018-02-15", account: "Crown Liquor Store", status: .open, description: "Action Item 1 Crown Liquor Store", isItUrgent: false))
         initializeNibs()
     }
     
@@ -32,9 +32,11 @@ class ActionItemsListViewController: UIViewController {
     }
     
     @IBAction func newActionItemButtonTapped(_ sender: UIButton){
-        let createVisitViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
-        createVisitViewController.isEditingMode = false        
-        self.present(createVisitViewController, animated: true)
+        DispatchQueue.main.async {
+            let createVisitViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
+            createVisitViewController.isEditingMode = false
+            self.present(createVisitViewController, animated: true)
+        }
     }
     
 }
@@ -55,7 +57,16 @@ extension ActionItemsListViewController : UITableViewDelegate, UITableViewDataSo
         cell?.delegate = self
         cell?.displayCellContent(actionItem: actionItemsArray[indexPath.row])
         return cell ?? UITableViewCell()
-    }    
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            let detailViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"ActionItemDetailsViewController") as! ActionItemDetailsViewController
+            detailViewController.actionItemId = self.actionItemsArray[indexPath.row].id
+            self.present(detailViewController, animated: true)
+        }
+        
+    }
 }
 
 //MARK:- Swipe Evenyt Delegate Methods
@@ -63,14 +74,22 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
         
-        let deleteAction = SwipeAction(style: .default, title: "Delete") { action, indexPath in
-            return
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            self.tableView.beginUpdates()
+            self.actionItemsArray.remove(at: indexPath.row)
+            self.tableView.endUpdates()
         }
         deleteAction.hidesWhenSelected = true
 //        deleteAction.image = UIImage(named: "delete")
         deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
         
         let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
+            DispatchQueue.main.async {
+                let createVisitViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
+                createVisitViewController.isEditingMode = true
+                createVisitViewController.actionItemId = self.actionItemsArray[indexPath.row].id
+                self.present(createVisitViewController, animated: true)
+            }            
         }
         editAction.hidesWhenSelected = true
 //        editAction.image = UIImage(named: "delete")
@@ -106,30 +125,4 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
         options.transitionStyle = .border
         return options
     }
-}
-
-class ActionItem {
-    var id: String?
-    var title: String?
-    var dueDate: String?
-    var account: String?
-    var status: ActionItemStatus?
-    var description: String?
-    var isItUrgent: Bool?
-    
-    init(id: String?,title: String?,dueDate: String?,account: String?, status: ActionItemStatus?, description: String?, isItUrgent: Bool?) {
-        self.id = id
-        self.title = title
-        self.dueDate = dueDate
-        self.account = account
-        self.status = status
-        self.description = description
-        self.isItUrgent = isItUrgent
-    }
-}
-
-enum ActionItemStatus {
-    case complete
-    case open
-    case overdue
 }

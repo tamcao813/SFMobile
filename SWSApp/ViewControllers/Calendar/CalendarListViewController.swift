@@ -45,8 +45,22 @@ class CalendarListViewController: UIViewController {
     }
     
     @IBAction func actionButtonNewVisit(_ sender: Any) {
+        let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+        createVisitViewController.isEditingMode = false
+        
+        //Reset the PlanVistManager
+        PlanVistManager.sharedInstance.visit = nil
+        
+        self.present(createVisitViewController, animated: true)
     }
     
+    @IBAction func actionButtonLeft(_ sender: Any) {
+        weekView.collectionView.scrollToPreviousItem()
+    }
+        
+    @IBAction func actionButtonRight(_ sender: Any) {
+        weekView.collectionView.scrollToNextItem()
+    }
     
     // MARK: - WRCalendarView
     func setupCalendarData() {
@@ -73,5 +87,17 @@ extension CalendarListViewController: WRWeekViewDelegate {
     
     func selectEvent(_ event: WREvent) {
         print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
+        
+        if event.type == "visit" {
+            let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
+            accountVisitsVC?.visitId = event.Id
+            DispatchQueue.main.async {
+                self.present(accountVisitsVC!, animated: true, completion: nil)
+            }
+        }
+
     }
 }
+
+

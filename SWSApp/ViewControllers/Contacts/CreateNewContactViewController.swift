@@ -214,7 +214,7 @@ class CreateNewContactViewController: UIViewController {
             }else{
                 tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
             }
-            errorLabel.text = "Please correct error above"
+            errorLabel.text = StringConstants.errorInField
             return
         }else if faxTextField.text != "" && Validations().removeSpecialCharsFromString(text: faxTextField.text!).count != 10{
             faxTextField.borderColor = .red
@@ -224,7 +224,7 @@ class CreateNewContactViewController: UIViewController {
             }else{
                 tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
             }
-            errorLabel.text = "Please correct error above"
+            errorLabel.text = StringConstants.errorInField
             return
         }else if emailTextField.text != "" && !Validations().isValidEmail(testStr: emailTextField.text!){
             emailTextField.borderColor = .red
@@ -234,7 +234,7 @@ class CreateNewContactViewController: UIViewController {
             }else{
                 tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
             }
-            errorLabel.text = "Please correct error above"
+            errorLabel.text = StringConstants.errorInField
             return
         }
         createContactLocally()

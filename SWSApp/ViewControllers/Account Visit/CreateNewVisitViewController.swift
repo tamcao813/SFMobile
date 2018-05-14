@@ -162,7 +162,6 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     @IBAction func planButtonTapped(sender: UIButton) {
-        //        PlanVistManager.sharedInstance.visit?.status = "Scheduled"
         if selectedAccount == nil {
             searchAccountTextField.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)

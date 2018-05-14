@@ -147,9 +147,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhG-UU-Otw">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhG-UU-Otw">
                                 <rect key="frame" x="36" y="20" width="140" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="Data New"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                 <state key="normal" title="Filter ">
@@ -165,13 +164,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="fhG-UU-Otw" firstAttribute="top" secondItem="Tj7-bz-iAR" secondAttribute="top" id="0cI-cs-J44"/>
+                            <constraint firstItem="MIA-iz-OsG" firstAttribute="top" secondItem="fhG-UU-Otw" secondAttribute="bottom" constant="40" id="77q-DY-YER"/>
                             <constraint firstItem="MIA-iz-OsG" firstAttribute="leading" secondItem="Tj7-bz-iAR" secondAttribute="leading" constant="20" id="9i4-1P-kST"/>
                             <constraint firstItem="nz4-Fe-Hj3" firstAttribute="leading" secondItem="MIA-iz-OsG" secondAttribute="trailing" constant="4" id="L1z-OQ-bWD"/>
+                            <constraint firstItem="Tj7-bz-iAR" firstAttribute="trailing" secondItem="fhG-UU-Otw" secondAttribute="trailing" constant="848" id="elc-xW-CUV"/>
                             <constraint firstItem="Tj7-bz-iAR" firstAttribute="bottom" secondItem="MIA-iz-OsG" secondAttribute="bottom" constant="20" id="lrz-IL-Vg6"/>
                             <constraint firstItem="Tj7-bz-iAR" firstAttribute="bottom" secondItem="nz4-Fe-Hj3" secondAttribute="bottom" constant="20" id="pgH-hm-zQq"/>
                             <constraint firstItem="MIA-iz-OsG" firstAttribute="top" secondItem="Tj7-bz-iAR" secondAttribute="top" constant="80" id="q2J-Mi-OPo"/>
                             <constraint firstItem="nz4-Fe-Hj3" firstAttribute="top" secondItem="Tj7-bz-iAR" secondAttribute="top" constant="80" id="vr1-Nl-tpO"/>
                             <constraint firstItem="Tj7-bz-iAR" firstAttribute="trailing" secondItem="nz4-Fe-Hj3" secondAttribute="trailing" constant="20" id="wiG-W5-AKa"/>
+                            <constraint firstItem="fhG-UU-Otw" firstAttribute="leading" secondItem="Tj7-bz-iAR" secondAttribute="leading" constant="36" id="yXX-eL-hcJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Tj7-bz-iAR"/>
                     </view>

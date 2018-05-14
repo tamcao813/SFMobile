@@ -36,31 +36,42 @@ class CalendarViewModel {
         for visit in visitArray
         {
 
-            var eventDate: Date? // TBD This needs to be moved to Date Util
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz"
-            dateFormatter.timeZone = TimeZone(identifier:"UTC")
-            eventDate = dateFormatter.date(from: visit.startDate)
-            
-            if let _ = eventDate {
-                dateFormatter.timeZone = TimeZone.current
-            }
-            else {
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-                dateFormatter.timeZone = TimeZone(identifier:"UTC")
-                eventDate = dateFormatter.date(from: visit.startDate)
+            dateFormatter.timeZone = TimeZone.current
 
-                if let _ = eventDate {
-                    dateFormatter.timeZone = TimeZone.current
-                }
-            }
-
-            if let _ = eventDate {
-                print("loadVisitsToCalendarEvents: \(String(describing: eventDate))")
-                print(dateFormatter.string(from: eventDate!))
-                let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: eventDate!, chunk: 2.hours, title: visit.subject)
+            if let eventStartDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: visit.startDate) {
                 
-                visitsToCalendarEventsArray.append(visitEvent)
+                if let eventEndDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: visit.endDate) {
+
+                    let daysBetween = Date.daysBetween(start: eventStartDate, end: eventEndDate, ignoreHours: true)
+                    
+                    if daysBetween == 0 {
+                        
+                        let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: eventStartDate, chunk: eventStartDate.chunkBetween(date: eventEndDate), title: visit.subject)
+                        visitsToCalendarEventsArray.append(visitEvent)
+                        
+                    }
+                    else {
+
+                        for day in 0...daysBetween {
+                            
+                            let currentStartDate = eventStartDate.add(component: .day, value: day)
+
+                            let visitEvent: WREvent!
+                            if day == 0 {
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: eventStartDate, chunk: eventStartDate.chunkBetween(date: eventStartDate.endOfDay), title: visit.subject)
+                            } else if day == daysBetween {
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: eventEndDate.startOfDay, chunk: eventEndDate.startOfDay.chunkBetween(date: eventEndDate), title: visit.subject)
+                            } else {
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: currentStartDate.startOfDay, chunk: currentStartDate.startOfDay.chunkBetween(date: currentStartDate.endOfDay), title: visit.subject)
+                            }
+                            visitsToCalendarEventsArray.append(visitEvent)
+                            
+                        }
+                    }
+
+                }
+
             }
             
         }

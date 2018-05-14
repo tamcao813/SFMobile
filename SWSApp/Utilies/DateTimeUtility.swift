@@ -42,6 +42,20 @@ class DateTimeUtility
         
         return timeStamp
     }
+
+    static func getEEEEMMMdFormattedDateString(date:Date?)->String{
+        if(date == nil) {
+            return ""
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMM d"
+        
+        let timeStamp = dateFormatter.string(from: date!)
+        
+        return timeStamp
+    }
+
 }
 
 extension Date {

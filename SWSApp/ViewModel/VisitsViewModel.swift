@@ -14,4 +14,13 @@ class VisitsViewModel {
         return StoreDispatcher.shared.fetchVisits()
     }
     
+    func visitsForUserSorted() -> [Visit] {
+        
+        var visitsForUserArray = visitsForUser()
+        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        
+        return visitsForUserArray
+        
+    }
+    
 }

@@ -11,8 +11,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Ubuntu-Bold.ttf">
-            <string>Ubuntu-Bold</string>
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
         </array>
         <array key="Ubuntu-Regular.ttf">
             <string>Ubuntu</string>
@@ -153,8 +153,8 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday, March 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jca-2g-geU">
-                                                <rect key="frame" x="285" y="30" width="136" height="20"/>
-                                                <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="17"/>
+                                                <rect key="frame" x="266.5" y="28" width="173.5" height="25"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -217,6 +217,7 @@
                         <viewLayoutGuide key="safeArea" id="zwZ-9S-Vvg"/>
                     </view>
                     <connections>
+                        <outlet property="dateHeaderLabel" destination="Jca-2g-geU" id="rUL-Eq-M4G"/>
                         <outlet property="weekView" destination="dhl-fJ-SqK" id="EPK-aH-5bp"/>
                     </connections>
                 </viewController>

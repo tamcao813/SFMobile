@@ -230,6 +230,7 @@
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
+		9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
 		9187923A20A558F7009CB557 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9187923920A558F7009CB557 /* Calendar.storyboard */; };
 		9187923C20A55BB0009CB557 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9187923920A558F7009CB557 /* Calendar.storyboard */; };
@@ -561,6 +562,7 @@
 		8DD15008209330E100858349 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
 		8DD1501120933A0800858349 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
+		9141111C20A95565006AD7CD /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
 		9187923920A558F7009CB557 /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		9187924020A55C2A009CB557 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -1162,6 +1164,7 @@
 			isa = PBXGroup;
 			children = (
 				F2FDA1472099D924000921A8 /* VisitsViewModel.swift */,
+				9141111C20A95565006AD7CD /* CalendarViewModel.swift */,
 				D1FCDE0D20733024005F956D /* AccountsViewModel.swift */,
 				D1FCDE0E20733024005F956D /* ContactsViewModel.swift */,
 				D1FCDE0C20733024005F956D /* UserViewModel.swift */,
@@ -1883,6 +1886,7 @@
 				D2EAEB902074ED1E005F7792 /* GoSpotCheckViewController.swift in Sources */,
 				D26768882090B1BA0060E792 /* ContactListTableViewCell.swift in Sources */,
 				128B1A9A206BADF8004E148A /* AccountDetailTabViewController.swift in Sources */,
+				9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */,
 				F2AB94552095CBA90028802E /* AlertUtility.swift in Sources */,
 				8D17A5CA20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */,
 				D1FCDE1020733025005F956D /* UserViewModel.swift in Sources */,

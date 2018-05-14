@@ -29,6 +29,8 @@ class EditAccountStrategyViewController: UIViewController {
     var strategyQAResponse:[StrategyQA] = []
     var strategyNotes = ""
     
+    var isFirstTimeLoad = true
+    
     @IBOutlet weak var collectionView : UICollectionView?
     
 
@@ -57,8 +59,8 @@ class EditAccountStrategyViewController: UIViewController {
         //        print(dictionary!)
         
         
-         self.getEditStrategyData()
-        
+        self.getEditStrategyData()
+        isFirstTimeLoad = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -582,7 +584,11 @@ extension EditAccountStrategyViewController : UICollectionViewDataSource {
         if indexPath.section == tableViewRowDetails?.count{
             cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
             (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
-            (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = strategyNotes
+            
+            if isFirstTimeLoad == true{
+                isFirstTimeLoad = false
+                (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = strategyNotes
+            }
             
         }else{
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary

@@ -324,7 +324,27 @@ class CreateNewContactViewController: UIViewController {
         var success: Bool!
         if isNewContact {
             success = ContactsViewModel().createNewContactToSoup(object: newContact)
-            let _ = ContactsViewModel().createARCDictionary(contactObject: newContact, accountObject: accountSelected)
+            
+            if !success {
+                print("failed to create new contact to local soup")
+                return
+            }
+            
+            let newACR = AccountContactRelation(for: "newACR")
+            newACR.accountId = newContact.accountId
+            newACR.contactId = newContact.contactId
+            newACR.contactName = newContact.firstName + " " + newContact.lastName
+            newACR.roles = newContact.functionRole
+            newACR.isActive = true
+            newACR.buyingPower = newContact.buyerFlag
+            
+            success = ContactsViewModel().createNewACRToSoup(object: newACR)
+            
+            if !success {
+                print("failed to create new ACR to local soup")
+                return
+            }
+            
         }else{
             success = ContactsViewModel().editNewContactToSoup(object: newContact)
         }

@@ -24,6 +24,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // persistent menu
     var topMenuBar:XMSegmentedControl? = nil
     var wifiIconButton:UIBarButtonItem? = nil
+    var userInitialLabel:UILabel? = nil
+    
     
     var moreDropDownSelectionIndex:Int?=0
     
@@ -114,11 +116,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 print("Reachable via Cellular")
             }
             self.wifiIconButton?.image = UIImage(named: "Online")
+            self.userInitialLabel?.isUserInteractionEnabled = true
         }
         
         reachability.whenUnreachable = { _ in
             print("Not reachable")
             self.wifiIconButton?.image = UIImage(named: "Offline")
+            self.userInitialLabel?.isUserInteractionEnabled = false
+
         }
         
         do {
@@ -206,20 +211,20 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     private func setupTopMenuIcons(){
         
-        let userInitialLabel:UILabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
-        userInitialLabel.font  = UIFont.boldSystemFont(ofSize: 13)
-        userInitialLabel.text = ""//"DB"
-        userInitialLabel.textAlignment = .center
-        userInitialLabel.textColor = UIColor.white
-        userInitialLabel.backgroundColor = UIColor(named: "Data New")
-        userInitialLabel.layer.cornerRadius = 35/2
-        userInitialLabel.clipsToBounds = true
-        let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel)
+        self.userInitialLabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
+        self.userInitialLabel?.font  = UIFont.boldSystemFont(ofSize: 13)
+        self.userInitialLabel?.text = ""//"DB"
+        self.userInitialLabel?.textAlignment = .center
+        self.userInitialLabel?.textColor = UIColor.white
+        self.userInitialLabel?.backgroundColor = UIColor(named: "Data New")
+        self.userInitialLabel?.layer.cornerRadius = 35/2
+        self.userInitialLabel?.clipsToBounds = true
+        let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel!)
         
         // adding TapGesture to userInitialLabel..
         let userInitialLabelTap  = UITapGestureRecognizer(target: self, action:#selector(SyncUpData))
-        userInitialLabel.isUserInteractionEnabled = true
-        userInitialLabel.addGestureRecognizer(userInitialLabelTap)
+        self.userInitialLabel?.isUserInteractionEnabled = true
+        self.userInitialLabel?.addGestureRecognizer(userInitialLabelTap)
         
         
         self.numberLabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
@@ -256,60 +261,67 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // MARK: SyncUp Data
     @objc func SyncUpData()  {
         MBProgressHUD.show(onWindow: true)
-        // Sync Up Notes
-            AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","LastModifiedDate","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
-                if error != nil {
-                    print(error?.localizedDescription ?? "error")
-                }
-            })
         
+        let group = DispatchGroup()
+        // Sync Up Notes
+        group.enter()
+        AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+            }
+            group.leave()
+        })
+
         // Contacts Sync Up
+        group.enter()
         ContactsViewModel().uploadContactToServerAndSyncDownACR(completion: { error in
             if error != nil {
-                
                 DispatchQueue.main.async {
                     MBProgressHUD.hide(forWindow: true)
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
                 print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
-            }else{
+            } else{
                 print("Contacts uploaded to server  Successfully")
-                
             }
+            group.leave()
         })
-        
+          
         // Visits (WorkOrder) Sync Up
+        group.enter()
         VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","ContactId"], completion:{ error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
             }
+            group.leave()
         } )
         
-         // Strategy QA(SGWS_Response__c) Sync Up
-        
-        let fields: [String] = StrategyQA.StrategyQAFields
-        StrategyQAViewModel().uploadStrategyQAToServer(fields: fields, completion: { error in
+        // Strategy QA(SGWS_Response__c) Sync Up
+        //let fields: [String] = StrategyQA.StrategyQAFields
+        group.enter()
+        StrategyQAViewModel().uploadStrategyQAToServer(fields: ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c"], completion: { error in
             if error != nil {
                 DispatchQueue.main.async {
                     MBProgressHUD.hide(forWindow: true)
                 }
                 print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
             }
+            group.leave()
         })
         
-        StoreDispatcher.shared.downloadAllSoups({ (error) in
-            if error != nil {
-                print("PostSyncUp:downloadAllSoups")
-            }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
-            
-            DispatchQueue.main.async {
-                MBProgressHUD.hide(forWindow: true)
-            }
-        })
-        
-          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
-      
+        //Download all soups only after all above async operations complete
+        group.notify(queue: .main) {
+            StoreDispatcher.shared.downloadAllSoups({ (error) in
+                if error != nil {
+                    print("PostSyncUp:downloadAllSoups")
+                }
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(forWindow: true)
+                }
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+            })
+        }
     }
     
     private func setupTopMenuItems(){

@@ -82,14 +82,20 @@ class ServicePurposesViewController: UIViewController {
     // MARK:- Custom Methods
     
     //Read Plist For Service Purposes
-    
-    func readServicePurposePList() -> NSArray {
-        
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let path = documentDirectory.appending("/SevicePurpose.plist")
-        let array = NSArray(contentsOfFile: path)
-        return array!
-        
+    func readServicePurposePList() -> Array<Any> {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String?
+        if documentDirectory == nil {
+            return [Any]()
+        }
+        let path = documentDirectory?.appending("/SevicePurpose.plist") as String?
+        if path == nil {
+            return [Any]()
+        }
+        let array = NSArray(contentsOfFile: path!)
+        if array == nil {
+            return [Any]()
+        }
+        return array! as! Array<Any>
     }
     
     // Create PList For Service Purposes
@@ -130,22 +136,28 @@ class ServicePurposesViewController: UIViewController {
             uiAlertController.addAction(// add Custom action on Event is Cancel
                 UIAlertAction.init(title: "Yes", style: .default, handler: { (UIAlertAction) in
                     uiAlertController.dismiss(animated: true, completion: nil)
-                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+                   DispatchQueue.main.async {
                     self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    }
                 }))
             uiAlertController.addAction(// add Custom action on Event is Cancel
                 UIAlertAction.init(title: "No", style: .default, handler: { (UIAlertAction) in
-                    uiAlertController.dismiss(animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        uiAlertController.dismiss(animated: true, completion: nil)
+                    }
                 }))
             self.present(uiAlertController, animated: true, completion: nil)
         } else {
-             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
-            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+           DispatchQueue.main.async {            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            }
         }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
     }
     
     @IBAction func backVC(sender: UIButton) {
-        self.dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
+        }
     }
     
     @IBAction func saveAndClose(sender: UIButton) {
@@ -161,11 +173,10 @@ class ServicePurposesViewController: UIViewController {
            // PlanVistManager.sharedInstance.sgwsAgendaNotes =
             let status = PlanVistManager.sharedInstance.editAndSaveVisit()
             print(status)
-            
         }
         
         DispatchQueue.main.async{
-        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
             
         }
     }
@@ -182,7 +193,9 @@ class ServicePurposesViewController: UIViewController {
         AccountId.selectedAccountId = accountId!
         
         (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        self.present(vc, animated: true, completion: nil)
+        DispatchQueue.main.async{
+            self.present(vc, animated: true, completion: nil)
+        }
         
     }
     

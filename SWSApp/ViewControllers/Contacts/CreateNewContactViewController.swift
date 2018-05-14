@@ -158,9 +158,7 @@ class CreateNewContactViewController: UIViewController {
         if isNewContact && !doesHaveBuyingPower{
             otherReasonTextField.borderColor = .lightGray
         }
-        
-        
-        //need to check an account has been selected for this contact - UI needs to get the account name from the dropdown and then get get it's accountId - better yet, the dropDown has both Acconut name and Id
+
         if isNewContact && accountSelected == nil {
             searchAccountTextField.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -208,7 +206,7 @@ class CreateNewContactViewController: UIViewController {
             }
             errorLabel.text = StringConstants.emptyFieldError
             return
-        }else if phoneTextField.text != "" && Validations().removeSpecialCharsFromString(text: phoneTextField.text!).characters.count != 10{
+        }else if phoneTextField.text != "" && Validations().removeSpecialCharsFromString(text: phoneTextField.text!).count != 10{
             phoneTextField.borderColor = .red
             phoneTextField.becomeFirstResponder()
             if isNewContact {
@@ -216,9 +214,9 @@ class CreateNewContactViewController: UIViewController {
             }else{
                 tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
             }
-            errorLabel.text = "Please correct error above"
+            errorLabel.text = StringConstants.errorInField
             return
-        }else if faxTextField.text != "" && Validations().removeSpecialCharsFromString(text: faxTextField.text!).characters.count != 10{
+        }else if faxTextField.text != "" && Validations().removeSpecialCharsFromString(text: faxTextField.text!).count != 10{
             faxTextField.borderColor = .red
             faxTextField.becomeFirstResponder()
             if isNewContact {
@@ -226,7 +224,7 @@ class CreateNewContactViewController: UIViewController {
             }else{
                 tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
             }
-            errorLabel.text = "Please correct error above"
+            errorLabel.text = StringConstants.errorInField
             return
         }else if emailTextField.text != "" && !Validations().isValidEmail(testStr: emailTextField.text!){
             emailTextField.borderColor = .red
@@ -236,7 +234,7 @@ class CreateNewContactViewController: UIViewController {
             }else{
                 tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
             }
-            errorLabel.text = "Please correct error above"
+            errorLabel.text = StringConstants.errorInField
             return
         }
         createContactLocally()
@@ -248,13 +246,10 @@ class CreateNewContactViewController: UIViewController {
         if !isNewContact {
             newContact = contactDetail!
         }
-        
         let date = Date()
-        print(date)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let timeStamp = dateFormatter.string(from: date)
-        
         
         if(isNewContact){
             newContact.buyerFlag = true
@@ -301,12 +296,9 @@ class CreateNewContactViewController: UIViewController {
         newContact.sgwsNotes = notesTextView.text!
         newContact.fax = faxTextField.text!
         if isNewContact {
-//            newContact.contactClassification = contactClassificationTextField.text!
-            //            newContact.otherSpecification = otherReasonTextField.text!
             newContact.accountId = accountSelected.account_Id
         }
         
-        //        if isNewContact {
         var showAlert = false
         globalContacts = ContactsViewModel().globalContacts()
         if globalContacts.count > 0 {
@@ -332,12 +324,11 @@ class CreateNewContactViewController: UIViewController {
         var success: Bool!
         if isNewContact {
             success = ContactsViewModel().createNewContactToSoup(object: newContact)
-            let arcSuccess = ContactsViewModel().createARCDictionary(contactObject: newContact, accountObject: accountSelected)
+            let _ = ContactsViewModel().createARCDictionary(contactObject: newContact, accountObject: accountSelected)
         }else{
             success = ContactsViewModel().editNewContactToSoup(object: newContact)
         }
         
-        //sync up to Contact which will update ACR, then for now we need to sync down ACR
         if success {
             self.dismiss(animated: true, completion: {
                 self.delegate.updateContactList()
@@ -370,7 +361,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 1:
             if isNewContact {
                 if accountSelected != nil {
-                    return 1 //accountSelected.count
+                    return 1
                 }else{
                     return 0
                 }
@@ -527,7 +518,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             case 5:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Likes"
-                dislikeTextView = cell?.descriptionTextView
+                likeTextView = cell?.descriptionTextView
                 cell?.descriptionTextView.tag = 1
                 if let dislikes = contactDetail?.dislikes, dislikes != "" {
                     cell?.contactDetail = contactDetail
@@ -537,7 +528,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             case 6:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
                 cell?.headerLabel.text = "Dislikes"
-                likeTextView = cell?.descriptionTextView
+                dislikeTextView = cell?.descriptionTextView
                 cell?.descriptionTextView.tag = 2
                 if let likes = contactDetail?.likes, likes != "" {
                     cell?.contactDetail = contactDetail
@@ -546,7 +537,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return cell!
             case 7:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
-                cell?.headerLabel.text = "Favourites Activities"
+                cell?.headerLabel.text = "Favorites Activities"
                 favouriteTextView = cell?.descriptionTextView
                 cell?.descriptionTextView.tag = 3
                 if let fav = contactDetail?.favouriteActivities, fav != "" {

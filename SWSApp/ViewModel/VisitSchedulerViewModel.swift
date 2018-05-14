@@ -34,8 +34,8 @@ class VisitSchedulerViewModel {
                 completion(error)
             }
             else {
-                
                 print("Syncup for Visit Completed")
+                completion(nil)
             }
         })
         

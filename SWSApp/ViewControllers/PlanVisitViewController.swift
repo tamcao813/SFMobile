@@ -219,30 +219,20 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             errorLbl.isHidden = false
             
         } else {
-            
-            //            PlanVistManager.sharedInstance.status = "Scheduled"
             PlanVistManager.sharedInstance.visit?.status = "Scheduled"
-            
             errorLbl.isHidden = true
             self.insetValuesToDB()
-            
             //Edit the visit
-            
             if((PlanVistManager.sharedInstance.visit?.Id) != nil){
-                
                 let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
                 print(status)
-                
             } else{
-                
                 //First Time A Visit is created and Saved
                 createNewVisit()
-                
             }
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
-            self.dismiss(animated: true)
+            DispatchQueue.main.async {
+                self.dismiss(animated: true)
+            }
         }
     }
     

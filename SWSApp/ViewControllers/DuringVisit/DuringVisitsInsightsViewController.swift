@@ -9,9 +9,6 @@
 import Foundation
 import UIKit
 
-struct LoadEditStrategyFromDuringVisit {
-    static var editStrategy = "0"
-}
 
 class DuringVisitsInsightsViewController : UIViewController{
     

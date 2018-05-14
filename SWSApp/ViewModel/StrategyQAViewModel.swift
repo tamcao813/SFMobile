@@ -26,7 +26,6 @@ class StrategyQAViewModel {
                 completion(error)
             }
             else {
-                
                 completion(nil)
             }
         })

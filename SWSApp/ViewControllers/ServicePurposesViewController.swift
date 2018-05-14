@@ -82,14 +82,20 @@ class ServicePurposesViewController: UIViewController {
     // MARK:- Custom Methods
     
     //Read Plist For Service Purposes
-    
-    func readServicePurposePList() -> NSArray {
-        
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let path = documentDirectory.appending("/SevicePurpose.plist")
-        let array = NSArray(contentsOfFile: path)
-        return array!
-        
+    func readServicePurposePList() -> Array<Any> {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String?
+        if documentDirectory == nil {
+            return [Any]()
+        }
+        let path = documentDirectory?.appending("/SevicePurpose.plist") as String?
+        if path == nil {
+            return [Any]()
+        }
+        let array = NSArray(contentsOfFile: path!)
+        if array == nil {
+            return [Any]()
+        }
+        return array! as! Array<Any>
     }
     
     // Create PList For Service Purposes

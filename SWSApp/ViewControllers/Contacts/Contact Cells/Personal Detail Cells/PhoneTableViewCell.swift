@@ -48,7 +48,7 @@ extension PhoneTableViewCell: UITextFieldDelegate {
             search = textField.text!+string
         }
         
-        if (Validations().removeSpecialCharsFromString(text: search).characters.count) > 10{
+        if (Validations().removeSpecialCharsFromString(text: search).count) > 10{
             return false
         }
         return true

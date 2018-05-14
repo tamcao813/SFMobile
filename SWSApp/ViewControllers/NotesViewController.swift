@@ -67,7 +67,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         
         let data = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
         if data.count > 0{
-            let strategyNotes = (data.last?.SGWS_Notes__c)!
+            let strategyNotes = (data.first?.SGWS_Notes__c)!
             self.strategyNotes?.text = strategyNotes
         }
         

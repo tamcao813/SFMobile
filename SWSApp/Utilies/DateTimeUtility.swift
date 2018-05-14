@@ -42,6 +42,23 @@ class DateTimeUtility
         
         return timeStamp
     }
+    
+    static func convertUtcDatetoReadableDateLikeStrategy(dateString :String?)->String{
+        if(dateString?.isEmpty)!{
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        
+        dateFormatter.timeZone = TimeZone.current
+        let date = dateFormatter.date(from: dateString!)// create date from string
+        // change to a readable time format and change to local time zone
+        dateFormatter.dateFormat = "MMM dd,yyyy"
+        let timeStamp = dateFormatter.string(from: date!)
+        
+        return timeStamp
+        
+    }
 }
 
 extension Date {

@@ -329,6 +329,8 @@ extension WRWeekView: UICollectionViewDelegate, UICollectionViewDataSource {
             let event = events[indexPath.item]
             delegate?.selectEvent(event)
         }
+        
+        collectionView.deselectItem(at: indexPath, animated: false)
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

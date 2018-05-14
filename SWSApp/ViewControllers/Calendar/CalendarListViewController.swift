@@ -18,18 +18,15 @@ class CalendarListViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setupCalendarData()
-        
-        /*
-        //add events
-        weekView.addEvent(event: WREvent.make(date: Date(), chunk: 2.hours, title: "#1"))
-        weekView.addEvent(event: WREvent.make(date: Date(), chunk: 1.hours, title: "#2"))
-        weekView.addEvent(event: WREvent.make(date: Date().add(90.minutes), chunk: 1.hours, title: "#3"))
-        weekView.addEvent(event: WREvent.make(date: Date().add(110.minutes), chunk: 1.hours, title: "#4"))
-        
-        weekView.addEvent(event: WREvent.make(date: Date().add(1.days), chunk: 1.hours, title: "tomorrow"))*/
-        
+                
         weekView.addEvents(events: CalendarViewModel().loadVisitData()!)
         
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("CalendarListViewController : viewWillAppear")
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,6 +40,14 @@ class CalendarListViewController: UIViewController {
         }
     }
 
+    // MARK: - Button Action
+    @IBAction func actionButtonCalendarTypeView(_ sender: Any) {
+    }
+    
+    @IBAction func actionButtonNewVisit(_ sender: Any) {
+    }
+    
+    
     // MARK: - WRCalendarView
     func setupCalendarData() {
         weekView.setCalendarDate(Date())
@@ -67,6 +72,6 @@ extension CalendarListViewController: WRWeekViewDelegate {
     }
     
     func selectEvent(_ event: WREvent) {
-        print(event.title)
+        print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
     }
 }

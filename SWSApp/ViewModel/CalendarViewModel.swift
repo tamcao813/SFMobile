@@ -47,9 +47,10 @@ class CalendarViewModel {
                     
                     if daysBetween == 0 {
                         
-                        let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: eventStartDate, chunk: eventStartDate.chunkBetween(date: eventEndDate), title: visit.subject)
+                        let minutessBetween = Date.minutesBetween(start: eventStartDate, end: eventEndDate)
+                        let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: eventStartDate, chunk: (minutessBetween > 30) ? eventStartDate.chunkBetween(date: eventEndDate) : 30.minutes, title: visit.subject)
                         visitsToCalendarEventsArray.append(visitEvent)
-                        
+
                     }
                     else {
 

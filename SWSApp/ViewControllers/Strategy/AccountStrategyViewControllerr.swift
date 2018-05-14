@@ -11,24 +11,20 @@ import UIKit
 
 struct StrategyScreenLoadFrom {
     static var isLoadFromStrategy = "0"
-    static var strategyNotes = ""
 }
 
 class AccountStrategyViewController : UIViewController{
     
-    var tableViewRowDetails : NSMutableArray?
-    
     @IBOutlet weak var collectionView : UICollectionView?
     @IBOutlet weak var lblLastModifiedDate : UILabel?
     @IBOutlet weak var lblNoData : UILabel?
-    
     @IBOutlet weak var editIcon : UIButton?
     @IBOutlet weak var closeIcon : UIButton?
     
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
     let strategyAnswersViewModel = StrategyAnswersViewModel()
-    
+    var tableViewRowDetails : NSMutableArray?
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -48,10 +44,11 @@ class AccountStrategyViewController : UIViewController{
             closeIcon?.isHidden = false
         }
         
-        
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            //flowLayout.estimatedItemSize = CGSize(width: 1024, height: 200)//CGSizeMake(1, 1)
+            flowLayout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1)
+        }
         self.loadTheDataFromStrategyQA()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +61,6 @@ class AccountStrategyViewController : UIViewController{
         super.viewDidAppear(animated)
         
         
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -73,9 +69,8 @@ class AccountStrategyViewController : UIViewController{
         
     }
     
+    //Get the necessary data to Load Strategy_Response__C
     func loadTheDataFromStrategyQA(){
-        
-        //
         
         // let json:[String:Any] = [ "SGWS_Account__c":ary[2],"Id":ary[0], "SGWS_Question_Sub_Type__c":ary[4], "SGWS_Question__c":ary[3], "SGWS_Answer_Description_List__c":ary[1],"SGWS_Notes__c":ary[5]]
         
@@ -97,9 +92,7 @@ class AccountStrategyViewController : UIViewController{
             
             lblNoData?.text = "The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now."
             lblNoData?.isHidden = true
-            
         }
-        // let data = strategyQAViewModel.getStrategyQuestionAnswer()
         
         let tableViewData = NSMutableArray()
         var dict : NSMutableDictionary!
@@ -111,7 +104,6 @@ class AccountStrategyViewController : UIViewController{
             for queAndAns in data{
                 
                 dict = NSMutableDictionary()
-                
                 //execute only for account situation (headers only)
                 if queAndAns.SGWS_Question__c != header {
                     continue
@@ -121,17 +113,13 @@ class AccountStrategyViewController : UIViewController{
                 for q in tableViewData{
                     
                     let dictionary = q as! NSDictionary
-                    
                     let header = dictionary["header"] as? String
-                    
                     if queAndAns.SGWS_Question__c == header!{
-                        
                         headerCheck = true
                     }
                 }
                 
                 //Prevent the Subheader inserting Again
-                
                 if !headerCheck{
                     dict.setValue(queAndAns.SGWS_Question__c, forKey: "header") //Main Header
                 }else{
@@ -139,14 +127,11 @@ class AccountStrategyViewController : UIViewController{
                 }
                 
                 headerCheck = false
-                
                 dict.setValue(queAndAns.SGWS_Question_Sub_Type__c, forKey: "subHeader")    //Added Subheader
                 dict.setValue(queAndAns.Id, forKey: "id")
                 
                 let answerArray = NSMutableArray()
-                
                 let answerArrayStr = NSMutableArray()
-                
                 let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
                 
                 if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
@@ -154,21 +139,12 @@ class AccountStrategyViewController : UIViewController{
                     for ans in answerListArray{
                         if !(answerArrayStr.contains(ans)){
                             answerArrayStr.add(ans)
-                            
                             let answerDict = NSMutableDictionary()
                             answerDict.setValue(ans, forKey: "answerText")
                             answerArray.add(answerDict)
                         }
                     }
                 }
-                
-                //                let myVar = "c"
-                //                let myDict: [String: Int] = ["a": 0, "b": 1, "c": 2]
-                //                if myDict.keys.contains(myVar) {
-                //                    print(myVar)
-                //                }
-                //let arrayOfSetValues = answerListArray
-                
                 let answerListString = answerArrayStr.componentsJoined(by: ",")
                 dict.setValue(answerListString, forKey: "answerStrings")
                 dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
@@ -176,10 +152,7 @@ class AccountStrategyViewController : UIViewController{
                 tableViewData.add(dict)
             }
         }
-        //print(tableViewData)
-        
         self.loadTheSubheaders(data: data, tableViewData: tableViewData)
-        
     }
     
     //Used to load the Strategy Subheader Questions
@@ -191,18 +164,14 @@ class AccountStrategyViewController : UIViewController{
             
             //Get the Subheader filtered in a loop
             let namePredicate = NSPredicate(format: "subHeader = %@",subHeaders);
-            
             let filteredArray = tableViewData.filter { namePredicate.evaluate(with: $0) };
-            
             
             if(filteredArray.count == 0){
                 return
             }
-            
             print(filteredArray)
             
             let newArray = NSMutableArray()
-            
             let stringArray = NSMutableArray()
             
             for item in filteredArray{
@@ -222,7 +191,6 @@ class AccountStrategyViewController : UIViewController{
             dictionary.setValue(newArray, forKey: "answers")
             
             let text = stringArray.componentsJoined(by: ",")
-            
             let data1 = filteredArray[0] as! NSMutableDictionary
             let head1 = data1["header"] as! String
             let subHead1 = data1["subHeader"] as! String
@@ -234,20 +202,18 @@ class AccountStrategyViewController : UIViewController{
             dictionary.setValue(id, forKey: "id")
             
             modifiedArray.add(dictionary)
-            print("infinity3")
-            
         }
-        
         self.loadDateAndLastMOdifiedDate(data: data, modifiedArray: modifiedArray)
     }
     
+    //Get the Last Modified date and Last Updtaed Notes to Display in UI
     func loadDateAndLastMOdifiedDate(data :[StrategyQA] , modifiedArray : NSMutableArray ){
         
         //USED TO SHOW THE NOTES
         if data.count > 0 {
             
-            let strategyNotes = (data.last?.SGWS_Notes__c)!
-            StrategyScreenLoadFrom.strategyNotes = strategyNotes
+            let strategyNotes = (data.first?.SGWS_Notes__c)!
+            //StrategyScreenLoadFrom.strategyNotes = strategyNotes
             
             //if strategyNotes != "" {
             let dict = NSMutableDictionary()
@@ -266,15 +232,16 @@ class AccountStrategyViewController : UIViewController{
             let lastModifiedDate = data.first?.LastModifiedDate
             print(lastModifiedDate!)
             
-            //            let dateFormatter = DateFormatter()
-            //            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            //            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-            //
-            //            let newModifiedDate = dateFormatter.date(from: modifiedDate!)
-            //            dateFormatter.dateFormat = "MMM dd, YYYY"
-            //            let formattedDate = dateFormatter.string(from: newModifiedDate!)
-            //            lblLastModifiedDate?.text = "Account Strategy Lasy Updated on " + formattedDate
-            
+            if(lastModifiedDate != ""){
+                let getTime = DateTimeUtility.convertUtcDatetoReadableDateLikeStrategy(dateString: lastModifiedDate)
+                var dateTime = getTime.components(separatedBy: ",")
+                
+                if(dateTime.count > 0){
+                    let firstPart  = dateTime[0]
+                    let lastPart = dateTime[1]
+                    self.lblLastModifiedDate?.text = "Account Strategy last updated on " + firstPart + ", " + lastPart
+                }
+            }
         }
         
         //Assign the data to Array and reload the data
@@ -290,7 +257,7 @@ class AccountStrategyViewController : UIViewController{
         }
     }
     
-    
+    //Get the Unique Header for the Questions
     func getHeader(data:[StrategyQA])-> [String]{
         var headerArray = [String]()
         //Get unique headernames once
@@ -304,10 +271,10 @@ class AccountStrategyViewController : UIViewController{
                 }
             }
         }
-        //print(headerArray)
         return headerArray
     }
     
+    //Get the Unique SubHeader for the Questions
     func getSubHeader(data:[StrategyQA])-> [String]{
         var subHeaderArray = [String]()
         //Get unique headernames once
@@ -324,7 +291,7 @@ class AccountStrategyViewController : UIViewController{
         return subHeaderArray
     }
     
-    //MARK:- Button Actions
+    //MARK:- Segue Methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "editStrategySegue") {
             let editStrategy = segue.destination as? EditAccountStrategyViewController
@@ -333,9 +300,6 @@ class AccountStrategyViewController : UIViewController{
         }
     }
     
-    //StrategyScreenLoadFrom.isLoadFromStrategy == "1"
-    
-    
     //MARK:- Button Actions
     @IBAction func editButtonClicked(sender : UIButton){
         
@@ -343,7 +307,6 @@ class AccountStrategyViewController : UIViewController{
             performSegue(withIdentifier: "editStrategySegue", sender: nil)
             
         }else{
-            
             //Used Same method to Dismiss the Strategy
             StrategyScreenLoadFrom.isLoadFromStrategy = "0"
             self.dismiss(animated: true, completion: nil)
@@ -392,32 +355,26 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.section == (tableViewRowDetails?.count)!  {//Used to make the Additional notes Dynamic
+        if indexPath.section == (tableViewRowDetails?.count)! - 1 {//Used to make the Additional notes Dynamic
             
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
             
-            //let constraintRect = CGSize(width: self.view.frame.size.width, height: CGFloat.greatestFiniteMagnitude)
-            
             let data = (questions["answerText"] as! String)
             
-            //let data = "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  "
-            
-            if data != ""{
-                let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18.0)])
-                let dynamicSize: CGRect = attString.boundingRect(with: CGSize(width: collectionView.frame.size.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-                
-                return dynamicSize.size
-                
+            if data.count > 115{
+                if data != ""{
+                    let constraintRect = CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
+                    let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18.0)])
+                    let dynamicSize: CGRect = attString.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, context: nil)
+                    return dynamicSize.size
+                }
+            }else{
+                return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)
             }
         }
-        
         return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)
-        
-        //let bounds = data
-        //let boundingBox = data.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont(name: Constants.strings.fontName, size: 30)!], context: nil)
-        //return CGSizeMake(boundingBox.width, boundingBox.height); //(width,hight)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -427,10 +384,9 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
         let questions = tableContent[indexPath.row] as! NSMutableDictionary
         
         let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "accountStrategyCell", for: indexPath) as! AccountStrategyCollectionViewCell
-        //cell1.contentView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
+        cell1.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         cell1.displayCellData(data: questions , indexPath: indexPath, arrayData: tableViewRowDetails!)
-        //cell1.contentView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
-        
+        //cell1.lblTitleText?.preferredMaxLayoutWidth = 50//.preferredMaxLayoutWidth = 50
         return cell1
         
     }

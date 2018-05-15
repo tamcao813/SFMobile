@@ -51,6 +51,20 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         // Dispose of any resources that can be recreated.
     }
     
+    // Function to get today, tomorrow , yesterday from date
+    
+//    func getDayFromDate()  {
+//
+//        let calendar = Calendar.current
+//
+//
+//
+//        calendar.isDateInYesterday(date)
+//        calendar.isDateInToday(date)
+//        calendar.isDateInTomorrow(date)
+//        calendar.isDateInWeekend(date)
+//    }
+    
     
     
     
@@ -67,6 +81,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         if tableView.tag == 1{
             
             let upComingActivitiesCell:AccountOverView_UpComingTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingActivitiesCell") as! AccountOverView_UpComingTableViewCell
+            
             upComingActivitiesCell.UpComingActivities_TitleLabel.text = visitArray[indexPath.row].sgwsVisitPurpose
             upComingActivitiesCell.UpComingActivities_DetailsLabel.text = visitArray[indexPath.row].description
             upComingActivitiesCell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
@@ -137,15 +152,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+   
     
 }

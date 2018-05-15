@@ -69,15 +69,15 @@ class CalendarListViewController: UIViewController {
     }
     
     @IBAction func actionButtonLeft(_ sender: Any) {
-        
         weekView.scrollToPreviousItem()
-
     }
         
     @IBAction func actionButtonRight(_ sender: Any) {
-
         weekView.scrollToNextItem()
-
+    }
+    
+    @IBAction func actionButtonToday(_ sender: Any) {
+        moveToToday()
     }
     
     // MARK: - WRCalendarView
@@ -92,10 +92,8 @@ class CalendarListViewController: UIViewController {
     }
     
     func moveToToday() {
-
         currentShowingDate = Date()
         weekView.setCalendarDate(Date(), animated: true)
-
     }
 
 }

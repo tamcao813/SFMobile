@@ -162,44 +162,13 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     @IBAction func planButtonTapped(sender: UIButton) {
-        //        PlanVistManager.sharedInstance.visit?.status = "Scheduled"
-        if selectedAccount == nil {
-            searchAccountTextField.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-            errorLbl.text = StringConstants.emptyFieldError
-            return
-        }else if (startDate.text?.isEmpty)! {
-            startDate.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
-            errorLbl.text = StringConstants.emptyFieldError
-            return
-        }else if (startTime.text?.isEmpty)! {
-            startTime.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
-            errorLbl.text = StringConstants.emptyFieldError
-            return
-        }else if (endTime.text?.isEmpty)! {
-            contactsAccountTextField.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
-            errorLbl.text = StringConstants.emptyFieldError
-            return
-        }else{
+        if validateVisitData() {
             errorLbl.text = ""
-            if let visit = PlanVistManager.sharedInstance.visit{
-                PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
-                if let contact = selectedContact {
-                    PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
-                }else{
-                    PlanVistManager.sharedInstance.visit?.contactId = ""
-                }
-                PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
-                PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
-                // let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-                let _ = PlanVistManager.sharedInstance.editAndSaveVisit()
-                let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-                let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
+            if PlanVistManager.sharedInstance.visit != nil {
+                editCurrentVisit()
+                let opportunitiesViewController = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil).instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
                 DispatchQueue.main.async {
-                    self.present(viewController, animated: true)
+                    self.present(opportunitiesViewController, animated: true)
                 }
             }else{
                 createNewVisit(dismiss: false)
@@ -208,40 +177,11 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     @IBAction func scheduleAndClose(sender: UIButton) {
-        if selectedAccount == nil {
-            searchAccountTextField.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-            errorLbl.text = StringConstants.emptyFieldError
-            return
-        }else if (startDate.text?.isEmpty)! {
-            startDate.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
-            errorLbl.text = StringConstants.emptyFieldError
-            return
-        }else if (startTime.text?.isEmpty)! {
-            startTime.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
-            errorLbl.text = StringConstants.emptyFieldError
-            return
-        }else if (endTime.text?.isEmpty)! {
-            contactsAccountTextField.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
-            errorLbl.text = StringConstants.emptyFieldError
-            return
-        }else{
+        if validateVisitData() {
             errorLbl.text = ""
             PlanVistManager.sharedInstance.visit?.status = "Scheduled"
-            if let visit = PlanVistManager.sharedInstance.visit{
-                PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
-                if let contact = selectedContact {
-                    PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
-                }else{
-                    PlanVistManager.sharedInstance.visit?.contactId = ""
-                }
-                PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
-                PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
-                //let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-                let _ = PlanVistManager.sharedInstance.editAndSaveVisit()
+            if PlanVistManager.sharedInstance.visit != nil {
+                editCurrentVisit()
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
                 }
@@ -249,6 +189,45 @@ class CreateNewVisitViewController: UIViewController {
                 createNewVisit(dismiss: true)
             }
         }
+    }
+    
+    func validateVisitData() -> Bool{
+        if selectedAccount == nil {
+            searchAccountTextField.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return false
+        }else if (startDate.text?.isEmpty)! {
+            startDate.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return false
+        }else if (startTime.text?.isEmpty)! {
+            startTime.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return false
+        }else if (endTime.text?.isEmpty)! {
+            contactsAccountTextField.borderColor = .red
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
+            errorLbl.text = StringConstants.emptyFieldError
+            return false
+        }else{
+            return true
+        }
+    }
+    
+    func editCurrentVisit(){
+        PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
+        if let contact = selectedContact {
+            PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+        }else{
+            PlanVistManager.sharedInstance.visit?.contactId = ""
+        }
+        PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
+        PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+        //let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+        let _ = PlanVistManager.sharedInstance.editAndSaveVisit()
     }
     
     func createNewVisit(dismiss: Bool) {
@@ -324,8 +303,8 @@ class CreateNewVisitViewController: UIViewController {
             PlanVistManager.sharedInstance.visit = visit
         }
         
-        print("Success is here \(success)")
         if(success){
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             if dismiss {
                 DispatchQueue.main.async {
@@ -346,7 +325,6 @@ class CreateNewVisitViewController: UIViewController {
         let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
         // convert the UInt32 to some other  types
         let someString:String = String(randomNum)
-        print("random Id for Visit  is \(someString)")
         return someString
     }
     

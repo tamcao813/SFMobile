@@ -184,7 +184,8 @@ class StoreDispatcher {
             for object in plistObject {
                 for (key, value) in object {
                     if let value = value as? String {
-                        targetDict[key] = value
+                        
+                        targetDict[key] = value.unescapeXMLCharacter(stringValue: value)
                     }
                 }
                 tempArr.append(targetDict)

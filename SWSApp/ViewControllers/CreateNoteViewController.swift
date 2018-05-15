@@ -23,6 +23,7 @@ class CreateNoteViewController : UIViewController{
     let textFieldLimit = 80 // limit for TextField
     let textViewLimit = 30000 // limit for TextView
     
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var notesTitleTextField: UITextField!
     @IBOutlet weak var editNotel_Label: UILabel!
@@ -137,17 +138,24 @@ class CreateNoteViewController : UIViewController{
     
     //MARK:- IB Button actions
     @IBAction func closeButtonClicked(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            self.dismiss(animated: true, completion: nil)
+        }){
+            
+        }
+       // self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func saveAndCloseButtonClicked(_ sender: Any) {
         
         if(isAddingNewNote){
             if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
+                notesTitleTextField.borderColor = UIColor.red
+                errorLabel.text = StringConstants.emptyFieldError
                 // create the alert
-                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldInNoted, preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+//                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldInNoted, preferredStyle: UIAlertControllerStyle.alert)
+//                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+//                self.present(alert, animated: true, completion: nil)
                 return
             }
             self.createNewNotes()

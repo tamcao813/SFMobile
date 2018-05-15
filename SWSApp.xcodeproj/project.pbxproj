@@ -229,11 +229,11 @@
 		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
+		912FA9E820AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
+		912FA9E920AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
 		9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
-		9187923A20A558F7009CB557 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9187923920A558F7009CB557 /* Calendar.storyboard */; };
-		9187923C20A55BB0009CB557 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9187923920A558F7009CB557 /* Calendar.storyboard */; };
 		9187924120A55C2A009CB557 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924020A55C2A009CB557 /* CalendarViewController.swift */; };
 		9187924220A55C2A009CB557 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924020A55C2A009CB557 /* CalendarViewController.swift */; };
 		9187924420A55C79009CB557 /* CalendarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924320A55C79009CB557 /* CalendarMenuViewController.swift */; };
@@ -561,10 +561,10 @@
 		8DD15007209330E100858349 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8DD15008209330E100858349 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
 		8DD1501120933A0800858349 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
+		912FA9E720AAFC75005979FF /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
 		9141111C20A95565006AD7CD /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
-		9187923920A558F7009CB557 /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		9187924020A55C2A009CB557 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		9187924320A55C79009CB557 /* CalendarMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuViewController.swift; sourceTree = "<group>"; };
 		9187924620A55CAE009CB557 /* CalendarListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarListViewController.swift; sourceTree = "<group>"; };
@@ -1114,7 +1114,7 @@
 				D26768902090B42E0060E792 /* NewContact.storyboard */,
 				8D10B2792099DF0E00C8A86C /* Contacts.storyboard */,
 				D1FB18582062F7A40072F4C1 /* Main.storyboard */,
-				9187923920A558F7009CB557 /* Calendar.storyboard */,
+				912FA9E720AAFC75005979FF /* Calendar.storyboard */,
 				AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */,
 				12A37D1C20776F0D0036ED36 /* AccountsContactsVC.storyboard */,
 				F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */,
@@ -1418,6 +1418,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				912FA9E920AAFC75005979FF /* Calendar.storyboard in Resources */,
 				D23C409F208DCF610006691C /* AccountVisit.storyboard in Resources */,
 				8DA1343920A070EC006A62DE /* ButtonTableViewCell.xib in Resources */,
 				D26768922090B42E0060E792 /* NewContact.storyboard in Resources */,
@@ -1455,7 +1456,6 @@
 				8D99A2EA2091E63F00FAA71A /* ContactClassificationTableViewCell.xib in Resources */,
 				8DD1500C209330E200858349 /* AccountView.xib in Resources */,
 				8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */,
-				9187923C20A55BB0009CB557 /* Calendar.storyboard in Resources */,
 				6D38328720874026006805C6 /* Ubuntu-MediumItalic.ttf in Resources */,
 				8D10B2782099ABFA00C8A86C /* AccountContactLinkTableViewCell.xib in Resources */,
 				6D38328820874026006805C6 /* Ubuntu-Italic.ttf in Resources */,
@@ -1515,6 +1515,7 @@
 				F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */,
 				D23C40CA208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */,
 				8D99A3082091E76900FAA71A /* ContactHoursTableViewCell.xib in Resources */,
+				912FA9E820AAFC75005979FF /* Calendar.storyboard in Resources */,
 				D2EAEB8A2074EAC6005F7792 /* MoreMenu.storyboard in Resources */,
 				8DD150012093307700858349 /* SelectedAssociateTableViewCell.xib in Resources */,
 				D23C40DA208DFA890006691C /* AccountVisitListTableViewCell.xib in Resources */,
@@ -1559,7 +1560,6 @@
 				8D99A2F02091E6F600FAA71A /* NameTableViewCell.xib in Resources */,
 				F2FDA14B2099DEEA000921A8 /* ServicePurposes.plist in Resources */,
 				8D99A31A2091FCAF00FAA71A /* DescriptionTableViewCell.xib in Resources */,
-				9187923A20A558F7009CB557 /* Calendar.storyboard in Resources */,
 				6DBD03272077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf in Resources */,
 				12A37D1D20776F0D0036ED36 /* AccountsContactsVC.storyboard in Resources */,
 				D1FB182E2062A7C00072F4C1 /* Assets.xcassets in Resources */,

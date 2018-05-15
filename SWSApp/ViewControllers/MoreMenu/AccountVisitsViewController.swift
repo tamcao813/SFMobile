@@ -9,13 +9,22 @@
 import UIKit
 
 class AccountVisitsViewController: UIViewController {
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("AccountVisits VC will appear")
+
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("AccountVisits VC will disappear")
+    }
+    
+    @IBAction func planVisitClick(sender: UIButton) {
+        let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier :"PlanVisitViewControllerID")
+        self.present(viewController, animated: true)
     }
 }

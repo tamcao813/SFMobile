@@ -26,4 +26,68 @@ class DateTimeUtility
         print("formattedMMDDYYDateStr: " + formattedMMDDYYDateStr)
         return formattedMMDDYYDateStr
     }
+    
+    static func convertUtcDatetoReadableDate(dateStringfromAccountNotes:String?)->String{
+        if(dateStringfromAccountNotes?.isEmpty)!{
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        
+        dateFormatter.timeZone = TimeZone.current
+        let date = dateFormatter.date(from: dateStringfromAccountNotes!)// create date from string
+        // change to a readable time format and change to local time zone
+        dateFormatter.dateFormat = "MM/dd/YYYY h:mma"
+        let timeStamp = dateFormatter.string(from: date!)
+        
+        return timeStamp
+    }
+    
+    static func convertUtcDatetoReadableDateLikeStrategy(dateString :String?)->String{
+        if(dateString?.isEmpty)!{
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        
+        dateFormatter.timeZone = TimeZone.current
+        let date = dateFormatter.date(from: dateString!)// create date from string
+        // change to a readable time format and change to local time zone
+        dateFormatter.dateFormat = "MMM dd,yyyy"
+        let timeStamp = dateFormatter.string(from: date!)
+        
+        return timeStamp
+        
+    }
+}
+
+extension Date {
+    
+    //An integer representation of age from the date object (read-only).
+    var age: Int {
+        get {
+            let now = Date()
+            let calendar = Calendar.current
+            
+            let ageComponents = calendar.dateComponents([.year], from: self, to: now)
+            let age = ageComponents.year!
+            return age
+        }
+    }
+    
+    init(year: Int, month: Int, day: Int) {
+        var dc = DateComponents()
+        dc.year = year
+        dc.month = month
+        dc.day = day
+        
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        if let date = calendar.date(from: dc) {
+            self.init(timeInterval: 0, since: date)
+        } else {
+            fatalError("Date component values were invalid.")
+        }
+    }
+    
 }

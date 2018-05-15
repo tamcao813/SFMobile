@@ -4,13 +4,15 @@ use_frameworks!
 # Pods for SGWSApp
 pod 'DropDown'
 pod 'ReachabilitySwift'
+pod 'SwipeCellKit', '~> 2.1.0'
 
 def sf_pods
-	pod 'SalesforceAnalytics',	:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
-	pod 'SalesforceSDKCore',	:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
-	pod 'SalesforceSwiftSDK',	:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
-	pod 'SmartStore',		:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
-	pod 'SmartSync',			:git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SalesforceAnalytics',    :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SalesforceSDKCore',    :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SalesforceSwiftSDK',    :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SmartStore',        :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'SmartSync',            :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
+    pod 'IQKeyboardManagerSwift'
 end
 
 target 'SWSApp' do
@@ -28,10 +30,16 @@ target 'SWSApp' do
   end
 end
 
-
 # Fix for xcode9/fmdb/sqlcipher/cocoapod issue - see https://discuss.zetetic.net/t/ios-11-xcode-issue-implicit-declaration-of-function-sqlite3-key-is-invalid-in-c99/2198/27
 post_install do | installer |
   print "SQLCipher: link Pods/Headers/sqlite3.h"
   system "mkdir -p Pods/Headers/Private && ln -s ../../SQLCipher/sqlite3.h Pods/Headers/Private"
+
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
+            config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
+        end
+    end
 end
 

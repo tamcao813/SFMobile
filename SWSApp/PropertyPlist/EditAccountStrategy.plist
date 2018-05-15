@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>New item</key>
+	<array>
+		<dict>
+			<key>headerText</key>
+			<string>Account Situation</string>
+			<key>question</key>
+			<string>The Customer Wants To:*</string>
+			<key>questionId</key>
+			<string>1</string>
+			<key>selectionType</key>
+			<string>1</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Blaze Its Own Path</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Meet The Needs Of Its Regulars</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Stay in Business</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>13</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Grow And Expand</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>13</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Decreasing</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>13</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>question</key>
+			<string>The customer’s consumbers are changing:*</string>
+			<key>questionId</key>
+			<string>2</string>
+			<key>selectionType</key>
+			<string>2</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Very Little</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Increasing</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Somewhat</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>About The Same</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>question</key>
+			<string>The customer will know they have won when they see improvement in:*</string>
+			<key>questionId</key>
+			<string>2</string>
+			<key>selectionType</key>
+			<string>1</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Top Line Sales</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Limited Cash Flow</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Inventory Is Hard To Manage</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string>Buying Motives</string>
+			<key>question</key>
+			<string>Task Buying Motives*</string>
+			<key>questionId</key>
+			<string>3</string>
+			<key>selectionType</key>
+			<string>2</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>More Profit</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Better Product/Offering</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Faster Pull-Through</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>headerText</key>
+			<string></string>
+			<key>question</key>
+			<string>Personal Buying Motive*</string>
+			<key>questionId</key>
+			<string>4</string>
+			<key>selectionType</key>
+			<string>1</string>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answerText</key>
+					<string>Control</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>11</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Approval</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+				<dict>
+					<key>answerText</key>
+					<string>Recognition</string>
+					<key>isSelected</key>
+					<string>NO</string>
+					<key>answerId</key>
+					<string>12</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

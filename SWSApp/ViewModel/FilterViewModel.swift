@@ -14,7 +14,7 @@ class Filter {
     
     var sectionItems : Array<Any> = [ ["Yes", "No"],[],
                                       ["Active", "Inactive","Suspended"],
-                                      ["ON","OFF"], ["Single","Multi"],["W","L","B","N"]]
+                                      ["On","Off"], ["Single","Multi"],["W","L","B","N"]]
     
 }
 
@@ -54,5 +54,6 @@ struct FilterMenuModel {
     static var city: String = ""
     
     static var comingFromDetailsScreen = ""
-    
+    static var selectedAccountId = ""
+
 }

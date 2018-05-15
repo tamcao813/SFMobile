@@ -10,7 +10,7 @@ import Foundation
 
 
 class User {
-    static let UserFields = ["Id", "User.Username", "User.Name", "AccountId", "UserId", "User.Email","User.Phone","TeamMemberRole","User.SGWS_Site__c","User.ManagerId"] // Stage 1
+    static let UserFields = ["Id", "User.Username", "User.Name", "AccountId", "UserId", "User.Email","User.Phone","TeamMemberRole","User.SGWS_Site__c","User.ManagerId", "Account.RecordTypeId"] // Stage 1
     
     var id: String
     var username: String
@@ -23,6 +23,8 @@ class User {
     var userTeamMemberRole: String
     var userSite: String
     var userManagerId: String
+    
+    var recordTypeId: String
     
     
     convenience init(withAry ary: [Any]) {
@@ -95,6 +97,7 @@ class User {
             
         }
         
+        recordTypeId = json["Account.RecordTypeId"] as? String ?? ""
     }
     
     init(for: String) {
@@ -109,6 +112,8 @@ class User {
         userTeamMemberRole = ""
         userSite = ""
         userManagerId = ""
+        
+        recordTypeId = ""
     }
     
     //    static func mockUser() -> User {

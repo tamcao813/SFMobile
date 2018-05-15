@@ -17,6 +17,13 @@ class AccountSortUtility
         case KMultiLocation = "Multi"
     }
     
+    static func searchAccountByAccountId(accountsForLoggedUser:[Account], accountId:String)->[Account]
+    {
+
+        return accountsForLoggedUser.filter( { return $0.account_Id == accountId } )
+
+    }
+
     static func searchAccountBySearchBarQuery(accountsForLoggedUser:[Account], searchText:String)->[Account]
     {
         print("sortAccountByFilterSearchBarQuery: " + searchText)
@@ -133,233 +140,50 @@ class AccountSortUtility
         
         var filteredSearchedArray = [Account]()
         var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var filteredByReturnArray = [Account]()
         var enteredAnyFilterCase = false
+        var enteredAnyFilterCaseReturn = false
         
         // filter by past due
-        if FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != ""{
+        (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterByPastDue(accountsListToBeSorted: accountsListToBeSorted)
+        if enteredAnyFilterCaseReturn {
             enteredAnyFilterCase = true
-            if FilterMenuModel.pastDueYes == "YES"{
-                
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmountDouble > 0 } )
-                
-            }else if FilterMenuModel.pastDueNo == "YES" {
-                
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmountDouble <= 0 } )
-                
-            }
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
         }
         
-        if(enteredAnyFilterCase == false)
-        {
-            // filter by  premise code
-            if FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != ""{
-                enteredAnyFilterCase = true
-                if FilterMenuModel.premiseOn == "YES"{
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.premiseCode == "ON" } )
-                    
-                }
-                else if FilterMenuModel.premiseOff == "YES"
-                {
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.premiseCode == "OFF" } )
-                    
-                }
-            }
-        }
-        else
-        {
-            // filter by  premise code
-            if FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != ""{
-                enteredAnyFilterCase = true
-                if FilterMenuModel.premiseOn == "YES"{
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.premiseCode == "ON" } )
-                    
-                }else if FilterMenuModel.premiseOff == "YES" {
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.premiseCode == "OFF" } )
-                    
-                }
-            }
-        }
-        
-        
+        // filter by  premise code
         // filter by license type
-        if(enteredAnyFilterCase == false)
-        {
-            if FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != ""{
-                enteredAnyFilterCase = true
-                
-                if FilterMenuModel.licenseB == "YES"{
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "B" } )
-                    
-                }else if FilterMenuModel.licenseL == "YES" {
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "L" } )
-                    
-                }
-                else if FilterMenuModel.licenseN == "YES" {
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "N" } )
-                    
-                }
-                else if FilterMenuModel.licenseW == "YES" {
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "W" } )
-                    
-                }
-            }
-        }
-        else
-        {
-            if FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != ""{
-                enteredAnyFilterCase = true
-                
-                if FilterMenuModel.licenseB == "YES"{
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "B" } )
-                    
-                }else if FilterMenuModel.licenseL == "YES" {
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "L" } )
-                    
-                }
-                else if FilterMenuModel.licenseN == "YES" {
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "N" } )
-                    
-                }
-                else if FilterMenuModel.licenseW == "YES" {
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.licenseType == "W" } )
-                    
-                }
-            }
-        }
-        
         // filter by single or multilocation
         if(enteredAnyFilterCase == false)
         {
-            // filter by  single or multilocation
-            if FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != ""{
-                enteredAnyFilterCase = true
-                if FilterMenuModel.singleSelected == "YES"
-                {
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KSingleLocation.rawValue } )
-                }
-                else if FilterMenuModel.multiSelected == "YES"
-                {
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KMultiLocation.rawValue } )
-                }
-            }
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterPremiseCodeRelated(accountsListToBeSorted: accountsListToBeSorted)
         }
         else
         {
-            // filter by  single or multilocation
-            if FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != ""{
-                enteredAnyFilterCase = true
-                if FilterMenuModel.singleSelected == "YES"{
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KSingleLocation.rawValue } )
-                    
-                }else if FilterMenuModel.multiSelected == "YES" {
-                    
-                    filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KMultiLocation.rawValue } )
-                    
-                }
-            }
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterPremiseCodeRelated(accountsListToBeSorted: filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        }
+        if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
         }
         
         //For Channel Filtering
-        if(enteredAnyFilterCase == false){
-            
-            if FilterMenuModel.channel != ""{
-                enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.channelTD == FilterMenuModel.channel } )
-            }
-            
-        }else{
-            
-            if FilterMenuModel.channel != ""{
-                enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.channelTD == FilterMenuModel.channel } )
-            }
-            
-        }
-        
-        
         //For SubChannel Filtering
-        if(enteredAnyFilterCase == false){
-            
-            if FilterMenuModel.subChannel != ""{
-                enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.subChannelTD == FilterMenuModel.subChannel } )
-            }
-            
-        }else{
-            
-            if FilterMenuModel.subChannel != ""{
-                enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.subChannelTD == FilterMenuModel.subChannel } )
-            }
-            
-        }
-        
-        
         //For Active
-        if(enteredAnyFilterCase == false){
-            
-            if FilterMenuModel.statusIsActive != ""{
-                enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.acctDescStatus == "A" } )
-            }
-            
-        }else{
-            
-            if FilterMenuModel.statusIsActive != ""{
-                enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.acctDescStatus == "A" } )
-            }
-            
-        }
-        
-        
         //For Inactive
-        if(enteredAnyFilterCase == false){
-            
-            if FilterMenuModel.statusIsInActive != ""{
-                enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.acctDescStatus == "I" } )
-            }
-            
-        }else{
-            
-            if FilterMenuModel.statusIsInActive != ""{
-                enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.acctDescStatus == "I" } )
-            }
-            
-        }
-        
         //For Suspended
-        if(enteredAnyFilterCase == false){
-            
-            if FilterMenuModel.statusIsSuspended != ""{
-                enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.acctDescStatus == "S" } )
-            }
-            
-        }else{
-            
-            if FilterMenuModel.statusIsSuspended != ""{
-                enteredAnyFilterCase = true
-                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByPastDue_PremiseCode_LicenseTypeAccountArray.filter( { return $0.acctDescStatus == "S" } )
-            }
-            
+        if(enteredAnyFilterCase == false)
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForChannelRelatedFiltering(accountsListToBeSorted: accountsListToBeSorted)
         }
-        
+        else
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForChannelRelatedFiltering(accountsListToBeSorted: filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        }
+        if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
+        }
         
         // now search filtered list by search text
         if(searchBarText != "" && enteredAnyFilterCase == true) // user filtered list fot search
@@ -377,6 +201,297 @@ class AccountSortUtility
         
         
         return filteredSearchedArray
+    }
+    
+    static func filterAccountByFilterByPastDue(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var enteredAnyFilterCase = false
+        
+        if FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != ""{
+            enteredAnyFilterCase = true
+            if FilterMenuModel.pastDueYes == "YES"{
+                
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmountDouble > 0 } )
+                
+            }else if FilterMenuModel.pastDueNo == "YES" {
+                
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.pastDueAmountDouble <= 0 } )
+                
+            }
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
+    }
+    
+    static func filterAccountByFilterPremiseCodeRelated(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var filteredByReturnArray = [Account]()
+        var enteredAnyFilterCase = false
+        var enteredAnyFilterCaseReturn = false
+        
+        // filter by  premise code
+        (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterByPremiseCode(accountsListToBeSorted: accountsListToBeSorted)
+        if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
+        }
+        
+        // filter by license type
+        if(enteredAnyFilterCase == false)
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterByLicenseType(accountsListToBeSorted: accountsListToBeSorted)
+        }
+        else
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterByLicenseType(accountsListToBeSorted: filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        }
+        if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
+        }
+        
+        // filter by single or multilocation
+        if(enteredAnyFilterCase == false)
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterBySingleOrMultilocation(accountsListToBeSorted: accountsListToBeSorted)
+        }
+        else
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterBySingleOrMultilocation(accountsListToBeSorted: filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        }
+        if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
+    }
+    
+    static func filterAccountByFilterByPremiseCode(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var enteredAnyFilterCase = false
+        
+        if FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != ""{
+            enteredAnyFilterCase = true
+            if FilterMenuModel.premiseOn == "YES"{
+                
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.premiseCode == "ON" } )
+                
+            }
+            else if FilterMenuModel.premiseOff == "YES"
+            {
+                
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.premiseCode == "OFF" } )
+                
+            }
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
+    }
+    
+    static func filterAccountByFilterByLicenseType(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var enteredAnyFilterCase = false
+        
+        if FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != ""{
+            enteredAnyFilterCase = true
+            
+            if FilterMenuModel.licenseB == "YES"{
+                
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "B" } )
+                
+            }else if FilterMenuModel.licenseL == "YES" {
+                
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "L" } )
+                
+            }
+            else if FilterMenuModel.licenseN == "YES" {
+                
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "N" } )
+                
+            }
+            else if FilterMenuModel.licenseW == "YES" {
+                
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.licenseType == "W" } )
+                
+            }
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
+    }
+    
+    static func filterAccountByFilterBySingleOrMultilocation(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var enteredAnyFilterCase = false
+        
+        if FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != ""{
+            enteredAnyFilterCase = true
+            if FilterMenuModel.singleSelected == "YES"
+            {
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KSingleLocation.rawValue } )
+            }
+            else if FilterMenuModel.multiSelected == "YES"
+            {
+                filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.singleMultiLocationFilter == SingleMultiLocationEnum.KMultiLocation.rawValue } )
+            }
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
+    }
+    
+    
+    static func filterAccountByFilterForChannelRelatedFiltering(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var filteredByReturnArray = [Account]()
+        var enteredAnyFilterCase = false
+        var enteredAnyFilterCaseReturn = false
+        
+        //For Channel Filtering
+        (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForChannelFiltering(accountsListToBeSorted: accountsListToBeSorted)
+        if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
+        }
+        
+        //For SubChannel Filtering
+        if(enteredAnyFilterCase == false)
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForSubChannelFiltering(accountsListToBeSorted: accountsListToBeSorted)
+        }
+        else
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForSubChannelFiltering(accountsListToBeSorted: filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        }
+        if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
+        }
+        
+        //For Active
+        if(enteredAnyFilterCase == false)
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForActive(accountsListToBeSorted: accountsListToBeSorted)
+        }
+        else
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForActive(accountsListToBeSorted: filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        }
+        if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
+        }
+        
+        //For Inactive
+        if(enteredAnyFilterCase == false)
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForInactive(accountsListToBeSorted: accountsListToBeSorted)
+        }
+        else
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForInactive(accountsListToBeSorted: filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        }
+        if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
+        }
+        
+        //For Suspended
+        if(enteredAnyFilterCase == false)
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForSuspended(accountsListToBeSorted: accountsListToBeSorted)
+        }
+        else
+        {
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForSuspended(accountsListToBeSorted: filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        }
+        if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
+    }
+    
+    static func filterAccountByFilterForChannelFiltering(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var enteredAnyFilterCase = false
+        
+        if FilterMenuModel.channel != ""{
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.channelTD == FilterMenuModel.channel } )
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
+    }
+    
+    static func filterAccountByFilterForSubChannelFiltering(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var enteredAnyFilterCase = false
+        
+        if FilterMenuModel.subChannel != ""{
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.subChannelTD == FilterMenuModel.subChannel } )
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
+    }
+    
+    static func filterAccountByFilterForActive(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var enteredAnyFilterCase = false
+        
+        if FilterMenuModel.statusIsActive != ""{
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.acctDescStatus == "A" } )
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
+    }
+    
+    static func filterAccountByFilterForInactive(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var enteredAnyFilterCase = false
+        
+        if FilterMenuModel.statusIsInActive != ""{
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.acctDescStatus == "I" } )
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
+    }
+    
+    static func filterAccountByFilterForSuspended(accountsListToBeSorted : [Account])-> (Bool, [Account]){
+        
+        var filteredByPastDue_PremiseCode_LicenseTypeAccountArray = [Account]()
+        var enteredAnyFilterCase = false
+        
+        if FilterMenuModel.statusIsSuspended != ""{
+            enteredAnyFilterCase = true
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsListToBeSorted.filter( { return $0.acctDescStatus == "S" } )
+        }
+        
+        return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
+        
     }
     
 }

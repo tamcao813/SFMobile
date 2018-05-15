@@ -32,7 +32,7 @@ class AccountsMenuViewController: UIViewController {
     //Used for selected section in TableView
     var selectedSection = -1
     
-     var accountsForLoggedUserFiltered = [Account]()
+    var accountsForLoggedUserFiltered = [Account]()
     
     //MARK: - ViewLifeCycle Methods
     override func viewDidLoad() {
@@ -45,6 +45,37 @@ class AccountsMenuViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.addSearchIconInSearchBar()
+        
+        self.addChannelAndSubchannelItems()
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.clearFilterModelData()
+        
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.clearFilterModelData()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func addChannelAndSubchannelItems(){
         
         let accountViewModel = AccountsViewModel()
         accountsForLoggedUserFiltered = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
@@ -88,30 +119,8 @@ class AccountsMenuViewController: UIViewController {
         }
         
         print(filterClass.sectionItems)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.addSearchIconInSearchBar()
-    
-        
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.clearFilterModelData()
         
         
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.clearFilterModelData()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK:-
@@ -151,47 +160,47 @@ class AccountsMenuViewController: UIViewController {
     
     //Used to Clear the Model Data
     func clearFilterModelData(){
-    
+        
         if FilterMenuModel.comingFromDetailsScreen == "YES"{
             
-           FilterMenuModel.comingFromDetailsScreen = "NO"
+            FilterMenuModel.comingFromDetailsScreen = "NO"
             
         }else{
-        
+            
             FilterMenuModel.pastDueYes = ""
             FilterMenuModel.pastDueNo = ""
-        
+            
             FilterMenuModel.statusIsActive = ""
             FilterMenuModel.statusIsInActive = ""
             FilterMenuModel.statusIsSuspended = ""
-        
+            
             FilterMenuModel.premiseOn = ""
             FilterMenuModel.premiseOff = ""
-        
+            
             FilterMenuModel.singleSelected = ""
             FilterMenuModel.multiSelected = ""
-        
+            
             FilterMenuModel.licenseW = ""
             FilterMenuModel.licenseL = ""
             FilterMenuModel.licenseB = ""
             FilterMenuModel.licenseN = ""
-        
+            
             FilterMenuModel.channel = ""
             FilterMenuModel.subChannel = ""
-        
+            
             FilterMenuModel.city = ""
-        
+            
             if searchBar != nil{
                 searchBar.text = ""
             }
-        
+            
             //Used to Clear the Expanded section of Filter Option
             selectedSection = -1
             if self.expandedSectionHeaderNumber != -1{
                 let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
                 tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
             }
-        
+            
             if tableView != nil{
                 tableView.reloadData()
             }
@@ -202,11 +211,11 @@ class AccountsMenuViewController: UIViewController {
     @objc func sectionHeaderWasTouched(_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
         
-        let headerView = sender.view as! UITableViewHeaderFooterView
-        let section    = headerView.tag
-        let eImageView = headerView.viewWithTag(kHeaderSectionTag + section) as? UIImageView
+        let headerView = sender.view //as! UITableViewHeaderFooterView
+        let section    = headerView?.tag
+        let eImageView = headerView?.viewWithTag(kHeaderSectionTag + section!) as? UIImageView
         
-        self.selectedSection = section
+        self.selectedSection = section!
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             self.tableView.reloadData()
@@ -216,10 +225,10 @@ class AccountsMenuViewController: UIViewController {
             if FilterMenuModel.channel == ""{
                 print("Your Channel is not Selected")
             }else{
-                self.sectionHeaderOperation(section: section, eImageView: eImageView)
+                self.sectionHeaderOperation(section: section!, eImageView: eImageView)
             }
         }else{
-            self.sectionHeaderOperation(section: section, eImageView: eImageView)
+            self.sectionHeaderOperation(section: section!, eImageView: eImageView)
         }
     }
     
@@ -291,120 +300,26 @@ class AccountsMenuViewController: UIViewController {
         
         switch indexPath.section {
         case 0:
+            self.performPastDueOperations(indexPath: indexPath)
             
-            switch indexPath.row {
-            case 0:
-                FilterMenuModel.pastDueYes = "YES"
-                FilterMenuModel.pastDueNo = "NO"
-            case 1:
-                FilterMenuModel.pastDueNo = "YES"
-                FilterMenuModel.pastDueYes = "NO"
-            default:
-                break
-            }
         case 2:
+            self.performStatusOperation(indexPath: indexPath, arrayContent: arrayContent)
             
-            let arrayData : [String] = arrayContent[indexPath.section] as! [String]
-            
-            switch indexPath.row {
-                
-            case 0:
-                FilterMenuModel.statusIsActive = arrayData[indexPath.row]//"YES"
-                FilterMenuModel.statusIsInActive = ""
-                FilterMenuModel.statusIsSuspended = ""
-            case 1:
-                FilterMenuModel.statusIsActive = ""
-                FilterMenuModel.statusIsInActive = arrayData[indexPath.row]//"YES"
-                FilterMenuModel.statusIsSuspended = ""
-            case 2:
-                FilterMenuModel.statusIsActive = ""
-                FilterMenuModel.statusIsInActive = ""
-                FilterMenuModel.statusIsSuspended = arrayData[indexPath.row]//"YES"
-            default:
-                break
-            }
         case 3:
+            self.performPremiseOperation(indexPath: indexPath)
             
-            switch indexPath.row {
-            case 0:
-                FilterMenuModel.premiseOn = "YES"
-                FilterMenuModel.premiseOff = "NO"
-            case 1:
-                FilterMenuModel.premiseOn = "NO"
-                FilterMenuModel.premiseOff = "YES"
-            default:
-                break
-            }
         case 4:
-            
-            switch indexPath.row {
-            case 0:
-                FilterMenuModel.singleSelected = "YES"
-                FilterMenuModel.multiSelected = "NO"
-            case 1:
-                FilterMenuModel.singleSelected = "NO"
-                FilterMenuModel.multiSelected = "YES"
-            default:
-                break
-            }
+            self.performSingleOrMultiSelection(indexPath: indexPath)
             
         case 5:
-            
-            //switch indexPath.row {
-            //case 0:
-            
-            let channelData = filterClass.sectionItems[indexPath.section] as! [String]
-            if channelData[0] != ""{
-                let arrayData : [String] = arrayContent[indexPath.section] as! [String]
-                FilterMenuModel.channelIndex = indexPath.row
-                FilterMenuModel.channel = arrayData[indexPath.row]
-            }
-            
-            //default:
-            //    break
-            //}
+            self.performChannelOperation(indexPath: indexPath, arrayContent: arrayContent)
             
         case 6:
-            
-            //switch indexPath.row {
-            //case 0:
-            
-            let channelData = filterClass.sectionItems[indexPath.section] as! [String]
-            if channelData[0] != ""{
-                let arrayData : [String] = arrayContent[indexPath.section] as! [String]
-                FilterMenuModel.subChannelIndex = indexPath.row
-                FilterMenuModel.subChannel = arrayData[indexPath.row]
-            }
-            //default:
-            //    break
-            //}
+            self.performSubChannelOperation(indexPath: indexPath, arrayContent: arrayContent)
             
         case 7:
+            self.performLicenseOperation(indexPath: indexPath)
             
-            switch indexPath.row {
-            case 0:
-                FilterMenuModel.licenseW = "YES"
-                FilterMenuModel.licenseL = "NO"
-                FilterMenuModel.licenseB = "NO"
-                FilterMenuModel.licenseN = "NO"
-            case 1:
-                FilterMenuModel.licenseW = "NO"
-                FilterMenuModel.licenseL = "YES"
-                FilterMenuModel.licenseB = "NO"
-                FilterMenuModel.licenseN = "NO"
-            case 2:
-                FilterMenuModel.licenseW = "NO"
-                FilterMenuModel.licenseL = "NO"
-                FilterMenuModel.licenseB = "YES"
-                FilterMenuModel.licenseN = "NO"
-            case 3:
-                FilterMenuModel.licenseW = "NO"
-                FilterMenuModel.licenseL = "NO"
-                FilterMenuModel.licenseB = "NO"
-                FilterMenuModel.licenseN = "YES"
-            default:
-                break
-            }
         default:
             break
         }
@@ -412,6 +327,125 @@ class AccountsMenuViewController: UIViewController {
         tableView.reloadData()
         
     }
+    //PastDue operations
+    func performPastDueOperations(indexPath : IndexPath){
+        
+        switch indexPath.row {
+        case 0:
+            FilterMenuModel.pastDueYes = "YES"
+            FilterMenuModel.pastDueNo = "NO"
+        case 1:
+            FilterMenuModel.pastDueNo = "YES"
+            FilterMenuModel.pastDueYes = "NO"
+        default:
+            break
+        }
+    }
+    
+    //Status Operations
+    func performStatusOperation(indexPath : IndexPath , arrayContent : Array<Any>){
+        
+        let arrayData : [String] = arrayContent[indexPath.section] as! [String]
+        
+        switch indexPath.row {
+        case 0:
+            FilterMenuModel.statusIsActive = arrayData[indexPath.row]//"YES"
+            FilterMenuModel.statusIsInActive = ""
+            FilterMenuModel.statusIsSuspended = ""
+        case 1:
+            FilterMenuModel.statusIsActive = ""
+            FilterMenuModel.statusIsInActive = arrayData[indexPath.row]//"YES"
+            FilterMenuModel.statusIsSuspended = ""
+        case 2:
+            FilterMenuModel.statusIsActive = ""
+            FilterMenuModel.statusIsInActive = ""
+            FilterMenuModel.statusIsSuspended = arrayData[indexPath.row]//"YES"
+        default:
+            break
+        }
+    }
+    
+    //Premise Operations
+    func performPremiseOperation(indexPath : IndexPath){
+        
+        switch indexPath.row {
+        case 0:
+            FilterMenuModel.premiseOn = "YES"
+            FilterMenuModel.premiseOff = "NO"
+        case 1:
+            FilterMenuModel.premiseOn = "NO"
+            FilterMenuModel.premiseOff = "YES"
+        default:
+            break
+        }
+    }
+    
+    //Single or multi selection
+    func performSingleOrMultiSelection(indexPath : IndexPath){
+        
+        switch indexPath.row {
+        case 0:
+            FilterMenuModel.singleSelected = "YES"
+            FilterMenuModel.multiSelected = "NO"
+        case 1:
+            FilterMenuModel.singleSelected = "NO"
+            FilterMenuModel.multiSelected = "YES"
+        default:
+            break
+        }
+    }
+    
+    //Channel selection
+    func performChannelOperation(indexPath : IndexPath, arrayContent : Array<Any>){
+        
+        let channelData = filterClass.sectionItems[indexPath.section] as! [String]
+        if channelData[0] != ""{
+            let arrayData : [String] = arrayContent[indexPath.section] as! [String]
+            FilterMenuModel.channelIndex = indexPath.row
+            FilterMenuModel.channel = arrayData[indexPath.row]
+        }
+    }
+    
+    //Subchannel Selection
+    func performSubChannelOperation(indexPath : IndexPath, arrayContent : Array<Any>){
+        
+        let subchannelData = filterClass.sectionItems[indexPath.section] as! [String]
+        if subchannelData[0] != ""{
+            let arrayData : [String] = arrayContent[indexPath.section] as! [String]
+            FilterMenuModel.subChannelIndex = indexPath.row
+            FilterMenuModel.subChannel = arrayData[indexPath.row]
+        }
+    }
+    
+    //License Operation
+    func performLicenseOperation(indexPath : IndexPath){
+        
+        switch indexPath.row {
+        case 0:
+            FilterMenuModel.licenseW = "YES"
+            FilterMenuModel.licenseL = "NO"
+            FilterMenuModel.licenseB = "NO"
+            FilterMenuModel.licenseN = "NO"
+        case 1:
+            FilterMenuModel.licenseW = "NO"
+            FilterMenuModel.licenseL = "YES"
+            FilterMenuModel.licenseB = "NO"
+            FilterMenuModel.licenseN = "NO"
+        case 2:
+            FilterMenuModel.licenseW = "NO"
+            FilterMenuModel.licenseL = "NO"
+            FilterMenuModel.licenseB = "YES"
+            FilterMenuModel.licenseN = "NO"
+        case 3:
+            FilterMenuModel.licenseW = "NO"
+            FilterMenuModel.licenseL = "NO"
+            FilterMenuModel.licenseB = "NO"
+            FilterMenuModel.licenseN = "YES"
+        default:
+            break
+        }
+    }
+    
     
     //Data to pass for Respective Cell Class
     func passDataToTableViewCell(cell : UITableViewCell, indexPath : IndexPath){
@@ -494,6 +528,19 @@ extension AccountsMenuViewController : UITableViewDataSource{
         return 50;
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let myLabel = UILabel()
+        myLabel.frame = CGRect(x: 15, y: 18, width: tableView.frame.size.width, height: 20)
+        myLabel.font = UIFont(name:"Ubuntu", size: 18.0)
+        myLabel.text = filterClass.sectionNames[section] as? String
+        
+        let headerView = UIView()
+        headerView.addSubview(myLabel)
+        
+        return headerView;
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (filterClass.sectionNames.count > 0) {
             return filterClass.sectionNames[section] as? String
@@ -505,9 +552,12 @@ extension AccountsMenuViewController : UITableViewDataSource{
         return 50.0;
     }
     
+    
+    
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.contentView.backgroundColor = UIColor.white
+        let header = view
+        header.backgroundColor = UIColor.white
         
         if let viewWithTag = self.view.viewWithTag(kHeaderSectionTag + section) {
             viewWithTag.removeFromSuperview()
@@ -622,11 +672,11 @@ extension AccountsMenuViewController : UISearchBarDelegate{
             //self.searchByEnteredTextDelegate?.filtering(filtering: false)
             //searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
         }/*
-        else
-        {
-            self.searchByEnteredTextDelegate?.filtering(filtering: true)
-            self.searchByEnteredTextDelegate?.sortAccountsData(searchString: searchText)
-        }*/
+         else
+         {
+         self.searchByEnteredTextDelegate?.filtering(filtering: true)
+         self.searchByEnteredTextDelegate?.sortAccountsData(searchString: searchText)
+         }*/
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

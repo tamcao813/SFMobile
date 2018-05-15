@@ -13,6 +13,8 @@ class CalendarListViewController: UIViewController {
     @IBOutlet weak var weekView: WRWeekView!
     @IBOutlet weak var dateHeaderLabel: UILabel!
 
+    var currentShowingDate: Date?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -55,22 +57,33 @@ class CalendarListViewController: UIViewController {
     }
     
     @IBAction func actionButtonLeft(_ sender: Any) {
-        weekView.collectionView.scrollToPreviousItem()
+        
+        weekView.scrollToPreviousItem()
+
     }
         
     @IBAction func actionButtonRight(_ sender: Any) {
-        weekView.collectionView.scrollToNextItem()
+
+        weekView.scrollToNextItem()
+
     }
     
     // MARK: - WRCalendarView
     func setupCalendarData() {
+        
+        currentShowingDate = Date()
+        
         weekView.setCalendarDate(Date())
         weekView.delegate = self        
         weekView.calendarType = .day
+        
     }
     
     func moveToToday() {
+
+        currentShowingDate = Date()
         weekView.setCalendarDate(Date(), animated: true)
+
     }
 
 }
@@ -78,7 +91,10 @@ class CalendarListViewController: UIViewController {
 extension CalendarListViewController: WRWeekViewDelegate {
     func view(startDate: Date, interval: Int) {
         print(startDate, interval)
-        displayDateHeader(startDate)
+        currentShowingDate = startDate
+        DispatchQueue.main.async {
+            self.displayDateHeader(startDate)
+        }
     }
     
     func tap(date: Date) {

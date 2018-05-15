@@ -38,6 +38,7 @@ class AccountVisitSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
     }
     
     
@@ -51,6 +52,14 @@ class AccountVisitSummaryViewController: UIViewController {
     @objc func refreshVisit(){
         fetchVisit()
     }
+    
+    @objc func navigateToAccountScreen(){
+        DispatchQueue.main.async {
+            self.dismiss(animated: false, completion: nil)
+            self.delegate?.navigateToAccountScreen()
+        }
+    }
+    
     
     func fetchVisit(){
         if let id = visitId{

@@ -226,16 +226,17 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
 //        delegate?.navigateToVisitSummaryScreen()
 //        self.dismiss(animated: true, completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
-//        if indexPath.section == 0{
-//            DispatchQueue.main.async {
-//                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-//                    self.dismiss(animated: true, completion: nil)
+        if indexPath.section == 0{
+            DispatchQueue.main.async {
+                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
+                    self.dismiss(animated: false, completion: nil)
 //                    self.delegate?.navigateToAccountScreen()
-//                }){
-//
-//                }
-//            }
-//        }
+                }){
+
+                }
+            }
+        }
         
         
         

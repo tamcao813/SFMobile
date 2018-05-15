@@ -537,7 +537,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 return cell!
             case 7:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
-                cell?.headerLabel.text = "Favorites Activities"
+                cell?.headerLabel.text = "Favorite Activities"
                 favouriteTextView = cell?.descriptionTextView
                 cell?.descriptionTextView.tag = 3
                 if let fav = contactDetail?.favouriteActivities, fav != "" {

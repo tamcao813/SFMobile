@@ -1,23 +1,23 @@
 //
-//  ChatterViewController.swift
+//  ChatterModelViewController.swift
 //  SWSApp
 //
-//  Created by Krishna, Kamya on 4/3/18.
+//  Created by r.a.jantakal on 15/05/18.
 //  Copyright © 2018 maria.min-hui.yu. All rights reserved.
 //
 
-import UIKit
 import Foundation
+import UIKit
 import SalesforceSDKCore
-import WebKit
 
-class ChatterViewController: UIViewController , WKNavigationDelegate {
+class ChatterModelViewController : UIViewController , WKNavigationDelegate{
     
-    @IBOutlet var webView : WKWebView?
+    @IBOutlet weak var webView : WKWebView?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     let endUrl = "/one/one.app?source=alohaHeader#/sObject/Event/home"
 
+    
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         
-        let authUrl: String = instanceUrl + "/secur/frontdoor.jsp?sid=" + accessToken + "&retURL="
+        let authUrl: String = instanceUrl + "/secur/frontdoor.jsp?sid=" + accessToken + "&retURL=" + "/c/sgwsChatterApp.app?acnid=" + AccountId.selectedAccountId
         
         let accountUrl: String = authUrl +  endUrl
         
@@ -46,24 +46,30 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         
         webView?.load(requestObj)
         
-        //self.view.bringSubview(toFront: activityIndicator)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-      
+        
         
     }
+    
+    override  func viewWillDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+    }
+    
+    //MARK:- IBActions
+    @IBAction func closeButtonAction(sender : UIButton){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 ////MARK:- UIWebView Delegate
-extension ChatterViewController : UIWebViewDelegate{
-    
+extension ChatterModelViewController :UIWebViewDelegate{
+
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
         activityIndicator.stopAnimating()
@@ -79,3 +85,4 @@ extension ChatterViewController : UIWebViewDelegate{
         activityIndicator.stopAnimating()
     }
 }
+

@@ -49,6 +49,13 @@ class PlanVistManager {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let accountId = appDelegate.loggedInUser?.accountId
 
+        
+            let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        
+        
             let new_visit = PlanVisit(for: "newVisit")
             new_visit.Id = (visit?.Id)!
             new_visit.subject = (visit?.subject)!
@@ -61,6 +68,9 @@ class PlanVistManager {
             new_visit.status = (visit?.status)!
             new_visit.description = (visit?.description)!
             new_visit.contactId = (visit?.contactId)!
+            new_visit.lastModifiedDate = timeStamp
+        
+        
 
             let attributeDict = ["type":"WorkOrder"]
         
@@ -78,6 +88,7 @@ class PlanVistManager {
                 PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
                 PlanVisit.planVisitFields[9]: new_visit.status,
                 PlanVisit.planVisitFields[11]: new_visit.contactId,
+                PlanVisit.planVisitFields[10]:new_visit.lastModifiedDate,
                 
                 kSyncTargetLocal:true,
                 kSyncTargetLocallyCreated:true,
@@ -86,7 +97,7 @@ class PlanVistManager {
                 "attributes":attributeDict]
             
             let success = VisitSchedulerViewModel().editVisitToSoup(fields: addNewDict)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             print("Success is here \(success)")
             
         

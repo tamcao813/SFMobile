@@ -9,7 +9,7 @@
 import Foundation
 
 class AccountNotes {
-    static let AccountNotesFields: [String] = ["Id","LastModifiedDate","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"]
+    static let AccountNotesFields: [String] = ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"]
     
     var Id:String
     var lastModifiedDate:String
@@ -25,7 +25,7 @@ class AccountNotes {
     
     init(json: [String: Any]) {
         Id = json["Id"] as? String ?? ""
-        lastModifiedDate = json["LastModifiedDate"] as? String ?? ""
+        lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
         name = json["Name"] as? String ?? ""
         ownerId = json["OwnerId"] as? String ?? ""
         accountId = json["SGWS_Account__c"] as? String ?? ""

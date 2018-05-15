@@ -16,26 +16,27 @@ class EditAgendaNoteViewController: UIViewController {
     var editNotesText:String = ""
     
     override func viewDidLoad() {
-        bgView.dropShadow(color: .lightGray, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
+        bgView.backgroundColor = UIColor.white
+        bgView.layer.shadowColor = UIColor.lightGray.cgColor
+        bgView.layer.shadowOpacity = 1
+        bgView.layer.shadowOffset = CGSize.zero
+        bgView.layer.shadowRadius = 5
         descriptionTextView.text = editNotesText
-        
     }
     
     //MARK:- IBAction
     
     @IBAction func closeVC(sender: UIButton) {
-        
-        self.dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
+        }
     }
     
     @IBAction func saveAndClose(sender: UIButton) {
-        
         PlanVistManager.sharedInstance.visit?.description = descriptionTextView.text
-        
         let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountList"), object:nil)
-        
-        self.dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
+        }        
     }
 }

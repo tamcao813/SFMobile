@@ -8,7 +8,7 @@
 
 import Foundation
 class StrategyQA {
-    static let StrategyQAFields: [String] = ["Id","SGWS_Account__c","SGWS_Question_Sub_Type__c","SGWS_Question__c","SGWS_Notes__c","LastModifiedById","LastModifiedDate","OwnerId","SGWS_Answer_Description_List__c"]
+    static let StrategyQAFields: [String] = ["Id","SGWS_Account__c","SGWS_Question_Sub_Type__c","SGWS_Question__c","SGWS_Notes__c","LastModifiedById","SGWS_AppModified_DateTime__c","OwnerId","SGWS_Answer_Description_List__c"]
     
     var Id:String
     var SGWS_Account__c:String
@@ -32,7 +32,7 @@ class StrategyQA {
         SGWS_Question_Sub_Type__c = json["SGWS_Question_Sub_Type__c"] as? String ?? ""
         SGWS_Notes__c = json["SGWS_Notes__c"] as? String ?? ""
         LastModifiedById = json["LastModifiedById"] as? String ?? ""
-        LastModifiedDate =  json["LastModifiedDate"] as? String ?? ""
+        LastModifiedDate =  json["SGWS_AppModified_DateTime__c"] as? String ?? ""
         OwnerId = json["OwnerId"] as? String ?? ""
         SGWS_Answer_Description_List__c = json["SGWS_Answer_Description_List__c"] as? String ?? ""
         SGWS_Question__c = json["SGWS_Question__c"] as? String ?? ""

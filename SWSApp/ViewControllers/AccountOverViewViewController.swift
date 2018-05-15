@@ -14,12 +14,34 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     @IBOutlet weak var upcomingActivitiesTableView: UITableView!
     @IBOutlet weak var pastActivitiesTableView: UITableView!
+    var account : Account?
+    let visitModel = VisitSchedulerViewModel()
+    var visitToDisplay = [PlanVisit]()
+    var visitArray = [PlanVisit]()
+    var accountId : String!
+   
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         upcomingActivitiesTableView.delegate = self
         upcomingActivitiesTableView.dataSource = self
         pastActivitiesTableView.delegate =  self
         pastActivitiesTableView.dataSource = self
+        
+        self.accountId = account?.account_Id
+        
+        
+        visitToDisplay = visitModel.visitsForUser()
+        for accVisit in visitToDisplay {
+            
+            if(accVisit.accountId ==  accountId) {
+                visitArray.append(accVisit)
+            }
+           
+        }
+        
+       
         
         // Do any additional setup after loading the view.
     }
@@ -29,13 +51,14 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    
     // MARK: - TableView Functions
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 5
+        return visitArray.count
         
     }
     
@@ -44,10 +67,9 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         if tableView.tag == 1{
             
             let upComingActivitiesCell:AccountOverView_UpComingTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingActivitiesCell") as! AccountOverView_UpComingTableViewCell
-            upComingActivitiesCell.UpComingActivities_TitleLabel.text = "Today is Jeanna Smith’s Birthday"
-            upComingActivitiesCell.UpComingActivities_DetailsLabel.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore"
-            upComingActivitiesCell.UpComingActivities_TimeLabel.text = " 3 Hours Ago"
-           
+            upComingActivitiesCell.UpComingActivities_TitleLabel.text = visitArray[indexPath.row].sgwsVisitPurpose
+            upComingActivitiesCell.UpComingActivities_DetailsLabel.text = visitArray[indexPath.row].description
+            upComingActivitiesCell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
             return upComingActivitiesCell
             
             
@@ -58,7 +80,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             let pastActivitiesCell:AccountOverView_PastActivitiesTableViewCell = pastActivitiesTableView.dequeueReusableCell(withIdentifier: "pastActivitiesCell") as! AccountOverView_PastActivitiesTableViewCell
             pastActivitiesCell.PastActivities_TitleLabel.text = "Today is Jeanna Smith’s Birthday"
             pastActivitiesCell.PastActivities_DetailLabel.text = "Two line description perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
-            pastActivitiesCell.PastActivities_TimeLabel.text = " 3 Hours Ago"
+            pastActivitiesCell.PastActivities_TimeLabel.text = " 2 Hours Ago"
             
             
             return pastActivitiesCell

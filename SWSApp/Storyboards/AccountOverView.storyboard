@@ -41,7 +41,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ej0-AQ-prj">
-                                                    <rect key="frame" x="15" y="20" width="298" height="0.0"/>
+                                                    <rect key="frame" x="15" y="20" width="450" height="0.0"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                                                 <constraint firstItem="0hB-ej-urd" firstAttribute="leading" secondItem="Ej0-AQ-prj" secondAttribute="leading" id="EKO-z4-YeX"/>
                                                 <constraint firstItem="Ej0-AQ-prj" firstAttribute="leading" secondItem="qbE-Sm-Dej" secondAttribute="leading" constant="15" id="G1u-r3-trb"/>
                                                 <constraint firstItem="Ttj-JW-Snw" firstAttribute="top" secondItem="0hB-ej-urd" secondAttribute="bottom" constant="17" id="G7H-US-wxA"/>
-                                                <constraint firstAttribute="trailing" secondItem="Ej0-AQ-prj" secondAttribute="trailing" constant="177" id="H1T-VP-On1"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ej0-AQ-prj" secondAttribute="trailing" constant="25" id="H1T-VP-On1"/>
                                                 <constraint firstItem="mMt-8j-dLX" firstAttribute="height" secondItem="Ttj-JW-Snw" secondAttribute="height" id="Lft-B7-lnm"/>
                                                 <constraint firstItem="mMt-8j-dLX" firstAttribute="leading" secondItem="Ttj-JW-Snw" secondAttribute="trailing" constant="8" id="Yfy-Qc-Q1X"/>
                                                 <constraint firstItem="Ttj-JW-Snw" firstAttribute="leading" secondItem="Ej0-AQ-prj" secondAttribute="leading" id="ZSQ-n4-Qxf"/>
@@ -148,7 +148,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhG-UU-Otw">
-                                <rect key="frame" x="36" y="20" width="140" height="40"/>
+                                <rect key="frame" x="36" y="37" width="140" height="33"/>
                                 <color key="backgroundColor" name="Data New"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                 <state key="normal" title="Filter ">
@@ -164,8 +164,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fhG-UU-Otw" firstAttribute="top" secondItem="Tj7-bz-iAR" secondAttribute="top" id="0cI-cs-J44"/>
-                            <constraint firstItem="MIA-iz-OsG" firstAttribute="top" secondItem="fhG-UU-Otw" secondAttribute="bottom" constant="40" id="77q-DY-YER"/>
+                            <constraint firstItem="fhG-UU-Otw" firstAttribute="top" secondItem="Tj7-bz-iAR" secondAttribute="top" constant="17" id="0cI-cs-J44"/>
                             <constraint firstItem="MIA-iz-OsG" firstAttribute="leading" secondItem="Tj7-bz-iAR" secondAttribute="leading" constant="20" id="9i4-1P-kST"/>
                             <constraint firstItem="nz4-Fe-Hj3" firstAttribute="leading" secondItem="MIA-iz-OsG" secondAttribute="trailing" constant="4" id="L1z-OQ-bWD"/>
                             <constraint firstItem="Tj7-bz-iAR" firstAttribute="trailing" secondItem="fhG-UU-Otw" secondAttribute="trailing" constant="848" id="elc-xW-CUV"/>
@@ -185,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VAa-GB-gCg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="165" y="-84"/>
+            <point key="canvasLocation" x="164.6484375" y="-84.375"/>
         </scene>
     </scenes>
     <resources>

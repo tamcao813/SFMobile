@@ -284,6 +284,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             btnOverview?.backgroundColor = UIColor.white
             btnOverview?.setTitleColor(UIColor.black, for: .normal)
             let accountOverView: AccountOverViewViewController = accountOverViewStoryboard.instantiateViewController(withIdentifier: "AccountOverViewID")  as! AccountOverViewViewController
+            accountOverView.account = accountDetailForLoggedInUser
             activeViewController = accountOverView
             
             

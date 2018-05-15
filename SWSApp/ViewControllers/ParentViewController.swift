@@ -65,8 +65,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     lazy var calendarVC : UIViewController? = {
         let calendarTabVC = self.storyboard?.instantiateViewController(withIdentifier: "CalendarViewControllerID")
         
-        //let planVisitStoryboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-        //let calendarTabVC = planVisitStoryboard.instantiateViewController(withIdentifier: "PlanVisitViewControllerID")
         return calendarTabVC
     }()
     // objectives VC
@@ -503,6 +501,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             
             let accVC = contactsVC as? ContactsViewController
             accVC?.filterMenuVC?.clearFilterModelData(clearcontactsOnMyRoute: false)
+        }
+        
+        if index != 3 {
+            calendarVC?.willMove(toParentViewController: nil)
+            calendarVC?.view.removeFromSuperview()
+            calendarVC?.removeFromParentViewController()
         }
         
         self.clearAccountFilterModel()

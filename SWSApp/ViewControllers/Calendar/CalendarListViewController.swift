@@ -19,21 +19,33 @@ class CalendarListViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        setupCalendarData()
-                
-        weekView.addEvents(events: CalendarViewModel().loadVisitData()!)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshCalendar), name: NSNotification.Name("refreshCalendar"), object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         print("CalendarListViewController : viewWillAppear")
+        reloadCalendarView()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshCalendar"), object: nil)
+    }
+    
+    @objc func refreshCalendar(){
+        reloadCalendarView()
+    }
+    
+    func reloadCalendarView() {
+        setupCalendarData()
+        weekView.setEvents(events: CalendarViewModel().loadVisitData()!)
+        moveToToday()
     }
     
     func displayDateHeader(_ startDate: Date) {

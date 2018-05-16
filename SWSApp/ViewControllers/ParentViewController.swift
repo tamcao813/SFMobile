@@ -310,6 +310,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 DispatchQueue.main.async {
                     MBProgressHUD.hide(forWindow: true)
                 }
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             })

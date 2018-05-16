@@ -304,6 +304,7 @@ class CreateNewVisitViewController: UIViewController {
         }
         
         if(success){
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             if dismiss {
                 DispatchQueue.main.async {

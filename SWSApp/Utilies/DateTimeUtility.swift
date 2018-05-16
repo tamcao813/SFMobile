@@ -59,6 +59,45 @@ class DateTimeUtility
         return timeStamp
         
     }
+    
+    static func getEEEEMMMdFormattedDateString(date: Date?) -> String {
+        if(date == nil) {
+            return ""
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMM d"
+        
+        let timeStamp = dateFormatter.string(from: date!)
+        
+        return timeStamp
+    }
+    
+    static func getDateFromyyyyMMddTimeFormattedDateString(dateString: String) -> Date? {
+        
+        var returnDate: Date?
+        
+        if(dateString == "") {
+            return returnDate
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz"
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        returnDate = dateFormatter.date(from: dateString)
+        
+        guard let _ = returnDate else {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            dateFormatter.timeZone = TimeZone(identifier:"UTC")
+            returnDate = dateFormatter.date(from: dateString)
+            
+            return returnDate
+        }
+        
+        return returnDate
+        
+    }
+    
 }
 
 extension Date {
@@ -75,6 +114,31 @@ extension Date {
         }
     }
     
+    func set(year: Int?=nil, month: Int?=nil, day: Int?=nil, hour: Int?=nil, minute: Int?=nil, second: Int?=nil, tz: String?=nil) -> Date {
+        let timeZone = Calendar.current.timeZone
+        let year = year ?? self.year
+        let month = month ?? self.month
+        let day = day ?? self.day
+        let hour = hour ?? self.hour
+        let minute = minute ?? self.minute
+        let second = second ?? self.second
+        let dateComponents = DateComponents(timeZone:timeZone, year:year, month:month, day:day, hour:hour, minute:minute, second:second)
+        let date = Calendar.current.date(from: dateComponents)
+        return date!
+    }
+    
+    func add(component: Calendar.Component, value: Int) -> Date {
+        return Calendar.current.date(byAdding: component, value: value, to: self)!
+    }
+    
+    var startOfDay: Date {
+        return Calendar.current.startOfDay(for: self)
+    }
+    
+    var endOfDay: Date {
+        return self.set(hour: 23, minute: 59, second: 59)
+    }
+    
     init(year: Int, month: Int, day: Int) {
         var dc = DateComponents()
         dc.year = year
@@ -88,6 +152,20 @@ extension Date {
         } else {
             fatalError("Date component values were invalid.")
         }
+    }
+    
+    static func daysBetween(start: Date, end: Date, ignoreHours: Bool) -> Int {
+        let startDate = ignoreHours ? start.startOfDay : start
+        let endDate = ignoreHours ? end.startOfDay : end
+        return Calendar.current.dateComponents([.day], from: startDate, to: endDate).day!
+    }
+    
+    static func hoursBetween(start: Date, end: Date) -> Int {
+        return Calendar.current.dateComponents([.hour], from: start, to: end).hour!
+    }
+    
+    static func minutesBetween(start: Date, end: Date) -> Int {
+        return Calendar.current.dateComponents([.minute], from: start, to: end).minute!
     }
     
 }

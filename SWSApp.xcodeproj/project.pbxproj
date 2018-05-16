@@ -959,19 +959,19 @@
 		91FAEF2120A57DD500209D71 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */,
+				91FAEF2D20A57DD500209D71 /* WRTodayBackground.swift */,
 				91FAEF2320A57DD500209D71 /* WRRowHeaderBackground.swift */,
-				91FAEF2420A57DD500209D71 /* WRRowHeader.swift */,
-				91FAEF2520A57DD500209D71 /* WREventCell.swift */,
 				91FAEF2620A57DD500209D71 /* WRGridLine.swift */,
 				91FAEF2720A57DD500209D71 /* WRColumnHeaderBackground.swift */,
-				91FAEF2820A57DD500209D71 /* WRColumnHeader.xib */,
 				91FAEF2920A57DD500209D71 /* WRCornerHeader.swift */,
-				91FAEF2A20A57DD500209D71 /* WRColumnHeader.swift */,
+				91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */,
 				91FAEF2B20A57DD500209D71 /* WRCurrentTimeIndicator.swift */,
 				91FAEF2C20A57DD500209D71 /* WRCurrentTimeIndicator.xib */,
-				91FAEF2D20A57DD500209D71 /* WRTodayBackground.swift */,
+				91FAEF2A20A57DD500209D71 /* WRColumnHeader.swift */,
+				91FAEF2820A57DD500209D71 /* WRColumnHeader.xib */,
+				91FAEF2420A57DD500209D71 /* WRRowHeader.swift */,
 				91FAEF2E20A57DD500209D71 /* WRRowHeader.xib */,
+				91FAEF2520A57DD500209D71 /* WREventCell.swift */,
 				91FAEF2F20A57DD500209D71 /* WREventCell.xib */,
 			);
 			path = Views;

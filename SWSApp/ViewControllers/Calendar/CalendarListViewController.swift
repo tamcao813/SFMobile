@@ -173,14 +173,14 @@ class CalendarListViewController: UIViewController {
                     return
                 }
                 self.currentCalendarViewType = .Day
-                self.calViewButton.setTitle("Day View  ", for: .normal)
+                self.calViewButton.setTitle("Day View    ", for: .normal)
                 
             case 1:
                 if self.currentCalendarViewType == .Week {
                     return
                 }
                 self.currentCalendarViewType = .Week
-                self.calViewButton.setTitle("Week View  ", for: .normal)
+                self.calViewButton.setTitle("Week View    ", for: .normal)
 
             case 2:
                 print("TBD launch Event")

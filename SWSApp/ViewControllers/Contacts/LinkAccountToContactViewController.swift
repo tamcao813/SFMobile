@@ -17,7 +17,7 @@ class LinkAccountToContactViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeadingLabel: UILabel!
-    var accountSelected: Account!
+    var accountSelected: Account?
     var doesHaveBuyingPower = true
     var primaryFunctionTextField : UITextField!
     var searchAccountTextField : UITextField!
@@ -27,30 +27,38 @@ class LinkAccountToContactViewController: UIViewController {
     var contactObject: Contact?
     var contactName: String?
     @IBOutlet weak var errorLabel: UILabel!
-    var isInEditMode: Bool?
+    var isInEditMode: Bool = false
     var delegate: LinkAccountToContactViewControllerDelegate?
+    var accountIdSelected: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
         initializingXIBs()
-        if let accountId = contactObject?.accountId {
-            fetchAccountDetails(accountId: accountId)
+        if isInEditMode {
+            fetchAccountDetails()
         }
     }
     
-    func fetchAccountDetails(accountId: String){
+    func fetchAccountDetails(){
         let accountsArray = AccountsViewModel().accountsForLoggedUser
+        
+        if !isInEditMode {
+            return
+        }
+        
+        let accountId = contactObject?.accountId
+        
         for account in accountsArray{
             if account.account_Id == accountId {
-                accountSelected = account
+                accountSelected = account //this is for Edit
                 break
             }
         }
     }
     
     func customizedUI(){
-        if isInEditMode! {
+        if isInEditMode {
             pageHeadingLabel.text = "Edit Linked Account"
         }else{
             pageHeadingLabel.text = "Link New Account to \(contactName ?? "")"
@@ -97,7 +105,7 @@ class LinkAccountToContactViewController: UIViewController {
         searchAccountTextField.borderColor = .lightGray
         primaryFunctionTextField.borderColor = .lightGray
         
-        if accountSelected == nil {
+        if !isInEditMode && accountSelected == nil {
             searchAccountTextField.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
@@ -124,12 +132,22 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 1
-        case 1:
-            if accountSelected != nil {
+            if isInEditMode {
+                return 0
+            }
+            else {
                 return 1
             }
-            return 0
+        case 1:
+            if isInEditMode {
+                return 1
+            }
+            else {
+                if accountSelected != nil {
+                    return 1
+                }
+                return 0
+            }
         case 2:
             return 1
         case 3:
@@ -148,11 +166,12 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
-            searchAccountTextField = cell?.searchContactTextField
-            accountsDropDown = cell?.accountsDropDown
-            cell?.delegate = self
-            return cell!
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
+                searchAccountTextField = cell?.searchContactTextField
+                accountsDropDown = cell?.accountsDropDown
+                cell?.delegate = self
+                return cell!
+            
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell") as? AccountContactLinkTableViewCell
             cell?.containerTrailingConstraint.constant = 40
@@ -226,7 +245,7 @@ extension LinkAccountToContactViewController: ToggleTableViewCellDelegate {
 
 extension LinkAccountToContactViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
-        if account.account_Id == contactObject?.accountId {
+        if !isInEditMode && account.account_Id == contactObject?.accountId {
         
             let alertController = UIAlertController(title: "This account is already linked.", message:
                 "Please select another account.", preferredStyle: UIAlertControllerStyle.alert)

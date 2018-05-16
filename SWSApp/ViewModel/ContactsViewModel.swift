@@ -36,7 +36,11 @@ class ContactsViewModel{
     func contactIdForACR(with tempId: String) -> String {
         return StoreDispatcher.shared.fetchContactId(for: tempId)
     }
-    
+    /*
+    func aCRsWithBuyingPower(forAccount accountId:String) -> [AccountContactRelation] {
+        return StoreDispatcher.shared.fetchACRsWithBuyingPower(forAccount: accountId)
+    }
+    */
     //sync up Contact then sync down
     func syncContactWithServer(_ completion:@escaping (_ error: NSError?)->()) {
         let fields: [String] = Contact.ContactFields

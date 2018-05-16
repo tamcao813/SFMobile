@@ -28,11 +28,7 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
         
-        if AppDelegate.isConnectedToNetwork(){
-            lblNoNetworkConnection?.isHidden = true
-        }else{
-            lblNoNetworkConnection?.isHidden = false
-        }
+        
         
     }
     
@@ -46,26 +42,17 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
         
         let accountUrl: String = authUrl +  endUrl
         
-        //let url = URL (string: "https://sgws-de--dedev1.lightning.force.com/one/one.app?source=alohaHeader#/sObject/Event/home")
-        
         let url  =  URL(string:authUrl+accountUrl)
         let requestObj = URLRequest(url: url!)
         webView?.navigationDelegate = self
         
         webView?.load(requestObj)
         
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-    }
-    
-    override  func viewWillDisappear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
+        if AppDelegate.isConnectedToNetwork(){
+            lblNoNetworkConnection?.isHidden = true
+        }else{
+            lblNoNetworkConnection?.isHidden = false
+        }
     }
     
     //MARK:- IBActions

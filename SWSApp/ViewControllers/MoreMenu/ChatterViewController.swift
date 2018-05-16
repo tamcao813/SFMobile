@@ -27,12 +27,6 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
-        
-        if AppDelegate.isConnectedToNetwork(){
-            lblNoNetworkConnection?.isHidden = true
-        }else{
-            lblNoNetworkConnection?.isHidden = false
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,10 +36,7 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         
         let authUrl: String = instanceUrl + "/secur/frontdoor.jsp?sid=" + accessToken + "&retURL="
-        
         let accountUrl: String = authUrl +  endUrl
-        
-        //let url = URL (string: "https://sgws-de--dedev1.lightning.force.com/one/one.app?source=alohaHeader#/sObject/Event/home")
         
         let url  =  URL(string:authUrl+accountUrl)
         let requestObj = URLRequest(url: url!)
@@ -53,19 +44,13 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         
         webView?.load(requestObj)
         
-        //self.view.bringSubview(toFront: activityIndicator)
+        if AppDelegate.isConnectedToNetwork(){
+            lblNoNetworkConnection?.isHidden = true
+        }else{
+            lblNoNetworkConnection?.isHidden = false
+        }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-      
-        
-    }
 }
 
 ////MARK:- UIWebView Delegate

@@ -435,8 +435,6 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
-                cell?.noButton.isEnabled = false
-                cell?.yesButton.isEnabled = false
                 cell?.setBuyingPower(value:  doesHaveBuyingPower)
                 return cell!
             case 1:

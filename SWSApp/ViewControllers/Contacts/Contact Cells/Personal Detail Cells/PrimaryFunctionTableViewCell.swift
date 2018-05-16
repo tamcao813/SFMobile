@@ -19,7 +19,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     @IBOutlet weak var departmentTextField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var departmentLabel: UILabel!
-    weak var delegate: PrimaryFunctionTableViewCellDelegate?
+    //weak var delegate: PrimaryFunctionTableViewCellDelegate?
     
     var pickerOption = [[String:Any]]()
     var selectedPrimaryFunctionOption  = [String:Any]()
@@ -47,7 +47,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
         
         //filter picker options with respect to buying power
         for opt in opts {
-            let option = opt as! Dictionary<String, Any>
+            let option = opt as! [String: Any]
             if option["validFor"] as! Int == 1 {
                 pickerOptionBuyingPower.append(option)
             }
@@ -124,7 +124,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
                 primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"] as? String
             }
         }
-        self.delegate?.primaryFunctionValueSelected(value: selectedPrimaryFunctionOption["value"]! as! String)
+        //self.delegate?.primaryFunctionValueSelected(value: selectedPrimaryFunctionOption["value"]! as! String)
         primaryFunctionTextField.resignFirstResponder()
     }
     

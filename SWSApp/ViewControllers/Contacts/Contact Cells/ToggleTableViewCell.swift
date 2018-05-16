@@ -21,6 +21,8 @@ class ToggleTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        noButton.isEnabled = true
+        yesButton.isEnabled = true
         questionLabel.text = "Does this contact have buying power?"
     }
     

@@ -18,7 +18,7 @@ class LinkAccountToContactViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeadingLabel: UILabel!
     var accountSelected: Account!
-    var doesHaveBuyingPower = false
+    var doesHaveBuyingPower = true
     var primaryFunctionTextField : UITextField!
     var searchAccountTextField : UITextField!
     var contactClassificationTextField : UITextField!
@@ -134,6 +134,8 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
             return 1
         case 3:
             if doesHaveBuyingPower {
+                contactClassificationTextField?.text = ""
+                otherReasonTextField?.text = ""
                 return 1
             }else{
                 return 2
@@ -162,16 +164,18 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
             return cell!
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
-            if let contactDetail = contactObject {
+            cell?.setBuyingPower(value: doesHaveBuyingPower)
+
+//            if let contactDetail = contactObject {
 //                cell?.contactDetail = contactDetail
 //                cell?.displayCellContent()
-                cell?.primaryFunctionTextField.text = contactDetail.functionRole
-            }
+//                cell?.primaryFunctionTextField.text = contactDetail.functionRole
+//            }
             cell?.departmentTextField.isHidden = true
             cell?.titleTextField.isHidden = true
             cell?.titleLabel.isHidden = true
             cell?.departmentLabel.isHidden = true
-            cell?.delegate = self
+            //cell?.delegate = self
             primaryFunctionTextField = cell?.primaryFunctionTextField
             return cell!
         case 3:
@@ -179,10 +183,7 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
-                if let contactDetail = contactObject {
-                    //Assign the buying flag 
-                    //cell?.buyingPower = contactDetail.buyerFlag
-                }
+                cell?.setBuyingPower(value:  doesHaveBuyingPower)
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
@@ -225,6 +226,15 @@ extension LinkAccountToContactViewController: ToggleTableViewCellDelegate {
 
 extension LinkAccountToContactViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
+        if account.account_Id == contactObject?.accountId {
+        
+            let alertController = UIAlertController(title: "This account is already linked.", message:
+                "Please select another account.", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        
         accountSelected = account
         tableView.reloadData()
     }

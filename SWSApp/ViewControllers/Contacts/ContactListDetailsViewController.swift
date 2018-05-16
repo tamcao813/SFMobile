@@ -141,6 +141,7 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         let linkAccountToContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "LinkAccountToContactViewController") as? LinkAccountToContactViewController
         linkAccountToContactVC?.isInEditMode = false
         linkAccountToContactVC?.contactName = contactDetail?.name
+        linkAccountToContactVC?.contactObject = contactDetail
         self.present(linkAccountToContactVC!, animated: true, completion: nil)
     }
     

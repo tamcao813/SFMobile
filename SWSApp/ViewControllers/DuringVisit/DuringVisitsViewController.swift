@@ -480,8 +480,13 @@ class  DuringVisitsViewController : UIViewController {
     @IBAction func chatterClicked(sender : UIButton){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             DispatchQueue.main.async {
-                self.dismiss(animated: true, completion: nil)
-                self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
+                //self.dismiss(animated: true, completion: nil)
+                //self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
+                
+                let chatterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier :"ChatterModelViewControllerID") as! ChatterModelViewController
+                DispatchQueue.main.async {
+                    self.present(chatterViewController, animated: true)
+                }
             }
         }) {
             

@@ -164,7 +164,7 @@ class StoreDispatcher {
     
     // Create PList For Service Purposes
     
-    func createPList(plist:String, plistObject:[[String : AnyObject]]) {
+    func createPList(plist:String, plistObject:[[String : Any]]) {
         
         let fileManager = FileManager.default
         
@@ -172,13 +172,23 @@ class StoreDispatcher {
         let path = documentDirectory.appending(plist)
         if(!fileManager.fileExists(atPath: path)){
             
-            var tempArr = [Dictionary<String, String>]()
-            var targetDict = [String: String]()
+            var tempArr = [Dictionary<String, Any>]()
+            var targetDict = [String: Any]()
             for object in plistObject {
                 for (key, value) in object {
                     if let value = value as? String {
                         
                         targetDict[key] = value.unescapeXMLCharacter(stringValue: value)
+                    }
+                    else if let value = value as? [Int] {
+                        if key == "validFor" {
+                            if value.count == 1 {
+                                targetDict[key] = value[0]
+                            }
+                            else {
+                                targetDict[key] = -1
+                            }
+                        }
                     }
                 }
                 tempArr.append(targetDict)
@@ -211,7 +221,12 @@ class StoreDispatcher {
                         for option in options {
                             let label = option["label"] as? String ?? ""
                             let value = option["value"] as? String ?? ""
-                            let role = PlistOption(label: label, value: value)
+                            var validFor = -1
+                            if let validbit = option["validFor"] as? [Int] {
+                                validFor = validbit[0]
+                            }
+                            
+                            let role = PlistOption(label: label, value: value, validFor: validFor)
                             
                             rolesAry.append(role)
                         }

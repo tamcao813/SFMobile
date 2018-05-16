@@ -269,6 +269,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.contactHours = contactHoursTextField.text!
         newContact.favouriteActivities = favouriteTextView.text!
         newContact.lastModifiedDate = timeStamp
+        newContact.buyerFlag = doesHaveBuyingPower
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
@@ -299,7 +300,7 @@ class CreateNewContactViewController: UIViewController {
             newContact.accountId = accountSelected.account_Id
         }
         
-        var showAlert = false
+        //var showAlert = false
         globalContacts = ContactsViewModel().globalContacts()
         if globalContacts.count > 0 {
             for index in 0 ... globalContacts.count - 1 {
@@ -434,6 +435,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
+                cell?.setBuyingPower(value:  doesHaveBuyingPower)
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
@@ -601,6 +603,8 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
+            cell?.setBuyingPower(value: doesHaveBuyingPower)
+            
             if let contactDetail = contactDetail {
                 cell?.contactDetail = contactDetail
                 cell?.displayCellContent()

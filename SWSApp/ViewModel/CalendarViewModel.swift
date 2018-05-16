@@ -45,7 +45,12 @@ class CalendarViewModel {
 
                     let daysBetween = Date.daysBetween(start: eventStartDate, end: eventEndDate, ignoreHours: true)
                     
-                    let visitTitle = visit.accountName + ": " + visit.accountNumber
+                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: visit.accountId)
+                    guard accountList != nil, (accountList?.count)! > 0  else {
+                        continue
+                    }
+                    
+                    let visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
                     
                     if daysBetween == 0 {
                         

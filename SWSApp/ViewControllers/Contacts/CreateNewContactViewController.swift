@@ -437,6 +437,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 cell?.delegate = self
                 cell?.noButton.isEnabled = false
                 cell?.yesButton.isEnabled = false
+                cell?.setBuyingPower(value:  doesHaveBuyingPower)
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell

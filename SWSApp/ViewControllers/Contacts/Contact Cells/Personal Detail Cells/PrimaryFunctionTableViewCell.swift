@@ -21,8 +21,8 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     @IBOutlet weak var departmentLabel: UILabel!
     weak var delegate: PrimaryFunctionTableViewCellDelegate?
     
-    var pickerOption:NSArray = []
-    var selectedPrimaryFunctionOption  = Dictionary<String, String>()
+    var pickerOption = [[String:Any]]()
+    var selectedPrimaryFunctionOption  = [String:Any]()
     var contactDetail: Contact?
     var buyingPower: Bool = true
     var pickerOptionBuyingPower = [[String:Any]]()
@@ -124,7 +124,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
                 primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"] as? String
             }
         }
-        self.delegate?.primaryFunctionValueSelected(value: selectedPrimaryFunctionOption["value"]!)
+        self.delegate?.primaryFunctionValueSelected(value: selectedPrimaryFunctionOption["value"]! as! String)
         primaryFunctionTextField.resignFirstResponder()
     }
     

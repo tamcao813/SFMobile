@@ -256,6 +256,8 @@
 		91C3E59F208F0F600067CF3E /* ContactMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E59D208F0F600067CF3E /* ContactMenuViewController.swift */; };
 		91C3E5A1208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */; };
 		91C3E5A2208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */; };
+		91C6680420AC651C0013C611 /* UIButtonTitleUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C6680320AC651C0013C611 /* UIButtonTitleUtil.swift */; };
+		91C6680520AC65210013C611 /* UIButtonTitleUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C6680320AC651C0013C611 /* UIButtonTitleUtil.swift */; };
 		91FAEF3920A57DD500209D71 /* WRWeekViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF1E20A57DD500209D71 /* WRWeekViewFlowLayout.swift */; };
 		91FAEF3A20A57DD500209D71 /* WRWeekViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF1E20A57DD500209D71 /* WRWeekViewFlowLayout.swift */; };
 		91FAEF3B20A57DD500209D71 /* WREvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2020A57DD500209D71 /* WREvent.swift */; };
@@ -579,6 +581,7 @@
 		91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactFilterViewModel.swift; sourceTree = "<group>"; };
 		91C3E59D208F0F600067CF3E /* ContactMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMenuViewController.swift; sourceTree = "<group>"; };
 		91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMenuTableTableViewCell.swift; sourceTree = "<group>"; };
+		91C6680320AC651C0013C611 /* UIButtonTitleUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonTitleUtil.swift; sourceTree = "<group>"; };
 		91FAEF1E20A57DD500209D71 /* WRWeekViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRWeekViewFlowLayout.swift; sourceTree = "<group>"; };
 		91FAEF2020A57DD500209D71 /* WREvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WREvent.swift; sourceTree = "<group>"; };
 		91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCurrentTimeGridline.swift; sourceTree = "<group>"; };
@@ -966,19 +969,19 @@
 		91FAEF2120A57DD500209D71 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */,
+				91FAEF2D20A57DD500209D71 /* WRTodayBackground.swift */,
 				91FAEF2320A57DD500209D71 /* WRRowHeaderBackground.swift */,
-				91FAEF2420A57DD500209D71 /* WRRowHeader.swift */,
-				91FAEF2520A57DD500209D71 /* WREventCell.swift */,
 				91FAEF2620A57DD500209D71 /* WRGridLine.swift */,
 				91FAEF2720A57DD500209D71 /* WRColumnHeaderBackground.swift */,
-				91FAEF2820A57DD500209D71 /* WRColumnHeader.xib */,
 				91FAEF2920A57DD500209D71 /* WRCornerHeader.swift */,
-				91FAEF2A20A57DD500209D71 /* WRColumnHeader.swift */,
+				91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */,
 				91FAEF2B20A57DD500209D71 /* WRCurrentTimeIndicator.swift */,
 				91FAEF2C20A57DD500209D71 /* WRCurrentTimeIndicator.xib */,
-				91FAEF2D20A57DD500209D71 /* WRTodayBackground.swift */,
+				91FAEF2A20A57DD500209D71 /* WRColumnHeader.swift */,
+				91FAEF2820A57DD500209D71 /* WRColumnHeader.xib */,
+				91FAEF2420A57DD500209D71 /* WRRowHeader.swift */,
 				91FAEF2E20A57DD500209D71 /* WRRowHeader.xib */,
+				91FAEF2520A57DD500209D71 /* WREventCell.swift */,
 				91FAEF2F20A57DD500209D71 /* WREventCell.xib */,
 			);
 			path = Views;
@@ -1218,6 +1221,7 @@
 				8DD15008209330E100858349 /* AccountView.xib */,
 				8DD1501120933A0800858349 /* StringConstants.swift */,
 				AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */,
+				91C6680320AC651C0013C611 /* UIButtonTitleUtil.swift */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -1837,6 +1841,7 @@
 				6D38325F20874026006805C6 /* UserViewModel.swift in Sources */,
 				91FAEF6020A57DD500209D71 /* UIColorExtention.swift in Sources */,
 				8DD1501320933A0800858349 /* StringConstants.swift in Sources */,
+				91C6680520AC65210013C611 /* UIButtonTitleUtil.swift in Sources */,
 				8D99A2F52091E70900FAA71A /* PrimaryFunctionTableViewCell.swift in Sources */,
 				8DD150002093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,
 				8D10B282209B01B600C8A86C /* ContactListDetailsViewController.swift in Sources */,
@@ -1967,6 +1972,7 @@
 				F20C1A2A20934C8B00D2351C /* DuringVisitsInsightsCollectionReusableView.swift in Sources */,
 				F2FD2C2720919AE300037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */,
 				D2EAEB8E2074EC9B005F7792 /* LoadDepositViewController.swift in Sources */,
+				91C6680420AC651C0013C611 /* UIButtonTitleUtil.swift in Sources */,
 				9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */,
 				12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */,
 				8DD15009209330E200858349 /* AccountView.swift in Sources */,

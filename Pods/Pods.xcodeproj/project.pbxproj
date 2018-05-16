@@ -10,7 +10,6 @@
 		00A5DE993CEF7FB0E57A13242345FC74 /* when.m in Sources */ = {isa = PBXBuildFile; fileRef = 424D41B9A96E56CD98CD35DC5AA3A28E /* when.m */; };
 		00CD2217A033474F69FBB080A9AD1B0F /* SFRefreshSyncDownTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 01ECC1E1FC871D608B7F05622A226120 /* SFRefreshSyncDownTarget.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		018FF5649EC4DD930F249AD09A327026 /* SFSmartSyncCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5015ECD7D0D0384D8F630DEF81374AC0 /* SFSmartSyncCacheManager.m */; };
-		022FA8EFAD7FB654385BAD1DB89E3F06 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577B4D5073420E974D134CA5AF5E9B29 /* Foundation.framework */; };
 		0260C12A2017FB8C8BD76CDCDAB111E0 /* SFSmartStoreUpgrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 66071FC787454303812222311621F82F /* SFSmartStoreUpgrade.m */; };
 		028BF063FCB0B362CB634CA71F335DD4 /* TestSetupUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C45C4DD5E252B6C066AB115F18864 /* TestSetupUtils.m */; };
 		02CAE638EF1CEEBD6F5740498F9CA3F8 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27148FF7F75E65E9DC28B98DBB8B4FBD /* DropDown.swift */; };
@@ -101,6 +100,7 @@
 		25A72B64B35DCA71480074A156CEFF50 /* SFSmartSyncCacheManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 38855F340CC2FAF0F4776D18BDDFDDCF /* SFSmartSyncCacheManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25C087DFF271E3D0012DF9AD13843955 /* CocoaLumberjack-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 11751F4BB458CDE142D04B0E2D5E185A /* CocoaLumberjack-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25F3022DE5C77972E3D1148288B612E5 /* SFSDKSoqlBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 033322EE87A61025179C9D28E690BCFA /* SFSDKSoqlBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		26003CA73FE38A8C35315BF46B1EADEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577B4D5073420E974D134CA5AF5E9B29 /* Foundation.framework */; };
 		26164C1811C287EEB6B0CAB019F122F4 /* SFIdentityCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AA8F37A5A333A58BB6F18AC0BF5A10 /* SFIdentityCoordinator.m */; };
 		2638EAAFF90E1ADBA0307F00CBC551D7 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D446CD766FD4D064ABCE7349D2CF8BF5 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		26A9AEC637A1014A68817022752C2E0E /* SFCryptChunks.h in Headers */ = {isa = PBXBuildFile; fileRef = AF0C3460B9D2D2FC892529C734D5D34F /* SFCryptChunks.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -192,7 +192,6 @@
 		4B0F9347718263C67557054C2E15DE61 /* IQTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB480B8BB313362D3814891B35C570C7 /* IQTextView.swift */; };
 		4B3B38489563E08D8B6B9F9EBAF694DB /* SFSoqlSyncDownTarget+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = DC8E43AAD3F48323BDFEB485A329CF74 /* SFSoqlSyncDownTarget+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		4B9E0A7483F84C662440F3C30D847F84 /* SFPBKDFData.m in Sources */ = {isa = PBXBuildFile; fileRef = 57A9B95AE4B037715C0686E61EC58FC5 /* SFPBKDFData.m */; };
-		4BC3D57010FB76541233A1600898B7D9 /* Pods-SWSAppUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F3577BB8F8E14DDF55A523CA2B8F0389 /* Pods-SWSAppUITests-dummy.m */; };
 		4C6DDB4150DA818C644511750DF46ED1 /* SFSDKInstrumentationEventBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1154E8CC3AE5C7A4D7C76BB79FF6F532 /* SFSDKInstrumentationEventBuilder.m */; };
 		4DA831D564BD1DA1B088D24CBA220A1D /* SFRestAPI+QueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB28BD92856CE6EFE35CF53947A394A /* SFRestAPI+QueryBuilder.m */; };
 		4DDC9F5BB37F649981EB8237578697E6 /* SFAdvancedSyncUpTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 80EE7B53929E57CD5DBDBF4BCF7EFDB6 /* SFAdvancedSyncUpTarget.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -301,7 +300,6 @@
 		77E414A161317BDD9DA019F8DB1D0FCA /* firstly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890A7197531BCC08B588946743766828 /* firstly.swift */; };
 		77E44368E1CADAF9040EA831C34A1080 /* SFSDKAppFeatureMarkers.m in Sources */ = {isa = PBXBuildFile; fileRef = 09115D120C2EFB9FB324CD7243E53C94 /* SFSDKAppFeatureMarkers.m */; };
 		77FF7FD02536F0ADD5A223C21C5DD9EA /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4302BC034381DB6B67EBE82C2E0E394D /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		78D3B9FB4362F56DD6C4D10A4CBCA3DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577B4D5073420E974D134CA5AF5E9B29 /* Foundation.framework */; };
 		79C3431B7D1CA760C62CF22875B11271 /* SFSmartStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B3308444E1FA1606075CB07CF0EC16 /* SFSmartStore+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		79E560D07B4DF01E40C54F768F223CC4 /* SFFileProtectionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5F09ECC2557D7D5F67455C73DF8A91 /* SFFileProtectionHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7AB4A61AB561BF3648D1134274666F0D /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 013BA7FB0B2032195F570E4B8DA49EAE /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -313,7 +311,6 @@
 		7D34B48C7019DFBDBA6591534CD13668 /* SFSDKInstrumentationEvent+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 591456827BDB9B9DECAA3D7E7268A57A /* SFSDKInstrumentationEvent+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7E173DE27EF816D756B53576B4190EA6 /* SalesforceSwiftSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 02B3DE82D711DE7E65B2DA4D0DA3CE7C /* SalesforceSwiftSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7E649E7C5D1B7F89A0A78EBF35D2472C /* SFSDKAsyncProcessListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 91D5C94ACB478B8C26A6D163FB28C20F /* SFSDKAsyncProcessListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7E6DB7171D45A6026B32BB80FB115A2A /* Pods-SWSAppTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D5712D564D49ED35598AA8732ED954D /* Pods-SWSAppTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7E7AEDB89D503A5B817272571CD068BA /* SFOAuthOrgAuthConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE9F72B8F7F88F36AC12F82B0140061 /* SFOAuthOrgAuthConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FE321828ECA1D78CCF8A2892A30438B /* IQUIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75021937C6BE45973898252DE58F18E0 /* IQUIViewController+Additions.swift */; };
 		807569A621B59360CE03BBB76EDCFE42 /* SFKeychainItemWrapper+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 3166D82DA6B99B4B404F0B499A3682B6 /* SFKeychainItemWrapper+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -326,6 +323,7 @@
 		82FE33B27A8F4368E3408DEC7E1210A8 /* SFPasscodeProviderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDEC3223E7956E595FACA498729AA5F /* SFPasscodeProviderManager.m */; };
 		835F3C9D5A39D2164EBD457E8655BA06 /* SFSoupIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF464A997D4660CB3F85D836A16EBF /* SFSoupIndex.m */; };
 		83B0E4A33786C45550CBAA86DD9E400B /* IQToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD4C41F6A2CC182DC23FF08893DA69 /* IQToolbar.swift */; };
+		8412F9258F69810444820AFA097BC64C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577B4D5073420E974D134CA5AF5E9B29 /* Foundation.framework */; };
 		853B726BC1FC6A05AEC905836CD7E32D /* SFNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = D55E5C9F9D75767180ED300B7DA31B7F /* SFNetwork.m */; };
 		8546EAE767E1A234B220B4F1C69D11E4 /* SFOAuthInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E3E959636DAF9761DD07A6FEF5C0CEC /* SFOAuthInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		85628EFF8F4DD85208301B2DD7EDEFB1 /* when.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E5CACDAA98E51EFB6D83C5FEDC6347 /* when.swift */; };
@@ -337,6 +335,7 @@
 		8755025C06C527599E22A7CF7B9F7460 /* dispatch_promise.m in Sources */ = {isa = PBXBuildFile; fileRef = 020C7412642E6E8EA0F55F49D6C50087 /* dispatch_promise.m */; };
 		87AD9D97F0F94C85720FC018235CD8A9 /* IQKeyboardManagerSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F91EF5B4941AF0340DF6F43E59C1015F /* IQKeyboardManagerSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		881B705B962BA5F308D1AB7A65ECB58B /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 8155FD0AAAB26491199A27AC1693881C /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		8869F41A372E8F05E5475F8AEDE7F026 /* Pods-SWSAppUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F3577BB8F8E14DDF55A523CA2B8F0389 /* Pods-SWSAppUITests-dummy.m */; };
 		891C963E231E4B9C2DF1BCB2FAE9CA98 /* SFUserAccountManager+URLHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = ECBBEC55D4CD134BCC99795A73D654BF /* SFUserAccountManager+URLHandlers.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		89FF89B73CF153DBB31C49DD9C89C0F0 /* SFParentChildrenSyncHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EE259BAE3ABFAFB412E41CFC7CCE7BD /* SFParentChildrenSyncHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8AAB9F23B26F9FCD0473DF7F33C20C06 /* SFManagedPreferences.h in Headers */ = {isa = PBXBuildFile; fileRef = 8571F25EF1D7EC8453A6D3BB1ACDA15A /* SFManagedPreferences.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -527,7 +526,6 @@
 		D5394CB3312E072300CF3DEE4D0808B0 /* SFSDKAuthCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E04E51F81051A7110197E3C6E7494427 /* SFSDKAuthCommand.m */; };
 		D58FA51D41D9DF5660A76AEC66A9D632 /* SFSmartSqlHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 549E8011E65E258BB752F5C15ECDC710 /* SFSmartSqlHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D598C9ADD173CED4BB3D9B0352F1DE5D /* SFSDKSmartStoreLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = F97A50AF1E217043C7708B144A51A123 /* SFSDKSmartStoreLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D5E6754097648A930AD793F0C3530DD1 /* Pods-SWSAppUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1545DD0E76E30D1A9603005502C266B5 /* Pods-SWSAppUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D71240279E77755F2CA4DE3A3ED9328C /* SFSDKAILTNTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DCC65222EA2E4B1FC49834804CC0C1 /* SFSDKAILTNTransform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D73727239CF6E3B70B43C7634E41D19B /* NSObject+SFBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 12892AD0B1F9783107161DE37276CD62 /* NSObject+SFBlocks.m */; };
 		D73FC432988B04E0A4CB0F59810DF881 /* NSObject+SFBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 6109F712A8A105A35BDD9F08A5D68C2B /* NSObject+SFBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -543,6 +541,7 @@
 		DB1F20E633EF48CC232BA2CEE28407BF /* SFSyncState.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF7BB42E33A5D231ACE7F47B22C9F1 /* SFSyncState.m */; };
 		DB2CE6157849412B1DDC4F4DDB2FF823 /* SmartStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9372F535319C067B73669D15AD8C97AB /* SmartStore.framework */; };
 		DBC15CB9F10E130821E7750E84C3FD2D /* SFPasscodeProviderManager+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 15E3083E763089AB6FB5716D492ABEB7 /* SFPasscodeProviderManager+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		DCE0814B6D1C768C48A0C3AFD8025F9B /* Pods-SWSAppTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D0B011E1A88617ECE11320AB46B6C5 /* Pods-SWSAppTests-dummy.m */; };
 		DD7C914966B77E00CEBD83DC4FE91810 /* SFRestRequest+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 35BCDC41A7E6606DC327A46831D5061B /* SFRestRequest+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		DDAE219C43D7F7602B2A0CBEEDA950EE /* SFPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0DEF28B80D725D2743EDA3B10865A /* SFPasscodeViewController.m */; };
 		DDDF670D008ECB9735920BD8752C8526 /* SFSDKInstrumentationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4ED98272D41D397413E6F1E9771ED5 /* SFSDKInstrumentationEvent.m */; };
@@ -602,7 +601,7 @@
 		EFAA3AD64A32B460272E50A08E4676D1 /* SFSDKIDPInitiatedAuthRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFF867BD2A1CF08F98C7F919E82C587 /* SFSDKIDPInitiatedAuthRequestHandler.m */; };
 		F078CB6EE5AF0390F10637B09F3D059E /* SFObjectTypeLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = A020CDD5A89E73C56993D2698C1FA9B9 /* SFObjectTypeLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F11492EDB7F85803CFC4527EAB425754 /* SalesforceSwiftLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8092337DDB95C1B0AEB6B3D29E476B7 /* SalesforceSwiftLogger.swift */; };
-		F21E775D230600B21C6878B06634CC33 /* Pods-SWSAppTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D0B011E1A88617ECE11320AB46B6C5 /* Pods-SWSAppTests-dummy.m */; };
+		F192AAAE29065D080EF2FA0A19196332 /* Pods-SWSAppUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1545DD0E76E30D1A9603005502C266B5 /* Pods-SWSAppUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F22E59FBB48937FB7875DBDB29A42C3B /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4935D5A7FB62D698E8D5E63B3CDCC4 /* DDContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		F2ADC47B59354AE966B7816F9434299E /* Thenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0799DAE16F9CFD111AA4929EE0ACBB6 /* Thenable.swift */; };
 		F45B21AA2DC9314D739651EAE5BEFCDB /* NSURL+SFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B63FE262FA2118DEAF5FDC8A29008A8A /* NSURL+SFAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -610,6 +609,7 @@
 		F4A23A20395B17ED8642E1E040704466 /* UIColor+SFColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C6BB7326D64DD3831CE566B1FB0B84 /* UIColor+SFColors.m */; };
 		F527C5C53B0F49773FB31439DE3CC83C /* SwipeTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500D9B50AC9D5ECD086107021A304E7A /* SwipeTableViewCellDelegate.swift */; };
 		F668CC7CE4DD9052B82973B7D4334C3E /* SFSDKURLHandlerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8E841A73DE33442862723243C50197 /* SFSDKURLHandlerManager.m */; };
+		F725E87FDFA5835AD331C806B97A5851 /* Pods-SWSAppTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D5712D564D49ED35598AA8732ED954D /* Pods-SWSAppTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F744A80EE152C6E0D70D0972CEB32BAD /* SFDefaultUserManagementDetailViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 313D15940F65DC79D0F39C22C307CB66 /* SFDefaultUserManagementDetailViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F78EC052F1C3D40970FFC1686776800D /* SFUserAccountIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = E25BD3FD14CFF111692E66F53C84F5D4 /* SFUserAccountIdentity.m */; };
 		F7976142762738BD317B8338A187646F /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 738DCB3D1AEE727A062A233E6E1F6342 /* PromiseKit.framework */; };
@@ -662,13 +662,6 @@
 			remoteGlobalIDString = E6DB7B404A7E26025180ADFE95993F97;
 			remoteInfo = SalesforceSDKCore;
 		};
-		328BF59B91ACFD7EE09F85F6A9E874BC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 05D6DF7799CFF3920DAA0B11F5C9A6E1;
-			remoteInfo = "Pods-SWSApp";
-		};
 		3EE83E279684122CAB59CCEA8A2086F5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -682,13 +675,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 416B388906DEFAC81F0676F277AC9058;
 			remoteInfo = CocoaLumberjack;
-		};
-		507B6B1245A7D438DC739C3CA0DDCEAF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 05D6DF7799CFF3920DAA0B11F5C9A6E1;
-			remoteInfo = "Pods-SWSApp";
 		};
 		524547414E2FA931D582EEA53A6FD8F0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1560,6 +1546,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0F79AE0A8105D0C5A371ECDD3E7BAC1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26003CA73FE38A8C35315BF46B1EADEB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		133A4A901AB0FA38AF3C836F181BA7C7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1610,14 +1604,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFA183066FF6ABCF41EE6CEF57BCF718 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		303D1EEAB596F006935B82426CB92FC2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				022FA8EFAD7FB654385BAD1DB89E3F06 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1705,11 +1691,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F6ED0423330A362E81D8ACB036B76B53 /* Frameworks */ = {
+		FC931CD58B80F4ACF201121012490E3F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78D3B9FB4362F56DD6C4D10A4CBCA3DE /* Foundation.framework in Frameworks */,
+				8412F9258F69810444820AFA097BC64C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2898,14 +2884,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		115732BBE77BC36CC2753EDECA2F584A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7E6DB7171D45A6026B32BB80FB115A2A /* Pods-SWSAppTests-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1904CD5E5CEA9226AFC355E19C3EB159 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3099,11 +3077,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		532ED44D49650A73045FEE80FA675991 /* Headers */ = {
+		49F2D770D05336DE261566CB158C2023 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5E6754097648A930AD793F0C3530DD1 /* Pods-SWSAppUITests-umbrella.h in Headers */,
+				F192AAAE29065D080EF2FA0A19196332 /* Pods-SWSAppUITests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3248,6 +3226,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DBEBDF5349C54D80D53BE731BEF4AC2A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F725E87FDFA5835AD331C806B97A5851 /* Pods-SWSAppTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F0B98BBE4728DE626FB62C9DFE30B1D9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3345,22 +3331,21 @@
 			productReference = 9781A85BEF40016FF65A46731756A80E /* SalesforceSwiftSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		1970BF7B8FD8A2D340C8F687404F38AB /* Pods-SWSAppUITests */ = {
+		33C0D48685BB3ADCC9E2163381034A0D /* Pods-SWSAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D9911B21A34DB9975B07F5CA4B2B9AB /* Build configuration list for PBXNativeTarget "Pods-SWSAppUITests" */;
+			buildConfigurationList = CC3FF15B9170AA2D559BFD1964C36631 /* Build configuration list for PBXNativeTarget "Pods-SWSAppTests" */;
 			buildPhases = (
-				D312ADB8DB6D64542CFEB60660A5EB4A /* Sources */,
-				303D1EEAB596F006935B82426CB92FC2 /* Frameworks */,
-				532ED44D49650A73045FEE80FA675991 /* Headers */,
+				5DEFAC9D414569A4872A9AF436BBCFBD /* Sources */,
+				FC931CD58B80F4ACF201121012490E3F /* Frameworks */,
+				DBEBDF5349C54D80D53BE731BEF4AC2A /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A2B84A818B30E774CCD6A0C18852E6AA /* PBXTargetDependency */,
 			);
-			name = "Pods-SWSAppUITests";
-			productName = "Pods-SWSAppUITests";
-			productReference = 39AA00299DF2912FF71CDC2E4095E19C /* Pods_SWSAppUITests.framework */;
+			name = "Pods-SWSAppTests";
+			productName = "Pods-SWSAppTests";
+			productReference = EA1C16EC266BD0D9F69023CB3C7942CA /* Pods_SWSAppTests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		3BE6022158247DF53C7156E2CC82B263 /* PromiseKit */ = {
@@ -3451,24 +3436,6 @@
 			productReference = BCC0DA977BDCAFE51EFAD63613FA0A08 /* DropDown.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		54A8A1D34C0675BC5D3ABD8D33A2584D /* Pods-SWSAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3346DB90336DDC104853377C6931D6B7 /* Build configuration list for PBXNativeTarget "Pods-SWSAppTests" */;
-			buildPhases = (
-				B633DABEDA8E037D46C7136C53896E8A /* Sources */,
-				F6ED0423330A362E81D8ACB036B76B53 /* Frameworks */,
-				115732BBE77BC36CC2753EDECA2F584A /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6927A3650F3B53270F4AEC5B50BB4D87 /* PBXTargetDependency */,
-			);
-			name = "Pods-SWSAppTests";
-			productName = "Pods-SWSAppTests";
-			productReference = EA1C16EC266BD0D9F69023CB3C7942CA /* Pods_SWSAppTests.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		5CEFC7F1ADAEA23C8A9613C6D06FE4EA /* FMDB */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 28422A1AB435F85FE664FA52FB8E0C51 /* Build configuration list for PBXNativeTarget "FMDB" */;
@@ -3520,6 +3487,23 @@
 			name = SalesforceAnalytics;
 			productName = SalesforceAnalytics;
 			productReference = BE3EA327022026F3549955D47097B468 /* SalesforceAnalytics.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		9B95B65F0AB0CC0237D9CB536D322EEA /* Pods-SWSAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E4E701CD97090B7628A26F290D5E53F /* Build configuration list for PBXNativeTarget "Pods-SWSAppUITests" */;
+			buildPhases = (
+				7B2D9E0BCFB6BAB71577A87D333588E2 /* Sources */,
+				0F79AE0A8105D0C5A371ECDD3E7BAC1B /* Frameworks */,
+				49F2D770D05336DE261566CB158C2023 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-SWSAppUITests";
+			productName = "Pods-SWSAppUITests";
+			productReference = 39AA00299DF2912FF71CDC2E4095E19C /* Pods_SWSAppUITests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A77A3D6C0F9B585E78AA754F032F7207 /* ReachabilitySwift */ = {
@@ -3659,8 +3643,8 @@
 				5CEFC7F1ADAEA23C8A9613C6D06FE4EA /* FMDB */,
 				C235F77E101E742652CCF98FFDFA5182 /* IQKeyboardManagerSwift */,
 				05D6DF7799CFF3920DAA0B11F5C9A6E1 /* Pods-SWSApp */,
-				54A8A1D34C0675BC5D3ABD8D33A2584D /* Pods-SWSAppTests */,
-				1970BF7B8FD8A2D340C8F687404F38AB /* Pods-SWSAppUITests */,
+				33C0D48685BB3ADCC9E2163381034A0D /* Pods-SWSAppTests */,
+				9B95B65F0AB0CC0237D9CB536D322EEA /* Pods-SWSAppUITests */,
 				3BE6022158247DF53C7156E2CC82B263 /* PromiseKit */,
 				A77A3D6C0F9B585E78AA754F032F7207 /* ReachabilitySwift */,
 				91E009C0F2A7E5CD2866449CE044C0FF /* SalesforceAnalytics */,
@@ -3847,6 +3831,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5DEFAC9D414569A4872A9AF436BBCFBD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCE0814B6D1C768C48A0C3AFD8025F9B /* Pods-SWSAppTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AE8A1A8C31E2BAC9BF0840594A72CEB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3868,6 +3860,14 @@
 				3EDA7575644614ACD562D23759D18DE8 /* IQUIView+Hierarchy.swift in Sources */,
 				3285188513F859E100A7BBE29B36599D /* IQUIView+IQKeyboardToolbar.swift in Sources */,
 				7FE321828ECA1D78CCF8A2892A30438B /* IQUIViewController+Additions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B2D9E0BCFB6BAB71577A87D333588E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8869F41A372E8F05E5475F8AEDE7F026 /* Pods-SWSAppUITests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3925,14 +3925,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B633DABEDA8E037D46C7136C53896E8A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F21E775D230600B21C6878B06634CC33 /* Pods-SWSAppTests-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BEFF7E21F2556A562949128290B6C455 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3981,14 +3973,6 @@
 				6A0507497F0419B6E24146DB4DD3168A /* TimePeriodChain.swift in Sources */,
 				5C97B56B7994F1393537B4488ADE0FB3 /* TimePeriodCollection.swift in Sources */,
 				39896AD7E2573C35F4A82C5EB8F04655 /* TimePeriodGroup.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D312ADB8DB6D64542CFEB60660A5EB4A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4BC3D57010FB76541233A1600898B7D9 /* Pods-SWSAppUITests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4218,12 +4202,6 @@
 			target = CFE5E464911A9FB21E3D0632C340F770 /* SmartStore */;
 			targetProxy = DCB9F7A56198C0584A8E3B2EC5D20E09 /* PBXContainerItemProxy */;
 		};
-		6927A3650F3B53270F4AEC5B50BB4D87 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-SWSApp";
-			target = 05D6DF7799CFF3920DAA0B11F5C9A6E1 /* Pods-SWSApp */;
-			targetProxy = 328BF59B91ACFD7EE09F85F6A9E874BC /* PBXContainerItemProxy */;
-		};
 		6CD2905FFE61CE3E780AAA1C4309A74B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SalesforceSDKCore-SalesforceSDKResources";
@@ -4284,12 +4262,6 @@
 			target = 5168099F2EBFC99A707C03C9EADE01A5 /* DropDown */;
 			targetProxy = 016A1F415840FF7D678F0703A1F19037 /* PBXContainerItemProxy */;
 		};
-		A2B84A818B30E774CCD6A0C18852E6AA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-SWSApp";
-			target = 05D6DF7799CFF3920DAA0B11F5C9A6E1 /* Pods-SWSApp */;
-			targetProxy = 507B6B1245A7D438DC739C3CA0DDCEAF /* PBXContainerItemProxy */;
-		};
 		A9AE81278AB0EFC1C41BE049DA17877C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SmartSync;
@@ -4335,11 +4307,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0F03896045FD09CCB361B584FBEE9991 /* Debug */ = {
+		0EF8DFAA3487597335E047EDD4CD3C39 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FAD566CFAB5EECF77987CB8C264822D /* Pods-SWSApp.debug.xcconfig */;
+			baseConfigurationReference = 5FD37834C70808D2C9ED75A1BFB5B485 /* SmartStore.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
@@ -4352,62 +4323,25 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-SWSApp/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/SmartStore/SmartStore-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SmartStore/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SWSApp/Pods-SWSApp.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		150E22EA3D21FFD0D915BF740CD30F68 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E07101074C374942B92A5809C40EE9E6 /* PromiseKit.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/PromiseKit/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/PromiseKit/PromiseKit.modulemap";
-				PRODUCT_MODULE_NAME = PromiseKit;
-				PRODUCT_NAME = PromiseKit;
+				MODULEMAP_FILE = "Target Support Files/SmartStore/SmartStore.modulemap";
+				PRODUCT_NAME = SmartStore;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		29DA2365BE207C5AEF563E19FA8DCCD3 /* Release */ = {
+		1339617E598DE98D53C25EE992B3EBE6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1653E89D8FD76ADE9FA189489F79318E /* DropDown.xcconfig */;
 			buildSettings = {
@@ -4428,7 +4362,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/DropDown/DropDown.modulemap";
-				PRODUCT_MODULE_NAME = DropDown;
 				PRODUCT_NAME = DropDown;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -4442,12 +4375,10 @@
 			};
 			name = Release;
 		};
-		2AAC89DED079B88195B55A00C55D86D6 /* Debug */ = {
+		1C0D0F7ADFA6BA7799223B183C4ACA87 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 84745FD34FAFE29023B6BB8CE3EE873F /* Pods-SWSAppUITests.debug.xcconfig */;
+			baseConfigurationReference = 26694DD52E3B43CA5B46B33C91801949 /* SQLCipher.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -4459,49 +4390,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-SWSAppUITests/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/SQLCipher/SQLCipher-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SQLCipher/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		37D81A5CFDF11B1E30E9CFD147CECF47 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D61F4FCB522AC85B14C4E450AF04471 /* SalesforceAnalytics.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SalesforceAnalytics/SalesforceAnalytics-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SalesforceAnalytics/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SalesforceAnalytics/SalesforceAnalytics.modulemap";
-				PRODUCT_MODULE_NAME = SalesforceAnalytics;
-				PRODUCT_NAME = SalesforceAnalytics;
+				MODULEMAP_FILE = "Target Support Files/SQLCipher/SQLCipher.modulemap";
+				PRODUCT_NAME = SQLCipher;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -4512,46 +4407,10 @@
 			};
 			name = Debug;
 		};
-		3B2B62A7D3492D5CCFFCDD44E670725E /* Release */ = {
+		3555B05186672D5F63FB794FFDD44AC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7DB4C07086A127131B7A058DBD0D7E1C /* SwipeCellKit.xcconfig */;
+			baseConfigurationReference = 5FD37834C70808D2C9ED75A1BFB5B485 /* SmartStore.xcconfig */;
 			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwipeCellKit/SwipeCellKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwipeCellKit/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwipeCellKit/SwipeCellKit.modulemap";
-				PRODUCT_MODULE_NAME = SwipeCellKit;
-				PRODUCT_NAME = SwipeCellKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		427962B8A5699C0C51C3121CB4D9E503 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A73434B2E1FA417508CA11F4E7173671 /* Pods-SWSAppUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
@@ -4564,25 +4423,22 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-SWSAppUITests/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/SmartStore/SmartStore-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SmartStore/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				MODULEMAP_FILE = "Target Support Files/SmartStore/SmartStore.modulemap";
+				PRODUCT_NAME = SmartStore;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		450479E800B4644F9076CAA3D03BE2FE /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -4602,78 +4458,7 @@
 			};
 			name = Release;
 		};
-		4929A7105E584364E648483EF421FFAA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6CBFE2C13790EFD586DEBFF19DB8D9A2 /* Pods-SWSAppTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-SWSAppTests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		50BE2B6D4B07F86B7D3CDEDD381AE635 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6258B74F4462EC4EDFA950452E3C744 /* SmartSync.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SmartSync/SmartSync-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SmartSync/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SmartSync/SmartSync.modulemap";
-				PRODUCT_MODULE_NAME = SmartSync;
-				PRODUCT_NAME = SmartSync;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		553022A828EE1991F07D2D73F565AEF8 /* Debug */ = {
+		49B5A78DBE571998053070754D3695E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4705,7 +4490,1000 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		4E1DB9557CBA0BEFDB821D0931828F4B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73D33F234E0AFEFB8CE3B51E6DEC329C /* CocoaLumberjack.xcconfig */;
+			buildSettings = {
 				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack/CocoaLumberjack-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CocoaLumberjack/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CocoaLumberjack/CocoaLumberjack.modulemap";
+				PRODUCT_NAME = CocoaLumberjack;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4F59AC320711A1F04A5B05E3C256BC93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23C5B0297BADE581F67E3D1C99A1EC4D /* SalesforceSwiftSDK.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SalesforceSwiftSDK/SalesforceSwiftSDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SalesforceSwiftSDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SalesforceSwiftSDK/SalesforceSwiftSDK.modulemap";
+				PRODUCT_NAME = SalesforceSwiftSDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		52AE1BAB81D4DC4253E7C9171C2FC842 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26694DD52E3B43CA5B46B33C91801949 /* SQLCipher.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SQLCipher/SQLCipher-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SQLCipher/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SQLCipher/SQLCipher.modulemap";
+				PRODUCT_NAME = SQLCipher;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5432EF028DC2BC6A5E291EF097809192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3422B505C16815F5FDA7E80D728A86F1 /* FMDB.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/FMDB/FMDB-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FMDB/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
+				PRODUCT_NAME = FMDB;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		5672E4E58DE37A5EE572470EA677ADCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6258B74F4462EC4EDFA950452E3C744 /* SmartSync.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SmartSync/SmartSync-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SmartSync/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SmartSync/SmartSync.modulemap";
+				PRODUCT_NAME = SmartSync;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6F62070424DA99499D0882DE67AF61C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7DB4C07086A127131B7A058DBD0D7E1C /* SwipeCellKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwipeCellKit/SwipeCellKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwipeCellKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwipeCellKit/SwipeCellKit.modulemap";
+				PRODUCT_NAME = SwipeCellKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		73CAFFAA5622CCC27C76E609E956550C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7DB4C07086A127131B7A058DBD0D7E1C /* SwipeCellKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwipeCellKit/SwipeCellKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwipeCellKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwipeCellKit/SwipeCellKit.modulemap";
+				PRODUCT_NAME = SwipeCellKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		74AC7089A0078A70A789BF9A03080439 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6258B74F4462EC4EDFA950452E3C744 /* SmartSync.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SmartSync/SmartSync-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SmartSync/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SmartSync/SmartSync.modulemap";
+				PRODUCT_NAME = SmartSync;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7BA2D254CB2D3458956E404C65C89AA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30EF4FB4FB7E8206DFC9764E6735B625 /* IQKeyboardManagerSwift.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/IQKeyboardManagerSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift.modulemap";
+				PRODUCT_NAME = IQKeyboardManagerSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7C0C89729E853375B6CFEB0660E11A77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E07101074C374942B92A5809C40EE9E6 /* PromiseKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PromiseKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PromiseKit/PromiseKit.modulemap";
+				PRODUCT_NAME = PromiseKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		929D37C5514D725EA0FA9DC32C3B916F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA8CEF7D10340F9AB5E484B1974833FD /* ReachabilitySwift.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ReachabilitySwift/ReachabilitySwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ReachabilitySwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ReachabilitySwift/ReachabilitySwift.modulemap";
+				PRODUCT_NAME = Reachability;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		947EAE1799B838EFA81F5A96A3B8A6FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CBFE2C13790EFD586DEBFF19DB8D9A2 /* Pods-SWSAppTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SWSAppTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SWSAppTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		956A0B7EC68564E1A1531FC7DC12BE0D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA8CEF7D10340F9AB5E484B1974833FD /* ReachabilitySwift.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ReachabilitySwift/ReachabilitySwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ReachabilitySwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ReachabilitySwift/ReachabilitySwift.modulemap";
+				PRODUCT_NAME = Reachability;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9C097A705B83B31058E8E41AB5F89DDF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D61F4FCB522AC85B14C4E450AF04471 /* SalesforceAnalytics.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SalesforceAnalytics/SalesforceAnalytics-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SalesforceAnalytics/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SalesforceAnalytics/SalesforceAnalytics.modulemap";
+				PRODUCT_NAME = SalesforceAnalytics;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A60A5C000BA640CAFADE4378B9322491 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FAD566CFAB5EECF77987CB8C264822D /* Pods-SWSApp.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SWSApp/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SWSApp/Pods-SWSApp.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SWSApp;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A91FC96B1741C6151ACF12F6C8EF11A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1653E89D8FD76ADE9FA189489F79318E /* DropDown.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DropDown/DropDown-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DropDown/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/DropDown/DropDown.modulemap";
+				PRODUCT_NAME = DropDown;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AC7171AB7AF9A4135960D6EAE69B9100 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CEEAD35FA9DAB4033068206A4CEA7A6 /* Pods-SWSApp.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SWSApp/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SWSApp/Pods-SWSApp.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SWSApp;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AF15A953E0BF1CB35D3FCD0D55885B3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39BA003B60702ECADE02EAEE6D651D85 /* SalesforceSDKCore.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SalesforceSDKCore";
+				INFOPLIST_FILE = "Target Support Files/SalesforceSDKCore/ResourceBundle-SalesforceSDKResources-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PRODUCT_NAME = SalesforceSDKResources;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		B367A4E8D93FDC3BBAEFDBFAADDE9ABD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23C5B0297BADE581F67E3D1C99A1EC4D /* SalesforceSwiftSDK.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SalesforceSwiftSDK/SalesforceSwiftSDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SalesforceSwiftSDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SalesforceSwiftSDK/SalesforceSwiftSDK.modulemap";
+				PRODUCT_NAME = SalesforceSwiftSDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		B48DEA513AE5ACB65A600680FF89EF3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E07101074C374942B92A5809C40EE9E6 /* PromiseKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PromiseKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PromiseKit/PromiseKit.modulemap";
+				PRODUCT_NAME = PromiseKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		BA37B71363C7295D0AECC9D5C6FE6460 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84745FD34FAFE29023B6BB8CE3EE873F /* Pods-SWSAppUITests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SWSAppUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SWSAppUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C22FB2D1DB996262E01AB30F72A81CB9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30EF4FB4FB7E8206DFC9764E6735B625 /* IQKeyboardManagerSwift.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/IQKeyboardManagerSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift.modulemap";
+				PRODUCT_NAME = IQKeyboardManagerSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C4E022166F67CB4096F8E54652D2408A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8E00B757901A6B2E4260E16E992E07D /* DateToolsSwift.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DateToolsSwift/DateToolsSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DateToolsSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/DateToolsSwift/DateToolsSwift.modulemap";
+				PRODUCT_NAME = DateToolsSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CE14E5A37386166597A218BA1D00E1C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7E4433A29E02E1F80238644CCC0C5DE /* Pods-SWSAppTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SWSAppTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SWSAppTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CFA0B673B2F12F57DF6409748ADA96C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D61F4FCB522AC85B14C4E450AF04471 /* SalesforceAnalytics.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SalesforceAnalytics/SalesforceAnalytics-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SalesforceAnalytics/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SalesforceAnalytics/SalesforceAnalytics.modulemap";
+				PRODUCT_NAME = SalesforceAnalytics;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D037457008A0EADEB02489C9488908F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A73434B2E1FA417508CA11F4E7173671 /* Pods-SWSAppUITests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SWSAppUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SWSAppUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D1693890332B33F966CC11E9AC59A207 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39BA003B60702ECADE02EAEE6D651D85 /* SalesforceSDKCore.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SalesforceSDKCore/SalesforceSDKCore-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SalesforceSDKCore/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SalesforceSDKCore/SalesforceSDKCore.modulemap";
+				PRODUCT_NAME = SalesforceSDKCore;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D4490D04111EE3CBBD069965F06325C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73D33F234E0AFEFB8CE3B51E6DEC329C /* CocoaLumberjack.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack/CocoaLumberjack-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CocoaLumberjack/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CocoaLumberjack/CocoaLumberjack.modulemap";
+				PRODUCT_NAME = CocoaLumberjack;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DD369323FD85CB26347C0D75C75D837F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -4730,71 +5508,14 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		58CE816B060A41D32CEC095441D0E3E0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Release;
-		};
-		60AFC654289D56F06C27A28838E5FD13 /* Debug */ = {
+		E2BD90109C189DE023943CD5C4756712 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3422B505C16815F5FDA7E80D728A86F1 /* FMDB.xcconfig */;
 			buildSettings = {
@@ -4815,303 +5536,19 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
-				PRODUCT_MODULE_NAME = FMDB;
 				PRODUCT_NAME = FMDB;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		64C5D11D14C6FD67657534749DF55EF6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5FD37834C70808D2C9ED75A1BFB5B485 /* SmartStore.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SmartStore/SmartStore-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SmartStore/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SmartStore/SmartStore.modulemap";
-				PRODUCT_MODULE_NAME = SmartStore;
-				PRODUCT_NAME = SmartStore;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		6F9CC30BD5EADE8E407B7CC4CBF2A315 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23C5B0297BADE581F67E3D1C99A1EC4D /* SalesforceSwiftSDK.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SalesforceSwiftSDK/SalesforceSwiftSDK-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SalesforceSwiftSDK/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SalesforceSwiftSDK/SalesforceSwiftSDK.modulemap";
-				PRODUCT_MODULE_NAME = SalesforceSwiftSDK;
-				PRODUCT_NAME = SalesforceSwiftSDK;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		7347B155644A6FFBC921096FFF2658C6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7DB4C07086A127131B7A058DBD0D7E1C /* SwipeCellKit.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwipeCellKit/SwipeCellKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwipeCellKit/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwipeCellKit/SwipeCellKit.modulemap";
-				PRODUCT_MODULE_NAME = SwipeCellKit;
-				PRODUCT_NAME = SwipeCellKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		73BF12A493A66A98861C67E8AF949D73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA8CEF7D10340F9AB5E484B1974833FD /* ReachabilitySwift.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ReachabilitySwift/ReachabilitySwift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ReachabilitySwift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ReachabilitySwift/ReachabilitySwift.modulemap";
-				PRODUCT_MODULE_NAME = Reachability;
-				PRODUCT_NAME = Reachability;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		7519202A53912E1465615B54CABBA4E9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C8E00B757901A6B2E4260E16E992E07D /* DateToolsSwift.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/DateToolsSwift/DateToolsSwift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/DateToolsSwift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/DateToolsSwift/DateToolsSwift.modulemap";
-				PRODUCT_MODULE_NAME = DateToolsSwift;
-				PRODUCT_NAME = DateToolsSwift;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		80733C8C6F099DF203CA66F341588663 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA8CEF7D10340F9AB5E484B1974833FD /* ReachabilitySwift.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ReachabilitySwift/ReachabilitySwift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ReachabilitySwift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ReachabilitySwift/ReachabilitySwift.modulemap";
-				PRODUCT_MODULE_NAME = Reachability;
-				PRODUCT_NAME = Reachability;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		8804E3049AB9AB3ABC8993F97258AB02 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7E4433A29E02E1F80238644CCC0C5DE /* Pods-SWSAppTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-SWSAppTests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		8D5481691ED7D663FB07CB012F4E2746 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CEEAD35FA9DAB4033068206A4CEA7A6 /* Pods-SWSApp.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-SWSApp/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SWSApp/Pods-SWSApp.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		9E2DFEE928A2E9234E02E71E2909A5D5 /* Debug */ = {
+		F0C84A47A1AB0D245C85CFB021FF30B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 39BA003B60702ECADE02EAEE6D651D85 /* SalesforceSDKCore.xcconfig */;
 			buildSettings = {
@@ -5133,7 +5570,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SalesforceSDKCore/SalesforceSDKCore.modulemap";
-				PRODUCT_MODULE_NAME = SalesforceSDKCore;
 				PRODUCT_NAME = SalesforceSDKCore;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -5145,471 +5581,7 @@
 			};
 			name = Debug;
 		};
-		ABFC1B521CCB28839567D67D0A6447BE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6258B74F4462EC4EDFA950452E3C744 /* SmartSync.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SmartSync/SmartSync-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SmartSync/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SmartSync/SmartSync.modulemap";
-				PRODUCT_MODULE_NAME = SmartSync;
-				PRODUCT_NAME = SmartSync;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		AF15A953E0BF1CB35D3FCD0D55885B3B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39BA003B60702ECADE02EAEE6D651D85 /* SalesforceSDKCore.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SalesforceSDKCore";
-				INFOPLIST_FILE = "Target Support Files/SalesforceSDKCore/ResourceBundle-SalesforceSDKResources-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				PRODUCT_NAME = SalesforceSDKResources;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		BF8FD2E4A459112E07B0F056E8203D82 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D61F4FCB522AC85B14C4E450AF04471 /* SalesforceAnalytics.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SalesforceAnalytics/SalesforceAnalytics-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SalesforceAnalytics/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SalesforceAnalytics/SalesforceAnalytics.modulemap";
-				PRODUCT_MODULE_NAME = SalesforceAnalytics;
-				PRODUCT_NAME = SalesforceAnalytics;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		C480253539F74F3CBDD4AF4303B218DB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3422B505C16815F5FDA7E80D728A86F1 /* FMDB.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/FMDB/FMDB-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FMDB/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
-				PRODUCT_MODULE_NAME = FMDB;
-				PRODUCT_NAME = FMDB;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		C82B9157E94F268C1DF149C5869D5086 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5FD37834C70808D2C9ED75A1BFB5B485 /* SmartStore.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SmartStore/SmartStore-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SmartStore/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SmartStore/SmartStore.modulemap";
-				PRODUCT_MODULE_NAME = SmartStore;
-				PRODUCT_NAME = SmartStore;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		CE17517334C09CCFD0CF1FED4B99A3F1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30EF4FB4FB7E8206DFC9764E6735B625 /* IQKeyboardManagerSwift.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/IQKeyboardManagerSwift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift.modulemap";
-				PRODUCT_MODULE_NAME = IQKeyboardManagerSwift;
-				PRODUCT_NAME = IQKeyboardManagerSwift;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		D640BC9145DBB0CA809F0484F1287686 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73D33F234E0AFEFB8CE3B51E6DEC329C /* CocoaLumberjack.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack/CocoaLumberjack-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/CocoaLumberjack/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/CocoaLumberjack/CocoaLumberjack.modulemap";
-				PRODUCT_MODULE_NAME = CocoaLumberjack;
-				PRODUCT_NAME = CocoaLumberjack;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		D76B7BDDCAF5C06923A3D7388182D5B2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23C5B0297BADE581F67E3D1C99A1EC4D /* SalesforceSwiftSDK.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SalesforceSwiftSDK/SalesforceSwiftSDK-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SalesforceSwiftSDK/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SalesforceSwiftSDK/SalesforceSwiftSDK.modulemap";
-				PRODUCT_MODULE_NAME = SalesforceSwiftSDK;
-				PRODUCT_NAME = SalesforceSwiftSDK;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		D7A9F95243CA29A85BD430416701E46B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1653E89D8FD76ADE9FA189489F79318E /* DropDown.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/DropDown/DropDown-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/DropDown/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/DropDown/DropDown.modulemap";
-				PRODUCT_MODULE_NAME = DropDown;
-				PRODUCT_NAME = DropDown;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		D83300F26545A08244CB95BADBC00CA1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30EF4FB4FB7E8206DFC9764E6735B625 /* IQKeyboardManagerSwift.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/IQKeyboardManagerSwift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift.modulemap";
-				PRODUCT_MODULE_NAME = IQKeyboardManagerSwift;
-				PRODUCT_NAME = IQKeyboardManagerSwift;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		D9525EB2DF1AA5ED143DCF11924A502C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E07101074C374942B92A5809C40EE9E6 /* PromiseKit.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/PromiseKit/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/PromiseKit/PromiseKit.modulemap";
-				PRODUCT_MODULE_NAME = PromiseKit;
-				PRODUCT_NAME = PromiseKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		DC431E2DDB87CBBBFCDF1A1F9735AEA1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39BA003B60702ECADE02EAEE6D651D85 /* SalesforceSDKCore.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SalesforceSDKCore/SalesforceSDKCore-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SalesforceSDKCore/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SalesforceSDKCore/SalesforceSDKCore.modulemap";
-				PRODUCT_MODULE_NAME = SalesforceSDKCore;
-				PRODUCT_NAME = SalesforceSDKCore;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		E0079AA23F7C147C0F536EBEE969DC84 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26694DD52E3B43CA5B46B33C91801949 /* SQLCipher.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SQLCipher/SQLCipher-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SQLCipher/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SQLCipher/SQLCipher.modulemap";
-				PRODUCT_MODULE_NAME = SQLCipher;
-				PRODUCT_NAME = SQLCipher;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		EDAF0B5BA2CD40D0552C287F25A09CDF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26694DD52E3B43CA5B46B33C91801949 /* SQLCipher.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SQLCipher/SQLCipher-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SQLCipher/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SQLCipher/SQLCipher.modulemap";
-				PRODUCT_MODULE_NAME = SQLCipher;
-				PRODUCT_NAME = SQLCipher;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		F212BAF0141063915FBE16E61A1B9CAB /* Debug */ = {
+		FC32F7B11DA0ABE2A92E998715F9D911 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C8E00B757901A6B2E4260E16E992E07D /* DateToolsSwift.xcconfig */;
 			buildSettings = {
@@ -5630,45 +5602,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/DateToolsSwift/DateToolsSwift.modulemap";
-				PRODUCT_MODULE_NAME = DateToolsSwift;
 				PRODUCT_NAME = DateToolsSwift;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		F697AEA9702E0EB28DFA1B669DADFD20 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73D33F234E0AFEFB8CE3B51E6DEC329C /* CocoaLumberjack.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack/CocoaLumberjack-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/CocoaLumberjack/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/CocoaLumberjack/CocoaLumberjack.modulemap";
-				PRODUCT_MODULE_NAME = CocoaLumberjack;
-				PRODUCT_NAME = CocoaLumberjack;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -5679,15 +5617,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D9911B21A34DB9975B07F5CA4B2B9AB /* Build configuration list for PBXNativeTarget "Pods-SWSAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2AAC89DED079B88195B55A00C55D86D6 /* Debug */,
-				427962B8A5699C0C51C3121CB4D9E503 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2449FFE61B3C10D96F5FA4CD1A7275E1 /* Build configuration list for PBXNativeTarget "SalesforceSDKCore-SalesforceSDKResources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5700,8 +5629,8 @@
 		28422A1AB435F85FE664FA52FB8E0C51 /* Build configuration list for PBXNativeTarget "FMDB" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				60AFC654289D56F06C27A28838E5FD13 /* Debug */,
-				C480253539F74F3CBDD4AF4303B218DB /* Release */,
+				5432EF028DC2BC6A5E291EF097809192 /* Debug */,
+				E2BD90109C189DE023943CD5C4756712 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5709,17 +5638,17 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				553022A828EE1991F07D2D73F565AEF8 /* Debug */,
-				58CE816B060A41D32CEC095441D0E3E0 /* Release */,
+				DD369323FD85CB26347C0D75C75D837F /* Debug */,
+				49B5A78DBE571998053070754D3695E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3346DB90336DDC104853377C6931D6B7 /* Build configuration list for PBXNativeTarget "Pods-SWSAppTests" */ = {
+		3E4E701CD97090B7628A26F290D5E53F /* Build configuration list for PBXNativeTarget "Pods-SWSAppUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4929A7105E584364E648483EF421FFAA /* Debug */,
-				8804E3049AB9AB3ABC8993F97258AB02 /* Release */,
+				BA37B71363C7295D0AECC9D5C6FE6460 /* Debug */,
+				D037457008A0EADEB02489C9488908F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5727,8 +5656,8 @@
 		45143614893062803984DA50AB90C1D5 /* Build configuration list for PBXNativeTarget "DropDown" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D7A9F95243CA29A85BD430416701E46B /* Debug */,
-				29DA2365BE207C5AEF563E19FA8DCCD3 /* Release */,
+				A91FC96B1741C6151ACF12F6C8EF11A4 /* Debug */,
+				1339617E598DE98D53C25EE992B3EBE6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5736,8 +5665,8 @@
 		4723EF925DF919AF97F2206BCC006351 /* Build configuration list for PBXNativeTarget "PromiseKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				150E22EA3D21FFD0D915BF740CD30F68 /* Debug */,
-				D9525EB2DF1AA5ED143DCF11924A502C /* Release */,
+				7C0C89729E853375B6CFEB0660E11A77 /* Debug */,
+				B48DEA513AE5ACB65A600680FF89EF3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5745,8 +5674,8 @@
 		49B4B4FFB939B9DFE589E20B995619A0 /* Build configuration list for PBXNativeTarget "SmartSync" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				ABFC1B521CCB28839567D67D0A6447BE /* Debug */,
-				50BE2B6D4B07F86B7D3CDEDD381AE635 /* Release */,
+				74AC7089A0078A70A789BF9A03080439 /* Debug */,
+				5672E4E58DE37A5EE572470EA677ADCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5754,8 +5683,8 @@
 		5125C35F1A170F6DC79D36B247D95F3B /* Build configuration list for PBXNativeTarget "SalesforceAnalytics" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				37D81A5CFDF11B1E30E9CFD147CECF47 /* Debug */,
-				BF8FD2E4A459112E07B0F056E8203D82 /* Release */,
+				9C097A705B83B31058E8E41AB5F89DDF /* Debug */,
+				CFA0B673B2F12F57DF6409748ADA96C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5763,8 +5692,8 @@
 		5A191B88D499F2DCAC84283D735E9A8E /* Build configuration list for PBXNativeTarget "SalesforceSwiftSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D76B7BDDCAF5C06923A3D7388182D5B2 /* Debug */,
-				6F9CC30BD5EADE8E407B7CC4CBF2A315 /* Release */,
+				4F59AC320711A1F04A5B05E3C256BC93 /* Debug */,
+				B367A4E8D93FDC3BBAEFDBFAADDE9ABD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5772,8 +5701,8 @@
 		6C792434E06D2A70DA06CAEA5E34BE03 /* Build configuration list for PBXNativeTarget "SalesforceSDKCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9E2DFEE928A2E9234E02E71E2909A5D5 /* Debug */,
-				DC431E2DDB87CBBBFCDF1A1F9735AEA1 /* Release */,
+				F0C84A47A1AB0D245C85CFB021FF30B3 /* Debug */,
+				D1693890332B33F966CC11E9AC59A207 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5781,8 +5710,8 @@
 		758C81C124BEE86C1CDF242B6805F017 /* Build configuration list for PBXNativeTarget "SQLCipher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EDAF0B5BA2CD40D0552C287F25A09CDF /* Debug */,
-				E0079AA23F7C147C0F536EBEE969DC84 /* Release */,
+				1C0D0F7ADFA6BA7799223B183C4ACA87 /* Debug */,
+				52AE1BAB81D4DC4253E7C9171C2FC842 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5790,8 +5719,8 @@
 		7F0A7E09C5256E7E30D03227A11DAD1A /* Build configuration list for PBXNativeTarget "Pods-SWSApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0F03896045FD09CCB361B584FBEE9991 /* Debug */,
-				8D5481691ED7D663FB07CB012F4E2746 /* Release */,
+				A60A5C000BA640CAFADE4378B9322491 /* Debug */,
+				AC7171AB7AF9A4135960D6EAE69B9100 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5799,8 +5728,8 @@
 		823D4FE2A1B4938FF7B2B72825971924 /* Build configuration list for PBXNativeTarget "ReachabilitySwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				80733C8C6F099DF203CA66F341588663 /* Debug */,
-				73BF12A493A66A98861C67E8AF949D73 /* Release */,
+				929D37C5514D725EA0FA9DC32C3B916F /* Debug */,
+				956A0B7EC68564E1A1531FC7DC12BE0D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5808,8 +5737,8 @@
 		8E8B634001037F5ECE0FD729C41B1270 /* Build configuration list for PBXNativeTarget "SmartStore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C82B9157E94F268C1DF149C5869D5086 /* Debug */,
-				64C5D11D14C6FD67657534749DF55EF6 /* Release */,
+				3555B05186672D5F63FB794FFDD44AC4 /* Debug */,
+				0EF8DFAA3487597335E047EDD4CD3C39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5817,8 +5746,17 @@
 		B8AEB9920CAD781EA2FBCB19D8E2B718 /* Build configuration list for PBXNativeTarget "SwipeCellKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7347B155644A6FFBC921096FFF2658C6 /* Debug */,
-				3B2B62A7D3492D5CCFFCDD44E670725E /* Release */,
+				73CAFFAA5622CCC27C76E609E956550C /* Debug */,
+				6F62070424DA99499D0882DE67AF61C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC3FF15B9170AA2D559BFD1964C36631 /* Build configuration list for PBXNativeTarget "Pods-SWSAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				947EAE1799B838EFA81F5A96A3B8A6FE /* Debug */,
+				CE14E5A37386166597A218BA1D00E1C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5826,8 +5764,8 @@
 		D5B6D5A601701FB211DE1B97A7F7A291 /* Build configuration list for PBXNativeTarget "CocoaLumberjack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F697AEA9702E0EB28DFA1B669DADFD20 /* Debug */,
-				D640BC9145DBB0CA809F0484F1287686 /* Release */,
+				D4490D04111EE3CBBD069965F06325C9 /* Debug */,
+				4E1DB9557CBA0BEFDB821D0931828F4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5835,8 +5773,8 @@
 		E895CDDD9BD03948FD60B879EF8E23F5 /* Build configuration list for PBXNativeTarget "DateToolsSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F212BAF0141063915FBE16E61A1B9CAB /* Debug */,
-				7519202A53912E1465615B54CABBA4E9 /* Release */,
+				FC32F7B11DA0ABE2A92E998715F9D911 /* Debug */,
+				C4E022166F67CB4096F8E54652D2408A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -5844,8 +5782,8 @@
 		E8C5CE05A712EF50BB123A41D8EFC0CB /* Build configuration list for PBXNativeTarget "IQKeyboardManagerSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE17517334C09CCFD0CF1FED4B99A3F1 /* Debug */,
-				D83300F26545A08244CB95BADBC00CA1 /* Release */,
+				7BA2D254CB2D3458956E404C65C89AA2 /* Debug */,
+				C22FB2D1DB996262E01AB30F72A81CB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

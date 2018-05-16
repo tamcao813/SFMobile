@@ -115,7 +115,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="zyJ-iw-wIp"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                                <state key="normal" title="New Visit  +">
+                                                <state key="normal" title="Add New +">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -124,7 +124,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="actionButtonNewVisit:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="LbZ-Lw-l0M"/>
+                                                    <action selector="actionButtonNew:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="yEn-86-Rjw"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -247,6 +247,8 @@
                         <viewLayoutGuide key="safeArea" id="zwZ-9S-Vvg"/>
                     </view>
                     <connections>
+                        <outlet property="addNewButton" destination="znb-wP-d1T" id="LN4-LY-adC"/>
+                        <outlet property="calViewButton" destination="H2G-0Z-ko2" id="PdH-B6-vBe"/>
                         <outlet property="dateHeaderLabel" destination="Jca-2g-geU" id="rUL-Eq-M4G"/>
                         <outlet property="weekView" destination="dhl-fJ-SqK" id="EPK-aH-5bp"/>
                     </connections>

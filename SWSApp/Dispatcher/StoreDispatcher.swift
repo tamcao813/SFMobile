@@ -2191,7 +2191,7 @@ class StoreDispatcher {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
             print("\(result) Visit is deleted  successfully" )
-            print(soupEntryId!)
+            print(soupEntryId!)            
             return true
         }
         else {
@@ -2255,8 +2255,7 @@ class StoreDispatcher {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
             print(result)
-            print(soupEntryId!)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitSummaryScreen"), object:nil)
+            print(soupEntryId!)            
             return true
         }
         else {

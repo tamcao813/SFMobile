@@ -20,6 +20,9 @@ class VisitSchedulerViewModel {
     
     
     func deleteVisitLocally(fields: [String:Any]) -> Bool {
+        if StoreDispatcher.shared.deleteVisitsLocally(fieldsToUpload:fields){
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)            
+        }
         return StoreDispatcher.shared.deleteVisitsLocally(fieldsToUpload:fields)
     }
     
@@ -42,6 +45,10 @@ class VisitSchedulerViewModel {
 }
     
     func editVisitToSoup(fields: [String:Any]) -> Bool {
+        if StoreDispatcher.shared.editVisit(fields:fields){
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitSummaryScreen"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+        }
         return StoreDispatcher.shared.editVisit(fields:fields)
     }
     

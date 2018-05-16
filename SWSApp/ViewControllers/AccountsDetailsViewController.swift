@@ -134,7 +134,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                 print(index)
 
                 let storyboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
-                let vc: CreateNewVisitViewController = storyboard.instantiateViewController(withIdentifier: "CreateNewVisitViewControllerID") as! CreateNewVisitViewController
+                let vc: CreateNewVisitViewController = storyboard.instantiateViewController(withIdentifier: "CreateNewVisitViewController") as! CreateNewVisitViewController
                 vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
                 self.present(vc, animated: true, completion: nil)
                 

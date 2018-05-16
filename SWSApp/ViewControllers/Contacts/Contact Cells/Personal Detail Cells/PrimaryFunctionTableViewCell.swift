@@ -8,11 +8,19 @@
 
 import UIKit
 
+protocol PrimaryFunctionTableViewCellDelegate: NSObjectProtocol {
+    func primaryFunctionValueSelected(value: String)
+}
+
 class PrimaryFunctionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var primaryFunctionTextField: CustomUITextField!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var departmentTextField: UITextField!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var departmentLabel: UILabel!
+    weak var delegate: PrimaryFunctionTableViewCellDelegate?
+    
     var pickerOption:NSArray = []
     var selectedPrimaryFunctionOption  = Dictionary<String, String>()
     var contactDetail: Contact?
@@ -81,6 +89,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
                 primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"]
             }
         }
+        self.delegate?.primaryFunctionValueSelected(value: selectedPrimaryFunctionOption["value"]!)
         primaryFunctionTextField.resignFirstResponder()
     }
     

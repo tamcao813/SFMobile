@@ -17,7 +17,8 @@ class CalendarListViewController: UIViewController {
     @IBOutlet weak var calViewButton: UIButton!
 
     var currentShowingDate: Date?
-
+    var currentCalendarViewType: GlobalConstants.CalendarViewType = .Day
+    
     let dropDownAddNew = DropDown()
     let dropDownCalView = DropDown()
 
@@ -61,6 +62,9 @@ class CalendarListViewController: UIViewController {
     func displayDateHeader(_ startDate: Date) {
         if weekView.calendarType == .day {
             dateHeaderLabel.text = DateTimeUtility.getEEEEMMMdFormattedDateString(date: startDate)
+        }
+        else if weekView.calendarType == .week {
+            dateHeaderLabel.text = DateTimeUtility.getWeekFormattedDateString(date: startDate, includeWeekend: false)
         }
     }
 
@@ -141,7 +145,6 @@ class CalendarListViewController: UIViewController {
                 
             case 1:
                 print("TBD launch Event")
-//                self.launchNewVisit()
 
             default:
                 break
@@ -154,22 +157,68 @@ class CalendarListViewController: UIViewController {
     // MARK: - DropDown Calendar View
     func setupDropDownCalView() {
         dropDownCalView.anchorView = calViewButton
-        dropDownCalView.bottomOffset = CGPoint(x: 0, y:(dropDownAddNew.anchorView?.plainView.bounds.height)!)
+        dropDownCalView.bottomOffset = CGPoint(x: 0, y:(dropDownCalView.anchorView?.plainView.bounds.height)!)
         dropDownCalView.backgroundColor = UIColor.white
         dropDownCalView.selectionBackgroundColor = UIColor.clear
         dropDownCalView.shadowOffset = CGSize(width: 0, height: 15)
         
         dropDownCalView.dataSource = ["Day View", "Week View", "Month View"]
 
+        dropDownCalView.selectionAction = { (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            
+            switch index {
+            case 0:
+                if self.currentCalendarViewType == .Day {
+                    return
+                }
+                self.currentCalendarViewType = .Day
+                self.calViewButton.setTitle("Day View  ", for: .normal)
+                
+            case 1:
+                if self.currentCalendarViewType == .Week {
+                    return
+                }
+                self.currentCalendarViewType = .Week
+                self.calViewButton.setTitle("Week View  ", for: .normal)
+
+            case 2:
+                print("TBD launch Event")
+                
+            default:
+                break
+            }
+            
+            self.calViewButton.setNeedsLayout()
+            self.weekView.isFirst = true
+            self.reloadCalendarView()
+            self.dropDownCalView.hide()
+        }
     }
 
     // MARK: - WRCalendarView
     func setupCalendarData() {
+        guard currentCalendarViewType != .None else {
+            return
+        }
         currentShowingDate = Date()
         
         weekView.setCalendarDate(Date())
-        weekView.delegate = self        
-        weekView.calendarType = .day
+        weekView.delegate = self
+        
+        switch currentCalendarViewType {
+        case .Day:
+            weekView.calendarType = .day
+
+        case .Week:
+            weekView.calendarType = .week
+
+        case .Month:
+            print("TBD")
+
+        default:
+            break
+        }
     }
     
     func moveToToday() {

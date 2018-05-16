@@ -38,6 +38,15 @@ public class WRWeekView: UIView {
     public var calendarType: CalendarType = .day {
         didSet {
             isFirst = true
+            if calendarType == .day {
+                flowLayout.columnHeaderHeight = 0 // TBD this should be moved to View Controller
+                flowLayout.gridVerticalThickness = 0
+            }
+            else {
+                flowLayout.columnHeaderHeight = 70 // TBD this should be moved to View Controller
+                flowLayout.gridVerticalThickness = UIScreen.main.scale > 1 ? 1 : 0.5
+            }
+
             updateView()
         }
     }
@@ -63,11 +72,11 @@ public class WRWeekView: UIView {
         flowLayout.rowHeaderWidth = 70
         flowLayout.columnHeaderHeight = 70
         flowLayout.hourGridDivisionValue = .minutes_30
-
+        /* This logic moved to set calendar type
         if calendarType == .day {
             flowLayout.columnHeaderHeight = 0 // TBD this should be moved to View Controller
             flowLayout.gridVerticalThickness = 0
-        }
+        }*/
         
         collectionView = UICollectionView(frame: bounds, collectionViewLayout: flowLayout)
         collectionView.delegate = self

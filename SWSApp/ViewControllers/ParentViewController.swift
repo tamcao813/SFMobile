@@ -515,12 +515,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             accVC?.filterMenuVC?.clearFilterModelData(clearcontactsOnMyRoute: false)
         }
         
-        if index != 3 {
-            calendarVC?.willMove(toParentViewController: nil)
-            calendarVC?.view.removeFromSuperview()
-            calendarVC?.removeFromParentViewController()
-        }
-        
         self.clearAccountFilterModel()
         
         self.clearContactsFilterModel()
@@ -579,6 +573,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
     private func removePresentedViewControllers(){
+        
+        if previouslySelectedVCIndex == 3 {
+            calendarVC?.willMove(toParentViewController: nil)
+            calendarVC?.view.removeFromSuperview()
+            calendarVC?.removeFromParentViewController()
+        }
         
         if(!ifMoreVC){
             if let mVC = self.moreVC {

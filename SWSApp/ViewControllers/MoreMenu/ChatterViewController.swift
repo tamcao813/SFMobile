@@ -14,6 +14,7 @@ import WebKit
 class ChatterViewController: UIViewController , WKNavigationDelegate {
     
     @IBOutlet var webView : WKWebView?
+    @IBOutlet weak var lblNoNetworkConnection : UILabel?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     let endUrl = "/one/one.app?source=alohaHeader#/sObject/Event/home"
@@ -26,6 +27,12 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
+        
+        if AppDelegate.isConnectedToNetwork(){
+            lblNoNetworkConnection?.isHidden = true
+        }else{
+            lblNoNetworkConnection?.isHidden = false
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

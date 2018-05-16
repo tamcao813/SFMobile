@@ -12,6 +12,9 @@
         <array key="AvenirNext.ttc">
             <string>AvenirNext-DemiBold</string>
         </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
     </customFonts>
     <scenes>
         <!--More View Controller-->
@@ -243,8 +246,8 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature is only available online." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iK-iC-2oQ">
-                                <rect key="frame" x="421" y="416.5" width="269.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="419.5" y="407" width="273.5" height="20"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -253,7 +256,7 @@
                         <constraints>
                             <constraint firstItem="XV5-DJ-qK6" firstAttribute="leading" secondItem="xLe-x8-vAa" secondAttribute="leading" id="2oJ-WT-cOF"/>
                             <constraint firstItem="XV5-DJ-qK6" firstAttribute="top" secondItem="E1N-Yf-Y6c" secondAttribute="top" id="BD0-x9-AQ4"/>
-                            <constraint firstItem="2iK-iC-2oQ" firstAttribute="centerY" secondItem="xLe-x8-vAa" secondAttribute="centerY" id="Poj-T9-A40"/>
+                            <constraint firstItem="2iK-iC-2oQ" firstAttribute="centerY" secondItem="xLe-x8-vAa" secondAttribute="centerY" constant="-10" id="Poj-T9-A40"/>
                             <constraint firstItem="XV5-DJ-qK6" firstAttribute="trailing" secondItem="xLe-x8-vAa" secondAttribute="trailing" id="VVg-lB-BO5"/>
                             <constraint firstItem="2iK-iC-2oQ" firstAttribute="centerX" secondItem="xLe-x8-vAa" secondAttribute="centerX" id="agF-TF-CQ8"/>
                             <constraint firstItem="XV5-DJ-qK6" firstAttribute="bottom" secondItem="xLe-x8-vAa" secondAttribute="bottom" id="hyO-tF-GUP"/>
@@ -261,6 +264,7 @@
                         <viewLayoutGuide key="safeArea" id="xLe-x8-vAa"/>
                     </view>
                     <connections>
+                        <outlet property="lblNoNetworkConnection" destination="2iK-iC-2oQ" id="9hf-sA-mH5"/>
                         <outlet property="webView" destination="XV5-DJ-qK6" id="pfn-LA-9yb"/>
                     </connections>
                 </viewController>

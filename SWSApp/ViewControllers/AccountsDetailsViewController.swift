@@ -133,8 +133,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             case 0:
                 print(index)
 
-                let storyboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-                let vc: PlanVisitViewController = storyboard.instantiateViewController(withIdentifier: "PlanVisitViewControllerID") as! PlanVisitViewController
+                let storyboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
+                let vc: CreateNewVisitViewController = storyboard.instantiateViewController(withIdentifier: "CreateNewVisitViewControllerID") as! CreateNewVisitViewController
                 vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
                 self.present(vc, animated: true, completion: nil)
                 
@@ -340,12 +340,12 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             btnInsights?.setTitleColor(UIColor.black, for: .normal)
             
         case 3:
-            containerView?.isHidden = false
+            containerView?.isHidden = true
             btnOpportunities?.backgroundColor = UIColor.white
             btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
             
-            let opportunitiesViewController: OpportunitiesViewController = mainStoryboard.instantiateViewController(withIdentifier: "OpportunitiesViewControllerID") as! OpportunitiesViewController
-            activeViewController = opportunitiesViewController
+            //let opportunitiesViewController: OpportunitiesViewController = mainStoryboard.instantiateViewController(withIdentifier: "OpportunitiesViewControllerID") as! OpportunitiesViewController
+            //activeViewController = opportunitiesViewController
         case 4:
             containerView?.isHidden = false
             btnStrategy?.backgroundColor = UIColor.white

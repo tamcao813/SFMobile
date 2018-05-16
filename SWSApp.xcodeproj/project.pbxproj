@@ -225,7 +225,7 @@
 		8DD1500C209330E200858349 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15008209330E100858349 /* AccountView.xib */; };
 		8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
 		8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
-		8DD1500F2093370400858349 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		8DD1500F2093370400858349 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
@@ -1326,6 +1326,7 @@
 				D1FB18202062A7C00072F4C1 /* Frameworks */,
 				D1FB18212062A7C00072F4C1 /* Resources */,
 				39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */,
+				79ED8BFBA4571A1AE89B6CA7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1344,6 +1345,8 @@
 				D1FB18332062A7C00072F4C1 /* Sources */,
 				D1FB18342062A7C00072F4C1 /* Frameworks */,
 				D1FB18352062A7C00072F4C1 /* Resources */,
+				E3D46707B208A56E385EB72B /* [CP] Embed Pods Frameworks */,
+				D59CD69B31B65E7B71B09D2D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1363,6 +1366,8 @@
 				D1FB183E2062A7C10072F4C1 /* Sources */,
 				D1FB183F2062A7C10072F4C1 /* Frameworks */,
 				D1FB18402062A7C10072F4C1 /* Resources */,
+				9BD61BF2ACA8E900DEB57178 /* [CP] Embed Pods Frameworks */,
+				660961FDDF8A447AFCADBE83 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1659,6 +1664,36 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		660961FDDF8A447AFCADBE83 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		79ED8BFBA4571A1AE89B6CA7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7D085E038417463EAC57175A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1675,6 +1710,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9BD61BF2ACA8E900DEB57178 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D3656B1901A9CF6DF4316191 /* [CP] Check Pods Manifest.lock */ = {
@@ -1695,6 +1745,36 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D59CD69B31B65E7B71B09D2D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3D46707B208A56E385EB72B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1713,7 +1793,7 @@
 				AE8F41EF20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */,
 				91FAEF4C20A57DD500209D71 /* WRCornerHeader.swift in Sources */,
 				8D17A5D120A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
-				8DD1500F2093370400858349 /* (null) in Sources */,
+				8DD1500F2093370400858349 /* BuildFile in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
 				6D38325420874026006805C6 /* FilterViewModel.swift in Sources */,
@@ -1828,7 +1908,6 @@
 				AE43DD1C209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */,
 				6D38327520874026006805C6 /* AccountsViewController.swift in Sources */,
 				F2D7B8D820AA213D00A124BA /* ChatterModelViewController.swift in Sources */,
-				6D38327620874026006805C6 /* CalendarViewController.swift in Sources */,
 				8D99A2FB2091E71E00FAA71A /* PhoneTableViewCell.swift in Sources */,
 				129A69992099A3AF00642B14 /* StrategyQuestionsViewModel.swift in Sources */,
 				F2DC2840208E6B5B0005294E /* AccountStrategyCollectionViewCell.swift in Sources */,

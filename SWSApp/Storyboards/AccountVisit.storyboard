@@ -128,7 +128,7 @@
         <!--Create New Visit View Controller-->
         <scene sceneID="uX0-O7-Sfc">
             <objects>
-                <viewController storyboardIdentifier="CreateNewVisitViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="w9a-dQ-lU2" customClass="CreateNewVisitViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateNewVisitViewControllerID" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="w9a-dQ-lU2" customClass="CreateNewVisitViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wpw-ni-eNa">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

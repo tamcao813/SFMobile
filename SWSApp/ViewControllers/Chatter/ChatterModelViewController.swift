@@ -1,24 +1,24 @@
 //
-//  ChatterViewController.swift
+//  ChatterModelViewController.swift
 //  SWSApp
 //
-//  Created by Krishna, Kamya on 4/3/18.
+//  Created by r.a.jantakal on 15/05/18.
 //  Copyright © 2018 maria.min-hui.yu. All rights reserved.
 //
 
-import UIKit
 import Foundation
+import UIKit
 import SalesforceSDKCore
-import WebKit
 
-class ChatterViewController: UIViewController , WKNavigationDelegate {
+class ChatterModelViewController : UIViewController , WKNavigationDelegate{
     
-    @IBOutlet var webView : WKWebView?
+    @IBOutlet weak var webView : WKWebView?
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     let endUrl = "/one/one.app?source=alohaHeader#/sObject/Event/home"
 
+    
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +27,9 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +38,8 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         
-        let authUrl: String = instanceUrl + "/secur/frontdoor.jsp?sid=" + accessToken + "&retURL="
+        let authUrl: String = instanceUrl + "/secur/frontdoor.jsp?sid=" + accessToken + "&retURL=" + "/c/sgwsChatterApp.app?acnid=" + AccountId.selectedAccountId
+        
         let accountUrl: String = authUrl +  endUrl
         
         let url  =  URL(string:authUrl+accountUrl)
@@ -51,11 +55,16 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         }
     }
     
+    //MARK:- IBActions
+    @IBAction func closeButtonAction(sender : UIButton){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 ////MARK:- UIWebView Delegate
-extension ChatterViewController : UIWebViewDelegate{
-    
+extension ChatterModelViewController :UIWebViewDelegate{
+
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
         activityIndicator.stopAnimating()
@@ -71,3 +80,4 @@ extension ChatterViewController : UIWebViewDelegate{
         activityIndicator.stopAnimating()
     }
 }
+

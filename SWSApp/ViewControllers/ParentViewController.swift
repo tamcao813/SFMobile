@@ -135,6 +135,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         //NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
+        let accountVc = accountsVC as! AccountsViewController
+        self.addChildViewController(accountVc)
+        accountVc.view.frame = self.contentView.bounds
+
+        let contactVc = contactsVC as! ContactsViewController
+        self.addChildViewController(contactVc)
+        contactVc.view.frame = self.contentView.bounds
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

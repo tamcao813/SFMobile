@@ -225,7 +225,7 @@ extension CalendarListViewController: WRWeekViewDelegate {
         print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
         
         if event.type == "visit" {
-            PlanVistManager.sharedInstance.visit = Visit(for: "")
+//            PlanVistManager.sharedInstance.visit = Visit(for: "")
             PlanVistManager.sharedInstance.visit?.Id = event.Id
             
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)

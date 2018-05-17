@@ -81,7 +81,10 @@ extension UIColor {
             }
         }
         
-        return nil
+        guard let hex = hexString.hex else {
+            return nil
+        }
+        self.init(hex: hex)
     }
 }
 

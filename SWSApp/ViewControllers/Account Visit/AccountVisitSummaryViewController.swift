@@ -73,6 +73,7 @@ class AccountVisitSummaryViewController: UIViewController {
             for account in accountsArray{
                 if account.account_Id == accountId {
                     accountObject = account
+                    break
                 }
             }
         }

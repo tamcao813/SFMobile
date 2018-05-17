@@ -19,7 +19,7 @@ class AccountDetailTabViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let loggerInUser = userViewModel.loggedInUser
+        //let loggerInUser = userViewModel.loggedInUser
         // Get the buying power contact for this account
         if let accountId = account?.account_Id {
             contactsWithBuyingPower = contactViewModel.contactsWithBuyingPower(forAccount: accountId)

@@ -8,14 +8,25 @@
 
 import UIKit
 
+protocol PrimaryFunctionTableViewCellDelegate: NSObjectProtocol {
+    func primaryFunctionValueSelected(value: String)
+}
+
 class PrimaryFunctionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var primaryFunctionTextField: CustomUITextField!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var departmentTextField: UITextField!
-    var pickerOption:NSArray = []
-    var selectedPrimaryFunctionOption  = Dictionary<String, String>()
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var departmentLabel: UILabel!
+    //weak var delegate: PrimaryFunctionTableViewCellDelegate?
+    
+    var pickerOption = [[String:Any]]()
+    var selectedPrimaryFunctionOption  = [String:Any]()
     var contactDetail: Contact?
+    var buyingPower: Bool = true
+    var pickerOptionBuyingPower = [[String:Any]]()
+    var pickerOptionNoBuyingPower = [[String:Any]]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,10 +34,6 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     }
     
     func customizedUI(){
-        //        let opts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactRoles")
-        let opts = PlistMap.sharedInstance.readPList(plist: "/ContactRoles.plist")
-        
-        pickerOption = opts
         primaryFunctionTextField.addPaddingLeft(10)
         titleTextField.addPaddingLeft(10)
         departmentTextField.addPaddingLeft(10)
@@ -35,6 +42,42 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
         primaryFunctionTextField.rightView = dropdownButton
         primaryFunctionTextField.rightViewMode = .always
         addPickerView(textField: primaryFunctionTextField)
+        
+        let opts = PlistMap.sharedInstance.readPList(plist: "/ContactRoles.plist")
+        
+        //filter picker options with respect to buying power
+        for opt in opts {
+            let option = opt as! [String: Any]
+            if option["validFor"] as! Int == 1 {
+                pickerOptionBuyingPower.append(option)
+            }
+            else if option["validFor"] as! Int == 0 {
+                pickerOptionNoBuyingPower.append(option)
+            }
+        }
+        
+        if buyingPower {
+            pickerOption = pickerOptionBuyingPower
+        }
+        else {
+            pickerOption = pickerOptionNoBuyingPower
+        }
+    }
+    
+    func setBuyingPower(value: Bool) {
+        if buyingPower != value { //if switching true/false, clear the textfield
+            primaryFunctionTextField.text = ""
+            selectedPrimaryFunctionOption  = [String:Any]()
+        }
+        
+        buyingPower = value
+        
+        if buyingPower {
+            pickerOption = pickerOptionBuyingPower
+        }
+        else {
+            pickerOption = pickerOptionNoBuyingPower
+        }
     }
     
     func displayCellContent(){
@@ -74,13 +117,14 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     
     @objc func donePicker(){
         if !selectedPrimaryFunctionOption.isEmpty {
-            primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"]
+            primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"] as? String
         }else{
             if pickerOption.count > 0 {
-                selectedPrimaryFunctionOption = pickerOption[0] as! [String : String]
-                primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"]
+                selectedPrimaryFunctionOption = pickerOption[0] as [String:Any]
+                primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"] as? String
             }
         }
+        //self.delegate?.primaryFunctionValueSelected(value: selectedPrimaryFunctionOption["value"]! as! String)
         primaryFunctionTextField.resignFirstResponder()
     }
     
@@ -100,11 +144,14 @@ extension PrimaryFunctionTableViewCell: UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return (pickerOption[row] as! Dictionary<String, String>)["value"]
+        let opt = pickerOption[row] as [String:Any]
+        let value = opt["value"] as! String
+        return value
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedPrimaryFunctionOption = (pickerOption[row] as! Dictionary<String, String>)
+        let opt = pickerOption[row] as [String:Any]
+        selectedPrimaryFunctionOption = opt
     }
 }
 

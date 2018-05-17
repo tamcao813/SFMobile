@@ -858,13 +858,14 @@ class StoreDispatcher {
     
     //Contacts
     func fetchContactsWithBuyingPower(forAccount accountId: String) -> [Contact] {
+        let idString = fetchContactIdsWithBuyingPower(forAccount: accountId).joined(separator: "','")
+        let idFormattedString = "'" + idString + "'"
         
-        print("fetchContactsWithBuyingPower \(accountId)")
         var contactAry: [Contact] = []
         
         let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:AccountId} = '\(accountId)' "
-
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:Id} IN (\(idFormattedString))"
+        
         let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -1046,6 +1047,31 @@ class StoreDispatcher {
         else if error != nil {
             print("fetchContactsAccounts " + " error:" + (error?.localizedDescription)!)
         }
+        return acrAry
+    }
+    
+    
+    
+    func fetchContactIdsWithBuyingPower(forAccount accountId: String) -> [String] {
+        var acrAry: [String] = []
+    
+        let soapQuery = "Select {SGWS_AccountContactMobile__c:SGWS_Contact__c} FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_AccountContactMobile__c:SGWS_Buying_Power__c} = true"
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                acrAry.append(ary[0] as! String)
+            }
+        }
+        else if error != nil {
+            print("fetchConactIdsWithBuyingPower " + " error:" + (error?.localizedDescription)!)
+        }
+        
         return acrAry
     }
     

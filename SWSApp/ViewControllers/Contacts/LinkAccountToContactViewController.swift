@@ -245,6 +245,7 @@ extension LinkAccountToContactViewController: ToggleTableViewCellDelegate {
 
 extension LinkAccountToContactViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
+        /* //
         if !isInEditMode && account.account_Id == contactObject?.accountId {
         
             let alertController = UIAlertController(title: "This account is already linked.", message:
@@ -253,7 +254,7 @@ extension LinkAccountToContactViewController: SearchAccountTableViewCellDelegate
             self.present(alertController, animated: true, completion: nil)
             return
         }
-        
+        */
         accountSelected = account
         tableView.reloadData()
     }

@@ -246,7 +246,7 @@ extension CalendarListViewController : NavigateToContactsDelegate{
         self.dismiss(animated: true, completion: nil)
     }
     
-    
+
     //Send a notification to Parent VC to load respective VC
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {
         if data == .contacts{
@@ -254,9 +254,13 @@ extension CalendarListViewController : NavigateToContactsDelegate{
             if let visit = PlanVistManager.sharedInstance.visit{
                 ContactsGlobal.accountId = visit.accountId
             }
-            // Added this line so that Contact detail view is not launched for this scenario.
-            ContactFilterMenuModel.selectedContactId = ""
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+            
+            if let contactId = PlanVistManager.sharedInstance.visit?.contactId{
+                // Added this line so that Contact detail view is not launched for this scenario.
+                ContactFilterMenuModel.selectedContactId = contactId
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+            }
+
         }else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
         }

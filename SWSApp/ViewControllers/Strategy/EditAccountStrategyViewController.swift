@@ -301,6 +301,7 @@ class EditAccountStrategyViewController: UIViewController {
         //one object of tableViewRowDetails is linked to which response object
         for q in 0...tableViewRowDetails!.count - 1{
             
+            //if strategyArray is > 0 its an Edit Operation
             if strategyArray.count > 0{
                 
                 for _ in 0...strategyArray.count - 1{//r in strategyArray{
@@ -319,6 +320,7 @@ class EditAccountStrategyViewController: UIViewController {
                 
             }else{
                 
+                //Insert new entry into DB
                 self.createNewStrategyAnswers(q: q, new_Strategy: new_Strategy)
             }
         }

@@ -256,9 +256,9 @@ class CreateNewContactViewController: UIViewController {
         } else {
             newContact.buyerFlag = (contactDetail?.buyerFlag)!
         }
-        newContact.firstName = firstNameTextField.text!
-        newContact.lastName = lastNameTextField.text!
-        newContact.name = newContact.firstName + " " + newContact.lastName
+        newContact.firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        newContact.lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        newContact.name = newContact.firstName.trimmingCharacters(in: .whitespacesAndNewlines) + " " + newContact.lastName.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.lastModifiedByName = (UserViewModel().loggedInUser?.userName)!
         newContact.preferredName = preferredNameTextField.text!
         newContact.functionRole = primaryFunctionTextField.text!

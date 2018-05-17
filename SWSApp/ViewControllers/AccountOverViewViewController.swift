@@ -41,7 +41,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
            
         }
         
-       
+       getDayFromDate()
         
         // Do any additional setup after loading the view.
     }
@@ -53,17 +53,19 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     // Function to get today, tomorrow , yesterday from date
     
-//    func getDayFromDate()  {
-//
-//        let calendar = Calendar.current
-//
-//
-//
-//        calendar.isDateInYesterday(date)
-//        calendar.isDateInToday(date)
-//        calendar.isDateInTomorrow(date)
-//        calendar.isDateInWeekend(date)
-//    }
+    func getDayFromDate()  {
+
+        let calendar = Calendar.current
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let date = dateFormatter.date(from: visitArray[1].startDate)
+        
+        print("yesterday \(calendar.isDateInYesterday(date!))")
+        print("Today \(calendar.isDateInToday(date!))")
+        print("Tomorrow \(calendar.isDateInTomorrow(date!))")
+        print("InWeekend \(calendar.isDateInWeekend(date!))")
+    }
     
     
     
@@ -84,6 +86,26 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
             upComingActivitiesCell.UpComingActivities_TitleLabel.text = visitArray[indexPath.row].sgwsVisitPurpose
             upComingActivitiesCell.UpComingActivities_DetailsLabel.text = visitArray[indexPath.row].description
+            
+            let calendar = Calendar.current
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            let date = dateFormatter.date(from: visitArray[indexPath.row].startDate)
+            
+            if calendar.isDateInToday(date!){
+                
+            upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Today" + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+                
+            }
+            else if calendar.isDateInTomorrow(date!)
+            {
+                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Tomorrow" + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+                
+            }else if calendar.isDateInYesterday(date!)
+            {
+                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Yesterday" + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+            }
+            
             upComingActivitiesCell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
             return upComingActivitiesCell
             

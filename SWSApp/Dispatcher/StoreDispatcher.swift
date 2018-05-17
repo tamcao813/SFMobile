@@ -328,8 +328,8 @@ class StoreDispatcher {
             completion(error! as NSError)
             
         }) { (data, response) in  //success
-            if let data = data, data.count > 0 {
-                let response:[Any]  = data[AnyHashable("records")] as! [Any]
+          //  if let data = data, data.count > 0 {
+            let response:[Any]  = data![AnyHashable("records")] as! [Any]
                 let dict:[String: Any] = response[0] as! [String: Any]
                 let recordTypeId: String = dict["Id"] as! String
                 print(recordTypeId)
@@ -346,7 +346,7 @@ class StoreDispatcher {
                 group.notify(queue: queue) {
                     completion(nil)
                 }
-            }
+         //   }
         }
     }
     

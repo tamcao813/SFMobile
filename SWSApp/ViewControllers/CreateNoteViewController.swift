@@ -176,9 +176,11 @@ class CreateNoteViewController : UIViewController{
         } else {
             if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
                 // create the alert
-                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldInNoted, preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                notesTitleTextField.borderColor = UIColor.red
+                errorLabel.text = StringConstants.emptyFieldError
+//                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldInNoted, preferredStyle: UIAlertControllerStyle.alert)
+//                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+//                self.present(alert, animated: true, completion: nil)
                 return
             }
             self.editNote()

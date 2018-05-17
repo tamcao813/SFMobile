@@ -29,11 +29,14 @@ class EditAccountStrategyViewController: UIViewController {
     var strategyQAResponse:[StrategyQA] = []
     var strategyNotes = ""
     
+    
     var isFirstTimeLoad = true
     
     @IBOutlet weak var collectionView : UICollectionView?
     
-
+ 
+    
+    
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -528,10 +531,11 @@ class EditAccountStrategyViewController: UIViewController {
 
         }else{
             
+            
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("", errorMessage: "Please enter required fields", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-                
+
             }, action2: {
-                
+
             })
         }
     }

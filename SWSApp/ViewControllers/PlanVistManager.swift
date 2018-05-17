@@ -47,14 +47,11 @@ class PlanVistManager {
     func editAndSaveVisit()->Bool{
         
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let accountId = appDelegate.loggedInUser?.accountId
-
         
             let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let timeStamp = dateFormatter.string(from: date)
-        
         
             let new_visit = PlanVisit(for: "newVisit")
             new_visit.Id = (visit?.Id)!
@@ -63,18 +60,16 @@ class PlanVistManager {
             new_visit.sgwsAppointmentStatus = (visit?.sgwsAppointmentStatus)!
             new_visit.startDate =  (visit?.startDate)!
             new_visit.endDate = (visit?.endDate)!
-        new_visit.sgwsVisitPurpose = (PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose)!
-        new_visit.sgwsAgendaNotes = (PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes)!
+            new_visit.sgwsVisitPurpose = (PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose)!
+            new_visit.sgwsAgendaNotes = (PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes)!
             new_visit.status = (visit?.status)!
             new_visit.description = (visit?.description)!
             new_visit.contactId = (visit?.contactId)!
             new_visit.lastModifiedDate = timeStamp
+            new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
         
-        
-
             let attributeDict = ["type":"WorkOrder"]
         
-            
             let addNewDict: [String:Any] = [
                 
                 PlanVisit.planVisitFields[0]: new_visit.Id,
@@ -89,6 +84,7 @@ class PlanVistManager {
                 PlanVisit.planVisitFields[9]: new_visit.status,
                 PlanVisit.planVisitFields[11]: new_visit.contactId,
                 PlanVisit.planVisitFields[10]:new_visit.lastModifiedDate,
+                PlanVisit.planVisitFields[12]:new_visit.recordTypeId,
                 
                 kSyncTargetLocal:true,
                 kSyncTargetLocallyCreated:true,

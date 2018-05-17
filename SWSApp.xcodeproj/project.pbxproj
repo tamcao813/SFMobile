@@ -118,6 +118,8 @@
 		6DBD03262077B5EF0083419E /* CrimsonText-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03172077B5EF0083419E /* CrimsonText-Semibold.ttf */; };
 		6DBD03272077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03182077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf */; };
 		6DBD03282077B5EF0083419E /* CrimsonText-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03192077B5EF0083419E /* CrimsonText-Roman.ttf */; };
+		6DDF2B1820A9A70500FA5A87 /* AccountVisitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDF2B1720A9A70500FA5A87 /* AccountVisitEvent.swift */; };
+		6DDF2B2520A9EBF300FA5A87 /* SyncConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDF2B2420A9EBF300FA5A87 /* SyncConfiguration.swift */; };
 		6F365320207B95850068105B /* AccountSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36531F207B95850068105B /* AccountSortUtility.swift */; };
 		6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D3099206BA064000CFFCC /* AccountsViewController.swift */; };
 		6F3D309F206BA066000CFFCC /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309A206BA065000CFFCC /* ParentViewController.swift */; };
@@ -456,6 +458,8 @@
 		6DBD03172077B5EF0083419E /* CrimsonText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Semibold.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Semibold.ttf"; sourceTree = SOURCE_ROOT; };
 		6DBD03182077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-SemiboldItalic.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-SemiboldItalic.ttf"; sourceTree = SOURCE_ROOT; };
 		6DBD03192077B5EF0083419E /* CrimsonText-Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Roman.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Roman.ttf"; sourceTree = SOURCE_ROOT; };
+		6DDF2B1720A9A70500FA5A87 /* AccountVisitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVisitEvent.swift; sourceTree = "<group>"; };
+		6DDF2B2420A9EBF300FA5A87 /* SyncConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncConfiguration.swift; sourceTree = "<group>"; };
 		6F36531F207B95850068105B /* AccountSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSortUtility.swift; sourceTree = "<group>"; };
 		6F3D3099206BA064000CFFCC /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		6F3D309A206BA065000CFFCC /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
@@ -835,6 +839,7 @@
 			isa = PBXGroup;
 			children = (
 				F2FDA1492099D92D000921A8 /* Visit.swift */,
+				6DDF2B2420A9EBF300FA5A87 /* SyncConfiguration.swift */,
 				12F0F899208FA6BD00160C3D /* AccountContactRelation.swift */,
 				D125134320648E1000CD6CB4 /* User.swift */,
 				D125134120648C4F00CD6CB4 /* Account.swift */,
@@ -845,6 +850,7 @@
 				129A69942099995F00642B14 /* StrategyQuestions.swift */,
 				129A699A2099A9BB00642B14 /* StrategyAnswers.swift */,
 				AE43DD1D209C7401005D8DD1 /* PlanVisit.swift */,
+				6DDF2B1720A9A70500FA5A87 /* AccountVisitEvent.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1725,6 +1731,8 @@
 				F2AB945E2095D5000028802E /* DuringVisitsViewController.swift in Sources */,
 				12B7362E209777CC0063F847 /* StrategyQAViewModel.swift in Sources */,
 				AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */,
+				6DDF2B1820A9A70500FA5A87 /* AccountVisitEvent.swift in Sources */,
+				6DDF2B2520A9EBF300FA5A87 /* SyncConfiguration.swift in Sources */,
 				D23C40D2208DE6590006691C /* UnorderedListTableViewCell.swift in Sources */,
 				8D99A2EE2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */,

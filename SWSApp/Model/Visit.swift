@@ -10,7 +10,7 @@ import Foundation
 
 class Visit{
     
-    static let VisitsFields: [String] = ["Id","Subject","AccountId","Account.Name","Account.AccountNumber","Account.BillingAddress","ContactId","Contact.Name","Contact.Phone","Contact.Email","Contact.SGWS_Roles__c","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c"]
+    static let VisitsFields: [String] = ["Id","Subject","AccountId","Account.Name","Account.AccountNumber","Account.BillingAddress","ContactId","Contact.Name","Contact.Phone","Contact.Email","Contact.SGWS_Roles__c","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","SGWS_WorkOrder_Location__c ","RecordTypeId"]
     
     var Id : String
     var subject : String
@@ -31,6 +31,9 @@ class Visit{
     var sgwsAgendaNotes : String
     var status : String
     var lastModifiedDate : String
+    var recordTypeId : String
+    var location:String
+
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Visit.VisitsFields, ary))
@@ -58,6 +61,9 @@ class Visit{
         sgwsAgendaNotes = json["SGWS_Agenda_Notes__c"] as? String ?? ""
         status = json["Status"] as? String ?? ""
         lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
+        recordTypeId = json["RecordTypeId"] as? String ?? ""
+        location = json["SGWS_WorkOrder_Location__c"] as? String ?? ""
+
     }
     
     init(for: String) {
@@ -81,6 +87,9 @@ class Visit{
         sgwsAgendaNotes = ""
         status = ""
         lastModifiedDate = ""
+        recordTypeId = ""
+        location = ""
+
     }
 }
 

@@ -261,6 +261,8 @@ class CreateNewVisitViewController: UIViewController {
             new_visit.status = "Planned"
         }
         
+        new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+        
         let attributeDict = ["type":"WorkOrder"]
         let addNewDict: [String:Any] = [
             
@@ -276,6 +278,7 @@ class CreateNewVisitViewController: UIViewController {
             //            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
             PlanVisit.planVisitFields[9]: new_visit.status,
             PlanVisit.planVisitFields[11]: new_visit.contactId,
+            PlanVisit.planVisitFields[12]:new_visit.recordTypeId,
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,
@@ -299,6 +302,7 @@ class CreateNewVisitViewController: UIViewController {
             visit.sgwsAgendaNotes = new_visit.sgwsAgendaNotes
             visit.sgwsVisitPurpose = new_visit.sgwsVisitPurpose
             visit.lastModifiedDate = new_visit.lastModifiedDate
+            visit.recordTypeId = new_visit.recordTypeId
             
             PlanVistManager.sharedInstance.visit = visit
         }

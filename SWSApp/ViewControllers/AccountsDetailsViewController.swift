@@ -14,8 +14,6 @@ struct AccountId {
     static var selectedAccountId = ""
 }
 
-
-
 protocol SendDataToContainerDelegate {
     func passTheViewControllerToBeLoadedInContainerView(index : Int)
 }
@@ -33,10 +31,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         
     }
     
-    
     var accountDetailForLoggedInUser : Account?
     var goingFromAccountDetails = true
-    
     
     
     
@@ -115,17 +111,63 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     }
     
     @IBAction func addNewButtonClicked(_ sender: Any) {
+        addNewDropDown.anchorView = addNewButton
         
-        let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
-        let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
-        vc.notesAccountId = accountDetailForLoggedInUser?.account_Id
-        vc.comingFromAccountDetails = goingFromAccountDetails
-        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-       
-        self.present(vc, animated: true, completion: nil)
-        vc.sendNoteDelegate = self
+        addNewDropDown.bottomOffset = CGPoint(x: (((addNewButton?.frame.size.width)! - 100)-((addNewButton?.frame.size.width)!/6.0)), y :( addNewDropDown.anchorView?.plainView.bounds.height)!)
         
+        addNewDropDown.backgroundColor = UIColor.white
+        
+        let dropDownItem1 = NSLocalizedString("Visit", comment: "Visit")
+        let dropDownItem2 = NSLocalizedString("Event", comment: "Event")
+        let dropDownItem3 = NSLocalizedString("Action Item", comment: "Action Item")
+        let dropDownItem4 = NSLocalizedString("Note", comment: "Note")
+        
+        addNewDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4]
+        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
+        self.addNewDropDown.textColor = UIColor.gray
+        
+        addNewDropDown.show()
+        
+        addNewDropDown.selectionAction = {(index: Int, item: String) in
+            switch index {
+            case 0:
+                print(index)
+
+                let storyboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
+                let vc: CreateNewVisitViewController = storyboard.instantiateViewController(withIdentifier: "CreateNewVisitViewController") as! CreateNewVisitViewController
+                vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                self.present(vc, animated: true, completion: nil)
+                
+            case 1:
+                print(index)
+            case 2:
+                print(index)
+            case 3:
+                let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
+                let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
+                vc.notesAccountId = self.accountDetailForLoggedInUser?.account_Id
+                vc.comingFromAccountDetails = self.goingFromAccountDetails
+                vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                
+                self.present(vc, animated: true, completion: nil)
+                vc.sendNoteDelegate = self
+            default:
+                break
+            }
+        }
     }
+    
+//    @IBAction func addNewButtonClicked(_ sender: Any) {
+//        let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
+//        let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
+//        vc.notesAccountId = accountDetailForLoggedInUser?.account_Id
+//        vc.comingFromAccountDetails = goingFromAccountDetails
+//        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+//
+//        self.present(vc, animated: true, completion: nil)
+//        vc.sendNoteDelegate = self
+//
+//    }
     
     func navigateToNotesSection() {
         
@@ -255,18 +297,21 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
     
-   
+    @IBAction func backButtonAction(sender : UIButton){
+        self.view.removeFromSuperview()
+    }
+    
     @IBAction func itemsClicked(sender : UIButton){
         
         containerView?.isHidden = true
         
-        btnOverview?.backgroundColor = UIColor(named: "LightGrey")
-        btnDetails?.backgroundColor = UIColor(named: "LightGrey")
-        btnInsights?.backgroundColor = UIColor(named: "LightGrey")
-        btnOpportunities?.backgroundColor = UIColor(named: "LightGrey")
-        btnStrategy?.backgroundColor = UIColor(named: "LightGrey")
-        btnActionItems?.backgroundColor = UIColor(named: "LightGrey")
-        btnNotes?.backgroundColor = UIColor(named: "LightGrey")
+        btnOverview?.backgroundColor = UIColor(named: "VeryLightGrey")
+        btnDetails?.backgroundColor = UIColor(named: "VeryLightGrey")
+        btnInsights?.backgroundColor = UIColor(named: "VeryLightGrey")
+        btnOpportunities?.backgroundColor = UIColor(named: "VeryLightGrey")
+        btnStrategy?.backgroundColor = UIColor(named: "VeryLightGrey")
+        btnActionItems?.backgroundColor = UIColor(named: "VeryLightGrey")
+        btnNotes?.backgroundColor = UIColor(named: "VeryLightGrey")
         
         btnOverview?.setTitleColor(UIColor.gray, for: .normal)
         btnDetails?.setTitleColor(UIColor.gray, for: .normal)
@@ -295,12 +340,12 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             btnInsights?.setTitleColor(UIColor.black, for: .normal)
             
         case 3:
-            containerView?.isHidden = false
+            containerView?.isHidden = true
             btnOpportunities?.backgroundColor = UIColor.white
             btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
             
-            let opportunitiesViewController: OpportunitiesViewController = mainStoryboard.instantiateViewController(withIdentifier: "OpportunitiesViewControllerID") as! OpportunitiesViewController
-            activeViewController = opportunitiesViewController
+            //let opportunitiesViewController: OpportunitiesViewController = mainStoryboard.instantiateViewController(withIdentifier: "OpportunitiesViewControllerID") as! OpportunitiesViewController
+            //activeViewController = opportunitiesViewController
         case 4:
             containerView?.isHidden = false
             btnStrategy?.backgroundColor = UIColor.white
@@ -327,7 +372,6 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             break
         }
     }
-    
 }
 
 

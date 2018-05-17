@@ -76,6 +76,9 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         
         let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
         let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+        
+        cell.contactId = (contactDetail?.contactId)!
+        
         cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId, withRoles: acrDetail[(indexPath.row-2)].roles, forClassification: ContactSortUtility.formatContactClassification(contactToBeFormatted: contactDetail!))
 
         cell.unlinkAccountContactButton.tag = indexPath.row - countHeaderFooter
@@ -128,11 +131,22 @@ extension ContactListDetailsViewController : UITableViewDataSource {
     }
 
     @objc func actionEditAccountContactDetails(sender:UIButton!) {
-        print("actionEditAccountContactDetails Clicked " + String(sender.tag))
+        let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
+        let linkAccountToContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "LinkAccountToContactViewController") as? LinkAccountToContactViewController
+        linkAccountToContactVC?.isInEditMode = true
+        linkAccountToContactVC?.contactName = contactDetail?.name
+        linkAccountToContactVC?.contactObject = contactDetail
+        //linkAccountToContactVC?.accountIdSelected = accountId
+        self.present(linkAccountToContactVC!, animated: true, completion: nil)
     }
 
     @objc func actionLinkNewAccountContactDetails(sender:UIButton!) {
-        print("actionLinkNewAccountContactDetails Clicked")
+        let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
+        let linkAccountToContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "LinkAccountToContactViewController") as? LinkAccountToContactViewController
+        linkAccountToContactVC?.isInEditMode = false
+        linkAccountToContactVC?.contactName = contactDetail?.name
+        linkAccountToContactVC?.contactObject = contactDetail
+        self.present(linkAccountToContactVC!, animated: true, completion: nil)
     }
     
 }
@@ -208,4 +222,26 @@ extension ContactListDetailsViewController : CreateNewContactViewControllerDeleg
         }
     }
 }
+
+extension ContactListDetailsViewController : LinkAccountToContactViewControllerDelegate{
+    func updateContact() {
+        
+        let contact = ContactSortUtility.searchContactByContactId((contactDetail?.contactId)!)
+        if contact != nil {
+            
+            accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contact?.contactId)!)
+            
+            contactDetail = contact
+            DispatchQueue.main.async {
+                UIView.performWithoutAnimation({() -> Void in
+                    self.contactDetailsTableView.reloadData()
+                    self.contactDetailsTableView.beginUpdates()
+                    self.contactDetailsTableView.endUpdates()
+                })
+            }
+            
+        }
+    }
+}
+
 

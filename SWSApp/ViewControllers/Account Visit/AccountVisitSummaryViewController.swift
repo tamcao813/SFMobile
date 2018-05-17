@@ -55,6 +55,7 @@ class AccountVisitSummaryViewController: UIViewController {
     
     @objc func navigateToAccountScreen(){
         DispatchQueue.main.async {
+            FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
             self.dismiss(animated: false, completion: nil)
             self.delegate?.navigateToAccountScreen()
         }
@@ -82,6 +83,7 @@ class AccountVisitSummaryViewController: UIViewController {
             for account in accountsArray{
                 if account.account_Id == accountId {
                     accountObject = account
+                    break
                 }
             }
         }
@@ -345,7 +347,8 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-                self.dismiss(animated: true, completion: nil)
+                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+                self.dismiss(animated: true, completion: nil)                
                 self.delegate?.navigateToAccountScreen()
             }){
                 

@@ -184,7 +184,9 @@ public class WRWeekView: UIView {
             groupEventsBySection()
         }
         flowLayout.invalidateLayoutCache()
-        collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 
     // MARK: - private actions

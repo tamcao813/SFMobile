@@ -302,6 +302,8 @@
 		91FAEF6220A57DD500209D71 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3620A57DD500209D71 /* StringExtension.swift */; };
 		91FAEF6320A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
 		91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
+		91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
+		91FC593D20AD49FA001660C3 /* VisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FDA1472099D924000921A8 /* VisitsViewModel.swift */; };
 		AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
 		AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
 		AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
@@ -1804,6 +1806,7 @@
 				8DD1500F2093370400858349 /* (null) in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
+				91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */,
 				6D38325420874026006805C6 /* FilterViewModel.swift in Sources */,
 				8D99A2EF2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				91C3E59A208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */,
@@ -1883,6 +1886,7 @@
 				91FAEF4820A57DD500209D71 /* WRColumnHeaderBackground.swift in Sources */,
 				8DA1343720A070EC006A62DE /* ButtonTableViewCell.swift in Sources */,
 				6D38326920874026006805C6 /* AppDelegate.swift in Sources */,
+				91FC593D20AD49FA001660C3 /* VisitsViewModel.swift in Sources */,
 				6D38326A20874026006805C6 /* AccountsViewModel.swift in Sources */,
 				91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */,
 				D23C40C9208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */,

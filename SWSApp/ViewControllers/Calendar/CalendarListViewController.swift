@@ -228,6 +228,7 @@ extension CalendarListViewController: WRWeekViewDelegate {
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             accountVisitsVC?.visitId = event.Id
+            accountVisitsVC?.delegate = self
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
@@ -236,4 +237,31 @@ extension CalendarListViewController: WRWeekViewDelegate {
     }
 }
 
-
+//MARK:- NavigateToContacts Delegate
+extension CalendarListViewController : NavigateToContactsDelegate{
+    func navigateToVisitListing() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    //Send a notification to Parent VC to load respective VC
+    func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        if data == .contacts{
+            ContactFilterMenuModel.comingFromDetailsScreen = ""
+            if let visit = PlanVistManager.sharedInstance.visit{
+                ContactsGlobal.accountId = visit.accountId
+            }
+            // Added this line so that Contact detail view is not launched for this scenario.
+            ContactFilterMenuModel.selectedContactId = ""
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+        }else {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
+        }
+    }
+    
+    func navigateToAccountScreen() {
+        // Added this line so that Account detail view is not launched for this scenario.
+        FilterMenuModel.selectedAccountId = ""
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+    }
+}

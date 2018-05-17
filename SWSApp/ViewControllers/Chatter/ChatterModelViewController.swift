@@ -27,9 +27,6 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

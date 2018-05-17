@@ -1,16 +1,16 @@
 //
-//  UIButtonTitleUtil.swift
+//  AttributedStringUtil.swift
 //  SWSApp
 //
-//  Created by Thillaiganesh, C. on 16/05/18.
+//  Created by Thillaiganesh, C. on 17/05/18.
 //  Copyright © 2018 maria.min-hui.yu. All rights reserved.
 //
 
 import UIKit
 
-class UIButtonTitleUtil {
+class AttributedStringUtil {
 
-    static func displayAttributedTitle(_ displayButton: UIButton!, smallString: String, bigString: String) {
+    static func formatAttributedText(smallString: String, bigString: String) -> NSAttributedString? {
         let fullString = "\(smallString) \(bigString)"
         let attrString = NSMutableAttributedString(string: fullString,
                                                    attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
@@ -29,7 +29,7 @@ class UIButtonTitleUtil {
         
         attrString.endEditing()
         
-        displayButton.setAttributedTitle(attrString, for: .normal)
+        return attrString.copy() as? NSAttributedString
     }
     
 }

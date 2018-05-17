@@ -103,7 +103,7 @@ class CalendarListViewController: UIViewController {
 
     // MARK: - Addnew Button Text
     func setupAddNewButtonText() {
-        UIButtonTitleUtil.displayAttributedTitle(addNewButton, smallString: "Add New ", bigString: "+")
+        addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
     }
     
     // MARK: - DropDown Addnew

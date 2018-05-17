@@ -2,7 +2,6 @@ platform :ios, '10.0'
 use_frameworks!
 
 # Pods for SGWSApp
-pod 'DropDown'
 pod 'ReachabilitySwift'
 pod 'SwipeCellKit', '~> 2.1.0'
 pod 'DateToolsSwift'

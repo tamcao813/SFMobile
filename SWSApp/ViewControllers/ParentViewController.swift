@@ -67,8 +67,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     lazy var calendarVC : UIViewController? = {
         let calendarTabVC = self.storyboard?.instantiateViewController(withIdentifier: "CalendarViewControllerID")
         
-        //let planVisitStoryboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-        //let calendarTabVC = planVisitStoryboard.instantiateViewController(withIdentifier: "PlanVisitViewControllerID")
         return calendarTabVC
     }()
     // objectives VC
@@ -266,20 +264,48 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             group.leave()
         })
 
-        // Contacts Sync Up
+        // Contacts and ACRs Sync
         group.enter()
-        ContactsViewModel().uploadContactToServerAndSyncDownACR(completion: { error in
-            if error != nil {
-                DispatchQueue.main.async {
-                    MBProgressHUD.hide(forWindow: true)
+        ContactsViewModel().syncContactWithServer { error in
+            if error == nil {
+                print("syncContactWithServer Successfully")
+                
+                let acrArray = ContactsViewModel().accountsForContacts()
+                
+                var updatedACRs = [AccountContactRelation]()
+                for acr in acrArray {
+                    if acr.contactId.starts(with: "NEW") {
+                        let sfContactId = ContactsViewModel().contactIdForACR(with: acr.contactId)
+                        acr.contactId = sfContactId
+                        updatedACRs.append(acr)
+                    }
                 }
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
-                print("uploadContactToServerAndSyncDownACR error " + (error?.localizedDescription)!)
-            } else{
-                print("Contacts uploaded to server  Successfully")
+                
+                if updatedACRs.count > 0 {
+                    let success = ContactsViewModel().updateACRToSoup(objects: updatedACRs)
+                
+                    if success {
+                        ContactsViewModel().syncACRwithServer{ error in
+                            if error == nil {
+                                print("syncACRwithServer completed successfully")
+                            }
+                            else {
+                                print("syncACRwithServer failed")
+                            }
+                            group.leave()
+                        }
+                    }
+                }
+                else {
+                    print("updateACRToSoup failed")
+                    group.leave()
+                }
+                
+            } else {
+                print("syncContactWithServer error " + (error?.localizedDescription)!)
+                group.leave()
             }
-            group.leave()
-        })
+        }
           
         // Visits (WorkOrder) Sync Up
         group.enter()
@@ -295,9 +321,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         StrategyQAViewModel().uploadStrategyQAToServer(fields: ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c"], completion: { error in
             if error != nil {
-                DispatchQueue.main.async {
-                    MBProgressHUD.hide(forWindow: true)
-                }
+                //DispatchQueue.main.async { //do this in group.notify
+                //    MBProgressHUD.hide(forWindow: true)
+                //}
                 print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
             }
             group.leave()
@@ -311,7 +337,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 }
                 DispatchQueue.main.async {
                     MBProgressHUD.hide(forWindow: true)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
                 }
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             })
@@ -575,6 +604,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
     private func removePresentedViewControllers(){
+        
+        if previouslySelectedVCIndex == 3 {
+            calendarVC?.willMove(toParentViewController: nil)
+            calendarVC?.view.removeFromSuperview()
+            calendarVC?.removeFromParentViewController()
+        }
         
         if(!ifMoreVC){
             if let mVC = self.moreVC {

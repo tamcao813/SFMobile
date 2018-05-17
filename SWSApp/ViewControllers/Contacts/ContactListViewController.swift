@@ -113,9 +113,10 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         for acc in contactsAcc{
             
             if(globalContact.contactId == acc.contactId){
-                if(!acc.accountName.isEmpty){
-                    print("my account names \(acc.accountName) \(acc.contactId) \(acc.contactName) \(acc.accountId)")
-                    accountsName.append(acc.accountName)
+                let accName = AccountsViewModel().accountNameFor(accountId: acc.accountId)
+                if(!accName.isEmpty){
+                    print("my account names \(accName) \(acc.contactId) \(acc.contactName) \(acc.accountId)")
+                    accountsName.append(accName)
                     break
                 }
                 else { // acr table is not populated so reading from accounts table.

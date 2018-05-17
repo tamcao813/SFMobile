@@ -22,6 +22,8 @@ class ContactListAccountLinkDetails: UITableViewCell {
     @IBOutlet weak var unlinkAccountContactButton: UIButton!
     @IBOutlet weak var editAccountContactButton: UIButton!
     
+    var contactId: String = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -51,6 +53,5 @@ class ContactListAccountLinkDetails: UITableViewCell {
         }
         accountRolesValueLabel.text = roles
         accountBuyerInfluencerOtherValueLabel.text = classification
-
     }
 }

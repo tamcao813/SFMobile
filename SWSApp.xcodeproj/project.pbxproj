@@ -75,7 +75,6 @@
 		6D38327320874026006805C6 /* InsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E12D7020736C4B0005B982 /* InsightsViewController.swift */; };
 		6D38327420874026006805C6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309D206BA065000CFFCC /* HomeViewController.swift */; };
 		6D38327520874026006805C6 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D3099206BA064000CFFCC /* AccountsViewController.swift */; };
-		6D38327620874026006805C6 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309B206BA065000CFFCC /* CalendarViewController.swift */; };
 		6D38327720874026006805C6 /* ReportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E12D7220736D620005B982 /* ReportsViewController.swift */; };
 		6D38327820874026006805C6 /* StoreDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FE1CD520654734009CC47C /* StoreDispatcher.swift */; };
 		6D38327C20874026006805C6 /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03162077B5EF0083419E /* Ubuntu-LightItalic.ttf */; };
@@ -121,7 +120,6 @@
 		6F365320207B95850068105B /* AccountSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36531F207B95850068105B /* AccountSortUtility.swift */; };
 		6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D3099206BA064000CFFCC /* AccountsViewController.swift */; };
 		6F3D309F206BA066000CFFCC /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309A206BA065000CFFCC /* ParentViewController.swift */; };
-		6F3D30A0206BA066000CFFCC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309B206BA065000CFFCC /* CalendarViewController.swift */; };
 		6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D309D206BA065000CFFCC /* HomeViewController.swift */; };
 		6F3D30A4206BA59D000CFFCC /* XMSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D30A3206BA59C000CFFCC /* XMSegmentedControl.swift */; };
 		6F8BD3EB20720281006CABA8 /* AccountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8BD3EA20720281006CABA8 /* AccountListViewController.swift */; };
@@ -157,6 +155,8 @@
 		8D8C450D2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C450A2096E75D0099204C /* SearchAccountTableViewCell.swift */; };
 		8D8C450E2096E75D0099204C /* SearchAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C450B2096E75D0099204C /* SearchAccountTableViewCell.xib */; };
 		8D8C450F2096E75D0099204C /* SearchAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C450B2096E75D0099204C /* SearchAccountTableViewCell.xib */; };
+		8D907C1320AC40B4004FC367 /* LinkAccountToContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D907C1020ABF8D0004FC367 /* LinkAccountToContactViewController.swift */; };
+		8D907C1420AC40B5004FC367 /* LinkAccountToContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D907C1020ABF8D0004FC367 /* LinkAccountToContactViewController.swift */; };
 		8D99A2E02091E14700FAA71A /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99A2DE2091E14700FAA71A /* ToggleTableViewCell.swift */; };
 		8D99A2E12091E14700FAA71A /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99A2DE2091E14700FAA71A /* ToggleTableViewCell.swift */; };
 		8D99A2E22091E14700FAA71A /* ToggleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D99A2DF2091E14700FAA71A /* ToggleTableViewCell.xib */; };
@@ -231,8 +231,19 @@
 		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
+		911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
+		911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
+		912FA9E820AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
+		912FA9E920AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
+		9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
+		9187924120A55C2A009CB557 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924020A55C2A009CB557 /* CalendarViewController.swift */; };
+		9187924220A55C2A009CB557 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924020A55C2A009CB557 /* CalendarViewController.swift */; };
+		9187924420A55C79009CB557 /* CalendarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924320A55C79009CB557 /* CalendarMenuViewController.swift */; };
+		9187924520A55C79009CB557 /* CalendarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924320A55C79009CB557 /* CalendarMenuViewController.swift */; };
+		9187924720A55CAE009CB557 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924620A55CAE009CB557 /* CalendarListViewController.swift */; };
+		9187924820A55CAE009CB557 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924620A55CAE009CB557 /* CalendarListViewController.swift */; };
 		91AA8EC92095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
 		91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
 		91AA8ECB2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */; };
@@ -247,6 +258,52 @@
 		91C3E59F208F0F600067CF3E /* ContactMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E59D208F0F600067CF3E /* ContactMenuViewController.swift */; };
 		91C3E5A1208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */; };
 		91C3E5A2208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */; };
+		91FAEF3920A57DD500209D71 /* WRWeekViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF1E20A57DD500209D71 /* WRWeekViewFlowLayout.swift */; };
+		91FAEF3A20A57DD500209D71 /* WRWeekViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF1E20A57DD500209D71 /* WRWeekViewFlowLayout.swift */; };
+		91FAEF3B20A57DD500209D71 /* WREvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2020A57DD500209D71 /* WREvent.swift */; };
+		91FAEF3C20A57DD500209D71 /* WREvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2020A57DD500209D71 /* WREvent.swift */; };
+		91FAEF3D20A57DD500209D71 /* WRCurrentTimeGridline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */; };
+		91FAEF3E20A57DD500209D71 /* WRCurrentTimeGridline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */; };
+		91FAEF3F20A57DD500209D71 /* WRRowHeaderBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2320A57DD500209D71 /* WRRowHeaderBackground.swift */; };
+		91FAEF4020A57DD500209D71 /* WRRowHeaderBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2320A57DD500209D71 /* WRRowHeaderBackground.swift */; };
+		91FAEF4120A57DD500209D71 /* WRRowHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2420A57DD500209D71 /* WRRowHeader.swift */; };
+		91FAEF4220A57DD500209D71 /* WRRowHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2420A57DD500209D71 /* WRRowHeader.swift */; };
+		91FAEF4320A57DD500209D71 /* WREventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2520A57DD500209D71 /* WREventCell.swift */; };
+		91FAEF4420A57DD500209D71 /* WREventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2520A57DD500209D71 /* WREventCell.swift */; };
+		91FAEF4520A57DD500209D71 /* WRGridLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2620A57DD500209D71 /* WRGridLine.swift */; };
+		91FAEF4620A57DD500209D71 /* WRGridLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2620A57DD500209D71 /* WRGridLine.swift */; };
+		91FAEF4720A57DD500209D71 /* WRColumnHeaderBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2720A57DD500209D71 /* WRColumnHeaderBackground.swift */; };
+		91FAEF4820A57DD500209D71 /* WRColumnHeaderBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2720A57DD500209D71 /* WRColumnHeaderBackground.swift */; };
+		91FAEF4920A57DD500209D71 /* WRColumnHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91FAEF2820A57DD500209D71 /* WRColumnHeader.xib */; };
+		91FAEF4A20A57DD500209D71 /* WRColumnHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91FAEF2820A57DD500209D71 /* WRColumnHeader.xib */; };
+		91FAEF4B20A57DD500209D71 /* WRCornerHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2920A57DD500209D71 /* WRCornerHeader.swift */; };
+		91FAEF4C20A57DD500209D71 /* WRCornerHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2920A57DD500209D71 /* WRCornerHeader.swift */; };
+		91FAEF4D20A57DD500209D71 /* WRColumnHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2A20A57DD500209D71 /* WRColumnHeader.swift */; };
+		91FAEF4E20A57DD500209D71 /* WRColumnHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2A20A57DD500209D71 /* WRColumnHeader.swift */; };
+		91FAEF4F20A57DD500209D71 /* WRCurrentTimeIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2B20A57DD500209D71 /* WRCurrentTimeIndicator.swift */; };
+		91FAEF5020A57DD500209D71 /* WRCurrentTimeIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2B20A57DD500209D71 /* WRCurrentTimeIndicator.swift */; };
+		91FAEF5120A57DD500209D71 /* WRCurrentTimeIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91FAEF2C20A57DD500209D71 /* WRCurrentTimeIndicator.xib */; };
+		91FAEF5220A57DD500209D71 /* WRCurrentTimeIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91FAEF2C20A57DD500209D71 /* WRCurrentTimeIndicator.xib */; };
+		91FAEF5320A57DD500209D71 /* WRTodayBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2D20A57DD500209D71 /* WRTodayBackground.swift */; };
+		91FAEF5420A57DD500209D71 /* WRTodayBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF2D20A57DD500209D71 /* WRTodayBackground.swift */; };
+		91FAEF5520A57DD500209D71 /* WRRowHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91FAEF2E20A57DD500209D71 /* WRRowHeader.xib */; };
+		91FAEF5620A57DD500209D71 /* WRRowHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91FAEF2E20A57DD500209D71 /* WRRowHeader.xib */; };
+		91FAEF5720A57DD500209D71 /* WREventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91FAEF2F20A57DD500209D71 /* WREventCell.xib */; };
+		91FAEF5820A57DD500209D71 /* WREventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91FAEF2F20A57DD500209D71 /* WREventCell.xib */; };
+		91FAEF5920A57DD500209D71 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 91FAEF3120A57DD500209D71 /* .gitkeep */; };
+		91FAEF5A20A57DD500209D71 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 91FAEF3120A57DD500209D71 /* .gitkeep */; };
+		91FAEF5B20A57DD500209D71 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3320A57DD500209D71 /* Constants.swift */; };
+		91FAEF5C20A57DD500209D71 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3320A57DD500209D71 /* Constants.swift */; };
+		91FAEF5D20A57DD500209D71 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3420A57DD500209D71 /* NSObjectExtension.swift */; };
+		91FAEF5E20A57DD500209D71 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3420A57DD500209D71 /* NSObjectExtension.swift */; };
+		91FAEF5F20A57DD500209D71 /* UIColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3520A57DD500209D71 /* UIColorExtention.swift */; };
+		91FAEF6020A57DD500209D71 /* UIColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3520A57DD500209D71 /* UIColorExtention.swift */; };
+		91FAEF6120A57DD500209D71 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3620A57DD500209D71 /* StringExtension.swift */; };
+		91FAEF6220A57DD500209D71 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3620A57DD500209D71 /* StringExtension.swift */; };
+		91FAEF6320A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
+		91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
+		91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
+		91FC593D20AD49FA001660C3 /* VisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FDA1472099D924000921A8 /* VisitsViewModel.swift */; };
 		AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
 		AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
 		AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
@@ -373,6 +430,8 @@
 		F2CAD2332095806C001016C2 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */; };
 		F2CAD23420958075001016C2 /* DuringVisitsInsightsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C1A2920934C8B00D2351C /* DuringVisitsInsightsCollectionReusableView.swift */; };
 		F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */; };
+		F2D7B8D720AA213D00A124BA /* ChatterModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */; };
+		F2D7B8D820AA213D00A124BA /* ChatterModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */; };
 		F2DC2840208E6B5B0005294E /* AccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */; };
 		F2DC2841208E6B600005294E /* AccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C9B208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift */; };
 		F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */; };
@@ -459,7 +518,6 @@
 		6F36531F207B95850068105B /* AccountSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSortUtility.swift; sourceTree = "<group>"; };
 		6F3D3099206BA064000CFFCC /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		6F3D309A206BA065000CFFCC /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
-		6F3D309B206BA065000CFFCC /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		6F3D309D206BA065000CFFCC /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		6F3D30A3206BA59C000CFFCC /* XMSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMSegmentedControl.swift; sourceTree = "<group>"; };
 		6F8BD3EA20720281006CABA8 /* AccountListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListViewController.swift; sourceTree = "<group>"; };
@@ -480,6 +538,7 @@
 		8D17A5DC20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleAppointmentTableViewCell.xib; sourceTree = "<group>"; };
 		8D8C450A2096E75D0099204C /* SearchAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAccountTableViewCell.swift; sourceTree = "<group>"; };
 		8D8C450B2096E75D0099204C /* SearchAccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchAccountTableViewCell.xib; sourceTree = "<group>"; };
+		8D907C1020ABF8D0004FC367 /* LinkAccountToContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAccountToContactViewController.swift; sourceTree = "<group>"; };
 		8D99A2DE2091E14700FAA71A /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
 		8D99A2DF2091E14700FAA71A /* ToggleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToggleTableViewCell.xib; sourceTree = "<group>"; };
 		8D99A2E52091E63F00FAA71A /* ContactClassificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactClassificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -511,14 +570,42 @@
 		8DD15007209330E100858349 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8DD15008209330E100858349 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
 		8DD1501120933A0800858349 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
+		911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringUtil.swift; sourceTree = "<group>"; };
+		912FA9E720AAFC75005979FF /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
+		9141111C20A95565006AD7CD /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
+		9187924020A55C2A009CB557 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		9187924320A55C79009CB557 /* CalendarMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuViewController.swift; sourceTree = "<group>"; };
+		9187924620A55CAE009CB557 /* CalendarListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarListViewController.swift; sourceTree = "<group>"; };
 		91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountLinkDetails.swift; sourceTree = "<group>"; };
 		91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountFooterDetails.swift; sourceTree = "<group>"; };
 		91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountHeaderDetails.swift; sourceTree = "<group>"; };
 		91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactFilterViewModel.swift; sourceTree = "<group>"; };
 		91C3E59D208F0F600067CF3E /* ContactMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMenuViewController.swift; sourceTree = "<group>"; };
 		91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMenuTableTableViewCell.swift; sourceTree = "<group>"; };
+		91FAEF1E20A57DD500209D71 /* WRWeekViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRWeekViewFlowLayout.swift; sourceTree = "<group>"; };
+		91FAEF2020A57DD500209D71 /* WREvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WREvent.swift; sourceTree = "<group>"; };
+		91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCurrentTimeGridline.swift; sourceTree = "<group>"; };
+		91FAEF2320A57DD500209D71 /* WRRowHeaderBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRRowHeaderBackground.swift; sourceTree = "<group>"; };
+		91FAEF2420A57DD500209D71 /* WRRowHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRRowHeader.swift; sourceTree = "<group>"; };
+		91FAEF2520A57DD500209D71 /* WREventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WREventCell.swift; sourceTree = "<group>"; };
+		91FAEF2620A57DD500209D71 /* WRGridLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRGridLine.swift; sourceTree = "<group>"; };
+		91FAEF2720A57DD500209D71 /* WRColumnHeaderBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRColumnHeaderBackground.swift; sourceTree = "<group>"; };
+		91FAEF2820A57DD500209D71 /* WRColumnHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WRColumnHeader.xib; sourceTree = "<group>"; };
+		91FAEF2920A57DD500209D71 /* WRCornerHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCornerHeader.swift; sourceTree = "<group>"; };
+		91FAEF2A20A57DD500209D71 /* WRColumnHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRColumnHeader.swift; sourceTree = "<group>"; };
+		91FAEF2B20A57DD500209D71 /* WRCurrentTimeIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCurrentTimeIndicator.swift; sourceTree = "<group>"; };
+		91FAEF2C20A57DD500209D71 /* WRCurrentTimeIndicator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WRCurrentTimeIndicator.xib; sourceTree = "<group>"; };
+		91FAEF2D20A57DD500209D71 /* WRTodayBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRTodayBackground.swift; sourceTree = "<group>"; };
+		91FAEF2E20A57DD500209D71 /* WRRowHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WRRowHeader.xib; sourceTree = "<group>"; };
+		91FAEF2F20A57DD500209D71 /* WREventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WREventCell.xib; sourceTree = "<group>"; };
+		91FAEF3120A57DD500209D71 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		91FAEF3320A57DD500209D71 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		91FAEF3420A57DD500209D71 /* NSObjectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
+		91FAEF3520A57DD500209D71 /* UIColorExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtention.swift; sourceTree = "<group>"; };
+		91FAEF3620A57DD500209D71 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		91FAEF3820A57DD500209D71 /* WRWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRWeekView.swift; sourceTree = "<group>"; };
 		A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicePurposesViewController.swift; sourceTree = "<group>"; };
 		AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectOpportunitiesViewController.swift; sourceTree = "<group>"; };
@@ -616,6 +703,7 @@
 		F2AB945D2095D5000028802E /* DuringVisitsInsightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsViewController.swift; sourceTree = "<group>"; };
 		F2CAD22C20957C23001016C2 /* OpportunitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesViewController.swift; sourceTree = "<group>"; };
 		F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuTableTableViewCell.swift; sourceTree = "<group>"; };
+		F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterModelViewController.swift; sourceTree = "<group>"; };
 		F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsDetailsViewController.swift; sourceTree = "<group>"; };
 		F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionViewCell.swift; sourceTree = "<group>"; };
 		F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -758,6 +846,7 @@
 				12E47BDD208A21C900D37B74 /* ContactListViewController.swift */,
 				12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */,
 				D267688D2090B41B0060E792 /* CreateNewContactViewController.swift */,
+				8D907C1020ABF8D0004FC367 /* LinkAccountToContactViewController.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -831,6 +920,102 @@
 			path = "Personal Detail Cells";
 			sourceTree = "<group>";
 		};
+		9187923B20A55B96009CB557 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				9187924020A55C2A009CB557 /* CalendarViewController.swift */,
+				9187924320A55C79009CB557 /* CalendarMenuViewController.swift */,
+				9187924620A55CAE009CB557 /* CalendarListViewController.swift */,
+			);
+			name = Calendar;
+			path = SWSApp/ViewControllers/Calendar;
+			sourceTree = SOURCE_ROOT;
+		};
+		91FAEF1B20A57DD500209D71 /* ThirdPartyComponent */ = {
+			isa = PBXGroup;
+			children = (
+				91FAEF1C20A57DD500209D71 /* WRCalendarView */,
+			);
+			path = ThirdPartyComponent;
+			sourceTree = "<group>";
+		};
+		91FAEF1C20A57DD500209D71 /* WRCalendarView */ = {
+			isa = PBXGroup;
+			children = (
+				91FAEF1D20A57DD500209D71 /* FlowLayout */,
+				91FAEF1F20A57DD500209D71 /* Events */,
+				91FAEF2120A57DD500209D71 /* Views */,
+				91FAEF3020A57DD500209D71 /* Assets */,
+				91FAEF3220A57DD500209D71 /* Helpers */,
+				91FAEF3720A57DD500209D71 /* WeekView */,
+			);
+			path = WRCalendarView;
+			sourceTree = "<group>";
+		};
+		91FAEF1D20A57DD500209D71 /* FlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				91FAEF1E20A57DD500209D71 /* WRWeekViewFlowLayout.swift */,
+			);
+			path = FlowLayout;
+			sourceTree = "<group>";
+		};
+		91FAEF1F20A57DD500209D71 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				91FAEF2020A57DD500209D71 /* WREvent.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		91FAEF2120A57DD500209D71 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				91FAEF2D20A57DD500209D71 /* WRTodayBackground.swift */,
+				91FAEF2320A57DD500209D71 /* WRRowHeaderBackground.swift */,
+				91FAEF2620A57DD500209D71 /* WRGridLine.swift */,
+				91FAEF2720A57DD500209D71 /* WRColumnHeaderBackground.swift */,
+				91FAEF2920A57DD500209D71 /* WRCornerHeader.swift */,
+				91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */,
+				91FAEF2B20A57DD500209D71 /* WRCurrentTimeIndicator.swift */,
+				91FAEF2C20A57DD500209D71 /* WRCurrentTimeIndicator.xib */,
+				91FAEF2A20A57DD500209D71 /* WRColumnHeader.swift */,
+				91FAEF2820A57DD500209D71 /* WRColumnHeader.xib */,
+				91FAEF2420A57DD500209D71 /* WRRowHeader.swift */,
+				91FAEF2E20A57DD500209D71 /* WRRowHeader.xib */,
+				91FAEF2520A57DD500209D71 /* WREventCell.swift */,
+				91FAEF2F20A57DD500209D71 /* WREventCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		91FAEF3020A57DD500209D71 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				91FAEF3120A57DD500209D71 /* .gitkeep */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		91FAEF3220A57DD500209D71 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				91FAEF3320A57DD500209D71 /* Constants.swift */,
+				91FAEF3420A57DD500209D71 /* NSObjectExtension.swift */,
+				91FAEF3520A57DD500209D71 /* UIColorExtention.swift */,
+				91FAEF3620A57DD500209D71 /* StringExtension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		91FAEF3720A57DD500209D71 /* WeekView */ = {
+			isa = PBXGroup;
+			children = (
+				91FAEF3820A57DD500209D71 /* WRWeekView.swift */,
+			);
+			path = WeekView;
+			sourceTree = "<group>";
+		};
 		D125133E206480E400CD6CB4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -892,6 +1077,7 @@
 				D1FE1D0320657B47009CC47C /* Utilies */,
 				D1FB185A2062F86C0072F4C1 /* ViewControllers */,
 				D1FB18572062F76C0072F4C1 /* Storyboards */,
+				91FAEF1B20A57DD500209D71 /* ThirdPartyComponent */,
 				12AF94CB207355E4005D3D5F /* Resources */,
 				D1FB18542062BAA80072F4C1 /* PropertyPlist */,
 				D1FB18322062A7C00072F4C1 /* Info.plist */,
@@ -940,6 +1126,7 @@
 				D26768902090B42E0060E792 /* NewContact.storyboard */,
 				8D10B2792099DF0E00C8A86C /* Contacts.storyboard */,
 				D1FB18582062F7A40072F4C1 /* Main.storyboard */,
+				912FA9E720AAFC75005979FF /* Calendar.storyboard */,
 				AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */,
 				12A37D1C20776F0D0036ED36 /* AccountsContactsVC.storyboard */,
 				F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */,
@@ -954,15 +1141,16 @@
 		D1FB185A2062F86C0072F4C1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F2D7B8D520AA212200A124BA /* Chatter */,
 				8D10B281209B018200C8A86C /* Account Visit */,
 				8D10B280209B012E00C8A86C /* Contacts */,
+				9187923B20A55B96009CB557 /* Calendar */,
 				D276DE662075028500086901 /* MoreMenu */,
 				128B1A9B206BAE43004E148A /* TableViewCells */,
 				6F3D30A3206BA59C000CFFCC /* XMSegmentedControl.swift */,
 				6F3D3099206BA064000CFFCC /* AccountsViewController.swift */,
 				F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */,
 				F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */,
-				6F3D309B206BA065000CFFCC /* CalendarViewController.swift */,
 				128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */,
 				6F3D309D206BA065000CFFCC /* HomeViewController.swift */,
 				D24E5B0A2073635D00641814 /* ObjectivesViewController.swift */,
@@ -989,6 +1177,7 @@
 			isa = PBXGroup;
 			children = (
 				F2FDA1472099D924000921A8 /* VisitsViewModel.swift */,
+				9141111C20A95565006AD7CD /* CalendarViewModel.swift */,
 				D1FCDE0D20733024005F956D /* AccountsViewModel.swift */,
 				D1FCDE0E20733024005F956D /* ContactsViewModel.swift */,
 				D1FCDE0C20733024005F956D /* UserViewModel.swift */,
@@ -1034,6 +1223,7 @@
 				8DD15008209330E100858349 /* AccountView.xib */,
 				8DD1501120933A0800858349 /* StringConstants.swift */,
 				AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */,
+				911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -1109,6 +1299,14 @@
 			path = DuringVisit;
 			sourceTree = "<group>";
 		};
+		F2D7B8D520AA212200A124BA /* Chatter */ = {
+			isa = PBXGroup;
+			children = (
+				F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */,
+			);
+			path = Chatter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1138,7 +1336,7 @@
 				D1FB18202062A7C00072F4C1 /* Frameworks */,
 				D1FB18212062A7C00072F4C1 /* Resources */,
 				39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */,
-				BCABE55D7B3090C674B55CCB /* [CP] Copy Pods Resources */,
+				7657B4F8366A47418C1713D6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1157,8 +1355,8 @@
 				D1FB18332062A7C00072F4C1 /* Sources */,
 				D1FB18342062A7C00072F4C1 /* Frameworks */,
 				D1FB18352062A7C00072F4C1 /* Resources */,
-				CFF672A7BA486B1E7F1FE014 /* [CP] Embed Pods Frameworks */,
-				3D9F24F08FD294AB7F2B062D /* [CP] Copy Pods Resources */,
+				68B3DDC31E92F552D334659F /* [CP] Embed Pods Frameworks */,
+				CC2CDF0F762A871505EF102A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1178,8 +1376,8 @@
 				D1FB183E2062A7C10072F4C1 /* Sources */,
 				D1FB183F2062A7C10072F4C1 /* Frameworks */,
 				D1FB18402062A7C10072F4C1 /* Resources */,
-				0ABA50CDBE72F61F1DF378D3 /* [CP] Embed Pods Frameworks */,
-				28333F5788EEC13485E770C5 /* [CP] Copy Pods Resources */,
+				ED16E5506CA59E4093356B2A /* [CP] Copy Pods Resources */,
+				A41DD516CDC93E5932F04616 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1247,6 +1445,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				912FA9E920AAFC75005979FF /* Calendar.storyboard in Resources */,
 				D23C409F208DCF610006691C /* AccountVisit.storyboard in Resources */,
 				8DA1343920A070EC006A62DE /* ButtonTableViewCell.xib in Resources */,
 				D26768922090B42E0060E792 /* NewContact.storyboard in Resources */,
@@ -1273,6 +1472,7 @@
 				8D8C450F2096E75D0099204C /* SearchAccountTableViewCell.xib in Resources */,
 				8DD150052093308600858349 /* AssociateTableViewCell.xib in Resources */,
 				6D38328420874026006805C6 /* Localizable.strings in Resources */,
+				91FAEF4A20A57DD500209D71 /* WRColumnHeader.xib in Resources */,
 				8D17A5D920A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib in Resources */,
 				8D99A2F12091E6F600FAA71A /* NameTableViewCell.xib in Resources */,
 				D23C40CB208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */,
@@ -1288,6 +1488,7 @@
 				6D38328820874026006805C6 /* Ubuntu-Italic.ttf in Resources */,
 				6D38328920874026006805C6 /* UFL.txt in Resources */,
 				6D38328A20874026006805C6 /* CrimsonText-Italic.ttf in Resources */,
+				91FAEF5620A57DD500209D71 /* WRRowHeader.xib in Resources */,
 				8D17A5E020A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib in Resources */,
 				F20C1A28209347EA00D2351C /* Insights.plist in Resources */,
 				8DA1343320A0597B006A62DE /* LocationTableViewCell.xib in Resources */,
@@ -1296,6 +1497,7 @@
 				6D38328C20874026006805C6 /* Main.storyboard in Resources */,
 				F2FD2C2F20919B2900037BB2 /* EditAccountStrategy.plist in Resources */,
 				F2FDA14C2099DEEA000921A8 /* ServicePurposes.plist in Resources */,
+				91FAEF5220A57DD500209D71 /* WRCurrentTimeIndicator.xib in Resources */,
 				8D17A5CD20A1FFB600ABC9DC /* SearchForContactTableViewCell.xib in Resources */,
 				6D38328D20874026006805C6 /* LaunchScreen.storyboard in Resources */,
 				D23C40DB208DFA890006691C /* AccountVisitListTableViewCell.xib in Resources */,
@@ -1306,10 +1508,12 @@
 				8D99A2FD2091E71E00FAA71A /* PhoneTableViewCell.xib in Resources */,
 				6D38328E20874026006805C6 /* CrimsonText-Bold.ttf in Resources */,
 				6D38328F20874026006805C6 /* CrimsonText-SemiboldItalic.ttf in Resources */,
+				91FAEF5A20A57DD500209D71 /* .gitkeep in Resources */,
 				8D99A2E32091E14700FAA71A /* ToggleTableViewCell.xib in Resources */,
 				6D38329020874026006805C6 /* AccountsContactsVC.storyboard in Resources */,
 				6D38329120874026006805C6 /* Assets.xcassets in Resources */,
 				6D38329220874026006805C6 /* CrimsonText-BoldItalic.ttf in Resources */,
+				91FAEF5820A57DD500209D71 /* WREventCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1326,16 +1530,19 @@
 				8D10B27A2099DF0E00C8A86C /* Contacts.storyboard in Resources */,
 				F2062E5E2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */,
 				8DA1343820A070EC006A62DE /* ButtonTableViewCell.xib in Resources */,
+				91FAEF5520A57DD500209D71 /* WRRowHeader.xib in Resources */,
 				8D17A5CC20A1FFB600ABC9DC /* SearchForContactTableViewCell.xib in Resources */,
 				6DBD031D2077B5EF0083419E /* Ubuntu-Regular.ttf in Resources */,
 				F2590105209216ED00C2E354 /* DuringVisitTopics.plist in Resources */,
 				6DBD03232077B5EF0083419E /* Ubuntu-Medium.ttf in Resources */,
 				6DBD03262077B5EF0083419E /* CrimsonText-Semibold.ttf in Resources */,
+				91FAEF5920A57DD500209D71 /* .gitkeep in Resources */,
 				8D99A3022091E73F00FAA71A /* EmailTableViewCell.xib in Resources */,
 				8D99A2FC2091E71E00FAA71A /* PhoneTableViewCell.xib in Resources */,
 				F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */,
 				D23C40CA208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */,
 				8D99A3082091E76900FAA71A /* ContactHoursTableViewCell.xib in Resources */,
+				912FA9E820AAFC75005979FF /* Calendar.storyboard in Resources */,
 				D2EAEB8A2074EAC6005F7792 /* MoreMenu.storyboard in Resources */,
 				8DD150012093307700858349 /* SelectedAssociateTableViewCell.xib in Resources */,
 				D23C40DA208DFA890006691C /* AccountVisitListTableViewCell.xib in Resources */,
@@ -1344,12 +1551,14 @@
 				6DBD03212077B5EF0083419E /* Ubuntu-Light.ttf in Resources */,
 				8D17A5D220A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib in Resources */,
 				6DBD031F2077B5EF0083419E /* Ubuntu-Bold.ttf in Resources */,
+				91FAEF5120A57DD500209D71 /* WRCurrentTimeIndicator.xib in Resources */,
 				C9B63C68208DB6DB008D9E14 /* Notes.storyboard in Resources */,
 				F20C1A27209347EA00D2351C /* Insights.plist in Resources */,
 				6DBD031E2077B5EF0083419E /* Ubuntu-MediumItalic.ttf in Resources */,
 				6DBD031B2077B5EF0083419E /* Ubuntu-Italic.ttf in Resources */,
 				8D99A2E92091E63F00FAA71A /* ContactClassificationTableViewCell.xib in Resources */,
 				D23C40D0208DE6590006691C /* AssociatedContactsTableViewCell.xib in Resources */,
+				91FAEF5720A57DD500209D71 /* WREventCell.xib in Resources */,
 				8D99A30E2091E77C00FAA71A /* DateFieldTableViewCell.xib in Resources */,
 				8D99A2E22091E14700FAA71A /* ToggleTableViewCell.xib in Resources */,
 				8D17A5D820A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib in Resources */,
@@ -1370,6 +1579,7 @@
 				8DD150062093308700858349 /* AssociateTableViewCell.xib in Resources */,
 				D1FB18312062A7C00072F4C1 /* LaunchScreen.storyboard in Resources */,
 				6D38329B20875E00006805C6 /* SFPropertydev.plist in Resources */,
+				91FAEF4920A57DD500209D71 /* WRColumnHeader.xib in Resources */,
 				4AE1195520A0AD720095BBA3 /* Info.plist in Resources */,
 				6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */,
 				AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */,
@@ -1402,36 +1612,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0ABA50CDBE72F61F1DF378D3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		28333F5788EEC13485E770C5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1440,6 +1620,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
@@ -1456,6 +1637,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
@@ -1472,21 +1654,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3D9F24F08FD294AB7F2B062D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		49596D23472CB10FABBCB27D /* [CP] Check Pods Manifest.lock */ = {
@@ -1507,6 +1674,36 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		68B3DDC31E92F552D334659F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7657B4F8366A47418C1713D6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7D085E038417463EAC57175A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1525,7 +1722,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BCABE55D7B3090C674B55CCB /* [CP] Copy Pods Resources */ = {
+		A41DD516CDC93E5932F04616 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1537,22 +1734,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CFF672A7BA486B1E7F1FE014 /* [CP] Embed Pods Frameworks */ = {
+		CC2CDF0F762A871505EF102A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D3656B1901A9CF6DF4316191 /* [CP] Check Pods Manifest.lock */ = {
@@ -1573,6 +1770,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		ED16E5506CA59E4093356B2A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1583,28 +1795,34 @@
 				D2676886208F40330060E792 /* AccountVisitViewController.swift in Sources */,
 				AE8F41F520A09F1B0033F81D /* UIView+Properties.swift in Sources */,
 				6D38325020874026006805C6 /* CustomerHeaderTableViewCell.swift in Sources */,
+				91FAEF3C20A57DD500209D71 /* WREvent.swift in Sources */,
 				8D8C450D2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */,
 				8D99A2E82091E63F00FAA71A /* ContactClassificationTableViewCell.swift in Sources */,
 				6D38325120874026006805C6 /* Contact.swift in Sources */,
 				8DD1500A209330E200858349 /* AccountView.swift in Sources */,
 				AE8F41EF20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */,
+				91FAEF4C20A57DD500209D71 /* WRCornerHeader.swift in Sources */,
 				8D17A5D120A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
 				8DD1500F2093370400858349 /* (null) in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
+				91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */,
 				6D38325420874026006805C6 /* FilterViewModel.swift in Sources */,
 				8D99A2EF2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				91C3E59A208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */,
 				6D38325520874026006805C6 /* AccountsDetailsViewController.swift in Sources */,
 				6D38325620874026006805C6 /* LoadDepositViewController.swift in Sources */,
 				8D99A2E12091E14700FAA71A /* ToggleTableViewCell.swift in Sources */,
+				9187924820A55CAE009CB557 /* CalendarListViewController.swift in Sources */,
 				D23C40D9208DFA890006691C /* AccountVisitListTableViewCell.swift in Sources */,
 				6D38325820874026006805C6 /* GlobalConstants.swift in Sources */,
 				8D99A3272093055200FAA71A /* Validations.swift in Sources */,
+				91FAEF5020A57DD500209D71 /* WRCurrentTimeIndicator.swift in Sources */,
 				AE8F41E9209F73500033F81D /* SchedulerComponent.swift in Sources */,
 				91C3E59F208F0F600067CF3E /* ContactMenuViewController.swift in Sources */,
 				8D99A3132091E79C00FAA71A /* DropdownTableViewCell.swift in Sources */,
 				AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */,
+				8D907C1420AC40B5004FC367 /* LinkAccountToContactViewController.swift in Sources */,
 				91C3E59C208F0F4F0067CF3E /* ContactsViewController.swift in Sources */,
 				129A699C2099A9BB00642B14 /* StrategyAnswers.swift in Sources */,
 				8D17A5D720A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
@@ -1614,6 +1832,8 @@
 				D26768892090B1BB0060E792 /* ContactListTableViewCell.swift in Sources */,
 				6D38325A20874026006805C6 /* AccountsMenuTableTableViewCell.swift in Sources */,
 				D23C40BC208DE6480006691C /* AccountVisitSectionHeaderView.swift in Sources */,
+				91FAEF6220A57DD500209D71 /* StringExtension.swift in Sources */,
+				91FAEF4020A57DD500209D71 /* WRRowHeaderBackground.swift in Sources */,
 				6D38325B20874026006805C6 /* AccountListViewController.swift in Sources */,
 				6D38325C20874026006805C6 /* XMSegmentedControl.swift in Sources */,
 				8DA1343120A0597B006A62DE /* LocationTableViewCell.swift in Sources */,
@@ -1622,16 +1842,23 @@
 				6D38325E20874026006805C6 /* AccountDetailTabViewController.swift in Sources */,
 				D23C4091208DCF010006691C /* Extension.swift in Sources */,
 				6D38325F20874026006805C6 /* UserViewModel.swift in Sources */,
+				91FAEF6020A57DD500209D71 /* UIColorExtention.swift in Sources */,
 				8DD1501320933A0800858349 /* StringConstants.swift in Sources */,
 				8D99A2F52091E70900FAA71A /* PrimaryFunctionTableViewCell.swift in Sources */,
 				8DD150002093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,
 				8D10B282209B01B600C8A86C /* ContactListDetailsViewController.swift in Sources */,
+				9187924520A55C79009CB557 /* CalendarMenuViewController.swift in Sources */,
 				12F0F89E2090B1D200160C3D /* ContactListDetailsTableViewCell.swift in Sources */,
 				C955CD282099A040003DADA1 /* NoteSortUtility.swift in Sources */,
 				F2CAD23420958075001016C2 /* DuringVisitsInsightsCollectionReusableView.swift in Sources */,
+				91FAEF4220A57DD500209D71 /* WRRowHeader.swift in Sources */,
+				91FAEF3E20A57DD500209D71 /* WRCurrentTimeGridline.swift in Sources */,
 				F2CAD22E20957C23001016C2 /* OpportunitiesViewController.swift in Sources */,
 				8D99A3012091E73F00FAA71A /* EmailTableViewCell.swift in Sources */,
+				91FAEF5C20A57DD500209D71 /* Constants.swift in Sources */,
 				AE43DD04209622EC005D8DD1 /* ServicePurposesViewController.swift in Sources */,
+				9187924220A55C2A009CB557 /* CalendarViewController.swift in Sources */,
+				911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */,
 				6D38326020874026006805C6 /* Account.swift in Sources */,
 				6D38326120874026006805C6 /* ContactTableViewCell.swift in Sources */,
 				91AA8ECC2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */,
@@ -1640,6 +1867,8 @@
 				8D99A3192091FCAF00FAA71A /* DescriptionTableViewCell.swift in Sources */,
 				F20C1A3020937C3800D2351C /* AccountsNotesViewModel.swift in Sources */,
 				6D38326420874026006805C6 /* ActionItemsViewController.swift in Sources */,
+				91FAEF4420A57DD500209D71 /* WREventCell.swift in Sources */,
+				91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */,
 				F2FD2C2920919AF600037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */,
 				12F0F89D2090B1C000160C3D /* ContactListTableViewCell.swift in Sources */,
 				C955CD272099982F003DADA1 /* NotesViewController.swift in Sources */,
@@ -1650,14 +1879,18 @@
 				F2FD2C2A20919AFA00037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */,
 				6D38326720874026006805C6 /* String+PartString.swift in Sources */,
 				6D38326820874026006805C6 /* User.swift in Sources */,
+				91FAEF4E20A57DD500209D71 /* WRColumnHeader.swift in Sources */,
 				D267688F2090B41B0060E792 /* CreateNewContactViewController.swift in Sources */,
 				D23C408F208DCF010006691C /* AccountVisitSummaryViewController.swift in Sources */,
 				8D17A5DE20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */,
+				91FAEF4820A57DD500209D71 /* WRColumnHeaderBackground.swift in Sources */,
 				8DA1343720A070EC006A62DE /* ButtonTableViewCell.swift in Sources */,
 				6D38326920874026006805C6 /* AppDelegate.swift in Sources */,
+				91FC593D20AD49FA001660C3 /* VisitsViewModel.swift in Sources */,
 				6D38326A20874026006805C6 /* AccountsViewModel.swift in Sources */,
 				91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */,
 				D23C40C9208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */,
+				91FAEF5E20A57DD500209D71 /* NSObjectExtension.swift in Sources */,
 				6D38326B20874026006805C6 /* ContactsViewModel.swift in Sources */,
 				6D38326C20874026006805C6 /* ObjectivesViewController.swift in Sources */,
 				129A699F2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */,
@@ -1670,8 +1903,10 @@
 				AE43DD1F209C7401005D8DD1 /* PlanVisit.swift in Sources */,
 				AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */,
 				6D38326F20874026006805C6 /* NotificationsViewController.swift in Sources */,
+				91FAEF3A20A57DD500209D71 /* WRWeekViewFlowLayout.swift in Sources */,
 				C9B9509C209339E800792AD3 /* AccountNotes.swift in Sources */,
 				6D38327020874026006805C6 /* AccountsMenuViewController.swift in Sources */,
+				91FAEF4620A57DD500209D71 /* WRGridLine.swift in Sources */,
 				6D38327120874026006805C6 /* MoreViewController.swift in Sources */,
 				8D99A3072091E76900FAA71A /* ContactHoursTableViewCell.swift in Sources */,
 				D23C40D3208DE6590006691C /* UnorderedListTableViewCell.swift in Sources */,
@@ -1682,10 +1917,11 @@
 				6D38327420874026006805C6 /* HomeViewController.swift in Sources */,
 				8DD150032093308200858349 /* AssociateTableViewCell.swift in Sources */,
 				8D99A31F2092501000FAA71A /* FamilyTableViewCell.swift in Sources */,
+				91FAEF5420A57DD500209D71 /* WRTodayBackground.swift in Sources */,
 				12F0F89F2090BABC00160C3D /* ContactListViewController.swift in Sources */,
 				AE43DD1C209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */,
 				6D38327520874026006805C6 /* AccountsViewController.swift in Sources */,
-				6D38327620874026006805C6 /* CalendarViewController.swift in Sources */,
+				F2D7B8D820AA213D00A124BA /* ChatterModelViewController.swift in Sources */,
 				8D99A2FB2091E71E00FAA71A /* PhoneTableViewCell.swift in Sources */,
 				129A69992099A3AF00642B14 /* StrategyQuestionsViewModel.swift in Sources */,
 				F2DC2840208E6B5B0005294E /* AccountStrategyCollectionViewCell.swift in Sources */,
@@ -1708,23 +1944,30 @@
 				8D99A3002091E73F00FAA71A /* EmailTableViewCell.swift in Sources */,
 				D23C40D8208DFA890006691C /* AccountVisitListTableViewCell.swift in Sources */,
 				12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */,
+				91FAEF5B20A57DD500209D71 /* Constants.swift in Sources */,
 				8D99A3182091FCAF00FAA71A /* DescriptionTableViewCell.swift in Sources */,
 				F259010E2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift in Sources */,
 				AE5C974820887550004548E9 /* DesignableUITextField.swift in Sources */,
 				AE5C974520886DD4004548E9 /* PlanVisitViewController.swift in Sources */,
+				911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */,
 				91C3E59B208F0F4E0067CF3E /* ContactsViewController.swift in Sources */,
 				F2923C9A208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift in Sources */,
+				8D907C1320AC40B4004FC367 /* LinkAccountToContactViewController.swift in Sources */,
 				D10483962068381A00A0343B /* Contact.swift in Sources */,
 				91C3E5A1208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */,
 				D2E12D7520736E0C0005B982 /* ChatterViewController.swift in Sources */,
 				AE8F41EE20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */,
 				F259010B2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */,
+				91FAEF3920A57DD500209D71 /* WRWeekViewFlowLayout.swift in Sources */,
 				12E47BDE208A21C900D37B74 /* ContactListViewController.swift in Sources */,
 				6F365320207B95850068105B /* AccountSortUtility.swift in Sources */,
 				D1FCDE0F20733025005F956D /* FilterViewModel.swift in Sources */,
 				F2AB945E2095D5000028802E /* DuringVisitsViewController.swift in Sources */,
+				91FAEF4320A57DD500209D71 /* WREventCell.swift in Sources */,
 				12B7362E209777CC0063F847 /* StrategyQAViewModel.swift in Sources */,
+				91FAEF4D20A57DD500209D71 /* WRColumnHeader.swift in Sources */,
 				AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */,
+				91FAEF4B20A57DD500209D71 /* WRCornerHeader.swift in Sources */,
 				D23C40D2208DE6590006691C /* UnorderedListTableViewCell.swift in Sources */,
 				8D99A2EE2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */,
@@ -1738,10 +1981,12 @@
 				12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */,
 				8DD15009209330E200858349 /* AccountView.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
+				91FAEF6120A57DD500209D71 /* StringExtension.swift in Sources */,
 				D17BD572209115CD000F38FA /* PlistMap.swift in Sources */,
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
 				12E47BE2208B458C00D37B74 /* ContactListDetailsViewController.swift in Sources */,
 				F20C1A2F20937C3700D2351C /* AccountsNotesViewModel.swift in Sources */,
+				91FAEF4F20A57DD500209D71 /* WRCurrentTimeIndicator.swift in Sources */,
 				8D17A5C620A1F7A000ABC9DC /* CreateNewVisitViewController.swift in Sources */,
 				129A699B2099A9BB00642B14 /* StrategyAnswers.swift in Sources */,
 				6F8BD3EB20720281006CABA8 /* AccountListViewController.swift in Sources */,
@@ -1750,6 +1995,7 @@
 				D2EAEB902074ED1E005F7792 /* GoSpotCheckViewController.swift in Sources */,
 				D26768882090B1BA0060E792 /* ContactListTableViewCell.swift in Sources */,
 				128B1A9A206BADF8004E148A /* AccountDetailTabViewController.swift in Sources */,
+				9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */,
 				F2AB94552095CBA90028802E /* AlertUtility.swift in Sources */,
 				8D17A5CA20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */,
 				D1FCDE1020733025005F956D /* UserViewModel.swift in Sources */,
@@ -1763,9 +2009,11 @@
 				D2EAEB922074EDBE005F7792 /* ActionItemsViewController.swift in Sources */,
 				8D17A5D020A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
 				AE8F41F420A09F1B0033F81D /* UIView+Properties.swift in Sources */,
+				9187924120A55C2A009CB557 /* CalendarViewController.swift in Sources */,
 				4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */,
 				8D10B2752099ABFA00C8A86C /* AccountContactLinkTableViewCell.swift in Sources */,
 				8DA1343620A070EC006A62DE /* ButtonTableViewCell.swift in Sources */,
+				9187924720A55CAE009CB557 /* CalendarListViewController.swift in Sources */,
 				91AA8ECD2095CCCC00787D83 /* ContactListAccountHeaderDetails.swift in Sources */,
 				D23C4090208DCF010006691C /* Extension.swift in Sources */,
 				AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */,
@@ -1777,6 +2025,7 @@
 				D23C408E208DCF010006691C /* AccountVisitSummaryViewController.swift in Sources */,
 				F2AB94592095D4E40028802E /* EditAccountStrategyViewController.swift in Sources */,
 				D1FCDE1120733025005F956D /* AccountsViewModel.swift in Sources */,
+				91FAEF6320A57DD500209D71 /* WRWeekView.swift in Sources */,
 				8D99A2F42091E70900FAA71A /* PrimaryFunctionTableViewCell.swift in Sources */,
 				D1FCDE1220733025005F956D /* ContactsViewModel.swift in Sources */,
 				1268ED47209868170027013D /* NoteSortUtility.swift in Sources */,
@@ -1784,6 +2033,7 @@
 				F2FD2C2820919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */,
 				AE43DD1E209C7401005D8DD1 /* PlanVisit.swift in Sources */,
 				D104839E20683E4000A0343B /* Notification.swift in Sources */,
+				91FAEF5F20A57DD500209D71 /* UIColorExtention.swift in Sources */,
 				91AA8ECB2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */,
 				C9B63C6E208DB819008D9E14 /* CreateNoteViewController.swift in Sources */,
 				AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */,
@@ -1798,12 +2048,19 @@
 				12B7362C209768350063F847 /* StrategyQA.swift in Sources */,
 				D267688E2090B41B0060E792 /* CreateNewContactViewController.swift in Sources */,
 				F209D705206CF05C001AF22F /* AccountsMenuViewController.swift in Sources */,
+				F2D7B8D720AA213D00A124BA /* ChatterModelViewController.swift in Sources */,
 				F2FDA14A2099D92D000921A8 /* Visit.swift in Sources */,
+				91FAEF3D20A57DD500209D71 /* WRCurrentTimeGridline.swift in Sources */,
 				F2CAD22D20957C23001016C2 /* OpportunitiesViewController.swift in Sources */,
 				F20C1A2D20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift in Sources */,
+				91FAEF5D20A57DD500209D71 /* NSObjectExtension.swift in Sources */,
+				91FAEF4520A57DD500209D71 /* WRGridLine.swift in Sources */,
 				12E06C9920A0594C00A6C9E4 /* PlanVistManager.swift in Sources */,
 				6F8BD3F12072297C006CABA8 /* MoreViewController.swift in Sources */,
+				91FAEF3F20A57DD500209D71 /* WRRowHeaderBackground.swift in Sources */,
 				8D99A2E02091E14700FAA71A /* ToggleTableViewCell.swift in Sources */,
+				91FAEF4120A57DD500209D71 /* WRRowHeader.swift in Sources */,
+				91FAEF4720A57DD500209D71 /* WRColumnHeaderBackground.swift in Sources */,
 				8D8C450C2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */,
 				AE43DD1B209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */,
 				F2AB945F2095D5000028802E /* DuringVisitsTopicsViewController.swift in Sources */,
@@ -1818,8 +2075,8 @@
 				91C3E59E208F0F600067CF3E /* ContactMenuViewController.swift in Sources */,
 				6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */,
 				6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */,
-				6F3D30A0206BA066000CFFCC /* CalendarViewController.swift in Sources */,
 				F2923C9C208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift in Sources */,
+				91FAEF3B20A57DD500209D71 /* WREvent.swift in Sources */,
 				12E47BE4208B518A00D37B74 /* ContactListDetailsTableViewCell.swift in Sources */,
 				8DD150042093308300858349 /* AssociateTableViewCell.swift in Sources */,
 				F2AB94602095D5000028802E /* DuringVisitsInsightsViewController.swift in Sources */,
@@ -1829,7 +2086,9 @@
 				F2AB945A2095D4E40028802E /* AccountStrategyViewControllerr.swift in Sources */,
 				8D17A5DD20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */,
 				129A699E2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */,
+				9187924420A55C79009CB557 /* CalendarMenuViewController.swift in Sources */,
 				AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */,
+				91FAEF5320A57DD500209D71 /* WRTodayBackground.swift in Sources */,
 				C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */,
 				D1FE1CD620654734009CC47C /* StoreDispatcher.swift in Sources */,
 				8DD14FFF2093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,

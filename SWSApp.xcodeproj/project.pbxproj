@@ -243,7 +243,7 @@
 		8DD1500C209330E200858349 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15008209330E100858349 /* AccountView.xib */; };
 		8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
 		8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
-		8DD1500F2093370400858349 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		8DD1500F2093370400858349 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
@@ -253,6 +253,10 @@
 		912FA9E920AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
 		9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
+		914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */; };
+		914E4F3920AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */; };
+		914E4F3B20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */; };
+		914E4F3C20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
 		9187924120A55C2A009CB557 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924020A55C2A009CB557 /* CalendarViewController.swift */; };
 		9187924220A55C2A009CB557 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924020A55C2A009CB557 /* CalendarViewController.swift */; };
@@ -599,6 +603,8 @@
 		912FA9E720AAFC75005979FF /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
 		9141111C20A95565006AD7CD /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuTableTableViewCell.swift; sourceTree = "<group>"; };
+		914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFilterMenuModel.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
 		9187924020A55C2A009CB557 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		9187924320A55C79009CB557 /* CalendarMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuViewController.swift; sourceTree = "<group>"; };
@@ -818,6 +824,7 @@
 		128B1A9B206BAE43004E148A /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				914E4F3620AEA2CE00FE01A5 /* Calendar */,
 				F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */,
 				12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */,
 				AEF951172089C7800083EA47 /* AccountTableViewCell.swift */,
@@ -983,6 +990,14 @@
 				8D99A31D2092501000FAA71A /* FamilyTableViewCell.xib */,
 			);
 			path = "Personal Detail Cells";
+			sourceTree = "<group>";
+		};
+		914E4F3620AEA2CE00FE01A5 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		9187923B20A55B96009CB557 /* Calendar */ = {
@@ -1244,6 +1259,7 @@
 			children = (
 				F2FDA1472099D924000921A8 /* VisitsViewModel.swift */,
 				9141111C20A95565006AD7CD /* CalendarViewModel.swift */,
+				914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */,
 				D1FCDE0D20733024005F956D /* AccountsViewModel.swift */,
 				D1FCDE0E20733024005F956D /* ContactsViewModel.swift */,
 				D1FCDE0C20733024005F956D /* UserViewModel.swift */,
@@ -1872,7 +1888,7 @@
 				AE8F41EF20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */,
 				91FAEF4C20A57DD500209D71 /* WRCornerHeader.swift in Sources */,
 				8D17A5D120A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
-				8DD1500F2093370400858349 /* BuildFile in Sources */,
+				8DD1500F2093370400858349 /* (null) in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
 				91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */,
@@ -1918,6 +1934,7 @@
 				8DD150002093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,
 				8D10B282209B01B600C8A86C /* ContactListDetailsViewController.swift in Sources */,
 				9187924520A55C79009CB557 /* CalendarMenuViewController.swift in Sources */,
+				914E4F3C20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */,
 				12F0F89E2090B1D200160C3D /* ContactListDetailsTableViewCell.swift in Sources */,
 				C955CD282099A040003DADA1 /* NoteSortUtility.swift in Sources */,
 				F2CAD23420958075001016C2 /* DuringVisitsInsightsCollectionReusableView.swift in Sources */,
@@ -1988,6 +2005,7 @@
 				6D38327320874026006805C6 /* InsightsViewController.swift in Sources */,
 				6D38327420874026006805C6 /* HomeViewController.swift in Sources */,
 				8DD150032093308200858349 /* AssociateTableViewCell.swift in Sources */,
+				914E4F3920AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */,
 				8D99A31F2092501000FAA71A /* FamilyTableViewCell.swift in Sources */,
 				91FAEF5420A57DD500209D71 /* WRTodayBackground.swift in Sources */,
 				12F0F89F2090BABC00160C3D /* ContactListViewController.swift in Sources */,
@@ -2054,6 +2072,7 @@
 				D2EAEB8E2074EC9B005F7792 /* LoadDepositViewController.swift in Sources */,
 				9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */,
 				12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */,
+				914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */,
 				8DD15009209330E200858349 /* AccountView.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
 				91FAEF6120A57DD500209D71 /* StringExtension.swift in Sources */,
@@ -2145,6 +2164,7 @@
 				F2AB945F2095D5000028802E /* DuringVisitsTopicsViewController.swift in Sources */,
 				8D17A5D620A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
 				D2CD7F63208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
+				914E4F3B20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */,
 				C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */,
 				D1FE1D0720657B7E009CC47C /* SFAError.swift in Sources */,
 				8D99A3232092D66C00FAA71A /* CustomPicker.swift in Sources */,

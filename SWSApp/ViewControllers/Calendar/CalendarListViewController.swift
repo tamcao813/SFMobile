@@ -18,7 +18,7 @@ class CalendarListViewController: UIViewController {
     @IBOutlet weak var weekEndsButton: UIButton!
 
     var currentShowingDate: Date?
-    var currentCalendarViewType: GlobalConstants.CalendarViewType = .Day
+    var currentCalendarViewType: GlobalConstants.CalendarViewType = .Week
     var weekEndsEnabled: Bool = false
     
     let dropDownAddNew = DropDown()
@@ -30,6 +30,7 @@ class CalendarListViewController: UIViewController {
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshCalendar), name: NSNotification.Name("refreshCalendar"), object: nil)
         
+        self.calViewButton.setTitle("Week View    ", for: .normal)
         setupAddNewButtonText()
         setupDropDownAddNew()
         setupDropDownCalView()

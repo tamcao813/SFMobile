@@ -37,7 +37,55 @@ class CalendarSortUtility {
             filteredEvents = calendarEvents!
         }
         
+        let (enteredAnyFilterCaseReturn, filteredByReturnArray) = searchCalendarBySearchText(calendarEvents: filteredEvents, searchText: searchText)
+        if enteredAnyFilterCaseReturn {
+            filteredEvents = filteredByReturnArray
+        }
+
         return filteredEvents
+    }
+    
+    static func searchCalendarBySearchText(calendarEvents:[WREvent], searchText:String)->(Bool, [WREvent])
+    {
+        var enteredAnyFilterCase = false
+        var calendarListWithSearchResults = [WREvent]()
+
+        let trimmedSearchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        for calendarEvent in calendarEvents
+        {
+            if (calendarEvent.title.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+            {
+                enteredAnyFilterCase = true
+                calendarListWithSearchResults.append(calendarEvent)
+                continue
+            }
+            
+            guard let selectedVisit = VisitSortUtility.searchVisitByVisitId(visitId: calendarEvent.Id) else {
+                continue
+            }
+
+            if (selectedVisit.accountId.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+            {
+                enteredAnyFilterCase = true
+                calendarListWithSearchResults.append(calendarEvent)
+                continue
+            }
+            
+            guard let selectedContact = ContactSortUtility.searchContactByContactId(selectedVisit.contactId) else {
+                continue
+            }
+            
+            if (selectedContact.name.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+            {
+                enteredAnyFilterCase = true
+                calendarListWithSearchResults.append(calendarEvent)
+                continue
+            }
+
+        }
+        
+        return (enteredAnyFilterCase, calendarListWithSearchResults)
     }
     
 }

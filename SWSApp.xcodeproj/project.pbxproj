@@ -293,6 +293,7 @@
 		9187924520A55C79009CB557 /* CalendarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924320A55C79009CB557 /* CalendarMenuViewController.swift */; };
 		9187924720A55CAE009CB557 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924620A55CAE009CB557 /* CalendarListViewController.swift */; };
 		9187924820A55CAE009CB557 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924620A55CAE009CB557 /* CalendarListViewController.swift */; };
+		919FEFE920AEEED400ED6BBC /* VisitSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919FEFE820AEEED400ED6BBC /* VisitSortUtility.swift */; };
 		91AA8EC92095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
 		91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
 		91AA8ECB2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */; };
@@ -653,6 +654,7 @@
 		9187924020A55C2A009CB557 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		9187924320A55C79009CB557 /* CalendarMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuViewController.swift; sourceTree = "<group>"; };
 		9187924620A55CAE009CB557 /* CalendarListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarListViewController.swift; sourceTree = "<group>"; };
+		919FEFE820AEEED400ED6BBC /* VisitSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSortUtility.swift; sourceTree = "<group>"; };
 		91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountLinkDetails.swift; sourceTree = "<group>"; };
 		91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountFooterDetails.swift; sourceTree = "<group>"; };
 		91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountHeaderDetails.swift; sourceTree = "<group>"; };
@@ -1365,6 +1367,7 @@
 				1268ED46209868170027013D /* NoteSortUtility.swift */,
 				913FA171208F2048004AAA0D /* ContactSortUtility.swift */,
 				911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */,
+				919FEFE820AEEED400ED6BBC /* VisitSortUtility.swift */,
 				4ADB2B0A206B1BAA001A8785 /* SWSApp-Bridging-Header.h */,
 				4ADB2B09206B1B4D001A8785 /* MBProgressHUD */,
 				D1FE1D0620657B7E009CC47C /* SFAError.swift */,
@@ -2184,6 +2187,7 @@
 				6F3D30A4206BA59D000CFFCC /* XMSegmentedControl.swift in Sources */,
 				D2676885208F3C8F0060E792 /* AccountVisitViewController.swift in Sources */,
 				D2EAEB902074ED1E005F7792 /* GoSpotCheckViewController.swift in Sources */,
+				919FEFE920AEEED400ED6BBC /* VisitSortUtility.swift in Sources */,
 				D26768882090B1BA0060E792 /* ContactListTableViewCell.swift in Sources */,
 				128B1A9A206BADF8004E148A /* AccountDetailTabViewController.swift in Sources */,
 				9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */,

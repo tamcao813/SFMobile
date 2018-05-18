@@ -330,10 +330,14 @@ extension CalendarListViewController : SearchCalendarByEnteredTextDelegate{
     
     func performCalendarFilterOperation(searchString: String) {
         if let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: searchString) {
-            setupCalendarEventData(withEvents: eventsFiltered)
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: eventsFiltered)
+            }
         }
         else {
-            setupCalendarEventData(withEvents: [WREvent]())
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: [WREvent]())
+            }
         }
     }
     

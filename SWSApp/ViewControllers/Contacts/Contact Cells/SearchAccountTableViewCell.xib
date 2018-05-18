@@ -28,13 +28,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for an Account*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2D-p4-drI">
-                        <rect key="frame" x="40" y="10" width="789" height="32.5"/>
+                        <rect key="frame" x="40" y="10" width="789" height="22.5"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" tag="100" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search by Account name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a98-GB-CEO" customClass="DesignableUITextField" customModule="SWSApp" customModuleProvider="target">
-                        <rect key="frame" x="40" y="52.5" width="789" height="50"/>
+                        <rect key="frame" x="40" y="42.5" width="789" height="50"/>
                         <color key="backgroundColor" name="Color"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="NbZ-VS-o9o"/>
@@ -69,7 +69,7 @@
                     <constraint firstItem="a98-GB-CEO" firstAttribute="top" secondItem="i2D-p4-drI" secondAttribute="bottom" constant="10" id="ChU-4O-UlW"/>
                     <constraint firstAttribute="trailing" secondItem="a98-GB-CEO" secondAttribute="trailing" constant="40" id="NuC-bM-j41"/>
                     <constraint firstItem="i2D-p4-drI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="TZt-4t-evl"/>
-                    <constraint firstAttribute="bottom" secondItem="a98-GB-CEO" secondAttribute="bottom" constant="10" id="l8h-nq-k9C"/>
+                    <constraint firstAttribute="bottom" secondItem="a98-GB-CEO" secondAttribute="bottom" constant="20" id="l8h-nq-k9C"/>
                     <constraint firstItem="a98-GB-CEO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="vEj-dp-oCv"/>
                 </constraints>
             </tableViewCellContentView>

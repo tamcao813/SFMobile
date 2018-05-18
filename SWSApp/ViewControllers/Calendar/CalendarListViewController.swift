@@ -59,7 +59,7 @@ class CalendarListViewController: UIViewController {
     
     func reloadCalendarView() {
         setupCalendarData()
-        weekView.setEvents(events: CalendarViewModel().loadVisitData()!)
+        setupCalendarEventData(withEvents: CalendarViewModel().loadVisitData()!)
         moveToToday()
     }
     
@@ -244,6 +244,10 @@ class CalendarListViewController: UIViewController {
         weekView.showWeekEnds = weekEndsEnabled
         weekView.setCalendarDate(currentShowingDate!)
     }
+    
+    func setupCalendarEventData(withEvents: [WREvent]) {
+        weekView.setEvents(events: withEvents)
+    }
 }
 
 extension CalendarListViewController: WRWeekViewDelegate {
@@ -317,11 +321,20 @@ extension CalendarListViewController : SearchCalendarByEnteredTextDelegate{
     }
     
     func filteringCalendar(filtering: Bool) {
-        print("filteringCalendar")
+        if !filtering {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: CalendarViewModel().loadVisitData()!)
+            }
+        }
     }
     
     func performCalendarFilterOperation(searchString: String) {
-        print("performCalendarFilterOperation")
+        if let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: searchString) {
+            setupCalendarEventData(withEvents: eventsFiltered)
+        }
+        else {
+            setupCalendarEventData(withEvents: [WREvent]())
+        }
     }
     
 }

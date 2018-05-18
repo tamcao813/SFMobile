@@ -308,3 +308,20 @@ extension CalendarListViewController : NavigateToContactsDelegate{
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
 }
+
+//MARK:- SearchCalendarByEnteredTextDelegate Delegate
+extension CalendarListViewController : SearchCalendarByEnteredTextDelegate{
+    
+    func sortCalendarData(searchString: String) {
+        print("sortCalendarData")
+    }
+    
+    func filteringCalendar(filtering: Bool) {
+        print("filteringCalendar")
+    }
+    
+    func performCalendarFilterOperation(searchString: String) {
+        print("performCalendarFilterOperation")
+    }
+    
+}

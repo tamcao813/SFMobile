@@ -33,6 +33,8 @@ class CalendarMenuViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.clearFilterModelData()
+
         self.customizeSearchBar()
         
         self.tableView!.tableFooterView = UIView()
@@ -85,6 +87,40 @@ class CalendarMenuViewController: UIViewController {
         searchTextField.attributedPlaceholder = NSAttributedString(string:"Name, Account, ID", attributes: [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 18)!])
         searchTextField.rightView = imageView
         searchTextField.rightViewMode = UITextFieldViewMode.always
+    }
+
+    //Used to Clear the Model Data
+    func clearFilterModelData(){
+        
+        CalendarFilterMenuModel.allType = ""
+        CalendarFilterMenuModel.visitsType = "YES"
+        CalendarFilterMenuModel.eventsType = "YES"
+
+        
+        if searchBar != nil{
+            searchBar.text = ""
+        }
+        
+        //Used to Clear the Expanded section of ContactFilter Option
+        selectedSection = 0
+        self.expandedSectionHeaderNumber = 0
+
+        if self.expandedSectionHeaderNumber != -1{
+            if self.expandedSectionHeaderNumber == 0 {
+                
+            }
+            else {
+                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+                if cImageView != nil {
+                    tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+                }
+            }
+        }
+        
+        if tableView != nil{
+            tableView.reloadData()
+        }
+        
     }
 
     //Used to check which section header was clicked
@@ -262,6 +298,7 @@ class CalendarMenuViewController: UIViewController {
     
     //Clears all the filter selection
     @IBAction func clearButton(_ sender: Any) {
+        self.clearFilterModelData()
         self.searchByEnteredTextDelegate?.filteringCalendar(filtering: false)
     }
     

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import DropDown
 
 class CalendarListViewController: UIViewController {
 
@@ -15,14 +14,16 @@ class CalendarListViewController: UIViewController {
     @IBOutlet weak var dateHeaderLabel: UILabel!
     @IBOutlet weak var addNewButton: UIButton!
     @IBOutlet weak var calViewButton: UIButton!
+    @IBOutlet weak var weekEndsView: UIView!
+    @IBOutlet weak var weekEndsButton: UIButton!
 
     var currentShowingDate: Date?
     var currentCalendarViewType: GlobalConstants.CalendarViewType = .Day
+    var weekEndsEnabled: Bool = false
     
     let dropDownAddNew = DropDown()
     let dropDownCalView = DropDown()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,6 +38,8 @@ class CalendarListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        displayWeekends()
+
         reloadCalendarView()
     }
 
@@ -74,6 +77,16 @@ class CalendarListViewController: UIViewController {
 
     }
     
+    @IBAction func actionButtonShowWeekends(_ sender: Any) {
+        guard (currentCalendarViewType == .Week || currentCalendarViewType == .Month) else {
+            return
+        }
+
+        weekEndsEnabled = !weekEndsEnabled
+        displayWeekends()
+        refreshWeekEnds()
+    }
+    
     @IBAction func actionButtonNew(_ sender: Any) {
         dropDownAddNew.show()
     }
@@ -88,6 +101,22 @@ class CalendarListViewController: UIViewController {
     
     @IBAction func actionButtonToday(_ sender: Any) {
         moveToToday()
+    }
+
+    // MARK: - Weekend Attribute Helper
+    func displayWeekends() {
+        if (currentCalendarViewType == .Week || currentCalendarViewType == .Month) {
+            weekEndsView.isHidden = false
+        }
+        else {
+            weekEndsView.isHidden = true
+        }
+        
+        if weekEndsEnabled {
+            weekEndsButton.setImage(UIImage.init(named: "Checkbox Selected"), for: .normal)
+        }else{
+            weekEndsButton.setImage(UIImage.init(named: "Checkbox"), for: .normal)
+        }
     }
 
     // MARK: - Add new visit / event
@@ -169,8 +198,11 @@ class CalendarListViewController: UIViewController {
                 break
             }
             
+            self.displayWeekends()
+            
             self.calViewButton.setNeedsLayout()
             self.weekView.isFirst = true
+            self.weekView.showWeekEnds = self.weekEndsEnabled
             self.reloadCalendarView()
             self.dropDownCalView.hide()
         }
@@ -206,6 +238,11 @@ class CalendarListViewController: UIViewController {
         weekView.setCalendarDate(Date(), animated: true)
     }
 
+    func refreshWeekEnds() {
+        weekView.isFirst = true
+        weekView.showWeekEnds = weekEndsEnabled
+        weekView.setCalendarDate(currentShowingDate!)
+    }
 }
 
 extension CalendarListViewController: WRWeekViewDelegate {
@@ -246,7 +283,6 @@ extension CalendarListViewController : NavigateToContactsDelegate{
         self.dismiss(animated: true, completion: nil)
     }
     
-
     //Send a notification to Parent VC to load respective VC
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {
         if data == .contacts{
@@ -268,7 +304,6 @@ extension CalendarListViewController : NavigateToContactsDelegate{
     
     func navigateToAccountScreen() {
         // Added this line so that Account detail view is not launched for this scenario.
-//        FilterMenuModel.selectedAccountId = (PlanVistManager.sharedInstance.visit?.accountId)!
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
 }

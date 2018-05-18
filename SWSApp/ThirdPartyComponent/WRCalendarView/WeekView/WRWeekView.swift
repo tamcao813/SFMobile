@@ -33,6 +33,9 @@ public class WRWeekView: UIView {
     var events = [WREvent]()
     var eventBySection = [String: [WREvent]]()
     
+    // Added to Show / hide weekends
+    var showWeekEnds = false
+    
     public weak var delegate: WRWeekViewDelegate?
     
     public var calendarType: CalendarType = .day {
@@ -142,7 +145,7 @@ public class WRWeekView: UIView {
             flowLayout.sectionWidth = (frame.width - flowLayout.rowHeaderWidth) / CGFloat(daysToShowOnScreen)
         }
         else {
-            flowLayout.sectionWidth = (frame.width - flowLayout.rowHeaderWidth) / CGFloat(daysToShowOnScreen-2) // TBD This (-2) should come from configuration to hide Sat and Sun
+            flowLayout.sectionWidth = (frame.width - flowLayout.rowHeaderWidth) / CGFloat(daysToShowOnScreen - (showWeekEnds ? 0 : 2)) // TBD This is to show / hide Sat and Sun
         }
     }
     
@@ -184,11 +187,7 @@ public class WRWeekView: UIView {
             groupEventsBySection()
         }
         flowLayout.invalidateLayoutCache()
-        self.collectionView.reloadData()
-        /*
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }*/
+        collectionView.reloadData()
     }
 
     // MARK: - private actions

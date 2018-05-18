@@ -12,8 +12,8 @@ class DropdownTableViewCell: UITableViewCell {
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var dropdownTextfield: CustomUITextField!
-    var pickerOption:NSArray = []
-    var selectedOption = Dictionary<String, String>()
+    var pickerOption = [[String:Any]]()
+    var selectedOption  = [String:Any]()
     var contactDetail: Contact?
     
     override func awakeFromNib() {
@@ -28,7 +28,7 @@ class DropdownTableViewCell: UITableViewCell {
     func customUI() {
         //        let opts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactPreferredCommunication")
         let opts = PlistMap.sharedInstance.readPList(plist: "/ContactPreferred.plist")
-        pickerOption = opts
+        pickerOption = opts as! [[String : Any]]
         dropdownTextfield.backgroundColor = UIColor.clear
         dropdownTextfield.addPaddingLeft(10)
         let dropdownButton : UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 30))
@@ -61,11 +61,11 @@ class DropdownTableViewCell: UITableViewCell {
     
     @objc func donePicker(){
         if !selectedOption.isEmpty {
-            dropdownTextfield.text = selectedOption["value"]
+            dropdownTextfield.text = selectedOption["value"] as? String
         }else{
             if pickerOption.count > 0 {
-                selectedOption = pickerOption[0] as! [String : String]
-                dropdownTextfield.text = selectedOption["value"]
+                selectedOption = pickerOption[0] as [String:Any]
+                dropdownTextfield.text = selectedOption["value"] as? String
             }
         }
         dropdownTextfield.resignFirstResponder()
@@ -88,11 +88,14 @@ extension DropdownTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return (pickerOption[row] as! Dictionary<String, String>)["value"]
+        let opt = pickerOption[row] as [String:Any]
+        let value = opt["value"] as! String
+        return value
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedOption = (pickerOption[row] as! Dictionary<String, String>)
+        let opt = pickerOption[row] as [String:Any]
+        selectedOption = opt
     }
 }
 

@@ -18,6 +18,7 @@ class EditAccountStrategyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var textView : UITextView?
     @IBOutlet weak var bottomView : UIView?
     @IBOutlet weak var selectedIcon : UIImageView?
+   
     
     //Display Collection View data
     func displayCellData(data : NSMutableDictionary){
@@ -26,6 +27,7 @@ class EditAccountStrategyCollectionViewCell: UICollectionViewCell {
         if (data["isSelected"] as! String) == "NO"{
             self.layer.borderColor = UIColor.white.cgColor
             selectedIcon?.isHidden = true
+            
             //selectedIcon?.image = UIImage(named: "selectedGrey")
             
         }else{

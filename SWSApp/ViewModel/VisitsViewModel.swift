@@ -14,4 +14,31 @@ class VisitsViewModel {
         return StoreDispatcher.shared.fetchVisits()
     }
     
+    func visitsForUserFourMonthsSorted() -> [Visit] {
+        
+        var visitsForUserArray = visitsForUser()
+        
+        let prevMonthDate = Date().add(component: .month, value: -1)
+        let next3MonthDate = Date().add(component: .month, value: 3)
+
+        visitsForUserArray = visitsForUserArray.filter {
+            
+            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            return false
+            
+        }
+        
+        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        
+        return visitsForUserArray
+        
+    }
+    
 }

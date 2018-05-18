@@ -60,7 +60,8 @@ class ContactSortUtility {
             // search account name
             let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contact.contactId)
             for acrObject in accountsListWithContactId {
-                if (acrObject.accountName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+                let accName = AccountsViewModel().accountNameFor(accountId: acrObject.accountId)
+                if (accName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
                 {
                     contactListWithSearchResults.append(contact)
                     break

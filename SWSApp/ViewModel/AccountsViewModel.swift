@@ -16,4 +16,7 @@ class AccountsViewModel {
         return StoreDispatcher.shared.fetchAccounts(forUser: userid)
     }
     
+    func accountNameFor(accountId: String) -> String {
+        return StoreDispatcher.shared.fetchAccountName(for: accountId)
+    }
 }

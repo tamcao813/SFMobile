@@ -10,7 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import SmartStore
 import SmartSync
-import DropDown
+//import DropDown
 
 protocol CreateNewContactViewControllerDelegate : NSObjectProtocol{
     func updateContactList()
@@ -256,9 +256,9 @@ class CreateNewContactViewController: UIViewController {
         } else {
             newContact.buyerFlag = (contactDetail?.buyerFlag)!
         }
-        newContact.firstName = firstNameTextField.text!
-        newContact.lastName = lastNameTextField.text!
-        newContact.name = newContact.firstName + " " + newContact.lastName
+        newContact.firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        newContact.lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        newContact.name = newContact.firstName.trimmingCharacters(in: .whitespacesAndNewlines) + " " + newContact.lastName.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.lastModifiedByName = (UserViewModel().loggedInUser?.userName)!
         newContact.preferredName = preferredNameTextField.text!
         newContact.functionRole = primaryFunctionTextField.text!
@@ -269,6 +269,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.contactHours = contactHoursTextField.text!
         newContact.favouriteActivities = favouriteTextView.text!
         newContact.lastModifiedDate = timeStamp
+        newContact.buyerFlag = doesHaveBuyingPower
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
@@ -299,7 +300,7 @@ class CreateNewContactViewController: UIViewController {
             newContact.accountId = accountSelected.account_Id
         }
         
-        var showAlert = false
+        //var showAlert = false
         globalContacts = ContactsViewModel().globalContacts()
         if globalContacts.count > 0 {
             for index in 0 ... globalContacts.count - 1 {
@@ -324,7 +325,27 @@ class CreateNewContactViewController: UIViewController {
         var success: Bool!
         if isNewContact {
             success = ContactsViewModel().createNewContactToSoup(object: newContact)
-            let _ = ContactsViewModel().createARCDictionary(contactObject: newContact, accountObject: accountSelected)
+            
+            if !success {
+                print("failed to create new contact to local soup")
+                return
+            }
+            
+            let newACR = AccountContactRelation(for: "newACR")
+            newACR.accountId = newContact.accountId
+            newACR.contactId = newContact.contactId
+            newACR.contactName = newContact.firstName + " " + newContact.lastName
+            newACR.roles = newContact.functionRole
+            newACR.isActive = true
+            newACR.buyingPower = newContact.buyerFlag
+            
+            success = ContactsViewModel().createNewACRToSoup(object: newACR)
+            
+            if !success {
+                print("failed to create new ACR to local soup")
+                return
+            }
+            
         }else{
             success = ContactsViewModel().editNewContactToSoup(object: newContact)
         }
@@ -414,6 +435,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
+                cell?.setBuyingPower(value:  doesHaveBuyingPower)
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
@@ -581,6 +603,8 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
+            cell?.setBuyingPower(value: doesHaveBuyingPower)
+            
             if let contactDetail = contactDetail {
                 cell?.contactDetail = contactDetail
                 cell?.displayCellContent()

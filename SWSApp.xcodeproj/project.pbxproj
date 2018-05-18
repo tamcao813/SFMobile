@@ -8,6 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		0CD6096AB4B96A978CFF0076 /* Pods_SWSAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7079A5982A809CAAA6EF1A9 /* Pods_SWSAppUITests.framework */; };
+		121468E620AD603A00942A00 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 121468DC20AD603A00942A00 /* DropDownCell.xib */; };
+		121468E720AD603A00942A00 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 121468DC20AD603A00942A00 /* DropDownCell.xib */; };
+		121468E820AD603A00942A00 /* DPDKeyboardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468DE20AD603A00942A00 /* DPDKeyboardListener.swift */; };
+		121468E920AD603A00942A00 /* DPDKeyboardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468DE20AD603A00942A00 /* DPDKeyboardListener.swift */; };
+		121468EA20AD603A00942A00 /* DPDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468DF20AD603A00942A00 /* DPDConstants.swift */; };
+		121468EB20AD603A00942A00 /* DPDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468DF20AD603A00942A00 /* DPDConstants.swift */; };
+		121468EC20AD603A00942A00 /* DPDUIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468E020AD603A00942A00 /* DPDUIView+Extension.swift */; };
+		121468ED20AD603A00942A00 /* DPDUIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468E020AD603A00942A00 /* DPDUIView+Extension.swift */; };
+		121468EE20AD603A00942A00 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 121468E120AD603A00942A00 /* Info.plist */; };
+		121468EF20AD603A00942A00 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 121468E120AD603A00942A00 /* Info.plist */; };
+		121468F020AD603A00942A00 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468E320AD603A00942A00 /* DropDown.swift */; };
+		121468F120AD603A00942A00 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468E320AD603A00942A00 /* DropDown.swift */; };
+		121468F220AD603A00942A00 /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468E420AD603A00942A00 /* DropDownCell.swift */; };
+		121468F320AD603A00942A00 /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468E420AD603A00942A00 /* DropDownCell.swift */; };
+		121468F420AD603A00942A00 /* DropDown+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468E520AD603A00942A00 /* DropDown+Appearance.swift */; };
+		121468F520AD603A00942A00 /* DropDown+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121468E520AD603A00942A00 /* DropDown+Appearance.swift */; };
 		121D740F207E73070046BE41 /* String+PartString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121D740E207E73070046BE41 /* String+PartString.swift */; };
 		1268ED47209868170027013D /* NoteSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1268ED46209868170027013D /* NoteSortUtility.swift */; };
 		128B1A9A206BADF8004E148A /* AccountDetailTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */; };
@@ -304,6 +320,8 @@
 		91FAEF6220A57DD500209D71 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3620A57DD500209D71 /* StringExtension.swift */; };
 		91FAEF6320A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
 		91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
+		91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
+		91FC593D20AD49FA001660C3 /* VisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FDA1472099D924000921A8 /* VisitsViewModel.swift */; };
 		AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
 		AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
 		AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
@@ -468,6 +486,15 @@
 
 /* Begin PBXFileReference section */
 		0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		121468DA20AD603A00942A00 /* DropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDown.h; sourceTree = "<group>"; };
+		121468DC20AD603A00942A00 /* DropDownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownCell.xib; sourceTree = "<group>"; };
+		121468DE20AD603A00942A00 /* DPDKeyboardListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DPDKeyboardListener.swift; sourceTree = "<group>"; };
+		121468DF20AD603A00942A00 /* DPDConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DPDConstants.swift; sourceTree = "<group>"; };
+		121468E020AD603A00942A00 /* DPDUIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DPDUIView+Extension.swift"; sourceTree = "<group>"; };
+		121468E120AD603A00942A00 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		121468E320AD603A00942A00 /* DropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDown.swift; sourceTree = "<group>"; };
+		121468E420AD603A00942A00 /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
+		121468E520AD603A00942A00 /* DropDown+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DropDown+Appearance.swift"; sourceTree = "<group>"; };
 		121D740E207E73070046BE41 /* String+PartString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PartString.swift"; sourceTree = "<group>"; };
 		1268ED46209868170027013D /* NoteSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSortUtility.swift; sourceTree = "<group>"; };
 		128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailTabViewController.swift; sourceTree = "<group>"; };
@@ -752,6 +779,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		121468D920AD603A00942A00 /* DropDown */ = {
+			isa = PBXGroup;
+			children = (
+				121468DA20AD603A00942A00 /* DropDown.h */,
+				121468DB20AD603A00942A00 /* resources */,
+				121468DD20AD603A00942A00 /* helpers */,
+				121468E120AD603A00942A00 /* Info.plist */,
+				121468E220AD603A00942A00 /* src */,
+			);
+			path = DropDown;
+			sourceTree = "<group>";
+		};
+		121468DB20AD603A00942A00 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				121468DC20AD603A00942A00 /* DropDownCell.xib */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		121468DD20AD603A00942A00 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				121468DE20AD603A00942A00 /* DPDKeyboardListener.swift */,
+				121468DF20AD603A00942A00 /* DPDConstants.swift */,
+				121468E020AD603A00942A00 /* DPDUIView+Extension.swift */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
+		121468E220AD603A00942A00 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				121468E320AD603A00942A00 /* DropDown.swift */,
+				121468E420AD603A00942A00 /* DropDownCell.swift */,
+				121468E520AD603A00942A00 /* DropDown+Appearance.swift */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		128B1A9B206BAE43004E148A /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -936,6 +1003,7 @@
 		91FAEF1B20A57DD500209D71 /* ThirdPartyComponent */ = {
 			isa = PBXGroup;
 			children = (
+				121468D920AD603A00942A00 /* DropDown */,
 				91FAEF1C20A57DD500209D71 /* WRCalendarView */,
 			);
 			path = ThirdPartyComponent;
@@ -1340,7 +1408,7 @@
 				D1FB18202062A7C00072F4C1 /* Frameworks */,
 				D1FB18212062A7C00072F4C1 /* Resources */,
 				39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */,
-				7657B4F8366A47418C1713D6 /* [CP] Copy Pods Resources */,
+				F128C77A0859D84A433127D5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1359,8 +1427,8 @@
 				D1FB18332062A7C00072F4C1 /* Sources */,
 				D1FB18342062A7C00072F4C1 /* Frameworks */,
 				D1FB18352062A7C00072F4C1 /* Resources */,
-				68B3DDC31E92F552D334659F /* [CP] Embed Pods Frameworks */,
-				CC2CDF0F762A871505EF102A /* [CP] Copy Pods Resources */,
+				66BD611E3A1C47431A02B843 /* [CP] Embed Pods Frameworks */,
+				59D4B7CEF0D4C001D4A59C5B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1488,9 +1556,11 @@
 				8D99A2EA2091E63F00FAA71A /* ContactClassificationTableViewCell.xib in Resources */,
 				8DD1500C209330E200858349 /* AccountView.xib in Resources */,
 				8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */,
+				121468E720AD603A00942A00 /* DropDownCell.xib in Resources */,
 				6D38328720874026006805C6 /* Ubuntu-MediumItalic.ttf in Resources */,
 				8D10B2782099ABFA00C8A86C /* AccountContactLinkTableViewCell.xib in Resources */,
 				6D38328820874026006805C6 /* Ubuntu-Italic.ttf in Resources */,
+				121468EF20AD603A00942A00 /* Info.plist in Resources */,
 				6D38328920874026006805C6 /* UFL.txt in Resources */,
 				6D38328A20874026006805C6 /* CrimsonText-Italic.ttf in Resources */,
 				91FAEF5620A57DD500209D71 /* WRRowHeader.xib in Resources */,
@@ -1532,6 +1602,7 @@
 				6DBD03282077B5EF0083419E /* CrimsonText-Roman.ttf in Resources */,
 				F2923C9E208DEA4900D797E1 /* AccountStrategy.plist in Resources */,
 				6DBD03222077B5EF0083419E /* Ubuntu-BoldItalic.ttf in Resources */,
+				121468E620AD603A00942A00 /* DropDownCell.xib in Resources */,
 				8D10B27A2099DF0E00C8A86C /* Contacts.storyboard in Resources */,
 				F2062E5E2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */,
 				8DA1343820A070EC006A62DE /* ButtonTableViewCell.xib in Resources */,
@@ -1546,6 +1617,7 @@
 				8D99A2FC2091E71E00FAA71A /* PhoneTableViewCell.xib in Resources */,
 				F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */,
 				D23C40CA208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */,
+				121468EE20AD603A00942A00 /* Info.plist in Resources */,
 				8D99A3082091E76900FAA71A /* ContactHoursTableViewCell.xib in Resources */,
 				912FA9E820AAFC75005979FF /* Calendar.storyboard in Resources */,
 				D2EAEB8A2074EAC6005F7792 /* MoreMenu.storyboard in Resources */,
@@ -1626,7 +1698,6 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
@@ -1643,7 +1714,6 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
@@ -1679,7 +1749,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		68B3DDC31E92F552D334659F /* [CP] Embed Pods Frameworks */ = {
+		59D4B7CEF0D4C001D4A59C5B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		66BD611E3A1C47431A02B843 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1692,21 +1777,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7657B4F8366A47418C1713D6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7D085E038417463EAC57175A /* [CP] Check Pods Manifest.lock */ = {
@@ -1727,7 +1797,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A41DD516CDC93E5932F04616 /* [CP] Copy Pods Resources */ = {
+		9D9DF8C2F0DF043779FC3E80 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1764,12 +1834,12 @@
 			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D3656B1901A9CF6DF4316191 /* [CP] Check Pods Manifest.lock */ = {
@@ -1790,7 +1860,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED16E5506CA59E4093356B2A /* [CP] Copy Pods Resources */ = {
+		F128C77A0859D84A433127D5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1816,6 +1886,7 @@
 				AE8F41F520A09F1B0033F81D /* UIView+Properties.swift in Sources */,
 				6D38325020874026006805C6 /* CustomerHeaderTableViewCell.swift in Sources */,
 				91FAEF3C20A57DD500209D71 /* WREvent.swift in Sources */,
+				121468EB20AD603A00942A00 /* DPDConstants.swift in Sources */,
 				8D8C450D2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */,
 				8D99A2E82091E63F00FAA71A /* ContactClassificationTableViewCell.swift in Sources */,
 				6D38325120874026006805C6 /* Contact.swift in Sources */,
@@ -1826,6 +1897,7 @@
 				8DD1500F2093370400858349 /* BuildFile in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
+				91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */,
 				6D38325420874026006805C6 /* FilterViewModel.swift in Sources */,
 				8D99A2EF2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				91C3E59A208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */,
@@ -1847,6 +1919,7 @@
 				8D17A5D720A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
 				6D38325920874026006805C6 /* CurrencyFormatter.swift in Sources */,
 				D2CD7F64208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
+				121468E920AD603A00942A00 /* DPDKeyboardListener.swift in Sources */,
 				8D17A5CB20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */,
 				D26768892090B1BB0060E792 /* ContactListTableViewCell.swift in Sources */,
 				6D38325A20874026006805C6 /* AccountsMenuTableTableViewCell.swift in Sources */,
@@ -1877,6 +1950,7 @@
 				91FAEF5C20A57DD500209D71 /* Constants.swift in Sources */,
 				AE43DD04209622EC005D8DD1 /* ServicePurposesViewController.swift in Sources */,
 				9187924220A55C2A009CB557 /* CalendarViewController.swift in Sources */,
+				121468F520AD603A00942A00 /* DropDown+Appearance.swift in Sources */,
 				911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */,
 				6D38326020874026006805C6 /* Account.swift in Sources */,
 				6D38326120874026006805C6 /* ContactTableViewCell.swift in Sources */,
@@ -1901,10 +1975,12 @@
 				91FAEF4E20A57DD500209D71 /* WRColumnHeader.swift in Sources */,
 				D267688F2090B41B0060E792 /* CreateNewContactViewController.swift in Sources */,
 				D23C408F208DCF010006691C /* AccountVisitSummaryViewController.swift in Sources */,
+				121468ED20AD603A00942A00 /* DPDUIView+Extension.swift in Sources */,
 				8D17A5DE20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */,
 				91FAEF4820A57DD500209D71 /* WRColumnHeaderBackground.swift in Sources */,
 				8DA1343720A070EC006A62DE /* ButtonTableViewCell.swift in Sources */,
 				6D38326920874026006805C6 /* AppDelegate.swift in Sources */,
+				91FC593D20AD49FA001660C3 /* VisitsViewModel.swift in Sources */,
 				6D38326A20874026006805C6 /* AccountsViewModel.swift in Sources */,
 				91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */,
 				D23C40C9208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */,
@@ -1941,11 +2017,13 @@
 				6D38327520874026006805C6 /* AccountsViewController.swift in Sources */,
 				F2D7B8D820AA213D00A124BA /* ChatterModelViewController.swift in Sources */,
 				8D99A2FB2091E71E00FAA71A /* PhoneTableViewCell.swift in Sources */,
+				121468F120AD603A00942A00 /* DropDown.swift in Sources */,
 				129A69992099A3AF00642B14 /* StrategyQuestionsViewModel.swift in Sources */,
 				F2DC2840208E6B5B0005294E /* AccountStrategyCollectionViewCell.swift in Sources */,
 				F2AB94562095CBA90028802E /* AlertUtility.swift in Sources */,
 				6D38327720874026006805C6 /* ReportsViewController.swift in Sources */,
 				F2DC2841208E6B600005294E /* AccountStrategyCollectionReusableView.swift in Sources */,
+				121468F320AD603A00942A00 /* DropDownCell.swift in Sources */,
 				12BBEDBA2094511D00797CD9 /* CreateNoteViewController.swift in Sources */,
 				8D17A5C720A1F7A000ABC9DC /* CreateNewVisitViewController.swift in Sources */,
 				F2CAD2332095806C001016C2 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */,
@@ -1980,6 +2058,7 @@
 				12E47BDE208A21C900D37B74 /* ContactListViewController.swift in Sources */,
 				6F365320207B95850068105B /* AccountSortUtility.swift in Sources */,
 				D1FCDE0F20733025005F956D /* FilterViewModel.swift in Sources */,
+				121468EA20AD603A00942A00 /* DPDConstants.swift in Sources */,
 				F2AB945E2095D5000028802E /* DuringVisitsViewController.swift in Sources */,
 				91FAEF4320A57DD500209D71 /* WREventCell.swift in Sources */,
 				12B7362E209777CC0063F847 /* StrategyQAViewModel.swift in Sources */,
@@ -2006,6 +2085,7 @@
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
 				12E47BE2208B458C00D37B74 /* ContactListDetailsViewController.swift in Sources */,
 				F20C1A2F20937C3700D2351C /* AccountsNotesViewModel.swift in Sources */,
+				121468E820AD603A00942A00 /* DPDKeyboardListener.swift in Sources */,
 				91FAEF4F20A57DD500209D71 /* WRCurrentTimeIndicator.swift in Sources */,
 				8D17A5C620A1F7A000ABC9DC /* CreateNewVisitViewController.swift in Sources */,
 				129A699B2099A9BB00642B14 /* StrategyAnswers.swift in Sources */,
@@ -2026,6 +2106,7 @@
 				128B1A9D206BAE5E004E148A /* ContactTableViewCell.swift in Sources */,
 				6FE55BAA2080DA19006A9A80 /* DateTimeUtility.swift in Sources */,
 				D2EAEB8C2074EC1E005F7792 /* TransactionsViewController.swift in Sources */,
+				121468F020AD603A00942A00 /* DropDown.swift in Sources */,
 				D2EAEB922074EDBE005F7792 /* ActionItemsViewController.swift in Sources */,
 				8D17A5D020A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
 				AE8F41F420A09F1B0033F81D /* UIView+Properties.swift in Sources */,
@@ -2062,7 +2143,9 @@
 				8D99A3062091E76900FAA71A /* ContactHoursTableViewCell.swift in Sources */,
 				8D99A31E2092501000FAA71A /* FamilyTableViewCell.swift in Sources */,
 				8DA1343020A0597B006A62DE /* LocationTableViewCell.swift in Sources */,
+				121468EC20AD603A00942A00 /* DPDUIView+Extension.swift in Sources */,
 				8D99A3262093055200FAA71A /* Validations.swift in Sources */,
+				121468F220AD603A00942A00 /* DropDownCell.swift in Sources */,
 				D2EAEB942074EF88005F7792 /* NotificationsViewController.swift in Sources */,
 				8DD1501220933A0800858349 /* StringConstants.swift in Sources */,
 				12B7362C209768350063F847 /* StrategyQA.swift in Sources */,
@@ -2091,6 +2174,7 @@
 				8D99A3232092D66C00FAA71A /* CustomPicker.swift in Sources */,
 				913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */,
 				D2E12D7120736C4B0005B982 /* InsightsViewController.swift in Sources */,
+				121468F420AD603A00942A00 /* DropDown+Appearance.swift in Sources */,
 				12F0F89A208FA6BD00160C3D /* AccountContactRelation.swift in Sources */,
 				91C3E59E208F0F600067CF3E /* ContactMenuViewController.swift in Sources */,
 				6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */,

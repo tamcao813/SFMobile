@@ -7,11 +7,13 @@
 //
 
 import UIKit
-import DropDown
+//import DropDown
 import Reachability
+
 
 struct SelectedMoreButton {
     static var selectedItem : Int = -1
+    static var isBlackLineActive:Bool = false
 }
 
 struct ContactsGlobal {
@@ -19,12 +21,14 @@ struct ContactsGlobal {
 }
 
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
+
     // drop down on tapping more
     let moreDropDown = DropDown()
     // persistent menu
     var topMenuBar:XMSegmentedControl? = nil
     var wifiIconButton:UIBarButtonItem? = nil
     var userInitialLabel:UILabel? = nil
+   
     
     
     var moreDropDownSelectionIndex:Int?=0
@@ -93,6 +97,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
         // set up persistent menu
         setUpMenuBar()
@@ -130,6 +135,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         //NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
+        let accountVc = accountsVC as! AccountsViewController
+        self.addChildViewController(accountVc)
+        accountVc.view.frame = self.contentView.bounds
+
+        let contactVc = contactsVC as! ContactsViewController
+        self.addChildViewController(contactVc)
+        contactVc.view.frame = self.contentView.bounds
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -395,6 +408,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // # MARK: show more dropdown
     private func showMoreDropDown(selectedIndex: Int)
     {
+        UserDefaults.standard.set(true, forKey: "isBlackLineActive")
+        SelectedMoreButton.isBlackLineActive = true
         moreDropDown.anchorView = topMenuBar
         // number of menus in persisten menubar
         //let numberOfMenuTabsInPersistentMenu = 5

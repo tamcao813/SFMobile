@@ -34,6 +34,7 @@ class WRColumnHeader: UICollectionReusableView {
                     dayLbl.textColor = UIColor.black
                     backgroundColor = UIColor(hexString: "f5f8fd")
                 } else {
+                    /*
                     switch weekday {
                     case 0: // sunday
                         dayLbl.textColor = UIColor(hexString: "fe4646")
@@ -41,7 +42,8 @@ class WRColumnHeader: UICollectionReusableView {
                         dayLbl.textColor = UIColor(hexString: "3573ff")
                     default:
                         dayLbl.textColor = UIColor.black
-                    }
+                    }*/
+                    dayLbl.textColor = UIColor.black
                     backgroundColor = UIColor.white
                 }
             }

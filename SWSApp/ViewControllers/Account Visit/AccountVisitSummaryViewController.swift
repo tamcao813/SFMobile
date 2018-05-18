@@ -38,6 +38,7 @@ class AccountVisitSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
     }
     
     
@@ -51,6 +52,15 @@ class AccountVisitSummaryViewController: UIViewController {
     @objc func refreshVisit(){
         fetchVisit()
     }
+    
+    @objc func navigateToAccountScreen(){
+        DispatchQueue.main.async {
+            FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+            self.dismiss(animated: false, completion: nil)
+            self.delegate?.navigateToAccountScreen()
+        }
+    }
+    
     
     func fetchVisit(){
         if let id = visitId{
@@ -260,6 +270,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            PlanVistManager.sharedInstance.visit = visitObject
             (vc as DuringVisitsViewController).visitObject = visitObject
             (vc as DuringVisitsViewController).delegate = self
             self.present(vc, animated: true, completion: nil)
@@ -337,7 +348,8 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-                self.dismiss(animated: true, completion: nil)
+                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+                self.dismiss(animated: true, completion: nil)                
                 self.delegate?.navigateToAccountScreen()
             }){
                 

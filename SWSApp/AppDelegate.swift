@@ -11,7 +11,7 @@ import SalesforceSDKCore
 import SalesforceSwiftSDK
 import PromiseKit
 import Reachability
-import DropDown
+//import DropDown
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

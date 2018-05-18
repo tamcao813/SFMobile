@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import DropDown
+//import DropDown
 
 struct AccountId {
     static var selectedAccountId = ""
@@ -136,6 +136,11 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                 let storyboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
                 let vc: CreateNewVisitViewController = storyboard.instantiateViewController(withIdentifier: "CreateNewVisitViewController") as! CreateNewVisitViewController
                 vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                vc.selectedAccount = self.accountDetailForLoggedInUser
+                
+                //As we are creating a new Visit Make the Shared instance Nil
+                PlanVistManager.sharedInstance.visit = nil
+                
                 self.present(vc, animated: true, completion: nil)
                 
             case 1:

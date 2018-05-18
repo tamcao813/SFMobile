@@ -58,7 +58,7 @@ class AccountVisitListViewController: UIViewController {
     }
     
     func initializingXIBs(){
-        self.tableView.register(UINib(nibName: "AccountVisitListTableViewCell", bundle: nil), forCellReuseIdentifier: "AccountVisitListTableViewCell")
+        //self.tableView.register(UINib(nibName: "AccountVisitListTableViewCell", bundle: nil), forCellReuseIdentifier: "AccountVisitListTableViewCell")
     }
     
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
@@ -111,7 +111,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         if indexPath.row == 0{
             return 50
         }
-        return 220
+        return 210
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

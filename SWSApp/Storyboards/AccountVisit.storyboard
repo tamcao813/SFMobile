@@ -532,6 +532,136 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountVisitListTableViewCell" rowHeight="210" id="256-bR-TCM" customClass="AccountVisitListTableViewCell" customModule="SWSApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="138" width="710" height="210"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="256-bR-TCM" id="8ia-pV-fib">
+                                            <rect key="frame" x="0.0" y="0.0" width="710" height="210"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mMI-tp-0ed">
+                                                    <rect key="frame" x="0.0" y="15" width="710" height="195"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HM0-AI-dCb">
+                                                            <rect key="frame" x="0.0" y="0.0" width="10" height="195"/>
+                                                            <color key="backgroundColor" name="Data New"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="10" id="0cl-SG-1wT"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gip-U4-gJm">
+                                                            <rect key="frame" x="30" y="45" width="245" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="245" id="OUg-wE-67v"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="751" text="Scheduled" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VjM-od-8oK">
+                                                            <rect key="frame" x="418" y="45" width="86" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="86" id="ETo-WB-NTc"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="02-15-2018" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ebu-i4-gbS">
+                                                            <rect key="frame" x="553" y="45" width="82" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="82" id="3ph-CF-Lip"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" fixedFrame="YES" text="10:30 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJV-ou-ev7">
+                                                            <rect key="frame" x="553" y="67" width="69" height="18"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l5Q-hh-LZz">
+                                                            <rect key="frame" x="10" y="104" width="700" height="2"/>
+                                                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="2" id="BrI-Kw-A3k"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejD-5f-deG">
+                                                            <rect key="frame" x="30" y="136" width="185" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="184.5" id="GjM-ZC-Zze"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="560079" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiX-Va-Kay">
+                                                            <rect key="frame" x="30" y="154" width="55" height="18"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="586 Main Street Miami, FL 33090" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n88-Jz-T8l">
+                                                            <rect key="frame" x="232" y="134" width="150" height="36"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="150" id="yU9-dC-9f8"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Location name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaK-Ew-k1B">
+                                                            <rect key="frame" x="418" y="142" width="107" height="18"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Ebu-i4-gbS" firstAttribute="leading" secondItem="VjM-od-8oK" secondAttribute="trailing" constant="49" id="0yw-97-ltn"/>
+                                                        <constraint firstItem="QiX-Va-Kay" firstAttribute="leading" secondItem="mMI-tp-0ed" secondAttribute="leading" constant="30" id="2FQ-mA-lDF"/>
+                                                        <constraint firstItem="VjM-od-8oK" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" constant="45" id="3nW-TG-OU7"/>
+                                                        <constraint firstItem="ejD-5f-deG" firstAttribute="top" secondItem="l5Q-hh-LZz" secondAttribute="bottom" constant="30" id="52t-MJ-5w7"/>
+                                                        <constraint firstItem="Ebu-i4-gbS" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" constant="45" id="5Fa-tA-9hI"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Ebu-i4-gbS" secondAttribute="trailing" constant="75.5" id="937-tk-LF3"/>
+                                                        <constraint firstItem="HM0-AI-dCb" firstAttribute="leading" secondItem="mMI-tp-0ed" secondAttribute="leading" id="AKM-c4-CTr"/>
+                                                        <constraint firstItem="HM0-AI-dCb" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" id="FVj-kn-U74"/>
+                                                        <constraint firstItem="gip-U4-gJm" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" constant="45" id="Feq-6S-vub"/>
+                                                        <constraint firstAttribute="bottom" secondItem="n88-Jz-T8l" secondAttribute="bottom" constant="25" id="KbB-oY-YjL"/>
+                                                        <constraint firstItem="ejD-5f-deG" firstAttribute="leading" secondItem="mMI-tp-0ed" secondAttribute="leading" constant="30" id="PQK-MY-WeW"/>
+                                                        <constraint firstItem="n88-Jz-T8l" firstAttribute="leading" secondItem="ejD-5f-deG" secondAttribute="trailing" constant="17" id="Zi6-x5-BWf"/>
+                                                        <constraint firstItem="gaK-Ew-k1B" firstAttribute="top" secondItem="l5Q-hh-LZz" secondAttribute="bottom" constant="36" id="djn-sv-HZ3"/>
+                                                        <constraint firstItem="gip-U4-gJm" firstAttribute="leading" secondItem="mMI-tp-0ed" secondAttribute="leading" constant="30" id="gG3-zt-yFn"/>
+                                                        <constraint firstAttribute="bottom" secondItem="HM0-AI-dCb" secondAttribute="bottom" id="gTk-KM-zwm"/>
+                                                        <constraint firstAttribute="trailing" secondItem="l5Q-hh-LZz" secondAttribute="trailing" id="kiT-1C-M3e"/>
+                                                        <constraint firstItem="QiX-Va-Kay" firstAttribute="top" secondItem="ejD-5f-deG" secondAttribute="bottom" id="l0V-eJ-IJM"/>
+                                                        <constraint firstItem="l5Q-hh-LZz" firstAttribute="leading" secondItem="mMI-tp-0ed" secondAttribute="leading" constant="10" id="lnC-o1-r3j"/>
+                                                        <constraint firstItem="l5Q-hh-LZz" firstAttribute="top" secondItem="gip-U4-gJm" secondAttribute="bottom" constant="41" id="udr-KA-Fzd"/>
+                                                        <constraint firstItem="gaK-Ew-k1B" firstAttribute="leading" secondItem="VjM-od-8oK" secondAttribute="leading" id="ygO-PP-7Ft"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="mMI-tp-0ed" secondAttribute="bottom" id="4i2-Bj-XzX"/>
+                                                <constraint firstItem="mMI-tp-0ed" firstAttribute="top" secondItem="8ia-pV-fib" secondAttribute="top" constant="15" id="TGa-6H-U16"/>
+                                                <constraint firstItem="mMI-tp-0ed" firstAttribute="leading" secondItem="8ia-pV-fib" secondAttribute="leading" id="VBP-H4-32t"/>
+                                                <constraint firstAttribute="trailing" secondItem="mMI-tp-0ed" secondAttribute="trailing" id="w7s-0P-u1E"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="gip-U4-gJm" id="Y3S-ag-gux"/>
+                                            <outlet property="dateLabel" destination="Ebu-i4-gbS" id="t4l-cP-knu"/>
+                                            <outlet property="timeLabel" destination="ZJV-ou-ev7" id="25T-hI-2Ze"/>
+                                            <outlet property="visitStatusLabel" destination="VjM-od-8oK" id="nxO-hG-P6d"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="Dyb-22-wbF" id="BYR-sh-ZsQ"/>
@@ -694,6 +824,9 @@
         </namedColor>
         <namedColor name="Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Data New">
+            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

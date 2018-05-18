@@ -94,16 +94,19 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
             if calendar.isDateInToday(date!){
                 
-            upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Today" + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+            upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Today " + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+                 return upComingActivitiesCell
                 
             }
             else if calendar.isDateInTomorrow(date!)
             {
-                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Tomorrow" + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Tomorrow " + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+                return upComingActivitiesCell
                 
             }else if calendar.isDateInYesterday(date!)
             {
-                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Yesterday" + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Yesterday " + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+                return upComingActivitiesCell
             }
             
             upComingActivitiesCell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)

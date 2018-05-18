@@ -27,9 +27,6 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,17 +64,17 @@ extension ChatterModelViewController :UIWebViewDelegate{
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
-        activityIndicator.stopAnimating()
+        //activityIndicator.stopAnimating()
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("Start to load")
-        activityIndicator.startAnimating()
+        //activityIndicator.startAnimating()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
-        activityIndicator.stopAnimating()
+        //activityIndicator.stopAnimating()
     }
 }
 

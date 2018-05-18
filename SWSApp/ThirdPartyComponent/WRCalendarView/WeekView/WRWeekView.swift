@@ -33,11 +33,23 @@ public class WRWeekView: UIView {
     var events = [WREvent]()
     var eventBySection = [String: [WREvent]]()
     
+    // Added to Show / hide weekends
+    var showWeekEnds = false
+    
     public weak var delegate: WRWeekViewDelegate?
     
     public var calendarType: CalendarType = .day {
         didSet {
             isFirst = true
+            if calendarType == .day {
+                flowLayout.columnHeaderHeight = 0 // TBD this should be moved to View Controller
+                flowLayout.gridVerticalThickness = 0
+            }
+            else {
+                flowLayout.columnHeaderHeight = 35 // TBD this should be moved to View Controller
+                flowLayout.gridVerticalThickness = UIScreen.main.scale > 1 ? 1 : 0.5
+            }
+
             updateView()
         }
     }
@@ -61,13 +73,13 @@ public class WRWeekView: UIView {
         
         flowLayout.hourHeight = 65 // TBD all needs to be configurable
         flowLayout.rowHeaderWidth = 70
-        flowLayout.columnHeaderHeight = 70
+//        flowLayout.columnHeaderHeight = 70
         flowLayout.hourGridDivisionValue = .minutes_30
-
+        /* This logic moved to set calendar type
         if calendarType == .day {
             flowLayout.columnHeaderHeight = 0 // TBD this should be moved to View Controller
             flowLayout.gridVerticalThickness = 0
-        }
+        }*/
         
         collectionView = UICollectionView(frame: bounds, collectionViewLayout: flowLayout)
         collectionView.delegate = self
@@ -133,7 +145,7 @@ public class WRWeekView: UIView {
             flowLayout.sectionWidth = (frame.width - flowLayout.rowHeaderWidth) / CGFloat(daysToShowOnScreen)
         }
         else {
-            flowLayout.sectionWidth = (frame.width - flowLayout.rowHeaderWidth) / CGFloat(daysToShowOnScreen-2) // TBD This (-2) should come from configuration to hide Sat and Sun
+            flowLayout.sectionWidth = (frame.width - flowLayout.rowHeaderWidth) / CGFloat(daysToShowOnScreen - (showWeekEnds ? 0 : 2)) // TBD This is to show / hide Sat and Sun
         }
     }
     

@@ -83,7 +83,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     lazy var accountVisit : UIViewController? = {
         let accountStoryboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
-        let accountVisitListVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitListViewController") as UIViewController
+        let accountVisitListVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitEmbedViewController") as UIViewController
         return accountVisitListVC
     }()
     

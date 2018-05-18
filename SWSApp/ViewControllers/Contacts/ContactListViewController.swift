@@ -101,7 +101,6 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         let cell:ContactListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactListTableViewCell
         
         let fullName = globalContact.firstName + " " + globalContact.lastName
-        print("full name \(fullName)")
         cell.initialNameLabel.text = globalContact.getIntials(name: fullName)
         cell.nameValueLabel.text = fullName
         cell.phoneValueLabel.text = globalContact.phoneNumber
@@ -113,9 +112,10 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         for acc in contactsAcc{
             
             if(globalContact.contactId == acc.contactId){
-                if(!acc.accountName.isEmpty){
-                    print("my account names \(acc.accountName) \(acc.contactId) \(acc.contactName) \(acc.accountId)")
-                    accountsName.append(acc.accountName)
+                let accName = AccountsViewModel().accountNameFor(accountId: acc.accountId)
+                if(!accName.isEmpty){
+                    print("my account names \(accName) \(acc.contactId) \(acc.contactName) \(acc.accountId)")
+                    accountsName.append(accName)
                     break
                 }
                 else { // acr table is not populated so reading from accounts table.
@@ -123,7 +123,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
                     guard accountList != nil, (accountList?.count)! > 0  else {
                         continue
                     }
-
+                    
                     accountsName.append(accountList![0].accountName)
                     break
                 }
@@ -166,13 +166,13 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         contactsAcc = contactViewModel.accountsForContacts()
         
         if ContactsGlobal.accountId == "" {
-
+            
             globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: "")
-
+            
         }else{
             
             delegate?.clearAllMenu()
-
+            
             globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
             print("globalContactsForList.count  = \(globalContactsForList.count)")
             
@@ -184,9 +184,6 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
             pageButtonArr[1].backgroundColor = UIColor.lightGray
             pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         }
-        
-        // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
-        
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         
@@ -205,9 +202,6 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     }
     
     func filteringContact(filtering: Bool) {
-        
-        print("filteringContact")
-        
         if !filtering {
             fetchContacts()
         }
@@ -234,8 +228,6 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
-        // self.noOfResultLabel.text = "Showing \(globalContactsForList.count) of \(globalContactCount!) results"
-        
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
@@ -261,24 +253,6 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         
         self.tableView.reloadData()
-        
-        
-        ////////////////////////////////////
-        //        initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
-        //        updateUI()
-        //        print("\(self.noOfPages!)")
-        //
-        //        if(numberOfAccountRows > 0){
-        //            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-        //        }
-        //        for count in 1...5 {
-        //            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
-        //            pageButtonArr[count].backgroundColor = UIColor.white
-        //            pageButtonArr[count].setTitle(String(count), for: .normal)
-        //        }
-        //        pageButtonArr[1].backgroundColor = UIColor.lightGray
-        //        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
-        
     }
     
     @objc func reloadAllContacts(notification: NSNotification){
@@ -288,7 +262,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")
-
+        
         DispatchQueue.main.async {
             UIView.performWithoutAnimation({() -> Void in
                 self.tableView.reloadData()
@@ -299,7 +273,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
                 self.tableView.endUpdates()
             })
         }
-
+        
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
             pageButtonArr[count].backgroundColor = UIColor.white
@@ -307,30 +281,27 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         }
         pageButtonArr[1].backgroundColor = UIColor.lightGray
         pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
-
-
+        
+        
         loadContactData()
-
+        
         if ContactFilterMenuModel.comingFromDetailsScreen == "YES", ContactFilterMenuModel.selectedContactId != "" {
-
+            
             guard let selectedContact = ContactSortUtility.searchContactByContactId(ContactFilterMenuModel.selectedContactId) else {
                 return
             }
             delegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
-
+            
             ContactFilterMenuModel.selectedContactId = ""
-
+            
         }
     }
-    
 }
 
 
 
 //MARK:- PageControl Implementation
 extension ContactListViewController{
-    
-    
     enum Page: Int {
         case  previousLbl=0, oneLbl, twoLbl, threeLbl, fourLbl, fiveLbl, nextLbl,lastLbl,firstLbl
         case first = 100, previous, one, two, three, four, five, next,last
@@ -354,21 +325,9 @@ extension ContactListViewController{
             
             self.kNoOfPageSet! += 1
         }
-        self.currentPageIndex = 0   //It will have index value of the page it is displaying right now, 0 or 5 or next 10, 15---
-        self.currentPageSet = 0     //[1][2][3][4][5][6] --- CPI
-        
-        
-        //if inputArr.count >= 10{
-        //tableViewDisplayData = tableViewDisplayData[0...4]
-        //    print(tableViewDisplayData)
-        // }else{
-        //let items = inputArr.count - 1
-        // tableViewDisplayData = tableViewDisplayData[0...items]
-        //    print(tableViewDisplayData)
-        // }
-        
+        self.currentPageIndex = 0
+        self.currentPageSet = 0
         tableView.reloadData()
-        
     }
     
     func disableBtn(from:Int, to:Int) {
@@ -449,90 +408,49 @@ extension ContactListViewController{
         switch sender.tag {
             
         case Page.first.rawValue:
-            for i in 1...kNoOfPagesInEachSet {
-                pageButtonArr[i].setTitle(String(i), for: .normal)
-            }
-            self.currentPageIndex = 0
-            self.currentPageSet = 0
-            
-            updateUI()
-            print ("First")
-            print ("New \(self.currentPageIndex!)")
+            self.setupFirstPageButton()
             
         case Page.previous.rawValue:
-            //On pres of Previous if pageSet is grater than 0 than we have one pageSet to display decrement by 1
             changeBtnText(byPageSet:-1)
-            //                self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+0) * kPageSize
-            print ("One: Index is \(currentPageIndex!)")
             updateUI()
-            
-            
         case Page.one.rawValue:
-            
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+0) * kPageSize
-            print ("One: Index is \(currentPageIndex!)")
-            
             pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
             pageButtonArr[1].backgroundColor = UIColor.lightGray
             
-            
         case Page.two.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+1) * kPageSize
-            print ("two: Index is \(currentPageIndex!)")
-            
             pageButtonArr[2].setTitleColor(UIColor.white, for: .normal)
             pageButtonArr[2].backgroundColor = UIColor.lightGray
             
-            
         case Page.three.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+2) * kPageSize
-            print ("three: Index is \(currentPageIndex!)")
-            
             pageButtonArr[3].setTitleColor(UIColor.white, for: .normal)
             pageButtonArr[3].backgroundColor = UIColor.lightGray
             
-            
         case Page.four.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+3) * kPageSize
-            print ("four: Index is \(currentPageIndex!)")
-            
             pageButtonArr[4].setTitleColor(UIColor.white, for: .normal)
             pageButtonArr[4].backgroundColor = UIColor.lightGray
             
-            
         case Page.five.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+4) * kPageSize
-            print ("five: Index is \(currentPageIndex!)")
-            
             pageButtonArr[5].setTitleColor(UIColor.white, for: .normal)
             pageButtonArr[5].backgroundColor = UIColor.lightGray
-            
             
         case Page.next.rawValue:
             changeBtnText(byPageSet: 1)
             updateUI()
-            print ("Next")
-            
         case Page.last.rawValue:
-            let lastSetNo = (kNoOfPageSet!-1) * kNoOfPagesInEachSet
-            for i in 1...kNoOfPagesInEachSet {
-                pageButtonArr[i].setTitle(String(lastSetNo + i), for: .normal)
-            }
-            
-            self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
-            self.currentPageSet = kNoOfPageSet! - 1
-            updateUI()
-            print ("Last")
-            print ("New \(self.currentPageIndex!)")
+            self.setupLastPageButton()
             
         default:
             break
         }
-        
-        
-        //let tableViewData = accountsForLoggedUserOriginal[self.currentPageIndex!]
-        //tableViewDisplayData = [tableViewData]
-        
+        scrollTableViewToSelectedSection()
+    }
+    
+    func scrollTableViewToSelectedSection(){
         DispatchQueue.main.async {
             UIView.performWithoutAnimation({() -> Void in
                 self.tableView.reloadData()
@@ -543,7 +461,27 @@ extension ContactListViewController{
                 self.tableView.endUpdates()
             })
         }
+    }
+    
+    func setupFirstPageButton(){
+        for i in 1...kNoOfPagesInEachSet {
+            pageButtonArr[i].setTitle(String(i), for: .normal)
+        }
+        self.currentPageIndex = 0
+        self.currentPageSet = 0
+        updateUI()
+    }
+    
+    
+    func setupLastPageButton(){
+        let lastSetNo = (kNoOfPageSet!-1) * kNoOfPagesInEachSet
+        for i in 1...kNoOfPagesInEachSet {
+            pageButtonArr[i].setTitle(String(lastSetNo + i), for: .normal)
+        }
         
+        self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
+        self.currentPageSet = kNoOfPageSet! - 1
+        updateUI()
     }
     
 }
@@ -577,14 +515,5 @@ extension ContactListViewController : UITableViewDelegate{
             delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
             ContactFilterMenuModel.comingFromDetailsScreen = "YES"
         }
-        
     }
-    
 }
-
-
-
-
-
-
-

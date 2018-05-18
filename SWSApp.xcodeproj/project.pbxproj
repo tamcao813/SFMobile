@@ -155,6 +155,8 @@
 		8D8C450D2096E75D0099204C /* SearchAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C450A2096E75D0099204C /* SearchAccountTableViewCell.swift */; };
 		8D8C450E2096E75D0099204C /* SearchAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C450B2096E75D0099204C /* SearchAccountTableViewCell.xib */; };
 		8D8C450F2096E75D0099204C /* SearchAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C450B2096E75D0099204C /* SearchAccountTableViewCell.xib */; };
+		8D907C1320AC40B4004FC367 /* LinkAccountToContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D907C1020ABF8D0004FC367 /* LinkAccountToContactViewController.swift */; };
+		8D907C1420AC40B5004FC367 /* LinkAccountToContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D907C1020ABF8D0004FC367 /* LinkAccountToContactViewController.swift */; };
 		8D99A2E02091E14700FAA71A /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99A2DE2091E14700FAA71A /* ToggleTableViewCell.swift */; };
 		8D99A2E12091E14700FAA71A /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99A2DE2091E14700FAA71A /* ToggleTableViewCell.swift */; };
 		8D99A2E22091E14700FAA71A /* ToggleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D99A2DF2091E14700FAA71A /* ToggleTableViewCell.xib */; };
@@ -225,10 +227,12 @@
 		8DD1500C209330E200858349 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15008209330E100858349 /* AccountView.xib */; };
 		8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
 		8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
-		8DD1500F2093370400858349 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		8DD1500F2093370400858349 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
+		911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
+		911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
 		912FA9E820AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
 		912FA9E920AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
@@ -298,6 +302,8 @@
 		91FAEF6220A57DD500209D71 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3620A57DD500209D71 /* StringExtension.swift */; };
 		91FAEF6320A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
 		91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
+		91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
+		91FC593D20AD49FA001660C3 /* VisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FDA1472099D924000921A8 /* VisitsViewModel.swift */; };
 		AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
 		AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
 		AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
@@ -404,6 +410,7 @@
 		F20C1A2E20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C1A2C20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift */; };
 		F20C1A2F20937C3700D2351C /* AccountsNotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */; };
 		F20C1A3020937C3800D2351C /* AccountsNotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */; };
+		F2537BD320ADF17800075E0F /* EditAccountStrategyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB94572095D4E40028802E /* EditAccountStrategyViewController.swift */; };
 		F2590105209216ED00C2E354 /* DuringVisitTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2590104209216ED00C2E354 /* DuringVisitTopics.plist */; };
 		F2590106209216ED00C2E354 /* DuringVisitTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2590104209216ED00C2E354 /* DuringVisitTopics.plist */; };
 		F259010B2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */; };
@@ -534,6 +541,7 @@
 		8D17A5DC20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleAppointmentTableViewCell.xib; sourceTree = "<group>"; };
 		8D8C450A2096E75D0099204C /* SearchAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAccountTableViewCell.swift; sourceTree = "<group>"; };
 		8D8C450B2096E75D0099204C /* SearchAccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchAccountTableViewCell.xib; sourceTree = "<group>"; };
+		8D907C1020ABF8D0004FC367 /* LinkAccountToContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAccountToContactViewController.swift; sourceTree = "<group>"; };
 		8D99A2DE2091E14700FAA71A /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
 		8D99A2DF2091E14700FAA71A /* ToggleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToggleTableViewCell.xib; sourceTree = "<group>"; };
 		8D99A2E52091E63F00FAA71A /* ContactClassificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactClassificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -565,6 +573,7 @@
 		8DD15007209330E100858349 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8DD15008209330E100858349 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
 		8DD1501120933A0800858349 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
+		911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringUtil.swift; sourceTree = "<group>"; };
 		912FA9E720AAFC75005979FF /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
 		9141111C20A95565006AD7CD /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
@@ -841,6 +850,7 @@
 				12E47BDD208A21C900D37B74 /* ContactListViewController.swift */,
 				12E47BE1208B458C00D37B74 /* ContactListDetailsViewController.swift */,
 				D267688D2090B41B0060E792 /* CreateNewContactViewController.swift */,
+				8D907C1020ABF8D0004FC367 /* LinkAccountToContactViewController.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -966,19 +976,19 @@
 		91FAEF2120A57DD500209D71 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */,
+				91FAEF2D20A57DD500209D71 /* WRTodayBackground.swift */,
 				91FAEF2320A57DD500209D71 /* WRRowHeaderBackground.swift */,
-				91FAEF2420A57DD500209D71 /* WRRowHeader.swift */,
-				91FAEF2520A57DD500209D71 /* WREventCell.swift */,
 				91FAEF2620A57DD500209D71 /* WRGridLine.swift */,
 				91FAEF2720A57DD500209D71 /* WRColumnHeaderBackground.swift */,
-				91FAEF2820A57DD500209D71 /* WRColumnHeader.xib */,
 				91FAEF2920A57DD500209D71 /* WRCornerHeader.swift */,
-				91FAEF2A20A57DD500209D71 /* WRColumnHeader.swift */,
+				91FAEF2220A57DD500209D71 /* WRCurrentTimeGridline.swift */,
 				91FAEF2B20A57DD500209D71 /* WRCurrentTimeIndicator.swift */,
 				91FAEF2C20A57DD500209D71 /* WRCurrentTimeIndicator.xib */,
-				91FAEF2D20A57DD500209D71 /* WRTodayBackground.swift */,
+				91FAEF2A20A57DD500209D71 /* WRColumnHeader.swift */,
+				91FAEF2820A57DD500209D71 /* WRColumnHeader.xib */,
+				91FAEF2420A57DD500209D71 /* WRRowHeader.swift */,
 				91FAEF2E20A57DD500209D71 /* WRRowHeader.xib */,
+				91FAEF2520A57DD500209D71 /* WREventCell.swift */,
 				91FAEF2F20A57DD500209D71 /* WREventCell.xib */,
 			);
 			path = Views;
@@ -1218,6 +1228,7 @@
 				8DD15008209330E100858349 /* AccountView.xib */,
 				8DD1501120933A0800858349 /* StringConstants.swift */,
 				AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */,
+				911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -1330,7 +1341,7 @@
 				D1FB18202062A7C00072F4C1 /* Frameworks */,
 				D1FB18212062A7C00072F4C1 /* Resources */,
 				39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */,
-				79ED8BFBA4571A1AE89B6CA7 /* [CP] Copy Pods Resources */,
+				7657B4F8366A47418C1713D6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1349,8 +1360,8 @@
 				D1FB18332062A7C00072F4C1 /* Sources */,
 				D1FB18342062A7C00072F4C1 /* Frameworks */,
 				D1FB18352062A7C00072F4C1 /* Resources */,
-				E3D46707B208A56E385EB72B /* [CP] Embed Pods Frameworks */,
-				D59CD69B31B65E7B71B09D2D /* [CP] Copy Pods Resources */,
+				68B3DDC31E92F552D334659F /* [CP] Embed Pods Frameworks */,
+				CC2CDF0F762A871505EF102A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1370,8 +1381,9 @@
 				D1FB183E2062A7C10072F4C1 /* Sources */,
 				D1FB183F2062A7C10072F4C1 /* Frameworks */,
 				D1FB18402062A7C10072F4C1 /* Resources */,
-				9BD61BF2ACA8E900DEB57178 /* [CP] Embed Pods Frameworks */,
-				660961FDDF8A447AFCADBE83 /* [CP] Copy Pods Resources */,
+				ED16E5506CA59E4093356B2A /* [CP] Copy Pods Resources */,
+				A41DD516CDC93E5932F04616 /* [CP] Copy Pods Resources */,
+				50B01D5B37E181029ED64EE9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1668,22 +1680,37 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		660961FDDF8A447AFCADBE83 /* [CP] Copy Pods Resources */ = {
+		50B01D5B37E181029ED64EE9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		79ED8BFBA4571A1AE89B6CA7 /* [CP] Copy Pods Resources */ = {
+		68B3DDC31E92F552D334659F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7657B4F8366A47418C1713D6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1716,19 +1743,34 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9BD61BF2ACA8E900DEB57178 /* [CP] Embed Pods Frameworks */ = {
+		A41DD516CDC93E5932F04616 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC2CDF0F762A871505EF102A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D3656B1901A9CF6DF4316191 /* [CP] Check Pods Manifest.lock */ = {
@@ -1749,7 +1791,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D59CD69B31B65E7B71B09D2D /* [CP] Copy Pods Resources */ = {
+		ED16E5506CA59E4093356B2A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1761,22 +1803,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E3D46707B208A56E385EB72B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1797,9 +1824,10 @@
 				AE8F41EF20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */,
 				91FAEF4C20A57DD500209D71 /* WRCornerHeader.swift in Sources */,
 				8D17A5D120A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
-				8DD1500F2093370400858349 /* (null) in Sources */,
+				8DD1500F2093370400858349 /* BuildFile in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
+				91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */,
 				6D38325420874026006805C6 /* FilterViewModel.swift in Sources */,
 				8D99A2EF2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				91C3E59A208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */,
@@ -1815,6 +1843,7 @@
 				91C3E59F208F0F600067CF3E /* ContactMenuViewController.swift in Sources */,
 				8D99A3132091E79C00FAA71A /* DropdownTableViewCell.swift in Sources */,
 				AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */,
+				8D907C1420AC40B5004FC367 /* LinkAccountToContactViewController.swift in Sources */,
 				91C3E59C208F0F4F0067CF3E /* ContactsViewController.swift in Sources */,
 				129A699C2099A9BB00642B14 /* StrategyAnswers.swift in Sources */,
 				8D17A5D720A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
@@ -1850,6 +1879,7 @@
 				91FAEF5C20A57DD500209D71 /* Constants.swift in Sources */,
 				AE43DD04209622EC005D8DD1 /* ServicePurposesViewController.swift in Sources */,
 				9187924220A55C2A009CB557 /* CalendarViewController.swift in Sources */,
+				911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */,
 				6D38326020874026006805C6 /* Account.swift in Sources */,
 				6D38326120874026006805C6 /* ContactTableViewCell.swift in Sources */,
 				91AA8ECC2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */,
@@ -1860,6 +1890,7 @@
 				6D38326420874026006805C6 /* ActionItemsViewController.swift in Sources */,
 				91FAEF4420A57DD500209D71 /* WREventCell.swift in Sources */,
 				91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */,
+				F2537BD320ADF17800075E0F /* EditAccountStrategyViewController.swift in Sources */,
 				F2FD2C2920919AF600037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */,
 				12F0F89D2090B1C000160C3D /* ContactListTableViewCell.swift in Sources */,
 				C955CD272099982F003DADA1 /* NotesViewController.swift in Sources */,
@@ -1877,6 +1908,7 @@
 				91FAEF4820A57DD500209D71 /* WRColumnHeaderBackground.swift in Sources */,
 				8DA1343720A070EC006A62DE /* ButtonTableViewCell.swift in Sources */,
 				6D38326920874026006805C6 /* AppDelegate.swift in Sources */,
+				91FC593D20AD49FA001660C3 /* VisitsViewModel.swift in Sources */,
 				6D38326A20874026006805C6 /* AccountsViewModel.swift in Sources */,
 				91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */,
 				D23C40C9208DE6590006691C /* HeadSubHeadTableViewCell.swift in Sources */,
@@ -1940,8 +1972,10 @@
 				F259010E2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift in Sources */,
 				AE5C974820887550004548E9 /* DesignableUITextField.swift in Sources */,
 				AE5C974520886DD4004548E9 /* PlanVisitViewController.swift in Sources */,
+				911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */,
 				91C3E59B208F0F4E0067CF3E /* ContactsViewController.swift in Sources */,
 				F2923C9A208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift in Sources */,
+				8D907C1320AC40B4004FC367 /* LinkAccountToContactViewController.swift in Sources */,
 				D10483962068381A00A0343B /* Contact.swift in Sources */,
 				91C3E5A1208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */,
 				D2E12D7520736E0C0005B982 /* ChatterViewController.swift in Sources */,

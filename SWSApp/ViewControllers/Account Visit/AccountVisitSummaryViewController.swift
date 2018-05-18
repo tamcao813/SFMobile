@@ -73,6 +73,7 @@ class AccountVisitSummaryViewController: UIViewController {
             for account in accountsArray{
                 if account.account_Id == accountId {
                     accountObject = account
+                    break
                 }
             }
         }
@@ -401,92 +402,84 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UINib(nibName: "AccountVisitSectionHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? AccountVisitSectionHeaderView
-        switch visitStatus {
-        case .scheduled?:
-            switch section {
-            case 0:
-                headerView?.headerLabel.text = "Location"
-            default:
-                break
-            }
-        case .inProgress?:
-            switch section {
-            case 0:
-                headerView?.headerLabel.text = "Location"
-            case 1:
-                headerView?.headerLabel.text = "Associated Contacts"
-            default:
-                break
-            }
-        case .completed?:
-            switch section {
-            case 0:
-                headerView?.headerLabel.text = "Location"
-            case 1:
-                headerView?.headerLabel.text = "Associated Contacts"
-            default:
-                break
-            }
-        case .planned?:
-            switch section {
-            case 0:
-                headerView?.headerLabel.text = "Location"
-            case 1:
-                headerView?.headerLabel.text = "Associated Contacts"
-            default:
-                break
-            }
-        default:
-            break
+        if visitStatus == .scheduled {
+            headerView?.headerLabel.text = getHeaderValuesInScheduledState(section: section)
+        }else {
+            headerView?.headerLabel.text = getHeaderValuesInProgress(section: section)
         }
-        
         return headerView
+    }
+    
+    func getHeaderValuesInScheduledState(section: Int) -> String{
+        var headerValue = ""
+        if section == 0 {
+            headerValue = "Location"
+        }
+        return headerValue
+    }
+    
+    func getHeaderValuesInProgress(section: Int) -> String{
+        var headerValue = ""
+        if section == 0 {
+            headerValue = "Location"
+        }else if section == 1 {
+            headerValue = "Associated Contacts"
+        }
+        return headerValue
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch visitStatus {
         case .scheduled?:
-            switch indexPath.section {
-            case 0:
-                return getLocationCell()
-            case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
-                cell?.delegate = self
-                return cell!
-            default:
-                return UITableViewCell()
-            }
+            return getScheduledStateCell(section: indexPath.section)
         case .inProgress?,.completed?,.planned?:
-            switch indexPath.section {
-            case 0:
-                return getLocationCell()
-            case 1:
-                return getConatactCell()
-            case 2:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-                cell?.headingLabel.text = "Opportunities Selected"
-                cell?.SubheadingLabel.text = ""
-                return cell!
-            case 3:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-                cell?.headingLabel.text = "Service Purposes"
-                let str = visitObject?.sgwsVisitPurpose.replacingOccurrences(of: ";", with: "\n • ")
-                if !(str?.isEmpty)! {
-                    cell?.SubheadingLabel.text = " • " + str!
-                } else { cell?.SubheadingLabel.text = ""}
-                return cell!
-            case 4:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-                cell?.headingLabel.text = "Agenda Notes"
-                cell?.SubheadingLabel.text = visitObject?.sgwsAgendaNotes
-                return cell!
-            case 5:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
-                cell?.delegate = self
-                return cell!
-            default:
-                return UITableViewCell()
-            }
+            return getInprogressStateCell(section: indexPath.section)
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    func getScheduledStateCell(section: Int) -> UITableViewCell{
+        switch section {
+        case 0:
+            return getLocationCell()
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
+            cell?.delegate = self
+            return cell!
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    func getInprogressStateCell(section: Int) -> UITableViewCell{
+        switch section {
+        case 0:
+            return getLocationCell()
+        case 1:
+            return getConatactCell()
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+            cell?.headingLabel.text = "Opportunities Selected"
+            cell?.SubheadingLabel.text = ""
+            return cell!
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+            cell?.headingLabel.text = "Service Purposes"
+            let str = visitObject?.sgwsVisitPurpose.replacingOccurrences(of: ";", with: "\n • ")
+            if !(str?.isEmpty)! {
+                cell?.SubheadingLabel.text = " • " + str!
+            } else { cell?.SubheadingLabel.text = ""}
+            return cell!
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+            cell?.headingLabel.text = "Agenda Notes"
+            cell?.SubheadingLabel.text = visitObject?.sgwsAgendaNotes
+            return cell!
+        case 5:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
+            cell?.delegate = self
+            return cell!
         default:
             return UITableViewCell()
         }

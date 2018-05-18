@@ -17,7 +17,8 @@ class CalendarListViewController: UIViewController {
     @IBOutlet weak var calViewButton: UIButton!
 
     var currentShowingDate: Date?
-
+    var currentCalendarViewType: GlobalConstants.CalendarViewType = .Day
+    
     let dropDownAddNew = DropDown()
     let dropDownCalView = DropDown()
 
@@ -62,6 +63,9 @@ class CalendarListViewController: UIViewController {
         if weekView.calendarType == .day {
             dateHeaderLabel.text = DateTimeUtility.getEEEEMMMdFormattedDateString(date: startDate)
         }
+        else if weekView.calendarType == .week {
+            dateHeaderLabel.text = DateTimeUtility.getWeekFormattedDateString(date: startDate, includeWeekend: false)
+        }
     }
 
     // MARK: - Button Action
@@ -99,27 +103,7 @@ class CalendarListViewController: UIViewController {
 
     // MARK: - Addnew Button Text
     func setupAddNewButtonText() {
-        let smallString = "Add New "
-        let bigString = "+"
-        let fullString = "\(smallString) \(bigString)"
-        let attrString = NSMutableAttributedString(string: fullString,
-                                                         attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
-
-        let smallStringRange = NSRange(location: 0, length: smallString.count)
-        let bigStringRange = NSRange(location: smallStringRange.length+1, length: bigString.count)
-        
-        let smallStringFontSize: CGFloat = 17
-        let bigStringFontSize: CGFloat = 30
-        
-        attrString.beginEditing()
-        
-        attrString.addAttribute(.font, value: UIFont(name:"Ubuntu", size: smallStringFontSize)!, range: smallStringRange)
-        attrString.addAttribute(.font, value: UIFont(name:"Ubuntu", size: bigStringFontSize)!, range: bigStringRange)
-        attrString.addAttribute(.baselineOffset, value: (bigStringFontSize - smallStringFontSize) / 4, range: smallStringRange)
-        
-        attrString.endEditing()
-        
-        addNewButton.setAttributedTitle(attrString, for: .normal)
+        addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
     }
     
     // MARK: - DropDown Addnew
@@ -141,7 +125,6 @@ class CalendarListViewController: UIViewController {
                 
             case 1:
                 print("TBD launch Event")
-//                self.launchNewVisit()
 
             default:
                 break
@@ -154,22 +137,68 @@ class CalendarListViewController: UIViewController {
     // MARK: - DropDown Calendar View
     func setupDropDownCalView() {
         dropDownCalView.anchorView = calViewButton
-        dropDownCalView.bottomOffset = CGPoint(x: 0, y:(dropDownAddNew.anchorView?.plainView.bounds.height)!)
+        dropDownCalView.bottomOffset = CGPoint(x: 0, y:(dropDownCalView.anchorView?.plainView.bounds.height)!)
         dropDownCalView.backgroundColor = UIColor.white
         dropDownCalView.selectionBackgroundColor = UIColor.clear
         dropDownCalView.shadowOffset = CGSize(width: 0, height: 15)
         
         dropDownCalView.dataSource = ["Day View", "Week View", "Month View"]
 
+        dropDownCalView.selectionAction = { (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            
+            switch index {
+            case 0:
+                if self.currentCalendarViewType == .Day {
+                    return
+                }
+                self.currentCalendarViewType = .Day
+                self.calViewButton.setTitle("Day View    ", for: .normal)
+                
+            case 1:
+                if self.currentCalendarViewType == .Week {
+                    return
+                }
+                self.currentCalendarViewType = .Week
+                self.calViewButton.setTitle("Week View    ", for: .normal)
+
+            case 2:
+                print("TBD launch Event")
+                
+            default:
+                break
+            }
+            
+            self.calViewButton.setNeedsLayout()
+            self.weekView.isFirst = true
+            self.reloadCalendarView()
+            self.dropDownCalView.hide()
+        }
     }
 
     // MARK: - WRCalendarView
     func setupCalendarData() {
+        guard currentCalendarViewType != .None else {
+            return
+        }
         currentShowingDate = Date()
         
         weekView.setCalendarDate(Date())
-        weekView.delegate = self        
-        weekView.calendarType = .day
+        weekView.delegate = self
+        
+        switch currentCalendarViewType {
+        case .Day:
+            weekView.calendarType = .day
+
+        case .Week:
+            weekView.calendarType = .week
+
+        case .Month:
+            print("TBD")
+
+        default:
+            break
+        }
     }
     
     func moveToToday() {
@@ -199,6 +228,8 @@ extension CalendarListViewController: WRWeekViewDelegate {
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             accountVisitsVC?.visitId = event.Id
+            accountVisitsVC?.delegate = self
+            PlanVistManager.sharedInstance.visit?.Id = event.Id
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
@@ -207,4 +238,31 @@ extension CalendarListViewController: WRWeekViewDelegate {
     }
 }
 
-
+//MARK:- NavigateToContacts Delegate
+extension CalendarListViewController : NavigateToContactsDelegate{
+    func navigateToVisitListing() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    //Send a notification to Parent VC to load respective VC
+    func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        if data == .contacts{
+            ContactFilterMenuModel.comingFromDetailsScreen = ""
+            if let visit = PlanVistManager.sharedInstance.visit{
+                ContactsGlobal.accountId = visit.accountId
+            }
+            // Added this line so that Contact detail view is not launched for this scenario.
+            ContactFilterMenuModel.selectedContactId = ""
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+        }else {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
+        }
+    }
+    
+    func navigateToAccountScreen() {
+        // Added this line so that Account detail view is not launched for this scenario.
+        FilterMenuModel.selectedAccountId = ""
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+    }
+}

@@ -15,10 +15,19 @@ class GlobalConstants
     {
         case HomeVCIndex = 0, AccountVCIndex, ContactsVCIndex, CalendarVCIndex, ObjectivesVCIndex, MoreVCIndex
     }
+    
+    //Calendar Type Day Week or Month
+    enum CalendarViewType: Int {
+        case None = 0
+        case Day = 1
+        case Week = 2
+        case Month = 3
+    }
+    
 }
 
-public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-    let output = items.map { "\($0)" }.joined(separator: separator)
-    Swift.print(output, terminator: terminator)
-}
+//public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+//    let output = items.map { "\($0)" }.joined(separator: separator)
+//    Swift.print(output, terminator: terminator)
+//}
 

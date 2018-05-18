@@ -26,6 +26,8 @@ class AccountStrategyViewController : UIViewController{
     let strategyAnswersViewModel = StrategyAnswersViewModel()
     var tableViewRowDetails : NSMutableArray?
     
+    var tableViewData : NSMutableArray?
+    
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +96,7 @@ class AccountStrategyViewController : UIViewController{
             lblNoData?.isHidden = true
         }
         
-        let tableViewData = NSMutableArray()
+        tableViewData = NSMutableArray()
         var dict : NSMutableDictionary!
         
         var headerCheck = false
@@ -110,7 +112,7 @@ class AccountStrategyViewController : UIViewController{
                 }
                 
                 //Used to keep Header only once
-                for q in tableViewData{
+                for q in tableViewData!{
                     
                     let dictionary = q as! NSDictionary
                     let header = dictionary["header"] as? String
@@ -130,30 +132,39 @@ class AccountStrategyViewController : UIViewController{
                 dict.setValue(queAndAns.SGWS_Question_Sub_Type__c, forKey: "subHeader")    //Added Subheader
                 dict.setValue(queAndAns.Id, forKey: "id")
                 
-                let answerArray = NSMutableArray()
-                let answerArrayStr = NSMutableArray()
-                let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
+                self.createAnswerStrings(dict: dict, queAndAns: queAndAns, tableviewData: tableViewData!)
                 
-                if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
-                    
-                    for ans in answerListArray{
-                        if !(answerArrayStr.contains(ans)){
-                            answerArrayStr.add(ans)
-                            let answerDict = NSMutableDictionary()
-                            answerDict.setValue(ans, forKey: "answerText")
-                            answerArray.add(answerDict)
-                        }
-                    }
-                }
-                let answerListString = answerArrayStr.componentsJoined(by: ",")
-                dict.setValue(answerListString, forKey: "answerStrings")
-                dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
-                
-                tableViewData.add(dict)
             }
         }
-        self.loadTheSubheaders(data: data, tableViewData: tableViewData)
+        self.loadTheSubheaders(data: data, tableViewData: tableViewData!)
     }
+    
+    //Create Array of Dictionaries for Answers and add to MutableArray
+    func createAnswerStrings(dict : NSMutableDictionary, queAndAns : StrategyQA, tableviewData : NSMutableArray){
+        
+        let answerArray = NSMutableArray()
+        let answerArrayStr = NSMutableArray()
+        let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
+        
+        if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
+            
+            for ans in answerListArray{
+                if !(answerArrayStr.contains(ans)){
+                    answerArrayStr.add(ans)
+                    let answerDict = NSMutableDictionary()
+                    answerDict.setValue(ans, forKey: "answerText")
+                    answerArray.add(answerDict)
+                }
+            }
+        }
+        let answerListString = answerArrayStr.componentsJoined(by: ",")
+        dict.setValue(answerListString, forKey: "answerStrings")
+        dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
+        
+        tableviewData.add(dict)
+        
+    }
+    
     
     //Used to load the Strategy Subheader Questions
     func loadTheSubheaders(data : [StrategyQA] , tableViewData : NSMutableArray){
@@ -295,7 +306,7 @@ class AccountStrategyViewController : UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "editStrategySegue") {
             let editStrategy = segue.destination as? EditAccountStrategyViewController
-            editStrategy?.strategyArray = tableViewRowDetails!
+            editStrategy?.strategyArray = tableViewData!
             editStrategy?.delegate = self
         }
     }

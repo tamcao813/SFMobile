@@ -27,6 +27,7 @@ class StoreDispatcher {
     let SoupStrategyQA = "SGWS_Response__c"
     let SoupStrategyQuestion = "SGWS_Question__c"
     let SoupStrategyAnswers = "SGWS_Answer__c"
+    let SoupActionItem = "Task"
     
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
@@ -49,6 +50,7 @@ class StoreDispatcher {
         registerStrategyQASoup()
         registerStrategyQuestions()
         registerStrategyAnswers()
+        registerActionItemSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -118,6 +120,11 @@ class StoreDispatcher {
         
         group.enter()
         syncDownVisits() { _ in
+            group.leave()
+        }
+
+        group.enter()
+        syncDownActionItem() { _ in
             group.leave()
         }
         
@@ -838,7 +845,7 @@ class StoreDispatcher {
         
     }
     
-    //Contacts
+    // MARK:- Contacts
     func fetchContactsWithBuyingPower(forAccount accountId: String) -> [Contact] {
         
         print("fetchContactsWithBuyingPower \(accountId)")
@@ -1104,27 +1111,7 @@ class StoreDispatcher {
         }
     }
     
-    func registerNotesSoup(){
-        
-        let notesQueryFields = AccountNotes.AccountNotesFields
-        
-        var indexSpec:[SFSoupIndex] = []
-        for i in 0...notesQueryFields.count - 1 {
-            let sfIndex = SFSoupIndex(path: notesQueryFields[i], indexType: kSoupIndexTypeString, columnName: notesQueryFields[i])!
-            indexSpec.append(sfIndex)
-        }
-        
-        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
-
-        do {
-            try sfaStore.registerSoup(SoupAccountNotes, withIndexSpecs: indexSpec, error: ())
-            
-        } catch let error as NSError {
-            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupAccountNotes soup: \(error.localizedDescription)")
-        }
-        
-    }
-    
+    //MARK:- VISIT CODE
     func registerVisitSoup(){
         
         let visitsQueryFields = Visit.VisitsFields
@@ -1334,6 +1321,165 @@ class StoreDispatcher {
     }
     
     
+    //MARK:- ActionItem CODE
+    func registerActionItemSoup(){
+        let actionItemQueryFields = ActionItem.AccountActionItemFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...actionItemQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: actionItemQueryFields[i], indexType: kSoupIndexTypeString, columnName: actionItemQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupActionItem, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "ERROR: ***failed to register SoupActionItem soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func syncDownActionItem(_ completion:@escaping (_ error: NSError?)->()) {
+        let soqlQuery = "SELECT Id,AccountId,Subject,Description,Status,ActivityDate,SGWS_Urgent__c,SGWS_AppModified_DateTime__c,RecordTypeId FROM Task"
+        print("soql ActionItem query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupActionItem)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> ActionItem SoupActionItem() done >>>>>")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownActionItem() >>>>>>>"
+                    let userInfo: [String: Any] = [NSLocalizedDescriptionKey : meg,
+                                                   NSLocalizedFailureReasonErrorKey : meg]
+                    let err = NSError(domain: "syncDownActionItem()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    func fetchAcctionItem()->[ActionItem]{
+        var actionItem: [ActionItem] = []
+        let actionItemFields = ActionItem.AccountActionItemFields.map{"{Task:\($0)}"}
+        let soapQuery = "Select \(actionItemFields.joined(separator: ",")) FROM {Task}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        print("Result of Task  is \(result)")
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let actionItemArray = ActionItem(withAry: ary)
+                actionItem.append(actionItemArray)
+                print("task of  array is  \(actionItemArray)")
+            }
+        }
+        else if error != nil {
+            print("fetch action item  " + " error:" + (error?.localizedDescription)!)
+        }
+        return actionItem
+    }
+
+    func createNewActionItemLocally(fieldsToUpload: [String:Any]) -> Bool{
+        let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupActionItem)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+
+    }
+    
+    func editActionItemLocally(fieldsToUpload: [String:Any]) -> Bool{
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedNote = [String: Any]()
+        
+        for  singleNote in result{
+            var singleActionItemModif = singleNote as! [String:Any]
+            let singleNoteModifValue = singleActionItemModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == singleNoteModifValue){
+                singleActionItemModif["Subject"] = fieldsToUpload["Subject"]
+                singleActionItemModif["Description"] = fieldsToUpload["Description"]
+                singleActionItemModif["Status"] = fieldsToUpload["Status"]
+                singleActionItemModif["ActivityDate"] = fieldsToUpload["ActivityDate"]
+                singleActionItemModif["SGWS_Urgent__c"] = fieldsToUpload["SGWS_Urgent__c"]
+                singleActionItemModif[kSyncTargetLocal] = true
+                
+                let createdFlag = singleActionItemModif[kSyncTargetLocallyCreated] as! Bool
+                
+                if(createdFlag){
+                    singleActionItemModif[kSyncTargetLocallyUpdated] = false
+                    singleActionItemModif[kSyncTargetLocallyCreated] = true
+                    
+                }else {
+                    singleActionItemModif[kSyncTargetLocallyCreated] = false
+                    singleActionItemModif[kSyncTargetLocallyUpdated] = true
+                    
+                }
+                singleActionItemModif[kSyncTargetLocallyDeleted] = false
+                
+                singleActionItemModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
+                editedNote = singleActionItemModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedNote], toSoup: SoupAccountNotes)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) ActionItem is edited and saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving editing ActionItem" )
+            return false
+        }
+    }
+    
+    
+    //MARK:- Notes CODE
+    func registerNotesSoup(){
+        
+        let notesQueryFields = AccountNotes.AccountNotesFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...notesQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: notesQueryFields[i], indexType: kSoupIndexTypeString, columnName: notesQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupAccountNotes, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupAccountNotes soup: \(error.localizedDescription)")
+        }
+        
+    }
     
     func syncDownNotes(_ completion:@escaping (_ error: NSError?)->()) {
         

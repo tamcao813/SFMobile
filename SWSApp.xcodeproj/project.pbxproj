@@ -227,7 +227,7 @@
 		8DD1500C209330E200858349 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15008209330E100858349 /* AccountView.xib */; };
 		8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
 		8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
-		8DD1500F2093370400858349 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		8DD1500F2093370400858349 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
@@ -1824,7 +1824,7 @@
 				AE8F41EF20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */,
 				91FAEF4C20A57DD500209D71 /* WRCornerHeader.swift in Sources */,
 				8D17A5D120A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
-				8DD1500F2093370400858349 /* BuildFile in Sources */,
+				8DD1500F2093370400858349 /* (null) in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
 				91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */,

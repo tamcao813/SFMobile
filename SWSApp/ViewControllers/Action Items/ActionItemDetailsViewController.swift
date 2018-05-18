@@ -14,7 +14,7 @@ class ActionItemDetailsViewController: UIViewController {
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var actionItemStatusLabel: UILabel!
     @IBOutlet weak var footerView: UIView!
-    var actionItemId: String!
+    var actionItemObject: ActionItem!
     var accountSelected: Account!
 
     override func viewDidLoad() {
@@ -50,6 +50,7 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemTitleDetailTableViewCell") as? ActionItemTitleDetailTableViewCell
+            cell?.displayCellContent(actionItem: actionItemObject)
             return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemDescriptionTableViewCell") as? ActionItemDescriptionTableViewCell

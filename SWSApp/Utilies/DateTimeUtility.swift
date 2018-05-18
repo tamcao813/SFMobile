@@ -73,6 +73,25 @@ class DateTimeUtility
         return timeStamp
     }
     
+    static func getWeekFormattedDateString(date: Date?, includeWeekend: Bool) -> String {
+        if(date == nil) {
+            return ""
+        }
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "MMM d"
+        let dateString1 = dateFormatter.string(from: date!)
+        
+        dateFormatter.dateFormat = "d"
+        let dateString2 = dateFormatter.string(from: date!.add(component: .day, value: includeWeekend ? 6 : 4))
+        
+        dateFormatter.dateFormat = "yyyy"
+        let dateString3 = dateFormatter.string(from: date!)
+        
+        return (dateString1 + " - " + dateString2 + ", " + dateString3)
+    }
+    
     static func getDateFromyyyyMMddTimeFormattedDateString(dateString: String) -> Date? {
         
         var returnDate: Date?
@@ -98,23 +117,12 @@ class DateTimeUtility
         
     }
     
-    static func getWeekFormattedDateString(date: Date?, includeWeekend: Bool) -> String {
-        if(date == nil) {
-            return ""
-        }
-        
+    static func sendCurrentDateToServer() -> String? {
+        let date = Date()
         let dateFormatter = DateFormatter()
-
-        dateFormatter.dateFormat = "MMM d"
-        let dateString1 = dateFormatter.string(from: date!)
-
-        dateFormatter.dateFormat = "d"
-        let dateString2 = dateFormatter.string(from: date!.add(component: .day, value: includeWeekend ? 6 : 4))
-
-        dateFormatter.dateFormat = "yyyy"
-        let dateString3 = dateFormatter.string(from: date!)
-
-        return (dateString1 + " - " + dateString2 + ", " + dateString3)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        return timeStamp
     }
     
 }

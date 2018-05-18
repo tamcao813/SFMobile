@@ -18,11 +18,13 @@ class ActionItemTitleDetailTableViewCell: UITableViewCell {
     }
 
     func displayCellContent(actionItem: ActionItem){
-        titleLabel.text = actionItem.title
-        if actionItem.isItUrgent! {
-            alertImageViewWidthConstraint.constant = 36
+        titleLabel.text = actionItem.subject
+        if actionItem.isUrgent == "1" {
+            alertImageViewWidthConstraint.constant = 20
+//            titleLabelLeadingConstraints.constant = 10
         }else{
             alertImageViewWidthConstraint.constant = 0
+//            titleLabelLeadingConstraints.constant = 0
         }
     }
 

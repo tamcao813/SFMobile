@@ -15,15 +15,20 @@ class ActionItemsListViewController: UIViewController {
     var actionItemsArray = [ActionItem]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchActionItemsFromDB()
         customizedUI()
+    }
+    
+    func fetchActionItemsFromDB(){
+        actionItemsArray = [ActionItem]()
+        actionItemsArray = AccountsActionItemViewModel().getAcctionItemForUser()
+        tableView.reloadData()
     }
     
     func customizedUI(){
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
         self.tableView.tableFooterView = UIView()
-        actionItemsArray.append(ActionItem(id: "1", title: "Action Item 1", dueDate: "2018-02-15", account: "Crown Liquor Store", status: .complete, description: "Action Item 1 Crown Liquor Store", isItUrgent: true))
-        actionItemsArray.append(ActionItem(id: "2", title: "Action Item 1", dueDate: "2018-02-15", account: "Crown Liquor Store", status: .open, description: "Action Item 1 Crown Liquor Store", isItUrgent: false))
         initializeNibs()
     }
     
@@ -62,7 +67,7 @@ extension ActionItemsListViewController : UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             let detailViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"ActionItemDetailsViewController") as! ActionItemDetailsViewController
-            detailViewController.actionItemId = self.actionItemsArray[indexPath.row].id
+            detailViewController.actionItemObject = self.actionItemsArray[indexPath.row]
             self.present(detailViewController, animated: true)
         }
         
@@ -87,7 +92,7 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
             DispatchQueue.main.async {
                 let createVisitViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
                 createVisitViewController.isEditingMode = true
-                createVisitViewController.actionItemId = self.actionItemsArray[indexPath.row].id
+                createVisitViewController.actionItemObject = self.actionItemsArray[indexPath.row]
                 self.present(createVisitViewController, animated: true)
             }            
         }
@@ -98,17 +103,14 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
         var statusText = ""
         var statusImage = UIImage()
         switch actionItemsArray[indexPath.row].status {
-        case .complete?:
+        case "Complete":
             statusText = "Complete"
             statusImage = UIImage()
-        case .open?:
+        case "Open":
             statusText = "Open"
             statusImage = UIImage()
-        case .overdue?:
-            statusText = "Overdue"
-            statusImage = UIImage()
         default:
-            break
+            statusText = actionItemsArray[indexPath.row].status
         }
         let changeStatus = SwipeAction(style: .default, title: statusText) { action, indexPath in
         }

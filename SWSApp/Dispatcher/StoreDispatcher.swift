@@ -1336,9 +1336,9 @@ class StoreDispatcher {
     }
     
     
-    func fetchVisits()->[Visit]{
+    func fetchVisits()->[WorkOrderUserObject]{
         
-        let accVisit = fetchVisitEventObject()
+        let accVisit = fetchWorkOrderUserObjectObject()
         
         var visit: [Visit] = []
         
@@ -2556,19 +2556,23 @@ class StoreDispatcher {
         
     }
     
-    func fetchVisitEventObject()->[AccountVisitEvent]{
+    func fetchWorkOrderUserObjectObject()->[WorkOrderUserObject]{
         
         //["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId"]
         
         //"AccountId","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet"
         
-        //"Id", "Name", "FirstName", "LastName", "Phone",
+        //"Id", "Name", "FirstName", "LastName", "Phone","Email"
         
-        var accVisitEventArray:[AccountVisitEvent] = []
+        var accVisitEventArray:[WorkOrderUserObject] = []
         
         //let soqlQuery = "SELECT {WorkOrder:Id},{WorkOrder:Subject},{AccountTeamMember:AccountId},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{SGWS_Response__c:SGWS_AppModified_DateTime__c},{Contact:Id},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone} from {WorkOrder} INNER JOIN {AccountTeamMember} where {WorkOrder:AccountId} = {AccountTeamMember:Id} INNER JOIN {Contact} where {WorkOrder:ContactId} = {Contact:Id}"
         
-        let soqlQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:AccountId},{WorkOrder:ContactId},{Contact:Id},{Contact:Name},A.{AccountTeamMember:Account.Name} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:AccountId},{WorkOrder:ContactId},{User:Id},{User:User.Name},A.{AccountTeamMember:Account.Name} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id}"
+      //  let soqlQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:AccountId},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Id},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:AccountId},{WorkOrder:ContactId},{User:Id},{User:User.Name},A.{AccountTeamMember:Account.Name} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id}"
+        
+        let soqlQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id}"
+        
+        //["Id","Subject","AccountId","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","RecordTypeId"]
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
@@ -2579,7 +2583,7 @@ class StoreDispatcher {
         if result.count > 0 {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
-                let accountVisitEvent = AccountVisitEvent(withAry: ary)
+                let accountVisitEvent = WorkOrderUserObject(withAry: ary)
                 accVisitEventArray.append(accountVisitEvent)
             }
         }

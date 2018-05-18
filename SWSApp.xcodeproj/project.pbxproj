@@ -117,7 +117,7 @@
 		6DBD03262077B5EF0083419E /* CrimsonText-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03172077B5EF0083419E /* CrimsonText-Semibold.ttf */; };
 		6DBD03272077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03182077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf */; };
 		6DBD03282077B5EF0083419E /* CrimsonText-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD03192077B5EF0083419E /* CrimsonText-Roman.ttf */; };
-		6DDF2B1820A9A70500FA5A87 /* AccountVisitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDF2B1720A9A70500FA5A87 /* AccountVisitEvent.swift */; };
+		6DDF2B1820A9A70500FA5A87 /* WorkOrderUserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDF2B1720A9A70500FA5A87 /* WorkOrderUserObject.swift */; };
 		6DDF2B2520A9EBF300FA5A87 /* SyncConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDF2B2420A9EBF300FA5A87 /* SyncConfiguration.swift */; };
 		6F365320207B95850068105B /* AccountSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36531F207B95850068105B /* AccountSortUtility.swift */; };
 		6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3D3099206BA064000CFFCC /* AccountsViewController.swift */; };
@@ -229,7 +229,7 @@
 		8DD1500C209330E200858349 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15008209330E100858349 /* AccountView.xib */; };
 		8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
 		8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
-		8DD1500F2093370400858349 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		8DD1500F2093370400858349 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
@@ -515,7 +515,7 @@
 		6DBD03172077B5EF0083419E /* CrimsonText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Semibold.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Semibold.ttf"; sourceTree = SOURCE_ROOT; };
 		6DBD03182077B5EF0083419E /* CrimsonText-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-SemiboldItalic.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-SemiboldItalic.ttf"; sourceTree = SOURCE_ROOT; };
 		6DBD03192077B5EF0083419E /* CrimsonText-Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Roman.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Roman.ttf"; sourceTree = SOURCE_ROOT; };
-		6DDF2B1720A9A70500FA5A87 /* AccountVisitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVisitEvent.swift; sourceTree = "<group>"; };
+		6DDF2B1720A9A70500FA5A87 /* WorkOrderUserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOrderUserObject.swift; sourceTree = "<group>"; };
 		6DDF2B2420A9EBF300FA5A87 /* SyncConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncConfiguration.swift; sourceTree = "<group>"; };
 		6F36531F207B95850068105B /* AccountSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSortUtility.swift; sourceTree = "<group>"; };
 		6F3D3099206BA064000CFFCC /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
@@ -1033,7 +1033,7 @@
 				129A69942099995F00642B14 /* StrategyQuestions.swift */,
 				129A699A2099A9BB00642B14 /* StrategyAnswers.swift */,
 				AE43DD1D209C7401005D8DD1 /* PlanVisit.swift */,
-				6DDF2B1720A9A70500FA5A87 /* AccountVisitEvent.swift */,
+				6DDF2B1720A9A70500FA5A87 /* WorkOrderUserObject.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1382,6 +1382,7 @@
 				D1FB18402062A7C10072F4C1 /* Resources */,
 				ED16E5506CA59E4093356B2A /* [CP] Copy Pods Resources */,
 				A41DD516CDC93E5932F04616 /* [CP] Copy Pods Resources */,
+				C37591FF76E1E88A31C0D6EB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1741,6 +1742,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C37591FF76E1E88A31C0D6EB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CC2CDF0F762A871505EF102A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1786,7 +1802,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1807,7 +1823,7 @@
 				AE8F41EF20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */,
 				91FAEF4C20A57DD500209D71 /* WRCornerHeader.swift in Sources */,
 				8D17A5D120A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
-				8DD1500F2093370400858349 /* (null) in Sources */,
+				8DD1500F2093370400858349 /* BuildFile in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
 				6D38325420874026006805C6 /* FilterViewModel.swift in Sources */,
@@ -1969,8 +1985,9 @@
 				12B7362E209777CC0063F847 /* StrategyQAViewModel.swift in Sources */,
 				91FAEF4D20A57DD500209D71 /* WRColumnHeader.swift in Sources */,
 				AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */,
-				6DDF2B1820A9A70500FA5A87 /* AccountVisitEvent.swift in Sources */,
+				6DDF2B1820A9A70500FA5A87 /* WorkOrderUserObject.swift in Sources */,
 				6DDF2B2520A9EBF300FA5A87 /* SyncConfiguration.swift in Sources */,
+				91FAEF4B20A57DD500209D71 /* WRCornerHeader.swift in Sources */,
 				D23C40D2208DE6590006691C /* UnorderedListTableViewCell.swift in Sources */,
 				8D99A2EE2091E6F600FAA71A /* NameTableViewCell.swift in Sources */,
 				C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  AccountVisitEvent.swift
+//  WorkOrderUserObject.swift
 //  SWSApp
 //
 //  Created by soumin.nikhra on 5/14/18.
@@ -8,13 +8,17 @@
 
 import Foundation
 
-class AccountVisitEvent {
+//{WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Id},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId}
+
+class WorkOrderUserObject {
     
-    static let accountVisitEventFields: [String] = ["Id","Subject","AccountId","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","RecordTypeId"]
+    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","AccountId","Account.Name","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","_soupEntryId"]
     
     var Id : String
     var subject : String
     var accountId : String
+    var accountName : String
+
     
     var shippingCity: String
     var shippingCountry: String
@@ -35,15 +39,19 @@ class AccountVisitEvent {
     var name: String
     var firstName: String
     var lastName: String
+    var phone : String
+    var email: String
     
     
     var recordTypeId: String
+    var soupEntryId: String
+
 
     
     
     
     convenience init(withAry ary: [Any]) {
-        let resultDict = Dictionary(uniqueKeysWithValues: zip(AccountVisitEvent.accountVisitEventFields, ary))
+        let resultDict = Dictionary(uniqueKeysWithValues: zip(WorkOrderUserObject.WorkOrderUserObjectFields, ary))
         self.init(json: resultDict)
     }
     
@@ -51,8 +59,9 @@ class AccountVisitEvent {
         
         Id = json["Id"] as? String ?? ""
         subject = json["Subject"] as? String ?? ""
-        
         accountId = json["AccountId"] as? String ?? ""
+        accountName = json["Account.Name"] as? String ?? ""
+        
         shippingCity = json["Account.ShippingCity"] as? String ?? ""
         shippingCountry = json["Account.ShippingCountry"] as? String ?? ""
         shippingPostalCode = json["Account.ShippingPostalCode"] as? String ?? ""
@@ -75,9 +84,11 @@ class AccountVisitEvent {
         if(name == ""){
             name = firstName + " " + lastName
         }
+        phone = json["Phone"] as? String ?? ""
+        email = json["Email"] as? String ?? ""
 
         recordTypeId = json["RecordTypeId"] as? String ?? ""
-
+        soupEntryId = json["_soupEntryId"] as? String ?? ""
         
     }
     
@@ -85,8 +96,9 @@ class AccountVisitEvent {
         
         Id = ""
         subject = ""
-        
         accountId = ""
+        accountName = ""
+        
         shippingCity = ""
         shippingCountry = ""
         shippingPostalCode = ""
@@ -106,6 +118,9 @@ class AccountVisitEvent {
         firstName = ""
         lastName = ""
         recordTypeId = ""
+        email = ""
+        phone = ""
+        soupEntryId = ""
         
     }
 }

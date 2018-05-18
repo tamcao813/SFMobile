@@ -109,7 +109,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             upComingActivitiesCell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
             return upComingActivitiesCell
             
-            
         }
             
             

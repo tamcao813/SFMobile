@@ -450,15 +450,7 @@ extension ContactListViewController{
         switch sender.tag {
             
         case Page.first.rawValue:
-            for i in 1...kNoOfPagesInEachSet {
-                pageButtonArr[i].setTitle(String(i), for: .normal)
-            }
-            self.currentPageIndex = 0
-            self.currentPageSet = 0
-            
-            updateUI()
-            print ("First")
-            print ("New \(self.currentPageIndex!)")
+            self.setupFirstPageButton()
             
         case Page.previous.rawValue:
             //On pres of Previous if pageSet is grater than 0 than we have one pageSet to display decrement by 1
@@ -466,7 +458,6 @@ extension ContactListViewController{
             //                self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+0) * kPageSize
             print ("One: Index is \(currentPageIndex!)")
             updateUI()
-            
             
         case Page.one.rawValue:
             
@@ -476,14 +467,12 @@ extension ContactListViewController{
             pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
             pageButtonArr[1].backgroundColor = UIColor.lightGray
             
-            
         case Page.two.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+1) * kPageSize
             print ("two: Index is \(currentPageIndex!)")
             
             pageButtonArr[2].setTitleColor(UIColor.white, for: .normal)
             pageButtonArr[2].backgroundColor = UIColor.lightGray
-            
             
         case Page.three.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+2) * kPageSize
@@ -492,14 +481,12 @@ extension ContactListViewController{
             pageButtonArr[3].setTitleColor(UIColor.white, for: .normal)
             pageButtonArr[3].backgroundColor = UIColor.lightGray
             
-            
         case Page.four.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+3) * kPageSize
             print ("four: Index is \(currentPageIndex!)")
             
             pageButtonArr[4].setTitleColor(UIColor.white, for: .normal)
             pageButtonArr[4].backgroundColor = UIColor.lightGray
-            
             
         case Page.five.rawValue:
             self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+4) * kPageSize
@@ -508,23 +495,13 @@ extension ContactListViewController{
             pageButtonArr[5].setTitleColor(UIColor.white, for: .normal)
             pageButtonArr[5].backgroundColor = UIColor.lightGray
             
-            
         case Page.next.rawValue:
             changeBtnText(byPageSet: 1)
             updateUI()
             print ("Next")
             
         case Page.last.rawValue:
-            let lastSetNo = (kNoOfPageSet!-1) * kNoOfPagesInEachSet
-            for i in 1...kNoOfPagesInEachSet {
-                pageButtonArr[i].setTitle(String(lastSetNo + i), for: .normal)
-            }
-            
-            self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
-            self.currentPageSet = kNoOfPageSet! - 1
-            updateUI()
-            print ("Last")
-            print ("New \(self.currentPageIndex!)")
+            self.setupLastPageButton()
             
         default:
             break
@@ -544,6 +521,33 @@ extension ContactListViewController{
                 self.tableView.endUpdates()
             })
         }
+        
+    }
+    
+    func setupFirstPageButton(){
+        for i in 1...kNoOfPagesInEachSet {
+            pageButtonArr[i].setTitle(String(i), for: .normal)
+        }
+        self.currentPageIndex = 0
+        self.currentPageSet = 0
+        
+        updateUI()
+        print ("First")
+        print ("New \(self.currentPageIndex!)")
+    }
+    
+    
+    func setupLastPageButton(){
+        let lastSetNo = (kNoOfPageSet!-1) * kNoOfPagesInEachSet
+        for i in 1...kNoOfPagesInEachSet {
+            pageButtonArr[i].setTitle(String(lastSetNo + i), for: .normal)
+        }
+        
+        self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
+        self.currentPageSet = kNoOfPageSet! - 1
+        updateUI()
+        print ("Last")
+        print ("New \(self.currentPageIndex!)")
         
     }
     

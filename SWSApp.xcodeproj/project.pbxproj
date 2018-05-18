@@ -1007,8 +1007,8 @@
 			isa = PBXGroup;
 			children = (
 				8D907C1A20AEAC53004FC367 /* ActionItemDescriptionTableViewCell.swift */,
-				8D907C1B20AEAC53004FC367 /* ActionItemsListTableViewCell.xib */,
 				8D907C1C20AEAC53004FC367 /* ActionItemTitleDetailTableViewCell.swift */,
+				8D907C1B20AEAC53004FC367 /* ActionItemsListTableViewCell.xib */,
 				8D907C1D20AEAC53004FC367 /* ActionItemsListTableViewCell.swift */,
 				8D907C1E20AEAC53004FC367 /* ActionItemTitleTableViewCell.swift */,
 				8D907C1F20AEAC53004FC367 /* ActionItemTitleTableViewCell.xib */,

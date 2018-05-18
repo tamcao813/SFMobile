@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Calendar View Controller-->
+        <scene sceneID="L81-QH-P4W">
+            <objects>
+                <viewController storyboardIdentifier="CalendarViewControllerID" id="2uJ-5M-VST" customClass="CalendarViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4Dx-LP-aMb">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uPl-ot-OUJ">
+                                <rect key="frame" x="0.0" y="20" width="280" height="747"/>
+                                <connections>
+                                    <segue destination="58y-xe-11t" kind="embed" identifier="CalendarQueryFilter" id="EPr-uZ-uwz"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1c-od-84S">
+                                <rect key="frame" x="288" y="20" width="736" height="747"/>
+                                <connections>
+                                    <segue destination="c5P-Dj-BFj" kind="embed" identifier="CalendarSegue" id="u9n-08-5sB"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" name="LightGrey"/>
+                        <constraints>
+                            <constraint firstItem="w1c-od-84S" firstAttribute="top" secondItem="Xx8-Np-QUQ" secondAttribute="top" id="19w-G7-gV6"/>
+                            <constraint firstItem="uPl-ot-OUJ" firstAttribute="leading" secondItem="Xx8-Np-QUQ" secondAttribute="leading" id="1iB-D2-WNJ"/>
+                            <constraint firstItem="uPl-ot-OUJ" firstAttribute="top" secondItem="Xx8-Np-QUQ" secondAttribute="top" id="LBv-qk-6ZN"/>
+                            <constraint firstItem="Xx8-Np-QUQ" firstAttribute="bottom" secondItem="uPl-ot-OUJ" secondAttribute="bottom" constant="1" id="Nhx-Gt-jOb"/>
+                            <constraint firstItem="Xx8-Np-QUQ" firstAttribute="bottom" secondItem="w1c-od-84S" secondAttribute="bottom" constant="1" id="Swp-v2-dOj"/>
+                            <constraint firstItem="uPl-ot-OUJ" firstAttribute="width" secondItem="4Dx-LP-aMb" secondAttribute="width" multiplier="310/1024" constant="-30" id="Yfp-jU-5cE"/>
+                            <constraint firstItem="w1c-od-84S" firstAttribute="leading" secondItem="uPl-ot-OUJ" secondAttribute="trailing" constant="8" id="dO8-z8-QJq"/>
+                            <constraint firstItem="Xx8-Np-QUQ" firstAttribute="trailing" secondItem="w1c-od-84S" secondAttribute="trailing" id="kwH-mi-R4c"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Xx8-Np-QUQ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="za9-b2-5d4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3050" y="-1595"/>
+        </scene>
+        <!--Calendar Menu View Controller-->
+        <scene sceneID="0YN-G9-VLN">
+            <objects>
+                <viewController storyboardIdentifier="CalendarMenuViewControllerID" id="58y-xe-11t" customClass="CalendarMenuViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iXA-LH-L9a">
+                        <rect key="frame" x="0.0" y="0.0" width="280" height="747"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="rv7-iu-UvZ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OYt-eU-wl3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2832" y="-851"/>
+        </scene>
+        <!--Calendar List View Controller-->
+        <scene sceneID="Y33-Kl-FTe">
+            <objects>
+                <viewController storyboardIdentifier="CalendarListViewControllerID" id="c5P-Dj-BFj" customClass="CalendarListViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s91-N2-ZKi">
+                        <rect key="frame" x="0.0" y="0.0" width="736" height="747"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mbJ-ek-9sr" userLabel="Content View">
+                                <rect key="frame" x="0.0" y="20" width="736" height="727"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJH-p9-tWg" userLabel="Top View">
+                                        <rect key="frame" x="0.0" y="0.0" width="736" height="80"/>
+                                        <subviews>
+                                            <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2G-0Z-ko2">
+                                                <rect key="frame" x="10" y="20" width="140" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="12g-yf-uQn"/>
+                                                    <constraint firstAttribute="width" constant="140" id="jM5-np-dmU"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" title="Day View    " image="dropDownLight">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="actionButtonCalendarTypeView:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="sIO-7u-mir"/>
+                                                </connections>
+                                            </button>
+                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TB3-K7-aAN">
+                                                <rect key="frame" x="170" y="20" width="150" height="40"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vT1-04-1yX">
+                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="40" id="d8C-TP-8xp"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" title="Button" image="Checkbox Selected">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="actionButtonShowWeekends:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="IwA-u3-sOk"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qku-YT-d44">
+                                                        <rect key="frame" x="40" y="0.0" width="110" height="40"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="qku-YT-d44" secondAttribute="trailing" id="0VP-zU-olR"/>
+                                                    <constraint firstAttribute="bottom" secondItem="qku-YT-d44" secondAttribute="bottom" id="ITP-gP-Y4g"/>
+                                                    <constraint firstItem="qku-YT-d44" firstAttribute="top" secondItem="TB3-K7-aAN" secondAttribute="top" id="SJq-NR-K13"/>
+                                                    <constraint firstAttribute="bottom" secondItem="vT1-04-1yX" secondAttribute="bottom" id="SgH-oL-3z1"/>
+                                                    <constraint firstAttribute="width" constant="150" id="VPz-xM-vLg"/>
+                                                    <constraint firstItem="vT1-04-1yX" firstAttribute="leading" secondItem="TB3-K7-aAN" secondAttribute="leading" id="i50-eT-BHg"/>
+                                                    <constraint firstItem="vT1-04-1yX" firstAttribute="top" secondItem="TB3-K7-aAN" secondAttribute="top" id="pPG-Ve-C1M"/>
+                                                    <constraint firstItem="qku-YT-d44" firstAttribute="leading" secondItem="vT1-04-1yX" secondAttribute="trailing" id="y7G-qp-ZFb"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="znb-wP-d1T">
+                                                <rect key="frame" x="596" y="20" width="120" height="40"/>
+                                                <color key="backgroundColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="120" id="9QA-jj-nIT"/>
+                                                    <constraint firstAttribute="height" constant="40" id="zyJ-iw-wIp"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" title="Add New +">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="actionButtonNew:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="yEn-86-Rjw"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="4xm-RB-7JE"/>
+                                            <constraint firstItem="TB3-K7-aAN" firstAttribute="leading" secondItem="H2G-0Z-ko2" secondAttribute="trailing" constant="20" id="AfK-uw-4Dt"/>
+                                            <constraint firstItem="TB3-K7-aAN" firstAttribute="height" secondItem="H2G-0Z-ko2" secondAttribute="height" id="NId-FK-S6p"/>
+                                            <constraint firstItem="H2G-0Z-ko2" firstAttribute="leading" secondItem="dJH-p9-tWg" secondAttribute="leading" constant="10" id="QxX-NP-1Qg"/>
+                                            <constraint firstItem="znb-wP-d1T" firstAttribute="centerY" secondItem="H2G-0Z-ko2" secondAttribute="centerY" id="T90-vR-Hsm"/>
+                                            <constraint firstAttribute="trailing" secondItem="znb-wP-d1T" secondAttribute="trailing" constant="20" id="dwk-5p-s7S"/>
+                                            <constraint firstItem="znb-wP-d1T" firstAttribute="centerY" secondItem="dJH-p9-tWg" secondAttribute="centerY" id="iFf-RO-b9f"/>
+                                            <constraint firstItem="TB3-K7-aAN" firstAttribute="centerY" secondItem="H2G-0Z-ko2" secondAttribute="centerY" id="nnc-H5-s84"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BKS-og-Bob" userLabel="Bottom View">
+                                        <rect key="frame" x="10" y="80" width="706" height="647"/>
+                                        <subviews>
+                                            <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAh-eA-diP">
+                                                <rect key="frame" x="10" y="20" width="40" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="Jbd-m4-uhy"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Jxl-JB-yU6"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" image="Previous">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="actionButtonLeft:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="k9g-z1-VSq"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOc-2b-mba">
+                                                <rect key="frame" x="60" y="20" width="60" height="40"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="ZY6-aI-gQt"/>
+                                                    <constraint firstAttribute="height" constant="40" id="pZQ-qd-4aI"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Today">
+                                                    <color key="titleColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="actionButtonToday:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="d1q-P4-qq4"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday, March 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jca-2g-geU">
+                                                <rect key="frame" x="266.5" y="28" width="173.5" height="25"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGL-xQ-tvw">
+                                                <rect key="frame" x="656" y="20" width="40" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="Bmu-YK-ryL"/>
+                                                    <constraint firstAttribute="height" constant="40" id="cJt-aa-eYJ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" title="  " image="Next">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="actionButtonRight:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="OSL-6P-IOk"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhl-fJ-SqK" customClass="WRWeekView" customModule="SWSApp">
+                                                <rect key="frame" x="0.0" y="80" width="686" height="567"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="Jca-2g-geU" firstAttribute="centerX" secondItem="BKS-og-Bob" secondAttribute="centerX" id="6Gm-E6-X3q"/>
+                                            <constraint firstItem="Jca-2g-geU" firstAttribute="centerY" secondItem="zAh-eA-diP" secondAttribute="centerY" id="6Ih-m5-Q7R"/>
+                                            <constraint firstItem="zAh-eA-diP" firstAttribute="top" secondItem="BKS-og-Bob" secondAttribute="top" constant="20" id="6SB-UQ-YgZ"/>
+                                            <constraint firstItem="zAh-eA-diP" firstAttribute="leading" secondItem="BKS-og-Bob" secondAttribute="leading" constant="10" id="6SH-s0-O3k"/>
+                                            <constraint firstAttribute="bottom" secondItem="dhl-fJ-SqK" secondAttribute="bottom" id="8ai-wI-ldP"/>
+                                            <constraint firstItem="dhl-fJ-SqK" firstAttribute="top" secondItem="BKS-og-Bob" secondAttribute="top" constant="80" id="Ecy-km-Myc"/>
+                                            <constraint firstItem="FOc-2b-mba" firstAttribute="leading" secondItem="zAh-eA-diP" secondAttribute="trailing" constant="10" id="Qxl-ec-Mrl"/>
+                                            <constraint firstAttribute="trailing" secondItem="hGL-xQ-tvw" secondAttribute="trailing" constant="10" id="Z86-LR-4Ai"/>
+                                            <constraint firstItem="dhl-fJ-SqK" firstAttribute="leading" secondItem="BKS-og-Bob" secondAttribute="leading" id="a1B-hf-UQM"/>
+                                            <constraint firstAttribute="trailing" secondItem="dhl-fJ-SqK" secondAttribute="trailing" constant="20" id="ftc-7A-cCA"/>
+                                            <constraint firstItem="hGL-xQ-tvw" firstAttribute="centerY" secondItem="Jca-2g-geU" secondAttribute="centerY" id="jlR-7v-qy5"/>
+                                            <constraint firstItem="FOc-2b-mba" firstAttribute="centerY" secondItem="zAh-eA-diP" secondAttribute="centerY" id="mi1-ER-oZu"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.94117647058823528" green="0.95686274509803915" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="dJH-p9-tWg" firstAttribute="top" secondItem="mbJ-ek-9sr" secondAttribute="top" id="3L2-3Y-t0s"/>
+                                    <constraint firstAttribute="trailing" secondItem="dJH-p9-tWg" secondAttribute="trailing" id="Lrl-6Z-WSR"/>
+                                    <constraint firstItem="BKS-og-Bob" firstAttribute="top" secondItem="dJH-p9-tWg" secondAttribute="bottom" id="PVV-ge-Jxu"/>
+                                    <constraint firstAttribute="bottom" secondItem="BKS-og-Bob" secondAttribute="bottom" id="R6m-9k-cAb"/>
+                                    <constraint firstAttribute="trailing" secondItem="BKS-og-Bob" secondAttribute="trailing" constant="20" id="V1g-Sm-5pK"/>
+                                    <constraint firstItem="BKS-og-Bob" firstAttribute="leading" secondItem="mbJ-ek-9sr" secondAttribute="leading" constant="10" id="jsR-zD-09W"/>
+                                    <constraint firstItem="dJH-p9-tWg" firstAttribute="leading" secondItem="mbJ-ek-9sr" secondAttribute="leading" id="nFc-G9-vd1"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="mbJ-ek-9sr" firstAttribute="leading" secondItem="zwZ-9S-Vvg" secondAttribute="leading" id="21L-Gr-63T"/>
+                            <constraint firstItem="mbJ-ek-9sr" firstAttribute="top" secondItem="zwZ-9S-Vvg" secondAttribute="top" id="8oL-jT-nP4"/>
+                            <constraint firstItem="zwZ-9S-Vvg" firstAttribute="trailing" secondItem="mbJ-ek-9sr" secondAttribute="trailing" id="XqT-df-KTw"/>
+                            <constraint firstItem="zwZ-9S-Vvg" firstAttribute="bottom" secondItem="mbJ-ek-9sr" secondAttribute="bottom" id="yiU-7l-ZsN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zwZ-9S-Vvg"/>
+                    </view>
+                    <connections>
+                        <outlet property="addNewButton" destination="znb-wP-d1T" id="LN4-LY-adC"/>
+                        <outlet property="calViewButton" destination="H2G-0Z-ko2" id="PdH-B6-vBe"/>
+                        <outlet property="dateHeaderLabel" destination="Jca-2g-geU" id="rUL-Eq-M4G"/>
+                        <outlet property="weekEndsButton" destination="vT1-04-1yX" id="fu1-be-u1E"/>
+                        <outlet property="weekEndsView" destination="TB3-K7-aAN" id="uw5-Eq-W8D"/>
+                        <outlet property="weekView" destination="dhl-fJ-SqK" id="EPK-aH-5bp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ooR-4i-LSV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3160" y="-851"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Checkbox Selected" width="20" height="20"/>
+        <image name="Next" width="32" height="32"/>
+        <image name="Previous" width="32" height="32"/>
+        <image name="dropDownLight" width="10" height="15"/>
+        <namedColor name="LightGrey">
+            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

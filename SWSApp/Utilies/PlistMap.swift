@@ -11,6 +11,13 @@ import Foundation
 struct PlistOption {
     var label: String
     var value: String
+    var validFor: Int = -1
+    
+    init(label: String, value: String, validFor: Int = -1) {
+        self.label = label
+        self.value = value
+        self.validFor = validFor
+    }
 }
 
 class PlistMap {

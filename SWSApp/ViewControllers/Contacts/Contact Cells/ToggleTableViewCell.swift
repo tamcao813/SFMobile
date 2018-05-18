@@ -17,13 +17,18 @@ class ToggleTableViewCell: UITableViewCell {
     @IBOutlet weak var yesButton: UIButton!
     @IBOutlet weak var noButton: UIButton!
     weak var delegate: ToggleTableViewCellDelegate!
-    var buyingPower = false
+    var buyingPower = false //is it false or true initially?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        noButton.isEnabled = false
-        yesButton.isEnabled = false
+        noButton.isEnabled = true
+        yesButton.isEnabled = true
         questionLabel.text = "Does this contact have buying power?"
+    }
+    
+    func setBuyingPower(value: Bool) {
+        buyingPower = value
+        toggleFlag()
     }
     
     func toggleFlag(){

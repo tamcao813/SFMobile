@@ -519,7 +519,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         
         tableViewData = visitArray.visitsForUser()
         
-        print(tableViewData)
+        print(tableViewData!)
         
     }
 }

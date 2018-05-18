@@ -55,7 +55,9 @@ class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell,UITextViewDeleg
     func displayCellData(data : NSMutableDictionary , indexPath : IndexPath){
         
         if indexPath.section >= 3{
-            self.lblCenterLabel?.text = "    \u{2022} " + (data["answerText"] as! String)
+            if data["answerText"] as! String != "" {
+                self.lblCenterLabel?.text = "    \u{2022} " + (data["answerText"] as! String)
+            }
         }else{
            self.lblCenterLabel?.text = (data["answerText"] as! String)
         }

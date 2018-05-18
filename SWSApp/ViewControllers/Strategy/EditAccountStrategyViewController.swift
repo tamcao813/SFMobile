@@ -11,6 +11,13 @@ import UIKit
 import IQKeyboardManagerSwift
 import SmartSync
 
+//Used to maintain the Required Text hidden or not
+struct validateTheReguiredVield {
+    static var isSaveClicked = "0"
+    static var isValidated = "0"
+    static var showRedForQuestionHeader = [0]
+}
+
 //Used to send a delegate back to the ViewController to reload the Selected Answers
 protocol RefreshStrategyScreenDelegate {
     func refreshStrategyScreenToLoadNewData()
@@ -184,8 +191,6 @@ class EditAccountStrategyViewController: UIViewController {
                 
                 dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
                 
-                let answersDescription = answerArray.componentsJoined(by: ",")
-                dict.setValue(answersDescription, forKey: "answerStrings")
             }
         }
         tableViewData.add(dict)
@@ -239,22 +244,30 @@ class EditAccountStrategyViewController: UIViewController {
         // }
     }
     
+
     //Validation for any 1 answer has to be Selected for a question
     func validateAllFields()-> Bool{
         var oneAnswerSelected = false
         
-        for index in tableViewRowDetails!{
+        validateTheReguiredVield.showRedForQuestionHeader.removeAll()
+        
+        for index in 0...tableViewRowDetails!.count - 1{
             oneAnswerSelected = false
-            let tableData = index as! NSDictionary
+            let tableData = tableViewRowDetails![index] as! NSDictionary
             let tableContent = tableData["answers"] as! NSArray
             
-            //Annply predicate to select any 1 answer in 
+            //Apply predicate to select any 1 answer in Array
             let namePredicate = NSPredicate(format: "isSelected = %@","YES");
             let filteredArray = tableContent.filter { namePredicate.evaluate(with: $0) };
             
             if filteredArray.count > 0 {
-                 oneAnswerSelected = true
+                oneAnswerSelected = true
             }else if filteredArray.count == 0{
+                
+                if !(validateTheReguiredVield.showRedForQuestionHeader.contains(index)){
+                    validateTheReguiredVield.showRedForQuestionHeader.append(index)
+                }
+                
                 oneAnswerSelected = false
                 return oneAnswerSelected
             }
@@ -307,11 +320,12 @@ class EditAccountStrategyViewController: UIViewController {
                 for _ in 0...strategyArray.count - 1{//r in strategyArray{
                     let response : NSMutableDictionary
                     print("This is the Index %@",q)
-                    if q < strategyArray.count - 1{
-                        response = strategyArray[q] as! NSMutableDictionary
-                    }else{
-                        break
-                    }
+                    //if q < strategyArray.count{
+                    response = strategyArray[q] as! NSMutableDictionary
+                    //}
+                    //else{
+                    //    break
+                    //}
                     
                     self.checkAnswerSelectedForTheQuestionaires(response: response, q: q, new_Strategy: new_Strategy)
                     
@@ -372,14 +386,14 @@ class EditAccountStrategyViewController: UIViewController {
         // Are there any change in Answers
         if ansStr != answerSelectedFormatted {
             
-            let success = self.editStrategy(strategyQAResponse: new_Strategy, reponseObjectId: responseId)
-            print("Edit Success is here \(success)")
+            self.editStrategy(strategyQAResponse: new_Strategy, reponseObjectId: responseId)
+            print("Edit Success is here")
             
         }// Are there any change in Answers
         else if (StrategyNotes.accountStrategyNotes == new_Strategy.SGWS_Notes__c){
-            
-            let success = self.editStrategy(strategyQAResponse: new_Strategy, reponseObjectId: responseId)
-            print("Edit Success is here \(success)")
+//
+            self.editStrategy(strategyQAResponse: new_Strategy, reponseObjectId: responseId)
+            print("Edit Note Success is here")
         }
     }
     
@@ -394,6 +408,9 @@ class EditAccountStrategyViewController: UIViewController {
         //let ansStr1 = item["answerStrings"] as! String
         
         let questionId = item["id"] as! String //Question Id
+        let questionSubType = item["subHeaderStrategy"] as! String //Question Subtype
+        
+        
         let answersCommaSeperated = NSMutableArray()
         
         for answers in dict{
@@ -419,6 +436,7 @@ class EditAccountStrategyViewController: UIViewController {
         
         //    new_Strategy.SGWS_Answer_Options__r_Id = ""
         new_Strategy.SGWS_Question__c =  questionId
+        new_Strategy.SGWS_Question_Sub_Type__c = questionSubType
         
         let attributeDict = ["type":"SGWS_Response__c"]
         let localId = AlertUtilities.generateRandomIDForNewEntry()
@@ -492,21 +510,18 @@ class EditAccountStrategyViewController: UIViewController {
     //MARK:- Button Actions
     @IBAction func saveButtonAction(sender : UIButton){
         print("Save button Clicked")
+        validateTheReguiredVield.isSaveClicked = "1"
         
         let validateFields = self.validateAllFields()
         
         if validateFields{
             print("Success")
-        
+            validateTheReguiredVield.isValidated = "1"
             createStrategy()
-
-        }else{
             
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("", errorMessage: "Please enter required fields", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-                
-            }, action2: {
-                
-            })
+        }else{
+            validateTheReguiredVield.isValidated = "0"
+            self.collectionView?.reloadData()
         }
     }
     
@@ -564,6 +579,15 @@ extension EditAccountStrategyViewController : UICollectionViewDataSource {
         if indexPath.section == tableViewRowDetails?.count{
             cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
             (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
+            
+            //Used to Hide or Unhide the Required Field Label
+            if validateTheReguiredVield.isSaveClicked == "1"{
+                if validateTheReguiredVield.isValidated == "1"{
+                    (cell1 as! EditAccountStrategyCollectionViewCell).lblReguiredFields?.isHidden = true
+                }else{
+                    (cell1 as! EditAccountStrategyCollectionViewCell).lblReguiredFields?.isHidden = false
+                }
+            }
             
             if isFirstTimeLoad == true{
                 isFirstTimeLoad = false

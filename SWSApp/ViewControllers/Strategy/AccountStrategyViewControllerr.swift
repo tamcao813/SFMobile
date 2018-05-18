@@ -26,6 +26,8 @@ class AccountStrategyViewController : UIViewController{
     let strategyAnswersViewModel = StrategyAnswersViewModel()
     var tableViewRowDetails : NSMutableArray?
     
+    var tableViewData : NSMutableArray?
+    
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +96,7 @@ class AccountStrategyViewController : UIViewController{
             lblNoData?.isHidden = true
         }
         
-        let tableViewData = NSMutableArray()
+        tableViewData = NSMutableArray()
         var dict : NSMutableDictionary!
         
         var headerCheck = false
@@ -110,7 +112,7 @@ class AccountStrategyViewController : UIViewController{
                 }
                 
                 //Used to keep Header only once
-                for q in tableViewData{
+                for q in tableViewData!{
                     
                     let dictionary = q as! NSDictionary
                     let header = dictionary["header"] as? String
@@ -130,11 +132,11 @@ class AccountStrategyViewController : UIViewController{
                 dict.setValue(queAndAns.SGWS_Question_Sub_Type__c, forKey: "subHeader")    //Added Subheader
                 dict.setValue(queAndAns.Id, forKey: "id")
                 
-                self.createAnswerStrings(dict: dict, queAndAns: queAndAns, tableviewData: tableViewData)
+                self.createAnswerStrings(dict: dict, queAndAns: queAndAns, tableviewData: tableViewData!)
                 
             }
         }
-        self.loadTheSubheaders(data: data, tableViewData: tableViewData)
+        self.loadTheSubheaders(data: data, tableViewData: tableViewData!)
     }
     
     //Create Array of Dictionaries for Answers and add to MutableArray
@@ -304,7 +306,7 @@ class AccountStrategyViewController : UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "editStrategySegue") {
             let editStrategy = segue.destination as? EditAccountStrategyViewController
-            editStrategy?.strategyArray = tableViewRowDetails!
+            editStrategy?.strategyArray = tableViewData!
             editStrategy?.delegate = self
         }
     }

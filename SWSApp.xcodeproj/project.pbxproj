@@ -410,6 +410,7 @@
 		F20C1A2E20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C1A2C20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift */; };
 		F20C1A2F20937C3700D2351C /* AccountsNotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */; };
 		F20C1A3020937C3800D2351C /* AccountsNotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */; };
+		F2537BD320ADF17800075E0F /* EditAccountStrategyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB94572095D4E40028802E /* EditAccountStrategyViewController.swift */; };
 		F2590105209216ED00C2E354 /* DuringVisitTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2590104209216ED00C2E354 /* DuringVisitTopics.plist */; };
 		F2590106209216ED00C2E354 /* DuringVisitTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2590104209216ED00C2E354 /* DuringVisitTopics.plist */; };
 		F259010B2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */; };
@@ -1869,6 +1870,7 @@
 				6D38326420874026006805C6 /* ActionItemsViewController.swift in Sources */,
 				91FAEF4420A57DD500209D71 /* WREventCell.swift in Sources */,
 				91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */,
+				F2537BD320ADF17800075E0F /* EditAccountStrategyViewController.swift in Sources */,
 				F2FD2C2920919AF600037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */,
 				12F0F89D2090B1C000160C3D /* ContactListTableViewCell.swift in Sources */,
 				C955CD272099982F003DADA1 /* NotesViewController.swift in Sources */,

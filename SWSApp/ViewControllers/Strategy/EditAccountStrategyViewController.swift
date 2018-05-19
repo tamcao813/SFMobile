@@ -95,6 +95,7 @@ class EditAccountStrategyViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK:-
     //Get the Strategy Data from Questions, Answers and esponse
     func getEditStrategyData(){
         let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
@@ -104,9 +105,7 @@ class EditAccountStrategyViewController: UIViewController {
             
         }
         let answer = strategyAnswersViewModel.getStrategyAnswers()
-        
         print(AccountId.selectedAccountId)
-        
         strategyQAResponse = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
         
         if strategyQAResponse.count > 0{
@@ -148,13 +147,11 @@ class EditAccountStrategyViewController: UIViewController {
                 }
                 
                 headerCheck = false
-                
                 dict.setValue(questionData.SGWS_Question_Description__c, forKey: "subHeader") //Added Subheader
                 dict.setValue(questionData.SGWS_Question_Sub_Type__c, forKey: "subHeaderStrategy")
                 dict.setValue(questionData.Id, forKey: "id")
                 
                 self.createAnswersWithIsSelectedKey(answer : answer , questionData : questionData , dict : dict , tableViewData : tableViewData)
-                
             }
         }
         
@@ -198,7 +195,6 @@ class EditAccountStrategyViewController: UIViewController {
         }
         tableViewData.add(dict)
     }
-    
     
     //logic to show the UI that particular Answer is selected
     func handleUiBasedOnStrategyScreen(){
@@ -244,17 +240,8 @@ class EditAccountStrategyViewController: UIViewController {
         }){
             
         }
-        
-        //AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-        
-        //self.dismiss(animated: true, completion: nil)
-        
-        //}) {
-        //   print("No")
-        // }
     }
     
-
     //Validation for any 1 answer has to be Selected for a question
     func validateAllFields()-> Bool{
         var oneAnswerSelected = false
@@ -401,7 +388,7 @@ class EditAccountStrategyViewController: UIViewController {
             
         }// Are there any change in Answers
         else if (StrategyNotes.accountStrategyNotes == new_Strategy.SGWS_Notes__c){
-//
+
             self.editStrategy(strategyQAResponse: new_Strategy, reponseObjectId: responseId)
             print("Edit Note Success is here")
         }

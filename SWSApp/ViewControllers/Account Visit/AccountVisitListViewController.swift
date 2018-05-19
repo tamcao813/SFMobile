@@ -27,7 +27,7 @@ class AccountVisitListViewController: UIViewController {
         super.viewWillAppear(animated)
         
         customizedUI()
-        initializingXIBs()
+        //initializingXIBs()
     }
     
     @objc func refreshAccountVisitList(){
@@ -200,7 +200,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         if indexPath.row > 0{
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-            let data : Visit = tableViewDataArray![indexPath.row]
+            let _ : Visit = tableViewDataArray![indexPath.row]
             PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
             (accountVisitsVC)?.delegate = self
             accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
@@ -216,7 +216,6 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     func navigateToVisitListing() {        
         self.dismiss(animated: true, completion: nil)
     }
-    
     
     //Send a notification to Parent VC to load respective VC
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {        

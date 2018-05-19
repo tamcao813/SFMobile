@@ -139,9 +139,9 @@ class  DuringVisitsViewController : UIViewController {
                 }
                 
                 //Used to keep Header only once
-                for q in tableViewData!{
+                for headerText in tableViewData!{
                     
-                    let dictionary = q as! NSDictionary
+                    let dictionary = headerText as! NSDictionary
                     let header = dictionary["header"] as? String
                     if queAndAns.SGWS_Question__c == header!{
                         headerCheck = true
@@ -273,7 +273,7 @@ class  DuringVisitsViewController : UIViewController {
         tableViewRowDetails = modifiedArray
     }
     
-    
+    //Get the Unique Header for the Questions
     func getHeader(data:[StrategyQA])-> [String]{
         var headerArray = [String]()
         //Get unique headernames once
@@ -290,6 +290,7 @@ class  DuringVisitsViewController : UIViewController {
         return headerArray
     }
     
+    //Get the Unique SubHeader for the Questions
     func getSubHeader(data:[StrategyQA])-> [String]{
         var subHeaderArray = [String]()
         //Get unique headernames once
@@ -441,6 +442,7 @@ class  DuringVisitsViewController : UIViewController {
 //MARK:- RefreshStrategyScreen Delegate
 extension DuringVisitsViewController : RefreshStrategyScreenDelegate{
     
+    //After coming back from Edit Strategy Screen, reload Strategy Logic
     func refreshStrategyScreenToLoadNewData(){
         self.loadTheDataFromStrategyQA()
     }

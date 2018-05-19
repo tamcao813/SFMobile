@@ -25,7 +25,6 @@ class AccountStrategyViewController : UIViewController{
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
     let strategyAnswersViewModel = StrategyAnswersViewModel()
     var tableViewRowDetails : NSMutableArray?
-    
     var tableViewData : NSMutableArray?
     
     //MARK:- View Life Cycle
@@ -112,9 +111,9 @@ class AccountStrategyViewController : UIViewController{
                 }
                 
                 //Used to keep Header only once
-                for q in tableViewData!{
+                for headerText in tableViewData!{
                     
-                    let dictionary = q as! NSDictionary
+                    let dictionary = headerText as! NSDictionary
                     let header = dictionary["header"] as? String
                     if queAndAns.SGWS_Question__c == header!{
                         headerCheck = true
@@ -344,7 +343,6 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return (tableViewRowDetails?.count)!
-        //return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

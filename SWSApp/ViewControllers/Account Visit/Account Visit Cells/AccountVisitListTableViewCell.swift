@@ -32,7 +32,7 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
         
         let lastModifiedDate = data.lastModifiedDate
         if(lastModifiedDate != ""){
-            let getTime = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: lastModifiedDate)
+            let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: lastModifiedDate)
             var dateTime = getTime.components(separatedBy: " ")
             
             if(dateTime.count > 0){

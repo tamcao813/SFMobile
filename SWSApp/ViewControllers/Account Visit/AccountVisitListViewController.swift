@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DropDown
+//import DropDown
 
 class AccountVisitListViewController: UIViewController {
     
@@ -111,7 +111,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         if indexPath.row == 0{
             return 50
         }
-        return 210
+        return 200
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

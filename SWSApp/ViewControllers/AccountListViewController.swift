@@ -726,7 +726,8 @@ extension AccountsListViewController : UITableViewDataSource{
         cell.selectionStyle = .none
         cell.storeNameLabel.text = account.accountName
         cell.accountNumberLabel.text = account.accountNumber
-        //cell.percentR12NetSales.setTitle((account.percentageLastYearR12NetSales) + "%", for: .normal)
+        //cell.percentR12NetSales.setTitle("150 " + "%", for: .normal)
+        
         
         // Create Full shipping address
         var fullAddress = ""
@@ -766,6 +767,26 @@ extension AccountsListViewController : UITableViewDataSource{
         }
         
         cell.nextDeliveryDateLabel.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account.nextDeliveryDate)
+        
+        
+            
+        let percLastYearR12DivideBy100:Double = ((account.percentageLastYearR12NetSales)as NSString).doubleValue / 100
+        let percentYearR12Double:Double =  ((account.percentageLastYearR12NetSales)as NSString).doubleValue
+            
+            let titleForButton = String(format: "%.02f",percentYearR12Double) + "%"
+            
+            if percLastYearR12DivideBy100 < 0.80 {
+                cell.percentR12NetSales?.setTitle(titleForButton, for: .normal)
+                cell.percentR12NetSales?.backgroundColor = UIColor(named: "Bad")
+            }else if percLastYearR12DivideBy100 >= 0.80 && percLastYearR12DivideBy100 <= 0.99 {
+                cell.percentR12NetSales?.setTitle(titleForButton, for: .normal)
+                cell.percentR12NetSales?.backgroundColor = UIColor(named: "Medium Alert")
+            }
+            else if percLastYearR12DivideBy100 > 0.99 {
+                cell.percentR12NetSales?.setTitle(titleForButton, for: .normal)
+                cell.percentR12NetSales?.backgroundColor = UIColor(named: "Good")
+            }
+     
         
         return cell
         

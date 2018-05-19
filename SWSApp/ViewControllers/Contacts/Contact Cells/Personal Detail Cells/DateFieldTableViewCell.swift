@@ -12,6 +12,7 @@ class DateFieldTableViewCell: UITableViewCell {
 
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var dateTextfield: CustomUITextField!
+    @IBOutlet weak var dateTextFieldContainerView: UIView!
     var selectedDate = NSDate()
     var contactDetail: Contact?
     let datePickerView:UIDatePicker = UIDatePicker()

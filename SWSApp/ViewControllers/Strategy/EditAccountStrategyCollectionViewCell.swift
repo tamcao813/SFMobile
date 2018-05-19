@@ -27,6 +27,7 @@ class EditAccountStrategyCollectionViewCell: UICollectionViewCell {
         if (data["isSelected"] as! String) == "NO"{
             self.layer.borderColor = UIColor.white.cgColor
             selectedIcon?.isHidden = true
+            
             //selectedIcon?.image = UIImage(named: "selectedGrey")
             
         }else{

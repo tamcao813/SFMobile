@@ -398,18 +398,18 @@ class Contact {
         }
         
         
-        let initials = name.components(separatedBy: " ")
-        print(initials)
+//        let initials = name.components(separatedBy: " ")
+//        print(initials)
         var firstChar = ""
         
-        if(initials[0] != "") {
-            var firstCharIndex = initials[0].index(initials[0].startIndex, offsetBy: 1)
-            firstChar = initials[0].substring(to: firstCharIndex)
+        if(firstName != "") {
+            var firstCharIndex = firstName.index(firstName.startIndex, offsetBy: 1)
+            firstChar = firstName.substring(to: firstCharIndex)
             print(firstChar)
         }
-        if(initials[1] != "") {
-            var firstCharIndex = initials[1].index(initials[1].startIndex, offsetBy: 1)
-            firstChar = firstChar+initials[1].substring(to: firstCharIndex)
+        if(lastName != "") {
+            var firstCharIndex = lastName.index(lastName.startIndex, offsetBy: 1)
+            firstChar = firstChar+lastName.substring(to: firstCharIndex)
             print(firstChar)
         }
         

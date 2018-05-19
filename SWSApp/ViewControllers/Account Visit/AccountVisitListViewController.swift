@@ -235,7 +235,7 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     
     func navigateToAccountScreen() {
         // Added this line so that Account detail view is not launched for this scenario.
-        FilterMenuModel.selectedAccountId = ""
+//        FilterMenuModel.selectedAccountId = ""
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
 }

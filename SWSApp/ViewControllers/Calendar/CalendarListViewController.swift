@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DropDown
 
 class CalendarListViewController: UIViewController {
 
@@ -15,20 +14,23 @@ class CalendarListViewController: UIViewController {
     @IBOutlet weak var dateHeaderLabel: UILabel!
     @IBOutlet weak var addNewButton: UIButton!
     @IBOutlet weak var calViewButton: UIButton!
+    @IBOutlet weak var weekEndsView: UIView!
+    @IBOutlet weak var weekEndsButton: UIButton!
 
     var currentShowingDate: Date?
-    var currentCalendarViewType: GlobalConstants.CalendarViewType = .Day
+    var currentCalendarViewType: GlobalConstants.CalendarViewType = .Week
+    var weekEndsEnabled: Bool = false
     
     let dropDownAddNew = DropDown()
     let dropDownCalView = DropDown()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshCalendar), name: NSNotification.Name("refreshCalendar"), object: nil)
         
+        self.calViewButton.setTitle("Week View    ", for: .normal)
         setupAddNewButtonText()
         setupDropDownAddNew()
         setupDropDownCalView()
@@ -37,6 +39,8 @@ class CalendarListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        displayWeekends()
+
         reloadCalendarView()
     }
 
@@ -55,7 +59,7 @@ class CalendarListViewController: UIViewController {
     
     func reloadCalendarView() {
         setupCalendarData()
-        weekView.setEvents(events: CalendarViewModel().loadVisitData()!)
+        setupCalendarEventData(withEvents: CalendarViewModel().loadVisitData()!)
         moveToToday()
     }
     
@@ -74,6 +78,16 @@ class CalendarListViewController: UIViewController {
 
     }
     
+    @IBAction func actionButtonShowWeekends(_ sender: Any) {
+        guard (currentCalendarViewType == .Week || currentCalendarViewType == .Month) else {
+            return
+        }
+
+        weekEndsEnabled = !weekEndsEnabled
+        displayWeekends()
+        refreshWeekEnds()
+    }
+    
     @IBAction func actionButtonNew(_ sender: Any) {
         dropDownAddNew.show()
     }
@@ -88,6 +102,22 @@ class CalendarListViewController: UIViewController {
     
     @IBAction func actionButtonToday(_ sender: Any) {
         moveToToday()
+    }
+
+    // MARK: - Weekend Attribute Helper
+    func displayWeekends() {
+        if (currentCalendarViewType == .Week || currentCalendarViewType == .Month) {
+            weekEndsView.isHidden = false
+        }
+        else {
+            weekEndsView.isHidden = true
+        }
+        
+        if weekEndsEnabled {
+            weekEndsButton.setImage(UIImage.init(named: "Checkbox Selected"), for: .normal)
+        }else{
+            weekEndsButton.setImage(UIImage.init(named: "Checkbox"), for: .normal)
+        }
     }
 
     // MARK: - Add new visit / event
@@ -169,8 +199,11 @@ class CalendarListViewController: UIViewController {
                 break
             }
             
+            self.displayWeekends()
+            
             self.calViewButton.setNeedsLayout()
             self.weekView.isFirst = true
+            self.weekView.showWeekEnds = self.weekEndsEnabled
             self.reloadCalendarView()
             self.dropDownCalView.hide()
         }
@@ -206,6 +239,15 @@ class CalendarListViewController: UIViewController {
         weekView.setCalendarDate(Date(), animated: true)
     }
 
+    func refreshWeekEnds() {
+        weekView.isFirst = true
+        weekView.showWeekEnds = weekEndsEnabled
+        weekView.setCalendarDate(currentShowingDate!)
+    }
+    
+    func setupCalendarEventData(withEvents: [WREvent]) {
+        weekView.setEvents(events: withEvents)
+    }
 }
 
 extension CalendarListViewController: WRWeekViewDelegate {
@@ -225,6 +267,9 @@ extension CalendarListViewController: WRWeekViewDelegate {
         print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
         
         if event.type == "visit" {
+            PlanVistManager.sharedInstance.visit = Visit(for: "") // Todo read visit object from VisitViewModel
+            PlanVistManager.sharedInstance.visit?.Id = event.Id
+            
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             accountVisitsVC?.visitId = event.Id
@@ -244,7 +289,6 @@ extension CalendarListViewController : NavigateToContactsDelegate{
         self.dismiss(animated: true, completion: nil)
     }
     
-    
     //Send a notification to Parent VC to load respective VC
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {
         if data == .contacts{
@@ -252,9 +296,13 @@ extension CalendarListViewController : NavigateToContactsDelegate{
             if let visit = PlanVistManager.sharedInstance.visit{
                 ContactsGlobal.accountId = visit.accountId
             }
-            // Added this line so that Contact detail view is not launched for this scenario.
-            ContactFilterMenuModel.selectedContactId = ""
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+            
+            if let contactId = PlanVistManager.sharedInstance.visit?.contactId{
+                // Added this line so that Contact detail view is not launched for this scenario.
+                ContactFilterMenuModel.selectedContactId = contactId
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+            }
+
         }else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
         }
@@ -262,7 +310,36 @@ extension CalendarListViewController : NavigateToContactsDelegate{
     
     func navigateToAccountScreen() {
         // Added this line so that Account detail view is not launched for this scenario.
-        FilterMenuModel.selectedAccountId = ""
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
+}
+
+//MARK:- SearchCalendarByEnteredTextDelegate Delegate
+extension CalendarListViewController : SearchCalendarByEnteredTextDelegate{
+    
+    func sortCalendarData(searchString: String) {
+        print("sortCalendarData")
+    }
+    
+    func filteringCalendar(filtering: Bool) {
+        if !filtering {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: CalendarViewModel().loadVisitData()!)
+            }
+        }
+    }
+    
+    func performCalendarFilterOperation(searchString: String) {
+        if let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: searchString) {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: eventsFiltered)
+            }
+        }
+        else {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: [WREvent]())
+            }
+        }
+    }
+    
 }

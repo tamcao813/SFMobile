@@ -35,15 +35,11 @@ class EditAccountStrategyViewController: UIViewController {
     var collectionViewWidth = 0.0
     var strategyQAResponse:[StrategyQA] = []
     var strategyNotes = ""
-    
-    
     var isFirstTimeLoad = true
     
     @IBOutlet weak var collectionView : UICollectionView?
     
- 
-    
-    
+
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,13 +107,11 @@ class EditAccountStrategyViewController: UIViewController {
         if strategyQAResponse.count > 0{
             strategyNotes = (strategyQAResponse.first?.SGWS_Notes__c)!
         }
-        
         let tableViewData = NSMutableArray()
         
         //Get the questions based on survey ID
         
         var headerCheck = false
-        
         //Write a func to get header Count
         for header in self.getHeader(){
             
@@ -154,7 +148,6 @@ class EditAccountStrategyViewController: UIViewController {
                 self.createAnswersWithIsSelectedKey(answer : answer , questionData : questionData , dict : dict , tableViewData : tableViewData)
             }
         }
-        
         //Assign the last Modified Data to TableViewRow Details Array
         tableViewRowDetails = tableViewData
         
@@ -188,9 +181,7 @@ class EditAccountStrategyViewController: UIViewController {
                         answerArray.add(answerDict)
                     }
                 }
-                
                 dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
-                
             }
         }
         tableViewData.add(dict)
@@ -264,7 +255,6 @@ class EditAccountStrategyViewController: UIViewController {
                 if !(validateTheReguiredVield.showRedForQuestionHeader.contains(index)){
                     validateTheReguiredVield.showRedForQuestionHeader.append(index)
                 }
-                
                 oneAnswerSelected = false
                 return oneAnswerSelected
             }
@@ -280,9 +270,7 @@ class EditAccountStrategyViewController: UIViewController {
         let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
         
         for questionHeaders in question{
-            
             let que = questionHeaders.SGWS_Question_Type__c
-            
             if !(headerArray.contains(que)){
                 headerArray.append(que)
             }
@@ -325,12 +313,10 @@ class EditAccountStrategyViewController: UIViewController {
                     //}
                     
                     self.checkAnswerSelectedForTheQuestionaires(response: response, q: q, new_Strategy: new_Strategy)
-                    
                     break
                 }
                 
             }else{
-                
                 //Insert new entry into DB
                 self.createNewStrategyAnswers(q: q, new_Strategy: new_Strategy)
             }
@@ -398,22 +384,14 @@ class EditAccountStrategyViewController: UIViewController {
     func createNewStrategyAnswers(q : Int, new_Strategy : StrategyQA){
         
         let item = tableViewRowDetails![q] as! NSMutableDictionary
-        //let item = q as! NSMutableDictionary
-        
         let dict = item["answers"] as! NSMutableArray
-        
-        //let ansStr1 = item["answerStrings"] as! String
-        
         let questionId = item["id"] as! String //Question Id
         let questionSubType = item["subHeaderStrategy"] as! String //Question Subtype
-        
         
         let answersCommaSeperated = NSMutableArray()
         
         for answers in dict{
-            
             let answerDict = answers as! NSMutableDictionary
-            
             let isSelected = answerDict["isSelected"] as! String
             
             if isSelected == "YES"{
@@ -424,8 +402,6 @@ class EditAccountStrategyViewController: UIViewController {
                 }
             }
         }
-        
-        //answersSelected are answers selected bu user for this Question Id
         
         // I can say i can write my response to DB
         let answerSelectedFormatted  =  answersCommaSeperated.componentsJoined(by: ",")
@@ -532,7 +508,6 @@ class EditAccountStrategyViewController: UIViewController {
         self.showAlert()
     }
 }
-
 
 //MARK:- UICollectionView DataSource
 extension EditAccountStrategyViewController : UICollectionViewDataSource {

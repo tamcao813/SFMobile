@@ -12,7 +12,7 @@ class CalendarFilter {
     
     var sectionNames : Array<Any>  = ["Event Type"]
     
-    var sectionItems : Array<Any> = [ ["All", "Visits", "Events"] ]
+    var sectionItems : Array<Any> = [ ["Visits", "Appointment Type"] ]
     
 }
 
@@ -20,7 +20,8 @@ let CalendarFilterCell = "calendarMenuTableTableViewCell"
 
 struct CalendarFilterMenuModel {
 
-    static var allType = ""
+    static var searchText = ""
+
     static var visitsType = ""
     static var eventsType = ""
 

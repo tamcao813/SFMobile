@@ -19,7 +19,7 @@ class CalendarListViewController: UIViewController {
 
     var currentShowingDate: Date?
     var currentCalendarViewType: GlobalConstants.CalendarViewType = .Week
-    var weekEndsEnabled: Bool = false
+    var weekEndsEnabled: Bool = true
     
     let dropDownAddNew = DropDown()
     let dropDownCalView = DropDown()
@@ -39,6 +39,13 @@ class CalendarListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        CalendarFilterMenuModel.searchText = ""
+        CalendarFilterMenuModel.visitsType = "YES"
+        CalendarFilterMenuModel.eventsType = "YES"
+        
+        currentCalendarViewType = .Week
+        weekEndsEnabled = true
+
         displayWeekends()
 
         reloadCalendarView()
@@ -53,13 +60,14 @@ class CalendarListViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshCalendar"), object: nil)
     }
     
+    // MARK: - Calendar Refresh
     @objc func refreshCalendar(){
         reloadCalendarView()
     }
     
     func reloadCalendarView() {
         setupCalendarData()
-        setupCalendarEventData(withEvents: CalendarViewModel().loadVisitData()!)
+        setupCalendarEventDataAfterFiler()
         moveToToday()
     }
     
@@ -68,7 +76,7 @@ class CalendarListViewController: UIViewController {
             dateHeaderLabel.text = DateTimeUtility.getEEEEMMMdFormattedDateString(date: startDate)
         }
         else if weekView.calendarType == .week {
-            dateHeaderLabel.text = DateTimeUtility.getWeekFormattedDateString(date: startDate, includeWeekend: false)
+            dateHeaderLabel.text = DateTimeUtility.getWeekFormattedDateString(date: startDate, includeWeekend: weekEndsEnabled)
         }
     }
 
@@ -218,7 +226,8 @@ class CalendarListViewController: UIViewController {
         
         weekView.setCalendarDate(Date())
         weekView.delegate = self
-        
+        weekView.showWeekEnds = self.weekEndsEnabled
+
         switch currentCalendarViewType {
         case .Day:
             weekView.calendarType = .day
@@ -247,6 +256,19 @@ class CalendarListViewController: UIViewController {
     
     func setupCalendarEventData(withEvents: [WREvent]) {
         weekView.setEvents(events: withEvents)
+    }
+
+    func setupCalendarEventDataAfterFiler() {
+        if let eventsFiltered = CalendarSortUtility.searchCalendarBySearch(calendarEvents: CalendarViewModel().loadVisitData()!) {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: eventsFiltered)
+            }
+        }
+        else {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: [WREvent]())
+            }
+        }
     }
 }
 

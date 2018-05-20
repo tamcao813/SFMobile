@@ -10,7 +10,12 @@ import UIKit
 
 class CalendarSortUtility {
 
-    static func searchCalendarBySearchBarQuery(calendarEvents:[WREvent]?, searchText:String)->[WREvent]!
+    static func searchCalendarBySearch(calendarEvents:[WREvent]?) -> [WREvent]!
+    {
+        return searchCalendarBySearchBarQuery(calendarEvents: calendarEvents, searchText: CalendarFilterMenuModel.searchText)
+    }
+
+    static func searchCalendarBySearchBarQuery(calendarEvents:[WREvent]?, searchText:String) -> [WREvent]!
     {
         guard calendarEvents != nil else {
             return[WREvent]()
@@ -22,19 +27,18 @@ class CalendarSortUtility {
         
         var filteredEvents = [WREvent]()
         
-        if CalendarFilterMenuModel.allType != "YES" {
-            if CalendarFilterMenuModel.visitsType == "YES" {
-                let filteredVisitEvents = calendarEvents!.filter( { return $0.type == "visit" } )
-                filteredEvents.append(contentsOf: filteredVisitEvents)
-            }
-
-            if CalendarFilterMenuModel.eventsType == "YES" {
-                let filteredEventEvents = calendarEvents!.filter( { return $0.type == "event" } )
-                filteredEvents.append(contentsOf: filteredEventEvents)
-            }
+        if CalendarFilterMenuModel.visitsType == "YES" {
+            let filteredVisitEvents = calendarEvents!.filter( { return $0.type == "visit" } )
+            filteredEvents.append(contentsOf: filteredVisitEvents)
         }
-        else {
-            filteredEvents = calendarEvents!
+        
+        if CalendarFilterMenuModel.eventsType == "YES" {
+            let filteredEventEvents = calendarEvents!.filter( { return $0.type == "event" } )
+            filteredEvents.append(contentsOf: filteredEventEvents)
+        }
+        
+        guard searchText != "" else {
+            return filteredEvents
         }
         
         let (enteredAnyFilterCaseReturn, filteredByReturnArray) = searchCalendarBySearchText(calendarEvents: filteredEvents, searchText: searchText)

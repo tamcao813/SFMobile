@@ -40,7 +40,7 @@ class ContactClassificationTableViewCell: UITableViewCell {
     }
     
     func setBuyingPower(value: Bool) {
-        if value { //if switching to true, clear the textfield
+        if buyingPower != value { //if switching to true, clear the textfield
             classificationTextField.text = ""
             otherTextField.text = ""
         }

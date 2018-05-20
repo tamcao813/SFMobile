@@ -1110,16 +1110,20 @@ class StoreDispatcher {
         let acrQueryFields = AccountContactRelation.AccountContactRelationFields
         
         var indexSpec:[SFSoupIndex] = []
-        for i in 0...acrQueryFields.count - 2 {
+        for i in 0...acrQueryFields.count - 5 {
             let sfIndex = SFSoupIndex(path: acrQueryFields[i], indexType: kSoupIndexTypeString, columnName: acrQueryFields[i])!
             indexSpec.append(sfIndex)
         }
         
-        //roles is plist
-        /*
-         var sfIndex1 = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 2], indexType: kSoupIndexTypeFullText, columnName: acrQueryFields[acrQueryFields.count - 2])!
-         indexSpec.append(sfIndex1) */
-        var sfIndex1 = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 1], indexType: kSoupIndexTypeFullText, columnName: acrQueryFields[acrQueryFields.count - 1])!
+        var sfIndexbool = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 4], indexType: kSoupIndexTypeInteger, columnName: acrQueryFields[acrQueryFields.count - 4])!
+        indexSpec.append(sfIndexbool)
+        sfIndexbool = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 3], indexType: kSoupIndexTypeInteger, columnName: acrQueryFields[acrQueryFields.count - 3])!
+        indexSpec.append(sfIndexbool)
+        
+        //roles and classification are plist
+        var sfIndex1 = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 2], indexType: kSoupIndexTypeFullText, columnName: acrQueryFields[acrQueryFields.count - 2])!
+        indexSpec.append(sfIndex1)
+        sfIndex1 = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 1], indexType: kSoupIndexTypeFullText, columnName: acrQueryFields[acrQueryFields.count - 1])!
         indexSpec.append(sfIndex1)
         
         sfIndex1 = SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!

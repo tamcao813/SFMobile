@@ -336,8 +336,8 @@ class CreateNewContactViewController: UIViewController {
             newACR.contactId = newContact.contactId
             newACR.contactName = newContact.firstName + " " + newContact.lastName
             newACR.roles = newContact.functionRole
-            newACR.isActive = true
-            newACR.buyingPower = newContact.buyerFlag
+            newACR.isActive = 1
+            newACR.buyingPower = newContact.buyerFlag ? 1:0
             
             success = ContactsViewModel().createNewACRToSoup(object: newACR)
             

@@ -77,6 +77,7 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
         let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
         
+        
         cell.contactId = (contactDetail?.contactId)!
         
         cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId, withRoles: acrDetail[(indexPath.row-2)].roles, forClassification: ContactSortUtility.formatContactClassification(contactToBeFormatted: contactDetail!))
@@ -136,6 +137,7 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         linkAccountToContactVC?.isInEditMode = true
         linkAccountToContactVC?.contactName = contactDetail?.name
         linkAccountToContactVC?.contactObject = contactDetail
+        linkAccountToContactVC?.delegate = self
         //linkAccountToContactVC?.accountIdSelected = accountId
         self.present(linkAccountToContactVC!, animated: true, completion: nil)
     }
@@ -146,6 +148,7 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         linkAccountToContactVC?.isInEditMode = false
         linkAccountToContactVC?.contactName = contactDetail?.name
         linkAccountToContactVC?.contactObject = contactDetail
+        linkAccountToContactVC?.delegate = self
         self.present(linkAccountToContactVC!, animated: true, completion: nil)
     }
     

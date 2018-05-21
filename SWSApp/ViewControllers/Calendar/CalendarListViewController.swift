@@ -30,7 +30,6 @@ class CalendarListViewController: UIViewController {
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshCalendar), name: NSNotification.Name("refreshCalendar"), object: nil)
         
-        self.calViewButton.setTitle("Week View    ", for: .normal)
         setupAddNewButtonText()
         setupDropDownAddNew()
         setupDropDownCalView()
@@ -43,6 +42,7 @@ class CalendarListViewController: UIViewController {
         CalendarFilterMenuModel.visitsType = "YES"
         CalendarFilterMenuModel.eventsType = "YES"
         
+        self.calViewButton.setTitle("Week View    ", for: .normal)
         currentCalendarViewType = .Week
         weekEndsEnabled = true
 

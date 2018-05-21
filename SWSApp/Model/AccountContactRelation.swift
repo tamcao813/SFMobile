@@ -9,7 +9,7 @@
 import Foundation
 
 class AccountContactRelation {
-    static let AccountContactRelationFields: [String] = ["Id", "SGWS_Account__c", "SGWS_Contact__c", "Name", "SGWS_Account_Site_Number__c", "SGWS_Other_Specification__c", "SGWS_isActive__c", "SGWS_Buying_Power__c", "SGWS_Roles__c", "SGWS_Contact_Classification__c"] //Roles and SGWS_Contact_Classification__c are plists, put them at the end and handle them in registerACRsoup
+    static let AccountContactRelationFields: [String] = ["Id", "SGWS_Account__c", "SGWS_Contact__c", "Name", "SGWS_Account_Site_Number__c", "SGWS_Other_Specification__c", "SGWS_IsActive__c", "SGWS_Buying_Power__c", "SGWS_Roles__c", "SGWS_Contact_Classification__c"] //Roles and SGWS_Contact_Classification__c are plists, put them at the end and handle them in registerACRsoup
     
     var acrId:String
     //var accountName: String
@@ -36,7 +36,7 @@ class AccountContactRelation {
         contactName = json["Name"] as? String ?? ""
         sgwsSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
         roles = json["SGWS_Roles__c"] as? String ?? ""
-        isActive = json["SGWS_isActive__c"] as? Int ?? 0
+        isActive = json["SGWS_IsActive__c"] as? Int ?? 0
         buyingPower = json["SGWS_Buying_Power__c"] as? Int ?? 0
         contactClassification = json["SGWS_Contact_Classification__c"] as? String ?? ""
         otherSpecification = json["SGWS_Other_Specification__c"] as? String ?? ""
@@ -81,7 +81,7 @@ class AccountContactRelation {
         
         json["SGWS_Other_Specification__c"] = otherSpecification
         
-        json["SGWS_isActive__c"] = isActive
+        json["SGWS_IsActive__c"] = isActive
         
         json["SGWS_Buying_Power__c"] = buyingPower
         

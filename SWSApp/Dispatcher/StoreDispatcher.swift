@@ -1060,7 +1060,7 @@ class StoreDispatcher {
         var acrAry: [AccountContactRelation] = []
         
         let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
-        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_isActive__c} = 1"
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_IsActive__c} = 1"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
@@ -1087,7 +1087,7 @@ class StoreDispatcher {
         
         let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
         
-        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_isActive__c} = 1 AND {SGWS_AccountContactMobile__c:SGWS_Contact__c} = '\(contactId)'"
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_IsActive__c} = 1 AND {SGWS_AccountContactMobile__c:SGWS_Contact__c} = '\(contactId)'"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         

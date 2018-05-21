@@ -139,6 +139,16 @@ class CalendarListViewController: UIViewController {
         self.present(createVisitViewController, animated: true)
     }
 
+    func launchNewEvent() {
+        let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+        createVisitViewController.isEditingMode = false
+        
+        //Reset the PlanVisitManager
+        PlanVisitManager.sharedInstance.visit = nil
+        
+        self.present(createVisitViewController, animated: true)
+    }
+
     // MARK: - Addnew Button Text
     func setupAddNewButtonText() {
         addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
@@ -162,7 +172,7 @@ class CalendarListViewController: UIViewController {
                 self.launchNewVisit()
                 
             case 1:
-                print("TBD launch Event")
+                self.launchNewEvent()
 
             default:
                 break

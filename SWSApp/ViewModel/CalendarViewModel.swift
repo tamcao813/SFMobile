@@ -51,7 +51,13 @@ class CalendarViewModel {
                     }
                     
                     let visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
-                    let visitType = "visit" // TBD to read dynamically, either visit or event
+                    var visitType = "visit" // TBD to read dynamically, either visit or event
+                    if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == visit.recordTypeId){
+                        visitType = "visit"
+                    } else {
+                        visitType = "event"
+                    }
+
                     
                     if daysBetween == 0 {
                         

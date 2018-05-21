@@ -5,12 +5,16 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Ubuntu-Medium.ttf">
             <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
         </array>
     </customFonts>
     <scenes>
@@ -45,6 +49,44 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6zg-BZ-VT5">
                                 <rect key="frame" x="0.0" y="89.5" width="1024" height="678.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="DiS-p7-ME6">
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="60"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9O-PO-5Sk">
+                                            <rect key="frame" x="864" y="10" width="120" height="40"/>
+                                            <color key="backgroundColor" name="Data New"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="3Bz-B3-XsY"/>
+                                                <constraint firstAttribute="width" constant="120" id="4mV-lA-8Oy"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                                            <state key="normal" title="Save">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="saveButtonTapped:" destination="dix-R9-odJ" eventType="touchUpInside" id="OfN-0E-fvT"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKu-Wc-MWI">
+                                            <rect key="frame" x="824" y="29.5" width="0.0" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                            <color key="textColor" name="Bad"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="O9O-PO-5Sk" firstAttribute="centerY" secondItem="DiS-p7-ME6" secondAttribute="centerY" id="RSL-s0-cFE"/>
+                                        <constraint firstAttribute="trailing" secondItem="O9O-PO-5Sk" secondAttribute="trailing" constant="40" id="Urc-vB-Dbt"/>
+                                        <constraint firstItem="O9O-PO-5Sk" firstAttribute="leading" secondItem="JKu-Wc-MWI" secondAttribute="trailing" constant="40" id="Zc7-Dj-lfu"/>
+                                        <constraint firstItem="JKu-Wc-MWI" firstAttribute="centerY" secondItem="DiS-p7-ME6" secondAttribute="centerY" id="vOx-6U-5fG"/>
+                                    </constraints>
+                                </view>
                                 <connections>
                                     <outlet property="dataSource" destination="dix-R9-odJ" id="ruB-WF-At8"/>
                                     <outlet property="delegate" destination="dix-R9-odJ" id="7MQ-E0-ntR"/>
@@ -65,6 +107,7 @@
                         <viewLayoutGuide key="safeArea" id="Qh2-BK-p3j"/>
                     </view>
                     <connections>
+                        <outlet property="errorLabel" destination="JKu-Wc-MWI" id="RpS-rS-FO2"/>
                         <outlet property="pageHeaderLabel" destination="tpQ-U5-XIK" id="VGT-YU-v54"/>
                         <outlet property="tableView" destination="6zg-BZ-VT5" id="26R-Tn-94G"/>
                     </connections>
@@ -76,5 +119,11 @@
     </scenes>
     <resources>
         <image name="Close" width="38" height="38"/>
+        <namedColor name="Bad">
+            <color red="0.83899998659999997" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Data New">
+            <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

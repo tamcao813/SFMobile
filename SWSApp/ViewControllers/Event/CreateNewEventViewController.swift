@@ -8,10 +8,15 @@
 
 import UIKit
 
+struct CreateNewEventViewControllerGlobals {
+    static var userInput = false
+}
+
 class CreateNewEventViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeaderLabel: UILabel!
+    @IBOutlet weak var errorLabel: UILabel!
     var eventTitleTextField: UITextField!
     var searchAccountTextField: UITextField!
     var searchContactTextField: UITextField!
@@ -57,19 +62,50 @@ class CreateNewEventViewController: UIViewController {
         if let dropdown = contactsDropdown {
             dropdown.hide()
         }
-//        DispatchQueue.main.async {
-//            if  createNewVisitViewControllerGlobals.userInput {
-//                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-//                    self.dismiss(animated: true, completion: nil)
-//                }){
-//
-//                }
-//            }else{
+        DispatchQueue.main.async {
+            if  CreateNewEventViewControllerGlobals.userInput {
+                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                    self.dismiss(animated: true, completion: nil)
+                    CreateNewEventViewControllerGlobals.userInput = false
+                }){
+
+                }
+            }else{
                 self.dismiss(animated: true, completion: nil)
-//            }
-//        }
+            }
+        }
     }
+    
+    @IBAction func saveButtonTapped(_ sender: UIButton){
+        if allFieldsAreValidated() {
+            createNewEvent()
+        }
+    }
+    
+    func allFieldsAreValidated() -> Bool{
+        if ((eventTitleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) != nil){
+            eventTitleTextField.borderColor = UIColor(patternImage: UIImage(named: "Bad")!)
+            eventTitleTextField.becomeFirstResponder()
+            errorLabel.text = StringConstants.emptyFieldError
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            return false
+        }
+        
+        if selectedAccount != nil{
+            searchAccountTextField.borderColor = .red
+//            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        return true
+    }
+    
+    func createNewEvent(){
+//        var newContact = Contact(for: "NewContact")
+    }
+    
 }
+
 
 extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -163,6 +199,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
 
 extension CreateNewEventViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
+        CreateNewEventViewControllerGlobals.userInput = true
         selectedAccount = account
         reloadTableView()
     }
@@ -170,6 +207,7 @@ extension CreateNewEventViewController: SearchAccountTableViewCellDelegate {
 
 extension CreateNewEventViewController: AccountContactLinkTableViewCellDelegate {
     func removeAccount() {
+        CreateNewEventViewControllerGlobals.userInput = true
         selectedAccount = nil
         reloadTableView()
     }
@@ -177,6 +215,7 @@ extension CreateNewEventViewController: AccountContactLinkTableViewCellDelegate 
 
 extension CreateNewEventViewController: SearchForContactTableViewCellDelegate {
     func contactSelected(contact: Contact) {
+        CreateNewEventViewControllerGlobals.userInput = true
         selectedContact = contact
         reloadTableView()
     }
@@ -184,6 +223,7 @@ extension CreateNewEventViewController: SearchForContactTableViewCellDelegate {
 
 extension CreateNewEventViewController: ContactVisitLinkTableViewCellDelegate {
     func removeContact(){
+        CreateNewEventViewControllerGlobals.userInput = true
         selectedContact = nil
         reloadTableView()
     }

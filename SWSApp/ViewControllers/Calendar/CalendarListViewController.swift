@@ -288,7 +288,7 @@ extension CalendarListViewController: WRWeekViewDelegate {
     func selectEvent(_ event: WREvent) {
         print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
         
-        if event.type == "visit" {
+//        if event.type == "visit" TBD Need to check if this is needed {
             PlanVistManager.sharedInstance.visit = Visit(for: "") // Todo read visit object from VisitViewModel
             PlanVistManager.sharedInstance.visit?.Id = event.Id
             
@@ -300,7 +300,7 @@ extension CalendarListViewController: WRWeekViewDelegate {
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
-        }
+//        }
 
     }
 }

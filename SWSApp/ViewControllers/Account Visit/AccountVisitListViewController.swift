@@ -12,8 +12,8 @@ import UIKit
 class AccountVisitListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    var tableViewDataArray : [WorkOrderUserObject]?
     
-    var tableViewDataArray : [Visit]?
     var addNewDropDown = DropDown()
     
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ class AccountVisitListViewController: UIViewController {
     }
     
     func getTheDataFromDB(){
-        tableViewDataArray = [Visit]()
+        tableViewDataArray = [WorkOrderUserObject]()
         let visitArray = VisitsViewModel()
         tableViewDataArray = visitArray.visitsForUser()
         tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
@@ -207,8 +207,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         if indexPath.section > 0{
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-            let _ : Visit = tableViewDataArray![indexPath.row]
-            PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+            let _ : WorkOrderUserObject = tableViewDataArray![indexPath.row]
+            PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
             (accountVisitsVC)?.delegate = self
             accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
             DispatchQueue.main.async {
@@ -228,7 +228,7 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {        
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
-            if let visit = PlanVistManager.sharedInstance.visit{
+            if let visit = PlanVisitManager.sharedInstance.visit{
             ContactsGlobal.accountId = visit.accountId
             }
             // Added this line so that Contact detail view is not launched for this scenario.

@@ -21,7 +21,7 @@ class CreateNewVisitViewController: UIViewController {
     var selectedAccount: Account!
     var selectedContact: Contact!
     var visitId: String!
-    var visitObject: Visit?
+    var visitObject: WorkOrderUserObject?
     @IBOutlet weak var errorLbl: UILabel!
     var visitViewModel = VisitSchedulerViewModel()
     
@@ -164,7 +164,7 @@ class CreateNewVisitViewController: UIViewController {
     @IBAction func planButtonTapped(sender: UIButton) {
         if validateVisitData() {
             errorLbl.text = ""
-            if PlanVistManager.sharedInstance.visit != nil {
+            if PlanVisitManager.sharedInstance.visit != nil {
                 editCurrentVisit()
                 let opportunitiesViewController = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil).instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
                 DispatchQueue.main.async {
@@ -179,8 +179,8 @@ class CreateNewVisitViewController: UIViewController {
     @IBAction func scheduleAndClose(sender: UIButton) {
         if validateVisitData() {
             errorLbl.text = ""
-            PlanVistManager.sharedInstance.visit?.status = "Scheduled"
-            if PlanVistManager.sharedInstance.visit != nil {
+            PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
+            if PlanVisitManager.sharedInstance.visit != nil {
                 editCurrentVisit()
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
@@ -218,21 +218,21 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     func editCurrentVisit(){
-        PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
+        PlanVisitManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
         if let contact = selectedContact {
-            PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+            PlanVisitManager.sharedInstance.visit?.contactId = contact.contactId
         }else{
-            PlanVistManager.sharedInstance.visit?.contactId = ""
+            PlanVisitManager.sharedInstance.visit?.contactId = ""
         }
-        PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
-        PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
-        //let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-        let _ = PlanVistManager.sharedInstance.editAndSaveVisit()
+        PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
+        PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+        //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
     }
     
     func createNewVisit(dismiss: Bool) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        PlanVistManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
+        PlanVisitManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
         
         let new_visit = PlanVisit(for: "newVisit")
         
@@ -261,6 +261,8 @@ class CreateNewVisitViewController: UIViewController {
             new_visit.status = "Planned"
         }
         
+        new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdEvent
+        
         let attributeDict = ["type":"WorkOrder"]
         let addNewDict: [String:Any] = [
             
@@ -276,6 +278,7 @@ class CreateNewVisitViewController: UIViewController {
             //            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
             PlanVisit.planVisitFields[9]: new_visit.status,
             PlanVisit.planVisitFields[11]: new_visit.contactId,
+            PlanVisit.planVisitFields[12]:new_visit.recordTypeId,
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,
@@ -287,7 +290,7 @@ class CreateNewVisitViewController: UIViewController {
         let (success,_) = visitViewModel.createNewVisitLocally(fields: addNewDict)
         
         if(success){
-            let visit = Visit(for: "")
+            let visit = WorkOrderUserObject(for: "")
             //Add the soup entry Id
             visit.Id = new_visit.Id//String((success,Id).1)
             visit.accountId = new_visit.accountId
@@ -299,8 +302,11 @@ class CreateNewVisitViewController: UIViewController {
             visit.sgwsAgendaNotes = new_visit.sgwsAgendaNotes
             visit.sgwsVisitPurpose = new_visit.sgwsVisitPurpose
             visit.lastModifiedDate = new_visit.lastModifiedDate
+            visit.recordTypeId = new_visit.recordTypeId
+            visit.subject = new_visit.subject
+            visit.location = new_visit.location
             
-            PlanVistManager.sharedInstance.visit = visit
+            PlanVisitManager.sharedInstance.visit = visit
         }
         
         if(success){

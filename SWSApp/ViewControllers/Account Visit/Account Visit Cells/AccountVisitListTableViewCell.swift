@@ -17,17 +17,17 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var statusView: UIView!
 
-    func displayCellData(data : Visit){
-        var accountObject: Account?
-        let accounts = AccountsViewModel().accountsForLoggedUser
-        for account in accounts {
-            if account.account_Id == data.accountId {
-                accountObject = account
-                break
-            }
-        }
+    func displayCellData(data : WorkOrderUserObject){
+//        var accountObject: Account?
+//        let accounts = AccountsViewModel().accountsForLoggedUser
+//        for account in accounts {
+//            if account.account_Id == data.accountId {
+//                accountObject = account
+//                break
+//            }
+//        }
         
-        self.addressLabel.text = accountObject?.accountName
+        self.addressLabel.text = data.accountName
         self.visitStatusLabel.text = data.status
         
         let lastModifiedDate = data.lastModifiedDate

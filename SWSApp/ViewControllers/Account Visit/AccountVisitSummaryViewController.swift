@@ -30,7 +30,7 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     var selectedContact: Contact!
-    var visitObject: Visit?
+    var visitObject: WorkOrderUserObject?
     
     var visitStatus: AccountVisitStatus?
     var delegate : NavigateToContactsDelegate?
@@ -270,7 +270,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            PlanVistManager.sharedInstance.visit = visitObject
+            PlanVisitManager.sharedInstance.visit = visitObject
             (vc as DuringVisitsViewController).visitObject = visitObject
             (vc as DuringVisitsViewController).delegate = self
             self.present(vc, animated: true, completion: nil)
@@ -287,12 +287,12 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
         switch visitStatus {
         case .scheduled?:
-            PlanVistManager.sharedInstance.editPlanVisit = true
+            PlanVisitManager.sharedInstance.editPlanVisit = true
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             createVisitViewController.visitId = visitObject?.Id
-            PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -303,15 +303,15 @@ class AccountVisitSummaryViewController: UIViewController {
             let viewController = storyboard.instantiateViewController(withIdentifier :"EditAgendaNoteID") as? EditAgendaNoteViewController
             viewController?.editNotesText = (self.visitObject?.description)!
             viewController?.modalPresentationStyle = .overCurrentContext
-            PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             self.present(viewController!, animated: true)
         case .planned?:
-            PlanVistManager.sharedInstance.editPlanVisit = true
+            PlanVisitManager.sharedInstance.editPlanVisit = true
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
-            PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             createVisitViewController.visitId = visitObject?.Id
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)

@@ -33,7 +33,8 @@ class  DuringVisitsViewController : UIViewController {
     @IBOutlet weak var btnEditAccountStrategy : UIButton?
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
     
-    var visitObject: Visit?
+    var visitObject: WorkOrderUserObject?
+    
     var delegate : NavigateToAccountVisitSummaryDelegate?
     var tableViewRowDetails = NSMutableArray()
     let strategyQAViewModel = StrategyQAViewModel()
@@ -90,7 +91,7 @@ class  DuringVisitsViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let accountId = PlanVistManager.sharedInstance.visit?.accountId
+        let accountId = PlanVisitManager.sharedInstance.visit?.accountId
         AccountId.selectedAccountId = accountId!
         
         self.loadTheDataFromStrategyQA()
@@ -352,18 +353,18 @@ class  DuringVisitsViewController : UIViewController {
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
         if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue"{
-            PlanVistManager.sharedInstance.visit?.status = "In-Progress"
+            PlanVisitManager.sharedInstance.visit?.status = "In-Progress"
             //Save the data in DB
-            _ = PlanVistManager.sharedInstance.editAndSaveVisit()
+            let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
-            PlanVistManager.sharedInstance.visit?.status = "Completed"
+            PlanVisitManager.sharedInstance.visit?.status = "Completed"
             DispatchQueue.main.async{
                 self.dismiss(animated: true, completion: nil)
             }
             
             //Save the data in DB
-            _ = PlanVistManager.sharedInstance.editAndSaveVisit()
+            let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
             delegate?.navigateToAccountVisitingScreen()
             return
         }

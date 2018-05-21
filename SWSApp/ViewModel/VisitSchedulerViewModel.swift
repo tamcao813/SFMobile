@@ -14,7 +14,14 @@ class VisitSchedulerViewModel {
         return StoreDispatcher.shared.fetchSchedulerVisits()
     }
     
+    func createNewContactToSoup(object: Contact) -> Bool {
+        var contactfields: [String:Any] = object.toJson()
+        contactfields.removeValue(forKey: "_soupEntryId")
+        return StoreDispatcher.shared.createNewContactToSoup(fields: contactfields)
+    }
+    
     func createNewVisitLocally(fields: [String:Any]) -> (Bool,Int) {
+        //contactfields.removeValue(forKey: "_soupEntryId")
         return StoreDispatcher.shared.createNewVisitLocally(fieldsToUpload:fields)
     }
     

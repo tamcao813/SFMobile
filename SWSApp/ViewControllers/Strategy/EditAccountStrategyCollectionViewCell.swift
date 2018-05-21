@@ -18,7 +18,7 @@ class EditAccountStrategyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var textView : UITextView?
     @IBOutlet weak var bottomView : UIView?
     @IBOutlet weak var selectedIcon : UIImageView?
-   
+    @IBOutlet weak var lblReguiredFields : UILabel?
     
     //Display Collection View data
     func displayCellData(data : NSMutableDictionary){

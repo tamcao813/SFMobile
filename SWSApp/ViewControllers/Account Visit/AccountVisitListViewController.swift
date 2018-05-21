@@ -7,20 +7,28 @@
 //
 
 import UIKit
+//import DropDown
 
 class AccountVisitListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    
     var tableViewDataArray : [Visit]?
+    var addNewDropDown = DropDown()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
-        customizedUI()
-        initializingXIBs()
+
         getTheDataFromDB()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        customizedUI()
+        //initializingXIBs()
+    }
     
     @objc func refreshAccountVisitList(){
         getTheDataFromDB()
@@ -50,37 +58,106 @@ class AccountVisitListViewController: UIViewController {
     }
     
     func initializingXIBs(){
-        self.tableView.register(UINib(nibName: "AccountVisitListTableViewCell", bundle: nil), forCellReuseIdentifier: "AccountVisitListTableViewCell")
+        //self.tableView.register(UINib(nibName: "AccountVisitListTableViewCell", bundle: nil), forCellReuseIdentifier: "AccountVisitListTableViewCell")
     }
     
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
-        let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
-        createVisitViewController.isEditingMode = false
+        addNewDropDown.anchorView = sender
+        addNewDropDown.bottomOffset = CGPoint(x: (((sender.frame.size.width) - 100)-((sender.frame.size.width)/6.0)), y :( addNewDropDown.anchorView?.plainView.bounds.height)!)
         
-        //Reset the PlanVistManager
-        PlanVistManager.sharedInstance.visit = nil
-        DispatchQueue.main.async {
-            self.present(createVisitViewController, animated: true)
-        }        
+        addNewDropDown.backgroundColor = UIColor.white
+        
+        let dropDownItem1 = NSLocalizedString("Visit", comment: "Visit")
+        let dropDownItem2 = NSLocalizedString("Event", comment: "Event")
+        
+        addNewDropDown.dataSource = [dropDownItem1, dropDownItem2]
+        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
+        self.addNewDropDown.textColor = UIColor.gray
+        
+        addNewDropDown.show()
+        
+        addNewDropDown.selectionAction = {(index: Int, item: String) in
+            switch index {
+            case 0:
+                print(index)
+                
+                let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+                createVisitViewController.isEditingMode = false
+                
+                //Reset the PlanVistManager
+                PlanVistManager.sharedInstance.visit = nil
+                DispatchQueue.main.async {
+                    self.present(createVisitViewController, animated: true)
+                }
+                
+            case 1:
+                print(index)
+                print("Create Event")
+                
+                
+                
+           
+            default:
+                break
+            }
+        }
     }
-    
 }
 
 extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        
+        if indexPath.section == 0{
+            return 50
+        }
+        return 200
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0{
+            return 1
+        }
         return tableViewDataArray!.count
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0{
+            return 60.0;
+        }
+        return 0
+    }
+    
+    // custom header for the section
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
+        var headerCell : AccountVisitListTableViewCell?
+        //if section == 0{
+            headerCell = tableView.dequeueReusableCell(withIdentifier: "newVisitCell") as? AccountVisitListTableViewCell
+            return headerCell
+        //}
+        //return nil
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
-        //cell?.delegate = self as! SwipeTableViewCellDelegate
-        let celldata = tableViewDataArray![indexPath.row]
-        cell?.displayCellData(data: celldata)
+        let cell : UITableViewCell?
+        if indexPath.section == 0{
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListHeaderTableViewCell") as? AccountVisitListTableViewCell
+            cell?.selectionStyle = .none
+            
+        }else{
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
+            cell?.selectionStyle = .none
+            //cell?.delegate = self as! SwipeTableViewCellDelegate
+            let celldata = tableViewDataArray![indexPath.row]
+            (cell as! AccountVisitListTableViewCell).displayCellData(data: celldata)
+        }
+        
         return cell!
     }
     
@@ -134,14 +211,16 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
-        let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController        
-        let data : Visit = tableViewDataArray![indexPath.row]
-        PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
-        (accountVisitsVC)?.delegate = self
-        accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
-        DispatchQueue.main.async {
-            self.present(accountVisitsVC!, animated: true, completion: nil)
+        if indexPath.section > 0{
+            let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
+            let _ : Visit = tableViewDataArray![indexPath.row]
+            PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+            (accountVisitsVC)?.delegate = self
+            accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
+            DispatchQueue.main.async {
+                self.present(accountVisitsVC!, animated: true, completion: nil)
+            }
         }
     }
 }
@@ -151,7 +230,6 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     func navigateToVisitListing() {        
         self.dismiss(animated: true, completion: nil)
     }
-    
     
     //Send a notification to Parent VC to load respective VC
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {        

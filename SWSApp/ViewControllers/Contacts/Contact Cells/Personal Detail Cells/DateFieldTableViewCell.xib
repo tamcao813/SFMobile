@@ -89,6 +89,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="CtG-Rj-cdF"/>
             <connections>
+                <outlet property="dateTextFieldContainerView" destination="bHq-Ee-2mw" id="vWR-Ks-hOw"/>
                 <outlet property="dateTextfield" destination="KnQ-3a-zmi" id="UPc-qV-6DH"/>
                 <outlet property="headerLabel" destination="5MT-qW-vlR" id="knU-UJ-HsF"/>
             </connections>

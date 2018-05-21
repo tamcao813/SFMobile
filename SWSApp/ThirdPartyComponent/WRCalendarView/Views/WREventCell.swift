@@ -45,6 +45,12 @@ class WREventCell: UICollectionViewCell {
         didSet {
             if let event = event {
                 titleLabel.text = event.title
+                if event.type == "visit" {
+                    borderView.backgroundColor = UIColor(hexString: "4287C2")!
+                }
+                else if event.type == "event" {
+                    borderView.backgroundColor = UIColor(hexString: "FF9300")!
+                }
             }
         }
     }

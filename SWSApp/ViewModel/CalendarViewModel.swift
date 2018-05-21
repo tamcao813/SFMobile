@@ -51,11 +51,12 @@ class CalendarViewModel {
                     }
                     
                     let visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
+                    let visitType = "visit" // TBD to read dynamically, either visit or event
                     
                     if daysBetween == 0 {
                         
                         let minutessBetween = Date.minutesBetween(start: eventStartDate, end: eventEndDate)
-                        let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: eventStartDate, chunk: (minutessBetween > 30) ? eventStartDate.chunkBetween(date: eventEndDate) : 30.minutes, title: visitTitle)
+                        let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, chunk: (minutessBetween > 30) ? eventStartDate.chunkBetween(date: eventEndDate) : 30.minutes, title: visitTitle)
                         visitsToCalendarEventsArray.append(visitEvent)
 
                     }
@@ -67,11 +68,11 @@ class CalendarViewModel {
 
                             let visitEvent: WREvent!
                             if day == 0 {
-                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: eventStartDate, chunk: eventStartDate.chunkBetween(date: eventStartDate.endOfDay), title: visitTitle)
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, chunk: eventStartDate.chunkBetween(date: eventStartDate.endOfDay), title: visitTitle)
                             } else if day == daysBetween {
-                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: eventEndDate.startOfDay, chunk: eventEndDate.startOfDay.chunkBetween(date: eventEndDate), title: visitTitle)
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventEndDate.startOfDay, chunk: eventEndDate.startOfDay.chunkBetween(date: eventEndDate), title: visitTitle)
                             } else {
-                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: "visit", date: currentStartDate.startOfDay, chunk: currentStartDate.startOfDay.chunkBetween(date: currentStartDate.endOfDay), title: visitTitle)
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: currentStartDate.startOfDay, chunk: currentStartDate.startOfDay.chunkBetween(date: currentStartDate.endOfDay), title: visitTitle)
                             }
                             visitsToCalendarEventsArray.append(visitEvent)
                             

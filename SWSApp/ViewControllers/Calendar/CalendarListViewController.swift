@@ -18,8 +18,8 @@ class CalendarListViewController: UIViewController {
     @IBOutlet weak var weekEndsButton: UIButton!
 
     var currentShowingDate: Date?
-    var currentCalendarViewType: GlobalConstants.CalendarViewType = .Day
-    var weekEndsEnabled: Bool = false
+    var currentCalendarViewType: GlobalConstants.CalendarViewType = .Week
+    var weekEndsEnabled: Bool = true
     
     let dropDownAddNew = DropDown()
     let dropDownCalView = DropDown()
@@ -38,6 +38,14 @@ class CalendarListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        CalendarFilterMenuModel.searchText = ""
+        CalendarFilterMenuModel.visitsType = "YES"
+        CalendarFilterMenuModel.eventsType = "YES"
+        
+        self.calViewButton.setTitle("Week View    ", for: .normal)
+        currentCalendarViewType = .Week
+        weekEndsEnabled = true
+
         displayWeekends()
 
         reloadCalendarView()
@@ -52,13 +60,14 @@ class CalendarListViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshCalendar"), object: nil)
     }
     
+    // MARK: - Calendar Refresh
     @objc func refreshCalendar(){
         reloadCalendarView()
     }
     
     func reloadCalendarView() {
         setupCalendarData()
-        weekView.setEvents(events: CalendarViewModel().loadVisitData()!)
+        setupCalendarEventDataAfterFiler()
         moveToToday()
     }
     
@@ -67,7 +76,7 @@ class CalendarListViewController: UIViewController {
             dateHeaderLabel.text = DateTimeUtility.getEEEEMMMdFormattedDateString(date: startDate)
         }
         else if weekView.calendarType == .week {
-            dateHeaderLabel.text = DateTimeUtility.getWeekFormattedDateString(date: startDate, includeWeekend: false)
+            dateHeaderLabel.text = DateTimeUtility.getWeekFormattedDateString(date: startDate, includeWeekend: weekEndsEnabled)
         }
     }
 
@@ -217,7 +226,8 @@ class CalendarListViewController: UIViewController {
         
         weekView.setCalendarDate(Date())
         weekView.delegate = self
-        
+        weekView.showWeekEnds = self.weekEndsEnabled
+
         switch currentCalendarViewType {
         case .Day:
             weekView.calendarType = .day
@@ -242,6 +252,23 @@ class CalendarListViewController: UIViewController {
         weekView.isFirst = true
         weekView.showWeekEnds = weekEndsEnabled
         weekView.setCalendarDate(currentShowingDate!)
+    }
+    
+    func setupCalendarEventData(withEvents: [WREvent]) {
+        weekView.setEvents(events: withEvents)
+    }
+
+    func setupCalendarEventDataAfterFiler() {
+        if let eventsFiltered = CalendarSortUtility.searchCalendarBySearch(calendarEvents: CalendarViewModel().loadVisitData()!) {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: eventsFiltered)
+            }
+        }
+        else {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: [WREvent]())
+            }
+        }
     }
 }
 
@@ -269,6 +296,7 @@ extension CalendarListViewController: WRWeekViewDelegate {
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             accountVisitsVC?.visitId = event.Id
             accountVisitsVC?.delegate = self
+            PlanVistManager.sharedInstance.visit?.Id = event.Id
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
@@ -306,4 +334,34 @@ extension CalendarListViewController : NavigateToContactsDelegate{
         // Added this line so that Account detail view is not launched for this scenario.
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
+}
+
+//MARK:- SearchCalendarByEnteredTextDelegate Delegate
+extension CalendarListViewController : SearchCalendarByEnteredTextDelegate{
+    
+    func sortCalendarData(searchString: String) {
+        print("sortCalendarData")
+    }
+    
+    func filteringCalendar(filtering: Bool) {
+        if !filtering {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: CalendarViewModel().loadVisitData()!)
+            }
+        }
+    }
+    
+    func performCalendarFilterOperation(searchString: String) {
+        if let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: searchString) {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: eventsFiltered)
+            }
+        }
+        else {
+            DispatchQueue.main.async {
+                self.setupCalendarEventData(withEvents: [WREvent]())
+            }
+        }
+    }
+    
 }

@@ -11,6 +11,9 @@ import UIKit
 class WREventCell: UICollectionViewCell {
     @IBOutlet weak var borderView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
+    
+    var eventType: String = ""
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,10 +49,15 @@ class WREventCell: UICollectionViewCell {
             if let event = event {
                 titleLabel.text = event.title
                 if event.type == "visit" {
+                    eventType = event.type
                     borderView.backgroundColor = UIColor(hexString: "4287C2")!
                 }
                 else if event.type == "event" {
+                    eventType = event.type
                     borderView.backgroundColor = UIColor(hexString: "FF9300")!
+                }
+                else {
+                    eventType = ""
                 }
             }
         }
@@ -57,7 +65,15 @@ class WREventCell: UICollectionViewCell {
     
     func updateColors() {
         contentView.backgroundColor = backgroundColorHighlighted(isSelected)
-        borderView.backgroundColor = borderColor()
+        if eventType == "visit" {
+            borderView.backgroundColor = UIColor(hexString: "4287C2")!
+        }
+        else if eventType == "event" {
+            borderView.backgroundColor = UIColor(hexString: "FF9300")!
+        }
+        else {
+            borderView.backgroundColor = borderColor()
+        }
         titleLabel.textColor = textColorHighlighted(isSelected)
     }
     

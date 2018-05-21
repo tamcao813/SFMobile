@@ -1032,7 +1032,6 @@ class StoreDispatcher {
     }
     
     func fetchContactsAccounts() -> [AccountContactRelation] {
-        
         print("fetchContactsAccounts")
         var acrAry: [AccountContactRelation] = []
         
@@ -1057,26 +1056,84 @@ class StoreDispatcher {
         return acrAry
     }
     
-    
-    
-    func fetchContactIdsWithBuyingPower(forAccount accountId: String) -> [String] {
-        var acrAry: [String] = []
-    
-        let soapQuery = "Select {SGWS_AccountContactMobile__c:SGWS_Contact__c} FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_AccountContactMobile__c:SGWS_Buying_Power__c} = true"
+    func fetchContactsActiveAccounts() -> [AccountContactRelation] {
+        var acrAry: [AccountContactRelation] = []
+        
+        let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_isActive__c} = 1"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
         
-        if result.count > 0 {
+        if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
-                acrAry.append(ary[0] as! String)
+                let acr = AccountContactRelation(withAry: ary)
+                if acr.isActive == 1 {
+                    acrAry.append(acr)
+                }
             }
         }
         else if error != nil {
-            print("fetchConactIdsWithBuyingPower " + " error:" + (error?.localizedDescription)!)
+            print("fetchContactsActiveAccounts " + " error:" + (error?.localizedDescription)!)
+        }
+        return acrAry
+    }
+    
+    func fetchLinkedActiveAccounts(For contactId: String) -> [AccountContactRelation] {
+        var acrAry: [AccountContactRelation] = []
+        
+        let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
+        
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_isActive__c} = 1 AND {SGWS_AccountContactMobile__c:SGWS_Contact__c} = '\(contactId)'"
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let acr = AccountContactRelation(withAry: ary)
+                if acr.isActive == 1 {
+                    acrAry.append(acr)
+                }
+            }
+        }
+        else if error != nil {
+            print("fetchLinkedActiveAccounts " + " error:" + (error?.localizedDescription)!)
+        }
+        return acrAry
+    }
+    
+    func fetchContactIdsWithBuyingPower(forAccount accountId: String) -> [String] {
+        var acrAry: [String] = []
+    
+        let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
+        
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_AccountContactMobile__c:SGWS_Buying_Power__c} = 1"
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        var acrObjects = [AccountContactRelation]()
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let acr = AccountContactRelation(withAry: ary)
+                if acr.buyingPower == 1 { 
+                    acrObjects.append(acr)
+                }
+            }
+        }
+        
+        for acr in acrObjects {
+            acrAry.append(acr.contactId)
         }
         
         return acrAry

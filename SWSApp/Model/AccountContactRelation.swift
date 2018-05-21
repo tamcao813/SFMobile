@@ -73,11 +73,11 @@ class AccountContactRelation {
         if contactId.count > 0 { //must have
             json["SGWS_Contact__c"] = contactId
         }
-        
+        /*
         if contactName.count > 0 {
             json["Name"] = contactName
         }
-        
+        */
         
         json["SGWS_Other_Specification__c"] = otherSpecification
         

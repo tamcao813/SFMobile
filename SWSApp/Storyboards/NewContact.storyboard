@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -127,6 +127,10 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link New Account to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oef-w0-KQB">
                                 <rect key="frame" x="40" y="60" width="248" height="29.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="248" id="N7m-jS-aLm"/>
+                                    <constraint firstAttribute="height" constant="29.5" id="pUA-mL-B1k"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -192,17 +196,34 @@
                                     <outlet property="delegate" destination="pJa-4U-xhf" id="LYR-ea-PS5"/>
                                 </connections>
                             </tableView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vhi-r8-nPl">
+                                <rect key="frame" x="766" y="50" width="160" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="12h-yW-F8Q"/>
+                                    <constraint firstAttribute="height" constant="50" id="7hT-Mo-FOC"/>
+                                </constraints>
+                                <state key="normal" title="  Unlink Account" image="Unlink">
+                                    <color key="titleColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="selected" title="Account Unlinked"/>
+                                <connections>
+                                    <action selector="unlinkAccount:" destination="pJa-4U-xhf" eventType="touchUpInside" id="AT5-no-jw5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="3rA-HE-CbS" firstAttribute="top" secondItem="oef-w0-KQB" secondAttribute="bottom" constant="30" id="89X-rm-r3B"/>
                             <constraint firstAttribute="trailing" secondItem="xo9-HC-CfP" secondAttribute="trailing" constant="20" id="Awj-zY-C2G"/>
                             <constraint firstItem="3rA-HE-CbS" firstAttribute="leading" secondItem="7Xv-f5-a6M" secondAttribute="leading" id="FGV-5N-ahF"/>
-                            <constraint firstItem="xo9-HC-CfP" firstAttribute="centerY" secondItem="oef-w0-KQB" secondAttribute="centerY" id="FiO-R2-aow"/>
                             <constraint firstItem="oef-w0-KQB" firstAttribute="top" secondItem="7Xv-f5-a6M" secondAttribute="top" constant="40" id="FzN-wg-AYJ"/>
+                            <constraint firstItem="Vhi-r8-nPl" firstAttribute="top" secondItem="7Xv-f5-a6M" secondAttribute="top" constant="30" id="Iuh-Pi-3Ux"/>
+                            <constraint firstItem="xo9-HC-CfP" firstAttribute="leading" secondItem="Vhi-r8-nPl" secondAttribute="trailing" constant="38" id="PIi-zf-lcy"/>
                             <constraint firstItem="7Xv-f5-a6M" firstAttribute="trailing" secondItem="3rA-HE-CbS" secondAttribute="trailing" id="UAV-pA-XjU"/>
                             <constraint firstItem="oef-w0-KQB" firstAttribute="leading" secondItem="7Xv-f5-a6M" secondAttribute="leading" constant="40" id="W3F-6Z-S0d"/>
                             <constraint firstItem="7Xv-f5-a6M" firstAttribute="bottom" secondItem="3rA-HE-CbS" secondAttribute="bottom" id="dhD-AL-ETR"/>
+                            <constraint firstItem="xo9-HC-CfP" firstAttribute="top" secondItem="7Xv-f5-a6M" secondAttribute="top" constant="35" id="qXO-Fb-nJ8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7Xv-f5-a6M"/>
                     </view>
@@ -210,6 +231,7 @@
                         <outlet property="errorLabel" destination="YXU-99-tQK" id="keH-Lf-JgC"/>
                         <outlet property="pageHeadingLabel" destination="oef-w0-KQB" id="B3X-Xx-fRp"/>
                         <outlet property="tableView" destination="3rA-HE-CbS" id="iNF-Fw-c22"/>
+                        <outlet property="unlinkButton" destination="Vhi-r8-nPl" id="Sqp-Y7-McZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pHy-B6-1aA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -219,17 +241,12 @@
     </scenes>
     <resources>
         <image name="Close" width="38" height="38"/>
+        <image name="Unlink" width="17" height="16"/>
         <namedColor name="Bad">
             <color red="0.83899998659999997" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="Bad">
-            <color red="0.83899998664855957" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Data New">
-            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

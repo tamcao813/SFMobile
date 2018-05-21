@@ -15,6 +15,7 @@ protocol LinkAccountToContactViewControllerDelegate: NSObjectProtocol {
 
 class LinkAccountToContactViewController: UIViewController {
 
+    @IBOutlet weak var unlinkButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeadingLabel: UILabel!
     var accountSelected: Account?
@@ -32,6 +33,7 @@ class LinkAccountToContactViewController: UIViewController {
     var accountIdSelected: String = ""
     var accContactRelation: AccountContactRelation?
     var isFirstTimeLoaded: Bool = true
+    var countOfLinkedAccounts: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,12 +51,10 @@ class LinkAccountToContactViewController: UIViewController {
             return
         }
         
-        let acr = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactObject?.contactId)!)
+        let acr = ContactsViewModel().linkedAccountsForContact(with: (contactObject?.contactId)!)
         
-        if acr.count > 0 {
-            accContactRelation = acr[0]
-            doesHaveBuyingPower = accContactRelation?.buyingPower == 1
-        }
+        countOfLinkedAccounts = acr.count
+        doesHaveBuyingPower = accContactRelation?.buyingPower == 1
     }
     
     func fetchAccountDetails(){
@@ -77,8 +77,12 @@ class LinkAccountToContactViewController: UIViewController {
     func customizedUI(){
         if isInEditMode {
             pageHeadingLabel.text = "Edit Linked Account"
-        }else{
+            unlinkButton.isHidden = false
+            unlinkButton.isEnabled = true
+        } else {
             pageHeadingLabel.text = "Link New Account to \(contactName ?? "")"
+            unlinkButton.isHidden = true
+            unlinkButton.isEnabled = false
         }
         
         self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -95,6 +99,27 @@ class LinkAccountToContactViewController: UIViewController {
         self.tableView.register(UINib(nibName: "ContactClassificationTableViewCell", bundle: nil), forCellReuseIdentifier: "ContactClassificationTableViewCell")
         
         self.tableView.register(UINib(nibName: "PrimaryFunctionTableViewCell", bundle: nil), forCellReuseIdentifier: "PrimaryFunctionTableViewCell")
+    }
+    
+    @IBAction func unlinkAccount(_ sender: Any) {
+        if unlinkButton.isSelected {
+            unlinkButton.isSelected = true
+            return
+        }
+        
+        if countOfLinkedAccounts == 1 {
+            let alert = UIAlertController(title: "Cannot unlink, this is the only linked account.", message: "Each Contact must be linked to at least one Account.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            
+            unlinkButton.isSelected = false
+            return
+        }
+        
+        accContactRelation?.isActive = 0
+        unlinkButton.isSelected = true
+        unlinkButton.isEnabled = false
+        //unlinkButton.titleLabel?.text = "Account Unlinked"
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
@@ -142,7 +167,6 @@ class LinkAccountToContactViewController: UIViewController {
             if aCR.contactName.count == 0 {
                 aCR.contactName = (contactObject?.firstName)! + " " + (contactObject?.lastName)!
             }
-            //get link or unlink
         }
         else {
             aCR.accountId = (accountSelected?.account_Id)!

@@ -10,7 +10,7 @@ import UIKit
 import SwipeCellKit
 
 class ActionItemsListTableViewCell: SwipeTableViewCell {
-
+    
     @IBOutlet weak var actionItemTitleLabel: UILabel!
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var actionItemStatusLabel: UILabel!
@@ -18,25 +18,30 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
     @IBOutlet weak var accountNumberLabel: UILabel!
     @IBOutlet weak var accountAddressLabel: UILabel!
     @IBOutlet weak var urgentImageViewWidthConstarint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabelLeadingConstraints: NSLayoutConstraint!
     
     func displayCellContent(actionItem: ActionItem){
-        actionItemTitleLabel.text = actionItem.title
-        dueDateLabel.text = actionItem.dueDate
-        switch actionItem.status {
-        case .complete?:
-            actionItemStatusLabel.text = "Complete"
-        case .open?:
-            actionItemStatusLabel.text = "Open"
-        case .overdue?:
-            actionItemStatusLabel.text = "Overdue"
-        default:
-            break
-        }
-        if actionItem.isItUrgent! {
-            urgentImageViewWidthConstarint.constant = 36
+        actionItemTitleLabel.text = actionItem.subject
+        dueDateLabel.text = actionItem.activityDate
+        actionItemStatusLabel.text = actionItem.status
+        if actionItem.isUrgent == "1" {
+            urgentImageViewWidthConstarint.constant = 20
+            titleLabelLeadingConstraints.constant = 10
         }else{
             urgentImageViewWidthConstarint.constant = 0
+            titleLabelLeadingConstraints.constant = 0
         }
+//        fetchAccountDetails(actionItem: actionItem)
     }
     
+//    func fetchAccountDetails(actionItem: ActionItem){
+//        let accountsArray = AccountsViewModel().accountsForLoggedUser
+//        for account in accountsArray{
+//            if account.account_Id == actionItem.accountId {
+//                accountNameLabel.text = account.accountName
+//                accountNumberLabel.text = account.accountNumber
+//                break
+//            }
+//        }
+//    }
 }

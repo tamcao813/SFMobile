@@ -59,6 +59,7 @@
 		12F0F89D2090B1C000160C3D /* ContactListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BDF208A254900D37B74 /* ContactListTableViewCell.swift */; };
 		12F0F89E2090B1D200160C3D /* ContactListDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BE3208B518A00D37B74 /* ContactListDetailsTableViewCell.swift */; };
 		12F0F89F2090BABC00160C3D /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E47BDD208A21C900D37B74 /* ContactListViewController.swift */; };
+		4A39D30320AC496C00F79D95 /* AccountsActionItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */; };
 		4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */; };
 		4AE1195520A0AD720095BBA3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1FB18322062A7C00072F4C1 /* Info.plist */; };
 		4AE1195620A0AD740095BBA3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1FB18322062A7C00072F4C1 /* Info.plist */; };
@@ -280,6 +281,7 @@
 		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
+		911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */; };
 		911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
 		911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
 		912FA9E820AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
@@ -291,12 +293,14 @@
 		914E4F3B20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */; };
 		914E4F3C20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
+		91697A2A20AEE6DC00E860E6 /* CalendarSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */; };
 		9187924120A55C2A009CB557 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924020A55C2A009CB557 /* CalendarViewController.swift */; };
 		9187924220A55C2A009CB557 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924020A55C2A009CB557 /* CalendarViewController.swift */; };
 		9187924420A55C79009CB557 /* CalendarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924320A55C79009CB557 /* CalendarMenuViewController.swift */; };
 		9187924520A55C79009CB557 /* CalendarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924320A55C79009CB557 /* CalendarMenuViewController.swift */; };
 		9187924720A55CAE009CB557 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924620A55CAE009CB557 /* CalendarListViewController.swift */; };
 		9187924820A55CAE009CB557 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924620A55CAE009CB557 /* CalendarListViewController.swift */; };
+		919FEFE920AEEED400ED6BBC /* VisitSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919FEFE820AEEED400ED6BBC /* VisitSortUtility.swift */; };
 		91AA8EC92095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
 		91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
 		91AA8ECB2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */; };
@@ -557,6 +561,7 @@
 		12F0F899208FA6BD00160C3D /* AccountContactRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountContactRelation.swift; sourceTree = "<group>"; };
 		19C8BD47DF4615A2A812341C /* Pods-SWSAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		47406C810A477C295440E667 /* Pods-SWSAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsActionItemViewModel.swift; sourceTree = "<group>"; };
 		4ADB2B0A206B1BAA001A8785 /* SWSApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SWSApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		4ADB2B0C206B1BAB001A8785 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -649,6 +654,7 @@
 		8DD15007209330E100858349 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8DD15008209330E100858349 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
 		8DD1501120933A0800858349 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
+		911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSortUtility.swift; sourceTree = "<group>"; };
 		911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringUtil.swift; sourceTree = "<group>"; };
 		912FA9E720AAFC75005979FF /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
@@ -659,6 +665,7 @@
 		9187924020A55C2A009CB557 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		9187924320A55C79009CB557 /* CalendarMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuViewController.swift; sourceTree = "<group>"; };
 		9187924620A55CAE009CB557 /* CalendarListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarListViewController.swift; sourceTree = "<group>"; };
+		919FEFE820AEEED400ED6BBC /* VisitSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSortUtility.swift; sourceTree = "<group>"; };
 		91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountLinkDetails.swift; sourceTree = "<group>"; };
 		91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountFooterDetails.swift; sourceTree = "<group>"; };
 		91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountHeaderDetails.swift; sourceTree = "<group>"; };
@@ -1018,8 +1025,8 @@
 			isa = PBXGroup;
 			children = (
 				8D907C1A20AEAC53004FC367 /* ActionItemDescriptionTableViewCell.swift */,
-				8D907C1B20AEAC53004FC367 /* ActionItemsListTableViewCell.xib */,
 				8D907C1C20AEAC53004FC367 /* ActionItemTitleDetailTableViewCell.swift */,
+				8D907C1B20AEAC53004FC367 /* ActionItemsListTableViewCell.xib */,
 				8D907C1D20AEAC53004FC367 /* ActionItemsListTableViewCell.swift */,
 				8D907C1E20AEAC53004FC367 /* ActionItemTitleTableViewCell.swift */,
 				8D907C1F20AEAC53004FC367 /* ActionItemTitleTableViewCell.xib */,
@@ -1348,6 +1355,7 @@
 				D1FCDE0C20733024005F956D /* UserViewModel.swift */,
 				D1FCDE0B20733024005F956D /* FilterViewModel.swift */,
 				91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */,
+				4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */,
 				C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */,
 				12B7362D209777CC0063F847 /* StrategyQAViewModel.swift */,
 				129A69972099A3AF00642B14 /* StrategyQuestionsViewModel.swift */,
@@ -1373,6 +1381,8 @@
 				6F36531F207B95850068105B /* AccountSortUtility.swift */,
 				1268ED46209868170027013D /* NoteSortUtility.swift */,
 				913FA171208F2048004AAA0D /* ContactSortUtility.swift */,
+				911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */,
+				919FEFE820AEEED400ED6BBC /* VisitSortUtility.swift */,
 				4ADB2B0A206B1BAA001A8785 /* SWSApp-Bridging-Header.h */,
 				4ADB2B09206B1B4D001A8785 /* MBProgressHUD */,
 				D1FE1D0620657B7E009CC47C /* SFAError.swift */,
@@ -2001,6 +2011,7 @@
 				AE8F41E9209F73500033F81D /* SchedulerComponent.swift in Sources */,
 				91C3E59F208F0F600067CF3E /* ContactMenuViewController.swift in Sources */,
 				8D907C2520AEAC53004FC367 /* ActionItemDetailsViewController.swift in Sources */,
+				91697A2A20AEE6DC00E860E6 /* CalendarSortUtility.swift in Sources */,
 				8D99A3132091E79C00FAA71A /* DropdownTableViewCell.swift in Sources */,
 				AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */,
 				8D907C1420AC40B5004FC367 /* LinkAccountToContactViewController.swift in Sources */,
@@ -2182,6 +2193,7 @@
 				914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */,
 				8DD15009209330E200858349 /* AccountView.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
+				911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */,
 				91FAEF6120A57DD500209D71 /* StringExtension.swift in Sources */,
 				D17BD572209115CD000F38FA /* PlistMap.swift in Sources */,
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
@@ -2195,6 +2207,7 @@
 				6F3D30A4206BA59D000CFFCC /* XMSegmentedControl.swift in Sources */,
 				D2676885208F3C8F0060E792 /* AccountVisitViewController.swift in Sources */,
 				D2EAEB902074ED1E005F7792 /* GoSpotCheckViewController.swift in Sources */,
+				919FEFE920AEEED400ED6BBC /* VisitSortUtility.swift in Sources */,
 				D26768882090B1BA0060E792 /* ContactListTableViewCell.swift in Sources */,
 				128B1A9A206BADF8004E148A /* AccountDetailTabViewController.swift in Sources */,
 				9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */,
@@ -2254,6 +2267,7 @@
 				8D99A3262093055200FAA71A /* Validations.swift in Sources */,
 				121468F220AD603A00942A00 /* DropDownCell.swift in Sources */,
 				D2EAEB942074EF88005F7792 /* NotificationsViewController.swift in Sources */,
+				4A39D30320AC496C00F79D95 /* AccountsActionItemViewModel.swift in Sources */,
 				8DD1501220933A0800858349 /* StringConstants.swift in Sources */,
 				12B7362C209768350063F847 /* StrategyQA.swift in Sources */,
 				D267688E2090B41B0060E792 /* CreateNewContactViewController.swift in Sources */,

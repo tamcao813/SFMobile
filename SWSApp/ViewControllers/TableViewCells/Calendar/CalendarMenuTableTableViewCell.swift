@@ -48,20 +48,13 @@ class CalendarMenuTableTableViewCell: UITableViewCell {
         
         switch indexPath.row{
         case 0:
-            if CalendarFilterMenuModel.allType == "YES"{
-                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-            }else{
-                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-            }
-
-        case 1:
             if CalendarFilterMenuModel.visitsType == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")
             }
 
-        case 2:
+        case 1:
             if CalendarFilterMenuModel.eventsType == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
             }else{

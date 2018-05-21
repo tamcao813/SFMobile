@@ -42,11 +42,8 @@ class CalendarMenuViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.clearFilterModelData()
         self.addSearchIconInSearchBar()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,10 +89,10 @@ class CalendarMenuViewController: UIViewController {
     //Used to Clear the Model Data
     func clearFilterModelData(){
         
-        CalendarFilterMenuModel.allType = ""
+        CalendarFilterMenuModel.searchText = ""
+
         CalendarFilterMenuModel.visitsType = "YES"
         CalendarFilterMenuModel.eventsType = "YES"
-
         
         if searchBar != nil{
             searchBar.text = ""
@@ -105,7 +102,7 @@ class CalendarMenuViewController: UIViewController {
         selectedSection = 0
         self.expandedSectionHeaderNumber = 0
 
-        if self.expandedSectionHeaderNumber != -1{
+        if self.expandedSectionHeaderNumber != -1 {
             if self.expandedSectionHeaderNumber == 0 {
                 
             }
@@ -227,14 +224,6 @@ class CalendarMenuViewController: UIViewController {
         
         switch indexPath.row {
         case 0:
-            if CalendarFilterMenuModel.allType == "YES" {
-                CalendarFilterMenuModel.allType = "NO"
-            }
-            else {
-                CalendarFilterMenuModel.allType = "YES"
-            }
-
-        case 1:
             if CalendarFilterMenuModel.visitsType == "YES" {
                 CalendarFilterMenuModel.visitsType = "NO"
             }
@@ -242,7 +231,7 @@ class CalendarMenuViewController: UIViewController {
                 CalendarFilterMenuModel.visitsType = "YES"
             }
 
-        case 2:
+        case 1:
             if CalendarFilterMenuModel.eventsType == "YES" {
                 CalendarFilterMenuModel.eventsType = "NO"
             }
@@ -271,7 +260,7 @@ class CalendarMenuViewController: UIViewController {
     private func isValidUserInputAtSearchFilterPanel()->Bool{
         var validInput = false
         if(searchBar.text!.count > 0 ||
-            CalendarFilterMenuModel.allType == "YES" || CalendarFilterMenuModel.visitsType == "YES" || CalendarFilterMenuModel.eventsType == "YES")
+            (CalendarFilterMenuModel.visitsType == "NO" || CalendarFilterMenuModel.eventsType == "NO"))
         {
             validInput = true
         }
@@ -285,6 +274,8 @@ class CalendarMenuViewController: UIViewController {
     @IBAction func submitButton(_ sender: Any) {
         if(isValidUserInputAtSearchFilterPanel() == true)
         {
+            CalendarFilterMenuModel.searchText = searchBar.text!
+
             self.searchByEnteredTextDelegate?.filteringCalendar(filtering: true)
             searchByEnteredTextDelegate?.performCalendarFilterOperation(searchString: searchBar.text!)
         }

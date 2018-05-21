@@ -549,7 +549,7 @@
                                                                 <constraint firstAttribute="width" constant="10" id="0cl-SG-1wT"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gip-U4-gJm">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gip-U4-gJm">
                                                             <rect key="frame" x="30" y="45" width="245" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="245" id="OUg-wE-67v"/>
@@ -576,9 +576,8 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" fixedFrame="YES" text="10:30 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJV-ou-ev7">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="10:30 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJV-ou-ev7">
                                                             <rect key="frame" x="553" y="67" width="69" height="18"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -590,7 +589,7 @@
                                                                 <constraint firstAttribute="height" constant="2" id="BrI-Kw-A3k"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejD-5f-deG">
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejD-5f-deG">
                                                             <rect key="frame" x="30" y="135" width="185" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="184.5" id="GjM-ZC-Zze"/>
@@ -599,13 +598,13 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="560079" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiX-Va-Kay">
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="560079" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiX-Va-Kay">
                                                             <rect key="frame" x="30" y="153" width="55" height="18"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="586 Main Street Miami, FL 33090" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n88-Jz-T8l">
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="586 Main Street Miami, FL 33090" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n88-Jz-T8l">
                                                             <rect key="frame" x="232" y="133" width="150" height="36"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -615,7 +614,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Location name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaK-Ew-k1B">
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Location name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaK-Ew-k1B">
                                                             <rect key="frame" x="417.5" y="141" width="107" height="18"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
@@ -629,12 +628,14 @@
                                                         <constraint firstItem="VjM-od-8oK" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" constant="45" id="3nW-TG-OU7"/>
                                                         <constraint firstItem="ejD-5f-deG" firstAttribute="top" secondItem="l5Q-hh-LZz" secondAttribute="bottom" constant="29" id="52t-MJ-5w7"/>
                                                         <constraint firstItem="Ebu-i4-gbS" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" constant="45" id="5Fa-tA-9hI"/>
+                                                        <constraint firstItem="ZJV-ou-ev7" firstAttribute="leading" secondItem="Ebu-i4-gbS" secondAttribute="leading" id="6Aq-Lk-dGg"/>
                                                         <constraint firstAttribute="trailing" secondItem="Ebu-i4-gbS" secondAttribute="trailing" constant="55" id="937-tk-LF3"/>
                                                         <constraint firstItem="HM0-AI-dCb" firstAttribute="leading" secondItem="mMI-tp-0ed" secondAttribute="leading" id="AKM-c4-CTr"/>
                                                         <constraint firstItem="HM0-AI-dCb" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" id="FVj-kn-U74"/>
                                                         <constraint firstItem="gip-U4-gJm" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" constant="45" id="Feq-6S-vub"/>
                                                         <constraint firstAttribute="bottom" secondItem="n88-Jz-T8l" secondAttribute="bottom" constant="21" id="KbB-oY-YjL"/>
                                                         <constraint firstItem="ejD-5f-deG" firstAttribute="leading" secondItem="mMI-tp-0ed" secondAttribute="leading" constant="30" id="PQK-MY-WeW"/>
+                                                        <constraint firstItem="ZJV-ou-ev7" firstAttribute="top" secondItem="Ebu-i4-gbS" secondAttribute="bottom" constant="4" id="Sna-ew-z3B"/>
                                                         <constraint firstItem="n88-Jz-T8l" firstAttribute="leading" secondItem="ejD-5f-deG" secondAttribute="trailing" constant="17" id="Zi6-x5-BWf"/>
                                                         <constraint firstItem="gaK-Ew-k1B" firstAttribute="top" secondItem="l5Q-hh-LZz" secondAttribute="bottom" constant="35" id="djn-sv-HZ3"/>
                                                         <constraint firstItem="gip-U4-gJm" firstAttribute="leading" secondItem="mMI-tp-0ed" secondAttribute="leading" constant="30" id="gG3-zt-yFn"/>
@@ -658,6 +659,7 @@
                                         <connections>
                                             <outlet property="addressLabel" destination="gip-U4-gJm" id="Y3S-ag-gux"/>
                                             <outlet property="dateLabel" destination="Ebu-i4-gbS" id="t4l-cP-knu"/>
+                                            <outlet property="statusView" destination="HM0-AI-dCb" id="bj5-QL-wfZ"/>
                                             <outlet property="timeLabel" destination="ZJV-ou-ev7" id="25T-hI-2Ze"/>
                                             <outlet property="visitStatusLabel" destination="VjM-od-8oK" id="nxO-hG-P6d"/>
                                         </connections>
@@ -668,7 +670,7 @@
                                     <outlet property="delegate" destination="Dyb-22-wbF" id="VEs-Gk-733"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAD-eo-NhU">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAD-eo-NhU">
                                 <rect key="frame" x="0.0" y="630" width="740" height="70"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="LKv-PZ-qAR">

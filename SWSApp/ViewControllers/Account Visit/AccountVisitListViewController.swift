@@ -108,29 +108,43 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.row == 0{
+        if indexPath.section == 0{
             return 50
         }
         return 200
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0{
+            return 1
+        }
         return tableViewDataArray!.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60.0;
+        if section == 0{
+            return 60.0;
+        }
+        return 0
     }
     
     // custom header for the section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
-        let headerCell:AccountVisitListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "newVisitCell") as! AccountVisitListTableViewCell
-        return headerCell
+        var headerCell : AccountVisitListTableViewCell?
+        //if section == 0{
+            headerCell = tableView.dequeueReusableCell(withIdentifier: "newVisitCell") as? AccountVisitListTableViewCell
+            return headerCell
+        //}
+        //return nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : UITableViewCell?
-        if indexPath.row == 0{
+        if indexPath.section == 0{
             
             cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListHeaderTableViewCell") as? AccountVisitListTableViewCell
             cell?.selectionStyle = .none
@@ -197,7 +211,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row > 0{
+        if indexPath.section > 0{
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             let _ : Visit = tableViewDataArray![indexPath.row]

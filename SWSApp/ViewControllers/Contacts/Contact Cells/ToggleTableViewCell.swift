@@ -50,17 +50,21 @@ class ToggleTableViewCell: UITableViewCell {
     }
     
     func yes(){
-        yesButton.setTitleColor(.white, for: .normal)
-        yesButton.backgroundColor = UIColor(fromHexValue: "#4187c2")
-        noButton.setTitleColor(.lightGray, for: .normal)
-        noButton.backgroundColor = .white
+        DispatchQueue.main.async {
+            self.yesButton.setTitleColor(.white, for: .normal)
+            self.yesButton.backgroundColor = UIColor(fromHexValue: "#4187c2")
+            self.noButton.setTitleColor(.lightGray, for: .normal)
+            self.noButton.backgroundColor = .white
+        }
     }
     
     func no(){
-        yesButton.setTitleColor(.lightGray, for: .normal)
-        yesButton.backgroundColor = .white
-        noButton.setTitleColor(.white, for: .normal)
-        noButton.backgroundColor = UIColor(fromHexValue: "#4187c2")        
+        DispatchQueue.main.async {
+            self.yesButton.setTitleColor(.lightGray, for: .normal)
+            self.yesButton.backgroundColor = .white
+            self.noButton.setTitleColor(.white, for: .normal)
+            self.noButton.backgroundColor = UIColor(fromHexValue: "#4187c2")
+        }
     }
 }
 

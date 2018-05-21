@@ -79,24 +79,17 @@ class AccountVisitListViewController: UIViewController {
         addNewDropDown.selectionAction = {(index: Int, item: String) in
             switch index {
             case 0:
-                print(index)
-                
                 let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
                 createVisitViewController.isEditingMode = false
-                
-                //Reset the PlanVistManager
                 PlanVistManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
                     self.present(createVisitViewController, animated: true)
                 }
-                
             case 1:
-                print(index)
-                print("Create Event")
-                
-                
-                
-           
+                let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
+                DispatchQueue.main.async {
+                    self.present(createEventViewController, animated: true, completion: nil)
+                }
             default:
                 break
             }

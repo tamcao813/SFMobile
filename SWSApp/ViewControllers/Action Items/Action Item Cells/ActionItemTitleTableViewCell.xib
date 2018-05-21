@@ -64,6 +64,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="actionHeaderLabel" destination="EoN-BY-sip" id="ngI-pD-H1c"/>
                 <outlet property="actionTitleTextField" destination="42e-PE-R5e" id="88a-Mz-b4c"/>
             </connections>
             <point key="canvasLocation" x="63.5" y="104"/>

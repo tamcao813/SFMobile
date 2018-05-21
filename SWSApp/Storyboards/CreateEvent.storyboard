@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Create New Event View Controller-->
+        <scene sceneID="HJC-gP-tOv">
+            <objects>
+                <viewController storyboardIdentifier="CreateNewEventViewController" modalPresentationStyle="overFullScreen" id="dix-R9-odJ" customClass="CreateNewEventViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dbD-8U-zRD">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpQ-U5-XIK">
+                                <rect key="frame" x="40" y="40" width="123.5" height="29.5"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gp5-b3-4fT">
+                                <rect key="frame" x="964" y="35" width="40" height="40"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="LwS-6c-eSd"/>
+                                    <constraint firstAttribute="height" constant="40" id="kkx-yi-kUM"/>
+                                </constraints>
+                                <state key="normal" image="Close">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="dix-R9-odJ" eventType="touchUpInside" id="esD-N8-i4H"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6zg-BZ-VT5">
+                                <rect key="frame" x="0.0" y="89.5" width="1024" height="678.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dix-R9-odJ" id="ruB-WF-At8"/>
+                                    <outlet property="delegate" destination="dix-R9-odJ" id="7MQ-E0-ntR"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Qh2-BK-p3j" firstAttribute="bottom" secondItem="6zg-BZ-VT5" secondAttribute="bottom" id="2bq-wE-bQS"/>
+                            <constraint firstItem="Gp5-b3-4fT" firstAttribute="centerY" secondItem="tpQ-U5-XIK" secondAttribute="centerY" id="3aK-Xq-e0E"/>
+                            <constraint firstItem="6zg-BZ-VT5" firstAttribute="leading" secondItem="Qh2-BK-p3j" secondAttribute="leading" id="3pv-1s-XmB"/>
+                            <constraint firstItem="tpQ-U5-XIK" firstAttribute="leading" secondItem="Qh2-BK-p3j" secondAttribute="leading" constant="40" id="BgH-LL-LvI"/>
+                            <constraint firstItem="6zg-BZ-VT5" firstAttribute="trailing" secondItem="Qh2-BK-p3j" secondAttribute="trailing" id="MXL-uW-HDq"/>
+                            <constraint firstItem="6zg-BZ-VT5" firstAttribute="top" secondItem="tpQ-U5-XIK" secondAttribute="bottom" constant="20" id="UMD-vB-qqy"/>
+                            <constraint firstItem="tpQ-U5-XIK" firstAttribute="top" secondItem="Qh2-BK-p3j" secondAttribute="top" constant="20" id="og8-AP-n1T"/>
+                            <constraint firstItem="Qh2-BK-p3j" firstAttribute="trailing" secondItem="Gp5-b3-4fT" secondAttribute="trailing" constant="20" id="pWp-Br-vs6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Qh2-BK-p3j"/>
+                    </view>
+                    <connections>
+                        <outlet property="pageHeaderLabel" destination="tpQ-U5-XIK" id="VGT-YU-v54"/>
+                        <outlet property="tableView" destination="6zg-BZ-VT5" id="26R-Tn-94G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wGO-3B-lWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="89" y="81"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Close" width="38" height="38"/>
+    </resources>
+</document>

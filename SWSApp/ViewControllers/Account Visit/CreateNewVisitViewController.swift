@@ -392,7 +392,7 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchForContactTableViewCell") as? SearchForContactTableViewCell
             contactsAccountTextField = cell?.searchContactTextField
-            accountsDropdown = cell?.contactDropDown
+            contactsDropdown = cell?.contactDropDown
             cell?.delegate = self
             return cell!
         case 3:

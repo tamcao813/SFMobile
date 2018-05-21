@@ -14,6 +14,8 @@ class AccountVisitListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var tableViewDataArray : [WorkOrderUserObject]?
     
+    var addNewDropDown = DropDown()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
@@ -63,11 +65,42 @@ class AccountVisitListViewController: UIViewController {
         addNewDropDown.anchorView = sender
         addNewDropDown.bottomOffset = CGPoint(x: (((sender.frame.size.width) - 100)-((sender.frame.size.width)/6.0)), y :( addNewDropDown.anchorView?.plainView.bounds.height)!)
         
-        //Reset the PlanVisitManager
-        PlanVisitManager.sharedInstance.visit = nil
-        DispatchQueue.main.async {
-            self.present(createVisitViewController, animated: true)
-        }        
+        addNewDropDown.backgroundColor = UIColor.white
+        
+        let dropDownItem1 = NSLocalizedString("Visit", comment: "Visit")
+        let dropDownItem2 = NSLocalizedString("Event", comment: "Event")
+        
+        addNewDropDown.dataSource = [dropDownItem1, dropDownItem2]
+        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
+        self.addNewDropDown.textColor = UIColor.gray
+        
+        addNewDropDown.show()
+        
+        addNewDropDown.selectionAction = {(index: Int, item: String) in
+            switch index {
+            case 0:
+                print(index)
+                
+                let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+                createVisitViewController.isEditingMode = false
+                
+                //Reset the PlanVistManager
+                PlanVisitManager.sharedInstance.visit = nil
+                DispatchQueue.main.async {
+                    self.present(createVisitViewController, animated: true)
+                }
+                
+            case 1:
+                print(index)
+                print("Create Event")
+                
+                
+                
+           
+            default:
+                break
+            }
+        }
     }
 }
 
@@ -178,14 +211,16 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
-        let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController        
-        let data : WorkOrderUserObject = tableViewDataArray![indexPath.row]
-        PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
-        (accountVisitsVC)?.delegate = self
-        accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
-        DispatchQueue.main.async {
-            self.present(accountVisitsVC!, animated: true, completion: nil)
+        if indexPath.section > 0{
+            let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
+            let _ : WorkOrderUserObject = tableViewDataArray![indexPath.row]
+            PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+            (accountVisitsVC)?.delegate = self
+            accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
+            DispatchQueue.main.async {
+                self.present(accountVisitsVC!, animated: true, completion: nil)
+            }
         }
     }
 }

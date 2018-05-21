@@ -29,6 +29,7 @@ class StoreDispatcher {
     let SoupStrategyAnswers = "SGWS_Answer__c"
     //Sync Configurations
     let SoupSyncConfiguration = "SyncConfiguration"
+    let SoupActionItem = "Task"
     
     
     // Workorder Types Visit OR Event
@@ -64,6 +65,7 @@ class StoreDispatcher {
         registerStrategyQuestions()
         registerStrategyAnswers()
         registerSyncConfiguration()
+        registerActionItemSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {

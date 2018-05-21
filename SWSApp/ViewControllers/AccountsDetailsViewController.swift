@@ -139,7 +139,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                 vc.selectedAccount = self.accountDetailForLoggedInUser
                 
                 //As we are creating a new Visit Make the Shared instance Nil
-                PlanVistManager.sharedInstance.visit = nil
+                PlanVisitManager.sharedInstance.visit = nil
                 
                 self.present(vc, animated: true, completion: nil)
                 

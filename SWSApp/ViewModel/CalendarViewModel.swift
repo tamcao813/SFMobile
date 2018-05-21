@@ -29,7 +29,7 @@ class CalendarViewModel {
         
     }
     
-    func loadVisitsToCalendarEvents(visitArray: [Visit]) -> [WREvent]? {
+    func loadVisitsToCalendarEvents(visitArray: [WorkOrderUserObject]) -> [WREvent]? {
         
         var visitsToCalendarEventsArray = [WREvent]()
         

@@ -124,8 +124,8 @@ class CalendarListViewController: UIViewController {
         let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
         createVisitViewController.isEditingMode = false
         
-        //Reset the PlanVistManager
-        PlanVistManager.sharedInstance.visit = nil
+        //Reset the PlanVisitManager
+        PlanVisitManager.sharedInstance.visit = nil
         
         self.present(createVisitViewController, animated: true)
     }
@@ -262,8 +262,8 @@ extension CalendarListViewController: WRWeekViewDelegate {
         print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
         
         if event.type == "visit" {
-            PlanVistManager.sharedInstance.visit = Visit(for: "") // Todo read visit object from VisitViewModel
-            PlanVistManager.sharedInstance.visit?.Id = event.Id
+            PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "") // Todo read visit object from VisitViewModel
+            PlanVisitManager.sharedInstance.visit?.Id = event.Id
             
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
@@ -287,11 +287,11 @@ extension CalendarListViewController : NavigateToContactsDelegate{
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
-            if let visit = PlanVistManager.sharedInstance.visit{
+            if let visit = PlanVisitManager.sharedInstance.visit{
                 ContactsGlobal.accountId = visit.accountId
             }
             
-            if let contactId = PlanVistManager.sharedInstance.visit?.contactId{
+            if let contactId = PlanVisitManager.sharedInstance.visit?.contactId{
                 // Added this line so that Contact detail view is not launched for this scenario.
                 ContactFilterMenuModel.selectedContactId = contactId
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)

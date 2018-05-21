@@ -11,7 +11,7 @@ import UIKit
 class AccountVisitListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var tableViewDataArray : [Visit]?
+    var tableViewDataArray : [WorkOrderUserObject]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class AccountVisitListViewController: UIViewController {
     }
     
     func getTheDataFromDB(){
-        tableViewDataArray = [Visit]()
+        tableViewDataArray = [WorkOrderUserObject]()
         let visitArray = VisitsViewModel()
         tableViewDataArray = visitArray.visitsForUser()
         tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
@@ -57,8 +57,8 @@ class AccountVisitListViewController: UIViewController {
         let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
         createVisitViewController.isEditingMode = false
         
-        //Reset the PlanVistManager
-        PlanVistManager.sharedInstance.visit = nil
+        //Reset the PlanVisitManager
+        PlanVisitManager.sharedInstance.visit = nil
         DispatchQueue.main.async {
             self.present(createVisitViewController, animated: true)
         }        
@@ -136,8 +136,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
         let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController        
-        let data : Visit = tableViewDataArray![indexPath.row]
-        PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+        let data : WorkOrderUserObject = tableViewDataArray![indexPath.row]
+        PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
         (accountVisitsVC)?.delegate = self
         accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
         DispatchQueue.main.async {
@@ -157,7 +157,7 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {        
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
-            if let visit = PlanVistManager.sharedInstance.visit{
+            if let visit = PlanVisitManager.sharedInstance.visit{
             ContactsGlobal.accountId = visit.accountId
             }
             // Added this line so that Contact detail view is not launched for this scenario.

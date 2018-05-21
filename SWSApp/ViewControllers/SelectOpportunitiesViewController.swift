@@ -13,7 +13,7 @@ class SelectOpportunitiesViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("Plan VC will disappear")
-        PlanVistManager.sharedInstance.editPlanVisit = false
+        PlanVisitManager.sharedInstance.editPlanVisit = false
     }
     
     
@@ -36,8 +36,8 @@ class SelectOpportunitiesViewController: UIViewController {
     
     @IBAction func saveAndClose(sender: UIButton) {
         //STATEMACHINE:If you com tho this Screen its in Planned state
-        PlanVistManager.sharedInstance.visit?.status = "Planned"
-        PlanVistManager.sharedInstance.editAndSaveVisit()
+        PlanVisitManager.sharedInstance.visit?.status = "Planned"
+        PlanVisitManager.sharedInstance.editAndSaveVisit()
         DispatchQueue.main.async {
             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         }
@@ -45,7 +45,7 @@ class SelectOpportunitiesViewController: UIViewController {
     
     @IBAction func loadStrategyScreen(sender : UIButton){
         
-        let accountId = PlanVistManager.sharedInstance.visit?.accountId
+        let accountId = PlanVisitManager.sharedInstance.visit?.accountId
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
         let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController

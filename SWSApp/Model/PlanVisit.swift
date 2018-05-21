@@ -10,7 +10,7 @@ import Foundation
 
 class PlanVisit {
     
-    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId"]
+    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","_soupEntryId","SGWS_WorkOrder_Location__c "]
     
     var Id : String
     var subject : String
@@ -25,9 +25,11 @@ class PlanVisit {
     var lastModifiedDate : String
     var contactId : String
     var recordTypeId : String
+    var location:String
+    var soupEntryId : Int
+    var workOrderType :String
 
 
-    
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(PlanVisit.planVisitFields, ary))
         self.init(json: resultDict)
@@ -48,7 +50,15 @@ class PlanVisit {
         lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
         contactId = json["ContactId"] as? String ?? ""
         recordTypeId = json["RecordTypeId"] as? String ?? ""
+        location =  json["SGWS_WorkOrder_Location__c"] as? String ?? ""
+        soupEntryId = json["_soupEntryId"] as? Int ?? 0
 
+        if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == StoreDispatcher.shared.workOrderRecordTypeIdVisit){
+            workOrderType = StoreDispatcher.shared.workOrderTypeVisit
+        } else {
+            workOrderType = StoreDispatcher.shared.workOrderTypeEvent
+            
+        }
     }
     
     init(for: String) {
@@ -66,6 +76,9 @@ class PlanVisit {
         lastModifiedDate = ""
         contactId = ""
         recordTypeId = ""
+        location = ""
+        soupEntryId = 0
+        workOrderType = ""
 
     }
 }

@@ -12,12 +12,16 @@ import Foundation
 
 class WorkOrderUserObject {
     
-    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","AccountId","Account.Name","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","_soupEntryId"]
+    //["Id","Subject","AccountId","Account.Name","Account.AccountNumber","Account.BillingAddress","ContactId","Contact.Name","Contact.Phone","Contact.Email","Contact.SGWS_Roles__c","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","SGWS_WorkOrder_Location__c ","RecordTypeId"]
+    
+    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c","AccountId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","_soupEntryId"]
     
     var Id : String
     var subject : String
     var accountId : String
     var accountName : String
+    var accountNumber : String
+
 
     
     var shippingCity: String
@@ -44,7 +48,8 @@ class WorkOrderUserObject {
     
     
     var recordTypeId: String
-    var soupEntryId: String
+    var soupEntryId: Int
+    var location :String
 
 
     
@@ -61,7 +66,8 @@ class WorkOrderUserObject {
         subject = json["Subject"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
         accountName = json["Account.Name"] as? String ?? ""
-        
+        accountNumber = json["Account.Number"] as? String ?? ""
+
         shippingCity = json["Account.ShippingCity"] as? String ?? ""
         shippingCountry = json["Account.ShippingCountry"] as? String ?? ""
         shippingPostalCode = json["Account.ShippingPostalCode"] as? String ?? ""
@@ -88,8 +94,10 @@ class WorkOrderUserObject {
         email = json["Email"] as? String ?? ""
 
         recordTypeId = json["RecordTypeId"] as? String ?? ""
-        soupEntryId = json["_soupEntryId"] as? String ?? ""
-        
+
+        soupEntryId = json["_soupEntryId"] as? Int ?? 0
+        location = json["SGWS_WorkOrder_Location__c"] as? String ?? ""
+
     }
     
     init(for: String) {
@@ -98,6 +106,7 @@ class WorkOrderUserObject {
         subject = ""
         accountId = ""
         accountName = ""
+        accountNumber = ""
         
         shippingCity = ""
         shippingCountry = ""
@@ -120,7 +129,8 @@ class WorkOrderUserObject {
         recordTypeId = ""
         email = ""
         phone = ""
-        soupEntryId = ""
+        soupEntryId = 0
+        location = ""
         
     }
 }

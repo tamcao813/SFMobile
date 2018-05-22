@@ -5,6 +5,8 @@ use_frameworks!
 pod 'ReachabilitySwift'
 pod 'SwipeCellKit', '~> 2.1.0'
 pod 'DateToolsSwift'
+pod 'IQKeyboardManagerSwift'
+# pod 'ActionSheetPicker-3.0'
 
 def sf_pods
     pod 'SalesforceAnalytics',    :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
@@ -12,7 +14,6 @@ def sf_pods
     pod 'SalesforceSwiftSDK',    :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
     pod 'SmartStore',        :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
     pod 'SmartSync',            :git => 'https://github.com/forcedotcom/SalesforceMobileSDK-iOS'
-    pod 'IQKeyboardManagerSwift'
 end
 
 target 'SWSApp' do

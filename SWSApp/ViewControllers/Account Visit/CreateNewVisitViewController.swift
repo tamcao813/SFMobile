@@ -261,7 +261,7 @@ class CreateNewVisitViewController: UIViewController {
             new_visit.status = "Planned"
         }
         
-        new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdEvent
+        new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
         
         let attributeDict = ["type":"WorkOrder"]
         let addNewDict: [String:Any] = [

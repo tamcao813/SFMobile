@@ -81,7 +81,7 @@ class AccountVisitListViewController: UIViewController {
             case 0:
                 let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
                 createVisitViewController.isEditingMode = false
-                PlanVistManager.sharedInstance.visit = nil
+                PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
                     self.present(createVisitViewController, animated: true)
                 }
@@ -205,14 +205,23 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section > 0{
-            let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
-            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-            let _ : WorkOrderUserObject = tableViewDataArray![indexPath.row]
-            PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
-            (accountVisitsVC)?.delegate = self
-            accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
-            DispatchQueue.main.async {
-                self.present(accountVisitsVC!, animated: true, completion: nil)
+            
+            if tableViewDataArray![indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit {
+                let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
+                let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
+                let _ : WorkOrderUserObject = tableViewDataArray![indexPath.row]
+                PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+                (accountVisitsVC)?.delegate = self
+                accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
+                DispatchQueue.main.async {
+                    self.present(accountVisitsVC!, animated: true, completion: nil)
+                }
+            }else{
+                let eventStoryboard = UIStoryboard.init(name: "CreateEvent", bundle: nil)
+                let eventSummaryVC = eventStoryboard.instantiateViewController(withIdentifier: "EventSummaryViewController") as? EventSummaryViewController
+                DispatchQueue.main.async {
+                    self.present(eventSummaryVC!, animated: true, completion: nil)
+                }
             }
         }
     }

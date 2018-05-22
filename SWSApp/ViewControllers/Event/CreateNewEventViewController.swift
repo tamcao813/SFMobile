@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 struct CreateNewEventViewControllerGlobals {
     static var userInput = false
@@ -32,6 +33,7 @@ class CreateNewEventViewController: UIViewController {
         super.viewDidLoad()
         customizedUI()
         initializeNibs()
+        IQKeyboardManager.shared.enable = true
     }
     
     func customizedUI(){
@@ -46,6 +48,8 @@ class CreateNewEventViewController: UIViewController {
         self.tableView.register(UINib(nibName: "SearchForContactTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchForContactTableViewCell")
         self.tableView.register(UINib(nibName: "ViewContactLinkToVisitTableViewCell", bundle: nil), forCellReuseIdentifier: "ViewContactLinkToVisitTableViewCell")
         self.tableView.register(UINib(nibName: "DescriptionTableViewCell", bundle: nil), forCellReuseIdentifier: "DescriptionTableViewCell")
+        self.tableView.register(UINib(nibName: "EventStartEndDateTableViewCell", bundle: nil), forCellReuseIdentifier: "EventStartEndDateTableViewCell")
+        
     }
     
     func reloadTableView(){
@@ -84,7 +88,7 @@ class CreateNewEventViewController: UIViewController {
     
     func allFieldsAreValidated() -> Bool{
         if ((eventTitleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) != nil){
-            eventTitleTextField.borderColor = UIColor(patternImage: UIImage(named: "Bad")!)
+            eventTitleTextField.borderColor = .red
             eventTitleTextField.becomeFirstResponder()
             errorLabel.text = StringConstants.emptyFieldError
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -110,7 +114,7 @@ class CreateNewEventViewController: UIViewController {
 extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
+        return 8
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -120,20 +124,22 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
         case 1:
             return 1
         case 2:
+            return 1
+        case 3:
             if selectedAccount != nil {
                 return 1
             }
             return 0
-        case 3:
-            return 1
         case 4:
+            return 1
+        case 5:
             if selectedContact != nil {
                 return 1
             }
             return 0
-        case 5:
-            return 1
         case 6:
+            return 1
+        case 7:
             return 1
         default:
             return 0
@@ -149,12 +155,15 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             cell?.actionTitleTextField.placeholder = "Enter Title"
             return cell!
         case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EventStartEndDateTableViewCell") as? EventStartEndDateTableViewCell
+            return cell!
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
             searchAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.accountsDropDown
             cell?.delegate = self
             return cell!
-        case 2:
+        case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell") as? AccountContactLinkTableViewCell
             cell?.containerTrailingConstraint.constant = 40
             cell?.containerLeadingConstraint.constant = 40
@@ -163,26 +172,26 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
                 cell?.displayCellContent(account: account)
             }
             return cell!
-        case 3:
+        case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchForContactTableViewCell") as? SearchForContactTableViewCell
             searchContactTextField = cell?.searchContactTextField
             contactsDropdown = cell?.contactDropDown
             cell?.delegate = self
             return cell!
-        case 4:
+        case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ViewContactLinkToVisitTableViewCell") as? ViewContactLinkToVisitTableViewCell
             cell?.delegate = self
             if let contact = selectedContact {
                 cell?.displayCellContent(contact: contact)
             }
             return cell!
-        case 5:
+        case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemTitleTableViewCell") as? ActionItemTitleTableViewCell
             locationTextField = cell?.actionTitleTextField
             cell?.actionHeaderLabel.text = "Location"
             cell?.actionTitleTextField.placeholder = "Enter Location"
             return cell!
-        case 6:
+        case 7:
             return getEventDescriptionCell()
         default:
             return UITableViewCell()

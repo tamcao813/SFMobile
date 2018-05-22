@@ -128,6 +128,50 @@ class StoreDispatcher {
         }
     }
     
+    
+    //sync down soups - contact and ACR are already synced up, and no need to sync down plists
+    func syncDownSoupsAfterSyncUpData(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
+        
+        let queue = DispatchQueue(label: "concurrent")
+        let group = DispatchGroup()
+        
+        group.enter()
+        syncDownAccount() { _ in
+            self.syncDownStrategyQA() { _ in
+            }
+            
+            self.syncDownStrategyQuestions() { _ in
+                self.syncDownStrategyAnswers() { _ in
+                    group.leave()
+                }
+            }
+        }
+        
+        group.enter()
+        syncDownUserDataForAccounts() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownNotes() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownVisits() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownActionItem() { _ in
+            group.leave()
+        }
+        
+        group.notify(queue: queue) {
+            completion(nil)
+        }
+    }
+    
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {
         let query = "SELECT id FROM RecordType where DeveloperName = 'customer' and isActive = true and SobjectType = 'Contact'"
         

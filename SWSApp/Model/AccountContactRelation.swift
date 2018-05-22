@@ -9,14 +9,15 @@
 import Foundation
 
 class AccountContactRelation {
-    static let AccountContactRelationFields: [String] = ["Id", "SGWS_Account__c", "SGWS_Contact__c", "Name", "SGWS_Account_Site_Number__c", "SGWS_Other_Specification__c", "SGWS_IsActive__c", "SGWS_Buying_Power__c", "SGWS_Roles__c", "SGWS_Contact_Classification__c"] //Roles and SGWS_Contact_Classification__c are plists, put them at the end and handle them in registerACRsoup
+    static let AccountContactRelationFields: [String] = ["Id", "SGWS_Account__c", "SGWS_Contact__c", "Name", //"SGWS_Account_Site_Number__c",
+        "SGWS_Other_Specification__c", "SGWS_IsActive__c", "SGWS_Buying_Power__c", "SGWS_Roles__c", "SGWS_Contact_Classification__c"] //Roles and SGWS_Contact_Classification__c are plists, put them at the end and handle them in registerACRsoup
     
     var acrId:String
     //var accountName: String
     var accountId: String
     var contactId: String
     var contactName: String
-    var sgwsSiteNumber: String
+    //var sgwsSiteNumber: String
     var isActive: Int
     var buyingPower: Int
     var roles: String
@@ -34,7 +35,7 @@ class AccountContactRelation {
         accountId = json["SGWS_Account__c"] as? String ?? ""
         contactId = json["SGWS_Contact__c"] as? String ?? ""
         contactName = json["Name"] as? String ?? ""
-        sgwsSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
+        //sgwsSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
         roles = json["SGWS_Roles__c"] as? String ?? ""
         isActive = json["SGWS_IsActive__c"] as? Int ?? 0
         buyingPower = json["SGWS_Buying_Power__c"] as? Int ?? 0
@@ -50,7 +51,7 @@ class AccountContactRelation {
         accountId = ""
         contactId = ""
         contactName = ""
-        sgwsSiteNumber = ""
+        //sgwsSiteNumber = ""
         isActive = 1
         buyingPower = 1
         contactClassification = ""
@@ -73,11 +74,10 @@ class AccountContactRelation {
         if contactId.count > 0 { //must have
             json["SGWS_Contact__c"] = contactId
         }
-        /*
+        
         if contactName.count > 0 {
             json["Name"] = contactName
         }
-        */
         
         json["SGWS_Other_Specification__c"] = otherSpecification
         

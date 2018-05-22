@@ -119,7 +119,6 @@ class LinkAccountToContactViewController: UIViewController {
         accContactRelation?.isActive = 0
         unlinkButton.isSelected = true
         unlinkButton.isEnabled = false
-        //unlinkButton.titleLabel?.text = "Account Unlinked"
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
@@ -202,8 +201,12 @@ class LinkAccountToContactViewController: UIViewController {
                 self.delegate?.updateContact()
             })
         } else {
+            var meg = "Failed to link the new account."
+            if isInEditMode {
+                meg = "Failed to update the account."
+            }
             let alertController = UIAlertController(title: "Alert", message:
-                "Unable to update the link", preferredStyle: UIAlertControllerStyle.alert)
+                meg, preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
@@ -300,9 +303,12 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
                 cell?.setBuyingPower(value: doesHaveBuyingPower)
                 
                 if let acr = accContactRelation {
-                    if isFirstTimeLoaded {
+                    if isFirstTimeLoaded && !doesHaveBuyingPower {
                         cell?.classificationTextField.text = acr.contactClassification
-                        cell?.otherTextField.text = acr.otherSpecification
+                        if acr.contactClassification == "Other" {
+                            cell?.otherTextField.text = acr.otherSpecification
+                            cell?.otherTextField.isHidden = false
+                        }
                     }
                 }
                 

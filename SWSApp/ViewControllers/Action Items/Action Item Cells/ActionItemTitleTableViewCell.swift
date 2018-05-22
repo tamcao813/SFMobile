@@ -11,7 +11,7 @@ import UIKit
 class ActionItemTitleTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var actionTitleTextField: UITextField!
-    @IBOutlet weak var actionHeaderLabel: UILabel!
+    var actionItemObject: ActionItem?
     override func awakeFromNib() {
         super.awakeFromNib()
         customizedUI()

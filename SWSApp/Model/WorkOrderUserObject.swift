@@ -14,7 +14,7 @@ class WorkOrderUserObject {
     
     //["Id","Subject","AccountId","Account.Name","Account.AccountNumber","Account.BillingAddress","ContactId","Contact.Name","Contact.Phone","Contact.Email","Contact.SGWS_Roles__c","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","SGWS_WorkOrder_Location__c ","RecordTypeId"]
     
-    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c","AccountId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","_soupEntryId"]
+    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c","AccountId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c"]
     
     var Id : String
     var subject : String
@@ -30,7 +30,7 @@ class WorkOrderUserObject {
     var shippingState: String
     var shippingStreet: String
     
-    var sgwsAppointmentStatus : String
+    var sgwsAppointmentStatus : Bool
     var startDate : String
     var endDate : String
     var sgwsVisitPurpose : String
@@ -51,7 +51,7 @@ class WorkOrderUserObject {
     var soupEntryId: Int
     var location :String
 
-
+    var sgwsAlldayEvent :Bool
     
     
     
@@ -74,7 +74,7 @@ class WorkOrderUserObject {
         shippingState = json["Account.ShippingState"] as? String ?? ""
         shippingStreet = json["Account.ShippingStreet"] as? String ?? ""
         
-        sgwsAppointmentStatus = json["SGWS_Appointment_Status__c"] as? String ?? ""
+        sgwsAppointmentStatus = json["SGWS_Appointment_Status__c"] as? Bool ?? false
         startDate = json["StartDate"] as? String ?? ""
         endDate = json["EndDate"] as? String ?? ""
         sgwsVisitPurpose = json["SGWS_Visit_Purpose__c"] as? String ?? ""
@@ -97,6 +97,7 @@ class WorkOrderUserObject {
 
         soupEntryId = json["_soupEntryId"] as? Int ?? 0
         location = json["SGWS_WorkOrder_Location__c"] as? String ?? ""
+        sgwsAlldayEvent = json["SGWS_All_Day_Event__c"] as? Bool ?? false
 
     }
     
@@ -113,7 +114,7 @@ class WorkOrderUserObject {
         shippingPostalCode = ""
         shippingState = ""
         shippingStreet = ""
-        sgwsAppointmentStatus = ""
+        sgwsAppointmentStatus = false
         startDate = ""
         endDate = ""
         sgwsVisitPurpose = ""
@@ -131,6 +132,7 @@ class WorkOrderUserObject {
         phone = ""
         soupEntryId = 0
         location = ""
+        sgwsAlldayEvent=false
         
     }
 }

@@ -261,7 +261,11 @@ class CreateNewVisitViewController: UIViewController {
             new_visit.status = "Planned"
         }
         
-        new_visit.recordTypeId = StoreDispatcher.shared.workOrderTypeEvent
+        new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+        new_visit.sgwsAppointmentStatus = true
+      //  new_visit.sgwsAlldayEvent = true
+        //TBD location to be set , what is enetered in UI
+        new_visit.location = ""
         
         let attributeDict = ["type":"WorkOrder"]
         let addNewDict: [String:Any] = [
@@ -279,6 +283,11 @@ class CreateNewVisitViewController: UIViewController {
             PlanVisit.planVisitFields[9]: new_visit.status,
             PlanVisit.planVisitFields[11]: new_visit.contactId,
             PlanVisit.planVisitFields[12]:new_visit.recordTypeId,
+            PlanVisit.planVisitFields[3]:new_visit.sgwsAppointmentStatus,
+           PlanVisit.planVisitFields[14]:new_visit.location,
+            //PlanVisit.planVisitFields[15]:new_visit.sgwsAlldayEvent,
+
+            
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,

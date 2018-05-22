@@ -1220,7 +1220,7 @@ class StoreDispatcher {
     
     func syncDownVisits(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "select Id,Subject,SGWS_WorkOrder_Location__c, AccountId,Account.Name,Account.AccountNumber,Account.BillingAddress,ContactId, Contact.Name,Contact.Phone,Contact.Email,Contact.SGWS_Roles__c,SGWS_Appointment_Status__c, StartDate,EndDate, SGWS_Visit_Purpose__c, Description, SGWS_Agenda_Notes__c,Status,SGWS_AppModified_DateTime__c,RecordTypeId from WorkOrder"
+        let soqlQuery = "select Id,Subject,SGWS_WorkOrder_Location__c, AccountId,ContactId,SGWS_Appointment_Status__c, StartDate,EndDate, SGWS_Visit_Purpose__c, Description, SGWS_Agenda_Notes__c,Status,SGWS_AppModified_DateTime__c,RecordTypeId,SGWS_All_Day_Event__c from WorkOrder"
         
         print("soql visit query is \(soqlQuery)")
         
@@ -1331,95 +1331,8 @@ class StoreDispatcher {
         
         let workOrderUserObj = fetchWorkOrderUserObjectObject()
         
-        var visit: [Visit] = []
-        
-//        let syncConfigArray = fetchSyncConfiguration()
-//
-//        var recordtypeIdVisit = ""
-//
-//        for scArray in syncConfigArray {
-//
-//            if(scArray.developerName == workOrderTypeEvent){
-//                recordtypeIdVisit = scArray.id
-//                break
-//            }
-//        }
-        
-        let soapQuery = "Select * FROM {WorkOrder} WHERE {WorkOrder:RecordTypeId} = '\(workOrderRecordTypeIdVisit)'"
-        
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-        print("Result of visits is \(result)")
-        if (error == nil && result.count > 0) {
-            for i in 0...result.count - 1 {
-                
-                let modifResult = result[i] as! [Any]
-                let item = modifResult[1]
-                let subItem = item as! [String:Any]
-                
-                let flag = subItem["__locally_deleted__"] as! Bool
-                // if deleted skip
-                if(flag){
-                    continue
-                }
-                
-                var newarr = [Any]()
-                
-                newarr.append(modifResult[4])
-                newarr.append(modifResult[5])
-                newarr.append(modifResult[6])
-                newarr.append(modifResult[7])
-                newarr.append(modifResult[8])
-                newarr.append(modifResult[9])
-                newarr.append(modifResult[10])
-                newarr.append(modifResult[11])
-                newarr.append(modifResult[12])
-                newarr.append(modifResult[13])
-                newarr.append(modifResult[14])
-                newarr.append(modifResult[15])
-                newarr.append(modifResult[16])
-                newarr.append(modifResult[17])
-                newarr.append(modifResult[18])
-                newarr.append(modifResult[19])
-                newarr.append(modifResult[20])
-                newarr.append(modifResult[21])
-                newarr.append(modifResult[22])
-                newarr.append(modifResult[23])
-                newarr.append(modifResult[24])
-                
-                let ary:[Any] = result[i] as! [Any]
-                let visitArray = Visit(withAry: newarr)
-                visit.append(visitArray)
-                print("Visit array \(ary)")
-            }
-        }
-        else if error != nil {
-            print("fetch visit  " + " error:" + (error?.localizedDescription)!)
-        }
         return workOrderUserObj
-        ////
-//        var visit: [Visit] = []
-//        let visitFields = Visit.VisitsFields.map{"{WorkOrder:\($0)}"}
-//        let soapQuery = "Select \(visitFields.joined(separator: ",")) FROM {WorkOrder}"
-//        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
-//        
-//        var error : NSError?
-//        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-//        print("Result of visits is \(result)")
-//        if (error == nil && result.count > 0) {
-//            for i in 0...result.count - 1 {
-//                let ary:[Any] = result[i] as! [Any]
-//                let visitArray = Visit(withAry: ary)
-//                visit.append(visitArray)
-//                print("notes array \(ary)")
-//            }
-//        }
-//        else if error != nil {
-//            print("fetch account notes  " + " error:" + (error?.localizedDescription)!)
-//        }
-//        return visit
+
     }
     
     
@@ -1803,7 +1716,7 @@ class StoreDispatcher {
     func syncUpNotes(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
         
         let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
-        
+                
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupAccountNotes)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
@@ -2575,7 +2488,7 @@ class StoreDispatcher {
                 singleVisitModif["ContactId"] = allFields["ContactId"]
                 singleVisitModif["SGWS_AppModified_DateTime__c"] = allFields["SGWS_AppModified_DateTime__c"]
                 singleVisitModif["SGWS_WorkOrder_Location__c"] = allFields["SGWS_WorkOrder_Location__c"]
-                singleVisitModif["RecordTypeId"] = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+                singleVisitModif["RecordTypeId"] = allFields["RecordTypeId"]
                 
                 if(createdFlag){
                     singleVisitModif[kSyncTargetLocal] = true
@@ -2714,21 +2627,9 @@ class StoreDispatcher {
     
     func fetchWorkOrderUserObjectObject()->[WorkOrderUserObject]{
         
-        //["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId"]
-        
-        //"AccountId","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet"
-        
-        //"Id", "Name", "FirstName", "LastName", "Phone","Email"
-        
         var accVisitEventArray:[WorkOrderUserObject] = []
         
-        //let soqlQuery = "SELECT {WorkOrder:Id},{WorkOrder:Subject},{AccountTeamMember:AccountId},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{SGWS_Response__c:SGWS_AppModified_DateTime__c},{Contact:Id},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone} from {WorkOrder} INNER JOIN {AccountTeamMember} where {WorkOrder:AccountId} = {AccountTeamMember:Id} INNER JOIN {Contact} where {WorkOrder:ContactId} = {Contact:Id}"
-        
-      //  let soqlQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:AccountId},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Id},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:AccountId},{WorkOrder:ContactId},{User:Id},{User:User.Name},A.{AccountTeamMember:Account.Name} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id}"
-        //SGWS_WorkOrder_Location__c
-        let soqlQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id}"
-        
-        //["Id","Subject","AccountId","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","RecordTypeId"]
+        let soqlQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id}"
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         

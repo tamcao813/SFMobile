@@ -8,9 +8,12 @@
 
 import UIKit
 
-class ActionItemTitleTableViewCell: UITableViewCell, UITextFieldDelegate {
+class ActionItemTitleTableViewCell: UITableViewCell {
 
     @IBOutlet weak var actionTitleTextField: UITextField!
+    @IBOutlet weak var actionHeaderLabel: UITextField!
+    
+    
     var actionItemObject: ActionItem?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +24,9 @@ class ActionItemTitleTableViewCell: UITableViewCell, UITextFieldDelegate {
         actionTitleTextField.delegate = self
         actionTitleTextField.addPaddingLeft(10)
     }
+}
+
+extension ActionItemTitleTableViewCell: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.tag == 0{
@@ -28,12 +34,6 @@ class ActionItemTitleTableViewCell: UITableViewCell, UITextFieldDelegate {
         }else if textField.tag == 6{
             CreateNewEventViewControllerGlobals.location = textField.text!
         }
-        
-    }
-}
-
-extension ActionItemTitleTableViewCell: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
         actionItemObject?.subject = textField.text!
     }
     

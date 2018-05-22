@@ -78,9 +78,8 @@ class ContactsViewModel{
     //sync up ACR then sync down
     func syncACRwithServer(_ completion:@escaping (_ error: NSError?)->()) {
         let fields: [String] = AccountContactRelation.AccountContactRelationFields
-        let fieldsNoContactId = fields.filter{ return $0 != "SGWS_Contact__c"}
         
-        StoreDispatcher.shared.syncUpACR(fieldsToUpload: fieldsNoContactId, completion: {error in
+        StoreDispatcher.shared.syncUpACR(fieldsToUpload: fields, completion: {error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("syncACRwithServer: ACR Sync up failed")

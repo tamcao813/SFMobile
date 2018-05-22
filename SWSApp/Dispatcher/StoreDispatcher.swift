@@ -2444,51 +2444,55 @@ class StoreDispatcher {
         
         let entryArray = sfaStore.retrieveEntries([soupEntryId!] , fromSoup: SoupVisit)
         
-        let entry = entryArray[0]
-        var soupEntry = entry as! [String:Any]
-        
-        let createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
-        
-        if(createdFlag){
-            soupEntry[kSyncTargetLocal] = true
-            soupEntry[kSyncTargetLocallyUpdated] = false
-            soupEntry[kSyncTargetLocallyCreated] = true
+        if(entryArray.count > 0){
             
-        }else {
-            soupEntry[kSyncTargetLocal] = true
-            soupEntry[kSyncTargetLocallyCreated] = false
-            soupEntry[kSyncTargetLocallyUpdated] = true
+            let entry = entryArray[0]
+            var soupEntry = entry as! [String:Any]
             
+            let createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
+            
+            if(createdFlag){
+                soupEntry[kSyncTargetLocal] = true
+                soupEntry[kSyncTargetLocallyUpdated] = false
+                soupEntry[kSyncTargetLocallyCreated] = true
+                
+            }else {
+                soupEntry[kSyncTargetLocal] = true
+                soupEntry[kSyncTargetLocallyCreated] = false
+                soupEntry[kSyncTargetLocallyUpdated] = true
+                
+            }
+            soupEntry["Id"] = allFields["Id"]
+            soupEntry["Subject"] = allFields["Subject"]
+            soupEntry["AccountId"] = allFields["AccountId"]
+            soupEntry["SGWS_Appointment_Status__c"] = allFields["SGWS_Appointment_Status__c"]
+            soupEntry["StartDate"] = allFields["StartDate"]
+            soupEntry["EndDate"] = allFields["EndDate"]
+            soupEntry["SGWS_Visit_Purpose__c"] = allFields["SGWS_Visit_Purpose__c"]
+            soupEntry["Description"] = allFields["Description"]
+            soupEntry["SGWS_Agenda_Notes__c"] = allFields["SGWS_Agenda_Notes__c"]
+            soupEntry["Status"] = allFields["Status"]
+            soupEntry["ContactId"] = allFields["ContactId"]
+            soupEntry["SGWS_AppModified_DateTime__c"] = allFields["SGWS_AppModified_DateTime__c"]
+            soupEntry["SGWS_WorkOrder_Location__c"] = allFields["SGWS_WorkOrder_Location__c"]
+            soupEntry["RecordTypeId"] = allFields["RecordTypeId"]
+            
+            soupEntry[kSyncTargetLocallyDeleted] = false
+            
+            ary = sfaStore.upsertEntries([soupEntry], toSoup: SoupVisit)
+            
+            if ary.count > 0 {
+                var result = ary[0] as! [String:Any]
+                let soupEntryId = result["_soupEntryId"]
+                print(result)
+                print(soupEntryId!)
+                return true
+            }
+            else {
+                return false
+            }
         }
-        soupEntry["Id"] = allFields["Id"]
-        soupEntry["Subject"] = allFields["Subject"]
-        soupEntry["AccountId"] = allFields["AccountId"]
-        soupEntry["SGWS_Appointment_Status__c"] = allFields["SGWS_Appointment_Status__c"]
-        soupEntry["StartDate"] = allFields["StartDate"]
-        soupEntry["EndDate"] = allFields["EndDate"]
-        soupEntry["SGWS_Visit_Purpose__c"] = allFields["SGWS_Visit_Purpose__c"]
-        soupEntry["Description"] = allFields["Description"]
-        soupEntry["SGWS_Agenda_Notes__c"] = allFields["SGWS_Agenda_Notes__c"]
-        soupEntry["Status"] = allFields["Status"]
-        soupEntry["ContactId"] = allFields["ContactId"]
-        soupEntry["SGWS_AppModified_DateTime__c"] = allFields["SGWS_AppModified_DateTime__c"]
-        soupEntry["SGWS_WorkOrder_Location__c"] = allFields["SGWS_WorkOrder_Location__c"]
-        soupEntry["RecordTypeId"] = allFields["RecordTypeId"]
-        
-        soupEntry[kSyncTargetLocallyDeleted] = false
-        
-        ary = sfaStore.upsertEntries([soupEntry], toSoup: SoupVisit)
-        
-        if ary.count > 0 {
-            var result = ary[0] as! [String:Any]
-            let soupEntryId = result["_soupEntryId"]
-            print(result)
-            print(soupEntryId!)
-            return true
-        }
-        else {
-            return false
-        }
+        return false
     }
     
     func fetchAllSurveyIdsForAccoount(accountId:String)->[String]{
@@ -2613,7 +2617,7 @@ class StoreDispatcher {
                 
                 let soupData = result[i] as! [Any]
                 
-                let entryArry = sfaStore.retrieveEntries([soupData[26]], fromSoup: SoupActionItem)
+                let entryArry = sfaStore.retrieveEntries([soupData[26]], fromSoup: SoupVisit)
                 
                 let item = entryArry[0]
                 let subItem = item as! [String:Any]

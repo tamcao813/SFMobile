@@ -13,6 +13,7 @@ class DescriptionTableViewCell: UITableViewCell {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
     var contactDetail: Contact?
+    var actionItemObject: ActionItem?
     
     
     override func awakeFromNib() {
@@ -42,6 +43,10 @@ extension DescriptionTableViewCell: UITextViewDelegate {
             contactDetail?.favouriteActivities = descriptionTextView.text!
         }else{
             contactDetail?.sgwsNotes = descriptionTextView.text!
+        }
+        
+        if let actionItem = actionItemObject {
+            actionItemObject?.description = textView.text
         }
     }
     

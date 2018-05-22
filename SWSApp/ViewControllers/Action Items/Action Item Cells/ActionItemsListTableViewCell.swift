@@ -19,29 +19,47 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
     @IBOutlet weak var accountAddressLabel: UILabel!
     @IBOutlet weak var urgentImageViewWidthConstarint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelLeadingConstraints: NSLayoutConstraint!
+    @IBOutlet weak var accountViewHeightConstraint: NSLayoutConstraint!
     
     func displayCellContent(actionItem: ActionItem){
         actionItemTitleLabel.text = actionItem.subject
-        dueDateLabel.text = actionItem.activityDate
+        dueDateLabel.text = DateTimeUtility.getDDMMYYYDateStringInAction(dateStringfromAccountObject: actionItem.activityDate) //actionItem.activityDate
         actionItemStatusLabel.text = actionItem.status
-        if actionItem.isUrgent == "1" {
+        if actionItem.isUrgent {
             urgentImageViewWidthConstarint.constant = 20
             titleLabelLeadingConstraints.constant = 10
         }else{
             urgentImageViewWidthConstarint.constant = 0
             titleLabelLeadingConstraints.constant = 0
         }
-//        fetchAccountDetails(actionItem: actionItem)
+        if ActionItemFilterModel.fromAccount{
+            accountViewHeightConstraint.constant = 0
+        }else{
+            accountViewHeightConstraint.constant = 80
+            fetchAccountDetails(actionItem: actionItem)
+        }
     }
     
-//    func fetchAccountDetails(actionItem: ActionItem){
-//        let accountsArray = AccountsViewModel().accountsForLoggedUser
-//        for account in accountsArray{
-//            if account.account_Id == actionItem.accountId {
-//                accountNameLabel.text = account.accountName
-//                accountNumberLabel.text = account.accountNumber
-//                break
-//            }
-//        }
-//    }
+    func fetchAccountDetails(actionItem: ActionItem?){
+        accountNameLabel.text = actionItem?.accountName
+        accountNumberLabel.text = actionItem?.accountNumber
+        var fullAddress = ""
+        if let shippingStreet = actionItem?.shippingStreet, let shippingCity = actionItem?.shippingCity , let shippingState = actionItem?.shippingState, let shippingPostalCode = actionItem?.shippingPostalCode{
+            
+            if shippingStreet == "" && shippingCity == "" && shippingState == "" && shippingPostalCode == "" {
+                fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+            }else{
+                if (shippingStreet != "" || shippingCity != "") {
+                    if (shippingState != "" || shippingPostalCode != "") {
+                        fullAddress = "\(shippingStreet) \(shippingCity), \(shippingState) \(shippingPostalCode)"
+                    }else{
+                        fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                    }
+                }else{
+                    fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                }
+            }
+        }
+        accountAddressLabel?.text = fullAddress
+    }
 }

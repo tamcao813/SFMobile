@@ -492,8 +492,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.containerLeadingConstraint.constant = 40
             cell?.delegate = self
             if let account = accountSelected {
-                cell?.displayCellContent(account: account)
-                
+                cell?.displayCellContent(account: account)                
             }
             return cell!
         case 2:
@@ -816,6 +815,7 @@ extension CreateNewContactViewController: ToggleTableViewCellDelegate {
 
 extension CreateNewContactViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
+        createNewGlobals.userInput = true
         accountSelected = account
         tableView.reloadData()
     }
@@ -823,6 +823,7 @@ extension CreateNewContactViewController: SearchAccountTableViewCellDelegate {
 
 extension CreateNewContactViewController: AccountContactLinkTableViewCellDelegate {
     func removeAccount() {
+        createNewGlobals.userInput = true
         accountSelected = nil
         tableView.reloadData()
     }

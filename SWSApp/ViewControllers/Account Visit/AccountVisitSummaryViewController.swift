@@ -241,6 +241,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let attributeDict = ["type":"WorkOrder"]
             let visitNoteDict: [String:Any] = [
                 Visit.VisitsFields[0]: self.visitObject!.Id,
+                Visit.VisitsFields[14]:self.visitObject?.soupEntryId,
                 kSyncTargetLocal:true,
                 kSyncTargetLocallyCreated:false,
                 kSyncTargetLocallyUpdated:false,

@@ -36,6 +36,8 @@ class StoreDispatcher {
     let workOrderTypeVisit = "SGWS_WorkOrder_Visit"
     let workOrderTypeEvent = "SGWS_WorkOrder_Event"
     
+    let recordTypeDevTask = "SGWS_Task"
+    
     var workOrderRecordTypeIdVisit = ""
     var workOrderRecordTypeIdEvent = ""
     
@@ -2417,30 +2419,7 @@ class StoreDispatcher {
     
     func deleteVisitsLocally(fieldsToUpload: [String:Any]) -> Bool{
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupVisit, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
-        
-        var editedVisit = [String: Any]()
-        
-        for  singleVisit in result{
-            var singleVisitModif = singleVisit as! [String:Any]
-            let singleVisitModifValue = singleVisitModif["Id"] as! String
-            let fieldsIdValue = fieldsToUpload["Id"] as! String
-            
-            if(fieldsIdValue == singleVisitModifValue){
-                
-                singleVisitModif["__local__"] = true
-                
-                singleVisitModif["__locally_deleted__"] = true
-                
-                editedVisit = singleVisitModif
-                break
-            }
-        }
-        
-        let ary = sfaStore.upsertEntries([editedVisit], toSoup: SoupVisit)
+        let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupVisit)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
@@ -2461,58 +2440,50 @@ class StoreDispatcher {
         allFields[kSyncTargetLocal] = true
         var ary = [Any]()
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupVisit, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let soupEntryId = allFields["_soupEntryId"]
         
-        var error : NSError?
-        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        let entryArray = sfaStore.retrieveEntries([soupEntryId!] , fromSoup: SoupVisit)
         
-        for  singleVisit in result{
-            var singleVisitModif = singleVisit as! [String:Any]
-            let singleVisitModifValue = singleVisitModif["Id"] as! String
-            let fieldsIdValue = allFields["Id"] as! String
+        let entry = entryArray[0]
+        var soupEntry = entry as! [String:Any]
+        
+        let createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
+        
+        if(createdFlag){
+            soupEntry[kSyncTargetLocal] = true
+            soupEntry[kSyncTargetLocallyUpdated] = false
+            soupEntry[kSyncTargetLocallyCreated] = true
             
-            if(fieldsIdValue == singleVisitModifValue){
-                
-                let createdFlag = singleVisitModif[kSyncTargetLocallyCreated] as! Bool
-                
-                singleVisitModif["Id"] = allFields["Id"]
-                singleVisitModif["Subject"] = allFields["Subject"]
-                singleVisitModif["AccountId"] = allFields["AccountId"]
-                singleVisitModif["SGWS_Appointment_Status__c"] = allFields["SGWS_Appointment_Status__c"]
-                singleVisitModif["StartDate"] = allFields["StartDate"]
-                singleVisitModif["EndDate"] = allFields["EndDate"]
-                singleVisitModif["SGWS_Visit_Purpose__c"] = allFields["SGWS_Visit_Purpose__c"]
-                singleVisitModif["Description"] = allFields["Description"]
-                singleVisitModif["SGWS_Agenda_Notes__c"] = allFields["SGWS_Agenda_Notes__c"]
-                singleVisitModif["Status"] = allFields["Status"]
-                singleVisitModif["ContactId"] = allFields["ContactId"]
-                singleVisitModif["SGWS_AppModified_DateTime__c"] = allFields["SGWS_AppModified_DateTime__c"]
-                singleVisitModif["SGWS_WorkOrder_Location__c"] = allFields["SGWS_WorkOrder_Location__c"]
-                singleVisitModif["RecordTypeId"] = allFields["RecordTypeId"]
-                
-                if(createdFlag){
-                    singleVisitModif[kSyncTargetLocal] = true
-                    singleVisitModif[kSyncTargetLocallyUpdated] = false
-                    singleVisitModif[kSyncTargetLocallyCreated] = true
-                    
-                }else {
-                    singleVisitModif[kSyncTargetLocal] = true
-                    singleVisitModif[kSyncTargetLocallyCreated] = false
-                    singleVisitModif[kSyncTargetLocallyUpdated] = true
-                    
-                }
-                singleVisitModif[kSyncTargetLocallyDeleted] = false
-                ary = sfaStore.upsertEntries([singleVisitModif], toSoup: SoupVisit)
-                break
-                
-            }
+        }else {
+            soupEntry[kSyncTargetLocal] = true
+            soupEntry[kSyncTargetLocallyCreated] = false
+            soupEntry[kSyncTargetLocallyUpdated] = true
+            
         }
+        soupEntry["Id"] = allFields["Id"]
+        soupEntry["Subject"] = allFields["Subject"]
+        soupEntry["AccountId"] = allFields["AccountId"]
+        soupEntry["SGWS_Appointment_Status__c"] = allFields["SGWS_Appointment_Status__c"]
+        soupEntry["StartDate"] = allFields["StartDate"]
+        soupEntry["EndDate"] = allFields["EndDate"]
+        soupEntry["SGWS_Visit_Purpose__c"] = allFields["SGWS_Visit_Purpose__c"]
+        soupEntry["Description"] = allFields["Description"]
+        soupEntry["SGWS_Agenda_Notes__c"] = allFields["SGWS_Agenda_Notes__c"]
+        soupEntry["Status"] = allFields["Status"]
+        soupEntry["ContactId"] = allFields["ContactId"]
+        soupEntry["SGWS_AppModified_DateTime__c"] = allFields["SGWS_AppModified_DateTime__c"]
+        soupEntry["SGWS_WorkOrder_Location__c"] = allFields["SGWS_WorkOrder_Location__c"]
+        soupEntry["RecordTypeId"] = allFields["RecordTypeId"]
+        
+        soupEntry[kSyncTargetLocallyDeleted] = false
+        
+        ary = sfaStore.upsertEntries([soupEntry], toSoup: SoupVisit)
         
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
             print(result)
-            print(soupEntryId!)            
+            print(soupEntryId!)
             return true
         }
         else {
@@ -2570,7 +2541,7 @@ class StoreDispatcher {
     
     func syncDownSyncConfiguration(_ completion:@escaping (_ error: NSError?)->()){
         
-        let soqlQuery = "SELECT Id,DeveloperName FROM RecordType WHERE DeveloperName = '\(workOrderTypeVisit)' OR DeveloperName = '\(workOrderTypeEvent)'"
+        let soqlQuery = "SELECT Id,DeveloperName FROM RecordType WHERE DeveloperName = '\(workOrderTypeVisit)' OR DeveloperName = '\(workOrderTypeEvent)' OR DeveloperName = '\(recordTypeDevTask)'"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -2639,6 +2610,21 @@ class StoreDispatcher {
         
         if result.count > 0 {
             for i in 0...result.count - 1 {
+                
+                let soupData = result[i] as! [Any]
+                
+                let entryArry = sfaStore.retrieveEntries([soupData[26]], fromSoup: SoupActionItem)
+                
+                let item = entryArry[0]
+                let subItem = item as! [String:Any]
+                
+                let flag = subItem["__locally_deleted__"] as! Bool
+                // if deleted skip
+                if(flag){
+                    continue
+                }
+
+                
                 let ary:[Any] = result[i] as! [Any]
                 let accountVisitEvent = WorkOrderUserObject(withAry: ary)
                 accVisitEventArray.append(accountVisitEvent)

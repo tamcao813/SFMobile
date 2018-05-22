@@ -28,9 +28,10 @@ class VisitSchedulerViewModel {
     
     func deleteVisitLocally(fields: [String:Any]) -> Bool {
         if StoreDispatcher.shared.deleteVisitsLocally(fieldsToUpload:fields){
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+            return true
         }
-        return StoreDispatcher.shared.deleteVisitsLocally(fieldsToUpload:fields)
+        return false
     }
     
     

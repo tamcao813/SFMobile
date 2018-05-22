@@ -13,8 +13,24 @@ class ActionItemsListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     var actionItemsArray = [ActionItem]()
+    var filteredActionItemsArray = [ActionItem]()
+    var titleAscendingSort = false
+    var dueDateAscendingSort = false
+    var statusAscendingSort = false
+    @IBOutlet weak var actionItemButtonContainerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        DispatchQueue.main.async {
+            if ActionItemFilterModel.fromAccount{
+                self.actionItemButtonContainerViewHeight.constant = 0
+                self.tableViewBottomConstraint.constant = 0
+            }else{
+                self.actionItemButtonContainerViewHeight.constant = 40
+                self.tableViewBottomConstraint.constant = 63
+            }
+        }
         fetchActionItemsFromDB()
         customizedUI()
     }
@@ -22,7 +38,18 @@ class ActionItemsListViewController: UIViewController {
     func fetchActionItemsFromDB(){
         actionItemsArray = [ActionItem]()
         actionItemsArray = AccountsActionItemViewModel().getAcctionItemForUser()
-        tableView.reloadData()
+        actionItemsArray = actionItemsArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        if ActionItemFilterModel.fromAccount{
+            if let accountId = ActionItemFilterModel.accountId {
+                actionItemsArray = actionItemsArray.filter( { return $0.accountId.contains(accountId)
+                } )
+            }
+        }
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation({() -> Void in
+                self.tableView.reloadData()
+            })
+        }
     }
     
     func customizedUI(){
@@ -38,68 +65,139 @@ class ActionItemsListViewController: UIViewController {
     
     @IBAction func newActionItemButtonTapped(_ sender: UIButton){
         DispatchQueue.main.async {
-            let createVisitViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
-            createVisitViewController.isEditingMode = false
-            self.present(createVisitViewController, animated: true)
+            let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
+            createActionItemViewController.isEditingMode = false
+            createActionItemViewController.delegate = self
+            self.present(createActionItemViewController, animated: true)
+        }
+    }
+    
+    @IBAction func titleSortPressed(_ sender: UIButton){
+        if titleAscendingSort {
+            actionItemsArray = actionItemsArray.sorted(by: { $0.subject < $1.subject })
+            titleAscendingSort = false
+        }else{
+            actionItemsArray = actionItemsArray.sorted(by: { $0.subject > $1.subject })
+            titleAscendingSort = true
+        }
+        reloadTableView()
+    }
+    
+    @IBAction func dueDateSortPressed(_ sender: UIButton){
+        if dueDateAscendingSort{
+            actionItemsArray = actionItemsArray.sorted(by: { $0.activityDate < $1.activityDate })
+            dueDateAscendingSort = false
+        }else{
+            actionItemsArray = actionItemsArray.sorted(by: { $0.activityDate > $1.activityDate })
+            dueDateAscendingSort = true
+        }
+        reloadTableView()
+    }
+    
+    @IBAction func statusSortPressed(_ sender: UIButton){
+        if statusAscendingSort{
+            actionItemsArray = actionItemsArray.sorted(by: { $0.status < $1.status })
+            statusAscendingSort = false
+        }else{
+            actionItemsArray = actionItemsArray.sorted(by: { $0.status > $1.status })
+            statusAscendingSort = true
+        }
+        reloadTableView()
+    }
+    
+    func reloadTableView(){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
     
 }
 
+//MARK:- ActionItemSearchButtonTapped Delegate
+extension ActionItemsListViewController : ActionItemSearchButtonTappedDelegate{
+    func performFilterOperation(searchText: UISearchBar) {
+        ActionItemFilterModel.filterApplied = true
+        //Perform Search Operation First then do Filtering
+        if searchText.text != ""{
+            filteredActionItemsArray =  ActionItemSortUtility().searchAndFilter(searchStr: searchText.text!, actionItems: actionItemsArray)
+        }else{
+            filteredActionItemsArray = ActionItemSortUtility().filterOnly(actionItems: actionItemsArray)
+        }
+        reloadTableView()
+    }
+    
+    func clearFilter(){
+        ActionItemFilterModel.filterApplied = false
+        reloadTableView()
+    }
+}
+
 //MARK:- TableView Delegate, DataSource Methods
 extension ActionItemsListViewController : UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 170
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return actionItemsArray.count
+        if ActionItemFilterModel.filterApplied{
+            return filteredActionItemsArray.count
+        }else{
+            return actionItemsArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemsListTableViewCell") as? ActionItemsListTableViewCell
-        cell?.delegate = self
-        cell?.displayCellContent(actionItem: actionItemsArray[indexPath.row])
+        if ActionItemFilterModel.filterApplied{
+            cell?.displayCellContent(actionItem: filteredActionItemsArray[indexPath.row])
+        }else{
+            cell?.displayCellContent(actionItem: actionItemsArray[indexPath.row])
+        }
+       // cell?.delegate =  self
         return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             let detailViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"ActionItemDetailsViewController") as! ActionItemDetailsViewController
-            detailViewController.actionItemObject = self.actionItemsArray[indexPath.row]
+            if ActionItemFilterModel.filterApplied{
+                detailViewController.actionItemId = self.filteredActionItemsArray[indexPath.row].Id
+            }else{
+                detailViewController.actionItemId = self.actionItemsArray[indexPath.row].Id
+            }
+            detailViewController.delegate = self
             self.present(detailViewController, animated: true)
-        }
-        
+        }        
     }
 }
-
+/*
 //MARK:- Swipe Evenyt Delegate Methods
 extension ActionItemsListViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
-        
+     
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
             self.tableView.beginUpdates()
             self.actionItemsArray.remove(at: indexPath.row)
             self.tableView.endUpdates()
         }
         deleteAction.hidesWhenSelected = true
-//        deleteAction.image = UIImage(named: "delete")
+        deleteAction.image = UIImage(named: "delete")
         deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
-        
+     
         let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
             DispatchQueue.main.async {
                 let createVisitViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
                 createVisitViewController.isEditingMode = true
                 createVisitViewController.actionItemObject = self.actionItemsArray[indexPath.row]
                 self.present(createVisitViewController, animated: true)
-            }            
+            }
         }
         editAction.hidesWhenSelected = true
-//        editAction.image = UIImage(named: "delete")
+        editAction.image = UIImage(named: "delete")
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
-        
+     
         var statusText = ""
         var statusImage = UIImage()
         switch actionItemsArray[indexPath.row].status {
@@ -115,9 +213,9 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
         let changeStatus = SwipeAction(style: .default, title: statusText) { action, indexPath in
         }
         changeStatus.hidesWhenSelected = true
-//        changeStatus.image = statusImage
+        changeStatus.image = statusImage
         changeStatus.backgroundColor = UIColor(named:"InitialsBackground")
-        
+     
         return [deleteAction,editAction,changeStatus]
     }
     
@@ -127,4 +225,22 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
         options.transitionStyle = .border
         return options
     }
+}*/
+
+extension ActionItemsListViewController: CreateNewActionItemViewControllerDelegate {
+    func updateActionDesc() {
+        
+    }
+    
+    func updateActionList() {
+        fetchActionItemsFromDB()
+    }
 }
+
+extension ActionItemsListViewController: ActionItemDetailsViewControllerDelegate {
+    func updateList(){
+        fetchActionItemsFromDB()
+    }
+}
+
+

@@ -8,17 +8,20 @@
 
 import UIKit
 
+
 class IsItUrgentTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var isUrgentSwitch: UISwitch!
+    @IBOutlet weak var  switchValueLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    @IBAction func switchValueChanged(_ sender: Any) {
+        if isUrgentSwitch.isOn {
+            switchValueLabel.text = "Yes"
+        }else{
+            switchValueLabel.text = "No"
+        }
+    }
 }

@@ -205,6 +205,7 @@ class CreateNewActionItemViewController: UIViewController {
         let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
         if success {
             self.delegate?.updateActionList()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             self.dismiss(animated: true, completion: nil)
         }
     }

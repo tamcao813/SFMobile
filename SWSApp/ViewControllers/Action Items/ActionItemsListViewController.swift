@@ -22,6 +22,7 @@ class ActionItemsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshActionItemList), name: NSNotification.Name("refreshActionItemList"), object: nil)
         DispatchQueue.main.async {
             if ActionItemFilterModel.fromAccount{
                 self.actionItemButtonContainerViewHeight.constant = 0
@@ -31,6 +32,11 @@ class ActionItemsListViewController: UIViewController {
                 self.tableViewBottomConstraint.constant = 63
             }
         }
+        fetchActionItemsFromDB()
+        customizedUI()
+    }
+    
+    @objc func refreshActionItemList(){
         fetchActionItemsFromDB()
         customizedUI()
     }
@@ -45,11 +51,7 @@ class ActionItemsListViewController: UIViewController {
                 } )
             }
         }
-        DispatchQueue.main.async {
-            UIView.performWithoutAnimation({() -> Void in
-                self.tableView.reloadData()
-            })
-        }
+        reloadTableView()
     }
     
     func customizedUI(){

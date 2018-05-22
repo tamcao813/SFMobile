@@ -108,29 +108,39 @@ class ActionItemSortUtility {
         var isCompleteArray = [ActionItem]()
         var isOpenArray = [ActionItem]()
         var isOverdueArray = [ActionItem]()
+        var filterAdded = false
         if ActionItemFilterModel.isComplete == "YES"{
             isCompleteArray = actionItems.filter( { return $0.status.lowercased().contains("comp") } )
+            filterAdded = true
         }
         
         if ActionItemFilterModel.isOpen == "YES"{
             isOpenArray = actionItems.filter( { return $0.status.lowercased().contains("open") } )
+            filterAdded = true
         }
         
         if ActionItemFilterModel.isOverdue == "YES"{
             isOverdueArray = actionItems.filter( { return $0.status.lowercased().contains("overdue") } )
+            filterAdded = true
+        }
+        if filterAdded {
+            return isCompleteArray + isOpenArray + isOverdueArray
+        }else{
+            return actionItems
         }
         
-        return isCompleteArray + isOpenArray + isOverdueArray
     }
     
     func filterOnUrgentBasis(actionItems: [ActionItem]) -> [ActionItem]{
         var urgentArray = [ActionItem]()
         var notUrgentArray = [ActionItem]()
+        var filterAdded = false
         
         if ActionItemFilterModel.isUrgent == "YES"{
             for actionItem in actionItems{
                 if actionItem.isUrgent {
                     urgentArray.append(actionItem)
+                    filterAdded = true
                 }
             }
         }
@@ -139,21 +149,27 @@ class ActionItemSortUtility {
             for actionItem in actionItems{
                 if !actionItem.isUrgent {
                     notUrgentArray.append(actionItem)
+                    filterAdded = true
                 }
             }
         }
-        
-        return urgentArray + notUrgentArray
+        if filterAdded {
+            return urgentArray + notUrgentArray
+        }else{
+            return actionItems
+        }
     }
     
     func filterOnDueDateBasis(actionItems: [ActionItem]) -> [ActionItem]{
         var dueYes = [ActionItem]()
         var dueNo = [ActionItem]()
+        var filterAdded = false
         
         if ActionItemFilterModel.dueYes == "YES"{
             for action in actionItems {
                 if action.activityDate != ""{
                     dueYes.append(action)
+                    filterAdded = true
                 }
             }
         }
@@ -162,11 +178,15 @@ class ActionItemSortUtility {
             for action in actionItems {
                 if action.activityDate == ""{
                     dueNo.append(action)
+                    filterAdded = true
                 }
             }
         }
-        
-        return dueYes + dueNo
+        if filterAdded {
+            return dueYes + dueNo
+        }else{
+            return actionItems
+        }
     }
     
 }

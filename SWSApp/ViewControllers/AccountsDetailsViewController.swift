@@ -145,7 +145,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                 vc.selectedAccount = self.accountDetailForLoggedInUser
                 
                 //As we are creating a new Visit Make the Shared instance Nil
-//                PlanVisitManager.sharedInstance.visit = nil
+                PlanVistManager.sharedInstance.visit = nil
                 
                 self.present(vc, animated: true, completion: nil)
                 
@@ -156,7 +156,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                     let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
                     createActionItemViewController.isEditingMode = false
                     createActionItemViewController.selectedAccount = self.accountDetailForLoggedInUser
-                    //                    createActionItemViewController.delegate = self
+                    createActionItemViewController.delegate = self
                     self.present(createActionItemViewController, animated: true)
                 }
             case 3:
@@ -378,6 +378,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             ActionItemFilterModel.accountId = accountDetailForLoggedInUser?.account_Id
             ActionItemFilterModel.fromAccount = true
             activeViewController = actionItemContainerVC
+//            actionItemContainerVC.
         case 6:
             btnNotes?.backgroundColor = UIColor.white
             btnNotes?.setTitleColor(UIColor.black, for: .normal)
@@ -391,6 +392,19 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             break
         }
     }
+}
+
+extension AccountDetailsViewController : CreateNewActionItemViewControllerDelegate {
+    func updateActionList(){
+        let button = UIButton()
+        button.tag = 5
+        self.itemsClicked(sender: button)
+    }
+    
+    func updateActionDesc(){
+        
+    }
+    
 }
 
 

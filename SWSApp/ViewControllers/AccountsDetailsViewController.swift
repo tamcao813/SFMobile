@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 //import DropDown
+import IQKeyboardManagerSwift
 
 struct AccountId {
     static var selectedAccountId = ""
@@ -199,10 +200,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         containerView?.isHidden = true
-        
-        
-        
-        
+        IQKeyboardManager.shared.enable = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

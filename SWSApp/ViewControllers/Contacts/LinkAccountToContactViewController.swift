@@ -101,9 +101,9 @@ class LinkAccountToContactViewController: UIViewController {
         self.tableView.register(UINib(nibName: "PrimaryFunctionTableViewCell", bundle: nil), forCellReuseIdentifier: "PrimaryFunctionTableViewCell")
     }
     
-    @IBAction func unlinkAccount(_ sender: Any) {
-        if unlinkButton.isSelected {
-            unlinkButton.isSelected = true
+    @IBAction func unlinkAccount(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.titleLabel?.text = "Account Unlinked"
             return
         }
         
@@ -112,13 +112,14 @@ class LinkAccountToContactViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
             
-            unlinkButton.isSelected = false
+            sender.isSelected = false
             return
         }
         
+        sender.titleLabel?.text = "Account Unlinked"
         accContactRelation?.isActive = 0
-        unlinkButton.isSelected = true
-        unlinkButton.isEnabled = false
+        sender.isSelected = true
+        sender.isEnabled = false
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
@@ -348,7 +349,7 @@ extension LinkAccountToContactViewController: ToggleTableViewCellDelegate {
 
 extension LinkAccountToContactViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
-        /* //
+        
         if !isInEditMode && account.account_Id == contactObject?.accountId {
         
             let alertController = UIAlertController(title: "This account is already linked.", message:
@@ -357,7 +358,7 @@ extension LinkAccountToContactViewController: SearchAccountTableViewCellDelegate
             self.present(alertController, animated: true, completion: nil)
             return
         }
-        */
+        
         accountSelected = account
         tableView.reloadData()
     }

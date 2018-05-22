@@ -79,6 +79,7 @@ class ContactClassificationTableViewCell: UITableViewCell {
                 otherTextField.isHidden = false
             }else{
                 otherTextField.isHidden = true
+                otherTextField.text = ""
             }
         }
     }

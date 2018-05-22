@@ -12,6 +12,7 @@ import IQKeyboardManagerSwift
 
 protocol SearchAccountTableViewCellDelegate: NSObjectProtocol {
     func accountSelected(account: Account)
+    func scrollTableView()
 }
 
 class SearchAccountTableViewCell: UITableViewCell {
@@ -76,9 +77,11 @@ class SearchAccountTableViewCell: UITableViewCell {
 extension SearchAccountTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate.scrollTableView()
         accountsDropDown.show()
         CreateNewVisitViewController.createNewVisitViewControllerGlobals.userInput = true
-        CreateNewContactViewController.createNewGlobals.userInput = true        
+        CreateNewContactViewController.createNewGlobals.userInput = true
+    
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -477,6 +477,10 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
 }
 
 extension CreateNewVisitViewController: SearchAccountTableViewCellDelegate {
+    func scrollTableView() {
+        
+    }
+    
     func accountSelected(account : Account) {
         createNewVisitViewControllerGlobals.userInput = true
         selectedAccount = account

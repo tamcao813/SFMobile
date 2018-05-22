@@ -52,6 +52,9 @@
                                 <real key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="9YC-sr-env"/>
+                        </connections>
                     </textField>
                 </subviews>
                 <constraints>

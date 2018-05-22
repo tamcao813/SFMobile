@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActionItemTitleTableViewCell: UITableViewCell {
+class ActionItemTitleTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var actionTitleTextField: UITextField!
     @IBOutlet weak var actionHeaderLabel: UILabel!
@@ -19,5 +19,14 @@ class ActionItemTitleTableViewCell: UITableViewCell {
     
     func customizedUI(){
         actionTitleTextField.addPaddingLeft(10)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.tag == 0{
+            CreateNewEventViewControllerGlobals.eventTitle = textField.text!
+        }else if textField.tag == 6{
+            CreateNewEventViewControllerGlobals.location = textField.text!
+        }
+        
     }
 }

@@ -815,6 +815,10 @@ extension CreateNewContactViewController: ToggleTableViewCellDelegate {
 }
 
 extension CreateNewContactViewController: SearchAccountTableViewCellDelegate {
+    func scrollTableView() {
+        
+    }
+    
     func accountSelected(account : Account) {
         accountSelected = account
         tableView.reloadData()

@@ -246,6 +246,10 @@ extension LinkAccountToContactViewController: ToggleTableViewCellDelegate {
 }
 
 extension LinkAccountToContactViewController: SearchAccountTableViewCellDelegate {
+    func scrollTableView() {
+        
+    }
+    
     func accountSelected(account : Account) {
         /* //
         if !isInEditMode && account.account_Id == contactObject?.accountId {

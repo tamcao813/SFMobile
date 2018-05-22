@@ -175,6 +175,10 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
 }
 
 extension CreateNewActionItemViewController: SearchAccountTableViewCellDelegate {
+    func scrollTableView() {
+        
+    }
+    
     func accountSelected(account : Account) {
         selectedAccount = account
         DispatchQueue.main.async {

@@ -34,7 +34,13 @@ class DescriptionTableViewCell: UITableViewCell {
 
 extension DescriptionTableViewCell: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.tag == 1 {
+        
+        if textView.tag == 500{
+            
+            CreateNewEventViewControllerGlobals.description = textView.text!
+            
+            
+        }else if textView.tag == 1 {
             contactDetail?.likes = descriptionTextView.text!
         }else if textView.tag == 2 {
             contactDetail?.dislikes = descriptionTextView.text!

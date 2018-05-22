@@ -8,9 +8,20 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SmartSync
 
 struct CreateNewEventViewControllerGlobals {
     static var userInput = false
+    
+    static var eventTitle = ""
+    static var startDate = ""
+    static var endDate = ""
+    static var startTime = ""
+    static var endTime = ""
+    static var allDayEventSelected = false
+    static var location = ""
+    static var description = ""
+    
 }
 
 class CreateNewEventViewController: UIViewController {
@@ -18,7 +29,12 @@ class CreateNewEventViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeaderLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
+    
     var eventTitleTextField: UITextField!
+    var startDateTextField: UITextField!
+    var endDateTextField : UITextField!
+    var startTimeTextField : UITextField!
+    var endTimeTextField : UITextField!
     var searchAccountTextField: UITextField!
     var searchContactTextField: UITextField!
     var eventDescriptionTextView: UITextView!
@@ -26,14 +42,30 @@ class CreateNewEventViewController: UIViewController {
     var accountsDropdown: DropDown!
     var contactsDropdown: DropDown!
     var isEditingMode = false
+    
     var selectedAccount: Account!
     var selectedContact: Contact!
+    var eventWorkOrderObject: WorkOrderUserObject!
+    
+    var visitViewModel = VisitSchedulerViewModel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
         initializeNibs()
         IQKeyboardManager.shared.enable = true
+        self.clearModelForNewEntry()
+    }
+    
+    func clearModelForNewEntry(){
+        CreateNewEventViewControllerGlobals.eventTitle = ""
+        CreateNewEventViewControllerGlobals.startDate = ""
+        CreateNewEventViewControllerGlobals.endDate = ""
+        CreateNewEventViewControllerGlobals.startTime = ""
+        CreateNewEventViewControllerGlobals.endTime = ""
+        CreateNewEventViewControllerGlobals.location = ""
+        CreateNewEventViewControllerGlobals.description = ""
     }
     
     func customizedUI(){
@@ -82,12 +114,12 @@ class CreateNewEventViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIButton){
         if allFieldsAreValidated() {
-            createNewEvent()
+            //createNewEvent()
         }
     }
     
     func allFieldsAreValidated() -> Bool{
-        if ((eventTitleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) != nil){
+        if ((eventTitleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == ""){
             eventTitleTextField.borderColor = .red
             eventTitleTextField.becomeFirstResponder()
             errorLabel.text = StringConstants.emptyFieldError
@@ -97,17 +129,195 @@ class CreateNewEventViewController: UIViewController {
         
         if selectedAccount != nil{
             searchAccountTextField.borderColor = .red
-//            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return false
         }
+        
+        if CreateNewEventViewControllerGlobals.startDate == ""{
+            
+            //DispatchQueue.main.async {
+                self.startDateTextField.borderColor = .red
+                self.errorLabel.text = StringConstants.emptyFieldError
+            //}
+            
+            return false
+        }
+        
+        if CreateNewEventViewControllerGlobals.startTime == ""{
+            startTimeTextField.borderColor = .red
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        
+        if CreateNewEventViewControllerGlobals.endDate == ""{
+            endDateTextField.borderColor = .red
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        
+        if CreateNewEventViewControllerGlobals.endTime == ""{
+            endTimeTextField.borderColor = .red
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        
         return true
     }
     
-    func createNewEvent(){
-//        var newContact = Contact(for: "NewContact")
+    func getDate(stringDate: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        var date = dateFormatter.date(from: stringDate)
+        if date == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            date = dateFormatter.date(from: stringDate)
+        }
+        if date != nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: date!)
+        }
+        return ""
     }
     
+    func getTime(stringDate: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        var date = dateFormatter.date(from: stringDate)
+        if date == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            date = dateFormatter.date(from: stringDate)
+        }
+        if date != nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+            dateFormatter.timeZone = TimeZone.current
+            let localTimeZoneString = dateFormatter.string(from: date!)
+            date = dateFormatter.date(from: localTimeZoneString)
+        }
+        
+        if date != nil {
+            //Use lowercase hh:mm to show time in 12 hrs format
+            dateFormatter.dateFormat = "hh:mm a"
+            dateFormatter.amSymbol = "AM"
+            dateFormatter.pmSymbol = "PM"
+            return dateFormatter.string(from: date!)
+        }
+        return ""
+    }
+    
+
+    func createNewEvent(){
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        PlanVisitManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
+
+        let new_Event = PlanVisit(for: "newEvent")
+
+        //Get Current date and time
+        let date = Date()
+        print(date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+
+        //added the last modified App date and time
+        new_Event.lastModifiedDate = timeStamp
+
+        let localId = AlertUtilities.generateRandomIDForNewEntry()
+        
+        new_Event.Id = localId//self.generateRandomIDForVisit()
+        new_Event.accountId = selectedAccount.account_Id
+        if let contact = selectedContact {
+            new_Event.contactId = contact.contactId
+        }else{
+            new_Event.contactId = ""
+        }
+        new_Event.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
+        new_Event.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
+
+        new_Event.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdEvent
+        
+        new_Event.subject = CreateNewEventViewControllerGlobals.eventTitle
+        
+        new_Event.description = CreateNewEventViewControllerGlobals.description
+        
+        new_Event.location = CreateNewEventViewControllerGlobals.location
+        new_Event.sgwsAlldayEvent = CreateNewEventViewControllerGlobals.allDayEventSelected
+ 
+        let attributeDict = ["type":"WorkOrder"]
+        let addNewDict: [String:Any] = [
+
+            PlanVisit.planVisitFields[0]    : new_Event.Id,
+            PlanVisit.planVisitFields[10]   : new_Event.lastModifiedDate,
+            PlanVisit.planVisitFields[2]    : new_Event.accountId,
+            PlanVisit.planVisitFields[4]    : new_Event.startDate,
+            PlanVisit.planVisitFields[1]    : new_Event.subject,
+            PlanVisit.planVisitFields[5]    : new_Event.endDate,
+            PlanVisit.planVisitFields[7]    : new_Event.description,
+            PlanVisit.planVisitFields[11]   : new_Event.contactId,
+            PlanVisit.planVisitFields[12]   : new_Event.recordTypeId,
+            PlanVisit.planVisitFields[14]   : new_Event.location,
+            PlanVisit.planVisitFields[15]   : new_Event.sgwsAlldayEvent,
+
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+
+        //let (success,Id) = visitViewModel.createNewVisitLocally(fields: addNewDict)
+        let (success,_) = visitViewModel.createNewVisitLocally(fields: addNewDict)
+
+        if(success){
+            let event = WorkOrderUserObject(for: "")
+            //Add the soup entry Id
+            event.Id = new_Event.Id//String((success,Id).1)
+            event.accountId = new_Event.accountId
+            event.contactId = new_Event.contactId
+            event.startDate = new_Event.startDate
+            event.endDate = new_Event.endDate
+            event.description = new_Event.description
+            event.lastModifiedDate = new_Event.lastModifiedDate
+            event.recordTypeId = new_Event.recordTypeId
+            event.subject = new_Event.subject
+            event.location = new_Event.location
+            event.sgwsAlldayEvent = new_Event.sgwsAlldayEvent
+
+            PlanVisitManager.sharedInstance.visit = event
+        }
+
+        if(success){
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+            
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true)
+                }
+//            else{
+//                let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+//                let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
+//                DispatchQueue.main.async {
+//                    self.present(viewController, animated: true)
+//                }
+//            }
+        }
+    }
+    
+    func getDataTimeinStr(date:String, time: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+        var string = date + "T" + time
+        if let dateFromString = dateFormatter.date(from: string) {
+            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter.timeZone = TimeZone(identifier:"UTC")
+            string = dateFormatter.string(from: dateFromString)
+        }
+        return string
+    }
 }
 
 
@@ -146,6 +356,8 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:            
@@ -153,10 +365,29 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             eventTitleTextField = cell?.actionTitleTextField
             cell?.actionHeaderLabel.text = "Title*"
             cell?.actionTitleTextField.placeholder = "Enter Title"
+            cell?.actionTitleTextField.tag = indexPath.section
+            
+            if let eventObject = eventWorkOrderObject{
+                //Need to change it to Title
+                cell?.actionTitleTextField.text = eventObject.description
+            }
+            
             return cell!
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "EventStartEndDateTableViewCell") as? EventStartEndDateTableViewCell
-            return cell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EventStartEndDateTableViewCell") as! EventStartEndDateTableViewCell
+            startDateTextField = cell.eventStartDateTextField!
+            endDateTextField = cell.eventEndDateTextField!
+            startTimeTextField = cell.eventStartTimeTextField!
+            endTimeTextField = cell.eventEndTimeTextField!
+            
+            if let eventObject = eventWorkOrderObject{
+                cell.eventStartDateTextField.text = self.getDate(stringDate: eventObject.startDate)
+                cell.eventEndDateTextField.text = self.getDate(stringDate: eventObject.endDate)
+               //cell?.eventStartTimeTextField.text = self.getDate(stringDate: eventObject.)
+               //cell?.eventEndTimeTextField.text = self.getDate(stringDate: eventObject.)
+                
+            }
+            return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
             searchAccountTextField = cell?.searchContactTextField
@@ -190,6 +421,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             locationTextField = cell?.actionTitleTextField
             cell?.actionHeaderLabel.text = "Location"
             cell?.actionTitleTextField.placeholder = "Enter Location"
+            cell?.actionTitleTextField.tag = indexPath.section
             return cell!
         case 7:
             return getEventDescriptionCell()
@@ -202,11 +434,25 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
         cell?.headerLabel.text = "Event Description"
         eventDescriptionTextView = cell?.descriptionTextView
+        cell?.descriptionTextView.tag = 500
+        
+        
+        if let eventObject = eventWorkOrderObject{
+            
+            cell?.descriptionTextView.text = eventObject.description
+        }
+        
         return cell!
+        
     }
 }
 
 extension CreateNewEventViewController: SearchAccountTableViewCellDelegate {
+    func scrollTableView() {
+        
+    
+    }
+    
     func accountSelected(account : Account) {
         CreateNewEventViewControllerGlobals.userInput = true
         selectedAccount = account

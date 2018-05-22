@@ -360,6 +360,18 @@
 		91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
 		91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
 		91FC593D20AD49FA001660C3 /* VisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FDA1472099D924000921A8 /* VisitsViewModel.swift */; };
+		AE1FAA8820B4588A005B44EC /* EventDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAA8420B45888005B44EC /* EventDescriptionTableViewCell.swift */; };
+		AE1FAA8920B4588A005B44EC /* EventDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAA8420B45888005B44EC /* EventDescriptionTableViewCell.swift */; };
+		AE1FAA8A20B4588A005B44EC /* EventDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1FAA8520B45888005B44EC /* EventDescriptionTableViewCell.xib */; };
+		AE1FAA8B20B4588A005B44EC /* EventDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1FAA8520B45888005B44EC /* EventDescriptionTableViewCell.xib */; };
+		AE1FAA8C20B4588A005B44EC /* EventLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1FAA8620B45889005B44EC /* EventLocationTableViewCell.xib */; };
+		AE1FAA8D20B4588A005B44EC /* EventLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1FAA8620B45889005B44EC /* EventLocationTableViewCell.xib */; };
+		AE1FAA8E20B4588A005B44EC /* EventLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAA8720B4588A005B44EC /* EventLocationTableViewCell.swift */; };
+		AE1FAA8F20B4588A005B44EC /* EventLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAA8720B4588A005B44EC /* EventLocationTableViewCell.swift */; };
+		AE1FAA9120B45897005B44EC /* AccountEventSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAA9020B45896005B44EC /* AccountEventSummaryViewController.swift */; };
+		AE1FAA9220B45897005B44EC /* AccountEventSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAA9020B45896005B44EC /* AccountEventSummaryViewController.swift */; };
+		AE1FAA9420B458A7005B44EC /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE1FAA9320B458A6005B44EC /* Event.storyboard */; };
+		AE1FAA9520B458A7005B44EC /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE1FAA9320B458A6005B44EC /* Event.storyboard */; };
 		AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
 		AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
 		AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
@@ -703,6 +715,12 @@
 		91FAEF3620A57DD500209D71 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		91FAEF3820A57DD500209D71 /* WRWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRWeekView.swift; sourceTree = "<group>"; };
 		A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE1FAA8420B45888005B44EC /* EventDescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		AE1FAA8520B45888005B44EC /* EventDescriptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventDescriptionTableViewCell.xib; sourceTree = "<group>"; };
+		AE1FAA8620B45889005B44EC /* EventLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventLocationTableViewCell.xib; sourceTree = "<group>"; };
+		AE1FAA8720B4588A005B44EC /* EventLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLocationTableViewCell.swift; sourceTree = "<group>"; };
+		AE1FAA9020B45896005B44EC /* AccountEventSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEventSummaryViewController.swift; sourceTree = "<group>"; };
+		AE1FAA9320B458A6005B44EC /* Event.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Event.storyboard; sourceTree = "<group>"; };
 		AE2564B72091B1460056B559 /* ServicePurposesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicePurposesViewController.swift; sourceTree = "<group>"; };
 		AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectOpportunitiesViewController.swift; sourceTree = "<group>"; };
 		AE2564BD2091B1C00056B559 /* AssociateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssociateTableViewCell.xib; sourceTree = "<group>"; };
@@ -909,6 +927,10 @@
 				91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */,
 				91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */,
 				91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */,
+				AE1FAA8420B45888005B44EC /* EventDescriptionTableViewCell.swift */,
+				AE1FAA8520B45888005B44EC /* EventDescriptionTableViewCell.xib */,
+				AE1FAA8720B4588A005B44EC /* EventLocationTableViewCell.swift */,
+				AE1FAA8620B45889005B44EC /* EventLocationTableViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -1360,6 +1382,7 @@
 				C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */,
 				F2CAD22C20957C23001016C2 /* OpportunitiesViewController.swift */,
 				AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */,
+				AE1FAA9020B45896005B44EC /* AccountEventSummaryViewController.swift */,
 				F2CAD22F20957E51001016C2 /* Strategy */,
 				F2CAD23020957E91001016C2 /* DuringVisit */,
 				F2AB94542095CBA90028802E /* AlertUtility.swift */,
@@ -1657,6 +1680,7 @@
 				D23C409F208DCF610006691C /* AccountVisit.storyboard in Resources */,
 				8DA1343920A070EC006A62DE /* ButtonTableViewCell.xib in Resources */,
 				D26768922090B42E0060E792 /* NewContact.storyboard in Resources */,
+				AE1FAA8B20B4588A005B44EC /* EventDescriptionTableViewCell.xib in Resources */,
 				8D907C3720AEAC53004FC367 /* IsItUrgentTableViewCell.xib in Resources */,
 				8D99A31B2091FCAF00FAA71A /* DescriptionTableViewCell.xib in Resources */,
 				8D99A2F72091E70900FAA71A /* PrimaryFunctionTableViewCell.xib in Resources */,
@@ -1667,6 +1691,7 @@
 				8DD150022093307800858349 /* SelectedAssociateTableViewCell.xib in Resources */,
 				6D38327E20874026006805C6 /* Ubuntu-BoldItalic.ttf in Resources */,
 				6D38327F20874026006805C6 /* Ubuntu-Regular.ttf in Resources */,
+				AE1FAA8D20B4588A005B44EC /* EventLocationTableViewCell.xib in Resources */,
 				8D99A3212092501000FAA71A /* FamilyTableViewCell.xib in Resources */,
 				6D38328020874026006805C6 /* Ubuntu-Medium.ttf in Resources */,
 				4AE1195620A0AD740095BBA3 /* Info.plist in Resources */,
@@ -1729,6 +1754,7 @@
 				6D38329120874026006805C6 /* Assets.xcassets in Resources */,
 				6D38329220874026006805C6 /* CrimsonText-BoldItalic.ttf in Resources */,
 				91FAEF5820A57DD500209D71 /* WREventCell.xib in Resources */,
+				AE1FAA9520B458A7005B44EC /* Event.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1746,6 +1772,7 @@
 				8D907C3920AEAC71004FC367 /* ActionItem.storyboard in Resources */,
 				8D10B27A2099DF0E00C8A86C /* Contacts.storyboard in Resources */,
 				F2062E5E2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */,
+				AE1FAA8C20B4588A005B44EC /* EventLocationTableViewCell.xib in Resources */,
 				8DA1343820A070EC006A62DE /* ButtonTableViewCell.xib in Resources */,
 				91FAEF5520A57DD500209D71 /* WRRowHeader.xib in Resources */,
 				F2E8C4AC20B2DCE0005A152F /* EventStartEndDateTableViewCell.xib in Resources */,
@@ -1777,6 +1804,7 @@
 				8D907C2A20AEAC53004FC367 /* ActionItemsListTableViewCell.xib in Resources */,
 				6DBD031B2077B5EF0083419E /* Ubuntu-Italic.ttf in Resources */,
 				8D99A2E92091E63F00FAA71A /* ContactClassificationTableViewCell.xib in Resources */,
+				AE1FAA9420B458A7005B44EC /* Event.storyboard in Resources */,
 				D23C40D0208DE6590006691C /* AssociatedContactsTableViewCell.xib in Resources */,
 				91FAEF5720A57DD500209D71 /* WREventCell.xib in Resources */,
 				8D99A30E2091E77C00FAA71A /* DateFieldTableViewCell.xib in Resources */,
@@ -1791,6 +1819,7 @@
 				D23C409E208DCF610006691C /* AccountVisit.storyboard in Resources */,
 				8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */,
 				D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */,
+				AE1FAA8A20B4588A005B44EC /* EventDescriptionTableViewCell.xib in Resources */,
 				8DD1500B209330E200858349 /* AccountView.xib in Resources */,
 				8D907C3620AEAC53004FC367 /* IsItUrgentTableViewCell.xib in Resources */,
 				8D99A2F62091E70900FAA71A /* PrimaryFunctionTableViewCell.xib in Resources */,
@@ -1991,6 +2020,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		DCECF624DDAC93F7302237C9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F128C77A0859D84A433127D5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2004,6 +2048,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1815049E18BEF5937DEB387 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2090,7 +2149,9 @@
 				8D99A3012091E73F00FAA71A /* EmailTableViewCell.swift in Sources */,
 				91FAEF5C20A57DD500209D71 /* Constants.swift in Sources */,
 				AE43DD04209622EC005D8DD1 /* ServicePurposesViewController.swift in Sources */,
+				AE1FAA9220B45897005B44EC /* AccountEventSummaryViewController.swift in Sources */,
 				9187924220A55C2A009CB557 /* CalendarViewController.swift in Sources */,
+				AE1FAA8F20B4588A005B44EC /* EventLocationTableViewCell.swift in Sources */,
 				121468F520AD603A00942A00 /* DropDown+Appearance.swift in Sources */,
 				911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */,
 				6D38326020874026006805C6 /* Account.swift in Sources */,
@@ -2132,6 +2193,7 @@
 				6D38326C20874026006805C6 /* ObjectivesViewController.swift in Sources */,
 				129A699F2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */,
 				6D38326D20874026006805C6 /* Notification.swift in Sources */,
+				AE1FAA8920B4588A005B44EC /* EventDescriptionTableViewCell.swift in Sources */,
 				8D99A3242092D66C00FAA71A /* CustomPicker.swift in Sources */,
 				8D99A30D2091E77C00FAA71A /* DateFieldTableViewCell.swift in Sources */,
 				6D38326E20874026006805C6 /* ParentViewController.swift in Sources */,
@@ -2201,6 +2263,7 @@
 				8D907C1320AC40B4004FC367 /* LinkAccountToContactViewController.swift in Sources */,
 				D10483962068381A00A0343B /* Contact.swift in Sources */,
 				91C3E5A1208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */,
+				AE1FAA8E20B4588A005B44EC /* EventLocationTableViewCell.swift in Sources */,
 				D2E12D7520736E0C0005B982 /* ChatterViewController.swift in Sources */,
 				AE8F41EE20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */,
 				F259010B2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */,
@@ -2275,6 +2338,7 @@
 				91AA8ECD2095CCCC00787D83 /* ContactListAccountHeaderDetails.swift in Sources */,
 				8D907C2820AEAC53004FC367 /* ActionItemDescriptionTableViewCell.swift in Sources */,
 				D23C4090208DCF010006691C /* Extension.swift in Sources */,
+				AE1FAA9120B45897005B44EC /* AccountEventSummaryViewController.swift in Sources */,
 				AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */,
 				F2919DA020AEEBBA00267A60 /* AccountVisitEmbedViewController.swift in Sources */,
 				8D99A3122091E79C00FAA71A /* DropdownTableViewCell.swift in Sources */,
@@ -2322,6 +2386,7 @@
 				12E06C9920A0594C00A6C9E4 /* PlanVisitManager.swift in Sources */,
 				6F8BD3F12072297C006CABA8 /* MoreViewController.swift in Sources */,
 				91FAEF3F20A57DD500209D71 /* WRRowHeaderBackground.swift in Sources */,
+				AE1FAA8820B4588A005B44EC /* EventDescriptionTableViewCell.swift in Sources */,
 				8D99A2E02091E14700FAA71A /* ToggleTableViewCell.swift in Sources */,
 				91FAEF4120A57DD500209D71 /* WRRowHeader.swift in Sources */,
 				91FAEF4720A57DD500209D71 /* WRColumnHeaderBackground.swift in Sources */,

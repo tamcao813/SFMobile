@@ -41,4 +41,28 @@ class VisitsViewModel {
         
     }
     
+    func visitsForUserForDate(givenDate: Date) -> [WorkOrderUserObject] {
+        
+        var visitsForUserArray = visitsForUser()
+        
+        visitsForUserArray = visitsForUserArray.filter {
+            
+            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+                
+                let daysBetween = Date.daysBetween(start: startDate, end: givenDate, ignoreHours: true)
+                if daysBetween == 0 {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            return false
+            
+        }
+
+        return visitsForUserArray
+        
+    }
+    
 }

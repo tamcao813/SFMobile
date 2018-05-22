@@ -1,23 +1,16 @@
 //
-//  AccountVisitSummaryViewController.swift
-//  Acoount Visit
+//  AccountEventViewController.swift
+//  SWSApp
 //
-//  Created by maco on 19/04/18.
-//  Copyright © 2018 maco. All rights reserved.
+//  Created by vipin.vijay on 21/05/18.
+//  Copyright © 2018 maria.min-hui.yu. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import SmartSync
 
-protocol NavigateToContactsDelegate {
-    func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
-    func navigateToAccountScreen()
-}
-
-class AccountVisitSummaryViewController: UIViewController {
-    
-    var visitId: String?
-    var accountObject: Account?
+class AccountEventSummaryViewController: UIViewController {
     
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -29,12 +22,15 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    var selectedContact: Contact!
-    var visitObject: WorkOrderUserObject?
     
     var visitStatus: AccountVisitStatus?
     var delegate : NavigateToContactsDelegate?
-    
+    var visitId: String?
+    var accountObject: Account?
+    var selectedContact: Contact!
+    var visitObject: WorkOrderUserObject?
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
@@ -115,14 +111,12 @@ class AccountVisitSummaryViewController: UIViewController {
         }else if visitObject?.status == "Planned"{
             visitStatus = .planned
         }
-        statusLabel.text = visitObject?.status
         tableView.reloadData()
         let image = #imageLiteral(resourceName: "delete").withRenderingMode(.alwaysTemplate)
         deleteVisitButton.setImage(image, for: .normal)
         deleteVisitButton.tintColor = UIColor(hexString: "#4287C2")
-        deleteVisitButton.setTitle("    Delete Visit", for: .normal)
+        deleteVisitButton.setTitle("    Delete Event", for: .normal)
         self.getStartDateAndEndTime()
-        refactoringUIOnApplicationStatusBasis()
     }
     
     func getStartDateAndEndTime() {
@@ -149,7 +143,7 @@ class AccountVisitSummaryViewController: UIViewController {
         }
         var startTime = ""
         var endTime = ""
-       
+        
         guard let formattedStartDate = date else {
             //TODO: handle it in better way, Ideally formattedDate should never be null
             return
@@ -165,7 +159,7 @@ class AccountVisitSummaryViewController: UIViewController {
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         startTime = dateFormatter.string(from: formattedStartDate)
-    
+        
         guard let visitEndDateString = visitObject?.endDate else {
             //TODO: handle it in better way, Ideally visitObject.enddate should never be null
             return
@@ -203,35 +197,8 @@ class AccountVisitSummaryViewController: UIViewController {
         self.tableView.register(UINib(nibName: "AssociatedContactsTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociatedContactsTableViewCell")
         self.tableView.register(UINib(nibName: "UnorderedListTableViewCell", bundle: nil), forCellReuseIdentifier: "UnorderedListTableViewCell")
         self.tableView.register(UINib(nibName: "ButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ButtonTableViewCell")
-    }
-    
-    func refactoringUIOnApplicationStatusBasis(){
-        switch visitStatus {
-        case .scheduled?:
-            editVisitButtonHeightConstraint.constant = 40
-            startVisitButtonHeightConstraint.constant = 40
-            editVisitButton.setTitle("Edit Visit", for: .normal)
-            startVisitButton.setTitle("Start Visit", for: .normal)
-            deleteVisitButton.isHidden = false
-        case .inProgress?:
-            editVisitButtonHeightConstraint.constant = 0
-            startVisitButtonHeightConstraint.constant = 40
-            startVisitButton.setTitle("Continue Visit", for: .normal)
-            deleteVisitButton.isHidden = true
-        case .completed?:
-            editVisitButtonHeightConstraint.constant = 40
-            startVisitButtonHeightConstraint.constant = 0
-            editVisitButton.setTitle("Edit Notes", for: .normal)
-            deleteVisitButton.isHidden = true
-        case .planned?:
-            editVisitButtonHeightConstraint.constant = 40
-            startVisitButtonHeightConstraint.constant = 40
-            editVisitButton.setTitle("Edit Visit", for: .normal)
-            startVisitButton.setTitle("Start Visit", for: .normal)
-            deleteVisitButton.isHidden = false
-        default:
-            break
-        }
+        self.tableView.register(UINib(nibName: "EventDescriptionTableViewCell", bundle: nil), forCellReuseIdentifier: "EventDescriptionTableViewCell")
+        self.tableView.register(UINib(nibName: "EventLocationTableViewCell", bundle: nil), forCellReuseIdentifier: "EventLocationTableViewCell")
     }
     
     @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
@@ -241,7 +208,6 @@ class AccountVisitSummaryViewController: UIViewController {
             let attributeDict = ["type":"WorkOrder"]
             let visitNoteDict: [String:Any] = [
                 Visit.VisitsFields[0]: self.visitObject!.Id,
-                Visit.VisitsFields[14]:self.visitObject?.soupEntryId,
                 kSyncTargetLocal:true,
                 kSyncTargetLocallyCreated:false,
                 kSyncTargetLocallyUpdated:false,
@@ -249,20 +215,19 @@ class AccountVisitSummaryViewController: UIViewController {
                 "attributes":attributeDict]
             
             let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
-            
+
             if(success){
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
-                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+
                 self.dismiss(animated: true, completion: nil)
             }
-            
-            
         }) {
             
             print("Cancel")
         }
         
-
+        
         
     }
     
@@ -281,96 +246,35 @@ class AccountVisitSummaryViewController: UIViewController {
             let vc: SelectOpportunitiesViewController = storyboard.instantiateViewController(withIdentifier: "SelectOpportunitiesViewControllerID") as! SelectOpportunitiesViewController
             (vc as SelectOpportunitiesViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             self.present(vc, animated: true, completion: nil)
-
+            
         }
     }
     
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
-        switch visitStatus {
-        case .scheduled?:
-            PlanVisitManager.sharedInstance.editPlanVisit = true
-            let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
-            createVisitViewController.isEditingMode = false
-            createVisitViewController.visitId = visitObject?.Id
-            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
-            DispatchQueue.main.async {
-                self.present(createVisitViewController, animated: true)
-            }
-        case .inProgress?:
-            print("In progress")
-        case .completed?:
-            let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier :"EditAgendaNoteID") as? EditAgendaNoteViewController
-            viewController?.editNotesText = (self.visitObject?.description)!
-            viewController?.modalPresentationStyle = .overCurrentContext
-            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
-            self.present(viewController!, animated: true)
-        case .planned?:
-            PlanVisitManager.sharedInstance.editPlanVisit = true
-            let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
-            createVisitViewController.isEditingMode = false
-            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
-            createVisitViewController.visitId = visitObject?.Id
-            DispatchQueue.main.async {
-                self.present(createVisitViewController, animated: true)
-            }
-        default:
-            break
+
+        PlanVisitManager.sharedInstance.editPlanVisit = true
+        let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+        createVisitViewController.isEditingMode = false
+        PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+        PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+        createVisitViewController.visitId = visitObject?.Id
+        DispatchQueue.main.async {
+            self.present(createVisitViewController, animated: true)
+            print("planned")
         }
+
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
-    
+
 }
 
-//MARK:- NavigateToContacts Delegate
-extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDelegate , NavigateToAccountAccountVisitSummaryDelegate{
-    
-    func navigateToAccountVisitingScreen() {
-        DispatchQueue.main.async {
-        self.dismiss(animated: false, completion: nil)
-        }
-    }
-    
-    func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
-        DispatchQueue.main.async {
-            self.dismiss(animated: false, completion: nil)
-            self.delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
-        }
-        
-        
-    }
-    
-    func navigateToAccountVisitSummaryScreen() {
-        DispatchQueue.main.async {
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
-                self.dismiss(animated: true, completion: nil)                
-                self.delegate?.navigateToAccountScreen()
-            }){
-                
-            }
-        }        
-    }
-}
-
-
-extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDataSource {
+extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        switch visitStatus {
-        case .scheduled?:
-            return 2
-        case .inProgress?,.planned?,.completed?:
-            return 6
-        default:
-            return 0
-        }
+            return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -378,33 +282,23 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch visitStatus {
-        case .scheduled?:
             switch section {
             case 0:
-                return 50
+                return 30
             case 1:
-                return 0
-            default:
-                return 0
-            }
-        case .inProgress?,.planned?,.completed?:
-            switch section {
-            case 0:
-                return 50
-            case 1:
-                return 30            
+                return 30
+            case 2:
+                return 30
+            case 3:
+                return 30
             default:
                 return 0
             }
             return 5
-        default:
-            return 0
-        }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
+        return 10
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -415,84 +309,69 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UINib(nibName: "AccountVisitSectionHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? AccountVisitSectionHeaderView
-        if visitStatus == .scheduled {
-            headerView?.headerLabel.text = getHeaderValuesInScheduledState(section: section)
-        }else {
             headerView?.headerLabel.text = getHeaderValuesInProgress(section: section)
-        }
         return headerView
     }
     
-    func getHeaderValuesInScheduledState(section: Int) -> String{
-        var headerValue = ""
-        if section == 0 {
-            headerValue = "Location"
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        switch indexPath.section {
+        case 0:
+            return 100
+        case 1:
+            return 80
+        case 2:
+            return 100
+        case 3:
+            return 100
+        default:
+            return 0
         }
-        return headerValue
     }
     
     func getHeaderValuesInProgress(section: Int) -> String{
         var headerValue = ""
         if section == 0 {
-            headerValue = "Location"
+            headerValue = "Event Title"
         }else if section == 1 {
-            headerValue = "Associated Contacts"
+            headerValue = "Contact"
+        } else if section == 2 {
+            headerValue = "Location"
+        } else if section == 3 {
+            headerValue = "Account"
         }
         return headerValue
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch visitStatus {
-        case .scheduled?:
-            return getScheduledStateCell(section: indexPath.section)
-        case .inProgress?,.completed?,.planned?:
-            return getInprogressStateCell(section: indexPath.section)
-        default:
-            return UITableViewCell()
-        }
+        return getInprogressStateCell(section: indexPath.section)
     }
     
-    func getScheduledStateCell(section: Int) -> UITableViewCell{
-        switch section {
-        case 0:
-            return getLocationCell()
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
-            cell?.delegate = self
-            return cell!
-        default:
-            return UITableViewCell()
-        }
-    }
     
     func getInprogressStateCell(section: Int) -> UITableViewCell{
         switch section {
         case 0:
-            return getLocationCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EventDescriptionTableViewCell") as? EventDescriptionTableViewCell
+            let text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            let attributedString = NSMutableAttributedString(string:text)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 10
+            attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+            cell?.descLabel.attributedText = attributedString;
+            return cell!
         case 1:
             return getConatactCell()
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-            cell?.headingLabel.text = "Opportunities Selected"
-            cell?.SubheadingLabel.text = ""
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EventLocationTableViewCell") as? EventLocationTableViewCell
+            let text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            let attributedString = NSMutableAttributedString(string:text)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 5
+            attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+            cell?.label.attributedText = attributedString;
             return cell!
         case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-            cell?.headingLabel.text = "Service Purposes"
-            let str = visitObject?.sgwsVisitPurpose.replacingOccurrences(of: ";", with: "\n • ")
-            if !(str?.isEmpty)! {
-                cell?.SubheadingLabel.text = " • " + str!
-            } else { cell?.SubheadingLabel.text = ""}
-            return cell!
-        case 4:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-            cell?.headingLabel.text = "Agenda Notes"
-            cell?.SubheadingLabel.text = visitObject?.sgwsAgendaNotes
-            return cell!
-        case 5:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
-            cell?.delegate = self
-            return cell!
+            return getLocationCell()
         default:
             return UITableViewCell()
         }
@@ -515,13 +394,13 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             cell?.displayCellContent(contact: contactId)
         }else{
             cell?.containerHeightConstraint.constant = 0
-            cell?.containerView.isHidden = true            
+            cell?.containerView.isHidden = true
         }
         return cell!
     }
 }
 
-extension AccountVisitSummaryViewController: ButtonTableViewCellDelegate {
+extension AccountEventSummaryViewController: ButtonTableViewCellDelegate {
     func accountStrategyButtonTapped() {
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
@@ -536,14 +415,34 @@ extension AccountVisitSummaryViewController: ButtonTableViewCellDelegate {
     }
 }
 
-extension AccountVisitSummaryViewController : NavigateToVisitSummaryScreenDelegate{
-   
-    func navigateToVisitSummaryScreen() {
-        self.dismiss(animated: true, completion: nil)
+//MARK:- NavigateToContacts Delegate
+extension AccountEventSummaryViewController : NavigateToAccountVisitSummaryDelegate , NavigateToAccountAccountVisitSummaryDelegate{
+    
+    func navigateToAccountVisitingScreen() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: false, completion: nil)
+        }
+    }
+    
+    func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: false, completion: nil)
+            self.delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
+        }
+        
+        
+    }
+    
+    func navigateToAccountVisitSummaryScreen() {
+        DispatchQueue.main.async {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+//                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+                self.dismiss(animated: true, completion: nil)
+                self.delegate?.navigateToAccountScreen()
+            }){
+                
+            }
+        }
     }
 }
-
-
-
-
 

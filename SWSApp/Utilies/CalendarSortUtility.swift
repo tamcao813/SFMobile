@@ -45,6 +45,9 @@ class CalendarSortUtility {
         if enteredAnyFilterCaseReturn {
             filteredEvents = filteredByReturnArray
         }
+        else {
+            filteredEvents = [WREvent]()
+        }
 
         return filteredEvents
     }

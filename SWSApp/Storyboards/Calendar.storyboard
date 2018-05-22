@@ -87,13 +87,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZ1-it-dyx">
-                                                    <rect key="frame" x="15" y="3" width="37" height="26.5"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQD-DE-YaE">
-                                                    <rect key="frame" x="12" y="9" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCH-8j-5IB">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -323,6 +323,26 @@
                                                     <constraint firstItem="qku-YT-d44" firstAttribute="leading" secondItem="vT1-04-1yX" secondAttribute="trailing" id="y7G-qp-ZFb"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efV-Kv-2ri">
+                                                <rect key="frame" x="426" y="20" width="140" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="M7O-oJ-7La"/>
+                                                    <constraint firstAttribute="width" constant="140" id="iPd-lj-Dsc"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" title="Today ">
+                                                    <color key="titleColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="actionButtonToday:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="L4I-nM-zR4"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="znb-wP-d1T">
                                                 <rect key="frame" x="596" y="20" width="120" height="40"/>
                                                 <color key="backgroundColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -355,6 +375,8 @@
                                             <constraint firstAttribute="trailing" secondItem="znb-wP-d1T" secondAttribute="trailing" constant="20" id="dwk-5p-s7S"/>
                                             <constraint firstItem="znb-wP-d1T" firstAttribute="centerY" secondItem="dJH-p9-tWg" secondAttribute="centerY" id="iFf-RO-b9f"/>
                                             <constraint firstItem="TB3-K7-aAN" firstAttribute="centerY" secondItem="H2G-0Z-ko2" secondAttribute="centerY" id="nnc-H5-s84"/>
+                                            <constraint firstItem="znb-wP-d1T" firstAttribute="centerY" secondItem="efV-Kv-2ri" secondAttribute="centerY" id="r9C-oM-z3J"/>
+                                            <constraint firstItem="znb-wP-d1T" firstAttribute="leading" secondItem="efV-Kv-2ri" secondAttribute="trailing" constant="30" id="tz6-iD-5HI"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BKS-og-Bob" userLabel="Bottom View">
@@ -380,7 +402,7 @@
                                                     <action selector="actionButtonLeft:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="k9g-z1-VSq"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOc-2b-mba">
+                                            <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOc-2b-mba">
                                                 <rect key="frame" x="60" y="20" width="60" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>

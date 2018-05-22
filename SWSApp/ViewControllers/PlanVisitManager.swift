@@ -74,8 +74,6 @@ class PlanVisitManager {
         
         let addNewDict: [String:Any] = [
             
-//            ["Id","Subject","AccountId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","_soupEntryId"]
-//            ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","_soupEntryId"]
             PlanVisit.planVisitFields[0]: new_visit.Id,
             PlanVisit.planVisitFields[1]: new_visit.subject,
             PlanVisit.planVisitFields[2]: new_visit.accountId,
@@ -89,6 +87,7 @@ class PlanVisitManager {
             PlanVisit.planVisitFields[11]: new_visit.contactId,
             PlanVisit.planVisitFields[10]:new_visit.lastModifiedDate,
             PlanVisit.planVisitFields[12]:new_visit.recordTypeId,
+            PlanVisit.planVisitFields[13]:new_visit.soupEntryId,
             PlanVisit.planVisitFields[14]:new_visit.location,
             
             kSyncTargetLocal:true,

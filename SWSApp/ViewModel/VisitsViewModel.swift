@@ -41,7 +41,7 @@ class VisitsViewModel {
         
     }
     
-    func visitsForUserForDate(givenDate: Date) -> [Visit] {
+    func visitsForUserForDate(givenDate: Date) -> [WorkOrderUserObject] {
         
         var visitsForUserArray = visitsForUser()
         

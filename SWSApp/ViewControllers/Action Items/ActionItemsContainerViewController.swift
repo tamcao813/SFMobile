@@ -19,7 +19,7 @@ class ActionItemsContainerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        actionItemListVC?.refreshActionItemList()
         actionItemFilterVC?.delegate = actionItemListVC
     }
 

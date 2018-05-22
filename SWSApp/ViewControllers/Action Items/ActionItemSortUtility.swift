@@ -10,6 +10,12 @@ import Foundation
 
 class ActionItemSortUtility {
     var searchStarted = false
+    var wholeFilterAdded = false
+    var statusFilterAdded = false
+    var urgentFilterAdded = false
+    var dueFilterAdded = false
+    var filteredArray = [ActionItem]()
+    
     func searchAndFilter(searchStr: String,actionItems: [ActionItem]) -> [ActionItem]{
         let searchOnlyArray = searchOnly(searchStr: searchStr,actionItems: actionItems)
         searchStarted = true
@@ -25,105 +31,129 @@ class ActionItemSortUtility {
     }
     
     func filterOnly(actionItems: [ActionItem]) -> [ActionItem]{
-//        var filteredArray = [ActionItem]()
-        var filterAdded = false
-        var uniqueFilteredArray = [ActionItem]()
+        var filteredArray = [ActionItem]()
         let filteredStatusArray = filterOnStatusBasis(actionItems: actionItems)
         let filteredUrgentArray = filterOnUrgentBasis(actionItems: actionItems)
         let filteredDueDateArray = filterOnDueDateBasis(actionItems: actionItems)
         
-        if filteredStatusArray.count > 0 && filteredUrgentArray.count > 0 && filteredDueDateArray.count > 0{
-            for a in filteredStatusArray {
-                for b in filteredUrgentArray {
-                    for c in filteredDueDateArray{
-                        if a.Id == b.Id,a.Id == c.Id{
-                            uniqueFilteredArray.append(a)
-                            filterAdded = true
-                            break
+        if statusFilterAdded && urgentFilterAdded && dueFilterAdded {
+            var localFilteredArray = [ActionItem]()
+            var recordAdded = false
+            if filteredStatusArray.count != 0 && filteredUrgentArray.count != 0 && filteredDueDateArray.count != 0{
+                for a in filteredStatusArray {
+                    for b in filteredUrgentArray {
+                        for c in filteredDueDateArray{
+                            if a.Id == b.Id,a.Id == c.Id{
+                                localFilteredArray.append(a)
+                                recordAdded = true
+                            }
                         }
                     }
                 }
             }
-        }
-        
-        if filteredStatusArray.count > 0 && filteredUrgentArray.count > 0 && filteredDueDateArray.count == 0 {
-            for a in filteredStatusArray {
-                for b in filteredUrgentArray {
-                    if a.Id == b.Id{
-                        uniqueFilteredArray.append(a)
-                        filterAdded = true
-                        break
-                    }
-                }
+            if recordAdded {
+                filteredArray = localFilteredArray
             }
         }
         
-        if filteredStatusArray.count == 0 && filteredUrgentArray.count > 0 && filteredDueDateArray.count > 0{
-            for b in filteredUrgentArray {
-                for c in filteredDueDateArray{
-                    if b.Id == c.Id{
-                        uniqueFilteredArray.append(b)
-                        filterAdded = true
-                        break
+        if statusFilterAdded && !urgentFilterAdded && dueFilterAdded {
+            var localFilteredArray = [ActionItem]()
+            var recordAdded = false
+            if filteredStatusArray.count != 0 && filteredDueDateArray.count != 0{
+                for status in filteredStatusArray{
+                    for due in filteredDueDateArray{
+                        if status.Id == due.Id {
+                            localFilteredArray.append(status)
+                            recordAdded = true
+                        }
                     }
                 }
             }
-        }
-        
-        if filteredStatusArray.count > 0 && filteredUrgentArray.count == 0 && filteredDueDateArray.count > 0{
-            for a in filteredStatusArray {
-                for c in filteredDueDateArray{
-                    if a.Id == c.Id{
-                        uniqueFilteredArray.append(a)
-                        filterAdded = true
-                        break
-                    }
-                }
+            if recordAdded {
+                filteredArray = localFilteredArray
             }
         }
         
-        if filteredStatusArray.count > 0 && filteredUrgentArray.count == 0 && filteredDueDateArray.count == 0{
-            uniqueFilteredArray = filteredStatusArray
-            filterAdded = true
+        if statusFilterAdded && urgentFilterAdded && !dueFilterAdded {
+            var localFilteredArray = [ActionItem]()
+            var recordAdded = false
+            if filteredUrgentArray.count != 0 && filteredStatusArray.count != 0{
+                for urgent in filteredUrgentArray{
+                    for status in filteredStatusArray{
+                        if urgent.Id == status.Id {
+                            localFilteredArray.append(status)
+                            recordAdded = true
+                        }
+                    }
+                }
+            }
+            if recordAdded {
+                filteredArray = localFilteredArray
+            }
         }
         
-        if filteredStatusArray.count == 0 && filteredUrgentArray.count > 0 && filteredDueDateArray.count == 0{
-            uniqueFilteredArray = filteredUrgentArray
-            filterAdded = true
+        if !statusFilterAdded && urgentFilterAdded && dueFilterAdded{
+            var localFilteredArray = [ActionItem]()
+            var recordAdded = false
+            if filteredUrgentArray.count != 0 && filteredDueDateArray.count != 0{
+                for urgent in filteredUrgentArray{
+                    for due in filteredDueDateArray{
+                        if urgent.Id == due.Id {
+                            localFilteredArray.append(urgent)
+                            recordAdded = true
+                        }
+                    }
+                }
+            }
+            if recordAdded {
+                filteredArray = localFilteredArray
+            }
         }
         
-        if filteredStatusArray.count == 0 && filteredUrgentArray.count == 0 && filteredDueDateArray.count > 0{
-            uniqueFilteredArray = filteredDueDateArray
-            filterAdded = true
+        if !statusFilterAdded && urgentFilterAdded && !dueFilterAdded {
+            filteredArray = filteredUrgentArray
         }
         
-        if searchStarted {
-            return actionItems            
-        }else{
-            return uniqueFilteredArray
+        if statusFilterAdded && !urgentFilterAdded && !dueFilterAdded {
+            filteredArray = filteredStatusArray
         }
+        
+        if !statusFilterAdded && urgentFilterAdded && !dueFilterAdded {
+            filteredArray = filteredUrgentArray
+        }
+        
+        if !statusFilterAdded && !urgentFilterAdded && dueFilterAdded {
+            filteredArray = filteredDueDateArray
+        }
+        
+        if !statusFilterAdded && !urgentFilterAdded && !dueFilterAdded {
+            filteredArray = actionItems
+        }
+        
+        return filteredArray
     }
     
     func filterOnStatusBasis(actionItems: [ActionItem]) -> [ActionItem]{
         var isCompleteArray = [ActionItem]()
         var isOpenArray = [ActionItem]()
         var isOverdueArray = [ActionItem]()
-        var filterAdded = false
         if ActionItemFilterModel.isComplete == "YES"{
             isCompleteArray = actionItems.filter( { return $0.status.lowercased().contains("comp") } )
-            filterAdded = true
+            statusFilterAdded = true
         }
         
         if ActionItemFilterModel.isOpen == "YES"{
             isOpenArray = actionItems.filter( { return $0.status.lowercased().contains("open") } )
-            filterAdded = true
+            statusFilterAdded = true
         }
         
         if ActionItemFilterModel.isOverdue == "YES"{
             isOverdueArray = actionItems.filter( { return $0.status.lowercased().contains("overdue") } )
-            filterAdded = true
+            statusFilterAdded = true
         }
-        if filterAdded {
+        
+        if statusFilterAdded {
+            wholeFilterAdded = true
             return isCompleteArray + isOpenArray + isOverdueArray
         }else{
             return actionItems
@@ -134,26 +164,27 @@ class ActionItemSortUtility {
     func filterOnUrgentBasis(actionItems: [ActionItem]) -> [ActionItem]{
         var urgentArray = [ActionItem]()
         var notUrgentArray = [ActionItem]()
-        var filterAdded = false
-        
         if ActionItemFilterModel.isUrgent == "YES"{
+            urgentFilterAdded = true
             for actionItem in actionItems{
                 if actionItem.isUrgent {
                     urgentArray.append(actionItem)
-                    filterAdded = true
+                    
                 }
             }
         }
         
         if ActionItemFilterModel.isNotUrgent == "YES"{
+            urgentFilterAdded = true
             for actionItem in actionItems{
                 if !actionItem.isUrgent {
                     notUrgentArray.append(actionItem)
-                    filterAdded = true
                 }
             }
         }
-        if filterAdded {
+        
+        if urgentFilterAdded {
+            wholeFilterAdded = true
             return urgentArray + notUrgentArray
         }else{
             return actionItems
@@ -163,26 +194,26 @@ class ActionItemSortUtility {
     func filterOnDueDateBasis(actionItems: [ActionItem]) -> [ActionItem]{
         var dueYes = [ActionItem]()
         var dueNo = [ActionItem]()
-        var filterAdded = false
         
         if ActionItemFilterModel.dueYes == "YES"{
+            dueFilterAdded = true
             for action in actionItems {
                 if action.activityDate != ""{
                     dueYes.append(action)
-                    filterAdded = true
                 }
             }
         }
         
         if ActionItemFilterModel.dueNo == "YES"{
+            dueFilterAdded = true
             for action in actionItems {
                 if action.activityDate == ""{
                     dueNo.append(action)
-                    filterAdded = true
                 }
             }
         }
-        if filterAdded {
+        if dueFilterAdded {
+            wholeFilterAdded = true
             return dueYes + dueNo
         }else{
             return actionItems

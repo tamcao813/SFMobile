@@ -67,7 +67,6 @@ class SearchAccountTableViewCell: UITableViewCell {
     func getAccountData(searchStr: String) -> [Account] {
         let account = self.accountViewModel.accountsForLoggedUser
         let arr = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
-        print(arr)
         return arr
     }
     
@@ -76,9 +75,10 @@ class SearchAccountTableViewCell: UITableViewCell {
 extension SearchAccountTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        accountsDropDown.show()
-        CreateNewVisitViewController.createNewVisitViewControllerGlobals.userInput = true
-        CreateNewContactViewController.createNewGlobals.userInput = true        
+        ActionItemFilterModel.isAccountField = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.accountsDropDown.show()
+        })
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

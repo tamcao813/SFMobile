@@ -27,6 +27,19 @@ class DateTimeUtility
         return formattedMMDDYYDateStr
     }
     
+    static func getDDMMYYYDateStringInAction(dateStringfromAccountObject:String?)->String
+    {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"// MM/DD/YYYY
+        // get Date object from dateStringfromAccountObject
+        let dateObjectFromDateStringfromAccountObject:Date = dateFormatter.date(from: dateStringfromAccountObject!)!
+        dateFormatter.dateFormat = "mm-dd-yyyy"// MM/DD/YYYY
+        let formattedMMDDYYDateStr = dateFormatter.string(from: dateObjectFromDateStringfromAccountObject)
+        print("formattedMMDDYYDateStr: " + formattedMMDDYYDateStr)
+        return formattedMMDDYYDateStr
+    }
+    
     static func convertUtcDatetoReadableDate(dateStringfromAccountNotes:String?)->String{
         if(dateStringfromAccountNotes?.isEmpty)!{
             return ""

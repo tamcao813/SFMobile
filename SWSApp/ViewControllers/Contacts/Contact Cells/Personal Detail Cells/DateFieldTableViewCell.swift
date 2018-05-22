@@ -16,6 +16,7 @@ class DateFieldTableViewCell: UITableViewCell {
     var selectedDate = NSDate()
     var contactDetail: Contact?
     let datePickerView:UIDatePicker = UIDatePicker()
+    var actionItem: ActionItem?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -89,6 +90,10 @@ extension DateFieldTableViewCell: UITextFieldDelegate {
             contactDetail?.birthDate = textField.text!
         }else {
             contactDetail?.anniversary = textField.text!
+        }
+        
+        if let item = actionItem {
+            actionItem?.activityDate = textField.text!
         }
     }
     

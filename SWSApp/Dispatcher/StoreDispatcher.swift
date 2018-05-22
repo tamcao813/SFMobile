@@ -1385,7 +1385,7 @@ class StoreDispatcher {
     }
     
     func syncDownActionItem(_ completion:@escaping (_ error: NSError?)->()) {
-        let soqlQuery = "SELECT Id,AccountId,Subject,Description,Status,ActivityDate,SGWS_Urgent__c,SGWS_AppModified_DateTime__c,RecordTypeId FROM Task"
+        let soqlQuery = "SELECT Id,SGWS_Account__c,Subject,Description,Status,ActivityDate,SGWS_Urgent__c,SGWS_AppModified_DateTime__c,RecordTypeId FROM Task WHERE RecordType.DeveloperName = 'SGWS_Task'"
         print("soql ActionItem query is \(soqlQuery)")
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
@@ -1410,17 +1410,64 @@ class StoreDispatcher {
         }
     }
     
-    func fetchAcctionItem()->[ActionItem]{
+    func syncUpActionItem(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
+        
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupActionItem)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> syncUPActionItem done")
+                    let syncId = syncStateStatus.syncId
+                    print(syncId)
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "$$$$$$ ErrorDownloading: syncUpActionItem()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncUPActionItem()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    func fetchActionItem()->[ActionItem]{
         var actionItem: [ActionItem] = []
         let actionItemFields = ActionItem.AccountActionItemFields.map{"{Task:\($0)}"}
-        let soapQuery = "Select \(actionItemFields.joined(separator: ",")) FROM {Task}"
+        // let soapQuery = "Select \(actionItemFields.joined(separator: ",")) FROM {Task}"
+        let soapQuery = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{Task:_soupEntryId} FROM {Task} INNER JOIN {AccountTeamMember} where {Task:SGWS_Account__c} = {AccountTeamMember:AccountId}"
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        
         print("Result of Task  is \(result)")
         if (error == nil && result.count > 0) {
+            
+            
             for i in 0...result.count - 1 {
+                
+                let soupData = result[i] as! [Any]
+                
+                let entryArry = sfaStore.retrieveEntries([soupData[16]], fromSoup: SoupActionItem)
+                
+                let item = entryArry[0]
+                let subItem = item as! [String:Any]
+                
+                let flag = subItem["__locally_deleted__"] as! Bool
+                // if deleted skip
+                if(flag){
+                    continue
+                }
+                
                 let ary:[Any] = result[i] as! [Any]
                 let actionItemArray = ActionItem(withAry: ary)
                 actionItem.append(actionItemArray)
@@ -1432,7 +1479,8 @@ class StoreDispatcher {
         }
         return actionItem
     }
-
+    
+    
     func createNewActionItemLocally(fieldsToUpload: [String:Any]) -> Bool{
         let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupActionItem)
         if ary.count > 0 {
@@ -1445,49 +1493,85 @@ class StoreDispatcher {
         else {
             return false
         }
-
     }
+    
+    func deleteActionItemLocally(fieldsToUpload: [String:Any]) -> Bool{
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedActionItem = [String: Any]()
+        
+        for  singleNote in result{
+            var singleNoteModif = singleNote as! [String:Any]
+            let singleNoteModifValue = singleNoteModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            //Search ID to be deleted
+            if(fieldsIdValue == singleNoteModifValue){
+                singleNoteModif["__local__"] = true
+                singleNoteModif["__locally_deleted__"] = true
+                editedActionItem = singleNoteModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedActionItem], toSoup: SoupActionItem)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) Notes is deleted  successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in deleting  Notes" )
+            return false
+        }
+    }
+    
     
     func editActionItemLocally(fieldsToUpload: [String:Any]) -> Bool{
         let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
-        var editedNote = [String: Any]()
+        var editedActionItem = [String: Any]()
         
-        for  singleNote in result{
-            var singleActionItemModif = singleNote as! [String:Any]
-            let singleNoteModifValue = singleActionItemModif["Id"] as! String
+        for  actionItem in result{
+            var ActionItemModif = actionItem as! [String:Any]
+            let singleNoteModifValue = ActionItemModif["Id"] as! String
             let fieldsIdValue = fieldsToUpload["Id"] as! String
             
             if(fieldsIdValue == singleNoteModifValue){
-                singleActionItemModif["Subject"] = fieldsToUpload["Subject"]
-                singleActionItemModif["Description"] = fieldsToUpload["Description"]
-                singleActionItemModif["Status"] = fieldsToUpload["Status"]
-                singleActionItemModif["ActivityDate"] = fieldsToUpload["ActivityDate"]
-                singleActionItemModif["SGWS_Urgent__c"] = fieldsToUpload["SGWS_Urgent__c"]
-                singleActionItemModif[kSyncTargetLocal] = true
+                ActionItemModif["SGWS_Account__c"] = fieldsToUpload["SGWS_Account__c"]
+                ActionItemModif["Subject"] = fieldsToUpload["Subject"]
+                ActionItemModif["Description"] = fieldsToUpload["Description"]
+                ActionItemModif["Status"] = fieldsToUpload["Status"]
+                ActionItemModif["ActivityDate"] = fieldsToUpload["ActivityDate"]
+                ActionItemModif["SGWS_Urgent__c"] = fieldsToUpload["SGWS_Urgent__c"]
+                ActionItemModif[kSyncTargetLocal] = true
                 
-                let createdFlag = singleActionItemModif[kSyncTargetLocallyCreated] as! Bool
+                let createdFlag = ActionItemModif[kSyncTargetLocallyCreated] as! Bool
                 
                 if(createdFlag){
-                    singleActionItemModif[kSyncTargetLocallyUpdated] = false
-                    singleActionItemModif[kSyncTargetLocallyCreated] = true
+                    ActionItemModif[kSyncTargetLocallyUpdated] = false
+                    ActionItemModif[kSyncTargetLocallyCreated] = true
                     
                 }else {
-                    singleActionItemModif[kSyncTargetLocallyCreated] = false
-                    singleActionItemModif[kSyncTargetLocallyUpdated] = true
+                    ActionItemModif[kSyncTargetLocallyCreated] = false
+                    ActionItemModif[kSyncTargetLocallyUpdated] = true
                     
                 }
-                singleActionItemModif[kSyncTargetLocallyDeleted] = false
+                ActionItemModif[kSyncTargetLocallyDeleted] = false
                 
-                singleActionItemModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
-                editedNote = singleActionItemModif
+                ActionItemModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
+                editedActionItem = ActionItemModif
                 break
             }
         }
         
-        let ary = sfaStore.upsertEntries([editedNote], toSoup: SoupAccountNotes)
+        let ary = sfaStore.upsertEntries([editedActionItem], toSoup: SoupActionItem)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]

@@ -8,6 +8,12 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SmartSync
+
+protocol CreateNewActionItemViewControllerDelegate: NSObjectProtocol {
+    func updateActionList()
+    func updateActionDesc()
+}
 
 class CreateNewActionItemViewController: UIViewController {
 
@@ -24,15 +30,35 @@ class CreateNewActionItemViewController: UIViewController {
     var dueDateTextField: UITextField!
     var dateTextFieldContainerView: UIView!
     var isEditingMode = false
+    var isUrgentSwitch: UISwitch!
     struct createActionItemsGlobals {
         static var userInput = false
     }
     @IBOutlet weak var saveView: UIView!
+    weak var delegate: CreateNewActionItemViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
         IQKeyboardManager.shared.enable = true
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    
+    @objc func keyboardWillShow(_ notification:Notification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if ActionItemFilterModel.isAccountField {
+                self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height + 100, 0)
+               ActionItemFilterModel.isAccountField = false
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification:Notification) {
+        if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        }
     }
     
     deinit {
@@ -45,7 +71,35 @@ class CreateNewActionItemViewController: UIViewController {
         self.tableView.tableFooterView = UIView()
         saveView.dropShadow()
         initializeNibs()
+        getSelectedActionItem()
     }
+    
+    func getSelectedActionItem(){
+        if let id = actionItemId {
+            let actionItemsArray = AccountsActionItemViewModel().getAcctionItemForUser()
+            for actionItem in actionItemsArray{
+                if actionItem.Id == id {
+                    actionItemObject = actionItem
+                    break
+                }
+            }
+        }
+        getSelectedAccount()
+    }
+    
+    func getSelectedAccount(){
+        if let accountId = actionItemObject?.accountId {
+            let accountsArray = AccountsViewModel().accountsForLoggedUser
+            for account in accountsArray{
+                if account.account_Id == accountId {
+                    selectedAccount = account
+                    break
+                }
+            }
+        }
+        tableView.reloadData()
+    }
+    
     
     func initializeNibs(){
         self.tableView.register(UINib(nibName: "ActionItemTitleTableViewCell", bundle: nil), forCellReuseIdentifier: "ActionItemTitleTableViewCell")
@@ -102,8 +156,116 @@ class CreateNewActionItemViewController: UIViewController {
             return
         }
         errorLabel.text = ""
-//        else if 
-        print("Creating Action Item")
+        if isEditingMode {
+            
+        editActionItem()
+            
+        }else{
+        createNewActionItem()
+        }
+    }
+    
+    func createNewActionItem(){
+        var newActionItem = ActionItem(for: "NewActionItem")
+        if !isEditingMode {
+            newActionItem.Id = generateRandomIDForActionItems()
+        }else{
+            newActionItem = actionItemObject!
+        }
+        newActionItem.accountId = (selectedAccount?.account_Id)!
+        newActionItem.subject = actionTitleTextField.text!
+        newActionItem.description = actionItemDescriptionTextView.text!
+        newActionItem.activityDate = dueDateTextField.text!
+        newActionItem.status = "Open"
+        if isUrgentSwitch.isOn {
+            newActionItem.isUrgent = true
+        }else{
+            newActionItem.isUrgent = false
+        }
+        newActionItem.lastModifiedDate = getTimestamp()
+        let attributeDict = ["type":"Task"]
+        let actionItemDict: [String:Any] = [
+            
+            ActionItem.AccountActionItemFields[0]: newActionItem.Id,
+            ActionItem.AccountActionItemFields[1]: newActionItem.accountId,
+            ActionItem.AccountActionItemFields[2]: newActionItem.subject,
+            ActionItem.AccountActionItemFields[3]: newActionItem.description,
+            ActionItem.AccountActionItemFields[4]: newActionItem.status,
+            ActionItem.AccountActionItemFields[5]: newActionItem.activityDate,
+            ActionItem.AccountActionItemFields[6]: newActionItem.isUrgent,
+            ActionItem.AccountActionItemFields[7]: newActionItem.lastModifiedDate,
+            
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
+        if success {
+            self.delegate?.updateActionList()
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func editActionItem(){
+        var editActionItem = ActionItem(for: "editActionItem")
+        editActionItem = actionItemObject!
+        
+        editActionItem.accountId = (selectedAccount?.account_Id)!
+        editActionItem.subject = actionTitleTextField.text!
+        editActionItem.description = actionItemDescriptionTextView.text!
+        editActionItem.activityDate = dueDateTextField.text!
+        if let status = actionItemObject?.status {
+            editActionItem.status = status
+        }
+        if isUrgentSwitch.isOn {
+            editActionItem.isUrgent = true
+        }else{
+            editActionItem.isUrgent = false
+        }
+        editActionItem.lastModifiedDate = getTimestamp()
+        let attributeDict = ["type":"Task"]
+        let actionItemDict: [String:Any] = [
+            
+            ActionItem.AccountActionItemFields[0]: editActionItem.Id,
+            ActionItem.AccountActionItemFields[1]: editActionItem.accountId,
+            ActionItem.AccountActionItemFields[2]: editActionItem.subject,
+            ActionItem.AccountActionItemFields[3]: editActionItem.description,
+            ActionItem.AccountActionItemFields[4]: editActionItem.status,
+            ActionItem.AccountActionItemFields[5]: editActionItem.activityDate,
+            ActionItem.AccountActionItemFields[6]: editActionItem.isUrgent,
+            ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:false,
+            kSyncTargetLocallyUpdated:true,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
+        if success {
+            self.delegate?.updateActionDesc()
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func generateRandomIDForActionItems()->String  {
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        print("number in notes is \(someString)")
+        return someString
+    }
+    
+    func getTimestamp() -> String{
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        return timeStamp
     }
 
 }
@@ -136,6 +298,10 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemTitleTableViewCell") as? ActionItemTitleTableViewCell
             actionTitleTextField = cell?.actionTitleTextField
+            if let actionItem = actionItemObject {
+                cell?.actionItemObject = actionItem
+                cell?.actionTitleTextField.text = actionItem.subject
+            }
             return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
@@ -156,10 +322,22 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
             cell?.headerLabel.text = "Action Item Description*"
             actionItemDescriptionTextView = cell?.descriptionTextView
-//            cell?.displayCellContent()
+            if let actionItem = actionItemObject {
+                cell?.actionItemObject = actionItem
+                actionItemDescriptionTextView.text = actionItem.description
+            }
             return cell!
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "IsItUrgentTableViewCell") as? IsItUrgentTableViewCell
+            isUrgentSwitch = cell?.isUrgentSwitch
+            if let actionItem = actionItemObject {
+                cell?.isUrgentSwitch.isOn = actionItem.isUrgent
+                if actionItem.isUrgent {
+                    cell?.switchValueLabel.text = "Yes"
+                }else{
+                    cell?.switchValueLabel.text = "No"
+                }
+            }
             return cell!
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
@@ -167,6 +345,10 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             dateTextFieldContainerView = cell?.dateTextFieldContainerView
             cell?.datePickerView.minimumDate = Date()
             cell?.headerLabel.text = "Due Date"
+            if let actionItem = actionItemObject {
+                cell?.actionItem = actionItem
+                cell?.dateTextfield.text = actionItemObject?.activityDate
+            }
             return cell!
         default:
             return UITableViewCell()

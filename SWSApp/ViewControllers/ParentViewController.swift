@@ -91,10 +91,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         return accountVisitListVC
     }()
     
-    lazy var actionItem : ActionItemsListViewController? = {
+    lazy var actionItemParent : ActionItemsContainerViewController? = {
         let actionItemStoryboard: UIStoryboard = UIStoryboard(name: "ActionItem", bundle: nil)
-        let actiomItemListVC = actionItemStoryboard.instantiateViewController(withIdentifier: "ActionItemsListViewController") as! ActionItemsListViewController
-        return actiomItemListVC
+        let actionItemParentVC = actionItemStoryboard.instantiateViewController(withIdentifier: "ActionItemsContainerViewController") as! ActionItemsContainerViewController
+        return actionItemParentVC
     }()
     
     
@@ -337,6 +337,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             group.leave()
         } )
         
+        // Action Items (Task) Sync Up
+        group.enter()
+        AccountsActionItemViewModel().uploadActionItemToServer(fields:["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c"], completion:{ error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+            }
+            group.leave()
+        } )
+        
         // Strategy QA(SGWS_Response__c) Sync Up
         //let fields: [String] = StrategyQA.StrategyQAFields
         group.enter()
@@ -456,7 +465,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
             switch index {
             case 0:
-                moreVC1.view.addSubview((self.actionItem?.view)!)
+                moreVC1.view.addSubview((self.actionItemParent?.view)!)
+                ActionItemFilterModel.fromAccount = false
+                ActionItemFilterModel.accountId = nil
                 self.moreDropDownSelectionIndex = index
             case 1:
                 moreVC1.view.addSubview((self.accountVisit?.view)!)

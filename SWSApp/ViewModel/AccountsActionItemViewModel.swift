@@ -13,28 +13,30 @@ class AccountsActionItemViewModel {
     //    let accountsForLoggedUser: [Account] = StoreDispatcher.shared.fetchAccountsForLoggedUser()
     
     func getAcctionItemForUser() -> [ActionItem] {
-        return StoreDispatcher.shared.fetchAcctionItem()
+        return StoreDispatcher.shared.fetchActionItem()
     }
+    
     func createNewActionItemLocally(fields:[String:Any]) -> Bool {
         return StoreDispatcher.shared.createNewActionItemLocally(fieldsToUpload:fields)
     }
+    
     func editActionItemLocally(fields: [String:Any]) -> Bool {
         return StoreDispatcher.shared.editActionItemLocally(fieldsToUpload:fields)
     }
     
-    func deleteNotesLocally(fields: [String:Any]) -> Bool {
-        return StoreDispatcher.shared.deleteNotesLocally(fieldsToUpload:fields)
+    func deleteActionItemLocally(fields: [String:Any]) -> Bool {
+        return StoreDispatcher.shared.deleteActionItemLocally(fieldsToUpload:fields)
     }
     
-    func uploadNotesToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
-        StoreDispatcher.shared.syncUpNotes(fieldsToUpload: fields, completion: {error in
+    func uploadActionItemToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
+        StoreDispatcher.shared.syncUpActionItem(fieldsToUpload: fields, completion: {error in
             
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 completion(error)
             }
             else {
-
+                
                 completion(nil)
             }
         })
@@ -45,3 +47,4 @@ class AccountsActionItemViewModel {
     
     
 }
+

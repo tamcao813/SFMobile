@@ -18,6 +18,7 @@ class ActionItemTitleTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func customizedUI(){
+        actionTitleTextField.delegate = self
         actionTitleTextField.addPaddingLeft(10)
     }
     
@@ -28,5 +29,15 @@ class ActionItemTitleTableViewCell: UITableViewCell, UITextFieldDelegate {
             CreateNewEventViewControllerGlobals.location = textField.text!
         }
         
+    }
+}
+
+extension ActionItemTitleTableViewCell: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        actionItemObject?.subject = textField.text!
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
     }
 }

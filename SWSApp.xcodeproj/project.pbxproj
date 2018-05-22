@@ -1,10 +1,10 @@
 // !$*UTF8*$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 48;
-	objects = {
+    archiveVersion = 1;
+    classes = {
+    };
+    objectVersion = 48;
+    objects = {
 
 /* Begin PBXBuildFile section */
 		0CD6096AB4B96A978CFF0076 /* Pods_SWSAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7079A5982A809CAAA6EF1A9 /* Pods_SWSAppUITests.framework */; };
@@ -527,20 +527,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D1FB18382062A7C00072F4C1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D1FB181B2062A7C00072F4C1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D1FB18222062A7C00072F4C1;
-			remoteInfo = SWSApp;
-		};
-		D1FB18432062A7C10072F4C1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D1FB181B2062A7C00072F4C1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D1FB18222062A7C00072F4C1;
-			remoteInfo = SWSApp;
-		};
+        D1FB18382062A7C00072F4C1 /* PBXContainerItemProxy */ = {
+            isa = PBXContainerItemProxy;
+            containerPortal = D1FB181B2062A7C00072F4C1 /* Project object */;
+            proxyType = 1;
+            remoteGlobalIDString = D1FB18222062A7C00072F4C1;
+            remoteInfo = SWSApp;
+        };
+        D1FB18432062A7C10072F4C1 /* PBXContainerItemProxy */ = {
+            isa = PBXContainerItemProxy;
+            containerPortal = D1FB181B2062A7C00072F4C1 /* Project object */;
+            proxyType = 1;
+            remoteGlobalIDString = D1FB18222062A7C00072F4C1;
+            remoteInfo = SWSApp;
+        };
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -833,38 +833,38 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6D38327920874026006805C6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D1FB18202062A7C00072F4C1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BDC2971F8C914488A5B7964D /* Pods_SWSApp.framework in Frameworks */,
-				BEB744DE3D3763CB271C360C /* Pods_SWSApp.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D1FB18342062A7C00072F4C1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EA69F234B4F821BD07B76811 /* Pods_SWSAppTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D1FB183F2062A7C10072F4C1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0CD6096AB4B96A978CFF0076 /* Pods_SWSAppUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        6D38327920874026006805C6 /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        D1FB18202062A7C00072F4C1 /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                BDC2971F8C914488A5B7964D /* Pods_SWSApp.framework in Frameworks */,
+                BEB744DE3D3763CB271C360C /* Pods_SWSApp.framework in Frameworks */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        D1FB18342062A7C00072F4C1 /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                EA69F234B4F821BD07B76811 /* Pods_SWSAppTests.framework in Frameworks */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        D1FB183F2062A7C10072F4C1 /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                0CD6096AB4B96A978CFF0076 /* Pods_SWSAppUITests.framework in Frameworks */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1622,52 +1622,52 @@
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D1FB181B2062A7C00072F4C1 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = "maria.min-hui.yu";
-				TargetAttributes = {
-					6D38324D20874026006805C6 = {
-						ProvisioningStyle = Manual;
-					};
-					D1FB18222062A7C00072F4C1 = {
-						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 0920;
-						ProvisioningStyle = Manual;
-					};
-					D1FB18362062A7C00072F4C1 = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-						TestTargetID = D1FB18222062A7C00072F4C1;
-					};
-					D1FB18412062A7C10072F4C1 = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-						TestTargetID = D1FB18222062A7C00072F4C1;
-					};
-				};
-			};
-			buildConfigurationList = D1FB181E2062A7C00072F4C1 /* Build configuration list for PBXProject "SWSApp" */;
-			compatibilityVersion = "Xcode 8.0";
-			developmentRegion = en;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-			);
-			mainGroup = D1FB181A2062A7C00072F4C1;
-			productRefGroup = D1FB18242062A7C00072F4C1 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				D1FB18222062A7C00072F4C1 /* SWSApp */,
-				6D38324D20874026006805C6 /* SWSApp Dev */,
-				D1FB18362062A7C00072F4C1 /* SWSAppTests */,
-				D1FB18412062A7C10072F4C1 /* SWSAppUITests */,
-			);
-		};
+        D1FB181B2062A7C00072F4C1 /* Project object */ = {
+            isa = PBXProject;
+            attributes = {
+                LastSwiftUpdateCheck = 0920;
+                LastUpgradeCheck = 0920;
+                ORGANIZATIONNAME = "maria.min-hui.yu";
+                TargetAttributes = {
+                    6D38324D20874026006805C6 = {
+                        ProvisioningStyle = Manual;
+                    };
+                    D1FB18222062A7C00072F4C1 = {
+                        CreatedOnToolsVersion = 9.2;
+                        LastSwiftMigration = 0920;
+                        ProvisioningStyle = Manual;
+                    };
+                    D1FB18362062A7C00072F4C1 = {
+                        CreatedOnToolsVersion = 9.2;
+                        ProvisioningStyle = Automatic;
+                        TestTargetID = D1FB18222062A7C00072F4C1;
+                    };
+                    D1FB18412062A7C10072F4C1 = {
+                        CreatedOnToolsVersion = 9.2;
+                        ProvisioningStyle = Automatic;
+                        TestTargetID = D1FB18222062A7C00072F4C1;
+                    };
+                };
+            };
+            buildConfigurationList = D1FB181E2062A7C00072F4C1 /* Build configuration list for PBXProject "SWSApp" */;
+            compatibilityVersion = "Xcode 8.0";
+            developmentRegion = en;
+            hasScannedForEncodings = 0;
+            knownRegions = (
+                en,
+                Base,
+            );
+            mainGroup = D1FB181A2062A7C00072F4C1;
+            productRefGroup = D1FB18242062A7C00072F4C1 /* Products */;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (
+                D1FB18222062A7C00072F4C1 /* SWSApp */,
+                6D38324D20874026006805C6 /* SWSApp Dev */,
+                D1FB18362062A7C00072F4C1 /* SWSAppTests */,
+                D1FB18412062A7C10072F4C1 /* SWSAppUITests */,
+            );
+        };
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -2450,348 +2450,348 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D1FB18392062A7C00072F4C1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D1FB18222062A7C00072F4C1 /* SWSApp */;
-			targetProxy = D1FB18382062A7C00072F4C1 /* PBXContainerItemProxy */;
-		};
-		D1FB18442062A7C10072F4C1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D1FB18222062A7C00072F4C1 /* SWSApp */;
-			targetProxy = D1FB18432062A7C10072F4C1 /* PBXContainerItemProxy */;
-		};
+        D1FB18392062A7C00072F4C1 /* PBXTargetDependency */ = {
+            isa = PBXTargetDependency;
+            target = D1FB18222062A7C00072F4C1 /* SWSApp */;
+            targetProxy = D1FB18382062A7C00072F4C1 /* PBXContainerItemProxy */;
+        };
+        D1FB18442062A7C10072F4C1 /* PBXTargetDependency */ = {
+            isa = PBXTargetDependency;
+            target = D1FB18222062A7C00072F4C1 /* SWSApp */;
+            targetProxy = D1FB18432062A7C10072F4C1 /* PBXContainerItemProxy */;
+        };
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D1FB182F2062A7C00072F4C1 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D1FB18302062A7C00072F4C1 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
+        D1FB182F2062A7C00072F4C1 /* LaunchScreen.storyboard */ = {
+            isa = PBXVariantGroup;
+            children = (
+                D1FB18302062A7C00072F4C1 /* Base */,
+            );
+            name = LaunchScreen.storyboard;
+            sourceTree = "<group>";
+        };
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		6D38329620874026006805C6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
-				INFOPLIST_FILE = "SWSApp dev-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEVELOPMENT\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
-				PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
-				SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 2;
-			};
-			name = Debug;
-		};
-		6D38329720874026006805C6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
-				INFOPLIST_FILE = "SWSApp dev-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEVELOPMENT\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
-				PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
-				SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 2;
-			};
-			name = Release;
-		};
-		D1FB18492062A7C10072F4C1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		D1FB184A2062A7C10072F4C1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		D1FB184C2062A7C10072F4C1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E8B2141B0640B1581755B3D /* Pods-SWSApp.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
-				INFOPLIST_FILE = SWSApp/Info.plist;
-				INFOPLIST_OUTPUT_FORMAT = XML;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
-				PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
-				SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 2;
-			};
-			name = Debug;
-		};
-		D1FB184D2062A7C10072F4C1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AA42EFBD421FE930972321D /* Pods-SWSApp.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
-				INFOPLIST_FILE = SWSApp/Info.plist;
-				INFOPLIST_OUTPUT_FORMAT = XML;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
-				PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
-				SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 2;
-			};
-			name = Release;
-		};
-		D1FB184F2062A7C10072F4C1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47406C810A477C295440E667 /* Pods-SWSAppTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 533B3D79JJ;
-				INFOPLIST_FILE = SWSAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWSApp.app/SWSApp";
-			};
-			name = Debug;
-		};
-		D1FB18502062A7C10072F4C1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19C8BD47DF4615A2A812341C /* Pods-SWSAppTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 533B3D79JJ;
-				INFOPLIST_FILE = SWSAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWSApp.app/SWSApp";
-			};
-			name = Release;
-		};
-		D1FB18522062A7C10072F4C1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B3277C8952E6C9483CD1CA7 /* Pods-SWSAppUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 533B3D79JJ;
-				INFOPLIST_FILE = SWSAppUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SWSApp;
-			};
-			name = Debug;
-		};
-		D1FB18532062A7C10072F4C1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 533B3D79JJ;
-				INFOPLIST_FILE = SWSAppUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SWSApp;
-			};
-			name = Release;
-		};
+        6D38329620874026006805C6 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CLANG_ENABLE_MODULES = YES;
+                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+                CODE_SIGN_STYLE = Manual;
+                DEVELOPMENT_TEAM = Y6PXE5R6AZ;
+                INFOPLIST_FILE = "SWSApp dev-Info.plist";
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+                OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEVELOPMENT\"";
+                PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
+                PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
+                SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
+                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+                SWIFT_VERSION = 4.0;
+                TARGETED_DEVICE_FAMILY = 2;
+            };
+            name = Debug;
+        };
+        6D38329720874026006805C6 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CLANG_ENABLE_MODULES = YES;
+                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+                CODE_SIGN_STYLE = Manual;
+                DEVELOPMENT_TEAM = Y6PXE5R6AZ;
+                INFOPLIST_FILE = "SWSApp dev-Info.plist";
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+                OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEVELOPMENT\"";
+                PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
+                PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
+                SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
+                SWIFT_VERSION = 4.0;
+                TARGETED_DEVICE_FAMILY = 2;
+            };
+            name = Release;
+        };
+        D1FB18492062A7C10072F4C1 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_SEARCH_USER_PATHS = NO;
+                CLANG_ANALYZER_NONNULL = YES;
+                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+                CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+                CLANG_CXX_LIBRARY = "libc++";
+                CLANG_ENABLE_MODULES = YES;
+                CLANG_ENABLE_OBJC_ARC = YES;
+                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+                CLANG_WARN_BOOL_CONVERSION = YES;
+                CLANG_WARN_COMMA = YES;
+                CLANG_WARN_CONSTANT_CONVERSION = YES;
+                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+                CLANG_WARN_EMPTY_BODY = YES;
+                CLANG_WARN_ENUM_CONVERSION = YES;
+                CLANG_WARN_INFINITE_RECURSION = YES;
+                CLANG_WARN_INT_CONVERSION = YES;
+                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+                CLANG_WARN_STRICT_PROTOTYPES = YES;
+                CLANG_WARN_SUSPICIOUS_MOVE = YES;
+                CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+                CLANG_WARN_UNREACHABLE_CODE = YES;
+                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+                CODE_SIGN_IDENTITY = "iPhone Developer";
+                COPY_PHASE_STRIP = NO;
+                DEBUG_INFORMATION_FORMAT = dwarf;
+                ENABLE_STRICT_OBJC_MSGSEND = YES;
+                ENABLE_TESTABILITY = YES;
+                GCC_C_LANGUAGE_STANDARD = gnu11;
+                GCC_DYNAMIC_NO_PIC = NO;
+                GCC_NO_COMMON_BLOCKS = YES;
+                GCC_OPTIMIZATION_LEVEL = 0;
+                GCC_PREPROCESSOR_DEFINITIONS = (
+                    "DEBUG=1",
+                    "$(inherited)",
+                );
+                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+                GCC_WARN_UNDECLARED_SELECTOR = YES;
+                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+                GCC_WARN_UNUSED_FUNCTION = YES;
+                GCC_WARN_UNUSED_VARIABLE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+                MTL_ENABLE_DEBUG_INFO = YES;
+                ONLY_ACTIVE_ARCH = YES;
+                SDKROOT = iphoneos;
+                SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            };
+            name = Debug;
+        };
+        D1FB184A2062A7C10072F4C1 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_SEARCH_USER_PATHS = NO;
+                CLANG_ANALYZER_NONNULL = YES;
+                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+                CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+                CLANG_CXX_LIBRARY = "libc++";
+                CLANG_ENABLE_MODULES = YES;
+                CLANG_ENABLE_OBJC_ARC = YES;
+                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+                CLANG_WARN_BOOL_CONVERSION = YES;
+                CLANG_WARN_COMMA = YES;
+                CLANG_WARN_CONSTANT_CONVERSION = YES;
+                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+                CLANG_WARN_EMPTY_BODY = YES;
+                CLANG_WARN_ENUM_CONVERSION = YES;
+                CLANG_WARN_INFINITE_RECURSION = YES;
+                CLANG_WARN_INT_CONVERSION = YES;
+                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+                CLANG_WARN_STRICT_PROTOTYPES = YES;
+                CLANG_WARN_SUSPICIOUS_MOVE = YES;
+                CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+                CLANG_WARN_UNREACHABLE_CODE = YES;
+                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+                CODE_SIGN_IDENTITY = "iPhone Developer";
+                COPY_PHASE_STRIP = NO;
+                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+                ENABLE_NS_ASSERTIONS = NO;
+                ENABLE_STRICT_OBJC_MSGSEND = YES;
+                GCC_C_LANGUAGE_STANDARD = gnu11;
+                GCC_NO_COMMON_BLOCKS = YES;
+                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+                GCC_WARN_UNDECLARED_SELECTOR = YES;
+                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+                GCC_WARN_UNUSED_FUNCTION = YES;
+                GCC_WARN_UNUSED_VARIABLE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+                MTL_ENABLE_DEBUG_INFO = NO;
+                SDKROOT = iphoneos;
+                SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+                VALIDATE_PRODUCT = YES;
+            };
+            name = Release;
+        };
+        D1FB184C2062A7C10072F4C1 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = 4E8B2141B0640B1581755B3D /* Pods-SWSApp.debug.xcconfig */;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CLANG_ENABLE_MODULES = YES;
+                CODE_SIGN_IDENTITY = "iPhone Developer";
+                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+                CODE_SIGN_STYLE = Manual;
+                DEVELOPMENT_TEAM = Y6PXE5R6AZ;
+                INFOPLIST_FILE = SWSApp/Info.plist;
+                INFOPLIST_OUTPUT_FORMAT = XML;
+                IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+                PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
+                PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
+                SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
+                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+                SWIFT_VERSION = 4.0;
+                TARGETED_DEVICE_FAMILY = 2;
+            };
+            name = Debug;
+        };
+        D1FB184D2062A7C10072F4C1 /* Release */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = 5AA42EFBD421FE930972321D /* Pods-SWSApp.release.xcconfig */;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CLANG_ENABLE_MODULES = YES;
+                CODE_SIGN_IDENTITY = "iPhone Developer";
+                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+                CODE_SIGN_STYLE = Manual;
+                DEVELOPMENT_TEAM = Y6PXE5R6AZ;
+                INFOPLIST_FILE = SWSApp/Info.plist;
+                INFOPLIST_OUTPUT_FORMAT = XML;
+                IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+                PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
+                PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
+                SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
+                SWIFT_VERSION = 4.0;
+                TARGETED_DEVICE_FAMILY = 2;
+            };
+            name = Release;
+        };
+        D1FB184F2062A7C10072F4C1 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = 47406C810A477C295440E667 /* Pods-SWSAppTests.debug.xcconfig */;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                BUNDLE_LOADER = "$(TEST_HOST)";
+                CODE_SIGN_STYLE = Automatic;
+                DEVELOPMENT_TEAM = 533B3D79JJ;
+                INFOPLIST_FILE = SWSAppTests/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+                PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppTests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 4.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWSApp.app/SWSApp";
+            };
+            name = Debug;
+        };
+        D1FB18502062A7C10072F4C1 /* Release */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = 19C8BD47DF4615A2A812341C /* Pods-SWSAppTests.release.xcconfig */;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                BUNDLE_LOADER = "$(TEST_HOST)";
+                CODE_SIGN_STYLE = Automatic;
+                DEVELOPMENT_TEAM = 533B3D79JJ;
+                INFOPLIST_FILE = SWSAppTests/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+                PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppTests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 4.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWSApp.app/SWSApp";
+            };
+            name = Release;
+        };
+        D1FB18522062A7C10072F4C1 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = 5B3277C8952E6C9483CD1CA7 /* Pods-SWSAppUITests.debug.xcconfig */;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                CODE_SIGN_STYLE = Automatic;
+                DEVELOPMENT_TEAM = 533B3D79JJ;
+                INFOPLIST_FILE = SWSAppUITests/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+                PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppUITests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 4.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+                TEST_TARGET_NAME = SWSApp;
+            };
+            name = Debug;
+        };
+        D1FB18532062A7C10072F4C1 /* Release */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                CODE_SIGN_STYLE = Automatic;
+                DEVELOPMENT_TEAM = 533B3D79JJ;
+                INFOPLIST_FILE = SWSAppUITests/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+                PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppUITests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 4.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+                TEST_TARGET_NAME = SWSApp;
+            };
+            name = Release;
+        };
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6D38329520874026006805C6 /* Build configuration list for PBXNativeTarget "SWSApp Dev" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6D38329620874026006805C6 /* Debug */,
-				6D38329720874026006805C6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D1FB181E2062A7C00072F4C1 /* Build configuration list for PBXProject "SWSApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D1FB18492062A7C10072F4C1 /* Debug */,
-				D1FB184A2062A7C10072F4C1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D1FB184B2062A7C10072F4C1 /* Build configuration list for PBXNativeTarget "SWSApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D1FB184C2062A7C10072F4C1 /* Debug */,
-				D1FB184D2062A7C10072F4C1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D1FB184E2062A7C10072F4C1 /* Build configuration list for PBXNativeTarget "SWSAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D1FB184F2062A7C10072F4C1 /* Debug */,
-				D1FB18502062A7C10072F4C1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D1FB18512062A7C10072F4C1 /* Build configuration list for PBXNativeTarget "SWSAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D1FB18522062A7C10072F4C1 /* Debug */,
-				D1FB18532062A7C10072F4C1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
+        6D38329520874026006805C6 /* Build configuration list for PBXNativeTarget "SWSApp Dev" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                6D38329620874026006805C6 /* Debug */,
+                6D38329720874026006805C6 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        D1FB181E2062A7C00072F4C1 /* Build configuration list for PBXProject "SWSApp" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                D1FB18492062A7C10072F4C1 /* Debug */,
+                D1FB184A2062A7C10072F4C1 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        D1FB184B2062A7C10072F4C1 /* Build configuration list for PBXNativeTarget "SWSApp" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                D1FB184C2062A7C10072F4C1 /* Debug */,
+                D1FB184D2062A7C10072F4C1 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        D1FB184E2062A7C10072F4C1 /* Build configuration list for PBXNativeTarget "SWSAppTests" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                D1FB184F2062A7C10072F4C1 /* Debug */,
+                D1FB18502062A7C10072F4C1 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        D1FB18512062A7C10072F4C1 /* Build configuration list for PBXNativeTarget "SWSAppUITests" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                D1FB18522062A7C10072F4C1 /* Debug */,
+                D1FB18532062A7C10072F4C1 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
 /* End XCConfigurationList section */
-	};
-	rootObject = D1FB181B2062A7C00072F4C1 /* Project object */;
+    };
+    rootObject = D1FB181B2062A7C00072F4C1 /* Project object */;
 }

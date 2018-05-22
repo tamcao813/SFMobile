@@ -223,9 +223,11 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
                     self.present(eventSummaryVC!, animated: true, completion: nil)
                 }
             }
+            
         }
     }
 }
+
 
 //MARK:- NavigateToContacts Delegate
 extension AccountVisitListViewController : NavigateToContactsDelegate{

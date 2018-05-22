@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -47,6 +47,14 @@
                                     <action selector="yesButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="H21-wE-pta"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zPv-BT-2kJ">
+                                <rect key="frame" x="60" y="10" width="1" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="kHs-CH-Fud"/>
+                                    <constraint firstAttribute="width" constant="1" id="uXy-Mm-czc"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYC-dP-3h8">
                                 <rect key="frame" x="60.5" y="1" width="58.5" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -61,16 +69,18 @@
                         </subviews>
                         <color key="backgroundColor" name="Data New"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="oYC-dP-3h8" secondAttribute="trailing" constant="1" id="3Ik-z2-0n1"/>
-                            <constraint firstItem="oYC-dP-3h8" firstAttribute="top" secondItem="dBh-Jl-FpE" secondAttribute="top" constant="1" id="45R-w2-Bot"/>
-                            <constraint firstItem="y40-A7-J24" firstAttribute="top" secondItem="dBh-Jl-FpE" secondAttribute="top" constant="1" id="8Aa-fC-gzV"/>
+                            <constraint firstItem="y40-A7-J24" firstAttribute="top" secondItem="dBh-Jl-FpE" secondAttribute="top" constant="1" id="B6S-gX-2Cf"/>
+                            <constraint firstItem="oYC-dP-3h8" firstAttribute="leading" secondItem="zPv-BT-2kJ" secondAttribute="trailing" constant="-0.5" id="DBE-G9-q41"/>
+                            <constraint firstItem="oYC-dP-3h8" firstAttribute="top" secondItem="dBh-Jl-FpE" secondAttribute="top" constant="1" id="Eb1-HP-GU6"/>
+                            <constraint firstAttribute="bottom" secondItem="oYC-dP-3h8" secondAttribute="bottom" constant="1" id="EgL-fJ-tel"/>
                             <constraint firstAttribute="width" constant="120" id="FQ0-d9-8mt"/>
-                            <constraint firstItem="y40-A7-J24" firstAttribute="width" secondItem="oYC-dP-3h8" secondAttribute="width" id="Jpl-bW-4bE"/>
+                            <constraint firstItem="zPv-BT-2kJ" firstAttribute="centerY" secondItem="dBh-Jl-FpE" secondAttribute="centerY" id="JrK-Wk-sWk"/>
+                            <constraint firstAttribute="bottom" secondItem="y40-A7-J24" secondAttribute="bottom" constant="1" id="MBH-j6-Q1d"/>
                             <constraint firstAttribute="height" constant="40" id="Meh-r3-9nh"/>
-                            <constraint firstItem="oYC-dP-3h8" firstAttribute="leading" secondItem="y40-A7-J24" secondAttribute="trailing" constant="1" id="XmC-Wz-3d0"/>
-                            <constraint firstAttribute="bottom" secondItem="oYC-dP-3h8" secondAttribute="bottom" constant="1" id="YRQ-ni-HQ7"/>
-                            <constraint firstAttribute="bottom" secondItem="y40-A7-J24" secondAttribute="bottom" constant="1" id="Ymf-oD-0A4"/>
-                            <constraint firstItem="y40-A7-J24" firstAttribute="leading" secondItem="dBh-Jl-FpE" secondAttribute="leading" constant="1" id="puQ-Gs-Rqe"/>
+                            <constraint firstItem="zPv-BT-2kJ" firstAttribute="leading" secondItem="y40-A7-J24" secondAttribute="trailing" constant="0.5" id="VIe-0B-N0b"/>
+                            <constraint firstItem="y40-A7-J24" firstAttribute="leading" secondItem="dBh-Jl-FpE" secondAttribute="leading" constant="1" id="WAE-2N-EIU"/>
+                            <constraint firstItem="zPv-BT-2kJ" firstAttribute="centerX" secondItem="dBh-Jl-FpE" secondAttribute="centerX" id="foa-W7-7ZP"/>
+                            <constraint firstAttribute="trailing" secondItem="oYC-dP-3h8" secondAttribute="trailing" constant="1" id="noc-mV-V8B"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

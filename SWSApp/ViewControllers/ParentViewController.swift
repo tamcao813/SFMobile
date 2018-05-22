@@ -273,6 +273,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     @objc func SyncUpData()  {
         MBProgressHUD.show(onWindow: true)
         
+        // Start sync progress
+        
         let group = DispatchGroup()
         // Sync Up Notes
         group.enter()
@@ -328,7 +330,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
           
         // Visits (WorkOrder) Sync Up
         group.enter()
-        VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId"], completion:{ error in
+        VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c"], completion:{ error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
             }
@@ -364,6 +366,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             })
         }
+        // Start sync progress
     }
     
     private func setupTopMenuItems(){

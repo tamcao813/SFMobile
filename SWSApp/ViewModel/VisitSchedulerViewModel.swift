@@ -55,8 +55,9 @@ class VisitSchedulerViewModel {
         if StoreDispatcher.shared.editVisit(fields:fields){
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitSummaryScreen"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+            return true
         }
-        return StoreDispatcher.shared.editVisit(fields:fields)
+        return false
     }
     
 

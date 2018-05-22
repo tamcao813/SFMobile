@@ -114,7 +114,7 @@ class CreateNewEventViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIButton){
         if allFieldsAreValidated() {
-            //createNewEvent()
+            createNewEvent()
         }
     }
     
@@ -127,7 +127,7 @@ class CreateNewEventViewController: UIViewController {
             return false
         }
         
-        if selectedAccount != nil{
+        if selectedAccount == nil {
             searchAccountTextField.borderColor = .red
             errorLabel.text = StringConstants.emptyFieldError
             return false

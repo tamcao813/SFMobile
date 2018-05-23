@@ -209,8 +209,15 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         containerView?.isHidden = true
-        IQKeyboardManager.shared.enable = true
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshActionItemList), name: NSNotification.Name("refreshActionItemList"), object: nil)
     }
+    
+    @objc func refreshActionItemList(){
+        let button = UIButton()
+        button.tag = 5
+        self.itemsClicked(sender: button)
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -219,6 +226,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         self.setupPastDueUI()
         self.setupAccountHealthGrade()
         self.setupPercentageValue()
+        IQKeyboardManager.shared.enable = true
         
     }
     override func viewDidAppear(_ animated: Bool) {

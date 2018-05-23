@@ -1228,6 +1228,7 @@ class StoreDispatcher {
     func fetchVisits()->[Visit]{
         
         var visit: [Visit] = []
+         var duplicateVisitArray: [Visit] = []
         
         let soapQuery = "Select * FROM {WorkOrder}"
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
@@ -1272,8 +1273,14 @@ class StoreDispatcher {
 
                 
                 let ary:[Any] = result[i] as! [Any]
+//              let visitArray = Visit(withAry: newarr)
+                
                 let visitArray = Visit(withAry: newarr)
+                
                 visit.append(visitArray)
+                
+               // duplicateVisitArray =  NSArray(array:visit, copyItems: true) as! [Visit]
+                
                 print("Visit array \(ary)")
             }
         }
@@ -1504,7 +1511,7 @@ class StoreDispatcher {
             }
         }
         
-        let ary = sfaStore.upsertEntries([editedNote], toSoup: SoupAccountNotes)
+        let ary = sfaStore.upsertEntries([editedNote], toSoup: SoupActionItem)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]

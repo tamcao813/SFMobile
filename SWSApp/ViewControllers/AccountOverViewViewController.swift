@@ -67,9 +67,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         print("InWeekend \(calendar.isDateInWeekend(date!))")
     }
     
-    
-    
-    
     // MARK: - TableView Functions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,25 +84,31 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             upComingActivitiesCell.UpComingActivities_TitleLabel.text = visitArray[indexPath.row].sgwsVisitPurpose
             upComingActivitiesCell.UpComingActivities_DetailsLabel.text = visitArray[indexPath.row].description
             
+            //Getting Today, Tomorrow, Yesterday
             let calendar = Calendar.current
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
             let date = dateFormatter.date(from: visitArray[indexPath.row].startDate)
             
+            //Gtting time and date
+            let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+            var dateTime = getTime.components(separatedBy: " ")
+        
+            
             if calendar.isDateInToday(date!){
                 
-            upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Today " + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+            upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Today at " + dateTime[1]
                  return upComingActivitiesCell
                 
             }
             else if calendar.isDateInTomorrow(date!)
             {
-                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Tomorrow " + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Tomorrow at " + dateTime[1]
                 return upComingActivitiesCell
                 
             }else if calendar.isDateInYesterday(date!)
             {
-                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Yesterday " + DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Yesterday at " + dateTime[1]
                 return upComingActivitiesCell
             }
             

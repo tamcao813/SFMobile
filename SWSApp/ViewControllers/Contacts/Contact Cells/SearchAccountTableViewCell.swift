@@ -18,12 +18,14 @@ protocol SearchAccountTableViewCellDelegate: NSObjectProtocol {
 class SearchAccountTableViewCell: UITableViewCell {
 
     @IBOutlet weak var searchContactTextField: DesignableUITextField!
+    @IBOutlet weak var titleLabel: UILabel!
     var searchAccounts = [Account]()
     var searchAccountsString = [String]()
     let accountViewModel = AccountsViewModel()
     let accountsDropDown = DropDown()
     weak var delegate: SearchAccountTableViewCellDelegate!
     var search:String=""
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

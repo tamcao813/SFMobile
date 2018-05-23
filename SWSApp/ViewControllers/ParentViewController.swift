@@ -369,6 +369,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                     MBProgressHUD.hide(forWindow: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
@@ -468,6 +469,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 moreVC1.view.addSubview((self.actionItemParent?.view)!)
                 ActionItemFilterModel.fromAccount = false
                 ActionItemFilterModel.accountId = nil
+                self.actionItemParent?.fromPersistentMenu = true
                 self.moreDropDownSelectionIndex = index
             case 1:
                 moreVC1.view.addSubview((self.accountVisit?.view)!)

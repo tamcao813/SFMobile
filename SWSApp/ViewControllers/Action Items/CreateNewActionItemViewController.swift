@@ -149,11 +149,6 @@ class CreateNewActionItemViewController: UIViewController {
             tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return
-        }else if (dueDateTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
-            dateTextFieldContainerView.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
-            errorLabel.text = StringConstants.emptyFieldError
-            return
         }
         errorLabel.text = ""
         if isEditingMode {
@@ -165,6 +160,20 @@ class CreateNewActionItemViewController: UIViewController {
         }
     }
     
+    //
+//    func getDataTimeinStr(date:String) -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        var string = date + "T" + time
+//        if let dateFromString = dateFormatter.date(from: string) {
+//            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
+//            dateFormatter.dateFormat = "yyyy-MM-dd"
+//            dateFormatter.timeZone = TimeZone(identifier:"UTC")
+//            string = dateFormatter.string(from: dateFromString)
+//        }
+//        return string
+//    }
+    
     func createNewActionItem(){
         var newActionItem = ActionItem(for: "NewActionItem")
         if !isEditingMode {
@@ -172,11 +181,16 @@ class CreateNewActionItemViewController: UIViewController {
         }else{
             newActionItem = actionItemObject!
         }
+         
         newActionItem.accountId = (selectedAccount?.account_Id)!
         newActionItem.subject = actionTitleTextField.text!
         newActionItem.description = actionItemDescriptionTextView.text!
-        newActionItem.activityDate = dueDateTextField.text!
-        newActionItem.status = "Open"
+        newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
+        if !ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
+            newActionItem.status = "Overdue"
+        }else{
+            newActionItem.status = "Open"
+        }
         if isUrgentSwitch.isOn {
             newActionItem.isUrgent = true
         }else{
@@ -205,6 +219,7 @@ class CreateNewActionItemViewController: UIViewController {
         let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
         if success {
             self.delegate?.updateActionList()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -216,9 +231,16 @@ class CreateNewActionItemViewController: UIViewController {
         editActionItem.accountId = (selectedAccount?.account_Id)!
         editActionItem.subject = actionTitleTextField.text!
         editActionItem.description = actionItemDescriptionTextView.text!
-        editActionItem.activityDate = dueDateTextField.text!
+        editActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
         if let status = actionItemObject?.status {
             editActionItem.status = status
+            if editActionItem.status == "Open" || editActionItem.status == "Overdue"{
+                if !ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate) {
+                    editActionItem.status = "Overdue"
+                }else{
+                    editActionItem.status = "Open"
+                }
+            }
         }
         if isUrgentSwitch.isOn {
             editActionItem.isUrgent = true
@@ -267,7 +289,6 @@ class CreateNewActionItemViewController: UIViewController {
         let timeStamp = dateFormatter.string(from: date)
         return timeStamp
     }
-
 }
 
 extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDataSource {    
@@ -307,6 +328,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
             searchAccountTextField = cell?.searchContactTextField
             accountDropDown = cell?.accountsDropDown
+            cell?.titleLabel.text = "Link an Account"
             cell?.delegate = self
             return cell!
         case 2:
@@ -343,11 +365,12 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
             dueDateTextField = cell?.dateTextfield
             dateTextFieldContainerView = cell?.dateTextFieldContainerView
-            cell?.datePickerView.minimumDate = Date()
+//            cell?.datePickerView.minimumDate = Date()
             cell?.headerLabel.text = "Due Date"
             if let actionItem = actionItemObject {
                 cell?.actionItem = actionItem
-                cell?.dateTextfield.text = actionItemObject?.activityDate
+                cell?.dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: actionItemObject?.activityDate)
+                
             }
             return cell!
         default:
@@ -362,6 +385,7 @@ extension CreateNewActionItemViewController: SearchAccountTableViewCellDelegate 
     }
     
     func accountSelected(account : Account) {
+        createActionItemsGlobals.userInput = true
         selectedAccount = account
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -371,6 +395,7 @@ extension CreateNewActionItemViewController: SearchAccountTableViewCellDelegate 
 
 extension CreateNewActionItemViewController: AccountContactLinkTableViewCellDelegate {
     func removeAccount() {
+        createActionItemsGlobals.userInput = true
         selectedAccount = nil
         DispatchQueue.main.async {
             self.tableView.reloadData()

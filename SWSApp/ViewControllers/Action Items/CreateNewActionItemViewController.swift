@@ -219,7 +219,9 @@ class CreateNewActionItemViewController: UIViewController {
         let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
         if success {
             self.delegate?.updateActionList()
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            if ActionItemFilterModel.fromAccount{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -268,8 +270,10 @@ class CreateNewActionItemViewController: UIViewController {
         
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             self.delegate?.updateActionDesc()
+            if ActionItemFilterModel.fromAccount{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }

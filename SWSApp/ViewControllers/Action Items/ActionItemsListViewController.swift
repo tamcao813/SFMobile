@@ -24,7 +24,6 @@ class ActionItemsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshActionItemList), name: NSNotification.Name("refreshActionItemList"), object: nil)
         DispatchQueue.main.async {
             if ActionItemFilterModel.fromAccount{
                 self.actionItemButtonContainerViewHeight.constant = 0

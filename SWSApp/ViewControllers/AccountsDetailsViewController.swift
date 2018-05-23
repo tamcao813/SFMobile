@@ -157,7 +157,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                     let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
                     createActionItemViewController.isEditingMode = false
                     createActionItemViewController.selectedAccount = self.accountDetailForLoggedInUser
-                    createActionItemViewController.delegate = self
+//                    createActionItemViewController.delegate = self
                     self.present(createActionItemViewController, animated: true)
                 }
             case 3:
@@ -399,18 +399,4 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
 }
-
-extension AccountDetailsViewController : CreateNewActionItemViewControllerDelegate {
-    func updateActionList(){
-        let button = UIButton()
-        button.tag = 5
-        self.itemsClicked(sender: button)
-    }
-    
-    func updateActionDesc(){
-        
-    }
-    
-}
-
 

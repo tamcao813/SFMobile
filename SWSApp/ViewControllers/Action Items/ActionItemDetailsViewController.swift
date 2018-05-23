@@ -93,6 +93,9 @@ class ActionItemDetailsViewController: UIViewController {
             let success = AccountsActionItemViewModel().deleteActionItemLocally(fields: editActionItemDict)
             if(success){
                 self.delegate?.updateList()
+                if ActionItemFilterModel.fromAccount{
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+                }
                 self.dismiss(animated: true, completion: nil)
             }
             else {
@@ -107,6 +110,9 @@ class ActionItemDetailsViewController: UIViewController {
     @IBAction func closeButtonTapped(_ sender: UIButton){
         DispatchQueue.main.async {
             self.delegate?.updateList()
+            if ActionItemFilterModel.fromAccount{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -175,6 +181,9 @@ class ActionItemDetailsViewController: UIViewController {
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {
             self.delegate?.updateList()
+            if ActionItemFilterModel.fromAccount{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -216,6 +225,9 @@ class ActionItemDetailsViewController: UIViewController {
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {
             self.delegate?.updateList()
+            if ActionItemFilterModel.fromAccount{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }

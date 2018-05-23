@@ -65,6 +65,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     }
     
     func setBuyingPower(value: Bool) {
+        
         if buyingPower != value { //if switching true/false, clear the textfield
             primaryFunctionTextField.text = ""
             selectedPrimaryFunctionOption  = [String:Any]()

@@ -287,39 +287,38 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         ContactsViewModel().syncContactWithServer { error in
             if error == nil {
-                print("syncContactWithServer Successfully")
-                
-                let acrArray = ContactsViewModel().accountsForContacts()
+                let acrArray = ContactsViewModel().accountsForContacts() //need all because some ACRs may be changed to unlinked
                 
                 var updatedACRs = [AccountContactRelation]()
                 for acr in acrArray {
                     if acr.contactId.starts(with: "NEW") {
                         let sfContactId = ContactsViewModel().contactIdForACR(with: acr.contactId)
-                        acr.contactId = sfContactId
-                        updatedACRs.append(acr)
+                        if sfContactId != "" {
+                            acr.contactId = sfContactId
+                            updatedACRs.append(acr)
+                        }
+                        else {
+                            print("sfContactId is empty for tempId: " + acr.contactId)
+                        }
                     }
                 }
                 
                 if updatedACRs.count > 0 {
-                    let success = ContactsViewModel().updateACRToSoup(objects: updatedACRs)
-                
-                    if success {
-                        ContactsViewModel().syncACRwithServer{ error in
-                            if error == nil {
-                                print("syncACRwithServer completed successfully")
-                            }
-                            else {
-                                print("syncACRwithServer failed")
-                            }
-                            group.leave()
-                        }
+                    let successAcrSoup = ContactsViewModel().updateACRToSoup(objects: updatedACRs)
+                    if !successAcrSoup {
+                        print("updateACRToSoup failed")
                     }
                 }
-                else {
-                    print("updateACRToSoup failed")
+                    
+                ContactsViewModel().syncACRwithServer{ error in
+                    if error == nil {
+                        print("syncACRwithServer completed successfully")
+                    }
+                    else {
+                        print("syncACRwithServer failed")
+                    }
                     group.leave()
                 }
-                
             } else {
                 print("syncContactWithServer error " + (error?.localizedDescription)!)
                 group.leave()
@@ -359,7 +358,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         //Download all soups only after all above async operations complete
         group.notify(queue: .main) {
-            StoreDispatcher.shared.downloadAllSoups({ (error) in
+            StoreDispatcher.shared.syncDownSoupsAfterSyncUpData({ (error) in
                 if error != nil {
                     print("PostSyncUp:downloadAllSoups")
                 }
@@ -368,10 +367,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
                 }
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             })
         }
     }

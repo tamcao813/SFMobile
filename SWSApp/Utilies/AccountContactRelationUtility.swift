@@ -10,9 +10,9 @@ import UIKit
 
 class AccountContactRelationUtility {
 
-    static func getAccountByFilterByContactId(contactId :String)-> ( [AccountContactRelation]){
+    static func getAccountByFilterByContactId(contactId: String)-> [AccountContactRelation] {
         
-        let accountsListWithContactId = ContactsViewModel().accountsForContacts().filter( { return $0.contactId == contactId } )
+        let accountsListWithContactId = ContactsViewModel().activeAccountsForContacts().filter{ return $0.contactId == contactId }
 
         return accountsListWithContactId
     }

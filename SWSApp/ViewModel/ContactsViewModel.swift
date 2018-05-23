@@ -33,6 +33,14 @@ class ContactsViewModel{
         return StoreDispatcher.shared.fetchContactsAccounts()
     }
     
+    func activeAccountsForContacts() -> [AccountContactRelation] {
+        return StoreDispatcher.shared.fetchContactsActiveAccounts()
+    }
+    
+    func linkedAccountsForContact(with contactId:String) -> [AccountContactRelation] {
+        return StoreDispatcher.shared.fetchLinkedActiveAccounts(For: contactId)
+    }
+    
     func contactIdForACR(with tempId: String) -> String {
         return StoreDispatcher.shared.fetchContactId(for: tempId)
     }

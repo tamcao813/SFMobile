@@ -58,7 +58,8 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     func fetchContacts(){
         contactsAcc = [AccountContactRelation]()
         globalContactCount = contactViewModel.globalContacts().count
-        contactsAcc = contactViewModel.accountsForContacts()
+        //contactsAcc = contactViewModel.activeAccountsForContacts() //already called in loadContactData()
+            //contactViewModel.accountsForContacts()
         loadContactData()
     }
     
@@ -116,7 +117,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
                 if(!accName.isEmpty){
                     print("my account names \(accName) \(acc.contactId) \(acc.contactName) \(acc.accountId)")
                     accountsName.append(accName)
-                    break
+                    //break //fix this, need to get all names
                 }
                 else { // acr table is not populated so reading from accounts table.
                     let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: acc.accountId)
@@ -130,6 +131,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
             }
             
         }
+        
         if(accountsName.count > 0){
             accountsName = accountsName.sorted { $0.lowercased() < $1.lowercased() }
             
@@ -163,7 +165,9 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     func loadContactData() {
         //reset ACR data
         contactsAcc.removeAll()
-        contactsAcc = contactViewModel.accountsForContacts()
+        
+        contactsAcc = contactViewModel.activeAccountsForContacts()
+        //contactViewModel.accountsForContacts()
         
         if ContactsGlobal.accountId == "" {
             
@@ -258,7 +262,10 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     @objc func reloadAllContacts(notification: NSNotification){
         contactsAcc = [AccountContactRelation]()
         globalContactCount = contactViewModel.globalContacts().count
-        contactsAcc = contactViewModel.accountsForContacts()
+        
+        contactsAcc = contactViewModel.activeAccountsForContacts()
+        //contactViewModel.accountsForContacts()
+        
         initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
         updateUI()
         print("\(self.noOfPages!)")

@@ -25,7 +25,8 @@ class ContactListDetailsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+        accountLinked = ContactsViewModel().linkedAccountsForContact(with: (contactDetail?.contactId)!)
+            //AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
     }
 }
 
@@ -75,7 +76,9 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         }
         
         let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
-        let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+        let acrDetail = ContactsViewModel().linkedAccountsForContact(with: (contactDetail?.contactId)!)
+            //AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+        
         
         cell.contactId = (contactDetail?.contactId)!
         
@@ -111,13 +114,25 @@ extension ContactListDetailsViewController : UITableViewDataSource {
             return
         }
         
+        //update ACR soup
+        let aCR = accountLinked[sender.tag]
+        aCR.isActive = 0
+        var ary = [AccountContactRelation]()
+        ary.append(aCR)
+        let success = ContactsViewModel().updateACRToSoup(objects:ary)
+        
+        if !success {
+            return
+        }
+        
         UIView.performWithoutAnimation({() -> Void in
             contactDetailsTableView.beginUpdates()
+    
             accountLinked.remove(at: sender.tag)
+            
             contactDetailsTableView.deleteRows(at: [IndexPath(row: (sender.tag + countHeaderFooter), section: 0)], with: .fade)
 
             if accountLinked.count == 0 {
-//                contactDetailsTableView.deleteRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
                 contactDetailsTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
             }
             contactDetailsTableView.endUpdates()
@@ -136,7 +151,11 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         linkAccountToContactVC?.isInEditMode = true
         linkAccountToContactVC?.contactName = contactDetail?.name
         linkAccountToContactVC?.contactObject = contactDetail
-        //linkAccountToContactVC?.accountIdSelected = accountId
+        linkAccountToContactVC?.delegate = self
+        
+        let aCR = accountLinked[sender.tag]
+        linkAccountToContactVC?.accContactRelation = aCR
+        
         self.present(linkAccountToContactVC!, animated: true, completion: nil)
     }
 
@@ -146,6 +165,7 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         linkAccountToContactVC?.isInEditMode = false
         linkAccountToContactVC?.contactName = contactDetail?.name
         linkAccountToContactVC?.contactObject = contactDetail
+        linkAccountToContactVC?.delegate = self
         self.present(linkAccountToContactVC!, animated: true, completion: nil)
     }
     
@@ -183,7 +203,8 @@ extension ContactListDetailsViewController : UITableViewDelegate {
         }
         
         FilterMenuModel.comingFromDetailsScreen = "YES"
-        let acrDetail = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
+        let acrDetail = ContactsViewModel().linkedAccountsForContact(with: (contactDetail?.contactId)!)
+            //AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
         FilterMenuModel.selectedAccountId = acrDetail[(indexPath.row-2)].accountId
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
 
@@ -208,7 +229,8 @@ extension ContactListDetailsViewController : CreateNewContactViewControllerDeleg
         let contact = ContactSortUtility.searchContactByContactId((contactDetail?.contactId)!)
         if contact != nil {
             
-            accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contact?.contactId)!)
+            accountLinked = ContactsViewModel().linkedAccountsForContact(with: (contact?.contactId)!)
+                //AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contact?.contactId)!)
             
             contactDetail = contact
             DispatchQueue.main.async {
@@ -229,7 +251,8 @@ extension ContactListDetailsViewController : LinkAccountToContactViewControllerD
         let contact = ContactSortUtility.searchContactByContactId((contactDetail?.contactId)!)
         if contact != nil {
             
-            accountLinked = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contact?.contactId)!)
+            accountLinked = ContactsViewModel().linkedAccountsForContact(with: (contact?.contactId)!)
+                //AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contact?.contactId)!)
             
             contactDetail = contact
             DispatchQueue.main.async {

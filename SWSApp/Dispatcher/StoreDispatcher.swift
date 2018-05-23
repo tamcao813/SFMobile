@@ -128,6 +128,50 @@ class StoreDispatcher {
         }
     }
     
+    
+    //sync down soups - contact and ACR are already synced up, and no need to sync down plists
+    func syncDownSoupsAfterSyncUpData(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
+        
+        let queue = DispatchQueue(label: "concurrent")
+        let group = DispatchGroup()
+        
+        group.enter()
+        syncDownAccount() { _ in
+            self.syncDownStrategyQA() { _ in
+            }
+            
+            self.syncDownStrategyQuestions() { _ in
+                self.syncDownStrategyAnswers() { _ in
+                    group.leave()
+                }
+            }
+        }
+        
+        group.enter()
+        syncDownUserDataForAccounts() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownNotes() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownVisits() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownActionItem() { _ in
+            group.leave()
+        }
+        
+        group.notify(queue: queue) {
+            completion(nil)
+        }
+    }
+    
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {
         let query = "SELECT id FROM RecordType where DeveloperName = 'customer' and isActive = true and SobjectType = 'Contact'"
         
@@ -1032,7 +1076,6 @@ class StoreDispatcher {
     }
     
     func fetchContactsAccounts() -> [AccountContactRelation] {
-        
         print("fetchContactsAccounts")
         var acrAry: [AccountContactRelation] = []
         
@@ -1057,26 +1100,84 @@ class StoreDispatcher {
         return acrAry
     }
     
-    
-    
-    func fetchContactIdsWithBuyingPower(forAccount accountId: String) -> [String] {
-        var acrAry: [String] = []
-    
-        let soapQuery = "Select {SGWS_AccountContactMobile__c:SGWS_Contact__c} FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_AccountContactMobile__c:SGWS_Buying_Power__c} = true"
+    func fetchContactsActiveAccounts() -> [AccountContactRelation] {
+        var acrAry: [AccountContactRelation] = []
+        
+        let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_IsActive__c} = 1"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
         
-        if result.count > 0 {
+        if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
-                acrAry.append(ary[0] as! String)
+                let acr = AccountContactRelation(withAry: ary)
+                if acr.isActive == 1 {
+                    acrAry.append(acr)
+                }
             }
         }
         else if error != nil {
-            print("fetchConactIdsWithBuyingPower " + " error:" + (error?.localizedDescription)!)
+            print("fetchContactsActiveAccounts " + " error:" + (error?.localizedDescription)!)
+        }
+        return acrAry
+    }
+    
+    func fetchLinkedActiveAccounts(For contactId: String) -> [AccountContactRelation] {
+        var acrAry: [AccountContactRelation] = []
+        
+        let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
+        
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_IsActive__c} = 1 AND {SGWS_AccountContactMobile__c:SGWS_Contact__c} = '\(contactId)'"
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let acr = AccountContactRelation(withAry: ary)
+                if acr.isActive == 1 {
+                    acrAry.append(acr)
+                }
+            }
+        }
+        else if error != nil {
+            print("fetchLinkedActiveAccounts " + " error:" + (error?.localizedDescription)!)
+        }
+        return acrAry
+    }
+    
+    func fetchContactIdsWithBuyingPower(forAccount accountId: String) -> [String] {
+        var acrAry: [String] = []
+    
+        let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
+        
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_AccountContactMobile__c:SGWS_Buying_Power__c} = 1"
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        var acrObjects = [AccountContactRelation]()
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let acr = AccountContactRelation(withAry: ary)
+                if acr.buyingPower == 1 { 
+                    acrObjects.append(acr)
+                }
+            }
+        }
+        
+        for acr in acrObjects {
+            acrAry.append(acr.contactId)
         }
         
         return acrAry
@@ -1110,16 +1211,20 @@ class StoreDispatcher {
         let acrQueryFields = AccountContactRelation.AccountContactRelationFields
         
         var indexSpec:[SFSoupIndex] = []
-        for i in 0...acrQueryFields.count - 2 {
+        for i in 0...acrQueryFields.count - 5 {
             let sfIndex = SFSoupIndex(path: acrQueryFields[i], indexType: kSoupIndexTypeString, columnName: acrQueryFields[i])!
             indexSpec.append(sfIndex)
         }
         
-        //roles is plist
-        /*
-         var sfIndex1 = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 2], indexType: kSoupIndexTypeFullText, columnName: acrQueryFields[acrQueryFields.count - 2])!
-         indexSpec.append(sfIndex1) */
-        var sfIndex1 = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 1], indexType: kSoupIndexTypeFullText, columnName: acrQueryFields[acrQueryFields.count - 1])!
+        var sfIndexbool = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 4], indexType: kSoupIndexTypeInteger, columnName: acrQueryFields[acrQueryFields.count - 4])!
+        indexSpec.append(sfIndexbool)
+        sfIndexbool = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 3], indexType: kSoupIndexTypeInteger, columnName: acrQueryFields[acrQueryFields.count - 3])!
+        indexSpec.append(sfIndexbool)
+        
+        //roles and classification are plist
+        var sfIndex1 = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 2], indexType: kSoupIndexTypeFullText, columnName: acrQueryFields[acrQueryFields.count - 2])!
+        indexSpec.append(sfIndex1)
+        sfIndex1 = SFSoupIndex(path: acrQueryFields[acrQueryFields.count - 1], indexType: kSoupIndexTypeFullText, columnName: acrQueryFields[acrQueryFields.count - 1])!
         indexSpec.append(sfIndex1)
         
         sfIndex1 = SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!

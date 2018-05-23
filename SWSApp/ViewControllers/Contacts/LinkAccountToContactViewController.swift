@@ -15,6 +15,7 @@ protocol LinkAccountToContactViewControllerDelegate: NSObjectProtocol {
 
 class LinkAccountToContactViewController: UIViewController {
 
+    @IBOutlet weak var unlinkButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeadingLabel: UILabel!
     var accountSelected: Account?
@@ -30,28 +31,44 @@ class LinkAccountToContactViewController: UIViewController {
     var isInEditMode: Bool = false
     var delegate: LinkAccountToContactViewControllerDelegate?
     var accountIdSelected: String = ""
+    var accContactRelation: AccountContactRelation?
+    var isFirstTimeLoaded: Bool = true
+    var countOfLinkedAccounts: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
         initializingXIBs()
+        
         if isInEditMode {
             fetchAccountDetails()
+            fetchACR()
         }
     }
     
-    func fetchAccountDetails(){
-        let accountsArray = AccountsViewModel().accountsForLoggedUser
-        
+    func fetchACR() {
         if !isInEditMode {
             return
         }
         
-        let accountId = contactObject?.accountId
+        let acr = ContactsViewModel().linkedAccountsForContact(with: (contactObject?.contactId)!)
         
+        countOfLinkedAccounts = acr.count
+        doesHaveBuyingPower = accContactRelation?.buyingPower == 1
+    }
+    
+    func fetchAccountDetails(){
+        if !isInEditMode {
+            return
+        }
+        
+        let accountsArray = AccountsViewModel().accountsForLoggedUser
+        
+        //below is for Edit
+        let accountId = accContactRelation?.accountId
         for account in accountsArray{
             if account.account_Id == accountId {
-                accountSelected = account //this is for Edit
+                accountSelected = account
                 break
             }
         }
@@ -60,8 +77,12 @@ class LinkAccountToContactViewController: UIViewController {
     func customizedUI(){
         if isInEditMode {
             pageHeadingLabel.text = "Edit Linked Account"
-        }else{
+            unlinkButton.isHidden = false
+            unlinkButton.isEnabled = true
+        } else {
             pageHeadingLabel.text = "Link New Account to \(contactName ?? "")"
+            unlinkButton.isHidden = true
+            unlinkButton.isEnabled = false
         }
         
         self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -78,8 +99,27 @@ class LinkAccountToContactViewController: UIViewController {
         self.tableView.register(UINib(nibName: "ContactClassificationTableViewCell", bundle: nil), forCellReuseIdentifier: "ContactClassificationTableViewCell")
         
         self.tableView.register(UINib(nibName: "PrimaryFunctionTableViewCell", bundle: nil), forCellReuseIdentifier: "PrimaryFunctionTableViewCell")
+    }
+    
+    @IBAction func unlinkAccount(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.titleLabel?.text = "Account Unlinked"
+            return
+        }
         
+        if countOfLinkedAccounts == 1 {
+            let alert = UIAlertController(title: "Cannot unlink, this is the only linked account.", message: "Each Contact must be linked to at least one Account.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            
+            sender.isSelected = false
+            return
+        }
         
+        sender.titleLabel?.text = "Account Unlinked"
+        accContactRelation?.isActive = 0
+        sender.isSelected = true
+        sender.isEnabled = false
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
@@ -88,29 +128,30 @@ class LinkAccountToContactViewController: UIViewController {
             dropdown.hide()
         }
         DispatchQueue.main.async {
-//            if  createNewGlobals.userInput {
                 AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-//                    createNewGlobals.userInput = false
                     self.dismiss(animated: true, completion: nil)
                 }){
                     
                 }
-//            }else{
-//                self.dismiss(animated: true, completion: nil)
-//            }
         }
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton){
-        searchAccountTextField.borderColor = .lightGray
+        if !isInEditMode {
+            searchAccountTextField.borderColor = .lightGray
+        }
         primaryFunctionTextField.borderColor = .lightGray
         
-        if !isInEditMode && accountSelected == nil {
-            searchAccountTextField.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-            errorLabel.text = StringConstants.emptyFieldError
-            return
-        }else if (primaryFunctionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+        if !isInEditMode {
+            if accountSelected == nil {
+                searchAccountTextField.borderColor = .red
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                errorLabel.text = StringConstants.emptyFieldError
+                return
+            }
+        }
+        
+        if (primaryFunctionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             primaryFunctionTextField.borderColor = .red
             primaryFunctionTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 2), at: .top, animated: true)
@@ -118,8 +159,58 @@ class LinkAccountToContactViewController: UIViewController {
             return
         }
         
-        // Dismiss after saving and call the delegate to update the contact object
-        //self.delegate.update()
+        var  aCR = AccountContactRelation(for:"NewACR")
+    
+        if isInEditMode {
+            aCR = accContactRelation!
+            
+            if aCR.contactName.count == 0 {
+                aCR.contactName = (contactObject?.firstName)! + " " + (contactObject?.lastName)!
+            }
+        }
+        else {
+            aCR.accountId = (accountSelected?.account_Id)!
+            aCR.contactId = (contactObject?.contactId)!
+            aCR.contactName = (contactObject?.firstName)! + " " + (contactObject?.lastName)!
+            aCR.isActive = 1
+        }
+        
+        aCR.roles = primaryFunctionTextField.text!
+        aCR.buyingPower = doesHaveBuyingPower ? 1:0
+        
+        if !doesHaveBuyingPower {
+            aCR.contactClassification = contactClassificationTextField.text!
+            
+            if aCR.contactClassification == "Other" {
+                aCR.otherSpecification = otherReasonTextField.text!
+            }
+        }
+        
+        var success:Bool = false
+        
+        if isInEditMode {
+            var ary = [AccountContactRelation]()
+            ary.append(aCR)
+            success = ContactsViewModel().updateACRToSoup(objects:ary)
+        }
+        else {
+            success = ContactsViewModel().createNewACRToSoup(object: aCR)
+        }
+        
+        if success {
+            self.dismiss(animated: true, completion: {
+                self.delegate?.updateContact()
+            })
+        } else {
+            var meg = "Failed to link the new account."
+            if isInEditMode {
+                meg = "Failed to update the account."
+            }
+            let alertController = UIAlertController(title: "Alert", message:
+                meg, preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 
 }
@@ -152,8 +243,8 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
             return 1
         case 3:
             if doesHaveBuyingPower {
-                contactClassificationTextField?.text = ""
-                otherReasonTextField?.text = ""
+                contactClassificationTextField?.text = "" //clear the text
+                otherReasonTextField?.text = "" //clear the text
                 return 1
             }else{
                 return 2
@@ -178,18 +269,20 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
             cell?.containerLeadingConstraint.constant = 40
             cell?.delegate = self
             if let account = accountSelected {
-                cell?.displayCellContent(account: account)
+                cell?.displayCellContent(account: account, isEditing: isInEditMode)
             }
             return cell!
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
+            
             cell?.setBuyingPower(value: doesHaveBuyingPower)
-
-//            if let contactDetail = contactObject {
-//                cell?.contactDetail = contactDetail
-//                cell?.displayCellContent()
-//                cell?.primaryFunctionTextField.text = contactDetail.functionRole
-//            }
+            
+            if let acr = accContactRelation { //this is for editing
+                if isFirstTimeLoaded {
+                    cell?.primaryFunctionTextField.text = acr.roles
+                }
+            }
+            
             cell?.departmentTextField.isHidden = true
             cell?.titleTextField.isHidden = true
             cell?.titleLabel.isHidden = true
@@ -202,14 +295,24 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
-                cell?.setBuyingPower(value:  doesHaveBuyingPower)
+                cell?.setBuyingPower(value: doesHaveBuyingPower)
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
                 cell?.displayCellContents()
-                if let contactDetail = contactObject {
-                    // Assign the value according to the contactObject and contact classification picker
+                
+                cell?.setBuyingPower(value: doesHaveBuyingPower)
+                
+                if let acr = accContactRelation {
+                    if isFirstTimeLoaded && !doesHaveBuyingPower {
+                        cell?.classificationTextField.text = acr.contactClassification
+                        if acr.contactClassification == "Other" {
+                            cell?.otherTextField.text = acr.otherSpecification
+                            cell?.otherTextField.isHidden = false
+                        }
+                    }
                 }
+                
                 contactClassificationTextField = cell?.classificationTextField
                 otherReasonTextField = cell?.otherTextField
                 return cell!
@@ -239,13 +342,14 @@ extension LinkAccountToContactViewController: PrimaryFunctionTableViewCellDelega
 extension LinkAccountToContactViewController: ToggleTableViewCellDelegate {
     func buyingPowerChanged(buyingPower: Bool) {
         doesHaveBuyingPower = buyingPower
+        isFirstTimeLoaded = false
         self.tableView.reloadData()
     }
 }
 
 extension LinkAccountToContactViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
-        /* //
+        
         if !isInEditMode && account.account_Id == contactObject?.accountId {
         
             let alertController = UIAlertController(title: "This account is already linked.", message:
@@ -254,7 +358,7 @@ extension LinkAccountToContactViewController: SearchAccountTableViewCellDelegate
             self.present(alertController, animated: true, completion: nil)
             return
         }
-        */
+        
         accountSelected = account
         tableView.reloadData()
     }

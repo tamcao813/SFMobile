@@ -18,6 +18,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     let visitModel = VisitSchedulerViewModel()
     var visitToDisplay = [PlanVisit]()
     var visitArray = [PlanVisit]()
+    var visitTwoWeek = [PlanVisit]()
     var accountId : String!
    
     
@@ -41,7 +42,9 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
            
         }
         
-    //   getDayFromDate()
+        visitTwoWeek = visitModel.visitsForUserTwoWeeksUpcoming()
+        print("Two week visit \(visitTwoWeek)")
+    
         
         // Do any additional setup after loading the view.
     }
@@ -51,17 +54,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         // Dispose of any resources that can be recreated.
     }
     
-    // Function to get today, tomorrow , yesterday from date
-    
-//    func getDayFromDate()  {
-//
-//        let calendar = Calendar.current
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-//        let date = dateFormatter.date(from: visitArray[2].startDate)
-//
-//
-//    }
+   
     
     // MARK: - TableView Functions
     

@@ -52,5 +52,34 @@ class VisitSchedulerViewModel {
         return StoreDispatcher.shared.editVisit(fields:fields)
     }
     
+    // account overview related function
+    func visitsForUserTwoWeeksUpcoming() -> [PlanVisit] {
+        
+        var visitsForUserArray = visitsForUser()
+        
+        let prevWeekDate = Date().add(component: .day, value: 0)
+        let nextTwoWeekDate = Date().add(component: .day, value: 14)
+        
+        visitsForUserArray = visitsForUserArray.filter {
+            
+            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+                if startDate.isLater(than: prevWeekDate), startDate.isEarlier(than: nextTwoWeekDate) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            return false
+            
+        }
+        
+        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        
+        return visitsForUserArray
+        
+    }
+    
+    
 
 }

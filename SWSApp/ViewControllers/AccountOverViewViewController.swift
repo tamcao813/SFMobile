@@ -41,7 +41,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
            
         }
         
-       getDayFromDate()
+    //   getDayFromDate()
         
         // Do any additional setup after loading the view.
     }
@@ -53,19 +53,15 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     // Function to get today, tomorrow , yesterday from date
     
-    func getDayFromDate()  {
-
-        let calendar = Calendar.current
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let date = dateFormatter.date(from: visitArray[1].startDate)
-        
-        print("yesterday \(calendar.isDateInYesterday(date!))")
-        print("Today \(calendar.isDateInToday(date!))")
-        print("Tomorrow \(calendar.isDateInTomorrow(date!))")
-        print("InWeekend \(calendar.isDateInWeekend(date!))")
-    }
+//    func getDayFromDate()  {
+//
+//        let calendar = Calendar.current
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+//        let date = dateFormatter.date(from: visitArray[2].startDate)
+//
+//
+//    }
     
     // MARK: - TableView Functions
     

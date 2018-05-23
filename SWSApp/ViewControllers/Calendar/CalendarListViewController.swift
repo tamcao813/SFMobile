@@ -310,7 +310,17 @@ extension CalendarListViewController: WRWeekViewDelegate {
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
-//        }
+        } else {
+            
+            let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
+            PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "")
+            (accountVisitsVC)?.delegate = self
+            accountVisitsVC?.visitId = event.Id
+            DispatchQueue.main.async {
+                self.present(accountVisitsVC!, animated: true, completion: nil)
+            }
+        }
 
     }
 }

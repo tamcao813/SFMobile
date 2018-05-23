@@ -83,6 +83,9 @@ class StoreDispatcher {
         
         group.enter()
         syncDownSyncConfiguration(){_ in
+            
+            _ = self.fetchSyncConfiguration()
+            
             group.leave()
         }
         
@@ -103,11 +106,11 @@ class StoreDispatcher {
             self.syncDownACR() { _ in
             }
             
-            // stage 2 Downlaod response after Sync down Account
+            // Stage 2 Download response after Sync down Account
             self.syncDownStrategyQA() { _ in
             }
             
-            // Stage 2 StrategyQuestions downlaod need survey Id's which are downlaoded in Account
+            // Stage 2 StrategyQuestions download need survey Id's which are downlaoded in Account
             self.syncDownStrategyQuestions() { _ in
                 
                 //Stage 3 do only when we have all questions
@@ -699,7 +702,11 @@ class StoreDispatcher {
             completion(nil, error)
             return
         }
-                
+        
+        //Load the sync config
+        _ = self.fetchSyncConfiguration()
+
+        
         let username = user.userName
         
         let fields = User.UserFields.map{"{User:\($0)}"}
@@ -2679,7 +2686,17 @@ class StoreDispatcher {
                 syncConfiguration.append(syncConfigurationArray)
             }
         }
-        
+        for scArray in syncConfiguration {
+            
+            if(scArray.developerName == self.workOrderTypeEvent){
+                self.workOrderRecordTypeIdEvent = scArray.id
+                self.workOrderTypeDict["SGWS_WorkOrder_Event"] = self.workOrderRecordTypeIdEvent
+            }
+            if(scArray.developerName == self.workOrderTypeVisit){
+                self.workOrderRecordTypeIdVisit = scArray.id
+                self.workOrderTypeDict["SGWS_WorkOrder_Visit"] = self.workOrderRecordTypeIdVisit
+            }
+        }
         return syncConfiguration
         
     }
@@ -2722,4 +2739,5 @@ class StoreDispatcher {
         return accVisitEventArray
         
     }
+    
 }

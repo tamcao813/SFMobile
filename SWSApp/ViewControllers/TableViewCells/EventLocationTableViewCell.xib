@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
-    <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-    </dependencies>
-    <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
-        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventLocationTableViewCell" id="Y1h-qN-KPQ" customClass="EventLocationTableViewCell" customModule="SWSApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y1h-qN-KPQ" id="I7C-pX-9zj">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFw-h8-Cjb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="44" id="DYD-1l-lee"/>
-                            <constraint firstAttribute="width" constant="375" id="xm5-l4-8TX"/>
-                        </constraints>
-                        <attributedString key="attributedText">
-                            <fragment content="Label">
-                                <attributes>
-                                    <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
-                        <nil key="highlightedColor"/>
-                    </label>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="JFw-h8-Cjb" firstAttribute="leading" secondItem="I7C-pX-9zj" secondAttribute="leading" id="5We-T9-lC2"/>
-                    <constraint firstItem="JFw-h8-Cjb" firstAttribute="top" secondItem="I7C-pX-9zj" secondAttribute="top" id="RLw-pn-dqP"/>
-                    <constraint firstAttribute="bottom" secondItem="JFw-h8-Cjb" secondAttribute="bottom" id="ie1-A2-bUF"/>
-                    <constraint firstAttribute="trailing" secondItem="JFw-h8-Cjb" secondAttribute="trailing" id="pYv-nS-AIb"/>
-                </constraints>
-            </tableViewCellContentView>
-            <connections>
-                <outlet property="label" destination="JFw-h8-Cjb" id="gbI-08-C6t"/>
-            </connections>
-            <point key="canvasLocation" x="50.5" y="45"/>
-        </tableViewCell>
-    </objects>
+<device id="retina4_7" orientation="portrait">
+<adaptation id="fullscreen"/>
+</device>
+<dependencies>
+<plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+<capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+</dependencies>
+<objects>
+<placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+<placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventLocationTableViewCell" id="Y1h-qN-KPQ" customClass="EventLocationTableViewCell" customModule="SWSApp" customModuleProvider="target">
+<rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+<autoresizingMask key="autoresizingMask"/>
+<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y1h-qN-KPQ" id="I7C-pX-9zj">
+<rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<subviews>
+<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFw-h8-Cjb">
+<rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+<constraints>
+<constraint firstAttribute="height" constant="44" id="DYD-1l-lee"/>
+<constraint firstAttribute="width" constant="375" id="xm5-l4-8TX"/>
+</constraints>
+<attributedString key="attributedText">
+<fragment content="Label">
+<attributes>
+<font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+</attributes>
+</fragment>
+</attributedString>
+<nil key="highlightedColor"/>
+</label>
+</subviews>
+<constraints>
+<constraint firstItem="JFw-h8-Cjb" firstAttribute="leading" secondItem="I7C-pX-9zj" secondAttribute="leading" id="5We-T9-lC2"/>
+<constraint firstItem="JFw-h8-Cjb" firstAttribute="top" secondItem="I7C-pX-9zj" secondAttribute="top" id="RLw-pn-dqP"/>
+<constraint firstAttribute="bottom" secondItem="JFw-h8-Cjb" secondAttribute="bottom" id="ie1-A2-bUF"/>
+<constraint firstAttribute="trailing" secondItem="JFw-h8-Cjb" secondAttribute="trailing" id="pYv-nS-AIb"/>
+</constraints>
+</tableViewCellContentView>
+<connections>
+<outlet property="label" destination="JFw-h8-Cjb" id="gbI-08-C6t"/>
+</connections>
+<point key="canvasLocation" x="50.5" y="45"/>
+</tableViewCell>
+</objects>
 </document>
+

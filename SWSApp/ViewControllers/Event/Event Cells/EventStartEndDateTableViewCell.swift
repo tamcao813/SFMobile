@@ -46,7 +46,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
             
              //Assign the model data also for saving
             CreateNewEventViewControllerGlobals.endDate = eventStartDateTextField.text!
-            CreateNewEventViewControllerGlobals.startTime = "00:00"
+            CreateNewEventViewControllerGlobals.startTime = "00:00 AM"
             CreateNewEventViewControllerGlobals.endTime = "11:59 PM"
             
             eventEndDateTextField.isUserInteractionEnabled = false

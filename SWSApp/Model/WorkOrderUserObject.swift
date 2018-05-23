@@ -75,6 +75,17 @@ class WorkOrderUserObject {
         shippingStreet = json["Account.ShippingStreet"] as? String ?? ""
         
         sgwsAppointmentStatus = json["SGWS_Appointment_Status__c"] as? Bool ?? false
+        
+        
+        let sgwsAppointmentStatusString = json["SGWS_Appointment_Status__c"] as? String ?? ""
+        if sgwsAppointmentStatusString == "true" {
+            sgwsAppointmentStatus = true
+        }
+        if sgwsAppointmentStatusString == "1" {
+            sgwsAppointmentStatus = true
+        }
+        
+        
         startDate = json["StartDate"] as? String ?? ""
         endDate = json["EndDate"] as? String ?? ""
         sgwsVisitPurpose = json["SGWS_Visit_Purpose__c"] as? String ?? ""
@@ -98,6 +109,16 @@ class WorkOrderUserObject {
         soupEntryId = json["_soupEntryId"] as? Int ?? 0
         location = json["SGWS_WorkOrder_Location__c"] as? String ?? ""
         sgwsAlldayEvent = json["SGWS_All_Day_Event__c"] as? Bool ?? false
+        
+        let sgwsAlldayEventString = json["SGWS_All_Day_Event__c"] as? String ?? ""
+        if sgwsAlldayEventString == "true" {
+            sgwsAlldayEvent = true
+        }
+        if sgwsAlldayEventString == "1" {
+            sgwsAlldayEvent = true
+        }
+
+        
 
     }
     

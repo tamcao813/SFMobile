@@ -19,9 +19,11 @@ class ActionItemsListViewController: UIViewController {
     var statusAscendingSort = false
     @IBOutlet weak var actionItemButtonContainerViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
+    var searchStr = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshActionItemList), name: NSNotification.Name("refreshActionItemList"), object: nil)
         DispatchQueue.main.async {
             if ActionItemFilterModel.fromAccount{
                 self.actionItemButtonContainerViewHeight.constant = 0
@@ -32,24 +34,32 @@ class ActionItemsListViewController: UIViewController {
             }
         }
         fetchActionItemsFromDB()
-        customizedUI()
+    }
+    
+    @objc func refreshActionItemList(){
+        fetchActionItemsFromDB()
     }
     
     func fetchActionItemsFromDB(){
         actionItemsArray = [ActionItem]()
-        actionItemsArray = AccountsActionItemViewModel().getAcctionItemForUser()
-        actionItemsArray = actionItemsArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
         if ActionItemFilterModel.fromAccount{
+            let actionItemsArrayLocal = AccountsActionItemViewModel().getAcctionItemForUser()
             if let accountId = ActionItemFilterModel.accountId {
-                actionItemsArray = actionItemsArray.filter( { return $0.accountId.contains(accountId)
-                } )
+                for actionItem in actionItemsArrayLocal {
+                    if actionItem.accountId == accountId {
+                        actionItemsArray.append(actionItem)
+                    }
+                }
             }
+        }else{
+            actionItemsArray = AccountsActionItemViewModel().getAcctionItemForUser()
         }
-        DispatchQueue.main.async {
-            UIView.performWithoutAnimation({() -> Void in
-                self.tableView.reloadData()
-            })
+        actionItemsArray = actionItemsArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        if ActionItemFilterModel.filterApplied {
+            applyFilter(searchText: searchStr)
         }
+        customizedUI()
+        reloadTableView()
     }
     
     func customizedUI(){
@@ -118,8 +128,13 @@ extension ActionItemsListViewController : ActionItemSearchButtonTappedDelegate{
     func performFilterOperation(searchText: UISearchBar) {
         ActionItemFilterModel.filterApplied = true
         //Perform Search Operation First then do Filtering
-        if searchText.text != ""{
-            filteredActionItemsArray =  ActionItemSortUtility().searchAndFilter(searchStr: searchText.text!, actionItems: actionItemsArray)
+        applyFilter(searchText: searchText.text!)
+    }
+    
+    func applyFilter(searchText: String){
+        if searchText != ""{
+            searchStr = searchText
+            filteredActionItemsArray =  ActionItemSortUtility().searchAndFilter(searchStr: searchText, actionItems: actionItemsArray)
         }else{
             filteredActionItemsArray = ActionItemSortUtility().filterOnly(actionItems: actionItemsArray)
         }

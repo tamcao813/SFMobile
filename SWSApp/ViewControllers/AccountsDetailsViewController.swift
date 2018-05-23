@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 //import DropDown
+import IQKeyboardManagerSwift
 
 struct AccountId {
     static var selectedAccountId = ""
@@ -156,7 +157,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                     let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
                     createActionItemViewController.isEditingMode = false
                     createActionItemViewController.selectedAccount = self.accountDetailForLoggedInUser
-                    //                    createActionItemViewController.delegate = self
+                    createActionItemViewController.delegate = self
                     self.present(createActionItemViewController, animated: true)
                 }
             case 3:
@@ -199,10 +200,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         containerView?.isHidden = true
-        
-        
-        
-        
+        IQKeyboardManager.shared.enable = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -378,6 +376,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             ActionItemFilterModel.accountId = accountDetailForLoggedInUser?.account_Id
             ActionItemFilterModel.fromAccount = true
             activeViewController = actionItemContainerVC
+            actionItemContainerVC?.fromPersistentMenu = false
         case 6:
             btnNotes?.backgroundColor = UIColor.white
             btnNotes?.setTitleColor(UIColor.black, for: .normal)
@@ -391,6 +390,19 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             break
         }
     }
+}
+
+extension AccountDetailsViewController : CreateNewActionItemViewControllerDelegate {
+    func updateActionList(){
+        let button = UIButton()
+        button.tag = 5
+        self.itemsClicked(sender: button)
+    }
+    
+    func updateActionDesc(){
+        
+    }
+    
 }
 
 

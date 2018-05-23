@@ -149,11 +149,6 @@ class CreateNewActionItemViewController: UIViewController {
             tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return
-        }else if (dueDateTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
-            dateTextFieldContainerView.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
-            errorLabel.text = StringConstants.emptyFieldError
-            return
         }
         errorLabel.text = ""
         if isEditingMode {
@@ -376,6 +371,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
 
 extension CreateNewActionItemViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
+        createActionItemsGlobals.userInput = true
         selectedAccount = account
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -385,6 +381,7 @@ extension CreateNewActionItemViewController: SearchAccountTableViewCellDelegate 
 
 extension CreateNewActionItemViewController: AccountContactLinkTableViewCellDelegate {
     func removeAccount() {
+        createActionItemsGlobals.userInput = true
         selectedAccount = nil
         DispatchQueue.main.async {
             self.tableView.reloadData()

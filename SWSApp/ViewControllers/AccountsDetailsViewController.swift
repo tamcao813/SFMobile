@@ -208,6 +208,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -215,6 +216,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         self.setupPastDueUI()
         self.setupAccountHealthGrade()
         self.setupPercentageValue()
+        IQKeyboardManager.shared.enable = true
         
     }
     override func viewDidAppear(_ animated: Bool) {

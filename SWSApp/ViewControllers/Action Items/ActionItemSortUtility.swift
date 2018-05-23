@@ -220,6 +220,32 @@ class ActionItemSortUtility {
         }
     }
     
+    func isItOpenState(dueDate: String) -> Bool{
+        if dueDate == "" {
+            return false
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: dueDate)
+        if Calendar.current.isDateInToday(date!){
+            return true
+        }else if Calendar.current.isDateInYesterday(date!){
+            return false
+        }else if Calendar.current.isDateInTomorrow(date!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    func getTimestamp() -> String{
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        return timeStamp
+    }
+    
 }
 
 extension Sequence where Iterator.Element: Hashable {

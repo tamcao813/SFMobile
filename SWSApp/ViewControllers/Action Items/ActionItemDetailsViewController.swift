@@ -112,7 +112,7 @@ class ActionItemDetailsViewController: UIViewController {
     }
     
     func toggleCompleteButton(){
-        if self.actionItemObject!.status == "Completed"{
+        if self.actionItemObject!.status.contains("Comp"){
             DispatchQueue.main.async {
                 self.Complete_Open_Button.setTitle("Open", for: .normal)
             }
@@ -124,7 +124,7 @@ class ActionItemDetailsViewController: UIViewController {
     }
     
     func setStatusOnDB(){
-        if Complete_Open_Button.titleLabel?.text  == "Complete"{
+        if (Complete_Open_Button.titleLabel?.text?.contains("Comp"))!{
             DispatchQueue.main.async {
                 self.completeEditActionItem()
                 self.Complete_Open_Button.setTitle("Open", for: .normal)
@@ -140,16 +140,7 @@ class ActionItemDetailsViewController: UIViewController {
     @IBAction func statusChangeButtonTapped(_ sender: UIButton){
         toggleCompleteButton()
         setStatusOnDB()       
-    }
-    
-    func getTimestamp() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
-    }
-    
+    }    
     
     func completeEditActionItem(){
         
@@ -161,8 +152,8 @@ class ActionItemDetailsViewController: UIViewController {
         editActionItem.description = self.actionItemObject!.description
         editActionItem.activityDate = self.actionItemObject!.activityDate
         editActionItem.isUrgent =   self.actionItemObject!.isUrgent
-        editActionItem.status =     "Completed"
-        editActionItem.lastModifiedDate = getTimestamp()
+        editActionItem.status =     "Complete"
+        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             
@@ -198,8 +189,12 @@ class ActionItemDetailsViewController: UIViewController {
         editActionItem.description = self.actionItemObject!.description
         editActionItem.activityDate = self.actionItemObject!.activityDate
         editActionItem.isUrgent =   self.actionItemObject!.isUrgent
-        editActionItem.status =     "Open"
-        editActionItem.lastModifiedDate = getTimestamp()
+        if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
+            editActionItem.status = "Open"
+        }else{
+            editActionItem.status = "Overdue"
+        }
+        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             

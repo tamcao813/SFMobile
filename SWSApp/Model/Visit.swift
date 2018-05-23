@@ -51,10 +51,10 @@ class Visit{
 
         let sgwsAppointmentStatusString = json["SGWS_Appointment_Status__c"] as? String ?? ""
         if sgwsAppointmentStatusString == "true" {
-            sgwsAppointmentStatus = true
+                    sgwsAppointmentStatus = true
         }
         if sgwsAppointmentStatusString == "1" {
-            sgwsAppointmentStatus = true
+                    sgwsAppointmentStatus = true
         }
         
         
@@ -69,14 +69,6 @@ class Visit{
         location = json["SGWS_WorkOrder_Location__c"] as? String ?? ""
         soupEntryId = json["_soupEntryId"] as? Int ?? 0
         sgwsAlldayEvent = json["SGWS_All_Day_Event__c"] as? Bool ?? false
-        let sgwsAlldayEventString = json["SGWS_All_Day_Event__c"] as? String ?? ""
-        if sgwsAlldayEventString == "true" {
-            sgwsAlldayEvent = true
-        }
-        if sgwsAlldayEventString == "1" {
-            sgwsAlldayEvent = true
-        }
-        
         let sgwsAlldayEventString = json["SGWS_All_Day_Event__c"] as? String ?? ""
         if sgwsAlldayEventString == "true" {
             sgwsAlldayEvent = true

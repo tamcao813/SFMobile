@@ -476,6 +476,10 @@
 		EA69F234B4F821BD07B76811 /* Pods_SWSAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */; };
 		F2062E5E2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2062E5D2091ED6E0005DD2A /* DuringVisit.storyboard */; };
 		F2062E5F2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2062E5D2091ED6E0005DD2A /* DuringVisit.storyboard */; };
+		F2086B7520B5B424008A61F0 /* VisitCallToConfirmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2086B7120B5B423008A61F0 /* VisitCallToConfirmTableViewCell.xib */; };
+		F2086B7620B5B424008A61F0 /* VisitCallToConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2086B7220B5B423008A61F0 /* VisitCallToConfirmTableViewCell.swift */; };
+		F2086B7720B5B424008A61F0 /* VisitLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2086B7320B5B423008A61F0 /* VisitLocationTableViewCell.xib */; };
+		F2086B7820B5B424008A61F0 /* VisitLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2086B7420B5B423008A61F0 /* VisitLocationTableViewCell.swift */; };
 		F209D705206CF05C001AF22F /* AccountsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */; };
 		F20C1A27209347EA00D2351C /* Insights.plist in Resources */ = {isa = PBXBuildFile; fileRef = F20C1A26209347EA00D2351C /* Insights.plist */; };
 		F20C1A28209347EA00D2351C /* Insights.plist in Resources */ = {isa = PBXBuildFile; fileRef = F20C1A26209347EA00D2351C /* Insights.plist */; };
@@ -806,6 +810,10 @@
 		D2EAEB912074EDBE005F7792 /* ActionItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionItemsViewController.swift; sourceTree = "<group>"; };
 		D2EAEB932074EF88005F7792 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		F2062E5D2091ED6E0005DD2A /* DuringVisit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DuringVisit.storyboard; sourceTree = "<group>"; };
+		F2086B7120B5B423008A61F0 /* VisitCallToConfirmTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCallToConfirmTableViewCell.xib; sourceTree = "<group>"; };
+		F2086B7220B5B423008A61F0 /* VisitCallToConfirmTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCallToConfirmTableViewCell.swift; sourceTree = "<group>"; };
+		F2086B7320B5B423008A61F0 /* VisitLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitLocationTableViewCell.xib; sourceTree = "<group>"; };
+		F2086B7420B5B423008A61F0 /* VisitLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitLocationTableViewCell.swift; sourceTree = "<group>"; };
 		F209D704206CF05C001AF22F /* AccountsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuViewController.swift; sourceTree = "<group>"; };
 		F20C1A26209347EA00D2351C /* Insights.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Insights.plist; sourceTree = "<group>"; };
 		F20C1A2920934C8B00D2351C /* DuringVisitsInsightsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -1470,6 +1478,10 @@
 		D23C40BD208DE6580006691C /* Account Visit Cells */ = {
 			isa = PBXGroup;
 			children = (
+				F2086B7220B5B423008A61F0 /* VisitCallToConfirmTableViewCell.swift */,
+				F2086B7120B5B423008A61F0 /* VisitCallToConfirmTableViewCell.xib */,
+				F2086B7420B5B423008A61F0 /* VisitLocationTableViewCell.swift */,
+				F2086B7320B5B423008A61F0 /* VisitLocationTableViewCell.xib */,
 				D23C40BE208DE6580006691C /* AssociatedContactsTableViewCell.swift */,
 				D23C40C3208DE6580006691C /* AssociatedContactsTableViewCell.xib */,
 				D23C40BF208DE6580006691C /* HeadSubHeadTableViewCell.swift */,
@@ -1797,6 +1809,7 @@
 				D23C40DA208DFA890006691C /* AccountVisitListTableViewCell.xib in Resources */,
 				12C5CEF3206E1A9500BC6E7A /* Localizable.strings in Resources */,
 				6DBD03212077B5EF0083419E /* Ubuntu-Light.ttf in Resources */,
+				F2086B7520B5B424008A61F0 /* VisitCallToConfirmTableViewCell.xib in Resources */,
 				8D17A5D220A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib in Resources */,
 				6DBD031F2077B5EF0083419E /* Ubuntu-Bold.ttf in Resources */,
 				91FAEF5120A57DD500209D71 /* WRCurrentTimeIndicator.xib in Resources */,
@@ -1829,6 +1842,7 @@
 				6D38329B20875E00006805C6 /* SFPropertydev.plist in Resources */,
 				91FAEF4920A57DD500209D71 /* WRColumnHeader.xib in Resources */,
 				4AE1195520A0AD720095BBA3 /* Info.plist in Resources */,
+				F2086B7720B5B424008A61F0 /* VisitLocationTableViewCell.xib in Resources */,
 				8D4BA3AA20B45B58005CFE56 /* AccountContactLinkTableViewCell.xib in Resources */,
 				6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */,
 				AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */,
@@ -2354,6 +2368,7 @@
 				91FAEF5D20A57DD500209D71 /* NSObjectExtension.swift in Sources */,
 				8D4BA3B020B45B58005CFE56 /* LinkAccountToContactViewController.swift in Sources */,
 				91FAEF4520A57DD500209D71 /* WRGridLine.swift in Sources */,
+				F2086B7620B5B424008A61F0 /* VisitCallToConfirmTableViewCell.swift in Sources */,
 				12E06C9920A0594C00A6C9E4 /* PlanVisitManager.swift in Sources */,
 				F22CE6DF20B48A4E001A2171 /* CreateNewEventViewController.swift in Sources */,
 				6F8BD3F12072297C006CABA8 /* MoreViewController.swift in Sources */,
@@ -2387,6 +2402,7 @@
 				F2AB94602095D5000028802E /* DuringVisitsInsightsViewController.swift in Sources */,
 				D2E12D7320736D620005B982 /* ReportsViewController.swift in Sources */,
 				8D4BA33220B455EB005CFE56 /* ActionItemFilterViewController.swift in Sources */,
+				F2086B7820B5B424008A61F0 /* VisitLocationTableViewCell.swift in Sources */,
 				D23C40C6208DE6590006691C /* AssociatedContactsTableViewCell.swift in Sources */,
 				F2AB945A2095D4E40028802E /* AccountStrategyViewControllerr.swift in Sources */,
 				8D17A5DD20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */,

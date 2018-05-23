@@ -140,16 +140,7 @@ class ActionItemDetailsViewController: UIViewController {
     @IBAction func statusChangeButtonTapped(_ sender: UIButton){
         toggleCompleteButton()
         setStatusOnDB()       
-    }
-    
-    func getTimestamp() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
-    }
-    
+    }    
     
     func completeEditActionItem(){
         
@@ -162,7 +153,7 @@ class ActionItemDetailsViewController: UIViewController {
         editActionItem.activityDate = self.actionItemObject!.activityDate
         editActionItem.isUrgent =   self.actionItemObject!.isUrgent
         editActionItem.status =     "Complete"
-        editActionItem.lastModifiedDate = getTimestamp()
+        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             
@@ -202,7 +193,7 @@ class ActionItemDetailsViewController: UIViewController {
         if !ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
             editActionItem.status = "Overdue"
         }
-        editActionItem.lastModifiedDate = getTimestamp()
+        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             

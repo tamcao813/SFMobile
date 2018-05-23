@@ -230,6 +230,14 @@ class ActionItemSortUtility {
         return date?.timeIntervalSinceNow.sign == .plus
     }
     
+    func getTimestamp() -> String{
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        return timeStamp
+    }
+    
 }
 
 extension Sequence where Iterator.Element: Hashable {

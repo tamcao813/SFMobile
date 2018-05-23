@@ -112,7 +112,7 @@ class ActionItemDetailsViewController: UIViewController {
     }
     
     func toggleCompleteButton(){
-        if self.actionItemObject!.status == "Completed"{
+        if self.actionItemObject!.status.contains("Comp"){
             DispatchQueue.main.async {
                 self.Complete_Open_Button.setTitle("Open", for: .normal)
             }
@@ -124,7 +124,7 @@ class ActionItemDetailsViewController: UIViewController {
     }
     
     func setStatusOnDB(){
-        if Complete_Open_Button.titleLabel?.text  == "Complete"{
+        if (Complete_Open_Button.titleLabel?.text?.contains("Comp"))!{
             DispatchQueue.main.async {
                 self.completeEditActionItem()
                 self.Complete_Open_Button.setTitle("Open", for: .normal)
@@ -161,7 +161,7 @@ class ActionItemDetailsViewController: UIViewController {
         editActionItem.description = self.actionItemObject!.description
         editActionItem.activityDate = self.actionItemObject!.activityDate
         editActionItem.isUrgent =   self.actionItemObject!.isUrgent
-        editActionItem.status =     "Completed"
+        editActionItem.status =     "Complete"
         editActionItem.lastModifiedDate = getTimestamp()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
@@ -199,6 +199,9 @@ class ActionItemDetailsViewController: UIViewController {
         editActionItem.activityDate = self.actionItemObject!.activityDate
         editActionItem.isUrgent =   self.actionItemObject!.isUrgent
         editActionItem.status =     "Open"
+        if !ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
+            editActionItem.status = "Overdue"
+        }
         editActionItem.lastModifiedDate = getTimestamp()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [

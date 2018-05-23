@@ -186,8 +186,11 @@ class CreateNewActionItemViewController: UIViewController {
         newActionItem.subject = actionTitleTextField.text!
         newActionItem.description = actionItemDescriptionTextView.text!
         newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
-      
-        newActionItem.status = "Open"
+        if !ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
+            newActionItem.status = "Overdue"
+        }else{
+            newActionItem.status = "Open"
+        }
         if isUrgentSwitch.isOn {
             newActionItem.isUrgent = true
         }else{
@@ -231,6 +234,13 @@ class CreateNewActionItemViewController: UIViewController {
         editActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
         if let status = actionItemObject?.status {
             editActionItem.status = status
+            if editActionItem.status == "Open" || editActionItem.status == "Overdue"{
+                if !ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate) {
+                    editActionItem.status = "Overdue"
+                }else{
+                    editActionItem.status = "Open"
+                }
+            }
         }
         if isUrgentSwitch.isOn {
             editActionItem.isUrgent = true
@@ -279,7 +289,6 @@ class CreateNewActionItemViewController: UIViewController {
         let timeStamp = dateFormatter.string(from: date)
         return timeStamp
     }
-
 }
 
 extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDataSource {    

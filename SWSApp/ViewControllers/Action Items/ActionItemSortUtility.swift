@@ -220,6 +220,16 @@ class ActionItemSortUtility {
         }
     }
     
+    func isItOpenState(dueDate: String) -> Bool{
+        if dueDate == "" {
+            return false
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: dueDate)
+        return date?.timeIntervalSinceNow.sign == .plus
+    }
+    
 }
 
 extension Sequence where Iterator.Element: Hashable {

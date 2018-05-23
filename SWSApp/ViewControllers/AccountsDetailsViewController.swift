@@ -151,6 +151,15 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                 
             case 1:
                 print(index)
+                
+                 let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
+                createEventViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                createEventViewController.selectedAccount = self.accountDetailForLoggedInUser
+                //As we are creating a new Visit Make the Shared instance Nil
+                PlanVisitManager.sharedInstance.visit = nil
+                
+                self.present(createEventViewController, animated: true, completion: nil)
+                
             case 2:
                 DispatchQueue.main.async {
                     let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController

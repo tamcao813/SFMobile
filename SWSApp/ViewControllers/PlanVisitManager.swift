@@ -48,6 +48,7 @@ class PlanVisitManager {
     
     func editAndSaveVisit()->Bool{
         
+        
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
@@ -67,8 +68,9 @@ class PlanVisitManager {
         new_visit.description = (visit?.description)!
         new_visit.contactId = (visit?.contactId)!
         new_visit.lastModifiedDate = timeStamp
-        new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+        new_visit.recordTypeId = (visit?.recordTypeId)!
         new_visit.location = (visit?.location)!
+        new_visit.sgwsAlldayEvent = (visit?.sgwsAlldayEvent)!
         
         let attributeDict = ["type":"WorkOrder"]
         
@@ -89,6 +91,8 @@ class PlanVisitManager {
             PlanVisit.planVisitFields[12]:new_visit.recordTypeId,
             PlanVisit.planVisitFields[13]:new_visit.soupEntryId,
             PlanVisit.planVisitFields[14]:new_visit.location,
+            PlanVisit.planVisitFields[15]:new_visit.sgwsAlldayEvent,
+            
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,

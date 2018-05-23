@@ -87,6 +87,7 @@ class AccountVisitListViewController: UIViewController {
                 }
             case 1:
                 let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
+                PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
                     self.present(createEventViewController, animated: true, completion: nil)
                 }
@@ -206,7 +207,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let workOrder : WorkOrderUserObject = tableViewDataArray![indexPath.row]
-        if(workOrder.recordTypeId == "0120t0000008cMDAAY"){
+        if(workOrder.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
             if indexPath.section > 0{
                 let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
                 let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController

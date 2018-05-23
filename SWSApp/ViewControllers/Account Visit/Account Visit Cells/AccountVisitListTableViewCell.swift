@@ -21,11 +21,13 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
         //Used to Check wheather its an Event or Visit
         if(data.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
             statusView.backgroundColor = UIColor.orange
+            self.addressLabel.text = data.subject
         } else {
             statusView.backgroundColor = UIColor(named:"Data New")
+            self.addressLabel.text = data.accountName
         }
         
-        self.addressLabel.text = data.accountName
+        //self.addressLabel.text = data.accountName
         self.visitStatusLabel.text = data.status
         
         let lastModifiedDate = data.lastModifiedDate

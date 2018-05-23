@@ -484,6 +484,7 @@
 		F20C1A2E20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C1A2C20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift */; };
 		F20C1A2F20937C3700D2351C /* AccountsNotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */; };
 		F20C1A3020937C3800D2351C /* AccountsNotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */; };
+		F224951320B4AF7200FF903F /* CreateEvent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F224951220B4AF7200FF903F /* CreateEvent.storyboard */; };
 		F22CE6DF20B48A4E001A2171 /* CreateNewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22CE6DD20B48A4D001A2171 /* CreateNewEventViewController.swift */; };
 		F22CE6E020B48A4E001A2171 /* EventSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22CE6DE20B48A4E001A2171 /* EventSummaryViewController.swift */; };
 		F22CE6E320B48B1C001A2171 /* EventStartEndDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22CE6E120B48B1B001A2171 /* EventStartEndDateTableViewCell.swift */; };
@@ -809,6 +810,7 @@
 		F20C1A26209347EA00D2351C /* Insights.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Insights.plist; sourceTree = "<group>"; };
 		F20C1A2920934C8B00D2351C /* DuringVisitsInsightsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsCollectionReusableView.swift; sourceTree = "<group>"; };
 		F20C1A2C20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsCollectionViewCell.swift; sourceTree = "<group>"; };
+		F224951220B4AF7200FF903F /* CreateEvent.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreateEvent.storyboard; sourceTree = "<group>"; };
 		F22CE6DD20B48A4D001A2171 /* CreateNewEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateNewEventViewController.swift; path = Event/CreateNewEventViewController.swift; sourceTree = "<group>"; };
 		F22CE6DE20B48A4E001A2171 /* EventSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventSummaryViewController.swift; path = Event/EventSummaryViewController.swift; sourceTree = "<group>"; };
 		F22CE6E120B48B1B001A2171 /* EventStartEndDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventStartEndDateTableViewCell.swift; path = "Event/Event Cells/EventStartEndDateTableViewCell.swift"; sourceTree = "<group>"; };
@@ -1337,6 +1339,7 @@
 		D1FB18572062F76C0072F4C1 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				F224951220B4AF7200FF903F /* CreateEvent.storyboard */,
 				D23C409D208DCF610006691C /* AccountVisit.storyboard */,
 				D26768902090B42E0060E792 /* NewContact.storyboard */,
 				8D10B2792099DF0E00C8A86C /* Contacts.storyboard */,
@@ -1786,6 +1789,7 @@
 				F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */,
 				D23C40CA208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */,
 				121468EE20AD603A00942A00 /* Info.plist in Resources */,
+				F224951320B4AF7200FF903F /* CreateEvent.storyboard in Resources */,
 				8D4BA39220B45B58005CFE56 /* DropdownTableViewCell.xib in Resources */,
 				912FA9E820AAFC75005979FF /* Calendar.storyboard in Resources */,
 				D2EAEB8A2074EAC6005F7792 /* MoreMenu.storyboard in Resources */,

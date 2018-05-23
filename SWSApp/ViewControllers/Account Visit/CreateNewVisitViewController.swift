@@ -226,7 +226,10 @@ class CreateNewVisitViewController: UIViewController {
         }
         PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
         PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+        
         //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        PlanVisitManager.sharedInstance.visit?.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+        
         let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
     }
     
@@ -262,6 +265,13 @@ class CreateNewVisitViewController: UIViewController {
         }
         
         new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+        //new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdEvent
+        new_visit.sgwsAppointmentStatus = true
+        new_visit.sgwsAlldayEvent = true
+        //TBD location to be set , what is enetered in UI
+        new_visit.location = ""
+        
+        
         
         let attributeDict = ["type":"WorkOrder"]
         let addNewDict: [String:Any] = [

@@ -36,6 +36,8 @@ class DescriptionTableViewCell: UITableViewCell {
 extension DescriptionTableViewCell: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         
+        CreateNewEventViewControllerGlobals.isFirstTimeLoad = false
+        
         if textView.tag == 500{
             
             CreateNewEventViewControllerGlobals.description = textView.text!

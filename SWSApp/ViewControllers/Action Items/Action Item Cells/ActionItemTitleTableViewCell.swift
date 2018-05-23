@@ -29,6 +29,9 @@ class ActionItemTitleTableViewCell: UITableViewCell {
 extension ActionItemTitleTableViewCell: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        CreateNewEventViewControllerGlobals.isFirstTimeLoad = false
+        
         if textField.tag == 0{
             CreateNewEventViewControllerGlobals.eventTitle = textField.text!
         }else if textField.tag == 6{

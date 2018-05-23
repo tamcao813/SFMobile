@@ -299,7 +299,7 @@ extension CalendarListViewController: WRWeekViewDelegate {
         print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
         
 //        if event.type == "visit" {
-            PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "") // Todo read visit object from VisitViewModel
+            //PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "") // Todo read visit object from VisitViewModel
             PlanVisitManager.sharedInstance.visit?.Id = event.Id
             
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)

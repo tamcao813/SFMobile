@@ -22,6 +22,8 @@ struct CreateNewEventViewControllerGlobals {
     static var location = ""
     static var description = ""
     
+    static var isFirstTimeLoad = true
+    
 }
 
 class CreateNewEventViewController: UIViewController {
@@ -29,7 +31,7 @@ class CreateNewEventViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeaderLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
-    
+        
     var eventTitleTextField: UITextField!
     var startDateTextField: UITextField!
     var endDateTextField : UITextField!
@@ -66,6 +68,7 @@ class CreateNewEventViewController: UIViewController {
         CreateNewEventViewControllerGlobals.endTime = ""
         CreateNewEventViewControllerGlobals.location = ""
         CreateNewEventViewControllerGlobals.description = ""
+        CreateNewEventViewControllerGlobals.isFirstTimeLoad = true
     }
     
     func customizedUI(){
@@ -114,8 +117,40 @@ class CreateNewEventViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIButton){
         if allFieldsAreValidated() {
-            createNewEvent()
+            if isEditingMode{
+                
+                if PlanVisitManager.sharedInstance.visit != nil {
+                    editCurrentEvent()
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true)
+                    }
+                }
+                
+            }else{
+                
+                createNewEvent()
+            }
         }
+    }
+    
+    func editCurrentEvent(){
+        PlanVisitManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
+        if let contact = selectedContact {
+            PlanVisitManager.sharedInstance.visit?.contactId = contact.contactId
+        }else{
+            PlanVisitManager.sharedInstance.visit?.contactId = ""
+        }
+        PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
+        PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
+        //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        PlanVisitManager.sharedInstance.visit?.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdEvent
+        
+        PlanVisitManager.sharedInstance.visit?.subject = CreateNewEventViewControllerGlobals.eventTitle
+        PlanVisitManager.sharedInstance.visit?.location = CreateNewEventViewControllerGlobals.location
+        PlanVisitManager.sharedInstance.visit?.description = CreateNewEventViewControllerGlobals.description
+        PlanVisitManager.sharedInstance.visit?.sgwsAlldayEvent = CreateNewEventViewControllerGlobals.allDayEventSelected
+        
+        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
     }
     
     func allFieldsAreValidated() -> Bool{
@@ -134,12 +169,8 @@ class CreateNewEventViewController: UIViewController {
         }
         
         if CreateNewEventViewControllerGlobals.startDate == ""{
-            
-            //DispatchQueue.main.async {
-                self.startDateTextField.borderColor = .red
-                self.errorLabel.text = StringConstants.emptyFieldError
-            //}
-            
+            self.startDateTextField.borderColor = .red
+            self.errorLabel.text = StringConstants.emptyFieldError
             return false
         }
         
@@ -306,6 +337,7 @@ class CreateNewEventViewController: UIViewController {
         }
     }
     
+    
     func getDataTimeinStr(date:String, time: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
@@ -356,8 +388,6 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:            
@@ -368,8 +398,16 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             cell?.actionTitleTextField.tag = indexPath.section
             
             if let eventObject = eventWorkOrderObject{
-                //Need to change it to Title
-                cell?.actionTitleTextField.text = eventObject.description
+                
+                if CreateNewEventViewControllerGlobals.isFirstTimeLoad == true{
+                    cell?.actionTitleTextField.text = eventObject.subject
+                    //Setting the model Data in Edit Mode
+                    CreateNewEventViewControllerGlobals.eventTitle = eventObject.subject
+                    
+                }else{
+                    
+                    cell?.actionTitleTextField.text = CreateNewEventViewControllerGlobals.eventTitle
+                }
             }
             
             return cell!
@@ -381,11 +419,34 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             endTimeTextField = cell.eventEndTimeTextField!
             
             if let eventObject = eventWorkOrderObject{
-                cell.eventStartDateTextField.text = self.getDate(stringDate: eventObject.startDate)
-                cell.eventEndDateTextField.text = self.getDate(stringDate: eventObject.endDate)
-               //cell?.eventStartTimeTextField.text = self.getDate(stringDate: eventObject.)
-               //cell?.eventEndTimeTextField.text = self.getDate(stringDate: eventObject.)
                 
+                //For the first Time Load as it will be False
+                if CreateNewEventViewControllerGlobals.isFirstTimeLoad == true{
+                    
+                    cell.eventStartDateTextField.text = self.getDate(stringDate: eventObject.startDate)
+                    cell.eventEndDateTextField.text = self.getDate(stringDate: eventObject.endDate)
+                    cell.eventStartTimeTextField.text = self.getTime(stringDate: eventObject.startDate)
+                    cell.eventEndTimeTextField.text = self.getTime(stringDate: eventObject.endDate)
+                    
+                    //Setting the model Data in Edit Mode
+                    CreateNewEventViewControllerGlobals.startDate = self.getDate(stringDate: eventObject.startDate)
+                    CreateNewEventViewControllerGlobals.endDate = self.getDate(stringDate: eventObject.endDate)
+                    CreateNewEventViewControllerGlobals.startTime = self.getTime(stringDate: eventObject.startDate)
+                    CreateNewEventViewControllerGlobals.endTime = self.getTime(stringDate: eventObject.endDate)
+                    
+                    if eventObject.sgwsAlldayEvent == true{
+                        cell.btnAllDayEvent?.setImage(UIImage(named:"Checkbox Selected"), for: .normal)
+                    }else{
+                        cell.btnAllDayEvent?.setImage(UIImage(named:"Checkbox"), for: .normal)
+                    }
+                    
+                }else{
+                    
+                    cell.eventStartDateTextField.text =  CreateNewEventViewControllerGlobals.startDate
+                    cell.eventEndDateTextField.text = CreateNewEventViewControllerGlobals.endDate
+                    cell.eventStartTimeTextField.text = CreateNewEventViewControllerGlobals.startTime
+                    cell.eventEndTimeTextField.text = CreateNewEventViewControllerGlobals.endTime
+                }
             }
             return cell
         case 2:
@@ -422,6 +483,18 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             cell?.actionHeaderLabel.text = "Location"
             cell?.actionTitleTextField.placeholder = "Enter Location"
             cell?.actionTitleTextField.tag = indexPath.section
+            
+            if let eventObject = eventWorkOrderObject{
+                
+                if CreateNewEventViewControllerGlobals.isFirstTimeLoad == true{
+                    cell?.actionTitleTextField.text = eventObject.location
+                    CreateNewEventViewControllerGlobals.location = eventObject.location
+                    
+                }else{
+                    cell?.actionTitleTextField.text = CreateNewEventViewControllerGlobals.location
+                }
+            }
+            
             return cell!
         case 7:
             return getEventDescriptionCell()
@@ -436,10 +509,15 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
         eventDescriptionTextView = cell?.descriptionTextView
         cell?.descriptionTextView.tag = 500
         
-        
         if let eventObject = eventWorkOrderObject{
             
-            cell?.descriptionTextView.text = eventObject.description
+            if CreateNewEventViewControllerGlobals.isFirstTimeLoad == true{
+                cell?.descriptionTextView.text = eventObject.description
+                CreateNewEventViewControllerGlobals.description = eventObject.description
+                
+            }else{
+                cell?.descriptionTextView.text = CreateNewEventViewControllerGlobals.description
+            }
         }
         
         return cell!

@@ -37,16 +37,49 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         if isSelectedFlag == false {
             isSelectedFlag = true
             btnAllDayEvent?.setImage(UIImage(named:"Checkbox Selected"), for: .normal)
+            
+            CreateNewEventViewControllerGlobals.isFirstTimeLoad = false
+            
+            eventEndDateTextField.text = eventStartDateTextField.text
+            eventStartTimeTextField.text = "00:00 AM"
+            eventEndTimeTextField.text = "11:59 PM"
+            
+             //Assign the model data also for saving
+            CreateNewEventViewControllerGlobals.endDate = eventStartDateTextField.text!
+            CreateNewEventViewControllerGlobals.startTime = "00:00"
+            CreateNewEventViewControllerGlobals.endTime = "11:59 PM"
+            
+            eventEndDateTextField.isUserInteractionEnabled = false
+            eventStartTimeTextField.isUserInteractionEnabled = false
+            eventEndTimeTextField.isUserInteractionEnabled = false
+            
             CreateNewEventViewControllerGlobals.allDayEventSelected = true
         }else{
             isSelectedFlag = false
             btnAllDayEvent?.setImage(UIImage(named:"Checkbox"), for: .normal)
+            
+            eventStartTimeTextField.text = ""
+            eventEndDateTextField.text = ""
+            eventEndTimeTextField.text = ""
+            
+            //Assign the model data also for saving
+            CreateNewEventViewControllerGlobals.endDate = ""
+            CreateNewEventViewControllerGlobals.startTime = ""
+            CreateNewEventViewControllerGlobals.endTime = ""
+            
+            eventEndDateTextField.isUserInteractionEnabled = true
+            eventStartTimeTextField.isUserInteractionEnabled = true
+            eventEndTimeTextField.isUserInteractionEnabled = true
+            
             CreateNewEventViewControllerGlobals.allDayEventSelected = false
         }
         
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        CreateNewEventViewControllerGlobals.isFirstTimeLoad = false
+        
         if textField.tag == 300{
              self.dateView(textField: textField)
             

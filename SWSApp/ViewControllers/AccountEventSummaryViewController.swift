@@ -253,14 +253,19 @@ class AccountEventSummaryViewController: UIViewController {
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
 
         PlanVisitManager.sharedInstance.editPlanVisit = true
-        let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
-        createVisitViewController.isEditingMode = false
-        PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-        PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
-        createVisitViewController.visitId = visitObject?.Id
+        let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
+        
+        createEventViewController.isEditingMode = true
+        
+        createEventViewController.selectedAccount = accountObject
+        createEventViewController.selectedContact = selectedContact
+        createEventViewController.eventWorkOrderObject = visitObject
+        
+        //createEventViewController.visitId = visitObject?.Id
+        
         DispatchQueue.main.async {
-            self.present(createVisitViewController, animated: true)
-            print("planned")
+            self.present(createEventViewController, animated: true)
+            createEventViewController.pageHeaderLabel.text = "Edit Event"
         }
 
     }
@@ -332,7 +337,7 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
     func getHeaderValuesInProgress(section: Int) -> String{
         var headerValue = ""
         if section == 0 {
-            headerValue = "Event Title"
+            headerValue = (visitObject?.subject)!
         }else if section == 1 {
             headerValue = "Contact"
         } else if section == 2 {
@@ -352,8 +357,8 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
         switch section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventDescriptionTableViewCell") as? EventDescriptionTableViewCell
-            let text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-            let attributedString = NSMutableAttributedString(string:text)
+            let text = visitObject?.description
+            let attributedString = NSMutableAttributedString(string:text!)
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = 10
             attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
@@ -363,8 +368,8 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
             return getConatactCell()
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventLocationTableViewCell") as? EventLocationTableViewCell
-            let text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-            let attributedString = NSMutableAttributedString(string:text)
+            let text = visitObject?.location
+            let attributedString = NSMutableAttributedString(string:text!)
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = 5
             attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))

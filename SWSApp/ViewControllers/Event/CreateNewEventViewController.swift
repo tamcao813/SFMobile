@@ -23,6 +23,8 @@ struct CreateNewEventViewControllerGlobals {
     static var description = ""
     
     static var isFirstTimeLoad = true
+    static var isAccountOrContactClicked = false
+    
     
 }
 
@@ -58,6 +60,9 @@ class CreateNewEventViewController: UIViewController {
         initializeNibs()
         IQKeyboardManager.shared.enable = true
         self.clearModelForNewEntry()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func clearModelForNewEntry(){
@@ -130,6 +135,21 @@ class CreateNewEventViewController: UIViewController {
                 
                 createNewEvent()
             }
+        }
+    }
+    
+    @objc func keyboardWillShow(_ notification:Notification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if CreateNewEventViewControllerGlobals.isAccountOrContactClicked {
+                self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height + 250, 0) }
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification:Notification) {
+        
+        if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         }
     }
     

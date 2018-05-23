@@ -20,10 +20,14 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
     func displayCellData(data : WorkOrderUserObject){
         //Used to Check wheather its an Event or Visit
         if(data.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
-            statusView.backgroundColor = UIColor.orange
+            DispatchQueue.main.async {
+                self.statusView.backgroundColor = UIColor.orange
+            }
             self.addressLabel.text = data.subject
         } else {
-            statusView.backgroundColor = UIColor(named:"Data New")
+            DispatchQueue.main.async {
+                self.statusView.backgroundColor = UIColor(named:"Data New")
+            }
             self.addressLabel.text = data.accountName
         }
         

@@ -319,6 +319,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
             searchAccountTextField = cell?.searchContactTextField
             accountDropDown = cell?.accountsDropDown
+            cell?.titleLabel.text = "Link an Account"
             cell?.delegate = self
             return cell!
         case 2:

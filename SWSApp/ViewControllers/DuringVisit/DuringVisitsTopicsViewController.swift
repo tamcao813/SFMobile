@@ -18,7 +18,7 @@ class  DuringVisitsTopicsViewController : UIViewController {
     
     @IBOutlet weak var collectionView : UICollectionView?
     
-    var visitObject : Visit?
+    var visitObject : WorkOrderUserObject?
     var accountObject: Account?
     var collectionViewRowDetails : NSMutableArray?
     

@@ -815,6 +815,10 @@ extension CreateNewContactViewController: ToggleTableViewCellDelegate {
 }
 
 extension CreateNewContactViewController: SearchAccountTableViewCellDelegate {
+    func scrollTableView() {
+        
+    }
+    
     func accountSelected(account : Account) {
         createNewGlobals.userInput = true
         accountSelected = account

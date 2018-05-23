@@ -293,8 +293,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 for acr in acrArray {
                     if acr.contactId.starts(with: "NEW") {
                         let sfContactId = ContactsViewModel().contactIdForACR(with: acr.contactId)
-                        acr.contactId = sfContactId
-                        updatedACRs.append(acr)
+                        if sfContactId != "" {
+                            acr.contactId = sfContactId
+                            updatedACRs.append(acr)
+                        }
+                        else {
+                            print("sfContactId is empty for tempId: " + acr.contactId)
+                        }
                     }
                 }
                 

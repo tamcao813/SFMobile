@@ -72,6 +72,7 @@ class AccountVisitSummaryViewController: UIViewController {
                 }
             }
         }
+        PlanVisitManager.sharedInstance.visit = visitObject
         fetchAccountDetails()
         fetchContactDetails()
         UICustomizations()

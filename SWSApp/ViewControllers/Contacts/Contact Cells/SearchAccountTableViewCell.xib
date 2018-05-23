@@ -76,6 +76,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="searchContactTextField" destination="a98-GB-CEO" id="xt4-zu-J5K"/>
+                <outlet property="titleLabel" destination="i2D-p4-drI" id="Xap-39-Cci"/>
             </connections>
             <point key="canvasLocation" x="96.5" y="88.5"/>
         </tableViewCell>

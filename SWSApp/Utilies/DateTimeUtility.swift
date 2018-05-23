@@ -27,18 +27,7 @@ class DateTimeUtility
         return formattedMMDDYYDateStr
     }
     
-    static func getDDMMYYYDateStringInAction(dateStringfromAccountObject:String?)->String
-    {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-mm-dd"// MM/DD/YYYY
-        // get Date object from dateStringfromAccountObject
-        let dateObjectFromDateStringfromAccountObject:Date = dateFormatter.date(from: dateStringfromAccountObject!)!
-        dateFormatter.dateFormat = "mm-dd-yyyy"// MM/DD/YYYY
-        let formattedMMDDYYDateStr = dateFormatter.string(from: dateObjectFromDateStringfromAccountObject)
-        print("formattedMMDDYYDateStr: " + formattedMMDDYYDateStr)
-        return formattedMMDDYYDateStr
-    }
+   
     
     static func convertUtcDatetoReadableDate(dateStringfromAccountNotes:String?)->String{
         if(dateStringfromAccountNotes?.isEmpty)!{
@@ -54,6 +43,41 @@ class DateTimeUtility
         let timeStamp = dateFormatter.string(from: date!)
         
         return timeStamp
+    }
+    
+    static func convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:String?)->String{
+        if(dateStringfromAccountNotes?.isEmpty)!{
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+       // dateFormatter.timeZone = TimeZone.current
+        let date = dateFormatter.date(from: dateStringfromAccountNotes!)// create date from string
+        
+        if date != nil{
+            dateFormatter.dateFormat = "MM-dd-yyyy"
+            let timeStamp = dateFormatter.string(from: date!)
+            return timeStamp
+        }else{
+            return dateStringfromAccountNotes!
+        }
+    }
+    
+    func convertDateSendToServerActionItem(dateString: String?) -> String{
+        if (dateString?.isEmpty)! {
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        
+        let date = dateFormatter.date(from: dateString!)// create date from string        
+        if date != nil{
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let timeStamp = dateFormatter.string(from: date!)
+            return timeStamp
+        }
+        return dateString!
     }
     
     static func convertUtcDatetoReadableDateLikeStrategy(dateString :String?)->String{

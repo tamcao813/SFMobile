@@ -298,7 +298,7 @@ extension CalendarListViewController: WRWeekViewDelegate {
     func selectEvent(_ event: WREvent) {
         print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
         
-//        if event.type == "visit" {
+        if event.type == "visit" {
             PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "") // Todo read visit object from VisitViewModel
             PlanVisitManager.sharedInstance.visit?.Id = event.Id
             
@@ -310,7 +310,17 @@ extension CalendarListViewController: WRWeekViewDelegate {
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
-//        }
+        } else {
+            
+            let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
+            PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "")
+            (accountVisitsVC)?.delegate = self
+            accountVisitsVC?.visitId = event.Id
+            DispatchQueue.main.async {
+                self.present(accountVisitsVC!, animated: true, completion: nil)
+            }
+        }
 
     }
 }

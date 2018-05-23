@@ -29,8 +29,8 @@ class AccountEventSummaryViewController: UIViewController {
     var accountObject: Account?
     var selectedContact: Contact!
     var visitObject: WorkOrderUserObject?
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
@@ -203,11 +203,12 @@ class AccountEventSummaryViewController: UIViewController {
     
     @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
         
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Event Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
             
             let attributeDict = ["type":"WorkOrder"]
             let visitNoteDict: [String:Any] = [
                 Visit.VisitsFields[0]: self.visitObject!.Id,
+                Visit.VisitsFields[14]:self.visitObject?.soupEntryId,
                 kSyncTargetLocal:true,
                 kSyncTargetLocallyCreated:false,
                 kSyncTargetLocallyUpdated:false,
@@ -215,11 +216,11 @@ class AccountEventSummaryViewController: UIViewController {
                 "attributes":attributeDict]
             
             let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
-
+            
             if(success){
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
-
+                
                 self.dismiss(animated: true, completion: nil)
             }
         }) {
@@ -227,31 +228,11 @@ class AccountEventSummaryViewController: UIViewController {
             print("Cancel")
         }
         
-        
-        
     }
     
-    @IBAction func startOrContinueVisitButtonTapped(_ sender: UIButton){
-        if visitStatus == .scheduled  || visitStatus == .planned || visitStatus == .inProgress{
-            let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
-            let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
-            (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            PlanVisitManager.sharedInstance.visit = visitObject
-            (vc as DuringVisitsViewController).visitObject = visitObject
-            (vc as DuringVisitsViewController).delegate = self
-            self.present(vc, animated: true, completion: nil)
-        }else{
-            
-            let storyboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-            let vc: SelectOpportunitiesViewController = storyboard.instantiateViewController(withIdentifier: "SelectOpportunitiesViewControllerID") as! SelectOpportunitiesViewController
-            (vc as SelectOpportunitiesViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            self.present(vc, animated: true, completion: nil)
-            
-        }
-    }
     
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
-
+        
         PlanVisitManager.sharedInstance.editPlanVisit = true
         let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
         createVisitViewController.isEditingMode = false
@@ -262,19 +243,19 @@ class AccountEventSummaryViewController: UIViewController {
             self.present(createVisitViewController, animated: true)
             print("planned")
         }
-
+        
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
-
+    
 }
 
 extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-            return 4
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -282,23 +263,33 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            switch section {
-            case 0:
-                return 30
-            case 1:
-                return 30
-            case 2:
-                return 30
-            case 3:
-                return 30
-            default:
-                return 0
-            }
-            return 5
+        switch section {
+        case 0:
+            return 30
+        case 1:
+            return 30
+        case 2:
+            return 30
+        case 3:
+            return 30
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
+        switch section {
+        case 0:
+            return 20
+        case 1:
+            return 50
+        case 2:
+            return 20
+        case 3:
+            return 20
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -309,7 +300,7 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UINib(nibName: "AccountVisitSectionHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? AccountVisitSectionHeaderView
-            headerView?.headerLabel.text = getHeaderValuesInProgress(section: section)
+        headerView?.headerLabel.text = getHeaderValuesInProgress(section: section)
         return headerView
     }
     
@@ -389,7 +380,7 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssociatedContactsTableViewCell") as? AssociatedContactsTableViewCell
         
         if let contactId = selectedContact, contactId.contactId != "" {
-            cell?.containerHeightConstraint.constant = 100
+            cell?.containerHeightConstraint.constant = 80
             cell?.containerView.isHidden = false
             cell?.displayCellContent(contact: contactId)
         }else{
@@ -436,7 +427,7 @@ extension AccountEventSummaryViewController : NavigateToAccountVisitSummaryDeleg
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-//                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
                 self.dismiss(animated: true, completion: nil)
                 self.delegate?.navigateToAccountScreen()
             }){

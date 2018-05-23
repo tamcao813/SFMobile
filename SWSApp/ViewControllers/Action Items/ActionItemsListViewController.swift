@@ -54,7 +54,7 @@ class ActionItemsListViewController: UIViewController {
         }else{
             actionItemsArray = AccountsActionItemViewModel().getAcctionItemForUser()
         }
-        actionItemsArray = actionItemsArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        actionItemsArray = actionItemsArray.sorted(by: { $0.activityDate < $1.activityDate })
         if ActionItemFilterModel.filterApplied {
             applyFilter(searchText: searchStr)
         }
@@ -83,34 +83,65 @@ class ActionItemsListViewController: UIViewController {
     }
     
     @IBAction func titleSortPressed(_ sender: UIButton){
-        if titleAscendingSort {
-            actionItemsArray = actionItemsArray.sorted(by: { $0.subject < $1.subject })
-            titleAscendingSort = false
+        if ActionItemFilterModel.filterApplied{
+            if titleAscendingSort {
+                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.subject < $1.subject })
+                titleAscendingSort = false
+            }else{
+                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.subject > $1.subject })
+                titleAscendingSort = true
+            }
         }else{
-            actionItemsArray = actionItemsArray.sorted(by: { $0.subject > $1.subject })
-            titleAscendingSort = true
+            if titleAscendingSort {
+                actionItemsArray = actionItemsArray.sorted(by: { $0.subject < $1.subject })
+                titleAscendingSort = false
+            }else{
+                actionItemsArray = actionItemsArray.sorted(by: { $0.subject > $1.subject })
+                titleAscendingSort = true
+            }
         }
+        
         reloadTableView()
     }
     
     @IBAction func dueDateSortPressed(_ sender: UIButton){
-        if dueDateAscendingSort{
-            actionItemsArray = actionItemsArray.sorted(by: { $0.activityDate < $1.activityDate })
-            dueDateAscendingSort = false
+        if ActionItemFilterModel.filterApplied{
+            if dueDateAscendingSort{
+                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.activityDate < $1.activityDate })
+                dueDateAscendingSort = false
+            }else{
+                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.activityDate > $1.activityDate })
+                dueDateAscendingSort = true
+            }
         }else{
-            actionItemsArray = actionItemsArray.sorted(by: { $0.activityDate > $1.activityDate })
-            dueDateAscendingSort = true
+            if dueDateAscendingSort{
+                actionItemsArray = actionItemsArray.sorted(by: { $0.activityDate < $1.activityDate })
+                dueDateAscendingSort = false
+            }else{
+                actionItemsArray = actionItemsArray.sorted(by: { $0.activityDate > $1.activityDate })
+                dueDateAscendingSort = true
+            }
         }
         reloadTableView()
     }
     
     @IBAction func statusSortPressed(_ sender: UIButton){
-        if statusAscendingSort{
-            actionItemsArray = actionItemsArray.sorted(by: { $0.status < $1.status })
-            statusAscendingSort = false
+        if ActionItemFilterModel.filterApplied{
+            if statusAscendingSort{
+                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.status < $1.status })
+                statusAscendingSort = false
+            }else{
+                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.status > $1.status })
+                statusAscendingSort = true
+            }
         }else{
-            actionItemsArray = actionItemsArray.sorted(by: { $0.status > $1.status })
-            statusAscendingSort = true
+            if statusAscendingSort{
+                actionItemsArray = actionItemsArray.sorted(by: { $0.status < $1.status })
+                statusAscendingSort = false
+            }else{
+                actionItemsArray = actionItemsArray.sorted(by: { $0.status > $1.status })
+                statusAscendingSort = true
+            }
         }
         reloadTableView()
     }

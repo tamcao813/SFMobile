@@ -120,66 +120,8 @@ class ActionItem {
         shippingCountry = ""
         shippingPostalCode = ""
         shippingState = ""
-        shippingStreet = ""
-        
-        
+        shippingStreet = ""   
     }
-    
-    static func mockActionItem() -> ActionItem {
-        let actionItemSample = ActionItem(for: "mockUp")
-        actionItemSample.Id = "223344"
-        actionItemSample.accountId = "8818181818"
-        actionItemSample.subject = "Shubhams Action Item"
-        actionItemSample.description = "Shubham to get JD"
-        actionItemSample.status = "Open"
-        actionItemSample.activityDate = DateTimeUtility.sendCurrentDateToServer()!
-        actionItemSample.isUrgent = false
-        actionItemSample.lastModifiedDate = DateTimeUtility.sendCurrentDateToServer()!
-        actionItemSample.recordTypeId = "TASK"
-        actionItemSample._soupEntryId = 0
-        return actionItemSample
-    }
-    
-    //    fileprivate func createNewActionItem() {
-    //        // Create new actionItem Locally...
-    //        let actionItemSample = ActionItem(for: "newActionItem")
-    //        actionItemSample.Id = "223344"
-    //        actionItemSample.accountId = "86328932"
-    //        actionItemSample.subject = "Ravi Action Item 2"
-    //        actionItemSample.description = "Ravi to get Badam Milk"
-    //        actionItemSample.status = "Close"
-    //        actionItemSample.activityDate = DateTimeUtility.sendCurrentDateToServer()!
-    //        actionItemSample.isUrgent = "No"
-    //        actionItemSample.lastModifiedDate = DateTimeUtility.sendCurrentDateToServer()!
-    //        actionItemSample.recordTypeId = "TASK"
-    //        let attributeDict = ["type":"Task"]
-    //
-    //        let addNewDict:[String:Any] = [
-    //            ActionItem.AccountActionItemFields[0]: actionItemSample.Id,
-    //            ActionItem.AccountActionItemFields[1]: actionItemSample.accountId,
-    //            ActionItem.AccountActionItemFields[2]: actionItemSample.subject,
-    //            ActionItem.AccountActionItemFields[3]: actionItemSample.description,
-    //            ActionItem.AccountActionItemFields[4]: actionItemSample.status,
-    //            ActionItem.AccountActionItemFields[5]: actionItemSample.activityDate,
-    //            ActionItem.AccountActionItemFields[6]: actionItemSample.isUrgent,
-    //            ActionItem.AccountActionItemFields[7]: actionItemSample.lastModifiedDate,
-    //            ActionItem.AccountActionItemFields[8]: actionItemSample.recordTypeId,
-    //            //Use it for Saving loacly on DB
-    //            kSyncTargetLocal:true,
-    //            kSyncTargetLocallyCreated:true,
-    //            kSyncTargetLocallyUpdated:false,
-    //            kSyncTargetLocallyDeleted:false,
-    //            "attributes":attributeDict]
-    //
-    //        let success = actionItemViewModel.createNewActionItemLocally(fields: addNewDict)
-    //        print("Create new action item success \(success)")
-    //
-    //        let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
-    //        present(SmartStoreViewController, animated: true, completion: nil)
-    //    }
-    //    // SyncDown Action items
-    //    actionitem = actionItemViewModel.getAcctionItemForUser()
-    //    createNewActionItem()
 }
 
 extension ActionItem: Equatable,Hashable {

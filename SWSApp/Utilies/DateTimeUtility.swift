@@ -56,13 +56,28 @@ class DateTimeUtility
         let date = dateFormatter.date(from: dateStringfromAccountNotes!)// create date from string
         
         if date != nil{
-            dateFormatter.dateFormat = "MM-dd-YYYY"
+            dateFormatter.dateFormat = "MM-dd-yyyy"
             let timeStamp = dateFormatter.string(from: date!)
             return timeStamp
         }else{
             return dateStringfromAccountNotes!
         }
+    }
+    
+    func convertDateSendToServerActionItem(dateString: String?) -> String{
+        if (dateString?.isEmpty)! {
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
         
+        let date = dateFormatter.date(from: dateString!)// create date from string        
+        if date != nil{
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let timeStamp = dateFormatter.string(from: date!)
+            return timeStamp
+        }
+        return dateString!
     }
     
     static func convertUtcDatetoReadableDateLikeStrategy(dateString :String?)->String{

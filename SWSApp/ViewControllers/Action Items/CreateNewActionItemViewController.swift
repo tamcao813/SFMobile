@@ -185,7 +185,7 @@ class CreateNewActionItemViewController: UIViewController {
         newActionItem.accountId = (selectedAccount?.account_Id)!
         newActionItem.subject = actionTitleTextField.text!
         newActionItem.description = actionItemDescriptionTextView.text!
-        newActionItem.activityDate = dueDateTextField.text!
+        newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
       
         newActionItem.status = "Open"
         if isUrgentSwitch.isOn {
@@ -228,7 +228,7 @@ class CreateNewActionItemViewController: UIViewController {
         editActionItem.accountId = (selectedAccount?.account_Id)!
         editActionItem.subject = actionTitleTextField.text!
         editActionItem.description = actionItemDescriptionTextView.text!
-        editActionItem.activityDate = dueDateTextField.text!
+        editActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
         if let status = actionItemObject?.status {
             editActionItem.status = status
         }

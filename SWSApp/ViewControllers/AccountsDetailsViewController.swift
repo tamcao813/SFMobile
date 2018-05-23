@@ -387,7 +387,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             ActionItemFilterModel.accountId = accountDetailForLoggedInUser?.account_Id
             ActionItemFilterModel.fromAccount = true
             activeViewController = actionItemContainerVC
-//            actionItemContainerVC.
+            actionItemContainerVC?.fromPersistentMenu = false
         case 6:
             btnNotes?.backgroundColor = UIColor.white
             btnNotes?.setTitleColor(UIColor.black, for: .normal)

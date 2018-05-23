@@ -55,6 +55,8 @@ class LinkAccountToContactViewController: UIViewController {
                 break
             }
         }
+        doesHaveBuyingPower = (contactObject?.buyerFlag)!
+        tableView.reloadData()
     }
     
     func customizedUI(){

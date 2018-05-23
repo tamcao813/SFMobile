@@ -21,6 +21,15 @@ class EditAccountStrategyCollectionReusableView: UICollectionReusableView {
         self.headerLabel?.text = (headerQuestion["header"] as! String)
         self.questionLabel?.text = (headerQuestion["subHeader"] as! String) + ":*"
         
+        if validateTheReguiredVield.isSaveClicked == "1"{
+            if validateTheReguiredVield.showRedForQuestionHeader.contains(indexPath.section){
+                self.questionLabel?.textColor = UIColor.red
+            }else{
+                self.questionLabel?.textColor = UIColor.black
+            }
+        }
+        
+        
 //        if (headerQuestion["selectionType"] as! String) == "1"{
 //            self.selectionLabel?.text = "Single Select"
 //        }else{

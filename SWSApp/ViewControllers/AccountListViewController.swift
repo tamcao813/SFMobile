@@ -585,14 +585,8 @@ extension AccountsListViewController{
         
         switch sender {
         case Page.first.rawValue:
-            for i in 1...kNoOfPagesInEachSet {
-                pageButtonArr[i].setTitle(String(i), for: .normal)
-            }
-            self.currentPageIndex = 0
-            self.currentPageSet = 0
-            updateUI()
-            print ("First")
-            print ("New \(self.currentPageIndex!)")
+
+            self.setupFirstPageButton()
             
         case Page.previous.rawValue:
             //On pres of Previous if pageSet is grater than 0 than we have one pageSet to display decrement by 1
@@ -643,17 +637,31 @@ extension AccountsListViewController{
             
         case Page.last.rawValue:
             
-            self.setCurrentPageIndex()
-            
-            self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
-            self.currentPageSet = kNoOfPageSet! - 1
-            updateUI()
-            print ("Last")
-            print ("New \(self.currentPageIndex!)")
+            self.setupLastPageButton()
             
         default:
             break
         }
+    }
+    
+    func setupFirstPageButton(){
+        for i in 1...kNoOfPagesInEachSet {
+            pageButtonArr[i].setTitle(String(i), for: .normal)
+        }
+        self.currentPageIndex = 0
+        self.currentPageSet = 0
+        updateUI()
+        print ("First")
+        print ("New \(self.currentPageIndex!)")
+    }
+    
+    func setupLastPageButton(){
+        self.setCurrentPageIndex()
+        self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
+        self.currentPageSet = kNoOfPageSet! - 1
+        updateUI()
+        print ("Last")
+        print ("New \(self.currentPageIndex!)")
     }
     
     func setCurrentPageIndex(){

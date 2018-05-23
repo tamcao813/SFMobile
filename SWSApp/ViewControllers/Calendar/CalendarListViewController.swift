@@ -30,7 +30,6 @@ class CalendarListViewController: UIViewController {
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshCalendar), name: NSNotification.Name("refreshCalendar"), object: nil)
         
-        self.calViewButton.setTitle("Week View    ", for: .normal)
         setupAddNewButtonText()
         setupDropDownAddNew()
         setupDropDownCalView()
@@ -43,6 +42,7 @@ class CalendarListViewController: UIViewController {
         CalendarFilterMenuModel.visitsType = "YES"
         CalendarFilterMenuModel.eventsType = "YES"
         
+        self.calViewButton.setTitle("Week View    ", for: .normal)
         currentCalendarViewType = .Week
         weekEndsEnabled = true
 
@@ -288,7 +288,7 @@ extension CalendarListViewController: WRWeekViewDelegate {
     func selectEvent(_ event: WREvent) {
         print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
         
-        if event.type == "visit" {
+//        if event.type == "visit" TBD Need to check if this is needed {
             PlanVistManager.sharedInstance.visit = Visit(for: "") // Todo read visit object from VisitViewModel
             PlanVistManager.sharedInstance.visit?.Id = event.Id
             
@@ -296,10 +296,11 @@ extension CalendarListViewController: WRWeekViewDelegate {
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             accountVisitsVC?.visitId = event.Id
             accountVisitsVC?.delegate = self
+            PlanVistManager.sharedInstance.visit?.Id = event.Id
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
-        }
+//        }
 
     }
 }

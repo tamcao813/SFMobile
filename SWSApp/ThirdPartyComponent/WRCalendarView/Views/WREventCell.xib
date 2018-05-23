@@ -37,8 +37,8 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SvP-El-S0W">
-                        <rect key="frame" x="6" y="4" width="177" height="19.5"/>
-                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                        <rect key="frame" x="6" y="10" width="177" height="17"/>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -46,12 +46,13 @@
             </view>
             <constraints>
                 <constraint firstItem="SvP-El-S0W" firstAttribute="leading" secondItem="ySO-rT-ELe" secondAttribute="trailing" constant="4" id="6Fn-E2-m4W"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SvP-El-S0W" secondAttribute="bottom" constant="3" id="C9s-GO-Yqb"/>
                 <constraint firstItem="ySO-rT-ELe" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Dtf-KZ-eMg"/>
                 <constraint firstItem="9OT-80-CyK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Fta-qZ-9Dk"/>
                 <constraint firstAttribute="trailing" secondItem="9OT-80-CyK" secondAttribute="trailing" id="HIs-Le-EqD"/>
                 <constraint firstItem="ySO-rT-ELe" firstAttribute="top" secondItem="9OT-80-CyK" secondAttribute="bottom" id="PRh-S2-aEE"/>
                 <constraint firstItem="9OT-80-CyK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Qh7-MZ-gUi"/>
-                <constraint firstItem="SvP-El-S0W" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="WvW-m1-gEG"/>
+                <constraint firstItem="SvP-El-S0W" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="WvW-m1-gEG"/>
                 <constraint firstAttribute="bottom" secondItem="ySO-rT-ELe" secondAttribute="bottom" id="s8m-ey-Z50"/>
                 <constraint firstAttribute="trailing" secondItem="SvP-El-S0W" secondAttribute="trailing" id="sYy-j0-Nye"/>
             </constraints>

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 //import DropDown
+import IQKeyboardManagerSwift
 
 struct AccountId {
     static var selectedAccountId = ""
@@ -76,6 +77,12 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     let notesStoryboard = UIStoryboard.init(name: "Notes", bundle: nil)
     let strategyStoryboard = UIStoryboard.init(name: "Strategy", bundle: nil)
     let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+    let actionItemStoryboard = UIStoryboard.init(name: "ActionItem", bundle: nil)
+    lazy var actionItemContainerVC : ActionItemsContainerViewController? = {
+        let actionItemStoryboard: UIStoryboard = UIStoryboard(name: "ActionItem", bundle: nil)
+        let actionItemVC = actionItemStoryboard.instantiateViewController(withIdentifier: "ActionItemsContainerViewController") as? ActionItemsContainerViewController
+        return actionItemVC
+    }()
     
     private var activeViewController: UIViewController? {
         didSet {
@@ -133,7 +140,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             switch index {
             case 0:
                 print(index)
-
+                
                 let storyboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
                 let vc: CreateNewVisitViewController = storyboard.instantiateViewController(withIdentifier: "CreateNewVisitViewController") as! CreateNewVisitViewController
                 vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
@@ -147,7 +154,13 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             case 1:
                 print(index)
             case 2:
-                print(index)
+                DispatchQueue.main.async {
+                    let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
+                    createActionItemViewController.isEditingMode = false
+                    createActionItemViewController.selectedAccount = self.accountDetailForLoggedInUser
+                    createActionItemViewController.delegate = self
+                    self.present(createActionItemViewController, animated: true)
+                }
             case 3:
                 let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
                 let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
@@ -163,17 +176,17 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
     
-//    @IBAction func addNewButtonClicked(_ sender: Any) {
-//        let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
-//        let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
-//        vc.notesAccountId = accountDetailForLoggedInUser?.account_Id
-//        vc.comingFromAccountDetails = goingFromAccountDetails
-//        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-//
-//        self.present(vc, animated: true, completion: nil)
-//        vc.sendNoteDelegate = self
-//
-//    }
+    //    @IBAction func addNewButtonClicked(_ sender: Any) {
+    //        let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
+    //        let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
+    //        vc.notesAccountId = accountDetailForLoggedInUser?.account_Id
+    //        vc.comingFromAccountDetails = goingFromAccountDetails
+    //        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+    //
+    //        self.present(vc, animated: true, completion: nil)
+    //        vc.sendNoteDelegate = self
+    //
+    //    }
     
     func navigateToNotesSection() {
         
@@ -215,7 +228,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         
         
     }
-   
+    
     
     func setupDetailsScreenUI(){
         
@@ -358,7 +371,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
             
             //let opportunitiesViewController: OpportunitiesViewController = mainStoryboard.instantiateViewController(withIdentifier: "OpportunitiesViewControllerID") as! OpportunitiesViewController
-            //activeViewController = opportunitiesViewController
+        //activeViewController = opportunitiesViewController
         case 4:
             containerView?.isHidden = false
             btnStrategy?.backgroundColor = UIColor.white
@@ -368,10 +381,13 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             activeViewController = strategyViewController
             
         case 5:
-            
             btnActionItems?.backgroundColor = UIColor.white
             btnActionItems?.setTitleColor(UIColor.black, for: .normal)
-            
+            containerView?.isHidden = false
+            ActionItemFilterModel.accountId = accountDetailForLoggedInUser?.account_Id
+            ActionItemFilterModel.fromAccount = true
+            activeViewController = actionItemContainerVC
+//            actionItemContainerVC.
         case 6:
             btnNotes?.backgroundColor = UIColor.white
             btnNotes?.setTitleColor(UIColor.black, for: .normal)
@@ -385,6 +401,19 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             break
         }
     }
+}
+
+extension AccountDetailsViewController : CreateNewActionItemViewControllerDelegate {
+    func updateActionList(){
+        let button = UIButton()
+        button.tag = 5
+        self.itemsClicked(sender: button)
+    }
+    
+    func updateActionDesc(){
+        
+    }
+    
 }
 
 

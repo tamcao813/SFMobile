@@ -163,6 +163,7 @@
                 <outlet property="accountAddressLabel" destination="qFC-bv-dNA" id="zcS-bF-RVR"/>
                 <outlet property="accountNameLabel" destination="6PW-Rw-oKm" id="Uy1-lp-JzX"/>
                 <outlet property="accountNumberLabel" destination="RlW-2S-eAS" id="CMv-5S-qA9"/>
+                <outlet property="accountViewHeightConstraint" destination="uCu-aC-ScQ" id="CqU-mN-LHG"/>
                 <outlet property="actionItemStatusLabel" destination="voI-tj-sHh" id="i9H-Dn-SG3"/>
                 <outlet property="actionItemTitleLabel" destination="2Tb-zP-DJd" id="Wta-48-had"/>
                 <outlet property="dueDateLabel" destination="uew-mm-yzk" id="lTo-yj-MPC"/>

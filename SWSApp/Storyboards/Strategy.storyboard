@@ -324,6 +324,12 @@
                                                                 <action selector="cancelButtonActionWithSender:" destination="GDN-cb-nRD" eventType="touchUpInside" id="cf3-AH-gLz"/>
                                                             </connections>
                                                         </button>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please correct required fields" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6C-jz-oGh">
+                                                            <rect key="frame" x="548" y="356.5" width="226.5" height="19.5"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                            <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTr-nb-Bxj">
                                                             <rect key="frame" x="934" y="348" width="120" height="35"/>
                                                             <color key="backgroundColor" name="Data New"/>
@@ -361,6 +367,8 @@
                                                         <constraint firstItem="LTr-nb-Bxj" firstAttribute="leading" secondItem="V8j-su-kVy" secondAttribute="trailing" constant="21" id="mYk-Ta-9Cz"/>
                                                         <constraint firstItem="6Yq-aF-giE" firstAttribute="leading" secondItem="mx2-Rs-Q66" secondAttribute="leading" constant="42" id="pCD-pl-iv7"/>
                                                         <constraint firstItem="spU-cY-KQu" firstAttribute="top" secondItem="mx2-Rs-Q66" secondAttribute="top" constant="43" id="qXm-tx-9gL"/>
+                                                        <constraint firstItem="V8j-su-kVy" firstAttribute="leading" secondItem="U6C-jz-oGh" secondAttribute="trailing" constant="18.5" id="vwh-f9-Lup"/>
+                                                        <constraint firstAttribute="bottom" secondItem="U6C-jz-oGh" secondAttribute="bottom" constant="34" id="xUS-yE-WR9"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -374,6 +382,7 @@
                                         <size key="customSize" width="1072" height="410"/>
                                         <connections>
                                             <outlet property="bottomView" destination="eng-GJ-IRP" id="DK4-N6-qgZ"/>
+                                            <outlet property="lblReguiredFields" destination="U6C-jz-oGh" id="eBC-a1-dZQ"/>
                                             <outlet property="textView" destination="hzv-D0-nJ2" id="mTp-nX-n1O"/>
                                         </connections>
                                     </collectionViewCell>

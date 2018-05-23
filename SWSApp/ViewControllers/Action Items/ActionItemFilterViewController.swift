@@ -260,14 +260,14 @@ class ActionItemFilterViewController: UIViewController {
         ActionItemFilterModel.dueNo = "NO"
         
         searchBar.text = ""
-        ActionItemFilterModel.filterApplied = false        
+        ActionItemFilterModel.filterApplied = false
+        tableView.reloadData()
     }
     
     
     //MARK:- Button Actions
     @IBAction func clearButtonTapped(_ sender: UIButton){
         self.clearActionItemFilterModel()
-        tableView.reloadData()
         delegate?.clearFilter()
     }
     

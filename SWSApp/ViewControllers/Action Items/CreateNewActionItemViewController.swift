@@ -359,6 +359,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
 
 extension CreateNewActionItemViewController: SearchAccountTableViewCellDelegate {
     func accountSelected(account : Account) {
+        createActionItemsGlobals.userInput = true
         selectedAccount = account
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -368,6 +369,7 @@ extension CreateNewActionItemViewController: SearchAccountTableViewCellDelegate 
 
 extension CreateNewActionItemViewController: AccountContactLinkTableViewCellDelegate {
     func removeAccount() {
+        createActionItemsGlobals.userInput = true
         selectedAccount = nil
         DispatchQueue.main.async {
             self.tableView.reloadData()

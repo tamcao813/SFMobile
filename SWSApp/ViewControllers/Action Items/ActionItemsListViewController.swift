@@ -19,6 +19,7 @@ class ActionItemsListViewController: UIViewController {
     var statusAscendingSort = false
     @IBOutlet weak var actionItemButtonContainerViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
+    var searchStr = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,9 @@ class ActionItemsListViewController: UIViewController {
             actionItemsArray = AccountsActionItemViewModel().getAcctionItemForUser()
         }
         actionItemsArray = actionItemsArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        if ActionItemFilterModel.filterApplied {
+            applyFilter(searchText: searchStr)
+        }
         customizedUI()
         reloadTableView()
     }
@@ -124,8 +128,13 @@ extension ActionItemsListViewController : ActionItemSearchButtonTappedDelegate{
     func performFilterOperation(searchText: UISearchBar) {
         ActionItemFilterModel.filterApplied = true
         //Perform Search Operation First then do Filtering
-        if searchText.text != ""{
-            filteredActionItemsArray =  ActionItemSortUtility().searchAndFilter(searchStr: searchText.text!, actionItems: actionItemsArray)
+        applyFilter(searchText: searchText.text!)
+    }
+    
+    func applyFilter(searchText: String){
+        if searchText != ""{
+            searchStr = searchText
+            filteredActionItemsArray =  ActionItemSortUtility().searchAndFilter(searchStr: searchText, actionItems: actionItemsArray)
         }else{
             filteredActionItemsArray = ActionItemSortUtility().filterOnly(actionItems: actionItemsArray)
         }

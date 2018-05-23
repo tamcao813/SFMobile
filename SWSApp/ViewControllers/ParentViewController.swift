@@ -465,6 +465,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 moreVC1.view.addSubview((self.actionItemParent?.view)!)
                 ActionItemFilterModel.fromAccount = false
                 ActionItemFilterModel.accountId = nil
+                self.actionItemParent?.fromPersistentMenu = true
                 self.moreDropDownSelectionIndex = index
             case 1:
                 moreVC1.view.addSubview((self.accountVisit?.view)!)

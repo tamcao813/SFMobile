@@ -33,24 +33,28 @@ class ActionItemsListViewController: UIViewController {
             }
         }
         fetchActionItemsFromDB()
-        customizedUI()
     }
     
     @objc func refreshActionItemList(){
         fetchActionItemsFromDB()
-        customizedUI()
     }
     
     func fetchActionItemsFromDB(){
         actionItemsArray = [ActionItem]()
-        actionItemsArray = AccountsActionItemViewModel().getAcctionItemForUser()
-        actionItemsArray = actionItemsArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
         if ActionItemFilterModel.fromAccount{
+            let actionItemsArrayLocal = AccountsActionItemViewModel().getAcctionItemForUser()
             if let accountId = ActionItemFilterModel.accountId {
-                actionItemsArray = actionItemsArray.filter( { return $0.accountId.contains(accountId)
-                } )
+                for actionItem in actionItemsArrayLocal {
+                    if actionItem.accountId == accountId {
+                        actionItemsArray.append(actionItem)
+                    }
+                }
             }
+        }else{
+            actionItemsArray = AccountsActionItemViewModel().getAcctionItemForUser()
         }
+        actionItemsArray = actionItemsArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        customizedUI()
         reloadTableView()
     }
     

@@ -260,7 +260,7 @@ class ActionItemFilterViewController: UIViewController {
         ActionItemFilterModel.dueNo = "NO"
         
         searchBar.text = ""
-        ActionItemFilterModel.filterApplied = false
+        ActionItemFilterModel.filterApplied = false        
     }
     
     

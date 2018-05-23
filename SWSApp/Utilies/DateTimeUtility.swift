@@ -52,13 +52,17 @@ class DateTimeUtility
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        dateFormatter.timeZone = TimeZone.current
+       // dateFormatter.timeZone = TimeZone.current
         let date = dateFormatter.date(from: dateStringfromAccountNotes!)// create date from string
-        // change to a readable time format and change to local time zone
-        dateFormatter.dateFormat = "MM-dd-YYYY"
-        let timeStamp = dateFormatter.string(from: date!)
         
-        return timeStamp
+        if date != nil{
+            dateFormatter.dateFormat = "MM-dd-YYYY"
+            let timeStamp = dateFormatter.string(from: date!)
+            return timeStamp
+        }else{
+            return dateStringfromAccountNotes!
+        }
+        
     }
     
     static func convertUtcDatetoReadableDateLikeStrategy(dateString :String?)->String{

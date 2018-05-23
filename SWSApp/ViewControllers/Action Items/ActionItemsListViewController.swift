@@ -8,9 +8,10 @@
 
 import UIKit
 import SwipeCellKit
+import SmartSync
 
 class ActionItemsListViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     var actionItemsArray = [ActionItem]()
     var filteredActionItemsArray = [ActionItem]()
@@ -200,7 +201,7 @@ extension ActionItemsListViewController : UITableViewDelegate, UITableViewDataSo
         }else{
             cell?.displayCellContent(actionItem: actionItemsArray[indexPath.row])
         }
-       // cell?.delegate =  self
+        cell?.delegate =  self
         return cell ?? UITableViewCell()
     }
     
@@ -217,61 +218,141 @@ extension ActionItemsListViewController : UITableViewDelegate, UITableViewDataSo
         }        
     }
 }
-/*
+
 //MARK:- Swipe Evenyt Delegate Methods
 extension ActionItemsListViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
-     
+        
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
             self.tableView.beginUpdates()
-            self.actionItemsArray.remove(at: indexPath.row)
+            self.deleteActionItem(index: indexPath.row)
             self.tableView.endUpdates()
         }
         deleteAction.hidesWhenSelected = true
         deleteAction.image = UIImage(named: "delete")
         deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
-     
+        
         let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
             DispatchQueue.main.async {
                 let createVisitViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
                 createVisitViewController.isEditingMode = true
-                createVisitViewController.actionItemObject = self.actionItemsArray[indexPath.row]
+                if ActionItemFilterModel.filterApplied{
+                    createVisitViewController.actionItemId = self.filteredActionItemsArray[indexPath.row].Id
+                }else{
+                    createVisitViewController.actionItemId = self.actionItemsArray[indexPath.row].Id
+                }
                 self.present(createVisitViewController, animated: true)
             }
         }
         editAction.hidesWhenSelected = true
         editAction.image = UIImage(named: "delete")
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
-     
+        
         var statusText = ""
         var statusImage = UIImage()
         switch actionItemsArray[indexPath.row].status {
-        case "Complete":
-            statusText = "Complete"
-            statusImage = UIImage()
-        case "Open":
+        case "Complete","Completed":
             statusText = "Open"
             statusImage = UIImage()
+        case "Open","Overdue":
+            statusText = "Complete"
+            statusImage = UIImage()
         default:
-            statusText = actionItemsArray[indexPath.row].status
+            break
         }
         let changeStatus = SwipeAction(style: .default, title: statusText) { action, indexPath in
+            if statusText.contains("Comp"){
+                self.editStatus(index: indexPath.row,statusComplete: true)
+            }else{
+                self.editStatus(index: indexPath.row,statusComplete: false)
+            }
         }
         changeStatus.hidesWhenSelected = true
         changeStatus.image = statusImage
         changeStatus.backgroundColor = UIColor(named:"InitialsBackground")
-     
+        
         return [deleteAction,editAction,changeStatus]
     }
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
         var options = SwipeTableOptions()
-        options.expansionStyle = .destructive
-        options.transitionStyle = .border
+        options.transitionStyle = .drag
         return options
     }
-}*/
+}
+
+extension ActionItemsListViewController {
+    func editStatus(index: Int,statusComplete: Bool){
+        var editActionItem = ActionItem(for: "editActionItem")
+        if ActionItemFilterModel.filterApplied{
+            editActionItem = self.filteredActionItemsArray[index]
+        }else{
+            editActionItem = self.actionItemsArray[index]
+        }
+        if statusComplete {
+            editActionItem.status = "Complete"
+        }else{
+            if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
+                editActionItem.status = "Open"
+            }else{
+                editActionItem.status = "Overdue"
+            }
+        }
+        
+        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
+        let attributeDict = ["type":"Task"]
+        let actionItemDict: [String:Any] = [
+            
+            ActionItem.AccountActionItemFields[0]: editActionItem.Id,
+            ActionItem.AccountActionItemFields[4]: editActionItem.status,
+            ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:false,
+            kSyncTargetLocallyUpdated:true,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success = AccountsActionItemViewModel().editActionItemStatusLocally(fields: actionItemDict)
+        if success {
+            self.fetchActionItemsFromDB()
+        }
+    }
+    
+    func deleteActionItem(index: Int){
+        let alert = UIAlertController(title: "Action Item Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
+        let continueAction = UIAlertAction(title: "Delete", style: .default) {
+            action in
+            var id = ""
+            if ActionItemFilterModel.filterApplied{
+                id = self.filteredActionItemsArray[index].Id
+            }else{
+                id = self.actionItemsArray[index].Id
+            }
+            
+            let attributeDict = ["type":"Task"]
+            let editActionItemDict: [String:Any] = [
+                ActionItem.AccountActionItemFields[0]: id,
+                kSyncTargetLocal:true,
+                kSyncTargetLocallyCreated:false,
+                kSyncTargetLocallyUpdated:false,
+                kSyncTargetLocallyDeleted:true,
+                "attributes":attributeDict]
+            
+            let success = AccountsActionItemViewModel().deleteActionItemLocally(fields: editActionItemDict)
+            if(success){
+                self.fetchActionItemsFromDB()
+            }
+            else {
+                //Alert errors
+            }
+        }
+        alert.addAction(continueAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+}
 
 extension ActionItemsListViewController: CreateNewActionItemViewControllerDelegate {
     func updateActionDesc() {

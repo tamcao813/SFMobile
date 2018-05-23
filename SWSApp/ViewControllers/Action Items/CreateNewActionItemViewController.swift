@@ -186,10 +186,10 @@ class CreateNewActionItemViewController: UIViewController {
         newActionItem.subject = actionTitleTextField.text!
         newActionItem.description = actionItemDescriptionTextView.text!
         newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
-        if !ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
-            newActionItem.status = "Overdue"
-        }else{
+        if ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
             newActionItem.status = "Open"
+        }else{
+            newActionItem.status = "Overdue"
         }
         if isUrgentSwitch.isOn {
             newActionItem.isUrgent = true
@@ -219,7 +219,7 @@ class CreateNewActionItemViewController: UIViewController {
         let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
         if success {
             self.delegate?.updateActionList()
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -235,10 +235,10 @@ class CreateNewActionItemViewController: UIViewController {
         if let status = actionItemObject?.status {
             editActionItem.status = status
             if editActionItem.status == "Open" || editActionItem.status == "Overdue"{
-                if !ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate) {
-                    editActionItem.status = "Overdue"
-                }else{
+                if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
                     editActionItem.status = "Open"
+                }else{
+                    editActionItem.status = "Overdue"
                 }
             }
         }
@@ -268,6 +268,7 @@ class CreateNewActionItemViewController: UIViewController {
         
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             self.delegate?.updateActionDesc()
             self.dismiss(animated: true, completion: nil)
         }

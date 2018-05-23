@@ -227,7 +227,23 @@ class ActionItemSortUtility {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: dueDate)
-        return date?.timeIntervalSinceNow.sign == .plus
+        if Calendar.current.isDateInToday(date!){
+            return true
+        }else if Calendar.current.isDateInYesterday(date!){
+            return false
+        }else if Calendar.current.isDateInTomorrow(date!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    func getTimestamp() -> String{
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        return timeStamp
     }
     
 }

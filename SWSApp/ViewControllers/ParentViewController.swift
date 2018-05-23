@@ -289,17 +289,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             if error == nil {
                 let acrArray = ContactsViewModel().accountsForContacts() //need all because some ACRs may be changed to unlinked
                 
-                var meg = ""
                 var updatedACRs = [AccountContactRelation]()
                 for acr in acrArray {
-                    if acr.contactId.starts(with: "9999") {
+                    if acr.contactId.starts(with: "NEW") {
                         let sfContactId = ContactsViewModel().contactIdForACR(with: acr.contactId)
                         if sfContactId != "" {
                             acr.contactId = sfContactId
                             updatedACRs.append(acr)
                         }
                         else {
-                            meg = meg + " sfContactId is empty for tempId: " + acr.contactId
                             print("sfContactId is empty for tempId: " + acr.contactId)
                         }
                     }
@@ -308,7 +306,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 if updatedACRs.count > 0 {
                     let successAcrSoup = ContactsViewModel().updateACRToSoup(objects: updatedACRs)
                     if !successAcrSoup {
-                        print("updateACRToSoup failed " + meg)
+                        print("updateACRToSoup failed")
                     }
                 }
                     
@@ -317,7 +315,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                         print("syncACRwithServer completed successfully")
                     }
                     else {
-                        print("syncACRwithServer failed " + meg)
+                        print("syncACRwithServer failed")
                     }
                     group.leave()
                 }

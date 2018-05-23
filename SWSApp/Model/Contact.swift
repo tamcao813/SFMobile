@@ -226,7 +226,7 @@ class Contact {
     
     init(for: String) {
         let n = Int(arc4random_uniform(100000000))
-        contactId = "9999" + "\(n)"
+        contactId = "NEW" + "\(n)"
         tempId = contactId
         name = ""
         firstName = ""

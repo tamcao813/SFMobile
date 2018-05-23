@@ -293,8 +293,9 @@ extension ActionItemsListViewController {
         if statusComplete {
             editActionItem.status = "Complete"
         }else{
-            editActionItem.status =     "Open"
-            if !ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
+            if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
+                editActionItem.status = "Open"
+            }else{
                 editActionItem.status = "Overdue"
             }
         }

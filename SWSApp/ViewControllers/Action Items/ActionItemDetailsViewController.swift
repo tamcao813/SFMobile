@@ -189,8 +189,9 @@ class ActionItemDetailsViewController: UIViewController {
         editActionItem.description = self.actionItemObject!.description
         editActionItem.activityDate = self.actionItemObject!.activityDate
         editActionItem.isUrgent =   self.actionItemObject!.isUrgent
-        editActionItem.status =     "Open"
-        if !ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
+        if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
+            editActionItem.status = "Open"
+        }else{
             editActionItem.status = "Overdue"
         }
         editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()

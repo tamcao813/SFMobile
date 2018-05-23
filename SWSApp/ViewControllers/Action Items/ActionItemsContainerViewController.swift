@@ -12,6 +12,7 @@ class ActionItemsContainerViewController: UIViewController {
     
     var actionItemFilterVC : ActionItemFilterViewController?
     var actionItemListVC : ActionItemsListViewController?
+    var fromPersistentMenu = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,11 @@ class ActionItemsContainerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if fromPersistentMenu {
+            ActionItemFilterModel.fromAccount = false
+            ActionItemFilterModel.accountId = nil
+        }
+        actionItemFilterVC?.clearActionItemFilterModel()
         actionItemListVC?.refreshActionItemList()
         actionItemFilterVC?.delegate = actionItemListVC
     }

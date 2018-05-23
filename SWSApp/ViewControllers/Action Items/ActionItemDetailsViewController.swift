@@ -65,7 +65,9 @@ class ActionItemDetailsViewController: UIViewController {
         initializeXibs()
         footerView.dropShadow()
         actionItemStatusLabel.text = actionItemObject?.status
-        dueDateLabel.text = DateTimeUtility.getDDMMYYYDateStringInAction(dateStringfromAccountObject: actionItemObject?.activityDate)//actionItemObject?.activityDate
+        if let actionItem = actionItemObject {
+            dueDateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: actionItem.activityDate)
+        }
     }
     
     func initializeXibs(){

@@ -2568,6 +2568,9 @@ class StoreDispatcher {
             soupEntry["SGWS_WorkOrder_Location__c"] = allFields["SGWS_WorkOrder_Location__c"]
             soupEntry["RecordTypeId"] = allFields["RecordTypeId"]
             
+            soupEntry["SGWS_All_Day_Event__c"] = allFields["SGWS_All_Day_Event__c"]
+
+            
             soupEntry[kSyncTargetLocallyDeleted] = false
             
             ary = sfaStore.upsertEntries([soupEntry], toSoup: SoupVisit)

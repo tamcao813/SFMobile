@@ -426,7 +426,11 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func getHeaderValuesInScheduledState(section: Int) -> String{
         var headerValue = ""
         if section == 0 {
-            headerValue = "Location"
+            if visitObject?.location.count == 0 {
+                headerValue = "Location"
+            } else {
+                headerValue = (visitObject?.location)!
+            }
         }
         return headerValue
     }
@@ -434,7 +438,12 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func getHeaderValuesInProgress(section: Int) -> String{
         var headerValue = ""
         if section == 0 {
-            headerValue = "Location"
+            if visitObject?.location.count == 0 {
+                headerValue = "Location"
+            } else {
+                headerValue = (visitObject?.location)!
+            }
+            
         }else if section == 1 {
             headerValue = "Associated Contacts"
         }

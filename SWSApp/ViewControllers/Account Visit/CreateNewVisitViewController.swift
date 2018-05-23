@@ -18,6 +18,8 @@ class CreateNewVisitViewController: UIViewController {
     var accountsDropdown: DropDown!
     var contactsDropdown: DropDown!
     var isEditingMode = false
+    var callToConfirm = true
+    var locationStr = ""
     var selectedAccount: Account!
     var selectedContact: Contact!
     var visitId: String!
@@ -130,7 +132,9 @@ class CreateNewVisitViewController: UIViewController {
         self.tableView.register(UINib(nibName: "AccountContactLinkTableViewCell", bundle: nil), forCellReuseIdentifier: "DropDownCell")
         self.tableView.register(UINib(nibName: "SearchForContactTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchForContactTableViewCell")
         self.tableView.register(UINib(nibName: "ViewContactLinkToVisitTableViewCell", bundle: nil), forCellReuseIdentifier: "ViewContactLinkToVisitTableViewCell")
-        self.tableView.register(UINib(nibName: "ScheduleAppointmentTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleAppointmentTableViewCell")        
+        self.tableView.register(UINib(nibName: "ScheduleAppointmentTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleAppointmentTableViewCell")
+        self.tableView.register(UINib(nibName: "VisitLocationTableViewCell", bundle: nil), forCellReuseIdentifier: "VisitLocationTableViewCell")
+        self.tableView.register(UINib(nibName: "VisitCallToConfirmTableViewCell", bundle: nil), forCellReuseIdentifier: "VisitCallToConfirmTableViewCell") 
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
@@ -226,6 +230,8 @@ class CreateNewVisitViewController: UIViewController {
         }
         PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
         PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+        PlanVisitManager.sharedInstance.visit?.location = locationStr
+        PlanVisitManager.sharedInstance.visit?.sgwsAppointmentStatus = callToConfirm
         //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
         let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
     }
@@ -233,7 +239,8 @@ class CreateNewVisitViewController: UIViewController {
     func createNewVisit(dismiss: Bool) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         PlanVisitManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
-        
+        print("callToConfirm", callToConfirm)
+        print("loc", locationStr)
         let new_visit = PlanVisit(for: "newVisit")
         
         //Get Current date and time
@@ -260,12 +267,12 @@ class CreateNewVisitViewController: UIViewController {
         }else{
             new_visit.status = "Planned"
         }
+        new_visit.location = locationStr
+        new_visit.sgwsAppointmentStatus = callToConfirm
         
         new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
-        new_visit.sgwsAppointmentStatus = true
       //  new_visit.sgwsAlldayEvent = true
         //TBD location to be set , what is enetered in UI
-        new_visit.location = ""
         
         let attributeDict = ["type":"WorkOrder"]
         let addNewDict: [String:Any] = [
@@ -359,7 +366,7 @@ class CreateNewVisitViewController: UIViewController {
 
 extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 7
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -381,6 +388,10 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
                 return 0
             }
         case 4:
+            return 1
+        case 5:
+            return 1
+        case 6:
             return 1
         default:
             return 0
@@ -427,6 +438,27 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
                 cell?.schedulerComponentView.startTimeTextField.text = self.getTime(stringDate: visit.startDate)
                 cell?.schedulerComponentView.endTimeTextField.text = self.getTime(stringDate: visit.endDate)
                 cell?.layoutIfNeeded()
+            }
+            return cell!
+        case 5:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "VisitLocationTableViewCell") as? VisitLocationTableViewCell
+            cell?.delegate = self
+            if let visit = visitObject {
+                cell?.locationTxtFld.text = visit.location
+                locationStr = visit.location
+            }
+            return cell!
+        case 6:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "VisitCallToConfirmTableViewCell") as? VisitCallToConfirmTableViewCell
+            cell?.delegate = self
+            if let visit = visitObject {
+                if visit.sgwsAppointmentStatus {
+                    cell?.appontmentControl.selectedSegmentIndex = 0
+                    callToConfirm = true
+                } else {
+                    cell?.appontmentControl.selectedSegmentIndex = 1
+                    callToConfirm = false
+                }
             }
             return cell!
         default:
@@ -509,5 +541,17 @@ extension CreateNewVisitViewController: ContactVisitLinkTableViewCellDelegate {
         createNewVisitViewControllerGlobals.userInput = true
         selectedContact = nil
         reloadTableView()
+    }
+}
+
+extension CreateNewVisitViewController: locationDelegate {
+    func onLocationUpdate(sender: String) {
+        locationStr = sender
+    }
+}
+
+extension CreateNewVisitViewController: appointmentStatusDelegate {
+    func appointmentStatusUpdate(sender: Bool) {
+        callToConfirm = sender
     }
 }

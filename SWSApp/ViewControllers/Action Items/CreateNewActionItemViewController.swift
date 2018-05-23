@@ -165,6 +165,20 @@ class CreateNewActionItemViewController: UIViewController {
         }
     }
     
+    //
+//    func getDataTimeinStr(date:String) -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        var string = date + "T" + time
+//        if let dateFromString = dateFormatter.date(from: string) {
+//            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
+//            dateFormatter.dateFormat = "yyyy-MM-dd"
+//            dateFormatter.timeZone = TimeZone(identifier:"UTC")
+//            string = dateFormatter.string(from: dateFromString)
+//        }
+//        return string
+//    }
+    
     func createNewActionItem(){
         var newActionItem = ActionItem(for: "NewActionItem")
         if !isEditingMode {
@@ -172,10 +186,12 @@ class CreateNewActionItemViewController: UIViewController {
         }else{
             newActionItem = actionItemObject!
         }
+         
         newActionItem.accountId = (selectedAccount?.account_Id)!
         newActionItem.subject = actionTitleTextField.text!
         newActionItem.description = actionItemDescriptionTextView.text!
         newActionItem.activityDate = dueDateTextField.text!
+      
         newActionItem.status = "Open"
         if isUrgentSwitch.isOn {
             newActionItem.isUrgent = true
@@ -348,7 +364,8 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             cell?.headerLabel.text = "Due Date"
             if let actionItem = actionItemObject {
                 cell?.actionItem = actionItem
-                cell?.dateTextfield.text = actionItemObject?.activityDate
+                cell?.dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: actionItemObject?.activityDate)
+                
             }
             return cell!
         default:

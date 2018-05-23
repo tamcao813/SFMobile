@@ -1595,7 +1595,7 @@ class StoreDispatcher {
             }
         }
         
-        let ary = sfaStore.upsertEntries([editedNote], toSoup: SoupActionItem)
+        let ary = sfaStore.upsertEntries([editedActionItem], toSoup: SoupActionItem)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]

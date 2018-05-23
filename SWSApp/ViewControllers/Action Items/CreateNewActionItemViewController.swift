@@ -355,7 +355,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
             dueDateTextField = cell?.dateTextfield
             dateTextFieldContainerView = cell?.dateTextFieldContainerView
-            cell?.datePickerView.minimumDate = Date()
+//            cell?.datePickerView.minimumDate = Date()
             cell?.headerLabel.text = "Due Date"
             if let actionItem = actionItemObject {
                 cell?.actionItem = actionItem

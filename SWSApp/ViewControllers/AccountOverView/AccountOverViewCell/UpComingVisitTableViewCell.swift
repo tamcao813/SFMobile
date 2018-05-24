@@ -1,5 +1,5 @@
 //
-//  AccountOverView_PastActivitiesTableViewCell.swift
+//  AccountOverView_UpComingTableViewCell.swift
 //  SWSApp
 //
 //  Created by shubham.e.shukla on 5/11/18.
@@ -8,15 +8,12 @@
 
 import UIKit
 
-class AccountOverView_PastActivitiesTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var PastActivities_TitleLabel: UILabel!
+class UpComingVisitTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var PastActivities_DetailLabel: UILabel!
-    
-    @IBOutlet weak var PastActivities_ImageView: UIImageView!
-    
-    @IBOutlet weak var PastActivities_TimeLabel: UILabel!
+    @IBOutlet weak var UpComingActivities_TitleLabel: UILabel!
+    @IBOutlet weak var UpComingActivities_DetailsLabel: UILabel!
+    @IBOutlet weak var UpComingActivities_TimeLabel: UILabel!
+    @IBOutlet weak var UpComingActivities_Image: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

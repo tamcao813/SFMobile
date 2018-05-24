@@ -206,6 +206,14 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         button.tag = 0
         self.itemsClicked(sender: button)
         
+        //containerView?.isHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshActionItemList), name: NSNotification.Name("refreshActionItemList"), object: nil)
+    }
+    
+    @objc func refreshActionItemList(){
+        let button = UIButton()
+        button.tag = 5
+        self.itemsClicked(sender: button)
     }
     
     

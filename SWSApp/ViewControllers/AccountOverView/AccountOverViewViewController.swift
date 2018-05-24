@@ -16,9 +16,14 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     @IBOutlet weak var pastActivitiesTableView: UITableView!
     var account : Account?
     let visitModel = VisitSchedulerViewModel()
+    let actionItemModel = AccountsActionItemViewModel()
+    
+    var actionItemToDisplay = [ActionItem]()
+    var actionItemArray = [ActionItem]()
+    
     var visitToDisplay = [PlanVisit]()
     var visitArray = [PlanVisit]()
-    var visitTwoWeek = [PlanVisit]()
+   // var visitTwoWeek = [PlanVisit]()
     var accountId : String!
    
     
@@ -32,18 +37,28 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
         self.accountId = account?.account_Id
         
-        
+        //creating visit array according to accountId
         visitToDisplay = visitModel.visitsForUser()
         for accVisit in visitToDisplay {
             
             if(accVisit.accountId ==  accountId) {
                 visitArray.append(accVisit)
             }
-           
         }
         
-        visitTwoWeek = visitModel.visitsForUserTwoWeeksUpcoming()
-        print("Two week visit \(visitTwoWeek)")
+        //creating action item array according to accountId
+        actionItemToDisplay = actionItemModel.getAcctionItemForUser()
+        for accAction in actionItemToDisplay{
+            
+            if (accAction.accountId == accountId){
+                
+                actionItemArray.append(accAction)
+            }
+            
+        }
+        
+//        visitTwoWeek = visitModel.visitsForUserTwoWeeksUpcoming()
+//        print("Two week visit \(visitTwoWeek)")
     
         
         // Do any additional setup after loading the view.
@@ -60,19 +75,18 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return visitArray.count
+        return visitArray.count + actionItemArray.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+         // Upcoming Activities Table
         if tableView.tag == 1{
             
-            let upComingActivitiesCell:AccountOverView_UpComingTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingActivitiesCell") as! AccountOverView_UpComingTableViewCell
+            let upcomingVisit:UpComingVisitTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingVisitCell") as! UpComingVisitTableViewCell
             
-            upComingActivitiesCell.UpComingActivities_TitleLabel.text = visitArray[indexPath.row].sgwsVisitPurpose
-            upComingActivitiesCell.UpComingActivities_DetailsLabel.text = visitArray[indexPath.row].description
-            
+            let upcomingAction:UpComingActionTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingActionCell") as! UpComingActionTableViewCell
+        
             //Getting Today, Tomorrow, Yesterday
             let calendar = Calendar.current
             let dateFormatter = DateFormatter()
@@ -86,31 +100,40 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
             if calendar.isDateInToday(date!){
                 
-            upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Today at " + dateTime[1]
-                 return upComingActivitiesCell
+            upcomingVisit.UpComingActivities_TimeLabel.text = "Today at " + dateTime[1]
+                 return upcomingVisit
                 
             }
             else if calendar.isDateInTomorrow(date!)
             {
-                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Tomorrow at " + dateTime[1]
-                return upComingActivitiesCell
+                upcomingVisit.UpComingActivities_TimeLabel.text = "Tomorrow at " + dateTime[1]
+                return upcomingVisit
                 
             }else if calendar.isDateInYesterday(date!)
             {
-                upComingActivitiesCell.UpComingActivities_TimeLabel.text = "Yesterday at " + dateTime[1]
-                return upComingActivitiesCell
+                upcomingVisit.UpComingActivities_TimeLabel.text = "Yesterday at " + dateTime[1]
+                return upcomingVisit
             }
             
-            upComingActivitiesCell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
-            return upComingActivitiesCell
+            //Visit Cell
+            upcomingVisit.UpComingActivities_TitleLabel.text = visitArray[indexPath.row].sgwsVisitPurpose
+            upcomingVisit.UpComingActivities_DetailsLabel.text = visitArray[indexPath.row].description
+            upcomingVisit.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+            
+            return upcomingVisit
+            
+            //Action Item Cell
+            upcomingAction.upcomingActionTitle.text = actionItemArray[indexPath.row].subject
+            upcomingAction.upcomingActionDescription.text = actionItemArray[indexPath.row].description
+            upcomingAction.upcomingActionTimeLabel.text = actionItemArray[indexPath.row].activityDate
             
         }
             
-            
+       // Past Activities Table
         else
         {
             
-            let pastActivitiesCell:AccountOverView_PastActivitiesTableViewCell = pastActivitiesTableView.dequeueReusableCell(withIdentifier: "pastActivitiesCell") as! AccountOverView_PastActivitiesTableViewCell
+            let pastActivitiesCell:PastVisitTableViewCell = pastActivitiesTableView.dequeueReusableCell(withIdentifier: "pastVisitCell") as! PastVisitTableViewCell
             pastActivitiesCell.PastActivities_TitleLabel.text = "Today is Jeanna Smith’s Birthday"
             pastActivitiesCell.PastActivities_DetailLabel.text = "Two line description perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
             pastActivitiesCell.PastActivities_TimeLabel.text = " 2 Hours Ago"

@@ -77,6 +77,7 @@ class SearchAccountTableViewCell: UITableViewCell {
 extension SearchAccountTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewActionItemViewController.createActionItemsGlobals.userInput = true
         ActionItemFilterModel.isAccountField = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
             self.accountsDropDown.show()

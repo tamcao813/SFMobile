@@ -18,6 +18,7 @@ class IsItUrgentTableViewCell: UITableViewCell {
     }
     
     @IBAction func switchValueChanged(_ sender: Any) {
+        CreateNewActionItemViewController.createActionItemsGlobals.userInput = true
         if isUrgentSwitch.isOn {
             switchValueLabel.text = "Yes"
         }else{

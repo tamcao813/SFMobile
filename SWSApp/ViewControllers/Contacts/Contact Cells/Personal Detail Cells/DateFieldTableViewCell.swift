@@ -43,9 +43,10 @@ class DateFieldTableViewCell: UITableViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM-dd-yyyy"
         let dateString = dateFormatter.string(from: sender.date)
-        let date = dateFormatter.date(from: dateString)
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateTextfield.text = dateFormatter.string(from: date!)
+//        let date = dateFormatter.date(from: dateString)
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        dateTextfield.text = dateFormatter.string(from: dateString)
+        dateTextfield.text = dateString
     }
     
     func addToolbar(textField: UITextField){        
@@ -65,14 +66,13 @@ class DateFieldTableViewCell: UITableViewCell {
     }
     
     @objc func donePicker(){
-        
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM-dd-yyyy"
         let dateString = dateFormatter.string(from: datePickerView.date)
-        let date = dateFormatter.date(from: dateString)
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateTextfield.text = dateFormatter.string(from: date!)
+//        let date = dateFormatter.date(from: dateString)
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        dateTextfield.text = dateFormatter.string(from: dateString)
+        dateTextfield.text = dateString
         dateTextfield.resignFirstResponder()
     }
     
@@ -84,7 +84,8 @@ class DateFieldTableViewCell: UITableViewCell {
 extension DateFieldTableViewCell: UITextFieldDelegate {    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        CreateNewContactViewController.createNewGlobals.userInput = true        
+        CreateNewContactViewController.createNewGlobals.userInput = true
+        CreateNewActionItemViewController.createActionItemsGlobals.userInput = true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

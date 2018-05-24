@@ -321,7 +321,7 @@ extension ActionItemsListViewController {
     
     func deleteActionItem(index: Int){
         let alert = UIAlertController(title: "Action Item Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
-        let continueAction = UIAlertAction(title: "Delete", style: .default) {
+        let continueAction = UIAlertAction(title: "Yes", style: .default) {
             action in
             var id = ""
             if ActionItemFilterModel.filterApplied{
@@ -348,7 +348,7 @@ extension ActionItemsListViewController {
             }
         }
         alert.addAction(continueAction)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }

@@ -52,6 +52,7 @@ extension DescriptionTableViewCell: UITextViewDelegate {
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         CreateNewContactViewController.createNewGlobals.userInput = true
+        CreateNewActionItemViewController.createActionItemsGlobals.userInput = true
         return true
     }
 }

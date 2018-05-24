@@ -424,6 +424,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // # MARK: show more dropdown
     private func showMoreDropDown(selectedIndex: Int)
     {
+        ActionItemFilterModel.fromAccount = false
         UserDefaults.standard.set(true, forKey: "isBlackLineActive")
         SelectedMoreButton.isBlackLineActive = true
         moreDropDown.anchorView = topMenuBar

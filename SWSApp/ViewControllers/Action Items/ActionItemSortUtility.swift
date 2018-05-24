@@ -25,9 +25,13 @@ class ActionItemSortUtility {
     
     func searchOnly(searchStr: String,actionItems: [ActionItem]) -> [ActionItem]{
         let subjectFilteredArray = actionItems.filter( { return $0.subject.lowercased().contains(searchStr.lowercased()) } )
+        
         let accountNameFilteredArray = actionItems.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
+        
         let accountNunberFilteredArray = actionItems.filter( { return $0.accountNumber.lowercased().contains(searchStr.lowercased()) } )
-        return subjectFilteredArray + accountNameFilteredArray + accountNunberFilteredArray
+        
+        let filteredArray = subjectFilteredArray + accountNameFilteredArray + accountNunberFilteredArray
+        return filteredArray.unique()
     }
     
     func filterOnly(actionItems: [ActionItem]) -> [ActionItem]{

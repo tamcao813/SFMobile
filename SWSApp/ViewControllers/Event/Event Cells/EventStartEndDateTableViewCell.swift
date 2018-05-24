@@ -171,6 +171,8 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
             eventStartDateTextField.text = dateFormatter.string(from: datePickerView.date)
         }else{
             eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
+            eventEndTimeTextField.text = ""
+            CreateNewEventViewControllerGlobals.endTime = ""
         }
         
         if (!eventStartDateTextField.text!.isEmpty && !eventEndDateTextField.text!.isEmpty) {
@@ -212,7 +214,12 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         } else {
             eventEndTimeTextField.text = dateFormatter.string(from: datePickerView.date)
         }
-        if (!eventStartTimeTextField.text!.isEmpty && !eventEndTimeTextField.text!.isEmpty) {
+        
+        if eventStartDateTextField.text != eventEndDateTextField.text{
+            //User
+            
+            
+        }else if (!eventStartTimeTextField.text!.isEmpty && !eventEndTimeTextField.text!.isEmpty) {
             if convertToDate(dateString: eventStartTimeTextField.text!) == convertToDate(dateString: eventEndTimeTextField.text!)  {
                 eventEndTimeTextField.text! = ""
                 

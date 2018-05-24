@@ -413,6 +413,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemTitleTableViewCell") as? ActionItemTitleTableViewCell
             eventTitleTextField = cell?.actionTitleTextField
+            cell?.actionTitleTextField.text = CreateNewEventViewControllerGlobals.eventTitle
             cell?.actionHeaderLabel.text = "Title*"
             cell?.actionTitleTextField.placeholder = "Enter Title"
             cell?.actionTitleTextField.tag = indexPath.section
@@ -425,7 +426,6 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
                     CreateNewEventViewControllerGlobals.eventTitle = eventObject.subject
                     
                 }else{
-                    
                     cell?.actionTitleTextField.text = CreateNewEventViewControllerGlobals.eventTitle
                 }
             }
@@ -500,6 +500,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
         case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemTitleTableViewCell") as? ActionItemTitleTableViewCell
             locationTextField = cell?.actionTitleTextField
+            cell?.actionTitleTextField.text = CreateNewEventViewControllerGlobals.location
             cell?.actionHeaderLabel.text = "Location"
             cell?.actionTitleTextField.placeholder = "Enter Location"
             cell?.actionTitleTextField.tag = indexPath.section

@@ -173,6 +173,27 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
             eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
         }
         
+        if (!eventStartDateTextField.text!.isEmpty && !eventEndDateTextField.text!.isEmpty) {
+            if convertStringToDate(dateString: eventStartDateTextField.text!) == convertStringToDate(dateString: eventEndDateTextField.text!)  {
+                eventEndDateTextField.text! = ""
+                
+                let alert = UIAlertView()
+                alert.title = "Alert"
+                alert.message = "Start Time should be lesser than End Time"
+                alert.addButton(withTitle: "OK")
+                alert.show()
+                
+            } else if convertStringToDate(dateString: eventStartDateTextField.text!).compare(convertStringToDate(dateString: eventEndDateTextField.text!)) == .orderedDescending  {
+                eventEndDateTextField.text! = ""
+                
+                let alert = UIAlertView()
+                alert.title = "Alert"
+                alert.message = "Start Time should be lesser than End Time"
+                alert.addButton(withTitle: "OK")
+                alert.show()
+            }
+        }
+        
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
         //        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
@@ -238,6 +259,17 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
             dateformatter.dateFormat = "HH:mm a"
             dateFromString = dateformatter.date(from: dateString)!
         }
+        
+        return dateFromString
+    }
+    
+    func convertStringToDate(dateString: String) -> Date {
+        let dateformatter = DateFormatter()
+        dateformatter.timeStyle = .medium
+        dateformatter.dateFormat = "yyyy-mm-dd"
+        var dateFromString = Date()
+        dateFromString = dateformatter.date(from: dateString)!
+
         
         return dateFromString
     }

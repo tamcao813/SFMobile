@@ -24,7 +24,7 @@ class ActionItemsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //NotificationCenter.default.addObserver(self, selector: #selector(self.refreshActionItemList), name: NSNotification.Name("refreshActionItemList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.actionItemSyncDownComplete), name: NSNotification.Name("actionItemSyncDownComplete"), object: nil)
         DispatchQueue.main.async {
             if ActionItemFilterModel.fromAccount{
                 self.actionItemButtonContainerViewHeight.constant = 0
@@ -36,6 +36,11 @@ class ActionItemsListViewController: UIViewController {
         }
         fetchActionItemsFromDB()
     }
+    
+    @objc func actionItemSyncDownComplete(){
+        fetchActionItemsFromDB()
+    }
+    
     
     @objc func refreshActionItemList(){
         fetchActionItemsFromDB()
@@ -230,7 +235,7 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
             self.tableView.endUpdates()
         }
         deleteAction.hidesWhenSelected = true
-        deleteAction.image = UIImage(named: "delete")
+        deleteAction.image = #imageLiteral(resourceName: "deletX")
         deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
         
         let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
@@ -246,7 +251,7 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
             }
         }
         editAction.hidesWhenSelected = true
-        editAction.image = UIImage(named: "delete")
+        editAction.image = #imageLiteral(resourceName: "editIcon")
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
         
         var statusText = ""
@@ -254,10 +259,10 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
         switch actionItemsArray[indexPath.row].status {
         case "Complete","Completed":
             statusText = "Open"
-            statusImage = UIImage()
+            statusImage = #imageLiteral(resourceName: "selectedBlue")
         case "Open","Overdue":
             statusText = "Complete"
-            statusImage = UIImage()
+            statusImage = #imageLiteral(resourceName: "selectedBlue")
         default:
             break
         }
@@ -322,7 +327,7 @@ extension ActionItemsListViewController {
     
     func deleteActionItem(index: Int){
         let alert = UIAlertController(title: "Action Item Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
-        let continueAction = UIAlertAction(title: "Delete", style: .default) {
+        let continueAction = UIAlertAction(title: "Yes", style: .default) {
             action in
             var id = ""
             if ActionItemFilterModel.filterApplied{
@@ -349,7 +354,7 @@ extension ActionItemsListViewController {
             }
         }
         alert.addAction(continueAction)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }

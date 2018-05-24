@@ -244,3 +244,13 @@ class Account {
         return acc
     }
 }
+
+extension Account: Equatable,Hashable {
+    var hashValue: Int {
+        return account_Id.hashValue
+    }
+    
+    static func == (lhs: Account, rhs: Account) -> Bool {
+        return lhs.account_Id == rhs.account_Id
+    }
+}

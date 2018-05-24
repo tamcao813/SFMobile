@@ -10,7 +10,7 @@ import Foundation
 
 class ActionItemFilter {
     
-    var sectionNames : Array<Any>  = ["Action Status", "Action Type", "Due Date"]
+    var sectionNames : Array<Any>  = ["Action Item Status", "Action Item Type", "Due Date"]
     
     var sectionItems : Array<Any> = [ ["Complete", "Open", "Overdue"],
                                       ["Urgent","Not Urgent"],

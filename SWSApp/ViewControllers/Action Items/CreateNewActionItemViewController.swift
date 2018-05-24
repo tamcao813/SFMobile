@@ -139,11 +139,11 @@ class CreateNewActionItemViewController: UIViewController {
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return
-        }else if selectedAccount == nil {
-            searchAccountTextField.borderColor = .red
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
-            errorLabel.text = StringConstants.emptyFieldError
-            return
+//        }else if selectedAccount == nil {
+//            searchAccountTextField.borderColor = .red
+//            tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
+//            errorLabel.text = StringConstants.emptyFieldError
+//            return
         }else if actionItemDescriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
             actionItemDescriptionTextView.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
@@ -160,20 +160,6 @@ class CreateNewActionItemViewController: UIViewController {
         }
     }
     
-    //
-//    func getDataTimeinStr(date:String) -> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        var string = date + "T" + time
-//        if let dateFromString = dateFormatter.date(from: string) {
-//            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
-//            dateFormatter.dateFormat = "yyyy-MM-dd"
-//            dateFormatter.timeZone = TimeZone(identifier:"UTC")
-//            string = dateFormatter.string(from: dateFromString)
-//        }
-//        return string
-//    }
-    
     func createNewActionItem(){
         var newActionItem = ActionItem(for: "NewActionItem")
         if !isEditingMode {
@@ -181,8 +167,13 @@ class CreateNewActionItemViewController: UIViewController {
         }else{
             newActionItem = actionItemObject!
         }
-         
-        newActionItem.accountId = (selectedAccount?.account_Id)!
+        
+        if let accountId = selectedAccount?.account_Id {
+            newActionItem.accountId = accountId
+        }else{
+            newActionItem.accountId = ""
+        }
+        
         newActionItem.subject = actionTitleTextField.text!
         newActionItem.description = actionItemDescriptionTextView.text!
         newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
@@ -219,7 +210,9 @@ class CreateNewActionItemViewController: UIViewController {
         let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
         if success {
             self.delegate?.updateActionList()
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            if ActionItemFilterModel.fromAccount{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -228,7 +221,11 @@ class CreateNewActionItemViewController: UIViewController {
         var editActionItem = ActionItem(for: "editActionItem")
         editActionItem = actionItemObject!
         
-        editActionItem.accountId = (selectedAccount?.account_Id)!
+        if let accountId = selectedAccount?.account_Id {
+            editActionItem.accountId = accountId
+        }else{
+            editActionItem.accountId = ""
+        }
         editActionItem.subject = actionTitleTextField.text!
         editActionItem.description = actionItemDescriptionTextView.text!
         editActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
@@ -268,8 +265,10 @@ class CreateNewActionItemViewController: UIViewController {
         
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             self.delegate?.updateActionDesc()
+            if ActionItemFilterModel.fromAccount{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }

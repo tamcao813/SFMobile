@@ -367,11 +367,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 DispatchQueue.main.async {
                     MBProgressHUD.hide(forWindow: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+                    if ActionItemFilterModel.fromAccount{
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+                    }else{
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "actionItemSyncDownComplete"), object:nil)
+                    }
                 }
             })
         }
@@ -426,6 +428,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // # MARK: show more dropdown
     private func showMoreDropDown(selectedIndex: Int)
     {
+        ActionItemFilterModel.fromAccount = false
         UserDefaults.standard.set(true, forKey: "isBlackLineActive")
         SelectedMoreButton.isBlackLineActive = true
         moreDropDown.anchorView = topMenuBar

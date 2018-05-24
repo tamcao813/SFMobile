@@ -173,6 +173,18 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
             eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
         }
         
+        if (!eventStartDateTextField.text!.isEmpty && !eventEndDateTextField.text!.isEmpty) {
+            if DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventStartDateTextField.text!).compare(DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventEndDateTextField.text!)) == .orderedDescending  {
+                eventEndDateTextField.text! = ""
+                
+                let alert = UIAlertView()
+                alert.title = "Alert"
+                alert.message = "Start Date should be lesser than End Date"
+                alert.addButton(withTitle: "OK")
+                alert.show()
+            }
+        }
+        
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
         //        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)

@@ -54,7 +54,6 @@ class SearchAccountTableViewCell: UITableViewCell {
             self.searchContactTextField.resignFirstResponder()
         }
         self.accountsDropDown.textFont = UIFont(name: "Ubuntu-Bold", size: 16)!
-//        self.moreDropDown.textColor =  UIColor.gray
     }
     
     func customizedUI(){
@@ -70,8 +69,11 @@ class SearchAccountTableViewCell: UITableViewCell {
         
     func getAccountData(searchStr: String) -> [Account] {
         let account = self.accountViewModel.accountsForLoggedUser
-        let arr = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
-        return arr
+        let arrAccountName = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
+        
+        let arrAccountNumber = account.filter( { return $0.accountNumber.lowercased().contains(searchStr.lowercased()) } )
+        let filteredArray = arrAccountName + arrAccountNumber
+        return filteredArray.unique()
     }
     
 }
@@ -79,6 +81,7 @@ class SearchAccountTableViewCell: UITableViewCell {
 extension SearchAccountTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewActionItemViewController.createActionItemsGlobals.userInput = true
         ActionItemFilterModel.isAccountField = true
         
         CreateNewEventViewControllerGlobals.isAccountOrContactClicked = true

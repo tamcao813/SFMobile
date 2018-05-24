@@ -140,13 +140,14 @@ class CalendarListViewController: UIViewController {
     }
 
     func launchNewEvent() {
-        let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
-        createVisitViewController.isEditingMode = false
         
-        //Reset the PlanVisitManager
+        let eventStoryboard = UIStoryboard.init(name: "CreateEvent", bundle: nil)
+        let createEventViewController = eventStoryboard.instantiateViewController(withIdentifier: "CreateNewEventViewController") as? CreateNewEventViewController
+        createEventViewController?.isEditingMode = false
         PlanVisitManager.sharedInstance.visit = nil
-        
-        self.present(createVisitViewController, animated: true)
+        DispatchQueue.main.async {
+            self.present(createEventViewController!, animated: true, completion: nil)
+        }
     }
 
     // MARK: - Addnew Button Text

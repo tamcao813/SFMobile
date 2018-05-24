@@ -27,6 +27,9 @@ class ActionItemTitleTableViewCell: UITableViewCell {
 }
 
 extension ActionItemTitleTableViewCell: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewActionItemViewController.createActionItemsGlobals.userInput = true
+    }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         

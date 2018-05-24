@@ -231,11 +231,8 @@ class ActionItemSortUtility {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: dueDate)
-        if Calendar.current.isDateInToday(date!){
-            return true
-        }else if Calendar.current.isDateInYesterday(date!){
-            return false
-        }else if Calendar.current.isDateInTomorrow(date!){
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        if date! >= yesterday! {
             return true
         }else{
             return false

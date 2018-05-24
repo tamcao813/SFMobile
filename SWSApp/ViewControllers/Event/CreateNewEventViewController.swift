@@ -176,6 +176,7 @@ class CreateNewEventViewController: UIViewController {
     func allFieldsAreValidated() -> Bool{
         if ((eventTitleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == ""){
             eventTitleTextField.borderColor = .red
+            locationTextField.borderColor = .gray
             eventTitleTextField.becomeFirstResponder()
             errorLabel.text = StringConstants.emptyFieldError
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)

@@ -66,6 +66,10 @@ class EditAccountStrategyViewController: UIViewController {
         
         
         self.getEditStrategyData()
+        
+        //Clearing model for 1st time load
+        validateTheReguiredVield.showRedForQuestionHeader.removeAll()
+        
         isFirstTimeLoad = true
     }
     

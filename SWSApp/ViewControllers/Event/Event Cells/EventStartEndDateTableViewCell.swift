@@ -174,7 +174,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         }
         
         if (!eventStartDateTextField.text!.isEmpty && !eventEndDateTextField.text!.isEmpty) {
-            if convertStringToDate(dateString: eventStartDateTextField.text!) == convertStringToDate(dateString: eventEndDateTextField.text!)  {
+            if DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventStartDateTextField.text!) == DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventEndDateTextField.text!)  {
                 eventEndDateTextField.text! = ""
                 
                 let alert = UIAlertView()
@@ -183,7 +183,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 alert.addButton(withTitle: "OK")
                 alert.show()
                 
-            } else if convertStringToDate(dateString: eventStartDateTextField.text!).compare(convertStringToDate(dateString: eventEndDateTextField.text!)) == .orderedDescending  {
+            } else if DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventStartDateTextField.text!).compare(DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventEndDateTextField.text!)) == .orderedDescending  {
                 eventEndDateTextField.text! = ""
                 
                 let alert = UIAlertView()
@@ -259,17 +259,6 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
             dateformatter.dateFormat = "HH:mm a"
             dateFromString = dateformatter.date(from: dateString)!
         }
-        
-        return dateFromString
-    }
-    
-    func convertStringToDate(dateString: String) -> Date {
-        let dateformatter = DateFormatter()
-        dateformatter.timeStyle = .medium
-        dateformatter.dateFormat = "yyyy-mm-dd"
-        var dateFromString = Date()
-        dateFromString = dateformatter.date(from: dateString)!
-
         
         return dateFromString
     }

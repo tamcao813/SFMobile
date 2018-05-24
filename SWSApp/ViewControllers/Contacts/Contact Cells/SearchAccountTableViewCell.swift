@@ -68,8 +68,11 @@ class SearchAccountTableViewCell: UITableViewCell {
         
     func getAccountData(searchStr: String) -> [Account] {
         let account = self.accountViewModel.accountsForLoggedUser
-        let arr = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
-        return arr
+        let arrAccountName = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
+        
+        let arrAccountNumber = account.filter( { return $0.accountNumber.lowercased().contains(searchStr.lowercased()) } )
+        let filteredArray = arrAccountName + arrAccountNumber
+        return filteredArray.unique()
     }
     
 }

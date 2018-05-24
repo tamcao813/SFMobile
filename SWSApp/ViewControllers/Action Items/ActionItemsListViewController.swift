@@ -229,7 +229,7 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
             self.tableView.endUpdates()
         }
         deleteAction.hidesWhenSelected = true
-        deleteAction.image = UIImage(named: "delete")
+        deleteAction.image = #imageLiteral(resourceName: "deletX")
         deleteAction.backgroundColor = UIColor(named:"InitialsBackground")
         
         let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
@@ -245,7 +245,7 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
             }
         }
         editAction.hidesWhenSelected = true
-        editAction.image = UIImage(named: "delete")
+        editAction.image = #imageLiteral(resourceName: "editIcon")
         editAction.backgroundColor = UIColor(named:"InitialsBackground")
         
         var statusText = ""
@@ -253,10 +253,10 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
         switch actionItemsArray[indexPath.row].status {
         case "Complete","Completed":
             statusText = "Open"
-            statusImage = UIImage()
+            statusImage = #imageLiteral(resourceName: "selectedBlue")
         case "Open","Overdue":
             statusText = "Complete"
-            statusImage = UIImage()
+            statusImage = #imageLiteral(resourceName: "selectedBlue")
         default:
             break
         }

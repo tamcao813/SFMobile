@@ -11,6 +11,9 @@ import UIKit
 class ActionItemTitleTableViewCell: UITableViewCell {
 
     @IBOutlet weak var actionTitleTextField: UITextField!
+    @IBOutlet weak var actionHeaderLabel: UITextField!
+    
+    
     var actionItemObject: ActionItem?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,7 +27,19 @@ class ActionItemTitleTableViewCell: UITableViewCell {
 }
 
 extension ActionItemTitleTableViewCell: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        CreateNewActionItemViewController.createActionItemsGlobals.userInput = true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        CreateNewEventViewControllerGlobals.isFirstTimeLoad = false
+        
+        if textField.tag == 0{
+            CreateNewEventViewControllerGlobals.eventTitle = textField.text!
+        }else if textField.tag == 6{
+            CreateNewEventViewControllerGlobals.location = textField.text!
+        }
         actionItemObject?.subject = textField.text!
     }
     

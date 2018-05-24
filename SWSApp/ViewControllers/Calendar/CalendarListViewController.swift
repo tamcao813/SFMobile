@@ -133,10 +133,21 @@ class CalendarListViewController: UIViewController {
         let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
         createVisitViewController.isEditingMode = false
         
-        //Reset the PlanVistManager
-        PlanVistManager.sharedInstance.visit = nil
+        //Reset the PlanVisitManager
+        PlanVisitManager.sharedInstance.visit = nil
         
         self.present(createVisitViewController, animated: true)
+    }
+
+    func launchNewEvent() {
+        
+        let eventStoryboard = UIStoryboard.init(name: "CreateEvent", bundle: nil)
+        let createEventViewController = eventStoryboard.instantiateViewController(withIdentifier: "CreateNewEventViewController") as? CreateNewEventViewController
+        createEventViewController?.isEditingMode = false
+        PlanVisitManager.sharedInstance.visit = nil
+        DispatchQueue.main.async {
+            self.present(createEventViewController!, animated: true, completion: nil)
+        }
     }
 
     // MARK: - Addnew Button Text
@@ -162,7 +173,7 @@ class CalendarListViewController: UIViewController {
                 self.launchNewVisit()
                 
             case 1:
-                print("TBD launch Event")
+                self.launchNewEvent()
 
             default:
                 break
@@ -288,19 +299,29 @@ extension CalendarListViewController: WRWeekViewDelegate {
     func selectEvent(_ event: WREvent) {
         print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
         
-//        if event.type == "visit" TBD Need to check if this is needed {
-            PlanVistManager.sharedInstance.visit = Visit(for: "") // Todo read visit object from VisitViewModel
-            PlanVistManager.sharedInstance.visit?.Id = event.Id
+        if event.type == "visit" {
+            PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "") // Todo read visit object from VisitViewModel
+            PlanVisitManager.sharedInstance.visit?.Id = event.Id
             
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             accountVisitsVC?.visitId = event.Id
             accountVisitsVC?.delegate = self
-            PlanVistManager.sharedInstance.visit?.Id = event.Id
+            PlanVisitManager.sharedInstance.visit?.Id = event.Id
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
-//        }
+        } else {
+            
+            let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
+            PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "")
+            (accountVisitsVC)?.delegate = self
+            accountVisitsVC?.visitId = event.Id
+            DispatchQueue.main.async {
+                self.present(accountVisitsVC!, animated: true, completion: nil)
+            }
+        }
 
     }
 }
@@ -315,11 +336,11 @@ extension CalendarListViewController : NavigateToContactsDelegate{
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
-            if let visit = PlanVistManager.sharedInstance.visit{
+            if let visit = PlanVisitManager.sharedInstance.visit{
                 ContactsGlobal.accountId = visit.accountId
             }
             
-            if let contactId = PlanVistManager.sharedInstance.visit?.contactId{
+            if let contactId = PlanVisitManager.sharedInstance.visit?.contactId{
                 // Added this line so that Contact detail view is not launched for this scenario.
                 ContactFilterMenuModel.selectedContactId = contactId
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)

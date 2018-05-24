@@ -29,7 +29,7 @@ class CalendarViewModel {
         
     }
     
-    func loadVisitsToCalendarEvents(visitArray: [Visit]) -> [WREvent]? {
+    func loadVisitsToCalendarEvents(visitArray: [WorkOrderUserObject]) -> [WREvent]? {
         
         var visitsToCalendarEventsArray = [WREvent]()
         
@@ -50,8 +50,20 @@ class CalendarViewModel {
                         continue
                     }
                     
-                    let visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
-                    let visitType = "visit" // TBD to read dynamically, either visit or event
+                    
+                    var visitTitle = ""
+                    var visitType = "visit" // TBD to read dynamically, either visit or event
+                    if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == visit.recordTypeId){
+                        visitType = "visit"
+                        
+                        visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
+                        
+                    } else {
+                        
+                        visitType = "event"
+                        visitTitle = visit.subject + ": " + accountList![0].accountNumber
+                        
+                    }
                     
                     if daysBetween == 0 {
                         

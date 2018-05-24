@@ -14,16 +14,24 @@ class VisitSchedulerViewModel {
         return StoreDispatcher.shared.fetchSchedulerVisits()
     }
     
+    func createNewContactToSoup(object: Contact) -> Bool {
+        var contactfields: [String:Any] = object.toJson()
+        contactfields.removeValue(forKey: "_soupEntryId")
+        return StoreDispatcher.shared.createNewContactToSoup(fields: contactfields)
+    }
+    
     func createNewVisitLocally(fields: [String:Any]) -> (Bool,Int) {
+        //contactfields.removeValue(forKey: "_soupEntryId")
         return StoreDispatcher.shared.createNewVisitLocally(fieldsToUpload:fields)
     }
     
     
     func deleteVisitLocally(fields: [String:Any]) -> Bool {
         if StoreDispatcher.shared.deleteVisitsLocally(fieldsToUpload:fields){
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+            return true
         }
-        return StoreDispatcher.shared.deleteVisitsLocally(fieldsToUpload:fields)
+        return false
     }
     
     
@@ -48,8 +56,9 @@ class VisitSchedulerViewModel {
         if StoreDispatcher.shared.editVisit(fields:fields){
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitSummaryScreen"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+            return true
         }
-        return StoreDispatcher.shared.editVisit(fields:fields)
+        return false
     }
     
     // account overview related function

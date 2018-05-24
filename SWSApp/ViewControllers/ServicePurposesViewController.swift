@@ -28,7 +28,7 @@ class ServicePurposesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //STATEMACHINE:If you com tho this Screen its in Planned state
-        PlanVistManager.sharedInstance.visit?.status = "Scheduled"
+        PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
         print("ServicePurposesViewController")
         
         let plistPath = Bundle.main.path(forResource: "ServicePurposes", ofType: ".plist", inDirectory: nil)
@@ -39,11 +39,11 @@ class ServicePurposesViewController: UIViewController {
             self.createPlistForSevicePurpose()
         }
         
-        if !(PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose.isEmpty)! {
-            selectedPurposesValuesList = (PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";"))!
+        if !(PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.isEmpty)! {
+            selectedPurposesValuesList = (PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";"))!
         }
         
-        var planArray = PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";")
+        var planArray = PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";")
         for var i in (0..<readServicePurposePList().count)
         {
             for var j in (0..<planArray!.count)
@@ -75,8 +75,8 @@ class ServicePurposesViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-//        PlanVistManager.sharedInstance.sgwsVisitPurpose = ""
-//        PlanVistManager.sharedInstance.sgwsAgendaNotes = ""
+//        PlanVisitManager.sharedInstance.sgwsVisitPurpose = ""
+//        PlanVisitManager.sharedInstance.sgwsAgendaNotes = ""
     }
     
     // MARK:- Custom Methods
@@ -163,15 +163,15 @@ class ServicePurposesViewController: UIViewController {
     @IBAction func saveAndClose(sender: UIButton) {
        
         
-        if((PlanVistManager.sharedInstance.visit?.Id) != nil){
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
             
-            PlanVistManager.sharedInstance.visit?.status = "Planned"
+            PlanVisitManager.sharedInstance.visit?.status = "Planned"
             
             //Take Purpose List
             let stringRepresentation = selectedPurposesValuesList.joined(separator: ";")
-            PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = stringRepresentation
-           // PlanVistManager.sharedInstance.sgwsAgendaNotes =
-            let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = stringRepresentation
+           // PlanVisitManager.sharedInstance.sgwsAgendaNotes =
+            let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
             print(status)
         }
         
@@ -184,7 +184,7 @@ class ServicePurposesViewController: UIViewController {
     
     @IBAction func loadStrategyScreen(sender : UIButton){
         
-        let accountId = PlanVistManager.sharedInstance.visit?.accountId
+        let accountId = PlanVisitManager.sharedInstance.visit?.accountId
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
         let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
@@ -305,10 +305,10 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
             if indexPath.row == readServicePurposePList().count {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
-                if !(PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes.isEmpty)! {
-                    (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes
+                if !(PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes.isEmpty)! {
+                    (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes
                 }
-//                PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = ((cell1 as! EditAccountStrategyCollectionViewCell).textView?.text)!
+//                PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = ((cell1 as! EditAccountStrategyCollectionViewCell).textView?.text)!
                 
             } else {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell

@@ -77,10 +77,9 @@ class ActionItemDetailsViewController: UIViewController {
     @IBAction func deleteActionItem(_ sender: Any) {
         
         let alert = UIAlertController(title: "Action Item Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
-        let continueAction = UIAlertAction(title: "Delete", style: .default) {
+        let continueAction = UIAlertAction(title: "Yes", style: .default) {
             action in
-            
-            
+                        
             let attributeDict = ["type":"Task"]
             let editActionItemDict: [String:Any] = [
                 ActionItem.AccountActionItemFields[0]: self.actionItemObject!.Id,
@@ -93,6 +92,9 @@ class ActionItemDetailsViewController: UIViewController {
             let success = AccountsActionItemViewModel().deleteActionItemLocally(fields: editActionItemDict)
             if(success){
                 self.delegate?.updateList()
+                if ActionItemFilterModel.fromAccount{
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+                }
                 self.dismiss(animated: true, completion: nil)
             }
             else {
@@ -100,13 +102,16 @@ class ActionItemDetailsViewController: UIViewController {
             }
         }
         alert.addAction(continueAction)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
         DispatchQueue.main.async {
             self.delegate?.updateList()
+            if ActionItemFilterModel.fromAccount{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -143,27 +148,16 @@ class ActionItemDetailsViewController: UIViewController {
     }    
     
     func completeEditActionItem(){
-        
         var editActionItem = ActionItem(for: "editActionItem")
         editActionItem = actionItemObject!
-        
-        editActionItem.accountId = (selectedAccount?.account_Id)!
-        editActionItem.subject   =  self.actionItemObject!.subject
-        editActionItem.description = self.actionItemObject!.description
-        editActionItem.activityDate = self.actionItemObject!.activityDate
-        editActionItem.isUrgent =   self.actionItemObject!.isUrgent
+
         editActionItem.status =     "Complete"
         editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             
             ActionItem.AccountActionItemFields[0]: editActionItem.Id,
-            ActionItem.AccountActionItemFields[1]: editActionItem.accountId,
-            ActionItem.AccountActionItemFields[2]: editActionItem.subject,
-            ActionItem.AccountActionItemFields[3]: editActionItem.description,
             ActionItem.AccountActionItemFields[4]: editActionItem.status,
-            ActionItem.AccountActionItemFields[5]: editActionItem.activityDate,
-            ActionItem.AccountActionItemFields[6]: editActionItem.isUrgent,
             ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
             
             kSyncTargetLocal:true,
@@ -172,23 +166,19 @@ class ActionItemDetailsViewController: UIViewController {
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
         
-        let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
+        let success = AccountsActionItemViewModel().editActionItemStatusLocally(fields: actionItemDict)
         if success {
             self.delegate?.updateList()
+            if ActionItemFilterModel.fromAccount{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }
     
     func openEditActionItem(){
-        
         var editActionItem = ActionItem(for: "editActionItem")
         editActionItem = actionItemObject!
-        
-        editActionItem.accountId = (selectedAccount?.account_Id)!
-        editActionItem.subject   =  self.actionItemObject!.subject
-        editActionItem.description = self.actionItemObject!.description
-        editActionItem.activityDate = self.actionItemObject!.activityDate
-        editActionItem.isUrgent =   self.actionItemObject!.isUrgent
         if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
             editActionItem.status = "Open"
         }else{
@@ -199,12 +189,7 @@ class ActionItemDetailsViewController: UIViewController {
         let actionItemDict: [String:Any] = [
             
             ActionItem.AccountActionItemFields[0]: editActionItem.Id,
-            ActionItem.AccountActionItemFields[1]: editActionItem.accountId,
-            ActionItem.AccountActionItemFields[2]: editActionItem.subject,
-            ActionItem.AccountActionItemFields[3]: editActionItem.description,
             ActionItem.AccountActionItemFields[4]: editActionItem.status,
-            ActionItem.AccountActionItemFields[5]: editActionItem.activityDate,
-            ActionItem.AccountActionItemFields[6]: editActionItem.isUrgent,
             ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
             
             kSyncTargetLocal:true,
@@ -213,9 +198,12 @@ class ActionItemDetailsViewController: UIViewController {
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
         
-        let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
+        let success = AccountsActionItemViewModel().editActionItemStatusLocally(fields: actionItemDict)
         if success {
             self.delegate?.updateList()
+            if ActionItemFilterModel.fromAccount{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -256,7 +244,7 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
             cell?.containerLeadingConstraint.constant = 20
             cell?.deleteButton.isHidden = true
             if let account = selectedAccount{
-                cell?.displayCellContent(account: account)
+                cell?.displayCellContent(account: account, isEditing: true)
             }
             return cell!
         case 3:
@@ -266,6 +254,22 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
             return cell!
         default:
             return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2{
+            if let accountId = selectedAccount?.account_Id {
+                DispatchQueue.main.async {
+                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                        FilterMenuModel.selectedAccountId = accountId
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+                        self.dismiss(animated: true, completion: nil)
+                    }){
+                        
+                    }
+                }
+            }
         }
     }
 }

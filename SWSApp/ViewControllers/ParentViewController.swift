@@ -273,6 +273,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     @objc func SyncUpData()  {
         MBProgressHUD.show(onWindow: true)
         
+        // Start sync progress
+        
         let group = DispatchGroup()
         // Sync Up Notes
         group.enter()
@@ -287,39 +289,38 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         ContactsViewModel().syncContactWithServer { error in
             if error == nil {
-                print("syncContactWithServer Successfully")
-                
-                let acrArray = ContactsViewModel().accountsForContacts()
+                let acrArray = ContactsViewModel().accountsForContacts() //need all because some ACRs may be changed to unlinked
                 
                 var updatedACRs = [AccountContactRelation]()
                 for acr in acrArray {
                     if acr.contactId.starts(with: "NEW") {
                         let sfContactId = ContactsViewModel().contactIdForACR(with: acr.contactId)
-                        acr.contactId = sfContactId
-                        updatedACRs.append(acr)
+                        if sfContactId != "" {
+                            acr.contactId = sfContactId
+                            updatedACRs.append(acr)
+                        }
+                        else {
+                            print("sfContactId is empty for tempId: " + acr.contactId)
+                        }
                     }
                 }
                 
                 if updatedACRs.count > 0 {
-                    let success = ContactsViewModel().updateACRToSoup(objects: updatedACRs)
-                
-                    if success {
-                        ContactsViewModel().syncACRwithServer{ error in
-                            if error == nil {
-                                print("syncACRwithServer completed successfully")
-                            }
-                            else {
-                                print("syncACRwithServer failed")
-                            }
-                            group.leave()
-                        }
+                    let successAcrSoup = ContactsViewModel().updateACRToSoup(objects: updatedACRs)
+                    if !successAcrSoup {
+                        print("updateACRToSoup failed")
                     }
                 }
-                else {
-                    print("updateACRToSoup failed")
+                    
+                ContactsViewModel().syncACRwithServer{ error in
+                    if error == nil {
+                        print("syncACRwithServer completed successfully")
+                    }
+                    else {
+                        print("syncACRwithServer failed")
+                    }
                     group.leave()
                 }
-                
             } else {
                 print("syncContactWithServer error " + (error?.localizedDescription)!)
                 group.leave()
@@ -328,7 +329,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
           
         // Visits (WorkOrder) Sync Up
         group.enter()
-        VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","ContactId"], completion:{ error in
+        VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c"], completion:{ error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
             }
@@ -359,21 +360,24 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         //Download all soups only after all above async operations complete
         group.notify(queue: .main) {
-            StoreDispatcher.shared.downloadAllSoups({ (error) in
+            StoreDispatcher.shared.syncDownSoupsAfterSyncUpData({ (error) in
                 if error != nil {
                     print("PostSyncUp:downloadAllSoups")
                 }
                 DispatchQueue.main.async {
                     MBProgressHUD.hide(forWindow: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+                    if ActionItemFilterModel.fromAccount{
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+                    }else{
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "actionItemSyncDownComplete"), object:nil)
+                    }
                 }
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             })
         }
+        // Start sync progress
     }
     
     private func setupTopMenuItems(){
@@ -424,6 +428,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // # MARK: show more dropdown
     private func showMoreDropDown(selectedIndex: Int)
     {
+        ActionItemFilterModel.fromAccount = false
         UserDefaults.standard.set(true, forKey: "isBlackLineActive")
         SelectedMoreButton.isBlackLineActive = true
         moreDropDown.anchorView = topMenuBar

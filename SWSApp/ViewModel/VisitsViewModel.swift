@@ -10,11 +10,11 @@ import Foundation
 
 class VisitsViewModel {
     
-    func visitsForUser() -> [Visit] {
+    func visitsForUser() -> [WorkOrderUserObject] {
         return StoreDispatcher.shared.fetchVisits()
     }
     
-    func visitsForUserFourMonthsSorted() -> [Visit] {
+    func visitsForUserFourMonthsSorted() -> [WorkOrderUserObject] {
         
         var visitsForUserArray = visitsForUser()
         
@@ -41,7 +41,7 @@ class VisitsViewModel {
         
     }
     
-    func visitsForUserForDate(givenDate: Date) -> [Visit] {
+    func visitsForUserForDate(givenDate: Date) -> [WorkOrderUserObject] {
         
         var visitsForUserArray = visitsForUser()
         

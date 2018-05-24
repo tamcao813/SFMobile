@@ -1552,9 +1552,10 @@ class StoreDispatcher {
     
     func fetchActionItem()->[ActionItem]{
         var actionItem: [ActionItem] = []
-        let actionItemFields = ActionItem.AccountActionItemFields.map{"{Task:\($0)}"}
+        //let actionItemFields = ActionItem.AccountActionItemFields.map{"{Task:\($0)}"}
         // let soapQuery = "Select \(actionItemFields.joined(separator: ",")) FROM {Task}"
         let soapQuery = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{Task:_soupEntryId} FROM {Task} INNER JOIN {AccountTeamMember} where {Task:SGWS_Account__c} = {AccountTeamMember:AccountId}"
+        
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -1584,6 +1585,36 @@ class StoreDispatcher {
                 let actionItemArray = ActionItem(withAry: ary)
                 actionItem.append(actionItemArray)
                 print("task of  array is  \(actionItemArray)")
+            }
+        }
+        else if error != nil {
+            print("fetch action item  " + " error:" + (error?.localizedDescription)!)
+        }
+        let soapQueryWithoutAccount = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{Task:_soupEntryId} FROM {Task} Where {Task:SGWS_Account__c} IS NULL"
+        let querySpecWithoutAccount = SFQuerySpec.newSmartQuerySpec(soapQueryWithoutAccount, withPageSize: 100000)
+        
+        let resultWithoutAccount = sfaStore.query(with: querySpecWithoutAccount!, pageIndex: 0, error: &error)
+        
+        if (error == nil && resultWithoutAccount.count > 0) {
+            
+            for i in 0...resultWithoutAccount.count - 1 {
+                
+                let soupDataWithoutAccount = resultWithoutAccount[i] as! [Any]
+                
+                let entryArryWithoutAccount = sfaStore.retrieveEntries([soupDataWithoutAccount[9]], fromSoup: SoupActionItem)
+                
+                let itemWithoutAccount = entryArryWithoutAccount[0]
+                let subItemWithoutAccount = itemWithoutAccount as! [String:Any]
+                
+                let flag = subItemWithoutAccount["__locally_deleted__"] as! Bool
+                // if deleted skip
+                if(flag){
+                    continue
+                }
+                
+                let aryWithoutAccount:[Any] = resultWithoutAccount[i] as! [Any]
+                let actionItemArrayWithoutAccount = ActionItem(withAry: aryWithoutAccount)
+                actionItem.append(actionItemArrayWithoutAccount)
             }
         }
         else if error != nil {

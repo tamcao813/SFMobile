@@ -24,7 +24,7 @@ class ActionItemsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshActionItemList), name: NSNotification.Name("actionItemSyncDownComplete"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.actionItemSyncDownComplete), name: NSNotification.Name("actionItemSyncDownComplete"), object: nil)
         DispatchQueue.main.async {
             if ActionItemFilterModel.fromAccount{
                 self.actionItemButtonContainerViewHeight.constant = 0
@@ -36,6 +36,11 @@ class ActionItemsListViewController: UIViewController {
         }
         fetchActionItemsFromDB()
     }
+    
+    @objc func actionItemSyncDownComplete(){
+        fetchActionItemsFromDB()
+    }
+    
     
     @objc func refreshActionItemList(){
         fetchActionItemsFromDB()

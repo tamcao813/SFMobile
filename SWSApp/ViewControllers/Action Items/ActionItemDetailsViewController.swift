@@ -244,7 +244,7 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
             cell?.containerLeadingConstraint.constant = 20
             cell?.deleteButton.isHidden = true
             if let account = selectedAccount{
-                cell?.displayCellContent(account: account)
+                cell?.displayCellContent(account: account, isEditing: true)
             }
             return cell!
         case 3:

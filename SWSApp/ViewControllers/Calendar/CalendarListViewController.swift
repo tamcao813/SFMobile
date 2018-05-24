@@ -16,6 +16,8 @@ class CalendarListViewController: UIViewController {
     @IBOutlet weak var calViewButton: UIButton!
     @IBOutlet weak var weekEndsView: UIView!
     @IBOutlet weak var weekEndsButton: UIButton!
+    @IBOutlet weak var todayButton: UIButton!
+    @IBOutlet weak var bottomView: UIView!
 
     var currentShowingDate: Date?
     var currentCalendarViewType: GlobalConstants.CalendarViewType = .Week
@@ -90,7 +92,9 @@ class CalendarListViewController: UIViewController {
         guard (currentCalendarViewType == .Week || currentCalendarViewType == .Month) else {
             return
         }
-
+        if currentCalendarViewType == .Month {
+            NotificationCenter.default.post(name: Notification.Name("WEEKENDTOGGLE"), object: nil, userInfo:nil)
+        }
         weekEndsEnabled = !weekEndsEnabled
         displayWeekends()
         refreshWeekEnds()
@@ -120,6 +124,10 @@ class CalendarListViewController: UIViewController {
         else {
             weekEndsView.isHidden = true
         }
+        if (currentCalendarViewType == .Month) {
+            todayButton.isHidden = true
+        }
+        
         
         if weekEndsEnabled {
             weekEndsButton.setImage(UIImage.init(named: "Checkbox Selected"), for: .normal)
@@ -190,8 +198,8 @@ class CalendarListViewController: UIViewController {
         dropDownCalView.backgroundColor = UIColor.white
         dropDownCalView.selectionBackgroundColor = UIColor.clear
         dropDownCalView.shadowOffset = CGSize(width: 0, height: 15)
-        
         dropDownCalView.dataSource = ["Day View", "Week View", "Month View"]
+        var calendarMonthController: CalendarMonthViewController?
 
         dropDownCalView.selectionAction = { (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
@@ -201,6 +209,14 @@ class CalendarListViewController: UIViewController {
                 if self.currentCalendarViewType == .Day {
                     return
                 }
+                if (calendarMonthController?.view != nil) {
+                    calendarMonthController?.view.removeFromSuperview()
+                    calendarMonthController?.removeFromParentViewController()
+                    calendarMonthController = nil
+                }
+                for view in self.bottomView.subviews{
+                    view.isHidden = false
+                }
                 self.currentCalendarViewType = .Day
                 self.calViewButton.setTitle("Day View    ", for: .normal)
                 
@@ -208,11 +224,31 @@ class CalendarListViewController: UIViewController {
                 if self.currentCalendarViewType == .Week {
                     return
                 }
+                if (calendarMonthController?.view != nil) {
+                    calendarMonthController?.view.removeFromSuperview()
+                    calendarMonthController?.removeFromParentViewController()
+                    calendarMonthController = nil
+                }
+                for view in self.bottomView.subviews{
+                    view.isHidden = false
+                }
                 self.currentCalendarViewType = .Week
                 self.calViewButton.setTitle("Week View    ", for: .normal)
 
             case 2:
-                print("TBD launch Event")
+                if self.currentCalendarViewType == .Month {
+                    return
+                }
+                for view in self.bottomView.subviews{
+                    view.isHidden = true
+                }
+                calendarMonthController = UIStoryboard(name: "Calendar", bundle: nil).instantiateViewController(withIdentifier: "CalendarMonthViewController") as? CalendarMonthViewController
+                self.addChildViewController(calendarMonthController!)
+                calendarMonthController?.view.frame = CGRect(x: self.bottomView.bounds.origin.x, y: self.bottomView.bounds.origin.y, width: self.bottomView.frame.size.width, height: self.bottomView.bounds.size.height)
+                self.bottomView.addSubview((calendarMonthController?.view)!)
+                
+                self.calViewButton.setTitle("Month View    ", for: .normal)
+                self.currentCalendarViewType = .Month
                 
             default:
                 break

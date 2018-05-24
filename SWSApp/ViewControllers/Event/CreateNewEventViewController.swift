@@ -418,6 +418,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             cell?.actionTitleTextField.placeholder = "Enter Title"
             cell?.actionTitleTextField.tag = indexPath.section
             
+            
             if let eventObject = eventWorkOrderObject{
                 
                 if CreateNewEventViewControllerGlobals.isFirstTimeLoad == true{

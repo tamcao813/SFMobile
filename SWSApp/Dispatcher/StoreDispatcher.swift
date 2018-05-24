@@ -2937,8 +2937,6 @@ class StoreDispatcher {
         
     }
     
-    func fetchOverViewVisitEventAction()  {
-        
-    }
+    
     
 }

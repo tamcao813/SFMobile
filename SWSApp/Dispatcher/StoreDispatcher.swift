@@ -1435,10 +1435,7 @@ class StoreDispatcher {
                 let visitArray = Visit(withAry: newarr)
                 
                 visit.append(visitArray)
-                
-               // duplicateVisitArray =  NSArray(array:visit, copyItems: true) as! [Visit]
-                
-                print("Visit array \(ary)")
+                print("Visit/Event array \(ary)")
             }
         }
         else if error != nil {
@@ -2937,6 +2934,10 @@ class StoreDispatcher {
         }
         
         return accVisitEventArray
+        
+    }
+    
+    func fetchOverViewVisitEventAction()  {
         
     }
     

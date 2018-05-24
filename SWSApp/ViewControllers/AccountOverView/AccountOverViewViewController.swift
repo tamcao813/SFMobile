@@ -23,7 +23,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     var visitToDisplay = [PlanVisit]()
     var visitArray = [PlanVisit]()
-   // var visitTwoWeek = [PlanVisit]()
     var accountId : String!
    
     
@@ -57,9 +56,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
         }
         
-//        visitTwoWeek = visitModel.visitsForUserTwoWeeksUpcoming()
-//        print("Two week visit \(visitTwoWeek)")
-    
         
         // Do any additional setup after loading the view.
     }
@@ -75,7 +71,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return visitArray.count + actionItemArray.count
+        return visitArray.count
         
     }
     
@@ -85,7 +81,11 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
             let upcomingVisit:UpComingVisitTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingVisitCell") as! UpComingVisitTableViewCell
             
-            let upcomingAction:UpComingActionTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingActionCell") as! UpComingActionTableViewCell
+            //Visit Cell
+            upcomingVisit.UpComingActivities_TitleLabel.text = visitArray[indexPath.row].sgwsVisitPurpose
+            upcomingVisit.UpComingActivities_DetailsLabel.text = visitArray[indexPath.row].description
+            upcomingVisit.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+            
         
             //Getting Today, Tomorrow, Yesterday
             let calendar = Calendar.current
@@ -115,17 +115,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 return upcomingVisit
             }
             
-            //Visit Cell
-            upcomingVisit.UpComingActivities_TitleLabel.text = visitArray[indexPath.row].sgwsVisitPurpose
-            upcomingVisit.UpComingActivities_DetailsLabel.text = visitArray[indexPath.row].description
-            upcomingVisit.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
+           
             
             return upcomingVisit
             
-            //Action Item Cell
-            upcomingAction.upcomingActionTitle.text = actionItemArray[indexPath.row].subject
-            upcomingAction.upcomingActionDescription.text = actionItemArray[indexPath.row].description
-            upcomingAction.upcomingActionTimeLabel.text = actionItemArray[indexPath.row].activityDate
             
         }
             

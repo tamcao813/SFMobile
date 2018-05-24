@@ -29,11 +29,11 @@ struct CreateNewEventViewControllerGlobals {
 }
 
 class CreateNewEventViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeaderLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
-        
+    
     var eventTitleTextField: UITextField!
     var startDateTextField: UITextField!
     var endDateTextField : UITextField!
@@ -80,7 +80,7 @@ class CreateNewEventViewController: UIViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
     }
-
+    
     func initializeNibs() {
         self.tableView.register(UINib(nibName: "ActionItemTitleTableViewCell", bundle: nil), forCellReuseIdentifier: "ActionItemTitleTableViewCell")
         self.tableView.register(UINib(nibName: "SearchAccountTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchAccountTableViewCell")
@@ -112,7 +112,7 @@ class CreateNewEventViewController: UIViewController {
                     self.dismiss(animated: true, completion: nil)
                     CreateNewEventViewControllerGlobals.userInput = false
                 }){
-
+                    
                 }
             }else{
                 self.dismiss(animated: true, completion: nil)
@@ -182,12 +182,6 @@ class CreateNewEventViewController: UIViewController {
             return false
         }
         
-        if selectedAccount == nil {
-            searchAccountTextField.borderColor = .red
-            errorLabel.text = StringConstants.emptyFieldError
-            return false
-        }
-        
         if CreateNewEventViewControllerGlobals.startDate == ""{
             self.startDateTextField.borderColor = .red
             self.errorLabel.text = StringConstants.emptyFieldError
@@ -208,6 +202,12 @@ class CreateNewEventViewController: UIViewController {
         
         if CreateNewEventViewControllerGlobals.endTime == ""{
             endTimeTextField.borderColor = .red
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        
+        if selectedAccount == nil {
+            searchAccountTextField.borderColor = .red
             errorLabel.text = StringConstants.emptyFieldError
             return false
         }
@@ -259,24 +259,24 @@ class CreateNewEventViewController: UIViewController {
         return ""
     }
     
-
+    
     func createNewEvent(){
-
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         PlanVisitManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
-
+        
         let new_Event = PlanVisit(for: "newEvent")
-
+        
         //Get Current date and time
         let date = Date()
         print(date)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let timeStamp = dateFormatter.string(from: date)
-
+        
         //added the last modified App date and time
         new_Event.lastModifiedDate = timeStamp
-
+        
         let localId = AlertUtilities.generateRandomIDForNewEntry()
         
         new_Event.Id = localId//self.generateRandomIDForVisit()
@@ -288,7 +288,7 @@ class CreateNewEventViewController: UIViewController {
         }
         new_Event.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
         new_Event.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
-
+        
         new_Event.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdEvent
         
         new_Event.subject = CreateNewEventViewControllerGlobals.eventTitle
@@ -297,10 +297,10 @@ class CreateNewEventViewController: UIViewController {
         
         new_Event.location = CreateNewEventViewControllerGlobals.location
         new_Event.sgwsAlldayEvent = CreateNewEventViewControllerGlobals.allDayEventSelected
- 
+        
         let attributeDict = ["type":"WorkOrder"]
         let addNewDict: [String:Any] = [
-
+            
             PlanVisit.planVisitFields[0]    : new_Event.Id,
             PlanVisit.planVisitFields[10]   : new_Event.lastModifiedDate,
             PlanVisit.planVisitFields[2]    : new_Event.accountId,
@@ -312,16 +312,16 @@ class CreateNewEventViewController: UIViewController {
             PlanVisit.planVisitFields[12]   : new_Event.recordTypeId,
             PlanVisit.planVisitFields[14]   : new_Event.location,
             PlanVisit.planVisitFields[15]   : new_Event.sgwsAlldayEvent,
-
+            
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,
             kSyncTargetLocallyUpdated:false,
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
-
+        
         //let (success,Id) = visitViewModel.createNewVisitLocally(fields: addNewDict)
         let (success,_) = visitViewModel.createNewVisitLocally(fields: addNewDict)
-
+        
         if(success){
             let event = WorkOrderUserObject(for: "")
             //Add the soup entry Id
@@ -336,24 +336,24 @@ class CreateNewEventViewController: UIViewController {
             event.subject = new_Event.subject
             event.location = new_Event.location
             event.sgwsAlldayEvent = new_Event.sgwsAlldayEvent
-
+            
             PlanVisitManager.sharedInstance.visit = event
         }
-
+        
         if(success){
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true)
-                }
-//            else{
-//                let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-//                let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
-//                DispatchQueue.main.async {
-//                    self.present(viewController, animated: true)
-//                }
-//            }
+            DispatchQueue.main.async {
+                self.dismiss(animated: true)
+            }
+            //            else{
+            //                let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+            //                let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
+            //                DispatchQueue.main.async {
+            //                    self.present(viewController, animated: true)
+            //                }
+            //            }
         }
     }
     
@@ -410,7 +410,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
-        case 0:            
+        case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemTitleTableViewCell") as? ActionItemTitleTableViewCell
             eventTitleTextField = cell?.actionTitleTextField
             cell?.actionHeaderLabel.text = "Title*"
@@ -548,7 +548,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
 extension CreateNewEventViewController: SearchAccountTableViewCellDelegate {
     func scrollTableView() {
         
-    
+        
     }
     
     func accountSelected(account : Account) {

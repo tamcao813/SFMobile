@@ -65,14 +65,17 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
         
         presentMonthIndex = currentMonthIndex
         presentYear = currentYear
-        
+
         self.visits = CalendarViewModel().loadVisitData()!
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        self.visits = CalendarViewModel().loadVisitData()!
+        let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: "")
+        self.visits = eventsFiltered!
+//        self.visits = CalendarViewModel().loadVisitData()!
+        dateInc = 1
         collectionView?.reloadData()
     }
     
@@ -271,7 +274,9 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     }
     
     @objc func refreshMonthCalendar() {
-        self.visits = CalendarViewModel().loadVisitData()!
+        let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: "")
+        self.visits = eventsFiltered!
+        dateInc = 1
         collectionView?.reloadData()
     }
     
@@ -280,6 +285,7 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
         if let searchString = notification.userInfo?["SearchStr"] as? String {
             let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: searchString)
             visits = eventsFiltered!
+            dateInc = 1
             collectionView?.reloadData()
         }
     }

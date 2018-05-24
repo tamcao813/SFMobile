@@ -27,6 +27,7 @@ open class WREvent: TimePeriod {
         event.title = title
         event.Id = Id
         event.type = type
+        event.date = date
         
         return event
     }

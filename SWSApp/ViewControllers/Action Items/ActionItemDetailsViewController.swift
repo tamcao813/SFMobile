@@ -256,6 +256,22 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
             return UITableViewCell()
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2{
+            if let accountId = selectedAccount?.account_Id {
+                DispatchQueue.main.async {
+                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                        FilterMenuModel.selectedAccountId = accountId
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+                        self.dismiss(animated: true, completion: nil)
+                    }){
+                        
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension ActionItemDetailsViewController:CreateNewActionItemViewControllerDelegate{

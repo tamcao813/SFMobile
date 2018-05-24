@@ -174,21 +174,12 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         }
         
         if (!eventStartDateTextField.text!.isEmpty && !eventEndDateTextField.text!.isEmpty) {
-            if DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventStartDateTextField.text!) == DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventEndDateTextField.text!)  {
+            if DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventStartDateTextField.text!).compare(DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventEndDateTextField.text!)) == .orderedDescending  {
                 eventEndDateTextField.text! = ""
                 
                 let alert = UIAlertView()
                 alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
-                
-            } else if DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventStartDateTextField.text!).compare(DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventEndDateTextField.text!)) == .orderedDescending  {
-                eventEndDateTextField.text! = ""
-                
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
+                alert.message = "Start Date should be lesser than End Date"
                 alert.addButton(withTitle: "OK")
                 alert.show()
             }

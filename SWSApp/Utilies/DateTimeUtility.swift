@@ -27,6 +27,18 @@ class DateTimeUtility
         return formattedMMDDYYDateStr
     }
     
+    /* Function Will return the date in format yyyy-dd-mm from sting in format yyyy-dd-mm */
+    
+    static func getDDMMYYYFormattedDateFromString(dateString: String) -> Date {
+        let dateformatter = DateFormatter()
+        dateformatter.timeStyle = .medium
+        dateformatter.dateFormat = "yyyy-mm-dd"
+        var dateFromString = Date()
+        dateFromString = dateformatter.date(from: dateString)!
+        
+        return dateFromString
+    }
+    
    
     
     static func convertUtcDatetoReadableDate(dateStringfromAccountNotes:String?)->String{

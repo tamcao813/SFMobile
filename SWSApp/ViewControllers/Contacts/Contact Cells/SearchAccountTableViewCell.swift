@@ -42,8 +42,9 @@ class SearchAccountTableViewCell: UITableViewCell {
         accountsDropDown.cellNib = UINib(nibName: "AccountContactLinkTableViewCell", bundle: nil)
         accountsDropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
                 guard let cell = cell as? AccountContactLinkTableViewCell else { return }
-//            cell.containerView.borderColor = .clear
-            cell.deleteButton.isHidden = true
+            DispatchQueue.main.async {
+                cell.deleteButton.isHidden = true
+            }
             cell.displayCellContent(account: self.searchAccounts[index])
             }
         accountsDropDown.cellHeight = 70
@@ -52,7 +53,6 @@ class SearchAccountTableViewCell: UITableViewCell {
             self.searchContactTextField.resignFirstResponder()
         }
         self.accountsDropDown.textFont = UIFont(name: "Ubuntu-Bold", size: 16)!
-//        self.moreDropDown.textColor =  UIColor.gray
     }
     
     func customizedUI(){

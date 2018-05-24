@@ -44,7 +44,9 @@ class SearchForContactTableViewCell: UITableViewCell {
             }
             cell.displayCellContent(contact: self.searchContacts[index])
         }
-        contactDropDown.cellHeight = 80
+        DispatchQueue.main.async {
+            self.contactDropDown.cellHeight = 80
+        }
         contactDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.delegate.contactSelected(contact: self.searchContacts[index])
             self.searchContactTextField.resignFirstResponder()

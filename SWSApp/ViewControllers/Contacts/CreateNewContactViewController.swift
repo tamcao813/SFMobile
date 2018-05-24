@@ -384,8 +384,8 @@ class CreateNewContactViewController: UIViewController {
         newACR.contactId = contact.contactId
         newACR.contactName = contact.firstName + " " + contact.lastName
         newACR.roles = contact.functionRole
-        newACR.isActive = true
-        newACR.buyingPower = contact.buyerFlag
+        newACR.isActive = 1
+        newACR.buyingPower = contact.buyerFlag ? 1:0
         
         return ContactsViewModel().createNewACRToSoup(object: newACR)
     }
@@ -418,6 +418,7 @@ class CreateNewContactViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
 }
+
 
 extension CreateNewContactViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -814,6 +815,10 @@ extension CreateNewContactViewController: ToggleTableViewCellDelegate {
 }
 
 extension CreateNewContactViewController: SearchAccountTableViewCellDelegate {
+    func scrollTableView() {
+        
+    }
+    
     func accountSelected(account : Account) {
         createNewGlobals.userInput = true
         accountSelected = account

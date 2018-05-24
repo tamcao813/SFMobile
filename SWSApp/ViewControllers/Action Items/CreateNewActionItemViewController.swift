@@ -380,6 +380,10 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
 }
 
 extension CreateNewActionItemViewController: SearchAccountTableViewCellDelegate {
+    func scrollTableView() {
+        
+    }
+    
     func accountSelected(account : Account) {
         createActionItemsGlobals.userInput = true
         selectedAccount = account

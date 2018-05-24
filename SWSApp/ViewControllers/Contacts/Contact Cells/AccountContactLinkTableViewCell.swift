@@ -24,7 +24,7 @@ class AccountContactLinkTableViewCell: DropDownCell {
     weak var delegate : AccountContactLinkTableViewCellDelegate!
     @IBOutlet weak var containerView: UIView!
     
-    func displayCellContent(account: Account){
+    func displayCellContent(account: Account, isEditing: Bool = false){
         phoneNumberLabel.text = account.accountNumber
         accountLabel.text = account.accountName
         var fullAddress = ""
@@ -42,7 +42,16 @@ class AccountContactLinkTableViewCell: DropDownCell {
                 fullAddress = account.shippingStreet + " " + account.shippingCity + " " + account.shippingState +  " " + account.shippingPostalCode
             }
         }
-        addressLabel?.text = fullAddress        
+        addressLabel?.text = fullAddress
+        
+        if isEditing {
+            deleteButton.isHidden = true
+            deleteButton.isEnabled = false
+        }
+        else {
+            deleteButton.isHidden = false
+            deleteButton.isEnabled = true
+        }
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton){

@@ -34,7 +34,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     var conatctViewModel = ContactsViewModel()
     lazy var  accountView = AccountView()
     var planVist:PlanVisit? = PlanVisit(for: "")
-    var editVist:Visit? = Visit(for: "")
+    var editVist:WorkOrderUserObject? = WorkOrderUserObject(for: "")
     var editContact:Contact? = Contact(for: "")
     var tableViewData : [PlanVisit]?
     //    weak var delegate: PlanVisitViewControllerDelegate!
@@ -61,7 +61,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         print("Plan VC viewDidLoad")
         searchContactTxt.isEnabled = false
         self.getTheDataFromDB()
-        print("PlanVistManager.sharedInstance.visit", PlanVistManager.sharedInstance.visit as Any)
+        print("PlanVisitManager.sharedInstance.visit", PlanVisitManager.sharedInstance.visit as Any)
         
         NotificationCenter.default.addObserver(self, selector: #selector(PlanVisitViewController.removeAssociate(notification:)), name: Notification.Name("REMOVEASSOCIATE"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PlanVisitViewController.validateDate(notification:)), name: Notification.Name("VALIDATEFIELDS"), object: nil)
@@ -87,7 +87,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if (PlanVistManager.sharedInstance.editPlanVisit) {
+        if (PlanVisitManager.sharedInstance.editPlanVisit) {
             self.editAccountScreen()
             self.editContactScreen()
         }
@@ -95,7 +95,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if (PlanVistManager.sharedInstance.editPlanVisit) {
+        if (PlanVisitManager.sharedInstance.editPlanVisit) {
             self.editDate()
         }
     }
@@ -103,7 +103,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("Plan VC will disappear")
-        PlanVistManager.sharedInstance.editPlanVisit = false
+        PlanVisitManager.sharedInstance.editPlanVisit = false
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "CLOSEACCOUNTVIEW"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "REMOVEASSOCIATE"), object: nil)
     }
@@ -201,7 +201,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         if validateArray.contains(false) {
             errorLbl.isHidden = false
         } else {
-            PlanVistManager.sharedInstance.visit?.status = "Scheduled"
+            PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
             errorLbl.isHidden = true
             self.insetValuesToDB()
             // createNewVisit()
@@ -219,12 +219,12 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             errorLbl.isHidden = false
             
         } else {
-            PlanVistManager.sharedInstance.visit?.status = "Scheduled"
+            PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
             errorLbl.isHidden = true
             self.insetValuesToDB()
             //Edit the visit
-            if((PlanVistManager.sharedInstance.visit?.Id) != nil){
-                let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+            if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+                let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
                 print(status)
             } else{
                 //First Time A Visit is created and Saved
@@ -256,7 +256,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         self.accountView = AccountView(frame: CGRect(x: self.planLbl.frame.origin.x - 20, y:
             self.planLbl.frame.origin.y + 20, width: self.searchAccountTxt.frame.size.width, height: 100))
         
-        editVist = PlanVistManager.sharedInstance.visit
+        editVist = PlanVisitManager.sharedInstance.visit
         self.accountID = (editVist?.accountId)!
         self.accountView.delegate = self
         self.accountView.accountLabel.text = editVist?.accountName
@@ -297,15 +297,16 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     
     func editContactScreen()  {
         
-        editVist = PlanVistManager.sharedInstance.visit
+        editVist = PlanVisitManager.sharedInstance.visit
         if (editVist?.contactId.isEmpty)! {
             
         } else {
             editContact?.contactId = (editVist?.contactId)!
-            editContact?.name = (editVist?.contactName)!
-            editContact?.phoneNumber = (editVist?.contactPhone)!
-            editContact?.email = (editVist?.contactEmail)!
-            editContact?.functionRole = (editVist?.contactSGWS_Roles)!
+            editContact?.name = (editVist?.name)!
+            editContact?.phoneNumber = (editVist?.phone)!
+            editContact?.email = (editVist?.email)!
+            //Soumin TBD
+            //editContact?.functionRole = (editVist?.contactSGWS_Roles)!
             
             self.textFieldTag = kSelectedContactTag
             self.associatedSelectedContact.append(editContact!)
@@ -323,7 +324,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     
     
     func editDate() {
-        editVist = PlanVistManager.sharedInstance.visit
+        editVist = PlanVisitManager.sharedInstance.visit
         
         for subviews in schedulerComponentView.subviews
         {
@@ -496,20 +497,20 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if !associatedSelectedContact.isEmpty {
             let contactObj = associatedSelectedContact[0]
-            PlanVistManager.sharedInstance.contactId = contactObj.contactId
+            PlanVisitManager.sharedInstance.contactId = contactObj.contactId
         }
         if !searchAccounts.isEmpty {
             let accountObj = searchAccounts[selectedAccount]
-            PlanVistManager.sharedInstance.accountId = accountObj.account_Id
+            PlanVisitManager.sharedInstance.accountId = accountObj.account_Id
         }
         if ((schedulerComponentView.dateTextField.text != nil) && (schedulerComponentView.startTimeTextField.text != nil)) {
-            PlanVistManager.sharedInstance.startDate = self.getDataTimeinStr(date: schedulerComponentView.dateTextField.text!, time: schedulerComponentView.startTimeTextField.text!)
+            PlanVisitManager.sharedInstance.startDate = self.getDataTimeinStr(date: schedulerComponentView.dateTextField.text!, time: schedulerComponentView.startTimeTextField.text!)
         }
         
         if ((schedulerComponentView.dateTextField.text != nil) && (schedulerComponentView.endTimeTextField.text != nil)) {
-            PlanVistManager.sharedInstance.endDate = self.getDataTimeinStr(date: schedulerComponentView.dateTextField.text!, time: schedulerComponentView.endTimeTextField.text!)
+            PlanVisitManager.sharedInstance.endDate = self.getDataTimeinStr(date: schedulerComponentView.dateTextField.text!, time: schedulerComponentView.endTimeTextField.text!)
         }
-        PlanVistManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
+        PlanVisitManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
         
     }
     
@@ -707,14 +708,14 @@ extension PlanVisitViewController : UITextFieldDelegate{
         
         new_visit.Id = self.generateRandomIDForVisit()
         new_visit.subject = (planVist?.subject)!
-        new_visit.accountId = PlanVistManager.sharedInstance.accountId
+        new_visit.accountId = PlanVisitManager.sharedInstance.accountId
         new_visit.sgwsAppointmentStatus = (planVist?.sgwsAppointmentStatus)!
-        new_visit.startDate =  PlanVistManager.sharedInstance.startDate //"2018-05-02T14:00:00.000Z"
-        new_visit.endDate = PlanVistManager.sharedInstance.endDate //"2018-05-02T15:00:00.000Z"
+        new_visit.startDate =  PlanVisitManager.sharedInstance.startDate //"2018-05-02T14:00:00.000Z"
+        new_visit.endDate = PlanVisitManager.sharedInstance.endDate //"2018-05-02T15:00:00.000Z"
         new_visit.sgwsVisitPurpose = (planVist?.sgwsVisitPurpose)!
         new_visit.description = (planVist?.description)!
         new_visit.sgwsAgendaNotes = (planVist?.sgwsAgendaNotes)!
-        new_visit.status = (PlanVistManager.sharedInstance.visit?.status)!
+        new_visit.status = (PlanVisitManager.sharedInstance.visit?.status)!
         let attributeDict = ["type":"WorkOrder"]
         
         
@@ -730,6 +731,8 @@ extension PlanVisitViewController : UITextFieldDelegate{
             PlanVisit.planVisitFields[7]: new_visit.description,
             PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
             PlanVisit.planVisitFields[9]: new_visit.status,
+            PlanVisit.planVisitFields[14]: new_visit.location,
+
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,

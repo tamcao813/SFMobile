@@ -12,8 +12,8 @@ import UIKit
 class AccountVisitListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    var tableViewDataArray : [WorkOrderUserObject]?
     
-    var tableViewDataArray : [Visit]?
     var addNewDropDown = DropDown()
     
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ class AccountVisitListViewController: UIViewController {
     }
     
     func getTheDataFromDB(){
-        tableViewDataArray = [Visit]()
+        tableViewDataArray = [WorkOrderUserObject]()
         let visitArray = VisitsViewModel()
         tableViewDataArray = visitArray.visitsForUser()
         tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
@@ -79,24 +79,18 @@ class AccountVisitListViewController: UIViewController {
         addNewDropDown.selectionAction = {(index: Int, item: String) in
             switch index {
             case 0:
-                print(index)
-                
                 let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
                 createVisitViewController.isEditingMode = false
-                
-                //Reset the PlanVistManager
-                PlanVistManager.sharedInstance.visit = nil
+                PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
                     self.present(createVisitViewController, animated: true)
                 }
-                
             case 1:
-                print(index)
-                print("Create Event")
-                
-                
-                
-           
+                let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
+                PlanVisitManager.sharedInstance.visit = nil
+                DispatchQueue.main.async {
+                    self.present(createEventViewController, animated: true, completion: nil)
+                }
             default:
                 break
             }
@@ -211,19 +205,34 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section > 0{
+        
+        let workOrder : WorkOrderUserObject = tableViewDataArray![indexPath.row]
+        if(workOrder.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
+            if indexPath.section > 0{
+                let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
+                let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
+                PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+                (accountVisitsVC)?.delegate = self
+                accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
+                DispatchQueue.main.async {
+                    self.present(accountVisitsVC!, animated: true, completion: nil)
+                }
+            }
+        } else {
+            
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-            let _ : Visit = tableViewDataArray![indexPath.row]
-            PlanVistManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+            PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
             (accountVisitsVC)?.delegate = self
             accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
+            
         }
     }
 }
+
 
 //MARK:- NavigateToContacts Delegate
 extension AccountVisitListViewController : NavigateToContactsDelegate{
@@ -235,7 +244,7 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
     func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {        
         if data == .contacts{
             ContactFilterMenuModel.comingFromDetailsScreen = ""
-            if let visit = PlanVistManager.sharedInstance.visit{
+            if let visit = PlanVisitManager.sharedInstance.visit{
             ContactsGlobal.accountId = visit.accountId
             }
             // Added this line so that Contact detail view is not launched for this scenario.

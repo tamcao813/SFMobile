@@ -308,7 +308,14 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UINib(nibName: "AccountVisitSectionHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? AccountVisitSectionHeaderView
-        headerView?.headerLabel.text = getHeaderValuesInProgress(section: section)
+        
+        if  section == 0 {
+            headerView?.headerLabel.font = UIFont(name: (headerView?.headerLabel.font.fontName)!, size: 22)
+            headerView?.headerLabel.text = getHeaderValuesInProgress(section: section)
+        } else {
+            headerView?.headerLabel.text = getHeaderValuesInProgress(section: section)
+        }
+        
         return headerView
     }
     
@@ -320,7 +327,7 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
         case 1:
             return 80
         case 2:
-            return 100
+            return 30
         case 3:
             return 100
         default:

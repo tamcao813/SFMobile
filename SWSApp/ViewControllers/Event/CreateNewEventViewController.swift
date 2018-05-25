@@ -136,6 +136,7 @@ class CreateNewEventViewController: UIViewController {
             }else{
                 
                 createNewEvent()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
             }
         }
     }

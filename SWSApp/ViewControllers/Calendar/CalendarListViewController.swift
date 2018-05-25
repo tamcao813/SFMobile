@@ -124,6 +124,24 @@ class CalendarListViewController: UIViewController {
     
     @IBAction func actionButtonToday(_ sender: Any) {
         moveToToday()
+        
+        if (currentCalendarViewType == .Month) {
+            
+            if (self.calendarMonthController?.view != nil) {
+                self.calendarMonthController?.view.removeFromSuperview()
+                self.calendarMonthController?.removeFromParentViewController()
+                self.calendarMonthController = nil
+            }
+            
+            self.calendarMonthController = UIStoryboard(name: "Calendar", bundle: nil).instantiateViewController(withIdentifier: "CalendarMonthViewController") as? CalendarMonthViewController
+            self.addChildViewController(self.calendarMonthController!)
+            self.calendarMonthController?.view.frame = CGRect(x: self.bottomView.bounds.origin.x, y: self.bottomView.bounds.origin.y, width: self.bottomView.frame.size.width, height: self.bottomView.bounds.size.height)
+            self.bottomView.addSubview((self.calendarMonthController?.view)!)
+            
+            self.calViewButton.setTitle("Month View    ", for: .normal)
+            self.currentCalendarViewType = .Month
+        }
+        
     }
 
     // MARK: - Weekend Attribute Helper
@@ -133,9 +151,6 @@ class CalendarListViewController: UIViewController {
         }
         else {
             weekEndsView.isHidden = true
-        }
-        if (currentCalendarViewType == .Month) {
-            todayButton.isHidden = true
         }
         
         

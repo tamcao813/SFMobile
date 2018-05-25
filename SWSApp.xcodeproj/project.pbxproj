@@ -962,6 +962,9 @@
 		128B1A9B206BAE43004E148A /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				8D17A5DA20A2248D00ABC9DC /* Create Visit Cells */,
+				D23C40B6208DE6470006691C /* Header View */,
+				D23C40BD208DE6580006691C /* Account Visit Cells */,
 				914E4F3620AEA2CE00FE01A5 /* Calendar */,
 				F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */,
 				12C5CEF6206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift */,
@@ -1054,9 +1057,6 @@
 		8D10B281209B018200C8A86C /* Account Visit */ = {
 			isa = PBXGroup;
 			children = (
-				8D17A5DA20A2248D00ABC9DC /* Create Visit Cells */,
-				D23C40B6208DE6470006691C /* Header View */,
-				D23C40BD208DE6580006691C /* Account Visit Cells */,
 				D2CD7F62208E01B20016B4FB /* AccountVisitListViewController.swift */,
 				F2919D9F20AEEBBA00267A60 /* AccountVisitEmbedViewController.swift */,
 				D23C4088208DCEFF0006691C /* AccountVisitSummaryViewController.swift */,

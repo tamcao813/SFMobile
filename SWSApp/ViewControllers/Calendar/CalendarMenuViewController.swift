@@ -294,6 +294,8 @@ class CalendarMenuViewController: UIViewController {
     @IBAction func clearButton(_ sender: Any) {
         self.clearFilterModelData()
         self.searchByEnteredTextDelegate?.filteringCalendar(filtering: false)
+        let searchDict:[String: String] = ["SearchStr": searchBar.text!]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "EVENT_FILTER"), object: nil, userInfo: searchDict)
     }
     
 }

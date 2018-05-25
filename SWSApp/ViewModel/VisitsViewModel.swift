@@ -65,14 +65,19 @@ class VisitsViewModel {
         
     }
     
-    func visitsForUserForDate(fromDate: Date, toDate: Date) -> [WorkOrderUserObject] {
+    
+    // account overview visit 2 weeks upcoming related function
+    func visitsForUserTwoWeeksUpcoming() -> [WorkOrderUserObject] {
         
         var visitsForUserArray = visitsForUser()
+        
+        let prevWeekDate = Date().add(component: .day, value: 0)
+        let nextTwoWeekDate = Date().add(component: .day, value: 14)
         
         visitsForUserArray = visitsForUserArray.filter {
             
             if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
-                if startDate.isLater(than: fromDate), startDate.isEarlier(than: toDate) {
+                if startDate.isLater(than: prevWeekDate), startDate.isEarlier(than: nextTwoWeekDate) {
                     return true
                 }
                 else {
@@ -83,8 +88,42 @@ class VisitsViewModel {
             
         }
         
+        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        
+        return visitsForUserArray
+        
+    }
+    
+    
+    
+    // account overview visit 1 weeks past related function
+    func visitsForUserOneWeeksPast() -> [WorkOrderUserObject] {
+        
+        var visitsForUserArray = visitsForUser()
+        
+        let prevWeekDate = Date().add(component: .day, value: -7)
+        let nextWeekDate = Date().add(component: .day, value: 0)
+        
+        visitsForUserArray = visitsForUserArray.filter {
+            
+            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+                if startDate.isLater(than: prevWeekDate), startDate.isEarlier(than: nextWeekDate) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            return false
+            
+        }
+        
+        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        
         return visitsForUserArray
         
     }
 
+    
+    
 }

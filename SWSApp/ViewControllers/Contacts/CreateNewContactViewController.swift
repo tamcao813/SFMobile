@@ -299,7 +299,7 @@ class CreateNewContactViewController: UIViewController {
             self.dismiss(animated: true, completion: {
                 self.delegate.updateContactList()
                 createNewGlobals.userInput = false
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
             })
         }else{
             showAlert(message: "Unable to create the new contact in local database")

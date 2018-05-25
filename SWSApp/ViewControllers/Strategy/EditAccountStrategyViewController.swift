@@ -66,6 +66,11 @@ class EditAccountStrategyViewController: UIViewController {
         
         
         self.getEditStrategyData()
+        
+        //Clearing model for 1st time load
+        validateTheReguiredVield.showRedForQuestionHeader.removeAll()
+        validateTheReguiredVield.isSaveClicked = "0"
+        
         isFirstTimeLoad = true
     }
     
@@ -559,6 +564,8 @@ extension EditAccountStrategyViewController : UICollectionViewDataSource {
                 }else{
                     (cell1 as! EditAccountStrategyCollectionViewCell).lblReguiredFields?.isHidden = false
                 }
+            }else{
+                (cell1 as! EditAccountStrategyCollectionViewCell).lblReguiredFields?.isHidden = true
             }
             
             if isFirstTimeLoad == true{

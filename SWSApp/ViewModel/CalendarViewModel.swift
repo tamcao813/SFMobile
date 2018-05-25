@@ -61,7 +61,7 @@ class CalendarViewModel {
                     } else {
                         
                         visitType = "event"
-                        visitTitle = visit.subject + ": " + accountList![0].accountNumber
+                        visitTitle = visit.subject //+ ": " + accountList![0].accountNumber
                         
                     }
                     

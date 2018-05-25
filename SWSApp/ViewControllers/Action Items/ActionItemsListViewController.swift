@@ -49,7 +49,7 @@ class ActionItemsListViewController: UIViewController {
     func fetchActionItemsFromDB(){
         actionItemsArray = [ActionItem]()
         if ActionItemFilterModel.fromAccount{
-            let actionItemsArrayLocal = AccountsActionItemViewModel().getAcctionItemForUser()
+            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsSorted()
             if let accountId = ActionItemFilterModel.accountId {
                 for actionItem in actionItemsArrayLocal {
                     if actionItem.accountId == accountId {
@@ -58,9 +58,9 @@ class ActionItemsListViewController: UIViewController {
                 }
             }
         }else{
-            actionItemsArray = AccountsActionItemViewModel().getAcctionItemForUser()
+            actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
         }
-        actionItemsArray = actionItemsArray.sorted(by: { $0.activityDate < $1.activityDate })
+        actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
         if ActionItemFilterModel.filterApplied {
             applyFilter(searchText: searchStr)
         }

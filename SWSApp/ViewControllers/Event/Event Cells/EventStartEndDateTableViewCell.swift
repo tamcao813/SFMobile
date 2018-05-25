@@ -36,6 +36,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
     @IBAction func allDayEventButtonAction(sender: UIButton){
         
         if CreateNewEventViewControllerGlobals.startDate != ""{
+            eventStartDateTextField.borderColor = .gray
             
             if isSelectedFlag == false {
                 isSelectedFlag = true
@@ -52,34 +53,49 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 CreateNewEventViewControllerGlobals.startTime = "00:00 AM"
                 CreateNewEventViewControllerGlobals.endTime = "11:59 PM"
                 
-                eventEndDateTextField.isUserInteractionEnabled = false
-                eventStartTimeTextField.isUserInteractionEnabled = false
-                eventEndTimeTextField.isUserInteractionEnabled = false
+                self.startAndEndDatesUserInteractionDisabled()
                 
                 CreateNewEventViewControllerGlobals.allDayEventSelected = true
             }else{
                 isSelectedFlag = false
                 btnAllDayEvent?.setImage(UIImage(named:"Checkbox"), for: .normal)
                 
+                eventStartDateTextField.text = ""
                 eventStartTimeTextField.text = ""
                 eventEndDateTextField.text = ""
                 eventEndTimeTextField.text = ""
                 
                 //Assign the model data also for saving
+                CreateNewEventViewControllerGlobals.startDate = ""
                 CreateNewEventViewControllerGlobals.endDate = ""
                 CreateNewEventViewControllerGlobals.startTime = ""
                 CreateNewEventViewControllerGlobals.endTime = ""
                 
-                eventEndDateTextField.isUserInteractionEnabled = true
-                eventStartTimeTextField.isUserInteractionEnabled = true
-                eventEndTimeTextField.isUserInteractionEnabled = true
+                self.startAndEndDatesUserInteractionEnabled()
                 
                 CreateNewEventViewControllerGlobals.allDayEventSelected = false
             }
             
+        }else{
+            eventStartDateTextField.borderColor = .red
         }
-        
     }
+    
+    
+    func startAndEndDatesUserInteractionDisabled(){
+        eventStartDateTextField.isUserInteractionEnabled = false
+        eventEndDateTextField.isUserInteractionEnabled = false
+        eventStartTimeTextField.isUserInteractionEnabled = false
+        eventEndTimeTextField.isUserInteractionEnabled = false
+    }
+    
+    func startAndEndDatesUserInteractionEnabled(){
+        eventStartDateTextField.isUserInteractionEnabled = true
+        eventEndDateTextField.isUserInteractionEnabled = true
+        eventStartTimeTextField.isUserInteractionEnabled = true
+        eventEndTimeTextField.isUserInteractionEnabled = true
+    }
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         

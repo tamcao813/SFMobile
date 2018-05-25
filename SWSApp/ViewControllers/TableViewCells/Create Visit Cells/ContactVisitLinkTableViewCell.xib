@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -164,6 +164,7 @@
             <viewLayoutGuide key="safeArea" id="1Xl-r9-69w"/>
             <connections>
                 <outlet property="emailLabel" destination="T9K-B3-CGC" id="QSK-Nb-TGN"/>
+                <outlet property="intialLabel" destination="Hu5-nJ-qjF" id="zoH-fL-C0s"/>
                 <outlet property="optionLabel" destination="IFl-wC-ceH" id="Gh9-TS-N3Z"/>
                 <outlet property="phoneNumberLabel" destination="CHv-nw-tqD" id="zYS-VO-bI9"/>
                 <outlet property="roleLabel" destination="xnJ-VY-qPX" id="UI7-js-8Aq"/>

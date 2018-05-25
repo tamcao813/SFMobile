@@ -197,6 +197,11 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     func validateVisitData() -> Bool{
+        searchAccountTextField.borderColor = UIColor.lightGray
+        startDate.borderColor = UIColor.lightGray
+        startTime.borderColor = UIColor.lightGray
+        contactsAccountTextField.borderColor = UIColor.lightGray
+        
         if selectedAccount == nil {
             searchAccountTextField.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)

@@ -166,6 +166,31 @@ class DateTimeUtility
         
     }
     
+    static func getDateActionItemFromDateString(dateString: String) -> Date? {
+        
+        var returnDate: Date?
+        
+        if(dateString == "") {
+            return returnDate
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        returnDate = dateFormatter.date(from: dateString)
+        
+        guard let _ = returnDate else {
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            dateFormatter.timeZone = TimeZone(identifier:"UTC")
+            returnDate = dateFormatter.date(from: dateString)
+            
+            return returnDate
+        }
+        
+        return returnDate
+        
+    }
+    
     static func sendCurrentDateToServer() -> String? {
         let date = Date()
         let dateFormatter = DateFormatter()

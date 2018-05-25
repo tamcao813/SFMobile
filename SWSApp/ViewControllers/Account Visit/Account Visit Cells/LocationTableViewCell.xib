@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,7 +28,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNQ-N1-H82">
-                        <rect key="frame" x="0.0" y="0.0" width="605" height="80"/>
+                        <rect key="frame" x="0.0" y="10" width="605" height="80"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4it-aE-esB">
                                 <rect key="frame" x="0.0" y="0.0" width="302.5" height="80"/>
@@ -135,8 +135,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="zNQ-N1-H82" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4LV-Tg-3cY"/>
-                    <constraint firstItem="zNQ-N1-H82" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Jd9-lT-LF6"/>
-                    <constraint firstAttribute="bottom" secondItem="zNQ-N1-H82" secondAttribute="bottom" id="SuX-ta-hbs"/>
+                    <constraint firstItem="zNQ-N1-H82" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Jd9-lT-LF6"/>
+                    <constraint firstAttribute="bottom" secondItem="zNQ-N1-H82" secondAttribute="bottom" constant="9.5" id="SuX-ta-hbs"/>
                     <constraint firstAttribute="trailing" secondItem="zNQ-N1-H82" secondAttribute="trailing" constant="20" id="eWn-p2-QkB"/>
                 </constraints>
             </tableViewCellContentView>

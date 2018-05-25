@@ -290,11 +290,11 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
         case 0:
             return 20
         case 1:
-            return 50
+            return 20
         case 2:
             return 20
         case 3:
-            return 20
+            return 50
         default:
             return 0
         }
@@ -310,9 +310,10 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
         let headerView = UINib(nibName: "AccountVisitSectionHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? AccountVisitSectionHeaderView
         
         if  section == 0 {
-            headerView?.headerLabel.font = UIFont(name: (headerView?.headerLabel.font.fontName)!, size: 22)
+            headerView?.headerLabel.font = UIFont(name: (headerView?.headerLabel.font.fontName)!, size: 24)
             headerView?.headerLabel.text = getHeaderValuesInProgress(section: section)
         } else {
+            headerView?.headerLabel.font = UIFont(name: (headerView?.headerLabel.font.fontName)!, size: 20)
             headerView?.headerLabel.text = getHeaderValuesInProgress(section: section)
         }
         
@@ -325,11 +326,11 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
         case 0:
             return 100
         case 1:
-            return 80
+            return 100
         case 2:
             return 30
         case 3:
-            return 100
+            return 80
         default:
             return 0
         }
@@ -340,11 +341,11 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
         if section == 0 {
             headerValue = (visitObject?.subject)!
         }else if section == 1 {
-            headerValue = "Contact"
+            headerValue = "Account"
         } else if section == 2 {
             headerValue = "Location"
         } else if section == 3 {
-            headerValue = "Account"
+            headerValue = "Contact"
         }
         return headerValue
     }
@@ -352,7 +353,6 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return getInprogressStateCell(section: indexPath.section)
     }
-    
     
     func getInprogressStateCell(section: Int) -> UITableViewCell{
         switch section {
@@ -366,7 +366,7 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
             cell?.descLabel.attributedText = attributedString;
             return cell!
         case 1:
-            return getConatactCell()
+            return getLocationCell()
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventLocationTableViewCell") as? EventLocationTableViewCell
             let text = visitObject?.location
@@ -377,7 +377,7 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
             cell?.label.attributedText = attributedString;
             return cell!
         case 3:
-            return getLocationCell()
+            return getConatactCell()
         default:
             return UITableViewCell()
         }

@@ -36,6 +36,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
     @IBAction func allDayEventButtonAction(sender: UIButton){
         
         if CreateNewEventViewControllerGlobals.startDate != ""{
+            eventStartDateTextField.borderColor = .gray
             
             if isSelectedFlag == false {
                 isSelectedFlag = true
@@ -52,6 +53,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 CreateNewEventViewControllerGlobals.startTime = "00:00 AM"
                 CreateNewEventViewControllerGlobals.endTime = "11:59 PM"
                 
+                eventStartDateTextField.isUserInteractionEnabled = false
                 eventEndDateTextField.isUserInteractionEnabled = false
                 eventStartTimeTextField.isUserInteractionEnabled = false
                 eventEndTimeTextField.isUserInteractionEnabled = false
@@ -61,15 +63,18 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 isSelectedFlag = false
                 btnAllDayEvent?.setImage(UIImage(named:"Checkbox"), for: .normal)
                 
+                eventStartDateTextField.text = ""
                 eventStartTimeTextField.text = ""
                 eventEndDateTextField.text = ""
                 eventEndTimeTextField.text = ""
                 
                 //Assign the model data also for saving
+                CreateNewEventViewControllerGlobals.startDate = ""
                 CreateNewEventViewControllerGlobals.endDate = ""
                 CreateNewEventViewControllerGlobals.startTime = ""
                 CreateNewEventViewControllerGlobals.endTime = ""
                 
+                eventStartDateTextField.isUserInteractionEnabled = true
                 eventEndDateTextField.isUserInteractionEnabled = true
                 eventStartTimeTextField.isUserInteractionEnabled = true
                 eventEndTimeTextField.isUserInteractionEnabled = true
@@ -77,8 +82,9 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 CreateNewEventViewControllerGlobals.allDayEventSelected = false
             }
             
+        }else{
+            eventStartDateTextField.borderColor = .red
         }
-        
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

@@ -12,6 +12,30 @@ class AccountsActionItemViewModel {
     
     //    let accountsForLoggedUser: [Account] = StoreDispatcher.shared.fetchAccountsForLoggedUser()
     
+    func actionItemFourMonthsSorted() -> [ActionItem] {
+        
+        var actionItemsArray = getAcctionItemForUser()
+        
+        let prevMonthDate = Date().add(component: .month, value: -1)
+        let next3MonthDate = Date().add(component: .month, value: 3)
+        
+        actionItemsArray = actionItemsArray.filter {
+            if let activityDate = DateTimeUtility.getDateActionItemFromDateString(dateString: $0.activityDate) {
+                if activityDate.isLater(than: prevMonthDate), activityDate.isEarlier(than: next3MonthDate) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            return true
+        }
+        
+        actionItemsArray = actionItemsArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        
+        return actionItemsArray
+    }
+    
     func getAcctionItemForUser() -> [ActionItem] {
         return StoreDispatcher.shared.fetchActionItem()
     }

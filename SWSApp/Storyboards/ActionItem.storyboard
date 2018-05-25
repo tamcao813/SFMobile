@@ -536,7 +536,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Large Status Critical" translatesAutoresizingMaskIntoConstraints="NO" id="lj8-W4-S1O">
-                                                    <rect key="frame" x="20" y="24" width="36" height="32"/>
+                                                    <rect key="frame" x="20" y="19" width="36" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="RXw-F4-gB3"/>
                                                         <constraint firstAttribute="width" constant="36" id="fNA-iK-QyU"/>
@@ -544,10 +544,10 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="lj8-W4-S1O" firstAttribute="centerY" secondItem="GbG-Sa-x4y" secondAttribute="centerY" id="59m-6v-i7D"/>
                                                 <constraint firstItem="GbG-Sa-x4y" firstAttribute="leading" secondItem="lj8-W4-S1O" secondAttribute="trailing" constant="20" id="NBZ-QG-v9S"/>
                                                 <constraint firstItem="GbG-Sa-x4y" firstAttribute="top" secondItem="HnS-Ox-0Hp" secondAttribute="top" constant="10" id="P46-o5-ig5"/>
                                                 <constraint firstAttribute="trailing" secondItem="GbG-Sa-x4y" secondAttribute="trailing" constant="20" id="Ptm-xa-zHv"/>
-                                                <constraint firstItem="lj8-W4-S1O" firstAttribute="centerY" secondItem="HnS-Ox-0Hp" secondAttribute="centerY" id="Q2Y-1X-dQM"/>
                                                 <constraint firstAttribute="bottom" secondItem="GbG-Sa-x4y" secondAttribute="bottom" constant="20" id="rMj-9L-zhr"/>
                                                 <constraint firstItem="lj8-W4-S1O" firstAttribute="leading" secondItem="HnS-Ox-0Hp" secondAttribute="leading" constant="20" id="v9B-r6-QpF"/>
                                             </constraints>

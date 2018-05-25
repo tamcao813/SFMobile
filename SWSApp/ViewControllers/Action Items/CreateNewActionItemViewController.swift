@@ -177,10 +177,14 @@ class CreateNewActionItemViewController: UIViewController {
         newActionItem.subject = actionTitleTextField.text!
         newActionItem.description = actionItemDescriptionTextView.text!
         newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
-        if ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
-            newActionItem.status = "Open"
+        if newActionItem.activityDate != ""{
+            if ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
+                newActionItem.status = "Open"
+            }else{
+                newActionItem.status = "Overdue"
+            }
         }else{
-            newActionItem.status = "Overdue"
+            newActionItem.status = "Open"
         }
         if isUrgentSwitch.isOn {
             newActionItem.isUrgent = true
@@ -231,11 +235,13 @@ class CreateNewActionItemViewController: UIViewController {
         editActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
         if let status = actionItemObject?.status {
             editActionItem.status = status
-            if editActionItem.status == "Open" || editActionItem.status == "Overdue"{
-                if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
-                    editActionItem.status = "Open"
-                }else{
-                    editActionItem.status = "Overdue"
+            if editActionItem.activityDate != ""{
+                if editActionItem.status == "Open" || editActionItem.status == "Overdue"{
+                    if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
+                        editActionItem.status = "Open"
+                    }else{
+                        editActionItem.status = "Overdue"
+                    }
                 }
             }
         }

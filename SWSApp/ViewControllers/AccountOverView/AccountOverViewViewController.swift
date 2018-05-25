@@ -55,11 +55,29 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         pastActivitiesTableView.estimatedRowHeight = 100
         pastActivitiesTableView.tableFooterView = UIView()
         
+        
         self.accountId = account?.account_Id
+        
+        getDB()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)
         
          upcomingEvent = visitModel.eventsForUserTwoWeeksUpcoming()
         
+       
+      
         
+    }
+    
+    @objc func refreshAccountOverView()   {
+        getDB()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func getDB()  {
         //creating upcomingvisit array according to accountId
         upcomingVisit = visitModel.visitsForUserTwoWeeksUpcoming()
         for accVisit in upcomingVisit {
@@ -88,6 +106,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             if(accVisit.accountId ==  accountId) {
                 pastVisitArrayToDisplay.append(accVisit)
             }
+            
+            
         }
         
         //creating past action item array according to accountId
@@ -100,16 +120,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             }
             
         }
-        
     }
+
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
+  //  if(object.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit)
     
     
     
@@ -175,7 +189,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     // MARK: - TableView Functions
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -203,12 +217,20 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         switch indexPath.section {
         case 0:
             if tableView.tag == 1{
+                if upcomingVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit{
                 cell.UpComingActivities_TitleLabel.text = "Visit " + upcomingVisitArrayToDisplay[indexPath.row].accountName
+                }else{
+                    cell.UpComingActivities_TitleLabel.text = upcomingVisitArrayToDisplay[indexPath.row].subject
+                }
                 cell.UpComingActivities_TimeLabel.text = getDayFromVisit(dateToConvert: upcomingVisitArrayToDisplay[indexPath.row].startDate)
                 cell.UpComingActivities_Image.image = UIImage(named: "Bell")
                 return cell
             }else{
-                cell.UpComingActivities_TitleLabel.text = "Visit " + pastVisitArrayToDisplay[indexPath.row].accountName
+                if upcomingVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit{
+                    cell.UpComingActivities_TitleLabel.text = "Visit " + pastVisitArrayToDisplay[indexPath.row].accountName
+                }else{
+                      cell.UpComingActivities_TitleLabel.text =  pastVisitArrayToDisplay[indexPath.row].subject
+                }
                 cell.UpComingActivities_TimeLabel.text = getDayFromVisit(dateToConvert: pastVisitArrayToDisplay[indexPath.row].startDate)
                 cell.UpComingActivities_Image.image = UIImage(named: "Bell")
                 return cell
@@ -224,9 +246,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                     cell.UpComingActivities_Image.image = nil
                 }
                 
-                
                 return cell
-            }else{
+            }
+            
+            else{
                 cell.UpComingActivities_TitleLabel.text = pastActionItemArrayToDisplay[indexPath.row].subject
                 cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: upcomingActionItemArrayToDisplay[indexPath.row].activityDate)
                 if pastActionItemArrayToDisplay[indexPath.row].isUrgent{
@@ -275,7 +298,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             }
         case 2:
             if indexPath.section == 0 {
-                
                 let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
                 let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
                 PlanVisitManager.sharedInstance.visit = pastVisitArrayToDisplay[indexPath.row]

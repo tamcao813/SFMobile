@@ -133,6 +133,11 @@ class VisitsViewModel {
         let prevWeekDate = Date().add(component: .day, value: 0)
         let nextTwoWeekDate = Date().add(component: .day, value: 14)
         
+        for visit in eventForUserArray {
+            print(visit.accountName)
+            print(visit.recordTypeId)
+        }
+
         eventForUserArray = eventForUserArray.filter {
             
             if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
@@ -158,6 +163,10 @@ class VisitsViewModel {
         }
         eventForUserArray = eventForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
         
+        for visit in eventForUserArray {
+            print(visit.accountName)
+            print(visit.recordTypeId)
+        }
         return eventForUserArray
         
     }

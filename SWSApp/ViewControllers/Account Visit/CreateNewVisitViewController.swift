@@ -191,6 +191,7 @@ class CreateNewVisitViewController: UIViewController {
                 }
             }else{
                 createNewVisit(dismiss: true)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
             }
         }
     }

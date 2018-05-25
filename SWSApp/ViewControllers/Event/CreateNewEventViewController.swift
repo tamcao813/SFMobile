@@ -11,8 +11,8 @@ import IQKeyboardManagerSwift
 import SmartSync
 
 struct CreateNewEventViewControllerGlobals {
-    static var userInput = false
     
+    static var userInput = false
     static var eventTitle = ""
     static var startDate = ""
     static var endDate = ""
@@ -21,11 +21,8 @@ struct CreateNewEventViewControllerGlobals {
     static var allDayEventSelected = false
     static var location = ""
     static var description = ""
-    
     static var isFirstTimeLoad = true
     static var isAccountOrContactClicked = false
-    
-    
 }
 
 class CreateNewEventViewController: UIViewController {
@@ -46,13 +43,10 @@ class CreateNewEventViewController: UIViewController {
     var accountsDropdown: DropDown!
     var contactsDropdown: DropDown!
     var isEditingMode = false
-    
     var selectedAccount: Account!
     var selectedContact: Contact!
     var eventWorkOrderObject: WorkOrderUserObject!
-    
     var visitViewModel = VisitSchedulerViewModel()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +83,6 @@ class CreateNewEventViewController: UIViewController {
         self.tableView.register(UINib(nibName: "ViewContactLinkToVisitTableViewCell", bundle: nil), forCellReuseIdentifier: "ViewContactLinkToVisitTableViewCell")
         self.tableView.register(UINib(nibName: "DescriptionTableViewCell", bundle: nil), forCellReuseIdentifier: "DescriptionTableViewCell")
         self.tableView.register(UINib(nibName: "EventStartEndDateTableViewCell", bundle: nil), forCellReuseIdentifier: "EventStartEndDateTableViewCell")
-        
     }
     
     func reloadTableView(){
@@ -123,23 +116,19 @@ class CreateNewEventViewController: UIViewController {
     @IBAction func saveButtonTapped(_ sender: UIButton){
         if allFieldsAreValidated() {
             if isEditingMode{
-                
                 if PlanVisitManager.sharedInstance.visit != nil {
                     editCurrentEvent()
                     DispatchQueue.main.async {
                         self.dismiss(animated: true)
                     }
                 }
-                
             }else{
-                
                 createNewEvent()
             }
         }
     }
     
     @objc func keyboardWillShow(_ notification:Notification) {
-        
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if CreateNewEventViewControllerGlobals.isAccountOrContactClicked {
                 self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height + 250, 0) }
@@ -147,7 +136,6 @@ class CreateNewEventViewController: UIViewController {
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
-        
         if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         }
@@ -174,17 +162,28 @@ class CreateNewEventViewController: UIViewController {
     }
     
     func allFieldsAreValidated() -> Bool{
-        if ((eventTitleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == ""){
+        eventTitleTextField.borderColor = UIColor.lightGray
+        startDateTextField.borderColor = UIColor.lightGray
+        startTimeTextField.borderColor = UIColor.lightGray
+        endDateTextField.borderColor = UIColor.lightGray
+        endTimeTextField.borderColor = UIColor.lightGray
+        searchAccountTextField.borderColor = UIColor.lightGray
+        
+        if ((CreateNewEventViewControllerGlobals.eventTitle.trimmingCharacters(in: .whitespacesAndNewlines)) == ""){
             eventTitleTextField.borderColor = .red
-            locationTextField.borderColor = .gray
-            eventTitleTextField.becomeFirstResponder()
+            locationTextField.borderColor = UIColor.lightGray
+            
+            if CreateNewEventViewControllerGlobals.startDate == ""{
+                eventTitleTextField.becomeFirstResponder()
+            }
+            
             errorLabel.text = StringConstants.emptyFieldError
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             return false
         }
         
         if CreateNewEventViewControllerGlobals.startDate == ""{
-            self.startDateTextField.borderColor = .red
+            startDateTextField.borderColor = .red
             self.errorLabel.text = StringConstants.emptyFieldError
             return false
         }
@@ -259,7 +258,6 @@ class CreateNewEventViewController: UIViewController {
         }
         return ""
     }
-    
     
     func createNewEvent(){
         
@@ -348,16 +346,8 @@ class CreateNewEventViewController: UIViewController {
             DispatchQueue.main.async {
                 self.dismiss(animated: true)
             }
-            //            else{
-            //                let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-            //                let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
-            //                DispatchQueue.main.async {
-            //                    self.present(viewController, animated: true)
-            //                }
-            //            }
         }
     }
-    
     
     func getDataTimeinStr(date:String, time: String) -> String {
         let dateFormatter = DateFormatter()
@@ -372,7 +362,6 @@ class CreateNewEventViewController: UIViewController {
         return string
     }
 }
-
 
 extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -502,6 +491,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
         case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemTitleTableViewCell") as? ActionItemTitleTableViewCell
             locationTextField = cell?.actionTitleTextField
+            locationTextField.borderColor = UIColor.lightGray//(named: "LightGrey")
             cell?.actionTitleTextField.text = CreateNewEventViewControllerGlobals.location
             cell?.actionHeaderLabel.text = "Location"
             cell?.actionTitleTextField.placeholder = "Enter Location"

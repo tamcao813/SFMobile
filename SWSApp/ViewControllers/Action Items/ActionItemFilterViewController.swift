@@ -332,12 +332,6 @@ extension ActionItemFilterViewController : UITableViewDataSource{
             viewWithTag.removeFromSuperview()
         }
         let headerFrame = self.view.frame.size
-        
-        //view.frame.size.height = 45
-        //view.layer.borderWidth = 1
-        //view.layer.cornerRadius = 5
-        //view.layer.borderColor = UIColor.init(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0).cgColor
-        
         let theImageView = UIImageView(frame: CGRect(x: headerFrame.width - 75, y: 18, width: 15, height: 18));
         
         if self.selectedSection == section{
@@ -347,12 +341,6 @@ extension ActionItemFilterViewController : UITableViewDataSource{
             theImageView.image = UIImage(named: "dropDown")
             print("Down")
         }
-        
-        //As Action Item is in Sprint 2, Dropdown icon is set to DownArrow
-        if section == 1{
-            theImageView.image = UIImage(named: "dropDown")
-        }
-        
         //Used to check Subchannel Click action. if Channel is empty dont change the drop down icon
         if section == 6{
             if FilterMenuModel.channel == ""{

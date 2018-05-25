@@ -46,7 +46,7 @@ class ActionItemDetailsViewController: UIViewController {
     }
     
     func getSelectedAccount(){
-        if let accountId = actionItemObject?.accountId {
+        if let accountId = actionItemObject?.accountId, accountId != ""{
             let accountsArray = AccountsViewModel().accountsForLoggedUser
             for account in accountsArray{
                 if account.account_Id == accountId {
@@ -56,7 +56,9 @@ class ActionItemDetailsViewController: UIViewController {
             }
         }
         customizedUI()
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func customizedUI(){
@@ -150,8 +152,7 @@ class ActionItemDetailsViewController: UIViewController {
     func completeEditActionItem(){
         var editActionItem = ActionItem(for: "editActionItem")
         editActionItem = actionItemObject!
-
-        editActionItem.status =     "Complete"
+        editActionItem.status = "Complete"
         editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
@@ -179,11 +180,11 @@ class ActionItemDetailsViewController: UIViewController {
     func openEditActionItem(){
         var editActionItem = ActionItem(for: "editActionItem")
         editActionItem = actionItemObject!
-        if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
-            editActionItem.status = "Open"
-        }else{
+        editActionItem.status = "Open"
+        if editActionItem.activityDate != "",!ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
             editActionItem.status = "Overdue"
         }
+        
         editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
@@ -245,6 +246,10 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
             cell?.deleteButton.isHidden = true
             if let account = selectedAccount{
                 cell?.displayCellContent(account: account, isEditing: true)
+            }else{
+                cell?.phoneNumberLabel.text = ""
+                cell?.addressLabel.text = ""
+                cell?.accountLabel.text = ""
             }
             return cell!
         case 3:
@@ -276,6 +281,7 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
 
 extension ActionItemDetailsViewController:CreateNewActionItemViewControllerDelegate{
     func updateActionDesc() {
+        selectedAccount = nil
         getSelectedActionItem()
         toggleCompleteButton()
     }

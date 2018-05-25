@@ -47,6 +47,61 @@ class AccountsActionItemViewModel {
         })
     }
     
+    func actionItemForUserTwoWeeksUpcoming() -> [ActionItem] {
+        
+        var actionForUserArray = getAcctionItemForUser()
+        
+        let prevWeekDate = Date().add(component: .day, value: 0)
+        let nextTwoWeekDate = Date().add(component: .day, value: 14)
+        
+        actionForUserArray = actionForUserArray.filter {
+            
+            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.activityDate) {
+                if startDate.isLater(than: prevWeekDate), startDate.isEarlier(than: nextTwoWeekDate) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            return false
+            
+        }
+        
+        actionForUserArray = actionForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        
+        return actionForUserArray
+        
+    }
+    
+    
+    func actionItemForUserOneWeeksPast() -> [ActionItem] {
+        
+        var actionForUserArray = getAcctionItemForUser()
+        
+        let prevWeekDate = Date().add(component: .day, value: -7)
+        let nextWeekDate = Date().add(component: .day, value: 0)
+        
+        actionForUserArray = actionForUserArray.filter {
+            
+            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.activityDate) {
+                if startDate.isLater(than: prevWeekDate), startDate.isEarlier(than: nextWeekDate) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            return false
+            
+        }
+        
+        actionForUserArray = actionForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        
+        return actionForUserArray
+        
+    }
+    
     
     
     

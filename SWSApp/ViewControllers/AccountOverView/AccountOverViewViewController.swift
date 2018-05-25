@@ -18,46 +18,80 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     let visitModel = VisitSchedulerViewModel()
     let actionItemModel = AccountsActionItemViewModel()
     
-    var actionItemToDisplay = [ActionItem]()
-    var actionItemArray = [ActionItem]()
+    var upcomingVisit = [PlanVisit]()
+    var upcomingVisitArrayToDisplay = [PlanVisit]()
     
-    var visitToDisplay = [PlanVisit]()
-    var visitArray = [PlanVisit]()
-    var accountId : String!
+    var pastVisit = [PlanVisit]()
+    var pastVisitArrayToDisplay = [PlanVisit]()
+    
+    var upcomingActionItem = [ActionItem]()
+    var upcomingActionItemArrayToDisplay = [ActionItem]()
+    
+    var pastActionItem = [ActionItem]()
+    var pastActionItemArrayToDisplay = [ActionItem]()
+    
+    
    
     
+    var accountId : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         upcomingActivitiesTableView.delegate = self
         upcomingActivitiesTableView.dataSource = self
         pastActivitiesTableView.delegate =  self
         pastActivitiesTableView.dataSource = self
         
+        
+        upcomingActivitiesTableView.rowHeight = UITableViewAutomaticDimension;
+        upcomingActivitiesTableView.estimatedRowHeight = 100
+        upcomingActivitiesTableView.tableFooterView = UIView()
+        
         self.accountId = account?.account_Id
         
-        //creating visit array according to accountId
-        visitToDisplay = visitModel.visitsForUser()
-        for accVisit in visitToDisplay {
+        
+        //creating upcomingvisit array according to accountId
+        upcomingVisit = visitModel.visitsForUserTwoWeeksUpcoming()
+        for accVisit in upcomingVisit {
             
             if(accVisit.accountId ==  accountId) {
-                visitArray.append(accVisit)
+                upcomingVisitArrayToDisplay.append(accVisit)
             }
         }
         
-        //creating action item array according to accountId
-        actionItemToDisplay = actionItemModel.getAcctionItemForUser()
-        for accAction in actionItemToDisplay{
+        //creating upcoming action item array according to accountId
+        upcomingActionItem = actionItemModel.actionItemForUserTwoWeeksUpcoming()
+        for accAction in upcomingActionItem{
             
             if (accAction.accountId == accountId){
                 
-                actionItemArray.append(accAction)
+                upcomingActionItemArrayToDisplay.append(accAction)
             }
             
         }
         
         
-        // Do any additional setup after loading the view.
+        //creating pastvisit array according to accountId
+        pastVisit = visitModel.visitsForUserOneWeeksPast()
+        for accVisit in pastVisit {
+            
+            if(accVisit.accountId ==  accountId) {
+                pastVisitArrayToDisplay.append(accVisit)
+            }
+        }
+        
+        //creating past action item array according to accountId
+        pastActionItem = actionItemModel.actionItemForUserOneWeeksPast()
+        for accAction in pastActionItem{
+            
+            if (accAction.accountId == accountId){
+                
+                pastActionItemArrayToDisplay.append(accAction)
+            }
+            
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,47 +99,42 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    /*
-     
-     
-     //Getting Today, Tomorrow, Yesterday
-     let calendar = Calendar.current
-     let dateFormatter = DateFormatter()
-     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-     let date = dateFormatter.date(from: visitArray[indexPath.row].startDate)
-     
-     //Gtting time and date
-     let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
-     var dateTime = getTime.components(separatedBy: " ")
-     
-     
-     if calendar.isDateInToday(date!){
-     
-     upcomingCell.UpComingActivities_TimeLabel.text = "Today at " + dateTime[1]
-     return upcomingCell
-     
-     }
-     else if calendar.isDateInTomorrow(date!)
-     {
-     upcomingCell.UpComingActivities_TimeLabel.text = "Tomorrow at " + dateTime[1]
-     return upcomingCell
-     
-     }else if calendar.isDateInYesterday(date!)
-     {
-     upcomingCell.UpComingActivities_TimeLabel.text = "Yesterday at " + dateTime[1]
-     return upcomingCell
-     }
-     
-     return upcomingCell
-     }
-    
-     
-     
-     */
-    
    
+    
+        
+    
+    
+    func getDayFromVisit(dateToConvert:String)-> String  {
+        //Getting Today, Tomorrow, Yesterday
+        let calendar = Calendar.current
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let date = dateFormatter.date(from: dateToConvert)
+        //Gtting time and date
+        let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: dateToConvert)
+        var dateTime = getTime.components(separatedBy: " ")
+        if calendar.isDateInToday(date!){
+            
+            return  "Today at " + dateTime[1]
+        }
+        else if calendar.isDateInTomorrow(date!)
+        {
+            
+            return  "Tomorrow at " + dateTime[1]
+            
+        }else if calendar.isDateInYesterday(date!)
+        {
+            
+            return  "Yesterday at " + dateTime[1]
+        }
+        
+        dateFormatter.dateFormat = "MM-dd-yyyy h:mma"
+        let timeStamp = dateFormatter.string(from: date!)
+        return timeStamp
+    }
+    
+    
+    
     
     // MARK: - TableView Functions
     
@@ -114,63 +143,90 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // upcoming table view ...
+        if tableView.tag == 1 {
+            
+            if section == 0 {
+                return upcomingVisitArrayToDisplay.count
+            }
+            else
+            {
+                return upcomingActionItemArrayToDisplay.count
+            }
+            // past table view....
+        }else {
+            
+            if section == 0 {
+                return pastVisitArrayToDisplay.count
+            }
+            else
+            {
+                return pastActionItemArrayToDisplay.count
+            }
+            
+        }
         
-        if section == 0 {
-       return visitArray.count
-        }
-        else
-        {
-        return actionItemArray.count
-        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let upcomingCell:UpComingVisitTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingVisitCell") as! UpComingVisitTableViewCell
-         // Upcoming Activities Table
+        let cell:UpComingVisitTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingVisitCell") as! UpComingVisitTableViewCell
+        
+        // Upcoming Activities Table
         if tableView.tag == 1{
             
             if indexPath.section == 0{
-            //Visit Cell
-            upcomingCell.UpComingActivities_TitleLabel.text = visitArray[indexPath.row].sgwsVisitPurpose
-            upcomingCell.UpComingActivities_DetailsLabel.text = visitArray[indexPath.row].description
-            upcomingCell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: visitArray[indexPath.row].startDate)
-                return upcomingCell
+                //Visit Cell
+                cell.UpComingActivities_TitleLabel.text = upcomingVisitArrayToDisplay[indexPath.row].sgwsVisitPurpose
+                cell.UpComingActivities_DetailsLabel.text = upcomingVisitArrayToDisplay[indexPath.row].sgwsAgendaNotes
+                cell.UpComingActivities_TimeLabel.text = getDayFromVisit(dateToConvert: upcomingVisitArrayToDisplay[indexPath.row].startDate)
+                cell.UpComingActivities_Image.image = UIImage(named: "Bell")
+                return cell
+                
             }else{
+                //Action Cell
+                cell.UpComingActivities_TitleLabel.text = upcomingActionItemArrayToDisplay[indexPath.row].subject
+                cell.UpComingActivities_DetailsLabel.text = upcomingActionItemArrayToDisplay[indexPath.row].description
+                cell.UpComingActivities_TimeLabel.text = upcomingActionItemArrayToDisplay[indexPath.row].activityDate
+                cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
                 
-                upcomingCell.UpComingActivities_TitleLabel.text = actionItemArray[indexPath.row].subject
-                upcomingCell.UpComingActivities_DetailsLabel.text = actionItemArray[indexPath.row].description
-                upcomingCell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: actionItemArray[indexPath.row].activityDate)
-                
-                return upcomingCell
+                return cell
                 
             }
             
-         // Past activities table
+            // Past activities table
         }else {
             
-            let pastActivitiesCell:PastVisitTableViewCell = pastActivitiesTableView.dequeueReusableCell(withIdentifier: "pastVisitCell") as! PastVisitTableViewCell
-            
-            pastActivitiesCell.PastActivities_TitleLabel.text = "Today is Jeanna Smith’s Birthday"
-            pastActivitiesCell.PastActivities_DetailLabel.text = "Two line description perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
-            pastActivitiesCell.PastActivities_TimeLabel.text = " 2 Hours Ago"
-            
-            return pastActivitiesCell
+            if indexPath.section == 0{
+                //past Visit Cell
+                cell.UpComingActivities_TitleLabel.text = pastVisitArrayToDisplay[indexPath.row].sgwsVisitPurpose
+                cell.UpComingActivities_DetailsLabel.text = pastVisitArrayToDisplay[indexPath.row].sgwsAgendaNotes
+                cell.UpComingActivities_TimeLabel.text = getDayFromVisit(dateToConvert: pastVisitArrayToDisplay[indexPath.row].startDate)
+                cell.UpComingActivities_Image.image = UIImage(named: "Bell")
+                return cell
+            }else{
+                //past Action Cell
+                cell.UpComingActivities_TitleLabel.text = pastActionItemArrayToDisplay[indexPath.row].subject
+                cell.UpComingActivities_DetailsLabel.text = pastActionItemArrayToDisplay[indexPath.row].description
+                cell.UpComingActivities_TimeLabel.text = pastActionItemArrayToDisplay[indexPath.row].activityDate
+                cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
+                return cell
+                
+            }
             
         }
         
-        }
+    }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return  150
-        }else{
-        return  150
-        }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        if section == 0{
+            return 50
+        }
+        return 0
     }
     
     
@@ -210,11 +266,11 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 return headerView;
                 
             }
-   
+            
         }
         return nil
     }
     
-   
+    
     
 }

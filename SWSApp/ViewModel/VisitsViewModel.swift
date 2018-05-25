@@ -123,57 +123,7 @@ class VisitsViewModel {
         return visitsForUserArray
         
     }
-    
-    
-    // account overview event 2 weeks upcoming related function
-    func eventsForUserTwoWeeksUpcoming() -> [WorkOrderUserObject] {
-        
-        var eventForUserArray = visitsForUser()
-        
-        let prevWeekDate = Date().add(component: .day, value: 0)
-        let nextTwoWeekDate = Date().add(component: .day, value: 14)
-        
-        for visit in eventForUserArray {
-            print(visit.accountName)
-            print(visit.recordTypeId)
-        }
 
-        eventForUserArray = eventForUserArray.filter {
-            
-            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
-                if startDate.isLater(than: prevWeekDate), startDate.isEarlier(than: nextTwoWeekDate) {
-                    return true
-                }
-                else {
-                    return false
-                }
-            }
-            return false
-        }
-        eventForUserArray = eventForUserArray.filter {
-            
-            print("StoreDispatcher.shared.workOrderTypeVisit \(StoreDispatcher.shared.workOrderTypeVisit)")
-            print("$0.recordTypeId \($0.recordTypeId)")
-            
-            if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == $0.recordTypeId){
-                return false
-            } else {
-                return true
-            }
-        }
-        eventForUserArray = eventForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
-        
-        for visit in eventForUserArray {
-            print(visit.accountName)
-            print(visit.recordTypeId)
-        }
-        return eventForUserArray
-        
-    }
-    
-    
-    
-    
     
     
 }

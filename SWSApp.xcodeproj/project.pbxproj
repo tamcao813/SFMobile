@@ -292,6 +292,7 @@
 		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
+		8DDD4A3B20B7E33D00423E20 /* AccountsActionItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */; };
 		911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */; };
 		911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
 		911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
@@ -2114,6 +2115,7 @@
 				91FAEF6020A57DD500209D71 /* UIColorExtention.swift in Sources */,
 				8DD1501320933A0800858349 /* StringConstants.swift in Sources */,
 				8DD150002093306600858349 /* SelectedAssociateTableViewCell.swift in Sources */,
+				8DDD4A3B20B7E33D00423E20 /* AccountsActionItemViewModel.swift in Sources */,
 				9187924520A55C79009CB557 /* CalendarMenuViewController.swift in Sources */,
 				914E4F3C20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */,
 				8D4BA37720B45B58005CFE56 /* ContactsViewController.swift in Sources */,

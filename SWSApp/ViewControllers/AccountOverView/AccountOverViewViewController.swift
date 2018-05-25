@@ -21,9 +21,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     var upcomingVisit = [WorkOrderUserObject]()
     var upcomingVisitArrayToDisplay = [WorkOrderUserObject]()
     
-    var upcomingEvent = [WorkOrderUserObject]()
-   
-    
+
     var pastVisit = [WorkOrderUserObject]()
     var pastVisitArrayToDisplay = [WorkOrderUserObject]()
     
@@ -61,7 +59,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         getDB()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)
         
-         upcomingEvent = visitModel.eventsForUserTwoWeeksUpcoming()
+      
         
        
       

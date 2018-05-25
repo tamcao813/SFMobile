@@ -11,7 +11,6 @@ import UIKit
 class UpComingVisitTableViewCell: UITableViewCell {
     
     @IBOutlet weak var UpComingActivities_TitleLabel: UILabel!
-    @IBOutlet weak var UpComingActivities_DetailsLabel: UILabel!
     @IBOutlet weak var UpComingActivities_TimeLabel: UILabel!
     @IBOutlet weak var UpComingActivities_Image: UIImageView!
     override func awakeFromNib() {

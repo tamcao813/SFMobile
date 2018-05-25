@@ -11,11 +11,7 @@ import UIKit
 class PastVisitTableViewCell: UITableViewCell {
 
     @IBOutlet weak var PastActivities_TitleLabel: UILabel!
-    
-    @IBOutlet weak var PastActivities_DetailLabel: UILabel!
-    
     @IBOutlet weak var PastActivities_ImageView: UIImageView!
-    
     @IBOutlet weak var PastActivities_TimeLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -75,12 +75,12 @@ class AccountsActionItemViewModel {
         
         var actionForUserArray = getAcctionItemForUser()
         
-        let prevWeekDate = Date().add(component: .day, value: 0)
+        let prevWeekDate = Date().add(component: .day, value: -1)
         let nextTwoWeekDate = Date().add(component: .day, value: 14)
         
         actionForUserArray = actionForUserArray.filter {
             
-            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.activityDate) {
+            if let startDate = DateTimeUtility.getDateActionItemFromDateString(dateString: $0.activityDate) {
                 if startDate.isLater(than: prevWeekDate), startDate.isEarlier(than: nextTwoWeekDate) {
                     return true
                 }
@@ -104,11 +104,11 @@ class AccountsActionItemViewModel {
         var actionForUserArray = getAcctionItemForUser()
         
         let prevWeekDate = Date().add(component: .day, value: -7)
-        let nextWeekDate = Date().add(component: .day, value: 0)
+        let nextWeekDate = Date().add(component: .day, value: -1)
         
         actionForUserArray = actionForUserArray.filter {
             
-            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.activityDate) {
+            if let startDate = DateTimeUtility.getDateActionItemFromDateString(dateString: $0.activityDate) {
                 if startDate.isLater(than: prevWeekDate), startDate.isEarlier(than: nextWeekDate) {
                     return true
                 }

@@ -53,10 +53,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 CreateNewEventViewControllerGlobals.startTime = "00:00 AM"
                 CreateNewEventViewControllerGlobals.endTime = "11:59 PM"
                 
-                eventStartDateTextField.isUserInteractionEnabled = false
-                eventEndDateTextField.isUserInteractionEnabled = false
-                eventStartTimeTextField.isUserInteractionEnabled = false
-                eventEndTimeTextField.isUserInteractionEnabled = false
+                self.startAndEndDatesUserInteractionDisabled()
                 
                 CreateNewEventViewControllerGlobals.allDayEventSelected = true
             }else{
@@ -74,10 +71,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 CreateNewEventViewControllerGlobals.startTime = ""
                 CreateNewEventViewControllerGlobals.endTime = ""
                 
-                eventStartDateTextField.isUserInteractionEnabled = true
-                eventEndDateTextField.isUserInteractionEnabled = true
-                eventStartTimeTextField.isUserInteractionEnabled = true
-                eventEndTimeTextField.isUserInteractionEnabled = true
+                self.startAndEndDatesUserInteractionEnabled()
                 
                 CreateNewEventViewControllerGlobals.allDayEventSelected = false
             }
@@ -86,6 +80,22 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
             eventStartDateTextField.borderColor = .red
         }
     }
+    
+    
+    func startAndEndDatesUserInteractionDisabled(){
+        eventStartDateTextField.isUserInteractionEnabled = false
+        eventEndDateTextField.isUserInteractionEnabled = false
+        eventStartTimeTextField.isUserInteractionEnabled = false
+        eventEndTimeTextField.isUserInteractionEnabled = false
+    }
+    
+    func startAndEndDatesUserInteractionEnabled(){
+        eventStartDateTextField.isUserInteractionEnabled = true
+        eventEndDateTextField.isUserInteractionEnabled = true
+        eventStartTimeTextField.isUserInteractionEnabled = true
+        eventEndTimeTextField.isUserInteractionEnabled = true
+    }
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         

@@ -199,6 +199,95 @@ class DateTimeUtility
         return timeStamp
     }
     
+    
+    ///-------- Check Whether The Dates Are WeekEnds OR Not - START ------ ///
+    //Using the components in calendar library will get each dd/mm/yyyy is weekend or not
+    static func isWeekend(date: Date) -> Bool {
+        let calendar = Calendar(identifier: .gregorian)
+        let components:DateComponents = calendar.dateComponents([.weekday], from: date)
+        if components.weekday == 1 || components.weekday == 7 {
+            return true
+        }
+        return false
+    }
+    ///-------- Check Whether The Dates Are WeekEnds OR Not - END ------ ///
+    
+    ///------------ Convert String To Date Format - START ------- ///
+    // Using calendar components convering the string to date format
+    static func getDateFromString(dateStr: String) -> Date {
+        
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let DateArray = dateStr.components(separatedBy: "-")
+        let components = NSDateComponents()
+        components.year = Int(DateArray[2])!
+        components.month = Int(DateArray[1])!
+        components.day = Int(DateArray[0])!
+        components.timeZone = TimeZone(abbreviation: "GMT+0:00")
+        let date = calendar.date(from: components as DateComponents)
+        return date!
+    }
+    ///------------ Convert String To Date Format - END ------- ///
+    
+    
+    ///------------ Convert Date To String Format - START ------- ///
+    // Using the dateformatter convering date to string format
+    static func getDate(dateString: String) -> Date? {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //Getting this right is very important!
+        guard let date = dateFormatter.date(from: "\(dateString)") else {
+            //handle error
+            return nil
+        }
+        return date
+    }
+    ///------------ Convert Date To String Format - END ------- ///
+    
+    ///------------ Convert Date To Time Format - START ------- ///
+    
+    static func getTimeFromDate(date: Date) -> String {
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+        let fullTime = timeFormatter.string(from: date)
+        return fullTime
+    }
+    
+    ///------------ Convert Date To Time Format - END ------- ///
+    
+    
+    ///-----------Sort Array With Time -  START --------///
+    // returning array with sorted value of time in descending order
+    static func getAllSortedTime(visitsArray: Array<WREvent>) -> (Array<WREvent>, isMoreCount:Bool) {
+        var minuteArr = [WREvent]()
+        var isMoreCount = false
+        if visitsArray.count > 3 {isMoreCount = true }
+        for visit in visitsArray {
+            if minuteArr.count < 3 {
+                minuteArr.append(visit)
+            }
+        }
+        return (minuteArr, isMoreCount)
+    }
+    ///-----------Sort Array With Time -  END --------///
+    
+    ///------- Compare Each Date Of Month With Array Objects - START --------////
+    // Converting array of dates in string format in descending order
+    static func getEventDates(currentDate: String, visitArray: Array<WREvent>) -> (Array<WREvent>, isMoreCount:Bool) {
+        
+        let calendar  =  Calendar.current
+        var tempDateArr = [WREvent]()
+        for visit in visitArray {
+            let  isSameDate  =  calendar.isDate (getDate(dateString: currentDate)!  ,  inSameDayAs :  visit.date)
+            if isSameDate {
+                tempDateArr.append(visit)
+            }
+        }
+        tempDateArr = tempDateArr.sorted(by: { $0.date < $1.date })
+        let minutesArr = getAllSortedTime(visitsArray: tempDateArr).0
+        let isMoreCount = getAllSortedTime(visitsArray: tempDateArr).1
+        return (minutesArr, isMoreCount)
+    }
+    ///------- Compare Each Date Of Month With Array Objects - END --------////
+    
 }
 
 extension Date {

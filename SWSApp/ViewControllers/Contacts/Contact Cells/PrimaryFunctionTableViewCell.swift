@@ -14,11 +14,7 @@ protocol PrimaryFunctionTableViewCellDelegate: NSObjectProtocol {
 
 class PrimaryFunctionTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var primaryFunctionTextField: CustomUITextField!
-    @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var departmentTextField: UITextField!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var departmentLabel: UILabel!
+    @IBOutlet weak var primaryFunctionTextField: CustomUITextField!    
     //weak var delegate: PrimaryFunctionTableViewCellDelegate?
     
     var pickerOption = [[String:Any]]()
@@ -35,8 +31,6 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     
     func customizedUI(){
         primaryFunctionTextField.addPaddingLeft(10)
-        titleTextField.addPaddingLeft(10)
-        departmentTextField.addPaddingLeft(10)
         let dropdownButton : UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 30))
         dropdownButton.setImage(#imageLiteral(resourceName: "dropDownLight"), for: .normal)
         primaryFunctionTextField.rightView = dropdownButton
@@ -82,14 +76,6 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     }
     
     func displayCellContent(){
-        if let title = contactDetail?.title, title != "" {
-            titleTextField.text =  title
-        }
-        
-        if let department = contactDetail?.department, department != "" {
-            departmentTextField.text = department
-        }
-        
         if let role = contactDetail?.functionRole, role != "" {
             primaryFunctionTextField.text = role
         }
@@ -166,8 +152,6 @@ extension PrimaryFunctionTableViewCell: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        contactDetail?.functionRole = primaryFunctionTextField.text!
-        contactDetail?.title = titleTextField.text!
-        contactDetail?.department = departmentTextField.text!
+        contactDetail?.functionRole = primaryFunctionTextField.text!        
     }
 }

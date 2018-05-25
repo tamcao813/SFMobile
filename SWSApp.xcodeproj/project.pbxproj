@@ -293,6 +293,10 @@
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DDD4A3B20B7E33D00423E20 /* AccountsActionItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */; };
+		8DDD4A3E20B80E5A00423E20 /* TitleDepartmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD4A3C20B80E5A00423E20 /* TitleDepartmentTableViewCell.swift */; };
+		8DDD4A3F20B80E5A00423E20 /* TitleDepartmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD4A3C20B80E5A00423E20 /* TitleDepartmentTableViewCell.swift */; };
+		8DDD4A4020B80E5A00423E20 /* TitleDepartmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD4A3D20B80E5A00423E20 /* TitleDepartmentTableViewCell.xib */; };
+		8DDD4A4120B80E5A00423E20 /* TitleDepartmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD4A3D20B80E5A00423E20 /* TitleDepartmentTableViewCell.xib */; };
 		911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */; };
 		911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
 		911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
@@ -690,6 +694,8 @@
 		8DD15007209330E100858349 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8DD15008209330E100858349 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
 		8DD1501120933A0800858349 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
+		8DDD4A3C20B80E5A00423E20 /* TitleDepartmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleDepartmentTableViewCell.swift; sourceTree = "<group>"; };
+		8DDD4A3D20B80E5A00423E20 /* TitleDepartmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleDepartmentTableViewCell.xib; sourceTree = "<group>"; };
 		911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSortUtility.swift; sourceTree = "<group>"; };
 		911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringUtil.swift; sourceTree = "<group>"; };
 		912FA9E720AAFC75005979FF /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
@@ -1099,6 +1105,8 @@
 				8D4BA35720B45B57005CFE56 /* Personal Detail Cells */,
 				8D4BA36A20B45B57005CFE56 /* ToggleTableViewCell.xib */,
 				8D4BA36B20B45B57005CFE56 /* SearchAccountTableViewCell.swift */,
+				8D4BA35E20B45B57005CFE56 /* PrimaryFunctionTableViewCell.xib */,
+				8D4BA36920B45B57005CFE56 /* PrimaryFunctionTableViewCell.swift */,
 				8D4BA36C20B45B57005CFE56 /* ContactClassificationTableViewCell.swift */,
 				8D4BA36D20B45B57005CFE56 /* ContactClassificationTableViewCell.xib */,
 				8D4BA36E20B45B57005CFE56 /* SearchAccountTableViewCell.xib */,
@@ -1118,7 +1126,6 @@
 				8D4BA35B20B45B57005CFE56 /* ContactHoursTableViewCell.xib */,
 				8D4BA35C20B45B57005CFE56 /* PhoneTableViewCell.swift */,
 				8D4BA35D20B45B57005CFE56 /* FamilyTableViewCell.xib */,
-				8D4BA35E20B45B57005CFE56 /* PrimaryFunctionTableViewCell.xib */,
 				8D4BA35F20B45B57005CFE56 /* DateFieldTableViewCell.swift */,
 				8D4BA36020B45B57005CFE56 /* PhoneTableViewCell.xib */,
 				8D4BA36120B45B57005CFE56 /* DescriptionTableViewCell.swift */,
@@ -1129,7 +1136,8 @@
 				8D4BA36620B45B57005CFE56 /* DropdownTableViewCell.swift */,
 				8D4BA36720B45B57005CFE56 /* NameTableViewCell.xib */,
 				8D4BA36820B45B57005CFE56 /* EmailTableViewCell.swift */,
-				8D4BA36920B45B57005CFE56 /* PrimaryFunctionTableViewCell.swift */,
+				8DDD4A3C20B80E5A00423E20 /* TitleDepartmentTableViewCell.swift */,
+				8DDD4A3D20B80E5A00423E20 /* TitleDepartmentTableViewCell.xib */,
 			);
 			path = "Personal Detail Cells";
 			sourceTree = "<group>";
@@ -1743,6 +1751,7 @@
 				F2590106209216ED00C2E354 /* DuringVisitTopics.plist in Resources */,
 				6D38328B20874026006805C6 /* SFProperty.plist in Resources */,
 				8D4BA38D20B45B58005CFE56 /* PhoneTableViewCell.xib in Resources */,
+				8DDD4A4120B80E5A00423E20 /* TitleDepartmentTableViewCell.xib in Resources */,
 				6D38328C20874026006805C6 /* Main.storyboard in Resources */,
 				F2FD2C2F20919B2900037BB2 /* EditAccountStrategy.plist in Resources */,
 				F2FDA14C2099DEEA000921A8 /* ServicePurposes.plist in Resources */,
@@ -1854,6 +1863,7 @@
 				8D4BA34A20B455EC005CFE56 /* IsItUrgentTableViewCell.xib in Resources */,
 				8D4BA38220B45B58005CFE56 /* ContactHoursTableViewCell.xib in Resources */,
 				8D4BA39A20B45B58005CFE56 /* NameTableViewCell.xib in Resources */,
+				8DDD4A4020B80E5A00423E20 /* TitleDepartmentTableViewCell.xib in Resources */,
 				D1FB182E2062A7C00072F4C1 /* Assets.xcassets in Resources */,
 				D23C40CE208DE6590006691C /* HeadSubHeadTableViewCell.xib in Resources */,
 				6DBD03242077B5EF0083419E /* CrimsonText-BoldItalic.ttf in Resources */,
@@ -2219,6 +2229,7 @@
 				8D4BA3A520B45B58005CFE56 /* ContactClassificationTableViewCell.swift in Sources */,
 				8D4BA33B20B455EC005CFE56 /* ActionItemFilter.swift in Sources */,
 				F2DC2841208E6B600005294E /* AccountStrategyCollectionReusableView.swift in Sources */,
+				8DDD4A3F20B80E5A00423E20 /* TitleDepartmentTableViewCell.swift in Sources */,
 				121468F320AD603A00942A00 /* DropDownCell.swift in Sources */,
 				12BBEDBA2094511D00797CD9 /* CreateNoteViewController.swift in Sources */,
 				8D17A5C720A1F7A000ABC9DC /* CreateNewVisitViewController.swift in Sources */,
@@ -2375,6 +2386,7 @@
 				F22CE6DF20B48A4E001A2171 /* CreateNewEventViewController.swift in Sources */,
 				6F8BD3F12072297C006CABA8 /* MoreViewController.swift in Sources */,
 				8D4BA3A420B45B58005CFE56 /* ContactClassificationTableViewCell.swift in Sources */,
+				8DDD4A3E20B80E5A00423E20 /* TitleDepartmentTableViewCell.swift in Sources */,
 				91FAEF3F20A57DD500209D71 /* WRRowHeaderBackground.swift in Sources */,
 				AE1FAA8820B4588A005B44EC /* EventDescriptionTableViewCell.swift in Sources */,
 				8D4BA33020B455EB005CFE56 /* CreateNewActionItemViewController.swift in Sources */,

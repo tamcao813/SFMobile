@@ -282,11 +282,6 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
                     cell?.primaryFunctionTextField.text = acr.roles
                 }
             }
-            
-            cell?.departmentTextField.isHidden = true
-            cell?.titleTextField.isHidden = true
-            cell?.titleLabel.isHidden = true
-            cell?.departmentLabel.isHidden = true
             //cell?.delegate = self
             primaryFunctionTextField = cell?.primaryFunctionTextField
             return cell!

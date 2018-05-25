@@ -280,13 +280,27 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         switch tableView.tag {
         case 1:
             if indexPath.section == 0 {
+                
+                if(upcomingVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
+                    
+                    let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
+                    let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
+                    PlanVisitManager.sharedInstance.visit = upcomingVisitArrayToDisplay[indexPath.row]
+                    (accountVisitsVC)?.delegate = self
+                    accountVisitsVC?.visitId = upcomingVisitArrayToDisplay[indexPath.row].Id
+                    DispatchQueue.main.async {
+                        self.present(accountVisitsVC!, animated: true, completion: nil)
+                    }
+                    
+                }else{
+                
                 let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
                 let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
                 PlanVisitManager.sharedInstance.visit = upcomingVisitArrayToDisplay[indexPath.row]
                 (accountVisitsVC)?.delegate = self
                 accountVisitsVC?.visitId = upcomingVisitArrayToDisplay[indexPath.row].Id
                     self.present(accountVisitsVC!, animated: true, completion: nil)
-               
+                }
                
             }else{
                 DispatchQueue.main.async {
@@ -298,12 +312,28 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             }
         case 2:
             if indexPath.section == 0 {
-                let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
-                let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-                PlanVisitManager.sharedInstance.visit = pastVisitArrayToDisplay[indexPath.row]
-                (accountVisitsVC)?.delegate = self
-                accountVisitsVC?.visitId = pastVisitArrayToDisplay[indexPath.row].Id
-                self.present(accountVisitsVC!, animated: true, completion: nil)
+                if(pastVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
+                    
+                    let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
+                    let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
+                    PlanVisitManager.sharedInstance.visit = pastVisitArrayToDisplay[indexPath.row]
+                    (accountVisitsVC)?.delegate = self
+                    accountVisitsVC?.visitId = pastVisitArrayToDisplay[indexPath.row].Id
+                    DispatchQueue.main.async {
+                        self.present(accountVisitsVC!, animated: true, completion: nil)
+                    }
+                    
+                }else{
+                    
+                    let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
+                    let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
+                    PlanVisitManager.sharedInstance.visit = pastVisitArrayToDisplay[indexPath.row]
+                    (accountVisitsVC)?.delegate = self
+                    accountVisitsVC?.visitId = pastVisitArrayToDisplay[indexPath.row].Id
+                    self.present(accountVisitsVC!, animated: true, completion: nil)
+                    
+                }
+               
                
             }else{
                 

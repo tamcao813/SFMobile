@@ -65,4 +65,26 @@ class VisitsViewModel {
         
     }
     
+    func visitsForUserForDate(fromDate: Date, toDate: Date) -> [WorkOrderUserObject] {
+        
+        var visitsForUserArray = visitsForUser()
+        
+        visitsForUserArray = visitsForUserArray.filter {
+            
+            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+                if startDate.isLater(than: fromDate), startDate.isEarlier(than: toDate) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            return false
+            
+        }
+        
+        return visitsForUserArray
+        
+    }
+
 }

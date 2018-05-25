@@ -963,6 +963,9 @@
 		128B1A9B206BAE43004E148A /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				AE1FAAA820B6C1FF005B44EC /* DayCollectionViewCell */,
+				AE1FAAA520B6C1FF005B44EC /* MonthHeaderView */,
+				AE1FAAAB20B6C1FF005B44EC /* WeekHeaderView */,
 				8D17A5DA20A2248D00ABC9DC /* Create Visit Cells */,
 				D23C40B6208DE6470006691C /* Header View */,
 				D23C40BD208DE6580006691C /* Account Visit Cells */,
@@ -1178,9 +1181,6 @@
 		9187923B20A55B96009CB557 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				AE1FAAA820B6C1FF005B44EC /* DayCollectionViewCell */,
-				AE1FAAA520B6C1FF005B44EC /* MonthHeaderView */,
-				AE1FAAAB20B6C1FF005B44EC /* WeekHeaderView */,
 				9187924020A55C2A009CB557 /* CalendarViewController.swift */,
 				9187924320A55C79009CB557 /* CalendarMenuViewController.swift */,
 				9187924620A55CAE009CB557 /* CalendarListViewController.swift */,

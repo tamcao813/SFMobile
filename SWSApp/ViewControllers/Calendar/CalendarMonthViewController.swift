@@ -31,7 +31,7 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
         cellsPerRow: 7,
         minimumInteritemSpacing: 0,
         minimumLineSpacing:0,
-        sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        sectionInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     )
     
     

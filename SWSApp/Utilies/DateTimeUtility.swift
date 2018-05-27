@@ -51,7 +51,7 @@ class DateTimeUtility
         dateFormatter.timeZone = TimeZone.current
         let date = dateFormatter.date(from: dateStringfromAccountNotes!)// create date from string
         // change to a readable time format and change to local time zone
-        dateFormatter.dateFormat = "MM/dd/YYYY h:mma"
+        dateFormatter.dateFormat = "MM-dd-YYYY h:mma"
         let timeStamp = dateFormatter.string(from: date!)
         
         return timeStamp

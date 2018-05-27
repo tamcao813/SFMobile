@@ -12,9 +12,16 @@ import UIKit
 class AccountVisitListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var tableViewDataArray : [WorkOrderUserObject]?
     
+    var mainArray = [WorkOrderUserObject]()
+    var tableViewDataArray : [WorkOrderUserObject]?
+    var filteredTableViewDataArray = [WorkOrderUserObject]()
     var addNewDropDown = DropDown()
+    var searchStr = ""
+    
+    var titleAscendingSort = false
+    var statusAscendingSort = false
+    var dateAscendingSort = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,12 +44,28 @@ class AccountVisitListViewController: UIViewController {
     func getTheDataFromDB(){
         tableViewDataArray = [WorkOrderUserObject]()
         let visitArray = VisitsViewModel()
+        mainArray = visitArray.visitsForUser()
         tableViewDataArray = visitArray.visitsForUser()
-        tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'00:00:00.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        
+        tableViewDataArray = tableViewDataArray?.filter({ return $0.startDate > timeStamp })
+        tableViewDataArray = tableViewDataArray?.sorted(by: { $0.startDate < $1.startDate })
+        
+        //Used for Past events during filtering
+        let newDate = date.addingTimeInterval(-(60 * 60 * 24))
+        let pastVisitsEventsTimeStamp = dateFormatter.string(from: newDate)
+        
+        mainArray = mainArray.filter({ return $0.startDate > pastVisitsEventsTimeStamp })
+        mainArray = mainArray.sorted(by: { $0.startDate < $1.startDate })
+        
         DispatchQueue.main.async {
-            UIView.performWithoutAnimation({() -> Void in
+            //UIView.performWithoutAnimation({() -> Void in
                 self.tableView.reloadData()
-            })
+            //})
         }
     }
     
@@ -96,61 +119,115 @@ class AccountVisitListViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func sortByTitleButtonAction(_ sender: UIButton){
+        if AccountVisitListFilterModel.filterApplied{
+            if titleAscendingSort {
+                filteredTableViewDataArray = filteredTableViewDataArray.sorted(by: { $0.subject < $1.subject })
+                titleAscendingSort = false
+            }else{
+                filteredTableViewDataArray = filteredTableViewDataArray.sorted(by: { $0.subject > $1.subject })
+                titleAscendingSort = true
+            }
+        }else{
+            if titleAscendingSort {
+                tableViewDataArray = tableViewDataArray?.sorted(by: { $0.subject < $1.subject })
+                titleAscendingSort = false
+            }else{
+                tableViewDataArray = tableViewDataArray?.sorted(by: { $0.subject > $1.subject })
+                titleAscendingSort = true
+            }
+        }
+        tableView.reloadData()
+    }
+    
+    @IBAction func sortByStatusButtonAction(_ sender: UIButton){
+        if AccountVisitListFilterModel.filterApplied{
+            if statusAscendingSort{
+
+                
+                
+                statusAscendingSort = false
+            }else{
+                
+                statusAscendingSort = true
+            }
+        }else{
+            if statusAscendingSort{
+                
+                
+                
+                statusAscendingSort = false
+            }else{
+                
+                
+                
+                
+                statusAscendingSort = true
+            }
+        }
+        tableView.reloadData()
+    }
+    
+    @IBAction func sortByDateButtonAction(_ sender: UIButton){
+        if AccountVisitListFilterModel.filterApplied{
+            if dateAscendingSort{
+                filteredTableViewDataArray = filteredTableViewDataArray.sorted(by: { $0.startDate < $1.startDate })
+                dateAscendingSort = false
+            }else{
+                filteredTableViewDataArray = filteredTableViewDataArray.sorted(by: { $0.startDate > $1.startDate })
+                dateAscendingSort = true
+            }
+        }else{
+            if dateAscendingSort{
+                tableViewDataArray = tableViewDataArray?.sorted(by: { $0.startDate < $1.startDate })
+                dateAscendingSort = false
+            }else{
+                tableViewDataArray = tableViewDataArray?.sorted(by: { $0.startDate > $1.startDate })
+                dateAscendingSort = true
+            }
+        }
+        tableView.reloadData()
+    }
 }
 
 extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if indexPath.section == 0{
-            return 50
-        }
-        return 200
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 180
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return 1
+        if AccountVisitListFilterModel.filterApplied{
+            return filteredTableViewDataArray.count
         }
         return tableViewDataArray!.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0{
-            return 60.0;
-        }
-        return 0
+        return 50;
     }
     
     // custom header for the section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
-        var headerCell : AccountVisitListTableViewCell?
-        //if section == 0{
-            headerCell = tableView.dequeueReusableCell(withIdentifier: "newVisitCell") as? AccountVisitListTableViewCell
-            return headerCell
-        //}
-        //return nil
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListHeaderTableViewCell") as? AccountVisitListTableViewCell
+        return cell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : UITableViewCell?
-        if indexPath.section == 0{
-            
-            cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListHeaderTableViewCell") as? AccountVisitListTableViewCell
-            cell?.selectionStyle = .none
-            
+  
+       let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
+        cell?.selectionStyle = .none
+        //cell?.delegate = self as! SwipeTableViewCellDelegate
+        
+        let celldata : WorkOrderUserObject?
+        if AccountVisitListFilterModel.filterApplied{
+            celldata = filteredTableViewDataArray[indexPath.row]
         }else{
-            
-            cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
-            cell?.selectionStyle = .none
-            //cell?.delegate = self as! SwipeTableViewCellDelegate
-            let celldata = tableViewDataArray![indexPath.row]
-            (cell as! AccountVisitListTableViewCell).displayCellData(data: celldata)
+            celldata = tableViewDataArray![indexPath.row]
         }
+        
+        cell?.displayCellData(data: celldata)
         
         return cell!
     }
@@ -206,29 +283,96 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let workOrder : WorkOrderUserObject = tableViewDataArray![indexPath.row]
-        if(workOrder.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
-            if indexPath.section > 0{
-                let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
-                let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
+        let workOrder : WorkOrderUserObject?
+        if AccountVisitListFilterModel.filterApplied{
+            workOrder  = filteredTableViewDataArray[indexPath.row]
+        }else{
+            workOrder = tableViewDataArray![indexPath.row]
+        }
+        
+        if(workOrder?.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
+            let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
+            
+            if AccountVisitListFilterModel.filterApplied{
+                PlanVisitManager.sharedInstance.visit = filteredTableViewDataArray[indexPath.row]
+                accountVisitsVC?.visitId = filteredTableViewDataArray[indexPath.row].Id
+            }else{
                 PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
-                (accountVisitsVC)?.delegate = self
                 accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
-                DispatchQueue.main.async {
-                    self.present(accountVisitsVC!, animated: true, completion: nil)
-                }
+            }
+            
+            (accountVisitsVC)?.delegate = self
+            
+            DispatchQueue.main.async {
+                self.present(accountVisitsVC!, animated: true, completion: nil)
             }
         } else {
             
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-            PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+            
+            if AccountVisitListFilterModel.filterApplied{
+                PlanVisitManager.sharedInstance.visit = filteredTableViewDataArray[indexPath.row]
+                accountVisitsVC?.visitId = filteredTableViewDataArray[indexPath.row].Id
+                
+            }else{
+                PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+                accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
+            }
+            
             (accountVisitsVC)?.delegate = self
-            accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
+            
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
-            
+        }
+    }
+}
+
+//MARK:- AccountVisitSearchButtonTapped Delegate
+extension AccountVisitListViewController : AccountVisitSearchButtonTappedDelegate{
+    
+    func clearFilter() {
+        AccountVisitListFilterModel.filterApplied = false
+        self.tableView.reloadData()
+        
+        DispatchQueue.main.async {
+            if(self.tableViewDataArray!.count > 0){
+                self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            }
+        }
+    }
+    
+    func performFilterOperation(searchText: UISearchBar) {
+        AccountVisitListFilterModel.filterApplied = true
+        //Perform Search Operation First then do Filtering
+        applyFilter(searchText: searchText.text!)
+    }
+    
+    func applyFilter(searchText: String){
+        if searchText != ""{
+            searchStr = searchText
+            //Condition check to get the past dates
+            if AccountVisitListFilterModel.isPastVisits == "YES"{
+                filteredTableViewDataArray =  AccountVisitListSortUtility().searchAndFilter(searchStr: searchText, actionItems: mainArray)
+            }else{
+                filteredTableViewDataArray =  AccountVisitListSortUtility().searchAndFilter(searchStr: searchText, actionItems: tableViewDataArray!)
+            }
+        }else{
+            //Condition check to get the past dates
+            if AccountVisitListFilterModel.isPastVisits == "YES"{
+                filteredTableViewDataArray = AccountVisitListSortUtility().filterOnly(actionItems: mainArray)
+            }else{
+                filteredTableViewDataArray = AccountVisitListSortUtility().filterOnly(actionItems: tableViewDataArray!)
+            }
+        }
+        self.tableView.reloadData()
+        
+        DispatchQueue.main.async {
+            if(self.filteredTableViewDataArray.count > 0){
+                self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            }
         }
     }
 }

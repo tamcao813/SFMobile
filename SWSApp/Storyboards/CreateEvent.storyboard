@@ -107,6 +107,7 @@
                         <viewLayoutGuide key="safeArea" id="Qh2-BK-p3j"/>
                     </view>
                     <connections>
+                        <outlet property="btnSave" destination="O9O-PO-5Sk" id="2Er-1H-9cC"/>
                         <outlet property="errorLabel" destination="JKu-Wc-MWI" id="RpS-rS-FO2"/>
                         <outlet property="pageHeaderLabel" destination="tpQ-U5-XIK" id="VGT-YU-v54"/>
                         <outlet property="tableView" destination="6zg-BZ-VT5" id="26R-Tn-94G"/>

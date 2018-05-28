@@ -293,6 +293,8 @@
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DDD4A3B20B7E33D00423E20 /* AccountsActionItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */; };
+		8DDD4A4420BBD5FF00423E20 /* SyncInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD4A4220BBD5FF00423E20 /* SyncInfoViewController.swift */; };
+		8DDD4A4520BBD5FF00423E20 /* SyncInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD4A4220BBD5FF00423E20 /* SyncInfoViewController.swift */; };
 		911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */; };
 		911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
 		911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
@@ -690,6 +692,7 @@
 		8DD15007209330E100858349 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8DD15008209330E100858349 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
 		8DD1501120933A0800858349 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
+		8DDD4A4220BBD5FF00423E20 /* SyncInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncInfoViewController.swift; sourceTree = "<group>"; };
 		911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSortUtility.swift; sourceTree = "<group>"; };
 		911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringUtil.swift; sourceTree = "<group>"; };
 		912FA9E720AAFC75005979FF /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
@@ -1404,6 +1407,7 @@
 				F2CAD22F20957E51001016C2 /* Strategy */,
 				F2CAD23020957E91001016C2 /* DuringVisit */,
 				F2AB94542095CBA90028802E /* AlertUtility.swift */,
+				8DDD4A4220BBD5FF00423E20 /* SyncInfoViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -2220,6 +2224,7 @@
 				8D4BA33B20B455EC005CFE56 /* ActionItemFilter.swift in Sources */,
 				F2DC2841208E6B600005294E /* AccountStrategyCollectionReusableView.swift in Sources */,
 				121468F320AD603A00942A00 /* DropDownCell.swift in Sources */,
+				8DDD4A4520BBD5FF00423E20 /* SyncInfoViewController.swift in Sources */,
 				12BBEDBA2094511D00797CD9 /* CreateNoteViewController.swift in Sources */,
 				8D17A5C720A1F7A000ABC9DC /* CreateNewVisitViewController.swift in Sources */,
 				F2CAD2332095806C001016C2 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */,
@@ -2236,6 +2241,7 @@
 				D23C40BB208DE6480006691C /* AccountVisitSectionHeaderView.swift in Sources */,
 				8D4BA39820B45B58005CFE56 /* DropdownTableViewCell.swift in Sources */,
 				D23C40D8208DFA890006691C /* AccountVisitListTableViewCell.swift in Sources */,
+				8DDD4A4420BBD5FF00423E20 /* SyncInfoViewController.swift in Sources */,
 				12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */,
 				91FAEF5B20A57DD500209D71 /* Constants.swift in Sources */,
 				8D4BA37420B45B58005CFE56 /* ContactListViewController.swift in Sources */,

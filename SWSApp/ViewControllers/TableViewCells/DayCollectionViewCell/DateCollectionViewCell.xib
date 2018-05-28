@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="419" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3h9-b7-cib">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3h9-b7-cib" customClass="PaddingLabel" customModule="SWSApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="3" width="419" height="20.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="419" id="6vH-cB-c2K"/>

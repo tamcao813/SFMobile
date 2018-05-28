@@ -416,6 +416,8 @@
 		AE1FAAC620B6C2EE005B44EC /* ColumnFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAABF20B6C2EE005B44EC /* ColumnFlowLayout.swift */; };
 		AE1FAAC720B6C2EE005B44EC /* EventButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAAC020B6C2EE005B44EC /* EventButton.swift */; };
 		AE1FAAC820B6C2EE005B44EC /* EventButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAAC020B6C2EE005B44EC /* EventButton.swift */; };
+		AE3D30D420BCC1AA0053ACE0 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3D30D320BCC1AA0053ACE0 /* PaddingLabel.swift */; };
+		AE3D30D520BCC1AA0053ACE0 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3D30D320BCC1AA0053ACE0 /* PaddingLabel.swift */; };
 		AE43DD00209622E4005D8DD1 /* PlanVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974420886DD4004548E9 /* PlanVisitViewController.swift */; };
 		AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
 		AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2564B82091B1460056B559 /* SelectOpportunitiesViewController.swift */; };
@@ -803,6 +805,7 @@
 		AE2564BE2091B1C10056B559 /* SelectedAssociateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedAssociateTableViewCell.xib; sourceTree = "<group>"; };
 		AE2564BF2091B1C10056B559 /* AssociateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateTableViewCell.swift; sourceTree = "<group>"; };
 		AE2564C02091B1C10056B559 /* SelectedAssociateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedAssociateTableViewCell.swift; sourceTree = "<group>"; };
+		AE3D30D320BCC1AA0053ACE0 /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ServicePurposes.plist; sourceTree = "<group>"; };
 		AE43DD1A209C73EF005D8DD1 /* VisitSchedulerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitSchedulerViewModel.swift; sourceTree = "<group>"; };
 		AE43DD1D209C7401005D8DD1 /* PlanVisit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanVisit.swift; sourceTree = "<group>"; };
@@ -1563,6 +1566,7 @@
 		D1FE1D0320657B47009CC47C /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
+				AE3D30D320BCC1AA0053ACE0 /* PaddingLabel.swift */,
 				AE1FAABF20B6C2EE005B44EC /* ColumnFlowLayout.swift */,
 				AE1FAABD20B6C2ED005B44EC /* CustomMethods.swift */,
 				AE1FAAC020B6C2EE005B44EC /* EventButton.swift */,
@@ -2355,6 +2359,7 @@
 				8DD150032093308200858349 /* AssociateTableViewCell.swift in Sources */,
 				8DDD4A4B20BBFC5200423E20 /* TitleDepartmentTableViewCell.swift in Sources */,
 				914E4F3920AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */,
+				AE3D30D520BCC1AA0053ACE0 /* PaddingLabel.swift in Sources */,
 				91FAEF5420A57DD500209D71 /* WRTodayBackground.swift in Sources */,
 				8D4BA33520B455EB005CFE56 /* ActionItemDetailsViewController.swift in Sources */,
 				AE43DD1C209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */,
@@ -2561,6 +2566,7 @@
 				913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */,
 				F20A89D820BA871200AF35EA /* AccountVisitListSortUtility.swift in Sources */,
 				D2E12D7120736C4B0005B982 /* InsightsViewController.swift in Sources */,
+				AE3D30D420BCC1AA0053ACE0 /* PaddingLabel.swift in Sources */,
 				121468F420AD603A00942A00 /* DropDown+Appearance.swift in Sources */,
 				12F0F89A208FA6BD00160C3D /* AccountContactRelation.swift in Sources */,
 				8D4BA33620B455EC005CFE56 /* ActionItemsListViewController.swift in Sources */,

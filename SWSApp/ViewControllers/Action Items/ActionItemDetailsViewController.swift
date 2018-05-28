@@ -114,6 +114,7 @@ class ActionItemDetailsViewController: UIViewController {
     @IBAction func closeButtonTapped(_ sender: UIButton){
         DispatchQueue.main.async {
             self.delegate?.updateList()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
@@ -205,6 +206,7 @@ class ActionItemDetailsViewController: UIViewController {
         let success = AccountsActionItemViewModel().editActionItemStatusLocally(fields: actionItemDict)
         if success {
             self.delegate?.updateList()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }

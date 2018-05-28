@@ -114,8 +114,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             if(accVisit.accountId ==  accountId) {
                 pastVisitArrayToDisplay.append(accVisit)
             }
-            
-            
         }
         
         //creating past action item array according to accountId
@@ -135,7 +133,33 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
     }
     
-    
+    func getDayOfCurrentWeek(dateToConvert:String) ->String  {
+        
+     
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let date = dateFormatter.date(from: dateToConvert)
+        let weekDay = Calendar.current.component(.weekday, from: date!)
+        print( "Day is \(weekDay)" )
+        switch weekDay {
+        case 1:
+            return "Sunday"
+        case 2:
+            return "Monday"
+        case 3:
+            return "Tuesday"
+        case 4:
+            return "Wednesday"
+        case 5:
+            return "Thursday"
+        case 6:
+            return "Friday"
+        case 7:
+            return "Saturday"
+        default:
+            return "No Day"
+        }
+    }
     
     
     
@@ -164,6 +188,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             return  "Yesterday at " + dateTime[1]
         }
         
+  
         dateFormatter.dateFormat = "MM-dd-yyyy h:mma"
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp

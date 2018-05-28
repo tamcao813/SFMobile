@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MIA-iz-OsG">
-                                <rect key="frame" x="20" y="100" width="490" height="648"/>
+                                <rect key="frame" x="20" y="20" width="490" height="728"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="490" id="LET-7k-7hG"/>
@@ -81,7 +81,7 @@
                                 </prototypes>
                             </tableView>
                             <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nz4-Fe-Hj3">
-                                <rect key="frame" x="514" y="100" width="490" height="648"/>
+                                <rect key="frame" x="514" y="20" width="490" height="728"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="490" id="u7e-Uo-7SC"/>
@@ -139,8 +139,8 @@
                             <constraint firstItem="nz4-Fe-Hj3" firstAttribute="leading" secondItem="MIA-iz-OsG" secondAttribute="trailing" constant="4" id="L1z-OQ-bWD"/>
                             <constraint firstItem="Tj7-bz-iAR" firstAttribute="bottom" secondItem="MIA-iz-OsG" secondAttribute="bottom" constant="20" id="lrz-IL-Vg6"/>
                             <constraint firstItem="Tj7-bz-iAR" firstAttribute="bottom" secondItem="nz4-Fe-Hj3" secondAttribute="bottom" constant="20" id="pgH-hm-zQq"/>
-                            <constraint firstItem="MIA-iz-OsG" firstAttribute="top" secondItem="Tj7-bz-iAR" secondAttribute="top" constant="80" id="q2J-Mi-OPo"/>
-                            <constraint firstItem="nz4-Fe-Hj3" firstAttribute="top" secondItem="Tj7-bz-iAR" secondAttribute="top" constant="80" id="vr1-Nl-tpO"/>
+                            <constraint firstItem="MIA-iz-OsG" firstAttribute="top" secondItem="Tj7-bz-iAR" secondAttribute="top" id="q2J-Mi-OPo"/>
+                            <constraint firstItem="nz4-Fe-Hj3" firstAttribute="top" secondItem="Tj7-bz-iAR" secondAttribute="top" id="vr1-Nl-tpO"/>
                             <constraint firstItem="Tj7-bz-iAR" firstAttribute="trailing" secondItem="nz4-Fe-Hj3" secondAttribute="trailing" constant="20" id="wiG-W5-AKa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Tj7-bz-iAR"/>
@@ -152,7 +152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VAa-GB-gCg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133" y="-338"/>
+            <point key="canvasLocation" x="132.421875" y="-338.28125"/>
         </scene>
     </scenes>
     <resources>

@@ -29,7 +29,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var onlineSyncStatus:UIBarButtonItem? = nil
     var userInitialLabel:UILabel? = nil
     var onlineStatusView = UIView()
-    let statusLabel = UILabel()
+    var statusLabel = UILabel()
    
     var moreDropDownSelectionIndex:Int?=0
     

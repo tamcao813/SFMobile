@@ -11,6 +11,9 @@ import UIKit
 
 class AccountVisitEmbedViewController : UIViewController{
     
+    var accountVisitListVC : AccountVisitListViewController?
+    var accountVisitFilterVC : AccountVisitListFilterViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,8 +23,18 @@ class AccountVisitEmbedViewController : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
+         accountVisitFilterVC?.delegate = accountVisitListVC
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "listSegue") {
+            accountVisitListVC = segue.destination as? AccountVisitListViewController
+            //accountVisitFilterVC?.delegate = self
+            
+        }else if (segue.identifier == "filterSegue") {
+            accountVisitFilterVC = segue.destination as? AccountVisitListFilterViewController
+            
+        }
+    }
 }

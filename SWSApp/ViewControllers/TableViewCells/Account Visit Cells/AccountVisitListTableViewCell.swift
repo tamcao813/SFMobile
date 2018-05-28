@@ -17,24 +17,52 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var statusView: UIView!
 
-    func displayCellData(data : WorkOrderUserObject){
+    @IBOutlet weak var lblAccountName : UILabel!
+    @IBOutlet weak var lblAccountId : UILabel!
+    @IBOutlet weak var lblAddress : UILabel!
+    @IBOutlet weak var lblLocation : UILabel!
+   
+    
+    func displayCellData(data : WorkOrderUserObject?){
         //Used to Check wheather its an Event or Visit
-        if(data.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
+        if(data?.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
             DispatchQueue.main.async {
                 self.statusView.backgroundColor = UIColor.orange
             }
-            self.addressLabel.text = data.subject
+            self.addressLabel.text = data?.subject
         } else {
             DispatchQueue.main.async {
                 self.statusView.backgroundColor = UIColor(named:"Data New")
             }
-            self.addressLabel.text = data.accountName
+            self.addressLabel.text = data?.accountName
         }
         
-        //self.addressLabel.text = data.accountName
-        self.visitStatusLabel.text = data.status
+        self.visitStatusLabel.text = data?.status
+        lblAccountName.text = data?.accountName
+        lblAccountId.text = data?.accountNumber
+        lblLocation.text = data?.location
         
-        let lastModifiedDate = data.lastModifiedDate
+        var fullAddress = ""
+        if let shippingStreet = data?.shippingStreet, let shippingCity = data?.shippingCity , let shippingState = data?.shippingState, let shippingPostalCode = data?.shippingPostalCode{
+            // latitudeDouble and longitudeDouble are non-optional in here
+            if shippingStreet == "" && shippingCity == "" && shippingState == "" && shippingPostalCode == "" {
+                fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+            }else{
+                if (shippingStreet != "" || shippingCity != "") {
+                    if (shippingState != "" || shippingPostalCode != "") {
+                        fullAddress = "\(shippingStreet) \(shippingCity), \(shippingState) \(shippingPostalCode)"
+                    }else{
+                        fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                    }
+                }else{
+                    fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                }
+            }
+        }
+        
+        lblAddress.text = fullAddress
+        
+        let lastModifiedDate = data?.startDate
         if(lastModifiedDate != ""){
             let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: lastModifiedDate)
             var dateTime = getTime.components(separatedBy: " ")

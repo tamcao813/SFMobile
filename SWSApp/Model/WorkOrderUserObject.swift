@@ -157,3 +157,16 @@ class WorkOrderUserObject {
         
     }
 }
+
+extension WorkOrderUserObject: Equatable,Hashable {
+    var hashValue: Int {
+        return Id.hashValue
+    }
+    
+    static func == (lhs: WorkOrderUserObject, rhs: WorkOrderUserObject) -> Bool {
+        return lhs.Id == rhs.Id
+    }
+}
+
+
+

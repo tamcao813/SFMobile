@@ -30,6 +30,7 @@ class CreateNewEventViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeaderLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var btnSave : UIButton?
     
     var eventTitleTextField: UITextField!
     var startDateTextField: UITextField!
@@ -57,6 +58,8 @@ class CreateNewEventViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        btnSave?.isUserInteractionEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,6 +130,7 @@ class CreateNewEventViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIButton){
         if allFieldsAreValidated() {
+            btnSave?.isUserInteractionEnabled = false
             if isEditingMode{
                 if PlanVisitManager.sharedInstance.visit != nil {
                     editCurrentEvent()
@@ -311,6 +315,8 @@ class CreateNewEventViewController: UIViewController {
         new_Event.location = CreateNewEventViewControllerGlobals.location
         new_Event.sgwsAlldayEvent = CreateNewEventViewControllerGlobals.allDayEventSelected
         
+        new_Event.status = "Scheduled"
+        
         let attributeDict = ["type":"WorkOrder"]
         let addNewDict: [String:Any] = [
             
@@ -325,6 +331,7 @@ class CreateNewEventViewController: UIViewController {
             PlanVisit.planVisitFields[12]   : new_Event.recordTypeId,
             PlanVisit.planVisitFields[14]   : new_Event.location,
             PlanVisit.planVisitFields[15]   : new_Event.sgwsAlldayEvent,
+            PlanVisit.planVisitFields[9]    : new_Event.status,
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,
@@ -370,7 +377,12 @@ class CreateNewEventViewController: UIViewController {
         if let dateFromString = dateFormatter.date(from: string) {
             //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            dateFormatter.timeZone = TimeZone(identifier:"UTC")
+            
+            if CreateNewEventViewControllerGlobals.allDayEventSelected{
+                dateFormatter.timeZone = TimeZone.current
+            }else{
+                dateFormatter.timeZone = TimeZone(identifier:"UTC")
+            }
             string = dateFormatter.string(from: dateFromString)
         }
         return string

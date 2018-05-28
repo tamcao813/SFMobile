@@ -28,9 +28,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var topMenuBar:XMSegmentedControl? = nil
     var onlineSyncStatus:UIBarButtonItem? = nil
     var userInitialLabel:UILabel? = nil
+    var onlineStatusView = UIView()
+    var statusLabel = UILabel()
    
-    
-    
     var moreDropDownSelectionIndex:Int?=0
     
     var notificationButton:UIBarButtonItem? = nil
@@ -124,15 +124,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             } else {
                 print("Reachable via Cellular")
             }
-            self.onlineSyncStatus?.image = UIImage(named: "Online")
+            self.statusLabel.text = "Online"
+            self.onlineStatusView.backgroundColor = UIColor(named: "Good")
             self.userInitialLabel?.isUserInteractionEnabled = true
         }
         
         reachability.whenUnreachable = { _ in
-            print("Not reachable")
-            self.onlineSyncStatus?.image = UIImage(named: "Offline")
+            self.onlineStatusView.backgroundColor = UIColor.lightGray
+            self.statusLabel.text = "Offline"
             self.userInitialLabel?.isUserInteractionEnabled = false
-
         }
         
         do {
@@ -258,10 +258,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.numberLabel?.isUserInteractionEnabled = true
         self.numberLabel?.addGestureRecognizer(tap)
         
-        let onlineStatusView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+        onlineStatusView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
         onlineStatusView.backgroundColor = UIColor(named: "Good")
         
-        let statusLabel = UILabel(frame: CGRect(x: 15, y: 5, width: 60, height: 20))
+        statusLabel = UILabel(frame: CGRect(x: 15, y: 5, width: 60, height: 20))
         statusLabel.font  = UIFont.boldSystemFont(ofSize: 12)
         statusLabel.text = "Online"
         statusLabel.textColor = UIColor.white
@@ -290,7 +290,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     
     @objc func syncButtonPressed(){
-        self.present(syncUpInfoVC!, animated: true, completion: nil)
+//        self.present(syncUpInfoVC!, animated: true, completion: nil)
     }
     // MARK: SyncUp Data
     @objc func SyncUpData()  {

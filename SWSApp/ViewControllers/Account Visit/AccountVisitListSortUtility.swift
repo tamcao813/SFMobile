@@ -176,10 +176,9 @@ class AccountVisitListSortUtility {
   
         var todayArray = [WorkOrderUserObject]()
         var tomorrowDate = [WorkOrderUserObject]()
-        //TODO for date range
+        var dateRange = [WorkOrderUserObject]()
         
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        
         
         if AccountVisitListFilterModel.isToday == "YES"{
             let timeStamp = dateFormatter.string(from: date)
@@ -210,14 +209,22 @@ class AccountVisitListSortUtility {
             dateRangeAdded = true
         }
         
-        
         //DATE RANGE
-        if AccountVisitListFilterModel.isThisWeek == "YES"{
-            print(Date().endOfWeek.add(component: .day, value: 1))
-            
-            
-            
-        }
+//        if AccountVisitListFilterModel.isThisWeek == "YES"{
+//            //print(Date().endOfWeek.add(component: .day, value: 1))
+//
+//            let timeStamp = dateFormatter.string(from: date.endOfWeek.add(component: .day, value: 1))
+//
+//            dateRange = actionItems.filter( {
+//                let dateSeperator = $0.startDate.components(separatedBy: "T")
+//                var dateOnly = ""
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
+//                return dateOnly == timeStamp
+//            } )
+//
+//        }
         
         
         

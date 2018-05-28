@@ -28,7 +28,9 @@ class WeekCollectionHeaderView: UICollectionReusableView {
     /// Adding weeks without weekends to UIStackView
     
     func withoutWeekends() {
-        weekStack.removeAllArrangedSubviews()
+        for subUIView in self.weekStack.subviews as! [UILabel] {
+            subUIView.removeFromSuperview()
+        }
         for i in 0..<weekArrWithoutWeekEnds.count {
             let label = UILabel()
             label.text = weekArrWithoutWeekEnds[i]
@@ -42,7 +44,9 @@ class WeekCollectionHeaderView: UICollectionReusableView {
     /// Adding weeks with weekends to UIStackView
     
     func withWeekends() {
-        weekStack.removeAllArrangedSubviews()
+        for subUIView in self.weekStack.subviews as! [UILabel] {
+            subUIView.removeFromSuperview()
+        }
         for i in 0..<weekArr.count {
             let label = UILabel()
             label.text = weekArr[i]

@@ -141,6 +141,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         //Gtting time and date
         let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: dateToConvert)
         var dateTime = getTime.components(separatedBy: " ")
+
         if calendar.isDateInToday(date!){
             
             return  "Today at " + dateTime[1]
@@ -155,6 +156,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
             return  "Yesterday at " + dateTime[1]
         }
+       
         
         dateFormatter.dateFormat = "MM-dd-yyyy h:mma"
         let timeStamp = dateFormatter.string(from: date!)

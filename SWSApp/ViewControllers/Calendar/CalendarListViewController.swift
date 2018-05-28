@@ -19,6 +19,8 @@ class CalendarListViewController: UIViewController {
     @IBOutlet weak var todayButton: UIButton!
     @IBOutlet weak var bottomView: UIView!
 
+    var globalVisit = [WREvent]()
+    
     var currentShowingDate: Date?
     var currentCalendarViewType: GlobalConstants.CalendarViewType = .Week
     var weekEndsEnabled: Bool = true
@@ -44,6 +46,7 @@ class CalendarListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        globalVisit = CalendarViewModel().loadVisitData()!
         CalendarFilterMenuModel.searchText = ""
         CalendarFilterMenuModel.visitsType = "YES"
         CalendarFilterMenuModel.eventsType = "YES"
@@ -77,6 +80,7 @@ class CalendarListViewController: UIViewController {
     
     // MARK: - Calendar Refresh
     @objc func refreshCalendar(){
+        globalVisit = CalendarViewModel().loadVisitData()!
         reloadCalendarView()
     }
     
@@ -354,7 +358,7 @@ class CalendarListViewController: UIViewController {
     }
 
     func setupCalendarEventDataAfterFiler() {
-        if let eventsFiltered = CalendarSortUtility.searchCalendarBySearch(calendarEvents: CalendarViewModel().loadVisitData()!) {
+        if let eventsFiltered = CalendarSortUtility.searchCalendarBySearch(calendarEvents: globalVisit) {
             DispatchQueue.main.async {
                 self.setupCalendarEventData(withEvents: eventsFiltered)
             }
@@ -451,13 +455,13 @@ extension CalendarListViewController : SearchCalendarByEnteredTextDelegate{
     func filteringCalendar(filtering: Bool) {
         if !filtering {
             DispatchQueue.main.async {
-                self.setupCalendarEventData(withEvents: CalendarViewModel().loadVisitData()!)
+                self.setupCalendarEventData(withEvents: self.globalVisit)
             }
         }
     }
     
     func performCalendarFilterOperation(searchString: String) {
-        if let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: searchString) {
+        if let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: globalVisit, searchText: searchString) {
             DispatchQueue.main.async {
                 self.setupCalendarEventData(withEvents: eventsFiltered)
             }

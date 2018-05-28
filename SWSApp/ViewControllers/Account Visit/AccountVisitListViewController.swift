@@ -9,8 +9,6 @@
 import UIKit
 //import DropDown
 
-
-
 class AccountVisitListViewController: UIViewController {
     
     //PageControl Contstants
@@ -21,7 +19,7 @@ class AccountVisitListViewController: UIViewController {
     var indexInOrignalArray:Int?
     
     //Internal
-    var kPageSize:Int = 10
+    var kPageSize:Int = 15
     var kSizeOfArray:Int = 103
     var kNoOfPagesInEachSet = 5
     var noOfPages:Int?
@@ -55,20 +53,22 @@ class AccountVisitListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
+        self.getTheDataFromDB()
+        customizedUI()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        customizedUI()
+        
         //initializingXIBs()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //DispatchQueue.global().async {
-            self.getTheDataFromDB()
+       
         //}
     }
     
@@ -110,20 +110,7 @@ class AccountVisitListViewController: UIViewController {
         
         mainArray = mainArray.sorted(by: { $0.startDate < $1.startDate })
         
-        if let tableViewDataArray1 = tableViewDataArray {
-            if tableViewDataArray1.count > 0 {
-                pageButtonArr[1].backgroundColor = UIColor.lightGray
-                pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
-            }
-            initPageViewWith(inputArr:tableViewDataArray1, pageSize: kPageSize)
-            updateUI()
-        }
-        
-//        DispatchQueue.main.async {
-//            //UIView.performWithoutAnimation({() -> Void in
-//                self.tableView.reloadData()
-//            //})
-//        }
+        self.initializePagination()
     }
     
     deinit {
@@ -220,8 +207,26 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         return 180
     }
     
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return kPageSize //tableViewDataArray.count
+//    }
+    
+    //Pagination changes needed in TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewDataArray.count
+        
+        let cellsToDisplay = tableViewDataArray.count - currentPageIndex!
+        
+        if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
+            numberOfAccountRows = cellsToDisplay
+            return cellsToDisplay
+        } else if (cellsToDisplay == 0) {
+            numberOfAccountRows = 0
+            return 0
+        }
+        else {
+            numberOfAccountRows = self.kPageSize
+            return self.kPageSize
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -234,15 +239,16 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
         return cell
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-  
-       let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let visitNEventCellData:WorkOrderUserObject = tableViewDataArray[indexPath.row + currentPageIndex!]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
         cell?.selectionStyle = .none
         //cell?.delegate = self as! SwipeTableViewCellDelegate
         
-        let celldata = tableViewDataArray[indexPath.row]
+//        let celldata = tableViewDataArray[indexPath.row]
         
-        cell?.displayCellData(data: celldata)
+        cell?.displayCellData(data: visitNEventCellData)
         
         return cell!
     }
@@ -297,7 +303,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let workOrder = tableViewDataArray[indexPath.row]
+        let workOrder = tableViewDataArray[indexPath.row + currentPageIndex!]
         
         if(workOrder.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
             let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
@@ -338,7 +344,9 @@ extension AccountVisitListViewController : AccountVisitSearchButtonTappedDelegat
         
         tableViewDataArray = dataArrayFromToday
         
-        self.tableView.reloadData()
+        self.initializePagination()
+        
+        //self.tableView.reloadData()
         
         DispatchQueue.main.async {
             if(self.tableViewDataArray.count > 0){
@@ -375,7 +383,9 @@ extension AccountVisitListViewController : AccountVisitSearchButtonTappedDelegat
         
         tableViewDataArray = filteredTableViewDataArray
         
-        self.tableView.reloadData()
+        self.initializePagination()
+        
+        //self.tableView.reloadData()
         
         DispatchQueue.main.async {
             if(self.filteredTableViewDataArray.count > 0){
@@ -421,14 +431,29 @@ enum AccountVisitStatus : String {
 }
 
 
-
-
-
 //MARK:- PageControl Implementation
 extension AccountVisitListViewController{
     enum Page: Int {
         case  previousLbl=0, oneLbl, twoLbl, threeLbl, fourLbl, fiveLbl, nextLbl,lastLbl,firstLbl
         case first = 100, previous, one, two, three, four, five, next,last
+    }
+    
+    //Used to reload the Pagination for refresh
+    func initializePagination(){
+        
+        initPageViewWith(inputArr:tableViewDataArray, pageSize: kPageSize)
+        updateUI()
+        
+        if(numberOfAccountRows > 0){
+            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
+        for count in 1...5 {
+            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+            pageButtonArr[count].backgroundColor = UIColor.white
+            pageButtonArr[count].setTitle(String(count), for: .normal)
+        }
+        pageButtonArr[1].backgroundColor = UIColor.lightGray
+        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
     }
     
     func initPageViewWith(inputArr: [Any], pageSize:Int) {
@@ -548,7 +573,7 @@ extension AccountVisitListViewController{
         
         if(numberOfAccountRows > 0) {
             tableView.reloadData()
-            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
         }
     }
     

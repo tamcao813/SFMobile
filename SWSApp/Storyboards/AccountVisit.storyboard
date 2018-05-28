@@ -495,7 +495,7 @@
                                                                 <constraint firstAttribute="height" constant="20" id="UAJ-Jw-0uQ"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="05/06/2018" placeholder="Start" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9le-V0-bES">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Start" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9le-V0-bES">
                                                             <rect key="frame" x="7" y="21.5" width="150" height="45"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="150" id="39m-3L-KQ2"/>
@@ -520,6 +520,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="9le-V0-bES" firstAttribute="leading" secondItem="2xP-xi-8E1" secondAttribute="leading" constant="7" id="Dn5-69-oSa"/>
+                                                        <constraint firstItem="0qm-BS-0A2" firstAttribute="top" secondItem="2xP-xi-8E1" secondAttribute="top" constant="33.5" id="Lcz-6O-mdp"/>
                                                         <constraint firstItem="4aT-d1-2Dd" firstAttribute="leading" secondItem="2xP-xi-8E1" secondAttribute="leading" constant="6" id="S0E-5e-Hid"/>
                                                         <constraint firstItem="0qm-BS-0A2" firstAttribute="trailing" secondItem="9le-V0-bES" secondAttribute="trailing" constant="-10" id="TtM-4S-Afi"/>
                                                         <constraint firstAttribute="bottom" secondItem="9le-V0-bES" secondAttribute="bottom" constant="6" id="gcc-61-v1l"/>

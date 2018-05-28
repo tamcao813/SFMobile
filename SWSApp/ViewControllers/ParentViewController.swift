@@ -28,9 +28,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var topMenuBar:XMSegmentedControl? = nil
     var onlineSyncStatus:UIBarButtonItem? = nil
     var userInitialLabel:UILabel? = nil
+    var onlineStatusView = UIView()
    
-    
-    
     var moreDropDownSelectionIndex:Int?=0
     
     var notificationButton:UIBarButtonItem? = nil
@@ -124,15 +123,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             } else {
                 print("Reachable via Cellular")
             }
-            self.onlineSyncStatus?.image = UIImage(named: "Online")
+            self.onlineStatusView.backgroundColor = .green
             self.userInitialLabel?.isUserInteractionEnabled = true
         }
         
         reachability.whenUnreachable = { _ in
             print("Not reachable")
-            self.onlineSyncStatus?.image = UIImage(named: "Offline")
+            self.onlineStatusView.backgroundColor = UIColor.lightGray
             self.userInitialLabel?.isUserInteractionEnabled = false
-
         }
         
         do {
@@ -258,7 +256,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.numberLabel?.isUserInteractionEnabled = true
         self.numberLabel?.addGestureRecognizer(tap)
         
-        let onlineStatusView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+        onlineStatusView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
         onlineStatusView.backgroundColor = UIColor(named: "Good")
         
         let statusLabel = UILabel(frame: CGRect(x: 15, y: 5, width: 60, height: 20))
@@ -290,7 +288,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     
     @objc func syncButtonPressed(){
-        self.present(syncUpInfoVC!, animated: true, completion: nil)
+//        self.present(syncUpInfoVC!, animated: true, completion: nil)
     }
     // MARK: SyncUp Data
     @objc func SyncUpData()  {

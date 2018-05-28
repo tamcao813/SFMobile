@@ -134,27 +134,27 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     }
     
     func getDayOfCurrentWeek(dateToConvert:String) ->String  {
-        
-     
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let date = dateFormatter.date(from: dateToConvert)
-        let weekDay = Calendar.current.component(.weekday, from: date!)
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let myComponents = myCalendar.components(.weekday, from: date!)
+        let weekDay = myComponents.weekday
         print( "Day is \(weekDay)" )
         switch weekDay {
-        case 1:
+        case 1?:
             return "Sunday"
-        case 2:
+        case 2?:
             return "Monday"
-        case 3:
+        case 3?:
             return "Tuesday"
-        case 4:
+        case 4?:
             return "Wednesday"
-        case 5:
+        case 5?:
             return "Thursday"
-        case 6:
+        case 6?:
             return "Friday"
-        case 7:
+        case 7?:
             return "Saturday"
         default:
             return "No Day"
@@ -194,6 +194,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         return timeStamp
     }
     
+    
+    
     func getDayFromActionItem(dateToConvert:String)-> String  {
         //Getting Today, Tomorrow, Yesterday
         let calendar = Calendar.current
@@ -210,12 +212,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         }
         else if calendar.isDateInTomorrow(date!)
         {
-            
             return  "Tomorrow"
             
         }else if calendar.isDateInYesterday(date!)
         {
-            
             return  "Yesterday"
         }
         

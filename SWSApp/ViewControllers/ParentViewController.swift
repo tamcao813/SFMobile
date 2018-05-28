@@ -29,6 +29,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var onlineSyncStatus:UIBarButtonItem? = nil
     var userInitialLabel:UILabel? = nil
     var onlineStatusView = UIView()
+    let statusLabel = UILabel()
    
     var moreDropDownSelectionIndex:Int?=0
     
@@ -123,13 +124,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             } else {
                 print("Reachable via Cellular")
             }
+            self.statusLabel.text = "Online"
             self.onlineStatusView.backgroundColor = UIColor(named: "Good")
             self.userInitialLabel?.isUserInteractionEnabled = true
         }
         
         reachability.whenUnreachable = { _ in
-            print("Not reachable")
             self.onlineStatusView.backgroundColor = UIColor.lightGray
+            self.statusLabel.text = "Offline"
             self.userInitialLabel?.isUserInteractionEnabled = false
         }
         
@@ -259,7 +261,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         onlineStatusView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
         onlineStatusView.backgroundColor = UIColor(named: "Good")
         
-        let statusLabel = UILabel(frame: CGRect(x: 15, y: 5, width: 60, height: 20))
+        statusLabel = UILabel(frame: CGRect(x: 15, y: 5, width: 60, height: 20))
         statusLabel.font  = UIFont.boldSystemFont(ofSize: 12)
         statusLabel.text = "Online"
         statusLabel.textColor = UIColor.white

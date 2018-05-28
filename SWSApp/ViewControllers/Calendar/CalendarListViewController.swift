@@ -45,16 +45,7 @@ class CalendarListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if (self.calendarMonthController?.view != nil) {
-            DispatchQueue.main.async {
-                self.calendarMonthController?.view.isHidden = true
-            }
-        }
-        for view in self.bottomView.subviews{
-            view.isHidden = false
-        }
-        
+
         globalVisit = CalendarViewModel().loadVisitData()!
         CalendarFilterMenuModel.searchText = ""
         CalendarFilterMenuModel.visitsType = "YES"
@@ -76,6 +67,21 @@ class CalendarListViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshCalendar"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("LoadWeekView"), object: nil)
+        
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if (self.calendarMonthController?.view != nil) {
+            DispatchQueue.main.async {
+                self.calendarMonthController?.view.isHidden = true
+            }
+        }
+        for view in self.bottomView.subviews{
+            view.isHidden = false
+        }
     }
     
     // MARK: - Calendar Refresh

@@ -212,7 +212,12 @@ class AccountVisitListSortUtility {
         
         
         //DATE RANGE
-        
+        if AccountVisitListFilterModel.isThisWeek == "YES"{
+            print(Date().endOfWeek.add(component: .day, value: 1))
+            
+            
+            
+        }
         
         
         

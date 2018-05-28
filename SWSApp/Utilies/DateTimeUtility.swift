@@ -30,13 +30,18 @@ class DateTimeUtility
     /* Function Will return the date in format yyyy-dd-mm from sting in format yyyy-dd-mm */
     
     static func getDDMMYYYFormattedDateFromString(dateString: String) -> Date {
-        let dateformatter = DateFormatter()
-        dateformatter.timeStyle = .medium
-        dateformatter.dateFormat = "yyyy-mm-dd"
-        var dateFromString = Date()
-        dateFromString = dateformatter.date(from: dateString)!
         
-        return dateFromString
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let DateArray = dateString.components(separatedBy: "-")
+        let components = NSDateComponents()
+        components.year = Int(DateArray[0])!
+        components.month = Int(DateArray[1])!
+        components.day = Int(DateArray[2])!
+        components.timeZone = TimeZone(abbreviation: "GMT+0:00")
+        let date = calendar.date(from: components as DateComponents)
+        
+        return date!
+
     }
     
    

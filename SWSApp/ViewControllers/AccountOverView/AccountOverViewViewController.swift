@@ -31,6 +31,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     var pastActionItem = [ActionItem]()
     var pastActionItemArrayToDisplay = [ActionItem]()
     
+    let dateFormatter = DateFormatter()
+    let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
     
     
     
@@ -134,10 +136,9 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     }
     
     func getDayForVisitCurrentWeek(dateToConvert:String) ->String  {
-        let dateFormatter = DateFormatter()
+        
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let date = dateFormatter.date(from: dateToConvert)
-        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
         let myComponents = myCalendar.components(.weekday, from: date!)
         let weekDay = myComponents.weekday
         switch weekDay {
@@ -161,10 +162,9 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     }
     
     func getDayForActionCurrentWeek(dateToConvert:String) ->String  {
-        let dateFormatter = DateFormatter()
+       
         dateFormatter.dateFormat = "MM-dd-yyyy"
         let date = dateFormatter.date(from: dateToConvert)
-        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
         let myComponents = myCalendar.components(.weekday, from: date!)
         let weekDay = myComponents.weekday
         switch weekDay {
@@ -192,7 +192,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     func getDayFromVisit(dateToConvert:String)-> String  {
         //Getting Today, Tomorrow, Yesterday
         let calendar = Calendar.current
-        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date

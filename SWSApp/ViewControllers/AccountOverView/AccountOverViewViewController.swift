@@ -52,9 +52,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         pastActivitiesTableView.rowHeight = UITableViewAutomaticDimension;
         pastActivitiesTableView.estimatedRowHeight = 100
         pastActivitiesTableView.tableFooterView = UIView()
-        
-        
+
         self.accountId = account?.account_Id
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)
         
         getDB()
 
@@ -69,9 +70,12 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)
+        self.upcomingActivitiesTableView.reloadData()
+        self.pastActivitiesTableView.reloadData()
+        
     }
     
     func getDB()  {
@@ -117,13 +121,15 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             }
             
         }
-        self.upcomingActivitiesTableView.reloadData()
-        self.pastActivitiesTableView.reloadData()
+        DispatchQueue.main.async {
+            self.upcomingActivitiesTableView.reloadData()
+            self.pastActivitiesTableView.reloadData()
+        }
+        
     }
 
     
-  //  if(object.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit)
-    
+   
     
     
     func getDayFromVisit(dateToConvert:String)-> String  {

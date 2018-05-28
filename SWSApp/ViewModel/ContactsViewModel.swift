@@ -25,6 +25,10 @@ class ContactsViewModel{
         return StoreDispatcher.shared.fetchGlobalContacts()
     }
     
+    func sgwsEmployeeContacts() -> [Contact] {
+        return StoreDispatcher.shared.fetchAllSGWSEmployeeContacts()
+    }
+    
     func contacts(forAccount accountId:String) -> [Contact] {
        return StoreDispatcher.shared.fetchContacts(forAccount: accountId)
     }

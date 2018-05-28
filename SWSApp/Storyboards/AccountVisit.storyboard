@@ -858,6 +858,9 @@
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="560079" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiX-Va-Kay">
                                                             <rect key="frame" x="30" y="139" width="54.5" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="18" id="feV-cK-RKA"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -891,6 +894,7 @@
                                                         <constraint firstItem="HM0-AI-dCb" firstAttribute="leading" secondItem="mMI-tp-0ed" secondAttribute="leading" id="AKM-c4-CTr"/>
                                                         <constraint firstItem="HM0-AI-dCb" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" id="FVj-kn-U74"/>
                                                         <constraint firstItem="gip-U4-gJm" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" constant="35" id="Feq-6S-vub"/>
+                                                        <constraint firstItem="n88-Jz-T8l" firstAttribute="top" secondItem="l5Q-hh-LZz" secondAttribute="bottom" constant="16" id="Jtr-Rf-hzC"/>
                                                         <constraint firstAttribute="bottom" secondItem="n88-Jz-T8l" secondAttribute="bottom" constant="16" id="KbB-oY-YjL"/>
                                                         <constraint firstItem="l5Q-hh-LZz" firstAttribute="top" secondItem="VjM-od-8oK" secondAttribute="bottom" constant="47" id="KnH-bt-Y23"/>
                                                         <constraint firstAttribute="bottom" secondItem="gaK-Ew-k1B" secondAttribute="bottom" constant="23" id="Ofi-cm-Ati"/>

@@ -148,10 +148,17 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     }
 }
 
-
-
-
-
+extension AccountVisitListFilterTableViewCell: UITextFieldDelegate{
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
+    
+}
 
 
 

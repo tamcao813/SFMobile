@@ -377,12 +377,7 @@ class CreateNewEventViewController: UIViewController {
         if let dateFromString = dateFormatter.date(from: string) {
             //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            
-            if CreateNewEventViewControllerGlobals.allDayEventSelected{
-                dateFormatter.timeZone = TimeZone.current
-            }else{
-                dateFormatter.timeZone = TimeZone(identifier:"UTC")
-            }
+            dateFormatter.timeZone = TimeZone(identifier:"UTC")
             string = dateFormatter.string(from: dateFromString)
         }
         return string

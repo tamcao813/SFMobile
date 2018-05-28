@@ -27,8 +27,7 @@ class AccountVisitListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
-
-        getTheDataFromDB()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +35,13 @@ class AccountVisitListViewController: UIViewController {
         
         customizedUI()
         //initializingXIBs()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //DispatchQueue.global().async {
+            self.getTheDataFromDB()
+        //}
     }
     
     @objc func refreshAccountVisitList(){
@@ -49,11 +55,16 @@ class AccountVisitListViewController: UIViewController {
         
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'00:00:00.000+0000"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date)
         
-        tableViewDataArray = tableViewDataArray.filter({ return $0.startDate >= timeStamp })
+        tableViewDataArray = tableViewDataArray.filter({
+            let date = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+            print(date)
+            return date >= timeStamp
+        })
+        
         tableViewDataArray = tableViewDataArray.sorted(by: { $0.startDate < $1.startDate })
         
         dataArrayFromToday = tableViewDataArray.sorted(by: { $0.startDate < $1.startDate })
@@ -62,7 +73,11 @@ class AccountVisitListViewController: UIViewController {
         let newDate = date.addingTimeInterval(-(60 * 60 * 24))
         let pastVisitsEventsTimeStamp = dateFormatter.string(from: newDate)
         
-        mainArray = mainArray.filter({ return $0.startDate >= pastVisitsEventsTimeStamp })
+        mainArray = mainArray.filter({
+            let date = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+            return date >= pastVisitsEventsTimeStamp
+        })
+        
         mainArray = mainArray.sorted(by: { $0.startDate < $1.startDate })
         
         DispatchQueue.main.async {

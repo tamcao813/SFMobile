@@ -47,13 +47,13 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         pastActivitiesTableView.dataSource = self
         
         
-        upcomingActivitiesTableView.rowHeight = UITableViewAutomaticDimension;
-        upcomingActivitiesTableView.estimatedRowHeight = 100
-        upcomingActivitiesTableView.tableFooterView = UIView()
-        
-        pastActivitiesTableView.rowHeight = UITableViewAutomaticDimension;
-        pastActivitiesTableView.estimatedRowHeight = 100
-        pastActivitiesTableView.tableFooterView = UIView()
+//                upcomingActivitiesTableView.rowHeight = UITableViewAutomaticDimension;
+//                upcomingActivitiesTableView.estimatedRowHeight = 100
+//                upcomingActivitiesTableView.tableFooterView = UIView()
+//        
+//                pastActivitiesTableView.rowHeight = UITableViewAutomaticDimension;
+//                pastActivitiesTableView.estimatedRowHeight = 100
+//                pastActivitiesTableView.tableFooterView = UIView()
         
         self.accountId = account?.account_Id
         
@@ -82,7 +82,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     }
     
     func getDB()  {
-      
+        
         upcomingVisitArrayToDisplay = [WorkOrderUserObject]()
         pastVisitArrayToDisplay = [WorkOrderUserObject]()
         upcomingActionItemArrayToDisplay = [ActionItem]()
@@ -162,7 +162,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     }
     
     func getDayForActionCurrentWeek(dateToConvert:String) ->String  {
-       
+        
         dateFormatter.dateFormat = "MM-dd-yyyy"
         let date = dateFormatter.date(from: dateToConvert)
         let myComponents = myCalendar.components(.weekday, from: date!)
@@ -399,8 +399,11 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         }
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//       return 150
+//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

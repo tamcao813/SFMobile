@@ -71,11 +71,12 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+   
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.upcomingActivitiesTableView.reloadData()
         self.pastActivitiesTableView.reloadData()
-        
     }
     
     func getDB()  {
@@ -156,6 +157,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
             return  "Yesterday at " + dateTime[1]
         }
+        
        
         
         dateFormatter.dateFormat = "MM-dd-yyyy h:mma"

@@ -57,12 +57,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         self.accountId = account?.account_Id
         
         getDB()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)
-        
-      
-        
-       
-      
+
         
     }
     
@@ -73,6 +68,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)
     }
     
     func getDB()  {
@@ -118,6 +117,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             }
             
         }
+        self.upcomingActivitiesTableView.reloadData()
+        self.pastActivitiesTableView.reloadData()
     }
 
     
@@ -224,7 +225,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 cell.UpComingActivities_Image.image = UIImage(named: "Bell")
                 return cell
             }else{
-                if upcomingVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit{
+                if pastVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit{
                     cell.UpComingActivities_TitleLabel.text = "Visit " + pastVisitArrayToDisplay[indexPath.row].accountName
                 }else{
                       cell.UpComingActivities_TitleLabel.text =  pastVisitArrayToDisplay[indexPath.row].subject
@@ -249,7 +250,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
             else{
                 cell.UpComingActivities_TitleLabel.text = pastActionItemArrayToDisplay[indexPath.row].subject
-                cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: upcomingActionItemArrayToDisplay[indexPath.row].activityDate)
+                cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: pastActionItemArrayToDisplay[indexPath.row].activityDate)
                 if pastActionItemArrayToDisplay[indexPath.row].isUrgent{
                     cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
                 }

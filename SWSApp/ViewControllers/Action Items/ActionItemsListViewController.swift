@@ -60,7 +60,7 @@ class ActionItemsListViewController: UIViewController {
         }else{
             actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
         }
-        actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
+       // actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
         if ActionItemFilterModel.filterApplied {
             applyFilter(searchText: searchStr)
         }

@@ -133,14 +133,40 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
     }
     
-    func getDayOfCurrentWeek(dateToConvert:String) ->String  {
+    func getDayForVisitCurrentWeek(dateToConvert:String) ->String  {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let date = dateFormatter.date(from: dateToConvert)
         let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
         let myComponents = myCalendar.components(.weekday, from: date!)
         let weekDay = myComponents.weekday
-        print( "Day is \(weekDay)" )
+        switch weekDay {
+        case 1?:
+            return "Sunday"
+        case 2?:
+            return "Monday"
+        case 3?:
+            return "Tuesday"
+        case 4?:
+            return "Wednesday"
+        case 5?:
+            return "Thursday"
+        case 6?:
+            return "Friday"
+        case 7?:
+            return "Saturday"
+        default:
+            return "No Day"
+        }
+    }
+    
+    func getDayForActionCurrentWeek(dateToConvert:String) ->String  {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        let date = dateFormatter.date(from: dateToConvert)
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let myComponents = myCalendar.components(.weekday, from: date!)
+        let weekDay = myComponents.weekday
         switch weekDay {
         case 1?:
             return "Sunday"
@@ -171,6 +197,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
         let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: dateToConvert)
+        let dayToCheck = dateFormatter.string(from: date!)
         var dateTime = getTime.components(separatedBy: " ")
         
         if calendar.isDateInToday(date!){
@@ -186,9 +213,44 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         {
             
             return  "Yesterday at " + dateTime[1]
+            
+        }else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Sunday"{
+            
+            return "Sunday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Monday"{
+            
+            return "Monday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Tuesday"{
+            
+            return "Tuesday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Wednesday"{
+            
+            return "Wednesday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Thursday"{
+            
+            return "Thursday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Friday"{
+            
+            return "Friday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Saturday"{
+            
+            return "Saturday"
+            
         }
         
-  
+        
         dateFormatter.dateFormat = "MM-dd-yyyy h:mma"
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp
@@ -217,7 +279,42 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         }else if calendar.isDateInYesterday(date!)
         {
             return  "Yesterday"
+        }else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Sunday"{
+            
+            return "Sunday"
+            
         }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Monday"{
+            
+            return "Monday"
+            
+        }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Tuesday"{
+            
+            return "Tuesday"
+            
+        }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Wednesday"{
+            
+            return "Wednesday"
+            
+        }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Thursday"{
+            
+            return "Thursday"
+            
+        }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Friday"{
+            
+            return "Friday"
+            
+        }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Saturday"{
+            
+            return "Saturday"
+            
+        }
+        
         
         return timeStamp
     }

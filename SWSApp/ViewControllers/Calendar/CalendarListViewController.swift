@@ -56,13 +56,14 @@ class CalendarListViewController: UIViewController {
         weekEndsEnabled = true
         
         if (self.calendarMonthController?.view != nil) {
-            self.calendarMonthController?.view.removeFromSuperview()
-            self.calendarMonthController?.removeFromParentViewController()
-            self.calendarMonthController = nil
+            DispatchQueue.main.async {
+                self.calendarMonthController?.view.isHidden = true
+            }
         }
         for view in self.bottomView.subviews{
             view.isHidden = false
         }
+        
 
         displayWeekends()
         reloadCalendarView()
@@ -85,21 +86,23 @@ class CalendarListViewController: UIViewController {
     }
     
     @objc func showWeek(_ notification: NSNotification) {
+
         if (self.calendarMonthController?.view != nil) {
-            self.calendarMonthController?.view.removeFromSuperview()
-            self.calendarMonthController?.removeFromParentViewController()
-            self.calendarMonthController = nil
+            DispatchQueue.main.async {
+                self.calendarMonthController?.view.isHidden = true
+            }
         }
         for view in self.bottomView.subviews{
             view.isHidden = false
         }
-        self.currentCalendarViewType = .Week
-        self.calViewButton.setTitle("Week View    ", for: .normal)
+        self.currentCalendarViewType = .Day
+        self.calViewButton.setTitle("Day View    ", for: .normal)
         if let date = notification.userInfo?["date"] as? Date {
             // do something with your image
             currentShowingDate = date
             weekView.setCalendarDate(date, animated: true)
         }
+        weekView.calendarType = .day
     }
     
     func reloadCalendarView() {
@@ -156,6 +159,9 @@ class CalendarListViewController: UIViewController {
                 self.calendarMonthController?.removeFromParentViewController()
                 self.calendarMonthController = nil
             }
+            for view in self.bottomView.subviews{
+                view.isHidden = true
+            }
             
             self.calendarMonthController = UIStoryboard(name: "Calendar", bundle: nil).instantiateViewController(withIdentifier: "CalendarMonthViewController") as? CalendarMonthViewController
             self.addChildViewController(self.calendarMonthController!)
@@ -164,6 +170,10 @@ class CalendarListViewController: UIViewController {
             
             self.calViewButton.setTitle("Month View    ", for: .normal)
             self.currentCalendarViewType = .Month
+            
+            if( !self.weekEndsEnabled) {
+                NotificationCenter.default.post(name: Notification.Name("WEEKENDTOGGLE"), object: nil, userInfo:nil)
+            }
         }
         
     }
@@ -257,13 +267,12 @@ class CalendarListViewController: UIViewController {
                 if self.currentCalendarViewType == .Day {
                     return
                 }
-                if (self.calendarMonthController?.view != nil) {
-                    self.calendarMonthController?.view.removeFromSuperview()
-                    self.calendarMonthController?.removeFromParentViewController()
-                    self.calendarMonthController = nil
-                }
+
                 for view in self.bottomView.subviews{
                     view.isHidden = false
+                }
+                DispatchQueue.main.async {
+                    self.calendarMonthController?.view.isHidden = true
                 }
                 self.currentCalendarViewType = .Day
                 self.calViewButton.setTitle("Day View    ", for: .normal)
@@ -272,13 +281,12 @@ class CalendarListViewController: UIViewController {
                 if self.currentCalendarViewType == .Week {
                     return
                 }
-                if (self.calendarMonthController?.view != nil) {
-                    self.calendarMonthController?.view.removeFromSuperview()
-                    self.calendarMonthController?.removeFromParentViewController()
-                    self.calendarMonthController = nil
-                }
+
                 for view in self.bottomView.subviews{
                     view.isHidden = false
+                }
+                DispatchQueue.main.async {
+                    self.calendarMonthController?.view.isHidden = true
                 }
                 self.currentCalendarViewType = .Week
                 self.calViewButton.setTitle("Week View    ", for: .normal)
@@ -290,10 +298,15 @@ class CalendarListViewController: UIViewController {
                 for view in self.bottomView.subviews{
                     view.isHidden = true
                 }
+                if (self.calendarMonthController?.view == nil) {
                 self.calendarMonthController = UIStoryboard(name: "Calendar", bundle: nil).instantiateViewController(withIdentifier: "CalendarMonthViewController") as? CalendarMonthViewController
                 self.addChildViewController(self.calendarMonthController!)
                 self.calendarMonthController?.view.frame = CGRect(x: self.bottomView.bounds.origin.x, y: self.bottomView.bounds.origin.y, width: self.bottomView.frame.size.width, height: self.bottomView.bounds.size.height)
                 self.bottomView.addSubview((self.calendarMonthController?.view)!)
+                } else {
+                    DispatchQueue.main.async {
+                        self.calendarMonthController?.view.isHidden = false
+                    }                }
                 
                 self.calViewButton.setTitle("Month View    ", for: .normal)
                 self.currentCalendarViewType = .Month

@@ -192,6 +192,7 @@ class CreateNewVisitViewController: UIViewController {
             }else{
                 createNewVisit(dismiss: true)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             }
         }
     }
@@ -338,6 +339,7 @@ class CreateNewVisitViewController: UIViewController {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             if dismiss {
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)

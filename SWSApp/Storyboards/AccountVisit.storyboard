@@ -228,7 +228,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2-5PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="fYD-bt-TL4">
-                                        <rect key="frame" x="5" y="86.5" width="110" height="21"/>
+                                        <rect key="frame" x="5" y="75" width="110" height="21"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -244,7 +244,7 @@
                                     <constraint firstItem="eOU-At-7os" firstAttribute="top" secondItem="A0f-R3-edu" secondAttribute="bottom" constant="5" id="QSb-J2-KYS"/>
                                     <constraint firstItem="fYD-bt-TL4" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="X4f-Bi-Lpg"/>
                                     <constraint firstItem="fYD-bt-TL4" firstAttribute="leading" secondItem="xYG-9I-MTa" secondAttribute="leading" constant="5" id="cTe-hZ-vzi"/>
-                                    <constraint firstItem="fYD-bt-TL4" firstAttribute="top" secondItem="eOU-At-7os" secondAttribute="bottom" constant="5" id="dxc-QN-ku9"/>
+                                    <constraint firstItem="fYD-bt-TL4" firstAttribute="top" secondItem="eOU-At-7os" secondAttribute="bottom" constant="-6.5" id="dxc-QN-ku9"/>
                                     <constraint firstItem="eOU-At-7os" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="uGv-qR-8dk"/>
                                 </constraints>
                             </view>

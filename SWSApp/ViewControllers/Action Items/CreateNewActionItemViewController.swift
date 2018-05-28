@@ -216,6 +216,8 @@ class CreateNewActionItemViewController: UIViewController {
             self.delegate?.updateActionList()
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+                
             }
             self.dismiss(animated: true, completion: nil)
         }

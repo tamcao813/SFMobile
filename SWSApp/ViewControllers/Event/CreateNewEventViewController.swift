@@ -123,6 +123,7 @@ class CreateNewEventViewController: UIViewController {
                 }
             }else{
                 self.dismiss(animated: true, completion: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
             }
         }
     }
@@ -135,10 +136,12 @@ class CreateNewEventViewController: UIViewController {
                     editCurrentEvent()
                     DispatchQueue.main.async {
                         self.dismiss(animated: true)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                     }
                 }
             }else{
                 createNewEvent()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
             }
         }
     }

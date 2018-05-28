@@ -253,7 +253,7 @@ class AccountVisitSummaryViewController: UIViewController {
             
             if(success){
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
-                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                 self.dismiss(animated: true, completion: nil)
             }
             
@@ -349,15 +349,15 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+         //   AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                 FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
-                self.dismiss(animated: true, completion: nil)                
+                self.dismiss(animated: true, completion: nil)
                 self.delegate?.navigateToAccountScreen()
-            }){
+           // }){
                 
             }
         }        
-    }
+    //}
 }
 
 

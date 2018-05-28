@@ -41,6 +41,9 @@ class StoreDispatcher {
     var workOrderRecordTypeIdVisit = ""
     var workOrderRecordTypeIdEvent = ""
     
+    var syncProgress:Int = 0
+
+    
     var workOrderTypeDict:[String:String] = [:]
 
 
@@ -1004,6 +1007,41 @@ class StoreDispatcher {
         
     }
     
+    func fetchAllSGWSEmployeeContacts() -> [Contact] {
+        
+        var contactAry: [Contact] = []
+        
+        let fields = User.UserFields.map{"{User:\($0)}"}
+        
+        let soqlQuery = "Select DISTINCT \(fields.joined(separator: ",")) from {User}"
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let user = User(withAry: ary)
+                
+                let json:[String:Any] = [ "Id":user.id, "Name":user.userName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                
+                let contact =  Contact.init(json: json)
+                
+                contactAry.append(contact)
+            }
+        }
+        else if error != nil {
+            print("fetchAllSGWSEmployeeContacts" + " error:" + (error?.localizedDescription)!)
+            
+        }
+        print("All SGWS Employees Contacts are \(contactAry)")
+        return contactAry
+        
+    }
+    
+    
     func fetchGlobalContacts() -> [Contact]  {
         
         var contactAry: [Contact] = []
@@ -1361,7 +1399,11 @@ class StoreDispatcher {
                         }
                     }
                     
-                    completion(nil)
+                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
+                        .done {_ in
+                            completion(nil)
+                    }
+                    
                 }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownVisit() >>>>>>>"
@@ -1382,6 +1424,7 @@ class StoreDispatcher {
     func fetchEvents()->[Visit]{
         
         var visit: [Visit] = []
+         var duplicateVisitArray: [Visit] = []
         
         let soapQuery = "Select * FROM {WorkOrder} WHERE {WorkOrder:RecordTypeId} = '\(workOrderRecordTypeIdEvent)'"
         
@@ -1429,7 +1472,10 @@ class StoreDispatcher {
 
                 
                 let ary:[Any] = result[i] as! [Any]
+//              let visitArray = Visit(withAry: newarr)
+                
                 let visitArray = Visit(withAry: newarr)
+                
                 visit.append(visitArray)
                 print("Visit/Event array \(ary)")
             }
@@ -1507,7 +1553,11 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print(">>>>>> ActionItem SoupActionItem() done >>>>>")
-                    completion(nil)
+                    //
+                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
+                        .done {_ in
+                            completion(nil)
+                    }
                 }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownActionItem() >>>>>>>"
@@ -1819,8 +1869,10 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print(">>>>>> Notes syncDownNote() done >>>>>")
-                    completion(nil)
-                }
+                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
+                        .done {_ in
+                            completion(nil)
+                    }                }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownNotes() >>>>>>>"
                     let userInfo: [String: Any] =
@@ -2291,8 +2343,11 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print(">>>>>>  syncDownStrategyQA() done >>>>>")
-                    completion(nil)
-                }
+                    
+                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
+                        .done {_ in
+                            completion(nil)
+                    }                }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownStrategyQA() >>>>>>>"
                     let userInfo: [String: Any] =
@@ -2898,9 +2953,9 @@ class StoreDispatcher {
         
         var accVisitEventArray:[WorkOrderUserObject] = []
         
-        let soqlQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id}"
+        let soupQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId}"
         
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
@@ -2932,5 +2987,7 @@ class StoreDispatcher {
         return accVisitEventArray
         
     }
+    
+    
     
 }

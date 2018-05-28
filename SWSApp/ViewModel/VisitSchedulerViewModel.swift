@@ -61,5 +61,7 @@ class VisitSchedulerViewModel {
         return false
     }
     
+  
+    
 
 }

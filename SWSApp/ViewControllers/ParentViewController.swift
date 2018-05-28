@@ -123,7 +123,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             } else {
                 print("Reachable via Cellular")
             }
-            self.onlineStatusView.backgroundColor = .green
+            self.onlineStatusView.backgroundColor = UIColor(named: "Good")
             self.userInitialLabel?.isUserInteractionEnabled = true
         }
         

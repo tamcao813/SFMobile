@@ -221,6 +221,7 @@ class AccountEventSummaryViewController: UIViewController {
             let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
             
             if(success){
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                 

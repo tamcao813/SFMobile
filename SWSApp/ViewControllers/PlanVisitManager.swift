@@ -102,6 +102,8 @@ class PlanVisitManager {
         
         let success = VisitSchedulerViewModel().editVisitToSoup(fields: addNewDict)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+        
         print("Success is here \(success)")
         
         

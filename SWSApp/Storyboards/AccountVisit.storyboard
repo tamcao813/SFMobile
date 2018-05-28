@@ -244,7 +244,7 @@
                                     <constraint firstItem="eOU-At-7os" firstAttribute="top" secondItem="A0f-R3-edu" secondAttribute="bottom" constant="5" id="QSb-J2-KYS"/>
                                     <constraint firstItem="fYD-bt-TL4" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="X4f-Bi-Lpg"/>
                                     <constraint firstItem="fYD-bt-TL4" firstAttribute="leading" secondItem="xYG-9I-MTa" secondAttribute="leading" constant="5" id="cTe-hZ-vzi"/>
-                                    <constraint firstItem="fYD-bt-TL4" firstAttribute="top" secondItem="eOU-At-7os" secondAttribute="bottom" constant="5" id="dxc-QN-ku9"/>
+                                    <constraint firstItem="fYD-bt-TL4" firstAttribute="top" secondItem="eOU-At-7os" secondAttribute="bottom" constant="-6.5" id="dxc-QN-ku9"/>
                                     <constraint firstItem="eOU-At-7os" firstAttribute="centerX" secondItem="xYG-9I-MTa" secondAttribute="centerX" id="uGv-qR-8dk"/>
                                 </constraints>
                             </view>

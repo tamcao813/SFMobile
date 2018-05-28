@@ -220,9 +220,9 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     }
     
     @objc func refreshActionItemList(){
-        let button = UIButton()
-        button.tag = 5
-        self.itemsClicked(sender: button)
+//        let button = UIButton()
+//        button.tag = 5
+//        self.itemsClicked(sender: button)
     }
     
     

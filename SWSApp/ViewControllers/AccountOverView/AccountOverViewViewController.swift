@@ -21,7 +21,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     var upcomingVisit = [WorkOrderUserObject]()
     var upcomingVisitArrayToDisplay = [WorkOrderUserObject]()
     
-
+    
     var pastVisit = [WorkOrderUserObject]()
     var pastVisitArrayToDisplay = [WorkOrderUserObject]()
     
@@ -31,6 +31,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     var pastActionItem = [ActionItem]()
     var pastActionItemArrayToDisplay = [ActionItem]()
     
+    let dateFormatter = DateFormatter()
+    let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
     
     
     
@@ -53,16 +55,12 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         pastActivitiesTableView.estimatedRowHeight = 100
         pastActivitiesTableView.tableFooterView = UIView()
         
-        
         self.accountId = account?.account_Id
         
-        getDB()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)
         
-      
+        getDB()
         
-       
-      
         
     }
     
@@ -75,7 +73,21 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.upcomingActivitiesTableView.reloadData()
+        self.pastActivitiesTableView.reloadData()
+    }
+    
     func getDB()  {
+      
+        upcomingVisitArrayToDisplay = [WorkOrderUserObject]()
+        pastVisitArrayToDisplay = [WorkOrderUserObject]()
+        upcomingActionItemArrayToDisplay = [ActionItem]()
+        pastActionItemArrayToDisplay = [ActionItem]()
+        
         //creating upcomingvisit array according to accountId
         upcomingVisit = visitModel.visitsForUserTwoWeeksUpcoming()
         for accVisit in upcomingVisit {
@@ -104,8 +116,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             if(accVisit.accountId ==  accountId) {
                 pastVisitArrayToDisplay.append(accVisit)
             }
-            
-            
         }
         
         //creating past action item array according to accountId
@@ -118,22 +128,77 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             }
             
         }
+        DispatchQueue.main.async {
+            self.upcomingActivitiesTableView.reloadData()
+            self.pastActivitiesTableView.reloadData()
+        }
+        
     }
-
     
-  //  if(object.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit)
+    func getDayForVisitCurrentWeek(dateToConvert:String) ->String  {
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let date = dateFormatter.date(from: dateToConvert)
+        let myComponents = myCalendar.components(.weekday, from: date!)
+        let weekDay = myComponents.weekday
+        switch weekDay {
+        case 1?:
+            return "Sunday"
+        case 2?:
+            return "Monday"
+        case 3?:
+            return "Tuesday"
+        case 4?:
+            return "Wednesday"
+        case 5?:
+            return "Thursday"
+        case 6?:
+            return "Friday"
+        case 7?:
+            return "Saturday"
+        default:
+            return "No Day"
+        }
+    }
+    
+    func getDayForActionCurrentWeek(dateToConvert:String) ->String  {
+       
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        let date = dateFormatter.date(from: dateToConvert)
+        let myComponents = myCalendar.components(.weekday, from: date!)
+        let weekDay = myComponents.weekday
+        switch weekDay {
+        case 1?:
+            return "Sunday"
+        case 2?:
+            return "Monday"
+        case 3?:
+            return "Tuesday"
+        case 4?:
+            return "Wednesday"
+        case 5?:
+            return "Thursday"
+        case 6?:
+            return "Friday"
+        case 7?:
+            return "Saturday"
+        default:
+            return "No Day"
+        }
+    }
     
     
     
     func getDayFromVisit(dateToConvert:String)-> String  {
         //Getting Today, Tomorrow, Yesterday
         let calendar = Calendar.current
-        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
         let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: dateToConvert)
+        let dayToCheck = dateFormatter.string(from: date!)
         var dateTime = getTime.components(separatedBy: " ")
+        
         if calendar.isDateInToday(date!){
             
             return  "Today at " + dateTime[1]
@@ -147,12 +212,50 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         {
             
             return  "Yesterday at " + dateTime[1]
+            
+        }else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Sunday"{
+            
+            return "Sunday"
+            
         }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Monday"{
+            
+            return "Monday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Tuesday"{
+            
+            return "Tuesday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Wednesday"{
+            
+            return "Wednesday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Thursday"{
+            
+            return "Thursday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Friday"{
+            
+            return "Friday"
+            
+        }
+        else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Saturday"{
+            
+            return "Saturday"
+            
+        }
+        
         
         dateFormatter.dateFormat = "MM-dd-yyyy h:mma"
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp
     }
+    
+    
     
     func getDayFromActionItem(dateToConvert:String)-> String  {
         //Getting Today, Tomorrow, Yesterday
@@ -170,14 +273,47 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         }
         else if calendar.isDateInTomorrow(date!)
         {
-            
             return  "Tomorrow"
             
         }else if calendar.isDateInYesterday(date!)
         {
-            
             return  "Yesterday"
+        }else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Sunday"{
+            
+            return "Sunday"
+            
         }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Monday"{
+            
+            return "Monday"
+            
+        }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Tuesday"{
+            
+            return "Tuesday"
+            
+        }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Wednesday"{
+            
+            return "Wednesday"
+            
+        }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Thursday"{
+            
+            return "Thursday"
+            
+        }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Friday"{
+            
+            return "Friday"
+            
+        }
+        else if getDayForActionCurrentWeek(dateToConvert: timeStamp) == "Saturday"{
+            
+            return "Saturday"
+            
+        }
+        
         
         return timeStamp
     }
@@ -216,7 +352,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         case 0:
             if tableView.tag == 1{
                 if upcomingVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit{
-                cell.UpComingActivities_TitleLabel.text = "Visit " + upcomingVisitArrayToDisplay[indexPath.row].accountName
+                    cell.UpComingActivities_TitleLabel.text = "Visit " + upcomingVisitArrayToDisplay[indexPath.row].accountName
                 }else{
                     cell.UpComingActivities_TitleLabel.text = upcomingVisitArrayToDisplay[indexPath.row].subject
                 }
@@ -224,10 +360,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 cell.UpComingActivities_Image.image = UIImage(named: "Bell")
                 return cell
             }else{
-                if upcomingVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit{
+                if pastVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit{
                     cell.UpComingActivities_TitleLabel.text = "Visit " + pastVisitArrayToDisplay[indexPath.row].accountName
                 }else{
-                      cell.UpComingActivities_TitleLabel.text =  pastVisitArrayToDisplay[indexPath.row].subject
+                    cell.UpComingActivities_TitleLabel.text =  pastVisitArrayToDisplay[indexPath.row].subject
                 }
                 cell.UpComingActivities_TimeLabel.text = getDayFromVisit(dateToConvert: pastVisitArrayToDisplay[indexPath.row].startDate)
                 cell.UpComingActivities_Image.image = UIImage(named: "Bell")
@@ -246,10 +382,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 
                 return cell
             }
-            
+                
             else{
                 cell.UpComingActivities_TitleLabel.text = pastActionItemArrayToDisplay[indexPath.row].subject
-                cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: upcomingActionItemArrayToDisplay[indexPath.row].activityDate)
+                cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: pastActionItemArrayToDisplay[indexPath.row].activityDate)
                 if pastActionItemArrayToDisplay[indexPath.row].isUrgent{
                     cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
                 }
@@ -291,15 +427,15 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                     }
                     
                 }else{
-                
-                let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
-                let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-                PlanVisitManager.sharedInstance.visit = upcomingVisitArrayToDisplay[indexPath.row]
-                (accountVisitsVC)?.delegate = self
-                accountVisitsVC?.visitId = upcomingVisitArrayToDisplay[indexPath.row].Id
+                    
+                    let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
+                    let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
+                    PlanVisitManager.sharedInstance.visit = upcomingVisitArrayToDisplay[indexPath.row]
+                    (accountVisitsVC)?.delegate = self
+                    accountVisitsVC?.visitId = upcomingVisitArrayToDisplay[indexPath.row].Id
                     self.present(accountVisitsVC!, animated: true, completion: nil)
                 }
-               
+                
             }else{
                 DispatchQueue.main.async {
                     let detailViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"ActionItemDetailsViewController") as! ActionItemDetailsViewController
@@ -331,8 +467,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                     self.present(accountVisitsVC!, animated: true, completion: nil)
                     
                 }
-               
-               
+                
+                
             }else{
                 
                 DispatchQueue.main.async {
@@ -341,7 +477,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                     detailViewController.delegate = self as? ActionItemDetailsViewControllerDelegate
                     self.present(detailViewController, animated: true)
                 }
-               
+                
             }
         default:
             print("Error Found")
@@ -373,7 +509,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     }
     
     
-
+    
     
 }
 //MARK:- NavigateToContacts Delegate

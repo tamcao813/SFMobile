@@ -58,7 +58,7 @@ class SearchForContactTableViewCell: UITableViewCell {
         searchContactsString = []
         searchContacts = []
         searchContacts = self.contactViewModel.globalContacts()
-        searchContacts = searchContacts + self.contactViewModel.sgwsEmployeeContacts()
+       // searchContacts = searchContacts + self.contactViewModel.sgwsEmployeeContacts()
         
         for contact in searchContacts {
             searchContactsString.append(contact.name)
@@ -69,7 +69,7 @@ class SearchForContactTableViewCell: UITableViewCell {
     
     func getContactsData(searchStr: String) -> [Contact] {
         var contact = self.contactViewModel.globalContacts()
-        contact = contact + self.contactViewModel.sgwsEmployeeContacts()
+      //  contact = contact + self.contactViewModel.sgwsEmployeeContacts()
         let arr = contact.filter( { return $0.name.lowercased().contains(searchStr.lowercased()) } )
         print(arr)
         return arr
@@ -117,7 +117,7 @@ extension SearchForContactTableViewCell: UITextFieldDelegate {
         }
         if search == "" {
             searchContacts = self.contactViewModel.globalContacts()
-            searchContacts = searchContacts + self.contactViewModel.sgwsEmployeeContacts()
+            //searchContacts = searchContacts + self.contactViewModel.sgwsEmployeeContacts()
         }else{
             searchContacts = self.getContactsData(searchStr: search)
         }

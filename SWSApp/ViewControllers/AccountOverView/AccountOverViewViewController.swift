@@ -157,9 +157,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
             return  "Yesterday at " + dateTime[1]
         }
-        
-       
-        
+    
         dateFormatter.dateFormat = "MM-dd-yyyy h:mma"
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp

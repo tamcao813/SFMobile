@@ -66,7 +66,7 @@ class WorkOrderUserObject {
         subject = json["Subject"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
         accountName = json["Account.Name"] as? String ?? ""
-        accountNumber = json["Account.Number"] as? String ?? ""
+        accountNumber = json["Account.AccountNumber"] as? String ?? ""
 
         shippingCity = json["Account.ShippingCity"] as? String ?? ""
         shippingCountry = json["Account.ShippingCountry"] as? String ?? ""

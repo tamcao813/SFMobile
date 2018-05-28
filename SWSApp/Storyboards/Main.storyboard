@@ -459,7 +459,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="CD4-OD-S7b">
-                                                                            <rect key="frame" x="115.5" y="1.5" width="10" height="10"/>
+                                                                            <rect key="frame" x="115.5" y="2" width="10" height="10"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="10" id="J8D-JO-6rr"/>
                                                                                 <constraint firstAttribute="width" constant="10" id="ff9-aG-KCS"/>
@@ -481,16 +481,16 @@
                                                             <rect key="frame" x="484" y="0.0" width="110" height="90"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MnC-Sb-wvk" userLabel="BalanceStack">
-                                                                    <rect key="frame" x="24.5" y="40" width="63" height="10"/>
+                                                                    <rect key="frame" x="23.5" y="40" width="63" height="10"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jl-iC-Pq8" userLabel="Balance">
-                                                                            <rect key="frame" x="0.5" y="0.0" width="43" height="10"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="43" height="10"/>
                                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
                                                                             <color key="textColor" white="0.33333333333333331" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="w6o-sF-uhA">
-                                                                            <rect key="frame" x="53.5" y="0.0" width="10" height="10"/>
+                                                                            <rect key="frame" x="53" y="0.0" width="10" height="10"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="10" id="DYC-NW-lW8"/>
                                                                                 <constraint firstAttribute="height" constant="10" id="ctT-p4-dFW"/>
@@ -521,7 +521,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="k77-d3-swP">
-                                                                            <rect key="frame" x="84.5" y="1.5" width="10" height="10"/>
+                                                                            <rect key="frame" x="84.5" y="2" width="10" height="10"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="10" id="8H9-PN-eP9"/>
                                                                                 <constraint firstAttribute="width" constant="10" id="JbW-PW-kgB"/>
@@ -1536,12 +1536,6 @@
         <image name="refreshBlue" width="182" height="182"/>
         <namedColor name="Data New">
             <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Data New">
-            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="LightGrey">
-            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightGrey">
             <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

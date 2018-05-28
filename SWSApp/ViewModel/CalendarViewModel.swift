@@ -50,9 +50,8 @@ class CalendarViewModel {
                         continue
                     }
                     
-                    
                     var visitTitle = ""
-                    var visitType = "visit" // TBD to read dynamically, either visit or event
+                    var visitType = "visit"
                     if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == visit.recordTypeId){
                         visitType = "visit"
                         
@@ -61,14 +60,25 @@ class CalendarViewModel {
                     } else {
                         
                         visitType = "event"
-                        visitTitle = visit.subject + ": " + accountList![0].accountNumber
+                        visitTitle = visit.subject
                         
                     }
+                    
+                    var visitContactName = ""
+
+                    if let selectedContact = ContactSortUtility.searchContactByContactId(visit.contactId)  {
+                        visitContactName = selectedContact.name
+                    }
+
                     
                     if daysBetween == 0 {
                         
                         let minutessBetween = Date.minutesBetween(start: eventStartDate, end: eventEndDate)
                         let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, chunk: (minutessBetween > 30) ? eventStartDate.chunkBetween(date: eventEndDate) : 30.minutes, title: visitTitle)
+                        visitEvent.accountId = visit.accountId
+                        visitEvent.accountNumber = visit.accountNumber
+                        visitEvent.accountName = visit.accountName
+                        visitEvent.contactName = visitContactName
                         visitsToCalendarEventsArray.append(visitEvent)
 
                     }
@@ -86,6 +96,10 @@ class CalendarViewModel {
                             } else {
                                 visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: currentStartDate.startOfDay, chunk: currentStartDate.startOfDay.chunkBetween(date: currentStartDate.endOfDay), title: visitTitle)
                             }
+                            visitEvent.accountId = visit.accountId
+                            visitEvent.accountNumber = visit.accountNumber
+                            visitEvent.accountName = visit.accountName
+                            visitEvent.contactName = visitContactName
                             visitsToCalendarEventsArray.append(visitEvent)
                             
                         }

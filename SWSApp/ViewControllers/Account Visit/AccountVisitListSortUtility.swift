@@ -175,8 +175,8 @@ class AccountVisitListSortUtility {
     func filterOnDateRangeBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
   
         var todayArray = [WorkOrderUserObject]()
-        var tomorrowDate = [WorkOrderUserObject]()
-        var dateRange = [WorkOrderUserObject]()
+        var tomorrowDateArray = [WorkOrderUserObject]()
+        var dateRangeArray = [WorkOrderUserObject]()
         
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
@@ -198,7 +198,7 @@ class AccountVisitListSortUtility {
             date.addTimeInterval(60 * 60 * 24)
             let timeStamp = dateFormatter.string(from: date)
             
-            tomorrowDate = actionItems.filter( {
+            tomorrowDateArray = actionItems.filter( {
                 let dateSeperator = $0.startDate.components(separatedBy: "T")
                 var dateOnly = ""
                 if dateSeperator.count > 0{
@@ -209,30 +209,25 @@ class AccountVisitListSortUtility {
             dateRangeAdded = true
         }
         
-        //DATE RANGE
-//        if AccountVisitListFilterModel.isThisWeek == "YES"{
-//            //print(Date().endOfWeek.add(component: .day, value: 1))
-//
-//            let timeStamp = dateFormatter.string(from: date.endOfWeek.add(component: .day, value: 1))
-//
-//            dateRange = actionItems.filter( {
-//                let dateSeperator = $0.startDate.components(separatedBy: "T")
-//                var dateOnly = ""
-//                if dateSeperator.count > 0{
-//                    dateOnly = dateSeperator[0]
-//                }
-//                return dateOnly == timeStamp
-//            } )
-//
-//        }
-        
-        
-        
-        
-        
+        //DATE RANGE for this week
+        if AccountVisitListFilterModel.isThisWeek == "YES"{
+            print(Date().endOfWeek.add(component: .day, value: 1))
+            
+            let timeStamp = dateFormatter.string(from: date.endOfWeek.add(component: .day, value: 1))
+            
+            dateRangeArray = actionItems.filter( {
+                let dateSeperator = $0.startDate.components(separatedBy: "")
+                var dateOnly = ""
+                if dateSeperator.count > 0{
+                    dateOnly = dateSeperator[0]
+                }
+                return dateOnly <= timeStamp
+            } )
+            dateRangeAdded = true
+        }
         
         if dateRangeAdded{
-            return todayArray + tomorrowDate
+            return todayArray + tomorrowDateArray + dateRangeArray
         }else{
             return actionItems
         }

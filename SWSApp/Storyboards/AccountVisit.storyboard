@@ -216,13 +216,13 @@
                                 <rect key="frame" x="30" y="123" width="120" height="130"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0f-R3-edu">
-                                        <rect key="frame" x="44" y="20" width="32.5" height="20.5"/>
+                                        <rect key="frame" x="44" y="20" width="32.5" height="21"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOU-At-7os">
-                                        <rect key="frame" x="42.5" y="45.5" width="36.5" height="36"/>
+                                        <rect key="frame" x="42" y="46" width="36" height="36"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -329,7 +329,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blD-Gm-ocV">
-                                <rect key="frame" x="964" y="41.5" width="40" height="40"/>
+                                <rect key="frame" x="964" y="42" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="JuD-Nf-dEE"/>
@@ -414,10 +414,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXz-8p-Q5P">
-                                                    <rect key="frame" x="12" y="10" width="218.5" height="21"/>
+                                                    <rect key="frame" x="12" y="10" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ey-Yn-1IT">
-                                                            <rect key="frame" x="6" y="0.0" width="192.5" height="20.5"/>
+                                                            <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="0.74590118839999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -432,7 +432,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioUnselected" translatesAutoresizingMaskIntoConstraints="NO" id="TeG-6D-rlf">
-                                                            <rect key="frame" x="191.5" y="1" width="20" height="20"/>
+                                                            <rect key="frame" x="191" y="1" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="37d-6E-jED"/>
                                                                 <constraint firstAttribute="height" constant="20" id="lh2-vl-vlD"/>
@@ -480,7 +480,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xP-xi-8E1">
-                                                    <rect key="frame" x="12" y="-2.5" width="218.5" height="72.5"/>
+                                                    <rect key="frame" x="12" y="-2.5" width="218" height="72.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aT-d1-2Dd">
                                                             <rect key="frame" x="6" y="2" width="34.5" height="16"/>
@@ -495,7 +495,7 @@
                                                                 <constraint firstAttribute="height" constant="20" id="UAJ-Jw-0uQ"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="05/06/2018" placeholder="Start" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9le-V0-bES">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Start" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9le-V0-bES">
                                                             <rect key="frame" x="7" y="21.5" width="150" height="45"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="150" id="39m-3L-KQ2"/>
@@ -520,6 +520,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="9le-V0-bES" firstAttribute="leading" secondItem="2xP-xi-8E1" secondAttribute="leading" constant="7" id="Dn5-69-oSa"/>
+                                                        <constraint firstItem="0qm-BS-0A2" firstAttribute="top" secondItem="2xP-xi-8E1" secondAttribute="top" constant="33.5" id="Lcz-6O-mdp"/>
                                                         <constraint firstItem="4aT-d1-2Dd" firstAttribute="leading" secondItem="2xP-xi-8E1" secondAttribute="leading" constant="6" id="S0E-5e-Hid"/>
                                                         <constraint firstItem="0qm-BS-0A2" firstAttribute="trailing" secondItem="9le-V0-bES" secondAttribute="trailing" constant="-10" id="TtM-4S-Afi"/>
                                                         <constraint firstAttribute="bottom" secondItem="9le-V0-bES" secondAttribute="bottom" constant="6" id="gcc-61-v1l"/>
@@ -858,6 +859,9 @@
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="560079" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiX-Va-Kay">
                                                             <rect key="frame" x="30" y="139" width="54.5" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="18" id="feV-cK-RKA"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -891,6 +895,7 @@
                                                         <constraint firstItem="HM0-AI-dCb" firstAttribute="leading" secondItem="mMI-tp-0ed" secondAttribute="leading" id="AKM-c4-CTr"/>
                                                         <constraint firstItem="HM0-AI-dCb" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" id="FVj-kn-U74"/>
                                                         <constraint firstItem="gip-U4-gJm" firstAttribute="top" secondItem="mMI-tp-0ed" secondAttribute="top" constant="35" id="Feq-6S-vub"/>
+                                                        <constraint firstItem="n88-Jz-T8l" firstAttribute="top" secondItem="l5Q-hh-LZz" secondAttribute="bottom" constant="16" id="Jtr-Rf-hzC"/>
                                                         <constraint firstAttribute="bottom" secondItem="n88-Jz-T8l" secondAttribute="bottom" constant="16" id="KbB-oY-YjL"/>
                                                         <constraint firstItem="l5Q-hh-LZz" firstAttribute="top" secondItem="VjM-od-8oK" secondAttribute="bottom" constant="47" id="KnH-bt-Y23"/>
                                                         <constraint firstAttribute="bottom" secondItem="gaK-Ew-k1B" secondAttribute="bottom" constant="23" id="Ofi-cm-Ati"/>
@@ -953,6 +958,9 @@
                                                 <state key="disabled">
                                                     <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="pageActionHandelerWithSender:" destination="Dyb-22-wbF" eventType="touchUpInside" id="SEs-Uf-tqM"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1J-LX-JfE">
                                                 <rect key="frame" x="151.5" y="0.0" width="30" height="32"/>
@@ -964,6 +972,9 @@
                                                 <state key="disabled">
                                                     <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="pageActionHandelerWithSender:" destination="Dyb-22-wbF" eventType="touchUpInside" id="tJD-KR-AUC"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUY-Ga-2N5">
                                                 <rect key="frame" x="182.5" y="0.0" width="30" height="32"/>
@@ -978,6 +989,9 @@
                                                 <state key="selected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="pageActionHandelerWithSender:" destination="Dyb-22-wbF" eventType="touchUpInside" id="meF-dQ-rmR"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26w-9U-5Bu">
                                                 <rect key="frame" x="213.5" y="0.0" width="30" height="32"/>
@@ -989,6 +1003,9 @@
                                                 <state key="disabled">
                                                     <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="pageActionHandelerWithSender:" destination="Dyb-22-wbF" eventType="touchUpInside" id="6Nd-N1-FPY"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbM-8g-sLr">
                                                 <rect key="frame" x="244.5" y="0.0" width="30" height="32"/>
@@ -1000,6 +1017,9 @@
                                                 <state key="disabled">
                                                     <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="pageActionHandelerWithSender:" destination="Dyb-22-wbF" eventType="touchUpInside" id="wzV-GK-Jnc"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ieg-hG-sHR">
                                                 <rect key="frame" x="275.5" y="0.0" width="30" height="32"/>
@@ -1011,6 +1031,9 @@
                                                 <state key="disabled">
                                                     <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="pageActionHandelerWithSender:" destination="Dyb-22-wbF" eventType="touchUpInside" id="8jj-eO-Sve"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OX7-1i-Jtg">
                                                 <rect key="frame" x="306.5" y="0.0" width="30" height="32"/>
@@ -1022,6 +1045,9 @@
                                                 <state key="disabled">
                                                     <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="pageActionHandelerWithSender:" destination="Dyb-22-wbF" eventType="touchUpInside" id="LrI-Ig-qJP"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="107" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u16-2I-n7q">
                                                 <rect key="frame" x="337.5" y="0.0" width="30" height="32"/>
@@ -1033,6 +1059,9 @@
                                                 <state key="disabled">
                                                     <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="pageActionHandelerWithSender:" destination="Dyb-22-wbF" eventType="touchUpInside" id="u5U-hI-52S"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="108" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bMg-6C-fyz">
                                                 <rect key="frame" x="368.5" y="0.0" width="150" height="32"/>
@@ -1047,6 +1076,9 @@
                                                 <state key="disabled">
                                                     <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="pageActionHandelerWithSender:" destination="Dyb-22-wbF" eventType="touchUpInside" id="dwf-CG-cUM"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1075,6 +1107,15 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="mJ4-8V-uwc" id="2Y7-aA-NEp"/>
+                        <outletCollection property="pageButtonArr" destination="b1J-LX-JfE" collectionClass="NSMutableArray" id="2sh-nO-OZx"/>
+                        <outletCollection property="pageButtonArr" destination="wUY-Ga-2N5" collectionClass="NSMutableArray" id="N5H-Pt-LB9"/>
+                        <outletCollection property="pageButtonArr" destination="26w-9U-5Bu" collectionClass="NSMutableArray" id="WP4-AD-hka"/>
+                        <outletCollection property="pageButtonArr" destination="tbM-8g-sLr" collectionClass="NSMutableArray" id="ozA-oU-YGO"/>
+                        <outletCollection property="pageButtonArr" destination="Ieg-hG-sHR" collectionClass="NSMutableArray" id="fzY-ha-XBe"/>
+                        <outletCollection property="pageButtonArr" destination="OX7-1i-Jtg" collectionClass="NSMutableArray" id="oie-4R-rgl"/>
+                        <outletCollection property="pageButtonArr" destination="u16-2I-n7q" collectionClass="NSMutableArray" id="end-T9-FP8"/>
+                        <outletCollection property="pageButtonArr" destination="Ueq-P8-jyT" collectionClass="NSMutableArray" id="bSE-yQ-fh5"/>
+                        <outletCollection property="pageButtonArr" destination="bMg-6C-fyz" collectionClass="NSMutableArray" id="p2U-fH-vyX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bbg-ka-sEo" userLabel="First Responder" sceneMemberID="firstResponder"/>

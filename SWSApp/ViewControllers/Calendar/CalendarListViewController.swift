@@ -16,6 +16,8 @@ class CalendarListViewController: UIViewController {
     @IBOutlet weak var calViewButton: UIButton!
     @IBOutlet weak var weekEndsView: UIView!
     @IBOutlet weak var weekEndsButton: UIButton!
+    @IBOutlet weak var todayButton: UIButton!
+    @IBOutlet weak var bottomView: UIView!
 
     var currentShowingDate: Date?
     var currentCalendarViewType: GlobalConstants.CalendarViewType = .Week
@@ -23,16 +25,20 @@ class CalendarListViewController: UIViewController {
     
     let dropDownAddNew = DropDown()
     let dropDownCalView = DropDown()
+    var calendarMonthController: CalendarMonthViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshCalendar), name: NSNotification.Name("refreshCalendar"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showWeek(_:)), name: NSNotification.Name(rawValue: "LoadWeekView"), object: nil)
         
         setupAddNewButtonText()
         setupDropDownAddNew()
         setupDropDownCalView()
+        
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -45,9 +51,17 @@ class CalendarListViewController: UIViewController {
         self.calViewButton.setTitle("Week View    ", for: .normal)
         currentCalendarViewType = .Week
         weekEndsEnabled = true
+        
+        if (self.calendarMonthController?.view != nil) {
+            self.calendarMonthController?.view.removeFromSuperview()
+            self.calendarMonthController?.removeFromParentViewController()
+            self.calendarMonthController = nil
+        }
+        for view in self.bottomView.subviews{
+            view.isHidden = false
+        }
 
         displayWeekends()
-
         reloadCalendarView()
     }
 
@@ -58,11 +72,30 @@ class CalendarListViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshCalendar"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("LoadWeekView"), object: nil)
     }
     
     // MARK: - Calendar Refresh
     @objc func refreshCalendar(){
         reloadCalendarView()
+    }
+    
+    @objc func showWeek(_ notification: NSNotification) {
+        if (self.calendarMonthController?.view != nil) {
+            self.calendarMonthController?.view.removeFromSuperview()
+            self.calendarMonthController?.removeFromParentViewController()
+            self.calendarMonthController = nil
+        }
+        for view in self.bottomView.subviews{
+            view.isHidden = false
+        }
+        self.currentCalendarViewType = .Week
+        self.calViewButton.setTitle("Week View    ", for: .normal)
+        if let date = notification.userInfo?["date"] as? Date {
+            // do something with your image
+            currentShowingDate = date
+            weekView.setCalendarDate(date, animated: true)
+        }
     }
     
     func reloadCalendarView() {
@@ -83,14 +116,15 @@ class CalendarListViewController: UIViewController {
     // MARK: - Button Action
     @IBAction func actionButtonCalendarTypeView(_ sender: Any) {
         dropDownCalView.show()
-
     }
     
     @IBAction func actionButtonShowWeekends(_ sender: Any) {
         guard (currentCalendarViewType == .Week || currentCalendarViewType == .Month) else {
             return
         }
-
+        if currentCalendarViewType == .Month {
+            NotificationCenter.default.post(name: Notification.Name("WEEKENDTOGGLE"), object: nil, userInfo:nil)
+        }
         weekEndsEnabled = !weekEndsEnabled
         displayWeekends()
         refreshWeekEnds()
@@ -110,6 +144,24 @@ class CalendarListViewController: UIViewController {
     
     @IBAction func actionButtonToday(_ sender: Any) {
         moveToToday()
+        
+        if (currentCalendarViewType == .Month) {
+            
+            if (self.calendarMonthController?.view != nil) {
+                self.calendarMonthController?.view.removeFromSuperview()
+                self.calendarMonthController?.removeFromParentViewController()
+                self.calendarMonthController = nil
+            }
+            
+            self.calendarMonthController = UIStoryboard(name: "Calendar", bundle: nil).instantiateViewController(withIdentifier: "CalendarMonthViewController") as? CalendarMonthViewController
+            self.addChildViewController(self.calendarMonthController!)
+            self.calendarMonthController?.view.frame = CGRect(x: self.bottomView.bounds.origin.x, y: self.bottomView.bounds.origin.y, width: self.bottomView.frame.size.width, height: self.bottomView.bounds.size.height)
+            self.bottomView.addSubview((self.calendarMonthController?.view)!)
+            
+            self.calViewButton.setTitle("Month View    ", for: .normal)
+            self.currentCalendarViewType = .Month
+        }
+        
     }
 
     // MARK: - Weekend Attribute Helper
@@ -120,6 +172,7 @@ class CalendarListViewController: UIViewController {
         else {
             weekEndsView.isHidden = true
         }
+        
         
         if weekEndsEnabled {
             weekEndsButton.setImage(UIImage.init(named: "Checkbox Selected"), for: .normal)
@@ -152,7 +205,7 @@ class CalendarListViewController: UIViewController {
 
     // MARK: - Addnew Button Text
     func setupAddNewButtonText() {
-        addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
+    addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
     }
     
     // MARK: - DropDown Addnew
@@ -178,7 +231,6 @@ class CalendarListViewController: UIViewController {
             default:
                 break
             }
-
             self.dropDownAddNew.hide()
         }
     }
@@ -190,8 +242,8 @@ class CalendarListViewController: UIViewController {
         dropDownCalView.backgroundColor = UIColor.white
         dropDownCalView.selectionBackgroundColor = UIColor.clear
         dropDownCalView.shadowOffset = CGSize(width: 0, height: 15)
-        
         dropDownCalView.dataSource = ["Day View", "Week View", "Month View"]
+        
 
         dropDownCalView.selectionAction = { (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
@@ -201,6 +253,14 @@ class CalendarListViewController: UIViewController {
                 if self.currentCalendarViewType == .Day {
                     return
                 }
+                if (self.calendarMonthController?.view != nil) {
+                    self.calendarMonthController?.view.removeFromSuperview()
+                    self.calendarMonthController?.removeFromParentViewController()
+                    self.calendarMonthController = nil
+                }
+                for view in self.bottomView.subviews{
+                    view.isHidden = false
+                }
                 self.currentCalendarViewType = .Day
                 self.calViewButton.setTitle("Day View    ", for: .normal)
                 
@@ -208,11 +268,35 @@ class CalendarListViewController: UIViewController {
                 if self.currentCalendarViewType == .Week {
                     return
                 }
+                if (self.calendarMonthController?.view != nil) {
+                    self.calendarMonthController?.view.removeFromSuperview()
+                    self.calendarMonthController?.removeFromParentViewController()
+                    self.calendarMonthController = nil
+                }
+                for view in self.bottomView.subviews{
+                    view.isHidden = false
+                }
                 self.currentCalendarViewType = .Week
                 self.calViewButton.setTitle("Week View    ", for: .normal)
 
             case 2:
-                print("TBD launch Event")
+                if self.currentCalendarViewType == .Month {
+                    return
+                }
+                for view in self.bottomView.subviews{
+                    view.isHidden = true
+                }
+                self.calendarMonthController = UIStoryboard(name: "Calendar", bundle: nil).instantiateViewController(withIdentifier: "CalendarMonthViewController") as? CalendarMonthViewController
+                self.addChildViewController(self.calendarMonthController!)
+                self.calendarMonthController?.view.frame = CGRect(x: self.bottomView.bounds.origin.x, y: self.bottomView.bounds.origin.y, width: self.bottomView.frame.size.width, height: self.bottomView.bounds.size.height)
+                self.bottomView.addSubview((self.calendarMonthController?.view)!)
+                
+                self.calViewButton.setTitle("Month View    ", for: .normal)
+                self.currentCalendarViewType = .Month
+                
+                if( !self.weekEndsEnabled) {
+                    NotificationCenter.default.post(name: Notification.Name("WEEKENDTOGGLE"), object: nil, userInfo:nil)
+                }
                 
             default:
                 break

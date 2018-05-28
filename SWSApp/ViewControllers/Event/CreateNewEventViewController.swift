@@ -59,6 +59,17 @@ class CreateNewEventViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //Used to add Description Text as its getting reload after the first time load(Applied for edit mode)
+        if let eventObject = eventWorkOrderObject{
+            if CreateNewEventViewControllerGlobals.isFirstTimeLoad == true{
+                CreateNewEventViewControllerGlobals.description = eventObject.description
+            }
+        }
+    }
+    
     func clearModelForNewEntry(){
         CreateNewEventViewControllerGlobals.eventTitle = ""
         CreateNewEventViewControllerGlobals.startDate = ""
@@ -109,6 +120,7 @@ class CreateNewEventViewController: UIViewController {
                 }
             }else{
                 self.dismiss(animated: true, completion: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
             }
         }
     }
@@ -120,10 +132,12 @@ class CreateNewEventViewController: UIViewController {
                     editCurrentEvent()
                     DispatchQueue.main.async {
                         self.dismiss(animated: true)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                     }
                 }
             }else{
                 createNewEvent()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
             }
         }
     }
@@ -447,8 +461,12 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
                     
                     if eventObject.sgwsAlldayEvent == true{
                         cell.btnAllDayEvent?.setImage(UIImage(named:"Checkbox Selected"), for: .normal)
+                        cell.isSelectedFlag = true
+                        cell.startAndEndDatesUserInteractionDisabled()
                     }else{
                         cell.btnAllDayEvent?.setImage(UIImage(named:"Checkbox"), for: .normal)
+                        cell.isSelectedFlag = false
+                        cell.startAndEndDatesUserInteractionEnabled()
                     }
                     
                 }else{
@@ -523,7 +541,6 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
         cell?.descriptionTextView.tag = 500
         
         if let eventObject = eventWorkOrderObject{
-            
             if CreateNewEventViewControllerGlobals.isFirstTimeLoad == true{
                 cell?.descriptionTextView.text = eventObject.description
                 CreateNewEventViewControllerGlobals.description = eventObject.description

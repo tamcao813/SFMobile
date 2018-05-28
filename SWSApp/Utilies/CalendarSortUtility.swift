@@ -68,22 +68,28 @@ class CalendarSortUtility {
                 continue
             }
             
-            guard let selectedVisit = VisitSortUtility.searchVisitByVisitId(visitId: calendarEvent.Id) else {
-                continue
-            }
-
-            if (selectedVisit.accountId.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+            if (calendarEvent.accountId.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
             {
                 enteredAnyFilterCase = true
                 calendarListWithSearchResults.append(calendarEvent)
                 continue
             }
             
-            guard let selectedContact = ContactSortUtility.searchContactByContactId(selectedVisit.contactId) else {
+            if (calendarEvent.accountNumber.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+            {
+                enteredAnyFilterCase = true
+                calendarListWithSearchResults.append(calendarEvent)
                 continue
             }
             
-            if (selectedContact.name.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+            if (calendarEvent.accountName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+            {
+                enteredAnyFilterCase = true
+                calendarListWithSearchResults.append(calendarEvent)
+                continue
+            }
+            
+            if (calendarEvent.contactName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
             {
                 enteredAnyFilterCase = true
                 calendarListWithSearchResults.append(calendarEvent)

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MonthCollectionHeaderView" id="UUk-wB-RU7" customClass="MonthCollectionHeaderView" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l2X-xz-J9S">
+                    <rect key="frame" x="313" y="9" width="32" height="32"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" image="Next"/>
+                    <connections>
+                        <action selector="nextMonthWithSender:" destination="UUk-wB-RU7" eventType="touchUpInside" id="BT6-OU-1zY"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 2018" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Csz-hn-umv">
+                    <rect key="frame" x="128.5" y="12.5" width="118.5" height="25"/>
+                    <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4j-mx-vI5">
+                    <rect key="frame" x="10" y="8" width="40" height="32"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" image="Previous"/>
+                    <connections>
+                        <action selector="previousMonthWithSender:" destination="UUk-wB-RU7" eventType="touchUpInside" id="6ic-sm-NIf"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="avR-ua-2eB" firstAttribute="trailing" secondItem="l2X-xz-J9S" secondAttribute="trailing" constant="30" id="2Rg-CN-JUa"/>
+                <constraint firstItem="Csz-hn-umv" firstAttribute="centerX" secondItem="avR-ua-2eB" secondAttribute="centerX" id="4nz-IE-Gnn"/>
+                <constraint firstItem="w4j-mx-vI5" firstAttribute="leading" secondItem="avR-ua-2eB" secondAttribute="leading" constant="10" id="Xzb-4i-Fxt"/>
+                <constraint firstItem="Csz-hn-umv" firstAttribute="centerY" secondItem="avR-ua-2eB" secondAttribute="centerY" id="bJg-yy-6uY"/>
+                <constraint firstItem="l2X-xz-J9S" firstAttribute="top" secondItem="avR-ua-2eB" secondAttribute="top" constant="9" id="som-o3-6el"/>
+                <constraint firstItem="w4j-mx-vI5" firstAttribute="top" secondItem="avR-ua-2eB" secondAttribute="top" constant="8" id="sqN-L6-5KD"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="avR-ua-2eB"/>
+            <connections>
+                <outlet property="backButton" destination="w4j-mx-vI5" id="lsT-h0-MPL"/>
+                <outlet property="fwdButton" destination="l2X-xz-J9S" id="fZW-VC-ffR"/>
+                <outlet property="monthLabel" destination="Csz-hn-umv" id="UVh-pt-qMh"/>
+            </connections>
+            <point key="canvasLocation" x="20.5" y="1"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="Next" width="32" height="32"/>
+        <image name="Previous" width="32" height="32"/>
+    </resources>
+</document>

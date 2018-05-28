@@ -121,6 +121,8 @@ class CreateNewContactViewController: UIViewController {
         
         self.tableView.register(UINib(nibName: "AccountContactLinkTableViewCell", bundle: nil), forCellReuseIdentifier: "DropDownCell")
         
+        self.tableView.register(UINib(nibName: "TitleDepartmentTableViewCell", bundle: nil), forCellReuseIdentifier: "TitleDepartmentTableViewCell")
+        
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
@@ -147,12 +149,12 @@ class CreateNewContactViewController: UIViewController {
         errorLabel.text = ""
         firstNameTextField.borderColor = .lightGray
         lastNameTextField.borderColor = .lightGray
-        primaryFunctionTextField.borderColor = .lightGray
         phoneTextField.borderColor = .lightGray
         birthdayTextField.borderColor = .lightGray
         anniversaryTextField.borderColor = .lightGray
         if isNewContact {
             searchAccountTextField.borderColor = .lightGray
+            primaryFunctionTextField.borderColor = .lightGray
         }
         
         if isNewContact && !doesHaveBuyingPower{
@@ -165,10 +167,18 @@ class CreateNewContactViewController: UIViewController {
     }
     
     func checkValidations() -> Bool{
-        if checkAccountSelectedValidation() && checkFirstNameValidation() && checkLastNameValidation() && checkPrimaryFunctionValidation() && checkPhoneNumberValidation() && checkFaxNumberValidation() && checkEmailValidation(){
-            return true
+        if isNewContact {
+            if checkAccountSelectedValidation() && checkPrimaryFunctionValidation() && checkFirstNameValidation() && checkLastNameValidation() && checkPhoneNumberValidation() && checkFaxNumberValidation() && checkEmailValidation(){
+                return true
+            }else{
+                return false
+            }
         }else{
-            return false
+            if  checkFirstNameValidation() && checkLastNameValidation() && checkPhoneNumberValidation() && checkFaxNumberValidation() && checkEmailValidation(){
+                return true
+            }else{
+                return false
+            }
         }
     }
     
@@ -183,14 +193,10 @@ class CreateNewContactViewController: UIViewController {
     }
 
     func checkPrimaryFunctionValidation() -> Bool {
-        if (primaryFunctionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+        if isNewContact && (primaryFunctionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             primaryFunctionTextField.borderColor = .red
             primaryFunctionTextField.becomeFirstResponder()
-            if isNewContact {
-                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
-            }else{
-                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
-            }
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 2), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return false
         }
@@ -202,7 +208,7 @@ class CreateNewContactViewController: UIViewController {
             firstNameTextField.borderColor = .red
             firstNameTextField.becomeFirstResponder()
             if isNewContact {
-                tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
             }
             errorLabel.text = StringConstants.emptyFieldError
             return false
@@ -215,7 +221,7 @@ class CreateNewContactViewController: UIViewController {
             lastNameTextField.borderColor = .red
             lastNameTextField.becomeFirstResponder()
             if isNewContact {
-                tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
             }
             errorLabel.text = StringConstants.emptyFieldError
             return false
@@ -227,21 +233,13 @@ class CreateNewContactViewController: UIViewController {
         if (phoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! && (emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)!{
             phoneTextField.borderColor = .red
             phoneTextField.becomeFirstResponder()
-            if isNewContact {
-                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
-            }else{
-                tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
-            }
+            tableView.scrollToRow(at: IndexPath(row: 2, section: 4), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return false
         }else if phoneTextField.text != "" && Validations().removeSpecialCharsFromString(text: phoneTextField.text!).count != 10{
             phoneTextField.borderColor = .red
             phoneTextField.becomeFirstResponder()
-            if isNewContact {
-                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
-            }else{
-                tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
-            }
+            tableView.scrollToRow(at: IndexPath(row: 2, section: 4), at: .top, animated: true)
             errorLabel.text = StringConstants.errorInField
             return false
         }
@@ -252,11 +250,7 @@ class CreateNewContactViewController: UIViewController {
         if faxTextField.text != "" && Validations().removeSpecialCharsFromString(text: faxTextField.text!).count != 10{
             faxTextField.borderColor = .red
             faxTextField.becomeFirstResponder()
-            if isNewContact {
-                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
-            }else{
-                tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
-            }
+            tableView.scrollToRow(at: IndexPath(row: 2, section: 4), at: .top, animated: true)
             errorLabel.text = StringConstants.errorInField
             return false
         }
@@ -267,11 +261,7 @@ class CreateNewContactViewController: UIViewController {
         if emailTextField.text != "" && !Validations().isValidEmail(testStr: emailTextField.text!){
             emailTextField.borderColor = .red
             emailTextField.becomeFirstResponder()
-            if isNewContact {
-                tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: true)
-            }else{
-                tableView.scrollToRow(at: IndexPath(row: 2, section: 3), at: .top, animated: true)
-            }
+            tableView.scrollToRow(at: IndexPath(row: 3, section: 4), at: .top, animated: true)
             errorLabel.text = StringConstants.errorInField
             return false
         }
@@ -309,7 +299,7 @@ class CreateNewContactViewController: UIViewController {
             self.dismiss(animated: true, completion: {
                 self.delegate.updateContactList()
                 createNewGlobals.userInput = false
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccounts"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
             })
         }else{
             showAlert(message: "Unable to create the new contact in local database")
@@ -322,16 +312,17 @@ class CreateNewContactViewController: UIViewController {
         if !isNewContact {
             newContact = contactDetail!
             newContact.buyerFlag = (contactDetail?.buyerFlag)!
+            
         }else{
             newContact.buyerFlag = true
             newContact.accountId = accountSelected.account_Id
+            newContact.functionRole = primaryFunctionTextField.text!
         }
         newContact.firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.name = newContact.firstName.trimmingCharacters(in: .whitespacesAndNewlines) + " " + newContact.lastName.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.lastModifiedByName = (UserViewModel().loggedInUser?.userName)!
         newContact.preferredName = preferredNameTextField.text!
-        newContact.functionRole = primaryFunctionTextField.text!
         newContact.title = titleTextField.text!
         newContact.department = departmentTextField.text!
         newContact.phoneNumber = phoneTextField.text!
@@ -422,8 +413,33 @@ class CreateNewContactViewController: UIViewController {
 
 extension CreateNewContactViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if isNewContact {
+            if section == 4{
+                return 50
+            }
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 4{
+            let frame = tableView.frame
+            let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 5, width: 300, height: 50))
+            sectionLabel.text = "Personal Details"
+            sectionLabel.textColor = UIColor.black
+            sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
+            let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:frame.width , height:frame.height ))
+            headerView.backgroundColor = UIColor.white
+            headerView.addSubview(sectionLabel)
+            return headerView;
+            
+        }
+        return nil
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -433,10 +449,16 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 1:
             return getNumberOfRowsForAccountSection()
         case 2:
-            return getNumberOfRowsForBuyerFlagSection()
+            if isNewContact {
+                return 1
+            }else{
+                return 0
+            }
         case 3:
-            return 8
+            return getNumberOfRowsForBuyerFlagSection()
         case 4:
+            return 8
+        case 5:
             return 9
         default:
             return 0
@@ -497,6 +519,8 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             }
             return cell!
         case 2:
+            return getPrimaryFunctionCell()
+        case 3:
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
@@ -512,9 +536,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             default:
                 return UITableViewCell()
             }
-        case 3:
-            return getPersonalDetailsCells(indexPath: indexPath)
         case 4:
+            return getPersonalDetailsCells(indexPath: indexPath)
+        case 5:
             return getFamiliesCell(indexPath: indexPath)
         default:
             return UITableViewCell()
@@ -691,7 +715,14 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 0:
             return getNameCell()
         case 1:
-            return getPrimaryFunctionCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TitleDepartmentTableViewCell") as? TitleDepartmentTableViewCell
+            departmentTextField = cell?.departmentTextField
+            titleTextField = cell?.titleTextField
+            if let contactDetail = contactDetail {
+                cell?.contactDetail = contactDetail
+                cell?.displayCellContent()
+            }
+            return cell!
         case 2:
             return getPhoneCell()
         case 3:
@@ -733,8 +764,6 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.contactDetail = contactDetail
             cell?.displayCellContent()
         }
-        departmentTextField = cell?.departmentTextField
-        titleTextField = cell?.titleTextField
         primaryFunctionTextField = cell?.primaryFunctionTextField
         return cell!
     }

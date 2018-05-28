@@ -1382,6 +1382,7 @@ class StoreDispatcher {
     func fetchEvents()->[Visit]{
         
         var visit: [Visit] = []
+         var duplicateVisitArray: [Visit] = []
         
         let soapQuery = "Select * FROM {WorkOrder} WHERE {WorkOrder:RecordTypeId} = '\(workOrderRecordTypeIdEvent)'"
         
@@ -1429,7 +1430,10 @@ class StoreDispatcher {
 
                 
                 let ary:[Any] = result[i] as! [Any]
+//              let visitArray = Visit(withAry: newarr)
+                
                 let visitArray = Visit(withAry: newarr)
+                
                 visit.append(visitArray)
                 print("Visit/Event array \(ary)")
             }
@@ -2932,5 +2936,7 @@ class StoreDispatcher {
         return accVisitEventArray
         
     }
+    
+    
     
 }

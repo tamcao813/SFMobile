@@ -32,6 +32,7 @@ class CalendarListViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshCalendar), name: NSNotification.Name("refreshCalendar"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showWeek(_:)), name: NSNotification.Name(rawValue: "LoadWeekView"), object: nil)
         
         setupAddNewButtonText()
         setupDropDownAddNew()
@@ -71,11 +72,30 @@ class CalendarListViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshCalendar"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("LoadWeekView"), object: nil)
     }
     
     // MARK: - Calendar Refresh
     @objc func refreshCalendar(){
         reloadCalendarView()
+    }
+    
+    @objc func showWeek(_ notification: NSNotification) {
+        if (self.calendarMonthController?.view != nil) {
+            self.calendarMonthController?.view.removeFromSuperview()
+            self.calendarMonthController?.removeFromParentViewController()
+            self.calendarMonthController = nil
+        }
+        for view in self.bottomView.subviews{
+            view.isHidden = false
+        }
+        self.currentCalendarViewType = .Week
+        self.calViewButton.setTitle("Week View    ", for: .normal)
+        if let date = notification.userInfo?["date"] as? Date {
+            // do something with your image
+            currentShowingDate = date
+            weekView.setCalendarDate(date, animated: true)
+        }
     }
     
     func reloadCalendarView() {
@@ -273,6 +293,10 @@ class CalendarListViewController: UIViewController {
                 
                 self.calViewButton.setTitle("Month View    ", for: .normal)
                 self.currentCalendarViewType = .Month
+                
+                if( !self.weekEndsEnabled) {
+                    NotificationCenter.default.post(name: Notification.Name("WEEKENDTOGGLE"), object: nil, userInfo:nil)
+                }
                 
             default:
                 break

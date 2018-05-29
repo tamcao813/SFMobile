@@ -158,7 +158,6 @@ class StoreDispatcher {
         }
     }
     
-    
     //sync down soups - contact and ACR are already synced up, and no need to sync down plists
     func syncDownSoupsAfterSyncUpData(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
         
@@ -285,11 +284,17 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
     }
+    // FIXIT : - (j.kannayyagari) Please move it in Model
+    var sessionID:String = ""
     
+    /**
+     createSyncLogOnSyncStart Will insert Sync log indicating that Sync has started
+     */
     func createSyncLogOnSyncStart(){
         let newSyncLog = SyncLog(for: "NewSyncLog")
         newSyncLog.Id = generateRandomIDForSyncLog()
-        newSyncLog.sessionID = "SID:\(newSyncLog.Id)"
+        sessionID = "SID:\(newSyncLog.Id)"
+        newSyncLog.sessionID = sessionID
         newSyncLog.activityType = "Sync Start"
         newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
@@ -312,20 +317,16 @@ class StoreDispatcher {
             "attributes":attributeDict]
         
         let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
+        
         if success {
-            print("Test")
-            var dictArray:[String] = []
-            for (k, v) in syncLogDict {
-                dictArray.append("\(k)")
-            }
-            syncUpLogHandeler()
+//            No Need to Sync at this instance
         }
     }
     
     func createSyncLogOnSyncStop(){
         let newSyncLog = SyncLog(for: "NewSyncLog")
         newSyncLog.Id = generateRandomIDForSyncLog()
-        newSyncLog.sessionID = "SID:\(newSyncLog.Id)"
+        newSyncLog.sessionID = sessionID
         newSyncLog.activityType = "Sync Stop"
         newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
@@ -349,12 +350,43 @@ class StoreDispatcher {
         
         let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
         if success {
-            print("Test")
-            var dictArray:[String] = []
-            for (k, v) in syncLogDict {
-                dictArray.append("\(k)")
-            }
+//            Sync all the collected SyncLogs to server post success
             syncUpLogHandeler()
+        }
+    }
+    
+    /**
+     createSyncLogOnSyncStart Will insert Sync log indicating that Sync has started
+     */
+    func createSyncLogOnSyncError(errorType: String){
+        let newSyncLog = SyncLog(for: "NewSyncLog")
+        newSyncLog.Id = generateRandomIDForSyncLog()
+        newSyncLog.sessionID = "SID:\(newSyncLog.Id)"
+        newSyncLog.activityType = "Sync Error \(errorType)"
+        newSyncLog.activityTime = getTimeStampInString()
+        newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
+        newSyncLog.activityDetails = "{\"ConnectionType\":\"WiFi\",\"SyncType\":\"Manual\"}"
+        //        createOneSyncLog(newSyncLog)
+        
+        let attributeDict = ["type":SoupSyncLog]
+        let syncLogDict: [String:Any] = [
+            SyncLog.SyncLogFields[0]: newSyncLog.Id,
+            SyncLog.SyncLogFields[1]: newSyncLog.sessionID,
+            SyncLog.SyncLogFields[2]: newSyncLog.activityType,
+            SyncLog.SyncLogFields[3]: newSyncLog.activityTime,
+            SyncLog.SyncLogFields[4]: newSyncLog.userId,
+            SyncLog.SyncLogFields[5]: newSyncLog.activityDetails,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
+        
+        if success {
+            //            No Need to Sync at this instance
         }
     }
     
@@ -387,11 +419,6 @@ class StoreDispatcher {
         
         let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
         if success {
-//            print("Test")
-//            var dictArray:[String] = []
-//            for (k, v) in syncLogDict {
-//                dictArray.append("\(k)")
-//            }
             syncUpLogHandeler()
         }
     }
@@ -413,7 +440,7 @@ class StoreDispatcher {
         return timeStamp
     }
     
-    fileprivate func syncUpLogHandeler() {
+    func syncUpLogHandeler() {
         syncUpSyncLog(fieldsToUpload: ["Id","SGWS_Session_ID__c","SGWS_Activity__c","SGWS_Activity_Timestamp__c","SGWS_User_Id__c","SGWS_Activity_Detail__c"], completion: {error in
             
             if error != nil {

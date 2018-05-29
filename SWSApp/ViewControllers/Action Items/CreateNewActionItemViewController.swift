@@ -184,6 +184,7 @@ class CreateNewActionItemViewController: UIViewController {
                 newActionItem.status = "Overdue"
             }
         }else{
+            
             newActionItem.status = "Open"
         }
         if isUrgentSwitch.isOn {

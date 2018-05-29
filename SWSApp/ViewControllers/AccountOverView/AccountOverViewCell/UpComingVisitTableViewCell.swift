@@ -10,6 +10,8 @@ import UIKit
 
 class UpComingVisitTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var upcomingTimeLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var upcomingImageWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var UpComingActivities_TitleLabel: UILabel!
     @IBOutlet weak var UpComingActivities_TimeLabel: UILabel!
     @IBOutlet weak var UpComingActivities_Image: UIImageView!

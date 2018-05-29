@@ -204,7 +204,6 @@ class CreateNewActionItemViewController: UIViewController {
             ActionItem.AccountActionItemFields[6]: newActionItem.isUrgent,
             ActionItem.AccountActionItemFields[7]: newActionItem.lastModifiedDate,
             
-            
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,
             kSyncTargetLocallyUpdated:false,
@@ -216,8 +215,6 @@ class CreateNewActionItemViewController: UIViewController {
             self.delegate?.updateActionList()
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
-               
-                
             }
             self.dismiss(animated: true, completion: nil)
         }
@@ -274,12 +271,16 @@ class CreateNewActionItemViewController: UIViewController {
         
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {
+           
             self.delegate?.updateActionDesc()
+            
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
+            
             self.dismiss(animated: true, completion: nil)
         }
+       
     }
     
     func generateRandomIDForActionItems()->String  {

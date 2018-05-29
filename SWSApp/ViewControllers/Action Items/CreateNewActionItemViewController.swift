@@ -184,7 +184,7 @@ class CreateNewActionItemViewController: UIViewController {
                 newActionItem.status = "Overdue"
             }
         }else{
-            
+            newActionItem.activityDate = "1969-12-31"
             newActionItem.status = "Open"
         }
         if isUrgentSwitch.isOn {
@@ -210,6 +210,7 @@ class CreateNewActionItemViewController: UIViewController {
             kSyncTargetLocallyUpdated:false,
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
+        
         
         let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
         if success {

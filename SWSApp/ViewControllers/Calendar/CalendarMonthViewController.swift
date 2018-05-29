@@ -119,10 +119,14 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     }
     
     func getDateFromStr(dateStr: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd" //Your date format
-        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00") //Current time zone
-        let date = dateFormatter.date(from: dateStr)
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let DateArray = dateStr.components(separatedBy: "-")
+        let components = NSDateComponents()
+        components.year = Int(DateArray[0])!
+        components.month = Int(DateArray[1])!
+        components.day = Int(DateArray[2])!
+        components.timeZone = TimeZone.current
+        let date = calendar.date(from: components as DateComponents)
         return date!
     }
     

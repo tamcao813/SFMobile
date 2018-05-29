@@ -51,7 +51,7 @@ class AccountVisitListViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         self.getTheDataFromDB()
-        customizedUI()
+        //customizedUI()
         
     }
     
@@ -125,6 +125,15 @@ class AccountVisitListViewController: UIViewController {
         //self.tableView.register(UINib(nibName: "AccountVisitListTableViewCell", bundle: nil), forCellReuseIdentifier: "AccountVisitListTableViewCell")
     }
     
+    func scrollTableViewToTop(){
+        tableView.reloadData()
+        DispatchQueue.main.async {
+            if(self.tableViewDataArray.count > 0){
+                self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            }
+        }
+    }
+    
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
         addNewDropDown.anchorView = sender
         addNewDropDown.bottomOffset = CGPoint(x: (((sender.frame.size.width) - 100)-((sender.frame.size.width)/6.0)), y :( addNewDropDown.anchorView?.plainView.bounds.height)!)
@@ -164,25 +173,25 @@ class AccountVisitListViewController: UIViewController {
     @IBAction func sortByTitleButtonAction(_ sender: UIButton){
         
         if titleAscendingSort {
-            tableViewDataArray = tableViewDataArray.sorted(by: { $0.subject < $1.subject })
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.subject.lowercased() < $1.subject.lowercased() })
             titleAscendingSort = false
         }else{
-            tableViewDataArray = tableViewDataArray.sorted(by: { $0.subject > $1.subject })
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.subject.lowercased() > $1.subject.lowercased() })
             titleAscendingSort = true
         }
-        tableView.reloadData()
+        self.scrollTableViewToTop()
     }
     
     @IBAction func sortByStatusButtonAction(_ sender: UIButton){
         
         if statusAscendingSort{
-            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status < $1.status })
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.lowercased() < $1.status.lowercased() })
             statusAscendingSort = false
         }else{
-            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status > $1.status })
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.lowercased() > $1.status.lowercased() })
             statusAscendingSort = true
         }
-        tableView.reloadData()
+        self.scrollTableViewToTop()
     }
     
     @IBAction func sortByDateButtonAction(_ sender: UIButton){
@@ -194,7 +203,7 @@ class AccountVisitListViewController: UIViewController {
             tableViewDataArray = tableViewDataArray.sorted(by: { $0.startDate > $1.startDate })
             dateAscendingSort = true
         }
-        tableView.reloadData()
+        self.scrollTableViewToTop()
     }
 }
 
@@ -233,6 +242,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     // custom header for the section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListHeaderTableViewCell") as? AccountVisitListTableViewCell
+        //cell?.cen
         return cell
     }
     
@@ -338,18 +348,10 @@ extension AccountVisitListViewController : AccountVisitSearchButtonTappedDelegat
         AccountVisitListFilterModel.filterApplied = false
         
         tableViewDataArray.removeAll()
-        
         tableViewDataArray = dataArrayFromToday
         
         self.initializePagination()
-        
-        //self.tableView.reloadData()
-        
-        DispatchQueue.main.async {
-            if(self.tableViewDataArray.count > 0){
-                self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-            }
-        }
+        self.scrollTableViewToTop()
     }
     
     func performFilterOperation(searchText: UISearchBar) {
@@ -377,18 +379,10 @@ extension AccountVisitListViewController : AccountVisitSearchButtonTappedDelegat
         }
         
         tableViewDataArray.removeAll()
-        
         tableViewDataArray = filteredTableViewDataArray
         
         self.initializePagination()
-        
-        //self.tableView.reloadData()
-        
-        DispatchQueue.main.async {
-            if(self.filteredTableViewDataArray.count > 0){
-                self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-            }
-        }
+        self.scrollTableViewToTop()
     }
 }
 

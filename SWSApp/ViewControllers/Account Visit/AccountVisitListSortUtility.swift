@@ -37,9 +37,13 @@ class AccountVisitListSortUtility {
         
         let addressFilteredArray = actionItems.filter( { return $0.shippingState.lowercased().contains(searchStr.lowercased()) } )
         
-         let locationFilteredArray = actionItems.filter( { return $0.location.lowercased().contains(searchStr.lowercased()) } )
+        let shippingFilteredArray = actionItems.filter( { return $0.shippingStreet.lowercased().contains(searchStr.lowercased()) } )
         
-        let filteredArray = subjectFilteredArray + accountNameFilteredArray +  accountNunberFilteredArray + addressFilteredArray + locationFilteredArray
+        let cityFilteredArray = actionItems.filter( { return $0.shippingCity.lowercased().contains(searchStr.lowercased()) } )
+        
+        let locationFilteredArray = actionItems.filter( { return $0.location.lowercased().contains(searchStr.lowercased()) } )
+        
+        let filteredArray = subjectFilteredArray + accountNameFilteredArray +  accountNunberFilteredArray + addressFilteredArray + shippingFilteredArray + cityFilteredArray + locationFilteredArray
         
         return filteredArray.uniqueValues()
     }
@@ -151,10 +155,6 @@ class AccountVisitListSortUtility {
         var isVisitArray = [WorkOrderUserObject]()
         var isEventArray = [WorkOrderUserObject]()
         
-        if AccountVisitListFilterModel.isTypeAll == "YES"{
-            return actionItems
-        }
-        
         if AccountVisitListFilterModel.isTypeVisit == "YES"{
             isVisitArray = actionItems.filter( { return $0.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit } )
             recordTypeAdded = true
@@ -238,10 +238,6 @@ class AccountVisitListSortUtility {
         var planned = [WorkOrderUserObject]()
         var inProgress = [WorkOrderUserObject]()
         var complete = [WorkOrderUserObject]()
-        
-        if AccountVisitListFilterModel.isStatusAll == "YES"{
-            return actionItems
-        }
         
         if AccountVisitListFilterModel.isStatusScheduled == "YES"{
             scheduledArray = actionItems.filter( { return $0.status.lowercased().contains("scheduled") } )

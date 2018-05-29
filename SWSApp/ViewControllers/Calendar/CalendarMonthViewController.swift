@@ -118,10 +118,24 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
         NotificationCenter.default.addObserver(self, selector: #selector(self.getSearchString(_:)), name: NSNotification.Name(rawValue: "EVENT_FILTER"), object: nil)
     }
     
+    func getDateFromStr(dateStr: String) -> Date {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let DateArray = dateStr.components(separatedBy: "-")
+        let components = NSDateComponents()
+        components.year = Int(DateArray[0])!
+        components.month = Int(DateArray[1])!
+        components.day = Int(DateArray[2])!
+        components.timeZone = TimeZone.current
+        let date = calendar.date(from: components as DateComponents)
+        return date!
+    }
+    
     ///------Get The First Week Day - START -----///
     // Will get the index of week by calculating (1-Mon, 2 - Tue, 3 - Wed ..... 7 - Sun)
     func  getFirstWeekDay() -> Int {
-        let day = ("\(currentYear)-\(currentMonthIndex)-01".date?.firstDayOfTheMonth.weekday)!
+        let date = Calendar.current.date(from: Calendar.current.dateComponents([.year,.month], from: self.getDateFromStr(dateStr: "\(currentYear)-\(currentMonthIndex)-01")))!
+        let day = Calendar.current.component(.weekday, from: date)
+//        let day = ("\(currentYear)-\(currentMonthIndex)-01".date?.firstDayOfTheMonth.weekday)!
         return day == 1 ? 7 : day - 1
     }
     ///------Get The First Week Day - END -----///
@@ -325,21 +339,6 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             cell.dateLabel.textColor = UIColor.lightGray
             cell.isHidden = false
             
-            //----------- Hide Weekends Action - SART ------------------- //
-            
-            if switchButtton
-            {
-                let tempDate = "\(previousMonthDates[indexPath.row])" + "-" + "\(getPreviousMonth(currentMonthIndex: currentMonthIndex))" + "-" + "\(getPreviousYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))"
-                
-                if (DateTimeUtility.isWeekend(date: DateTimeUtility.getDateFromString(dateStr: tempDate))) {
-                    cell.isHidden = true
-                } else {
-                    cell.isHidden = false
-                }
-            }
-            
-            //----------- Hide Weekends Action - END ------------------- //
-            
             let dateStr = "\(getPreviousYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))" + "-" + String(format: "%02d", getPreviousMonth(currentMonthIndex: currentMonthIndex)) + "-" + String(format: "%02d", (previousMonthDates[indexPath.row]))+" "+"00:00:00"
             
             //------------- Adding Events To Past Calendar Dates - START --------------- //
@@ -400,41 +399,11 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
                     inc = inc + 1
                 }
             }
-            
-            //------------- Adding Events To Present Calendar Dates - END --------------- //
-            
-            //----------- Hide Weekends Action - SART ------------------- //
-            if switchButtton
-            {
-                let tempDate = "\(calcDate)" + "-" + "\(currentMonthIndex)" + "-" + "\(currentYear)"
-                
-                if (DateTimeUtility.isWeekend(date: DateTimeUtility.getDateFromString(dateStr: tempDate))) {
-                    cell.isHidden = true
-                } else {
-                    cell.isHidden = false
-                }
-            }
-            //----------- Hide Weekends Action - END ------------------- //
         }
         else {
             cell.dateLabel.text = "\(dateInc)"
             cell.dateLabel.textColor = UIColor.lightGray
             cell.isHidden = false
-            
-            //----------- Hide Weekends Action - SART ------------------- //
-            
-            if switchButtton
-            {
-                let tempDate = "\(dateInc)" + "-" + "\(getNextMonth(currentMonthIndex: currentMonthIndex))" + "-" + "\(getNextYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))"
-                if (DateTimeUtility.isWeekend(date: DateTimeUtility.getDateFromString(dateStr: tempDate))) {
-                    cell.isHidden = true
-                } else {
-                    cell.isHidden = false
-                }
-            }
-            
-            //----------- Hide Weekends Action - END ------------------- //
-            
             
             let dateStr = "\(getNextYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))" + "-" + String(format: "%02d", getNextMonth(currentMonthIndex: currentMonthIndex)) + "-" + "\(dateInc)" + " " + "00:00:00"
             
@@ -510,7 +479,7 @@ extension CalendarMonthViewController: UICollectionViewDelegateFlowLayout {
                 // Set Cell Size When Numbers Of Cells In Row Is 5 (Sat - Sun) - START
                 return CGSize(width: 0, height: height)
                 // Set Cell Size When Numbers Of Cells In Row Is 5 (Sat - Sun) - END
-                
+
             default:
                 let cellsPerRow = 7
                 let marginsAndInsets = sectionInset.left + sectionInset.right + collectionView.safeAreaInsets.left + collectionView.safeAreaInsets.right + minimumInteritemSpacing * CGFloat(cellsPerRow - 1)

@@ -45,7 +45,7 @@ class CalendarListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         globalVisit = CalendarViewModel().loadVisitData()!
         CalendarFilterMenuModel.searchText = ""
         CalendarFilterMenuModel.visitsType = "YES"
@@ -54,16 +54,6 @@ class CalendarListViewController: UIViewController {
         self.calViewButton.setTitle("Week View    ", for: .normal)
         currentCalendarViewType = .Week
         weekEndsEnabled = true
-        
-        if (self.calendarMonthController?.view != nil) {
-            DispatchQueue.main.async {
-                self.calendarMonthController?.view.isHidden = true
-            }
-        }
-        for view in self.bottomView.subviews{
-            view.isHidden = false
-        }
-        
 
         displayWeekends()
         reloadCalendarView()
@@ -77,6 +67,21 @@ class CalendarListViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshCalendar"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("LoadWeekView"), object: nil)
+        
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if (self.calendarMonthController?.view != nil) {
+            DispatchQueue.main.async {
+                self.calendarMonthController?.view.isHidden = true
+            }
+        }
+        for view in self.bottomView.subviews{
+            view.isHidden = false
+        }
     }
     
     // MARK: - Calendar Refresh
@@ -298,15 +303,16 @@ class CalendarListViewController: UIViewController {
                 for view in self.bottomView.subviews{
                     view.isHidden = true
                 }
-                if (self.calendarMonthController?.view == nil) {
+                if (self.calendarMonthController?.view != nil) {
+                    self.calendarMonthController?.view.removeFromSuperview()
+                    self.calendarMonthController?.removeFromParentViewController()
+                    self.calendarMonthController = nil
+                }
+                
                 self.calendarMonthController = UIStoryboard(name: "Calendar", bundle: nil).instantiateViewController(withIdentifier: "CalendarMonthViewController") as? CalendarMonthViewController
                 self.addChildViewController(self.calendarMonthController!)
                 self.calendarMonthController?.view.frame = CGRect(x: self.bottomView.bounds.origin.x, y: self.bottomView.bounds.origin.y, width: self.bottomView.frame.size.width, height: self.bottomView.bounds.size.height)
                 self.bottomView.addSubview((self.calendarMonthController?.view)!)
-                } else {
-                    DispatchQueue.main.async {
-                        self.calendarMonthController?.view.isHidden = false
-                    }                }
                 
                 self.calViewButton.setTitle("Month View    ", for: .normal)
                 self.currentCalendarViewType = .Month

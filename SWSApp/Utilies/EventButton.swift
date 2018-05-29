@@ -29,7 +29,6 @@ import UIKit
     func sharedInit() {
         // Common logic goes here
         self.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
-        borderColor(value: .random())
     }
     
     func borderColor(value: UIColor) {

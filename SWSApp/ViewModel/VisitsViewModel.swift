@@ -23,7 +23,8 @@ class VisitsViewModel {
 
         visitsForUserArray = visitsForUserArray.filter {
             
-            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+//            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+            if let startDate = $0.dateStart {
                 if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
                     return true
                 }
@@ -47,8 +48,9 @@ class VisitsViewModel {
         
         visitsForUserArray = visitsForUserArray.filter {
             
-            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
-                
+//            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+            if let startDate = $0.dateStart {
+
                 let daysBetween = Date.daysBetween(start: startDate, end: givenDate, ignoreHours: true)
                 if daysBetween == 0 {
                     return true
@@ -76,7 +78,8 @@ class VisitsViewModel {
         
         visitsForUserArray = visitsForUserArray.filter {
             
-            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+//            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+            if let startDate = $0.dateStart {
                 if startDate.isLater(than: prevWeekDate), startDate.isEarlier(than: nextTwoWeekDate) {
                     return true
                 }
@@ -106,7 +109,8 @@ class VisitsViewModel {
         
         visitsForUserArray = visitsForUserArray.filter {
             
-            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+//            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+            if let startDate = $0.dateStart {
                 if startDate.isLater(than: prevWeekDate), startDate.isEarlier(than: nextWeekDate) {
                     return true
                 }

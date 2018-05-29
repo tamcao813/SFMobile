@@ -42,9 +42,11 @@ class CalendarViewModel {
             let dateFormatter = DateFormatter()
             dateFormatter.timeZone = TimeZone.current
 
-            if let eventStartDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: visit.startDate) {
-                
-                if let eventEndDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: visit.endDate) {
+//            if let eventStartDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: visit.startDate) {
+                if let eventStartDate = visit.dateStart {
+
+//                if let eventEndDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: visit.endDate) {
+                if let eventEndDate = visit.dateEnd {
 
                     let daysBetween = Date.daysBetween(start: eventStartDate, end: eventEndDate, ignoreHours: true)
                     

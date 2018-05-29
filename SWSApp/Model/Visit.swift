@@ -18,7 +18,9 @@ class Visit{
     var contactId : String
     var sgwsAppointmentStatus : Bool
     var startDate : String
+    var dateStart : Date?
     var endDate : String
+    var dateEnd : Date?
     var sgwsVisitPurpose : String
     var description : String
     var sgwsAgendaNotes : String
@@ -59,7 +61,19 @@ class Visit{
         
         
         startDate = json["StartDate"] as? String ?? ""
+        if startDate == "" {
+            dateStart = nil
+        }
+        else {
+            dateStart = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: startDate)
+        }
         endDate = json["EndDate"] as? String ?? ""
+        if endDate == "" {
+            dateEnd = nil
+        }
+        else {
+            dateEnd = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: endDate)
+        }
         sgwsVisitPurpose = json["SGWS_Visit_Purpose__c"] as? String ?? ""
         description = json["Description"] as? String ?? ""
         sgwsAgendaNotes = json["SGWS_Agenda_Notes__c"] as? String ?? ""
@@ -95,7 +109,9 @@ class Visit{
        
         sgwsAppointmentStatus = false
         startDate = ""
+        dateStart = nil
         endDate = ""
+        dateEnd = nil
         sgwsVisitPurpose = ""
         description = ""
         sgwsAgendaNotes = ""

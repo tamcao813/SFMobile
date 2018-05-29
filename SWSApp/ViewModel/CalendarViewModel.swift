@@ -33,6 +33,8 @@ class CalendarViewModel {
         
         var visitsToCalendarEventsArray = [WREvent]()
         
+        let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser
+        
         for visit in visitArray
         {
 
@@ -45,7 +47,7 @@ class CalendarViewModel {
 
                     let daysBetween = Date.daysBetween(start: eventStartDate, end: eventEndDate, ignoreHours: true)
                     
-                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: visit.accountId)
+                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: globalAccountsForLoggedUser, accountId: visit.accountId)
                     guard accountList != nil, (accountList?.count)! > 0  else {
                         continue
                     }

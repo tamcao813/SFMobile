@@ -50,18 +50,12 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     func showTypeCell(indexPath : IndexPath){
         switch indexPath.row{
         case 0:
-            if AccountVisitListFilterModel.isTypeAll == "YES"{
-                self.dropDownImageView.image = UIImage(named: "Checkbox Selected")
-            }else{
-                self.dropDownImageView.image = UIImage(named: "Checkbox")
-            }
-        case 1:
             if AccountVisitListFilterModel.isTypeVisit == "YES"{
                 self.dropDownImageView.image = UIImage(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage(named: "Checkbox")
             }
-        case 2:
+        case 1:
             if AccountVisitListFilterModel.isTypeEvent == "YES"{
                 self.dropDownImageView.image = UIImage(named: "Checkbox Selected")
             }else{
@@ -100,30 +94,24 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     func showStatusCell(indexPath : IndexPath){
         switch indexPath.row{
         case 0:
-            if AccountVisitListFilterModel.isStatusAll == "YES"{
-                self.dropDownImageView.image = UIImage(named: "Checkbox Selected")
-            }else{
-                self.dropDownImageView.image = UIImage(named: "Checkbox")
-            }
-        case 1:
             if AccountVisitListFilterModel.isStatusScheduled == "YES"{
                 self.dropDownImageView.image = UIImage(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage(named: "Checkbox")
             }
-        case 2:
+        case 1:
             if AccountVisitListFilterModel.isStatusPlanned == "YES"{
                 self.dropDownImageView.image = UIImage(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage(named: "Checkbox")
             }
-        case 3:
+        case 2:
             if AccountVisitListFilterModel.isInProgress == "YES"{
                 self.dropDownImageView.image = UIImage(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage(named: "Checkbox")
             }
-        case 4:
+        case 3:
             if AccountVisitListFilterModel.isComplete == "YES"{
                 self.dropDownImageView.image = UIImage(named: "Checkbox Selected")
             }else{

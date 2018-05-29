@@ -75,6 +75,8 @@
                                             <outlet property="UpComingActivities_Image" destination="Ttj-JW-Snw" id="rCn-ya-pe2"/>
                                             <outlet property="UpComingActivities_TimeLabel" destination="mMt-8j-dLX" id="BCR-Aw-iJ8"/>
                                             <outlet property="UpComingActivities_TitleLabel" destination="Ej0-AQ-prj" id="rf5-Jg-jv0"/>
+                                            <outlet property="upcomingImageWidthConstraint" destination="O2I-w4-Fb5" id="TFO-l0-vdL"/>
+                                            <outlet property="upcomingTimeLeadingConstraint" destination="Yfy-Qc-Q1X" id="zXE-6f-MWr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -86,7 +88,7 @@
                                     <constraint firstAttribute="width" constant="490" id="u7e-Uo-7SC"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="pastVisitCell" rowHeight="100" id="3Le-g8-Jtu" customClass="PastVisitTableViewCell" customModule="SWSApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="100" id="3Le-g8-Jtu">
                                         <rect key="frame" x="0.0" y="28" width="490" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Le-g8-Jtu" id="m8q-q9-sfK">
@@ -101,6 +103,9 @@
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bell" translatesAutoresizingMaskIntoConstraints="NO" id="a3g-jh-aan">
                                                     <rect key="frame" x="15" y="71" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="ubj-BL-1Qb"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Hours Ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ON-9I-fZ1">
                                                     <rect key="frame" x="45" y="72.5" width="84" height="17"/>
@@ -124,6 +129,8 @@
                                             <outlet property="PastActivities_ImageView" destination="a3g-jh-aan" id="358-mD-Vn5"/>
                                             <outlet property="PastActivities_TimeLabel" destination="3ON-9I-fZ1" id="3Kx-tW-Phf"/>
                                             <outlet property="PastActivities_TitleLabel" destination="qcN-Or-zo1" id="BLn-gR-iOt"/>
+                                            <outlet property="pastImageWidthConstraint" destination="ubj-BL-1Qb" id="4Ta-pP-DgS"/>
+                                            <outlet property="pastTimeLeadingConstraint" destination="kTa-ya-jSL" id="DEq-Us-pKg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

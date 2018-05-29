@@ -12,6 +12,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     
     
+    
     @IBOutlet weak var upcomingActivitiesTableView: UITableView!
     @IBOutlet weak var pastActivitiesTableView: UITableView!
     var account : Account?
@@ -375,9 +376,13 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: upcomingActionItemArrayToDisplay[indexPath.row].activityDate)
                 if upcomingActionItemArrayToDisplay[indexPath.row].isUrgent{
                     cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
+                    cell.upcomingImageWidthConstraint.constant = 20
+                    cell.upcomingTimeLeadingConstraint.constant = 10
                 }
                 else{
                     cell.UpComingActivities_Image.image = nil
+                    cell.upcomingImageWidthConstraint.constant = 0
+                    cell.upcomingTimeLeadingConstraint.constant = 0
                 }
                 
                 return cell
@@ -388,9 +393,14 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: pastActionItemArrayToDisplay[indexPath.row].activityDate)
                 if pastActionItemArrayToDisplay[indexPath.row].isUrgent{
                     cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
+                    cell.upcomingImageWidthConstraint.constant = 20
+                    cell.upcomingTimeLeadingConstraint.constant = 10
                 }
                 else{
                     cell.UpComingActivities_Image.image = nil
+                    cell.upcomingImageWidthConstraint.constant = 0
+                    cell.upcomingTimeLeadingConstraint.constant = 0
+                    
                 }
                 return cell
             }

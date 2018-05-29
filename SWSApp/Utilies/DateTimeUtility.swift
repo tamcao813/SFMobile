@@ -247,6 +247,22 @@ class DateTimeUtility
     }
     ///------------ Convert String To Date Format - END ------- ///
     
+    ///------------ Convert String To Date Format - START ------- ///
+    // Using calendar components convering the string to date format
+    static func getDateFromStringFormat(dateStr: String) -> Date {
+        
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let DateArray = dateStr.components(separatedBy: "-")
+        let components = NSDateComponents()
+        components.year = Int(DateArray[2])!
+        components.month = Int(DateArray[1])!
+        components.day = Int(DateArray[0])!
+        components.timeZone = TimeZone.current
+        let date = calendar.date(from: components as DateComponents)
+        return date!
+    }
+    ///------------ Convert String To Date Format - END ------- ///
+    
     
     ///------------ Convert Date To String Format - START ------- ///
     // Using the dateformatter convering date to string format

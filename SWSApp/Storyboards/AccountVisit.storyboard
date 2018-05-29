@@ -495,8 +495,8 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xP-xi-8E1">
                                                     <rect key="frame" x="12" y="-3" width="218" height="72.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aT-d1-2Dd">
-                                                            <rect key="frame" x="6" y="2" width="34.5" height="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aT-d1-2Dd">
+                                                            <rect key="frame" x="6" y="2" width="33" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                             <color key="textColor" white="0.69999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -508,7 +508,7 @@
                                                                 <constraint firstAttribute="height" constant="20" id="UAJ-Jw-0uQ"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Start" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9le-V0-bES">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Start" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9le-V0-bES">
                                                             <rect key="frame" x="7" y="21.5" width="150" height="45"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="150" id="39m-3L-KQ2"/>
@@ -528,6 +528,10 @@
                                                                     <real key="value" value="4"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="reload" destination="HG8-AN-n9p" eventType="editingDidEndOnExit" id="rZY-rC-gNo"/>
+                                                                <outlet property="delegate" destination="tOM-5N-9h3" id="Sar-KK-P2h"/>
+                                                            </connections>
                                                         </textField>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -561,8 +565,90 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dropDownImageView" destination="0qm-BS-0A2" id="FN0-FQ-L8z"/>
-                                            <outlet property="lblDate" destination="9le-V0-bES" id="4Wx-bm-aEu"/>
-                                            <outlet property="lblTitle" destination="4aT-d1-2Dd" id="RH3-7W-Ggj"/>
+                                            <outlet property="lblStartDate" destination="9le-V0-bES" id="jS8-VD-eps"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell3" rowHeight="70" id="HtZ-pb-nyB" customClass="AccountVisitListFilterTableViewCell" customModule="SWSApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="148" width="248" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HtZ-pb-nyB" id="gGa-f4-sL7">
+                                            <rect key="frame" x="0.0" y="0.0" width="248" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ywo-bW-epi">
+                                                    <rect key="frame" x="12" y="-3" width="218" height="72.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntZ-87-qoc">
+                                                            <rect key="frame" x="6" y="2" width="15.5" height="16"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                                            <color key="textColor" white="0.69999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Calender" translatesAutoresizingMaskIntoConstraints="NO" id="mPv-BL-cfi">
+                                                            <rect key="frame" x="127" y="33.5" width="20" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="Afe-FE-QL5"/>
+                                                                <constraint firstAttribute="width" constant="20" id="PP7-cl-hVD"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Start" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MTg-20-u48">
+                                                            <rect key="frame" x="7" y="21.5" width="150" height="45"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="150" id="HFj-kG-dZu"/>
+                                                                <constraint firstAttribute="height" constant="45" id="fCq-EO-zIb"/>
+                                                            </constraints>
+                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" white="0.69999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="4"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="reload" destination="HG8-AN-n9p" eventType="editingDidEndOnExit" id="om4-SX-oNm"/>
+                                                                <outlet property="delegate" destination="HtZ-pb-nyB" id="ygS-xK-3hn"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="mPv-BL-cfi" firstAttribute="centerY" secondItem="Ywo-bW-epi" secondAttribute="centerY" constant="7.25" id="Ako-Tn-MQB"/>
+                                                        <constraint firstAttribute="bottom" secondItem="MTg-20-u48" secondAttribute="bottom" constant="6" id="C1t-Dc-JU6"/>
+                                                        <constraint firstItem="MTg-20-u48" firstAttribute="leading" secondItem="Ywo-bW-epi" secondAttribute="leading" constant="7" id="MS5-f6-xSm"/>
+                                                        <constraint firstItem="ntZ-87-qoc" firstAttribute="leading" secondItem="Ywo-bW-epi" secondAttribute="leading" constant="6" id="P19-im-8d4"/>
+                                                        <constraint firstItem="MTg-20-u48" firstAttribute="top" secondItem="ntZ-87-qoc" secondAttribute="bottom" constant="3.5" id="d0j-Dy-jAZ"/>
+                                                        <constraint firstItem="mPv-BL-cfi" firstAttribute="trailing" secondItem="MTg-20-u48" secondAttribute="trailing" constant="-10" id="dfn-52-rRI"/>
+                                                        <constraint firstItem="ntZ-87-qoc" firstAttribute="top" secondItem="Ywo-bW-epi" secondAttribute="top" constant="2" id="eJF-wt-Kfx"/>
+                                                        <constraint firstItem="mPv-BL-cfi" firstAttribute="top" secondItem="Ywo-bW-epi" secondAttribute="top" constant="33.5" id="fdo-K8-epz"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                            <integer key="value" value="0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipsToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ywo-bW-epi" firstAttribute="leading" secondItem="gGa-f4-sL7" secondAttribute="leading" constant="12" id="60d-rh-Gdu"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ywo-bW-epi" secondAttribute="trailing" constant="18" id="XOb-6b-2ii"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ywo-bW-epi" secondAttribute="bottom" id="q4o-Cb-hsN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dropDownImageView" destination="mPv-BL-cfi" id="X5C-q0-dPY"/>
+                                            <outlet property="lblEndDate" destination="MTg-20-u48" id="hfb-mv-9n9"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

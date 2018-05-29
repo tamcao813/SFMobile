@@ -62,9 +62,9 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
         
         lblAddress.text = fullAddress
         
-        let lastModifiedDate = data?.startDate
-        if(lastModifiedDate != ""){
-            let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: lastModifiedDate)
+        let startTime = data?.startDate
+        if(startTime != ""){
+            let getTime = DateTimeUtility.convertUtcDatetoReadableDateAndTimeString(dateString: startTime)
             var dateTime = getTime.components(separatedBy: " ")
             
             if(dateTime.count > 0){

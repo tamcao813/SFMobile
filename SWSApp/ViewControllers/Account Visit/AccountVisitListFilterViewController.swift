@@ -206,6 +206,9 @@ class AccountVisitListFilterViewController : UIViewController{
     }
     
     func performDateRangeOperation(indexPath: IndexPath){
+        //MAking to empty if other date ranges are clicked
+        AccountVisitListFilterModel.startDate = ""
+        AccountVisitListFilterModel.endDate = ""
         
         switch indexPath.row {
         case 2:
@@ -286,6 +289,9 @@ class AccountVisitListFilterViewController : UIViewController{
         AccountVisitListFilterModel.isComplete = "NO"
         
         AccountVisitListFilterModel.isPastVisits = "NO"
+        
+        AccountVisitListFilterModel.startDate = ""
+        AccountVisitListFilterModel.endDate = ""
         
         AccountVisitListFilterModel.filterApplied = false
         
@@ -405,26 +411,24 @@ extension AccountVisitListFilterViewController : UITableViewDataSource{
             if indexPath.row == 0{
                 cell = tableView.dequeueReusableCell(withIdentifier: locationCell, for: indexPath) as! AccountVisitListFilterTableViewCell
                 (cell as! AccountVisitListFilterTableViewCell).selectionStyle = .none
-                (cell as! AccountVisitListFilterTableViewCell).lblTitle.text = "From"
-                (cell as! AccountVisitListFilterTableViewCell).lblDate?.placeholder = "Start"
-                
-                
-                
+                (cell as! AccountVisitListFilterTableViewCell).lblStartDate?.placeholder = "Start"
+                (cell as! AccountVisitListFilterTableViewCell).lblStartDate?.tag = 300
+                (cell as! AccountVisitListFilterTableViewCell).lblStartDate?.text = AccountVisitListFilterModel.startDate
+                (cell as! AccountVisitListFilterTableViewCell).delegate = self
                 
             }else if indexPath.row == 1{
-                cell = tableView.dequeueReusableCell(withIdentifier: locationCell, for: indexPath) as! AccountVisitListFilterTableViewCell
+                cell = tableView.dequeueReusableCell(withIdentifier: cell3, for: indexPath) as! AccountVisitListFilterTableViewCell
                 (cell as! AccountVisitListFilterTableViewCell).selectionStyle = .none
-                (cell as! AccountVisitListFilterTableViewCell).lblTitle.text = "To"
-                (cell as! AccountVisitListFilterTableViewCell).lblDate?.placeholder = "End"
-                
-                
-                
+                (cell as! AccountVisitListFilterTableViewCell).lblEndDate?.placeholder = "End"
+                (cell as! AccountVisitListFilterTableViewCell).lblEndDate?.tag = 301
+                (cell as! AccountVisitListFilterTableViewCell).lblEndDate?.text = AccountVisitListFilterModel.endDate
+                (cell as! AccountVisitListFilterTableViewCell).delegate = self
                 
             }else{
                 cell = tableView.dequeueReusableCell(withIdentifier: filterCell, for: indexPath) as! AccountVisitListFilterTableViewCell
                 cell?.selectionStyle = .none
-                
                 self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
+                (cell as! AccountVisitListFilterTableViewCell).delegate = self
                 
             }
             return cell!
@@ -432,7 +436,7 @@ extension AccountVisitListFilterViewController : UITableViewDataSource{
         
         cell = tableView.dequeueReusableCell(withIdentifier: filterCell, for: indexPath) as! AccountVisitListFilterTableViewCell
         cell?.selectionStyle = .none
-        
+        (cell as! AccountVisitListFilterTableViewCell).delegate = self
         self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
         
         return cell!
@@ -497,8 +501,14 @@ extension AccountVisitListFilterViewController : UISearchBarDelegate{
     }
 }
 
-
-
+//MARK:- ReloadTableViewForNewAppliedFilter Delegate
+extension AccountVisitListFilterViewController : ReloadTableViewForNewAppliedFilterDelegate{
+    
+    func reloadTableView() {
+        self.tableView.reloadData()
+    }
+    
+}
 
 
 

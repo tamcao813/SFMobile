@@ -36,6 +36,7 @@ class AccountVisitListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var globalWorkorderObjectArray = [WorkOrderUserObject]()
     var mainArray = [WorkOrderUserObject]()
     var dataArrayFromToday = [WorkOrderUserObject]()
     var tableViewDataArray = [WorkOrderUserObject]()
@@ -77,6 +78,7 @@ class AccountVisitListViewController: UIViewController {
     
     func getTheDataFromDB(){
         let visitArray = VisitsViewModel()
+        globalWorkorderObjectArray = visitArray.visitsForUser()
         mainArray = visitArray.visitsForUser()
         tableViewDataArray = visitArray.visitsForUser()
         
@@ -88,7 +90,6 @@ class AccountVisitListViewController: UIViewController {
         
         tableViewDataArray = tableViewDataArray.filter({
             let date = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
-            print(date)
             return date >= timeStamp
         })
         
@@ -363,18 +364,31 @@ extension AccountVisitListViewController : AccountVisitSearchButtonTappedDelegat
     func applyFilter(searchText: String){
         if searchText != ""{
             searchStr = searchText
-            //Condition check to get the past dates
-            if AccountVisitListFilterModel.isPastVisits == "YES"{
-                filteredTableViewDataArray =  AccountVisitListSortUtility().searchAndFilter(searchStr: searchText, actionItems: mainArray)
+            
+            if AccountVisitListFilterModel.startDate != "" && AccountVisitListFilterModel.endDate != ""{
+                filteredTableViewDataArray =  AccountVisitListSortUtility().searchAndFilter(searchStr: searchText, actionItems: globalWorkorderObjectArray)
+                
             }else{
-                filteredTableViewDataArray =  AccountVisitListSortUtility().searchAndFilter(searchStr: searchText, actionItems: dataArrayFromToday)
+                //Condition check to get the past dates
+                if AccountVisitListFilterModel.isPastVisits == "YES"{
+                    filteredTableViewDataArray =  AccountVisitListSortUtility().searchAndFilter(searchStr: searchText, actionItems: mainArray)
+                }else{
+                    filteredTableViewDataArray =  AccountVisitListSortUtility().searchAndFilter(searchStr: searchText, actionItems: dataArrayFromToday)
+                }
             }
+            
         }else{
-            //Condition check to get the past dates
-            if AccountVisitListFilterModel.isPastVisits == "YES"{
-                filteredTableViewDataArray = AccountVisitListSortUtility().filterOnly(actionItems: mainArray)
+            
+            if AccountVisitListFilterModel.startDate != "" && AccountVisitListFilterModel.endDate != ""{
+                filteredTableViewDataArray = AccountVisitListSortUtility().filterOnly(actionItems: globalWorkorderObjectArray)
+                
             }else{
-                filteredTableViewDataArray = AccountVisitListSortUtility().filterOnly(actionItems: dataArrayFromToday)
+                //Condition check to get the past dates
+                if AccountVisitListFilterModel.isPastVisits == "YES"{
+                    filteredTableViewDataArray = AccountVisitListSortUtility().filterOnly(actionItems: mainArray)
+                }else{
+                    filteredTableViewDataArray = AccountVisitListSortUtility().filterOnly(actionItems: dataArrayFromToday)
+                }
             }
         }
         

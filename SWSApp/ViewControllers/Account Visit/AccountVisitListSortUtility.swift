@@ -176,9 +176,11 @@ class AccountVisitListSortUtility {
   
         var todayArray = [WorkOrderUserObject]()
         var tomorrowDateArray = [WorkOrderUserObject]()
+        var weekRangeArray = [WorkOrderUserObject]()
         var dateRangeArray = [WorkOrderUserObject]()
         
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone.current
         
         if AccountVisitListFilterModel.isToday == "YES"{
             let timeStamp = dateFormatter.string(from: date)
@@ -215,7 +217,7 @@ class AccountVisitListSortUtility {
             
             let timeStamp = dateFormatter.string(from: date.endOfWeek.add(component: .day, value: 1))
             
-            dateRangeArray = actionItems.filter( {
+            weekRangeArray = actionItems.filter( {
                 let dateSeperator = $0.startDate.components(separatedBy: "")
                 var dateOnly = ""
                 if dateSeperator.count > 0{
@@ -226,8 +228,33 @@ class AccountVisitListSortUtility {
             dateRangeAdded = true
         }
         
+        //Used for selected Date Range
+        if AccountVisitListFilterModel.startDate != "" && AccountVisitListFilterModel.endDate != ""{
+            
+            dateRangeArray = actionItems.filter( {
+                let dateSeperator = $0.startDate.components(separatedBy: "T")
+                var dateOnly = ""
+                if dateSeperator.count > 0{
+                    dateOnly = dateSeperator[0]
+                }
+                return dateOnly >= AccountVisitListFilterModel.startDate
+            } )
+            
+            dateRangeArray = dateRangeArray.filter( {
+                let dateSeperator = $0.endDate.components(separatedBy: "T")
+                var dateOnly = ""
+                if dateSeperator.count > 0{
+                    dateOnly = dateSeperator[0]
+                }
+                return dateOnly <= AccountVisitListFilterModel.endDate
+            } )
+            
+            dateRangeAdded = true
+            
+        }
+        
         if dateRangeAdded{
-            return todayArray + tomorrowDateArray + dateRangeArray
+            return todayArray + tomorrowDateArray + weekRangeArray + dateRangeArray
         }else{
             return actionItems
         }

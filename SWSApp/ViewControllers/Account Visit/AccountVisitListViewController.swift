@@ -11,39 +11,103 @@ import UIKit
 
 class AccountVisitListViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-    var tableViewDataArray : [WorkOrderUserObject]?
+    //External
+    var outputArray:[Any]?
+    var indexInOrignalArray:Int?
     
+    //Internal
+    var kPageSize:Int = 15
+    var kSizeOfArray:Int = 103
+    var kNoOfPagesInEachSet = 5
+    var noOfPages:Int?
+    var kNoOfPageSet:Int?
+    var currentPageIndex:Int?
+    var currentPageSet:Int?
+    //    var previousPageSet:Int?
+    let kNoOfPagesDisplayed = 5
+    var kRemainderNoPagesEnabed = 0
+    var kRemainderNoPagesDisabled = 0
+    var kRemainderNoLeft = 0
+    var kOrignalArray:[Any]?
+    var isDisabledPreviously = false
+    //Outlets Used for Page control operation
+    @IBOutlet var pageButtonArr: [UIButton]!
+    var numberOfAccountRows = 0
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var mainArray = [WorkOrderUserObject]()
+    var dataArrayFromToday = [WorkOrderUserObject]()
+    var tableViewDataArray = [WorkOrderUserObject]()
+    var filteredTableViewDataArray = [WorkOrderUserObject]()
     var addNewDropDown = DropDown()
+    var searchStr = ""
+    
+    var titleAscendingSort = false
+    var statusAscendingSort = false
+    var dateAscendingSort = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
-
-        getTheDataFromDB()
+        self.getTheDataFromDB()
+        //customizedUI()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        customizedUI()
+        
         //initializingXIBs()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //DispatchQueue.global().async {
+       
+        //}
+    }
+    
     @objc func refreshAccountVisitList(){
+
         getTheDataFromDB()
+       
     }
     
     func getTheDataFromDB(){
-        tableViewDataArray = [WorkOrderUserObject]()
         let visitArray = VisitsViewModel()
+        mainArray = visitArray.visitsForUser()
         tableViewDataArray = visitArray.visitsForUser()
-        tableViewDataArray = tableViewDataArray?.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
-        DispatchQueue.main.async {
-            UIView.performWithoutAnimation({() -> Void in
-                self.tableView.reloadData()
-            })
-        }
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone.current
+        let timeStamp = dateFormatter.string(from: date)
+        
+        tableViewDataArray = tableViewDataArray.filter({
+            let date = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+            print(date)
+            return date >= timeStamp
+        })
+        
+        tableViewDataArray = tableViewDataArray.sorted(by: { $0.startDate < $1.startDate })
+        
+        dataArrayFromToday = tableViewDataArray.sorted(by: { $0.startDate < $1.startDate })
+        
+        //Used for Past events during filtering
+        let newDate = date.addingTimeInterval(-(60 * 60 * 24))
+        let pastVisitsEventsTimeStamp = dateFormatter.string(from: newDate)
+        
+        mainArray = mainArray.filter({
+            let date = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+            return date >= pastVisitsEventsTimeStamp
+        })
+        
+        mainArray = mainArray.sorted(by: { $0.startDate < $1.startDate })
+        
+        self.initializePagination()
     }
     
     deinit {
@@ -59,6 +123,15 @@ class AccountVisitListViewController: UIViewController {
     
     func initializingXIBs(){
         //self.tableView.register(UINib(nibName: "AccountVisitListTableViewCell", bundle: nil), forCellReuseIdentifier: "AccountVisitListTableViewCell")
+    }
+    
+    func scrollTableViewToTop(){
+        tableView.reloadData()
+        DispatchQueue.main.async {
+            if(self.tableViewDataArray.count > 0){
+                self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            }
+        }
     }
     
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
@@ -96,61 +169,93 @@ class AccountVisitListViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func sortByTitleButtonAction(_ sender: UIButton){
+        
+        if titleAscendingSort {
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.subject.lowercased() < $1.subject.lowercased() })
+            titleAscendingSort = false
+        }else{
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.subject.lowercased() > $1.subject.lowercased() })
+            titleAscendingSort = true
+        }
+        self.scrollTableViewToTop()
+    }
+    
+    @IBAction func sortByStatusButtonAction(_ sender: UIButton){
+        
+        if statusAscendingSort{
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.lowercased() < $1.status.lowercased() })
+            statusAscendingSort = false
+        }else{
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.lowercased() > $1.status.lowercased() })
+            statusAscendingSort = true
+        }
+        self.scrollTableViewToTop()
+    }
+    
+    @IBAction func sortByDateButtonAction(_ sender: UIButton){
+      
+        if dateAscendingSort{
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.startDate < $1.startDate })
+            dateAscendingSort = false
+        }else{
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.startDate > $1.startDate })
+            dateAscendingSort = true
+        }
+        self.scrollTableViewToTop()
+    }
 }
 
 extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if indexPath.section == 0{
-            return 50
-        }
-        return 200
+        return 180
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return kPageSize //tableViewDataArray.count
+//    }
     
+    //Pagination changes needed in TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return 1
+        
+        let cellsToDisplay = tableViewDataArray.count - currentPageIndex!
+        
+        if cellsToDisplay <= self.kPageSize && cellsToDisplay > 0 {
+            numberOfAccountRows = cellsToDisplay
+            return cellsToDisplay
+        } else if (cellsToDisplay == 0) {
+            numberOfAccountRows = 0
+            return 0
         }
-        return tableViewDataArray!.count
+        else {
+            numberOfAccountRows = self.kPageSize
+            return self.kPageSize
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0{
-            return 60.0;
-        }
-        return 0
+        return 50;
     }
     
     // custom header for the section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
-        var headerCell : AccountVisitListTableViewCell?
-        //if section == 0{
-            headerCell = tableView.dequeueReusableCell(withIdentifier: "newVisitCell") as? AccountVisitListTableViewCell
-            return headerCell
-        //}
-        //return nil
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListHeaderTableViewCell") as? AccountVisitListTableViewCell
+        //cell?.cen
+        return cell
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : UITableViewCell?
-        if indexPath.section == 0{
-            
-            cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListHeaderTableViewCell") as? AccountVisitListTableViewCell
-            cell?.selectionStyle = .none
-            
-        }else{
-            
-            cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
-            cell?.selectionStyle = .none
-            //cell?.delegate = self as! SwipeTableViewCellDelegate
-            let celldata = tableViewDataArray![indexPath.row]
-            (cell as! AccountVisitListTableViewCell).displayCellData(data: celldata)
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let visitNEventCellData:WorkOrderUserObject = tableViewDataArray[indexPath.row + currentPageIndex!]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListTableViewCell") as? AccountVisitListTableViewCell
+        cell?.selectionStyle = .none
+        //cell?.delegate = self as! SwipeTableViewCellDelegate
+        
+//        let celldata = tableViewDataArray[indexPath.row]
+        
+        cell?.displayCellData(data: visitNEventCellData)
         
         return cell!
     }
@@ -205,34 +310,81 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let workOrder = tableViewDataArray[indexPath.row + currentPageIndex!]
         
-        let workOrder : WorkOrderUserObject = tableViewDataArray![indexPath.row]
         if(workOrder.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
-            if indexPath.section > 0{
-                let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
-                let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
-                PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
-                (accountVisitsVC)?.delegate = self
-                accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
-                DispatchQueue.main.async {
-                    self.present(accountVisitsVC!, animated: true, completion: nil)
-                }
+            let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
+            
+            PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row]
+            accountVisitsVC?.visitId = tableViewDataArray[indexPath.row].Id
+            
+            (accountVisitsVC)?.delegate = self
+            
+            DispatchQueue.main.async {
+                self.present(accountVisitsVC!, animated: true, completion: nil)
             }
         } else {
             
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-            PlanVisitManager.sharedInstance.visit = tableViewDataArray![indexPath.row]
+   
+            PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row]
+            accountVisitsVC?.visitId = tableViewDataArray[indexPath.row].Id
+            
             (accountVisitsVC)?.delegate = self
-            accountVisitsVC?.visitId = tableViewDataArray![indexPath.row].Id
+            
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
-            
         }
     }
 }
 
+//MARK:- AccountVisitSearchButtonTapped Delegate
+extension AccountVisitListViewController : AccountVisitSearchButtonTappedDelegate{
+    
+    func clearFilter() {
+        AccountVisitListFilterModel.filterApplied = false
+        
+        tableViewDataArray.removeAll()
+        tableViewDataArray = dataArrayFromToday
+        
+        self.initializePagination()
+        self.scrollTableViewToTop()
+    }
+    
+    func performFilterOperation(searchText: UISearchBar) {
+        AccountVisitListFilterModel.filterApplied = true
+        //Perform Search Operation First then do Filtering
+        applyFilter(searchText: searchText.text!)
+    }
+    
+    func applyFilter(searchText: String){
+        if searchText != ""{
+            searchStr = searchText
+            //Condition check to get the past dates
+            if AccountVisitListFilterModel.isPastVisits == "YES"{
+                filteredTableViewDataArray =  AccountVisitListSortUtility().searchAndFilter(searchStr: searchText, actionItems: mainArray)
+            }else{
+                filteredTableViewDataArray =  AccountVisitListSortUtility().searchAndFilter(searchStr: searchText, actionItems: dataArrayFromToday)
+            }
+        }else{
+            //Condition check to get the past dates
+            if AccountVisitListFilterModel.isPastVisits == "YES"{
+                filteredTableViewDataArray = AccountVisitListSortUtility().filterOnly(actionItems: mainArray)
+            }else{
+                filteredTableViewDataArray = AccountVisitListSortUtility().filterOnly(actionItems: dataArrayFromToday)
+            }
+        }
+        
+        tableViewDataArray.removeAll()
+        tableViewDataArray = filteredTableViewDataArray
+        
+        self.initializePagination()
+        self.scrollTableViewToTop()
+    }
+}
 
 //MARK:- NavigateToContacts Delegate
 extension AccountVisitListViewController : NavigateToContactsDelegate{
@@ -268,3 +420,242 @@ enum AccountVisitStatus : String {
     case completed
     case planned
 }
+
+
+//MARK:- PageControl Implementation
+extension AccountVisitListViewController{
+    enum Page: Int {
+        case  previousLbl=0, oneLbl, twoLbl, threeLbl, fourLbl, fiveLbl, nextLbl,lastLbl,firstLbl
+        case first = 100, previous, one, two, three, four, five, next,last
+    }
+    
+    //Used to reload the Pagination for refresh
+    func initializePagination(){
+        
+        initPageViewWith(inputArr:tableViewDataArray, pageSize: kPageSize)
+        updateUI()
+        
+        if(numberOfAccountRows > 0){
+            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
+        for count in 1...5 {
+            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+            pageButtonArr[count].backgroundColor = UIColor.white
+            pageButtonArr[count].setTitle(String(count), for: .normal)
+        }
+        pageButtonArr[1].backgroundColor = UIColor.lightGray
+        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+    }
+    
+    func initPageViewWith(inputArr: [Any], pageSize:Int) {
+        self.kOrignalArray = inputArr
+        self.kPageSize = pageSize
+        self.kSizeOfArray = inputArr.count
+        self.noOfPages = (self.kSizeOfArray/self.kPageSize)
+        self.kNoOfPageSet = self.noOfPages! / kNoOfPagesDisplayed
+        
+        if(self.kPageSize * kNoOfPagesDisplayed * self.kNoOfPageSet!  <  self.kSizeOfArray) {
+            
+            self.kRemainderNoLeft = self.kSizeOfArray - (self.kPageSize * kNoOfPagesDisplayed * self.kNoOfPageSet!)
+            self.kRemainderNoPagesEnabed = self.kRemainderNoLeft/self.kPageSize
+            if(self.kRemainderNoLeft % self.kPageSize > 0) {
+                self.kRemainderNoPagesEnabed = self.kRemainderNoPagesEnabed + 1
+            }
+            self.kRemainderNoPagesDisabled = kNoOfPagesDisplayed - self.kRemainderNoPagesEnabed
+            
+            self.kNoOfPageSet! += 1
+        }
+        self.currentPageIndex = 0   //It will have index value of the page it is displaying right now, 0 or 5 or next 10, 15---
+        self.currentPageSet = 0     //[1][2][3][4][5][6] --- CPI
+        
+        //if inputArr.count >= 10{
+        //tableViewDisplayData = tableViewDisplayData[0...4]
+        //    print(tableViewDisplayData)
+        // }else{
+        //let items = inputArr.count - 1
+        // tableViewDisplayData = tableViewDisplayData[0...items]
+        //    print(tableViewDisplayData)
+        // }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func disableBtn(from:Int, to:Int) {
+        for i in from...to {
+            pageButtonArr[i].isEnabled = false
+            isDisabledPreviously = true
+        }
+    }
+    
+    func enableBtn(from:Int, to:Int) {
+        for i in from...to {
+            pageButtonArr[i].isEnabled = true
+        }
+    }
+    
+    func changeBtnText(byPageSet:Int) {
+        if(currentPageSet! + byPageSet >= 0 &&
+            currentPageSet! < kNoOfPageSet!) {
+            for i in 1...kNoOfPagesInEachSet {
+                if let labelText = pageButtonArr[i].titleLabel?.text {
+                    if let intVal = Int(labelText) {
+                        pageButtonArr[i].setTitle(String(intVal + (byPageSet * kNoOfPagesInEachSet)), for: .normal)
+                    }
+                }
+            }
+            currentPageSet = currentPageSet! + byPageSet
+            currentPageIndex = currentPageSet! * kNoOfPagesInEachSet * kPageSize
+            print("Page Set Selected = \(currentPageSet!) Base Index Calulated \(currentPageIndex!)")
+        }
+    }
+    
+    func updateUI(){
+        
+        if(kSizeOfArray == 0) {
+            disableBtn(from:0, to: 8)
+        }
+        else {
+            if (isDisabledPreviously == true){
+                enableBtn(from:0, to: 8)
+            }
+            
+            //Get Size of aray and enable the tabs
+            if(currentPageSet == 0){
+                disableBtn(from: 0, to: 0)
+                disableBtn(from: 7, to: 7)
+            }
+            
+            if(currentPageSet! >= kNoOfPageSet! - 1 ){
+                disableBtn(from: 6, to: 6)
+                disableBtn(from: 8, to: 8)
+                
+                if(kRemainderNoPagesDisabled > 0) {
+                    let enableBtns = kNoOfPagesInEachSet - kRemainderNoPagesDisabled
+                    enableBtn(from: 1, to: enableBtns)
+                    if(enableBtns+1 <= 5) {
+                        disableBtn(from: enableBtns+1, to: 5)
+                    }
+                }
+            }
+        }
+    }
+    
+    @IBAction func pageActionHandeler(sender: UIButton) {
+        
+        print("\(sender.titleLabel)")
+        print("\(sender.tag)")
+        pageButtonArr[1].setTitleColor(UIColor.black, for: .normal)
+        pageButtonArr[2].setTitleColor(UIColor.black, for: .normal)
+        pageButtonArr[3].setTitleColor(UIColor.black, for: .normal)
+        pageButtonArr[4].setTitleColor(UIColor.black, for: .normal)
+        pageButtonArr[5].setTitleColor(UIColor.black, for: .normal)
+        
+        pageButtonArr[1].backgroundColor = UIColor.white
+        pageButtonArr[2].backgroundColor = UIColor.white
+        pageButtonArr[3].backgroundColor = UIColor.white
+        pageButtonArr[4].backgroundColor = UIColor.white
+        pageButtonArr[5].backgroundColor = UIColor.white
+        
+        self.changePaginationTitleText(sender: sender.tag)
+        
+        //let tableViewData = accountsForLoggedUserOriginal[self.currentPageIndex!]
+        //tableViewDisplayData = [tableViewData]
+        
+        if(numberOfAccountRows > 0) {
+            tableView.reloadData()
+            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
+        }
+    }
+    
+    private func changePaginationTitleText(sender : Int){
+        
+        switch sender {
+        case Page.first.rawValue:
+            
+            self.setupFirstPageButton()
+            
+        case Page.previous.rawValue:
+            //On pres of Previous if pageSet is grater than 0 than we have one pageSet to display decrement by 1
+            changeBtnText(byPageSet:-1)
+            //                self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+0) * kPageSize
+            print ("One: Index is \(currentPageIndex!)")
+            updateUI()
+            
+        case Page.one.rawValue:
+            self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+0) * kPageSize
+            print ("One: Index is \(currentPageIndex!)")
+            
+            pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+            pageButtonArr[1].backgroundColor = UIColor.lightGray
+            
+        case Page.two.rawValue:
+            self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+1) * kPageSize
+            print ("two: Index is \(currentPageIndex!)")
+            
+            pageButtonArr[2].setTitleColor(UIColor.white, for: .normal)
+            pageButtonArr[2].backgroundColor = UIColor.lightGray
+            
+        case Page.three.rawValue:
+            self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+2) * kPageSize
+            print ("three: Index is \(currentPageIndex!)")
+            
+            pageButtonArr[3].setTitleColor(UIColor.white, for: .normal)
+            pageButtonArr[3].backgroundColor = UIColor.lightGray
+            
+        case Page.four.rawValue:
+            self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+3) * kPageSize
+            print ("four: Index is \(currentPageIndex!)")
+            
+            pageButtonArr[4].setTitleColor(UIColor.white, for: .normal)
+            pageButtonArr[4].backgroundColor = UIColor.lightGray
+            
+        case Page.five.rawValue:
+            self.currentPageIndex = (currentPageSet! * kNoOfPagesInEachSet+4) * kPageSize
+            print ("five: Index is \(currentPageIndex!)")
+            
+            pageButtonArr[5].setTitleColor(UIColor.white, for: .normal)
+            pageButtonArr[5].backgroundColor = UIColor.lightGray
+            
+        case Page.next.rawValue:
+            changeBtnText(byPageSet: 1)
+            updateUI()
+            print ("Next")
+            
+        case Page.last.rawValue:
+            
+            self.setupLastPageButton()
+            
+        default:
+            break
+        }
+    }
+    
+    func setupFirstPageButton(){
+        for i in 1...kNoOfPagesInEachSet {
+            pageButtonArr[i].setTitle(String(i), for: .normal)
+        }
+        self.currentPageIndex = 0
+        self.currentPageSet = 0
+        updateUI()
+        print ("First")
+        print ("New \(self.currentPageIndex!)")
+    }
+    
+    func setupLastPageButton(){
+        self.setCurrentPageIndex()
+        self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
+        self.currentPageSet = kNoOfPageSet! - 1
+        updateUI()
+        print ("Last")
+        print ("New \(self.currentPageIndex!)")
+    }
+    
+    func setCurrentPageIndex(){
+        let lastSetNo = (kNoOfPageSet!-1) * kNoOfPagesInEachSet
+        for i in 1...kNoOfPagesInEachSet {
+            pageButtonArr[i].setTitle(String(lastSetNo + i), for: .normal)
+        }
+    }
+}
+

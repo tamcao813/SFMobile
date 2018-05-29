@@ -33,26 +33,30 @@ class CalendarViewModel {
         
         var visitsToCalendarEventsArray = [WREvent]()
         
+        let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser
+        let globalContactList = ContactsViewModel().globalContacts()
+        
         for visit in visitArray
         {
 
             let dateFormatter = DateFormatter()
             dateFormatter.timeZone = TimeZone.current
 
-            if let eventStartDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: visit.startDate) {
-                
-                if let eventEndDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: visit.endDate) {
+//            if let eventStartDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: visit.startDate) {
+                if let eventStartDate = visit.dateStart {
+
+//                if let eventEndDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: visit.endDate) {
+                if let eventEndDate = visit.dateEnd {
 
                     let daysBetween = Date.daysBetween(start: eventStartDate, end: eventEndDate, ignoreHours: true)
                     
-                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: visit.accountId)
+                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: globalAccountsForLoggedUser, accountId: visit.accountId)
                     guard accountList != nil, (accountList?.count)! > 0  else {
                         continue
                     }
                     
-                    
                     var visitTitle = ""
-                    var visitType = "visit" // TBD to read dynamically, either visit or event
+                    var visitType = "visit"
                     if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == visit.recordTypeId){
                         visitType = "visit"
                         
@@ -61,14 +65,26 @@ class CalendarViewModel {
                     } else {
                         
                         visitType = "event"
-                        visitTitle = visit.subject + ": " + accountList![0].accountNumber
+                        visitTitle = visit.subject
                         
                     }
                     
+                    let vistAccountName = accountList![0].accountName
+                    let vistAccountNumber = accountList![0].accountNumber
+                    var visitContactName = ""
+
+                    if let selectedContact = ContactSortUtility.searchContactByContactId(contactList: globalContactList, contactId: visit.contactId)  {
+                        visitContactName = selectedContact.name
+                    }
+
                     if daysBetween == 0 {
                         
                         let minutessBetween = Date.minutesBetween(start: eventStartDate, end: eventEndDate)
                         let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, chunk: (minutessBetween > 30) ? eventStartDate.chunkBetween(date: eventEndDate) : 30.minutes, title: visitTitle)
+                        visitEvent.accountId = visit.accountId
+                        visitEvent.accountNumber = vistAccountNumber
+                        visitEvent.accountName = vistAccountName
+                        visitEvent.contactName = visitContactName
                         visitsToCalendarEventsArray.append(visitEvent)
 
                     }
@@ -86,6 +102,10 @@ class CalendarViewModel {
                             } else {
                                 visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: currentStartDate.startOfDay, chunk: currentStartDate.startOfDay.chunkBetween(date: currentStartDate.endOfDay), title: visitTitle)
                             }
+                            visitEvent.accountId = visit.accountId
+                            visitEvent.accountNumber = vistAccountNumber
+                            visitEvent.accountName = vistAccountName
+                            visitEvent.contactName = visitContactName
                             visitsToCalendarEventsArray.append(visitEvent)
                             
                         }

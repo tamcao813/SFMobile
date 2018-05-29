@@ -30,13 +30,18 @@ class DateTimeUtility
     /* Function Will return the date in format yyyy-dd-mm from sting in format yyyy-dd-mm */
     
     static func getDDMMYYYFormattedDateFromString(dateString: String) -> Date {
-        let dateformatter = DateFormatter()
-        dateformatter.timeStyle = .medium
-        dateformatter.dateFormat = "yyyy-mm-dd"
-        var dateFromString = Date()
-        dateFromString = dateformatter.date(from: dateString)!
         
-        return dateFromString
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let DateArray = dateString.components(separatedBy: "-")
+        let components = NSDateComponents()
+        components.year = Int(DateArray[0])!
+        components.month = Int(DateArray[1])!
+        components.day = Int(DateArray[2])!
+        components.timeZone = TimeZone(abbreviation: "GMT+0:00")
+        let date = calendar.date(from: components as DateComponents)
+        
+        return date!
+
     }
     
    
@@ -51,7 +56,7 @@ class DateTimeUtility
         dateFormatter.timeZone = TimeZone.current
         let date = dateFormatter.date(from: dateStringfromAccountNotes!)// create date from string
         // change to a readable time format and change to local time zone
-        dateFormatter.dateFormat = "MM/dd/YYYY h:mma"
+        dateFormatter.dateFormat = "MM-dd-YYYY h:mma"
         let timeStamp = dateFormatter.string(from: date!)
         
         return timeStamp
@@ -107,6 +112,20 @@ class DateTimeUtility
         
         return timeStamp
         
+    }
+    
+    static func convertUtcDatetoReadableDateString(dateString :String?)->String{
+        if(dateString?.isEmpty)!{
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone.current
+        let date = dateFormatter.date(from: dateString!)// create date from string
+        // change to a readable time format and change to local time zone
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let timeStamp = dateFormatter.string(from: date!)
+        return timeStamp
     }
     
     static func getEEEEMMMdFormattedDateString(date: Date?) -> String {
@@ -223,6 +242,22 @@ class DateTimeUtility
         components.month = Int(DateArray[1])!
         components.day = Int(DateArray[0])!
         components.timeZone = TimeZone(abbreviation: "GMT+0:00")
+        let date = calendar.date(from: components as DateComponents)
+        return date!
+    }
+    ///------------ Convert String To Date Format - END ------- ///
+    
+    ///------------ Convert String To Date Format - START ------- ///
+    // Using calendar components convering the string to date format
+    static func getDateFromStringFormat(dateStr: String) -> Date {
+        
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let DateArray = dateStr.components(separatedBy: "-")
+        let components = NSDateComponents()
+        components.year = Int(DateArray[2])!
+        components.month = Int(DateArray[1])!
+        components.day = Int(DateArray[0])!
+        components.timeZone = TimeZone.current
         let date = calendar.date(from: components as DateComponents)
         return date!
     }
@@ -358,4 +393,15 @@ extension Date {
         return Calendar.current.dateComponents([.minute], from: start, to: end).minute!
     }
     
+    var startOfWeek: Date {
+        let date = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))!
+        let dslTimeOffset = NSTimeZone.local.daylightSavingTimeOffset(for: date)
+        return date.addingTimeInterval(dslTimeOffset)
+    }
+    
+    var endOfWeek: Date {
+        return Calendar.current.date(byAdding: .second, value: 604799, to: self.startOfWeek)!
+    }
+
 }
+

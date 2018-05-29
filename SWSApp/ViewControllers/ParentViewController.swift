@@ -26,11 +26,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     let moreDropDown = DropDown()
     // persistent menu
     var topMenuBar:XMSegmentedControl? = nil
-    var wifiIconButton:UIBarButtonItem? = nil
+    var onlineSyncStatus:UIBarButtonItem? = nil
     var userInitialLabel:UILabel? = nil
+    var onlineStatusView = UIView()
+    var statusLabel = UILabel()
    
-    
-    
     var moreDropDownSelectionIndex:Int?=0
     
     var notificationButton:UIBarButtonItem? = nil
@@ -97,6 +97,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         return actionItemParentVC
     }()
     
+    lazy var syncUpInfoVC : SyncInfoViewController? = {
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let syncUpVC = mainStoryboard.instantiateViewController(withIdentifier: "SyncInfoViewController") as! SyncInfoViewController
+        return syncUpVC
+    }()
+    
     
     
     var reachability = Reachability()!
@@ -118,15 +124,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             } else {
                 print("Reachable via Cellular")
             }
-            self.wifiIconButton?.image = UIImage(named: "Online")
+            self.statusLabel.text = "Online"
+            self.onlineStatusView.backgroundColor = UIColor(named: "Good")
             self.userInitialLabel?.isUserInteractionEnabled = true
         }
         
         reachability.whenUnreachable = { _ in
-            print("Not reachable")
-            self.wifiIconButton?.image = UIImage(named: "Offline")
+            self.onlineStatusView.backgroundColor = UIColor.lightGray
+            self.statusLabel.text = "Offline"
             self.userInitialLabel?.isUserInteractionEnabled = false
-
         }
         
         do {
@@ -174,7 +180,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if notification.object != nil{
             ContactsGlobal.accountId = notification.object as! String
         }
-        print(notification.object)
+        print(notification.object!)
         topMenuBar?.selectedSegment = 2
         _ = displayCurrentTab(2)
         
@@ -207,8 +213,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // color change
         navigationController?.navigationBar.barTintColor = UIColor.white
         // right side buttons
-        wifiIconButton = UIBarButtonItem(image: UIImage(named: "Online"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
-        wifiIconButton?.isEnabled = false
+        onlineSyncStatus = UIBarButtonItem(image: UIImage(named: "Online"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        onlineSyncStatus?.isEnabled = false
         //let numberButton = UIBarButtonItem(image: UIImage(named: "blueCircle-Small"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         
         //Used to setup notification label and Logo
@@ -252,23 +258,40 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.numberLabel?.isUserInteractionEnabled = true
         self.numberLabel?.addGestureRecognizer(tap)
         
-        self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, wifiIconButton!]
+        onlineStatusView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+        onlineStatusView.backgroundColor = UIColor(named: "Good")
         
-        // left buttons
+        statusLabel = UILabel(frame: CGRect(x: 15, y: 5, width: 60, height: 20))
+        statusLabel.font  = UIFont.boldSystemFont(ofSize: 12)
+        statusLabel.text = "Online"
+        statusLabel.textColor = UIColor.white
+        onlineStatusView.addSubview(statusLabel)
         
-        // Logo Button with Label....
-        //        let logoLabel:UIImageView = UIImageView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))
-        //        logoLabel.image = UIImage(named: "logo")
-        //        logoLabel.layer.cornerRadius = 10/2
-        //        logoLabel.clipsToBounds = true
-        //        let logoBarButton = UIBarButtonItem.init(customView: logoLabel)
+        let image = #imageLiteral(resourceName: "refreshBlue").withRenderingMode(.alwaysTemplate)
+        let resyncImage = UIImageView(frame: CGRect(x: 70, y: 5, width: 18, height: 18))
+        resyncImage.image = image
+        resyncImage.tintColor = .white
+        resyncImage.contentMode = .scaleAspectFit
         
+        onlineStatusView.addSubview(resyncImage)
+        self.onlineSyncStatus = UIBarButtonItem.init(customView: onlineStatusView)
+        
+        
+        let tapOnline = UITapGestureRecognizer(target: self, action: #selector(ParentViewController.syncButtonPressed))
+        onlineStatusView.isUserInteractionEnabled = true
+        onlineStatusView.addGestureRecognizer(tapOnline)
+        
+        self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, onlineSyncStatus!]
         let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
         logoButton.isEnabled = false
         self.navigationItem.leftBarButtonItem = logoButton
         
     }
     
+    
+    @objc func syncButtonPressed(){
+//        self.present(syncUpInfoVC!, animated: true, completion: nil)
+    }
     // MARK: SyncUp Data
     @objc func SyncUpData()  {
         MBProgressHUD.show(onWindow: true)
@@ -464,6 +487,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             
             currentViewController?.view.addSubview(moreVC1.view)
             
+            if index != 1{
+                let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
+                accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
+            }
+            
+            self.clearAccountsVisitFilterModel()
+            
             SelectedMoreButton.selectedItem = index
             //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
             switch index {
@@ -567,7 +597,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             let conVC = contactsVC as? ContactsViewController
             conVC?.filterMenuVC?.resetEnteredDataAndContactList()
         }
-        
+    }
+    
+    private func clearAccountsVisitFilterModel(){
+        if SelectedMoreButton.selectedItem == 1{
+            let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
+            accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
+        }
     }
     
     // # MARK: viewControllerForSelectedSegmentIndex

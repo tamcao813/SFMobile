@@ -31,10 +31,11 @@ class AccountsActionItemViewModel {
             return true
         }
         
-        actionItemsArray = actionItemsArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
-        
+        actionItemsArray = actionItemsArray.sorted(by: { $0.activityDate < $1.activityDate })
         return actionItemsArray
     }
+
+    
     
     func getAcctionItemForUser() -> [ActionItem] {
         return StoreDispatcher.shared.fetchActionItem()
@@ -92,7 +93,7 @@ class AccountsActionItemViewModel {
             
         }
         
-        actionForUserArray = actionForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        actionForUserArray = actionForUserArray.sorted(by: { $0.isUrgent && !$1.isUrgent })
         
         return actionForUserArray
         
@@ -120,7 +121,7 @@ class AccountsActionItemViewModel {
             
         }
         
-        actionForUserArray = actionForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        actionForUserArray = actionForUserArray.sorted(by: { $0.isUrgent && !$1.isUrgent })
         
         return actionForUserArray
         

@@ -87,13 +87,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZ1-it-dyx">
-                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="26.5"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQD-DE-YaE">
-                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCH-8j-5IB">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -402,22 +402,6 @@
                                                     <action selector="actionButtonLeft:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="k9g-z1-VSq"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOc-2b-mba">
-                                                <rect key="frame" x="60" y="20" width="60" height="40"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="ZY6-aI-gQt"/>
-                                                    <constraint firstAttribute="height" constant="40" id="pZQ-qd-4aI"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Today">
-                                                    <color key="titleColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="actionButtonToday:" destination="c5P-Dj-BFj" eventType="touchUpInside" id="d1q-P4-qq4"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday, March 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jca-2g-geU">
                                                 <rect key="frame" x="266.5" y="28" width="173.5" height="25"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="22"/>
@@ -457,12 +441,10 @@
                                             <constraint firstItem="zAh-eA-diP" firstAttribute="leading" secondItem="BKS-og-Bob" secondAttribute="leading" constant="10" id="6SH-s0-O3k"/>
                                             <constraint firstAttribute="bottom" secondItem="dhl-fJ-SqK" secondAttribute="bottom" id="8ai-wI-ldP"/>
                                             <constraint firstItem="dhl-fJ-SqK" firstAttribute="top" secondItem="BKS-og-Bob" secondAttribute="top" constant="80" id="Ecy-km-Myc"/>
-                                            <constraint firstItem="FOc-2b-mba" firstAttribute="leading" secondItem="zAh-eA-diP" secondAttribute="trailing" constant="10" id="Qxl-ec-Mrl"/>
                                             <constraint firstAttribute="trailing" secondItem="hGL-xQ-tvw" secondAttribute="trailing" constant="10" id="Z86-LR-4Ai"/>
                                             <constraint firstItem="dhl-fJ-SqK" firstAttribute="leading" secondItem="BKS-og-Bob" secondAttribute="leading" id="a1B-hf-UQM"/>
                                             <constraint firstAttribute="trailing" secondItem="dhl-fJ-SqK" secondAttribute="trailing" constant="20" id="ftc-7A-cCA"/>
                                             <constraint firstItem="hGL-xQ-tvw" firstAttribute="centerY" secondItem="Jca-2g-geU" secondAttribute="centerY" id="jlR-7v-qy5"/>
-                                            <constraint firstItem="FOc-2b-mba" firstAttribute="centerY" secondItem="zAh-eA-diP" secondAttribute="centerY" id="mi1-ER-oZu"/>
                                         </constraints>
                                     </view>
                                 </subviews>

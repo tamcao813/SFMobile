@@ -24,6 +24,9 @@ struct AccountVisitListFilterModel {
     static var isTypeVisit = "NO"
     static var isTypeEvent = "NO"
     
+    static var startDate = ""
+    static var endDate = ""
+    
     static var isToday = "NO"
     static var isTomorrow = "NO"
     static var isThisWeek = "NO"

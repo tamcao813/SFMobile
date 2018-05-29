@@ -20,6 +20,7 @@ class Filter {
 
 let filterCell = "customCell1"
 let locationCell = "customCell2"
+let cell3 = "customCell3"
 
 struct FilterMenuModel {
     

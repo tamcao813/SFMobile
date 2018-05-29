@@ -120,10 +120,27 @@ class DateTimeUtility
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
         let date = dateFormatter.date(from: dateString!)// create date from string
         // change to a readable time format and change to local time zone
+        
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone.current
+        let timeStamp = dateFormatter.string(from: date!)
+        return timeStamp
+    }
+    
+    static func convertUtcDatetoReadableDateAndTimeString(dateString :String?)->String{
+        if(dateString?.isEmpty)!{
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        let date = dateFormatter.date(from: dateString!)// create date from string
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:a"
+        dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp
     }

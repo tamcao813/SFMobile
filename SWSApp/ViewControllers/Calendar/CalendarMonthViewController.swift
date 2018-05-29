@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol GlobalArrayDelegate {
+    func arrayFetch() -> [WREvent]
+}
+
 class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDelegate {
     
     let reuseIdentifier = "DateCollectionViewCell" // also enter this string as the cell identifier in the storyboard
@@ -26,6 +30,9 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     var dateInc = 1
     var  swipeDirection = ""
     var visits = [WREvent]()
+    var loadedMonthView = 0
+    var globalEventVisit = [WREvent]()
+    var delegate: GlobalArrayDelegate?
     
     let columnLayout = ColumnFlowLayout(
         cellsPerRow: 7,
@@ -57,15 +64,15 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
         presentMonthIndex = currentMonthIndex
         presentYear = currentYear
         
-        self.visits = CalendarViewModel().loadVisitData()!
+//        self.visits = CalendarViewModel().loadVisitData()!
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: CalendarFilterMenuModel.searchText)
-        self.visits = eventsFiltered!
-        //        self.visits = CalendarViewModel().loadVisitData()!
+
+        if let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: self.globalEventVisit, searchText: CalendarFilterMenuModel.searchText) {
+            self.visits = eventsFiltered
+        }
         dateInc = 1
         UIView.performWithoutAnimation {
             collectionView?.reloadData()
@@ -78,6 +85,7 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     }
     
     deinit {
+
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("WEEKENDTOGGLE"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("REFRESH_MONTH_CALENDAR"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("EVENT_FILTER"), object: nil)
@@ -112,7 +120,6 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     }
     
     func addNotificationObserver() {
-        
         NotificationCenter.default.addObserver(self, selector: #selector(self.toggleWeekends), name: NSNotification.Name("WEEKENDTOGGLE"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshMonthCalendar), name: NSNotification.Name("REFRESH_MONTH_CALENDAR"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.getSearchString(_:)), name: NSNotification.Name(rawValue: "EVENT_FILTER"), object: nil)
@@ -232,7 +239,7 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     
     @objc func loadWeekView(_ sender : UIButton) {
         
-        let weekDate =  DateTimeUtility.getDateFromString(dateStr: sender.accessibilityHint!)
+        let weekDate =  DateTimeUtility.getDateFromStringFormat(dateStr: sender.accessibilityHint!)
         let weekDataDict:[String: Date] = ["date": weekDate]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LoadWeekView"), object: nil, userInfo: weekDataDict)
         
@@ -253,7 +260,8 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     }
     
     @objc func refreshMonthCalendar() {
-        let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: CalendarFilterMenuModel.searchText)
+        let tempVisitArray = delegate?.arrayFetch()
+        let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: tempVisitArray, searchText: CalendarFilterMenuModel.searchText)
         self.visits = eventsFiltered!
         dateInc = 1
         UIView.performWithoutAnimation {
@@ -264,7 +272,8 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     @objc func getSearchString(_ notification: NSNotification) {
         
         if let searchString = notification.userInfo?["SearchStr"] as? String {
-            let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: CalendarViewModel().loadVisitData()!, searchText: searchString)
+            let tempVisitArray = delegate?.arrayFetch()
+            let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: tempVisitArray, searchText: searchString)
             visits = eventsFiltered!
             dateInc = 1
             UIView.performWithoutAnimation {
@@ -286,7 +295,6 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             case 0:
                 let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "MonthCollectionHeaderView", for: indexPath) as! MonthCollectionHeaderView
                 reusableview.delegate = self
-                
                 
                 return reusableview
             case 1:
@@ -331,32 +339,32 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             buttonTag = buttonTag + 1
         }
         /// --------- Hide the event buttons - END ---------- ///
-        
+
         if indexPath.item <= firstWeekdayOfMonth - 2 {
             if !previousMonthDates.isEmpty {
                 cell.dateLabel.text = "\(previousMonthDates[indexPath.row])"
             }
             cell.dateLabel.textColor = UIColor.lightGray
             cell.isHidden = false
-            
+
             let dateStr = "\(getPreviousYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))" + "-" + String(format: "%02d", getPreviousMonth(currentMonthIndex: currentMonthIndex)) + "-" + String(format: "%02d", (previousMonthDates[indexPath.row]))+" "+"00:00:00"
-            
+
             //------------- Adding Events To Past Calendar Dates - START --------------- //
-            
+
             let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).0
             let isMore = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).1
             if isMore {
-                let tempDate = "\((previousMonthDates[indexPath.row]))" + "-" + "\(currentMonthIndex)" + "-" + "\(currentYear)"
+                let tempDate = "\((previousMonthDates[indexPath.row]))" + "-" + "\(getPreviousMonth(currentMonthIndex: currentMonthIndex)))" + "-" + "\(currentYear)"
                 cell.moreButton.isHidden = false
                 cell.moreButton.accessibilityHint = tempDate
                 cell.moreButton.addTarget(self, action:#selector(loadWeekView(_:)), for: .touchUpInside)
-                
+
             } else {   cell.moreButton.isHidden = true}
             var inc:Int = 100
             if !eventArr.isEmpty {
                 for event in eventArr {
                     let button:EventButton = cell.viewWithTag(inc) as! EventButton
-                    
+
                     button.visit = event
                     button.isHidden = false
                     button.setAttributedTitle(getAttributedSting(date: event.date, title: event.title), for: .normal)
@@ -366,16 +374,17 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
                 }
             }
             //------------- Adding Events To Past Calendar Dates - END --------------- //
-            
-        } else if (indexPath.item < getNumberOfDaysinPresentMonth(year: currentYear, month: currentMonthIndex) + firstWeekdayOfMonth - 1) {
-            
+
+        } else
+        if (indexPath.item < getNumberOfDaysinPresentMonth(year: currentYear, month: currentMonthIndex) + firstWeekdayOfMonth - 1) {
+
             let calcDate = indexPath.row-firstWeekdayOfMonth + 2
             cell.isHidden = false
             cell.dateLabel.text = "\(calcDate)"
             cell.dateLabel.textColor = UIColor.black
-            
+
             //------------- Adding Events To Present Calendar Dates - START --------------- //
-            
+
             let dateStr = "\(currentYear)" + "-" + String(format: "%02d", currentMonthIndex) + "-" + String(format: "%02d", calcDate)+" "+"00:00:00"
             let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).0
             let isMore = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).1
@@ -384,7 +393,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
                 cell.moreButton.isHidden = false
                 cell.moreButton.accessibilityHint = tempDate
                 cell.moreButton.addTarget(self, action:#selector(loadWeekView(_:)), for: .touchUpInside)
-                
+
             } else {   cell.moreButton.isHidden = true}
             var inc:Int = 100
             if !eventArr.isEmpty {
@@ -395,7 +404,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
                     button.setAttributedTitle(getAttributedSting(date: event.date, title: event.title), for: .normal)
                     // Border Color according to evevt type (BLUE OR ORANGE)
                     button.borderColor(value:getColorAccordingToEventType(type: event.type))
-                    
+
                     inc = inc + 1
                 }
             }
@@ -412,7 +421,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).0
             let isMore = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).1
             if isMore {
-                let tempDate = "\(dateInc)" + "-" + "\(currentMonthIndex)" + "-" + "\(currentYear)"
+                let tempDate = "\(dateInc)" + "-" + "\(getNextMonth(currentMonthIndex: currentMonthIndex)))" + "-" + "\(currentYear)"
                 cell.moreButton.isHidden = false
                 cell.moreButton.accessibilityHint = tempDate
                 cell.moreButton.addTarget(self, action:#selector(loadWeekView(_:)), for: .touchUpInside)
@@ -425,7 +434,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
                     button.isHidden = false
                     button.visit = event
                     button.setAttributedTitle(getAttributedSting(date: event.date, title: event.title), for: .normal)
-                    
+
                     // Border Color according to evevt type (BLUE OR ORANGE)
                     button.borderColor(value:getColorAccordingToEventType(type: event.type))
                     inc = inc + 1
@@ -539,3 +548,4 @@ extension CalendarMonthViewController : NavigateToContactsDelegate{
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
     }
 }
+

@@ -1543,7 +1543,7 @@ class StoreDispatcher {
     }
     
     func syncDownActionItem(_ completion:@escaping (_ error: NSError?)->()) {
-        let soqlQuery = "SELECT Id,SGWS_Account__c,Subject,Description,Status,ActivityDate,SGWS_Urgent__c,SGWS_AppModified_DateTime__c,RecordTypeId FROM Task WHERE RecordType.DeveloperName = 'SGWS_Task' and ActivityDate  >= LAST_N_DAYS:30 and ActivityDate <= NEXT_N_DAYS:90 order by ActivityDate"
+        let soqlQuery = "SELECT Id,SGWS_Account__c,Subject,Description,Status,ActivityDate,SGWS_Urgent__c,SGWS_AppModified_DateTime__c,RecordTypeId FROM Task WHERE RecordType.DeveloperName = 'SGWS_Task'"
         print("soql ActionItem query is \(soqlQuery)")
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
@@ -1552,7 +1552,7 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupActionItem)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
-                    print(">>>>>> ActionItem SoupActionItem() done >>>>>")
+                    print(">>>>>> ActionItem SyncDown() done >>>>>")
                     //
                     self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
                         .done {_ in

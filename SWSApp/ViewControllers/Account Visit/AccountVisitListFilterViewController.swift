@@ -189,18 +189,12 @@ class AccountVisitListFilterViewController : UIViewController{
         
         switch indexPath.row {
         case 0:
-            if AccountVisitListFilterModel.isTypeAll == "NO"{
-                AccountVisitListFilterModel.isTypeAll = "YES"
-            }else{
-                AccountVisitListFilterModel.isTypeAll = "NO"
-            }
-        case 1:
             if AccountVisitListFilterModel.isTypeVisit == "NO"{
                 AccountVisitListFilterModel.isTypeVisit = "YES"
             }else{
                 AccountVisitListFilterModel.isTypeVisit = "NO"
             }
-        case 2:
+        case 1:
             if AccountVisitListFilterModel.isTypeEvent == "NO"{
                 AccountVisitListFilterModel.isTypeEvent = "YES"
             }else{
@@ -235,30 +229,24 @@ class AccountVisitListFilterViewController : UIViewController{
         
         switch indexPath.row {
         case 0:
-            if AccountVisitListFilterModel.isStatusAll == "NO"{
-                AccountVisitListFilterModel.isStatusAll = "YES"
-            }else{
-                AccountVisitListFilterModel.isStatusAll = "NO"
-            }
-        case 1:
             if AccountVisitListFilterModel.isStatusScheduled == "NO"{
                 AccountVisitListFilterModel.isStatusScheduled = "YES"
             }else{
                 AccountVisitListFilterModel.isStatusScheduled = "NO"
             }
-        case 2:
+        case 1:
             if AccountVisitListFilterModel.isStatusPlanned == "NO"{
                 AccountVisitListFilterModel.isStatusPlanned = "YES"
             }else{
                 AccountVisitListFilterModel.isStatusPlanned = "NO"
             }
-        case 3:
+        case 2:
             if AccountVisitListFilterModel.isInProgress == "NO"{
                 AccountVisitListFilterModel.isInProgress = "YES"
             }else{
                 AccountVisitListFilterModel.isInProgress = "NO"
             }
-        case 4:
+        case 3:
             if AccountVisitListFilterModel.isComplete == "NO"{
                 AccountVisitListFilterModel.isComplete = "YES"
             }else{
@@ -283,9 +271,8 @@ class AccountVisitListFilterViewController : UIViewController{
         }
     }
     
-    func clearActionItemFilterModel(){
+    func clearAccountVisitFilterModel(){
         
-        AccountVisitListFilterModel.isTypeAll = "NO"
         AccountVisitListFilterModel.isTypeVisit = "NO"
         AccountVisitListFilterModel.isTypeEvent = "NO"
         
@@ -293,16 +280,26 @@ class AccountVisitListFilterViewController : UIViewController{
         AccountVisitListFilterModel.isTomorrow = "NO"
         AccountVisitListFilterModel.isThisWeek = "NO"
         
-        AccountVisitListFilterModel.isStatusAll = "NO"
         AccountVisitListFilterModel.isStatusScheduled = "NO"
         AccountVisitListFilterModel.isStatusPlanned = "NO"
         AccountVisitListFilterModel.isInProgress = "NO"
         AccountVisitListFilterModel.isComplete = "NO"
         
         AccountVisitListFilterModel.isPastVisits = "NO"
-        searchBar.text = ""
         
         AccountVisitListFilterModel.filterApplied = false
+        
+        if searchBar != nil{
+            searchBar.text = ""
+        }
+        //Used to Clear the Expanded section of Filter Option
+        selectedSection = -1
+        if self.expandedSectionHeaderNumber != -1{
+            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+        }
+        
+        delegate?.clearFilter()
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -311,8 +308,7 @@ class AccountVisitListFilterViewController : UIViewController{
     
     //MARK:- Button Actions
     @IBAction func clearButtonTapped(_ sender: UIButton){
-        self.clearActionItemFilterModel()
-        delegate?.clearFilter()
+        self.clearAccountVisitFilterModel()
     }
     
     @IBAction func submitButtonTapped(_ sender: UIButton){

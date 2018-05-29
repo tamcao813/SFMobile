@@ -180,7 +180,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if notification.object != nil{
             ContactsGlobal.accountId = notification.object as! String
         }
-        print(notification.object)
+        print(notification.object!)
         topMenuBar?.selectedSegment = 2
         _ = displayCurrentTab(2)
         
@@ -487,6 +487,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             
             currentViewController?.view.addSubview(moreVC1.view)
             
+            if index != 1{
+                let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
+                accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
+            }
+            
+            self.clearAccountsVisitFilterModel()
+            
             SelectedMoreButton.selectedItem = index
             //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
             switch index {
@@ -590,7 +597,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             let conVC = contactsVC as? ContactsViewController
             conVC?.filterMenuVC?.resetEnteredDataAndContactList()
         }
-        
+    }
+    
+    private func clearAccountsVisitFilterModel(){
+        if SelectedMoreButton.selectedItem == 1{
+            let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
+            accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
+        }
     }
     
     // # MARK: viewControllerForSelectedSegmentIndex

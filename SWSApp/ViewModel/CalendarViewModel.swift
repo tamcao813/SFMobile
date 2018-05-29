@@ -66,20 +66,21 @@ class CalendarViewModel {
                         
                     }
                     
+                    let vistAccountName = accountList![0].accountName
+                    let vistAccountNumber = accountList![0].accountNumber
                     var visitContactName = ""
 
                     if let selectedContact = ContactSortUtility.searchContactByContactId(visit.contactId)  {
                         visitContactName = selectedContact.name
                     }
 
-                    
                     if daysBetween == 0 {
                         
                         let minutessBetween = Date.minutesBetween(start: eventStartDate, end: eventEndDate)
                         let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, chunk: (minutessBetween > 30) ? eventStartDate.chunkBetween(date: eventEndDate) : 30.minutes, title: visitTitle)
                         visitEvent.accountId = visit.accountId
-                        visitEvent.accountNumber = visit.accountNumber
-                        visitEvent.accountName = visit.accountName
+                        visitEvent.accountNumber = vistAccountNumber
+                        visitEvent.accountName = vistAccountName
                         visitEvent.contactName = visitContactName
                         visitsToCalendarEventsArray.append(visitEvent)
 
@@ -99,8 +100,8 @@ class CalendarViewModel {
                                 visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: currentStartDate.startOfDay, chunk: currentStartDate.startOfDay.chunkBetween(date: currentStartDate.endOfDay), title: visitTitle)
                             }
                             visitEvent.accountId = visit.accountId
-                            visitEvent.accountNumber = visit.accountNumber
-                            visitEvent.accountName = visit.accountName
+                            visitEvent.accountNumber = vistAccountNumber
+                            visitEvent.accountName = vistAccountName
                             visitEvent.contactName = visitContactName
                             visitsToCalendarEventsArray.append(visitEvent)
                             

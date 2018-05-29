@@ -47,15 +47,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         pastActivitiesTableView.delegate =  self
         pastActivitiesTableView.dataSource = self
         
-        
-//                upcomingActivitiesTableView.rowHeight = UITableViewAutomaticDimension;
-//                upcomingActivitiesTableView.estimatedRowHeight = 100
-//                upcomingActivitiesTableView.tableFooterView = UIView()
-//        
-//                pastActivitiesTableView.rowHeight = UITableViewAutomaticDimension;
-//                pastActivitiesTableView.estimatedRowHeight = 100
-//                pastActivitiesTableView.tableFooterView = UIView()
-        
         self.accountId = account?.account_Id
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)
@@ -198,6 +189,9 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         //Gtting time and date
         let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: dateToConvert)
         let dayToCheck = dateFormatter.string(from: date!)
+//        let now = Date()
+//        let dateFromWeek = dateFormatter.string(from: now)
+        
         var dateTime = getTime.components(separatedBy: " ")
         
         if calendar.isDateInToday(date!){
@@ -250,7 +244,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
         }
         
-        
         dateFormatter.dateFormat = "MM-dd-yyyy h:mma"
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp
@@ -261,13 +254,12 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     func getDayFromActionItem(dateToConvert:String)-> String  {
         //Getting Today, Tomorrow, Yesterday
         let calendar = Calendar.current
-        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
-        let getDate = DateTimeUtility.getDateActionItemFromDateString(dateString: dateToConvert)
         dateFormatter.dateFormat = "MM-dd-yyyy"
         let timeStamp = dateFormatter.string(from: date!)
+        
         if calendar.isDateInToday(date!){
             
             return  "Today"

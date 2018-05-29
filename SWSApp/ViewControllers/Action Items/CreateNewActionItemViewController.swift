@@ -274,12 +274,16 @@ class CreateNewActionItemViewController: UIViewController {
         
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {
+           
             self.delegate?.updateActionDesc()
+            
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
+            
             self.dismiss(animated: true, completion: nil)
         }
+       
     }
     
     func generateRandomIDForActionItems()->String  {

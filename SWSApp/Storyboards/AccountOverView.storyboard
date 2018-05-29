@@ -41,7 +41,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today is Jeanna Smith’s Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ej0-AQ-prj">
-                                                    <rect key="frame" x="15" y="20" width="232.5" height="31"/>
+                                                    <rect key="frame" x="15" y="20" width="232.5" height="36"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -65,7 +65,7 @@
                                                 <constraint firstItem="mMt-8j-dLX" firstAttribute="centerY" secondItem="Ttj-JW-Snw" secondAttribute="centerY" id="UfW-ck-NJg"/>
                                                 <constraint firstItem="mMt-8j-dLX" firstAttribute="leading" secondItem="Ttj-JW-Snw" secondAttribute="trailing" constant="10" id="Yfy-Qc-Q1X"/>
                                                 <constraint firstItem="Ttj-JW-Snw" firstAttribute="leading" secondItem="Ej0-AQ-prj" secondAttribute="leading" id="ZSQ-n4-Qxf"/>
-                                                <constraint firstItem="Ttj-JW-Snw" firstAttribute="top" secondItem="Ej0-AQ-prj" secondAttribute="bottom" constant="10" id="mR7-VT-qnQ"/>
+                                                <constraint firstItem="Ttj-JW-Snw" firstAttribute="top" secondItem="Ej0-AQ-prj" secondAttribute="bottom" constant="5" id="mR7-VT-qnQ"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="mMt-8j-dLX" secondAttribute="bottom" constant="10" id="mvg-qS-Pps"/>
                                                 <constraint firstItem="Ej0-AQ-prj" firstAttribute="top" secondItem="qbE-Sm-Dej" secondAttribute="top" constant="20" id="ntg-oX-ztC"/>
                                             </constraints>

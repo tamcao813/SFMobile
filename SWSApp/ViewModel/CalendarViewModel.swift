@@ -34,6 +34,7 @@ class CalendarViewModel {
         var visitsToCalendarEventsArray = [WREvent]()
         
         let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser
+        let globalContactList = ContactsViewModel().globalContacts()
         
         for visit in visitArray
         {
@@ -70,7 +71,7 @@ class CalendarViewModel {
                     let vistAccountNumber = accountList![0].accountNumber
                     var visitContactName = ""
 
-                    if let selectedContact = ContactSortUtility.searchContactByContactId(visit.contactId)  {
+                    if let selectedContact = ContactSortUtility.searchContactByContactId(contactList: globalContactList, contactId: visit.contactId)  {
                         visitContactName = selectedContact.name
                     }
 

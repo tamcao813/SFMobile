@@ -46,7 +46,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         upcomingActivitiesTableView.dataSource = self
         pastActivitiesTableView.delegate =  self
         pastActivitiesTableView.dataSource = self
-        
+        upcomingActivitiesTableView.tableFooterView = UIView()
+        pastActivitiesTableView.tableFooterView = UIView()
         self.accountId = account?.account_Id
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)

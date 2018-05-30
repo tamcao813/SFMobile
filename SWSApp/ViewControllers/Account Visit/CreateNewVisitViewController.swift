@@ -243,6 +243,7 @@ class CreateNewVisitViewController: UIViewController {
         PlanVisitManager.sharedInstance.visit?.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
         
         let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
     }
     
     func createNewVisit(dismiss: Bool) {

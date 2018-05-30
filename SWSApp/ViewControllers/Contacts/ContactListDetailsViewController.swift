@@ -37,10 +37,6 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         guard contactDetail != nil else {
             return 0
         }
-        /*
-        if accountLinked.count == 0 {
-            return countHeaderFooter
-        }*/
         return countHeaderFooter + accountLinked.count + countLinkHeader
     }
     
@@ -76,13 +72,13 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         }
         
         let cell:ContactListAccountLinkDetails = tableView.dequeueReusableCell(withIdentifier: "ContactListAccountLinkDetails", for: indexPath) as! ContactListAccountLinkDetails
-        let acrDetail = ContactsViewModel().linkedAccountsForContact(with: (contactDetail?.contactId)!)
+//        let acrDetail = ContactsViewModel().linkedAccountsForContact(with: (contactDetail?.contactId)!)
             //AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
         
         
         cell.contactId = (contactDetail?.contactId)!
         
-        cell.displayCellContent(acrDetail[(indexPath.row-2)].accountId, withRoles: acrDetail[(indexPath.row-2)].roles, forClassification: ContactSortUtility.formatContactClassification(contactToBeFormatted: contactDetail!))
+        cell.displayCellContent(accountLinked[(indexPath.row-2)].accountId, withRoles: accountLinked[(indexPath.row-2)].roles, forClassification: ContactSortUtility.formatContactClassification(contactToBeFormatted: contactDetail!))
 
         cell.unlinkAccountContactButton.tag = indexPath.row - countHeaderFooter
         cell.unlinkAccountContactButton.addTarget(self, action: #selector(actionUnlinkAccountContactDetails), for: .touchUpInside)
@@ -203,9 +199,9 @@ extension ContactListDetailsViewController : UITableViewDelegate {
         }
         
         FilterMenuModel.comingFromDetailsScreen = "YES"
-        let acrDetail = ContactsViewModel().linkedAccountsForContact(with: (contactDetail?.contactId)!)
+//        let acrDetail = ContactsViewModel().linkedAccountsForContact(with: (contactDetail?.contactId)!)
             //AccountContactRelationUtility.getAccountByFilterByContactId(contactId: (contactDetail?.contactId)!)
-        FilterMenuModel.selectedAccountId = acrDetail[(indexPath.row-2)].accountId
+        FilterMenuModel.selectedAccountId = accountLinked[(indexPath.row-2)].accountId
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
 
     }

@@ -64,6 +64,7 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
         
         presentMonthIndex = currentMonthIndex
         presentYear = currentYear
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
 //        self.visits = CalendarViewModel().loadVisitData()!
     }

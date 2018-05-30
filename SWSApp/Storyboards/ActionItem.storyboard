@@ -261,7 +261,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fM7-Ru-l4s">
-                                <rect key="frame" x="574" y="30" width="120" height="40"/>
+                                <rect key="frame" x="593" y="30" width="120" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rs6-il-4JF">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -452,12 +452,13 @@
                             <constraint firstItem="CaS-9r-wps" firstAttribute="top" secondItem="rs6-il-4JF" secondAttribute="bottom" constant="10" id="VtH-h6-xsL"/>
                             <constraint firstItem="CaS-9r-wps" firstAttribute="leading" secondItem="opS-Pk-Nd3" secondAttribute="leading" id="e8j-6F-cPi"/>
                             <constraint firstItem="opS-Pk-Nd3" firstAttribute="bottom" secondItem="CaS-9r-wps" secondAttribute="bottomMargin" id="hcV-XU-hlL"/>
-                            <constraint firstItem="opS-Pk-Nd3" firstAttribute="trailing" secondItem="fM7-Ru-l4s" secondAttribute="trailing" constant="20" id="y5W-gd-w6i"/>
+                            <constraint firstItem="opS-Pk-Nd3" firstAttribute="trailing" secondItem="fM7-Ru-l4s" secondAttribute="trailing" constant="1" id="y5W-gd-w6i"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="opS-Pk-Nd3"/>
                     </view>
                     <connections>
                         <outlet property="actionItemButtonContainerViewHeight" destination="bh8-SO-fdo" id="xRI-oG-mLd"/>
+                        <outlet property="btnAddNew" destination="rs6-il-4JF" id="Vfl-ko-US5"/>
                         <outlet property="tableView" destination="CaS-9r-wps" id="4lf-Qi-N7Y"/>
                         <outlet property="tableViewBottomConstraint" destination="hcV-XU-hlL" id="Ef9-vl-5pX"/>
                     </connections>

@@ -184,6 +184,7 @@ class CreateNewActionItemViewController: UIViewController {
                 newActionItem.status = "Overdue"
             }
         }else{
+            
             newActionItem.status = "Open"
         }
         if isUrgentSwitch.isOn {
@@ -193,7 +194,7 @@ class CreateNewActionItemViewController: UIViewController {
         }
         newActionItem.lastModifiedDate = getTimestamp()
         let attributeDict = ["type":"Task"]
-        let actionItemDict: [String:Any] = [
+        var actionItemDict: [String:Any] = [
             
             ActionItem.AccountActionItemFields[0]: newActionItem.Id,
             ActionItem.AccountActionItemFields[1]: newActionItem.accountId,
@@ -209,6 +210,13 @@ class CreateNewActionItemViewController: UIViewController {
             kSyncTargetLocallyUpdated:false,
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
+        
+        if(actionItemDict["ActivityDate"] as! String == ""){
+            
+            actionItemDict.removeValue(forKey: "ActivityDate")
+        }
+            
+            
         
         let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
         if success {
@@ -273,7 +281,7 @@ class CreateNewActionItemViewController: UIViewController {
         if success {
            
             self.delegate?.updateActionDesc()
-            
+            self.delegate?.updateActionList()
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }

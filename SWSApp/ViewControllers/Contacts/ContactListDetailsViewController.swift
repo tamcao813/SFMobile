@@ -145,7 +145,7 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
         let linkAccountToContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "LinkAccountToContactViewController") as? LinkAccountToContactViewController
         linkAccountToContactVC?.isInEditMode = true
-        linkAccountToContactVC?.contactName = contactDetail?.name
+        linkAccountToContactVC?.contactName = contactDetail?.firstName
         linkAccountToContactVC?.contactObject = contactDetail
         linkAccountToContactVC?.delegate = self
         
@@ -159,7 +159,7 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         let newContactStoryboard: UIStoryboard = UIStoryboard(name: "NewContact", bundle: nil)
         let linkAccountToContactVC = newContactStoryboard.instantiateViewController(withIdentifier: "LinkAccountToContactViewController") as? LinkAccountToContactViewController
         linkAccountToContactVC?.isInEditMode = false
-        linkAccountToContactVC?.contactName = contactDetail?.name
+        linkAccountToContactVC?.contactName = contactDetail?.firstName
         linkAccountToContactVC?.contactObject = contactDetail
         linkAccountToContactVC?.delegate = self
         self.present(linkAccountToContactVC!, animated: true, completion: nil)

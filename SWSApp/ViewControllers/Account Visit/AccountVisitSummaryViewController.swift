@@ -325,6 +325,7 @@ class AccountVisitSummaryViewController: UIViewController {
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
         self.dismiss(animated: true, completion: nil)
     }
     

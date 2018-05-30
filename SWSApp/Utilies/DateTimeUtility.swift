@@ -326,7 +326,7 @@ class DateTimeUtility
         
         let calendar  =  Calendar.current
         var tempDateArr = [WREvent]()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //Getting this right is very important!
+         //Getting this right is very important!
         for visit in visitArray {
             let  isSameDate  =  calendar.isDate (getDate(dateString: currentDate, dateFormatter: dateFormatter)!  ,  inSameDayAs :  visit.date)
             if isSameDate {

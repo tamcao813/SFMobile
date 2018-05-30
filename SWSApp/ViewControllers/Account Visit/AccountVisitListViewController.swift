@@ -35,6 +35,7 @@ class AccountVisitListViewController: UIViewController {
     var numberOfAccountRows = 0
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addNewButton : UIButton!
     
     var globalWorkorderObjectArray = [WorkOrderUserObject]()
     var mainArray = [WorkOrderUserObject]()
@@ -53,14 +54,12 @@ class AccountVisitListViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         self.getTheDataFromDB()
         //customizedUI()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
         //initializingXIBs()
+        addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -136,17 +135,13 @@ class AccountVisitListViewController: UIViewController {
     }
     
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
+        
         addNewDropDown.anchorView = sender
-        addNewDropDown.bottomOffset = CGPoint(x: (((sender.frame.size.width) - 100)-((sender.frame.size.width)/6.0)), y :( addNewDropDown.anchorView?.plainView.bounds.height)!)
-        
+        addNewDropDown.bottomOffset = CGPoint(x: 0, y:(addNewDropDown.anchorView?.plainView.bounds.height)!)
         addNewDropDown.backgroundColor = UIColor.white
-        
-        let dropDownItem1 = NSLocalizedString("Visit", comment: "Visit")
-        let dropDownItem2 = NSLocalizedString("Event", comment: "Event")
-        
-        addNewDropDown.dataSource = [dropDownItem1, dropDownItem2]
-        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
-        self.addNewDropDown.textColor = UIColor.gray
+        addNewDropDown.dataSource = ["Visit", "Event"]
+        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 14)!
+        self.addNewDropDown.textColor = UIColor.black
         
         addNewDropDown.show()
         

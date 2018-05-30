@@ -91,18 +91,18 @@ class ActionItemsListViewController: UIViewController {
     @IBAction func titleSortPressed(_ sender: UIButton){
         if ActionItemFilterModel.filterApplied{
             if titleAscendingSort {
-                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.subject < $1.subject })
+                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.subject.lowercased() < $1.subject.lowercased() })
                 titleAscendingSort = false
             }else{
-                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.subject > $1.subject })
+                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.subject.lowercased() > $1.subject.lowercased() })
                 titleAscendingSort = true
             }
         }else{
             if titleAscendingSort {
-                actionItemsArray = actionItemsArray.sorted(by: { $0.subject < $1.subject })
+                actionItemsArray = actionItemsArray.sorted(by: { $0.subject.lowercased() < $1.subject.lowercased() })
                 titleAscendingSort = false
             }else{
-                actionItemsArray = actionItemsArray.sorted(by: { $0.subject > $1.subject })
+                actionItemsArray = actionItemsArray.sorted(by: { $0.subject.lowercased() > $1.subject.lowercased() })
                 titleAscendingSort = true
             }
         }
@@ -247,6 +247,7 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
                 }else{
                     createVisitViewController.actionItemId = self.actionItemsArray[indexPath.row].Id
                 }
+                createVisitViewController.delegate = self
                 self.present(createVisitViewController, animated: true)
             }
         }
@@ -256,16 +257,30 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
         
         var statusText = ""
         var statusImage = UIImage()
-        switch actionItemsArray[indexPath.row].status {
-        case "Complete","Completed":
-            statusText = "Open"
-            statusImage = #imageLiteral(resourceName: "selectedBlue")
-        case "Open","Overdue":
-            statusText = "Complete"
-            statusImage = #imageLiteral(resourceName: "selectedBlue")
-        default:
-            break
+        if ActionItemFilterModel.filterApplied {
+            switch filteredActionItemsArray[indexPath.row].status {
+            case "Complete","Completed":
+                statusText = "Open"
+                statusImage = #imageLiteral(resourceName: "selectedBlue")
+            case "Open","Overdue":
+                statusText = "Complete"
+                statusImage = #imageLiteral(resourceName: "selectedBlue")
+            default:
+                break
+            }
+        }else{
+            switch actionItemsArray[indexPath.row].status {
+            case "Complete","Completed":
+                statusText = "Open"
+                statusImage = #imageLiteral(resourceName: "selectedBlue")
+            case "Open","Overdue":
+                statusText = "Complete"
+                statusImage = #imageLiteral(resourceName: "selectedBlue")
+            default:
+                break
+            }
         }
+        
         let changeStatus = SwipeAction(style: .default, title: statusText) { action, indexPath in
             if statusText.contains("Comp"){
                 self.editStatus(index: indexPath.row,statusComplete: true)

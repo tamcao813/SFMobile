@@ -114,6 +114,15 @@ class ContactListDetailsTableViewCell: UITableViewCell {
             labelToDisplay.text = dateFormatter.string(from: date)
         }
         
+        let dateFormatterType2 = DateFormatter()
+        dateFormatterType2.dateFormat = "MM/dd/yyyy"
+        dateFormatterType2.timeZone = TimeZone(identifier:"UTC")
+        
+        if let date: Date = dateFormatterType2.date(from: dateString) {
+            dateFormatterType2.dateFormat = "MM/dd/yyyy"
+            labelToDisplay.text = dateFormatterType2.string(from: date)
+            return
+        }
     }
     
     func displayChildContent(_ labelToDisplay: UILabel, textToDisply: String, dateString: String) {

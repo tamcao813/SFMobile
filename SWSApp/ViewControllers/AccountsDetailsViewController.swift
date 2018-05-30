@@ -121,18 +121,11 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     @IBAction func addNewButtonClicked(_ sender: Any) {
         addNewDropDown.anchorView = addNewButton
         
-        addNewDropDown.bottomOffset = CGPoint(x: (((addNewButton?.frame.size.width)! - 100)-((addNewButton?.frame.size.width)!/6.0)), y :( addNewDropDown.anchorView?.plainView.bounds.height)!)
-        
+        addNewDropDown.bottomOffset = CGPoint(x: 0, y:(addNewDropDown.anchorView?.plainView.bounds.height)!)
         addNewDropDown.backgroundColor = UIColor.white
-        
-        let dropDownItem1 = NSLocalizedString("Visit", comment: "Visit")
-        let dropDownItem2 = NSLocalizedString("Event", comment: "Event")
-        let dropDownItem3 = NSLocalizedString("Action Item", comment: "Action Item")
-        let dropDownItem4 = NSLocalizedString("Note", comment: "Note")
-        
-        addNewDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4]
-        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
-        self.addNewDropDown.textColor = UIColor.gray
+        addNewDropDown.dataSource = ["Visit", "Event", "Action Item", "Note"]
+        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 14)!
+        self.addNewDropDown.textColor = UIColor.black
         
         addNewDropDown.show()
         
@@ -217,12 +210,16 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         
         //containerView?.isHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshActionItemList), name: NSNotification.Name("refreshActionItemList"), object: nil)
+        
+        addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
     }
     
     @objc func refreshActionItemList(){
-//        let button = UIButton()
-//        button.tag = 5
-//        self.itemsClicked(sender: button)
+        if selectedIndex == 5{
+            let button = UIButton()
+            button.tag = 5
+            self.itemsClicked(sender: button)
+        }
     }
     
     
@@ -368,8 +365,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             let accountOverView: AccountOverViewViewController = accountOverViewStoryboard.instantiateViewController(withIdentifier: "AccountOverViewID")  as! AccountOverViewViewController
             accountOverView.account = accountDetailForLoggedInUser
             activeViewController = accountOverView
-            
-            
+            selectedIndex = 0
         case 1:
             containerView?.isHidden = false
             btnDetails?.backgroundColor = UIColor.white
@@ -379,16 +375,16 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             
             detailsViewController.account = accountDetailForLoggedInUser
             activeViewController = detailsViewController
-            
+            selectedIndex = 1
         case 2:
             btnInsights?.backgroundColor = UIColor.white
             btnInsights?.setTitleColor(UIColor.black, for: .normal)
-            
+            selectedIndex = 2
         case 3:
             containerView?.isHidden = true
             btnOpportunities?.backgroundColor = UIColor.white
             btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
-            
+            selectedIndex = 3
             //let opportunitiesViewController: OpportunitiesViewController = mainStoryboard.instantiateViewController(withIdentifier: "OpportunitiesViewControllerID") as! OpportunitiesViewController
         //activeViewController = opportunitiesViewController
         case 4:
@@ -398,7 +394,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             
             let strategyViewController: AccountStrategyViewController = strategyStoryboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
             activeViewController = strategyViewController
-            
+            selectedIndex = 4
         case 5:
             btnActionItems?.backgroundColor = UIColor.white
             btnActionItems?.setTitleColor(UIColor.black, for: .normal)
@@ -407,6 +403,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             ActionItemFilterModel.fromAccount = true
             activeViewController = actionItemContainerVC
             actionItemContainerVC?.fromPersistentMenu = false
+            selectedIndex = 5
         case 6:
             btnNotes?.backgroundColor = UIColor.white
             btnNotes?.setTitleColor(UIColor.black, for: .normal)
@@ -415,7 +412,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             let notesViewController: NotesViewController = notesStoryboard.instantiateViewController(withIdentifier: "AccountNotesID") as! NotesViewController
             notesViewController.accountId = accountDetailForLoggedInUser?.account_Id
             activeViewController = notesViewController
-            
+            selectedIndex = 6
         default:
             break
         }

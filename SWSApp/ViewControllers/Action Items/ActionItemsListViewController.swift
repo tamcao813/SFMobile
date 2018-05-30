@@ -257,16 +257,30 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
         
         var statusText = ""
         var statusImage = UIImage()
-        switch actionItemsArray[indexPath.row].status {
-        case "Complete","Completed":
-            statusText = "Open"
-            statusImage = #imageLiteral(resourceName: "selectedBlue")
-        case "Open","Overdue":
-            statusText = "Complete"
-            statusImage = #imageLiteral(resourceName: "selectedBlue")
-        default:
-            break
+        if ActionItemFilterModel.filterApplied {
+            switch filteredActionItemsArray[indexPath.row].status {
+            case "Complete","Completed":
+                statusText = "Open"
+                statusImage = #imageLiteral(resourceName: "selectedBlue")
+            case "Open","Overdue":
+                statusText = "Complete"
+                statusImage = #imageLiteral(resourceName: "selectedBlue")
+            default:
+                break
+            }
+        }else{
+            switch actionItemsArray[indexPath.row].status {
+            case "Complete","Completed":
+                statusText = "Open"
+                statusImage = #imageLiteral(resourceName: "selectedBlue")
+            case "Open","Overdue":
+                statusText = "Complete"
+                statusImage = #imageLiteral(resourceName: "selectedBlue")
+            default:
+                break
+            }
         }
+        
         let changeStatus = SwipeAction(style: .default, title: statusText) { action, indexPath in
             if statusText.contains("Comp"){
                 self.editStatus(index: indexPath.row,statusComplete: true)

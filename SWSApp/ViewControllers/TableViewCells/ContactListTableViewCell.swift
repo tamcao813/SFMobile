@@ -49,7 +49,7 @@ class ContactListTableViewButtonCell: UITableViewCell {
         self.newContactButton.layer.cornerRadius = 4
         newContactButton.clipsToBounds = true
         
-        newContactButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add Contact ", bigString: "+"), for: .normal)
+        newContactButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "New Contact ", bigString: "+"), for: .normal)
     }
     
     @IBAction func newContactButtonTapped(_ sender: UIButton){

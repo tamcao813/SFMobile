@@ -126,12 +126,11 @@ class AccountVisitListViewController: UIViewController {
     }
     
     func scrollTableViewToTop(){
+        tableView.reloadData()
         DispatchQueue.main.async {
-            UIView.performWithoutAnimation({() -> Void in
-                self.tableView.reloadData()
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-            })
+            if(self.tableViewDataArray.count > 0){
+                self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            }
         }
     }
     

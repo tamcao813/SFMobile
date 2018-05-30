@@ -192,7 +192,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         let dayToCheck = dateFormatter.string(from: date!)
 //        let now = Date()
 //        let dateFromWeek = dateFormatter.string(from: now)
-        
         var dateTime = getTime.components(separatedBy: " ")
         
         if calendar.isDateInToday(date!){

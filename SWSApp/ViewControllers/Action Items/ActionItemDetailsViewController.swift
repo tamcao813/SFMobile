@@ -230,12 +230,30 @@ class ActionItemDetailsViewController: UIViewController {
 
 extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return 1
+        case 2:
+            if let account = selectedAccount{
+                return 1
+            }
+            return 0
+        case 3:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemTitleDetailTableViewCell") as? ActionItemTitleDetailTableViewCell
             cell?.displayCellContent(actionItem: actionItemObject!)
@@ -251,11 +269,12 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
             cell?.deleteButton.isHidden = true
             if let account = selectedAccount{
                 cell?.displayCellContent(account: account, isEditing: true)
-            }else{
-                cell?.phoneNumberLabel.text = ""
-                cell?.addressLabel.text = ""
-                cell?.accountLabel.text = ""
             }
+                //else{
+//                cell?.phoneNumberLabel.text = ""
+//                cell?.addressLabel.text = ""
+//                cell?.accountLabel.text = ""
+//            }
             return cell!
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemDescriptionTableViewCell") as? ActionItemDescriptionTableViewCell

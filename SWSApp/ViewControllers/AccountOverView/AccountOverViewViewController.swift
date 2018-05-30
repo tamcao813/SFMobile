@@ -46,7 +46,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         upcomingActivitiesTableView.dataSource = self
         pastActivitiesTableView.delegate =  self
         pastActivitiesTableView.dataSource = self
-        
+        upcomingActivitiesTableView.tableFooterView = UIView()
+        pastActivitiesTableView.tableFooterView = UIView()
         self.accountId = account?.account_Id
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)
@@ -131,27 +132,28 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let date = dateFormatter.date(from: dateToConvert)
-        let myComponents = myCalendar.components(.weekday, from: date!)
-        let weekDay = myComponents.weekday
-        switch weekDay {
-        case 1?:
-            return "Sunday"
-        case 2?:
-            return "Monday"
-        case 3?:
-            return "Tuesday"
-        case 4?:
-            return "Wednesday"
-        case 5?:
-            return "Thursday"
-        case 6?:
-            return "Friday"
-        case 7?:
-            return "Saturday"
-        default:
-            return "No Day"
+            let myComponents = myCalendar.components(.weekday, from: date!)
+            let weekDay = myComponents.weekday
+            switch weekDay {
+            case 1?:
+                return "Sunday"
+            case 2?:
+                return "Monday"
+            case 3?:
+                return "Tuesday"
+            case 4?:
+                return "Wednesday"
+            case 5?:
+                return "Thursday"
+            case 6?:
+                return "Friday"
+            case 7?:
+                return "Saturday"
+            default:
+                return dateToConvert
+            }
         }
-    }
+   
     
     func getDayForActionCurrentWeek(dateToConvert:String) ->String  {
         
@@ -175,7 +177,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         case 7?:
             return "Saturday"
         default:
-            return "No Day"
+            return dateToConvert
         }
     }
     
@@ -191,7 +193,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         let dayToCheck = dateFormatter.string(from: date!)
 //        let now = Date()
 //        let dateFromWeek = dateFormatter.string(from: now)
-        
         var dateTime = getTime.components(separatedBy: " ")
         
         if calendar.isDateInToday(date!){
@@ -349,23 +350,61 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 }else{
                     cell.UpComingActivities_TitleLabel.text = upcomingVisitArrayToDisplay[indexPath.row].subject
                 }
-                cell.UpComingActivities_TimeLabel.text = getDayFromVisit(dateToConvert: upcomingVisitArrayToDisplay[indexPath.row].startDate)
+                
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+                let date = dateFormatter.date(from: upcomingVisitArrayToDisplay[indexPath.row].startDate)
+                
+                if (date?.isInThisWeek)!{
+                    cell.UpComingActivities_TimeLabel.text = getDayFromVisit(dateToConvert: upcomingVisitArrayToDisplay[indexPath.row].startDate)
+                }
+                else
+                {
+                    
+                    cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: upcomingVisitArrayToDisplay[indexPath.row].startDate)
+                }
                 cell.UpComingActivities_Image.image = UIImage(named: "Bell")
                 return cell
+                
             }else{
                 if pastVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit{
                     cell.UpComingActivities_TitleLabel.text = "Visit " + pastVisitArrayToDisplay[indexPath.row].accountName
                 }else{
                     cell.UpComingActivities_TitleLabel.text =  pastVisitArrayToDisplay[indexPath.row].subject
                 }
-                cell.UpComingActivities_TimeLabel.text = getDayFromVisit(dateToConvert: pastVisitArrayToDisplay[indexPath.row].startDate)
+                
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+                 let date = dateFormatter.date(from:pastVisitArrayToDisplay[indexPath.row].startDate)
+                if (date?.isInThisWeek)!{
+                     cell.UpComingActivities_TimeLabel.text = getDayFromVisit(dateToConvert: pastVisitArrayToDisplay[indexPath.row].startDate)
+
+                } else
+                {
+                     cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: pastVisitArrayToDisplay[indexPath.row].startDate)
+                    
+                }
+                
+               
                 cell.UpComingActivities_Image.image = UIImage(named: "Bell")
                 return cell
             }
         case 1:
             if tableView.tag == 1{
                 cell.UpComingActivities_TitleLabel.text = upcomingActionItemArrayToDisplay[indexPath.row].subject
-                cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: upcomingActionItemArrayToDisplay[indexPath.row].activityDate)
+                
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let date = dateFormatter.date(from:upcomingActionItemArrayToDisplay[indexPath.row].activityDate)
+                if (date?.isInThisWeek)!{
+                    
+                    cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: upcomingActionItemArrayToDisplay[indexPath.row].activityDate)
+                    
+                }
+                else {
+                
+                     cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: upcomingActionItemArrayToDisplay[indexPath.row].activityDate)
+                    
+                }
+            
+    
                 if upcomingActionItemArrayToDisplay[indexPath.row].isUrgent{
                     cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
                     cell.upcomingImageWidthConstraint.constant = 20
@@ -382,7 +421,18 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 
             else{
                 cell.UpComingActivities_TitleLabel.text = pastActionItemArrayToDisplay[indexPath.row].subject
-                cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: pastActionItemArrayToDisplay[indexPath.row].activityDate)
+                
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let date = dateFormatter.date(from:upcomingActionItemArrayToDisplay[indexPath.row].activityDate)
+                if (date?.isInThisWeek)!{
+                    
+                    cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: pastActionItemArrayToDisplay[indexPath.row].activityDate)
+                }
+                else {
+                    cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: pastActionItemArrayToDisplay[indexPath.row].activityDate)
+                }
+               
+                
                 if pastActionItemArrayToDisplay[indexPath.row].isUrgent{
                     cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
                     cell.upcomingImageWidthConstraint.constant = 20
@@ -513,10 +563,37 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         return nil
     }
     
-    
-    
-    
 }
+
+extension Date {
+    func isInSameWeek(date: Date) -> Bool {
+        
+        return Calendar.current.isDate(self, equalTo: date, toGranularity: .weekOfYear)
+    }
+    func isInSameMonth(date: Date) -> Bool {
+        return Calendar.current.isDate(self, equalTo: date, toGranularity: .month)
+    }
+    func isInSameYear(date: Date) -> Bool {
+        return Calendar.current.isDate(self, equalTo: date, toGranularity: .year)
+    }
+    func isInSameDay(date: Date) -> Bool {
+        return Calendar.current.isDate(self, equalTo: date, toGranularity: .day)
+    }
+    var isInThisWeek: Bool {
+        return isInSameWeek(date: Date())
+    }
+    var isInToday: Bool {
+        return Calendar.current.isDateInToday(self)
+    }
+    var isInTheFuture: Bool {
+        return Date() < self
+    }
+    var isInThePast: Bool {
+        return self < Date()
+    }
+}
+
+
 //MARK:- NavigateToContacts Delegate
 extension AccountOverViewViewController : NavigateToContactsDelegate{
     func navigateToVisitListing() {

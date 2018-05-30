@@ -143,6 +143,10 @@ class Contact {
          }
          */
         
+        if accountSiteNumber.count > 0 {
+            json["SGWS_Site_Number__c"] = accountSiteNumber
+        }
+        
         if functionRole.count > 0 { //plist
             json["SGWS_Roles__c"] = functionRole
         }

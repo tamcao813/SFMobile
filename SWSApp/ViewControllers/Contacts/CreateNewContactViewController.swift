@@ -317,6 +317,7 @@ class CreateNewContactViewController: UIViewController {
             newContact.buyerFlag = true
             newContact.accountId = accountSelected.account_Id
             newContact.functionRole = primaryFunctionTextField.text!
+            newContact.accountSiteNumber = (UserViewModel().loggedInUser?.userSite) ?? ""
         }
         newContact.firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)

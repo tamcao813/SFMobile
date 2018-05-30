@@ -423,7 +423,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 cell.UpComingActivities_TitleLabel.text = pastActionItemArrayToDisplay[indexPath.row].subject
                 
                 dateFormatter.dateFormat = "yyyy-MM-dd"
-                let date = dateFormatter.date(from:upcomingActionItemArrayToDisplay[indexPath.row].activityDate)
+                let date = dateFormatter.date(from:pastActionItemArrayToDisplay[indexPath.row].activityDate)
                 if (date?.isInThisWeek)!{
                     
                     cell.UpComingActivities_TimeLabel.text = getDayFromActionItem(dateToConvert: pastActionItemArrayToDisplay[indexPath.row].activityDate)

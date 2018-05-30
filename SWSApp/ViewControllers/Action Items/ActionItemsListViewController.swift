@@ -91,18 +91,18 @@ class ActionItemsListViewController: UIViewController {
     @IBAction func titleSortPressed(_ sender: UIButton){
         if ActionItemFilterModel.filterApplied{
             if titleAscendingSort {
-                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.subject < $1.subject })
+                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.subject.lowercased() < $1.subject.lowercased() })
                 titleAscendingSort = false
             }else{
-                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.subject > $1.subject })
+                filteredActionItemsArray = filteredActionItemsArray.sorted(by: { $0.subject.lowercased() > $1.subject.lowercased() })
                 titleAscendingSort = true
             }
         }else{
             if titleAscendingSort {
-                actionItemsArray = actionItemsArray.sorted(by: { $0.subject < $1.subject })
+                actionItemsArray = actionItemsArray.sorted(by: { $0.subject.lowercased() < $1.subject.lowercased() })
                 titleAscendingSort = false
             }else{
-                actionItemsArray = actionItemsArray.sorted(by: { $0.subject > $1.subject })
+                actionItemsArray = actionItemsArray.sorted(by: { $0.subject.lowercased() > $1.subject.lowercased() })
                 titleAscendingSort = true
             }
         }
@@ -247,6 +247,7 @@ extension ActionItemsListViewController: SwipeTableViewCellDelegate {
                 }else{
                     createVisitViewController.actionItemId = self.actionItemsArray[indexPath.row].Id
                 }
+                createVisitViewController.delegate = self
                 self.present(createVisitViewController, animated: true)
             }
         }

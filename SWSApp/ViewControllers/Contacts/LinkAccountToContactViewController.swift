@@ -34,27 +34,29 @@ class LinkAccountToContactViewController: UIViewController {
     var accContactRelation: AccountContactRelation?
     var isFirstTimeLoaded: Bool = true
     var countOfLinkedAccounts: Int = 0
+    var alreadyLinkedAccounts = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
         initializingXIBs()
         
+        fetchACRs()
+        
         if isInEditMode {
             fetchAccountDetails()
-            fetchACR()
+            doesHaveBuyingPower = accContactRelation?.buyingPower == 1
         }
     }
     
-    func fetchACR() {
-        if !isInEditMode {
-            return
+    func fetchACRs() {
+        //fetch ACRs for checking when linking accounts
+        let acrs = ContactsViewModel().linkedAccountsForContact(with: (contactObject?.contactId)!)
+        countOfLinkedAccounts = acrs.count
+        
+        for acr in acrs {
+            alreadyLinkedAccounts.append(acr.accountId)
         }
-        
-        let acr = ContactsViewModel().linkedAccountsForContact(with: (contactObject?.contactId)!)
-        
-        countOfLinkedAccounts = acr.count
-        doesHaveBuyingPower = accContactRelation?.buyingPower == 1
     }
     
     func fetchAccountDetails(){
@@ -349,7 +351,9 @@ extension LinkAccountToContactViewController: SearchAccountTableViewCellDelegate
     
     func accountSelected(account : Account) {
         
-        if !isInEditMode && account.account_Id == contactObject?.accountId {
+        let filtered = alreadyLinkedAccounts.filter {$0 == account.account_Id}
+        
+        if filtered.count >= 1 { 
         
             let alertController = UIAlertController(title: "This account is already linked.", message:
                 "Please select another account.", preferredStyle: UIAlertControllerStyle.alert)

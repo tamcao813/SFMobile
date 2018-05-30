@@ -283,9 +283,8 @@ class DateTimeUtility
     
     ///------------ Convert Date To String Format - START ------- ///
     // Using the dateformatter convering date to string format
-    static func getDate(dateString: String) -> Date? {
-        let dateFormatter: DateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //Getting this right is very important!
+    static func getDate(dateString: String, dateFormatter:DateFormatter) -> Date? {
+        //dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //Getting this right is very important!
         guard let date = dateFormatter.date(from: "\(dateString)") else {
             //handle error
             return nil
@@ -323,12 +322,13 @@ class DateTimeUtility
     
     ///------- Compare Each Date Of Month With Array Objects - START --------////
     // Converting array of dates in string format in descending order
-    static func getEventDates(currentDate: String, visitArray: Array<WREvent>) -> (Array<WREvent>, isMoreCount:Bool) {
+    static func getEventDates(currentDate: String, visitArray: Array<WREvent>, dateFormatter: DateFormatter) -> (Array<WREvent>, isMoreCount:Bool) {
         
         let calendar  =  Calendar.current
         var tempDateArr = [WREvent]()
+         //Getting this right is very important!
         for visit in visitArray {
-            let  isSameDate  =  calendar.isDate (getDate(dateString: currentDate)!  ,  inSameDayAs :  visit.date)
+            let  isSameDate  =  calendar.isDate (getDate(dateString: currentDate, dateFormatter: dateFormatter)!  ,  inSameDayAs :  visit.date)
             if isSameDate {
                 tempDateArr.append(visit)
             }

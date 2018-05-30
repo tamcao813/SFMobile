@@ -759,7 +759,7 @@
                                     <constraint firstAttribute="height" constant="40" id="5rr-eB-lkK"/>
                                     <constraint firstAttribute="width" constant="120" id="CtP-jm-UtE"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                 <state key="normal" title="Add New +">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -906,10 +906,10 @@
                                                                 <constraint firstAttribute="width" constant="5" id="0cl-SG-1wT"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gip-U4-gJm">
-                                                            <rect key="frame" x="30" y="35" width="245" height="18"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gip-U4-gJm">
+                                                            <rect key="frame" x="30" y="35" width="320" height="18"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="245" id="OUg-wE-67v"/>
+                                                                <constraint firstAttribute="width" constant="320" id="OUg-wE-67v"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
@@ -1205,6 +1205,7 @@
                         <viewLayoutGuide key="safeArea" id="FsA-a4-Zzk"/>
                     </view>
                     <connections>
+                        <outlet property="addNewButton" destination="hXj-L7-2dL" id="bky-OZ-ONI"/>
                         <outlet property="tableView" destination="mJ4-8V-uwc" id="2Y7-aA-NEp"/>
                         <outletCollection property="pageButtonArr" destination="b1J-LX-JfE" collectionClass="NSMutableArray" id="2sh-nO-OZx"/>
                         <outletCollection property="pageButtonArr" destination="wUY-Ga-2N5" collectionClass="NSMutableArray" id="N5H-Pt-LB9"/>

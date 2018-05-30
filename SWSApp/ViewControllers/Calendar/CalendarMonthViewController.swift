@@ -33,6 +33,7 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     var loadedMonthView = 0
     var globalEventVisit = [WREvent]()
     var delegate: GlobalArrayDelegate?
+    let dateFormatter: DateFormatter = DateFormatter()
     
     let columnLayout = ColumnFlowLayout(
         cellsPerRow: 7,
@@ -350,29 +351,29 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             let dateStr = "\(getPreviousYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))" + "-" + String(format: "%02d", getPreviousMonth(currentMonthIndex: currentMonthIndex)) + "-" + String(format: "%02d", (previousMonthDates[indexPath.row]))+" "+"00:00:00"
 
             //------------- Adding Events To Past Calendar Dates - START --------------- //
-
-            let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).0
-            let isMore = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).1
-            if isMore {
-                let tempDate = "\((previousMonthDates[indexPath.row]))" + "-" + "\(getPreviousMonth(currentMonthIndex: currentMonthIndex)))" + "-" + "\(currentYear)"
-                cell.moreButton.isHidden = false
-                cell.moreButton.accessibilityHint = tempDate
-                cell.moreButton.addTarget(self, action:#selector(loadWeekView(_:)), for: .touchUpInside)
-
-            } else {   cell.moreButton.isHidden = true}
-            var inc:Int = 100
-            if !eventArr.isEmpty {
-                for event in eventArr {
-                    let button:EventButton = cell.viewWithTag(inc) as! EventButton
-
-                    button.visit = event
-                    button.isHidden = false
-                    button.setAttributedTitle(getAttributedSting(date: event.date, title: event.title), for: .normal)
-                    // Border Color according to evevt type (BLUE OR ORANGE)
-                    button.borderColor(value:getColorAccordingToEventType(type: event.type))
-                    inc = inc + 1
+            
+                let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits, dateFormatter: self.dateFormatter).0
+                let isMore = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits, dateFormatter: self.dateFormatter).1
+                if isMore {
+                    let tempDate = "\((self.self.previousMonthDates[indexPath.row]))" + "-" + "\(getPreviousMonth(currentMonthIndex: self.currentMonthIndex))" + "-" + "\(self.currentYear)"
+                    cell.moreButton.isHidden = false
+                    cell.moreButton.accessibilityHint = tempDate
+                    cell.moreButton.addTarget(self, action:#selector(self.loadWeekView(_:)), for: .touchUpInside)
+                    
+                } else {   cell.moreButton.isHidden = true}
+                var inc:Int = 100
+                if !eventArr.isEmpty {
+                    for event in eventArr {
+                        let button:EventButton = cell.viewWithTag(inc) as! EventButton
+                        
+                        button.visit = event
+                        button.isHidden = false
+                        button.setAttributedTitle(self.getAttributedSting(date: event.date, title: event.title), for: .normal)
+                        // Border Color according to evevt type (BLUE OR ORANGE)
+                        button.borderColor(value:self.getColorAccordingToEventType(type: event.type))
+                        inc = inc + 1
+                    }
                 }
-            }
             //------------- Adding Events To Past Calendar Dates - END --------------- //
 
         } else
@@ -384,30 +385,29 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             cell.dateLabel.textColor = UIColor.black
 
             //------------- Adding Events To Present Calendar Dates - START --------------- //
-
-            let dateStr = "\(currentYear)" + "-" + String(format: "%02d", currentMonthIndex) + "-" + String(format: "%02d", calcDate)+" "+"00:00:00"
-            let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).0
-            let isMore = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).1
-            if isMore {
-                let tempDate = "\(calcDate)" + "-" + "\(currentMonthIndex)" + "-" + "\(currentYear)"
-                cell.moreButton.isHidden = false
-                cell.moreButton.accessibilityHint = tempDate
-                cell.moreButton.addTarget(self, action:#selector(loadWeekView(_:)), for: .touchUpInside)
-
-            } else {   cell.moreButton.isHidden = true}
-            var inc:Int = 100
-            if !eventArr.isEmpty {
-                for event in eventArr {
-                    let button:EventButton = cell.viewWithTag(inc) as! EventButton
-                    button.isHidden = false
-                    button.visit = event
-                    button.setAttributedTitle(getAttributedSting(date: event.date, title: event.title), for: .normal)
-                    // Border Color according to evevt type (BLUE OR ORANGE)
-                    button.borderColor(value:getColorAccordingToEventType(type: event.type))
-
-                    inc = inc + 1
+                let dateStr = "\(self.currentYear)" + "-" + String(format: "%02d", self.currentMonthIndex) + "-" + String(format: "%02d", calcDate)+" "+"00:00:00"
+                let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits, dateFormatter: self.dateFormatter).0
+                let isMore = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits, dateFormatter: self.dateFormatter).1
+                if isMore {
+                    let tempDate = "\(calcDate)" + "-" + "\(self.currentMonthIndex)" + "-" + "\(self.self.currentYear)"
+                    cell.moreButton.isHidden = false
+                    cell.moreButton.accessibilityHint = tempDate
+                    cell.moreButton.addTarget(self, action:#selector(self.loadWeekView(_:)), for: .touchUpInside)
+                    
+                } else {   cell.moreButton.isHidden = true}
+                var inc:Int = 100
+                if !eventArr.isEmpty {
+                    for event in eventArr {
+                        let button:EventButton = cell.viewWithTag(inc) as! EventButton
+                        button.isHidden = false
+                        button.visit = event
+                        button.setAttributedTitle(self.getAttributedSting(date: event.date, title: event.title), for: .normal)
+                        // Border Color according to evevt type (BLUE OR ORANGE)
+                        button.borderColor(value:self.getColorAccordingToEventType(type: event.type))
+                        
+                        inc = inc + 1
+                    }
                 }
-            }
         }
         else {
             cell.dateLabel.text = "\(dateInc)"
@@ -417,29 +417,28 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             let dateStr = "\(getNextYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))" + "-" + String(format: "%02d", getNextMonth(currentMonthIndex: currentMonthIndex)) + "-" + "\(dateInc)" + " " + "00:00:00"
             
             //------------- Adding Events To Future Calendar Dates - START --------------- //
-            
-            let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).0
-            let isMore = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits).1
-            if isMore {
-                let tempDate = "\(dateInc)" + "-" + "\(getNextMonth(currentMonthIndex: currentMonthIndex)))" + "-" + "\(currentYear)"
-                cell.moreButton.isHidden = false
-                cell.moreButton.accessibilityHint = tempDate
-                cell.moreButton.addTarget(self, action:#selector(loadWeekView(_:)), for: .touchUpInside)
-                
-            } else {   cell.moreButton.isHidden = true}
-            var inc:Int = 100
-            if !eventArr.isEmpty {
-                for event in eventArr {
-                    let button:EventButton = cell.viewWithTag(inc) as! EventButton
-                    button.isHidden = false
-                    button.visit = event
-                    button.setAttributedTitle(getAttributedSting(date: event.date, title: event.title), for: .normal)
-
-                    // Border Color according to evevt type (BLUE OR ORANGE)
-                    button.borderColor(value:getColorAccordingToEventType(type: event.type))
-                    inc = inc + 1
+                let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits, dateFormatter: self.dateFormatter).0
+                let isMore = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits, dateFormatter: self.self.dateFormatter).1
+                if isMore {
+                    let tempDate = "\(self.self.dateInc)" + "-" + "\(getNextMonth(currentMonthIndex: self.currentMonthIndex))" + "-" + "\(self.currentYear)"
+                    cell.moreButton.isHidden = false
+                    cell.moreButton.accessibilityHint = tempDate
+                    cell.moreButton.addTarget(self, action:#selector(self.loadWeekView(_:)), for: .touchUpInside)
+                    
+                } else {   cell.moreButton.isHidden = true}
+                var inc:Int = 100
+                if !eventArr.isEmpty {
+                    for event in eventArr {
+                        let button:EventButton = cell.viewWithTag(inc) as! EventButton
+                        button.isHidden = false
+                        button.visit = event
+                        button.setAttributedTitle(self.getAttributedSting(date: event.date, title: event.title), for: .normal)
+                        
+                        // Border Color according to evevt type (BLUE OR ORANGE)
+                        button.borderColor(value:self.getColorAccordingToEventType(type: event.type))
+                        inc = inc + 1
+                    }
                 }
-            }
             
             //------------- Adding Events To Future Calendar Dates - END --------------- //
             

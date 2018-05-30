@@ -174,6 +174,7 @@ class CalendarListViewController: UIViewController {
             self.calendarMonthController = UIStoryboard(name: "Calendar", bundle: nil).instantiateViewController(withIdentifier: "CalendarMonthViewController") as? CalendarMonthViewController
             self.addChildViewController(self.calendarMonthController!)
             self.calendarMonthController?.delegate = self
+            self.calendarMonthController?.globalEventVisit = self.globalVisit
             self.calendarMonthController?.view.frame = CGRect(x: self.bottomView.bounds.origin.x, y: self.bottomView.bounds.origin.y, width: self.bottomView.frame.size.width, height: self.bottomView.bounds.size.height)
             self.bottomView.addSubview((self.calendarMonthController?.view)!)
             

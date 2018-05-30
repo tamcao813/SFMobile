@@ -282,6 +282,7 @@ class StoreDispatcher {
             }
             .catch { error in
                 completion(error as NSError?)
+                print(error.localizedDescription)
         }
     }
     // FIXIT : - (j.kannayyagari) Please move it in Model
@@ -362,7 +363,7 @@ class StoreDispatcher {
         let newSyncLog = SyncLog(for: "NewSyncLog")
         newSyncLog.Id = generateRandomIDForSyncLog()
         newSyncLog.sessionID = "SID:\(newSyncLog.Id)"
-        newSyncLog.activityType = "Sync Error \(errorType)"
+        newSyncLog.activityType = "SyncErr\(errorType)"
         newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
         newSyncLog.activityDetails = "{\"ConnectionType\":\"WiFi\",\"SyncType\":\"Manual\"}"
@@ -401,27 +402,27 @@ class StoreDispatcher {
     //    newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
     //    newSyncLog.activityDetails = "Success3"
     
-    func createOneSyncLog(newSyncLog: SyncLog){
-        let attributeDict = ["type":SoupSyncLog]
-        let syncLogDict: [String:Any] = [
-            SyncLog.SyncLogFields[0]: newSyncLog.Id,
-            SyncLog.SyncLogFields[1]: newSyncLog.sessionID,
-            SyncLog.SyncLogFields[2]: newSyncLog.activityType,
-            SyncLog.SyncLogFields[3]: newSyncLog.activityTime,
-            SyncLog.SyncLogFields[4]: newSyncLog.userId,
-            SyncLog.SyncLogFields[5]: newSyncLog.activityDetails,
-            
-            kSyncTargetLocal:true,
-            kSyncTargetLocallyCreated:true,
-            kSyncTargetLocallyUpdated:false,
-            kSyncTargetLocallyDeleted:false,
-            "attributes":attributeDict]
-        
-        let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
-        if success {
-            syncUpLogHandeler()
-        }
-    }
+//    func createOneSyncLog(newSyncLog: SyncLog){
+//        let attributeDict = ["type":SoupSyncLog]
+//        let syncLogDict: [String:Any] = [
+//            SyncLog.SyncLogFields[0]: newSyncLog.Id,
+//            SyncLog.SyncLogFields[1]: newSyncLog.sessionID,
+//            SyncLog.SyncLogFields[2]: newSyncLog.activityType,
+//            SyncLog.SyncLogFields[3]: newSyncLog.activityTime,
+//            SyncLog.SyncLogFields[4]: newSyncLog.userId,
+//            SyncLog.SyncLogFields[5]: newSyncLog.activityDetails,
+//
+//            kSyncTargetLocal:true,
+//            kSyncTargetLocallyCreated:true,
+//            kSyncTargetLocallyUpdated:false,
+//            kSyncTargetLocallyDeleted:false,
+//            "attributes":attributeDict]
+//
+//        let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
+//        if success {
+//            syncUpLogHandeler()
+//        }
+//    }
     
     func generateRandomIDForSyncLog()->String  {
         //  Make a variable equal to a random number....
@@ -453,7 +454,7 @@ class StoreDispatcher {
     }
     
     /**
-     syncUpSyncLog Clear all data for local DB
+     clearSyncUpLogSOUP Clear all data for local DB
      */
     func clearSyncUpLogSOUP(){
         sfaStore.clearSoup(SoupSyncLog)

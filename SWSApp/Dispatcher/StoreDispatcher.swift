@@ -29,6 +29,7 @@ class StoreDispatcher {
     let SoupStrategyAnswers = "SGWS_Answer__c"
     //Sync Configurations
     let SoupSyncConfiguration = "SyncConfiguration"
+    let SoupSyncLog = "SGWS_Sync_Logs__c"
     let SoupActionItem = "Task"
     
     
@@ -71,6 +72,7 @@ class StoreDispatcher {
         registerStrategyAnswers()
         registerSyncConfiguration()
         registerActionItemSoup()
+        registerSyncLogSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -156,7 +158,6 @@ class StoreDispatcher {
         }
     }
     
-    
     //sync down soups - contact and ACR are already synced up, and no need to sync down plists
     func syncDownSoupsAfterSyncUpData(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
         
@@ -200,6 +201,266 @@ class StoreDispatcher {
         }
     }
     
+    //MARK:- Sync Logs CODE
+    /**
+     registerSyncLogSoup will put data in to smartstore.
+     Following are the Param which will be synced
+     1 SessionID: SGWS_Session_ID__c
+     2 Activity: SGWS_Activity__c
+     3 ActivityTimestamp: SGWS_Activity_Timestamp__c
+     4 UserId: SGWS_User_Id__c
+     5 Activity Detail: SGWS_Activity_Timestamp__c
+     */
+    func registerSyncLogSoup(){
+        let synLogFields = SyncLog.SyncLogFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...synLogFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: synLogFields[i], indexType: kSoupIndexTypeString, columnName: synLogFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupSyncLog, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "ERROR: ***failed to register SoupSyncLog soup: \(error.localizedDescription)")
+        }
+        //        createOneSyncLog()
+    }
+    
+    /**
+     createSyncLogLocally will put data in to smartstore.
+     @param fieldsToUpload All fields that we need to syncUp.
+     @return Returns Bool for success
+     */
+    func createSyncLogLocally(fieldsToUpload: [String:Any]) -> Bool{
+        let ary = sfaStore.upsertEntries([fieldsToUpload], toSoup: SoupSyncLog)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    /**
+     syncUpSyncLog will push the SyncLogs to server, Since no logs needs to be maintained on device delete the local created logs post suncUp.
+     
+     @param fieldsToUpload All fields that we need to syncUp.
+     @param completion Completion handeler if required
+     */
+    func syncUpSyncLog(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
+        
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupSyncLog)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> syncUpSyncLog done")
+                    let syncId = syncStateStatus.syncId
+                    print(syncId)
+                    self.clearSyncUpLogSOUP()
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "$$$$$$ ErrorDownloading: syncUpSyncLog()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncUpSyncLog()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+                print(error.localizedDescription)
+        }
+    }
+    // FIXIT : - (j.kannayyagari) Please move it in Model
+    var sessionID:String = ""
+    
+    /**
+     createSyncLogOnSyncStart Will insert Sync log indicating that Sync has started
+     */
+    func createSyncLogOnSyncStart(){
+        let newSyncLog = SyncLog(for: "NewSyncLog")
+        newSyncLog.Id = generateRandomIDForSyncLog()
+        sessionID = "SID:\(newSyncLog.Id)"
+        newSyncLog.sessionID = sessionID
+        newSyncLog.activityType = "Sync Start"
+        newSyncLog.activityTime = getTimeStampInString()
+        newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
+        newSyncLog.activityDetails = "{\"ConnectionType\":\"WiFi\",\"SyncType\":\"Manual\"}"
+//        createOneSyncLog(newSyncLog)
+        
+        let attributeDict = ["type":SoupSyncLog]
+        let syncLogDict: [String:Any] = [
+            SyncLog.SyncLogFields[0]: newSyncLog.Id,
+            SyncLog.SyncLogFields[1]: newSyncLog.sessionID,
+            SyncLog.SyncLogFields[2]: newSyncLog.activityType,
+            SyncLog.SyncLogFields[3]: newSyncLog.activityTime,
+            SyncLog.SyncLogFields[4]: newSyncLog.userId,
+            SyncLog.SyncLogFields[5]: newSyncLog.activityDetails,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
+        
+        if success {
+//            No Need to Sync at this instance
+        }
+    }
+    
+    func createSyncLogOnSyncStop(){
+        let newSyncLog = SyncLog(for: "NewSyncLog")
+        newSyncLog.Id = generateRandomIDForSyncLog()
+        newSyncLog.sessionID = sessionID
+        newSyncLog.activityType = "Sync Stop"
+        newSyncLog.activityTime = getTimeStampInString()
+        newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
+        newSyncLog.activityDetails = "{\"ConnectionType\":\"WiFi\",\"SyncType\":\"Manual\"}"
+    
+//        createOneSyncLog(newSyncLog)
+        let attributeDict = ["type":SoupSyncLog]
+        let syncLogDict: [String:Any] = [
+            SyncLog.SyncLogFields[0]: newSyncLog.Id,
+            SyncLog.SyncLogFields[1]: newSyncLog.sessionID,
+            SyncLog.SyncLogFields[2]: newSyncLog.activityType,
+            SyncLog.SyncLogFields[3]: newSyncLog.activityTime,
+            SyncLog.SyncLogFields[4]: newSyncLog.userId,
+            SyncLog.SyncLogFields[5]: newSyncLog.activityDetails,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
+        if success {
+//            Sync all the collected SyncLogs to server post success
+            syncUpLogHandeler()
+        }
+    }
+    
+    /**
+     createSyncLogOnSyncStart Will insert Sync log indicating that Sync has started
+     */
+    func createSyncLogOnSyncError(errorType: String){
+        let newSyncLog = SyncLog(for: "NewSyncLog")
+        newSyncLog.Id = generateRandomIDForSyncLog()
+        newSyncLog.sessionID = "SID:\(newSyncLog.Id)"
+        newSyncLog.activityType = "SyncErr\(errorType)"
+        newSyncLog.activityTime = getTimeStampInString()
+        newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
+        newSyncLog.activityDetails = "{\"ConnectionType\":\"WiFi\",\"SyncType\":\"Manual\"}"
+        //        createOneSyncLog(newSyncLog)
+        
+        let attributeDict = ["type":SoupSyncLog]
+        let syncLogDict: [String:Any] = [
+            SyncLog.SyncLogFields[0]: newSyncLog.Id,
+            SyncLog.SyncLogFields[1]: newSyncLog.sessionID,
+            SyncLog.SyncLogFields[2]: newSyncLog.activityType,
+            SyncLog.SyncLogFields[3]: newSyncLog.activityTime,
+            SyncLog.SyncLogFields[4]: newSyncLog.userId,
+            SyncLog.SyncLogFields[5]: newSyncLog.activityDetails,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:true,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
+        
+        if success {
+            //            No Need to Sync at this instance
+        }
+    }
+    
+    // MARK:-- All SyncLog Helper Model Method
+    
+    ////    To Create New SyncLog use following
+    //    var newSyncLog = SyncLog(for: "NewSyncLog")
+    //    newSyncLog.Id = generateRandomIDForSyncLog()
+    //    newSyncLog.sessionID = "SESSIONID0444"
+    //    newSyncLog.activityType = "SyncUPJagguDada"
+    //    newSyncLog.activityTime = getTimeStampInString()
+    //    newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
+    //    newSyncLog.activityDetails = "Success3"
+    
+//    func createOneSyncLog(newSyncLog: SyncLog){
+//        let attributeDict = ["type":SoupSyncLog]
+//        let syncLogDict: [String:Any] = [
+//            SyncLog.SyncLogFields[0]: newSyncLog.Id,
+//            SyncLog.SyncLogFields[1]: newSyncLog.sessionID,
+//            SyncLog.SyncLogFields[2]: newSyncLog.activityType,
+//            SyncLog.SyncLogFields[3]: newSyncLog.activityTime,
+//            SyncLog.SyncLogFields[4]: newSyncLog.userId,
+//            SyncLog.SyncLogFields[5]: newSyncLog.activityDetails,
+//
+//            kSyncTargetLocal:true,
+//            kSyncTargetLocallyCreated:true,
+//            kSyncTargetLocallyUpdated:false,
+//            kSyncTargetLocallyDeleted:false,
+//            "attributes":attributeDict]
+//
+//        let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
+//        if success {
+//            syncUpLogHandeler()
+//        }
+//    }
+    
+    func generateRandomIDForSyncLog()->String  {
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        print("number in notes is \(someString)")
+        return someString
+    }
+    
+    func getTimeStampInString() -> String{
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let timeStamp = dateFormatter.string(from: date)
+        return timeStamp
+    }
+    
+    func syncUpLogHandeler() {
+        syncUpSyncLog(fieldsToUpload: ["Id","SGWS_Session_ID__c","SGWS_Activity__c","SGWS_Activity_Timestamp__c","SGWS_User_Id__c","SGWS_Activity_Detail__c"], completion: {error in
+            
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+            }
+            else {
+                print("syncUpLog:>>> Success")
+            }
+        })
+    }
+    
+    /**
+     clearSyncUpLogSOUP Clear all data for local DB
+     */
+    func clearSyncUpLogSOUP(){
+        sfaStore.clearSoup(SoupSyncLog)
+    }
+
+    //MARK:- Contat Sync CODE
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {
         let query = "SELECT id FROM RecordType where DeveloperName = 'customer' and isActive = true and SobjectType = 'Contact'"
         
@@ -1520,7 +1781,6 @@ class StoreDispatcher {
         }
         return visit
     }
-    
     
     //MARK:- ActionItem CODE
     func registerActionItemSoup(){

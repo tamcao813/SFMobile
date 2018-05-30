@@ -281,18 +281,6 @@ class DateTimeUtility
     ///------------ Convert String To Date Format - END ------- ///
     
     
-    ///------------ Convert Date To String Format - START ------- ///
-    // Using the dateformatter convering date to string format
-    static func getDate(dateString: String, dateFormatter:DateFormatter) -> Date? {
-        //dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //Getting this right is very important!
-        guard let date = dateFormatter.date(from: "\(dateString)") else {
-            //handle error
-            return nil
-        }
-        return date
-    }
-    ///------------ Convert Date To String Format - END ------- ///
-    
     ///------------ Convert Date To Time Format - START ------- ///
     
     static func getTimeFromDate(date: Date) -> String {
@@ -320,15 +308,51 @@ class DateTimeUtility
     }
     ///-----------Sort Array With Time -  END --------///
     
+    static func dateToStringinyyyyMMddd(eventDate: Date) -> String {
+        let formatter = DateFormatter()
+        // initially set the format based on your datepicker date / server String
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myString = formatter.string(from: eventDate) // string purpose I add here
+        // convert your string to date
+        let yourDate = formatter.date(from: myString)
+        //then again set the date format whhich type of output you need
+        formatter.dateFormat = "yyyy-MM-dd"
+        // again convert your date to string
+        let myStringafd = formatter.string(from: yourDate!)
+        return myStringafd
+    }
+    
+    /// Get Substring from String To Format dd-MM-yyyy from dd-MM-yyy HH:mm:ss - START //
+    static func getFormattCurrentDateString(dateStr: String) -> String {
+        let delimiter = " "
+        var token = dateStr.components(separatedBy: delimiter)
+        print (token[0])
+        return token[0]
+    }
+    /// Get Substring from String To Format dd-MM-yyyy from dd-MM-yyy HH:mm:ss - END //
+    
+    /// Get Substring from String To Format dd-MM-yyyy from dd-MM-yyy'T'HH:mm:ss - START //
+   static func getFormattString(dateStr: String) -> String {
+        let delimiter = "T"
+        var token = dateStr.components(separatedBy: delimiter)
+        print (token[0])
+        return token[0]
+    }
+    /// Get Substring from String To Format dd-MM-yyyy from dd-MM-yyy'T'HH:mm:ss - END //
     ///------- Compare Each Date Of Month With Array Objects - START --------////
     // Converting array of dates in string format in descending order
     static func getEventDates(currentDate: String, visitArray: Array<WREvent>, dateFormatter: DateFormatter) -> (Array<WREvent>, isMoreCount:Bool) {
         
-        let calendar  =  Calendar.current
         var tempDateArr = [WREvent]()
+        
          //Getting this right is very important!
         for visit in visitArray {
-            let  isSameDate  =  calendar.isDate (getDate(dateString: currentDate, dateFormatter: dateFormatter)!  ,  inSameDayAs :  visit.date)
+            var  isSameDate  = false
+            if getFormattCurrentDateString(dateStr: currentDate) == getFormattString(dateStr: visit.startDate)
+            {
+                isSameDate = true
+            }
             if isSameDate {
                 tempDateArr.append(visit)
             }
@@ -339,8 +363,10 @@ class DateTimeUtility
         return (minutesArr, isMoreCount)
     }
     ///------- Compare Each Date Of Month With Array Objects - END --------////
-    
+
 }
+
+
 
 extension Date {
     

@@ -56,7 +56,26 @@ class DateTimeUtility
         dateFormatter.timeZone = TimeZone.current
         let date = dateFormatter.date(from: dateStringfromAccountNotes!)// create date from string
         // change to a readable time format and change to local time zone
-        dateFormatter.dateFormat = "MM-dd-YYYY h:mma"
+        dateFormatter.dateFormat = "MM-dd-YYYY hh:mm a"
+        let timeStamp = dateFormatter.string(from: date!)
+        
+        return timeStamp
+    }
+    
+    static func convertUtcDatetoReadInOverview(dateStringfromAccountNotes:String?)->String{
+        if(dateStringfromAccountNotes?.isEmpty)!{
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        
+        let date = dateFormatter.date(from: dateStringfromAccountNotes!)// create date from string
+        // change to a readable time format and change to local time zone
+        dateFormatter.dateFormat = "MM-dd-YYYY hh:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date!)
         
         return timeStamp

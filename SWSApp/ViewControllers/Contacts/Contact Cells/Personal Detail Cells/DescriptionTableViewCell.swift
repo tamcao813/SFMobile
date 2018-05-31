@@ -13,6 +13,7 @@ class DescriptionTableViewCell: UITableViewCell {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
     var contactDetail: Contact?
+    var actionItemObject: ActionItem?
     
     
     override func awakeFromNib() {
@@ -34,7 +35,15 @@ class DescriptionTableViewCell: UITableViewCell {
 
 extension DescriptionTableViewCell: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.tag == 1 {
+        
+        CreateNewEventViewControllerGlobals.isFirstTimeLoad = false
+        
+        if textView.tag == 500{
+            
+            CreateNewEventViewControllerGlobals.description = textView.text!
+            
+            
+        }else if textView.tag == 1 {
             contactDetail?.likes = descriptionTextView.text!
         }else if textView.tag == 2 {
             contactDetail?.dislikes = descriptionTextView.text!
@@ -43,10 +52,15 @@ extension DescriptionTableViewCell: UITextViewDelegate {
         }else{
             contactDetail?.sgwsNotes = descriptionTextView.text!
         }
+        
+        if let actionItem = actionItemObject {
+            actionItemObject?.description = textView.text
+        }
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         CreateNewContactViewController.createNewGlobals.userInput = true
+        CreateNewActionItemViewController.createActionItemsGlobals.userInput = true
         return true
     }
 }

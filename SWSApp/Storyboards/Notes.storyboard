@@ -126,10 +126,21 @@
                                     <action selector="saveAndCloseButtonClicked:" destination="nFu-Pa-Vui" eventType="touchUpInside" id="DdC-dI-o1h"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zu-Kx-F3w">
+                                <rect key="frame" x="646" y="698" width="250" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="WGZ-Fd-41j"/>
+                                    <constraint firstAttribute="width" constant="250" id="qKd-3J-ZVj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                <color key="textColor" name="Bad"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="pmB-ZB-trr" firstAttribute="leading" secondItem="zBj-j6-Zkl" secondAttribute="leading" constant="63" id="5jv-kh-nHi"/>
+                            <constraint firstItem="qc5-bh-X3k" firstAttribute="leading" secondItem="7zu-Kx-F3w" secondAttribute="trailing" constant="8" id="7Us-rz-wBk"/>
                             <constraint firstItem="g7F-Y5-xDB" firstAttribute="leading" secondItem="zBj-j6-Zkl" secondAttribute="leading" constant="63" id="ADQ-ch-9tm"/>
                             <constraint firstItem="g7F-Y5-xDB" firstAttribute="top" secondItem="xHu-uK-I5K" secondAttribute="bottom" constant="51" id="Dx3-ia-KzB"/>
                             <constraint firstItem="zBj-j6-Zkl" firstAttribute="trailing" secondItem="qc5-bh-X3k" secondAttribute="trailing" constant="55" id="EPo-DB-wji"/>
@@ -137,6 +148,7 @@
                             <constraint firstItem="FQN-jX-iEl" firstAttribute="leading" secondItem="zBj-j6-Zkl" secondAttribute="leading" constant="63" id="FFx-uv-AWW"/>
                             <constraint firstItem="FQN-jX-iEl" firstAttribute="width" secondItem="xlT-pI-5Vm" secondAttribute="width" constant="-113" id="M8p-hV-hWo"/>
                             <constraint firstItem="Qju-LD-mRb" firstAttribute="leading" secondItem="zBj-j6-Zkl" secondAttribute="leading" constant="63" id="OTd-vH-3Ra"/>
+                            <constraint firstItem="zBj-j6-Zkl" firstAttribute="bottom" secondItem="7zu-Kx-F3w" secondAttribute="bottom" constant="100" id="QAo-hV-5S6"/>
                             <constraint firstItem="uTQ-yv-beB" firstAttribute="top" secondItem="FQN-jX-iEl" secondAttribute="bottom" constant="40" id="UW2-xe-fXO"/>
                             <constraint firstItem="zBj-j6-Zkl" firstAttribute="trailing" secondItem="75y-3D-Ixf" secondAttribute="trailing" constant="27" id="WFF-sr-BuB"/>
                             <constraint firstItem="pmB-ZB-trr" firstAttribute="top" secondItem="zBj-j6-Zkl" secondAttribute="top" constant="23" id="aQa-ar-v1h"/>
@@ -152,13 +164,14 @@
                     </view>
                     <connections>
                         <outlet property="editNotel_Label" destination="pmB-ZB-trr" id="y69-wA-Zty"/>
+                        <outlet property="errorLabel" destination="7zu-Kx-F3w" id="XdR-GM-Oz6"/>
                         <outlet property="notesTitleTextField" destination="xHu-uK-I5K" id="vtE-ry-QCY"/>
                         <outlet property="textView" destination="FQN-jX-iEl" id="izt-TR-oMX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6E-gb-7vA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-47" y="-832"/>
+            <point key="canvasLocation" x="-47.482014388489212" y="-832.37410071942452"/>
         </scene>
         <!--Notes View Controller-->
         <scene sceneID="aNm-7S-CqA">
@@ -488,6 +501,9 @@
     <resources>
         <image name="Close" width="38" height="38"/>
         <image name="Sort Gray" width="149" height="149"/>
+        <namedColor name="Bad">
+            <color red="0.83899998664855957" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

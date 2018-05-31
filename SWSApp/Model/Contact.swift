@@ -10,7 +10,7 @@ import Foundation
 
 class Contact {
     
-    static let ContactFields: [String] = ["Id", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buying_Power__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Account_Site_Number__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","SGWS_AppModified_DateTime__c","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","Fax","SGWS_Other_Specification__c","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c", "SGWS_Contact_Classification__c"]
+    static let ContactFields: [String] = ["Id", "SGWS_TECH_MobileField__c", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buying_Power__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Site_Number__c","Title","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","SGWS_AppModified_DateTime__c","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","Fax","SGWS_Other_Specification__c","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c", "SGWS_Contact_Classification__c"]
     
     
     var contactId: String
@@ -52,8 +52,8 @@ class Contact {
     var fax:String
     var contactClassification: String
     var otherSpecification: String
-    var _soupEntryId: Int
-    
+    var _soupEntryId: Int  //should not need this
+    var tempId: String
     
     
     convenience init(withAry resultDict: [String:Any]) {
@@ -74,7 +74,7 @@ class Contact {
         birthDate = json["Birthdate"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
         accountSite = json["Account.SWS_Account_Site__c"] as? String ?? ""
-        accountSiteNumber = json["SGWS_Account_Site_Number__c"] as? String ?? ""
+        accountSiteNumber = json["SGWS_Site_Number__c"] as? String ?? ""
         functionRole = json["SGWS_Roles__c"] as? String ?? ""
         buyerFlag = json["SGWS_Buying_Power__c"] as? Bool ?? false
         let buyerFlagString = json["SGWS_Buying_Power__c"] as? String ?? ""
@@ -112,13 +112,15 @@ class Contact {
         contactClassification = json["SGWS_Contact_Classification__c"] as? String ?? ""
         otherSpecification = json["SGWS_Other_Specification__c"] as? String ?? ""
         _soupEntryId = json["_soupEntryId"] as? Int ?? 0
-        
+        tempId = json["SGWS_TECH_MobileField__c"] as? String ?? ""
     }
     
     func toJson() -> [String:Any] { //only pak the fields we need
         var json = [String:Any]()
         
         json["Id"] = contactId
+        
+        json["SGWS_TECH_MobileField__c"] = tempId
         
         json["FirstName"] = firstName
         
@@ -140,6 +142,10 @@ class Contact {
          json["SGWS_Account_Site_Number__c"] = accountSiteNumber
          }
          */
+        
+        if accountSiteNumber.count > 0 {
+            json["SGWS_Site_Number__c"] = accountSiteNumber
+        }
         
         if functionRole.count > 0 { //plist
             json["SGWS_Roles__c"] = functionRole
@@ -224,7 +230,8 @@ class Contact {
     
     init(for: String) {
         let n = Int(arc4random_uniform(100000000))
-        contactId = "\(n)"
+        contactId = "NEW" + "\(n)"
+        tempId = contactId
         name = ""
         firstName = ""
         lastName = ""
@@ -395,18 +402,18 @@ class Contact {
         }
         
         
-        let initials = name.components(separatedBy: " ")
-        print(initials)
+//        let initials = name.components(separatedBy: " ")
+//        print(initials)
         var firstChar = ""
         
-        if(initials[0] != "") {
-            var firstCharIndex = initials[0].index(initials[0].startIndex, offsetBy: 1)
-            firstChar = initials[0].substring(to: firstCharIndex)
+        if(firstName != "") {
+            var firstCharIndex = firstName.index(firstName.startIndex, offsetBy: 1)
+            firstChar = firstName.substring(to: firstCharIndex)
             print(firstChar)
         }
-        if(initials[1] != "") {
-            var firstCharIndex = initials[1].index(initials[1].startIndex, offsetBy: 1)
-            firstChar = firstChar+initials[1].substring(to: firstCharIndex)
+        if(lastName != "") {
+            var firstCharIndex = lastName.index(lastName.startIndex, offsetBy: 1)
+            firstChar = firstChar+lastName.substring(to: firstCharIndex)
             print(firstChar)
         }
         

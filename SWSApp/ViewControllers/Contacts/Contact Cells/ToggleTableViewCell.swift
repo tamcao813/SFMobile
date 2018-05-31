@@ -17,13 +17,18 @@ class ToggleTableViewCell: UITableViewCell {
     @IBOutlet weak var yesButton: UIButton!
     @IBOutlet weak var noButton: UIButton!
     weak var delegate: ToggleTableViewCellDelegate!
-    var buyingPower = false
+    var buyingPower = true
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        noButton.isEnabled = false
-        yesButton.isEnabled = false
+        noButton.isEnabled = true
+        yesButton.isEnabled = true
         questionLabel.text = "Does this contact have buying power?"
+    }
+    
+    func setBuyingPower(value: Bool) {
+        buyingPower = value
+        toggleFlag()
     }
     
     func toggleFlag(){
@@ -45,17 +50,21 @@ class ToggleTableViewCell: UITableViewCell {
     }
     
     func yes(){
-        yesButton.setTitleColor(.white, for: .normal)
-        yesButton.backgroundColor = UIColor(fromHexValue: "#4187c2")
-        noButton.setTitleColor(.lightGray, for: .normal)
-        noButton.backgroundColor = .white
+        DispatchQueue.main.async {
+            self.yesButton.setTitleColor(.white, for: .normal)
+            self.yesButton.backgroundColor = UIColor(fromHexValue: "#4187c2")
+            self.noButton.setTitleColor(.lightGray, for: .normal)
+            self.noButton.backgroundColor = .white
+        }
     }
     
     func no(){
-        yesButton.setTitleColor(.lightGray, for: .normal)
-        yesButton.backgroundColor = .white
-        noButton.setTitleColor(.white, for: .normal)
-        noButton.backgroundColor = UIColor(fromHexValue: "#4187c2")        
+        DispatchQueue.main.async {
+            self.yesButton.setTitleColor(.lightGray, for: .normal)
+            self.yesButton.backgroundColor = .white
+            self.noButton.setTitleColor(.white, for: .normal)
+            self.noButton.backgroundColor = UIColor(fromHexValue: "#4187c2")
+        }
     }
 }
 

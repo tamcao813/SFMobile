@@ -21,6 +21,8 @@ class ContactListTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.initialNameLabel.layer.cornerRadius = 40/2
         initialNameLabel.clipsToBounds = true
+        
+        
         // Initialization code
     }
 
@@ -46,6 +48,8 @@ class ContactListTableViewButtonCell: UITableViewCell {
         super.awakeFromNib()
         self.newContactButton.layer.cornerRadius = 4
         newContactButton.clipsToBounds = true
+        
+        newContactButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "New Contact ", bigString: "+"), for: .normal)
     }
     
     @IBAction func newContactButtonTapped(_ sender: UIButton){

@@ -30,7 +30,7 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     var selectedContact: Contact!
-    var visitObject: Visit?
+    var visitObject: WorkOrderUserObject?
     
     var visitStatus: AccountVisitStatus?
     var delegate : NavigateToContactsDelegate?
@@ -38,6 +38,7 @@ class AccountVisitSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
     }
     
     
@@ -52,6 +53,15 @@ class AccountVisitSummaryViewController: UIViewController {
         fetchVisit()
     }
     
+    @objc func navigateToAccountScreen(){
+        DispatchQueue.main.async {
+            FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+            self.dismiss(animated: false, completion: nil)
+            self.delegate?.navigateToAccountScreen()
+        }
+    }
+    
+    
     func fetchVisit(){
         if let id = visitId{
             let visitArray = VisitsViewModel().visitsForUser()
@@ -62,6 +72,7 @@ class AccountVisitSummaryViewController: UIViewController {
                 }
             }
         }
+        PlanVisitManager.sharedInstance.visit = visitObject
         fetchAccountDetails()
         fetchContactDetails()
         UICustomizations()
@@ -73,6 +84,7 @@ class AccountVisitSummaryViewController: UIViewController {
             for account in accountsArray{
                 if account.account_Id == accountId {
                     accountObject = account
+                    break
                 }
             }
         }
@@ -230,6 +242,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let attributeDict = ["type":"WorkOrder"]
             let visitNoteDict: [String:Any] = [
                 Visit.VisitsFields[0]: self.visitObject!.Id,
+                Visit.VisitsFields[14]:self.visitObject?.soupEntryId,
                 kSyncTargetLocal:true,
                 kSyncTargetLocallyCreated:false,
                 kSyncTargetLocallyUpdated:false,
@@ -239,8 +252,9 @@ class AccountVisitSummaryViewController: UIViewController {
             let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
             
             if(success){
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
-                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                 self.dismiss(animated: true, completion: nil)
             }
             
@@ -259,6 +273,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            PlanVisitManager.sharedInstance.visit = visitObject
             (vc as DuringVisitsViewController).visitObject = visitObject
             (vc as DuringVisitsViewController).delegate = self
             self.present(vc, animated: true, completion: nil)
@@ -275,12 +290,12 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
         switch visitStatus {
         case .scheduled?:
-            PlanVistManager.sharedInstance.editPlanVisit = true
+            PlanVisitManager.sharedInstance.editPlanVisit = true
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
             createVisitViewController.visitId = visitObject?.Id
-            PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
             }
@@ -291,15 +306,15 @@ class AccountVisitSummaryViewController: UIViewController {
             let viewController = storyboard.instantiateViewController(withIdentifier :"EditAgendaNoteID") as? EditAgendaNoteViewController
             viewController?.editNotesText = (self.visitObject?.description)!
             viewController?.modalPresentationStyle = .overCurrentContext
-            PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             self.present(viewController!, animated: true)
         case .planned?:
-            PlanVistManager.sharedInstance.editPlanVisit = true
+            PlanVisitManager.sharedInstance.editPlanVisit = true
             let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
             createVisitViewController.isEditingMode = false
-            PlanVistManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVistManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             createVisitViewController.visitId = visitObject?.Id
             DispatchQueue.main.async {
                 self.present(createVisitViewController, animated: true)
@@ -310,6 +325,7 @@ class AccountVisitSummaryViewController: UIViewController {
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -335,14 +351,15 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+         //   AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
                 self.dismiss(animated: true, completion: nil)
                 self.delegate?.navigateToAccountScreen()
-            }){
+           // }){
                 
             }
         }        
-    }
+    //}
 }
 
 
@@ -401,92 +418,93 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UINib(nibName: "AccountVisitSectionHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? AccountVisitSectionHeaderView
-        switch visitStatus {
-        case .scheduled?:
-            switch section {
-            case 0:
-                headerView?.headerLabel.text = "Location"
-            default:
-                break
-            }
-        case .inProgress?:
-            switch section {
-            case 0:
-                headerView?.headerLabel.text = "Location"
-            case 1:
-                headerView?.headerLabel.text = "Associated Contacts"
-            default:
-                break
-            }
-        case .completed?:
-            switch section {
-            case 0:
-                headerView?.headerLabel.text = "Location"
-            case 1:
-                headerView?.headerLabel.text = "Associated Contacts"
-            default:
-                break
-            }
-        case .planned?:
-            switch section {
-            case 0:
-                headerView?.headerLabel.text = "Location"
-            case 1:
-                headerView?.headerLabel.text = "Associated Contacts"
-            default:
-                break
-            }
-        default:
-            break
+        if visitStatus == .scheduled {
+            headerView?.headerLabel.text = getHeaderValuesInScheduledState(section: section)
+        }else {
+            headerView?.headerLabel.text = getHeaderValuesInProgress(section: section)
         }
-        
         return headerView
+    }
+    
+    func getHeaderValuesInScheduledState(section: Int) -> String{
+        var headerValue = ""
+        if section == 0 {
+            if visitObject?.location.count == 0 {
+                headerValue = "Location"
+            } else {
+                headerValue = (visitObject?.location)!
+            }
+        }
+        return headerValue
+    }
+    
+    func getHeaderValuesInProgress(section: Int) -> String{
+        var headerValue = ""
+        if section == 0 {
+            if visitObject?.location.count == 0 {
+                headerValue = "Location"
+            } else {
+                headerValue = (visitObject?.location)!
+            }
+            
+        }else if section == 1 {
+            headerValue = "Associated Contacts"
+        }
+        return headerValue
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch visitStatus {
         case .scheduled?:
-            switch indexPath.section {
-            case 0:
-                return getLocationCell()
-            case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
-                cell?.delegate = self
-                return cell!
-            default:
-                return UITableViewCell()
-            }
+            return getScheduledStateCell(section: indexPath.section)
         case .inProgress?,.completed?,.planned?:
-            switch indexPath.section {
-            case 0:
-                return getLocationCell()
-            case 1:
-                return getConatactCell()
-            case 2:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-                cell?.headingLabel.text = "Opportunities Selected"
-                cell?.SubheadingLabel.text = ""
-                return cell!
-            case 3:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-                cell?.headingLabel.text = "Service Purposes"
-                let str = visitObject?.sgwsVisitPurpose.replacingOccurrences(of: ";", with: "\n • ")
-                if !(str?.isEmpty)! {
-                    cell?.SubheadingLabel.text = " • " + str!
-                } else { cell?.SubheadingLabel.text = ""}
-                return cell!
-            case 4:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
-                cell?.headingLabel.text = "Agenda Notes"
-                cell?.SubheadingLabel.text = visitObject?.sgwsAgendaNotes
-                return cell!
-            case 5:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
-                cell?.delegate = self
-                return cell!
-            default:
-                return UITableViewCell()
-            }
+            return getInprogressStateCell(section: indexPath.section)
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    func getScheduledStateCell(section: Int) -> UITableViewCell{
+        switch section {
+        case 0:
+            return getLocationCell()
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
+            cell?.delegate = self
+            return cell!
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    func getInprogressStateCell(section: Int) -> UITableViewCell{
+        switch section {
+        case 0:
+            return getLocationCell()
+        case 1:
+            return getConatactCell()
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+            cell?.headingLabel.text = "Opportunities Selected"
+            cell?.SubheadingLabel.text = ""
+            return cell!
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+            cell?.headingLabel.text = "Service Purposes"
+            let str = visitObject?.sgwsVisitPurpose.replacingOccurrences(of: ";", with: "\n • ")
+            if !(str?.isEmpty)! {
+                cell?.SubheadingLabel.text = " • " + str!
+            } else { cell?.SubheadingLabel.text = ""}
+            return cell!
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+            cell?.headingLabel.text = "Agenda Notes"
+            cell?.SubheadingLabel.text = visitObject?.sgwsAgendaNotes
+            return cell!
+        case 5:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
+            cell?.delegate = self
+            return cell!
         default:
             return UITableViewCell()
         }

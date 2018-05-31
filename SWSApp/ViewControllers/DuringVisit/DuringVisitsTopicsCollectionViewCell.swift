@@ -46,16 +46,18 @@ class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell,UITextViewDeleg
     func displayNotesCellData(data : NSDictionary){
         
 //        lblNotesDescription?.text = data["notesText"] as? String
-        lblNotesDescription?.text = PlanVistManager.sharedInstance.visit?.description
+        lblNotesDescription?.text = PlanVisitManager.sharedInstance.visit?.description
         //Save the Visit Notes in Visit
-        PlanVistManager.sharedInstance.visit?.description = (lblNotesDescription?.text)!
+        PlanVisitManager.sharedInstance.visit?.description = (lblNotesDescription?.text)!
     }
     
     //Display Collection View data
     func displayCellData(data : NSMutableDictionary , indexPath : IndexPath){
         
         if indexPath.section >= 3{
-            self.lblCenterLabel?.text = "    \u{2022} " + (data["answerText"] as! String)
+            if data["answerText"] as! String != "" {
+                self.lblCenterLabel?.text = "    \u{2022} " + (data["answerText"] as! String)
+            }
         }else{
            self.lblCenterLabel?.text = (data["answerText"] as! String)
         }
@@ -63,7 +65,7 @@ class DuringVisitsTopicsCollectionViewCell: UICollectionViewCell,UITextViewDeleg
     
     func textViewDidEndEditing(_ textView: UITextView) {
         print("exampleTextView: END EDIT")
-        PlanVistManager.sharedInstance.visit?.description = (lblNotesDescription?.text)!
+        PlanVisitManager.sharedInstance.visit?.description = (lblNotesDescription?.text)!
     }
     
     

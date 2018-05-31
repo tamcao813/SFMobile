@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DropDown
+//import DropDown
 import IQKeyboardManagerSwift
 import SmartSync
 
@@ -18,10 +18,12 @@ class CreateNewVisitViewController: UIViewController {
     var accountsDropdown: DropDown!
     var contactsDropdown: DropDown!
     var isEditingMode = false
+    var callToConfirm = true
+    var locationStr = ""
     var selectedAccount: Account!
     var selectedContact: Contact!
     var visitId: String!
-    var visitObject: Visit?
+    var visitObject: WorkOrderUserObject?
     @IBOutlet weak var errorLbl: UILabel!
     var visitViewModel = VisitSchedulerViewModel()
     
@@ -130,7 +132,9 @@ class CreateNewVisitViewController: UIViewController {
         self.tableView.register(UINib(nibName: "AccountContactLinkTableViewCell", bundle: nil), forCellReuseIdentifier: "DropDownCell")
         self.tableView.register(UINib(nibName: "SearchForContactTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchForContactTableViewCell")
         self.tableView.register(UINib(nibName: "ViewContactLinkToVisitTableViewCell", bundle: nil), forCellReuseIdentifier: "ViewContactLinkToVisitTableViewCell")
-        self.tableView.register(UINib(nibName: "ScheduleAppointmentTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleAppointmentTableViewCell")        
+        self.tableView.register(UINib(nibName: "ScheduleAppointmentTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleAppointmentTableViewCell")
+        self.tableView.register(UINib(nibName: "VisitLocationTableViewCell", bundle: nil), forCellReuseIdentifier: "VisitLocationTableViewCell")
+        self.tableView.register(UINib(nibName: "VisitCallToConfirmTableViewCell", bundle: nil), forCellReuseIdentifier: "VisitCallToConfirmTableViewCell") 
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
@@ -164,7 +168,7 @@ class CreateNewVisitViewController: UIViewController {
     @IBAction func planButtonTapped(sender: UIButton) {
         if validateVisitData() {
             errorLbl.text = ""
-            if PlanVistManager.sharedInstance.visit != nil {
+            if PlanVisitManager.sharedInstance.visit != nil {
                 editCurrentVisit()
                 let opportunitiesViewController = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil).instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
                 DispatchQueue.main.async {
@@ -179,19 +183,26 @@ class CreateNewVisitViewController: UIViewController {
     @IBAction func scheduleAndClose(sender: UIButton) {
         if validateVisitData() {
             errorLbl.text = ""
-            PlanVistManager.sharedInstance.visit?.status = "Scheduled"
-            if PlanVistManager.sharedInstance.visit != nil {
+            PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
+            if PlanVisitManager.sharedInstance.visit != nil {
                 editCurrentVisit()
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
                 }
             }else{
                 createNewVisit(dismiss: true)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             }
         }
     }
     
     func validateVisitData() -> Bool{
+        searchAccountTextField.borderColor = UIColor.lightGray
+        startDate.borderColor = UIColor.lightGray
+        startTime.borderColor = UIColor.lightGray
+        contactsAccountTextField.borderColor = UIColor.lightGray
+        
         if selectedAccount == nil {
             searchAccountTextField.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -218,22 +229,28 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     func editCurrentVisit(){
-        PlanVistManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
+        PlanVisitManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
         if let contact = selectedContact {
-            PlanVistManager.sharedInstance.visit?.contactId = contact.contactId
+            PlanVisitManager.sharedInstance.visit?.contactId = contact.contactId
         }else{
-            PlanVistManager.sharedInstance.visit?.contactId = ""
+            PlanVisitManager.sharedInstance.visit?.contactId = ""
         }
-        PlanVistManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
-        PlanVistManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
-        //let status = PlanVistManager.sharedInstance.editAndSaveVisit()
-        let _ = PlanVistManager.sharedInstance.editAndSaveVisit()
+        PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
+        PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+        PlanVisitManager.sharedInstance.visit?.location = locationStr
+        PlanVisitManager.sharedInstance.visit?.sgwsAppointmentStatus = callToConfirm
+        //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        PlanVisitManager.sharedInstance.visit?.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+        
+        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
     }
     
     func createNewVisit(dismiss: Bool) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        PlanVistManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
-        
+        PlanVisitManager.sharedInstance.userID = (appDelegate.loggedInUser?.userId)!
+        print("callToConfirm", callToConfirm)
+        print("loc", locationStr)
         let new_visit = PlanVisit(for: "newVisit")
         
         //Get Current date and time
@@ -260,6 +277,13 @@ class CreateNewVisitViewController: UIViewController {
         }else{
             new_visit.status = "Planned"
         }
+        new_visit.location = locationStr
+        new_visit.sgwsAppointmentStatus = callToConfirm
+        
+        new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+      //  new_visit.sgwsAlldayEvent = true
+        //TBD location to be set , what is enetered in UI
+        
         
         let attributeDict = ["type":"WorkOrder"]
         let addNewDict: [String:Any] = [
@@ -276,6 +300,12 @@ class CreateNewVisitViewController: UIViewController {
             //            PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
             PlanVisit.planVisitFields[9]: new_visit.status,
             PlanVisit.planVisitFields[11]: new_visit.contactId,
+            PlanVisit.planVisitFields[12]:new_visit.recordTypeId,
+            PlanVisit.planVisitFields[3]:new_visit.sgwsAppointmentStatus,
+           PlanVisit.planVisitFields[14]:new_visit.location,
+            //PlanVisit.planVisitFields[15]:new_visit.sgwsAlldayEvent,
+
+            
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,
@@ -287,7 +317,7 @@ class CreateNewVisitViewController: UIViewController {
         let (success,_) = visitViewModel.createNewVisitLocally(fields: addNewDict)
         
         if(success){
-            let visit = Visit(for: "")
+            let visit = WorkOrderUserObject(for: "")
             //Add the soup entry Id
             visit.Id = new_visit.Id//String((success,Id).1)
             visit.accountId = new_visit.accountId
@@ -299,12 +329,18 @@ class CreateNewVisitViewController: UIViewController {
             visit.sgwsAgendaNotes = new_visit.sgwsAgendaNotes
             visit.sgwsVisitPurpose = new_visit.sgwsVisitPurpose
             visit.lastModifiedDate = new_visit.lastModifiedDate
+            visit.recordTypeId = new_visit.recordTypeId
+            visit.subject = new_visit.subject
+            visit.location = new_visit.location
             
-            PlanVistManager.sharedInstance.visit = visit
+            PlanVisitManager.sharedInstance.visit = visit
         }
         
         if(success){
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             if dismiss {
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
@@ -343,7 +379,7 @@ class CreateNewVisitViewController: UIViewController {
 
 extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 7
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -365,6 +401,10 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
                 return 0
             }
         case 4:
+            return 1
+        case 5:
+            return 1
+        case 6:
             return 1
         default:
             return 0
@@ -391,7 +431,7 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchForContactTableViewCell") as? SearchForContactTableViewCell
             contactsAccountTextField = cell?.searchContactTextField
-            accountsDropdown = cell?.contactDropDown
+            contactsDropdown = cell?.contactDropDown
             cell?.delegate = self
             return cell!
         case 3:
@@ -411,6 +451,27 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
                 cell?.schedulerComponentView.startTimeTextField.text = self.getTime(stringDate: visit.startDate)
                 cell?.schedulerComponentView.endTimeTextField.text = self.getTime(stringDate: visit.endDate)
                 cell?.layoutIfNeeded()
+            }
+            return cell!
+        case 5:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "VisitLocationTableViewCell") as? VisitLocationTableViewCell
+            cell?.delegate = self
+            if let visit = visitObject {
+                cell?.locationTxtFld.text = visit.location
+                locationStr = visit.location
+            }
+            return cell!
+        case 6:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "VisitCallToConfirmTableViewCell") as? VisitCallToConfirmTableViewCell
+            cell?.delegate = self
+            if let visit = visitObject {
+                if visit.sgwsAppointmentStatus {
+                    cell?.appontmentControl.selectedSegmentIndex = 0
+                    callToConfirm = true
+                } else {
+                    cell?.appontmentControl.selectedSegmentIndex = 1
+                    callToConfirm = false
+                }
             }
             return cell!
         default:
@@ -465,6 +526,10 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
 }
 
 extension CreateNewVisitViewController: SearchAccountTableViewCellDelegate {
+    func scrollTableView() {
+        
+    }
+    
     func accountSelected(account : Account) {
         createNewVisitViewControllerGlobals.userInput = true
         selectedAccount = account
@@ -493,5 +558,17 @@ extension CreateNewVisitViewController: ContactVisitLinkTableViewCellDelegate {
         createNewVisitViewControllerGlobals.userInput = true
         selectedContact = nil
         reloadTableView()
+    }
+}
+
+extension CreateNewVisitViewController: locationDelegate {
+    func onLocationUpdate(sender: String) {
+        locationStr = sender
+    }
+}
+
+extension CreateNewVisitViewController: appointmentStatusDelegate {
+    func appointmentStatusUpdate(sender: Bool) {
+        callToConfirm = sender
     }
 }

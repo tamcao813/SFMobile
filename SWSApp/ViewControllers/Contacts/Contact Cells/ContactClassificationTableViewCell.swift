@@ -12,8 +12,9 @@ class ContactClassificationTableViewCell: UITableViewCell {
     
     @IBOutlet weak var classificationTextField: CustomUITextField!
     @IBOutlet weak var otherTextField: UITextField!
-    var pickerOption:NSArray = []
-    var selectedOption = Dictionary<String, String>()
+    var pickerOption = [[String:Any]]()
+    var selectedOption  = [String:Any]()
+    var buyingPower: Bool = true
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,7 +25,7 @@ class ContactClassificationTableViewCell: UITableViewCell {
         //        let classificationOpts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactClassification")
         let classificationOpts = PlistMap.sharedInstance.readPList(plist: "/ContactClassification.plist")
         
-        pickerOption = classificationOpts
+        pickerOption = classificationOpts as! [[String : Any]]
     }
     
     func customized(){
@@ -36,6 +37,15 @@ class ContactClassificationTableViewCell: UITableViewCell {
         classificationTextField.rightView = dropdownButton
         classificationTextField.rightViewMode = .always
         self.addPickerView(textField: classificationTextField)
+    }
+    
+    func setBuyingPower(value: Bool) {
+        if buyingPower != value { //if switching to true, clear the textfield
+            classificationTextField.text = ""
+            otherTextField.text = ""
+        }
+        
+        buyingPower = value
     }
     
     func addPickerView(textField: UITextField){
@@ -62,12 +72,14 @@ class ContactClassificationTableViewCell: UITableViewCell {
     
     @objc func donePicker(){
         if !selectedOption.isEmpty {
-            classificationTextField.text = selectedOption["value"]
+            let value = selectedOption["value"] as! String
+            classificationTextField.text = value
             classificationTextField.resignFirstResponder()
-            if selectedOption["value"] == "Other" {
+            if value == "Other" {
                 otherTextField.isHidden = false
             }else{
                 otherTextField.isHidden = true
+                otherTextField.text = ""
             }
         }
     }
@@ -88,12 +100,15 @@ extension ContactClassificationTableViewCell: UIPickerViewDelegate, UIPickerView
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return (pickerOption[row] as! Dictionary<String, String>)["value"]
+        let opt = pickerOption[row] as [String:Any]
+        let value = opt["value"] as! String
+        return value
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerOption.count > 0 {
-            selectedOption = (pickerOption[row] as! Dictionary<String, String>)
+            let opt = pickerOption[row] as [String:Any]
+            selectedOption = opt
         }
     }
 }

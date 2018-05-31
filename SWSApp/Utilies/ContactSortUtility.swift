@@ -23,6 +23,19 @@ class ContactSortUtility {
         
     }
     
+    static func searchContactByContactId(contactList:[Contact], contactId:String)->Contact?
+    {
+        
+        let contactList = contactList.filter( { return $0.contactId == contactId } )
+        if contactList.count > 0 {
+            return contactList[0]
+        }
+        else {
+            return nil
+        }
+
+    }
+    
 
     static func sortByContactNameAlphabetically(contactsListToBeSorted:[Contact], ascending:Bool)->[Contact]
     {
@@ -60,7 +73,8 @@ class ContactSortUtility {
             // search account name
             let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contact.contactId)
             for acrObject in accountsListWithContactId {
-                if (acrObject.accountName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
+                let accName = AccountsViewModel().accountNameFor(accountId: acrObject.accountId)
+                if (accName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil)
                 {
                     contactListWithSearchResults.append(contact)
                     break

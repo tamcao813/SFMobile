@@ -7,22 +7,25 @@
 //
 
 import UIKit
-import DropDown
+//import DropDown
 import IQKeyboardManagerSwift
 
 protocol SearchAccountTableViewCellDelegate: NSObjectProtocol {
     func accountSelected(account: Account)
+    func scrollTableView()
 }
 
 class SearchAccountTableViewCell: UITableViewCell {
 
     @IBOutlet weak var searchContactTextField: DesignableUITextField!
+    @IBOutlet weak var titleLabel: UILabel!
     var searchAccounts = [Account]()
     var searchAccountsString = [String]()
     let accountViewModel = AccountsViewModel()
     let accountsDropDown = DropDown()
     weak var delegate: SearchAccountTableViewCellDelegate!
     var search:String=""
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,8 +43,9 @@ class SearchAccountTableViewCell: UITableViewCell {
         accountsDropDown.cellNib = UINib(nibName: "AccountContactLinkTableViewCell", bundle: nil)
         accountsDropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
                 guard let cell = cell as? AccountContactLinkTableViewCell else { return }
-//            cell.containerView.borderColor = .clear
-            cell.deleteButton.isHidden = true
+            DispatchQueue.main.async {
+                cell.deleteButton.isHidden = true
+            }
             cell.displayCellContent(account: self.searchAccounts[index])
             }
         accountsDropDown.cellHeight = 70
@@ -50,7 +54,6 @@ class SearchAccountTableViewCell: UITableViewCell {
             self.searchContactTextField.resignFirstResponder()
         }
         self.accountsDropDown.textFont = UIFont(name: "Ubuntu-Bold", size: 16)!
-//        self.moreDropDown.textColor =  UIColor.gray
     }
     
     func customizedUI(){
@@ -66,9 +69,11 @@ class SearchAccountTableViewCell: UITableViewCell {
         
     func getAccountData(searchStr: String) -> [Account] {
         let account = self.accountViewModel.accountsForLoggedUser
-        let arr = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
-        print(arr)
-        return arr
+        let arrAccountName = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
+        
+        let arrAccountNumber = account.filter( { return $0.accountNumber.lowercased().contains(searchStr.lowercased()) } )
+        let filteredArray = arrAccountName + arrAccountNumber
+        return filteredArray.unique()
     }
     
 }
@@ -76,9 +81,14 @@ class SearchAccountTableViewCell: UITableViewCell {
 extension SearchAccountTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        accountsDropDown.show()
-        CreateNewVisitViewController.createNewVisitViewControllerGlobals.userInput = true
-        CreateNewContactViewController.createNewGlobals.userInput = true        
+        CreateNewActionItemViewController.createActionItemsGlobals.userInput = true
+        ActionItemFilterModel.isAccountField = true
+        
+        CreateNewEventViewControllerGlobals.isAccountOrContactClicked = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.accountsDropDown.show()
+        })
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -90,6 +100,7 @@ extension SearchAccountTableViewCell: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+         CreateNewEventViewControllerGlobals.isAccountOrContactClicked = false
         textField.text = ""
     }
     

@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import IQKeyboardManagerSwift
 
-
 enum LoadThePersistantMenuScreen : Int{
     case contacts = 0
     case chatter
@@ -27,26 +26,21 @@ class  DuringVisitsViewController : UIViewController {
     
     @IBOutlet weak var containerView : UIView?
     @IBOutlet weak var btnBack : UIButton?
-    
     @IBOutlet weak var imgDiscussion : UIImageView?
     @IBOutlet weak var imgInsights : UIImageView?
-    
     @IBOutlet weak var btnDiscussion : UIButton?
     @IBOutlet weak var btnInsights : UIButton?
-    
     @IBOutlet weak var btnEditAccountStrategy : UIButton?
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
     
-    var visitObject: Visit?
+    var visitObject: WorkOrderUserObject?
     
     var delegate : NavigateToAccountVisitSummaryDelegate?
-    
     var tableViewRowDetails = NSMutableArray()
-    
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
     let strategyAnswersViewModel = StrategyAnswersViewModel()
-    
+    var tableViewData : NSMutableArray?
     
     private var activeViewController: UIViewController? {
         didSet {
@@ -80,7 +74,6 @@ class  DuringVisitsViewController : UIViewController {
         }
     }
     
-    
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,21 +84,17 @@ class  DuringVisitsViewController : UIViewController {
         let duringVisitVC: DuringVisitsTopicsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsTopicsViewControllerID") as! DuringVisitsTopicsViewController
         
         duringVisitVC.visitObject = visitObject
-        
         activeViewController = duringVisitVC
-        
         IQKeyboardManager.shared.enable = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let accountId = PlanVistManager.sharedInstance.visit?.accountId
+        let accountId = PlanVisitManager.sharedInstance.visit?.accountId
         AccountId.selectedAccountId = accountId!
         
         self.loadTheDataFromStrategyQA()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,40 +109,21 @@ class  DuringVisitsViewController : UIViewController {
         
     }
     
-    
-    
-    
+    //MARK:-
+    //Get the necessary data to Load Strategy_Response__C
     func loadTheDataFromStrategyQA(){
-        
-        //
-        
-        // let json:[String:Any] = [ "SGWS_Account__c":ary[2],"Id":ary[0], "SGWS_Question_Sub_Type__c":ary[4], "SGWS_Question__c":ary[3], "SGWS_Answer_Description_List__c":ary[1],"SGWS_Notes__c":ary[5]]
-        
         let data = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
         
         let question = strategyQuestionsViewModel.getStrategyQuestions(accountId: AccountId.selectedAccountId)
         
-        //        //If no surveys for this account disbale the edit strategy button
+        //If no surveys for this account disbale the edit strategy button
         if question.count == 0{
-            //            editIcon?.isHidden = true
-            //            lblNoData?.isHidden = false
-            //            lblNoData?.text = "No Survey assigned for this Account."
             btnEditAccountStrategy?.isHidden = true
         }else{
-            //            if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
-            //                editIcon?.isHidden = false
-            //            }else{
-            //                editIcon?.isHidden = true
             btnEditAccountStrategy?.isHidden = false
         }
-        //
-        //            lblNoData?.text = "The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now."
-        //            lblNoData?.isHidden = true
-        //
-        //        }
-        // let data = strategyQAViewModel.getStrategyQuestionAnswer()
-        
-        let tableViewData = NSMutableArray()
+
+        tableViewData = NSMutableArray()
         var dict : NSMutableDictionary!
         
         var headerCheck = false
@@ -170,20 +140,16 @@ class  DuringVisitsViewController : UIViewController {
                 }
                 
                 //Used to keep Header only once
-                for q in tableViewData{
+                for headerText in tableViewData!{
                     
-                    let dictionary = q as! NSDictionary
-                    
+                    let dictionary = headerText as! NSDictionary
                     let header = dictionary["header"] as? String
-                    
                     if queAndAns.SGWS_Question__c == header!{
-                        
                         headerCheck = true
                     }
                 }
                 
                 //Prevent the Subheader inserting Again
-                
                 if !headerCheck{
                     dict.setValue(queAndAns.SGWS_Question__c, forKey: "header") //Main Header
                 }else{
@@ -191,46 +157,39 @@ class  DuringVisitsViewController : UIViewController {
                 }
                 
                 headerCheck = false
-                
                 dict.setValue(queAndAns.SGWS_Question_Sub_Type__c, forKey: "subHeader")    //Added Subheader
                 dict.setValue(queAndAns.Id, forKey: "id")
                 
-                let answerArray = NSMutableArray()
-                
-                let answerArrayStr = NSMutableArray()
-                
-                let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
-                
-                if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
-                    
-                    for ans in answerListArray{
-                        if !(answerArrayStr.contains(ans)){
-                            answerArrayStr.add(ans)
-                            
-                            let answerDict = NSMutableDictionary()
-                            answerDict.setValue(ans, forKey: "answerText")
-                            answerArray.add(answerDict)
-                        }
-                    }
-                }
-                
-                //                let myVar = "c"
-                //                let myDict: [String: Int] = ["a": 0, "b": 1, "c": 2]
-                //                if myDict.keys.contains(myVar) {
-                //                    print(myVar)
-                //                }
-                //let arrayOfSetValues = answerListArray
-                
-                let answerListString = answerArrayStr.componentsJoined(by: ",")
-                dict.setValue(answerListString, forKey: "answerStrings")
-                dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
-                
-                tableViewData.add(dict)
+                self.createAnswerStrings(dict: dict, queAndAns: queAndAns, tableviewData: tableViewData!)
             }
         }
-        //print(tableViewData)
+        self.loadTheSubheaders(data: data, tableViewData: tableViewData!)
+    }
+    
+    
+    //Create Array of Dictionaries for Answers and add to MutableArray
+    func createAnswerStrings(dict : NSMutableDictionary, queAndAns : StrategyQA, tableviewData : NSMutableArray){
         
-        self.loadTheSubheaders(data: data, tableViewData: tableViewData)
+        let answerArray = NSMutableArray()
+        let answerArrayStr = NSMutableArray()
+        let answerListArray = queAndAns.SGWS_Answer_Description_List__c.components(separatedBy: ",")
+        
+        if queAndAns.SGWS_Answer_Description_List__c.count > 0 {
+            
+            for ans in answerListArray{
+                if !(answerArrayStr.contains(ans)){
+                    answerArrayStr.add(ans)
+                    let answerDict = NSMutableDictionary()
+                    answerDict.setValue(ans, forKey: "answerText")
+                    answerArray.add(answerDict)
+                }
+            }
+        }
+        let answerListString = answerArrayStr.componentsJoined(by: ",")
+        dict.setValue(answerListString, forKey: "answerStrings")
+        dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
+        
+        tableviewData.add(dict)
         
     }
     
@@ -243,18 +202,14 @@ class  DuringVisitsViewController : UIViewController {
             
             //Get the Subheader filtered in a loop
             let namePredicate = NSPredicate(format: "subHeader = %@",subHeaders);
-            
             let filteredArray = tableViewData.filter { namePredicate.evaluate(with: $0) };
-            
             
             if(filteredArray.count == 0){
                 return
             }
-            
             print(filteredArray)
             
             let newArray = NSMutableArray()
-            
             let stringArray = NSMutableArray()
             
             for item in filteredArray{
@@ -287,12 +242,12 @@ class  DuringVisitsViewController : UIViewController {
             
             modifiedArray.add(dictionary)
             print("infinity3")
-            
         }
         
         self.loadDateAndLastMOdifiedDate(data: data, modifiedArray: modifiedArray)
     }
     
+    //Get Last Updtaed Notes to Display in UI
     func loadDateAndLastMOdifiedDate(data :[StrategyQA] , modifiedArray : NSMutableArray ){
         
         //USED TO SHOW THE NOTES
@@ -312,37 +267,14 @@ class  DuringVisitsViewController : UIViewController {
             dict.setValue(notesArray, forKey: "answers")
             modifiedArray.add(dict)
             //}
-            
             print(modifiedArray)
             
-            //let lastModifiedDate = data.first?.LastModifiedDate
-            //print(lastModifiedDate!)
-            
-            //            let dateFormatter = DateFormatter()
-            //            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            //            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-            //
-            //            let newModifiedDate = dateFormatter.date(from: modifiedDate!)
-            //            dateFormatter.dateFormat = "MMM dd, YYYY"
-            //            let formattedDate = dateFormatter.string(from: newModifiedDate!)
-            //            lblLastModifiedDate?.text = "Account Strategy Lasy Updated on " + formattedDate
-            
         }
-        
         //Assign the data to Array and reload the data
         tableViewRowDetails = modifiedArray
-        
-        //Hide the Label
-        //        if tableViewRowDetails!.count > 0 {
-        //            self.lblNoData?.isHidden = true
-        //            self.lblLastModifiedDate?.isHidden = false
-        //        }else{
-        //            self.lblNoData?.isHidden = false
-        //            self.lblLastModifiedDate?.isHidden = true
-        //        }
     }
     
-    
+    //Get the Unique Header for the Questions
     func getHeader(data:[StrategyQA])-> [String]{
         var headerArray = [String]()
         //Get unique headernames once
@@ -356,10 +288,10 @@ class  DuringVisitsViewController : UIViewController {
                 }
             }
         }
-        //print(headerArray)
         return headerArray
     }
     
+    //Get the Unique SubHeader for the Questions
     func getSubHeader(data:[StrategyQA])-> [String]{
         var subHeaderArray = [String]()
         //Get unique headernames once
@@ -375,9 +307,6 @@ class  DuringVisitsViewController : UIViewController {
         }
         return subHeaderArray
     }
-    
-    
-    
     
     //MARK:- IBAction Methods
     @IBAction func closeButtonClicked(sender : UIButton){
@@ -399,7 +328,6 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     @IBAction func goSpotClicked(sender : UIButton){
-        
         UIApplication.shared.open(URL(string : "http://www.google.com")!, options: [:], completionHandler: { (status) in
             
         })
@@ -425,18 +353,18 @@ class  DuringVisitsViewController : UIViewController {
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
         if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue"{
-            PlanVistManager.sharedInstance.visit?.status = "In-Progress"
+            PlanVisitManager.sharedInstance.visit?.status = "In-Progress"
             //Save the data in DB
-            let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+            let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
-            PlanVistManager.sharedInstance.visit?.status = "Completed"
+            PlanVisitManager.sharedInstance.visit?.status = "Completed"
             DispatchQueue.main.async{
                 self.dismiss(animated: true, completion: nil)
             }
             
             //Save the data in DB
-            let status = PlanVistManager.sharedInstance.editAndSaveVisit()
+            let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
             delegate?.navigateToAccountVisitingScreen()
             return
         }
@@ -458,12 +386,11 @@ class  DuringVisitsViewController : UIViewController {
         let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
         let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditAccountStrategyViewControllerID") as! EditAccountStrategyViewController
         vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        (vc as! EditAccountStrategyViewController).strategyArray = tableViewRowDetails
+        (vc as! EditAccountStrategyViewController).strategyArray = tableViewData!
         DispatchQueue.main.async {
             self.present(vc, animated: true, completion: nil)
         }
         (vc as! EditAccountStrategyViewController).delegate = self
-        
     }
     
     @IBAction func contactsClicked(sender : UIButton){
@@ -480,8 +407,13 @@ class  DuringVisitsViewController : UIViewController {
     @IBAction func chatterClicked(sender : UIButton){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             DispatchQueue.main.async {
-                self.dismiss(animated: true, completion: nil)
-                self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
+                //self.dismiss(animated: true, completion: nil)
+                //self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
+                
+                let chatterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier :"ChatterModelViewControllerID") as! ChatterModelViewController
+                DispatchQueue.main.async {
+                    self.present(chatterViewController, animated: true)
+                }
             }
         }) {
             
@@ -508,14 +440,12 @@ class  DuringVisitsViewController : UIViewController {
     }
 }
 
-
 //MARK:- RefreshStrategyScreen Delegate
 extension DuringVisitsViewController : RefreshStrategyScreenDelegate{
     
+    //After coming back from Edit Strategy Screen, reload Strategy Logic
     func refreshStrategyScreenToLoadNewData(){
         self.loadTheDataFromStrategyQA()
     }
 }
-
-
 

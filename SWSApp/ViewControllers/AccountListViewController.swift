@@ -585,14 +585,8 @@ extension AccountsListViewController{
         
         switch sender {
         case Page.first.rawValue:
-            for i in 1...kNoOfPagesInEachSet {
-                pageButtonArr[i].setTitle(String(i), for: .normal)
-            }
-            self.currentPageIndex = 0
-            self.currentPageSet = 0
-            updateUI()
-            print ("First")
-            print ("New \(self.currentPageIndex!)")
+
+            self.setupFirstPageButton()
             
         case Page.previous.rawValue:
             //On pres of Previous if pageSet is grater than 0 than we have one pageSet to display decrement by 1
@@ -643,17 +637,31 @@ extension AccountsListViewController{
             
         case Page.last.rawValue:
             
-            self.setCurrentPageIndex()
-            
-            self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
-            self.currentPageSet = kNoOfPageSet! - 1
-            updateUI()
-            print ("Last")
-            print ("New \(self.currentPageIndex!)")
+            self.setupLastPageButton()
             
         default:
             break
         }
+    }
+    
+    func setupFirstPageButton(){
+        for i in 1...kNoOfPagesInEachSet {
+            pageButtonArr[i].setTitle(String(i), for: .normal)
+        }
+        self.currentPageIndex = 0
+        self.currentPageSet = 0
+        updateUI()
+        print ("First")
+        print ("New \(self.currentPageIndex!)")
+    }
+    
+    func setupLastPageButton(){
+        self.setCurrentPageIndex()
+        self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
+        self.currentPageSet = kNoOfPageSet! - 1
+        updateUI()
+        print ("Last")
+        print ("New \(self.currentPageIndex!)")
     }
     
     func setCurrentPageIndex(){
@@ -718,7 +726,8 @@ extension AccountsListViewController : UITableViewDataSource{
         cell.selectionStyle = .none
         cell.storeNameLabel.text = account.accountName
         cell.accountNumberLabel.text = account.accountNumber
-        //cell.percentR12NetSales.setTitle((account.percentageLastYearR12NetSales) + "%", for: .normal)
+        //cell.percentR12NetSales.setTitle("150 " + "%", for: .normal)
+        
         
         // Create Full shipping address
         var fullAddress = ""
@@ -758,6 +767,26 @@ extension AccountsListViewController : UITableViewDataSource{
         }
         
         cell.nextDeliveryDateLabel.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account.nextDeliveryDate)
+        
+        
+            
+        let percLastYearR12DivideBy100:Double = ((account.percentageLastYearR12NetSales)as NSString).doubleValue / 100
+        let percentYearR12Double:Double =  ((account.percentageLastYearR12NetSales)as NSString).doubleValue
+            
+            let titleForButton = String(format: "%.02f",percentYearR12Double) + "%"
+            
+            if percLastYearR12DivideBy100 < 0.80 {
+                cell.percentR12NetSales?.setTitle(titleForButton, for: .normal)
+                cell.percentR12NetSales?.backgroundColor = UIColor(named: "Bad")
+            }else if percLastYearR12DivideBy100 >= 0.80 && percLastYearR12DivideBy100 <= 0.99 {
+                cell.percentR12NetSales?.setTitle(titleForButton, for: .normal)
+                cell.percentR12NetSales?.backgroundColor = UIColor(named: "Medium Alert")
+            }
+            else if percLastYearR12DivideBy100 > 0.99 {
+                cell.percentR12NetSales?.setTitle(titleForButton, for: .normal)
+                cell.percentR12NetSales?.backgroundColor = UIColor(named: "Good")
+            }
+     
         
         return cell
         

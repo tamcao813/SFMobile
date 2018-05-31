@@ -30,6 +30,8 @@ class StoreDispatcher {
     //Sync Configurations
     let SoupSyncConfiguration = "SyncConfiguration"
     let SoupActionItem = "Task"
+    let SoupNotifications = "FS_Notification__c"
+    
     
     
     // Workorder Types Visit OR Event
@@ -71,6 +73,7 @@ class StoreDispatcher {
         registerStrategyAnswers()
         registerSyncConfiguration()
         registerActionItemSoup()
+        registerNotificationsSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -91,7 +94,11 @@ class StoreDispatcher {
             
             group.leave()
         }
-        
+        group.enter()
+         syncDownNotification() { _ in
+            group.leave()
+        }
+       
         group.enter()
         downloadContactPLists() { _ in
             group.leave()
@@ -2987,6 +2994,90 @@ class StoreDispatcher {
         return accVisitEventArray
         
     }
+    
+    
+    
+    //MARK:- Notifications Related Code
+    
+    func registerNotificationsSoup(){
+        
+        let notificationsQueryFields = Notifications.notificationsFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...notificationsQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: notificationsQueryFields[i], indexType: kSoupIndexTypeString, columnName: notificationsQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupNotifications, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupNotifications soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    
+    func syncDownNotification(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "SELECT Id,Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Site__c FROM FS_Notification__c WHERE  SGWS_Deactivate__c = false"
+        
+        print("soql notification query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupNotifications)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> Notification SyncDown() done >>>>>")
+                    //
+                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
+                        .done {_ in
+                            completion(nil)
+                    }
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownNotification() >>>>>>>"
+                    let userInfo: [String: Any] = [NSLocalizedDescriptionKey : meg,
+                                                   NSLocalizedFailureReasonErrorKey : meg]
+                    let err = NSError(domain: "syncDownNotification()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    func fetchNotifications()->[Notifications] {
+        
+        var notification: [Notifications] = []
+        let notificationsFields = Notifications.notificationsFields.map{"{FS_Notification__c:\($0)}"}
+        let soapQuery = "Select \(notificationsFields.joined(separator: ",")) FROM {FS_Notification__c}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        print("Result of notifications is \(result)")
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let notificationsArray = Notifications(withAry: ary)
+                notification.append(notificationsArray)
+                print("notification array  array \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch anotification array " + " error:" + (error?.localizedDescription)!)
+        }
+        return notification
+    }
+    
+    
     
     
     

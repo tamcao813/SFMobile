@@ -449,9 +449,7 @@ extension AccountVisitListFilterViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
-        
-        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : accountVisit.sectionItems)
-        
+        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : accountVisit.sectionItems)        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -503,11 +501,16 @@ extension AccountVisitListFilterViewController : UISearchBarDelegate{
 
 //MARK:- ReloadTableViewForNewAppliedFilter Delegate
 extension AccountVisitListFilterViewController : ReloadTableViewForNewAppliedFilterDelegate{
-    
     func reloadTableView() {
         self.tableView.reloadData()
     }
-    
+}
+
+//MARK:-
+extension AccountVisitListFilterViewController : ClearTheAccountVisitModelDelegate{
+    func reloadTheDataFromBegining() {
+        self.clearAccountVisitFilterModel()
+    }
 }
 
 

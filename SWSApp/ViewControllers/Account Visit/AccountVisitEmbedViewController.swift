@@ -23,7 +23,8 @@ class AccountVisitEmbedViewController : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-         accountVisitFilterVC?.delegate = accountVisitListVC
+        accountVisitFilterVC?.delegate = accountVisitListVC
+        accountVisitListVC?.delegate = accountVisitFilterVC
     }
     
     

@@ -9,6 +9,10 @@
 import UIKit
 //import DropDown
 
+protocol ClearTheAccountVisitModelDelegate{
+    func reloadTheDataFromBegining()
+}
+
 class AccountVisitListViewController: UIViewController {
     
     //External
@@ -48,6 +52,8 @@ class AccountVisitListViewController: UIViewController {
     var titleAscendingSort = false
     var statusAscendingSort = false
     var dateAscendingSort = false
+    
+    var delegate : ClearTheAccountVisitModelDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +112,8 @@ class AccountVisitListViewController: UIViewController {
         })
         
         mainArray = mainArray.sorted(by: { $0.startDate < $1.startDate })
+        
+        delegate?.reloadTheDataFromBegining()
         
         self.initializePagination()
     }
@@ -445,7 +453,9 @@ extension AccountVisitListViewController{
         updateUI()
         
         if(numberOfAccountRows > 0){
-            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            if tableViewDataArray.count > 0{
+                self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+            }
         }
         for count in 1...5 {
             pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)

@@ -1,0 +1,44 @@
+
+=======================================================
+SPRINT 3 Release : 30th May 2018
+=======================================================
+Build Version 1.2.2.48
+
+This Release contains :
+==================
+1	Sync Log
+2	Calendar Day,Week and Month View for Events and Visits
+3	Extended Visit/Event List
+4	Create/Edit/List Events 
+5	Action Item List View/Create/Edit
+6	Chatter Integration, Global and Account specific chatter
+7	Account OverView, Accounts Action Item
+
+This Was Excluding :
+=================
+1	Resync
+2	Sync Config
+
+Issues Reported :
+==============
+Issues with Extended Visit List
+	1	Date and Time should be displayed for the Scheduled Visit and Event in Record line. Currently it shows only Date
+Expected Result
+Date and time the Visit/Event is scheduled for should be displayed in below format
+Date = MM/DD/YYYY
+Time = HH:MMAM/PM
+	2	Type filter should show Visit or Event currently it shows All, Visit and Event. Remove All from the filter option
+	3	Date Range From – To is not showing date picker.
+	•	On tapping it opens alpha keypad to key in text
+	•	User can key in any text in Start and End Date field
+	•	Text entered is not getting cleared on tapping “Clear” button also
+	4	“New +” button should be replaced with “‘Add New +”.
+	•	Clicking the ‘Add New +’ button will display a dropdown, where the user can select to either create a Visit or an Event.
+	5	Past Visits filter shouldn’t be displayed in expandable view (Refer the VD).
+	6	Status filter should display following options: Status – Scheduled, Planned, In Progress, Complete. Currently it is showing “All” along with other options. All should be removed
+	7	Filters applies is getting retained in Extended Visit list view when user navigates to from other objects.
+	8	Quick search is not working for Address
+	9	Colum header section is displayed in center when user performs any invalid search after scrolling the Visits
+Precondition: Have minimum 7 Visit/Events listed in list view
+Steps: Go to Account Visits – Scroll the list
+Go to Quick search, Key in some invalid text e.g. &^% - Submit - Observe

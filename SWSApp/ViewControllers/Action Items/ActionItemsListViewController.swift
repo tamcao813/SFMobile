@@ -13,6 +13,8 @@ import SmartSync
 class ActionItemsListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var btnAddNew : UIButton!
+    
     var actionItemsArray = [ActionItem]()
     var filteredActionItemsArray = [ActionItem]()
     var titleAscendingSort = false
@@ -34,6 +36,9 @@ class ActionItemsListViewController: UIViewController {
                 self.tableViewBottomConstraint.constant = 63
             }
         }
+        
+        btnAddNew.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
+        
         fetchActionItemsFromDB()
     }
     

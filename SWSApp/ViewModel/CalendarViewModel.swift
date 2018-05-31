@@ -69,8 +69,20 @@ class CalendarViewModel {
                         
                     }
                     
-                    let vistAccountName = accountList![0].accountName
-                    let vistAccountNumber = accountList![0].accountNumber
+                    guard let _ = visitTitle as String? else {
+                        visitTitle = ""
+                    }
+                    
+                    var vistAccountName = accountList![0].accountName
+                    guard let _ = vistAccountName as String? else {
+                        vistAccountName = ""
+                    }
+
+                    var vistAccountNumber = accountList![0].accountNumber
+                    guard let _ = vistAccountNumber as String? else {
+                        vistAccountNumber = ""
+                    }
+
                     var visitContactName = ""
 
                     if let selectedContact = ContactSortUtility.searchContactByContactId(contactList: globalContactList, contactId: visit.contactId)  {

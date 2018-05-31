@@ -75,6 +75,7 @@ class StoreDispatcher {
         registerSyncConfiguration()
         registerActionItemSoup()
         registerNotificationsSoup()
+        registerSyncLogSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {

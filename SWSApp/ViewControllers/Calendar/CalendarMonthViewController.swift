@@ -415,7 +415,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             cell.dateLabel.textColor = UIColor.lightGray
             cell.isHidden = false
             
-            let dateStr = "\(getNextYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))" + "-" + String(format: "%02d", getNextMonth(currentMonthIndex: currentMonthIndex)) + "-" + "\(dateInc)" + " " + "00:00:00"
+            let dateStr = "\(getNextYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))" + "-" + String(format: "%02d", getNextMonth(currentMonthIndex: currentMonthIndex)) + "-" + String(format: "%02d", dateInc) + " " + "00:00:00"
             
             //------------- Adding Events To Future Calendar Dates - START --------------- //
                 let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits, dateFormatter: self.dateFormatter).0

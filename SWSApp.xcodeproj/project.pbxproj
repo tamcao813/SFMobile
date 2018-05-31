@@ -308,10 +308,18 @@
 		911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */; };
 		911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
 		911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
+		91274BDE20C01F8400027391 /* OpportunitiesMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91274BDD20C01F8400027391 /* OpportunitiesMenuViewController.swift */; };
+		91274BDF20C01F8400027391 /* OpportunitiesMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91274BDD20C01F8400027391 /* OpportunitiesMenuViewController.swift */; };
+		91274BE120C01FD000027391 /* OpportunitiesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91274BE020C01FD000027391 /* OpportunitiesListViewController.swift */; };
+		91274BE220C01FD000027391 /* OpportunitiesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91274BE020C01FD000027391 /* OpportunitiesListViewController.swift */; };
 		912FA9E820AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
 		912FA9E920AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
 		9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
+		91497FF620C012E900A3F4F3 /* Opportunities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91497FF520C012E900A3F4F3 /* Opportunities.storyboard */; };
+		91497FF720C012E900A3F4F3 /* Opportunities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91497FF520C012E900A3F4F3 /* Opportunities.storyboard */; };
+		91497FFA20C013DD00A3F4F3 /* OpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91497FF920C013DD00A3F4F3 /* OpportunitiesViewController.swift */; };
+		91497FFB20C013DD00A3F4F3 /* OpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91497FF920C013DD00A3F4F3 /* OpportunitiesViewController.swift */; };
 		914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */; };
 		914E4F3920AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */; };
 		914E4F3B20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */; };
@@ -554,8 +562,6 @@
 		F2AB945E2095D5000028802E /* DuringVisitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB945B2095D5000028802E /* DuringVisitsViewController.swift */; };
 		F2AB945F2095D5000028802E /* DuringVisitsTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB945C2095D5000028802E /* DuringVisitsTopicsViewController.swift */; };
 		F2AB94602095D5000028802E /* DuringVisitsInsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB945D2095D5000028802E /* DuringVisitsInsightsViewController.swift */; };
-		F2CAD22D20957C23001016C2 /* OpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CAD22C20957C23001016C2 /* OpportunitiesViewController.swift */; };
-		F2CAD22E20957C23001016C2 /* OpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CAD22C20957C23001016C2 /* OpportunitiesViewController.swift */; };
 		F2CAD2332095806C001016C2 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */; };
 		F2CAD23420958075001016C2 /* DuringVisitsInsightsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C1A2920934C8B00D2351C /* DuringVisitsInsightsCollectionReusableView.swift */; };
 		F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */; };
@@ -741,9 +747,13 @@
 		8DDD4A4920BBFC5100423E20 /* TitleDepartmentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TitleDepartmentTableViewCell.xib; path = "Personal Detail Cells/TitleDepartmentTableViewCell.xib"; sourceTree = "<group>"; };
 		911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSortUtility.swift; sourceTree = "<group>"; };
 		911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringUtil.swift; sourceTree = "<group>"; };
+		91274BDD20C01F8400027391 /* OpportunitiesMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesMenuViewController.swift; sourceTree = "<group>"; };
+		91274BE020C01FD000027391 /* OpportunitiesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesListViewController.swift; sourceTree = "<group>"; };
 		912FA9E720AAFC75005979FF /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
 		9141111C20A95565006AD7CD /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		91497FF520C012E900A3F4F3 /* Opportunities.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Opportunities.storyboard; sourceTree = "<group>"; };
+		91497FF920C013DD00A3F4F3 /* OpportunitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesViewController.swift; sourceTree = "<group>"; };
 		914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFilterMenuModel.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
@@ -902,7 +912,6 @@
 		F2AB945B2095D5000028802E /* DuringVisitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuringVisitsViewController.swift; sourceTree = "<group>"; };
 		F2AB945C2095D5000028802E /* DuringVisitsTopicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsViewController.swift; sourceTree = "<group>"; };
 		F2AB945D2095D5000028802E /* DuringVisitsInsightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsViewController.swift; sourceTree = "<group>"; };
-		F2CAD22C20957C23001016C2 /* OpportunitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesViewController.swift; sourceTree = "<group>"; };
 		F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterModelViewController.swift; sourceTree = "<group>"; };
 		F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsDetailsViewController.swift; sourceTree = "<group>"; };
@@ -1224,6 +1233,16 @@
 			path = "Personal Detail Cells";
 			sourceTree = "<group>";
 		};
+		91497FF820C013A400A3F4F3 /* Opportunities */ = {
+			isa = PBXGroup;
+			children = (
+				91497FF920C013DD00A3F4F3 /* OpportunitiesViewController.swift */,
+				91274BDD20C01F8400027391 /* OpportunitiesMenuViewController.swift */,
+				91274BE020C01FD000027391 /* OpportunitiesListViewController.swift */,
+			);
+			path = Opportunities;
+			sourceTree = "<group>";
+		};
 		914E4F3620AEA2CE00FE01A5 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1483,6 +1502,7 @@
 				F2062E5D2091ED6E0005DD2A /* DuringVisit.storyboard */,
 				AE1FAA9320B458A6005B44EC /* Event.storyboard */,
 				8D4BA34E20B45633005CFE56 /* ActionItem.storyboard */,
+				91497FF520C012E900A3F4F3 /* Opportunities.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1495,6 +1515,7 @@
 				F22CE6DD20B48A4D001A2171 /* CreateNewEventViewController.swift */,
 				F22CE6DE20B48A4E001A2171 /* EventSummaryViewController.swift */,
 				F2D7B8D520AA212200A124BA /* Chatter */,
+				91497FF820C013A400A3F4F3 /* Opportunities */,
 				8D4BA35120B45B57005CFE56 /* Contacts */,
 				8D10B281209B018200C8A86C /* Account Visit */,
 				8D4BA31C20B455EB005CFE56 /* Action Items */,
@@ -1518,7 +1539,6 @@
 				C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */,
 				C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */,
 				C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */,
-				F2CAD22C20957C23001016C2 /* OpportunitiesViewController.swift */,
 				AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */,
 				AE1FAA9020B45896005B44EC /* AccountEventSummaryViewController.swift */,
 				12B6220D20B5C82600FD8999 /* AccountOverView */,
@@ -1824,6 +1844,7 @@
 				AE1FAAB720B6C200005B44EC /* WeekCollectionHeaderView.xib in Resources */,
 				6D38327C20874026006805C6 /* Ubuntu-LightItalic.ttf in Resources */,
 				8D17A5D320A2023000ABC9DC /* ContactVisitLinkTableViewCell.xib in Resources */,
+				91497FF720C012E900A3F4F3 /* Opportunities.storyboard in Resources */,
 				6D38327D20874026006805C6 /* CrimsonText-Roman.ttf in Resources */,
 				8DD150022093307800858349 /* SelectedAssociateTableViewCell.xib in Resources */,
 				6D38327E20874026006805C6 /* Ubuntu-BoldItalic.ttf in Resources */,
@@ -1905,6 +1926,7 @@
 			files = (
 				8D17A5DF20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib in Resources */,
 				8D4BA3A820B45B58005CFE56 /* SearchAccountTableViewCell.xib in Resources */,
+				91497FF620C012E900A3F4F3 /* Opportunities.storyboard in Resources */,
 				6DBD03252077B5EF0083419E /* Ubuntu-LightItalic.ttf in Resources */,
 				AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */,
 				6DBD03282077B5EF0083419E /* CrimsonText-Roman.ttf in Resources */,
@@ -2262,10 +2284,10 @@
 				8D4BA3A320B45B58005CFE56 /* SearchAccountTableViewCell.swift in Sources */,
 				91FAEF4220A57DD500209D71 /* WRRowHeader.swift in Sources */,
 				91FAEF3E20A57DD500209D71 /* WRCurrentTimeGridline.swift in Sources */,
-				F2CAD22E20957C23001016C2 /* OpportunitiesViewController.swift in Sources */,
 				8D4BA34120B455EC005CFE56 /* ActionItemTitleDetailTableViewCell.swift in Sources */,
 				91FAEF5C20A57DD500209D71 /* Constants.swift in Sources */,
 				AE43DD04209622EC005D8DD1 /* ServicePurposesViewController.swift in Sources */,
+				91274BE220C01FD000027391 /* OpportunitiesListViewController.swift in Sources */,
 				AE1FAA9220B45897005B44EC /* AccountEventSummaryViewController.swift in Sources */,
 				8D4BA38F20B45B58005CFE56 /* DescriptionTableViewCell.swift in Sources */,
 				9187924220A55C2A009CB557 /* CalendarViewController.swift in Sources */,
@@ -2288,6 +2310,7 @@
 				91FAEF4420A57DD500209D71 /* WREventCell.swift in Sources */,
 				91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */,
 				F2537BD320ADF17800075E0F /* EditAccountStrategyViewController.swift in Sources */,
+				91274BDF20C01F8400027391 /* OpportunitiesMenuViewController.swift in Sources */,
 				F2FD2C2920919AF600037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */,
 				12F0F89D2090B1C000160C3D /* ContactListTableViewCell.swift in Sources */,
 				C955CD272099982F003DADA1 /* NotesViewController.swift in Sources */,
@@ -2358,6 +2381,7 @@
 				AE43DD1C209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */,
 				6D38327520874026006805C6 /* AccountsViewController.swift in Sources */,
 				F2D7B8D820AA213D00A124BA /* ChatterModelViewController.swift in Sources */,
+				91497FFB20C013DD00A3F4F3 /* OpportunitiesViewController.swift in Sources */,
 				8D4BA34D20B455EC005CFE56 /* ActionItemFilterTableViewCell.swift in Sources */,
 				121468F120AD603A00942A00 /* DropDown.swift in Sources */,
 				8D4BA3AD20B45B58005CFE56 /* AccountContactLinkTableViewCell.swift in Sources */,
@@ -2386,6 +2410,7 @@
 				91AA8EC92095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */,
 				D23C40BB208DE6480006691C /* AccountVisitSectionHeaderView.swift in Sources */,
 				8D4BA39820B45B58005CFE56 /* DropdownTableViewCell.swift in Sources */,
+				91274BDE20C01F8400027391 /* OpportunitiesMenuViewController.swift in Sources */,
 				D23C40D8208DFA890006691C /* AccountVisitListTableViewCell.swift in Sources */,
 				8DDD4A4420BBD5FF00423E20 /* SyncInfoViewController.swift in Sources */,
 				12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */,
@@ -2413,6 +2438,7 @@
 				8D4BA39420B45B58005CFE56 /* FamilyTableViewCell.swift in Sources */,
 				8D4BA34820B455EC005CFE56 /* IsItUrgentTableViewCell.swift in Sources */,
 				91FAEF4320A57DD500209D71 /* WREventCell.swift in Sources */,
+				91274BE120C01FD000027391 /* OpportunitiesListViewController.swift in Sources */,
 				12B7362E209777CC0063F847 /* StrategyQAViewModel.swift in Sources */,
 				91FAEF4D20A57DD500209D71 /* WRColumnHeader.swift in Sources */,
 				AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */,
@@ -2427,6 +2453,7 @@
 				F20C1A2A20934C8B00D2351C /* DuringVisitsInsightsCollectionReusableView.swift in Sources */,
 				F2FD2C2720919AE300037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */,
 				1255F31220A5975700FC3796 /* UpComingVisitTableViewCell.swift in Sources */,
+				91497FFA20C013DD00A3F4F3 /* OpportunitiesViewController.swift in Sources */,
 				D2EAEB8E2074EC9B005F7792 /* LoadDepositViewController.swift in Sources */,
 				9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */,
 				12C5CEF5206E1C1A00BC6E7A /* GlobalConstants.swift in Sources */,
@@ -2527,7 +2554,6 @@
 				F2D7B8D720AA213D00A124BA /* ChatterModelViewController.swift in Sources */,
 				F2FDA14A2099D92D000921A8 /* Visit.swift in Sources */,
 				91FAEF3D20A57DD500209D71 /* WRCurrentTimeGridline.swift in Sources */,
-				F2CAD22D20957C23001016C2 /* OpportunitiesViewController.swift in Sources */,
 				8D4BA3AE20B45B58005CFE56 /* ToggleTableViewCell.swift in Sources */,
 				F20C1A2D20934CB500D2351C /* DuringVisitsInsightsCollectionViewCell.swift in Sources */,
 				91FAEF5D20A57DD500209D71 /* NSObjectExtension.swift in Sources */,

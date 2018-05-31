@@ -9,7 +9,7 @@
 import Foundation
 class Notifications {
     
-    static let notificationsFields: [String] = ["Id","Account__c","CreatedDate","Name","SGWS_Account_License_Notification__c","SGWS_Site__c","SGWS_Contact_Birthday_Notification__c","SGWS_Contact__c","isRead"]
+    static let notificationsFields: [String] = ["Id","Account__c","CreatedDate","Name","SGWS_Account_License_Notification__c","SGWS_Site__c","SGWS_Contact_Birthday_Notification__c","SGWS_Contact__c","isRead","_soupEntryId"]
     
     var Id : String
     var account : String
@@ -20,6 +20,7 @@ class Notifications {
     var sgwsContactBirthdayNotification : String
     var sgwsContact :String
     var isRead : Bool
+    var soupEntryId : String
 
     
     convenience init(withAry ary: [Any]) {
@@ -38,6 +39,8 @@ class Notifications {
         sgwsContactBirthdayNotification = json["SGWS_Contact_Birthday_Notification__c"] as? String ?? ""
         sgwsContact = json["SGWS_Contact__c"] as? String ?? ""
         isRead = json["isRead"] as? Bool ?? false
+        soupEntryId = json["_soupEntryId"] as? String ?? ""
+        
       
     }
     
@@ -52,7 +55,7 @@ class Notifications {
         sgwsContactBirthdayNotification = ""
         sgwsContact = ""
         isRead = false
-       
+        soupEntryId = ""
         
     }
     

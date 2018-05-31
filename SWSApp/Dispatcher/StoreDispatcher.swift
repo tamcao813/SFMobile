@@ -3344,38 +3344,37 @@ class StoreDispatcher {
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
-        var editedNote = [String: Any]()
+        var editedNotifications = [String: Any]()
         
-        for  singleNote in result{
-            var singleNoteModif = singleNote as! [String:Any]
-            let singleNoteModifValue = singleNoteModif["Id"] as! String
+        for  singleNotification in result{
+            var singleNotificationModif = singleNotification as! [String:Any]
+            let singleNotificationModifValue = singleNotificationModif["Id"] as! String
             let fieldsIdValue = fieldsToUpload["Id"] as! String
             
-            if(fieldsIdValue == singleNoteModifValue){
-                singleNoteModif["Name"] = fieldsToUpload["Name"]
-                singleNoteModif["SGWS_Description__c"] = fieldsToUpload["SGWS_Description__c"]
-                singleNoteModif[kSyncTargetLocal] = true
+            if(fieldsIdValue == singleNotificationModifValue){
+                singleNotificationModif["isRead"] = fieldsToUpload["isRead"]
+                singleNotificationModif[kSyncTargetLocal] = true
                 
-                let createdFlag = singleNoteModif[kSyncTargetLocallyCreated] as! Bool
+                let createdFlag = singleNotificationModif[kSyncTargetLocallyCreated] as! Bool
                 
                 if(createdFlag){
-                    singleNoteModif[kSyncTargetLocallyUpdated] = false
-                    singleNoteModif[kSyncTargetLocallyCreated] = true
+                    singleNotificationModif[kSyncTargetLocallyUpdated] = false
+                    singleNotificationModif[kSyncTargetLocallyCreated] = true
                     
                 }else {
-                    singleNoteModif[kSyncTargetLocallyCreated] = false
-                    singleNoteModif[kSyncTargetLocallyUpdated] = true
+                    singleNotificationModif[kSyncTargetLocallyCreated] = false
+                    singleNotificationModif[kSyncTargetLocallyUpdated] = true
                     
                 }
-                singleNoteModif[kSyncTargetLocallyDeleted] = false
+                singleNotificationModif[kSyncTargetLocallyDeleted] = false
                 
-                singleNoteModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
-                editedNote = singleNoteModif
+                singleNotificationModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
+                editedNotifications = singleNotificationModif
                 break
             }
         }
         
-        let ary = sfaStore.upsertEntries([editedNote], toSoup: SoupAccountNotes)
+        let ary = sfaStore.upsertEntries([editedNotifications], toSoup: SoupAccountNotes)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]

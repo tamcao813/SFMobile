@@ -266,6 +266,7 @@ class CalendarListViewController: UIViewController {
         dropDownCalView.backgroundColor = UIColor.white
         dropDownCalView.selectionBackgroundColor = UIColor.clear
         dropDownCalView.shadowOffset = CGSize(width: 0, height: 15)
+        dropDownCalView.textFont = UIFont(name:"Ubuntu", size: 14.0)!
         dropDownCalView.dataSource = ["Day View", "Week View", "Month View"]
         
 

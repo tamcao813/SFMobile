@@ -3283,7 +3283,7 @@ class StoreDispatcher {
     
     func syncDownNotification(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id,Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Site__c FROM FS_Notification__c WHERE  SGWS_Deactivate__c = false"
+        let soqlQuery = "SELECT Id,Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Site__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c FROM FS_Notification__c WHERE  SGWS_Deactivate__c = false"
         
         print("soql notification query is \(soqlQuery)")
         
@@ -3322,7 +3322,6 @@ class StoreDispatcher {
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-        print("Result of notifications is \(result)")
         if (error == nil && result.count > 0) {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
@@ -3335,6 +3334,59 @@ class StoreDispatcher {
             print("fetch anotification array " + " error:" + (error?.localizedDescription)!)
         }
         return notification
+    }
+    
+    
+    func editNotificationsLocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupNotifications, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedNote = [String: Any]()
+        
+        for  singleNote in result{
+            var singleNoteModif = singleNote as! [String:Any]
+            let singleNoteModifValue = singleNoteModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == singleNoteModifValue){
+                singleNoteModif["Name"] = fieldsToUpload["Name"]
+                singleNoteModif["SGWS_Description__c"] = fieldsToUpload["SGWS_Description__c"]
+                singleNoteModif[kSyncTargetLocal] = true
+                
+                let createdFlag = singleNoteModif[kSyncTargetLocallyCreated] as! Bool
+                
+                if(createdFlag){
+                    singleNoteModif[kSyncTargetLocallyUpdated] = false
+                    singleNoteModif[kSyncTargetLocallyCreated] = true
+                    
+                }else {
+                    singleNoteModif[kSyncTargetLocallyCreated] = false
+                    singleNoteModif[kSyncTargetLocallyUpdated] = true
+                    
+                }
+                singleNoteModif[kSyncTargetLocallyDeleted] = false
+                
+                singleNoteModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
+                editedNote = singleNoteModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedNote], toSoup: SoupAccountNotes)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) Notes is edited and saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving edited Notes" )
+            return false
+        }
     }
     
     

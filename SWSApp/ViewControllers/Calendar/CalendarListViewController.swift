@@ -238,6 +238,7 @@ class CalendarListViewController: UIViewController {
         dropDownAddNew.bottomOffset = CGPoint(x: 0, y:(dropDownAddNew.anchorView?.plainView.bounds.height)!)
         dropDownAddNew.backgroundColor = UIColor.white
         dropDownAddNew.selectionBackgroundColor = UIColor.clear
+        dropDownAddNew.textFont = UIFont(name:"Ubuntu", size: 14.0)!
         dropDownAddNew.shadowOffset = CGSize(width: 0, height: 15)
 
         dropDownAddNew.dataSource = ["Visit", "Event"]

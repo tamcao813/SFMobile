@@ -532,6 +532,8 @@
 		F22CE6E020B48A4E001A2171 /* EventSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22CE6DE20B48A4E001A2171 /* EventSummaryViewController.swift */; };
 		F22CE6E320B48B1C001A2171 /* EventStartEndDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22CE6E120B48B1B001A2171 /* EventStartEndDateTableViewCell.swift */; };
 		F22CE6E420B48B1C001A2171 /* EventStartEndDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F22CE6E220B48B1B001A2171 /* EventStartEndDateTableViewCell.xib */; };
+		F22DA90020C16C3D00AA2B54 /* HomeActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22DA8FF20C16C3D00AA2B54 /* HomeActivitiesViewController.swift */; };
+		F22DA90120C16C3D00AA2B54 /* HomeActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22DA8FF20C16C3D00AA2B54 /* HomeActivitiesViewController.swift */; };
 		F2537BD320ADF17800075E0F /* EditAccountStrategyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB94572095D4E40028802E /* EditAccountStrategyViewController.swift */; };
 		F2590105209216ED00C2E354 /* DuringVisitTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2590104209216ED00C2E354 /* DuringVisitTopics.plist */; };
 		F2590106209216ED00C2E354 /* DuringVisitTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2590104209216ED00C2E354 /* DuringVisitTopics.plist */; };
@@ -888,6 +890,7 @@
 		F22CE6DE20B48A4E001A2171 /* EventSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventSummaryViewController.swift; path = Event/EventSummaryViewController.swift; sourceTree = "<group>"; };
 		F22CE6E120B48B1B001A2171 /* EventStartEndDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventStartEndDateTableViewCell.swift; path = "Event/Event Cells/EventStartEndDateTableViewCell.swift"; sourceTree = "<group>"; };
 		F22CE6E220B48B1B001A2171 /* EventStartEndDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EventStartEndDateTableViewCell.xib; path = "Event/Event Cells/EventStartEndDateTableViewCell.xib"; sourceTree = "<group>"; };
+		F22DA8FF20C16C3D00AA2B54 /* HomeActivitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeActivitiesViewController.swift; sourceTree = "<group>"; };
 		F2590104209216ED00C2E354 /* DuringVisitTopics.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DuringVisitTopics.plist; sourceTree = "<group>"; };
 		F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsCollectionViewCell.swift; sourceTree = "<group>"; };
 		F259010D2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -1510,6 +1513,7 @@
 				F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */,
 				128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */,
 				6F3D309D206BA065000CFFCC /* HomeViewController.swift */,
+				F22DA8FF20C16C3D00AA2B54 /* HomeActivitiesViewController.swift */,
 				D24E5B0A2073635D00641814 /* ObjectivesViewController.swift */,
 				6F3D309A206BA065000CFFCC /* ParentViewController.swift */,
 				6F8BD3EA20720281006CABA8 /* AccountListViewController.swift */,
@@ -2297,6 +2301,7 @@
 				12F0F89D2090B1C000160C3D /* ContactListTableViewCell.swift in Sources */,
 				C955CD272099982F003DADA1 /* NotesViewController.swift in Sources */,
 				8D4BA33320B455EB005CFE56 /* ActionItemFilterViewController.swift in Sources */,
+				F22DA90120C16C3D00AA2B54 /* HomeActivitiesViewController.swift in Sources */,
 				8D4BA3AF20B45B58005CFE56 /* ToggleTableViewCell.swift in Sources */,
 				C96B39162094B417000F4F55 /* EditNoteViewController.swift in Sources */,
 				91C3E5A2208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */,
@@ -2549,6 +2554,7 @@
 				91FAEF3F20A57DD500209D71 /* WRRowHeaderBackground.swift in Sources */,
 				AE1FAA8820B4588A005B44EC /* EventDescriptionTableViewCell.swift in Sources */,
 				8D4BA33020B455EB005CFE56 /* CreateNewActionItemViewController.swift in Sources */,
+				F22DA90020C16C3D00AA2B54 /* HomeActivitiesViewController.swift in Sources */,
 				91FAEF4120A57DD500209D71 /* WRRowHeader.swift in Sources */,
 				91FAEF4720A57DD500209D71 /* WRColumnHeaderBackground.swift in Sources */,
 				8DDD4A4A20BBFC5200423E20 /* TitleDepartmentTableViewCell.swift in Sources */,

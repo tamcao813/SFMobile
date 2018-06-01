@@ -382,7 +382,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             btnInsights?.setTitleColor(UIColor.black, for: .normal)
             selectedIndex = 2
         case 3:
-            containerView?.isHidden = true
+            containerView?.isHidden = false
             btnOpportunities?.backgroundColor = UIColor.white
             btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
 

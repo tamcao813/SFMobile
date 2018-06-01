@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var OAuthRedirectURI = ""
     
     var loggedInUser: User?
+    var currentSelectedUserId: String = ""
     var alertVisible = false
     let isMockUser = false //set it to true to use mock data or set it to false if testing with real data
     
@@ -225,6 +226,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                         
                         self.loggedInUser =  user
+                        self.currentSelectedUserId = user.userId
+                        
+                        print("appdelegate: currentSelectedUserId: " + self.currentSelectedUserId)
+                        
                         //       self.validateRole(user: self.loggedInUser!, completion: {_ in
                         
                         StoreDispatcher.shared.downloadAllSoups({ (error) in
@@ -255,6 +260,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 
                 self.loggedInUser =  user
+                self.currentSelectedUserId = user.userId
                 
                 print("Not reachable")
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)

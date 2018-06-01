@@ -81,7 +81,7 @@ class ContactSortUtility {
                 }
                 
                 // search account number
-                let accountsListByAccountId = AccountsViewModel().accountsForLoggedUser.filter( { return ($0.account_Id == acrObject.accountId && $0.accountNumber.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil) } )
+                let accountsListByAccountId = AccountsViewModel().accountsForLoggedUser().filter( { return ($0.account_Id == acrObject.accountId && $0.accountNumber.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil) } )
                 if accountsListByAccountId.count > 0 {
                     contactListWithSearchResults.append(contact)
                     break
@@ -140,10 +140,11 @@ class ContactSortUtility {
             
             enteredAnyFilterCase = true
             let accountViewModel = AccountsViewModel()
-            if accountViewModel.accountsForLoggedUser.count > 0 {
-                
+            let accounts = accountViewModel.accountsForLoggedUser()
+            
+            if accounts.count > 0 {
                 var filteredAccountContactArray = [Contact]()
-                for account in accountViewModel.accountsForLoggedUser {
+                for account in accounts {
                     filteredAccountContactArray += contactListToBeSorted.filter( { return account.account_Id == $0.accountId } )
                 }
 

@@ -79,7 +79,7 @@ class AccountsListViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
         //isAscending = true
-        accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
+        accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser(), ascending: true)
         print(accountsForLoggedUserOriginal.count)
         
         tableViewDisplayData = accountsForLoggedUserOriginal
@@ -92,10 +92,15 @@ class AccountsListViewController: UIViewController {
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
         
+        let consultants = AccountsViewModel().consultantsForLoggedInUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let currentUserId = UserViewModel().selectedUserId
+        print("AccountListviewcontroller currentSelectedUserId: " + currentUserId)
+        
         //self.navigationController?.isNavigationBarHidden = true
         
     }
@@ -124,7 +129,7 @@ class AccountsListViewController: UIViewController {
         
         if FilterMenuModel.selectedAccountId != "" {
             
-            let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: FilterMenuModel.selectedAccountId)
+            let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser(), accountId: FilterMenuModel.selectedAccountId)
             guard accountList != nil, (accountList?.count)! > 0  else {
                 return;
             }

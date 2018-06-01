@@ -20,6 +20,12 @@ class UserViewModel {
             return nil
         }
     }
+    
+    var selectedUserId: String {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        return appDelegate.currentSelectedUserId
+    }
 }
 
 extension UserViewModel {
@@ -31,7 +37,7 @@ extension UserViewModel {
         return nil
     }
     
-    var myConsultants: [User]? {
+    var myConsultants: [String]? {
         if let user = loggedInUser {
             return user.myConsultants
         }

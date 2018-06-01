@@ -24,7 +24,8 @@ class AccountsMenuViewController: UIViewController {
     var expandedSectionHeader: UITableViewHeaderFooterView!
     weak var searchByEnteredTextDelegate: SearchByEnteredTextDelegate?
     
-    let filterClass = Filter()
+    lazy var filterClass = Filter()
+    var sectionNames = [String]()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar : UISearchBar!
@@ -41,6 +42,9 @@ class AccountsMenuViewController: UIViewController {
         self.customizeSearchBar()
         
         self.tableView!.tableFooterView = UIView()
+        
+        let isManager = AccountsViewModel().consultantsForLoggedInUser().count > 0
+        sectionNames = filterClass.sectionNames(isManager: isManager)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,8 +82,8 @@ class AccountsMenuViewController: UIViewController {
     func addChannelAndSubchannelItems(){
         
         let accountViewModel = AccountsViewModel()
-        accountsForLoggedUserFiltered = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
-        print(accountsForLoggedUserFiltered.count)
+        accountsForLoggedUserFiltered = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser(), ascending: true)
+        //print(accountsForLoggedUserFiltered.count)
         
         
         var channelData = [String]()
@@ -508,9 +512,9 @@ class AccountsMenuViewController: UIViewController {
 extension AccountsMenuViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if filterClass.sectionNames.count > 0 {
+        if sectionNames.count > 0 {
             tableView.backgroundView = nil
-            return filterClass.sectionNames.count
+            return sectionNames.count
         }
         return 0
     }
@@ -533,7 +537,7 @@ extension AccountsMenuViewController : UITableViewDataSource{
         let myLabel = UILabel()
         myLabel.frame = CGRect(x: 15, y: 18, width: tableView.frame.size.width, height: 20)
         myLabel.font = UIFont(name:"Ubuntu", size: 18.0)
-        myLabel.text = filterClass.sectionNames[section] as? String
+        myLabel.text = sectionNames[section]
         
         let headerView = UIView()
         headerView.addSubview(myLabel)
@@ -542,8 +546,8 @@ extension AccountsMenuViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (filterClass.sectionNames.count > 0) {
-            return filterClass.sectionNames[section] as? String
+        if (sectionNames.count > 0) {
+            return sectionNames[section]
         }
         return ""
     }

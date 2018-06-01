@@ -47,7 +47,7 @@ class ActionItemDetailsViewController: UIViewController {
     
     func getSelectedAccount(){
         if let accountId = actionItemObject?.accountId, accountId != ""{
-            let accountsArray = AccountsViewModel().accountsForLoggedUser
+            let accountsArray = AccountsViewModel().accountsForLoggedUser()
             for account in accountsArray{
                 if account.account_Id == accountId {
                     selectedAccount = account

@@ -33,7 +33,7 @@ class CalendarViewModel {
         
         var visitsToCalendarEventsArray = [WREvent]()
         
-        let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser
+        let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
         let globalContactList = ContactsViewModel().globalContacts()
         
         for visit in visitArray

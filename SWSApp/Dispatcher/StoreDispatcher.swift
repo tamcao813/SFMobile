@@ -19,6 +19,7 @@ class StoreDispatcher {
     static let SFADB = "SFADB"
     
     let SoupUser = "User"
+    let SoupUserSimple = "UserSimple"
     let SoupAccount = "AccountTeamMember"
     let SoupContact = "Contact"
     let SoupAccountContactRelation = "SGWS_AccountContactMobile__c"
@@ -62,6 +63,7 @@ class StoreDispatcher {
     func registerSoups() {
         print("Store Path is \(String(describing: sfaStore.storePath))")
         registerUserSoup()
+        registerUserSimpleSoup()
         registerAccountSoup()
         registerContactSoup()
         registerACRSoup()
@@ -748,6 +750,23 @@ class StoreDispatcher {
         }
     }
     
+    func registerUserSimpleSoup() {
+        let userQueryFields = User.UserSimpleFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...8 {
+            let sfIndex = SFSoupIndex(path: userQueryFields[i], indexType: kSoupIndexTypeString, columnName: userQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        do {
+            try sfaStore.registerSoup(SoupUserSimple, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register User Simple soup: \(error.localizedDescription)")
+        }
+    }
+    
     func registerAccountSoup() {
         
         let indexes:[AnyObject]! = [
@@ -781,7 +800,8 @@ class StoreDispatcher {
              SFSoupIndex(path: "Account.SWS_Status_Description__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_Status_Description__c")!,
              SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!,
             SFSoupIndex(path: "Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c")!,
-            SFSoupIndex(path: "Account.SGWS_SurveyId__c", indexType: kSoupIndexTypeString, columnName: "Account.SGWS_SurveyId__c")!
+            SFSoupIndex(path: "Account.SGWS_SurveyId__c", indexType: kSoupIndexTypeString, columnName: "Account.SGWS_SurveyId__c")!,
+            SFSoupIndex(path: "UserId", indexType: kSoupIndexTypeString, columnName: "UserId")!
         ]
         let indexSpecs: [AnyObject] = SFSoupIndex.asArraySoupIndexes(indexes) as [AnyObject]
         
@@ -822,13 +842,46 @@ class StoreDispatcher {
     }
     
     //#pragma mark - syncdown so we have data in the soups
+    func syncDownUserSimple(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let fields : [String] = User.UserSimpleFields
+        let userId =   SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
+        
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from User Where Id = '\(userId!)' OR ManagerId = '\(userId!)' limit 1000"
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
+            SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUserSimple)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownUserSimple() done")
+                    
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownUserSimple()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownUserSimple()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
     
     func syncDownUser(_ completion:@escaping (_ error: NSError?)->()) {
         
         let fields : [String] = User.UserFields
         let userId =   SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember Where UserId = '\(userId!)' OR User.ManagerId = '\(userId!)' limit 100"
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember Where UserId = '\(userId!)' OR User.ManagerId = '\(userId!)' limit 1000"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -839,7 +892,9 @@ class StoreDispatcher {
                 if syncStateStatus.isDone() {
                     print("syncDownUser() done")
                     
-                    completion(nil)
+                    self.syncDownUserSimple { (error) in
+                        completion(error)
+                    }
                 }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownUser()"
@@ -935,7 +990,7 @@ class StoreDispatcher {
         
         //,,Account.SWS_Premise_Code__c
         
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
        
         //,,,
         
@@ -1014,7 +1069,6 @@ class StoreDispatcher {
         //Load the sync config
         _ = self.fetchSyncConfiguration()
 
-        
         let username = user.userName
         
         let fields = User.UserFields.map{"{User:\($0)}"}
@@ -1025,42 +1079,74 @@ class StoreDispatcher {
         
         let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
         
+        
+        
         if (error == nil && result.count > 0) {
             let ary:[Any] = result[0] as! [Any]
             let user = User(withAry: ary)
             completion(user, nil)
         }
         else {
-            completion(nil, error)
+            let userSimple = fetchSimpleUser()
+            completion(userSimple, nil)
         }
     }
     
+    func fetchSimpleUser() -> User? {
+        var error : NSError?
+        guard let user = SFUserAccountManager.sharedInstance().currentUser else {
+            return nil
+        }
+        
+        let username = user.userName
+        
+        let fields = User.UserSimpleFields.map{"{UserSimple:\($0)}"}
+        
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {UserSimple} Where {UserSimple:Username} = '\(username)'"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            let ary:[Any] = result[0] as! [Any]
+            let user = User(withAryForUserSimple: ary)
+            return user
+        }
+        else {
+            return nil
+        }
+    }
+    
+    func fetchConsultants() -> [String] {
+        var consultants = [String]()
+        
+        let userid = UserViewModel().loggedInUser?.userId
+
+        let soqlQuery = "Select {UserSimple:Id} from {UserSimple} Where {UserSimple:ManagerId} = '\(userid)'"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                consultants.append(ary[0] as! String)
+            }
+        }
+        
+        return consultants
+    }
     
     //Accounts
     func fetchAccountsForLoggedUser() -> [Account] {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        if appDelegate.isMockUser {
-            let account1 = Account.mockAccount1()
-            let account2 = Account.mockAccount2()
-            let account3 = Account.mockAccount3()
-            let account4 = Account.mockAccount4()
-            //add more if needed
-            
-            var ary = [Account]()
-            ary.append(account1)
-            ary.append(account2)
-            ary.append(account3)
-            ary.append(account4)
-            
-            return ary
-        }
-        else {
-            let userViewModel = UserViewModel()
-            
-            let userid: String = (userViewModel.loggedInUser?.userId)!
-            
-            return fetchAccounts(forUser: userid)
-        }
+        return fetchAccounts() //will filter for the logged in user or selected consultant
+    }
+    
+    func fetchAccountsForCurrentUser() -> [Account] {
+        return fetchAccounts()
     }
     
     func fetchAccountName(for accountId: String) -> String {
@@ -1083,8 +1169,13 @@ class StoreDispatcher {
     func fetchAllAccountIds()->[String]{
         
         var accountIdsArray:[String] = []
+        let userId: String = UserViewModel().selectedUserId
         
-        let soqlQuery = "Select {AccountTeamMember:AccountId} FROM {AccountTeamMember}"
+        var soqlQuery = "Select {AccountTeamMember:AccountId} FROM {AccountTeamMember}" // In case no loggerInUser until that's fixed
+        
+        if userId.count > 0 {
+            soqlQuery = "Select {AccountTeamMember:AccountId} FROM {AccountTeamMember} Where {AccountTeamMember:UserId} = '\(userId)'"
+        }
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
@@ -1131,11 +1222,11 @@ class StoreDispatcher {
         return surveyIdsArray
     }
     
-    func fetchAccounts(forUser userid: String) -> [Account] {
+    func fetchAccounts() -> [Account] {
         var accountAry: [Account] = []
         
         // Get All Account Id's and Format as string with comma separator
-        let accIdArray = fetchAllAccountIds().joined(separator: "','")
+        let accIdArray = fetchAllAccountIds().joined(separator: "','") //only for selectedUserId
         
         // Formatted accIdArray String with adding "'" at start and end
         let formattedAccIdArray = "'" + accIdArray + "'"
@@ -1161,7 +1252,7 @@ class StoreDispatcher {
             }
         }
         else if error != nil {
-            print("fectchAccounts for userid " + userid + " error:" + (error?.localizedDescription)!)
+            print("fectchAccounts for userid " + UserViewModel().selectedUserId + " error:" + (error?.localizedDescription)!)
         }
         
         return accountAry

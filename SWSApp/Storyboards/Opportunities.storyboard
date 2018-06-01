@@ -26,13 +26,14 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gR3-4v-Atg">
                                 <rect key="frame" x="0.0" y="20" width="280" height="747"/>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.49019607840000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="C8S-Gj-Ceh" kind="embed" identifier="OpportunitiesQueryFilter" id="H4s-xH-4jw"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLA-eD-fZw">
                                 <rect key="frame" x="288" y="20" width="736" height="747"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="zEf-3K-DCF" kind="embed" identifier="OpportunitiesSegue" id="WKq-cG-HSQ"/>
                                 </connections>
@@ -82,13 +83,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mot-9u-2ar">
-                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27.5"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGE-4B-dYw">
-                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="10" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="trJ-Mc-msK">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -152,6 +153,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="C8S-Gj-Ceh" id="Rbu-Aj-fDr"/>
+                                    <outlet property="delegate" destination="C8S-Gj-Ceh" id="Deh-DV-Dzm"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OX9-4p-Zug">
                                 <rect key="frame" x="0.0" y="678" width="280" height="69"/>

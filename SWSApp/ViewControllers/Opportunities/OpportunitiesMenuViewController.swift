@@ -131,14 +131,15 @@ class OpportunitiesMenuViewController: UIViewController {
         self.selectedSection = section!
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            self.tableView.reloadData()
+//            self.tableView.reloadData()
         }
         
-        if selectedSection >= 4 {
+        if selectedSection >= 5 {
             print("Your Channel is not Selected")
         }else{
             self.sectionHeaderOperation(section: section!, eImageView: eImageView)
         }
+
     }
     
     func sectionHeaderOperation(section : Int , eImageView : UIImageView?){
@@ -151,6 +152,8 @@ class OpportunitiesMenuViewController: UIViewController {
                 tableViewCollapeSection(section, imageView: eImageView!)
                 //If expanded section is clicked make this below variable to -1 so that arrow mark will be down
                 self.selectedSection = -1
+                
+                self.tableView!.scrollToRow(at: IndexPath(row: NSNotFound, section: section), at: .none, animated: false)
             } else {
                 let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
                 tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
@@ -201,6 +204,8 @@ class OpportunitiesMenuViewController: UIViewController {
             self.tableView!.beginUpdates()
             self.tableView!.insertRows(at: indexesPath, with: UITableViewRowAnimation.fade)
             self.tableView!.endUpdates()
+            
+            self.tableView!.scrollToRow(at: IndexPath(row: NSNotFound, section: section), at: .top, animated: false)
         }
     }
     
@@ -242,7 +247,7 @@ class OpportunitiesMenuViewController: UIViewController {
     
     //Data to pass for Respective Cell Class
     func passDataToTableViewCell(cell : UITableViewCell, indexPath : IndexPath){
-//        (cell as? OpportunitiesMenuTableViewCell)?.displayCellContent(sectionContent: filterClass.sectionItems as NSArray, indexPath: indexPath)
+        (cell as? OpportunitiesMenuTableViewCell)?.displayCellContent(sectionContent: filterClass.sectionItems as NSArray, indexPath: indexPath)
         
     }
     

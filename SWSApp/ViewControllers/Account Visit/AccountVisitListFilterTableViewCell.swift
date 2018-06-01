@@ -220,7 +220,13 @@ extension AccountVisitListFilterTableViewCell: UITextFieldDelegate{
         if textField.tag == 300{
             self.dateView(textField: textField)
         }else{
-            self.dateView(textField: textField)
+            
+            if AccountVisitListFilterModel.startDate != ""{
+                self.dateView(textField: textField)
+            }else{
+                
+                self.endEditing(true)
+            }
         }
     }
     

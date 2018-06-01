@@ -367,7 +367,18 @@ class StoreDispatcher {
         newSyncLog.activityType = "SyncErr\(errorType)"
         newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
-        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\"}"
+        
+        
+       
+        
+        var returnValue: String? = UserDefaults.standard.object(forKey: "errorSDKUserDefault") as? String
+        
+        UserDefaults.standard.removeObject(forKey:"key_name")
+
+        
+        
+        
+        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\",\"Error\":"+returnValue!+"}"
         //        createOneSyncLog(newSyncLog)
         
         let attributeDict = ["type":SoupSyncLog]

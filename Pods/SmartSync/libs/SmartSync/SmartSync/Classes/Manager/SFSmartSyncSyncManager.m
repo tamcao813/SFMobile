@@ -241,6 +241,10 @@ static NSMutableDictionary *syncMgrList = nil;
     SyncFailBlock failSync = ^(NSString* failureMessage, NSError* error) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         [SFSDKSmartSyncLogger e:[strongSelf class] format:@"runSync failed:%@ cause:%@ error%@", sync, failureMessage, error];
+        NSString *errorSDKStr = [NSString stringWithFormat:@"%@ %@ %@",sync, failureMessage, error];
+        [[NSUserDefaults standardUserDefaults] setObject:errorSDKStr forKey:@"errorSDKUserDefault"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         updateSync(kSFSyncStateStatusFailed, kSyncManagerUnchanged, kSyncManagerUnchanged, kSyncManagerUnchanged);
     };
 

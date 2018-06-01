@@ -314,6 +314,8 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.endEditing(true)
+        
         let workOrder = tableViewDataArray[indexPath.row + currentPageIndex!]
         
         if(workOrder.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){

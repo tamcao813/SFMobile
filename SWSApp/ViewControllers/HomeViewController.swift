@@ -14,8 +14,15 @@ class HomeViewController: UIViewController {
     let userViewModel = UserViewModel()
     var loggerInUser: User?
     
+    var notificationArray = [Notifications]()
+    
+    
     override func viewDidLoad() {
         loggerInUser = userViewModel.loggedInUser
+        
+      notificationArray = NotificationsViewModel().notificationsForUser()
+        print("Notification array is - \(notificationArray)")
+        
         
     }
     

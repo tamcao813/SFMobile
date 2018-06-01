@@ -25,8 +25,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="570" height="88.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpC-tU-Msy">
-                        <rect key="frame" x="40" y="21" width="39.5" height="29.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpC-tU-Msy">
+                        <rect key="frame" x="40" y="21" width="500" height="29.5"/>
                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -62,6 +62,7 @@
                     <constraint firstItem="dpC-tU-Msy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="d6l-kK-WOR"/>
                     <constraint firstItem="N1g-K2-wJv" firstAttribute="centerY" secondItem="zNe-eL-VDn" secondAttribute="centerY" id="gsE-kb-wxA"/>
                     <constraint firstAttribute="bottom" secondItem="zNe-eL-VDn" secondAttribute="bottom" constant="10" id="jRq-Bc-mRH"/>
+                    <constraint firstItem="hox-z8-bH3" firstAttribute="leading" secondItem="dpC-tU-Msy" secondAttribute="trailing" constant="20" id="lJN-hY-BLR"/>
                     <constraint firstItem="dpC-tU-Msy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="uP8-T0-9X3"/>
                 </constraints>
             </tableViewCellContentView>

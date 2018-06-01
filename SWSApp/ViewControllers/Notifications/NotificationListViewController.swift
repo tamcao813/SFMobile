@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import SmartSync
 
 class NotificationListViewController: UIViewController {
 
-    var notificationArray = [Notifications]()
+    var notificationsArray = [Notifications]()
+    var filteredNotificationsArray = [Notifications]()
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +21,8 @@ class NotificationListViewController: UIViewController {
     }
     
     func getNotifications(){
-        notificationArray = NotificationsViewModel().notificationsForUser()
-        notificationArray = notificationArray.sorted(by: { $0.createdDate < $1.createdDate })
+        notificationsArray = NotificationsViewModel().notificationsForUser()
+        notificationsArray = notificationsArray.sorted(by: { $0.createdDate < $1.createdDate })
         reloadTableView()
     }
     
@@ -47,46 +49,75 @@ class NotificationListViewController: UIViewController {
 extension NotificationListViewController :  NotificationSearchButtonTappedDelegate{
     
     func performFilterOperation(searchText: UISearchBar) {
+        NotificationFilterModel.filterApplied = true
+        if searchText.text != ""{
+            filteredNotificationsArray =  NotificationsSortUtility().searchAndFilter(searchStr: searchText.text!, notifications: notificationsArray)
+        }else{
+            filteredNotificationsArray = NotificationsSortUtility().filterOnly(notifications: notificationsArray)
+        }
+        reloadTableView()
+    }
+
+    func clearFilter(){
+        NotificationFilterModel.filterApplied = false
+        reloadTableView()
+    }
+    
+    func editNotification(notification: Notifications){
+        var editNotification = Notifications(for: "notification")
+        editNotification = notification
+        if editNotification.isRead {
+            editNotification.isRead = false
+        }else{
+            editNotification.isRead = true
+        }
+//        editNotification. = ActionItemSortUtility().getTimestamp()
+        let attributeDict = ["type":"FS_Notification__c"]
+        let notificationDict: [String:Any] = [
+            
+            ActionItem.AccountActionItemFields[0]: editNotification.Id,
+            ActionItem.AccountActionItemFields[8]: editNotification.isRead,
+//            ActionItem.AccountActionItemFields[7]: editNotification.lastModifiedDate,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:false,
+            kSyncTargetLocallyUpdated:true,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
         
+        let success = NotificationsViewModel().editNotificationsLocally(fields: notificationDict)
+        if success {
+            self.getNotifications()
+        }
     }
-    
-    func clearFilter() {
-    
-    }
-    
-    
-//    func performFilterOperation(searchText: UISearchBar) {
-//        NotificationFilterModel.filterApplied = true
-        //Perform Search Operation First then do Filtering
-//        applyFilter(searchText: searchText.text!)
-//    }
-    
-//    func applyFilter(searchText: String){
-//        if searchText != ""{
-//            searchStr = searchText
-//            filteredActionItemsArray =  ActionItemSortUtility().searchAndFilter(searchStr: searchText, actionItems: actionItemsArray)
-//        }else{
-//            filteredActionItemsArray = ActionItemSortUtility().filterOnly(actionItems: actionItemsArray)
-//        }
-//        reloadTableView()
-//    }
-    
-//    func clearFilter(){
-//        NotificationFilterModel.filterApplied = false
-//        reloadTableView()
-//    }
 }
 
 extension NotificationListViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notificationArray.count
+        if NotificationFilterModel.filterApplied {
+            return filteredNotificationsArray.count
+        }else{
+            return notificationsArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationListTableViewCell") as? NotificationListTableViewCell
-        cell?.displayCellContent(notificationObject: notificationArray[indexPath.row])
+        if NotificationFilterModel.filterApplied {
+            cell?.displayCellContent(notificationObject: filteredNotificationsArray[indexPath.row])
+        }else{
+            cell?.displayCellContent(notificationObject: notificationsArray[indexPath.row])
+        }
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if NotificationFilterModel.filterApplied {
+            self.editNotification(notification: filteredNotificationsArray[indexPath.row])
+        }else{
+            self.editNotification(notification: notificationsArray[indexPath.row])
+        }
     }
     
 }

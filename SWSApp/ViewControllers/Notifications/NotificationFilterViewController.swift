@@ -29,14 +29,17 @@ class NotificationFilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()        
         self.customizeSearchBar()
-        self.tableView!.tableFooterView = UIView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         DispatchQueue.main.async {
             self.addSearchIconInSearchBar()
         }
+        self.tableView!.tableFooterView = UIView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        DispatchQueue.main.async {
+//            self.addSearchIconInSearchBar()
+//        }
     }
     
     //MARK:-

@@ -3283,7 +3283,7 @@ class StoreDispatcher {
     
     func syncDownNotification(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false"
+        let soqlQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c,SGWS_Type__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false"
         
         print("soql notification query is \(soqlQuery)")
         

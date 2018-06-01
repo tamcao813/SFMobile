@@ -20,22 +20,22 @@ class NotificationListTableViewCell: UITableViewCell {
     }
     
     func displayCellContent(notificationObject: Notifications){
-        notificationTitle.text = notificationObject.name
         dateLabel.text = notificationObject.createdDate
+        
         if notificationObject.isRead {
             isReadView.backgroundColor = .clear
         }else{
             isReadView.backgroundColor = UIColor(named: "Data New")
         }
         
-        if notificationObject.sgwsAccLicenseNotification != ""{
-            notificationImage.image = #imageLiteral(resourceName: "Small Status Critical")
-        }
-        
-        if notificationObject.sgwsContactBirthdayNotification != "" {
+        if notificationObject.sgwsType == "Birthday" {
             let image = #imageLiteral(resourceName: "Calender").withRenderingMode(.alwaysTemplate)
             notificationImage.image = image
             notificationImage.tintColor = UIColor(named: "Data New")
+            notificationTitle.text = notificationObject.sgwsContactBirthdayNotification
+        }else{
+            notificationImage.image = #imageLiteral(resourceName: "Small Status Critical")
+            notificationTitle.text = notificationObject.sgwsAccLicenseNotification
         }
     }
 

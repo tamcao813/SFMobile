@@ -21,6 +21,7 @@ class Notifications {
     var sgwsContact :String
     var isRead : Bool
     var soupEntryId : String
+    
 
     
     convenience init(withAry ary: [Any]) {
@@ -40,8 +41,7 @@ class Notifications {
         sgwsContact = json["SGWS_Contact__c"] as? String ?? ""
         isRead = json["isRead"] as? Bool ?? false
         soupEntryId = json["_soupEntryId"] as? String ?? ""
-        
-      
+       
     }
     
     init(for: String) {
@@ -56,6 +56,7 @@ class Notifications {
         sgwsContact = ""
         isRead = false
         soupEntryId = ""
+      
         
     }
     

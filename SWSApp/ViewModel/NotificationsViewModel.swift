@@ -11,6 +11,10 @@ class NotificationsViewModel {
     
     func notificationsForUser() -> [Notifications] {
         return StoreDispatcher.shared.fetchNotifications()
-    } 
+    }
+    
+    func editNotificationsLocally(fields: [String:Any]) -> Bool {
+        return StoreDispatcher.shared.editNotificationsLocally(fieldsToUpload:fields)
+    }
     
 }

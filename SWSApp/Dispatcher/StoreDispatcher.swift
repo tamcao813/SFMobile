@@ -3283,7 +3283,7 @@ class StoreDispatcher {
     
     func syncDownNotification(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id,Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Site__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c FROM FS_Notification__c WHERE  SGWS_Deactivate__c = false"
+        let soqlQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false"
         
         print("soql notification query is \(soqlQuery)")
         
@@ -3374,16 +3374,16 @@ class StoreDispatcher {
             }
         }
         
-        let ary = sfaStore.upsertEntries([editedNotifications], toSoup: SoupAccountNotes)
+        let ary = sfaStore.upsertEntries([editedNotifications], toSoup: SoupNotifications)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
-            print("\(result) Notes is edited and saved successfully" )
+            print("\(result) Notifications is edited and saved successfully" )
             print(soupEntryId!)
             return true
         }
         else {
-            print(" Error in saving edited Notes" )
+            print(" Error in saving edited Notifications" )
             return false
         }
     }

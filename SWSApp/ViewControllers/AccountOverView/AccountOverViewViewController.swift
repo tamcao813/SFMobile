@@ -18,6 +18,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     var account : Account?
     let visitModel = VisitsViewModel()
     let actionItemModel = AccountsActionItemViewModel()
+    let notificationModel = NotificationsViewModel()
+    
     
     var upcomingVisit = [WorkOrderUserObject]()
     var upcomingVisitArrayToDisplay = [WorkOrderUserObject]()
@@ -41,6 +43,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         
         upcomingActivitiesTableView.delegate = self
         upcomingActivitiesTableView.dataSource = self
@@ -80,6 +84,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         pastVisitArrayToDisplay = [WorkOrderUserObject]()
         upcomingActionItemArrayToDisplay = [ActionItem]()
         pastActionItemArrayToDisplay = [ActionItem]()
+        
         
         //creating upcomingvisit array according to accountId
         upcomingVisit = visitModel.visitsForUserTwoWeeksUpcoming()

@@ -31,6 +31,8 @@ class StoreDispatcher {
     let SoupSyncConfiguration = "SyncConfiguration"
     let SoupSyncLog = "SGWS_Sync_Logs__c"
     let SoupActionItem = "Task"
+    let SoupNotifications = "FS_Notification__c"
+    
     
     
     // Workorder Types Visit OR Event
@@ -72,6 +74,7 @@ class StoreDispatcher {
         registerStrategyAnswers()
         registerSyncConfiguration()
         registerActionItemSoup()
+        registerNotificationsSoup()
         registerSyncLogSoup()
     }
     
@@ -93,7 +96,11 @@ class StoreDispatcher {
             
             group.leave()
         }
-        
+        group.enter()
+         syncDownNotification() { _ in
+            group.leave()
+        }
+       
         group.enter()
         downloadContactPLists() { _ in
             group.leave()
@@ -3247,6 +3254,141 @@ class StoreDispatcher {
         return accVisitEventArray
         
     }
+    
+    
+    
+    //MARK:- Notifications Related Code
+    
+    func registerNotificationsSoup(){
+        
+        let notificationsQueryFields = Notifications.notificationsFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...notificationsQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: notificationsQueryFields[i], indexType: kSoupIndexTypeString, columnName: notificationsQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupNotifications, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupNotifications soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    
+    func syncDownNotification(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false"
+        
+        print("soql notification query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupNotifications)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> Notification SyncDown() done >>>>>")
+                    //
+                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
+                        .done {_ in
+                            completion(nil)
+                    }
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownNotification() >>>>>>>"
+                    let userInfo: [String: Any] = [NSLocalizedDescriptionKey : meg,
+                                                   NSLocalizedFailureReasonErrorKey : meg]
+                    let err = NSError(domain: "syncDownNotification()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    func fetchNotifications()->[Notifications] {
+        
+        var notification: [Notifications] = []
+        let notificationsFields = Notifications.notificationsFields.map{"{FS_Notification__c:\($0)}"}
+        let soapQuery = "Select \(notificationsFields.joined(separator: ",")) FROM {FS_Notification__c}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let notificationsArray = Notifications(withAry: ary)
+                notification.append(notificationsArray)
+                print("notification array  array \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch anotification array " + " error:" + (error?.localizedDescription)!)
+        }
+        return notification
+    }
+    
+    
+    func editNotificationsLocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupNotifications, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedNotifications = [String: Any]()
+        
+        for  singleNotification in result{
+            var singleNotificationModif = singleNotification as! [String:Any]
+            let singleNotificationModifValue = singleNotificationModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == singleNotificationModifValue){
+                singleNotificationModif["isRead"] = fieldsToUpload["isRead"]
+                singleNotificationModif[kSyncTargetLocal] = true
+                
+                let createdFlag = singleNotificationModif[kSyncTargetLocallyCreated] as! Bool
+                
+                if(createdFlag){
+                    singleNotificationModif[kSyncTargetLocallyUpdated] = false
+                    singleNotificationModif[kSyncTargetLocallyCreated] = true
+                    
+                }else {
+                    singleNotificationModif[kSyncTargetLocallyCreated] = false
+                    singleNotificationModif[kSyncTargetLocallyUpdated] = true
+                    
+                }
+                singleNotificationModif[kSyncTargetLocallyDeleted] = false
+                
+                singleNotificationModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
+                editedNotifications = singleNotificationModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedNotifications], toSoup: SoupNotifications)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) Notifications is edited and saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving edited Notifications" )
+            return false
+        }
+    }
+    
+    
     
     
     

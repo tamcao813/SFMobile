@@ -18,6 +18,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     var account : Account?
     let visitModel = VisitsViewModel()
     let actionItemModel = AccountsActionItemViewModel()
+    let notificationModel = NotificationsViewModel()
+    
     
     var upcomingVisit = [WorkOrderUserObject]()
     var upcomingVisitArrayToDisplay = [WorkOrderUserObject]()
@@ -41,6 +43,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         
         upcomingActivitiesTableView.delegate = self
         upcomingActivitiesTableView.dataSource = self
@@ -80,6 +84,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         pastVisitArrayToDisplay = [WorkOrderUserObject]()
         upcomingActionItemArrayToDisplay = [ActionItem]()
         pastActionItemArrayToDisplay = [ActionItem]()
+        
         
         //creating upcomingvisit array according to accountId
         upcomingVisit = visitModel.visitsForUserTwoWeeksUpcoming()
@@ -187,9 +192,11 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         //Getting Today, Tomorrow, Yesterday
         let calendar = Calendar.current
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
-        let getTime = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: dateToConvert)
+        let getTime = DateTimeUtility.convertUtcDatetoReadInOverview(dateStringfromAccountNotes: dateToConvert)
+        
         let dayToCheck = dateFormatter.string(from: date!)
 //        let now = Date()
 //        let dateFromWeek = dateFormatter.string(from: now)
@@ -197,17 +204,17 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
         if calendar.isDateInToday(date!){
             
-            return  "Today at " + dateTime[1]
+            return  "Today at " + dateTime[1] + " " + dateTime[2]
         }
         else if calendar.isDateInTomorrow(date!)
         {
             
-            return  "Tomorrow at " + dateTime[1]
+            return  "Tomorrow at " + dateTime[1] + " " + dateTime[2]
             
         }else if calendar.isDateInYesterday(date!)
         {
             
-            return  "Yesterday at " + dateTime[1]
+            return  "Yesterday at " + dateTime[1] + " " + dateTime[2]
             
         }else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Sunday"{
             
@@ -245,7 +252,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
         }
         
-        dateFormatter.dateFormat = "MM-dd-yyyy h:mma"
+        dateFormatter.dateFormat = "MM-dd-yyyy h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp
     }

@@ -706,7 +706,7 @@ class StoreDispatcher {
                 var visitPicklist = [String:[PlistOption]]()
                 if response.count > 0 {
                     var ary = [PlistOption]()
-                    
+                    self.createPList(plist: "/AccountVisitPurpose.plist", plistObject: (response["values"] as? [[String : AnyObject]])!)
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""

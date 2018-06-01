@@ -149,6 +149,14 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
         datePickerView.frame.origin = CGPoint(x: 350, y: 20)
         datePickerView.datePickerMode = .date
         datePickerView.minuteInterval = 15
+        
+        if textField.tag == 301{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date = dateFormatter.date(from: AccountVisitListFilterModel.startDate)
+            datePickerView.minimumDate = date
+        }
+        
         inputView.addSubview(datePickerView) // add date picker to UIView
         
         let toolBar = UIToolbar()
@@ -212,7 +220,13 @@ extension AccountVisitListFilterTableViewCell: UITextFieldDelegate{
         if textField.tag == 300{
             self.dateView(textField: textField)
         }else{
-            self.dateView(textField: textField)
+            
+            if AccountVisitListFilterModel.startDate != ""{
+                self.dateView(textField: textField)
+            }else{
+                
+                self.endEditing(true)
+            }
         }
     }
     

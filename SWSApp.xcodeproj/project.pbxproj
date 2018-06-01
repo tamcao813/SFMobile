@@ -269,6 +269,20 @@
 		8D4BA3B120B45B58005CFE56 /* LinkAccountToContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4BA37220B45B57005CFE56 /* LinkAccountToContactViewController.swift */; };
 		8D4BA3B220B45B58005CFE56 /* ContactMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4BA37320B45B57005CFE56 /* ContactMenuViewController.swift */; };
 		8D4BA3B320B45B58005CFE56 /* ContactMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4BA37320B45B57005CFE56 /* ContactMenuViewController.swift */; };
+		8D8D000220C14597009683AC /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8DFFFA20C14596009683AC /* Notification.storyboard */; };
+		8D8D000320C14597009683AC /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8DFFFA20C14596009683AC /* Notification.storyboard */; };
+		8D8D000420C14597009683AC /* NotificationFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DFFFC20C14596009683AC /* NotificationFilterViewController.swift */; };
+		8D8D000520C14597009683AC /* NotificationFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DFFFC20C14596009683AC /* NotificationFilterViewController.swift */; };
+		8D8D000620C14597009683AC /* NotificationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DFFFD20C14596009683AC /* NotificationListViewController.swift */; };
+		8D8D000720C14597009683AC /* NotificationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DFFFD20C14596009683AC /* NotificationListViewController.swift */; };
+		8D8D000820C14597009683AC /* NotificationParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DFFFE20C14596009683AC /* NotificationParentViewController.swift */; };
+		8D8D000920C14597009683AC /* NotificationParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DFFFE20C14596009683AC /* NotificationParentViewController.swift */; };
+		8D8D000A20C14597009683AC /* NotificationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DFFFF20C14596009683AC /* NotificationFilter.swift */; };
+		8D8D000B20C14597009683AC /* NotificationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DFFFF20C14596009683AC /* NotificationFilter.swift */; };
+		8D8D000C20C14597009683AC /* NotificationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8D000020C14596009683AC /* NotificationListTableViewCell.xib */; };
+		8D8D000D20C14597009683AC /* NotificationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8D000020C14596009683AC /* NotificationListTableViewCell.xib */; };
+		8D8D000E20C14597009683AC /* NotificationListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D000120C14596009683AC /* NotificationListTableViewCell.swift */; };
+		8D8D000F20C14597009683AC /* NotificationListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D000120C14596009683AC /* NotificationListTableViewCell.swift */; };
 		8D907C3C20AEACB8004FC367 /* ActionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D907C3B20AEACB8004FC367 /* ActionItem.swift */; };
 		8D907C3D20AEACB8004FC367 /* ActionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D907C3B20AEACB8004FC367 /* ActionItem.swift */; };
 		8D99A3232092D66C00FAA71A /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99A3222092D66C00FAA71A /* CustomPicker.swift */; };
@@ -730,6 +744,13 @@
 		8D4BA37120B45B57005CFE56 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
 		8D4BA37220B45B57005CFE56 /* LinkAccountToContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkAccountToContactViewController.swift; sourceTree = "<group>"; };
 		8D4BA37320B45B57005CFE56 /* ContactMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMenuViewController.swift; sourceTree = "<group>"; };
+		8D8D000020C14596009683AC /* NotificationListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationListTableViewCell.xib; sourceTree = "<group>"; };
+		8D8D000120C14596009683AC /* NotificationListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListTableViewCell.swift; sourceTree = "<group>"; };
+		8D8DFFFA20C14596009683AC /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
+		8D8DFFFC20C14596009683AC /* NotificationFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFilterViewController.swift; sourceTree = "<group>"; };
+		8D8DFFFD20C14596009683AC /* NotificationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListViewController.swift; sourceTree = "<group>"; };
+		8D8DFFFE20C14596009683AC /* NotificationParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationParentViewController.swift; sourceTree = "<group>"; };
+		8D8DFFFF20C14596009683AC /* NotificationFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFilter.swift; sourceTree = "<group>"; };
 		8D907C3B20AEACB8004FC367 /* ActionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionItem.swift; sourceTree = "<group>"; };
 		8D99A3222092D66C00FAA71A /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		8D99A3252093055200FAA71A /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
@@ -1227,6 +1248,19 @@
 			path = "Personal Detail Cells";
 			sourceTree = "<group>";
 		};
+		8D8DFFFB20C14596009683AC /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				8D8DFFFC20C14596009683AC /* NotificationFilterViewController.swift */,
+				8D8DFFFD20C14596009683AC /* NotificationListViewController.swift */,
+				8D8DFFFE20C14596009683AC /* NotificationParentViewController.swift */,
+				8D8DFFFF20C14596009683AC /* NotificationFilter.swift */,
+				8D8D000020C14596009683AC /* NotificationListTableViewCell.xib */,
+				8D8D000120C14596009683AC /* NotificationListTableViewCell.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		914E4F3620AEA2CE00FE01A5 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1470,6 +1504,7 @@
 		D1FB18572062F76C0072F4C1 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				8D8DFFFA20C14596009683AC /* Notification.storyboard */,
 				F224951220B4AF7200FF903F /* CreateEvent.storyboard */,
 				D23C409D208DCF610006691C /* AccountVisit.storyboard */,
 				1255F30C20A57B6400FC3796 /* AccountOverView.storyboard */,
@@ -1493,6 +1528,7 @@
 		D1FB185A2062F86C0072F4C1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				8D8DFFFB20C14596009683AC /* Notifications */,
 				F22CE6E120B48B1B001A2171 /* EventStartEndDateTableViewCell.swift */,
 				F22CE6E220B48B1B001A2171 /* EventStartEndDateTableViewCell.xib */,
 				F22CE6DD20B48A4D001A2171 /* CreateNewEventViewController.swift */,
@@ -1834,6 +1870,7 @@
 				6D38327F20874026006805C6 /* Ubuntu-Regular.ttf in Resources */,
 				AE1FAA8D20B4588A005B44EC /* EventLocationTableViewCell.xib in Resources */,
 				6D38328020874026006805C6 /* Ubuntu-Medium.ttf in Resources */,
+				8D8D000D20C14597009683AC /* NotificationListTableViewCell.xib in Resources */,
 				8DDD4A4D20BBFC5200423E20 /* TitleDepartmentTableViewCell.xib in Resources */,
 				4AE1195620A0AD740095BBA3 /* Info.plist in Resources */,
 				8D4BA39320B45B58005CFE56 /* DropdownTableViewCell.xib in Resources */,
@@ -1894,6 +1931,7 @@
 				91FAEF5A20A57DD500209D71 /* .gitkeep in Resources */,
 				8D4BA3A720B45B58005CFE56 /* ContactClassificationTableViewCell.xib in Resources */,
 				6D38329020874026006805C6 /* AccountsContactsVC.storyboard in Resources */,
+				8D8D000320C14597009683AC /* Notification.storyboard in Resources */,
 				6D38329120874026006805C6 /* Assets.xcassets in Resources */,
 				6D38329220874026006805C6 /* CrimsonText-BoldItalic.ttf in Resources */,
 				8D4BA39B20B45B58005CFE56 /* NameTableViewCell.xib in Resources */,
@@ -1916,6 +1954,7 @@
 				6DBD03222077B5EF0083419E /* Ubuntu-BoldItalic.ttf in Resources */,
 				121468E620AD603A00942A00 /* DropDownCell.xib in Resources */,
 				8D4BA34F20B45634005CFE56 /* ActionItem.storyboard in Resources */,
+				8D8D000C20C14597009683AC /* NotificationListTableViewCell.xib in Resources */,
 				8D4BA3A620B45B58005CFE56 /* ContactClassificationTableViewCell.xib in Resources */,
 				8D10B27A2099DF0E00C8A86C /* Contacts.storyboard in Resources */,
 				8D4BA38620B45B58005CFE56 /* FamilyTableViewCell.xib in Resources */,
@@ -1936,6 +1975,7 @@
 				AE1FAAB620B6C200005B44EC /* WeekCollectionHeaderView.xib in Resources */,
 				91FAEF5920A57DD500209D71 /* .gitkeep in Resources */,
 				F2FEB0DB2073DBEE00B25E2A /* Filter.storyboard in Resources */,
+				8D8D000220C14597009683AC /* Notification.storyboard in Resources */,
 				D23C40CA208DE6590006691C /* UnorderedListTableViewCell.xib in Resources */,
 				121468EE20AD603A00942A00 /* Info.plist in Resources */,
 				F224951320B4AF7200FF903F /* CreateEvent.storyboard in Resources */,
@@ -2209,6 +2249,7 @@
 				8DD1500F2093370400858349 /* (null) in Sources */,
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
+				8D8D000520C14597009683AC /* NotificationFilterViewController.swift in Sources */,
 				8D4BA39720B45B58005CFE56 /* ContactHoursTableViewCell.swift in Sources */,
 				91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */,
 				8D4BA39F20B45B58005CFE56 /* PrimaryFunctionTableViewCell.swift in Sources */,
@@ -2220,6 +2261,7 @@
 				8D4BA34520B455EC005CFE56 /* ActionItemTitleTableViewCell.swift in Sources */,
 				9187924820A55CAE009CB557 /* CalendarListViewController.swift in Sources */,
 				D23C40D9208DFA890006691C /* AccountVisitListTableViewCell.swift in Sources */,
+				8D8D000920C14597009683AC /* NotificationParentViewController.swift in Sources */,
 				6D38325820874026006805C6 /* GlobalConstants.swift in Sources */,
 				8D99A3272093055200FAA71A /* Validations.swift in Sources */,
 				8D4BA34920B455EC005CFE56 /* IsItUrgentTableViewCell.swift in Sources */,
@@ -2262,6 +2304,8 @@
 				8D4BA37720B45B58005CFE56 /* ContactsViewController.swift in Sources */,
 				12F0F89E2090B1D200160C3D /* ContactListDetailsTableViewCell.swift in Sources */,
 				C955CD282099A040003DADA1 /* NoteSortUtility.swift in Sources */,
+				8D8D000F20C14597009683AC /* NotificationListTableViewCell.swift in Sources */,
+				8D8D000720C14597009683AC /* NotificationListViewController.swift in Sources */,
 				F2CAD23420958075001016C2 /* DuringVisitsInsightsCollectionReusableView.swift in Sources */,
 				8D4BA3A320B45B58005CFE56 /* SearchAccountTableViewCell.swift in Sources */,
 				91FAEF4220A57DD500209D71 /* WRRowHeader.swift in Sources */,
@@ -2291,6 +2335,7 @@
 				6D38326420874026006805C6 /* ActionItemsViewController.swift in Sources */,
 				AE1FAAC620B6C2EE005B44EC /* ColumnFlowLayout.swift in Sources */,
 				91FAEF4420A57DD500209D71 /* WREventCell.swift in Sources */,
+				8D8D000B20C14597009683AC /* NotificationFilter.swift in Sources */,
 				91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */,
 				F2537BD320ADF17800075E0F /* EditAccountStrategyViewController.swift in Sources */,
 				F2FD2C2920919AF600037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */,
@@ -2403,6 +2448,7 @@
 				AE5C974520886DD4004548E9 /* PlanVisitViewController.swift in Sources */,
 				911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */,
 				F2923C9A208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift in Sources */,
+				8D8D000E20C14597009683AC /* NotificationListTableViewCell.swift in Sources */,
 				D10483962068381A00A0343B /* Contact.swift in Sources */,
 				91C3E5A1208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */,
 				AE1FAA8E20B4588A005B44EC /* EventLocationTableViewCell.swift in Sources */,
@@ -2414,6 +2460,7 @@
 				6F365320207B95850068105B /* AccountSortUtility.swift in Sources */,
 				D1FCDE0F20733025005F956D /* FilterViewModel.swift in Sources */,
 				121468EA20AD603A00942A00 /* DPDConstants.swift in Sources */,
+				8D8D000820C14597009683AC /* NotificationParentViewController.swift in Sources */,
 				F2AB945E2095D5000028802E /* DuringVisitsViewController.swift in Sources */,
 				8D4BA39420B45B58005CFE56 /* FamilyTableViewCell.swift in Sources */,
 				8D4BA34820B455EC005CFE56 /* IsItUrgentTableViewCell.swift in Sources */,
@@ -2464,6 +2511,7 @@
 				128B1A9A206BADF8004E148A /* AccountDetailTabViewController.swift in Sources */,
 				8D4BA38A20B45B58005CFE56 /* DateFieldTableViewCell.swift in Sources */,
 				9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */,
+				8D8D000420C14597009683AC /* NotificationFilterViewController.swift in Sources */,
 				F2AB94552095CBA90028802E /* AlertUtility.swift in Sources */,
 				8D17A5CA20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */,
 				D1FCDE1020733025005F956D /* UserViewModel.swift in Sources */,
@@ -2576,6 +2624,7 @@
 				12E47BE4208B518A00D37B74 /* ContactListDetailsTableViewCell.swift in Sources */,
 				8DD150042093308300858349 /* AssociateTableViewCell.swift in Sources */,
 				F2AB94602095D5000028802E /* DuringVisitsInsightsViewController.swift in Sources */,
+				8D8D000A20C14597009683AC /* NotificationFilter.swift in Sources */,
 				D2E12D7320736D620005B982 /* ReportsViewController.swift in Sources */,
 				8D4BA33220B455EB005CFE56 /* ActionItemFilterViewController.swift in Sources */,
 				F2086B7820B5B424008A61F0 /* VisitLocationTableViewCell.swift in Sources */,
@@ -2584,6 +2633,7 @@
 				8D17A5DD20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */,
 				129A699E2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */,
 				9187924420A55C79009CB557 /* CalendarMenuViewController.swift in Sources */,
+				8D8D000620C14597009683AC /* NotificationListViewController.swift in Sources */,
 				AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */,
 				91FAEF5320A57DD500209D71 /* WRTodayBackground.swift in Sources */,
 				8D4BA37C20B45B58005CFE56 /* NameTableViewCell.swift in Sources */,

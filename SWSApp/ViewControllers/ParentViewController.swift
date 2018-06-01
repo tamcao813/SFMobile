@@ -102,6 +102,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let syncUpVC = mainStoryboard.instantiateViewController(withIdentifier: "SyncInfoViewController") as! SyncInfoViewController
         return syncUpVC
     }()
+
+    lazy var notificationParent : NotificationParentViewController? = {
+        let notificationStoryboard: UIStoryboard = UIStoryboard(name: "Notification", bundle: nil)
+        let notificationParentVC = notificationStoryboard.instantiateViewController(withIdentifier: "NotificationParentViewController") as! NotificationParentViewController
+        return notificationParentVC
+    }()
     
     
     
@@ -520,9 +526,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             case 3:
                 self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
             case 4:
-                self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: index)
-                //notificationsVC.view.frame.origin.y = -63.5
-                
+                moreVC1.view.addSubview((self.notificationParent?.view)!)
+                self.moreDropDownSelectionIndex = index
             case 5:
                 self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
                 

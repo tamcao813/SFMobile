@@ -10,7 +10,7 @@ import UIKit
 
 class NotificationListViewController: UIViewController {
 
-    var notificationArray = [String]()
+    var notificationArray = [Notifications]()
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,7 @@ class NotificationListViewController: UIViewController {
     
     func getNotifications(){
         notificationArray = NotificationsViewModel().notificationsForUser()
+        notificationArray = notificationArray.sorted(by: { $0.createdDate < $1.createdDate })
         reloadTableView()
     }
     
@@ -84,7 +85,7 @@ extension NotificationListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationListTableViewCell") as? NotificationListTableViewCell
-        
+        cell?.displayCellContent(notificationObject: notificationArray[indexPath.row])
         return cell!
     }
     

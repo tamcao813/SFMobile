@@ -19,7 +19,8 @@ class NotificationListViewController: UIViewController {
     }
     
     func getNotifications(){
-        
+        notificationArray = NotificationsViewModel().notificationsForUser()
+        reloadTableView()
     }
     
     func customizedUI(){

@@ -291,15 +291,16 @@ class StoreDispatcher {
     /**
      createSyncLogOnSyncStart Will insert Sync log indicating that Sync has started
      */
-    func createSyncLogOnSyncStart(){
+    func createSyncLogOnSyncStart(networkType:String){
         let newSyncLog = SyncLog(for: "NewSyncLog")
+        print(networkType)
         newSyncLog.Id = generateRandomIDForSyncLog()
         sessionID = "SID:\(newSyncLog.Id)"
         newSyncLog.sessionID = sessionID
         newSyncLog.activityType = "Sync Start"
         newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
-        newSyncLog.activityDetails = "{\"ConnectionType\":\"WiFi\",\"SyncType\":\"Manual\"}"
+        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\"}"
 //        createOneSyncLog(newSyncLog)
         
         let attributeDict = ["type":SoupSyncLog]
@@ -324,14 +325,14 @@ class StoreDispatcher {
         }
     }
     
-    func createSyncLogOnSyncStop(){
+    func createSyncLogOnSyncStop(networkType:String){
         let newSyncLog = SyncLog(for: "NewSyncLog")
         newSyncLog.Id = generateRandomIDForSyncLog()
         newSyncLog.sessionID = sessionID
         newSyncLog.activityType = "Sync Stop"
         newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
-        newSyncLog.activityDetails = "{\"ConnectionType\":\"WiFi\",\"SyncType\":\"Manual\"}"
+        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\"}"
     
 //        createOneSyncLog(newSyncLog)
         let attributeDict = ["type":SoupSyncLog]
@@ -359,14 +360,14 @@ class StoreDispatcher {
     /**
      createSyncLogOnSyncStart Will insert Sync log indicating that Sync has started
      */
-    func createSyncLogOnSyncError(errorType: String){
+    func createSyncLogOnSyncError(errorType: String,networkType:String){
         let newSyncLog = SyncLog(for: "NewSyncLog")
         newSyncLog.Id = generateRandomIDForSyncLog()
         newSyncLog.sessionID = "SID:\(newSyncLog.Id)"
         newSyncLog.activityType = "SyncErr\(errorType)"
         newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
-        newSyncLog.activityDetails = "{\"ConnectionType\":\"WiFi\",\"SyncType\":\"Manual\"}"
+        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\"}"
         //        createOneSyncLog(newSyncLog)
         
         let attributeDict = ["type":SoupSyncLog]

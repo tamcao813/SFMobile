@@ -157,7 +157,7 @@ class NotificationFilterViewController: UIViewController {
     
     //Data to pass for Respective Cell Class
     func passDataToTableViewCell(cell : UITableViewCell, indexPath : IndexPath){
-        (cell as? ActionItemFilterTableViewCell)?.displayCellContent(sectionContent: notification.sectionItems as NSArray, indexPath: indexPath)
+        (cell as? NotificationFilterTableViewCell)?.displayCellContent(sectionContent: notification.sectionItems as NSArray, indexPath: indexPath)
     }
     
     //Dropdown Single selection option clicked and is assigned to model class
@@ -322,9 +322,8 @@ extension NotificationFilterViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: filterCell, for: indexPath) as! ActionItemFilterTableViewCell
-        cell.selectionStyle = .none
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationFilterTableViewCell", for: indexPath) as! NotificationFilterTableViewCell
+        cell.selectionStyle = .none        
         self.passDataToTableViewCell(cell: cell, indexPath: indexPath)
         
         return cell

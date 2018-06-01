@@ -283,6 +283,8 @@
 		8D8D000D20C14597009683AC /* NotificationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8D000020C14596009683AC /* NotificationListTableViewCell.xib */; };
 		8D8D000E20C14597009683AC /* NotificationListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D000120C14596009683AC /* NotificationListTableViewCell.swift */; };
 		8D8D000F20C14597009683AC /* NotificationListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D000120C14596009683AC /* NotificationListTableViewCell.swift */; };
+		8D8D001120C16436009683AC /* NotificationFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D001020C16436009683AC /* NotificationFilterTableViewCell.swift */; };
+		8D8D001220C16436009683AC /* NotificationFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D001020C16436009683AC /* NotificationFilterTableViewCell.swift */; };
 		8D907C3C20AEACB8004FC367 /* ActionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D907C3B20AEACB8004FC367 /* ActionItem.swift */; };
 		8D907C3D20AEACB8004FC367 /* ActionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D907C3B20AEACB8004FC367 /* ActionItem.swift */; };
 		8D99A3232092D66C00FAA71A /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99A3222092D66C00FAA71A /* CustomPicker.swift */; };
@@ -746,6 +748,7 @@
 		8D4BA37320B45B57005CFE56 /* ContactMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMenuViewController.swift; sourceTree = "<group>"; };
 		8D8D000020C14596009683AC /* NotificationListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationListTableViewCell.xib; sourceTree = "<group>"; };
 		8D8D000120C14596009683AC /* NotificationListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListTableViewCell.swift; sourceTree = "<group>"; };
+		8D8D001020C16436009683AC /* NotificationFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFilterTableViewCell.swift; sourceTree = "<group>"; };
 		8D8DFFFA20C14596009683AC /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
 		8D8DFFFC20C14596009683AC /* NotificationFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFilterViewController.swift; sourceTree = "<group>"; };
 		8D8DFFFD20C14596009683AC /* NotificationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListViewController.swift; sourceTree = "<group>"; };
@@ -1257,6 +1260,7 @@
 				8D8DFFFF20C14596009683AC /* NotificationFilter.swift */,
 				8D8D000020C14596009683AC /* NotificationListTableViewCell.xib */,
 				8D8D000120C14596009683AC /* NotificationListTableViewCell.swift */,
+				8D8D001020C16436009683AC /* NotificationFilterTableViewCell.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -2250,6 +2254,7 @@
 				6D38325220874026006805C6 /* ChatterViewController.swift in Sources */,
 				6D38325320874026006805C6 /* AccountSortUtility.swift in Sources */,
 				8D8D000520C14597009683AC /* NotificationFilterViewController.swift in Sources */,
+				8D8D001220C16436009683AC /* NotificationFilterTableViewCell.swift in Sources */,
 				8D4BA39720B45B58005CFE56 /* ContactHoursTableViewCell.swift in Sources */,
 				91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */,
 				8D4BA39F20B45B58005CFE56 /* PrimaryFunctionTableViewCell.swift in Sources */,
@@ -2571,6 +2576,7 @@
 				8D99A3262093055200FAA71A /* Validations.swift in Sources */,
 				121468F220AD603A00942A00 /* DropDownCell.swift in Sources */,
 				D2EAEB942074EF88005F7792 /* NotificationsViewController.swift in Sources */,
+				8D8D001120C16436009683AC /* NotificationFilterTableViewCell.swift in Sources */,
 				4A39D30320AC496C00F79D95 /* AccountsActionItemViewModel.swift in Sources */,
 				8DD1501220933A0800858349 /* StringConstants.swift in Sources */,
 				4A00BB5020BBBCC60003C3ED /* SyncLog.swift in Sources */,

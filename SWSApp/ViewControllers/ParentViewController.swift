@@ -719,16 +719,18 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     @objc func notificationButtonPressed(sender: UIBarButtonItem){
         
         self.moreDropDownSelectionIndex = -1
-        let moreStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
-        notificationsViewController = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
-        if let notifVC = notificationsViewController{
-            self.notificationsView = notifVC.view
-            notifVC.view.restorationIdentifier = "globalNotification"
-            self.view.endEditing(true)
-            self.view.addSubview(notifVC.view)
-            self.notificationButton?.isEnabled = false
-            self.numberLabel?.isUserInteractionEnabled = false
-        }
+//        let moreStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
+//        notificationsViewController = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
+        
+        
+        self.notificationsView = notificationParent?.view
+//        notifVC.view.restorationIdentifier = "globalNotification"
+//        if let notifVC = notificationsViewController{
+//            self.view.endEditing(true)
+//            self.view.addSubview(notifVC.view)
+//            self.notificationButton?.isEnabled = false
+//            self.numberLabel?.isUserInteractionEnabled = false
+//        }
     }
 }
 

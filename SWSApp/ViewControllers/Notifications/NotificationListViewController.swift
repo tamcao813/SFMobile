@@ -113,11 +113,11 @@ extension NotificationListViewController : UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if NotificationFilterModel.filterApplied {
-            self.editNotification(notification: filteredNotificationsArray[indexPath.row])
-        }else{
-            self.editNotification(notification: notificationsArray[indexPath.row])
-        }
+//        if NotificationFilterModel.filterApplied {
+//            self.editNotification(notification: filteredNotificationsArray[indexPath.row])
+//        }else{
+//            self.editNotification(notification: notificationsArray[indexPath.row])
+//        }
     }
     
 }

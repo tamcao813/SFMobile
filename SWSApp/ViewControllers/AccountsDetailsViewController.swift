@@ -76,6 +76,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     let accountOverViewStoryboard = UIStoryboard.init(name: "AccountOverView", bundle: nil)
     let notesStoryboard = UIStoryboard.init(name: "Notes", bundle: nil)
     let strategyStoryboard = UIStoryboard.init(name: "Strategy", bundle: nil)
+    let opportunitiesStoryboard = UIStoryboard.init(name: "Opportunities", bundle: nil)
     let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
     let actionItemStoryboard = UIStoryboard.init(name: "ActionItem", bundle: nil)
     lazy var actionItemContainerVC : ActionItemsContainerViewController? = {
@@ -381,12 +382,13 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             btnInsights?.setTitleColor(UIColor.black, for: .normal)
             selectedIndex = 2
         case 3:
-            containerView?.isHidden = true
+            containerView?.isHidden = false
             btnOpportunities?.backgroundColor = UIColor.white
             btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
+
+            let opportunitiesViewController: OpportunitiesViewController = opportunitiesStoryboard.instantiateViewController(withIdentifier: "OpportunitiesViewControllerID") as! OpportunitiesViewController
+            activeViewController = opportunitiesViewController
             selectedIndex = 3
-            //let opportunitiesViewController: OpportunitiesViewController = mainStoryboard.instantiateViewController(withIdentifier: "OpportunitiesViewControllerID") as! OpportunitiesViewController
-        //activeViewController = opportunitiesViewController
         case 4:
             containerView?.isHidden = false
             btnStrategy?.backgroundColor = UIColor.white

@@ -21,6 +21,7 @@ class NotificationListViewController: UIViewController {
     }
     
     func getNotifications(){
+        notificationsArray = [Notifications]()
         notificationsArray = NotificationsViewModel().notificationsForUser()
         notificationsArray = notificationsArray.sorted(by: { $0.createdDate < $1.createdDate })
         reloadTableView()
@@ -75,8 +76,8 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
         let attributeDict = ["type":"FS_Notification__c"]
         let notificationDict: [String:Any] = [
             
-            ActionItem.AccountActionItemFields[0]: editNotification.Id,
-            ActionItem.AccountActionItemFields[8]: editNotification.isRead,
+            Notifications.notificationsFields[0]: editNotification.Id,
+            Notifications.notificationsFields[8]: editNotification.isRead,
 //            ActionItem.AccountActionItemFields[7]: editNotification.lastModifiedDate,
             
             kSyncTargetLocal:true,
@@ -113,11 +114,11 @@ extension NotificationListViewController : UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if NotificationFilterModel.filterApplied {
-//            self.editNotification(notification: filteredNotificationsArray[indexPath.row])
-//        }else{
-//            self.editNotification(notification: notificationsArray[indexPath.row])
-//        }
+        if NotificationFilterModel.filterApplied {
+            self.editNotification(notification: filteredNotificationsArray[indexPath.row])
+        }else{
+            self.editNotification(notification: notificationsArray[indexPath.row])
+        }
     }
     
 }

@@ -296,13 +296,13 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vSr-mS-BzR">
-                                                        <rect key="frame" x="183" y="21" width="80" height="1"/>
+                                                        <rect key="frame" x="183" y="21" width="54" height="1"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="vSr-mS-BzR" secondAttribute="trailing" constant="4" id="BOE-Vc-ipV"/>
+                                                    <constraint firstAttribute="trailing" secondItem="vSr-mS-BzR" secondAttribute="trailing" constant="30" id="BOE-Vc-ipV"/>
                                                     <constraint firstItem="z1p-4g-OEN" firstAttribute="centerX" secondItem="hVE-lv-5yd" secondAttribute="centerX" id="Dm6-0g-prR"/>
                                                     <constraint firstItem="vSr-mS-BzR" firstAttribute="height" secondItem="mm0-1P-ipO" secondAttribute="height" id="EX1-gy-26r"/>
                                                     <constraint firstItem="z1p-4g-OEN" firstAttribute="leading" secondItem="mm0-1P-ipO" secondAttribute="trailing" constant="4" id="JVL-N5-1Lk"/>
@@ -520,24 +520,141 @@
                                 <rect key="frame" x="6" y="110" width="714" height="577"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NKR-lT-UwC">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4XR-ir-FkZ" userLabel="Pagination View">
                                 <rect key="frame" x="0.0" y="687" width="736" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="5XE-B5-DTB">
+                                        <rect key="frame" x="109" y="14" width="518.5" height="32"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72y-Pg-ban">
+                                                <rect key="frame" x="0.0" y="0.0" width="150.5" height="32"/>
+                                                <color key="backgroundColor" name="LightGrey"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="bY5-7x-jVZ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" title="&lt;   First Page">
+                                                    <color key="titleColor" name="Data New"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vY-jx-MXu">
+                                                <rect key="frame" x="151.5" y="0.0" width="30" height="32"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" title="&lt;">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUb-J5-0rs">
+                                                <rect key="frame" x="182.5" y="0.0" width="30" height="32"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                                <state key="normal" title="1">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <state key="selected">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k9Z-f8-gAv">
+                                                <rect key="frame" x="213.5" y="0.0" width="30" height="32"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                                <state key="normal" title="2">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gcr-le-q9E">
+                                                <rect key="frame" x="244.5" y="0.0" width="30" height="32"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                                <state key="normal" title="3">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p5U-0C-qtE">
+                                                <rect key="frame" x="275.5" y="0.0" width="30" height="32"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                                <state key="normal" title="4">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bt6-g0-asm">
+                                                <rect key="frame" x="306.5" y="0.0" width="30" height="32"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                                <state key="normal" title="5">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" tag="107" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n6a-gv-YRz">
+                                                <rect key="frame" x="337.5" y="0.0" width="30" height="32"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" title="&gt;">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" tag="108" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJX-gx-IH8">
+                                                <rect key="frame" x="368.5" y="0.0" width="150" height="32"/>
+                                                <color key="backgroundColor" name="LightGrey"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="ExH-zN-ZQR"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                <state key="normal" title="Last Page  &gt;">
+                                                    <color key="titleColor" name="Data New"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="0o8-Ns-ze0"/>
+                                    <constraint firstAttribute="height" constant="60" id="9iZ-3t-41H"/>
+                                    <constraint firstItem="5XE-B5-DTB" firstAttribute="centerY" secondItem="4XR-ir-FkZ" secondAttribute="centerY" id="B6V-3W-LOe"/>
+                                    <constraint firstItem="5XE-B5-DTB" firstAttribute="centerX" secondItem="4XR-ir-FkZ" secondAttribute="centerX" id="Pgs-ha-Gxq"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" name="LightGrey"/>
                         <constraints>
                             <constraint firstItem="48P-0x-iRf" firstAttribute="trailing" secondItem="SAO-1k-0Cc" secondAttribute="trailing" id="6tl-ul-CLP"/>
-                            <constraint firstItem="NKR-lT-UwC" firstAttribute="leading" secondItem="vtM-V6-WeB" secondAttribute="leading" id="949-NH-vvB"/>
                             <constraint firstItem="48P-0x-iRf" firstAttribute="top" secondItem="SAO-1k-0Cc" secondAttribute="bottom" id="A80-cY-TYq"/>
-                            <constraint firstItem="vtM-V6-WeB" firstAttribute="trailing" secondItem="NKR-lT-UwC" secondAttribute="trailing" id="IYj-63-qlL"/>
-                            <constraint firstItem="NKR-lT-UwC" firstAttribute="top" secondItem="48P-0x-iRf" secondAttribute="bottom" id="aQ2-Zy-fNu"/>
+                            <constraint firstItem="4XR-ir-FkZ" firstAttribute="top" secondItem="48P-0x-iRf" secondAttribute="bottom" id="GZy-oV-mSg"/>
+                            <constraint firstItem="vtM-V6-WeB" firstAttribute="trailing" secondItem="4XR-ir-FkZ" secondAttribute="trailing" id="Khv-wc-RNg"/>
                             <constraint firstItem="SAO-1k-0Cc" firstAttribute="top" secondItem="vtM-V6-WeB" secondAttribute="top" constant="20" id="bVO-OO-0me"/>
+                            <constraint firstItem="vtM-V6-WeB" firstAttribute="bottom" secondItem="4XR-ir-FkZ" secondAttribute="bottom" id="esF-mc-Vjo"/>
+                            <constraint firstItem="4XR-ir-FkZ" firstAttribute="leading" secondItem="vtM-V6-WeB" secondAttribute="leading" id="gCt-Zl-dge"/>
                             <constraint firstItem="vtM-V6-WeB" firstAttribute="trailing" secondItem="SAO-1k-0Cc" secondAttribute="trailing" constant="16" id="jKf-fg-0xK"/>
-                            <constraint firstItem="vtM-V6-WeB" firstAttribute="bottom" secondItem="NKR-lT-UwC" secondAttribute="bottom" id="oes-xp-y8m"/>
                             <constraint firstItem="48P-0x-iRf" firstAttribute="leading" secondItem="SAO-1k-0Cc" secondAttribute="leading" id="ukm-1V-0kd"/>
                             <constraint firstItem="SAO-1k-0Cc" firstAttribute="leading" secondItem="vtM-V6-WeB" secondAttribute="leading" constant="6" id="x8f-Od-aSg"/>
                         </constraints>
@@ -552,8 +669,14 @@
     <resources>
         <image name="Sort Gray" width="149" height="149"/>
         <image name="radioUnselected" width="20" height="20"/>
+        <namedColor name="Data New">
+            <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="LightGrey">
             <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LightGrey">
+            <color red="0.94099998470000001" green="0.95700001720000005" blue="0.96899998190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

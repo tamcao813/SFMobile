@@ -41,6 +41,13 @@ class Notifications {
         sgwsContactBirthdayNotification = json["SGWS_Contact_Birthday_Notification__c"] as? String ?? ""
         sgwsContact = json["SGWS_Contact__c"] as? String ?? ""
         isRead = json["isRead"] as? Bool ?? false
+        let isReadString = json["isRead"] as? String ?? ""
+        if isReadString == "true" {
+            isRead = true
+        }
+        if isReadString == "1" {
+            isRead = true
+        }
         soupEntryId = json["_soupEntryId"] as? String ?? ""
         sgwsType = json["SGWS_Type__c"]  as? String ?? ""       
     }

@@ -14,6 +14,8 @@ class NotificationListViewController: UIViewController {
     var notificationsArray = [Notifications]()
     var filteredNotificationsArray = [Notifications]()
     @IBOutlet weak var tableView: UITableView!
+    let parnentViewController = ParentViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
@@ -89,6 +91,7 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
         let success = NotificationsViewModel().editNotificationsLocally(fields: notificationDict)
         if success {
             self.getNotifications()
+            parnentViewController.getUnreadNotificationsCount()
         }
     }
 }

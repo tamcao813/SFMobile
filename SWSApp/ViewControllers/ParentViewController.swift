@@ -253,12 +253,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         self.numberLabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
         self.numberLabel?.font  = UIFont.boldSystemFont(ofSize: 8)
-        self.numberLabel?.text = "3"
         self.numberLabel?.textAlignment = .center
         self.numberLabel?.textColor = UIColor.white
         self.numberLabel?.backgroundColor = UIColor(named: "Data New")
         self.numberLabel?.layer.cornerRadius = 20/2
         self.numberLabel?.clipsToBounds = true
+        getUnreadNotificationsCount()
         self.notificationButton = UIBarButtonItem.init(customView: self.numberLabel!)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(ParentViewController.notificationButtonPressed))
@@ -723,7 +723,21 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.removeSubviews()
         currentViewController?.view.addSubview(moreVC1.view)
         moreVC1.view.addSubview((notificationParent?.view)!)
-        self.moreDropDownSelectionIndex = 4
+        self.moreDropDownSelectionIndex = -1
+    }
+    
+    func getUnreadNotificationsCount(){
+        var notificationsArray = [Notifications]()
+        var unreadNotificationsArray = [Notifications]()
+        notificationsArray = NotificationsViewModel().notificationsForUser()
+        for notification in notificationsArray {
+            if !notification.isRead {
+                unreadNotificationsArray.append(notification)
+            }
+        }
+        DispatchQueue.main.async {
+            self.numberLabel?.text = "\(unreadNotificationsArray.count)"
+        }
     }
 }
 

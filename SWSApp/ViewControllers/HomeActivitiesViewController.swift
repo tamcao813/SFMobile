@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class HomeActivitiesViewController: UIViewController, UITableViewDataSource {
+class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var tableView : UITableView?
     let actionItemModel = AccountsActionItemViewModel()
@@ -45,6 +45,10 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource {
         cell.textLabel?.text = "HEllpor"
         return cell
     }
+    
+    
+    
+
     
     
 }

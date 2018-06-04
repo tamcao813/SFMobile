@@ -102,6 +102,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let syncUpVC = mainStoryboard.instantiateViewController(withIdentifier: "SyncInfoViewController") as! SyncInfoViewController
         return syncUpVC
     }()
+
+    lazy var notificationParent : NotificationParentViewController? = {
+        let notificationStoryboard: UIStoryboard = UIStoryboard(name: "Notification", bundle: nil)
+        let notificationParentVC = notificationStoryboard.instantiateViewController(withIdentifier: "NotificationParentViewController") as! NotificationParentViewController
+        return notificationParentVC
+    }()
     
     
     
@@ -202,7 +208,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: 0)
             
         }else if  data == LoadThePersistantMenuScreen.notifications.rawValue {
-            self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: 4)
+            moreVC1.view.addSubview((notificationParent?.view)!)
+            self.moreDropDownSelectionIndex = 4
         }
     }
     
@@ -246,12 +253,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         self.numberLabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
         self.numberLabel?.font  = UIFont.boldSystemFont(ofSize: 8)
-        self.numberLabel?.text = "3"
         self.numberLabel?.textAlignment = .center
         self.numberLabel?.textColor = UIColor.white
         self.numberLabel?.backgroundColor = UIColor(named: "Data New")
         self.numberLabel?.layer.cornerRadius = 20/2
         self.numberLabel?.clipsToBounds = true
+        getUnreadNotificationsCount()
         self.notificationButton = UIBarButtonItem.init(customView: self.numberLabel!)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(ParentViewController.notificationButtonPressed))
@@ -520,9 +527,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             case 3:
                 self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
             case 4:
-                self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: index)
-                //notificationsVC.view.frame.origin.y = -63.5
-                
+                moreVC1.view.addSubview((self.notificationParent?.view)!)
+                self.moreDropDownSelectionIndex = index
             case 5:
                 self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
                 
@@ -712,17 +718,25 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
     @objc func notificationButtonPressed(sender: UIBarButtonItem){
-        
+        let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+        let currentViewController = self.displayCurrentTab(LoadThePersistantMenuScreen.notifications.rawValue)
+        self.removeSubviews()
+        currentViewController?.view.addSubview(moreVC1.view)
+        moreVC1.view.addSubview((notificationParent?.view)!)
         self.moreDropDownSelectionIndex = -1
-        let moreStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
-        notificationsViewController = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
-        if let notifVC = notificationsViewController{
-            self.notificationsView = notifVC.view
-            notifVC.view.restorationIdentifier = "globalNotification"
-            self.view.endEditing(true)
-            self.view.addSubview(notifVC.view)
-            self.notificationButton?.isEnabled = false
-            self.numberLabel?.isUserInteractionEnabled = false
+    }
+    
+    func getUnreadNotificationsCount(){
+        var notificationsArray = [Notifications]()
+        var unreadNotificationsArray = [Notifications]()
+        notificationsArray = NotificationsViewModel().notificationsForUser()
+        for notification in notificationsArray {
+            if !notification.isRead {
+                unreadNotificationsArray.append(notification)
+            }
+        }
+        DispatchQueue.main.async {
+            self.numberLabel?.text = "\(unreadNotificationsArray.count)"
         }
     }
 }

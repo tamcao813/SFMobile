@@ -466,6 +466,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         displayCurrentTab(selectedSegment)
         if(selectedSegment == 0) {
             defaults.set(true, forKey: "FromHomeVC")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
         } else if (selectedSegment == 3) {
             defaults.set(false, forKey: "FromHomeVC")
         } else {

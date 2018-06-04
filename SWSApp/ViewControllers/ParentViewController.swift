@@ -34,7 +34,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var moreDropDownSelectionIndex:Int?=0
     
     var notificationButton:UIBarButtonItem? = nil
-    var numberLabel = UILabel()
+    var unreadNotificationCountLabel = UILabel()
     
     @IBOutlet weak var contentView: UIView!
     // current view controller
@@ -232,7 +232,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
     
-    func setupTopMenuIcons(){
+    private func setupTopMenuIcons(){
         
         self.userInitialLabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
         self.userInitialLabel?.font  = UIFont.boldSystemFont(ofSize: 13)
@@ -250,19 +250,19 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.userInitialLabel?.addGestureRecognizer(userInitialLabelTap)
         
         
-        self.numberLabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
-        self.numberLabel.font  = UIFont.boldSystemFont(ofSize: 8)
-        self.numberLabel.textAlignment = .center
-        self.numberLabel.textColor = UIColor.white
-        self.numberLabel.backgroundColor = UIColor(named: "Data New")
-        self.numberLabel.layer.cornerRadius = 20/2
-        self.numberLabel.clipsToBounds = true
+        self.unreadNotificationCountLabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
+        self.unreadNotificationCountLabel.font  = UIFont.boldSystemFont(ofSize: 8)
+        self.unreadNotificationCountLabel.textAlignment = .center
+        self.unreadNotificationCountLabel.textColor = UIColor.white
+        self.unreadNotificationCountLabel.backgroundColor = UIColor(named: "Data New")
+        self.unreadNotificationCountLabel.layer.cornerRadius = 10
+        self.unreadNotificationCountLabel.clipsToBounds = true
         getUnreadNotificationsCount()
-        self.notificationButton = UIBarButtonItem.init(customView: self.numberLabel)
+        self.notificationButton = UIBarButtonItem.init(customView: self.unreadNotificationCountLabel)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(ParentViewController.notificationButtonPressed))
-        self.numberLabel.isUserInteractionEnabled = true
-        self.numberLabel.addGestureRecognizer(tap)
+        self.unreadNotificationCountLabel.isUserInteractionEnabled = true
+        self.unreadNotificationCountLabel.addGestureRecognizer(tap)
         
         onlineStatusView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
         onlineStatusView.backgroundColor = UIColor(named: "Good")
@@ -644,7 +644,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         
         self.notificationButton?.isEnabled = true
-        self.numberLabel.isUserInteractionEnabled = true
+        self.unreadNotificationCountLabel.isUserInteractionEnabled = true
         
         let selectedVC:GlobalConstants.persistenMenuTabVCIndex = GlobalConstants.persistenMenuTabVCIndex(rawValue: index)!
         
@@ -739,7 +739,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
         let count : String = String(unreadNotificationsArray.count)
         DispatchQueue.main.async {
-            self.numberLabel.text = count
+            self.unreadNotificationCountLabel.text = count
         }
     }
 }

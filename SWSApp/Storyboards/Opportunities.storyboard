@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -83,13 +83,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mot-9u-2ar">
-                                                    <rect key="frame" x="15" y="3" width="37" height="27.5"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGE-4B-dYw">
-                                                    <rect key="frame" x="12" y="10" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="trJ-Mc-msK">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -246,7 +246,39 @@
                     <view key="view" contentMode="scaleToFill" id="hhL-e5-kQl">
                         <rect key="frame" x="0.0" y="0.0" width="736" height="747"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SAO-1k-0Cc">
+                                <rect key="frame" x="6" y="40" width="714" height="70"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="dpY-1b-vlo"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="48P-0x-iRf">
+                                <rect key="frame" x="6" y="110" width="714" height="577"/>
+                                <color key="backgroundColor" name="LightGrey"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NKR-lT-UwC">
+                                <rect key="frame" x="0.0" y="687" width="736" height="60"/>
+                                <color key="backgroundColor" name="LightGrey"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="0o8-Ns-ze0"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" name="LightGrey"/>
+                        <constraints>
+                            <constraint firstItem="48P-0x-iRf" firstAttribute="trailing" secondItem="SAO-1k-0Cc" secondAttribute="trailing" id="6tl-ul-CLP"/>
+                            <constraint firstItem="NKR-lT-UwC" firstAttribute="leading" secondItem="vtM-V6-WeB" secondAttribute="leading" id="949-NH-vvB"/>
+                            <constraint firstItem="48P-0x-iRf" firstAttribute="top" secondItem="SAO-1k-0Cc" secondAttribute="bottom" id="A80-cY-TYq"/>
+                            <constraint firstItem="vtM-V6-WeB" firstAttribute="trailing" secondItem="NKR-lT-UwC" secondAttribute="trailing" id="IYj-63-qlL"/>
+                            <constraint firstItem="NKR-lT-UwC" firstAttribute="top" secondItem="48P-0x-iRf" secondAttribute="bottom" id="aQ2-Zy-fNu"/>
+                            <constraint firstItem="SAO-1k-0Cc" firstAttribute="top" secondItem="vtM-V6-WeB" secondAttribute="top" constant="20" id="bVO-OO-0me"/>
+                            <constraint firstItem="vtM-V6-WeB" firstAttribute="trailing" secondItem="SAO-1k-0Cc" secondAttribute="trailing" constant="16" id="jKf-fg-0xK"/>
+                            <constraint firstItem="vtM-V6-WeB" firstAttribute="bottom" secondItem="NKR-lT-UwC" secondAttribute="bottom" id="oes-xp-y8m"/>
+                            <constraint firstItem="48P-0x-iRf" firstAttribute="leading" secondItem="SAO-1k-0Cc" secondAttribute="leading" id="ukm-1V-0kd"/>
+                            <constraint firstItem="SAO-1k-0Cc" firstAttribute="leading" secondItem="vtM-V6-WeB" secondAttribute="leading" constant="6" id="x8f-Od-aSg"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vtM-V6-WeB"/>
                     </view>
                 </viewController>
@@ -257,6 +289,9 @@
     </scenes>
     <resources>
         <image name="radioUnselected" width="20" height="20"/>
+        <namedColor name="LightGrey">
+            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="LightGrey">
             <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

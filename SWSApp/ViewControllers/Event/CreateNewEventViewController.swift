@@ -233,22 +233,22 @@ class CreateNewEventViewController: UIViewController {
         return true
     }
     
-    func getDate(stringDate: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        var date = dateFormatter.date(from: stringDate)
-        if date == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-            dateFormatter.timeZone = TimeZone.current
-            date = dateFormatter.date(from: stringDate)
-        }
-        if date != nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            return dateFormatter.string(from: date!)
-        }
-        return ""
-    }
+//    func getDate(stringDate: String) -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+//        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+//        var date = dateFormatter.date(from: stringDate)
+//        if date == nil {
+//            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+//            dateFormatter.timeZone = TimeZone.current
+//            date = dateFormatter.date(from: stringDate)
+//        }
+//        if date != nil {
+//            dateFormatter.dateFormat = "yyyy-MM-dd"
+//            return dateFormatter.string(from: date!)
+//        }
+//        return ""
+//    }
     
     func getTime(stringDate: String) -> String {
         let dateFormatter = DateFormatter()
@@ -374,7 +374,7 @@ class CreateNewEventViewController: UIViewController {
     
     func getDataTimeinStr(date:String, time: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
+        dateFormatter.dateFormat = "MM/dd/yyyy'T'hh:mm a"
         var string = date + "T" + time
         if let dateFromString = dateFormatter.date(from: string) {
             //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
@@ -457,14 +457,14 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
                 //For the first Time Load as it will be False
                 if CreateNewEventViewControllerGlobals.isFirstTimeLoad == true{
                     
-                    cell.eventStartDateTextField.text = self.getDate(stringDate: eventObject.startDate)
-                    cell.eventEndDateTextField.text = self.getDate(stringDate: eventObject.endDate)
+                    cell.eventStartDateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.startDate)
+                    cell.eventEndDateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.endDate)
                     cell.eventStartTimeTextField.text = self.getTime(stringDate: eventObject.startDate)
                     cell.eventEndTimeTextField.text = self.getTime(stringDate: eventObject.endDate)
                     
                     //Setting the model Data in Edit Mode
-                    CreateNewEventViewControllerGlobals.startDate = self.getDate(stringDate: eventObject.startDate)
-                    CreateNewEventViewControllerGlobals.endDate = self.getDate(stringDate: eventObject.endDate)
+                    CreateNewEventViewControllerGlobals.startDate = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.startDate)
+                    CreateNewEventViewControllerGlobals.endDate = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.endDate)
                     CreateNewEventViewControllerGlobals.startTime = self.getTime(stringDate: eventObject.startDate)
                     CreateNewEventViewControllerGlobals.endTime = self.getTime(stringDate: eventObject.endDate)
                     

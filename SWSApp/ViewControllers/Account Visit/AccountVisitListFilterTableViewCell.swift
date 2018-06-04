@@ -178,7 +178,7 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         
         if sender.tag == 300{
             lblStartDate?.text = dateFormatter.string(from: datePickerView.date)
@@ -187,7 +187,7 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
         }
         
         if ((lblStartDate?.text! == "") && (lblEndDate?.text! == "")) {
-            if DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: (lblStartDate?.text!)!).compare(DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: (lblEndDate?.text!)!)) == .orderedDescending  {
+            if DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: (lblStartDate?.text!)!).compare(DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: (lblEndDate?.text!)!)) == .orderedDescending  {
                 lblEndDate?.text! = ""
                 
                 let alert = UIAlertView()

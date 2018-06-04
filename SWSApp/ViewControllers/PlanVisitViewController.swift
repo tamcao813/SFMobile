@@ -331,7 +331,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             if let textField = subviews as? DesignableUITextField {
                 switch textField.tag {
                 case 200:
-                    textField.text = self.getDate(date: (editVist?.startDate)!)
+                    textField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: (editVist?.startDate)!)
                 case 201:
                     textField.text = self.getTime(date: (editVist?.startDate)!)
                 case 202:
@@ -343,23 +343,25 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         }
     }
     
-    func getDate(date: String) -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" // This formate is input formated .
-        
-        var formateDate = Date()
-        if dateFormatter.date(from:(date)) != nil {
-            formateDate = dateFormatter.date(from:(date))!
-            dateFormatter.dateFormat = "dd-MM-yyyy" // Output Formated
-        } else {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss" // This formate is input formated .
-            formateDate = dateFormatter.date(from:(date))!
-            dateFormatter.dateFormat = "dd-MM-yyyy" // Output Formated
-        }
-        
-        return dateFormatter.string(from: formateDate)
-    }
+//    func getDate(date: String) -> String {
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" // This formate is input formated .
+//
+//        var formateDate = Date()
+//        if dateFormatter.date(from:(date)) != nil {
+//            formateDate = dateFormatter.date(from:(date))!
+//            dateFormatter.dateFormat = "dd-MM-yyyy" // Output Formated
+//        } else {
+//            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss" // This formate is input formated .
+//            formateDate = dateFormatter.date(from:(date))!
+//            dateFormatter.dateFormat = "dd-MM-yyyy" // Output Formated
+//        }
+//
+//        return dateFormatter.string(from: formateDate)
+//    }
+//
+
     
     func getTime(date: String) -> String {
         

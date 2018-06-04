@@ -195,7 +195,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
-        let getTime = DateTimeUtility.convertUtcDatetoReadInOverview(dateStringfromAccountNotes: dateToConvert)
+        let getTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: dateToConvert)
         
         let dayToCheck = dateFormatter.string(from: date!)
 //        let now = Date()

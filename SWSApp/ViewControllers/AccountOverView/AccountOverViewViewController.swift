@@ -92,30 +92,30 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         notificationArray = notificationModel.notificationsForUser()
         notificationArrayToDisplay = notificationArray.filter( { return $0.account == accountId } )
         
-    
+        
         
         //creating upcomingvisit array according to accountId
         
         upcomingVisit = visitModel.visitsForUserTwoWeeksUpcoming()
         upcomingVisitArrayToDisplay = upcomingVisit.filter( { return $0.accountId == accountId } )
-    
+        
         
         
         //creating upcoming action item array according to accountId
         upcomingActionItem = actionItemModel.actionItemForUserTwoWeeksUpcoming()
         upcomingActionItemArrayToDisplay =  upcomingActionItem.filter( { return $0.accountId == accountId } )
         
-
+        
         
         //creating pastvisit array according to accountId
         pastVisit = visitModel.visitsForUserOneWeeksPast()
         pastVisitArrayToDisplay = pastVisit.filter( { return $0.accountId == accountId } )
         
-
+        
         //creating past action item array according to accountId
         pastActionItem = actionItemModel.actionItemForUserOneWeeksPast()
         pastActionItemArrayToDisplay = pastActionItem.filter( { return $0.accountId == accountId } )
-
+        
         DispatchQueue.main.async {
             self.upcomingActivitiesTableView.reloadData()
             self.pastActivitiesTableView.reloadData()
@@ -363,22 +363,22 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         let cell:UpComingVisitTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingVisitCell") as! UpComingVisitTableViewCell
         
         switch indexPath.section {
-            //Upcoming Notification section
+        //Upcoming Notification section
         case 0:
             if tableView.tag == 1{
                 if notificationArrayToDisplay[indexPath.row].sgwsType == "Birthday"{
                     cell.UpComingActivities_TitleLabel.text = notificationArrayToDisplay[indexPath.row].sgwsContactBirthdayNotification
                     cell.UpComingActivities_TimeLabel.text = getDateTimeFromNotification(dateToConvert: notificationArrayToDisplay[indexPath.row].createdDate)
-                     cell.UpComingActivities_Image.image = UIImage(named: "Bell")
-                     return cell
+                    cell.UpComingActivities_Image.image = UIImage(named: "Bell")
+                    return cell
                 }else{
                     
                     cell.UpComingActivities_TitleLabel.text = notificationArrayToDisplay[indexPath.row].sgwsAccLicenseNotification
                     cell.UpComingActivities_TimeLabel.text = getDateTimeFromNotification(dateToConvert: notificationArrayToDisplay[indexPath.row].createdDate)
-                      cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
+                    cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
                     return cell
                 }
-               
+                
             }else {
                 return UITableViewCell()
             }

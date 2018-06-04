@@ -18,19 +18,26 @@ class NotificationListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
     func getDateTimeFromNotification(dateToConvert:String)-> String  {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let date = dateFormatter.date(from: dateToConvert)
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp
     }
     
-    
     func displayCellContent(notificationObject: Notifications){
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+//        let date = dateFormatter.date(from: notificationObject.createdDate)
+//
+//        if (date?.isInThisWeek)!{
+//            dateLabel.text = DateTimeUtility().getDayFrom(dateToConvert: notificationObject.createdDate)
+//        }
+
         dateLabel.text = getDateTimeFromNotification(dateToConvert: notificationObject.createdDate)
-       // dateLabel.text =  notificationObject.createdDate
         if notificationObject.isRead {
             isReadView.backgroundColor = .clear
         }else{

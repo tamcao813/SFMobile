@@ -7,42 +7,6 @@
 //
 
 import Foundation
-//Collect all data in Enum can be used in later improvement not used now
-enum ActionItemTable: Int, CustomStringConvertible {
-    case Id = 0
-    case AccountId
-    case Subject
-    case Description
-    case Status
-    case ActivityDate
-    case IsUrgent
-    case AppModifiedDate
-    case RecordTypeId
-    
-    var description: String {
-        switch self {
-        case .Id:
-            return "Id"
-        case .AccountId:
-            return "AccountId"
-        case .Subject:
-            return "Subject"
-        case .Description:
-            return "Description"
-        case .Status:
-            return "Status"
-        case .ActivityDate:
-            return "ActivityDate"
-        case .IsUrgent:
-            return "SGWS_Urgent__c"
-        case .AppModifiedDate:
-            return "SGWS_AppModified_DateTime__c"
-        case .RecordTypeId:
-            return "RecordTypeId"
-        }
-    }
-}
-
 class ActionItem {
     static let AccountActionItemFields: [String] =  ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c","RecordTypeId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet"]
     

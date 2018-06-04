@@ -186,11 +186,12 @@ class AccountVisitListSortUtility {
             let timeStamp = dateFormatter.string(from: date)
             
             todayArray = actionItems.filter( {
-                let dateSeperator = $0.startDate.components(separatedBy: "T")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+               // let dateSeperator = $0.startDate.components(separatedBy: "T")
+                 let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+//                var dateOnly = ""
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly == timeStamp
             } )
             dateRangeAdded = true

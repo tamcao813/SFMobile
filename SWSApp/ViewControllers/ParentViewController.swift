@@ -34,7 +34,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var moreDropDownSelectionIndex:Int?=0
     
     var notificationButton:UIBarButtonItem? = nil
-    var numberLabel:UILabel? = nil
+    var numberLabel = UILabel()
     
     @IBOutlet weak var contentView: UIView!
     // current view controller
@@ -148,7 +148,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
-
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
         
         //NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
@@ -233,7 +232,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
     
-    private func setupTopMenuIcons(){
+    func setupTopMenuIcons(){
         
         self.userInitialLabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
         self.userInitialLabel?.font  = UIFont.boldSystemFont(ofSize: 13)
@@ -252,18 +251,18 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         
         self.numberLabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
-        self.numberLabel?.font  = UIFont.boldSystemFont(ofSize: 8)
-        self.numberLabel?.textAlignment = .center
-        self.numberLabel?.textColor = UIColor.white
-        self.numberLabel?.backgroundColor = UIColor(named: "Data New")
-        self.numberLabel?.layer.cornerRadius = 20/2
-        self.numberLabel?.clipsToBounds = true
+        self.numberLabel.font  = UIFont.boldSystemFont(ofSize: 8)
+        self.numberLabel.textAlignment = .center
+        self.numberLabel.textColor = UIColor.white
+        self.numberLabel.backgroundColor = UIColor(named: "Data New")
+        self.numberLabel.layer.cornerRadius = 20/2
+        self.numberLabel.clipsToBounds = true
         getUnreadNotificationsCount()
-        self.notificationButton = UIBarButtonItem.init(customView: self.numberLabel!)
+        self.notificationButton = UIBarButtonItem.init(customView: self.numberLabel)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(ParentViewController.notificationButtonPressed))
-        self.numberLabel?.isUserInteractionEnabled = true
-        self.numberLabel?.addGestureRecognizer(tap)
+        self.numberLabel.isUserInteractionEnabled = true
+        self.numberLabel.addGestureRecognizer(tap)
         
         onlineStatusView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
         onlineStatusView.backgroundColor = UIColor(named: "Good")
@@ -527,6 +526,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             case 3:
                 self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
             case 4:
+                self.notificationParent?.resetFilters()
+                self.notificationParent?.delegate = self
                 moreVC1.view.addSubview((self.notificationParent?.view)!)
                 self.moreDropDownSelectionIndex = index
             case 5:
@@ -643,7 +644,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         
         self.notificationButton?.isEnabled = true
-        self.numberLabel?.isUserInteractionEnabled = true
+        self.numberLabel.isUserInteractionEnabled = true
         
         let selectedVC:GlobalConstants.persistenMenuTabVCIndex = GlobalConstants.persistenMenuTabVCIndex(rawValue: index)!
         
@@ -722,8 +723,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let currentViewController = self.displayCurrentTab(LoadThePersistantMenuScreen.notifications.rawValue)
         self.removeSubviews()
         currentViewController?.view.addSubview(moreVC1.view)
+        notificationParent?.resetFilters()
+        notificationParent?.delegate = self
         moreVC1.view.addSubview((notificationParent?.view)!)
-        self.moreDropDownSelectionIndex = -1
     }
     
     func getUnreadNotificationsCount(){
@@ -735,9 +737,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 unreadNotificationsArray.append(notification)
             }
         }
+        let count : String = String(unreadNotificationsArray.count)
         DispatchQueue.main.async {
-            self.numberLabel?.text = "\(unreadNotificationsArray.count)"
+            self.numberLabel.text = count
         }
     }
 }
 
+extension ParentViewController: NotificationParentViewControllerDelegate {
+    func updateParent() {
+        getUnreadNotificationsCount()
+    }
+}

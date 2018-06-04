@@ -29,8 +29,8 @@ class NotificationListTableViewCell: UITableViewCell {
     
     
     func displayCellContent(notificationObject: Notifications){
-       // dateLabel.text = getDateTimeFromNotification(dateToConvert: notificationObject.createdDate)
-        dateLabel.text =  notificationObject.createdDate
+        dateLabel.text = getDateTimeFromNotification(dateToConvert: notificationObject.createdDate)
+       // dateLabel.text =  notificationObject.createdDate
         if notificationObject.isRead {
             isReadView.backgroundColor = .clear
         }else{

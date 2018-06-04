@@ -48,13 +48,13 @@ class EditAccountStrategyViewController: UIViewController {
         
         IQKeyboardManager.shared.enable = true
         
-        if self.view.frame.size.width == 1112.0{
+        if self.view.frame.size.width == 1112{
             textViewWidth = 1105
             collectionViewWidth = 525
-        }else if self.view.frame.size.width == 1024.0{
+        }else if self.view.frame.size.width == 1024{
             textViewWidth = 1015
             collectionViewWidth = 480
-        }else if self.view.frame.size.width == 1366.0{
+        }else if self.view.frame.size.width == 1366{
             textViewWidth = 1360
             collectionViewWidth = 650
         }

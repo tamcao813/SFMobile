@@ -551,9 +551,9 @@ class StoreDispatcher {
     
     func downloadContactRolesPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId //"012i0000000PebvAAC" //"012i0000000Pf4AAAS" //(userVieModel.loggedInUser?.recordTypeId)!
-        let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Roles__c"
+        let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.rules
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
-        request.endpoint = "/services/data/v41.0/"
+        request.endpoint = StringConstants.serviceUrl
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
@@ -563,7 +563,7 @@ class StoreDispatcher {
                 
                 if response.count > 0 {
                     var rolesAry = [PlistOption]()
-                    self.createPList(plist: "/ContactRoles.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    self.createPList(plist: StringConstants.contactRolesPlist, plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -593,9 +593,9 @@ class StoreDispatcher {
     
     func downloadContactPreferredCommmunicationPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId
-        let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Preferred_Communication_Method__c"
+        let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.preferredCommunicationUrl
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
-        request.endpoint = "/services/data/v41.0/"
+        request.endpoint = StringConstants.serviceUrl
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
@@ -606,7 +606,7 @@ class StoreDispatcher {
                 if response.count > 0 {
                     var ary = [PlistOption]()
                     
-                    self.createPList(plist: "/ContactPreferred.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    self.createPList(plist: StringConstants.contactPreferredPlist, plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -631,9 +631,9 @@ class StoreDispatcher {
     
     func downloadContactClassificationPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId
-        let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Contact_Classification__c"
+        let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.contactClassification
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
-        request.endpoint = "/services/data/v41.0/"
+        request.endpoint = StringConstants.serviceUrl
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
@@ -643,7 +643,7 @@ class StoreDispatcher {
                 
                 if response.count > 0 {
                     var ary = [PlistOption]()
-                    self.createPList(plist: "/ContactClassification.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    self.createPList(plist: StringConstants.contactClassificationPlist, plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -702,9 +702,9 @@ class StoreDispatcher {
     
     func downloadVisitPurposetPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId
-        let path = "ui-api/object-info/WorkOrder/picklist-values/" + recordTypeId + "/SGWS_Visit_Purpose__c"
+        let path = StringConstants.workorderPicklistValue + recordTypeId + StringConstants.visitPurpose
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
-        request.endpoint = "/services/data/v41.0/"
+        request.endpoint = StringConstants.serviceUrl
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
@@ -713,7 +713,7 @@ class StoreDispatcher {
                 var visitPicklist = [String:[PlistOption]]()
                 if response.count > 0 {
                     var ary = [PlistOption]()
-                    self.createPList(plist: "/AccountVisitPurpose.plist", plistObject: (response["values"] as? [[String : AnyObject]])!)
+                    self.createPList(plist: StringConstants.accountVisitPurposePlist, plistObject: (response["values"] as? [[String : AnyObject]])!)
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -1259,7 +1259,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let user = User(withAry: ary)
                 
-                let json:[String:Any] = [ "Id":user.id, "Name":user.userName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                let json:[String:Any] = [ "Id":user.id, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
                 
                 let contact =  Contact.init(json: json)
                 
@@ -1293,7 +1293,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let user = User(withAry: ary)
                 
-                let json:[String:Any] = [ "Id":user.id, "Name":user.userName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                let json:[String:Any] = [ "Id":user.id, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
                 
                 let contact =  Contact.init(json: json)
                 
@@ -3333,6 +3333,22 @@ class StoreDispatcher {
             print("fetch anotification array " + " error:" + (error?.localizedDescription)!)
         }
         return notification
+    }
+    
+    func fetchUnreadNotificationsCount()->Int {
+        
+        let soapQuery = "SELECT Count() FROM {\(SoupNotifications)} WHERE {\(SoupNotifications):isRead} == 0"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 1)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        if (error == nil && result.count > 0) {
+                print("UnreadNotification count \(result.count)")
+        }
+        else if error != nil {
+            print("fetch UnreadNotification array " + " error:" + (error?.localizedDescription)!)
+        }
+        return result.count
     }
     
     

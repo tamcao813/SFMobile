@@ -390,7 +390,7 @@ class DateTimeUtility
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let timeStamp = dateFormatter.string(from: date!)
         
         if calendar.isDateInToday(date!){
@@ -420,7 +420,7 @@ class DateTimeUtility
     func getDayForCurrentWeek(dateToConvert:String) ->String  {
         let dateFormatter = DateFormatter()
         let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let date = dateFormatter.date(from: dateToConvert)
         let myComponents = myCalendar.components(.weekday, from: date!)
         let weekDay = myComponents.weekday

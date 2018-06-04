@@ -62,7 +62,7 @@ class DateTimeUtility
         return timeStamp
     }
     
-    static func convertUTCDateStringToLocalTimeZone(dateString:String?)->String{
+    static func convertUTCDateStringToLocalTimeZone(dateString:String?,dateFormat:String)->String{
         if(dateString?.isEmpty)!{
             return ""
         }
@@ -72,7 +72,7 @@ class DateTimeUtility
         
         let date = dateFormatter.date(from: dateString!)// create date from string
         // change to a readable time format and change to local time zone
-        dateFormatter.dateFormat = "MM/dd/YYYY hh:mm a"
+        dateFormatter.dateFormat = dateFormat
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone.current

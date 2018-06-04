@@ -333,56 +333,14 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
                 case 200:
                     textField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: (editVist?.startDate)!)
                 case 201:
-                    textField.text = self.getTime(date: (editVist?.startDate)!)
+                    textField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: (editVist?.startDate)!,dateFormat:"hh:mm a")
                 case 202:
-                    textField.text = self.getTime(date: (editVist?.endDate)!)
+                    textField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: (editVist?.endDate)!,dateFormat:"hh:mm a")
                 default:
                     print("NA")
                 }
             }
         }
-    }
-    
-//    func getDate(date: String) -> String {
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" // This formate is input formated .
-//
-//        var formateDate = Date()
-//        if dateFormatter.date(from:(date)) != nil {
-//            formateDate = dateFormatter.date(from:(date))!
-//            dateFormatter.dateFormat = "dd-MM-yyyy" // Output Formated
-//        } else {
-//            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss" // This formate is input formated .
-//            formateDate = dateFormatter.date(from:(date))!
-//            dateFormatter.dateFormat = "dd-MM-yyyy" // Output Formated
-//        }
-//
-//        return dateFormatter.string(from: formateDate)
-//    }
-//
-
-    
-    func getTime(date: String) -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.zzz+zzzz" // This formate is input formated .
-        
-        var formateDate = Date()
-        if dateFormatter.date(from:(date)) != nil {
-            formateDate = dateFormatter.date(from:(date))!
-            dateFormatter.dateFormat = "hh:mm a" // Output Formated
-            dateFormatter.amSymbol = "AM"
-            dateFormatter.pmSymbol = "PM"
-        } else {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss" // This formate is input formated .
-            formateDate = dateFormatter.date(from:(date))!
-            dateFormatter.dateFormat = "hh:mm a" // Output Formated
-            dateFormatter.amSymbol = "AM"
-            dateFormatter.pmSymbol = "PM"
-        }
-        
-        return dateFormatter.string(from: formateDate)
     }
     
     func getNonSelectedContacts() -> [Contact] {

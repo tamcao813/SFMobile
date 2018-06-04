@@ -233,50 +233,6 @@ class CreateNewEventViewController: UIViewController {
         return true
     }
     
-//    func getDate(stringDate: String) -> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-//        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-//        var date = dateFormatter.date(from: stringDate)
-//        if date == nil {
-//            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-//            dateFormatter.timeZone = TimeZone.current
-//            date = dateFormatter.date(from: stringDate)
-//        }
-//        if date != nil {
-//            dateFormatter.dateFormat = "yyyy-MM-dd"
-//            return dateFormatter.string(from: date!)
-//        }
-//        return ""
-//    }
-    
-    func getTime(stringDate: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        var date = dateFormatter.date(from: stringDate)
-        if date == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-            dateFormatter.timeZone = TimeZone.current
-            date = dateFormatter.date(from: stringDate)
-        }
-        if date != nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-            dateFormatter.timeZone = TimeZone.current
-            let localTimeZoneString = dateFormatter.string(from: date!)
-            date = dateFormatter.date(from: localTimeZoneString)
-        }
-        
-        if date != nil {
-            //Use lowercase hh:mm to show time in 12 hrs format
-            dateFormatter.dateFormat = "hh:mm a"
-            dateFormatter.amSymbol = "AM"
-            dateFormatter.pmSymbol = "PM"
-            return dateFormatter.string(from: date!)
-        }
-        return ""
-    }
-    
     func createNewEvent(){
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -459,14 +415,14 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
                     
                     cell.eventStartDateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.startDate)
                     cell.eventEndDateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.endDate)
-                    cell.eventStartTimeTextField.text = self.getTime(stringDate: eventObject.startDate)
-                    cell.eventEndTimeTextField.text = self.getTime(stringDate: eventObject.endDate)
+                    cell.eventStartTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"hh:mm a")
+                    cell.eventEndTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"hh:mm a")
                     
                     //Setting the model Data in Edit Mode
                     CreateNewEventViewControllerGlobals.startDate = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.startDate)
                     CreateNewEventViewControllerGlobals.endDate = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.endDate)
-                    CreateNewEventViewControllerGlobals.startTime = self.getTime(stringDate: eventObject.startDate)
-                    CreateNewEventViewControllerGlobals.endTime = self.getTime(stringDate: eventObject.endDate)
+                    CreateNewEventViewControllerGlobals.startTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"hh:mm a")
+                    CreateNewEventViewControllerGlobals.endTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"hh:mm a")
                     
                     if eventObject.sgwsAlldayEvent == true{
                         cell.btnAllDayEvent?.setImage(UIImage(named:"Checkbox Selected"), for: .normal)

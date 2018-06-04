@@ -9,10 +9,7 @@
 import UIKit
 
 class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-    
-    
-    
-    
+        
     @IBOutlet weak var upcomingActivitiesTableView: UITableView!
     @IBOutlet weak var pastActivitiesTableView: UITableView!
     var account : Account?
@@ -185,7 +182,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
-        let getTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: dateToConvert)
+        let getTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: dateToConvert,dateFormat:"MM/dd/YYYY hh:mm a")
         
         let dayToCheck = dateFormatter.string(from: date!)
         //        let now = Date()

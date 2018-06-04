@@ -448,8 +448,8 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             endTime = cell?.schedulerComponentView.endTimeTextField
             if let visit = visitObject {
                 cell?.schedulerComponentView.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: visit.startDate)
-                cell?.schedulerComponentView.startTimeTextField.text = self.getTime(stringDate: visit.startDate)
-                cell?.schedulerComponentView.endTimeTextField.text = self.getTime(stringDate: visit.endDate)
+                cell?.schedulerComponentView.startTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.startDate,dateFormat:"hh:mm a")
+                cell?.schedulerComponentView.endTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.endDate,dateFormat:"hh:mm a")
                 cell?.layoutIfNeeded()
             }
             return cell!
@@ -478,51 +478,6 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             return UITableViewCell()
         }
     }
-    
-//    func getDate(stringDate: String) -> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-//        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-//        var date = dateFormatter.date(from: stringDate)
-//        if date == nil {
-//            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-//            dateFormatter.timeZone = TimeZone.current
-//            date = dateFormatter.date(from: stringDate)
-//        }
-//        if date != nil {
-//            dateFormatter.dateFormat = "yyyy-MM-dd"
-//            return dateFormatter.string(from: date!)
-//        }
-//        return ""
-//    }
-//
-    func getTime(stringDate: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        var date = dateFormatter.date(from: stringDate)
-        if date == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-            dateFormatter.timeZone = TimeZone.current
-            date = dateFormatter.date(from: stringDate)
-        }
-        if date != nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-            dateFormatter.timeZone = TimeZone.current
-            let localTimeZoneString = dateFormatter.string(from: date!)
-            date = dateFormatter.date(from: localTimeZoneString)
-        }
-        
-        if date != nil {
-            //Use lowercase hh:mm to show time in 12 hrs format
-            dateFormatter.dateFormat = "hh:mm a"
-            dateFormatter.amSymbol = "AM"
-            dateFormatter.pmSymbol = "PM"
-            return dateFormatter.string(from: date!)
-        }
-        return ""
-    }
-    
 }
 
 extension CreateNewVisitViewController: SearchAccountTableViewCellDelegate {

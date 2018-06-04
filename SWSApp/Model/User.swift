@@ -14,7 +14,7 @@ class User {
     
     var id: String
     var username: String
-    var userName: String
+    var fullName: String
     var accountId: String
     var userId: String
     
@@ -49,9 +49,9 @@ class User {
             
         }
         if json[User.UserFields[2]] is NSNull {
-            userName = ""
+            fullName = ""
         } else {
-            userName = json[User.UserFields[2]] as! String
+            fullName = json[User.UserFields[2]] as! String
             
         }
         if json[User.UserFields[3]] is NSNull {
@@ -103,7 +103,7 @@ class User {
     init(for: String) {
         id = ""
         username = ""
-        userName = ""
+        fullName = ""
         accountId = ""
         userId = ""
         

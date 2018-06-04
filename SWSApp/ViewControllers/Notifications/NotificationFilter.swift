@@ -10,7 +10,7 @@ import Foundation
 
 class NotificationFilter {
     
-    var sectionNames : Array<Any>  = ["Type", "Subhead FPO" ]
+    var sectionNames : Array<Any>  = ["Type", "Status" ]
     
     var sectionItems : Array<Any> = [ ["License Expiration", "Contact Birthday"],
                                       ["Read","Unread"]]

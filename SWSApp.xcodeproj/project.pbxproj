@@ -599,6 +599,8 @@
 		F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */; };
 		F2D7B8D720AA213D00A124BA /* ChatterModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */; };
 		F2D7B8D820AA213D00A124BA /* ChatterModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */; };
+		F2DB9B8420C570B500338329 /* GlobalURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2DB9B8320C570B500338329 /* GlobalURL.plist */; };
+		F2DB9B8520C570B500338329 /* GlobalURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2DB9B8320C570B500338329 /* GlobalURL.plist */; };
 		F2DC2840208E6B5B0005294E /* AccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */; };
 		F2DC2841208E6B600005294E /* AccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C9B208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift */; };
 		F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */; };
@@ -962,6 +964,7 @@
 		F2AB945D2095D5000028802E /* DuringVisitsInsightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsViewController.swift; sourceTree = "<group>"; };
 		F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterModelViewController.swift; sourceTree = "<group>"; };
+		F2DB9B8320C570B500338329 /* GlobalURL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GlobalURL.plist; sourceTree = "<group>"; };
 		F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsDetailsViewController.swift; sourceTree = "<group>"; };
 		F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionViewCell.swift; sourceTree = "<group>"; };
 		F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -1697,6 +1700,7 @@
 				8DD1501120933A0800858349 /* StringConstants.swift */,
 				AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */,
 				911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */,
+				F2DB9B8320C570B500338329 /* GlobalURL.plist */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -1965,6 +1969,7 @@
 				6D38328520874026006805C6 /* Ubuntu-Light.ttf in Resources */,
 				6D38328620874026006805C6 /* Ubuntu-Bold.ttf in Resources */,
 				8DD1500C209330E200858349 /* AccountView.xib in Resources */,
+				F2DB9B8520C570B500338329 /* GlobalURL.plist in Resources */,
 				8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */,
 				121468E720AD603A00942A00 /* DropDownCell.xib in Resources */,
 				6D38328720874026006805C6 /* Ubuntu-MediumItalic.ttf in Resources */,
@@ -2037,6 +2042,7 @@
 				6DBD031D2077B5EF0083419E /* Ubuntu-Regular.ttf in Resources */,
 				1255F30D20A57B6400FC3796 /* AccountOverView.storyboard in Resources */,
 				8D4BA38020B45B58005CFE56 /* DescriptionTableViewCell.xib in Resources */,
+				F2DB9B8420C570B500338329 /* GlobalURL.plist in Resources */,
 				8D4BA34620B455EC005CFE56 /* ActionItemTitleTableViewCell.xib in Resources */,
 				8D4BA39020B45B58005CFE56 /* DateFieldTableViewCell.xib in Resources */,
 				F2590105209216ED00C2E354 /* DuringVisitTopics.plist in Resources */,

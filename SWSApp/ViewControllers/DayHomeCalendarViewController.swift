@@ -195,6 +195,8 @@ class DayHomeCalendarViewController: UIViewController {
         }
     }
     
+    
+    
     //MARK:- IBAction
     
     @IBAction func actionButtonLeft(_ sender: Any) {
@@ -214,6 +216,37 @@ class DayHomeCalendarViewController: UIViewController {
     }
 }
 
+//MARK:- NavigateToContacts Delegate
+extension DayHomeCalendarViewController : NavigateToContactsDelegate{
+    func navigateToVisitListing() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    //Send a notification to Parent VC to load respective VC
+    func navigateTheScreenToContactsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        if data == .contacts{
+            ContactFilterMenuModel.comingFromDetailsScreen = ""
+            if let visit = PlanVisitManager.sharedInstance.visit{
+                ContactsGlobal.accountId = visit.accountId
+            }
+            
+            if let contactId = PlanVisitManager.sharedInstance.visit?.contactId{
+                // Added this line so that Contact detail view is not launched for this scenario.
+                ContactFilterMenuModel.selectedContactId = contactId
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+            }
+            
+        }else {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
+        }
+    }
+    
+    func navigateToAccountScreen() {
+        // Added this line so that Account detail view is not launched for this scenario.
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+    }
+}
+
 extension DayHomeCalendarViewController: WRWeekViewDelegate {
     func view(startDate: Date, interval: Int) {
         print(startDate, interval)
@@ -230,6 +263,29 @@ extension DayHomeCalendarViewController: WRWeekViewDelegate {
     func selectEvent(_ event: WREvent) {
         print("selectEvent: WREvent.Id: \(event.Id) : WREvent.title: \(event.title) : WREvent.type: \(event.type)")
         
+        if event.type == "visit" {
+            PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "") // Todo read visit object from VisitViewModel
+            PlanVisitManager.sharedInstance.visit?.Id = event.Id
+            
+            let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
+            accountVisitsVC?.visitId = event.Id
+            accountVisitsVC?.delegate = self
+            PlanVisitManager.sharedInstance.visit?.Id = event.Id
+            DispatchQueue.main.async {
+                self.present(accountVisitsVC!, animated: true, completion: nil)
+            }
+        } else {
+            
+            let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
+            let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
+            PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "")
+            (accountVisitsVC)?.delegate = self
+            accountVisitsVC?.visitId = event.Id
+            DispatchQueue.main.async {
+                self.present(accountVisitsVC!, animated: true, completion: nil)
+            }
+        }
         
     }
 }

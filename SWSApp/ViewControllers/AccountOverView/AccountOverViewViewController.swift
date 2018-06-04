@@ -173,7 +173,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     func getDayForActionCurrentWeek(dateToConvert:String) ->String  {
         
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let date = dateFormatter.date(from: dateToConvert)
         let myComponents = myCalendar.components(.weekday, from: date!)
         let weekDay = myComponents.weekday
@@ -263,7 +263,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             
         }
         
-        dateFormatter.dateFormat = "MM-dd-yyyy h:mm a"
+        dateFormatter.dateFormat = "MM/dd/yyyy h:mm a"
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone.current
@@ -279,7 +279,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let timeStamp = dateFormatter.string(from: date!)
         
         if calendar.isDateInToday(date!){
@@ -332,10 +332,11 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
         return timeStamp
     }
+    
     func getDateTimeFromNotification(dateToConvert:String)-> String  {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let date = dateFormatter.date(from: dateToConvert)
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp
     }
@@ -343,6 +344,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     
     // MARK: - TableView Functions
+    // tableView.tag == 1 = Upcoming Activities table
+    // tableView.tag == 2 = Past Activities table
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -350,7 +353,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-            
+        // Notification section
         case 0:
             if tableView.tag == 1{
                 return notificationArrayToDisplay.count
@@ -381,6 +384,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         let cell:UpComingVisitTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingVisitCell") as! UpComingVisitTableViewCell
         
         switch indexPath.section {
+            //Upcoming Notification section
         case 0:
             if tableView.tag == 1{
                 if notificationArrayToDisplay[indexPath.row].sgwsType == "Birthday"{

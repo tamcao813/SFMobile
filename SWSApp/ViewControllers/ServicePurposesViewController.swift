@@ -20,6 +20,8 @@ class ServicePurposesViewController: UIViewController {
     let visitViewModel = VisitSchedulerViewModel()
     var selectedPurposesValuesList = [String]()
     var selectedPurposes = [Int]()
+    var plistDict:[String:String] = ["Login":"/AccountVisitPurpose.plist"]
+
     
     var accountObject: Account?
     
@@ -36,18 +38,18 @@ class ServicePurposesViewController: UIViewController {
         }
         
         var planArray = PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";")
-        for i in (0..<PlistMap.sharedInstance.readPList(plist: "/AccountVisitPurpose.plist").count)
+        for i in (0..<PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count)
         {
             for j in (0..<planArray!.count)
             {
-                if ((PlistMap.sharedInstance.readPList(plist: "/AccountVisitPurpose.plist")[i] as! Dictionary<String, Any>)["value"] as? String == planArray![j])
+                if ((PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!)[i] as! Dictionary<String, Any>)["value"] as? String == planArray![j])
                 {
                     selectedPurposes.append(i)
                 }
             }
         }
         
-        for _ in 0...PlistMap.sharedInstance.readPList(plist: "/AccountVisitPurpose.plist").count {
+        for _ in 0...PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count {
             selectedValuesList.append("false")
         }
         
@@ -190,7 +192,7 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return PlistMap.sharedInstance.readPList(plist: "/AccountVisitPurpose.plist").count + 1
+        return PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count + 1
     }
     
     
@@ -198,7 +200,7 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
         
         var cell1 : UICollectionViewCell?
         
-            if indexPath.row == PlistMap.sharedInstance.readPList(plist: "/AccountVisitPurpose.plist").count {
+            if indexPath.row == PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
                 if !(PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes.isEmpty)! {
@@ -208,7 +210,7 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
             } else {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
 
-                let dict = PlistMap.sharedInstance.readPList(plist: "/AccountVisitPurpose.plist")[indexPath.row] as! Dictionary<String, Any>
+                let dict = PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!)[indexPath.row] as! Dictionary<String, Any>
                 (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = dict["value"] as! String
                 
                 cell1?.layer.borderWidth = 3.0
@@ -232,7 +234,7 @@ extension ServicePurposesViewController : UICollectionViewDelegate {
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
         //if indexPath.section == 4 {
-            if indexPath.row == PlistMap.sharedInstance.readPList(plist: "/AccountVisitPurpose.plist").count {
+            if indexPath.row == PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count {
                 print("last Cell")
                 
             } else {
@@ -262,7 +264,7 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-            if indexPath.row == PlistMap.sharedInstance.readPList(plist: "/AccountVisitPurpose.plist").count {
+            if indexPath.row == PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count {
                 return CGSize(width: self.view.frame.size.width, height: 319);
             } else {
                 return CGSize(width: self.view.frame.size.width/1.03, height: 75);

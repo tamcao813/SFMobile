@@ -322,7 +322,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.name = newContact.firstName.trimmingCharacters(in: .whitespacesAndNewlines) + " " + newContact.lastName.trimmingCharacters(in: .whitespacesAndNewlines)
-        newContact.lastModifiedByName = (UserViewModel().loggedInUser?.userName)!
+        newContact.lastModifiedByName = (UserViewModel().loggedInUser?.fullName)!
         newContact.preferredName = preferredNameTextField.text!
         newContact.title = titleTextField.text!
         newContact.department = departmentTextField.text!
@@ -335,9 +335,9 @@ class CreateNewContactViewController: UIViewController {
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
-        newContact.birthDate = (birthdayTextField.text! == "Select") ? "" : birthdayTextField.text!
+        newContact.birthDate = (birthdayTextField.text! == "Select") ? "" : DateTimeUtility().convertDateSendToServerActionItem(dateString: birthdayTextField.text!)
         
-        newContact.anniversary = (anniversaryTextField.text! == "Select") ? "" : anniversaryTextField.text!
+        newContact.anniversary = (anniversaryTextField.text! == "Select") ? "" : DateTimeUtility().convertDateSendToServerActionItem(dateString: anniversaryTextField.text!)
         
         newContact.child1Name = familyName1Textfield.text!
         newContact.child1Birthday = (familyDate1Textfield.text! == "Select") ? "" : familyDate1Textfield.text!

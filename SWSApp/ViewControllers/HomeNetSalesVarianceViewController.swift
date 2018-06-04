@@ -1,32 +1,35 @@
 //
-//  ChatterModelViewController.swift
+//  HomeNetSalesVarianceViewController.swift
 //  SWSApp
 //
-//  Created by r.a.jantakal on 15/05/18.
+//  Created by r.a.jantakal on 01/06/18.
 //  Copyright © 2018 maria.min-hui.yu. All rights reserved.
 //
 
 import Foundation
 import UIKit
 import SalesforceSDKCore
+import Reachability
 
-class ChatterModelViewController : UIViewController , WKNavigationDelegate{
+class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelegate{
     
     @IBOutlet weak var webView : WKWebView?
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
+    @IBOutlet weak var btnViewPerformance : UIButton?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     // let endUrl = "/one/one.app?source=alohaHeader#/sObject/Event/home"
     
+    var reachability = Reachability()!
     
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //set up activity indicator
-        activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
+        activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2 + 100, y: self.view.bounds.size.height/2 - 200)
         activityIndicator.color = UIColor.lightGray
-        webView?.addSubview(activityIndicator)
+        self.webView?.addSubview(self.activityIndicator)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,10 +48,20 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
         
         webView?.load(requestObj)
         
-        if AppDelegate.isConnectedToNetwork(){
-            lblNoNetworkConnection?.isHidden = true
-        }else{
-            lblNoNetworkConnection?.isHidden = false
+        reachability.whenReachable = { reachability in
+            if reachability.connection == .wifi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+            
+            self.lblNoNetworkConnection?.isHidden = true
+            self.btnViewPerformance?.isHidden = true
+        }
+        
+        reachability.whenUnreachable = { _ in
+            self.lblNoNetworkConnection?.isHidden = false
+            self.btnViewPerformance?.isHidden = false
         }
     }
     
@@ -56,25 +69,29 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
     @IBAction func closeButtonAction(sender : UIButton){
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 ////MARK:- UIWebView Delegate
-extension ChatterModelViewController :UIWebViewDelegate{
-
+extension HomeNetSalesVarianceViewController :UIWebViewDelegate{
+    
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
-        //activityIndicator.stopAnimating()
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("Start to load")
-        //activityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+        }
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
-        //activityIndicator.stopAnimating()
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
     }
 }
-

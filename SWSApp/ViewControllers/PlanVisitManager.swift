@@ -11,7 +11,6 @@ import SmartSync
 class PlanVisitManager {
     static let sharedInstance = PlanVisitManager()
     
-    var userInfo = (ID: "bobthedev", Password: 01036343984)
     var visit:WorkOrderUserObject? = WorkOrderUserObject(for: "")
     var editPlanVisit = false
     var Id = ""

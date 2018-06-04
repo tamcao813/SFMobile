@@ -322,7 +322,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.name = newContact.firstName.trimmingCharacters(in: .whitespacesAndNewlines) + " " + newContact.lastName.trimmingCharacters(in: .whitespacesAndNewlines)
-        newContact.lastModifiedByName = (UserViewModel().loggedInUser?.userName)!
+        newContact.lastModifiedByName = (UserViewModel().loggedInUser?.fullName)!
         newContact.preferredName = preferredNameTextField.text!
         newContact.title = titleTextField.text!
         newContact.department = departmentTextField.text!

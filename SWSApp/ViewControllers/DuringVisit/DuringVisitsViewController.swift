@@ -322,13 +322,13 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     @IBAction func transactionClicked(sender : UIButton){
-        UIApplication.shared.open(URL(string : "http://www.google.com")!, options: [:], completionHandler: { (status) in
+        UIApplication.shared.open(URL(string : StringConstants.googleUrl)!, options: [:], completionHandler: { (status) in
             
         })
     }
     
     @IBAction func goSpotClicked(sender : UIButton){
-        UIApplication.shared.open(URL(string : "http://www.google.com")!, options: [:], completionHandler: { (status) in
+        UIApplication.shared.open(URL(string : StringConstants.googleUrl)!, options: [:], completionHandler: { (status) in
             
         })
     }
@@ -355,7 +355,7 @@ class  DuringVisitsViewController : UIViewController {
         if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue"{
             PlanVisitManager.sharedInstance.visit?.status = "In-Progress"
             //Save the data in DB
-            let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
+            _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
             PlanVisitManager.sharedInstance.visit?.status = "Completed"
@@ -364,7 +364,7 @@ class  DuringVisitsViewController : UIViewController {
             }
             
             //Save the data in DB
-            let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
+            _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
             delegate?.navigateToAccountVisitingScreen()
             return
         }

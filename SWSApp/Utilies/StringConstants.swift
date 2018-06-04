@@ -21,4 +21,31 @@ class StringConstants {
     static let contactsSavedSuccessfully = "Your contact has been saved successfully"
     static let saveFail = ""
     
+    
+    //Chatter URL
+    static let secureUrl = "/secur/frontdoor.jsp?sid="
+    static let apexChatterUrl = "&retURL=/apex/sgwsACNChatter?id="
+    static let endUrl = "/one/one.app?source=alohaHeader#/sObject/Event/home"
+    static let retUrl = "&retURL="
+    
+    //During Visit
+    static let googleUrl = "http://www.google.com"
+    
+    //Store Dispatcher
+    static let contactPicklistValue = "ui-api/object-info/Contact/picklist-values/"
+    static let rules = "/SGWS_Roles__c"
+    static let serviceUrl = "/services/data/v41.0/"
+    static let contactRolesPlist = "/ContactRoles.plist"
+    
+    static let preferredCommunicationUrl = "/SGWS_Preferred_Communication_Method__c"
+    static let contactClassification = "/SGWS_Contact_Classification__c"
+    static let contactPreferredPlist = "/ContactPreferred.plist"
+    static let contactClassificationPlist = "/ContactClassification.plist"
+    
+    static let workorderPicklistValue = "ui-api/object-info/WorkOrder/picklist-values/"
+    static let visitPurpose = "/SGWS_Visit_Purpose__c"
+    static let accountVisitPurposePlist = "/AccountVisitPurpose.plist"
+
 }
+
+

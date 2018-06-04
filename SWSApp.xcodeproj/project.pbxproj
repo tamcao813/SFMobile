@@ -562,6 +562,12 @@
 		F22CE6E020B48A4E001A2171 /* EventSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22CE6DE20B48A4E001A2171 /* EventSummaryViewController.swift */; };
 		F22CE6E320B48B1C001A2171 /* EventStartEndDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22CE6E120B48B1B001A2171 /* EventStartEndDateTableViewCell.swift */; };
 		F22CE6E420B48B1C001A2171 /* EventStartEndDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F22CE6E220B48B1B001A2171 /* EventStartEndDateTableViewCell.xib */; };
+		F22DA90020C16C3D00AA2B54 /* HomeActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22DA8FF20C16C3D00AA2B54 /* HomeActivitiesViewController.swift */; };
+		F22DA90120C16C3D00AA2B54 /* HomeActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22DA8FF20C16C3D00AA2B54 /* HomeActivitiesViewController.swift */; };
+		F22DA90320C175FC00AA2B54 /* HomeGoalTypesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22DA90220C175FC00AA2B54 /* HomeGoalTypesViewController.swift */; };
+		F22DA90420C175FC00AA2B54 /* HomeGoalTypesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22DA90220C175FC00AA2B54 /* HomeGoalTypesViewController.swift */; };
+		F22DA90620C1766600AA2B54 /* HomeNetSalesVarianceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22DA90520C1766600AA2B54 /* HomeNetSalesVarianceViewController.swift */; };
+		F22DA90720C1766600AA2B54 /* HomeNetSalesVarianceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22DA90520C1766600AA2B54 /* HomeNetSalesVarianceViewController.swift */; };
 		F2537BD320ADF17800075E0F /* EditAccountStrategyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB94572095D4E40028802E /* EditAccountStrategyViewController.swift */; };
 		F2590105209216ED00C2E354 /* DuringVisitTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2590104209216ED00C2E354 /* DuringVisitTopics.plist */; };
 		F2590106209216ED00C2E354 /* DuringVisitTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2590104209216ED00C2E354 /* DuringVisitTopics.plist */; };
@@ -931,6 +937,9 @@
 		F22CE6DE20B48A4E001A2171 /* EventSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventSummaryViewController.swift; path = Event/EventSummaryViewController.swift; sourceTree = "<group>"; };
 		F22CE6E120B48B1B001A2171 /* EventStartEndDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventStartEndDateTableViewCell.swift; path = "Event/Event Cells/EventStartEndDateTableViewCell.swift"; sourceTree = "<group>"; };
 		F22CE6E220B48B1B001A2171 /* EventStartEndDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EventStartEndDateTableViewCell.xib; path = "Event/Event Cells/EventStartEndDateTableViewCell.xib"; sourceTree = "<group>"; };
+		F22DA8FF20C16C3D00AA2B54 /* HomeActivitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeActivitiesViewController.swift; sourceTree = "<group>"; };
+		F22DA90220C175FC00AA2B54 /* HomeGoalTypesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGoalTypesViewController.swift; sourceTree = "<group>"; };
+		F22DA90520C1766600AA2B54 /* HomeNetSalesVarianceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetSalesVarianceViewController.swift; sourceTree = "<group>"; };
 		F2590104209216ED00C2E354 /* DuringVisitTopics.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DuringVisitTopics.plist; sourceTree = "<group>"; };
 		F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsCollectionViewCell.swift; sourceTree = "<group>"; };
 		F259010D2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -1598,6 +1607,9 @@
 				F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */,
 				128B1A99206BADF8004E148A /* AccountDetailTabViewController.swift */,
 				6F3D309D206BA065000CFFCC /* HomeViewController.swift */,
+				F22DA8FF20C16C3D00AA2B54 /* HomeActivitiesViewController.swift */,
+				F22DA90220C175FC00AA2B54 /* HomeGoalTypesViewController.swift */,
+				F22DA90520C1766600AA2B54 /* HomeNetSalesVarianceViewController.swift */,
 				D24E5B0A2073635D00641814 /* ObjectivesViewController.swift */,
 				6F3D309A206BA065000CFFCC /* ParentViewController.swift */,
 				6F8BD3EA20720281006CABA8 /* AccountListViewController.swift */,
@@ -2375,6 +2387,7 @@
 				8D4BA38F20B45B58005CFE56 /* DescriptionTableViewCell.swift in Sources */,
 				9187924220A55C2A009CB557 /* CalendarViewController.swift in Sources */,
 				AE1FAA8F20B4588A005B44EC /* EventLocationTableViewCell.swift in Sources */,
+				F22DA90420C175FC00AA2B54 /* HomeGoalTypesViewController.swift in Sources */,
 				121468F520AD603A00942A00 /* DropDown+Appearance.swift in Sources */,
 				8D4BA3B320B45B58005CFE56 /* ContactMenuViewController.swift in Sources */,
 				911D170120AD3E80007D61C3 /* AttributedStringUtil.swift in Sources */,
@@ -2400,6 +2413,7 @@
 				C955CD272099982F003DADA1 /* NotesViewController.swift in Sources */,
 				91AB8C1D20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift in Sources */,
 				8D4BA33320B455EB005CFE56 /* ActionItemFilterViewController.swift in Sources */,
+				F22DA90120C16C3D00AA2B54 /* HomeActivitiesViewController.swift in Sources */,
 				8D4BA3AF20B45B58005CFE56 /* ToggleTableViewCell.swift in Sources */,
 				C96B39162094B417000F4F55 /* EditNoteViewController.swift in Sources */,
 				91C3E5A2208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */,
@@ -2410,6 +2424,7 @@
 				AE1FAAC820B6C2EE005B44EC /* EventButton.swift in Sources */,
 				91D2DA3420C10A4800104191 /* OpportunitiesFilterMenuModel.swift in Sources */,
 				F2FD2C2A20919AFA00037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */,
+				F22DA90720C1766600AA2B54 /* HomeNetSalesVarianceViewController.swift in Sources */,
 				6D38326720874026006805C6 /* String+PartString.swift in Sources */,
 				6D38326820874026006805C6 /* User.swift in Sources */,
 				12A5BFC620BEDED900D6CD81 /* NotificationsViewModel.swift in Sources */,
@@ -2547,6 +2562,7 @@
 				914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */,
 				8DD15009209330E200858349 /* AccountView.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
+				F22DA90320C175FC00AA2B54 /* HomeGoalTypesViewController.swift in Sources */,
 				911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */,
 				F29A645A20B816B000D73AE9 /* AccountVisitListFilterViewController.swift in Sources */,
 				91FAEF6120A57DD500209D71 /* StringExtension.swift in Sources */,
@@ -2653,6 +2669,7 @@
 				91FAEF4520A57DD500209D71 /* WRGridLine.swift in Sources */,
 				F2086B7620B5B424008A61F0 /* VisitCallToConfirmTableViewCell.swift in Sources */,
 				AE1FAAB220B6C200005B44EC /* DateCollectionViewCell.swift in Sources */,
+				F22DA90620C1766600AA2B54 /* HomeNetSalesVarianceViewController.swift in Sources */,
 				12E06C9920A0594C00A6C9E4 /* PlanVisitManager.swift in Sources */,
 				F22CE6DF20B48A4E001A2171 /* CreateNewEventViewController.swift in Sources */,
 				6F8BD3F12072297C006CABA8 /* MoreViewController.swift in Sources */,
@@ -2662,6 +2679,7 @@
 				91FAEF3F20A57DD500209D71 /* WRRowHeaderBackground.swift in Sources */,
 				AE1FAA8820B4588A005B44EC /* EventDescriptionTableViewCell.swift in Sources */,
 				8D4BA33020B455EB005CFE56 /* CreateNewActionItemViewController.swift in Sources */,
+				F22DA90020C16C3D00AA2B54 /* HomeActivitiesViewController.swift in Sources */,
 				91FAEF4120A57DD500209D71 /* WRRowHeader.swift in Sources */,
 				91FAEF4720A57DD500209D71 /* WRColumnHeaderBackground.swift in Sources */,
 				8DDD4A4A20BBFC5200423E20 /* TitleDepartmentTableViewCell.swift in Sources */,

@@ -89,6 +89,7 @@ class WREventCell: UICollectionViewCell {
                 } else {
                     homeTitleLabel.isHidden = true
                     homeDescLabel.isHidden = true
+                    titleLabel.isHidden = false
                     if event.type == "visit" {
                         eventType = event.type
                         borderView.backgroundColor = UIColor(hexString: "4287C2")!

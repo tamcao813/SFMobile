@@ -50,6 +50,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
     
+    let defaults:UserDefaults = UserDefaults.standard
+    
     // keep the views loaded
     //home VC
     lazy var homeVC: UIViewController? = {
@@ -150,6 +152,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(self.showCalendar), name: NSNotification.Name(rawValue: "SwitchToCalendar"), object: nil)
         
         //NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
@@ -211,6 +214,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             moreVC1.view.addSubview((notificationParent?.view)!)
             self.moreDropDownSelectionIndex = 4
         }
+    }
+    
+    @objc func showCalendar(notification: NSNotification){
+        
+        defaults.set(false, forKey: "FromHomeVC")
+        topMenuBar?.selectedSegment = 3
+        _ = displayCurrentTab(3)
+        
     }
     
     
@@ -454,7 +465,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         //print("Tab tapped" + String(selectedSegment))
         // display other tabs
         displayCurrentTab(selectedSegment)
-        
+        if(selectedSegment == 0) {
+            defaults.set(true, forKey: "FromHomeVC")
+        } else if (selectedSegment == 3) {
+            defaults.set(false, forKey: "FromHomeVC")
+        } else {
+            print("Done !!")
+        }
         // more tapped
         if(selectedSegment == GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex.rawValue)
         {

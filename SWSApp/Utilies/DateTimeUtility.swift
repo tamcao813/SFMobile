@@ -382,6 +382,67 @@ class DateTimeUtility
         return (minutesArr, isMoreCount)
     }
     ///------- Compare Each Date Of Month With Array Objects - END --------////
+    
+    func getDayFrom(dateToConvert:String)-> String  {
+        //Getting Today, Tomorrow, Yesterday
+        let dateFormatter = DateFormatter()
+        let calendar = Calendar.current
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        let date = dateFormatter.date(from: dateToConvert)
+        //Gtting time and date
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        let timeStamp = dateFormatter.string(from: date!)
+        
+        if calendar.isDateInToday(date!){
+            return  "Today"
+        }else if calendar.isDateInTomorrow(date!){
+            return  "Tomorrow"
+        }else if calendar.isDateInYesterday(date!){
+            return  "Yesterday"
+        }else if getDayForCurrentWeek(dateToConvert: timeStamp) == "Sunday"{
+            return "Sunday"
+        }else if getDayForCurrentWeek(dateToConvert: timeStamp) == "Monday"{
+            return "Monday"
+        }else if getDayForCurrentWeek(dateToConvert: timeStamp) == "Tuesday"{
+            return "Tuesday"
+        }else if getDayForCurrentWeek(dateToConvert: timeStamp) == "Wednesday"{
+            return "Wednesday"
+        }else if getDayForCurrentWeek(dateToConvert: timeStamp) == "Thursday"{
+            return "Thursday"
+        }else if getDayForCurrentWeek(dateToConvert: timeStamp) == "Friday"{
+            return "Friday"
+        }else if getDayForCurrentWeek(dateToConvert: timeStamp) == "Saturday"{
+            return "Saturday"
+        }
+        return timeStamp
+    }
+    
+    func getDayForCurrentWeek(dateToConvert:String) ->String  {
+        let dateFormatter = DateFormatter()
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        let date = dateFormatter.date(from: dateToConvert)
+        let myComponents = myCalendar.components(.weekday, from: date!)
+        let weekDay = myComponents.weekday
+        switch weekDay {
+        case 1?:
+            return "Sunday"
+        case 2?:
+            return "Monday"
+        case 3?:
+            return "Tuesday"
+        case 4?:
+            return "Wednesday"
+        case 5?:
+            return "Thursday"
+        case 6?:
+            return "Friday"
+        case 7?:
+            return "Saturday"
+        default:
+            return dateToConvert
+        }
+    }
 
 }
 

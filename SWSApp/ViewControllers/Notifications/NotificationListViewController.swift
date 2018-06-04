@@ -9,12 +9,17 @@
 import UIKit
 import SmartSync
 
+protocol NotificationListViewControllerDelegate : NSObjectProtocol {
+    func updateCount()
+}
+
 class NotificationListViewController: UIViewController {
 
     var notificationsArray = [Notifications]()
     var filteredNotificationsArray = [Notifications]()
     @IBOutlet weak var tableView: UITableView!
     let parnentViewController = ParentViewController()
+    weak var delegate : NotificationListViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,8 +95,8 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
         
         let success = NotificationsViewModel().editNotificationsLocally(fields: notificationDict)
         if success {
+            self.delegate?.updateCount()
             self.getNotifications()
-            parnentViewController.getUnreadNotificationsCount()
         }
     }
 }

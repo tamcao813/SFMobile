@@ -335,9 +335,9 @@ class CreateNewContactViewController: UIViewController {
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
-        newContact.birthDate = (birthdayTextField.text! == "Select") ? "" : birthdayTextField.text!
+        newContact.birthDate = (birthdayTextField.text! == "Select") ? "" : DateTimeUtility().convertDateSendToServerActionItem(dateString: birthdayTextField.text!)
         
-        newContact.anniversary = (anniversaryTextField.text! == "Select") ? "" : anniversaryTextField.text!
+        newContact.anniversary = (anniversaryTextField.text! == "Select") ? "" : DateTimeUtility().convertDateSendToServerActionItem(dateString: anniversaryTextField.text!)
         
         newContact.child1Name = familyName1Textfield.text!
         newContact.child1Birthday = (familyDate1Textfield.text! == "Select") ? "" : familyDate1Textfield.text!

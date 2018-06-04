@@ -43,9 +43,6 @@ class DateFieldTableViewCell: UITableViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"
         let dateString = dateFormatter.string(from: sender.date)
-//        let date = dateFormatter.date(from: dateString)
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        dateTextfield.text = dateFormatter.string(from: dateString)
         dateTextfield.text = dateString
     }
     

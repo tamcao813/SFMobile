@@ -2364,7 +2364,6 @@ class StoreDispatcher {
         else {
             return false
         }
-        
     }
     
     func createNewEntryInACR(fields: [String:Any]) -> Bool{

@@ -208,7 +208,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: 0)
             
         }else if  data == LoadThePersistantMenuScreen.notifications.rawValue {
-            self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: 4)
+            moreVC1.view.addSubview((notificationParent?.view)!)
+            self.moreDropDownSelectionIndex = 4
         }
     }
     
@@ -717,20 +718,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     
     @objc func notificationButtonPressed(sender: UIBarButtonItem){
-        
-        self.moreDropDownSelectionIndex = -1
-//        let moreStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
-//        notificationsViewController = moreStoryboard.instantiateViewController(withIdentifier: "NotificationsControllerID") as UIViewController
-        
-        
-        self.notificationsView = notificationParent?.view
-//        notifVC.view.restorationIdentifier = "globalNotification"
-//        if let notifVC = notificationsViewController{
-//            self.view.endEditing(true)
-//            self.view.addSubview(notifVC.view)
-//            self.notificationButton?.isEnabled = false
-//            self.numberLabel?.isUserInteractionEnabled = false
-//        }
+        let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+        let currentViewController = self.displayCurrentTab(LoadThePersistantMenuScreen.notifications.rawValue)
+        self.removeSubviews()
+        currentViewController?.view.addSubview(moreVC1.view)
+        moreVC1.view.addSubview((notificationParent?.view)!)
+        self.moreDropDownSelectionIndex = 4
     }
 }
 

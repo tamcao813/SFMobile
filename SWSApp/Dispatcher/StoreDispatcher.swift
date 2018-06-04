@@ -3358,7 +3358,6 @@ class StoreDispatcher {
                 singleNotificationModif[kSyncTargetLocallyUpdated] = true
                 singleNotificationModif[kSyncTargetLocallyDeleted] = false
                 
-//                singleNotificationModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
                 editedNotifications = singleNotificationModif
                 break
             }

@@ -386,14 +386,16 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 if notificationArrayToDisplay[indexPath.row].sgwsType == "Birthday"{
                     cell.UpComingActivities_TitleLabel.text = notificationArrayToDisplay[indexPath.row].sgwsContactBirthdayNotification
                     cell.UpComingActivities_TimeLabel.text = getDateTimeFromNotification(dateToConvert: notificationArrayToDisplay[indexPath.row].createdDate)
-                    
+                     cell.UpComingActivities_Image.image = UIImage(named: "Bell")
+                     return cell
                 }else{
                     
                     cell.UpComingActivities_TitleLabel.text = notificationArrayToDisplay[indexPath.row].sgwsAccLicenseNotification
                     cell.UpComingActivities_TimeLabel.text = getDateTimeFromNotification(dateToConvert: notificationArrayToDisplay[indexPath.row].createdDate)
+                      cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
                     return cell
                 }
-                return cell
+               
             }else {
                 return UITableViewCell()
             }

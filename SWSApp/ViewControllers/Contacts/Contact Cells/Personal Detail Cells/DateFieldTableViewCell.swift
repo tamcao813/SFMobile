@@ -41,7 +41,7 @@ class DateFieldTableViewCell: UITableViewCell {
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let dateString = dateFormatter.string(from: sender.date)
         dateTextfield.text = dateString
     }

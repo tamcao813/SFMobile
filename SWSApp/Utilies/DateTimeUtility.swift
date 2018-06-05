@@ -106,11 +106,12 @@ class DateTimeUtility
             return ""
         }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         
         let date = dateFormatter.date(from: dateString!)// create date from string        
         if date != nil{
-            dateFormatter.dateFormat = "yyyy-MM-dd"
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
             let timeStamp = dateFormatter.string(from: date!)
             return timeStamp
         }

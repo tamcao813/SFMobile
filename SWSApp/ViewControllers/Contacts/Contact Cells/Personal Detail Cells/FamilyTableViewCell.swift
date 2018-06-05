@@ -63,7 +63,7 @@ class FamilyTableViewCell: UITableViewCell {
         dateFormatter.dateFormat = "MMM-dd-yyyy"
         let dateString = dateFormatter.string(from: sender.date)
         let date = dateFormatter.date(from: dateString)
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         dateTextField.text = dateFormatter.string(from: date!)
     }
     

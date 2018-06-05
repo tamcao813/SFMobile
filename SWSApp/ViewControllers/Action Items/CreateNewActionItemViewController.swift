@@ -226,7 +226,9 @@ class CreateNewActionItemViewController: UIViewController {
             }
             self.dismiss(animated: true, completion: nil)
         }
+        
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
     }
     
     func editActionItem(){

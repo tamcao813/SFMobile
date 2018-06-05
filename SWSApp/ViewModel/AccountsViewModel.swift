@@ -16,15 +16,16 @@ class AccountsViewModel {
         return StoreDispatcher.shared.fetchAccountsForLoggedUser()
     }
     
-    func accountsForUser() -> [Account] {
+    func accountsForSelectedUser() -> [Account] {
         return StoreDispatcher.shared.fetchAccounts()
     }
     
     func accountNameFor(accountId: String) -> String {
         return StoreDispatcher.shared.fetchAccountName(for: accountId)
     }
-    
+    /*
     func consultantsForLoggedInUser() -> [String] {
         return StoreDispatcher.shared.fetchConsultants()
     }
+     */
 }

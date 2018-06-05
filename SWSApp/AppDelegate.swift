@@ -13,6 +13,7 @@ import PromiseKit
 import Reachability
 //import DropDown
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var loggedInUser: User?
     var currentSelectedUserId: String = ""
+    var consultants = [Consultant]()
     var alertVisible = false
     let isMockUser = false //set it to true to use mock data or set it to false if testing with real data
     
@@ -152,7 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         reachability?.whenUnreachable = { _ in
-            StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+            StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                 if user == nil {
                     if !self.alertVisible {
                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -219,7 +221,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         return
                     }
                     
-                    StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+                    StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                         guard let user = user else {
                             print("No logged in user retrieved")
                             return
@@ -227,6 +229,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         
                         self.loggedInUser =  user
                         self.currentSelectedUserId = user.userId
+                        self.consultants = consults
                         
                         print("appdelegate: currentSelectedUserId: " + self.currentSelectedUserId)
                         
@@ -253,7 +256,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         }
         reachability?.whenUnreachable = { _ in
-            StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+            StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                 guard let user = user else {
                     print("No logged in user retrieved")
                     return
@@ -261,6 +264,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 self.loggedInUser =  user
                 self.currentSelectedUserId = user.userId
+                self.consultants = consults
                 
                 print("Not reachable")
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)

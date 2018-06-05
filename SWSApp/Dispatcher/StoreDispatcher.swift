@@ -63,7 +63,7 @@ class StoreDispatcher {
     func registerSoups() {
         print("Store Path is \(String(describing: sfaStore.storePath))")
         registerUserSoup()
-        registerUserSimpleSoup()
+        //registerUserSimpleSoup()
         registerAccountSoup()
         registerContactSoup()
         registerACRSoup()
@@ -754,7 +754,7 @@ class StoreDispatcher {
         let userQueryFields = User.UserSimpleFields
         
         var indexSpec:[SFSoupIndex] = []
-        for i in 0...8 {
+        for i in 0...userQueryFields.count - 1 {
             let sfIndex = SFSoupIndex(path: userQueryFields[i], indexType: kSoupIndexTypeString, columnName: userQueryFields[i])!
             indexSpec.append(sfIndex)
         }
@@ -891,10 +891,12 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print("syncDownUser() done")
-                    
+                    /*
                     self.syncDownUserSimple { (error) in
-                        completion(error)
                     }
+                     */
+                    
+                    completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownUser()"
@@ -1059,36 +1061,55 @@ class StoreDispatcher {
     
     
     //User
-    func fetchLoggedInUser(_ completion:@escaping ((_ user:User?, _ error: NSError?)->())) {
+    func fetchLoggedInUser(_ completion:@escaping ((_ user:User?, _ consults:[Consultant], _ error: NSError?)->())) {
+        var consultantAry = [Consultant]()
         var error : NSError?
-        guard let user = SFUserAccountManager.sharedInstance().currentUser else {
-            completion(nil, error)
+        guard let sfuser = SFUserAccountManager.sharedInstance().currentUser else {
+            completion(nil, consultantAry, error)
             return
         }
         
         //Load the sync config
         _ = self.fetchSyncConfiguration()
 
-        let username = user.userName
+        let username = sfuser.userName
+        let userId =   SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:User.Username} = '\(username)'"
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:User.Username} = '\(username)' OR {User:User.ManagerId} Like '\(userId!)%'"
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
         
         
-        
+        var thisUser = User(for: "temp")
+        var dict = [String: Consultant]()
         if (error == nil && result.count > 0) {
-            let ary:[Any] = result[0] as! [Any]
-            let user = User(withAry: ary)
-            completion(user, nil)
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let user = User(withAry: ary)
+                
+                if user.username == username {
+                    thisUser = user
+                }
+                else {
+                    let consult = Consultant(name:user.userName, id:user.userId)
+                    //consultantAry.append(consult)
+                    dict[user.username] = consult
+                }
+            }
+            
+            if dict.count > 0 {
+                consultantAry = Array(dict.values)
+            }
+            
+            completion(thisUser, consultantAry, nil)
         }
         else {
-            let userSimple = fetchSimpleUser()
-            completion(userSimple, nil)
+            //let userSimple = fetchSimpleUser()
+            completion(nil, consultantAry, nil)
         }
     }
     
@@ -1118,12 +1139,14 @@ class StoreDispatcher {
         }
     }
     
-    func fetchConsultants() -> [String] {
-        var consultants = [String]()
+    func fetchConsultants() -> [Consultant] {
+        var consultants = [Consultant]()
         
         let userid = UserViewModel().loggedInUser?.userId
 
-        let soqlQuery = "Select {UserSimple:Id} from {UserSimple} Where {UserSimple:ManagerId} = '\(userid)'"
+        //let soqlQuery = "Select {UserSimple:Id} from {UserSimple} Where {UserSimple:ManagerId} = '\(userid)'"
+        
+        let soqlQuery = "Select {User:Id}, {User:User.Name} from {User} Where {User:User.ManagerId} = '\(userid)'"
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
@@ -1133,7 +1156,7 @@ class StoreDispatcher {
         if result.count > 0 {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
-                consultants.append(ary[0] as! String)
+                
             }
         }
         
@@ -1171,12 +1194,12 @@ class StoreDispatcher {
         var accountIdsArray:[String] = []
         let userId: String = UserViewModel().selectedUserId
         
-        var soqlQuery = "Select {AccountTeamMember:AccountId} FROM {AccountTeamMember}" // In case no loggerInUser until that's fixed
-        
-        if userId.count > 0 {
-            soqlQuery = "Select {AccountTeamMember:AccountId} FROM {AccountTeamMember} Where {AccountTeamMember:UserId} = '\(userId)'"
+        if userId.count <= 0 {
+            return accountIdsArray
         }
         
+        let soqlQuery = "Select {AccountTeamMember:AccountId} FROM {AccountTeamMember} Where {AccountTeamMember:UserId} = '\(userId)'"
+       
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -1226,7 +1249,8 @@ class StoreDispatcher {
         var accountAry: [Account] = []
         
         // Get All Account Id's and Format as string with comma separator
-        let accIdArray = fetchAllAccountIds().joined(separator: "','") //only for selectedUserId
+        // Select only accounts for the selectedUserId
+        let accIdArray = fetchAllAccountIds().joined(separator: "','")
         
         // Formatted accIdArray String with adding "'" at start and end
         let formattedAccIdArray = "'" + accIdArray + "'"

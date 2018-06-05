@@ -170,9 +170,7 @@ extension User {
     }
     
     var myConsultants: [String]? {
-        ///if the logged in user is a manager
-        //retuen the consultans array
-        //else
+        
         return nil
     }
 }

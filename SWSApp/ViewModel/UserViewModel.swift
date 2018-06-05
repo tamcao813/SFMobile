@@ -8,6 +8,16 @@
 
 import Foundation
 
+struct Consultant {
+    var name: String
+    var id: String
+    
+    init(name: String, id: String) {
+        self.name = name
+        self.id = id
+    }
+}
+
 class UserViewModel {
     
     var loggedInUser: User? {
@@ -25,6 +35,12 @@ class UserViewModel {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         return appDelegate.currentSelectedUserId
+    }
+    
+    var consultants: [Consultant] {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        return appDelegate.consultants
     }
 }
 

@@ -92,7 +92,7 @@ class AccountsListViewController: UIViewController {
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
         
-        let consultants = AccountsViewModel().consultantsForLoggedInUser()
+        let consultants = UserViewModel().consultants
     }
     
     override func viewWillAppear(_ animated: Bool) {

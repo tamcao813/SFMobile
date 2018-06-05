@@ -12,7 +12,7 @@ class Filter {
     
     //var sectionNames : Array<Any>  = ["Past Due", "Action Items", "Status", "Premise" , "Single / Multi locations" ,"Channel", "Sub-Channel" ,"License Type"]
     
-    var sectionItems : Array<Any> = [ ["Yes", "No"],[],
+    var sectionItems: [[Any]] = [ ["Yes", "No"],[],
                                       ["Active", "Inactive","Suspended"],
                                       ["On","Off"], ["Single","Multi"],["W","L","B","N"]]
     
@@ -67,4 +67,5 @@ struct FilterMenuModel {
     static var comingFromDetailsScreen = ""
     static var selectedAccountId = ""
 
+    static var selectedConsultant: Consultant?
 }

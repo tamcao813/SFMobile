@@ -35,9 +35,7 @@ class HomeViewController: UIViewController {
         print("Home VC will appear")
         
         //        registerSyncLogSoup()
-        
-        
-        
+
         //for soup testing
         //        let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
         //        present(SmartStoreViewController, animated: true, completion: nil)

@@ -237,6 +237,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.notificationParent?.delegate = self
             moreVC1.view.addSubview((self.notificationParent?.view)!)
             self.moreDropDownSelectionIndex = 4
+            topMenuBar?.selectedSegment = 5
         
         }
             
@@ -247,6 +248,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             ActionItemFilterModel.accountId = nil
             self.actionItemParent?.fromPersistentMenu = true
             self.moreDropDownSelectionIndex = 0
+            topMenuBar?.selectedSegment = 5
            // self.instantiateViewController(identifier: "ActionItemsContainerViewController", moreOptionVC: moreVC1, index: 0)
             
         }

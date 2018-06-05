@@ -20,7 +20,7 @@ class ServicePurposesViewController: UIViewController {
     let visitViewModel = VisitSchedulerViewModel()
     var selectedPurposesValuesList = [String]()
     var selectedPurposes = [Int]()
-    var plistDict:[String:String] = ["Login":"/AccountVisitPurpose.plist"]
+    var plistDict:[String:String] = ["Login":StringConstants.accountVisitPurposePlist]
 
     
     var accountObject: Account?

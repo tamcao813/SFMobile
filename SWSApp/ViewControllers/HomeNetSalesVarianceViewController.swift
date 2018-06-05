@@ -56,12 +56,21 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
             }
             
             self.lblNoNetworkConnection?.isHidden = true
-            self.btnViewPerformance?.isHidden = true
+            self.btnViewPerformance?.isHidden = false
+            self.webView?.isHidden = false
+            self.webView?.load(requestObj)
         }
         
         reachability.whenUnreachable = { _ in
             self.lblNoNetworkConnection?.isHidden = false
-            self.btnViewPerformance?.isHidden = false
+            self.btnViewPerformance?.isHidden = true
+            self.webView?.isHidden = true
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
         }
     }
     

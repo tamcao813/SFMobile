@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let  path = plistpath {
             if let dict = NSDictionary(contentsOfFile: path) as? Dictionary<String, String> {
                 RemoteAccessConsumerKey = dict["RemoteAccessConsumerKey"]!
-                OAuthRedirectURI = "sws://success" //dict["OAuthRedirectURI"]!
+                OAuthRedirectURI = StringConstants.swsUri //dict["OAuthRedirectURI"]!
             }
         }
         

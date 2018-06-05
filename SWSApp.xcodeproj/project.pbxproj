@@ -352,6 +352,8 @@
 		9187924520A55C79009CB557 /* CalendarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924320A55C79009CB557 /* CalendarMenuViewController.swift */; };
 		9187924720A55CAE009CB557 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924620A55CAE009CB557 /* CalendarListViewController.swift */; };
 		9187924820A55CAE009CB557 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924620A55CAE009CB557 /* CalendarListViewController.swift */; };
+		9188866820C68BD300560860 /* OpportunitiesListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9188866720C68BD300560860 /* OpportunitiesListTableViewCell.swift */; };
+		9188866920C68BD300560860 /* OpportunitiesListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9188866720C68BD300560860 /* OpportunitiesListTableViewCell.swift */; };
 		919FEFE920AEEED400ED6BBC /* VisitSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919FEFE820AEEED400ED6BBC /* VisitSortUtility.swift */; };
 		91AA8EC92095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
 		91AA8ECA2095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
@@ -800,6 +802,7 @@
 		9187924020A55C2A009CB557 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		9187924320A55C79009CB557 /* CalendarMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuViewController.swift; sourceTree = "<group>"; };
 		9187924620A55CAE009CB557 /* CalendarListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarListViewController.swift; sourceTree = "<group>"; };
+		9188866720C68BD300560860 /* OpportunitiesListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesListTableViewCell.swift; sourceTree = "<group>"; };
 		919FEFE820AEEED400ED6BBC /* VisitSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSortUtility.swift; sourceTree = "<group>"; };
 		91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountLinkDetails.swift; sourceTree = "<group>"; };
 		91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountFooterDetails.swift; sourceTree = "<group>"; };
@@ -1288,9 +1291,9 @@
 		8D8D001720C2FE10009683AC /* Opportunities */ = {
 			isa = PBXGroup;
 			children = (
+				8D8D001A20C2FE10009683AC /* OpportunitiesViewController.swift */,
 				8D8D001820C2FE10009683AC /* OpportunitiesListViewController.swift */,
 				8D8D001920C2FE10009683AC /* OpportunitiesMenuViewController.swift */,
-				8D8D001A20C2FE10009683AC /* OpportunitiesViewController.swift */,
 			);
 			path = Opportunities;
 			sourceTree = "<group>";
@@ -1334,6 +1337,7 @@
 			isa = PBXGroup;
 			children = (
 				91AB8C1B20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift */,
+				9188866720C68BD300560860 /* OpportunitiesListTableViewCell.swift */,
 			);
 			path = Opportunities;
 			sourceTree = "<group>";
@@ -2459,6 +2463,7 @@
 				D23C40C7208DE6590006691C /* AssociatedContactsTableViewCell.swift in Sources */,
 				AE43DD1F209C7401005D8DD1 /* PlanVisit.swift in Sources */,
 				AE43DD02209622E8005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */,
+				9188866920C68BD300560860 /* OpportunitiesListTableViewCell.swift in Sources */,
 				6D38326F20874026006805C6 /* NotificationsViewController.swift in Sources */,
 				91FAEF3A20A57DD500209D71 /* WRWeekViewFlowLayout.swift in Sources */,
 				C9B9509C209339E800792AD3 /* AccountNotes.swift in Sources */,
@@ -2703,6 +2708,7 @@
 				6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */,
 				F2923C9C208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift in Sources */,
 				91FAEF3B20A57DD500209D71 /* WREvent.swift in Sources */,
+				9188866820C68BD300560860 /* OpportunitiesListTableViewCell.swift in Sources */,
 				12E47BE4208B518A00D37B74 /* ContactListDetailsTableViewCell.swift in Sources */,
 				8DD150042093308300858349 /* AssociateTableViewCell.swift in Sources */,
 				F2AB94602095D5000028802E /* DuringVisitsInsightsViewController.swift in Sources */,

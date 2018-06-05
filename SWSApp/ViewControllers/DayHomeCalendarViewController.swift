@@ -140,7 +140,7 @@ class DayHomeCalendarViewController: UIViewController {
     
     func displayDateHeader(_ startDate: Date) {
         if weekView.calendarType == .day {
-            dateHeaderLabel.text = DateTimeUtility.getEEEEMMMdFormattedDateString(date: startDate)
+            dateHeaderLabel.text = DateTimeUtility.getEEEEMMMMdFormattedDateString(date: startDate)
         }
         else if weekView.calendarType == .week {
             dateHeaderLabel.text = DateTimeUtility.getWeekFormattedDateString(date: startDate, includeWeekend: weekEndsEnabled)

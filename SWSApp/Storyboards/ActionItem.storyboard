@@ -88,7 +88,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rij-gy-Cs6">
-                                            <rect key="frame" x="30" y="14" width="58.5" height="40"/>
+                                            <rect key="frame" x="20" y="14" width="68.5" height="40"/>
                                             <color key="backgroundColor" red="0.89525987689999997" green="0.89525987689999997" blue="0.89525987689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                             <state key="normal" title="Clear">
@@ -142,7 +142,7 @@
                                         <constraint firstAttribute="height" constant="69" id="daC-vI-eMF"/>
                                         <constraint firstItem="JSl-7e-sCR" firstAttribute="bottom" secondItem="rij-gy-Cs6" secondAttribute="bottom" constant="15" id="h6y-0X-sjK"/>
                                         <constraint firstItem="j1n-DP-K6e" firstAttribute="leading" secondItem="rij-gy-Cs6" secondAttribute="trailing" constant="35" id="jhm-8m-9jb"/>
-                                        <constraint firstItem="rij-gy-Cs6" firstAttribute="leading" secondItem="JSl-7e-sCR" secondAttribute="leading" constant="30" id="n1b-VK-riT"/>
+                                        <constraint firstItem="rij-gy-Cs6" firstAttribute="leading" secondItem="JSl-7e-sCR" secondAttribute="leading" constant="20" id="n1b-VK-riT"/>
                                     </constraints>
                                     <viewLayoutGuide key="safeArea" id="JSl-7e-sCR"/>
                                 </view>
@@ -259,7 +259,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fM7-Ru-l4s">
-                                <rect key="frame" x="484" y="30" width="220" height="40"/>
+                                <rect key="frame" x="494" y="30" width="220" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rs6-il-4JF">
                                         <rect key="frame" x="0.0" y="0.0" width="220" height="40"/>
@@ -450,7 +450,7 @@
                             <constraint firstItem="CaS-9r-wps" firstAttribute="top" secondItem="rs6-il-4JF" secondAttribute="bottom" constant="10" id="VtH-h6-xsL"/>
                             <constraint firstItem="CaS-9r-wps" firstAttribute="leading" secondItem="opS-Pk-Nd3" secondAttribute="leading" id="e8j-6F-cPi"/>
                             <constraint firstItem="opS-Pk-Nd3" firstAttribute="bottom" secondItem="CaS-9r-wps" secondAttribute="bottomMargin" id="hcV-XU-hlL"/>
-                            <constraint firstItem="opS-Pk-Nd3" firstAttribute="trailing" secondItem="fM7-Ru-l4s" secondAttribute="trailing" constant="10" id="y5W-gd-w6i"/>
+                            <constraint firstItem="opS-Pk-Nd3" firstAttribute="trailing" secondItem="fM7-Ru-l4s" secondAttribute="trailing" id="y5W-gd-w6i"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="opS-Pk-Nd3"/>
                     </view>

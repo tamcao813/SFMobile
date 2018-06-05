@@ -30,7 +30,7 @@ class ActionItemFilterViewController: UIViewController {
         super.viewDidLoad()
         
         self.customizeSearchBar()
-        self.tableView!.tableFooterView = UIView()
+//        self.tableView!.tableFooterView = UIView()
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -141,6 +141,9 @@ class ActionItemSortUtility {
     func filterOnTeamBasis(actionItems: [ActionItem]) -> [ActionItem]{
         // if selected a consultant to filter
         if let _ = ActionItemFilterModel.selectedConsultant {
+            for actionItem in actionItems {
+                print("actionItem \(actionItem.ownerId)")
+            }
 //            accountsToFilter = AccountsViewModel().accountsForSelectedUser()
 //            accountsToFilter = accountsToFilter.sorted{ $0.accountName < $1.accountName}
         }

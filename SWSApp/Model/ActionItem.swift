@@ -8,7 +8,7 @@
 
 import Foundation
 class ActionItem {
-    static let AccountActionItemFields: [String] =  ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c","RecordTypeId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet"]
+    static let AccountActionItemFields: [String] =  ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c","RecordTypeId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","OwnerId"]
     
     var Id:String
     var accountId:String
@@ -20,7 +20,7 @@ class ActionItem {
     var lastModifiedDate: String
     var recordTypeId: String
     var _soupEntryId: Int
-//    var userId: String
+    var ownerId: String
     
     var accountName: String
     var accountNumber: String
@@ -54,7 +54,7 @@ class ActionItem {
         lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
         recordTypeId = json["RecordTypeId"] as? String ?? ""
         _soupEntryId = json["_soupEntryId"] as? Int ?? 0
-//        userId = json["UserId"] as? String ?? ""
+        ownerId = json["OwnerId"] as? String ?? ""
         accountName = json["Account.Name"] as? String ?? ""
         shippingCity = json["Account.ShippingCity"] as? String ?? ""
         shippingCountry = json["Account.ShippingCountry"] as? String ?? ""
@@ -78,7 +78,7 @@ class ActionItem {
         lastModifiedDate = ""
         recordTypeId = ""
         _soupEntryId = 0
-        userId = ""
+        ownerId = ""
         accountName = ""
         accountNumber = ""
         shippingCity = ""

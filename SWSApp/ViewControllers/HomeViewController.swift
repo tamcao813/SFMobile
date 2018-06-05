@@ -16,28 +16,30 @@ class HomeViewController: UIViewController {
     
     var notificationArray = [Notifications]()
     
+    @IBOutlet weak var scollView : UIScrollView?
     
     override func viewDidLoad() {
         loggerInUser = userViewModel.loggedInUser
         
-      notificationArray = NotificationsViewModel().notificationsForUser()
+        notificationArray = NotificationsViewModel().notificationsForUser()
         print("Notification array is - \(notificationArray)")
         
-        
+    }
+    
+    func scrollToTop(){
+        scollView?.scrollsToTop = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("Home VC will appear")
         
-//        registerSyncLogSoup()
-        
-        
-        
-         //for soup testing
-//        let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
-//        present(SmartStoreViewController, animated: true, completion: nil)
+        //        registerSyncLogSoup()
 
+        //for soup testing
+        //        let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
+        //        present(SmartStoreViewController, animated: true, completion: nil)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,3 +47,4 @@ class HomeViewController: UIViewController {
         print("Home VC will disappear")
     }
 }
+

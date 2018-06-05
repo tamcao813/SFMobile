@@ -259,12 +259,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fM7-Ru-l4s">
-                                <rect key="frame" x="464" y="30" width="240" height="40"/>
+                                <rect key="frame" x="484" y="30" width="220" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rs6-il-4JF">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="220" height="40"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                                        <state key="normal" title="CREATE AN ACTION ITEM   +">
+                                        <state key="normal" title="Create An Action Item   +">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -282,7 +282,7 @@
                                     <constraint firstItem="rs6-il-4JF" firstAttribute="top" secondItem="fM7-Ru-l4s" secondAttribute="top" id="2PN-DP-e37"/>
                                     <constraint firstAttribute="trailing" secondItem="rs6-il-4JF" secondAttribute="trailing" id="WTi-Bq-Dco"/>
                                     <constraint firstAttribute="height" constant="40" id="bh8-SO-fdo"/>
-                                    <constraint firstAttribute="width" constant="240" id="r6W-oe-kP1"/>
+                                    <constraint firstAttribute="width" constant="220" id="r6W-oe-kP1"/>
                                     <constraint firstAttribute="bottom" secondItem="rs6-il-4JF" secondAttribute="bottom" id="vuR-Pi-L4D"/>
                                     <constraint firstItem="rs6-il-4JF" firstAttribute="leading" secondItem="fM7-Ru-l4s" secondAttribute="leading" id="xCV-X1-cBu"/>
                                 </constraints>

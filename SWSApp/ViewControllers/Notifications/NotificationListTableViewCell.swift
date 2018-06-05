@@ -18,10 +18,10 @@ class NotificationListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-  
+    
     func displayCellContent(notificationObject: Notifications){
         dateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString:notificationObject.createdDate)
-       // dateLabel.text =  notificationObject.createdDate
+        // dateLabel.text =  notificationObject.createdDate
         if notificationObject.isRead {
             isReadView.backgroundColor = .clear
         }else{

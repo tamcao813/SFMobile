@@ -18,6 +18,7 @@ open class WREvent: TimePeriod {
     open var accountId: String = ""
     open var contactName: String = ""
     open var startDate: String = ""
+    open var location: String = ""
     open var date: Date = Date()
     
     open class func make(date:Date, chunk: TimeChunk, title: String) -> WREvent {
@@ -26,14 +27,15 @@ open class WREvent: TimePeriod {
         
         return event
     }
-
-    open class func makeVisitEvent(Id: String, type: String, date: Date, startDate:String, chunk: TimeChunk, title: String) -> WREvent {
+    
+    open class func makeVisitEvent(Id: String, type: String, date: Date, startDate:String, chunk: TimeChunk, title: String, location:String) -> WREvent {
         let event = WREvent(beginning: date, chunk: chunk)
         event.title = title
         event.Id = Id
         event.type = type
         event.date = date
         event.startDate = startDate
+        event.location = location
         
         return event
     }

@@ -192,7 +192,7 @@ class CreateNewActionItemViewController: UIViewController {
         }else{
             newActionItem.isUrgent = false
         }
-        newActionItem.lastModifiedDate = getTimestamp()
+        newActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         var actionItemDict: [String:Any] = [
             
@@ -258,7 +258,7 @@ class CreateNewActionItemViewController: UIViewController {
         }else{
             editActionItem.isUrgent = false
         }
-        editActionItem.lastModifiedDate = getTimestamp()
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             
@@ -298,14 +298,6 @@ class CreateNewActionItemViewController: UIViewController {
         let someString:String = String(randomNum)
         print("number in notes is \(someString)")
         return someString
-    }
-    
-    func getTimestamp() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
     }
 }
 

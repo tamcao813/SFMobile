@@ -28,6 +28,8 @@ class CalendarListViewController: UIViewController {
     let dropDownAddNew = DropDown()
     let dropDownCalView = DropDown()
     var calendarMonthController: CalendarMonthViewController?
+    
+    let defaults:UserDefaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,7 @@ class CalendarListViewController: UIViewController {
         setupDropDownAddNew()
         setupDropDownCalView()
         
+        defaults.set(false, forKey: "FromHomeVC")
 
     }
 

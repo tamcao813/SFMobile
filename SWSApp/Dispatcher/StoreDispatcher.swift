@@ -3327,6 +3327,22 @@ class StoreDispatcher {
         return notification
     }
     
+    func fetchUnreadNotificationsCount()->Int {
+        
+        let soapQuery = "SELECT Count() FROM {\(SoupNotifications)} WHERE {\(SoupNotifications):isRead} == 0"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 1)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        if (error == nil && result.count > 0) {
+                print("UnreadNotification count \(result.count)")
+        }
+        else if error != nil {
+            print("fetch UnreadNotification array " + " error:" + (error?.localizedDescription)!)
+        }
+        return result.count
+    }
+    
     
     func editNotificationsLocally(fieldsToUpload: [String:Any]) -> Bool{
         

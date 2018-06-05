@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>secureUrl</key>
+	<string>/secur/frontdoor.jsp?sid=</string>
+	<key>apexChatterUrl</key>
+	<string>&amp;retURL=/apex/sgwsACNChatter?id=</string>
+	<key>endUrl</key>
+	<string>/one/one.app?source=alohaHeader#/sObject/Event/home</string>
+	<key>retUrl</key>
+	<string>&amp;retURL=</string>
+	<key>googleUrl</key>
+	<string>http://www.google.com</string>
+	<key>contactPicklistValue</key>
+	<string>ui-api/object-info/Contact/picklist-values/</string>
+	<key>rules</key>
+	<string>/SGWS_Roles__c</string>
+	<key>serviceUrl</key>
+	<string>/services/data/v41.0/</string>
+	<key>contactRolesPlist</key>
+	<string>/ContactRoles.plist</string>
+	<key>preferredCommunicationUrl</key>
+	<string>/SGWS_Preferred_Communication_Method__c</string>
+	<key>contactClassification</key>
+	<string>/SGWS_Contact_Classification__c</string>
+	<key>contactPreferredPlist</key>
+	<string>/ContactPreferred.plist</string>
+	<key>contactClassificationPlist</key>
+	<string>/ContactClassification.plist</string>
+	<key>workorderPicklistValue</key>
+	<string>ui-api/object-info/WorkOrder/picklist-values/</string>
+	<key>visitPurpose</key>
+	<string>/SGWS_Visit_Purpose__c</string>
+	<key>accountVisitPurposePlist</key>
+	<string>/AccountVisitPurpose.plist</string>
+</dict>
+</plist>

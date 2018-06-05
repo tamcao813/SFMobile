@@ -1414,10 +1414,13 @@
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Og1-29-jYP">
                                         <rect key="frame" x="516.5" y="0.0" width="507.5" height="506"/>
-                                        <color key="backgroundColor" name="Data New"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="506" id="K6V-12-9XM"/>
                                         </constraints>
+                                        <connections>
+                                            <segue destination="5FA-PW-se8" kind="embed" id="5az-NV-b8A"/>
+                                        </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wtg-xM-X5K">
                                         <rect key="frame" x="1" y="534" width="507.5" height="506"/>
@@ -1691,12 +1694,146 @@
             </objects>
             <point key="canvasLocation" x="1999.8046874999998" y="2251.5625"/>
         </scene>
+        <!--Day Home Calendar View Controller-->
+        <scene sceneID="29x-M4-hG7">
+            <objects>
+                <viewController storyboardIdentifier="DayHomeCalendarViewController" id="5FA-PW-se8" customClass="DayHomeCalendarViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="07f-Qe-y4X">
+                        <rect key="frame" x="0.0" y="0.0" width="507" height="506"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NKX-IS-3mp" userLabel="Calendar View">
+                                <rect key="frame" x="0.0" y="6" width="500" height="500"/>
+                                <subviews>
+                                    <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8M-s0-dph">
+                                        <rect key="frame" x="10" y="20" width="40" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="Liu-6U-yk0"/>
+                                            <constraint firstAttribute="height" constant="40" id="rbf-sI-UC7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                        <state key="normal" image="Previous">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="actionButtonLeft:" destination="5FA-PW-se8" eventType="touchUpInside" id="cEP-Xy-Mvn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N9x-un-pcn">
+                                        <rect key="frame" x="452" y="20" width="40" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="5sV-E8-VLF"/>
+                                            <constraint firstAttribute="height" constant="40" id="erJ-D9-hHU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                        <state key="normal" title="  " image="Next">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="actionButtonRight:" destination="5FA-PW-se8" eventType="touchUpInside" id="VW2-Uw-Z89"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gle-6B-00w" customClass="WRWeekView" customModule="SWSApp">
+                                        <rect key="frame" x="10" y="68" width="482" height="366"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="366" id="7D4-z3-MvN"/>
+                                            <constraint firstAttribute="width" constant="482" id="h0d-p1-lBT"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C6Z-5x-Pzz">
+                                        <rect key="frame" x="8" y="455" width="364" height="30"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="364" id="2VC-Mi-fyx"/>
+                                            <constraint firstAttribute="height" constant="30" id="ZNM-tO-MEG"/>
+                                        </constraints>
+                                        <state key="normal" title="View Calendar">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="viewCalendar:" destination="5FA-PW-se8" eventType="touchUpInside" id="g6D-yw-wXs"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHU-pC-g1A">
+                                        <rect key="frame" x="380" y="455" width="112" height="30"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="112" id="Uuc-3I-GAp"/>
+                                            <constraint firstAttribute="height" constant="30" id="pP9-kW-91R"/>
+                                        </constraints>
+                                        <state key="normal" title="Add New">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="actionButtonNew:" destination="5FA-PW-se8" eventType="touchUpInside" id="TuE-XD-Cwy"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday, March 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwx-sk-44I">
+                                        <rect key="frame" x="164" y="26" width="174" height="25"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="gle-6B-00w" firstAttribute="leading" secondItem="NKX-IS-3mp" secondAttribute="leading" constant="10" id="2KD-4B-0sd"/>
+                                    <constraint firstItem="N9x-un-pcn" firstAttribute="top" secondItem="NKX-IS-3mp" secondAttribute="top" constant="20" id="6N0-CL-Tx7"/>
+                                    <constraint firstItem="gle-6B-00w" firstAttribute="top" secondItem="v8M-s0-dph" secondAttribute="bottom" constant="8" symbolic="YES" id="6zr-4h-7Mo"/>
+                                    <constraint firstAttribute="trailing" secondItem="gle-6B-00w" secondAttribute="trailing" constant="8" id="7LA-hE-muK"/>
+                                    <constraint firstAttribute="trailing" secondItem="rHU-pC-g1A" secondAttribute="trailing" constant="8" id="Flk-oO-IpT"/>
+                                    <constraint firstItem="gle-6B-00w" firstAttribute="top" secondItem="vwx-sk-44I" secondAttribute="bottom" constant="17" id="GAs-iu-xFy"/>
+                                    <constraint firstAttribute="trailing" secondItem="N9x-un-pcn" secondAttribute="trailing" constant="8" id="Hpw-Sc-Y5F"/>
+                                    <constraint firstItem="v8M-s0-dph" firstAttribute="leading" secondItem="NKX-IS-3mp" secondAttribute="leading" constant="10" id="KZc-yX-Q4C"/>
+                                    <constraint firstItem="vwx-sk-44I" firstAttribute="centerX" secondItem="gle-6B-00w" secondAttribute="centerX" id="PCp-cx-tpB"/>
+                                    <constraint firstItem="rHU-pC-g1A" firstAttribute="leading" secondItem="C6Z-5x-Pzz" secondAttribute="trailing" constant="8" id="YxR-Yx-B9E"/>
+                                    <constraint firstItem="C6Z-5x-Pzz" firstAttribute="top" secondItem="gle-6B-00w" secondAttribute="bottom" constant="21" id="iL8-T0-DRy"/>
+                                    <constraint firstItem="rHU-pC-g1A" firstAttribute="leading" secondItem="C6Z-5x-Pzz" secondAttribute="trailing" constant="8" id="ibO-9p-bdX"/>
+                                    <constraint firstItem="C6Z-5x-Pzz" firstAttribute="leading" secondItem="NKX-IS-3mp" secondAttribute="leading" constant="8" id="mJI-6B-9ns"/>
+                                    <constraint firstItem="v8M-s0-dph" firstAttribute="top" secondItem="NKX-IS-3mp" secondAttribute="top" constant="20" id="nkU-Pb-5hc"/>
+                                    <constraint firstAttribute="bottom" secondItem="rHU-pC-g1A" secondAttribute="bottom" constant="15" id="y5y-eI-4lK"/>
+                                    <constraint firstAttribute="bottom" secondItem="C6Z-5x-Pzz" secondAttribute="bottom" constant="15" id="zCI-Ye-c24"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NKX-IS-3mp" firstAttribute="leading" secondItem="07f-Qe-y4X" secondAttribute="leading" id="9DI-MW-Jpa"/>
+                            <constraint firstItem="NKX-IS-3mp" firstAttribute="bottom" secondItem="my2-tt-ebq" secondAttribute="bottom" id="OyP-Gy-mML"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="my2-tt-ebq"/>
+                    </view>
+                    <size key="freeformSize" width="507" height="506"/>
+                    <connections>
+                        <outlet property="addNewButton" destination="rHU-pC-g1A" id="Aob-nY-vgF"/>
+                        <outlet property="dateHeaderLabel" destination="vwx-sk-44I" id="pUt-0f-bGv"/>
+                        <outlet property="weekView" destination="gle-6B-00w" id="BMj-Ka-JCt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VNg-D2-ZCp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1579" y="2636"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Action Items" width="32" height="32"/>
         <image name="Close" width="38" height="38"/>
         <image name="Details" width="6" height="11"/>
         <image name="Large Status Critical" width="36" height="32"/>
+        <image name="Next" width="32" height="32"/>
+        <image name="Previous" width="32" height="32"/>
         <image name="Sort Gray" width="149" height="149"/>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

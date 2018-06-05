@@ -322,7 +322,6 @@
 		8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
 		8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2923C95208DE47700D797E1 /* Strategy.storyboard */; };
 		8DD1500F2093370400858349 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		8DD150102093370700858349 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		8DD1501220933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DD1501320933A0800858349 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD1501120933A0800858349 /* StringConstants.swift */; };
 		8DDD4A3B20B7E33D00423E20 /* AccountsActionItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */; };
@@ -414,6 +413,8 @@
 		91FAEF6420A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
 		91FC593C20AD49F3001660C3 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
 		91FC593D20AD49FA001660C3 /* VisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FDA1472099D924000921A8 /* VisitsViewModel.swift */; };
+		AE029EBE20C55C3F00DA7194 /* DayHomeCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE029EBD20C55C3F00DA7194 /* DayHomeCalendarViewController.swift */; };
+		AE029EBF20C55C3F00DA7194 /* DayHomeCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE029EBD20C55C3F00DA7194 /* DayHomeCalendarViewController.swift */; };
 		AE1FAA8820B4588A005B44EC /* EventDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAA8420B45888005B44EC /* EventDescriptionTableViewCell.swift */; };
 		AE1FAA8920B4588A005B44EC /* EventDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAA8420B45888005B44EC /* EventDescriptionTableViewCell.swift */; };
 		AE1FAA8A20B4588A005B44EC /* EventDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1FAA8520B45888005B44EC /* EventDescriptionTableViewCell.xib */; };
@@ -578,7 +579,6 @@
 		F2919DA120AEEBBA00267A60 /* AccountVisitEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2919D9F20AEEBBA00267A60 /* AccountVisitEmbedViewController.swift */; };
 		F2923C9A208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */; };
 		F2923C9C208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C9B208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift */; };
-		F2923C9E208DEA4900D797E1 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
 		F293732D20B821AD00E659CB /* AccountVisitListFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F293732C20B821AD00E659CB /* AccountVisitListFilter.swift */; };
 		F293732E20B821AD00E659CB /* AccountVisitListFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F293732C20B821AD00E659CB /* AccountVisitListFilter.swift */; };
 		F293733020B8266B00E659CB /* AccountVisitListFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F293732F20B8266B00E659CB /* AccountVisitListFilterTableViewCell.swift */; };
@@ -597,6 +597,8 @@
 		F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */; };
 		F2D7B8D720AA213D00A124BA /* ChatterModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */; };
 		F2D7B8D820AA213D00A124BA /* ChatterModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */; };
+		F2DB9B8420C570B500338329 /* GlobalURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2DB9B8320C570B500338329 /* GlobalURL.plist */; };
+		F2DB9B8520C570B500338329 /* GlobalURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2DB9B8320C570B500338329 /* GlobalURL.plist */; };
 		F2DC2840208E6B5B0005294E /* AccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */; };
 		F2DC2841208E6B600005294E /* AccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C9B208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift */; };
 		F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */; };
@@ -604,9 +606,6 @@
 		F2FD2C2820919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */; };
 		F2FD2C2920919AF600037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */; };
 		F2FD2C2A20919AFA00037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */; };
-		F2FD2C2D20919B1A00037BB2 /* EditAccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */; };
-		F2FD2C2E20919B2500037BB2 /* AccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */; };
-		F2FD2C2F20919B2900037BB2 /* EditAccountStrategy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */; };
 		F2FDA1482099D925000921A8 /* VisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FDA1472099D924000921A8 /* VisitsViewModel.swift */; };
 		F2FDA14A2099D92D000921A8 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FDA1492099D92D000921A8 /* Visit.swift */; };
 		F2FDA14B2099DEEA000921A8 /* ServicePurposes.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */; };
@@ -832,6 +831,7 @@
 		91FAEF3620A57DD500209D71 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		91FAEF3820A57DD500209D71 /* WRWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRWeekView.swift; sourceTree = "<group>"; };
 		A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE029EBD20C55C3F00DA7194 /* DayHomeCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayHomeCalendarViewController.swift; sourceTree = "<group>"; };
 		AE1FAA8420B45888005B44EC /* EventDescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		AE1FAA8520B45888005B44EC /* EventDescriptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventDescriptionTableViewCell.xib; sourceTree = "<group>"; };
 		AE1FAA8620B45889005B44EC /* EventLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventLocationTableViewCell.xib; sourceTree = "<group>"; };
@@ -947,7 +947,6 @@
 		F2923C95208DE47700D797E1 /* Strategy.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Strategy.storyboard; sourceTree = "<group>"; };
 		F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStrategyCollectionViewCell.swift; sourceTree = "<group>"; };
 		F2923C9B208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStrategyCollectionReusableView.swift; sourceTree = "<group>"; };
-		F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AccountStrategy.plist; sourceTree = "<group>"; };
 		F293732C20B821AD00E659CB /* AccountVisitListFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVisitListFilter.swift; sourceTree = "<group>"; };
 		F293732F20B8266B00E659CB /* AccountVisitListFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVisitListFilterTableViewCell.swift; sourceTree = "<group>"; };
 		F29A645920B816B000D73AE9 /* AccountVisitListFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVisitListFilterViewController.swift; sourceTree = "<group>"; };
@@ -959,10 +958,10 @@
 		F2AB945D2095D5000028802E /* DuringVisitsInsightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuringVisitsInsightsViewController.swift; sourceTree = "<group>"; };
 		F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterModelViewController.swift; sourceTree = "<group>"; };
+		F2DB9B8320C570B500338329 /* GlobalURL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GlobalURL.plist; sourceTree = "<group>"; };
 		F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsDetailsViewController.swift; sourceTree = "<group>"; };
 		F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionViewCell.swift; sourceTree = "<group>"; };
 		F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionReusableView.swift; sourceTree = "<group>"; };
-		F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EditAccountStrategy.plist; sourceTree = "<group>"; };
 		F2FDA1472099D924000921A8 /* VisitsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitsViewModel.swift; sourceTree = "<group>"; };
 		F2FDA1492099D92D000921A8 /* Visit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visit.swift; sourceTree = "<group>"; };
 		F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Filter.storyboard; sourceTree = "<group>"; };
@@ -1551,8 +1550,6 @@
 			children = (
 				6D38329A20875E00006805C6 /* SFPropertydev.plist */,
 				D1FB18552062BB1F0072F4C1 /* SFProperty.plist */,
-				F2923C9D208DEA4900D797E1 /* AccountStrategy.plist */,
-				F2FD2C2C20919B1900037BB2 /* EditAccountStrategy.plist */,
 				F2590104209216ED00C2E354 /* DuringVisitTopics.plist */,
 				F20C1A26209347EA00D2351C /* Insights.plist */,
 				AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */,
@@ -1588,6 +1585,7 @@
 		D1FB185A2062F86C0072F4C1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				AE029EBD20C55C3F00DA7194 /* DayHomeCalendarViewController.swift */,
 				8D8DFFFB20C14596009683AC /* Notifications */,
 				F22CE6E120B48B1B001A2171 /* EventStartEndDateTableViewCell.swift */,
 				F22CE6E220B48B1B001A2171 /* EventStartEndDateTableViewCell.xib */,
@@ -1693,6 +1691,7 @@
 				8DD1501120933A0800858349 /* StringConstants.swift */,
 				AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */,
 				911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */,
+				F2DB9B8320C570B500338329 /* GlobalURL.plist */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -1944,7 +1943,6 @@
 				D23C40D1208DE6590006691C /* AssociatedContactsTableViewCell.xib in Resources */,
 				8D4BA3A920B45B58005CFE56 /* SearchAccountTableViewCell.xib in Resources */,
 				6D38328220874026006805C6 /* Filter.storyboard in Resources */,
-				8DD150102093370700858349 /* AccountStrategy.plist in Resources */,
 				6D38328320874026006805C6 /* MoreMenu.storyboard in Resources */,
 				8D4BA33F20B455EC005CFE56 /* ActionItemsListTableViewCell.xib in Resources */,
 				8D4BA38120B45B58005CFE56 /* DescriptionTableViewCell.xib in Resources */,
@@ -1961,6 +1959,7 @@
 				6D38328520874026006805C6 /* Ubuntu-Light.ttf in Resources */,
 				6D38328620874026006805C6 /* Ubuntu-Bold.ttf in Resources */,
 				8DD1500C209330E200858349 /* AccountView.xib in Resources */,
+				F2DB9B8520C570B500338329 /* GlobalURL.plist in Resources */,
 				8DD1500E209336FD00858349 /* Strategy.storyboard in Resources */,
 				121468E720AD603A00942A00 /* DropDownCell.xib in Resources */,
 				6D38328720874026006805C6 /* Ubuntu-MediumItalic.ttf in Resources */,
@@ -1980,7 +1979,6 @@
 				6D38328B20874026006805C6 /* SFProperty.plist in Resources */,
 				8D4BA38D20B45B58005CFE56 /* PhoneTableViewCell.xib in Resources */,
 				6D38328C20874026006805C6 /* Main.storyboard in Resources */,
-				F2FD2C2F20919B2900037BB2 /* EditAccountStrategy.plist in Resources */,
 				F2FDA14C2099DEEA000921A8 /* ServicePurposes.plist in Resources */,
 				91FAEF5220A57DD500209D71 /* WRCurrentTimeIndicator.xib in Resources */,
 				8D17A5CD20A1FFB600ABC9DC /* SearchForContactTableViewCell.xib in Resources */,
@@ -1989,7 +1987,6 @@
 				6D38328D20874026006805C6 /* LaunchScreen.storyboard in Resources */,
 				D23C40DB208DFA890006691C /* AccountVisitListTableViewCell.xib in Resources */,
 				F2062E5F2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */,
-				F2FD2C2E20919B2500037BB2 /* AccountStrategy.plist in Resources */,
 				6D38329C20875E1F006805C6 /* SFPropertydev.plist in Resources */,
 				6D38328E20874026006805C6 /* CrimsonText-Bold.ttf in Resources */,
 				6D38328F20874026006805C6 /* CrimsonText-SemiboldItalic.ttf in Resources */,
@@ -2016,7 +2013,6 @@
 				6DBD03252077B5EF0083419E /* Ubuntu-LightItalic.ttf in Resources */,
 				AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */,
 				6DBD03282077B5EF0083419E /* CrimsonText-Roman.ttf in Resources */,
-				F2923C9E208DEA4900D797E1 /* AccountStrategy.plist in Resources */,
 				6DBD03222077B5EF0083419E /* Ubuntu-BoldItalic.ttf in Resources */,
 				121468E620AD603A00942A00 /* DropDownCell.xib in Resources */,
 				8D4BA34F20B45634005CFE56 /* ActionItem.storyboard in Resources */,
@@ -2033,6 +2029,7 @@
 				6DBD031D2077B5EF0083419E /* Ubuntu-Regular.ttf in Resources */,
 				1255F30D20A57B6400FC3796 /* AccountOverView.storyboard in Resources */,
 				8D4BA38020B45B58005CFE56 /* DescriptionTableViewCell.xib in Resources */,
+				F2DB9B8420C570B500338329 /* GlobalURL.plist in Resources */,
 				8D4BA34620B455EC005CFE56 /* ActionItemTitleTableViewCell.xib in Resources */,
 				8D4BA39020B45B58005CFE56 /* DateFieldTableViewCell.xib in Resources */,
 				F2590105209216ED00C2E354 /* DuringVisitTopics.plist in Resources */,
@@ -2080,7 +2077,6 @@
 				D26768912090B42E0060E792 /* NewContact.storyboard in Resources */,
 				D23C40B9208DE6480006691C /* AccountVisitSectionHeaderView.xib in Resources */,
 				8DDD4A4C20BBFC5200423E20 /* TitleDepartmentTableViewCell.xib in Resources */,
-				F2FD2C2D20919B1A00037BB2 /* EditAccountStrategy.plist in Resources */,
 				8D4BA38C20B45B58005CFE56 /* PhoneTableViewCell.xib in Resources */,
 				D1FB18592062F7A40072F4C1 /* Main.storyboard in Resources */,
 				8DD150062093308700858349 /* AssociateTableViewCell.xib in Resources */,
@@ -2455,6 +2451,7 @@
 				8D99A3242092D66C00FAA71A /* CustomPicker.swift in Sources */,
 				6D38326E20874026006805C6 /* ParentViewController.swift in Sources */,
 				8D4BA38B20B45B58005CFE56 /* DateFieldTableViewCell.swift in Sources */,
+				AE029EBF20C55C3F00DA7194 /* DayHomeCalendarViewController.swift in Sources */,
 				8D4BA37B20B45B58005CFE56 /* CreateNewContactViewController.swift in Sources */,
 				8D4BA3B120B45B58005CFE56 /* LinkAccountToContactViewController.swift in Sources */,
 				8D4BA33D20B455EC005CFE56 /* ActionItemDescriptionTableViewCell.swift in Sources */,
@@ -2515,6 +2512,7 @@
 				8DDD4A4420BBD5FF00423E20 /* SyncInfoViewController.swift in Sources */,
 				12C5CEF7206E2F9200BC6E7A /* CustomerHeaderTableViewCell.swift in Sources */,
 				91FAEF5B20A57DD500209D71 /* Constants.swift in Sources */,
+				AE029EBE20C55C3F00DA7194 /* DayHomeCalendarViewController.swift in Sources */,
 				8D4BA37420B45B58005CFE56 /* ContactListViewController.swift in Sources */,
 				8D907C3C20AEACB8004FC367 /* ActionItem.swift in Sources */,
 				F259010E2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift in Sources */,

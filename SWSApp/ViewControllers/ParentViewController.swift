@@ -393,7 +393,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // Strategy QA(SGWS_Response__c) Sync Up
         //let fields: [String] = StrategyQA.StrategyQAFields
         group.enter()
-        StrategyQAViewModel().uploadStrategyQAToServer(fields: ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c"], completion: { error in
+        StrategyQAViewModel().uploadStrategyQAToServer(fields: ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"], completion: { error in
             if error != nil {
                 //DispatchQueue.main.async { //do this in group.notify
                 //    MBProgressHUD.hide(forWindow: true)

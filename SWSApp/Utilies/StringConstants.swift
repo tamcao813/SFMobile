@@ -48,5 +48,6 @@ class StringConstants {
     static let visitPurpose = globalUrlDictionary["visitPurpose"] as! String
     static let accountVisitPurposePlist = globalUrlDictionary["accountVisitPurposePlist"] as! String
 
+    static let swsUri = globalUrlDictionary["swsUri"] as! String
 }
 

@@ -42,7 +42,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var notificationsViewController:UIViewController?
     
     var notificationsView:UIView?
-    var filterMenuModel = AccountsMenuViewController()
+    
+    lazy var filterMenuModel = AccountsMenuViewController()
+    
     //
     var previouslySelectedVCIndex = 0
     

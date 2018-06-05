@@ -37,7 +37,7 @@ class ContactListAccountLinkDetails: UITableViewCell {
 
     func displayCellContent(_ accountId: String, withRoles roles: String, forClassification classification: String) {
         
-        let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: accountId)
+        let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser(), accountId: accountId)
         guard accountList != nil, (accountList?.count)! > 0  else {
             return;
         }

@@ -13,7 +13,6 @@ class WREventCell: UICollectionViewCell {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var homeTitleLabel: UILabel!
-    @IBOutlet weak var homeDescLabel: UILabel!
     let defaults:UserDefaults = UserDefaults.standard
     
     var eventType: String = ""
@@ -66,29 +65,38 @@ class WREventCell: UICollectionViewCell {
                 if defaults.bool(forKey: "FromHomeVC" ) {
                     titleLabel.isHidden = true
                     homeTitleLabel.isHidden = false
-                    homeDescLabel.isHidden = false
-                    homeTitleLabel.text = event.title
-                    homeDescLabel.text = "location" + " " + event.location
+                    let titleAttribute = [NSAttributedStringKey.font: UIFont(name: "Ubuntu-Medium", size: 16.0)!]
+                    let myMutableTitle = NSMutableAttributedString(string: event.title, attributes: titleAttribute)
+                    
+                    if (!event.location.isEmpty) {
+                        
+                        let locationAttribute = [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 12.0)!]
+                        let locationStr = NSMutableAttributedString(string: "\n location  \(event.location)", attributes: locationAttribute)
+                        myMutableTitle.append(locationStr)
+                    }
+                    
+                    homeTitleLabel.numberOfLines = 0
+                    homeTitleLabel.attributedText = myMutableTitle
+
                     if event.type == "visit" {
                         eventType = event.type
-                        self.backgroundColor = UIColor(hexString: "4287C2")!
-                        borderView.backgroundColor = UIColor(hexString: "4287C2")!
+                        contentView.backgroundColor = UIColor(hexString: "33648d")!
+                        self.backgroundColor = UIColor(hexString: "33648d")!
+                        borderView.backgroundColor = UIColor(hexString: "33648d")!
                         homeTitleLabel.textColor = UIColor.white
-                        homeDescLabel.textColor = UIColor.white
                     }
                     else if event.type == "event" {
                         eventType = event.type
+                        contentView.backgroundColor = UIColor(hexString: "EBEBEB")!
                         self.backgroundColor = UIColor(hexString: "EBEBEB")!
                         borderView.backgroundColor = UIColor(hexString: "EBEBEB")!
                         homeTitleLabel.textColor = UIColor.black
-                        homeDescLabel.textColor = UIColor.black
                     }
                     else {
                         eventType = ""
                     }
                 } else {
                     homeTitleLabel.isHidden = true
-                    homeDescLabel.isHidden = true
                     titleLabel.isHidden = false
                     if event.type == "visit" {
                         eventType = event.type
@@ -122,16 +130,16 @@ class WREventCell: UICollectionViewCell {
     
     func updateViewColors() {
         if eventType == "visit" {
-            self.backgroundColor = UIColor(hexString: "4287C2")!
-            borderView.backgroundColor = UIColor(hexString: "4287C2")!
+            contentView.backgroundColor = UIColor(hexString: "33648d")!
+            self.backgroundColor = UIColor(hexString: "33648d")!
+            borderView.backgroundColor = UIColor(hexString: "33648d")!
             homeTitleLabel.textColor = UIColor.white
-            homeDescLabel.textColor = UIColor.white
         }
         else if eventType == "event" {
+            contentView.backgroundColor = UIColor(hexString: "EBEBEB")!
             self.backgroundColor = UIColor(hexString: "EBEBEB")!
             borderView.backgroundColor = UIColor(hexString: "EBEBEB")!
             homeTitleLabel.textColor = UIColor.black
-            homeDescLabel.textColor = UIColor.black
             
         }
         else {

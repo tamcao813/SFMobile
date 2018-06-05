@@ -144,11 +144,22 @@ class AccountSortUtility
         var enteredAnyFilterCase = false
         var enteredAnyFilterCaseReturn = false
         
+        var accountsToFilter = accountsListToBeSorted
+        
+        // if selected a consultant to filter
+        if let _ = FilterMenuModel.selectedConsultant {
+            accountsToFilter = AccountsViewModel().accountsForSelectedUser()
+            accountsToFilter = accountsToFilter.sorted{ $0.accountName < $1.accountName}
+        }
+        
         // filter by past due
-        (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterByPastDue(accountsListToBeSorted: accountsListToBeSorted)
+        (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterByPastDue(accountsListToBeSorted: accountsToFilter)
         if enteredAnyFilterCaseReturn {
             enteredAnyFilterCase = true
             filteredByPastDue_PremiseCode_LicenseTypeAccountArray = filteredByReturnArray
+        }
+        else {
+            filteredByPastDue_PremiseCode_LicenseTypeAccountArray = accountsToFilter
         }
         
         // filter by  premise code
@@ -156,7 +167,7 @@ class AccountSortUtility
         // filter by single or multilocation
         if(enteredAnyFilterCase == false)
         {
-            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterPremiseCodeRelated(accountsListToBeSorted: accountsListToBeSorted)
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterPremiseCodeRelated(accountsListToBeSorted: accountsToFilter)
         }
         else
         {
@@ -174,7 +185,7 @@ class AccountSortUtility
         //For Suspended
         if(enteredAnyFilterCase == false)
         {
-            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForChannelRelatedFiltering(accountsListToBeSorted: accountsListToBeSorted)
+            (enteredAnyFilterCaseReturn, filteredByReturnArray) = filterAccountByFilterForChannelRelatedFiltering(accountsListToBeSorted: accountsToFilter)
         }
         else
         {
@@ -192,13 +203,14 @@ class AccountSortUtility
         }
         else if(searchBarText != "" && enteredAnyFilterCase == false) // use main list for search
         {
-            filteredSearchedArray = searchAccountBySearchBarQuery(accountsForLoggedUser: accountsListToBeSorted, searchText: searchBarText!)
+            filteredSearchedArray = searchAccountBySearchBarQuery(accountsForLoggedUser: accountsToFilter, searchText: searchBarText!)
         }
         else
         {
             filteredSearchedArray =  filteredByPastDue_PremiseCode_LicenseTypeAccountArray
         }
         
+        filteredSearchedArray = filteredSearchedArray.sorted{ $0.accountName.lowercased() < $1.accountName.lowercased()}
         
         return filteredSearchedArray
     }
@@ -492,6 +504,16 @@ class AccountSortUtility
         
         return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
         
+    }
+    
+    static func filterAccountByConsultant(accountsListToBeFiltered : [Account])-> [Account] {
+        var filteredAccounts = [Account]()
+        
+        if let consultant = FilterMenuModel.selectedConsultant  {
+            filteredAccounts = AccountsViewModel().accountsForSelectedUser()
+        }
+        
+        return filteredAccounts
     }
     
 }

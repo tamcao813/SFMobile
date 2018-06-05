@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -1484,8 +1483,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="507.5" height="506"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vco-lQ-zMf">
-                                <rect key="frame" x="0.0" y="0.0" width="508" height="506"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vco-lQ-zMf">
+                                <rect key="frame" x="0.0" y="0.0" width="508" height="437"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="TXa-4F-Gdu" customClass="HomeActivitiesTableViewCell" customModule="SWSApp" customModuleProvider="target">
@@ -1496,19 +1495,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today is Jeanna Smith’s Birthday" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOE-kS-BQx">
-                                                    <rect key="frame" x="15" y="20" width="232.5" height="36"/>
+                                                    <rect key="frame" x="15" y="20" width="232.5" height="36.5"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bell" translatesAutoresizingMaskIntoConstraints="NO" id="j1H-aL-8kc">
-                                                    <rect key="frame" x="15" y="61" width="20" height="20"/>
+                                                    <rect key="frame" x="15" y="61.5" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="VLr-NT-0gI"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Hours Ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7Q-sB-niW">
-                                                    <rect key="frame" x="45" y="62" width="84" height="17"/>
+                                                    <rect key="frame" x="45" y="62.5" width="84" height="17"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1517,18 +1516,19 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="j1H-aL-8kc" firstAttribute="leading" secondItem="rOE-kS-BQx" secondAttribute="leading" id="6c6-nE-Qdb"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Y7Q-sB-niW" secondAttribute="bottom" constant="10" id="6gB-Wg-gva"/>
                                                 <constraint firstItem="rOE-kS-BQx" firstAttribute="leading" secondItem="Etf-1E-EbP" secondAttribute="leading" constant="15" id="8ZF-U6-BzH"/>
                                                 <constraint firstItem="Y7Q-sB-niW" firstAttribute="leading" secondItem="j1H-aL-8kc" secondAttribute="trailing" constant="10" id="UUe-Z3-HTc"/>
-                                                <constraint firstItem="rOE-kS-BQx" firstAttribute="top" secondItem="Etf-1E-EbP" secondAttribute="top" constant="20" id="dw5-4D-sOW"/>
                                                 <constraint firstItem="Y7Q-sB-niW" firstAttribute="centerY" secondItem="j1H-aL-8kc" secondAttribute="centerY" id="iaw-7J-Lcq"/>
+                                                <constraint firstAttribute="bottom" secondItem="Y7Q-sB-niW" secondAttribute="bottom" constant="20" id="shB-cI-Gon"/>
+                                                <constraint firstItem="rOE-kS-BQx" firstAttribute="top" secondItem="Etf-1E-EbP" secondAttribute="top" constant="20" id="shf-SL-ES5"/>
                                                 <constraint firstItem="j1H-aL-8kc" firstAttribute="top" secondItem="rOE-kS-BQx" secondAttribute="bottom" constant="5" id="xuk-Kv-OFA"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="upcomingImageWidthConstraint" destination="VLr-NT-0gI" id="o02-sP-oDi"/>
-                                            <outlet property="upcomingTimeLeadingConstraint" destination="UUe-Z3-HTc" id="k6X-AC-ebF"/>
+                                            <outlet property="homeActivitiesImage" destination="j1H-aL-8kc" id="f9o-6b-s3l"/>
+                                            <outlet property="homeActivitiesTimeLabel" destination="Y7Q-sB-niW" id="LgU-S5-okX"/>
+                                            <outlet property="homeActivitiesTitle" destination="rOE-kS-BQx" id="6Pd-pm-fy6"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1537,13 +1537,59 @@
                                     <outlet property="delegate" destination="nQC-Gm-bfN" id="Kgk-zU-yrM"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="liG-hA-w1f">
+                                <rect key="frame" x="0.0" y="438" width="507.5" height="68"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZyH-Fi-aXU">
+                                        <rect key="frame" x="16" y="23" width="180" height="30"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="180" id="X0q-lo-XHZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                        <state key="normal" title="View Notifications">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="viewAllNotifications:" destination="nQC-Gm-bfN" eventType="touchUpInside" id="8RI-2a-KVq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Vj-z5-Stm">
+                                        <rect key="frame" x="226" y="23" width="180" height="30"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="180" id="ch0-xp-oaR"/>
+                                            <constraint firstAttribute="height" constant="30" id="mdD-wy-9X2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                        <state key="normal" title="View Action Items">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="viewAllActionItem:" destination="nQC-Gm-bfN" eventType="touchUpInside" id="9bj-e4-Qrb"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="7Vj-z5-Stm" firstAttribute="leading" secondItem="ZyH-Fi-aXU" secondAttribute="trailing" constant="30" id="RFE-pd-Zoa"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZyH-Fi-aXU" secondAttribute="bottom" constant="15" id="Zz2-eT-bKC"/>
+                                    <constraint firstItem="7Vj-z5-Stm" firstAttribute="centerY" secondItem="ZyH-Fi-aXU" secondAttribute="centerY" id="bp0-jS-4As"/>
+                                    <constraint firstItem="ZyH-Fi-aXU" firstAttribute="leading" secondItem="liG-hA-w1f" secondAttribute="leading" constant="16" id="dkx-TF-6qM"/>
+                                    <constraint firstAttribute="bottom" secondItem="7Vj-z5-Stm" secondAttribute="bottom" constant="15" id="fAv-g8-Za3"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vco-lQ-zMf" firstAttribute="top" secondItem="8QO-wR-KXA" secondAttribute="top" id="286-CP-hMq"/>
+                            <constraint firstItem="liG-hA-w1f" firstAttribute="bottom" secondItem="Ebm-Of-fDB" secondAttribute="bottom" id="B9J-j2-o5R"/>
+                            <constraint firstItem="Ebm-Of-fDB" firstAttribute="trailing" secondItem="liG-hA-w1f" secondAttribute="trailing" id="Kby-9m-dvA"/>
                             <constraint firstItem="vco-lQ-zMf" firstAttribute="leading" secondItem="Ebm-Of-fDB" secondAttribute="leading" id="OU4-xB-FUp"/>
                             <constraint firstAttribute="trailing" secondItem="vco-lQ-zMf" secondAttribute="trailing" id="PFe-oR-HN4"/>
-                            <constraint firstItem="vco-lQ-zMf" firstAttribute="bottom" secondItem="Ebm-Of-fDB" secondAttribute="bottom" id="n6s-TN-2FD"/>
+                            <constraint firstItem="liG-hA-w1f" firstAttribute="top" secondItem="vco-lQ-zMf" secondAttribute="bottom" constant="1" id="QCe-HY-0eg"/>
+                            <constraint firstItem="vco-lQ-zMf" firstAttribute="bottom" secondItem="Ebm-Of-fDB" secondAttribute="bottom" constant="-69" id="n6s-TN-2FD"/>
+                            <constraint firstItem="liG-hA-w1f" firstAttribute="leading" secondItem="Ebm-Of-fDB" secondAttribute="leading" id="sgY-aZ-R1Y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ebm-Of-fDB"/>
                     </view>
@@ -1553,7 +1599,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wca-OO-qHT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1245" y="2634"/>
+            <point key="canvasLocation" x="1248.6328125" y="2635.9375"/>
         </scene>
         <!--Home Goal Types View Controller-->
         <scene sceneID="sEH-co-xds">

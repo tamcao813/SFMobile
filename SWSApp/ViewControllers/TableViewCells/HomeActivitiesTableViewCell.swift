@@ -9,7 +9,9 @@
 import UIKit
 
 class HomeActivitiesTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var homeActivitiesTitle: UILabel!
+    @IBOutlet weak var homeActivitiesImage: UIImageView!
+    @IBOutlet weak var homeActivitiesTimeLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

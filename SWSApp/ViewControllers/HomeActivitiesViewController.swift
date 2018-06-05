@@ -27,6 +27,9 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+     
+         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshDB), name: NSNotification.Name(rawValue: "refreshHomeActivities"), object: nil)
+        
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateStringForActionItem = dateFormatter.string(from: dateToCheck)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
@@ -49,8 +52,16 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         notifications = notificationModel.notificationsForUser()
         notificationsToDisplay = notifications.filter({ return $0.createdDate == dateStringForNotification })
         
+        DispatchQueue.main.async {
+          
+            self.tableView?.reloadData()
+        }
+        
     }
     
+    @objc func refreshDB()  {
+        getDB()
+    }
     
     
     

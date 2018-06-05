@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class StringConstants {
     
@@ -21,31 +22,31 @@ class StringConstants {
     static let contactsSavedSuccessfully = "Your contact has been saved successfully"
     static let saveFail = ""
     
+    static var globalUrlDictionary : NSDictionary!
     
     //Chatter URL
-    static let secureUrl = "/secur/frontdoor.jsp?sid="
-    static let apexChatterUrl = "&retURL=/apex/sgwsACNChatter?id="
-    static let endUrl = "/one/one.app?source=alohaHeader#/sObject/Event/home"
-    static let retUrl = "&retURL="
+    static let secureUrl = globalUrlDictionary["secureUrl"] as! String
+    static let apexChatterUrl = globalUrlDictionary["apexChatterUrl"] as! String
+    static let endUrl = globalUrlDictionary["endUrl"] as! String
+    static let retUrl = globalUrlDictionary["retUrl"] as! String
     
     //During Visit
-    static let googleUrl = "http://www.google.com"
+    static let googleUrl = globalUrlDictionary["googleUrl"] as! String
     
     //Store Dispatcher
-    static let contactPicklistValue = "ui-api/object-info/Contact/picklist-values/"
-    static let rules = "/SGWS_Roles__c"
-    static let serviceUrl = "/services/data/v41.0/"
-    static let contactRolesPlist = "/ContactRoles.plist"
+    static let contactPicklistValue = globalUrlDictionary["contactPicklistValue"] as! String
+    static let rules = globalUrlDictionary["rules"] as! String
+    static let serviceUrl = globalUrlDictionary["serviceUrl"] as! String
+    static let contactRolesPlist = globalUrlDictionary["contactRolesPlist"] as! String
     
-    static let preferredCommunicationUrl = "/SGWS_Preferred_Communication_Method__c"
-    static let contactClassification = "/SGWS_Contact_Classification__c"
-    static let contactPreferredPlist = "/ContactPreferred.plist"
-    static let contactClassificationPlist = "/ContactClassification.plist"
+    static let preferredCommunicationUrl = globalUrlDictionary["preferredCommunicationUrl"] as! String
+    static let contactClassification = globalUrlDictionary["contactClassification"] as! String
+    static let contactPreferredPlist = globalUrlDictionary["contactPreferredPlist"] as! String
+    static let contactClassificationPlist = globalUrlDictionary["contactClassificationPlist"] as! String
     
-    static let workorderPicklistValue = "ui-api/object-info/WorkOrder/picklist-values/"
-    static let visitPurpose = "/SGWS_Visit_Purpose__c"
-    static let accountVisitPurposePlist = "/AccountVisitPurpose.plist"
+    static let workorderPicklistValue = globalUrlDictionary["workorderPicklistValue"] as! String
+    static let visitPurpose = globalUrlDictionary["visitPurpose"] as! String
+    static let accountVisitPurposePlist = globalUrlDictionary["accountVisitPurposePlist"] as! String
 
 }
-
 

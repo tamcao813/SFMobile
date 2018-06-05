@@ -55,14 +55,14 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
             }
             
             self.lblNoNetworkConnection?.isHidden = true
-            self.btnViewPerformance?.isHidden = false
+            self.btnViewPerformance?.isUserInteractionEnabled = true//isHidden = false
             self.webView?.isHidden = false
             self.webView?.load(requestObj)
         }
         
         reachability.whenUnreachable = { _ in
             self.lblNoNetworkConnection?.isHidden = false
-            self.btnViewPerformance?.isHidden = true
+            self.btnViewPerformance?.isUserInteractionEnabled = false//isHidden = true
             self.webView?.isHidden = true
         }
         

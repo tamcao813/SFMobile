@@ -37,7 +37,7 @@ class ActionItemsListViewController: UIViewController {
             }
         }
         
-        btnAddNew.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
+        btnAddNew.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Create An Action Item ", bigString: "+"), for: .normal)
         
         fetchActionItemsFromDB()
     }

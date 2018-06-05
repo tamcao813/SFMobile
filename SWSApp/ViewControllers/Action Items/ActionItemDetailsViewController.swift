@@ -270,11 +270,6 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
             if let account = selectedAccount{
                 cell?.displayCellContent(account: account, isEditing: true)
             }
-                //else{
-//                cell?.phoneNumberLabel.text = ""
-//                cell?.addressLabel.text = ""
-//                cell?.accountLabel.text = ""
-//            }
             return cell!
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemDescriptionTableViewCell") as? ActionItemDescriptionTableViewCell
@@ -287,7 +282,7 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 2{
+        if indexPath.section == 2{
             if let accountId = selectedAccount?.account_Id {
                 DispatchQueue.main.async {
                     AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {

@@ -2596,7 +2596,7 @@ class StoreDispatcher {
         let accIdsString = fetchAllAccountIds().joined(separator: "','")
         print("account  ids \(accIdsString)")
         
-        let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Response__c"
+        let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c,SGWS_AppModified_DateTime__c FROM SGWS_Response__c"
         // account Ids
         
         print("soql syncDownStrategyQA query is \(soqlQuery)")

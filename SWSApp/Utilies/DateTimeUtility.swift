@@ -248,7 +248,7 @@ class DateTimeUtility
         
     }
     
-    static func getCurrentTimeStampInUTCAsString() -> String? {
+    static func getCurrentTimeStampInUTCAsString() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
@@ -310,6 +310,7 @@ class DateTimeUtility
         let fullTime = timeFormatter.string(from: date)
         return fullTime
     }
+    
     
     static func getTimeFromDateString(dateString: String) -> Date {
         let dateformatter = DateFormatter()

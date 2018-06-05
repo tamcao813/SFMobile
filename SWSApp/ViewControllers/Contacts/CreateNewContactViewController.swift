@@ -330,7 +330,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.email = emailTextField.text!
         newContact.contactHours = contactHoursTextField.text!
         newContact.favouriteActivities = favouriteTextView.text!
-        newContact.lastModifiedDate = getTimeStampInString()
+        newContact.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newContact.buyerFlag = doesHaveBuyingPower
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
@@ -360,14 +360,6 @@ class CreateNewContactViewController: UIViewController {
         newContact.fax = faxTextField.text!
         
         return newContact
-    }
-    
-    func getTimeStampInString() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
     }
     
     func createAcrSoupEntry(contact: Contact) -> Bool {

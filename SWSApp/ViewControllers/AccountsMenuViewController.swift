@@ -45,48 +45,35 @@ class AccountsMenuViewController: UIViewController {
         self.customizeSearchBar()
         
         self.tableView!.tableFooterView = UIView()
+        
+        self.addChannelAndSubchannelItems()
+        
+        //If isManager then add "My Team" and consultants
+        consultantAry = UserViewModel().consultants
+        consultantAry = consultantAry.sorted { $0.name < $1.name }
+        
+        isManager = consultantAry.count > 0
+        sectionNames = filterClass.sectionNames(isManager: isManager)
+        sectionData = filterClass.sectionItems
+        
+        if isManager {
+            sectionData.insert(consultantAry, at: sectionData.count)
+            filterClass.sectionItems = sectionData
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.addSearchIconInSearchBar()
-        
-        self.addChannelAndSubchannelItems()
-        
-        //If isManager then add "My Team"
-        consultantAry = UserViewModel().consultants
-        isManager = consultantAry.count > 0
-        sectionNames = filterClass.sectionNames(isManager: isManager)
-        
-        sectionData = filterClass.sectionItems
-        
-        
-        consultantAry = consultantAry.sorted(by: { $0.name < $1.name })
-        var nameAry = [String]()
-        for consult in consultantAry {
-            nameAry.append(consult.name)
-        }
-        
-        if isManager {
-            //sectionData.insert(nameAry, at: sectionData.count)
-            sectionData.insert(consultantAry, at: sectionData.count)
-            filterClass.sectionItems = sectionData
-        }
-        
-        self.tableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.clearFilterModelData()
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -1073,10 +1073,11 @@ class StoreDispatcher {
         _ = self.fetchSyncConfiguration()
 
         let username = sfuser.userName
-        let userId =   SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
+        let userId = SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
+        //need to do query this way because User soup has 2 queries
         let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:User.Username} = '\(username)' OR {User:User.ManagerId} Like '\(userId!)%'"
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)

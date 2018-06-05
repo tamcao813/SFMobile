@@ -210,6 +210,8 @@ class AccountSortUtility
             filteredSearchedArray =  filteredByPastDue_PremiseCode_LicenseTypeAccountArray
         }
         
+        filteredSearchedArray = filteredSearchedArray.sorted{ $0.accountName.lowercased() < $1.accountName.lowercased()}
+        
         return filteredSearchedArray
     }
     

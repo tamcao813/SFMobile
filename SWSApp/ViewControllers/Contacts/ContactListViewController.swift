@@ -120,7 +120,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
                     //break //fix this, need to get all names
                 }
                 else { // acr table is not populated so reading from accounts table.
-                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: acc.accountId)
+                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser(), accountId: acc.accountId)
                     guard accountList != nil, (accountList?.count)! > 0  else {
                         continue
                     }

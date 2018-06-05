@@ -12,6 +12,9 @@ import Foundation
 class User {
     static let UserFields = ["Id", "User.Username", "User.Name", "AccountId", "UserId", "User.Email","User.Phone","TeamMemberRole","User.SGWS_Site__c","User.ManagerId", "Account.RecordTypeId"] // Stage 1
     
+    static let UserSimpleFields =
+     ["Id", "Username", "Name", "AccountId", "Email","Phone","SGWS_Site__c","ManagerId", "Account.RecordTypeId"]
+    
     var id: String
     var username: String
     var fullName: String
@@ -100,6 +103,36 @@ class User {
         recordTypeId = json["Account.RecordTypeId"] as? String ?? ""
     }
     
+    convenience init(withAryForUserSimple ary: [Any]) {
+        let resultDict = Dictionary(uniqueKeysWithValues: zip(User.UserSimpleFields, ary))
+        self.init(jsonSimple: resultDict)
+    }
+    
+    init(jsonSimple: [String: Any]) {
+        
+        id = jsonSimple["Id"] as? String ?? ""
+        
+        userId = id
+        
+        username = jsonSimple["Username"] as? String ?? ""
+        
+        userName = jsonSimple["Name"] as? String ?? ""
+        
+        accountId = jsonSimple["AccountId"] as? String ?? ""
+        
+        userEmail = jsonSimple["Email"] as? String ?? ""
+        
+        userPhone = jsonSimple["Phone"] as? String ?? ""
+        
+        userSite = jsonSimple["SGWS_Site__c"] as? String ?? ""
+        
+        userManagerId = jsonSimple["ManagerId"] as? String ?? ""
+        
+        recordTypeId = jsonSimple["Account.RecordTypeId"] as? String ?? ""
+        
+        userTeamMemberRole = ""
+    }
+    
     init(for: String) {
         id = ""
         username = ""
@@ -136,10 +169,8 @@ extension User {
         return User(for: "mockup")
     }
     
-    var myConsultants: [User]? {
-        ///if the logged in user is a manager
-        //retuen the consultans array
-        //else
+    var myConsultants: [String]? {
+        
         return nil
     }
 }

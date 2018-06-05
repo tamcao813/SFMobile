@@ -1,4 +1,4 @@
-//
+
 //  AccountsMenuController.swift
 //  SWSApp
 //
@@ -24,7 +24,11 @@ class AccountsMenuViewController: UIViewController {
     var expandedSectionHeader: UITableViewHeaderFooterView!
     weak var searchByEnteredTextDelegate: SearchByEnteredTextDelegate?
     
-    let filterClass = Filter()
+    lazy var filterClass = Filter()
+    var sectionNames = [String]()
+    var isManager: Bool = false
+    var consultantAry = [Consultant]()
+    var sectionData = [[Any]]()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar : UISearchBar!
@@ -41,27 +45,35 @@ class AccountsMenuViewController: UIViewController {
         self.customizeSearchBar()
         
         self.tableView!.tableFooterView = UIView()
+        
+        self.addChannelAndSubchannelItems()
+        
+        //If isManager then add "My Team" and consultants
+        consultantAry = UserViewModel().consultants
+        consultantAry = consultantAry.sorted { $0.name < $1.name }
+        
+        isManager = consultantAry.count > 0
+        sectionNames = filterClass.sectionNames(isManager: isManager)
+        sectionData = filterClass.sectionItems
+        
+        if isManager {
+            sectionData.insert(consultantAry, at: sectionData.count)
+            filterClass.sectionItems = sectionData
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.addSearchIconInSearchBar()
-        
-        self.addChannelAndSubchannelItems()
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.clearFilterModelData()
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,8 +90,8 @@ class AccountsMenuViewController: UIViewController {
     func addChannelAndSubchannelItems(){
         
         let accountViewModel = AccountsViewModel()
-        accountsForLoggedUserFiltered = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser, ascending: true)
-        print(accountsForLoggedUserFiltered.count)
+        accountsForLoggedUserFiltered = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser(), ascending: true)
+        //print(accountsForLoggedUserFiltered.count)
         
         
         var channelData = [String]()
@@ -167,6 +179,11 @@ class AccountsMenuViewController: UIViewController {
             
         }else{
             
+            //reset to loggedInUser/Manager
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.currentSelectedUserId = (appDelegate.loggedInUser?.userId)!
+            FilterMenuModel.selectedConsultant = nil
+            
             FilterMenuModel.pastDueYes = ""
             FilterMenuModel.pastDueNo = ""
             
@@ -252,7 +269,7 @@ class AccountsMenuViewController: UIViewController {
     
     //Used to dismiss Dropdown menu
     func tableViewCollapeSection(_ section: Int, imageView: UIImageView) {
-        let sectionData = filterClass.sectionItems[section] as! NSArray
+        
         self.expandedSectionHeaderNumber = -1
         
         if (sectionData.count == 0) {
@@ -262,10 +279,13 @@ class AccountsMenuViewController: UIViewController {
                 imageView.transform = CGAffineTransform(rotationAngle: (0.0 * CGFloat(Double.pi)) / 180.0)
             })
             var indexesPath = [IndexPath]()
-            for i in 0 ..< sectionData.count {
+            
+            for i in 0 ..< sectionData[section].count {
                 let index = IndexPath(row: i, section: section)
                 indexesPath.append(index)
             }
+
+            
             self.tableView!.beginUpdates()
             self.tableView!.deleteRows(at: indexesPath, with: UITableViewRowAnimation.fade)
             self.tableView!.endUpdates()
@@ -274,8 +294,6 @@ class AccountsMenuViewController: UIViewController {
     
     //Used to show Dropdown menu
     func tableViewExpandSection(_ section: Int, imageView: UIImageView) {
-        
-        let sectionData = filterClass.sectionItems[section] as! NSArray
         if (sectionData.count == 0) {
             self.expandedSectionHeaderNumber = -1;
             return;
@@ -284,7 +302,7 @@ class AccountsMenuViewController: UIViewController {
                 imageView.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
             })
             var indexesPath = [IndexPath]()
-            for i in 0 ..< sectionData.count {
+            for i in 0 ..< sectionData[section].count {
                 let index = IndexPath(row: i, section: section)
                 indexesPath.append(index)
             }
@@ -319,6 +337,9 @@ class AccountsMenuViewController: UIViewController {
             
         case 7:
             self.performLicenseOperation(indexPath: indexPath)
+            
+        case 8:
+            self.performSelectConsultantOperation(indexPath: indexPath)
             
         default:
             break
@@ -398,7 +419,7 @@ class AccountsMenuViewController: UIViewController {
     //Channel selection
     func performChannelOperation(indexPath : IndexPath, arrayContent : Array<Any>){
         
-        let channelData = filterClass.sectionItems[indexPath.section] as! [String]
+        let channelData = sectionData[indexPath.section] as! [String]
         if channelData[0] != ""{
             let arrayData : [String] = arrayContent[indexPath.section] as! [String]
             FilterMenuModel.channelIndex = indexPath.row
@@ -409,7 +430,7 @@ class AccountsMenuViewController: UIViewController {
     //Subchannel Selection
     func performSubChannelOperation(indexPath : IndexPath, arrayContent : Array<Any>){
         
-        let subchannelData = filterClass.sectionItems[indexPath.section] as! [String]
+        let subchannelData = sectionData[indexPath.section] as! [String]
         if subchannelData[0] != ""{
             let arrayData : [String] = arrayContent[indexPath.section] as! [String]
             FilterMenuModel.subChannelIndex = indexPath.row
@@ -446,10 +467,16 @@ class AccountsMenuViewController: UIViewController {
         }
     }
     
+    func performSelectConsultantOperation(indexPath : IndexPath) {
+        FilterMenuModel.selectedConsultant = consultantAry[indexPath.row]
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.currentSelectedUserId = consultantAry[indexPath.row].id
+    }
     
     //Data to pass for Respective Cell Class
     func passDataToTableViewCell(cell : UITableViewCell, indexPath : IndexPath){
-        (cell as? AccountsMenuTableTableViewCell)?.displayCellContent(sectionContent: filterClass.sectionItems as NSArray, indexPath: indexPath)
+        (cell as? AccountsMenuTableTableViewCell)?.displayCellContent(sectionContent: sectionData as NSArray, indexPath: indexPath)
         
     }
     
@@ -465,7 +492,7 @@ class AccountsMenuViewController: UIViewController {
     
     private func isValidUserInputAtSearchFilterPanel()->Bool{
         var validInput = false
-        if(searchBar.text!.count > 0 || FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != "" || FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != "" || FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != "" || FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != "" || FilterMenuModel.channel != "" || FilterMenuModel.subChannel != "" || FilterMenuModel.statusIsActive != "" || FilterMenuModel.statusIsInActive != "" || FilterMenuModel.statusIsSuspended != "")
+        if(searchBar.text!.count > 0 || FilterMenuModel.pastDueNo != "" || FilterMenuModel.pastDueYes != "" || FilterMenuModel.premiseOn != "" || FilterMenuModel.premiseOff != "" || FilterMenuModel.licenseB != "" || FilterMenuModel.licenseL != "" || FilterMenuModel.licenseN != "" || FilterMenuModel.licenseW != "" || FilterMenuModel.singleSelected != "" || FilterMenuModel.multiSelected != "" || FilterMenuModel.channel != "" || FilterMenuModel.subChannel != "" || FilterMenuModel.statusIsActive != "" || FilterMenuModel.statusIsInActive != "" || FilterMenuModel.statusIsSuspended != "" || FilterMenuModel.selectedConsultant != nil)
         {
             print("ValidUserInputAtSearchFilterPanel")
             validInput = true
@@ -508,16 +535,16 @@ class AccountsMenuViewController: UIViewController {
 extension AccountsMenuViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if filterClass.sectionNames.count > 0 {
+        if sectionNames.count > 0 {
             tableView.backgroundView = nil
-            return filterClass.sectionNames.count
+            return sectionNames.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (self.expandedSectionHeaderNumber == section) {
-            let arrayOfItems = filterClass.sectionItems[section] as! NSArray
+            let arrayOfItems = sectionData[section]// as! NSArray
             return arrayOfItems.count;
         }else {
             return 0;
@@ -533,7 +560,7 @@ extension AccountsMenuViewController : UITableViewDataSource{
         let myLabel = UILabel()
         myLabel.frame = CGRect(x: 15, y: 18, width: tableView.frame.size.width, height: 20)
         myLabel.font = UIFont(name:"Ubuntu", size: 18.0)
-        myLabel.text = filterClass.sectionNames[section] as? String
+        myLabel.text = sectionNames[section]
         
         let headerView = UIView()
         headerView.addSubview(myLabel)
@@ -542,8 +569,8 @@ extension AccountsMenuViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (filterClass.sectionNames.count > 0) {
-            return filterClass.sectionNames[section] as? String
+        if (sectionNames.count > 0) {
+            return sectionNames[section]
         }
         return ""
     }
@@ -605,7 +632,7 @@ extension AccountsMenuViewController : UITableViewDataSource{
         
         var cell : UITableViewCell?
         
-        if indexPath.section <= 7{
+        if indexPath.section <= 8{
             
             cell = tableView.dequeueReusableCell(withIdentifier: filterCell, for: indexPath) as! AccountsMenuTableTableViewCell
             cell?.selectionStyle = .none
@@ -613,9 +640,8 @@ extension AccountsMenuViewController : UITableViewDataSource{
             self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
             
         }else{
-            
             //Used to display location view (If Required in future)
-            if(indexPath.section == 8){
+            if(indexPath.section == 9){ //This will have to take isManager into consideration
                 
                 cell = tableView.dequeueReusableCell(withIdentifier: locationCell, for: indexPath) as! AccountsMenuTableTableViewCell
                 (cell as? AccountsMenuTableTableViewCell)?.displayLocationItemCellContent(indexPath: indexPath, placeHolderText: "Zip Code or City")
@@ -633,7 +659,7 @@ extension AccountsMenuViewController : UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
         
-        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : filterClass.sectionItems)
+        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : sectionData)
         
     }
     

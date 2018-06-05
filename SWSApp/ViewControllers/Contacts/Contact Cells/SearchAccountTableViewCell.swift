@@ -59,7 +59,7 @@ class SearchAccountTableViewCell: UITableViewCell {
     func customizedUI(){
         searchAccountsString = []
         searchAccounts = []
-        searchAccounts = self.accountViewModel.accountsForLoggedUser
+        searchAccounts = self.accountViewModel.accountsForLoggedUser()
         for account in searchAccounts {
             searchAccountsString.append(account.accountName)
         }
@@ -68,7 +68,7 @@ class SearchAccountTableViewCell: UITableViewCell {
     }
         
     func getAccountData(searchStr: String) -> [Account] {
-        let account = self.accountViewModel.accountsForLoggedUser
+        let account = self.accountViewModel.accountsForLoggedUser()
         let arrAccountName = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
         
         let arrAccountNumber = account.filter( { return $0.accountNumber.lowercased().contains(searchStr.lowercased()) } )
@@ -113,7 +113,7 @@ extension SearchAccountTableViewCell: UITextFieldDelegate {
             search = textField.text!+string
         }
         if search == "" {
-            searchAccounts = self.accountViewModel.accountsForLoggedUser
+            searchAccounts = self.accountViewModel.accountsForLoggedUser()
         }else{
             searchAccounts = self.getAccountData(searchStr: search)
         }

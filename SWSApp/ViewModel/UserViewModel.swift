@@ -8,6 +8,16 @@
 
 import Foundation
 
+struct Consultant {
+    var name: String
+    var id: String
+    
+    init(name: String, id: String) {
+        self.name = name
+        self.id = id
+    }
+}
+
 class UserViewModel {
     
     var loggedInUser: User? {
@@ -20,6 +30,18 @@ class UserViewModel {
             return nil
         }
     }
+    
+    var selectedUserId: String {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        return appDelegate.currentSelectedUserId
+    }
+    
+    var consultants: [Consultant] {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        return appDelegate.consultants
+    }
 }
 
 extension UserViewModel {
@@ -31,7 +53,7 @@ extension UserViewModel {
         return nil
     }
     
-    var myConsultants: [User]? {
+    var myConsultants: [String]? {
         if let user = loggedInUser {
             return user.myConsultants
         }

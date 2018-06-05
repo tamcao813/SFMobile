@@ -21,7 +21,12 @@ class ActionItemFilterViewController: UIViewController {
     //Used for selected section in TableView
     var selectedSection = -1
     var delegate : ActionItemSearchButtonTappedDelegate?
-    let actionItems = ActionItemFilter()
+    
+    var isManager: Bool = false
+    var consultantAry = [Consultant]()
+    var sectionData = [[Any]]()
+    var accountsForLoggedUserFiltered = [Account]()
+    var sectionNames = [String]()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar : UISearchBar!
@@ -30,7 +35,17 @@ class ActionItemFilterViewController: UIViewController {
         super.viewDidLoad()
         
         self.customizeSearchBar()
-//        self.tableView!.tableFooterView = UIView()
+        consultantAry = UserViewModel().consultants
+        consultantAry = consultantAry.sorted { $0.name < $1.name }
+        
+        isManager = consultantAry.count > 0
+        sectionNames = ActionItemFilter().sectionNames(isManager: isManager)
+        sectionData = ActionItemFilter().sectionItems
+        
+        if isManager {
+            sectionData.insert(consultantAry, at: sectionData.count)
+            ActionItemFilter().sectionItems = sectionData
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -86,13 +101,11 @@ class ActionItemFilterViewController: UIViewController {
         let section    = headerView?.tag
         let eImageView = headerView?.viewWithTag(kHeaderSectionTag + section!) as? UIImageView
         
-        self.selectedSection = section!
-        
-        self.sectionHeaderOperation(section: section!, eImageView: eImageView)
-        
+        self.selectedSection = section!        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             self.tableView.reloadData()
         }
+        self.sectionHeaderOperation(section: section!, eImageView: eImageView)
     }
     
     func sectionHeaderOperation(section : Int , eImageView : UIImageView?){
@@ -115,9 +128,7 @@ class ActionItemFilterViewController: UIViewController {
     
     //Used to dismiss Dropdown menu
     func tableViewCollapeSection(_ section: Int, imageView: UIImageView) {
-        let sectionData = actionItems.sectionItems[section] as! NSArray
         self.expandedSectionHeaderNumber = -1
-        
         if (sectionData.count == 0) {
             return;
         } else {
@@ -125,10 +136,12 @@ class ActionItemFilterViewController: UIViewController {
                 imageView.transform = CGAffineTransform(rotationAngle: (0.0 * CGFloat(Double.pi)) / 180.0)
             })
             var indexesPath = [IndexPath]()
-            for i in 0 ..< sectionData.count {
+            
+            for i in 0 ..< sectionData[section].count {
                 let index = IndexPath(row: i, section: section)
                 indexesPath.append(index)
             }
+            
             self.tableView!.beginUpdates()
             self.tableView!.deleteRows(at: indexesPath, with: UITableViewRowAnimation.fade)
             self.tableView!.endUpdates()
@@ -137,8 +150,6 @@ class ActionItemFilterViewController: UIViewController {
     
     //Used to show Dropdown menu
     func tableViewExpandSection(_ section: Int, imageView: UIImageView) {
-        
-        let sectionData = actionItems.sectionItems[section] as! NSArray
         if (sectionData.count == 0) {
             self.expandedSectionHeaderNumber = -1;
             return;
@@ -147,7 +158,7 @@ class ActionItemFilterViewController: UIViewController {
                 imageView.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
             })
             var indexesPath = [IndexPath]()
-            for i in 0 ..< sectionData.count {
+            for i in 0 ..< sectionData[section].count {
                 let index = IndexPath(row: i, section: section)
                 indexesPath.append(index)
             }
@@ -158,9 +169,17 @@ class ActionItemFilterViewController: UIViewController {
         }
     }
     
+    func performSelectConsultantOperation(indexPath : IndexPath) {
+        ActionItemFilterModel.selectedConsultant = consultantAry[indexPath.row]
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.currentSelectedUserId = consultantAry[indexPath.row].id
+    }
+    
     //Data to pass for Respective Cell Class
     func passDataToTableViewCell(cell : UITableViewCell, indexPath : IndexPath){
-        (cell as? ActionItemFilterTableViewCell)?.displayCellContent(sectionContent: actionItems.sectionItems as NSArray, indexPath: indexPath)
+        (cell as? ActionItemFilterTableViewCell)?.displayCellContent(sectionContent: sectionData as NSArray, indexPath: indexPath)
+        
     }
     
     //Dropdown Single selection option clicked and is assigned to model class
@@ -176,6 +195,8 @@ class ActionItemFilterViewController: UIViewController {
         case 2:
             self.performPastDueOpetation(indexPath: indexPath)
             
+        case 3:
+            self.performSelectConsultantOperation(indexPath: indexPath)
         default:
             break
         }
@@ -247,7 +268,7 @@ class ActionItemFilterViewController: UIViewController {
             break
         }
     }
-    
+
     func clearActionItemFilterModel(){
         ActionItemFilterModel.isComplete = "NO"
         ActionItemFilterModel.isOpen = "NO"
@@ -262,6 +283,10 @@ class ActionItemFilterViewController: UIViewController {
         searchBar.text = ""
         ActionItemFilterModel.filterApplied = false
         tableView.reloadData()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.currentSelectedUserId = (appDelegate.loggedInUser?.userId)!
+        ActionItemFilterModel.selectedConsultant = nil
     }
     
     
@@ -280,16 +305,16 @@ class ActionItemFilterViewController: UIViewController {
 extension ActionItemFilterViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if actionItems.sectionNames.count > 0 {
+        if sectionNames.count > 0 {
             tableView.backgroundView = nil
-            return actionItems.sectionNames.count
+            return sectionNames.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (self.expandedSectionHeaderNumber == section) {
-            let arrayOfItems = actionItems.sectionItems[section] as! NSArray
+            let arrayOfItems = sectionData[section]
             return arrayOfItems.count;
         }else {
             return 0;
@@ -297,7 +322,7 @@ extension ActionItemFilterViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50; 
+        return 50;
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -305,7 +330,7 @@ extension ActionItemFilterViewController : UITableViewDataSource{
         let myLabel = UILabel()
         myLabel.frame = CGRect(x: 15, y: 18, width: tableView.frame.size.width, height: 20)
         myLabel.font = UIFont(name:"Ubuntu", size: 18.0)
-        myLabel.text = actionItems.sectionNames[section] as? String
+        myLabel.text = sectionNames[section]
         
         let headerView = UIView()
         headerView.addSubview(myLabel)
@@ -314,8 +339,8 @@ extension ActionItemFilterViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (actionItems.sectionNames.count > 0) {
-            return actionItems.sectionNames[section] as? String
+        if (sectionNames.count > 0) {
+            return sectionNames[section]
         }
         return ""
     }
@@ -336,17 +361,10 @@ extension ActionItemFilterViewController : UITableViewDataSource{
         
         if self.selectedSection == section{
             theImageView.image = UIImage(named: "dropUp")
-            print("UP")
         }else{
             theImageView.image = UIImage(named: "dropDown")
-            print("Down")
         }
-        //Used to check Subchannel Click action. if Channel is empty dont change the drop down icon
-        if section == 6{
-            if FilterMenuModel.channel == ""{
-                theImageView.image = UIImage(named: "dropDown")
-            }
-        }
+        
         
         theImageView.tag = kHeaderSectionTag + section
         header.addSubview(theImageView)
@@ -375,9 +393,7 @@ extension ActionItemFilterViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
-        
-        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : actionItems.sectionItems)
-        
+        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : sectionData)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -410,25 +426,11 @@ extension ActionItemFilterViewController : UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
-        if searchText.count == 0
-        {
-            //self.searchByEnteredTextDelegate?.filtering(filtering: false)
-            //searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
-        }/*
-         else
-         {
-         self.searchByEnteredTextDelegate?.filtering(filtering: true)
-         self.searchByEnteredTextDelegate?.sortAccountsData(searchString: searchText)
-         }*/
+        if searchText.count == 0{
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
     }
 }
-
-
-
-
-
-

@@ -999,8 +999,8 @@ class StoreDispatcher {
         
         //,,Account.SWS_Premise_Code__c
         
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
-        
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
+       
         //,,,
         
         // Account.ShippingLatitude,Account.ShippingLongitude
@@ -1078,7 +1078,54 @@ class StoreDispatcher {
         
         //Load the sync config
         _ = self.fetchSyncConfiguration()
+
+        let username = sfuser.userName
+        let userId = SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
         
+        let fields = User.UserFields.map{"{User:\($0)}"}
+        
+        //need to do query this way because User soup has 2 queries
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:User.Username} = '\(username)' OR {User:User.ManagerId} Like '\(userId!)%'"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        
+        var thisUser = User(for: "temp")
+        var dict = [String: Consultant]()
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let user = User(withAry: ary)
+                
+                if user.username == username {
+                    thisUser = user
+                }
+                else {
+                    let consult = Consultant(name:user.fullName, id:user.userId)
+                    //consultantAry.append(consult)
+                    dict[user.username] = consult
+                }
+            }
+            
+            if dict.count > 0 {
+                consultantAry = Array(dict.values)
+            }
+            
+            completion(thisUser, consultantAry, nil)
+        }
+        else {
+            //let userSimple = fetchSimpleUser()
+            completion(nil, consultantAry, nil)
+        }
+    }
+    
+    func fetchSimpleUser() -> User? {
+        var error : NSError?
+        guard let user = SFUserAccountManager.sharedInstance().currentUser else {
+            return nil
+        }
         
         let username = user.userName
         

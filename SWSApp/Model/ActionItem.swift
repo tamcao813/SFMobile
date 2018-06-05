@@ -20,6 +20,7 @@ class ActionItem {
     var lastModifiedDate: String
     var recordTypeId: String
     var _soupEntryId: Int
+//    var userId: String
     
     var accountName: String
     var accountNumber: String
@@ -53,7 +54,7 @@ class ActionItem {
         lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
         recordTypeId = json["RecordTypeId"] as? String ?? ""
         _soupEntryId = json["_soupEntryId"] as? Int ?? 0
-        
+//        userId = json["UserId"] as? String ?? ""
         accountName = json["Account.Name"] as? String ?? ""
         shippingCity = json["Account.ShippingCity"] as? String ?? ""
         shippingCountry = json["Account.ShippingCountry"] as? String ?? ""
@@ -77,7 +78,7 @@ class ActionItem {
         lastModifiedDate = ""
         recordTypeId = ""
         _soupEntryId = 0
-        
+        userId = ""
         accountName = ""
         accountNumber = ""
         shippingCity = ""

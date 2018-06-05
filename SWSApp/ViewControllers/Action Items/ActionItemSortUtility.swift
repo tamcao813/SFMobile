@@ -36,6 +36,7 @@ class ActionItemSortUtility {
     
     func filterOnly(actionItems: [ActionItem]) -> [ActionItem]{
         var filteredArray = [ActionItem]()
+        let filterOnTeamArray = filterOnTeamBasis(actionItems: actionItems)
         let filteredStatusArray = filterOnStatusBasis(actionItems: actionItems)
         let filteredUrgentArray = filterOnUrgentBasis(actionItems: actionItems)
         let filteredDueDateArray = filterOnDueDateBasis(actionItems: actionItems)
@@ -135,6 +136,16 @@ class ActionItemSortUtility {
         }
         
         return filteredArray
+    }
+    
+    func filterOnTeamBasis(actionItems: [ActionItem]) -> [ActionItem]{
+        // if selected a consultant to filter
+        if let _ = ActionItemFilterModel.selectedConsultant {
+//            accountsToFilter = AccountsViewModel().accountsForSelectedUser()
+//            accountsToFilter = accountsToFilter.sorted{ $0.accountName < $1.accountName}
+        }
+        
+        return actionItems
     }
     
     func filterOnStatusBasis(actionItems: [ActionItem]) -> [ActionItem]{

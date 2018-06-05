@@ -27,8 +27,15 @@ class ActionItemFilterTableViewCell: UITableViewCell {
     //Used to display cell content
     func displayCellContent(sectionContent : NSArray , indexPath : IndexPath){
         let titleContent = sectionContent[indexPath.section] as? NSArray
-        self.titleLabel.text = titleContent![indexPath.row] as? String
         
+        if indexPath.section == 3 { //Manager section
+            let consult = titleContent![indexPath.row] as? Consultant
+            self.titleLabel.text = consult?.name
+        }
+        else {
+            self.titleLabel.text = titleContent![indexPath.row] as? String
+        }
+
         switch indexPath.section{
         case 0:
             self.showActionStatusCell(indexPath: indexPath)
@@ -36,6 +43,8 @@ class ActionItemFilterTableViewCell: UITableViewCell {
             self.showActionTypeCell(indexPath: indexPath)
         case 2:
             self.showDueDateCell(indexPath: indexPath)
+        case 3:
+            self.showManagerCell(indexPath: indexPath, rowContent: titleContent as! [Consultant])
         default:
             break
         }
@@ -108,6 +117,17 @@ class ActionItemFilterTableViewCell: UITableViewCell {
             
         default:
             break
+        }
+    }
+    
+    //Show Manager Cell
+    func showManagerCell(indexPath : IndexPath, rowContent: [Consultant]){
+        self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+        
+        if let consult = ActionItemFilterModel.selectedConsultant {
+            if consult.name == rowContent[indexPath.row].name && consult.id == rowContent[indexPath.row].id {
+                self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+            }
         }
     }
 }

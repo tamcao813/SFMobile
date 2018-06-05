@@ -23,9 +23,4 @@ class AccountsViewModel {
     func accountNameFor(accountId: String) -> String {
         return StoreDispatcher.shared.fetchAccountName(for: accountId)
     }
-    /*
-    func consultantsForLoggedInUser() -> [String] {
-        return StoreDispatcher.shared.fetchConsultants()
-    }
-     */
 }

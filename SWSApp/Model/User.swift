@@ -116,7 +116,7 @@ class User {
         
         username = jsonSimple["Username"] as? String ?? ""
         
-        userName = jsonSimple["Name"] as? String ?? ""
+        fullName = jsonSimple["Name"] as? String ?? ""
         
         accountId = jsonSimple["AccountId"] as? String ?? ""
         

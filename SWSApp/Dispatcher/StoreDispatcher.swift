@@ -19,7 +19,6 @@ class StoreDispatcher {
     static let SFADB = "SFADB"
     
     let SoupUser = "User"
-    let SoupUserSimple = "UserSimple"
     let SoupAccount = "AccountTeamMember"
     let SoupContact = "Contact"
     let SoupAccountContactRelation = "SGWS_AccountContactMobile__c"
@@ -65,7 +64,6 @@ class StoreDispatcher {
     func registerSoups() {
         print("Store Path is \(String(describing: sfaStore.storePath))")
         registerUserSoup()
-        //registerUserSimpleSoup()
         registerAccountSoup()
         registerContactSoup()
         registerACRSoup()
@@ -757,23 +755,6 @@ class StoreDispatcher {
         }
     }
     
-    func registerUserSimpleSoup() {
-        let userQueryFields = User.UserSimpleFields
-        
-        var indexSpec:[SFSoupIndex] = []
-        for i in 0...userQueryFields.count - 1 {
-            let sfIndex = SFSoupIndex(path: userQueryFields[i], indexType: kSoupIndexTypeString, columnName: userQueryFields[i])!
-            indexSpec.append(sfIndex)
-        }
-        
-        do {
-            try sfaStore.registerSoup(SoupUserSimple, withIndexSpecs: indexSpec, error: ())
-            
-        } catch let error as NSError {
-            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register User Simple soup: \(error.localizedDescription)")
-        }
-    }
-    
     func registerAccountSoup() {
         
         let indexes:[AnyObject]! = [
@@ -849,39 +830,6 @@ class StoreDispatcher {
     }
     
     //#pragma mark - syncdown so we have data in the soups
-    func syncDownUserSimple(_ completion:@escaping (_ error: NSError?)->()) {
-        
-        let fields : [String] = User.UserSimpleFields
-        let userId =   SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
-        
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from User Where Id = '\(userId!)' OR ManagerId = '\(userId!)' limit 1000"
-        
-        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
-        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
-            SFSyncStateMergeMode.overwrite)
-        
-        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUserSimple)
-            .done { syncStateStatus in
-                if syncStateStatus.isDone() {
-                    print("syncDownUserSimple() done")
-                    
-                    completion(nil)
-                }
-                else if syncStateStatus.hasFailed() {
-                    let meg = "ErrorDownloading: syncDownUserSimple()"
-                    let userInfo: [String: Any] =
-                        [
-                            NSLocalizedDescriptionKey : meg,
-                            NSLocalizedFailureReasonErrorKey : meg
-                    ]
-                    let err = NSError(domain: "syncDownUserSimple()", code: 601, userInfo: userInfo)
-                    completion(err as NSError?)
-                }
-            }
-            .catch { error in
-                completion(error as NSError?)
-        }
-    }
     
     func syncDownUser(_ completion:@escaping (_ error: NSError?)->()) {
         
@@ -898,11 +846,6 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print("syncDownUser() done")
-                    /*
-                    self.syncDownUserSimple { (error) in
-                    }
-                     */
-                    
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
@@ -1103,7 +1046,7 @@ class StoreDispatcher {
                     thisUser = user
                 }
                 else {
-                    let consult = Consultant(name:user.userName, id:user.userId)
+                    let consult = Consultant(name:user.fullName, id:user.userId)
                     //consultantAry.append(consult)
                     dict[user.username] = consult
                 }
@@ -1116,62 +1059,12 @@ class StoreDispatcher {
             completion(thisUser, consultantAry, nil)
         }
         else {
-            //let userSimple = fetchSimpleUser()
             completion(nil, consultantAry, nil)
         }
     }
     
-    func fetchSimpleUser() -> User? {
-        var error : NSError?
-        guard let user = SFUserAccountManager.sharedInstance().currentUser else {
-            return nil
-        }
-        
-        let username = user.userName
-        
-        let fields = User.UserSimpleFields.map{"{UserSimple:\($0)}"}
-        
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {UserSimple} Where {UserSimple:Username} = '\(username)'"
-        
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
-        
-        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
-        
-        if (error == nil && result.count > 0) {
-            let ary:[Any] = result[0] as! [Any]
-            let user = User(withAryForUserSimple: ary)
-            return user
-        }
-        else {
-            return nil
-        }
-    }
-    
-    func fetchConsultants() -> [Consultant] {
-        var consultants = [Consultant]()
-        
-        let userid = UserViewModel().loggedInUser?.userId
-
-        //let soqlQuery = "Select {UserSimple:Id} from {UserSimple} Where {UserSimple:ManagerId} = '\(userid)'"
-        
-        let soqlQuery = "Select {User:Id}, {User:User.Name} from {User} Where {User:User.ManagerId} = '\(userid)'"
-        
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
-        
-        if result.count > 0 {
-            for i in 0...result.count - 1 {
-                let ary:[Any] = result[i] as! [Any]
-                
-            }
-        }
-        
-        return consultants
-    }
-    
     //Accounts
+    //Use either fetchAccountsForLoggedUser() or fetchAccountsForCurrentUser() is ok, it's just to avoid code change in many places
     func fetchAccountsForLoggedUser() -> [Account] {
         return fetchAccounts() //will filter for the logged in user or selected consultant
     }

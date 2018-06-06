@@ -21,7 +21,9 @@ struct ContactsGlobal {
 }
 
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
-    
+
+    var status:String = ""
+    var networkType:String = ""
     // drop down on tapping more
     let moreDropDown = DropDown()
     // persistent menu
@@ -348,15 +350,25 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // MARK: SyncUp Data
     @objc func SyncUpData()  {
         MBProgressHUD.show(onWindow: true)
+        func network()->String{
+            if reachability.connection == .wifi {
+                self.status = "WIFI"
+            } else {
+                self.status = "Cellular"
+            }
+            return status
+        }
         
+        networkType = network()
+        print(networkType)
         // Start sync progress
-        StoreDispatcher.shared.createSyncLogOnSyncStart()
+        StoreDispatcher.shared.createSyncLogOnSyncStart(networkType: networkType)
         let group = DispatchGroup()
         // Sync Up Notes
         group.enter()
         AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
             if error != nil {
-                StoreDispatcher.shared.createSyncLogOnSyncError(errorType: "AccNote")
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
             group.leave()
@@ -395,12 +407,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                     }
                     else {
                         print("syncACRwithServer failed")
-                        StoreDispatcher.shared.createSyncLogOnSyncError(errorType: "ARC")
+                        StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                     }
                     group.leave()
                 }
             } else {
-                StoreDispatcher.shared.createSyncLogOnSyncError(errorType: "Contacts")
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print("syncContactWithServer error " + (error?.localizedDescription)!)
                 group.leave()
             }
@@ -410,7 +422,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c"], completion:{ error in
             if error != nil {
-                StoreDispatcher.shared.createSyncLogOnSyncError(errorType: "WorkOrder")
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
             group.leave()
@@ -420,7 +432,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         AccountsActionItemViewModel().uploadActionItemToServer(fields:["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c"], completion:{ error in
             if error != nil {
-                StoreDispatcher.shared.createSyncLogOnSyncError(errorType: "ActionItem")
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
             group.leave()
@@ -434,7 +446,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 //DispatchQueue.main.async { //do this in group.notify
                 //    MBProgressHUD.hide(forWindow: true)
                 //}
-                StoreDispatcher.shared.createSyncLogOnSyncError(errorType: "Strategy")
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
             }
             group.leave()
@@ -442,7 +454,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         //Download all soups only after all above async operations complete
         group.notify(queue: .main) {
-            StoreDispatcher.shared.createSyncLogOnSyncStop()
+            StoreDispatcher.shared.createSyncLogOnSyncStop(networkType: self.networkType)
             StoreDispatcher.shared.syncDownSoupsAfterSyncUpData({ (error) in
                 if error != nil {
                     print("PostSyncUp:downloadAllSoups")

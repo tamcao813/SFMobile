@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -83,13 +83,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mot-9u-2ar">
-                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="26.5"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGE-4B-dYw">
-                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="trJ-Mc-msK">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -600,7 +600,7 @@
                                                                     <rect key="frame" x="286" y="0.0" width="71" height="100"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gd6-R6-W6K">
-                                                                            <rect key="frame" x="25" y="41" width="21" height="17"/>
+                                                                            <rect key="frame" x="15" y="41" width="21" height="17"/>
                                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -608,7 +608,7 @@
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstItem="gd6-R6-W6K" firstAttribute="centerX" secondItem="267-qN-Ygp" secondAttribute="centerX" id="2Oi-Jh-oZ3"/>
+                                                                        <constraint firstItem="gd6-R6-W6K" firstAttribute="centerX" secondItem="267-qN-Ygp" secondAttribute="centerX" constant="-10" id="2Oi-Jh-oZ3"/>
                                                                     </constraints>
                                                                 </view>
                                                             </subviews>
@@ -701,14 +701,8 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6iN-8g-81O" userLabel="Bottom View">
                                                     <rect key="frame" x="0.0" y="105" width="714" height="75"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Related Objectives: Jim Beam White Label (9L Case)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxx-4O-joE">
-                                                            <rect key="frame" x="20" y="28.5" width="351.5" height="17"/>
-                                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQt-rv-kgQ">
-                                                            <rect key="frame" x="643" y="28.5" width="56" height="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Related Objectives: Jim Beam White Label (9L Case)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxx-4O-joE">
+                                                            <rect key="frame" x="20" y="28.5" width="684" height="17"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -716,10 +710,10 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Zxx-4O-joE" secondAttribute="bottom" id="Lf3-SX-eOS"/>
                                                         <constraint firstItem="Zxx-4O-joE" firstAttribute="leading" secondItem="6iN-8g-81O" secondAttribute="leading" constant="20" id="Rw2-p1-Nm3"/>
                                                         <constraint firstItem="Zxx-4O-joE" firstAttribute="centerY" secondItem="6iN-8g-81O" secondAttribute="centerY" id="SdG-Qb-WBY"/>
-                                                        <constraint firstAttribute="trailing" secondItem="aQt-rv-kgQ" secondAttribute="trailing" constant="15" id="spZ-Ir-QLi"/>
-                                                        <constraint firstItem="aQt-rv-kgQ" firstAttribute="centerY" secondItem="Zxx-4O-joE" secondAttribute="centerY" id="zed-Sf-gFu"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Zxx-4O-joE" secondAttribute="trailing" constant="10" id="fQr-dT-xvY"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>

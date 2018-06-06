@@ -162,8 +162,10 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="homeActivitiesImage" destination="LK4-qy-RVx" id="mfp-dH-IQ3"/>
-                                            <outlet property="homeActivitiesTimeLabel" destination="Nr3-fl-sbc" id="K93-MT-hoA"/>
+                                            <outlet property="homeActivitiesTimeLabel" destination="Nr3-fl-sbc" id="jbI-fS-6jW"/>
                                             <outlet property="homeActivitiesTitle" destination="8KJ-Ld-d1N" id="PzB-Hd-9Ou"/>
+                                            <outlet property="imageWidth" destination="Eke-aW-2sP" id="kAK-nl-ljv"/>
+                                            <outlet property="timeLabelLeading" destination="cUT-HG-Wos" id="wLK-Pe-KsO"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

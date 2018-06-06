@@ -29,8 +29,8 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshDB), name: NSNotification.Name(rawValue: "refreshHomeActivities"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshDB), name: NSNotification.Name(rawValue: "refreshHomeActivities"), object: nil)
         tableView?.tableFooterView = UIView()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateStringForActionItem = dateFormatter.string(from: dateToCheck)
@@ -51,8 +51,9 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         
         actionItem = actionItemModel.getAcctionItemForUser()
         actionItemToDisplay = actionItem.filter( { return $0.activityDate == dateStringForActionItem } )
+        actionItemToDisplay = actionItemToDisplay.sorted(by: { $0.isUrgent && !$1.isUrgent })
         
-     
+        
         notifications = notificationModel.notificationsForUser()
         notificationsToDisplay = notifications.filter({
             let dateSeperated = $0.createdDate.components(separatedBy: "T")
@@ -65,7 +66,7 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         })
         
         DispatchQueue.main.async {
-          
+            
             self.tableView?.reloadData()
         }
         
@@ -74,6 +75,10 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     @objc func refreshDB()  {
         getDB()
     }
+    
+    
+    
+    
     
     
     
@@ -124,6 +129,17 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
             cell.homeActivitiesTitle.text = actionItemObject.subject
             cell.homeActivitiesTimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: actionItemObject.activityDate)
             cell.homeActivitiesImage.image = UIImage(named: "Small Status Critical")
+            
+            if actionItemObject.isUrgent{
+                cell.homeActivitiesImage.image = UIImage(named: "Small Status Critical")
+                cell.imageWidth.constant = 20
+                cell.timeLabelLeading.constant = 10
+            }
+            else{
+                cell.homeActivitiesImage.image = nil
+                cell.imageWidth.constant = 0
+                cell.timeLabelLeading.constant = 0
+            }
         }
         
         
@@ -172,7 +188,7 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         return 120
     }
     
-   
+    
     @IBAction func viewAllNotifications(_ sender: Any) {
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToAllActionItem/Notification"), object:4)

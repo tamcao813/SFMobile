@@ -46,7 +46,7 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
         let requestObj = URLRequest(url: url!)
         webView?.navigationDelegate = self
         
-        webView?.load(requestObj)
+        //webView?.load(requestObj)
         
         reachability.whenReachable = { reachability in
             if reachability.connection == .wifi {
@@ -58,7 +58,7 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
             self.lblNoNetworkConnection?.isHidden = true
             self.btnViewPerformance?.isUserInteractionEnabled = true//isHidden = false
             self.webView?.isHidden = false
-            self.webView?.load(requestObj)
+            //self.webView?.load(requestObj)
         }
         
         reachability.whenUnreachable = { _ in

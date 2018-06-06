@@ -31,6 +31,8 @@ class StoreDispatcher {
     let SoupSyncConfiguration = "SyncConfiguration"
     let SoupSyncLog = "SGWS_Sync_Logs__c"
     let SoupActionItem = "Task"
+    let SoupNotifications = "FS_Notification__c"
+    
     
     
     // Workorder Types Visit OR Event
@@ -43,11 +45,11 @@ class StoreDispatcher {
     var workOrderRecordTypeIdEvent = ""
     
     var syncProgress:Int = 0
-
+    
     
     var workOrderTypeDict:[String:String] = [:]
-
-
+    
+    
     
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
@@ -57,7 +59,7 @@ class StoreDispatcher {
     var userVieModel: UserViewModel {
         return UserViewModel()
     }
-
+    
     //register all soups - to do: register other needed soups
     func registerSoups() {
         print("Store Path is \(String(describing: sfaStore.storePath))")
@@ -72,6 +74,7 @@ class StoreDispatcher {
         registerStrategyAnswers()
         registerSyncConfiguration()
         registerActionItemSoup()
+        registerNotificationsSoup()
         registerSyncLogSoup()
     }
     
@@ -91,6 +94,10 @@ class StoreDispatcher {
             
             _ = self.fetchSyncConfiguration()
             
+            group.leave()
+        }
+        group.enter()
+        syncDownNotification() { _ in
             group.leave()
         }
         
@@ -145,7 +152,7 @@ class StoreDispatcher {
         syncDownVisits() { _ in
             group.leave()
         }
-
+        
         group.enter()
         syncDownActionItem() { _ in
             group.leave()
@@ -321,7 +328,7 @@ class StoreDispatcher {
         let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
         
         if success {
-//            No Need to Sync at this instance
+            //            No Need to Sync at this instance
         }
     }
     
@@ -352,7 +359,7 @@ class StoreDispatcher {
         
         let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
         if success {
-//            Sync all the collected SyncLogs to server post success
+            //            Sync all the collected SyncLogs to server post success
             syncUpLogHandeler()
         }
     }
@@ -408,27 +415,27 @@ class StoreDispatcher {
     //    newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
     //    newSyncLog.activityDetails = "Success3"
     
-//    func createOneSyncLog(newSyncLog: SyncLog){
-//        let attributeDict = ["type":SoupSyncLog]
-//        let syncLogDict: [String:Any] = [
-//            SyncLog.SyncLogFields[0]: newSyncLog.Id,
-//            SyncLog.SyncLogFields[1]: newSyncLog.sessionID,
-//            SyncLog.SyncLogFields[2]: newSyncLog.activityType,
-//            SyncLog.SyncLogFields[3]: newSyncLog.activityTime,
-//            SyncLog.SyncLogFields[4]: newSyncLog.userId,
-//            SyncLog.SyncLogFields[5]: newSyncLog.activityDetails,
-//
-//            kSyncTargetLocal:true,
-//            kSyncTargetLocallyCreated:true,
-//            kSyncTargetLocallyUpdated:false,
-//            kSyncTargetLocallyDeleted:false,
-//            "attributes":attributeDict]
-//
-//        let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
-//        if success {
-//            syncUpLogHandeler()
-//        }
-//    }
+    //    func createOneSyncLog(newSyncLog: SyncLog){
+    //        let attributeDict = ["type":SoupSyncLog]
+    //        let syncLogDict: [String:Any] = [
+    //            SyncLog.SyncLogFields[0]: newSyncLog.Id,
+    //            SyncLog.SyncLogFields[1]: newSyncLog.sessionID,
+    //            SyncLog.SyncLogFields[2]: newSyncLog.activityType,
+    //            SyncLog.SyncLogFields[3]: newSyncLog.activityTime,
+    //            SyncLog.SyncLogFields[4]: newSyncLog.userId,
+    //            SyncLog.SyncLogFields[5]: newSyncLog.activityDetails,
+    //
+    //            kSyncTargetLocal:true,
+    //            kSyncTargetLocallyCreated:true,
+    //            kSyncTargetLocallyUpdated:false,
+    //            kSyncTargetLocallyDeleted:false,
+    //            "attributes":attributeDict]
+    //
+    //        let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
+    //        if success {
+    //            syncUpLogHandeler()
+    //        }
+    //    }
     
     func generateRandomIDForSyncLog()->String  {
         //  Make a variable equal to a random number....
@@ -465,7 +472,7 @@ class StoreDispatcher {
     func clearSyncUpLogSOUP(){
         sfaStore.clearSoup(SoupSyncLog)
     }
-
+    
     //MARK:- Contat Sync CODE
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {
         let query = "SELECT id FROM RecordType where DeveloperName = 'customer' and isActive = true and SobjectType = 'Contact'"
@@ -550,9 +557,9 @@ class StoreDispatcher {
     
     func downloadContactRolesPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId //"012i0000000PebvAAC" //"012i0000000Pf4AAAS" //(userVieModel.loggedInUser?.recordTypeId)!
-        let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Roles__c"
+        let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.rules
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
-        request.endpoint = "/services/data/v41.0/"
+        request.endpoint = StringConstants.serviceUrl
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
@@ -562,7 +569,7 @@ class StoreDispatcher {
                 
                 if response.count > 0 {
                     var rolesAry = [PlistOption]()
-                    self.createPList(plist: "/ContactRoles.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    self.createPList(plist: StringConstants.contactRolesPlist, plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -592,9 +599,9 @@ class StoreDispatcher {
     
     func downloadContactPreferredCommmunicationPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId
-        let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Preferred_Communication_Method__c"
+        let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.preferredCommunicationUrl
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
-        request.endpoint = "/services/data/v41.0/"
+        request.endpoint = StringConstants.serviceUrl
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
@@ -605,7 +612,7 @@ class StoreDispatcher {
                 if response.count > 0 {
                     var ary = [PlistOption]()
                     
-                    self.createPList(plist: "/ContactPreferred.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    self.createPList(plist: StringConstants.contactPreferredPlist, plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -630,9 +637,9 @@ class StoreDispatcher {
     
     func downloadContactClassificationPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId
-        let path = "ui-api/object-info/Contact/picklist-values/" + recordTypeId + "/SGWS_Contact_Classification__c"
+        let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.contactClassification
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
-        request.endpoint = "/services/data/v41.0/"
+        request.endpoint = StringConstants.serviceUrl
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
@@ -642,7 +649,7 @@ class StoreDispatcher {
                 
                 if response.count > 0 {
                     var ary = [PlistOption]()
-                    self.createPList(plist: "/ContactClassification.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    self.createPList(plist: StringConstants.contactClassificationPlist, plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -674,25 +681,25 @@ class StoreDispatcher {
             completion(error! as NSError)
             
         }) { (data, response) in  //success
-          //  if let data = data, data.count > 0 {
+            //  if let data = data, data.count > 0 {
             let response:[Any]  = data![AnyHashable("records")] as! [Any]
-                let dict:[String: Any] = response[0] as! [String: Any]
-                let recordTypeId: String = dict["Id"] as! String
-                print(recordTypeId)
-                
-                let queue = DispatchQueue(label: "concurrent")
-                let group = DispatchGroup()
-        
-                
-                group.enter()
-                self.downloadVisitPurposetPList(recordTypeId: recordTypeId) { _ in
-                    group.leave()
-                }
-                
-                group.notify(queue: queue) {
-                    completion(nil)
-                }
-         //   }
+            let dict:[String: Any] = response[0] as! [String: Any]
+            let recordTypeId: String = dict["Id"] as! String
+            print(recordTypeId)
+            
+            let queue = DispatchQueue(label: "concurrent")
+            let group = DispatchGroup()
+            
+            
+            group.enter()
+            self.downloadVisitPurposetPList(recordTypeId: recordTypeId) { _ in
+                group.leave()
+            }
+            
+            group.notify(queue: queue) {
+                completion(nil)
+            }
+            //   }
         }
     }
     
@@ -701,9 +708,9 @@ class StoreDispatcher {
     
     func downloadVisitPurposetPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId
-        let path = "ui-api/object-info/WorkOrder/picklist-values/" + recordTypeId + "/SGWS_Visit_Purpose__c"
+        let path = StringConstants.workorderPicklistValue + recordTypeId + StringConstants.visitPurpose
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
-        request.endpoint = "/services/data/v41.0/"
+        request.endpoint = StringConstants.serviceUrl
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
@@ -712,7 +719,7 @@ class StoreDispatcher {
                 var visitPicklist = [String:[PlistOption]]()
                 if response.count > 0 {
                     var ary = [PlistOption]()
-                    
+                    self.createPList(plist: StringConstants.accountVisitPurposePlist, plistObject: (response["values"] as? [[String : AnyObject]])!)
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -766,7 +773,7 @@ class StoreDispatcher {
             SFSoupIndex(path: "Account.IS_Next_Delivery_Date__c", indexType: kSoupIndexTypeFullText, columnName: "Account.IS_Next_Delivery_Date__c")!,
             SFSoupIndex(path: "Account.SWS_Premise_Code__c", indexType: kSoupIndexTypeFullText, columnName: "Account.SWS_Premise_Code__c")!,
             SFSoupIndex(path: "Account.SWS_License_Type__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_License_Type__c")!,
-           SFSoupIndex(path: "Account.SWS_License__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_License__c")!,
+            SFSoupIndex(path: "Account.SWS_License__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_License__c")!,
             SFSoupIndex(path: "Account.Google_Place_Operating_Hours__c", indexType: kSoupIndexTypeString, columnName:"Account.Google_Place_Operating_Hours__c")!,
             SFSoupIndex(path: "Account.SWS_License_Expiration_Date__c", indexType: kSoupIndexTypeString, columnName:"Account.SWS_License_Expiration_Date__c")!,
             SFSoupIndex(path: "Account.SWS_Total_CY_R12_Net_Sales__c", indexType: kSoupIndexTypeFloating, columnName:"Account.SWS_Total_CY_R12_Net_Sales__c")!,
@@ -784,10 +791,11 @@ class StoreDispatcher {
             SFSoupIndex(path: "Account.SWS_Delivery_Frequency__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_Delivery_Frequency__c")!,
             SFSoupIndex(path: "Account.SGWS_Single_Multi_Locations_Filter__c", indexType: kSoupIndexTypeString, columnName: "Account.SGWS_Single_Multi_Locations_Filter__c")!,
             SFSoupIndex(path: "Account.Google_Place_Formatted_Phone__c", indexType: kSoupIndexTypeString, columnName: "Account.Google_Place_Formatted_Phone__c")!,
-             SFSoupIndex(path: "Account.SWS_Status_Description__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_Status_Description__c")!,
-             SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!,
+            SFSoupIndex(path: "Account.SWS_Status_Description__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_Status_Description__c")!,
+            SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!,
             SFSoupIndex(path: "Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c")!,
-            SFSoupIndex(path: "Account.SGWS_SurveyId__c", indexType: kSoupIndexTypeString, columnName: "Account.SGWS_SurveyId__c")!
+            SFSoupIndex(path: "Account.SGWS_SurveyId__c", indexType: kSoupIndexTypeString, columnName: "Account.SGWS_SurveyId__c")!,
+            SFSoupIndex(path: "UserId", indexType: kSoupIndexTypeString, columnName: "UserId")!
         ]
         let indexSpecs: [AnyObject] = SFSoupIndex.asArraySoupIndexes(indexes) as [AnyObject]
         
@@ -834,7 +842,7 @@ class StoreDispatcher {
         let fields : [String] = User.UserFields
         let userId =   SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember Where UserId = '\(userId!)' OR User.ManagerId = '\(userId!)' limit 100"
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember Where UserId = '\(userId!)' OR User.ManagerId = '\(userId!)' limit 1000"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -844,7 +852,6 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print("syncDownUser() done")
-                    
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
@@ -860,7 +867,7 @@ class StoreDispatcher {
             }
             .catch { error in
                 completion(error as NSError?)
-            }
+        }
     }
     
     func fetchAllAccountIdFromUser()->[String]{
@@ -937,11 +944,11 @@ class StoreDispatcher {
          //let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember where Account.RecordType.DeveloperName = 'Customer' "
          */
         
-     //   let soqlQuery = "SELECT Id,CreatedDate,,,,,,,,,,,,,,,,,,,,,,Account.SGWS_Account_Health_Grade__c  FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
+        //   let soqlQuery = "SELECT Id,CreatedDate,,,,,,,,,,,,,,,,,,,,,,Account.SGWS_Account_Health_Grade__c  FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
         
         //,,Account.SWS_Premise_Code__c
         
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
        
         //,,,
         
@@ -976,7 +983,7 @@ class StoreDispatcher {
     func syncDownContact(_ completion:@escaping (_ error: NSError?)->()) {
         let siteid:String = (userVieModel.loggedInUser?.userSite)!
         
-        let fields = "Select Id,Name,FirstName,LastName,Phone,Email,Birthdate,SGWS_Buying_Power__c,AccountId,Account.SWS_Account_Site__c,SGWS_Site_Number__c,Title,Department,SGWS_Preferred_Name__c,SGWS_Contact_Hours__c,SGWS_Notes__c,LastModifiedBy.Name,SGWS_AppModified_DateTime__c,SGWS_Child_1_Name__c,SGWS_Child_1_Birthday__c,SGWS_Child_2_Name__c,SGWS_Child_2_Birthday__c,SGWS_Child_3_Name__c,SGWS_Child_3_Birthday__c,SGWS_Child_4_Name__c,SGWS_Child_4_Birthday__c,SGWS_Child_5_Name__c,SGWS_Child_5_Birthday__c,SGWS_Anniversary__c,SGWS_Likes__c,SGWS_Dislikes__c,SGWS_Favorite_Activities__c,SGWS_Life_Events__c,SGWS_Life_Events_Date__c,Fax,SGWS_Other_Specification__c,SGWS_Roles__c,SGWS_Preferred_Communication_Method__c,SGWS_Contact_Classification__c"
+        let fields = "Select Id,Name,FirstName,LastName,Phone,Email,Birthdate,SGWS_Buying_Power__c,AccountId,Account.SWS_Account_Site__c,SGWS_Site_Number__c,Title,Department,SGWS_Preferred_Name__c,SGWS_Contact_Hours__c,SGWS_Notes__c,LastModifiedBy.Name,SGWS_AppModified_DateTime__c,SGWS_Child_1_Name__c,SGWS_Child_1_Birthday__c,SGWS_Child_2_Name__c,SGWS_Child_2_Birthday__c,SGWS_Child_3_Name__c,SGWS_Child_3_Birthday__c,SGWS_Child_4_Name__c,SGWS_Child_4_Birthday__c,SGWS_Child_5_Name__c,SGWS_Child_5_Birthday__c,SGWS_Anniversary__c,SGWS_Likes__c,SGWS_Dislikes__c,SGWS_Favorite_Activities__c,SGWS_Life_Events__c,SGWS_Life_Events_Date__c,Fax,SGWS_Other_Specification__c,SGWS_Roles__c,SGWS_Preferred_Communication_Method__c,SGWS_Contact_Classification__c,SGWS_TECH_MobileField__c"
         
         let soqlQuery = "\(fields) from Contact where SGWS_Site_Number__c = '\(siteid)' and RecordType.DeveloperName = 'Customer' " //and AccountId IN(Select AccountId from AccountTeamMember where UserId = '\(userid)' "
         
@@ -1010,63 +1017,66 @@ class StoreDispatcher {
     
     
     //User
-    func fetchLoggedInUser(_ completion:@escaping ((_ user:User?, _ error: NSError?)->())) {
+    func fetchLoggedInUser(_ completion:@escaping ((_ user:User?, _ consults:[Consultant], _ error: NSError?)->())) {
+        var consultantAry = [Consultant]()
         var error : NSError?
-        guard let user = SFUserAccountManager.sharedInstance().currentUser else {
-            completion(nil, error)
+        guard let sfuser = SFUserAccountManager.sharedInstance().currentUser else {
+            completion(nil, consultantAry, error)
             return
         }
         
         //Load the sync config
         _ = self.fetchSyncConfiguration()
 
-        
-        let username = user.userName
+        let username = sfuser.userName
+        let userId = SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:User.Username} = '\(username)'"
+        //need to do query this way because User soup has 2 queries
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:User.Username} = '\(username)' OR {User:User.ManagerId} Like '\(userId!)%'"
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
         
+        
+        var thisUser = User(for: "temp")
+        var dict = [String: Consultant]()
         if (error == nil && result.count > 0) {
-            let ary:[Any] = result[0] as! [Any]
-            let user = User(withAry: ary)
-            completion(user, nil)
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let user = User(withAry: ary)
+                
+                if user.username == username {
+                    thisUser = user
+                }
+                else {
+                    let consult = Consultant(name:user.fullName, id:user.userId)
+                    //consultantAry.append(consult)
+                    dict[user.username] = consult
+                }
+            }
+            
+            if dict.count > 0 {
+                consultantAry = Array(dict.values)
+            }
+            
+            completion(thisUser, consultantAry, nil)
         }
         else {
-            completion(nil, error)
+            completion(nil, consultantAry, nil)
         }
     }
     
-    
     //Accounts
+    //Use either fetchAccountsForLoggedUser() or fetchAccountsForCurrentUser() is ok, it's just to avoid code change in many places
     func fetchAccountsForLoggedUser() -> [Account] {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        if appDelegate.isMockUser {
-            let account1 = Account.mockAccount1()
-            let account2 = Account.mockAccount2()
-            let account3 = Account.mockAccount3()
-            let account4 = Account.mockAccount4()
-            //add more if needed
-            
-            var ary = [Account]()
-            ary.append(account1)
-            ary.append(account2)
-            ary.append(account3)
-            ary.append(account4)
-            
-            return ary
-        }
-        else {
-            let userViewModel = UserViewModel()
-            
-            let userid: String = (userViewModel.loggedInUser?.userId)!
-            
-            return fetchAccounts(forUser: userid)
-        }
+        return fetchAccounts() //will filter for the logged in user or selected consultant
+    }
+    
+    func fetchAccountsForCurrentUser() -> [Account] {
+        return fetchAccounts()
     }
     
     func fetchAccountName(for accountId: String) -> String {
@@ -1089,9 +1099,14 @@ class StoreDispatcher {
     func fetchAllAccountIds()->[String]{
         
         var accountIdsArray:[String] = []
+        let userId: String = UserViewModel().selectedUserId
         
-        let soqlQuery = "Select {AccountTeamMember:AccountId} FROM {AccountTeamMember}"
+        if userId.count <= 0 {
+            return accountIdsArray
+        }
         
+        let soqlQuery = "Select {AccountTeamMember:AccountId} FROM {AccountTeamMember} Where {AccountTeamMember:UserId} = '\(userId)'"
+       
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -1106,7 +1121,7 @@ class StoreDispatcher {
             }
         }
         print(accountIdsArray)
-
+        
         return accountIdsArray
     }
     
@@ -1137,16 +1152,17 @@ class StoreDispatcher {
         return surveyIdsArray
     }
     
-    func fetchAccounts(forUser userid: String) -> [Account] {
+    func fetchAccounts() -> [Account] {
         var accountAry: [Account] = []
         
         // Get All Account Id's and Format as string with comma separator
+        // Select only accounts for the selectedUserId
         let accIdArray = fetchAllAccountIds().joined(separator: "','")
         
         // Formatted accIdArray String with adding "'" at start and end
         let formattedAccIdArray = "'" + accIdArray + "'"
         
-       // let fields = Account.AccountFields.map{"{AccountTeamMember:\($0)}"}
+        // let fields = Account.AccountFields.map{"{AccountTeamMember:\($0)}"}
         
         //let soqlQuery = "Select \(fields.joined(separator: ",")) from {AccountTeamMember} " //where {AccountTeamMember:Account.RecordType.DeveloperName} = 'Customer'"
         
@@ -1167,7 +1183,7 @@ class StoreDispatcher {
             }
         }
         else if error != nil {
-            print("fectchAccounts for userid " + userid + " error:" + (error?.localizedDescription)!)
+            print("fectchAccounts for userid " + UserViewModel().selectedUserId + " error:" + (error?.localizedDescription)!)
         }
         
         return accountAry
@@ -1193,10 +1209,10 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 
                 let json:[String:Any] = [ "SGWS_Account__c":ary[2],"Id":ary[0], "SGWS_Question_Sub_Type__c":ary[4], "SGWS_Question__c":ary[3], "SGWS_Answer_Description_List__c":ary[1],"SGWS_Notes__c":ary[5],"SGWS_AppModified_DateTime__c":ary[6]]
-
-               let strategy = StrategyQA.init(json: json)
+                
+                let strategy = StrategyQA.init(json: json)
                 strategyAry.append(strategy)
-          
+                
             }
         }
         else if error != nil {
@@ -1242,7 +1258,7 @@ class StoreDispatcher {
     
     func fetchContactsForSG(forAccount accountId:String) -> [Contact] {
         
-       var contactAry: [Contact] = []
+        var contactAry: [Contact] = []
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
@@ -1258,7 +1274,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let user = User(withAry: ary)
                 
-                let json:[String:Any] = [ "Id":user.id, "Name":user.userName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                let json:[String:Any] = [ "Id":user.id, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
                 
                 let contact =  Contact.init(json: json)
                 
@@ -1292,7 +1308,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let user = User(withAry: ary)
                 
-                let json:[String:Any] = [ "Id":user.id, "Name":user.userName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                let json:[String:Any] = [ "Id":user.id, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
                 
                 let contact =  Contact.init(json: json)
                 
@@ -1319,18 +1335,18 @@ class StoreDispatcher {
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
         
-//        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} " //where {Contact:SGWS_Account_Site_Number__c} = '\(siteid)' and {Contact:RecordType.DeveloperName} = 'Customer' and {Contact:AccountId} IN(Select {Contact:AccountId} from {Contact:AccountTeamMember where UserId = '\(userid)' "
-//
-//        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        //        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} " //where {Contact:SGWS_Account_Site_Number__c} = '\(siteid)' and {Contact:RecordType.DeveloperName} = 'Customer' and {Contact:AccountId} IN(Select {Contact:AccountId} from {Contact:AccountTeamMember where UserId = '\(userid)' "
+        //
+        //        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
- //       var error : NSError?
-//        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-//
-//
+        //       var error : NSError?
+        //        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        //
+        //
         if (result.count > 0) {
             for i in 0...result.count - 1 {
                 let singleNoteModif = result[i] as! [String:Any]
-
+                
                 let contact = Contact(withAry: singleNoteModif)
                 contactAry.append(contact)
             }
@@ -1338,9 +1354,9 @@ class StoreDispatcher {
         else if error != nil {
             print("fectchGlobalContacts " + " error:" + (error?.localizedDescription)!)
         }
-         print("contact array is \(contactAry)")
+        print("contact array is \(contactAry)")
         return contactAry
-       
+        
     }
     
     func fetchNotifications(forUser uid: String) -> [Notification]  {
@@ -1495,7 +1511,7 @@ class StoreDispatcher {
     
     func fetchContactIdsWithBuyingPower(forAccount accountId: String) -> [String] {
         var acrAry: [String] = []
-    
+        
         let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
         
         let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_AccountContactMobile__c:SGWS_Buying_Power__c} = 1"
@@ -1691,7 +1707,7 @@ class StoreDispatcher {
     func fetchEvents()->[Visit]{
         
         var visit: [Visit] = []
-         var duplicateVisitArray: [Visit] = []
+        var duplicateVisitArray: [Visit] = []
         
         let soapQuery = "Select * FROM {WorkOrder} WHERE {WorkOrder:RecordTypeId} = '\(workOrderRecordTypeIdEvent)'"
         
@@ -1736,10 +1752,10 @@ class StoreDispatcher {
                 newarr.append(modifResult[22])
                 newarr.append(modifResult[23])
                 newarr.append(modifResult[24])
-
+                
                 
                 let ary:[Any] = result[i] as! [Any]
-//              let visitArray = Visit(withAry: newarr)
+                //              let visitArray = Visit(withAry: newarr)
                 
                 let visitArray = Visit(withAry: newarr)
                 
@@ -1759,7 +1775,7 @@ class StoreDispatcher {
         let workOrderUserObj = fetchWorkOrderUserObjectObject()
         
         return workOrderUserObj
-
+        
     }
     
     
@@ -2057,12 +2073,12 @@ class StoreDispatcher {
             let fieldsIdValue = fieldsToUpload["Id"] as! String
             
             if(fieldsIdValue == singleNoteModifValue){
-//                ActionItemModif["SGWS_Account__c"] = fieldsToUpload["SGWS_Account__c"]
-//                ActionItemModif["Subject"] = fieldsToUpload["Subject"]
-//                ActionItemModif["Description"] = fieldsToUpload["Description"]
+                //                ActionItemModif["SGWS_Account__c"] = fieldsToUpload["SGWS_Account__c"]
+                //                ActionItemModif["Subject"] = fieldsToUpload["Subject"]
+                //                ActionItemModif["Description"] = fieldsToUpload["Description"]
                 ActionItemModif["Status"] = fieldsToUpload["Status"]
-//                ActionItemModif["ActivityDate"] = fieldsToUpload["ActivityDate"]
-//                ActionItemModif["SGWS_Urgent__c"] = fieldsToUpload["SGWS_Urgent__c"]
+                //                ActionItemModif["ActivityDate"] = fieldsToUpload["ActivityDate"]
+                //                ActionItemModif["SGWS_Urgent__c"] = fieldsToUpload["SGWS_Urgent__c"]
                 ActionItemModif[kSyncTargetLocal] = true
                 
                 let createdFlag = ActionItemModif[kSyncTargetLocallyCreated] as! Bool
@@ -2222,11 +2238,11 @@ class StoreDispatcher {
                 if(createdFlag){
                     singleNoteModif[kSyncTargetLocallyUpdated] = false
                     singleNoteModif[kSyncTargetLocallyCreated] = true
-
+                    
                 }else {
                     singleNoteModif[kSyncTargetLocallyCreated] = false
                     singleNoteModif[kSyncTargetLocallyUpdated] = true
-
+                    
                 }
                 singleNoteModif[kSyncTargetLocallyDeleted] = false
                 
@@ -2265,7 +2281,7 @@ class StoreDispatcher {
             let fieldsIdValue = fieldsToUpload["Id"] as! String
             
             if(fieldsIdValue == singleNoteModifValue){
-
+                
                 singleNoteModif["__local__"] = true
                 
                 singleNoteModif["__locally_deleted__"] = true
@@ -2310,14 +2326,14 @@ class StoreDispatcher {
         let noteEntry = sfaStore.lookupSoupEntryId(forSoupName: SoupAccountNotes, forFieldPath: "Id", fieldValue: note.Id, error: nil)
         let noteArr = sfaStore.retrieveEntries([noteEntry], fromSoup: SoupAccountNotes)
         
-       return noteArr[0] as! AccountNotes
-
+        return noteArr[0] as! AccountNotes
+        
     }
     
     func syncUpNotes(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
         
         let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
-                
+        
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupAccountNotes)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
@@ -2325,7 +2341,7 @@ class StoreDispatcher {
                     let syncId = syncStateStatus.syncId
                     print(syncId)
                     //Refresh Notes List view
-                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
@@ -2363,7 +2379,6 @@ class StoreDispatcher {
         else {
             return false
         }
-        
     }
     
     func createNewEntryInACR(fields: [String:Any]) -> Bool{
@@ -2440,10 +2455,10 @@ class StoreDispatcher {
                 
             }
         }
-
+        
         
         allFields[kSyncTargetLocallyDeleted] = false
-
+        
         let ary = sfaStore.upsertEntries([allFields], toSoup: SoupContact)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
@@ -2566,7 +2581,7 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
     }
-
+    
     
     // Register StrategyQA Soup
     func registerStrategyQASoup(){
@@ -2589,14 +2604,14 @@ class StoreDispatcher {
         
     }
     
-     //SyncDown StrategyQA Soup
+    //SyncDown StrategyQA Soup
     func syncDownStrategyQA(_ completion:@escaping (_ error: NSError?)->()) {
         
         
         let accIdsString = fetchAllAccountIds().joined(separator: "','")
         print("account  ids \(accIdsString)")
         
-       let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Response__c" 
+        let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c,SGWS_AppModified_DateTime__c FROM SGWS_Response__c"
         // account Ids
         
         print("soql syncDownStrategyQA query is \(soqlQuery)")
@@ -2722,28 +2737,28 @@ class StoreDispatcher {
         let surveyIdArray = fetchAllSurveyIdsForAccoount(accountId: accountId)//.joined(separator: "','")
         
         if(surveyIdArray.count > 0){
-        
-        let uniqueSurvey = surveyIdArray[0]
-        
-        let strategyQuestionsFields = StrategyQuestions.StrategyQuestionsFields.map{"{SGWS_Question__c:\($0)}"}
-        
+            
+            let uniqueSurvey = surveyIdArray[0]
+            
+            let strategyQuestionsFields = StrategyQuestions.StrategyQuestionsFields.map{"{SGWS_Question__c:\($0)}"}
+            
             let soapQuery = "Select \(strategyQuestionsFields.joined(separator: ",")) FROM {SGWS_Question__c} Where {SGWS_Question__c:SGWS_Survey_ID__c} = '\(uniqueSurvey)' order By {SGWS_Question__c:SGWS_Sorting_Order__c}"
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
-       // print("Result StrategyQuestions is \(result)")
-        if (error == nil && result.count > 0) {
-            for i in 0...result.count - 1 {
-                let ary:[Any] = result[i] as! [Any]
-                let strategyQuestionsArray = StrategyQuestions(withAry: ary)
-                strategyQuestions.append(strategyQuestionsArray)
-                //print("strategyQuestions array \(ary)")
+            let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+            
+            var error : NSError?
+            let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+            // print("Result StrategyQuestions is \(result)")
+            if (error == nil && result.count > 0) {
+                for i in 0...result.count - 1 {
+                    let ary:[Any] = result[i] as! [Any]
+                    let strategyQuestionsArray = StrategyQuestions(withAry: ary)
+                    strategyQuestions.append(strategyQuestionsArray)
+                    //print("strategyQuestions array \(ary)")
+                }
             }
-        }
-        else if error != nil {
-            print("fetch strategy Questions  " + " error:" + (error?.localizedDescription)!)
-        }
+            else if error != nil {
+                print("fetch strategy Questions  " + " error:" + (error?.localizedDescription)!)
+            }
         }
         return strategyQuestions
     }
@@ -2892,7 +2907,7 @@ class StoreDispatcher {
                     let syncId = syncStateStatus.syncId
                     print(syncId)
                     //Refresh Notes List view
-                  //  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
+                    //  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
@@ -2955,10 +2970,10 @@ class StoreDispatcher {
                 singleVisitModif["SGWS_Answer_Description_List__c"] = allFields["SGWS_Answer_Description_List__c"]
                 singleVisitModif["SGWS_Notes__c"] = allFields["SGWS_Notes__c"]
                 singleVisitModif["SGWS_Question_Sub_Type__c"] = allFields["SGWS_Question_Sub_Type__c"]
-               singleVisitModif["SGWS_AppModified_DateTime__c"] = allFields["SGWS_AppModified_DateTime__c"]
+                singleVisitModif["SGWS_AppModified_DateTime__c"] = allFields["SGWS_AppModified_DateTime__c"]
                 singleVisitModif["OwnerId"] = allFields["OwnerId"]
-
-
+                
+                
                 if(createdFlag){
                     singleVisitModif[kSyncTargetLocal] = true
                     singleVisitModif[kSyncTargetLocallyUpdated] = false
@@ -2987,7 +3002,7 @@ class StoreDispatcher {
         else {
             return false
         }
-
+        
     }
     
     
@@ -3080,7 +3095,7 @@ class StoreDispatcher {
             soupEntry["RecordTypeId"] = allFields["RecordTypeId"]
             
             soupEntry["SGWS_All_Day_Event__c"] = allFields["SGWS_All_Day_Event__c"]
-
+            
             
             soupEntry[kSyncTargetLocallyDeleted] = false
             
@@ -3105,8 +3120,8 @@ class StoreDispatcher {
         var surveyIdsArray:[String] = []
         
         let soqlQuery = "Select {AccountTeamMember:Account.SGWS_SurveyId__c} FROM {AccountTeamMember} Where {AccountTeamMember:AccountId} = '\(accountId)'"
-
-       // let soqlQuery = "Select {SGWS_Question__c:Id} FROM {SGWS_Question__c}"
+        
+        // let soqlQuery = "Select {SGWS_Question__c:Id} FROM {SGWS_Question__c}"
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
@@ -3119,7 +3134,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 if(ary[0] is NSNull){
                 } else {
-                surveyIdsArray.append(ary[0] as! String)
+                    surveyIdsArray.append(ary[0] as! String)
                 }
             }
         }
@@ -3129,7 +3144,7 @@ class StoreDispatcher {
     }
     
     func registerSyncConfiguration(){
-    
+        
         let syncConfigurationFields = SyncConfiguration.syncConfigurationFields
         
         var indexSpec:[SFSoupIndex] = []
@@ -3242,7 +3257,7 @@ class StoreDispatcher {
                 if(flag){
                     continue
                 }
-
+                
                 
                 let ary:[Any] = result[i] as! [Any]
                 let accountVisitEvent = WorkOrderUserObject(withAry: ary)
@@ -3253,6 +3268,146 @@ class StoreDispatcher {
         return accVisitEventArray
         
     }
+    
+    
+    
+    //MARK:- Notifications Related Code
+    
+    func registerNotificationsSoup(){
+        
+        let notificationsQueryFields = Notifications.notificationsFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...notificationsQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: notificationsQueryFields[i], indexType: kSoupIndexTypeString, columnName: notificationsQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupNotifications, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupNotifications soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    
+    func syncDownNotification(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c,SGWS_Type__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false"
+        
+        print("soql notification query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupNotifications)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> Notification SyncDown() done >>>>>")
+                    //
+                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
+                        .done {_ in
+                            completion(nil)
+                    }
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownNotification() >>>>>>>"
+                    let userInfo: [String: Any] = [NSLocalizedDescriptionKey : meg,
+                                                   NSLocalizedFailureReasonErrorKey : meg]
+                    let err = NSError(domain: "syncDownNotification()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    func fetchNotifications()->[Notifications] {
+        
+        var notification: [Notifications] = []
+        let notificationsFields = Notifications.notificationsFields.map{"{FS_Notification__c:\($0)}"}
+        let soapQuery = "Select \(notificationsFields.joined(separator: ",")) FROM {FS_Notification__c}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let notificationsArray = Notifications(withAry: ary)
+                notification.append(notificationsArray)
+                print("notification array  array \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch anotification array " + " error:" + (error?.localizedDescription)!)
+        }
+        return notification
+    }
+    
+    func fetchUnreadNotificationsCount()->Int {
+        
+        let soapQuery = "SELECT Count() FROM {\(SoupNotifications)} WHERE {\(SoupNotifications):isRead} == 0"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 1)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        if (error == nil && result.count > 0) {
+                print("UnreadNotification count \(result.count)")
+        }
+        else if error != nil {
+            print("fetch UnreadNotification array " + " error:" + (error?.localizedDescription)!)
+        }
+        return result.count
+    }
+    
+    
+    func editNotificationsLocally(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupNotifications, withOrderPath: "CreatedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedNotifications = [String: Any]()
+        
+        for  singleNotification in result{
+            var singleNotificationModif = singleNotification as! [String:Any]
+            let singleNotificationModifValue = singleNotificationModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == singleNotificationModifValue){
+                singleNotificationModif["isRead"] = fieldsToUpload["isRead"]
+                singleNotificationModif[kSyncTargetLocal] = true
+                singleNotificationModif[kSyncTargetLocallyCreated] = false
+                singleNotificationModif[kSyncTargetLocallyUpdated] = true
+                singleNotificationModif[kSyncTargetLocallyDeleted] = false
+                
+                editedNotifications = singleNotificationModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedNotifications], toSoup: SoupNotifications)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) Notifications is edited and saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving edited Notifications" )
+            return false
+        }
+    }
+    
+    
     
     
     

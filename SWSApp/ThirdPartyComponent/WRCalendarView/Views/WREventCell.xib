@@ -42,6 +42,18 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ahq-pc-sKE">
+                        <rect key="frame" x="10" y="74.5" width="163" height="20.5"/>
+                        <attributedString key="attributedText">
+                            <fragment content="Label">
+                                <attributes>
+                                    <font key="NSFont" metaFont="system" size="17"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <constraints>
@@ -50,15 +62,21 @@
                 <constraint firstItem="ySO-rT-ELe" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Dtf-KZ-eMg"/>
                 <constraint firstItem="9OT-80-CyK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Fta-qZ-9Dk"/>
                 <constraint firstAttribute="trailing" secondItem="9OT-80-CyK" secondAttribute="trailing" id="HIs-Le-EqD"/>
+                <constraint firstAttribute="trailing" secondItem="Ahq-pc-sKE" secondAttribute="trailing" constant="10" id="O8g-WT-3rg"/>
                 <constraint firstItem="ySO-rT-ELe" firstAttribute="top" secondItem="9OT-80-CyK" secondAttribute="bottom" id="PRh-S2-aEE"/>
                 <constraint firstItem="9OT-80-CyK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Qh7-MZ-gUi"/>
                 <constraint firstItem="SvP-El-S0W" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="WvW-m1-gEG"/>
+                <constraint firstItem="Ahq-pc-sKE" firstAttribute="leading" secondItem="ySO-rT-ELe" secondAttribute="trailing" constant="8" id="kaD-Y0-DZf"/>
                 <constraint firstAttribute="bottom" secondItem="ySO-rT-ELe" secondAttribute="bottom" id="s8m-ey-Z50"/>
                 <constraint firstAttribute="trailing" secondItem="SvP-El-S0W" secondAttribute="trailing" id="sYy-j0-Nye"/>
+                <constraint firstItem="Ahq-pc-sKE" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="shC-d3-sb0"/>
+                <constraint firstItem="Ahq-pc-sKE" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="svl-6V-EgW"/>
             </constraints>
             <size key="customSize" width="183" height="168"/>
             <connections>
                 <outlet property="borderView" destination="ySO-rT-ELe" id="Yqi-6u-zFQ"/>
+                <outlet property="homeTitleLabel" destination="Ahq-pc-sKE" id="uKj-6w-Yfo"/>
+                <outlet property="mainView" destination="9OT-80-CyK" id="Ya2-5B-csU"/>
                 <outlet property="titleLabel" destination="SvP-El-S0W" id="oEn-93-BpK"/>
             </connections>
             <point key="canvasLocation" x="-32.5" y="113"/>

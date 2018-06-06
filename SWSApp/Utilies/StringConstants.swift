@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class StringConstants {
     
@@ -21,4 +22,32 @@ class StringConstants {
     static let contactsSavedSuccessfully = "Your contact has been saved successfully"
     static let saveFail = ""
     
+    static var globalUrlDictionary : NSDictionary!
+    
+    //Chatter URL
+    static let secureUrl = globalUrlDictionary["secureUrl"] as! String
+    static let apexChatterUrl = globalUrlDictionary["apexChatterUrl"] as! String
+    static let endUrl = globalUrlDictionary["endUrl"] as! String
+    static let retUrl = globalUrlDictionary["retUrl"] as! String
+    
+    //During Visit
+    static let googleUrl = globalUrlDictionary["googleUrl"] as! String
+    
+    //Store Dispatcher
+    static let contactPicklistValue = globalUrlDictionary["contactPicklistValue"] as! String
+    static let rules = globalUrlDictionary["rules"] as! String
+    static let serviceUrl = globalUrlDictionary["serviceUrl"] as! String
+    static let contactRolesPlist = globalUrlDictionary["contactRolesPlist"] as! String
+    
+    static let preferredCommunicationUrl = globalUrlDictionary["preferredCommunicationUrl"] as! String
+    static let contactClassification = globalUrlDictionary["contactClassification"] as! String
+    static let contactPreferredPlist = globalUrlDictionary["contactPreferredPlist"] as! String
+    static let contactClassificationPlist = globalUrlDictionary["contactClassificationPlist"] as! String
+    
+    static let workorderPicklistValue = globalUrlDictionary["workorderPicklistValue"] as! String
+    static let visitPurpose = globalUrlDictionary["visitPurpose"] as! String
+    static let accountVisitPurposePlist = globalUrlDictionary["accountVisitPurposePlist"] as! String
+
+    static let swsUri = globalUrlDictionary["swsUri"] as! String
 }
+

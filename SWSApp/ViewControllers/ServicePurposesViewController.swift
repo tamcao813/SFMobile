@@ -20,6 +20,8 @@ class ServicePurposesViewController: UIViewController {
     let visitViewModel = VisitSchedulerViewModel()
     var selectedPurposesValuesList = [String]()
     var selectedPurposes = [Int]()
+    var plistDict:[String:String] = ["Login":StringConstants.accountVisitPurposePlist]
+
     
     var accountObject: Account?
     
@@ -30,37 +32,29 @@ class ServicePurposesViewController: UIViewController {
         //STATEMACHINE:If you com tho this Screen its in Planned state
         PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
         print("ServicePurposesViewController")
-        
-        let plistPath = Bundle.main.path(forResource: "ServicePurposes", ofType: ".plist", inDirectory: nil)
-        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
-        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
-        
-        if !PlistMap.sharedInstance.getPicklist(fieldname: "AccountVisitPurpose").isEmpty {
-            self.createPlistForSevicePurpose()
-        }
-        
+
         if !(PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.isEmpty)! {
             selectedPurposesValuesList = (PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";"))!
         }
         
         var planArray = PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";")
-        for var i in (0..<readServicePurposePList().count)
+        for i in (0..<PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count)
         {
-            for var j in (0..<planArray!.count)
+            for j in (0..<planArray!.count)
             {
-                if ((readServicePurposePList()[i] as! Dictionary<String, String>)["value"] == planArray![j])
+                if ((PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!)[i] as! Dictionary<String, Any>)["value"] as? String == planArray![j])
                 {
                     selectedPurposes.append(i)
                 }
             }
         }
         
-        for _ in 0...readServicePurposePList().count {
+        for _ in 0...PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count {
             selectedValuesList.append("false")
         }
         
-        for var i in (0..<selectedValuesList.count) {
-            for var j in (0..<selectedPurposes.count) {
+        for i in (0..<selectedValuesList.count) {
+            for j in (0..<selectedPurposes.count) {
                 if (selectedPurposes[j] == i) {
                     selectedValuesList[i] = "true"
                 }
@@ -68,61 +62,15 @@ class ServicePurposesViewController: UIViewController {
             
         }
         
-        print(dictionary!)
-        
         //Used to get the Account id of the user
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-//        PlanVisitManager.sharedInstance.sgwsVisitPurpose = ""
-//        PlanVisitManager.sharedInstance.sgwsAgendaNotes = ""
+
     }
     
-    // MARK:- Custom Methods
-    
-    //Read Plist For Service Purposes
-    func readServicePurposePList() -> Array<Any> {
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String?
-        if documentDirectory == nil {
-            return [Any]()
-        }
-        let path = documentDirectory?.appending("/SevicePurpose.plist") as String?
-        if path == nil {
-            return [Any]()
-        }
-        let array = NSArray(contentsOfFile: path!)
-        if array == nil {
-            return [Any]()
-        }
-        return array! as! Array<Any>
-    }
-    
-    // Create PList For Service Purposes
-    
-    func createPlistForSevicePurpose() {
-        
-        let fileManager = FileManager.default
-        
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let path = documentDirectory.appending("/SevicePurpose.plist")
-        
-        if(!fileManager.fileExists(atPath: path)){
-            
-            var tempArr = [Dictionary<String, String>]()
-            for object in PlistMap.sharedInstance.getPicklist(fieldname: "AccountVisitPurpose") {
-                let populatedDictionary = ["label": object.label, "value": object.value]
-                tempArr.append(populatedDictionary)
-            }
-            
-            let isWritten = (tempArr as NSArray).write(toFile: path, atomically: true)
-            print("is the file created: \(isWritten)")
-            
-        } else {
-            print("file exists")
-        }
-    }
-    
+
     // MARK:- IBAction
     
     @IBAction func closeVC(sender: UIButton) {
@@ -205,33 +153,11 @@ class ServicePurposesViewController: UIViewController {
 //MARK:- UICollectionView DataSource
 extension ServicePurposesViewController : UICollectionViewDataSource {
     
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return (tableViewRowDetails?.count)! //used to display the TectView in the Last Cell
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 
-//        let tableData = tableViewRowDetails![section] as! NSMutableDictionary
-//        let headerTxt = (tableData["headerText"] as! String)
-//        if section == 4 {
             return CGSize(width: self.view.frame.size.width, height: 150);
-//        }
-//        else {
-//            if headerTxt.isEmpty {
-//                return CGSize(width: view.frame.width, height: 40)
-//            }
-//            return CGSize(width: view.frame.width, height: 90)
-//        }
+
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-//        if section == 3 {
-//            return CGSize(width: self.view.frame.size.width, height: 50);
-//        }
-//        else {
-//            return CGSize(width: 0, height: 0);
-//        }
-//    }
     
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
@@ -243,8 +169,6 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
 
             if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "planVisitHeaderCell", for: indexPath) as? UICollectionReusableView {
 
-//                if indexPath.section == 4 {
-
                     let label:UILabel = sectionHeader.viewWithTag(200) as! UILabel
                     label.text = "Service Purposes"
 
@@ -254,19 +178,6 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
                     sectionHeader.backgroundColor = UIColor.clear
                     label.frame.origin.y = 60
                     subLabel.frame.origin.y = 90
-//                }
-
-//                else {
-//
-//                    let label:UILabel = sectionHeader.viewWithTag(200) as! UILabel
-//                    let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
-//                    label.text = (tableData["headerText"] as! String)
-//
-//                    let subLabel:UILabel = sectionHeader.viewWithTag(201) as! UILabel
-//                    subLabel.text = (tableData["subHeader"] as! String)
-//                    let headerTxt = (tableData["headerText"] as! String)
-//                    if headerTxt.isEmpty {subLabel.frame.origin.y = 10 }
-//                }
 
                 return sectionHeader
             }
@@ -281,19 +192,7 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        //        return collectionViewRowDetails.count + 1
-        
-//        let tableData = tableViewRowDetails![section] as! NSDictionary
-//        let tableContent = tableData["answers"] as! NSMutableArray
-//        if section == 4 {
-//            if (readServicePurposePList().count != 0) {
-                return readServicePurposePList().count + 1
-//            }
-//        }
-//        return 0
-//        else {
-//            return tableContent.count
-//        }
+        return PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count + 1
     }
     
     
@@ -301,18 +200,19 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
         
         var cell1 : UICollectionViewCell?
         
-//        if indexPath.section == 4 {
-            if indexPath.row == readServicePurposePList().count {
+            if indexPath.row == PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyNotesCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
                 (cell1 as! EditAccountStrategyCollectionViewCell).bottomView?.layer.borderColor = UIColor.lightGray.cgColor
                 if !(PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes.isEmpty)! {
                     (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes
                 }
-//                PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = ((cell1 as! EditAccountStrategyCollectionViewCell).textView?.text)!
                 
             } else {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
-                (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = (readServicePurposePList()[indexPath.row] as! Dictionary<String, String>)["value"]
+
+                let dict = PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!)[indexPath.row] as! Dictionary<String, Any>
+                (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = dict["value"] as! String
+                
                 cell1?.layer.borderWidth = 3.0
                 if selectedValuesList[indexPath.row] == "true" {
                     cell1?.layer.borderColor = UIColor(red: 66/255, green: 135/255, blue: 194/255, alpha: 1.0).cgColor
@@ -322,16 +222,6 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
                     (cell1 as! EditAccountStrategyCollectionViewCell).selectedIcon?.isHidden = true
                 }
             }
-//        }
-        
-//        else {
-//
-//            cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "planVisitCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
-//            let label:UILabel = cell1!.viewWithTag(300) as! UILabel
-//            let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
-//            let tableContent = tableData["answers"] as! NSMutableArray
-//            label.text = " • " + (tableContent[indexPath.row] as! String)
-//        }
         
         return cell1!
     }
@@ -344,7 +234,7 @@ extension ServicePurposesViewController : UICollectionViewDelegate {
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
         //if indexPath.section == 4 {
-            if indexPath.row == readServicePurposePList().count {
+            if indexPath.row == PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count {
                 print("last Cell")
                 
             } else {
@@ -364,8 +254,6 @@ extension ServicePurposesViewController : UICollectionViewDelegate {
                     cell.selectedIcon?.isHidden = false
                 }
             }
-
-        //}
     }
 }
 
@@ -376,37 +264,24 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-//        if indexPath.section == 4 {
-            //            let tableData = tableViewRowDetails![indexPath.section] as! NSDictionary
-            //            let tableContent = tableData["answers"] as! NSMutableArray
-            if indexPath.row == readServicePurposePList().count {
+            if indexPath.row == PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count {
                 return CGSize(width: self.view.frame.size.width, height: 319);
             } else {
                 return CGSize(width: self.view.frame.size.width/1.03, height: 75);
             }
-//        } else {
-//            return CGSize(width: self.view.frame.size.width/1.0, height: 35);
-//        }
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        if section == 4 {
             return 10.0
-//        } else {
-//            return 0.0
-//        }
+
     }
 
     func collectionView(_ collectionView: UICollectionView, layout
         collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        if section == 4 {
             return 10.0
-//        } else {
-//            return 0.0
-//        }
     }
 
 }

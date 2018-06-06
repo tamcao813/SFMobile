@@ -35,7 +35,7 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         
-        let authUrl: String = instanceUrl + "/secur/frontdoor.jsp?sid=" + accessToken + "&retURL=" + "/apex/sgwsACNChatter?id=" + AccountId.selectedAccountId
+        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.apexChatterUrl + AccountId.selectedAccountId
         
         //let accountUrl: String = authUrl +  endUrl
         

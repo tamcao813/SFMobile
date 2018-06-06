@@ -17,7 +17,7 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-    let endUrl = "/one/one.app?source=alohaHeader#/sObject/Event/home"
+    
 
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
@@ -35,8 +35,8 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         
-        let authUrl: String = instanceUrl + "/secur/frontdoor.jsp?sid=" + accessToken + "&retURL="
-        let accountUrl: String = authUrl +  endUrl
+        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl
+        let accountUrl: String = authUrl +  StringConstants.endUrl
         
         let url  =  URL(string:authUrl+accountUrl)
         let requestObj = URLRequest(url: url!)

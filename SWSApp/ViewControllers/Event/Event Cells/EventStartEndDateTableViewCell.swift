@@ -37,12 +37,11 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         
         if CreateNewEventViewControllerGlobals.startDate != ""{
             eventStartDateTextField.borderColor = .gray
+            CreateNewEventViewControllerGlobals.isFirstTimeLoad = false
             
             if isSelectedFlag == false {
                 isSelectedFlag = true
                 btnAllDayEvent?.setImage(UIImage(named:"Checkbox Selected"), for: .normal)
-                
-                CreateNewEventViewControllerGlobals.isFirstTimeLoad = false
                 
                 eventEndDateTextField.text = eventStartDateTextField.text
                 eventStartTimeTextField.text = "00:00 AM"
@@ -54,7 +53,6 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 CreateNewEventViewControllerGlobals.endTime = "11:59 PM"
                 
                 self.startAndEndDatesUserInteractionDisabled()
-                
                 CreateNewEventViewControllerGlobals.allDayEventSelected = true
             }else{
                 isSelectedFlag = false
@@ -72,15 +70,12 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 CreateNewEventViewControllerGlobals.endTime = ""
                 
                 self.startAndEndDatesUserInteractionEnabled()
-                
                 CreateNewEventViewControllerGlobals.allDayEventSelected = false
             }
-            
         }else{
             eventStartDateTextField.borderColor = .red
         }
     }
-    
     
     func startAndEndDatesUserInteractionDisabled(){
         eventStartDateTextField.isUserInteractionEnabled = false
@@ -137,7 +132,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         datePickerView.frame.origin = CGPoint(x: 350, y: 20)
         datePickerView.datePickerMode = .date
         datePickerView.minuteInterval = 15
-        datePickerView.minimumDate = NSDate() as Date
+        datePickerView.minimumDate = Date()
         inputView.addSubview(datePickerView) // add date picker to UIView
         
         let toolBar = UIToolbar()
@@ -164,7 +159,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         datePickerView.frame.origin = CGPoint(x: 350, y: 20)
         datePickerView.datePickerMode = .time
         datePickerView.minuteInterval = 15
-        datePickerView.minimumDate = NSDate() as Date
+        datePickerView.minimumDate = Date()
         inputView.addSubview(datePickerView) // add date picker to UIView
         
         let toolBar = UIToolbar()

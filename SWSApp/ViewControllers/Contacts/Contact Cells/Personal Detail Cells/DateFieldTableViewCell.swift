@@ -33,9 +33,11 @@ class DateFieldTableViewCell: UITableViewCell {
     
     func displayCellContent(){
         if dateTextfield.tag == 1{
-            dateTextfield.text = contactDetail?.birthDate
+            dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString:  contactDetail?.birthDate)
+                //DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  contactDetail?.birthDate)
         }else{
-            dateTextfield.text = contactDetail?.anniversary
+            dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString:  contactDetail?.anniversary)
+                //DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: contactDetail?.anniversary)
         }
     }
     

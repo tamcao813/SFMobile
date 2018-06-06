@@ -79,15 +79,6 @@ class CreateNoteViewController : UIViewController{
         return someString
     }
     
-    
-    
-    func getDateForNotes()  {
-        
-        let currentdate = Date()
-        print("Current date is \(currentdate)")
-        
-    }
-    
     func createNewNotes() {
         
         let date = Date()

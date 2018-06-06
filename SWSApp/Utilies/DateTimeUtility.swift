@@ -142,9 +142,11 @@ class DateTimeUtility
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
-        let date = dateFormatter.date(from: dateString!)// create date from string
+        var date = dateFormatter.date(from: dateString!)// create date from string
         // change to a readable time format and change to local time zone
-        
+        if date == nil {
+            date = self.getDateActionItemFromDateString(dateString: dateString!)
+        }
         dateFormatter.dateFormat = "MM/dd/yyyy"
         dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date!)

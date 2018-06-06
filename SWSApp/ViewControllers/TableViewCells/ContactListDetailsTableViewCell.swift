@@ -104,26 +104,28 @@ class ContactListDetailsTableViewCell: UITableViewCell {
     func displayEventContent(_ labelToDisplay: UILabel, textToDisply: String, dateString: String) {
         
         labelToDisplay.text = ""
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.timeZone = TimeZone(identifier:"UTC")
-        
-        if let date: Date = dateFormatter.date(from: dateString) {
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            labelToDisplay.text = dateFormatter.string(from: date)
-            return
-        }
-        
-        let dateFormatterType2 = DateFormatter()
-        dateFormatterType2.dateFormat = "MM/dd/yyyy"
-        dateFormatterType2.timeZone = TimeZone(identifier:"UTC")
+        labelToDisplay.text =  DateTimeUtility.convertUtcDatetoReadableDateString(dateString: dateString)
 
-        if let date: Date = dateFormatterType2.date(from: dateString) {
-            dateFormatterType2.dateFormat = "MM/dd/yyyy"
-            labelToDisplay.text = dateFormatterType2.string(from: date)
-            return
-        }
+        
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+//
+//        if let date: Date = dateFormatter.date(from: dateString) {
+//            dateFormatter.dateFormat = "MM/dd/yyyy"
+//            labelToDisplay.text = dateFormatter.string(from: date)
+//            return
+//        }
+//
+//        let dateFormatterType2 = DateFormatter()
+//        dateFormatterType2.dateFormat = "MM/dd/yyyy"
+//        dateFormatterType2.timeZone = TimeZone(identifier:"UTC")
+//
+//        if let date: Date = dateFormatterType2.date(from: dateString) {
+//            dateFormatterType2.dateFormat = "MM/dd/yyyy"
+//            labelToDisplay.text = dateFormatterType2.string(from: date)
+//            return
+//        }
     }
     
     func displayChildContent(_ labelToDisplay: UILabel, textToDisply: String, dateString: String) {

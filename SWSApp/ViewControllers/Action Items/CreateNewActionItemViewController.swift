@@ -178,6 +178,8 @@ class CreateNewActionItemViewController: UIViewController {
         newActionItem.description = actionItemDescriptionTextView.text!
         newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
         if newActionItem.activityDate != ""{
+            
+            newActionItem.activityDate =  DateTimeUtility.convertUtcDatetoReadableDateString(dateString: newActionItem.activityDate)
             if ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
                 newActionItem.status = "Open"
             }else{
@@ -247,6 +249,7 @@ class CreateNewActionItemViewController: UIViewController {
             editActionItem.status = status
             if editActionItem.activityDate != ""{
                 if editActionItem.status == "Open" || editActionItem.status == "Overdue"{
+                    editActionItem.activityDate =  DateTimeUtility.convertUtcDatetoReadableDateString(dateString: editActionItem.activityDate)
                     if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
                         editActionItem.status = "Open"
                     }else{

@@ -62,8 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //setup StoreDispatcher by registering soups
                 StoreDispatcher.shared.registerSoups()
                 self.setupRootViewController()
-                SFSDKAnalyticsLogger.sharedInstance().logLevel = .debug
-                SFSDKCoreLogger.sharedInstance().logLevel = .debug
+                SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .error
+                SFSDKCoreLogger.sharedInstance().logLevel       =    .error
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in

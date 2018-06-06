@@ -14,20 +14,18 @@ class HomeViewController: UIViewController {
     let userViewModel = UserViewModel()
     var loggerInUser: User?
     
-    var notificationArray = [Notifications]()
-    
     @IBOutlet weak var scollView : UIScrollView?
     
     override func viewDidLoad() {
         loggerInUser = userViewModel.loggedInUser
         
-        notificationArray = NotificationsViewModel().notificationsForUser()
-        print("Notification array is - \(notificationArray)")
         
     }
     
     func scrollToTop(){
-        scollView?.scrollsToTop = true
+        DispatchQueue.main.async {
+            self.scollView?.setContentOffset(CGPoint.zero, animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

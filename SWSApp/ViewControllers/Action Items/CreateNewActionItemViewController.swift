@@ -286,7 +286,7 @@ class CreateNewActionItemViewController: UIViewController {
         
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {
-           
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
             self.delegate?.updateActionDesc()
             self.delegate?.updateActionList()
             if ActionItemFilterModel.fromAccount{

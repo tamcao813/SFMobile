@@ -37,7 +37,7 @@ class ActionItemsListViewController: UIViewController {
             }
         }
         
-        btnAddNew.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Create An Action Item ", bigString: "+"), for: .normal)
+        btnAddNew.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New", bigString: "+"), for: .normal)
         
         fetchActionItemsFromDB()
     }
@@ -340,7 +340,9 @@ extension ActionItemsListViewController {
             "attributes":attributeDict]
         
         let success = AccountsActionItemViewModel().editActionItemStatusLocally(fields: actionItemDict)
+        
         if success {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
             self.fetchActionItemsFromDB()
         }
     }
@@ -366,7 +368,9 @@ extension ActionItemsListViewController {
                 "attributes":attributeDict]
             
             let success = AccountsActionItemViewModel().deleteActionItemLocally(fields: editActionItemDict)
-            if(success){
+            if(success)
+            {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
                 self.fetchActionItemsFromDB()
             }
             else {

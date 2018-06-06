@@ -360,24 +360,18 @@ class StoreDispatcher {
     /**
      createSyncLogOnSyncStart Will insert Sync log indicating that Sync has started
      */
-    func createSyncLogOnSyncError(errorType: String,networkType:String){
+    func createSyncLogOnSyncError(networkType:String){
         let newSyncLog = SyncLog(for: "NewSyncLog")
         newSyncLog.Id = generateRandomIDForSyncLog()
         newSyncLog.sessionID = "SID:\(newSyncLog.Id)"
-        newSyncLog.activityType = "SyncErr\(errorType)"
+        newSyncLog.activityType = "Sync Error"
         newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
-        
-        
-       
-        
-        var returnValue: String? = UserDefaults.standard.object(forKey: "errorSDKUserDefault") as? String
+
+        let returnValue: String? = UserDefaults.standard.object(forKey: "errorSDKUserDefault") as? String
         
         UserDefaults.standard.removeObject(forKey:"key_name")
 
-        
-        
-        
         newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\",\"Error\":"+returnValue!+"}"
         //        createOneSyncLog(newSyncLog)
         

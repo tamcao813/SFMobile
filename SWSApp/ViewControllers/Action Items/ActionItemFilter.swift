@@ -10,10 +10,14 @@ import Foundation
 
 class ActionItemFilter {
     func sectionNames(isManager: Bool = false) -> [String] {
-        var names = ["Action Item Status", "Action Item Type", "Due Date"]
+        var names = [String]()
         if isManager {
             names.append("My Team")
         }
+        names.append("Action Item Status")
+        names.append("Action Item Type")
+        names.append("Due Date")
+        
         return names
     }
     

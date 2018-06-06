@@ -28,7 +28,7 @@ class ActionItemFilterTableViewCell: UITableViewCell {
     func displayCellContent(sectionContent : NSArray , indexPath : IndexPath){
         let titleContent = sectionContent[indexPath.section] as? NSArray
         
-        if indexPath.section == 3 { //Manager section
+        if indexPath.section == 0 { //Manager section
             let consult = titleContent![indexPath.row] as? Consultant
             self.titleLabel.text = consult?.name
         }
@@ -38,13 +38,13 @@ class ActionItemFilterTableViewCell: UITableViewCell {
 
         switch indexPath.section{
         case 0:
-            self.showActionStatusCell(indexPath: indexPath)
-        case 1:
-            self.showActionTypeCell(indexPath: indexPath)
-        case 2:
-            self.showDueDateCell(indexPath: indexPath)
-        case 3:
             self.showManagerCell(indexPath: indexPath, rowContent: titleContent as! [Consultant])
+        case 1:
+            self.showActionStatusCell(indexPath: indexPath)
+        case 2:
+            self.showActionTypeCell(indexPath: indexPath)
+        case 3:
+            self.showDueDateCell(indexPath: indexPath)
         default:
             break
         }

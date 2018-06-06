@@ -69,6 +69,11 @@ class CreateNewActionItemViewController: UIViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
         self.tableView.tableFooterView = UIView()
+        if isEditingMode {
+            screenHeaderLabel.text = "Edit An Action Item"
+        }else{
+            screenHeaderLabel.text = "Create An Action Item"
+        }
         saveView.dropShadow()
         initializeNibs()
         getSelectedActionItem()
@@ -284,7 +289,7 @@ class CreateNewActionItemViewController: UIViewController {
         
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {
-           
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
             self.delegate?.updateActionDesc()
             self.delegate?.updateActionList()
             if ActionItemFilterModel.fromAccount{

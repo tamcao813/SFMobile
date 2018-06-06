@@ -690,6 +690,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
     }
     
+    private func homeScreenScrollToTop(){
+        if previouslySelectedVCIndex == 0{
+            let homeScreen = self.homeVC as? HomeViewController
+            homeScreen?.scrollToTop()
+        }
+    }
+    
     // # MARK: viewControllerForSelectedSegmentIndex
     // get the respective view controller as per the selected index of menu from menubar
     private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
@@ -710,6 +717,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         self.clearContactsFilterModel()
         
+        self.homeScreenScrollToTop()
         
         self.notificationButton?.isEnabled = true
         self.unreadNotificationCountLabel.isUserInteractionEnabled = true

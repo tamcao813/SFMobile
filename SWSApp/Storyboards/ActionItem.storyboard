@@ -258,37 +258,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="714" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fM7-Ru-l4s">
-                                <rect key="frame" x="494" y="30" width="220" height="40"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rs6-il-4JF">
-                                        <rect key="frame" x="0.0" y="0.0" width="220" height="40"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                                        <state key="normal" title="Create An Action Item   +">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="2"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="newActionItemButtonTapped:" destination="S2n-d7-S7v" eventType="touchUpInside" id="5C0-OK-zMQ"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" name="Data New"/>
-                                <constraints>
-                                    <constraint firstItem="rs6-il-4JF" firstAttribute="top" secondItem="fM7-Ru-l4s" secondAttribute="top" id="2PN-DP-e37"/>
-                                    <constraint firstAttribute="trailing" secondItem="rs6-il-4JF" secondAttribute="trailing" id="WTi-Bq-Dco"/>
-                                    <constraint firstAttribute="height" constant="40" id="bh8-SO-fdo"/>
-                                    <constraint firstAttribute="width" constant="220" id="r6W-oe-kP1"/>
-                                    <constraint firstAttribute="bottom" secondItem="rs6-il-4JF" secondAttribute="bottom" id="vuR-Pi-L4D"/>
-                                    <constraint firstItem="rs6-il-4JF" firstAttribute="leading" secondItem="fM7-Ru-l4s" secondAttribute="leading" id="xCV-X1-cBu"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CaS-9r-wps">
-                                <rect key="frame" x="0.0" y="80" width="714" height="676"/>
+                                <rect key="frame" x="0.0" y="84" width="714" height="672"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="hNS-Yw-zw5">
                                     <rect key="frame" x="0.0" y="0.0" width="714" height="45"/>
@@ -442,11 +413,40 @@
                                     <outlet property="delegate" destination="S2n-d7-S7v" id="yPO-Rm-I5m"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fM7-Ru-l4s">
+                                <rect key="frame" x="594" y="34" width="120" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rs6-il-4JF">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                        <state key="normal" title="Add New  +">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="newActionItemButtonTapped:" destination="S2n-d7-S7v" eventType="touchUpInside" id="5C0-OK-zMQ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="Data New"/>
+                                <constraints>
+                                    <constraint firstItem="rs6-il-4JF" firstAttribute="top" secondItem="fM7-Ru-l4s" secondAttribute="top" id="2PN-DP-e37"/>
+                                    <constraint firstAttribute="trailing" secondItem="rs6-il-4JF" secondAttribute="trailing" id="WTi-Bq-Dco"/>
+                                    <constraint firstAttribute="height" constant="40" id="bh8-SO-fdo"/>
+                                    <constraint firstAttribute="width" constant="120" id="r6W-oe-kP1"/>
+                                    <constraint firstAttribute="bottom" secondItem="rs6-il-4JF" secondAttribute="bottom" id="vuR-Pi-L4D"/>
+                                    <constraint firstItem="rs6-il-4JF" firstAttribute="leading" secondItem="fM7-Ru-l4s" secondAttribute="leading" id="xCV-X1-cBu"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="LightGrey"/>
                         <constraints>
                             <constraint firstItem="opS-Pk-Nd3" firstAttribute="trailing" secondItem="CaS-9r-wps" secondAttribute="trailing" id="JQJ-zp-Bd2"/>
-                            <constraint firstItem="fM7-Ru-l4s" firstAttribute="top" secondItem="opS-Pk-Nd3" secondAttribute="top" constant="10" id="NJJ-Uc-4AE"/>
+                            <constraint firstItem="fM7-Ru-l4s" firstAttribute="top" secondItem="opS-Pk-Nd3" secondAttribute="top" constant="14" id="NJJ-Uc-4AE"/>
                             <constraint firstItem="CaS-9r-wps" firstAttribute="top" secondItem="rs6-il-4JF" secondAttribute="bottom" constant="10" id="VtH-h6-xsL"/>
                             <constraint firstItem="CaS-9r-wps" firstAttribute="leading" secondItem="opS-Pk-Nd3" secondAttribute="leading" id="e8j-6F-cPi"/>
                             <constraint firstItem="opS-Pk-Nd3" firstAttribute="bottom" secondItem="CaS-9r-wps" secondAttribute="bottomMargin" id="hcV-XU-hlL"/>

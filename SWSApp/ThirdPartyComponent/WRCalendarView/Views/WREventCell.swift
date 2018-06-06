@@ -68,13 +68,6 @@ class WREventCell: UICollectionViewCell {
                     let titleAttribute = [NSAttributedStringKey.font: UIFont(name: "Ubuntu-Medium", size: 16.0)!]
                     let myMutableTitle = NSMutableAttributedString(string: event.title, attributes: titleAttribute)
                     
-                    if (!event.location.isEmpty) {
-                        
-                        let locationAttribute = [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 12.0)!]
-                        let locationStr = NSMutableAttributedString(string: "\n location  \(event.location)", attributes: locationAttribute)
-                        myMutableTitle.append(locationStr)
-                    }
-                    
                     homeTitleLabel.numberOfLines = 0
                     homeTitleLabel.attributedText = myMutableTitle
 

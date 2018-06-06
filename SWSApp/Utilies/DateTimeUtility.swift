@@ -164,6 +164,21 @@ class DateTimeUtility
         return timeStamp
     }
     
+    static func convertUtcDatetoReadableDateMMDDYYYY(dateString :String?)->String{
+        if(dateString?.isEmpty)!{
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        let date = dateFormatter.date(from: dateString!)// create date from string
+        
+        dateFormatter.dateFormat = "MM/dd/YYYY"
+        dateFormatter.timeZone = TimeZone.current
+        let timeStamp = dateFormatter.string(from: date!)
+        return timeStamp
+    }
+    
     static func getEEEEMMMdFormattedDateString(date: Date?) -> String {
         if(date == nil) {
             return ""

@@ -64,9 +64,6 @@ class ActionItem {
         shippingStreet = json["Account.ShippingStreet"] as? String ?? ""
         accountNumber = json["Account.AccountNumber"] as? String ?? ""
         ownerId = json["OwnerId"] as? String ?? ""
-        
-        
-        
     }
     
     init(for: String) {

@@ -1930,7 +1930,7 @@ class StoreDispatcher {
         var actionItem: [ActionItem] = []
         //let actionItemFields = ActionItem.AccountActionItemFields.map{"{Task:\($0)}"}
         // let soapQuery = "Select \(actionItemFields.joined(separator: ",")) FROM {Task}"
-        let soapQuery = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{Task:_soupEntryId},{Task:OwnerId} FROM {Task} INNER JOIN {AccountTeamMember} where {Task:SGWS_Account__c} = {AccountTeamMember:AccountId}"
+        let soapQuery = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{Task:OwnerId},{Task:_soupEntryId} FROM {Task} INNER JOIN {AccountTeamMember} where {Task:SGWS_Account__c} = {AccountTeamMember:AccountId}"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
@@ -1946,7 +1946,7 @@ class StoreDispatcher {
                 
                 let soupData = result[i] as! [Any]
                 
-                let entryArry = sfaStore.retrieveEntries([soupData[16]], fromSoup: SoupActionItem)
+                let entryArry = sfaStore.retrieveEntries([soupData[17]], fromSoup: SoupActionItem)
                 
                 let item = entryArry[0]
                 let subItem = item as! [String:Any]
@@ -1966,7 +1966,7 @@ class StoreDispatcher {
         else if error != nil {
             print("fetch action item  " + " error:" + (error?.localizedDescription)!)
         }
-        let soapQueryWithoutAccount = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{Task:_soupEntryId},{Task:OwnerId} FROM {Task} Where {Task:SGWS_Account__c} IS NULL OR {Task:SGWS_Account__c} = ''"
+        let soapQueryWithoutAccount = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{Task:OwnerId},{Task:_soupEntryId} FROM {Task} Where {Task:SGWS_Account__c} IS NULL OR {Task:SGWS_Account__c} = ''"
         let querySpecWithoutAccount = SFQuerySpec.newSmartQuerySpec(soapQueryWithoutAccount, withPageSize: 100000)
         
         let resultWithoutAccount = sfaStore.query(with: querySpecWithoutAccount!, pageIndex: 0, error: &error)
@@ -1977,7 +1977,7 @@ class StoreDispatcher {
                 
                 let soupDataWithoutAccount = resultWithoutAccount[i] as! [Any]
                 
-                let entryArryWithoutAccount = sfaStore.retrieveEntries([soupDataWithoutAccount[9]], fromSoup: SoupActionItem)
+                let entryArryWithoutAccount = sfaStore.retrieveEntries([soupDataWithoutAccount[10]], fromSoup: SoupActionItem)
                 
                 let itemWithoutAccount = entryArryWithoutAccount[0]
                 let subItemWithoutAccount = itemWithoutAccount as! [String:Any]

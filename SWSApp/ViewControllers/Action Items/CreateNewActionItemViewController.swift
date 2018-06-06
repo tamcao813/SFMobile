@@ -69,6 +69,11 @@ class CreateNewActionItemViewController: UIViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
         self.tableView.tableFooterView = UIView()
+        if isEditingMode {
+            screenHeaderLabel.text = "Edit An Action Item"
+        }else{
+            screenHeaderLabel.text = "Create An Action Item"
+        }
         saveView.dropShadow()
         initializeNibs()
         getSelectedActionItem()

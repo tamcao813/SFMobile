@@ -20,7 +20,7 @@ class ActionItem {
     var lastModifiedDate: String
     var recordTypeId: String
     var _soupEntryId: Int
-    var ownerId: String
+   
     
     var accountName: String
     var accountNumber: String
@@ -29,6 +29,7 @@ class ActionItem {
     var shippingPostalCode: String
     var shippingState: String
     var shippingStreet: String
+    var ownerId: String
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(ActionItem.AccountActionItemFields, ary))
@@ -54,7 +55,7 @@ class ActionItem {
         lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
         recordTypeId = json["RecordTypeId"] as? String ?? ""
         _soupEntryId = json["_soupEntryId"] as? Int ?? 0
-        ownerId = json["OwnerId"] as? String ?? ""
+    
         accountName = json["Account.Name"] as? String ?? ""
         shippingCity = json["Account.ShippingCity"] as? String ?? ""
         shippingCountry = json["Account.ShippingCountry"] as? String ?? ""
@@ -62,6 +63,7 @@ class ActionItem {
         shippingState = json["Account.ShippingState"] as? String ?? ""
         shippingStreet = json["Account.ShippingStreet"] as? String ?? ""
         accountNumber = json["Account.AccountNumber"] as? String ?? ""
+        ownerId = json["OwnerId"] as? String ?? ""
         
         
         
@@ -78,14 +80,15 @@ class ActionItem {
         lastModifiedDate = ""
         recordTypeId = ""
         _soupEntryId = 0
-        ownerId = ""
+       
         accountName = ""
         accountNumber = ""
         shippingCity = ""
         shippingCountry = ""
         shippingPostalCode = ""
         shippingState = ""
-        shippingStreet = ""   
+        shippingStreet = ""
+        ownerId = ""
     }
 }
 

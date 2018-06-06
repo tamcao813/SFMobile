@@ -57,7 +57,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // keep the views loaded
     //home VC
     lazy var homeVC: UIViewController? = {
-        let homeTabVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewControllerID")
+        let homeStoryboard = UIStoryboard.init(name: "Home", bundle: nil)
+        let homeTabVC = homeStoryboard.instantiateViewController(withIdentifier: "HomeViewControllerID")
         return homeTabVC
     }()
     // accounts VC

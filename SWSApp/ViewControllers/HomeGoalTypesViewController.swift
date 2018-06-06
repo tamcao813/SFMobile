@@ -45,7 +45,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         let url  =  URL(string:authUrl)//+accountUrl)
         let requestObj = URLRequest(url: url!)
         webView?.navigationDelegate = self
-        self.webView?.load(requestObj)
+        //self.webView?.load(requestObj)
         
         reachability.whenReachable = { reachability in
             if reachability.connection == .wifi {
@@ -57,7 +57,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
             self.lblNoNetworkConnection?.isHidden = true
             self.btnViewPerformance?.isUserInteractionEnabled = true//isHidden = false
             self.webView?.isHidden = false
-            self.webView?.load(requestObj)
+            //self.webView?.load(requestObj)
         }
         
         reachability.whenUnreachable = { _ in

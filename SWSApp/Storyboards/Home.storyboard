@@ -117,7 +117,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="512" height="506"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6H3-3R-yTe">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6H3-3R-yTe">
                                 <rect key="frame" x="12" y="17" width="495" height="408"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -125,7 +125,7 @@
                                         <rect key="frame" x="0.0" y="28" width="495" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5FS-Bc-Ywz" id="xqi-i6-vSB">
-                                            <rect key="frame" x="0.0" y="0.0" width="495" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="495" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today is Jeanna Smith’s Birthday" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8KJ-Ld-d1N">
@@ -146,10 +146,22 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJt-js-fQV">
+                                                    <rect key="frame" x="15" y="99" width="465" height="1"/>
+                                                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="Laf-5n-O5j"/>
+                                                        <constraint firstAttribute="width" constant="465" id="QGM-Ow-e3E"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="LK4-qy-RVx" firstAttribute="top" secondItem="8KJ-Ld-d1N" secondAttribute="bottom" constant="5" id="0vs-dZ-EpT"/>
+                                                <constraint firstItem="vJt-js-fQV" firstAttribute="leading" secondItem="xqi-i6-vSB" secondAttribute="leading" constant="15" id="4b5-Nv-QMO"/>
                                                 <constraint firstItem="8KJ-Ld-d1N" firstAttribute="trailing" secondItem="xqi-i6-vSB" secondAttribute="trailingMargin" id="QHO-GJ-HBz"/>
                                                 <constraint firstItem="8KJ-Ld-d1N" firstAttribute="top" secondItem="xqi-i6-vSB" secondAttribute="top" constant="20" id="Qt1-Wc-r65"/>
                                                 <constraint firstItem="8KJ-Ld-d1N" firstAttribute="leading" secondItem="xqi-i6-vSB" secondAttribute="leading" constant="15" id="Zti-wm-Gd1"/>
@@ -157,6 +169,8 @@
                                                 <constraint firstItem="Nr3-fl-sbc" firstAttribute="centerY" secondItem="LK4-qy-RVx" secondAttribute="centerY" id="dOd-uF-f4k"/>
                                                 <constraint firstItem="LK4-qy-RVx" firstAttribute="leading" secondItem="8KJ-Ld-d1N" secondAttribute="leading" id="jN7-mx-VVh"/>
                                                 <constraint firstAttribute="bottom" secondItem="Nr3-fl-sbc" secondAttribute="bottom" constant="20" id="myQ-VS-cLr"/>
+                                                <constraint firstAttribute="trailing" secondItem="vJt-js-fQV" secondAttribute="trailing" constant="15" id="svN-h8-IQx"/>
+                                                <constraint firstAttribute="bottom" secondItem="vJt-js-fQV" secondAttribute="bottom" id="yZw-8T-gye"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

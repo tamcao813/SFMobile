@@ -64,7 +64,7 @@ class LinkAccountToContactViewController: UIViewController {
             return
         }
         
-        let accountsArray = AccountsViewModel().accountsForLoggedUser
+        let accountsArray = AccountsViewModel().accountsForLoggedUser()
         
         //below is for Edit
         let accountId = accContactRelation?.accountId

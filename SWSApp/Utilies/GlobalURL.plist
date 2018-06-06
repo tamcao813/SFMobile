@@ -34,5 +34,7 @@
 	<string>/SGWS_Visit_Purpose__c</string>
 	<key>accountVisitPurposePlist</key>
 	<string>/AccountVisitPurpose.plist</string>
+	<key>swsUri</key>
+	<string>sws://success</string>
 </dict>
 </plist>

@@ -56,12 +56,21 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
             }
             
             self.lblNoNetworkConnection?.isHidden = true
-            self.btnViewPerformance?.isHidden = true
+            self.btnViewPerformance?.isUserInteractionEnabled = true//isHidden = false
+            self.webView?.isHidden = false
+            self.webView?.load(requestObj)
         }
         
         reachability.whenUnreachable = { _ in
             self.lblNoNetworkConnection?.isHidden = false
-            self.btnViewPerformance?.isHidden = false
+            self.btnViewPerformance?.isUserInteractionEnabled = false//isHidden = true
+            self.webView?.isHidden = true
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
         }
     }
     
@@ -76,22 +85,22 @@ extension HomeNetSalesVarianceViewController :UIWebViewDelegate{
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
-        DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
-        }
+//        DispatchQueue.main.async {
+//            self.activityIndicator.stopAnimating()
+//        }
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("Start to load")
-        DispatchQueue.main.async {
-            self.activityIndicator.startAnimating()
-        }
+//        DispatchQueue.main.async {
+//            self.activityIndicator.startAnimating()
+//        }
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
-        DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
-        }
+//        DispatchQueue.main.async {
+//            self.activityIndicator.stopAnimating()
+//        }
     }
 }

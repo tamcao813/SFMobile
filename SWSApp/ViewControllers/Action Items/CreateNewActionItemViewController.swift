@@ -89,7 +89,7 @@ class CreateNewActionItemViewController: UIViewController {
     
     func getSelectedAccount(){
         if let accountId = actionItemObject?.accountId {
-            let accountsArray = AccountsViewModel().accountsForLoggedUser
+            let accountsArray = AccountsViewModel().accountsForLoggedUser()
             for account in accountsArray{
                 if account.account_Id == accountId {
                     selectedAccount = account
@@ -226,7 +226,9 @@ class CreateNewActionItemViewController: UIViewController {
             }
             self.dismiss(animated: true, completion: nil)
         }
+        
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
     }
     
     func editActionItem(){

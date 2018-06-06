@@ -21,7 +21,7 @@ struct ContactsGlobal {
 }
 
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
-
+    
     // drop down on tapping more
     let moreDropDown = DropDown()
     // persistent menu
@@ -30,7 +30,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var userInitialLabel:UILabel? = nil
     var onlineStatusView = UIView()
     var statusLabel = UILabel()
-   
+    
     var moreDropDownSelectionIndex:Int?=0
     
     var notificationButton:UIBarButtonItem? = nil
@@ -42,7 +42,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var notificationsViewController:UIViewController?
     
     var notificationsView:UIView?
-    var filterMenuModel = AccountsMenuViewController()
+    
+    lazy var filterMenuModel = AccountsMenuViewController()
+    
     //
     var previouslySelectedVCIndex = 0
     
@@ -104,7 +106,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let syncUpVC = mainStoryboard.instantiateViewController(withIdentifier: "SyncInfoViewController") as! SyncInfoViewController
         return syncUpVC
     }()
-
+    
     lazy var notificationParent : NotificationParentViewController? = {
         let notificationStoryboard: UIStoryboard = UIStoryboard(name: "Notification", bundle: nil)
         let notificationParentVC = notificationStoryboard.instantiateViewController(withIdentifier: "NotificationParentViewController") as! NotificationParentViewController
@@ -151,18 +153,20 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(self.showCalendar), name: NSNotification.Name(rawValue: "SwitchToCalendar"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showCalendar), name: NSNotification.Name(rawValue: "SwitchToCalendar"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showActionItemOrNotification), name: NSNotification.Name(rawValue: "goToAllActionItem/Notification"), object: nil)
+        
         
         //NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
         let accountVc = accountsVC as! AccountsViewController
         self.addChildViewController(accountVc)
         accountVc.view.frame = self.contentView.bounds
-
+        
         let contactVc = contactsVC as! ContactsViewController
         self.addChildViewController(contactVc)
         contactVc.view.frame = self.contentView.bounds
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -188,7 +192,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if notification.object != nil{
             ContactsGlobal.accountId = notification.object as! String
         }
-//        print(notification.object!)
+        //        print(notification.object!)
         topMenuBar?.selectedSegment = 2
         _ = displayCurrentTab(2)
         
@@ -220,6 +224,37 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         defaults.set(false, forKey: "FromHomeVC")
         topMenuBar?.selectedSegment = 3
         _ = displayCurrentTab(3)
+        
+    }
+    
+    @objc func showActionItemOrNotification(notification: NSNotification){
+        let data : Int = notification.object.unsafelyUnwrapped as! Int
+        let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+        let currentViewController = self.displayCurrentTab(data)
+        self.removeSubviews()
+        currentViewController?.view.addSubview(moreVC1.view)
+        if data == 4 {
+            //notificcation
+            self.notificationParent?.resetFilters()
+            self.notificationParent?.delegate = self
+            moreVC1.view.addSubview((self.notificationParent?.view)!)
+            self.moreDropDownSelectionIndex = 4
+            topMenuBar?.selectedSegment = 5
+        
+        }
+            
+        else if data == 0{
+            // action Item
+            moreVC1.view.addSubview((self.actionItemParent?.view)!)
+            ActionItemFilterModel.fromAccount = false
+            ActionItemFilterModel.accountId = nil
+            self.actionItemParent?.fromPersistentMenu = true
+            self.moreDropDownSelectionIndex = 0
+            topMenuBar?.selectedSegment = 5
+           // self.instantiateViewController(identifier: "ActionItemsContainerViewController", moreOptionVC: moreVC1, index: 0)
+            
+        }
+        
         
     }
     
@@ -307,7 +342,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     
     @objc func syncButtonPressed(){
-//        self.present(syncUpInfoVC!, animated: true, completion: nil)
+        //        self.present(syncUpInfoVC!, animated: true, completion: nil)
     }
     // MARK: SyncUp Data
     @objc func SyncUpData()  {
@@ -325,7 +360,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             }
             group.leave()
         })
-
+        
         // Contacts and ACRs Sync
         group.enter()
         ContactsViewModel().syncContactWithServer { error in
@@ -352,7 +387,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                         print("updateACRToSoup failed")
                     }
                 }
-                    
+                
                 ContactsViewModel().syncACRwithServer{ error in
                     if error == nil {
                         print("syncACRwithServer completed successfully")
@@ -369,7 +404,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 group.leave()
             }
         }
-          
+        
         // Visits (WorkOrder) Sync Up
         group.enter()
         VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c"], completion:{ error in
@@ -393,7 +428,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // Strategy QA(SGWS_Response__c) Sync Up
         //let fields: [String] = StrategyQA.StrategyQAFields
         group.enter()
-        StrategyQAViewModel().uploadStrategyQAToServer(fields: ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c"], completion: { error in
+        StrategyQAViewModel().uploadStrategyQAToServer(fields: ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"], completion: { error in
             if error != nil {
                 //DispatchQueue.main.async { //do this in group.notify
                 //    MBProgressHUD.hide(forWindow: true)
@@ -414,7 +449,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 DispatchQueue.main.async {
                     MBProgressHUD.hide(forWindow: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
-                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
@@ -669,7 +704,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if(GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex != selectedVC) {
             self.moreDropDownSelectionIndex = -1
         }
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+        //        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         ifMoreVC = false
         var vc: UIViewController?
         switch selectedVC {
@@ -688,7 +723,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             contactVC.contactDetails?.view.removeFromSuperview()
             contactVC.contactDetails?.removeFromParentViewController()
             vc = contactVC
-//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+        //            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
             vc = calendarVC
             ContactsGlobal.accountId = ""

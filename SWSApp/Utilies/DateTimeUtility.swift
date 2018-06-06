@@ -180,6 +180,19 @@ class DateTimeUtility
         return timeStamp
     }
     
+    static func getEEEEMMMMdFormattedDateString(date: Date?) -> String {
+        if(date == nil) {
+            return ""
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMMM d"
+        
+        let timeStamp = dateFormatter.string(from: date!)
+        
+        return timeStamp
+    }
+    
     static func getWeekFormattedDateString(date: Date?, includeWeekend: Bool) -> String {
         if(date == nil) {
             return ""

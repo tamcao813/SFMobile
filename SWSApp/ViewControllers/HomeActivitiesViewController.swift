@@ -20,21 +20,25 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     var notificationsToDisplay = [Notifications]()
     var dateFormatter = DateFormatter()
     var dateToCheck = Date()
+    
     var dateStringForActionItem:String?
     var dateStringForNotification:String?
     
+    var currentDate : String?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
      
          NotificationCenter.default.addObserver(self, selector: #selector(self.refreshDB), name: NSNotification.Name(rawValue: "refreshHomeActivities"), object: nil)
-        
+        tableView?.tableFooterView = UIView()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateStringForActionItem = dateFormatter.string(from: dateToCheck)
+        
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateStringForNotification = dateFormatter.string(from: dateToCheck)
-        
+        let dateSeprateWithTime = dateStringForNotification?.components(separatedBy: "T")
+        currentDate = dateSeprateWithTime![0] as String
         getDB()
         
         
@@ -50,7 +54,15 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         
      
         notifications = notificationModel.notificationsForUser()
-        notificationsToDisplay = notifications.filter({ return $0.createdDate == dateStringForNotification })
+        notificationsToDisplay = notifications.filter({
+            let dateSeperated = $0.createdDate.components(separatedBy: "T")
+            var currentDateInArray = ""
+            if dateSeperated.count > 0 {
+                currentDateInArray = dateSeperated[0] as String
+            }
+            return currentDateInArray == currentDate
+            
+        })
         
         DispatchQueue.main.async {
           
@@ -91,15 +103,17 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
             if notificationObject.sgwsType == "Birthday"{
                 
                 cell.homeActivitiesTitle.text = notificationObject.sgwsContactBirthdayNotification
-                cell.homeActivitiesTimeLabel.text = notificationObject.createdDate
+                
+                cell.homeActivitiesTimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateMMDDYYYY(dateString: notificationObject.createdDate)
+                //let image = #imageLiteral(resourceName: "Calender").withRenderingMode(.alwaysTemplate)
                 cell.homeActivitiesImage.image = UIImage(named: "Bell")
                 
             }
             else  {
                 
                 cell.homeActivitiesTitle.text = notificationObject.sgwsAccLicenseNotification
-                cell.homeActivitiesTimeLabel.text = notificationObject.createdDate
-                cell.homeActivitiesImage.image = UIImage(named: "Bell")
+                cell.homeActivitiesTimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateMMDDYYYY(dateString: notificationObject.createdDate)
+                cell.homeActivitiesImage.image = UIImage(named: "Small Status Critical")
             }
             
         }
@@ -148,7 +162,7 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0{
-            return 80
+            return 20
         }
         else {
             return 0

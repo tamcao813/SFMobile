@@ -579,6 +579,8 @@
 		F259010B2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */; };
 		F259010E2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010D2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift */; };
 		F259010F2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259010D2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift */; };
+		F284A80620C7CA5C001D28A1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F284A80520C7CA5C001D28A1 /* Home.storyboard */; };
+		F284A80720C7CA5C001D28A1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F284A80520C7CA5C001D28A1 /* Home.storyboard */; };
 		F2919DA020AEEBBA00267A60 /* AccountVisitEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2919D9F20AEEBBA00267A60 /* AccountVisitEmbedViewController.swift */; };
 		F2919DA120AEEBBA00267A60 /* AccountVisitEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2919D9F20AEEBBA00267A60 /* AccountVisitEmbedViewController.swift */; };
 		F2923C9A208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */; };
@@ -949,6 +951,7 @@
 		F2590104209216ED00C2E354 /* DuringVisitTopics.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DuringVisitTopics.plist; sourceTree = "<group>"; };
 		F259010A2092228600C2E354 /* DuringVisitsTopicsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsCollectionViewCell.swift; sourceTree = "<group>"; };
 		F259010D2092269800C2E354 /* DuringVisitsTopicsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringVisitsTopicsCollectionReusableView.swift; sourceTree = "<group>"; };
+		F284A80520C7CA5C001D28A1 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		F2919D9F20AEEBBA00267A60 /* AccountVisitEmbedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVisitEmbedViewController.swift; sourceTree = "<group>"; };
 		F2923C95208DE47700D797E1 /* Strategy.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Strategy.storyboard; sourceTree = "<group>"; };
 		F2923C99208DE91400D797E1 /* AccountStrategyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStrategyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1586,6 +1589,7 @@
 				AE1FAA9320B458A6005B44EC /* Event.storyboard */,
 				8D4BA34E20B45633005CFE56 /* ActionItem.storyboard */,
 				91497FF520C012E900A3F4F3 /* Opportunities.storyboard */,
+				F284A80520C7CA5C001D28A1 /* Home.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1988,6 +1992,7 @@
 				8D4BA38D20B45B58005CFE56 /* PhoneTableViewCell.xib in Resources */,
 				6D38328C20874026006805C6 /* Main.storyboard in Resources */,
 				F2FDA14C2099DEEA000921A8 /* ServicePurposes.plist in Resources */,
+				F284A80720C7CA5C001D28A1 /* Home.storyboard in Resources */,
 				91FAEF5220A57DD500209D71 /* WRCurrentTimeIndicator.xib in Resources */,
 				8D17A5CD20A1FFB600ABC9DC /* SearchForContactTableViewCell.xib in Resources */,
 				8D4BA34B20B455EC005CFE56 /* IsItUrgentTableViewCell.xib in Resources */,
@@ -2082,6 +2087,7 @@
 				AE1FAA8A20B4588A005B44EC /* EventDescriptionTableViewCell.xib in Resources */,
 				8D4BA33E20B455EC005CFE56 /* ActionItemsListTableViewCell.xib in Resources */,
 				8DD1500B209330E200858349 /* AccountView.xib in Resources */,
+				F284A80620C7CA5C001D28A1 /* Home.storyboard in Resources */,
 				D26768912090B42E0060E792 /* NewContact.storyboard in Resources */,
 				D23C40B9208DE6480006691C /* AccountVisitSectionHeaderView.xib in Resources */,
 				8DDD4A4C20BBFC5200423E20 /* TitleDepartmentTableViewCell.xib in Resources */,

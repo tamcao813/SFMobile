@@ -26,12 +26,7 @@ class WREventCell: UICollectionViewCell {
         layer.shadowRadius = 5
         layer.shadowOpacity = 0
         
-        if defaults.bool(forKey: "FromHomeVC" )
-        {
-            updateViewColors()
-        } else {
-            updateColors()
-        }
+        updateColors()
     }
     
     override var isSelected: Bool {
@@ -48,12 +43,8 @@ class WREventCell: UICollectionViewCell {
             } else {
                 layer.shadowOpacity = 0.0
             }
-            if defaults.bool(forKey: "FromHomeVC" )
-            {
-                updateViewColors()
-            } else {
+
                 updateColors()
-            }
             
         }
     }
@@ -68,47 +59,23 @@ class WREventCell: UICollectionViewCell {
                     let titleAttribute = [NSAttributedStringKey.font: UIFont(name: "Ubuntu-Medium", size: 16.0)!]
                     let myMutableTitle = NSMutableAttributedString(string: event.title, attributes: titleAttribute)
                     
-                    if (!event.location.isEmpty) {
-                        
-                        let locationAttribute = [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 12.0)!]
-                        let locationStr = NSMutableAttributedString(string: "\n location  \(event.location)", attributes: locationAttribute)
-                        myMutableTitle.append(locationStr)
-                    }
-                    
                     homeTitleLabel.numberOfLines = 0
                     homeTitleLabel.attributedText = myMutableTitle
 
-                    if event.type == "visit" {
-                        eventType = event.type
-                        contentView.backgroundColor = UIColor(hexString: "33648d")!
-                        self.backgroundColor = UIColor(hexString: "33648d")!
-                        borderView.backgroundColor = UIColor(hexString: "33648d")!
-                        homeTitleLabel.textColor = UIColor.white
-                    }
-                    else if event.type == "event" {
-                        eventType = event.type
-                        contentView.backgroundColor = UIColor(hexString: "EBEBEB")!
-                        self.backgroundColor = UIColor(hexString: "EBEBEB")!
-                        borderView.backgroundColor = UIColor(hexString: "EBEBEB")!
-                        homeTitleLabel.textColor = UIColor.black
-                    }
-                    else {
-                        eventType = ""
-                    }
                 } else {
                     homeTitleLabel.isHidden = true
                     titleLabel.isHidden = false
-                    if event.type == "visit" {
-                        eventType = event.type
-                        borderView.backgroundColor = UIColor(hexString: "4287C2")!
-                    }
-                    else if event.type == "event" {
-                        eventType = event.type
-                        borderView.backgroundColor = UIColor(hexString: "FF9300")!
-                    }
-                    else {
-                        eventType = ""
-                    }
+                }
+                if event.type == "visit" {
+                    eventType = event.type
+                    borderView.backgroundColor = UIColor(hexString: "4287C2")!
+                }
+                else if event.type == "event" {
+                    eventType = event.type
+                    borderView.backgroundColor = UIColor(hexString: "FF9300")!
+                }
+                else {
+                    eventType = ""
                 }
             }
         }
@@ -121,26 +88,6 @@ class WREventCell: UICollectionViewCell {
         }
         else if eventType == "event" {
             borderView.backgroundColor = UIColor(hexString: "FF9300")!
-        }
-        else {
-            borderView.backgroundColor = borderColor()
-        }
-        titleLabel.textColor = textColorHighlighted(isSelected)
-    }
-    
-    func updateViewColors() {
-        if eventType == "visit" {
-            contentView.backgroundColor = UIColor(hexString: "33648d")!
-            self.backgroundColor = UIColor(hexString: "33648d")!
-            borderView.backgroundColor = UIColor(hexString: "33648d")!
-            homeTitleLabel.textColor = UIColor.white
-        }
-        else if eventType == "event" {
-            contentView.backgroundColor = UIColor(hexString: "EBEBEB")!
-            self.backgroundColor = UIColor(hexString: "EBEBEB")!
-            borderView.backgroundColor = UIColor(hexString: "EBEBEB")!
-            homeTitleLabel.textColor = UIColor.black
-            
         }
         else {
             borderView.backgroundColor = borderColor()

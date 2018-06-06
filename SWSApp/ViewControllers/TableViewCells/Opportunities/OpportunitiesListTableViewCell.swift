@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class OpportunitiesListTableViewCell: UITableViewCell {
+class OpportunitiesListTableViewCell: SwipeTableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

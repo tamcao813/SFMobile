@@ -148,7 +148,7 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0{
-            return 80
+            return 20
         }
         else {
             return 0

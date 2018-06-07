@@ -43,7 +43,7 @@
 		<true/>
 	</dict>
 	<key>SFDCOAuthLoginHost</key>
-	<string>sgws-de--detest.cs77.my.salesforce.com</string>
+	<string>sgws-de--dedev2.cs70.my.salesforce.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>CrimsonText-Bold.ttf</string>

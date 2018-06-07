@@ -36,7 +36,7 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         
        // let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl
-        let authUrl = "https://sgws-de--dedev1.lightning.force.com/lightning/o/SGWS_Objectives__c/list?filterName=00Bm00000014DsYEAU&0.source=alohaHeader"
+        let authUrl = "https://sgws-de--dedev1.lightning.force.com/lightning/o/SGWS_Objectives__c/list?filterName=Recent&0.source=alohaHeader"
         
         //let accountUrl: String = authUrl +  StringConstants.endUrl
         
@@ -60,17 +60,17 @@ extension ObjectivesViewController : UIWebViewDelegate{
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
-        activityIndicator.stopAnimating()
+        //activityIndicator.stopAnimating()
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("Start to load")
-        activityIndicator.startAnimating()
+        //activityIndicator.startAnimating()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
-        activityIndicator.stopAnimating()
+        //activityIndicator.stopAnimating()
     }
 }
 

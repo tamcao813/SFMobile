@@ -57,16 +57,16 @@ extension InsightsViewController : UIWebViewDelegate{
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
-        activityIndicator.stopAnimating()
+        //activityIndicator.stopAnimating()
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("Start to load")
-        activityIndicator.startAnimating()
+        //activityIndicator.startAnimating()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
-        activityIndicator.stopAnimating()
+       // activityIndicator.stopAnimating()
     }
 }

@@ -796,6 +796,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         notificationParent?.resetFilters()
         notificationParent?.delegate = self
         moreVC1.view.addSubview((notificationParent?.view)!)
+        self.moreDropDownSelectionIndex = 4
+        topMenuBar?.selectedSegment = 5
     }
     
     func getUnreadNotificationsCount(){

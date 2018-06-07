@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var currentSelectedUserId: String = ""
     var consultants = [Consultant]()
     var alertVisible = false
-    let isMockUser = false //set it to true to use mock data or set it to false if testing with real data
     
     override init(){
         

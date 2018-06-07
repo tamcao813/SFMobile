@@ -44,19 +44,3 @@ class UserViewModel {
     }
 }
 
-extension UserViewModel {
-    
-    var myManager: User? {
-        if let user = self.loggedInUser {
-            return user.myManager
-        }
-        return nil
-    }
-    
-    var myConsultants: [String]? {
-        if let user = loggedInUser {
-            return user.myConsultants
-        }
-        return nil
-    }
-}

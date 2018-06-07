@@ -19,7 +19,7 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     var notifications = [Notifications]()
     var notificationsToDisplay = [Notifications]()
     var dateFormatter = DateFormatter()
-    var dateToCheck = Date()
+    var dateToCheck = Date() 
     
     var dateStringForActionItem:String?
     var dateStringForNotification:String?
@@ -76,11 +76,7 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         getDB()
     }
     
-    
-    
-    
-    
-    
+ 
     
     //MARK:- Table View Functions
     func numberOfSections(in tableView: UITableView) -> Int {

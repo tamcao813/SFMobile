@@ -340,19 +340,21 @@ class CreateNewContactViewController: UIViewController {
         newContact.anniversary = (anniversaryTextField.text! == "Select") ? "" : DateTimeUtility().convertDateSendToServerActionItem(dateString: anniversaryTextField.text!)
         
         newContact.child1Name = familyName1Textfield.text!
-        newContact.child1Birthday = (familyDate1Textfield.text! == "Select") ? "" : familyDate1Textfield.text!
+        newContact.child1Birthday = (familyDate1Textfield.text! == "Select") ? "" : DateTimeUtility().convertDateSendToServerActionItem(dateString: familyDate1Textfield.text!)
+
         
         newContact.child2Name = familyName2Textfield.text!
-        newContact.child2Birthday = (familyDate2Textfield.text! == "Select") ? "" : familyDate2Textfield.text!
+        newContact.child2Birthday = (familyDate2Textfield.text! == "Select") ? "" :         DateTimeUtility().convertDateSendToServerActionItem(dateString: familyDate2Textfield.text!)
         
         newContact.child3Name = familyName3Textfield.text!
-        newContact.child3Birthday = (familyDate3Textfield.text! == "Select") ? "" : familyDate3Textfield.text!
-        
+        newContact.child3Birthday = (familyDate3Textfield.text! == "Select") ? "" :  DateTimeUtility().convertDateSendToServerActionItem(dateString: familyDate3Textfield.text!)
+
         newContact.child4Name = familyName4Textfield.text!
-        newContact.child4Birthday = (familyDate4Textfield.text! == "Select") ? "" : familyDate4Textfield.text!
-        
+        newContact.child4Birthday = (familyDate4Textfield.text! == "Select") ? "" :          DateTimeUtility().convertDateSendToServerActionItem(dateString: familyDate4Textfield.text!)
+
         newContact.child5Name = familyName5Textfield.text!
-        newContact.child5Birthday = (familyDate5Textfield.text! == "Select") ? "" : familyDate5Textfield.text!
+        newContact.child5Birthday = (familyDate5Textfield.text! == "Select") ? "" :
+            DateTimeUtility().convertDateSendToServerActionItem(dateString: familyDate5Textfield.text!)
         
         newContact.likes = likeTextView.text!
         newContact.dislikes = dislikeTextView.text!
@@ -622,7 +624,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child1Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+            cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString:childDate)
         }
         return cell!
     }
@@ -641,7 +643,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child2Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+            cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString:childDate)
         }
         return cell!
     }
@@ -660,7 +662,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child3Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+             cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString:childDate)
         }
         return cell!
     }
@@ -679,7 +681,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child4Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+            cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString:childDate)
         }
         return cell!
     }
@@ -698,7 +700,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child5Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+             cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString:childDate)
         }
         return cell!
     }

@@ -130,6 +130,10 @@ class AccountEventSummaryViewController: UIViewController {
             //TODO: handle it in better way, Ideally visitObject.startDate should never be null
             return
         }
+        
+        monthLabel.text =   DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"MMM")
+        dayLabel.text =   DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"dd")
+
         var startTime = ""
         var endTime = ""
         startTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"hh:mm a")

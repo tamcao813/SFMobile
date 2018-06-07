@@ -183,9 +183,8 @@ class CreateNewActionItemViewController: UIViewController {
         newActionItem.description = actionItemDescriptionTextView.text!
         newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
         if newActionItem.activityDate != ""{
-            
-            newActionItem.activityDate =  DateTimeUtility.convertUtcDatetoReadableDateString(dateString: newActionItem.activityDate)
-            if ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
+          //  newActionItem.activityDate =
+            if ActionItemSortUtility().isItOpenState(dueDate: DateTimeUtility.convertUtcDatetoReadableDateString(dateString: newActionItem.activityDate)){
                 newActionItem.status = "Open"
             }else{
                 newActionItem.status = "Overdue"
@@ -222,8 +221,6 @@ class CreateNewActionItemViewController: UIViewController {
             
             actionItemDict.removeValue(forKey: "ActivityDate")
         }
-            
-            
         
         let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
         if success {
@@ -254,8 +251,7 @@ class CreateNewActionItemViewController: UIViewController {
             editActionItem.status = status
             if editActionItem.activityDate != ""{
                 if editActionItem.status == "Open" || editActionItem.status == "Overdue"{
-                    editActionItem.activityDate =  DateTimeUtility.convertUtcDatetoReadableDateString(dateString: editActionItem.activityDate)
-                    if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
+                    if ActionItemSortUtility().isItOpenState(dueDate:DateTimeUtility.convertUtcDatetoReadableDateString(dateString: editActionItem.activityDate)){
                         editActionItem.status = "Open"
                     }else{
                         editActionItem.status = "Overdue"
@@ -295,10 +291,8 @@ class CreateNewActionItemViewController: UIViewController {
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
-            
             self.dismiss(animated: true, completion: nil)
         }
-       
     }
     
     func generateRandomIDForActionItems()->String  {
@@ -389,7 +383,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             cell?.headerLabel.text = "Due Date"
             if let actionItem = actionItemObject {
                 cell?.actionItem = actionItem
-                cell?.dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: actionItemObject?.activityDate)
+                cell?.dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: actionItemObject?.activityDate)
                 
             }
             return cell!

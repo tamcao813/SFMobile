@@ -23,7 +23,7 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
     
     func displayCellContent(actionItem: ActionItem){
         actionItemTitleLabel.text = actionItem.subject
-        dueDateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: actionItem.activityDate)
+        dueDateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: actionItem.activityDate)
         actionItemStatusLabel.text = actionItem.status
         if actionItem.isUrgent {
             urgentImageViewWidthConstarint.constant = 20

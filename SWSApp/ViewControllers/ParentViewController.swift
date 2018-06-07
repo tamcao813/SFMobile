@@ -467,6 +467,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)
+                    
+                    
                     
                     if ActionItemFilterModel.fromAccount{
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)

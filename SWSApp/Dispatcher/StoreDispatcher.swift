@@ -203,6 +203,11 @@ class StoreDispatcher {
             group.leave()
         }
         
+        group.enter()
+        syncDownNotification() { _ in
+            group.leave()
+        }
+        
         group.notify(queue: queue) {
             completion(nil)
         }

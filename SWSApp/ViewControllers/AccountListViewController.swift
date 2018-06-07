@@ -78,6 +78,23 @@ class AccountsListViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountItemList), name: NSNotification.Name("reloadAccountsData"), object: nil)
+        
+      self.reloadAllAccountListData()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let currentUserId = UserViewModel().selectedUserId
+        print("AccountListviewcontroller currentSelectedUserId: " + currentUserId)
+        
+        //self.navigationController?.isNavigationBarHidden = true
+        
+    }
+    
+    func reloadAllAccountListData(){
         //isAscending = true
         accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser(), ascending: true)
         print(accountsForLoggedUserOriginal.count)
@@ -95,14 +112,8 @@ class AccountsListViewController: UIViewController {
         let consultants = UserViewModel().consultants
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        let currentUserId = UserViewModel().selectedUserId
-        print("AccountListviewcontroller currentSelectedUserId: " + currentUserId)
-        
-        //self.navigationController?.isNavigationBarHidden = true
-        
+    @objc func refreshAccountItemList(notification: NSNotification){
+        self.reloadAllAccountListData()
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -15,6 +15,8 @@ class OpportunitiesListViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let opportunityList = OpportunityViewModel().opportunityAll()
+        print(opportunityList)
     }
 
     override func didReceiveMemoryWarning() {

@@ -365,6 +365,10 @@
 		91AA8ECE2095CCCC00787D83 /* ContactListAccountHeaderDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */; };
 		91AB8C1C20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AB8C1B20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift */; };
 		91AB8C1D20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AB8C1B20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift */; };
+		91BB07B220C8F23700B4F5F0 /* Opportunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB07B120C8F23700B4F5F0 /* Opportunity.swift */; };
+		91BB07B320C8F23700B4F5F0 /* Opportunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB07B120C8F23700B4F5F0 /* Opportunity.swift */; };
+		91BB07B520C90B4300B4F5F0 /* OpportunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB07B420C90B4300B4F5F0 /* OpportunityViewModel.swift */; };
+		91BB07B620C90B4300B4F5F0 /* OpportunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB07B420C90B4300B4F5F0 /* OpportunityViewModel.swift */; };
 		91C3E599208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */; };
 		91C3E59A208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */; };
 		91C3E5A1208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */; };
@@ -813,6 +817,8 @@
 		91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountFooterDetails.swift; sourceTree = "<group>"; };
 		91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountHeaderDetails.swift; sourceTree = "<group>"; };
 		91AB8C1B20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesMenuTableViewCell.swift; sourceTree = "<group>"; };
+		91BB07B120C8F23700B4F5F0 /* Opportunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opportunity.swift; sourceTree = "<group>"; };
+		91BB07B420C90B4300B4F5F0 /* OpportunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunityViewModel.swift; sourceTree = "<group>"; };
 		91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactFilterViewModel.swift; sourceTree = "<group>"; };
 		91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		91D2DA3220C10A4800104191 /* OpportunitiesFilterMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesFilterMenuModel.swift; sourceTree = "<group>"; };
@@ -1480,6 +1486,7 @@
 				AE43DD1D209C7401005D8DD1 /* PlanVisit.swift */,
 				6DDF2B1720A9A70500FA5A87 /* WorkOrderUserObject.swift */,
 				12A5BFC120BEC88300D6CD81 /* Notifications.swift */,
+				91BB07B120C8F23700B4F5F0 /* Opportunity.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1661,6 +1668,7 @@
 				129A699D2099BB8300642B14 /* StrategyAnswersViewModel.swift */,
 				AE43DD1A209C73EF005D8DD1 /* VisitSchedulerViewModel.swift */,
 				12A5BFC420BEDED900D6CD81 /* NotificationsViewModel.swift */,
+				91BB07B420C90B4300B4F5F0 /* OpportunityViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2311,6 +2319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2676886208F40330060E792 /* AccountVisitViewController.swift in Sources */,
+				91BB07B620C90B4300B4F5F0 /* OpportunityViewModel.swift in Sources */,
 				8D4BA33920B455EC005CFE56 /* ActionItemsContainerViewController.swift in Sources */,
 				AE8F41F520A09F1B0033F81D /* UIView+Properties.swift in Sources */,
 				6D38325020874026006805C6 /* CustomerHeaderTableViewCell.swift in Sources */,
@@ -2355,6 +2364,7 @@
 				8D17A5D720A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
 				6D38325920874026006805C6 /* CurrencyFormatter.swift in Sources */,
 				8D8D001C20C2FE10009683AC /* OpportunitiesListViewController.swift in Sources */,
+				91BB07B320C8F23700B4F5F0 /* Opportunity.swift in Sources */,
 				D2CD7F64208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
 				121468E920AD603A00942A00 /* DPDKeyboardListener.swift in Sources */,
 				8D17A5CB20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */,
@@ -2622,6 +2632,7 @@
 				8D17A5D020A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
 				AE8F41F420A09F1B0033F81D /* UIView+Properties.swift in Sources */,
 				8D4BA39E20B45B58005CFE56 /* PrimaryFunctionTableViewCell.swift in Sources */,
+				91BB07B220C8F23700B4F5F0 /* Opportunity.swift in Sources */,
 				9187924120A55C2A009CB557 /* CalendarViewController.swift in Sources */,
 				4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */,
 				8DA1343620A070EC006A62DE /* ButtonTableViewCell.swift in Sources */,
@@ -2681,6 +2692,7 @@
 				91FAEF5D20A57DD500209D71 /* NSObjectExtension.swift in Sources */,
 				8D4BA3B020B45B58005CFE56 /* LinkAccountToContactViewController.swift in Sources */,
 				AE1FAABB20B6C212005B44EC /* CalendarMonthViewController.swift in Sources */,
+				91BB07B520C90B4300B4F5F0 /* OpportunityViewModel.swift in Sources */,
 				91FAEF4520A57DD500209D71 /* WRGridLine.swift in Sources */,
 				F2086B7620B5B424008A61F0 /* VisitCallToConfirmTableViewCell.swift in Sources */,
 				AE1FAAB220B6C200005B44EC /* DateCollectionViewCell.swift in Sources */,

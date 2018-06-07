@@ -30,7 +30,6 @@ class NotificationListViewController: UIViewController {
     
     
     @objc func refreshNotification()   {
-       
         getNotifications()
     }
     

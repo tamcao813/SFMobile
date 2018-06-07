@@ -8,7 +8,9 @@
 
 import Foundation
 class ActionItem {
-    static let AccountActionItemFields: [String] =  ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c","RecordTypeId","OwnerId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet"]
+    static let AccountActionItemFields: [String] =  ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c","RecordTypeId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","OwnerId"]
+    
+    static let AccountActionItemFieldsWithoutAccount: [String] =  ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c","RecordTypeId","OwnerId"]
     
     var Id:String
     var accountId:String
@@ -31,10 +33,16 @@ class ActionItem {
     var shippingStreet: String
     var ownerId: String
     
-    convenience init(withAry ary: [Any]) {
+    convenience init(withAryAccount ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(ActionItem.AccountActionItemFields, ary))
         self.init(json: resultDict)
     }
+    
+    convenience init(withAryNoAccount ary: [Any]) {
+        let resultDict = Dictionary(uniqueKeysWithValues: zip(ActionItem.AccountActionItemFieldsWithoutAccount, ary))
+        self.init(json: resultDict)
+    }
+    
     
     init(json: [String: Any]) {
         Id = json["Id"] as? String ?? ""

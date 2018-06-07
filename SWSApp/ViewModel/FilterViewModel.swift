@@ -17,12 +17,18 @@ class Filter {
                                       ["On","Off"], ["Single","Multi"],["W","L","B","N"]]
     
     func sectionNames(isManager: Bool = false) -> [String] {
-        var names = ["Past Due", "Action Items", "Status", "Premise" , "Single / Multi locations" ,"Channel", "Sub-Channel" ,"License Type"]
-        
+        var names = [String]()
         if isManager {
             names.append("My Team")
         }
-        
+        names.append("Past Due")
+        names.append("Action Items")
+        names.append("Status")
+        names.append("Premise")
+        names.append("Single / Multi locations")
+        names.append("Channel")
+        names.append("Sub-Channel")
+        names.append("License Type")
         return names
     }
 

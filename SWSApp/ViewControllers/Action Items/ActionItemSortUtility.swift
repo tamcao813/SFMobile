@@ -36,9 +36,10 @@ class ActionItemSortUtility {
     
     func filterOnly(actionItems: [ActionItem]) -> [ActionItem]{
         var filteredArray = [ActionItem]()
-        let filteredStatusArray = filterOnStatusBasis(actionItems: actionItems)
-        let filteredUrgentArray = filterOnUrgentBasis(actionItems: actionItems)
-        let filteredDueDateArray = filterOnDueDateBasis(actionItems: actionItems)
+        let filterOnTeamArray = filterOnTeamBasis(actionItems: actionItems)
+        let filteredStatusArray = filterOnStatusBasis(actionItems: filterOnTeamArray)
+        let filteredUrgentArray = filterOnUrgentBasis(actionItems: filterOnTeamArray)
+        let filteredDueDateArray = filterOnDueDateBasis(actionItems: filterOnTeamArray)
         
         if statusFilterAdded && urgentFilterAdded && dueFilterAdded {
             var localFilteredArray = [ActionItem]()
@@ -131,10 +132,18 @@ class ActionItemSortUtility {
         }
         
         if !statusFilterAdded && !urgentFilterAdded && !dueFilterAdded {
-            filteredArray = actionItems
+            filteredArray = filterOnTeamArray
         }
         
         return filteredArray
+    }
+    
+    func filterOnTeamBasis(actionItems: [ActionItem]) -> [ActionItem]{
+        if let id = ActionItemFilterModel.selectedConsultant?.id {
+            return actionItems.filter( { return $0.ownerId.contains(id) } )
+        }
+        
+        return actionItems
     }
     
     func filterOnStatusBasis(actionItems: [ActionItem]) -> [ActionItem]{

@@ -565,20 +565,17 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let currentViewController = self.displayCurrentTab(selectedIndex)
-            
-            self.removeSubviews()
-            
             currentViewController?.view.addSubview(moreVC1.view)
-            
+            for view in moreVC1.view.subviews{
+                view.removeFromSuperview()
+            }
             if index != 1{
                 let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
                 accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
             }
             
             self.clearAccountsVisitFilterModel()
-            
             SelectedMoreButton.selectedItem = index
-            //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
             switch index {
             case 0:
                 moreVC1.view.addSubview((self.actionItemParent?.view)!)
@@ -632,13 +629,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     private func removeSubviews(){
         
-        for view in self.view.subviews{
-            
-            // Set the identifier for globalNotification view
-            if(view.restorationIdentifier == "globalNotification"){
-                view.removeFromSuperview()
-            }
-        }
     }
     
     private func instantiateViewController(identifier : String , moreOptionVC : MoreViewController, index : Int){

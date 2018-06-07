@@ -297,7 +297,7 @@ class StoreDispatcher {
                 print(error.localizedDescription)
         }
     }
-    // FIXIT : - (j.kannayyagari) Please move it in Model
+    
     var sessionID:String = ""
     
     /**
@@ -380,11 +380,24 @@ class StoreDispatcher {
         newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
 
-        let returnValue: String? = UserDefaults.standard.object(forKey: "errorSDKUserDefault") as? String
+        var syncMsg = ""
+        if let sync: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultsync") as? String {
+            syncMsg = sync
+        }
+        var failureMsg = ""
+        if let failureMessage: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultMessage") as? String {
+            failureMsg = failureMessage
+        }
+        var errorMsg = ""
+        if let error: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") as? String {
+            errorMsg = error
+        }
         
         UserDefaults.standard.removeObject(forKey:"key_name")
+        
+        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\",\"sync\":"+syncMsg+",\"failureMessage\":"+failureMsg+",\"Error\":"+errorMsg+"}"
 
-        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\",\"Error\":"+returnValue!+"}"
+        
         //        createOneSyncLog(newSyncLog)
         
         let attributeDict = ["type":SoupSyncLog]
@@ -1071,6 +1084,56 @@ class StoreDispatcher {
         else {
             completion(nil, consultantAry, nil)
         }
+    }
+    
+    func fetchSimpleUser() -> User? {
+        var error : NSError?
+        guard let user = SFUserAccountManager.sharedInstance().currentUser else {
+            return nil
+        }
+        
+        let username = user.userName
+        
+        let fields = User.UserSimpleFields.map{"{UserSimple:\($0)}"}
+        
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from {UserSimple} Where {UserSimple:Username} = '\(username)'"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            let ary:[Any] = result[0] as! [Any]
+            let user = User(withAryForUserSimple: ary)
+            return user
+        }
+        else {
+            return nil
+        }
+    }
+    
+    func fetchConsultants() -> [Consultant] {
+        var consultants = [Consultant]()
+        
+        let userid = UserViewModel().loggedInUser?.userId
+
+        //let soqlQuery = "Select {UserSimple:Id} from {UserSimple} Where {UserSimple:ManagerId} = '\(userid)'"
+        
+        let soqlQuery = "Select {User:Id}, {User:User.Name} from {User} Where {User:User.ManagerId} = '\(userid)'"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                
+            }
+        }
+        
+        return consultants
     }
     
     //Accounts
@@ -1829,7 +1892,7 @@ class StoreDispatcher {
     }
     
     func syncDownActionItem(_ completion:@escaping (_ error: NSError?)->()) {
-        let soqlQuery = "SELECT Id,SGWS_Account__c,Subject,Description,Status,ActivityDate,SGWS_Urgent__c,SGWS_AppModified_DateTime__c,RecordTypeId FROM Task WHERE RecordType.DeveloperName = 'SGWS_Task'"
+        let soqlQuery = "SELECT Id,SGWS_Account__c,Subject,Description,Status,ActivityDate,SGWS_Urgent__c,SGWS_AppModified_DateTime__c,RecordTypeId,OwnerId FROM Task WHERE RecordType.DeveloperName = 'SGWS_Task'"
         print("soql ActionItem query is \(soqlQuery)")
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
@@ -1890,7 +1953,7 @@ class StoreDispatcher {
         var actionItem: [ActionItem] = []
         //let actionItemFields = ActionItem.AccountActionItemFields.map{"{Task:\($0)}"}
         // let soapQuery = "Select \(actionItemFields.joined(separator: ",")) FROM {Task}"
-        let soapQuery = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{Task:_soupEntryId} FROM {Task} INNER JOIN {AccountTeamMember} where {Task:SGWS_Account__c} = {AccountTeamMember:AccountId}"
+        let soapQuery = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{Task:OwnerId},{Task:_soupEntryId} FROM {Task} INNER JOIN {AccountTeamMember} where {Task:SGWS_Account__c} = {AccountTeamMember:AccountId}"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
@@ -1906,7 +1969,7 @@ class StoreDispatcher {
                 
                 let soupData = result[i] as! [Any]
                 
-                let entryArry = sfaStore.retrieveEntries([soupData[16]], fromSoup: SoupActionItem)
+                let entryArry = sfaStore.retrieveEntries([soupData[17]], fromSoup: SoupActionItem)
                 
                 let item = entryArry[0]
                 let subItem = item as! [String:Any]
@@ -1926,7 +1989,7 @@ class StoreDispatcher {
         else if error != nil {
             print("fetch action item  " + " error:" + (error?.localizedDescription)!)
         }
-        let soapQueryWithoutAccount = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{Task:_soupEntryId} FROM {Task} Where {Task:SGWS_Account__c} IS NULL OR {Task:SGWS_Account__c} = ''"
+        let soapQueryWithoutAccount = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{Task:OwnerId},{Task:_soupEntryId} FROM {Task} Where {Task:SGWS_Account__c} IS NULL OR {Task:SGWS_Account__c} = ''"
         let querySpecWithoutAccount = SFQuerySpec.newSmartQuerySpec(soapQueryWithoutAccount, withPageSize: 100000)
         
         let resultWithoutAccount = sfaStore.query(with: querySpecWithoutAccount!, pageIndex: 0, error: &error)
@@ -1937,7 +2000,7 @@ class StoreDispatcher {
                 
                 let soupDataWithoutAccount = resultWithoutAccount[i] as! [Any]
                 
-                let entryArryWithoutAccount = sfaStore.retrieveEntries([soupDataWithoutAccount[9]], fromSoup: SoupActionItem)
+                let entryArryWithoutAccount = sfaStore.retrieveEntries([soupDataWithoutAccount[10]], fromSoup: SoupActionItem)
                 
                 let itemWithoutAccount = entryArryWithoutAccount[0]
                 let subItemWithoutAccount = itemWithoutAccount as! [String:Any]

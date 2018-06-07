@@ -292,7 +292,7 @@ class StoreDispatcher {
                 print(error.localizedDescription)
         }
     }
-    // FIXIT : - (j.kannayyagari) Please move it in Model
+    
     var sessionID:String = ""
     
     /**
@@ -375,11 +375,24 @@ class StoreDispatcher {
         newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
 
-        let returnValue: String? = UserDefaults.standard.object(forKey: "errorSDKUserDefault") as? String
+        var syncMsg = ""
+        if let sync: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultsync") as? String {
+            syncMsg = sync
+        }
+        var failureMsg = ""
+        if let failureMessage: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultMessage") as? String {
+            failureMsg = failureMessage
+        }
+        var errorMsg = ""
+        if let error: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") as? String {
+            errorMsg = error
+        }
         
         UserDefaults.standard.removeObject(forKey:"key_name")
+        
+        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\",\"sync\":"+syncMsg+",\"failureMessage\":"+failureMsg+",\"Error\":"+errorMsg+"}"
 
-        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\",\"Error\":"+returnValue!+"}"
+        
         //        createOneSyncLog(newSyncLog)
         
         let attributeDict = ["type":SoupSyncLog]

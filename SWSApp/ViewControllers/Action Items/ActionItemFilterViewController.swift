@@ -43,7 +43,7 @@ class ActionItemFilterViewController: UIViewController {
         sectionData = ActionItemFilter().sectionItems
         
         if isManager {
-            sectionData.insert(consultantAry, at: 0)
+            sectionData.insert(consultantAry, at:  sectionData.count)
             ActionItemFilter().sectionItems = sectionData
         }
     }
@@ -187,13 +187,13 @@ class ActionItemFilterViewController: UIViewController {
         
         switch indexPath.section {
         case 0:
-            self.performSelectConsultantOperation(indexPath: indexPath)
-        case 1:
             self.performActionStatusOpetation(indexPath: indexPath)
-        case 2:
+        case 1:
             self.performActionTypeOpetation(indexPath: indexPath)
-        case 3:
+        case 2:
             self.performPastDueOpetation(indexPath: indexPath)
+        case 3:
+            self.performSelectConsultantOperation(indexPath: indexPath)
         default:
             break
         }

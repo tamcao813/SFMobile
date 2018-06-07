@@ -161,17 +161,4 @@ class User {
     //    }
 }
 
-extension User {
-    var myManager: User {
-        //we should retrieve and construct a user object for manager
-        
-        //for now
-        return User(for: "mockup")
-    }
-    
-    var myConsultants: [String]? {
-        
-        return nil
-    }
-}
 

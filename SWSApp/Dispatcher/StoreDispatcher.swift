@@ -556,7 +556,7 @@ class StoreDispatcher {
     }
     
     func downloadContactRolesPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
-        let recordTypeId = recordTypeId //"012i0000000PebvAAC" //"012i0000000Pf4AAAS" //(userVieModel.loggedInUser?.recordTypeId)!
+        let recordTypeId = recordTypeId 
         let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.rules
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
         request.endpoint = StringConstants.serviceUrl
@@ -1053,7 +1053,6 @@ class StoreDispatcher {
                 }
                 else {
                     let consult = Consultant(name:user.fullName, id:user.userId)
-                    //consultantAry.append(consult)
                     dict[user.username] = consult
                 }
             }

@@ -12,6 +12,8 @@ class HomeActivitiesTableViewCell: UITableViewCell {
     @IBOutlet weak var homeActivitiesTitle: UILabel!
     @IBOutlet weak var homeActivitiesImage: UIImageView!
     @IBOutlet weak var homeActivitiesTimeLabel: UILabel!
+    @IBOutlet weak var imageWidth: NSLayoutConstraint!
+    @IBOutlet weak var timeLabelLeading: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

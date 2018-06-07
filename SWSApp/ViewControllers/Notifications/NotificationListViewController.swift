@@ -115,7 +115,7 @@ extension NotificationListViewController : UITableViewDelegate, UITableViewDataS
         if NotificationFilterModel.filterApplied {
             return filteredNotificationsArray.count
         }else{
-            return notificationsArray.count
+            return  notificationsArray.count
         }
     }
     

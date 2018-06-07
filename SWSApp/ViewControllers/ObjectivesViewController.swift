@@ -36,7 +36,7 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         
        // let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl
-        let authUrl = "https://sgws-de--dedev1.lightning.force.com/lightning/o/SGWS_Objectives__c/list?filterName=Recent&0.source=alohaHeader"
+        let authUrl = "https://sgws-de--dedev1.lightning.force.com/lightning/o/SGWS_Objectives__c/list?filterName=00Bm0000001EHSwEAO"
         
         //let accountUrl: String = authUrl +  StringConstants.endUrl
         

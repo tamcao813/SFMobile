@@ -57,7 +57,7 @@ class AccountsMenuViewController: UIViewController {
         sectionData = filterClass.sectionItems
         
         if isManager {
-            sectionData.insert(consultantAry, at: 0)
+            sectionData.insert(consultantAry, at: sectionData.count)
             filterClass.sectionItems = sectionData
         }
     }
@@ -222,7 +222,7 @@ class AccountsMenuViewController: UIViewController {
             self.tableView.reloadData()
         }
         
-        if selectedSection == 7{
+        if selectedSection == 6{
             if FilterMenuModel.channel == ""{
             }else{
                 self.sectionHeaderOperation(section: section!, eImageView: eImageView)
@@ -298,21 +298,21 @@ class AccountsMenuViewController: UIViewController {
     func tableViewCellClickedSingleSelection(indexPath : IndexPath , arrayContent : Array<Any>) {
         switch indexPath.section {
         case 0:
-            self.performSelectConsultantOperation(indexPath: indexPath)
-        case 2:
             self.performPastDueOperations(indexPath: indexPath)
-        case 3:
+        case 2:
             self.performStatusOperation(indexPath: indexPath, arrayContent: arrayContent)
-        case 4:
+        case 3:
             self.performPremiseOperation(indexPath: indexPath)
-        case 5:
+        case 4:
             self.performSingleOrMultiSelection(indexPath: indexPath)
-        case 6:
+        case 5:
             self.performChannelOperation(indexPath: indexPath, arrayContent: arrayContent)
-        case 7:
+        case 6:
             self.performSubChannelOperation(indexPath: indexPath, arrayContent: arrayContent)
-        case 8:
+        case 7:
             self.performLicenseOperation(indexPath: indexPath)
+        case 8:
+            self.performSelectConsultantOperation(indexPath: indexPath)
         default:
             break
         }
@@ -582,7 +582,7 @@ extension AccountsMenuViewController : UITableViewDataSource{
 //        }
         
         //Used to check Subchannel Click action. if Channel is empty dont change the drop down icon
-        if section == 7{
+        if section == 6{
             if FilterMenuModel.channel == ""{
                 theImageView.image = UIImage(named: "dropDown")
             }

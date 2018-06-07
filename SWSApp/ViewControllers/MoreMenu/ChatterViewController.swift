@@ -32,6 +32,12 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let webViewCfg = WKWebViewConfiguration()
+        webViewCfg.preferences.javaScriptEnabled = true;
+        webViewCfg.preferences.javaScriptCanOpenWindowsAutomatically = true
+        webViewCfg.isAccessibilityElement = true
+        //webView = WKWebView(frame:(webView?.bounds)!, configuration: webViewCfg)
+        
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         
@@ -54,7 +60,7 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
 }
 
 ////MARK:- UIWebView Delegate
-extension ChatterViewController : UIWebViewDelegate{
+extension ChatterViewController : UIWebViewDelegate , WKUIDelegate , WKScriptMessageHandler{
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
@@ -69,5 +75,21 @@ extension ChatterViewController : UIWebViewDelegate{
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
         //activityIndicator.stopAnimating()
+    }
+    // MARK: WKUIDelegate methods
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (() -> Void)) {
+        print("webView:\(webView) runJavaScriptAlertPanelWithMessage:\(message) initiatedByFrame:\(frame) completionHandler:\(completionHandler)")
+        
+        let alertController = UIAlertController(title: frame.request.url?.host, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            completionHandler()
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "loginAction" {
+            print("JavaScript is sending a message \(message.body)")
+        }
     }
 }

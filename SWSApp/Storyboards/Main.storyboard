@@ -22,35 +22,6 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Home Table View Controller-->
-        <scene sceneID="qkQ-cT-Rmq">
-            <objects>
-                <tableViewController id="78o-hc-opa" customClass="HomeTableViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wof-B5-A7P">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="sA1-Rv-Fq2">
-                                <rect key="frame" x="0.0" y="28" width="1024" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sA1-Rv-Fq2" id="gGC-dW-Qk9">
-                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="78o-hc-opa" id="yjz-YF-Tna"/>
-                            <outlet property="delegate" destination="78o-hc-opa" id="o0S-7C-GP8"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="xh3-NK-IHF"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ip1-Hr-qUu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3049.8046875" y="-685.9375"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="QeU-mN-XNu">
             <objects>
@@ -68,35 +39,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6RW-M1-WvW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2375" y="-686"/>
-        </scene>
-        <!--Test Table View Controller-->
-        <scene sceneID="t3g-FN-yLb">
-            <objects>
-                <tableViewController id="I4Q-sV-cgc" customClass="TestTableViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="yN2-Kp-SEz">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" id="JRn-Z3-Nc0">
-                                <rect key="frame" x="0.0" y="28" width="1024" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JRn-Z3-Nc0" id="SmK-Cm-Oe4">
-                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="I4Q-sV-cgc" id="U7U-zF-mbs"/>
-                            <outlet property="delegate" destination="I4Q-sV-cgc" id="k2e-O2-Vv8"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="FUI-zx-MvH"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="t04-ib-urX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3033" y="156"/>
         </scene>
         <!--ContactsViewControllerID-->
         <scene sceneID="gig-Hi-reW">
@@ -894,33 +836,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGy-fV-jPX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1567" y="-662"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="JbZ-Xy-W0i">
-            <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="MQK-Xi-aCY" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5fz-ay-r7h">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWD-Yl-LGM">
-                                <rect key="frame" x="439" y="372.5" width="146" height="23.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="QWD-Yl-LGM" firstAttribute="centerX" secondItem="5fz-ay-r7h" secondAttribute="centerX" id="MP3-wl-mSq"/>
-                            <constraint firstItem="QWD-Yl-LGM" firstAttribute="centerY" secondItem="5fz-ay-r7h" secondAttribute="centerY" id="xYY-lp-vjJ"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="hp1-q9-PcO"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hGT-xx-T6w" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1396" y="1055"/>
         </scene>
         <!--AccountDetailTabViewControllerID-->
         <scene sceneID="k9u-45-2Ns">

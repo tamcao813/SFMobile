@@ -239,10 +239,12 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     // MARK:- Custom Methods
     
     func removeSpecialCharsFromString(text: String) -> String {
-        let okayChars : Set<Character> =
-            Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-*=(),.:!_".characters)
-        return String(text.characters.filter {okayChars.contains($0) })
+        let okayChars : String =
+            "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-*=(),.:!_"
+        let charArray = Array(okayChars)
+        return String(Array(text).filter {charArray.contains($0) })
     }
+    
     
     // Edit Screen For Accounts
     

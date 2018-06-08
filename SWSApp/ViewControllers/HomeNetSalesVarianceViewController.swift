@@ -43,7 +43,7 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
         //let accountUrl: String = authUrl +  endUrl
         
         let url  =  URL(string:authUrl)//+accountUrl)
-        URLRequest(url: url!)
+        _ = URLRequest(url: url!)
         webView?.navigationDelegate = self
         
         //webView?.load(requestObj)

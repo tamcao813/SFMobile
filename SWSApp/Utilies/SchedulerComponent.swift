@@ -142,27 +142,26 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         if (!startTimeTextField.text!.isEmpty && !endTimeTextField.text!.isEmpty) {
             if DateTimeUtility.getTimeFromDateString(dateString: startTimeTextField.text!) == DateTimeUtility.getTimeFromDateString(dateString: endTimeTextField.text!)  {
                 endTimeTextField.text! = ""
-                
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
+                 showAlert(message: "Start Time should be lesser than End Time")
                 
             } else if DateTimeUtility.getTimeFromDateString(dateString: startTimeTextField.text!).compare(DateTimeUtility.getTimeFromDateString(dateString: endTimeTextField.text!)) == .orderedDescending  {
                 endTimeTextField.text! = ""
-                
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
+                showAlert(message: "Start Time should be lesser than End Time")
+              
             }
         }
         
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
 //        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
+    }
+    
+    func showAlert(message:String) {
+        let alert = UIAlertView()
+        alert.title = "Alert"
+        alert.message = message
+        alert.addButton(withTitle: "OK")
+        alert.show()
     }
     
     @objc func doneButton(sender:UIButton)

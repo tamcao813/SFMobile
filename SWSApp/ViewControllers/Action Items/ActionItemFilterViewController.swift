@@ -27,6 +27,7 @@ class ActionItemFilterViewController: UIViewController {
     var sectionData = [[Any]]()
     var accountsForLoggedUserFiltered = [Account]()
     var sectionNames = [String]()
+    @IBOutlet weak var buttonsBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar : UISearchBar!
@@ -45,6 +46,12 @@ class ActionItemFilterViewController: UIViewController {
         if isManager {
             sectionData.insert(consultantAry, at:  sectionData.count)
             ActionItemFilter().sectionItems = sectionData
+        }
+        
+        if ActionItemFilterModel.fromAccount {
+            buttonsBottomConstraint.constant = 0
+        }else{
+            buttonsBottomConstraint.constant = 63
         }
     }
     
@@ -278,12 +285,18 @@ class ActionItemFilterViewController: UIViewController {
         ActionItemFilterModel.dueNo = "NO"
         
         searchBar.text = ""
-        ActionItemFilterModel.filterApplied = false
-        tableView.reloadData()
+        ActionItemFilterModel.filterApplied = false        
+        //Used to Clear the Expanded section of Filter Option
+        selectedSection = -1
+        if self.expandedSectionHeaderNumber != -1{
+            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+        }
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.currentSelectedUserId = (appDelegate.loggedInUser?.userId)!
         ActionItemFilterModel.selectedConsultant = nil
+        tableView.reloadData()
     }
     
     

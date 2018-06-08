@@ -20,12 +20,12 @@ class NotificationParentViewController: UIViewController {
         super.viewDidLoad()
         notificationFilterVC?.delegate = notificationListVC
         notificationFilterVC?.clearActionItemFilterModel()
-        
     }
     
     func resetFilters(){
         notificationFilterVC?.clearActionItemFilterModel()
         notificationListVC?.getNotifications()
+        notificationListVC?.tableView.setContentOffset(.zero, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

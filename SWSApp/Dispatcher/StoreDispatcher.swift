@@ -203,6 +203,11 @@ class StoreDispatcher {
             group.leave()
         }
         
+        group.enter()
+        syncDownNotification() { _ in
+            group.leave()
+        }
+        
         group.notify(queue: queue) {
             completion(nil)
         }
@@ -1942,7 +1947,7 @@ class StoreDispatcher {
                 }
                 
                 let ary:[Any] = result[i] as! [Any]
-                let actionItemArray = ActionItem(withAry: ary)
+                let actionItemArray = ActionItem(withAryAccount: ary)
                 actionItem.append(actionItemArray)
                 print("task of  array is  \(actionItemArray)")
             }
@@ -1973,7 +1978,7 @@ class StoreDispatcher {
                 }
                 
                 let aryWithoutAccount:[Any] = resultWithoutAccount[i] as! [Any]
-                let actionItemArrayWithoutAccount = ActionItem(withAry: aryWithoutAccount)
+                let actionItemArrayWithoutAccount = ActionItem(withAryNoAccount: aryWithoutAccount)
                 actionItem.append(actionItemArrayWithoutAccount)
             }
         }

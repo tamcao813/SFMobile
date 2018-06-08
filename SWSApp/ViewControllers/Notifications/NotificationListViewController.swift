@@ -22,10 +22,17 @@ class NotificationListViewController: UIViewController {
     weak var delegate : NotificationListViewControllerDelegate?
     
     override func viewDidLoad() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotification), name: NSNotification.Name("refreshNotification"), object: nil)
         super.viewDidLoad()
         customizedUI()
         getNotifications()
     }
+    
+    
+    @objc func refreshNotification()   {
+        getNotifications()
+    }
+    
     
     func getNotifications(){
         notificationsArray = [Notifications]()
@@ -107,7 +114,7 @@ extension NotificationListViewController : UITableViewDelegate, UITableViewDataS
         if NotificationFilterModel.filterApplied {
             return filteredNotificationsArray.count
         }else{
-            return notificationsArray.count
+            return  notificationsArray.count
         }
     }
     

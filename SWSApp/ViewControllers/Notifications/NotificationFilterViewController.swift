@@ -212,11 +212,11 @@ class NotificationFilterViewController: UIViewController {
     }
     
     func clearActionItemFilterModel(){
-        NotificationFilterModel.isLicenseExpiration = "No"
-        NotificationFilterModel.isContactBirthday = "No"
+        NotificationFilterModel.isLicenseExpiration = "NO"
+        NotificationFilterModel.isContactBirthday = "NO"
         
-        NotificationFilterModel.isRead = "No"
-        NotificationFilterModel.isUnread = "No"
+        NotificationFilterModel.isRead = "NO"
+        NotificationFilterModel.isUnread = "NO"
         selectedSection = -1
         if self.expandedSectionHeaderNumber != -1{
             let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView

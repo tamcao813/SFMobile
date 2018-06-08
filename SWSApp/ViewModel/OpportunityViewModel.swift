@@ -10,8 +10,17 @@ import UIKit
 
 class OpportunityViewModel {
 
-    func opportunityAll() -> [Opportunity] {
-        return StoreDispatcher.shared.fetchOpportunity()
+    func globalOpportunity() -> [Opportunity] {
+        return GlobalOpportunityModel.globalOpportunity
     }
     
+    func globalOpportunityReload() -> [Opportunity] {
+        GlobalOpportunityModel.globalOpportunity = StoreDispatcher.shared.fetchOpportunity()
+        return GlobalOpportunityModel.globalOpportunity
+    }
+    
+}
+
+struct GlobalOpportunityModel {
+    static var globalOpportunity = [Opportunity]()
 }

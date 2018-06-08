@@ -10,7 +10,7 @@ import UIKit
 
 class Opportunity {
 
-    static let opportunityFields: [String] = ["Id", "Name", "AccountId", "CloseDate", "Candidate_Product__c", "Amount", "Type", "StageName", "SGWS_Commit__c"]
+    static let opportunityFields: [String] = ["Id", "Name", "AccountId", "CloseDate", "Candidate_Product__c", "Amount", "Type", "SGWS_Source__c", "SGWS_Month_Active__c", "StageName", "SGWS_Commit__c"]
     
     var id : String
     var name : String
@@ -19,9 +19,10 @@ class Opportunity {
     var candidateProduct : String
     var amount : String
     var type : String
+    var source : String
+    var month : String
     var stageName : String
     var commit : String
-
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Opportunity.opportunityFields, ary))
@@ -37,6 +38,8 @@ class Opportunity {
         candidateProduct = json["Candidate_Product__c"] as? String ?? ""
         amount = json["Amount"] as? String ?? ""
         type = json["Type"] as? String ?? ""
+        source = json["SGWS_Source__c"] as? String ?? ""
+        month = json["SGWS_Month_Active__c"] as? String ?? ""
         stageName = json["StageName"] as? String ?? ""
         commit = json["SGWS_Commit__c"] as? String ?? ""
 
@@ -51,6 +54,8 @@ class Opportunity {
         candidateProduct = ""
         amount = ""
         type = ""
+        source = ""
+        month = ""
         stageName = ""
         commit = ""
 

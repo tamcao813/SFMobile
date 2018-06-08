@@ -20,6 +20,8 @@ let OpportunitiesFilterCell = "opportunitiesMenuTableViewCell"
 
 struct OpportunitiesFilterMenuModel {
     
+    static var accountId: String?
+
     static var searchText = ""
     
     static var viewByCaseDecimal = ""

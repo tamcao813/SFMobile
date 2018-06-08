@@ -83,13 +83,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mot-9u-2ar">
-                                                    <rect key="frame" x="15" y="3" width="37" height="26.5"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGE-4B-dYw">
-                                                    <rect key="frame" x="12" y="9" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="trJ-Mc-msK">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -517,7 +517,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="48P-0x-iRf">
-                                <rect key="frame" x="6" y="110" width="714" height="577"/>
+                                <rect key="frame" x="6" y="110" width="714" height="637"/>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="opportunitiesListTableViewCell" rowHeight="180" id="pr5-Rg-BRV" customClass="OpportunitiesListTableViewCell" customModule="SWSApp" customModuleProvider="target">
@@ -654,7 +654,7 @@
                                                             <rect key="frame" x="642.5" y="0.0" width="71.5" height="100"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed-Won" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bg-lg-u0x">
-                                                                    <rect key="frame" x="0.0" y="41" width="71.5" height="34"/>
+                                                                    <rect key="frame" x="0.0" y="41" width="66.5" height="34"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -663,7 +663,7 @@
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="0bg-lg-u0x" firstAttribute="leading" secondItem="Lzp-J5-cTM" secondAttribute="leading" id="COw-he-Nxo"/>
-                                                                <constraint firstAttribute="trailing" secondItem="0bg-lg-u0x" secondAttribute="trailing" id="NYU-C7-pjZ"/>
+                                                                <constraint firstAttribute="trailing" secondItem="0bg-lg-u0x" secondAttribute="trailing" constant="5" id="NYU-C7-pjZ"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -731,6 +731,16 @@
                                                 <constraint firstItem="6iN-8g-81O" firstAttribute="top" secondItem="3fg-eq-C1J" secondAttribute="bottom" id="yrr-V3-d6x"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="commitLabel" destination="hre-gP-3j3" id="74J-ko-MN0"/>
+                                            <outlet property="monthLabel" destination="Vgl-t6-Ooq" id="dyw-hp-YWm"/>
+                                            <outlet property="productNameLabel" destination="6xT-I2-n5o" id="ro7-s3-dXO"/>
+                                            <outlet property="pycmSoldLabel" destination="WK1-4C-cEk" id="6VG-rC-Xfd"/>
+                                            <outlet property="relatedLabel" destination="Zxx-4O-joE" id="SN5-J9-RLb"/>
+                                            <outlet property="soldLabel" destination="gd6-R6-W6K" id="6sU-y7-ASq"/>
+                                            <outlet property="sourceLabel" destination="ijT-zV-HJc" id="5AY-7T-d45"/>
+                                            <outlet property="statusLabel" destination="0bg-lg-u0x" id="SDx-zq-TBR"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -738,11 +748,11 @@
                                     <outlet property="delegate" destination="zEf-3K-DCF" id="ep4-Te-0jS"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4XR-ir-FkZ" userLabel="Pagination View">
-                                <rect key="frame" x="0.0" y="687" width="736" height="60"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4XR-ir-FkZ" userLabel="Pagination View">
+                                <rect key="frame" x="0.0" y="747" width="736" height="0.0"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="5XE-B5-DTB">
-                                        <rect key="frame" x="109" y="14" width="518.5" height="32"/>
+                                        <rect key="frame" x="109" y="-16" width="518.5" height="32"/>
                                         <subviews>
                                             <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72y-Pg-ban">
                                                 <rect key="frame" x="0.0" y="0.0" width="150.5" height="32"/>
@@ -857,7 +867,7 @@
                                 </subviews>
                                 <color key="backgroundColor" name="LightGrey"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="9iZ-3t-41H"/>
+                                    <constraint firstAttribute="height" id="9iZ-3t-41H"/>
                                     <constraint firstItem="5XE-B5-DTB" firstAttribute="centerY" secondItem="4XR-ir-FkZ" secondAttribute="centerY" id="B6V-3W-LOe"/>
                                     <constraint firstItem="5XE-B5-DTB" firstAttribute="centerX" secondItem="4XR-ir-FkZ" secondAttribute="centerX" id="Pgs-ha-Gxq"/>
                                 </constraints>

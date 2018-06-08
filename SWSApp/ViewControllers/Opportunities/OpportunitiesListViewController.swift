@@ -11,12 +11,15 @@ import SwipeCellKit
 
 class OpportunitiesListViewController: UIViewController {
 
+    var opportunityAccountId: String?
+    
+    var opportunityList = [Opportunity]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let opportunityList = OpportunityViewModel().opportunityAll()
-        print(opportunityList)
+        opportunityList = OpportunitySortUtility().opportunityFor(forAccount: OpportunitiesFilterMenuModel.accountId!)
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,13 +33,14 @@ class OpportunitiesListViewController: UIViewController {
 extension OpportunitiesListViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return opportunityList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "opportunitiesListTableViewCell", for: indexPath) as? OpportunitiesListTableViewCell
         cell?.selectionStyle = .none
 
+        cell?.displayCellContent(opportunityList[indexPath.row])
         cell?.delegate =  self
         return cell ?? UITableViewCell()
     }

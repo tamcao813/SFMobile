@@ -98,15 +98,7 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
     
     
     func editNote() {
-        
-        let date = Date()
-        print(date)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        print(timeStamp)
-                
-        notesToBeEdited.lastModifiedDate = timeStamp
+        notesToBeEdited.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"SGWS_Account_Notes__c"]
         
         let editNoteDict: [String:Any] = [
@@ -135,16 +127,7 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         if(ownerId == self.notesToBeEdited.ownerId){
         let alert = UIAlertController(title: "Notes Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
         let continueAction = UIAlertAction(title: "Delete", style: .default) {
-            action in
-            
-        let date = Date()
-        print(date)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        print(timeStamp)
-        
-            self.notesToBeEdited.lastModifiedDate = timeStamp
+            action in        self.notesToBeEdited.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"SGWS_Account_Notes__c"]
         
         let editNoteDict: [String:Any] = [

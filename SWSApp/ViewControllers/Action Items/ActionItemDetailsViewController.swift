@@ -245,7 +245,7 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
         case 1:
             return 1
         case 2:
-            if let account = selectedAccount{
+            if selectedAccount != nil {
                 return 1
             }
             return 0

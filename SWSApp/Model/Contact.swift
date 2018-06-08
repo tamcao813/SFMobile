@@ -407,12 +407,12 @@ class Contact {
         var firstChar = ""
         
         if(firstName != "") {
-            var firstCharIndex = firstName.index(firstName.startIndex, offsetBy: 1)
+            let firstCharIndex = firstName.index(firstName.startIndex, offsetBy: 1)
             firstChar = firstName.substring(to: firstCharIndex)
             print(firstChar)
         }
         if(lastName != "") {
-            var firstCharIndex = lastName.index(lastName.startIndex, offsetBy: 1)
+            let firstCharIndex = lastName.index(lastName.startIndex, offsetBy: 1)
             firstChar = firstChar+lastName.substring(to: firstCharIndex)
             print(firstChar)
         }

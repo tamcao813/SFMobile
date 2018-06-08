@@ -46,7 +46,6 @@ class ActionItemsListViewController: UIViewController {
         fetchActionItemsFromDB()
     }
     
-    
     @objc func refreshActionItemList(){
         fetchActionItemsFromDB()
     }
@@ -65,7 +64,6 @@ class ActionItemsListViewController: UIViewController {
         }else{
             actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
         }
-       // actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
         if ActionItemFilterModel.filterApplied {
             applyFilter(searchText: searchStr)
         }
@@ -111,7 +109,6 @@ class ActionItemsListViewController: UIViewController {
                 titleAscendingSort = true
             }
         }
-        
         reloadTableView()
     }
     
@@ -368,8 +365,7 @@ extension ActionItemsListViewController {
                 "attributes":attributeDict]
             
             let success = AccountsActionItemViewModel().deleteActionItemLocally(fields: editActionItemDict)
-            if(success)
-            {
+            if(success){
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
                 self.fetchActionItemsFromDB()
             }
@@ -398,5 +394,3 @@ extension ActionItemsListViewController: ActionItemDetailsViewControllerDelegate
         fetchActionItemsFromDB()
     }
 }
-
-

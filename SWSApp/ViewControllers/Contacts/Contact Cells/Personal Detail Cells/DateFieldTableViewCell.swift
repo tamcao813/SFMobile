@@ -94,7 +94,7 @@ extension DateFieldTableViewCell: UITextFieldDelegate {
         }
         
         if let item = actionItem {
-            actionItem?.activityDate = textField.text!
+            item.activityDate = textField.text!
         }
     }
     

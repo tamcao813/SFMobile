@@ -129,7 +129,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // select the home tab after login
         topMenuBar?.selectedSegment = 0
         // show the relevant tab
-        displayCurrentTab(0)
+        _ = displayCurrentTab(0)
         
         reachability.whenReachable = { reachability in
             if reachability.connection == .wifi {
@@ -517,7 +517,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     {
         //print("Tab tapped" + String(selectedSegment))
         // display other tabs
-        displayCurrentTab(selectedSegment)
+        _ = displayCurrentTab(selectedSegment)
         if(selectedSegment == 0) {
             defaults.set(true, forKey: "FromHomeVC")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)

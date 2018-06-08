@@ -223,6 +223,11 @@ class NotificationFilterViewController: UIViewController {
         
         NotificationFilterModel.isRead = "No"
         NotificationFilterModel.isUnread = "No"
+        selectedSection = -1
+        if self.expandedSectionHeaderNumber != -1{
+            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+        }
         
         searchBar.text = ""
         NotificationFilterModel.filterApplied = false

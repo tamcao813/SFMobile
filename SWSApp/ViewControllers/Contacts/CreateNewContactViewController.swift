@@ -378,21 +378,14 @@ class CreateNewContactViewController: UIViewController {
     
     func checkDuplicateEntryExist(newContact: Contact) -> Bool{
         globalContacts = ContactsViewModel().globalContacts()
-        if globalContacts.count > 0 {
-            for index in 0 ... globalContacts.count - 1 {
-                if globalContacts[index].contactId == newContact.contactId {
-                    globalContacts.remove(at: index)
-                    break
-                }
-            }
-        }
+        let getFilteredContacts = globalContacts.filter( { return $0.contactId != newContact.contactId } )
         
         // Checkin Duplicate Entry
-        for contact in globalContacts {
-            if contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.phoneNumber == newContact.phoneNumber || contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.email == newContact.email {
-                showAlert(message: "A duplicate contact with the same name and phone or name and email has been detected")
-                return true
-            }
+        let duplicateEntry = getFilteredContacts.filter( { return ($0.firstName.lowercased().contains(newContact.firstName.lowercased()) && $0.lastName.lowercased().contains(newContact.lastName.lowercased()) && $0.phoneNumber.lowercased().contains(newContact.phoneNumber.lowercased())) || ($0.firstName.lowercased().contains(newContact.firstName.lowercased()) && $0.lastName.lowercased().contains(newContact.lastName.lowercased()) && $0.email.lowercased().contains(newContact.email.lowercased())) } )
+        
+        if duplicateEntry.count > 0{
+            showAlert(message: "A duplicate contact with the same name and phone or name and email has been detected")
+            return true
         }
         return false
     }

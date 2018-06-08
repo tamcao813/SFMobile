@@ -55,13 +55,16 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotesListAfterDelete), name: NSNotification.Name("refreshNotesListPostDelete"), object: nil)
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         tableViewDisplayData = accountNotesArray
-        for accNotes in accountNotesArray {
-            if(accNotes.accountId == self.accountId) {
-                notesArray.append(accNotes)
-            }
-            //filtered array of notes related to my notes
-            print("Notes Array \(notesArray)")
-        }
+        
+        notesArray = accountNotesArray.filter{$0.accountId == self.accountId}
+        
+//        for accNotes in accountNotesArray {
+//            if(accNotes.accountId == self.accountId) {
+//                notesArray.append(accNotes)
+//            }
+//            //filtered array of notes related to my notes
+//            print("Notes Array \(notesArray)")
+//        }
         originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: notesArray, ascending: false)
         tableViewDisplayData = originalAccountNotesList
         

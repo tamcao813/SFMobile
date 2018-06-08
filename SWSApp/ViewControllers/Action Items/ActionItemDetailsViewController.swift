@@ -68,7 +68,7 @@ class ActionItemDetailsViewController: UIViewController {
         footerView.dropShadow()
         actionItemStatusLabel.text = actionItemObject?.status
         if let actionItem = actionItemObject {
-            dueDateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: actionItem.activityDate)
+            dueDateLabel.text =   DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))          
         }
     }
     
@@ -160,7 +160,7 @@ class ActionItemDetailsViewController: UIViewController {
         var editActionItem = ActionItem(for: "editActionItem")
         editActionItem = actionItemObject!
         editActionItem.status = "Complete"
-        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             
@@ -192,7 +192,7 @@ class ActionItemDetailsViewController: UIViewController {
             editActionItem.status = "Overdue"
         }
         
-        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             

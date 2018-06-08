@@ -9,10 +9,7 @@
 import UIKit
 
 class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-    
-    
-    
-    
+        
     @IBOutlet weak var upcomingActivitiesTableView: UITableView!
     @IBOutlet weak var pastActivitiesTableView: UITableView!
     var account : Account?
@@ -185,7 +182,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
-        let getTime = DateTimeUtility.convertUtcDatetoReadInOverview(dateStringfromAccountNotes: dateToConvert)
+        let getTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: dateToConvert,dateFormat:"MM/dd/YYYY hh:mm a")
         
         let dayToCheck = dateFormatter.string(from: date!)
         //        let now = Date()
@@ -251,7 +248,6 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     }
     
     
-    
     func getDayFromActionItem(dateToConvert:String)-> String  {
         //Getting Today, Tomorrow, Yesterday
         let calendar = Calendar.current
@@ -311,16 +307,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
         return timeStamp
     }
-    
-    func getDateTimeFromNotification(dateToConvert:String)-> String  {
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let date = dateFormatter.date(from: dateToConvert)
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        let timeStamp = dateFormatter.string(from: date!)
-        return timeStamp
-    }
-    
-    
+
     
     // MARK: - TableView Functions
     // tableView.tag == 1 = Upcoming Activities table
@@ -368,13 +355,14 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             if tableView.tag == 1{
                 if notificationArrayToDisplay[indexPath.row].sgwsType == "Birthday"{
                     cell.UpComingActivities_TitleLabel.text = notificationArrayToDisplay[indexPath.row].sgwsContactBirthdayNotification
-                    cell.UpComingActivities_TimeLabel.text = getDateTimeFromNotification(dateToConvert: notificationArrayToDisplay[indexPath.row].createdDate)
+                    cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: notificationArrayToDisplay[indexPath.row].createdDate)
+                    
                     cell.UpComingActivities_Image.image = UIImage(named: "Bell")
                     return cell
                 }else{
                     
                     cell.UpComingActivities_TitleLabel.text = notificationArrayToDisplay[indexPath.row].sgwsAccLicenseNotification
-                    cell.UpComingActivities_TimeLabel.text = getDateTimeFromNotification(dateToConvert: notificationArrayToDisplay[indexPath.row].createdDate)
+                    cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: notificationArrayToDisplay[indexPath.row].createdDate)
                     cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
                     return cell
                 }

@@ -60,10 +60,9 @@ class FamilyTableViewCell: UITableViewCell {
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let dateString = dateFormatter.string(from: sender.date)
         let date = dateFormatter.date(from: dateString)
-        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateTextField.text = dateFormatter.string(from: date!)
     }
     

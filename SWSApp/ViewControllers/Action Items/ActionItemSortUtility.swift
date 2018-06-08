@@ -238,7 +238,7 @@ class ActionItemSortUtility {
             return false
         }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let date = dateFormatter.date(from: dueDate)
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
         if date! >= yesterday! {
@@ -247,15 +247,6 @@ class ActionItemSortUtility {
             return false
         }
     }
-    
-    func getTimestamp() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
-    }
-    
 }
 
 extension Sequence where Iterator.Element: Hashable {

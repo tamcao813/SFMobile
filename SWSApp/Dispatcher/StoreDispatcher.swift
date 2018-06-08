@@ -310,7 +310,7 @@ class StoreDispatcher {
         sessionID = "SID:\(newSyncLog.Id)"
         newSyncLog.sessionID = sessionID
         newSyncLog.activityType = "Sync Start"
-        newSyncLog.activityTime = getTimeStampInString()
+        newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
         newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\"}"
 //        createOneSyncLog(newSyncLog)
@@ -342,7 +342,7 @@ class StoreDispatcher {
         newSyncLog.Id = generateRandomIDForSyncLog()
         newSyncLog.sessionID = sessionID
         newSyncLog.activityType = "Sync Stop"
-        newSyncLog.activityTime = getTimeStampInString()
+        newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
         newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\"}"
     
@@ -376,8 +376,8 @@ class StoreDispatcher {
         let newSyncLog = SyncLog(for: "NewSyncLog")
         newSyncLog.Id = generateRandomIDForSyncLog()
         newSyncLog.sessionID = "SID:\(newSyncLog.Id)"
+        newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newSyncLog.activityType = "Sync Error"
-        newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
 
         var syncMsg = ""
@@ -463,15 +463,7 @@ class StoreDispatcher {
         print("number in notes is \(someString)")
         return someString
     }
-    
-    func getTimeStampInString() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
-    }
-    
+ 
     func syncUpLogHandeler() {
         syncUpSyncLog(fieldsToUpload: ["Id","SGWS_Session_ID__c","SGWS_Activity__c","SGWS_Activity_Timestamp__c","SGWS_User_Id__c","SGWS_Activity_Detail__c"], completion: {error in
             

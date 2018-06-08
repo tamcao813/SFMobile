@@ -89,7 +89,7 @@ class AccountVisitListViewController: UIViewController {
         
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date)
         

@@ -65,14 +65,14 @@ class Visit{
             dateStart = nil
         }
         else {
-            dateStart = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: startDate)
+            dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: startDate)
         }
         endDate = json["EndDate"] as? String ?? ""
         if endDate == "" {
             dateEnd = nil
         }
         else {
-            dateEnd = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: endDate)
+            dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: endDate)
         }
         sgwsVisitPurpose = json["SGWS_Visit_Purpose__c"] as? String ?? ""
         description = json["Description"] as? String ?? ""

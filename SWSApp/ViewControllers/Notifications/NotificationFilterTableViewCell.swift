@@ -9,19 +9,12 @@
 import UIKit
 
 class NotificationFilterTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dropDownImageView : UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     //Used to display cell content
@@ -47,7 +40,6 @@ class NotificationFilterTableViewCell: UITableViewCell {
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")
             }
-            
         case 1:
             if NotificationFilterModel.isContactBirthday == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
@@ -67,14 +59,12 @@ class NotificationFilterTableViewCell: UITableViewCell {
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")
             }
-            
         case 1:
             if NotificationFilterModel.isUnread == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")
             }
-            
         default:
             break
         }

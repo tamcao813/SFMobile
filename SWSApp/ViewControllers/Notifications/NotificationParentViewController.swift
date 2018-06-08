@@ -12,7 +12,7 @@ protocol NotificationParentViewControllerDelegate: NSObjectProtocol {
 }
 
 class NotificationParentViewController: UIViewController {
-
+    
     var notificationFilterVC : NotificationFilterViewController?
     var notificationListVC : NotificationListViewController?
     weak var delegate:NotificationParentViewControllerDelegate?
@@ -43,3 +43,4 @@ extension NotificationParentViewController: NotificationListViewControllerDelega
         self.delegate?.updateParent()
     }
 }
+

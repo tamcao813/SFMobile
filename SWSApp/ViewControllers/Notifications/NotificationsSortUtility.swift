@@ -32,7 +32,7 @@ class NotificationsSortUtility {
         var filteredArray = [Notifications]()
         let filteredTypeArray = filterOnTypeBasis(notifications: notifications)
         let filteredFPOArray = filterOnReadBasis(notifications: notifications)
-
+        
         if typeFilterAdded && readUnreadFilterAdded {
             var localFilteredArray = [Notifications]()
             var recordAdded = false
@@ -63,7 +63,7 @@ class NotificationsSortUtility {
             filteredArray = notifications
         }
         
-        return filteredArray        
+        return filteredArray
     }
     
     func filterOnTypeBasis(notifications: [Notifications]) -> [Notifications]{
@@ -93,20 +93,12 @@ class NotificationsSortUtility {
         var unreadArray = [Notifications]()
         if NotificationFilterModel.isRead == "YES"{
             readUnreadFilterAdded = true
-            for notification in notifications{
-                if notification.isRead {
-                    readArray.append(notification)
-                }
-            }
+            readArray = notifications.filter( { return $0.isRead == true } )
         }
         
         if NotificationFilterModel.isUnread == "YES"{
             readUnreadFilterAdded = true
-            for notification in notifications{
-                if !notification.isRead {
-                    unreadArray.append(notification)
-                }
-            }
+            unreadArray = notifications.filter( { return $0.isRead == false } )
         }
         
         if readUnreadFilterAdded {

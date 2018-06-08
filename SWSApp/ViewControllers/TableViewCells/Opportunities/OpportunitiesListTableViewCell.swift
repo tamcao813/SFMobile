@@ -33,17 +33,46 @@ class OpportunitiesListTableViewCell: SwipeTableViewCell {
 
     func displayCellContent(_ opportunityDetails: Opportunity) {
         
-        productNameLabel.text = opportunityDetails.productDesc
+        if opportunityDetails.productDesc == "" { // TBD This should either one only
+            productNameLabel.text = opportunityDetails.productName
+        }
+        else {
+            productNameLabel.text = opportunityDetails.productDesc
+        }
         sourceLabel.text = opportunityDetails.recordTypeName
         
-        pycmSoldLabel.text = opportunityDetails.PYCMSold
-        commitLabel.text = opportunityDetails.commit
-        soldLabel.text = opportunityDetails.sold
+        displayViewByCellContent(opportunityDetails)
 
         monthLabel.text = opportunityDetails.monthActive
         statusLabel.text = opportunityDetails.stageName
 
         relatedLabel.text = "Related Objectives: " + opportunityDetails.ObjectivesName
+    }
+
+    func displayViewByCellContent(_ opportunityDetails: Opportunity) {
+        
+        if OpportunitiesFilterMenuModel.viewBy9L == "YES" {
+            pycmSoldLabel.text = valueAfter9Lcalculation(opportunityDetails, valueToConvert: opportunityDetails.PYCMSold)
+            commitLabel.text = valueAfter9Lcalculation(opportunityDetails, valueToConvert: opportunityDetails.commit)
+            soldLabel.text = valueAfter9Lcalculation(opportunityDetails, valueToConvert: opportunityDetails.sold)
+        }
+        else {
+            pycmSoldLabel.text = opportunityDetails.PYCMSold
+            commitLabel.text = opportunityDetails.commit
+            soldLabel.text = opportunityDetails.sold
+        }
+    }
+    
+    // (<Value> * the Bottles Per Case for that product * the Size (in Liters) of that product) / 9
+    func valueAfter9Lcalculation(_ opportunityDetails: Opportunity, valueToConvert: String) -> String {
+        
+        // TBD to check for null values input values
+        
+        let valueInt: Int = (valueToConvert as NSString).integerValue
+        let bottlesPerCaseInt: Int = (valueToConvert as NSString).integerValue //TBD not sure with column mapping
+        let sizeInt: Int = (opportunityDetails.orderSize as NSString).integerValue
+
+        return String((valueInt * bottlesPerCaseInt * sizeInt) / 9)
     }
 
 }

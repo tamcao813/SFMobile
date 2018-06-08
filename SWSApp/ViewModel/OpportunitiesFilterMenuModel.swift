@@ -24,7 +24,15 @@ struct OpportunitiesFilterMenuModel {
 
     static var searchText = ""
     
-    static var viewByCaseDecimal = ""
     static var viewBy9L = ""
+    static var viewByCaseDecimal = ""
+
+    static var isAscendingProductName = ""
+    static var isAscendingSource = ""
+    static var isAscendingPYCMSold = ""
+    static var isAscendingCommit = ""
+    static var isAscendingSold = ""
+    static var isAscendingMonth = ""
+    static var isAscendingStatus = ""
 
 }

@@ -108,7 +108,7 @@ extension SearchAccountTableViewCell: UITextFieldDelegate {
         searchAccounts = [Account]()
         searchAccountsString = [String]()
         if string.isEmpty{
-            search = String(search.characters.dropLast())
+            search = String(search.dropLast())
         }else{
             search = textField.text!+string
         }

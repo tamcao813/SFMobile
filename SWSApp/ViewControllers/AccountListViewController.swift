@@ -109,7 +109,6 @@ class AccountsListViewController: UIViewController {
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
         
-        let consultants = UserViewModel().consultants
     }
     
     @objc func refreshAccountItemList(notification: NSNotification){

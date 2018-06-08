@@ -505,16 +505,16 @@ class AccountSortUtility
         return (enteredAnyFilterCase, filteredByPastDue_PremiseCode_LicenseTypeAccountArray)
         
     }
-    
-    static func filterAccountByConsultant(accountsListToBeFiltered : [Account])-> [Account] {
-        var filteredAccounts = [Account]()
-        
-        if let consultant = FilterMenuModel.selectedConsultant  {
-            filteredAccounts = AccountsViewModel().accountsForSelectedUser()
-        }
-        
-        return filteredAccounts
-    }
+    //Function unused
+//    static func filterAccountByConsultant(accountsListToBeFiltered : [Account])-> [Account] {
+//        var filteredAccounts = [Account]()
+//
+//        if let consultant = FilterMenuModel.selectedConsultant  {
+//            filteredAccounts = AccountsViewModel().accountsForSelectedUser()
+//        }
+//
+//        return filteredAccounts
+//    }
     
 }
 

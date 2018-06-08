@@ -1104,30 +1104,6 @@ class StoreDispatcher {
         }
     }
     
-    func fetchConsultants() -> [Consultant] {
-        var consultants = [Consultant]()
-        
-        let userid = UserViewModel().loggedInUser?.userId
-
-        //let soqlQuery = "Select {UserSimple:Id} from {UserSimple} Where {UserSimple:ManagerId} = '\(userid)'"
-        
-        let soqlQuery = "Select {User:Id}, {User:User.Name} from {User} Where {User:User.ManagerId} = '\(userid)'"
-        
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
-        
-        if result.count > 0 {
-            for i in 0...result.count - 1 {
-                let ary:[Any] = result[i] as! [Any]
-                
-            }
-        }
-        
-        return consultants
-    }
-    
     //Accounts
     //Use either fetchAccountsForLoggedUser() or fetchAccountsForCurrentUser() is ok, it's just to avoid code change in many places
     func fetchAccountsForLoggedUser() -> [Account] {
@@ -1765,9 +1741,7 @@ class StoreDispatcher {
     
     func fetchEvents()->[Visit]{
         
-        var visit: [Visit] = []
-        var duplicateVisitArray: [Visit] = []
-        
+        var visit: [Visit] = []        
         let soapQuery = "Select * FROM {WorkOrder} WHERE {WorkOrder:RecordTypeId} = '\(workOrderRecordTypeIdEvent)'"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)

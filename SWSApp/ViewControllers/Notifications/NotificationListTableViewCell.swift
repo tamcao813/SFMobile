@@ -9,7 +9,7 @@
 import UIKit
 
 class NotificationListTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var notificationTitle: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var notificationImage: UIImageView!
@@ -21,7 +21,6 @@ class NotificationListTableViewCell: UITableViewCell {
     
     func displayCellContent(notificationObject: Notifications){
         dateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString:notificationObject.createdDate)
-        // dateLabel.text =  notificationObject.createdDate
         if notificationObject.isRead {
             isReadView.backgroundColor = .clear
         }else{
@@ -38,5 +37,4 @@ class NotificationListTableViewCell: UITableViewCell {
             notificationTitle.text = notificationObject.sgwsAccLicenseNotification
         }
     }
-
 }

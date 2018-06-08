@@ -62,7 +62,7 @@ class AccountEventSummaryViewController: UIViewController {
         if let id = visitId{
             let visitArray = VisitsViewModel().visitsForUser()
             for visit in visitArray {
-                if visit.Id == visitId {
+                if visit.Id == id {
                     visitObject = visit
                     break
                 }

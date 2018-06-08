@@ -194,12 +194,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         if (!eventStartDateTextField.text!.isEmpty && !eventEndDateTextField.text!.isEmpty) {
             if DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: eventStartDateTextField.text!).compare(DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: eventEndDateTextField.text!)) == .orderedDescending  {
                 eventEndDateTextField.text! = ""
-                
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Date should be lesser than End Date"
-                alert.addButton(withTitle: "OK")
-                alert.show()
+                  showAlert(message: "Start Date should be lesser than End Date")
             }
         }
         
@@ -238,27 +233,26 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         }else if (!eventStartTimeTextField.text!.isEmpty && !eventEndTimeTextField.text!.isEmpty) {
             if DateTimeUtility.getTimeFromDateString(dateString: eventStartTimeTextField.text!) == DateTimeUtility.getTimeFromDateString(dateString: eventEndTimeTextField.text!)  {
                 eventEndTimeTextField.text! = ""
-                
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
+                showAlert(message: "Start Time should be lesser than End Time")
                 
             } else if DateTimeUtility.getTimeFromDateString(dateString: eventStartTimeTextField.text!).compare(DateTimeUtility.getTimeFromDateString(dateString: eventEndTimeTextField.text!)) == .orderedDescending  {
                 eventEndTimeTextField.text! = ""
-                
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
+                showAlert(message: "Start Time should be lesser than End Time")
             }
         }
         
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
         //        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
+    }
+    
+    func showAlert(message:String){
+        let alert = UIAlertView()
+        alert.title = "Alert"
+        alert.message = message
+        alert.addButton(withTitle: "OK")
+        alert.show()
+        
     }
     
 //    func convertToDate(dateString: String) -> Date {

@@ -31,10 +31,6 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
-        let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
-        
        // let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl
         let authUrl = "https://sgws-de--dedev1.lightning.force.com/lightning/o/SGWS_Objectives__c/list?filterName=00Bm0000001EHSwEAO"
         

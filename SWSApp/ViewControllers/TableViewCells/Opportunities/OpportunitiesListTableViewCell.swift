@@ -33,10 +33,17 @@ class OpportunitiesListTableViewCell: SwipeTableViewCell {
 
     func displayCellContent(_ opportunityDetails: Opportunity) {
         
-        productNameLabel.text = opportunityDetails.name
-        sourceLabel.text = opportunityDetails.source
-        monthLabel.text = opportunityDetails.month
+        productNameLabel.text = opportunityDetails.productDesc
+        sourceLabel.text = opportunityDetails.recordTypeName
+        
+        pycmSoldLabel.text = opportunityDetails.PYCMSold
+        commitLabel.text = opportunityDetails.commit
+        soldLabel.text = opportunityDetails.sold
+
+        monthLabel.text = opportunityDetails.monthActive
         statusLabel.text = opportunityDetails.stageName
+
+        relatedLabel.text = "Related Objectives: " + opportunityDetails.ObjectivesName
     }
 
 }

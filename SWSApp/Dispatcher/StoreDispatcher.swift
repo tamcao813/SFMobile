@@ -3436,8 +3436,8 @@ class StoreDispatcher {
     
     func syncDownOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id, Name, AccountId, CloseDate, Candidate_Product__c, Amount, Type, SGWS_Source__c, SGWS_Month_Active__c, StageName, SGWS_Commit__c FROM Opportunity"
-        
+        let soqlQuery = "Select \(Opportunity.opportunityFields.joined(separator: ",")) FROM Opportunity"
+
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
         
@@ -3468,8 +3468,9 @@ class StoreDispatcher {
         
         var opportunity: [Opportunity] = []
         
-        let soqlQuery = "SELECT {Opportunity:Id}, {Opportunity:Name}, {Opportunity:AccountId}, {Opportunity:CloseDate}, {Opportunity:Candidate_Product__c}, {Opportunity:Amount}, {Opportunity:Type}, {Opportunity:SGWS_Source__c}, {Opportunity:SGWS_Month_Active__c}, {Opportunity:StageName}, {Opportunity:SGWS_Commit__c} FROM {Opportunity}"
-        
+        let opportunityFields = Opportunity.opportunityFields.map{"{Opportunity:\($0)}"}
+        let soqlQuery = "Select \(opportunityFields.joined(separator: ",")) FROM {Opportunity}"
+
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         var error : NSError?

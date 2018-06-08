@@ -469,9 +469,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)
-                    
-                    
-                    
+                    self.getUnreadNotificationsCount()
                     if ActionItemFilterModel.fromAccount{
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
                     }else{
@@ -721,7 +719,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if(GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex != selectedVC) {
             self.moreDropDownSelectionIndex = -1
         }
-        //        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         ifMoreVC = false
         var vc: UIViewController?
         switch selectedVC {
@@ -740,19 +737,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             contactVC.contactDetails?.view.removeFromSuperview()
             contactVC.contactDetails?.removeFromParentViewController()
             vc = contactVC
-        //            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
             vc = calendarVC
             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             vc = objectivesVC
             ContactsGlobal.accountId = ""
-            
-            // have to cover all cases from defined enum, else compiler wont be happy :D
-            /*default:
-             return nil*/
-            //       case .MoreVCIndex:
-        //            vc = moreVC
+
         default:
             ifMoreVC = true
             break

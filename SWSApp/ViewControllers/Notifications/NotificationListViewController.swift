@@ -14,7 +14,7 @@ protocol NotificationListViewControllerDelegate : NSObjectProtocol {
 }
 
 class NotificationListViewController: UIViewController {
-
+    
     var notificationsArray = [Notifications]()
     var filteredNotificationsArray = [Notifications]()
     @IBOutlet weak var tableView: UITableView!
@@ -28,11 +28,9 @@ class NotificationListViewController: UIViewController {
         getNotifications()
     }
     
-    
     @objc func refreshNotification()   {
         getNotifications()
     }
-    
     
     func getNotifications(){
         notificationsArray = [Notifications]()
@@ -72,7 +70,7 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
         }
         reloadTableView()
     }
-
+    
     func clearFilter(){
         NotificationFilterModel.filterApplied = false
         reloadTableView()
@@ -86,14 +84,10 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
         }else{
             editNotification.isRead = true
         }
-//        editNotification. = ActionItemSortUtility().getTimestamp()
         let attributeDict = ["type":"FS_Notification__c"]
         let notificationDict: [String:Any] = [
-            
             Notifications.notificationsFields[0]: editNotification.Id,
             Notifications.notificationsFields[8]: editNotification.isRead,
-//            ActionItem.AccountActionItemFields[7]: editNotification.lastModifiedDate,
-            
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:false,
             kSyncTargetLocallyUpdated:true,
@@ -135,5 +129,5 @@ extension NotificationListViewController : UITableViewDelegate, UITableViewDataS
             self.editNotification(notification: notificationsArray[indexPath.row])
         }
     }
-    
 }
+

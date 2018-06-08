@@ -77,15 +77,15 @@ class Validations {
         let initials = name.components(separatedBy: " ")
         print(initials)
         var firstChar = ""
-        
+    
         if(initials[0] != "") {
             let firstCharIndex = initials[0].index(initials[0].startIndex, offsetBy: 1)
-            firstChar = initials[0].substring(to: firstCharIndex)
+            firstChar = String(initials[0][..<firstCharIndex])
             print(firstChar)
         }
         if(initials[1] != "") {
             let firstCharIndex = initials[1].index(initials[1].startIndex, offsetBy: 1)
-            firstChar = firstChar+initials[1].substring(to: firstCharIndex)
+            firstChar = String(initials[1][..<firstCharIndex])
             print(firstChar)
         }
         return firstChar
@@ -97,4 +97,3 @@ class Validations {
         return String(text.characters.filter {okayChars.contains($0) })
     }
 }
-

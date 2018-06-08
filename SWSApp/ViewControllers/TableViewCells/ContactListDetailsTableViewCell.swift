@@ -105,14 +105,14 @@ class ContactListDetailsTableViewCell: UITableViewCell {
         
         labelToDisplay.text = ""
         if !(dateString.isEmpty) {
-            labelToDisplay.text =  DateTimeUtility.convertUtcDatetoReadableDateString(dateString: dateString)
+            labelToDisplay.text =  DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: dateString)
         }
     }
     
     func displayChildContent(_ labelToDisplay: UILabel, textToDisply: String, dateString: String) {
         labelToDisplay.text = ""
         if !(dateString.isEmpty) {
-             labelToDisplay.text = textToDisply + "(" + DateTimeUtility.convertUtcDatetoReadableDateString(dateString: dateString) + ")"
+             labelToDisplay.text = textToDisply + "(" + DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: dateString) + ")"
         }
        
     }

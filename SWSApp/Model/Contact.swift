@@ -408,12 +408,12 @@ class Contact {
         
         if(firstName != "") {
             let firstCharIndex = firstName.index(firstName.startIndex, offsetBy: 1)
-            firstChar = firstName.substring(to: firstCharIndex)
+            firstChar = String(firstName[..<firstCharIndex])
             print(firstChar)
         }
         if(lastName != "") {
             let firstCharIndex = lastName.index(lastName.startIndex, offsetBy: 1)
-            firstChar = firstChar+lastName.substring(to: firstCharIndex)
+            firstChar = firstChar+String(lastName[..<firstCharIndex])
             print(firstChar)
         }
         

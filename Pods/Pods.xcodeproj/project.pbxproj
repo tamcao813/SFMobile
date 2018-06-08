@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -833,7 +833,7 @@
 		03DB3192D19C1BB96C08F063C4FD5BC3 /* CocoaLumberjack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CocoaLumberjack.h; path = Classes/CocoaLumberjack.h; sourceTree = "<group>"; };
 		043ABEB36AE8224287D8C116F9EB3025 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0445A47AFDC06AA75FF8C64C8B8D0C3C /* SFAdvancedSyncUpTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFAdvancedSyncUpTarget.h; path = libs/SmartSync/SmartSync/Classes/Target/SFAdvancedSyncUpTarget.h; sourceTree = "<group>"; };
-		047A4AD323C811A8FFC23A0FE7C27FC4 /* SalesforceSDKCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SalesforceSDKCore.framework; path = SalesforceSDKCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		047A4AD323C811A8FFC23A0FE7C27FC4 /* SalesforceSDKCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SalesforceSDKCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		050660CCC9524404D5AB589EB2AD0B18 /* Error.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Sources/Error.swift; sourceTree = "<group>"; };
 		0544B89556A82CE2B10860B4485A86F9 /* SFKeyStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFKeyStore.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFKeyStore.m; sourceTree = "<group>"; };
 		055FAA2E5BE636BEFDB7BE907763E73A /* SFSDKSyncsConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKSyncsConfig.m; path = libs/SmartSync/SmartSync/Classes/Config/SFSDKSyncsConfig.m; sourceTree = "<group>"; };
@@ -845,7 +845,7 @@
 		07CE35DD56A5111F37066D9A7A732EC8 /* Date+Manipulations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Manipulations.swift"; path = "DateToolsSwift/DateTools/Date+Manipulations.swift"; sourceTree = "<group>"; };
 		07E22660520E0322F5F8542182DE7C2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		0938CF5788CBB17ADABD74BDFFC42B35 /* SFSDKSalesforceAnalyticsManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKSalesforceAnalyticsManager.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Analytics/SFSDKSalesforceAnalyticsManager.h; sourceTree = "<group>"; };
-		093E92C75AC9E70F59587F506C5F2337 /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FMDB.framework; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		093E92C75AC9E70F59587F506C5F2337 /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CFD7B78B273FBA884E4D9CD355250B /* SFDefaultUserManagementListViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFDefaultUserManagementListViewController.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFDefaultUserManagementListViewController.m; sourceTree = "<group>"; };
 		09F14F02EAD766B3225B0D5D3D39D4D5 /* SwipeTableViewCell+Accessibility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SwipeTableViewCell+Accessibility.swift"; path = "Source/SwipeTableViewCell+Accessibility.swift"; sourceTree = "<group>"; };
 		0A52CC4231C5CE5C84FAA39A5863C543 /* SFRestAPI+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SFRestAPI+Internal.h"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/RestAPI/SFRestAPI+Internal.h"; sourceTree = "<group>"; };
@@ -853,7 +853,7 @@
 		0B3D98D3566D14B89EAEE45386A32194 /* SFOAuthCoordinator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFOAuthCoordinator.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/OAuth/SFOAuthCoordinator.h; sourceTree = "<group>"; };
 		0B965B03F819E442D134ADA399A32A30 /* SFSDKStoreConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKStoreConfig.m; path = libs/SmartStore/SmartStore/Classes/SFSDKStoreConfig.m; sourceTree = "<group>"; };
 		0BEFDDEE5229928658711BF0C15FCFAB /* SFSDKAuthCommand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKAuthCommand.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/IDP/SFSDKAuthCommand.h; sourceTree = "<group>"; };
-		0C1D2F93EE9BD3202480FBB6F540B279 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PromiseKit.framework; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C1D2F93EE9BD3202480FBB6F540B279 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C2E64DADA8D5F1FB8A776652A72F84E /* SFUserAccountManagerExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SFUserAccountManagerExtensions.swift; path = libs/SalesforceSwiftSDK/SalesforceSwiftSDK/Extensions/SFUserAccountManagerExtensions.swift; sourceTree = "<group>"; };
 		0C3B01B99DB4DCFA3D70452B2C78A6D4 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDDispatchQueueLogFormatter.h; path = Classes/Extensions/DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		0C636AB37EB2D7999BC18FE511687D24 /* SFSmartStoreDatabaseManager+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SFSmartStoreDatabaseManager+Internal.h"; path = "libs/SmartStore/SmartStore/Classes/SFSmartStoreDatabaseManager+Internal.h"; sourceTree = "<group>"; };
@@ -870,7 +870,7 @@
 		1033FC0C309EC0F46330DF1C0259694D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10499EF05B4ED7CBBABFFCFD6C9E656D /* SFUserAccount+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SFUserAccount+Internal.h"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFUserAccount+Internal.h"; sourceTree = "<group>"; };
 		105E9DB0F0FCA75E7E3945A593B357BA /* NSURL+SFStringUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURL+SFStringUtils.m"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Util/NSURL+SFStringUtils.m"; sourceTree = "<group>"; };
-		10BAE1254250976FD49250A759F35F8C /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Reachability.framework; path = ReachabilitySwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		10BAE1254250976FD49250A759F35F8C /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		10D0DC9EF33646578E79E117381A806E /* SFSObjectTree.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSObjectTree.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/RestAPI/SFSObjectTree.m; sourceTree = "<group>"; };
 		10FE0E550DCF1916D3F61728CA684352 /* SFSDKDatasharingHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKDatasharingHelper.m; path = libs/SalesforceAnalytics/SalesforceAnalytics/Classes/Util/SFSDKDatasharingHelper.m; sourceTree = "<group>"; };
 		11680255C9D00A674F3FE0003D4F7DB0 /* SFOAuthInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFOAuthInfo.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/OAuth/SFOAuthInfo.h; sourceTree = "<group>"; };
@@ -884,7 +884,7 @@
 		136150E81880AB0673C5902C3F55768C /* DDLogMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLogMacros.h; path = Classes/DDLogMacros.h; sourceTree = "<group>"; };
 		138C6A8E588F0E09205DE50617A71504 /* NSURL+SFAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURL+SFAdditions.m"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/NSURL+SFAdditions.m"; sourceTree = "<group>"; };
 		13E1323CB8D88BAAAB1D16F8E0CFCED5 /* SFRefreshSyncDownTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFRefreshSyncDownTarget.h; path = libs/SmartSync/SmartSync/Classes/Target/SFRefreshSyncDownTarget.h; sourceTree = "<group>"; };
-		147CFE080D6D672E511776743E796614 /* Pods_SWSApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SWSApp.framework; path = "Pods-SWSApp.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		147CFE080D6D672E511776743E796614 /* Pods_SWSApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14DFA8A3975DC70B7391DA8ACCDEA523 /* SFSDKAuthViewHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKAuthViewHandler.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/OAuth/SFSDKAuthViewHandler.m; sourceTree = "<group>"; };
 		14FB7B0CFA69BD65D0499EB7EAADC945 /* PromiseKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PromiseKit.h; path = Sources/PromiseKit.h; sourceTree = "<group>"; };
 		1545DD0E76E30D1A9603005502C266B5 /* Pods-SWSAppUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SWSAppUITests-umbrella.h"; sourceTree = "<group>"; };
@@ -915,7 +915,7 @@
 		1E9B76E9E00D71573A9BB641169C49F3 /* IQKeyboardManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IQKeyboardManager.swift; path = IQKeyboardManagerSwift/IQKeyboardManager.swift; sourceTree = "<group>"; };
 		1EBA9D7E302E801E97B26BE1822876B8 /* SFSDKAppConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKAppConfig.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/SFSDKAppConfig.m; sourceTree = "<group>"; };
 		1F751C1346F145754EA32A6E12851B53 /* SFRestAPI+QueryBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SFRestAPI+QueryBuilder.h"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/RestAPI/SFRestAPI+QueryBuilder.h"; sourceTree = "<group>"; };
-		1FB33D758E8BD8281C752D7E4A6B5BC1 /* Pods_SWSAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SWSAppUITests.framework; path = "Pods-SWSAppUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FB33D758E8BD8281C752D7E4A6B5BC1 /* Pods_SWSAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FD283578952A7E34BB071F756507EF5 /* UIDevice+SFHardware.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+SFHardware.m"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/UIDevice+SFHardware.m"; sourceTree = "<group>"; };
 		20D65078E1468A6D459CE2E9818ACA0E /* SFSyncDownTarget+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SFSyncDownTarget+Internal.h"; path = "libs/SmartSync/SmartSync/Classes/Target/SFSyncDownTarget+Internal.h"; sourceTree = "<group>"; };
 		21C8C23F10B723D1C7BD9B495CF2C4EF /* SFSDKOAuthClientConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKOAuthClientConfig.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/OAuth/SFSDKOAuthClientConfig.h; sourceTree = "<group>"; };
@@ -1010,7 +1010,7 @@
 		435026A02F4A3C603A15F07D00F7A09B /* NSArray+SFAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+SFAdditions.h"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/NSArray+SFAdditions.h"; sourceTree = "<group>"; };
 		43D3F2AE9B4A8F2368562683EC42C6B3 /* SFSDKAlertMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKAlertMessage.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Views/SFSDKAlertMessage.h; sourceTree = "<group>"; };
 		43E393C40694E6010ABDC2F6D106E58C /* SFSDKSmartSyncLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKSmartSyncLogger.m; path = libs/SmartSync/SmartSync/Classes/Util/SFSDKSmartSyncLogger.m; sourceTree = "<group>"; };
-		4403926FE25315603176D906B93B8371 /* SalesforceSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SalesforceSwiftSDK.framework; path = SalesforceSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4403926FE25315603176D906B93B8371 /* SalesforceSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SalesforceSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E99B2F6CB04753B463C1A4491B8401 /* SFSDKAuthErrorManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKAuthErrorManager.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFSDKAuthErrorManager.h; sourceTree = "<group>"; };
 		4552D9DE4FE759B78AAEDB0FC08B92FA /* SFNetwork.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFNetwork.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/RestAPI/SFNetwork.m; sourceTree = "<group>"; };
 		45D9408ABC7C025B82595907A6285AF7 /* SFSDKAlertView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKAlertView.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Views/SFSDKAlertView.m; sourceTree = "<group>"; };
@@ -1055,7 +1055,7 @@
 		53DE2C71106C2CC24054F863A435275A /* SFKeyStoreManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFKeyStoreManager.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFKeyStoreManager.m; sourceTree = "<group>"; };
 		53F4376B1D6D279A74DFEED7E673DEBF /* SFSDKTransform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKTransform.h; path = libs/SalesforceAnalytics/SalesforceAnalytics/Classes/Transform/SFSDKTransform.h; sourceTree = "<group>"; };
 		54744315BE4ACFC05C527D648E161F71 /* SFSDKURLHandlerManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKURLHandlerManager.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/URLHandlers/SFSDKURLHandlerManager.m; sourceTree = "<group>"; };
-		54C774B4E901EBD17B9A4732D10EFACC /* SwipeCellKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwipeCellKit.framework; path = SwipeCellKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		54C774B4E901EBD17B9A4732D10EFACC /* SwipeCellKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwipeCellKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		551EA90D3C77CB9B4BBE3E7F5104DCA4 /* SFSDKInstrumentationEventBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKInstrumentationEventBuilder.m; path = libs/SalesforceAnalytics/SalesforceAnalytics/Classes/Model/SFSDKInstrumentationEventBuilder.m; sourceTree = "<group>"; };
 		5571BF903CCC010C5862A3E86EE8C7F0 /* SalesforceSwiftSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SalesforceSwiftSDK.xcconfig; sourceTree = "<group>"; };
 		559F57BB07CD91A152413833AE97C07F /* IQKeyboardReturnKeyHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IQKeyboardReturnKeyHandler.swift; path = IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler.swift; sourceTree = "<group>"; };
@@ -1069,7 +1069,7 @@
 		577B4D5073420E974D134CA5AF5E9B29 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		57D2319A578CD11AA8712A4EB9E1DF11 /* SwipeAnimator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwipeAnimator.swift; path = Source/SwipeAnimator.swift; sourceTree = "<group>"; };
 		580740D6F8D1C36E35EBD9ED2E376E6D /* IQToolbar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IQToolbar.swift; path = IQKeyboardManagerSwift/IQToolbar/IQToolbar.swift; sourceTree = "<group>"; };
-		597685F83BDBB6851288C651137A1C7B /* SalesforceSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = SalesforceSDKResources.bundle; path = "SalesforceSDKCore-SalesforceSDKResources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		597685F83BDBB6851288C651137A1C7B /* SalesforceSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SalesforceSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		59AC5C0837CC8CC5D82D28C42AD1C90F /* SFParentChildrenSyncDownTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFParentChildrenSyncDownTarget.h; path = libs/SmartSync/SmartSync/Classes/Target/SFParentChildrenSyncDownTarget.h; sourceTree = "<group>"; };
 		59E670DB0C67036DFCFC62D3673C71B6 /* SFSwiftDetectUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSwiftDetectUtil.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/SFSwiftDetectUtil.h; sourceTree = "<group>"; };
 		5A3C4766257811FEF678C4DE99D814B3 /* ReachabilitySwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ReachabilitySwift-umbrella.h"; sourceTree = "<group>"; };
@@ -1090,7 +1090,7 @@
 		5F51D896E4A147B67D7CD8847F9A52AC /* SFLoginViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFLoginViewController.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Login/SFLoginViewController.h; sourceTree = "<group>"; };
 		600045E8EC1BF1A8BC1B5C133610BB4E /* SFRestAPI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFRestAPI.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/RestAPI/SFRestAPI.h; sourceTree = "<group>"; };
 		60A3DE6EED2D32CFA7B0EEA0E82C4AE9 /* SFPasscodeViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFPasscodeViewController.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFPasscodeViewController.h; sourceTree = "<group>"; };
-		6186D405D48CF11C452520A6F130B636 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CocoaLumberjack.framework; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6186D405D48CF11C452520A6F130B636 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61A1645AC9494A476EB292FFF47D8F01 /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
 		62CAC5FFA1C9B7B37DF72CC1776D56D9 /* SFAuthErrorHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFAuthErrorHandler.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFAuthErrorHandler.h; sourceTree = "<group>"; };
 		63339BA5791B672A77A08F95B4A3FC93 /* SFSDKSoslReturningBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKSoslReturningBuilder.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Util/SFSDKSoslReturningBuilder.h; sourceTree = "<group>"; };
@@ -1098,7 +1098,7 @@
 		6348C742F65CAF206319AFED15D015AE /* DDASLLogCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogCapture.h; path = Classes/DDASLLogCapture.h; sourceTree = "<group>"; };
 		6360E1A3F9744D48AC6B58CAD3D0046B /* NSObject+SFBlocks.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SFBlocks.m"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/NSObject+SFBlocks.m"; sourceTree = "<group>"; };
 		63CB423D958080C8352EC98C6571EBFD /* SFJsonUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFJsonUtils.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Util/SFJsonUtils.h; sourceTree = "<group>"; };
-		63F873A01F8857906FC89B45724E6A51 /* DateToolsSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DateToolsSwift.framework; path = DateToolsSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		63F873A01F8857906FC89B45724E6A51 /* DateToolsSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DateToolsSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		644595BDA5C5BB618CDDF8F5F6D539B2 /* SFSDKReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKReachability.m; path = libs/SalesforceAnalytics/SalesforceAnalytics/Classes/Util/SFSDKReachability.m; sourceTree = "<group>"; };
 		65E375AE701393722DC104D1125D8230 /* SFSDKLoginHostStorage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKLoginHostStorage.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Login/LoginHost/SFSDKLoginHostStorage.m; sourceTree = "<group>"; };
 		6639083F4187A695E4D605E04691E0D8 /* SFSDKCryptoUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKCryptoUtils.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFSDKCryptoUtils.h; sourceTree = "<group>"; };
@@ -1107,7 +1107,7 @@
 		66D3AFA0703F97AFC19D5FB28A6333F1 /* SFSDKFileLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKFileLogger.m; path = libs/SalesforceAnalytics/SalesforceAnalytics/Classes/Logger/SFSDKFileLogger.m; sourceTree = "<group>"; };
 		672E661B24ABB7CD57B424D7C5796FA2 /* when.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = when.m; path = Sources/when.m; sourceTree = "<group>"; };
 		6772FF1DEAF56C3ADBB01BBCCE31EE4F /* after.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = after.m; path = Sources/after.m; sourceTree = "<group>"; };
-		67C30777F289C6D1251576853EF07D82 /* SmartStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SmartStore.framework; path = SmartStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		67C30777F289C6D1251576853EF07D82 /* SmartStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SmartStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69526261E06EF28DAEA4DC0BFC397678 /* SFSDKSoslReturningBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKSoslReturningBuilder.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Util/SFSDKSoslReturningBuilder.m; sourceTree = "<group>"; };
 		69C0695B209393ECBFE330921A89E0B1 /* Resolver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Resolver.swift; path = Sources/Resolver.swift; sourceTree = "<group>"; };
 		6A3D12F1A515B5D914BB721588869D16 /* ReachabilitySwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ReachabilitySwift.xcconfig; sourceTree = "<group>"; };
@@ -1159,7 +1159,7 @@
 		7DA2136610DB33C86656EE2CD6BCBB72 /* SFKeyStoreManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFKeyStoreManager.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFKeyStoreManager.h; sourceTree = "<group>"; };
 		7DC9E4E3EEB13917AE01B7D51CABE691 /* NSData+SFSDKUtils_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+SFSDKUtils_Internal.h"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/NSData+SFSDKUtils_Internal.h"; sourceTree = "<group>"; };
 		7E7622198820F1DDF04B0A36C4DF2062 /* SFSDKFileLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKFileLogger.h; path = libs/SalesforceAnalytics/SalesforceAnalytics/Classes/Logger/SFSDKFileLogger.h; sourceTree = "<group>"; };
-		7F5EA019E27CA9168EF138DD620D522E /* SalesforceAnalytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SalesforceAnalytics.framework; path = SalesforceAnalytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F5EA019E27CA9168EF138DD620D522E /* SalesforceAnalytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SalesforceAnalytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FDF597FB33BF170122FD53E6383C0D2 /* CocoaLumberjack-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-umbrella.h"; sourceTree = "<group>"; };
 		7FEAED0F5D33B35BA24658036492B4E9 /* SFPreferences.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFPreferences.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Util/SFPreferences.m; sourceTree = "<group>"; };
 		80291817A76A1D0C222BBD801491DD1B /* SFSmartSyncSyncManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSmartSyncSyncManager.m; path = libs/SmartSync/SmartSync/Classes/Manager/SFSmartSyncSyncManager.m; sourceTree = "<group>"; };
@@ -1177,8 +1177,8 @@
 		83920472033CDB899640DA218B4CD470 /* SFSmartSyncMetadataManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSmartSyncMetadataManager.h; path = libs/SmartSync/SmartSync/Classes/Manager/SFSmartSyncMetadataManager.h; sourceTree = "<group>"; };
 		83E867A03322FA2EA5585C323FF11B53 /* SFMruSyncDownTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFMruSyncDownTarget.h; path = libs/SmartSync/SmartSync/Classes/Target/SFMruSyncDownTarget.h; sourceTree = "<group>"; };
 		83E8E277CB53F162F1081B565B6708D8 /* IQTitleBarButtonItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IQTitleBarButtonItem.swift; path = IQKeyboardManagerSwift/IQToolbar/IQTitleBarButtonItem.swift; sourceTree = "<group>"; };
-		843B589BE1D40C646810B0460FE7D856 /* SQLCipher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLCipher.framework; path = SQLCipher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8440B522BBAA85BAF84E4696B6A276F5 /* SmartSync.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SmartSync.framework; path = SmartSync.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		843B589BE1D40C646810B0460FE7D856 /* SQLCipher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLCipher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8440B522BBAA85BAF84E4696B6A276F5 /* SmartSync.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SmartSync.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84745FD34FAFE29023B6BB8CE3EE873F /* Pods-SWSAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SWSAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8491E8D6469E312737D75ED996232D87 /* SFSDKCoreLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKCoreLogger.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Util/SFSDKCoreLogger.h; sourceTree = "<group>"; };
 		84993E9912249F219F98FC225472E5CD /* SFSDKAlertMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKAlertMessage.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Views/SFSDKAlertMessage.m; sourceTree = "<group>"; };
@@ -1222,7 +1222,7 @@
 		92AF86446738BD6BFDDDE8A0B0F12444 /* SFCrypto.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFCrypto.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/SFCrypto.h; sourceTree = "<group>"; };
 		932ECFDACB8026A0FFC05BF7CA93AC12 /* SFOAuthCredentials+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SFOAuthCredentials+Internal.h"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/OAuth/SFOAuthCredentials+Internal.h"; sourceTree = "<group>"; };
 		9372F535319C067B73669D15AD8C97AB /* SmartStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SmartStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93D807B2C6F0E2810FAD610726E5B6CF /* SFIdentityCoordinator+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SFIdentityCoordinator+Internal.h"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Identity/SFIdentityCoordinator+Internal.h"; sourceTree = "<group>"; };
 		93F968155D0319B714DF1175D789BB87 /* SFSmartStoreDatabaseManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSmartStoreDatabaseManager.m; path = libs/SmartStore/SmartStore/Classes/SFSmartStoreDatabaseManager.m; sourceTree = "<group>"; };
 		944310011EAFC4CB9E78508392DF94FD /* SFChildrenInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFChildrenInfo.h; path = libs/SmartSync/SmartSync/Classes/Util/SFChildrenInfo.h; sourceTree = "<group>"; };
@@ -1255,7 +1255,7 @@
 		9CD01F02A9FFF3B699C4D64AE9682AE5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CD8DBFCA0834DB8C4227EEBAD3CFED3 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDDispatchQueueLogFormatter.m; path = Classes/Extensions/DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		9DA48216098EEBE88C680D245B628798 /* SFKeyStoreManager+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SFKeyStoreManager+Internal.h"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFKeyStoreManager+Internal.h"; sourceTree = "<group>"; };
-		9E447137F3144855C99F89580D92F893 /* sqlite3.c */ = {isa = PBXFileReference; includeInIndex = 1; path = sqlite3.c; sourceTree = "<group>"; };
+		9E447137F3144855C99F89580D92F893 /* sqlite3.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
 		9FAD566CFAB5EECF77987CB8C264822D /* Pods-SWSApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SWSApp.debug.xcconfig"; sourceTree = "<group>"; };
 		9FAD7943AAAAF95345DC6069D525D3F3 /* SFDefaultUserAccountPersister.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFDefaultUserAccountPersister.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFDefaultUserAccountPersister.m; sourceTree = "<group>"; };
 		9FB48CFA4CBD5AED27A9A52E47C5066E /* SalesforceSDKCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SalesforceSDKCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1353,7 +1353,7 @@
 		C3A2447CC491B1789CCB9EA4B920BEB9 /* SFDefaultUserManagementViewController+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SFDefaultUserManagementViewController+Internal.h"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFDefaultUserManagementViewController+Internal.h"; sourceTree = "<group>"; };
 		C4C097ED34D4522669A6261EC6D981EB /* SFAlterSoupLongOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFAlterSoupLongOperation.m; path = libs/SmartStore/SmartStore/Classes/SFAlterSoupLongOperation.m; sourceTree = "<group>"; };
 		C4FAC4148106BF47C201A68B56FB3B17 /* NSObject+SFBlocks.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+SFBlocks.h"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/NSObject+SFBlocks.h"; sourceTree = "<group>"; };
-		C4FF4F98E17D92E28A37F85B72D9DD7E /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = IQKeyboardManagerSwift.framework; path = IQKeyboardManagerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4FF4F98E17D92E28A37F85B72D9DD7E /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManagerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C61401AA1C12796991209B53BC52C6DE /* SFSDKAsyncProcessListener.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKAsyncProcessListener.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Test/SFSDKAsyncProcessListener.h; sourceTree = "<group>"; };
 		C631D7D30BBFB600748CEA16F121B397 /* Date+Bundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Bundle.swift"; path = "DateToolsSwift/DateTools/Date+Bundle.swift"; sourceTree = "<group>"; };
 		C7B39251DDC4C6DCB8DBFD51B9D2AFAA /* NSDictionary+SFAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+SFAdditions.m"; path = "libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/NSDictionary+SFAdditions.m"; sourceTree = "<group>"; };
@@ -1365,7 +1365,7 @@
 		CA2D2F4ABB36BB2E5FB3B918890E86D1 /* SFSDKAuthErrorCommand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKAuthErrorCommand.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/IDP/SFSDKAuthErrorCommand.h; sourceTree = "<group>"; };
 		CA780B6A7F99F40AAC413C5AC128A24F /* hang.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = hang.m; path = Sources/hang.m; sourceTree = "<group>"; };
 		CA9462B104B066FF9C2AEB1D54B5A42D /* SFChildrenInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFChildrenInfo.m; path = libs/SmartSync/SmartSync/Classes/Util/SFChildrenInfo.m; sourceTree = "<group>"; };
-		CB6249F6159C4424050E4AB2AB4B9B4C /* Pods_SWSAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SWSAppTests.framework; path = "Pods-SWSAppTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB6249F6159C4424050E4AB2AB4B9B4C /* Pods_SWSAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC540933022F61F3DC9BDDB565DF9621 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = Classes/DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		CD5BD942E152596DDED5CFF27801EE99 /* SFParentInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFParentInfo.m; path = libs/SmartSync/SmartSync/Classes/Util/SFParentInfo.m; sourceTree = "<group>"; };
 		CDCB636A8ECF4A271E6B71C5F5348976 /* SFSDKEventBuilderHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKEventBuilderHelper.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Analytics/SFSDKEventBuilderHelper.h; sourceTree = "<group>"; };
@@ -1396,7 +1396,7 @@
 		D8EFC6797FE5C0FF23B745796501DAE5 /* DDFileLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Classes/DDFileLogger.m; sourceTree = "<group>"; };
 		D8F042280C982EB94EAD64635992808E /* SFAuthenticationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFAuthenticationManager.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Security/SFAuthenticationManager.h; sourceTree = "<group>"; };
 		D92A2F6DDCCA1541382072FEB6C81473 /* Thenable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Thenable.swift; path = Sources/Thenable.swift; sourceTree = "<group>"; };
-		DB0359D06F6FCF33C8989C2DE4341DE7 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = shared/resources/SalesforceSDKResources.bundle/en.lproj; sourceTree = "<group>"; };
+		DB0359D06F6FCF33C8989C2DE4341DE7 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = en.lproj; path = shared/resources/SalesforceSDKResources.bundle/en.lproj; sourceTree = "<group>"; };
 		DB5248E4833CF1F37B2DB7BB92857139 /* SFSDKTestRequestListener.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFSDKTestRequestListener.m; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Test/SFSDKTestRequestListener.m; sourceTree = "<group>"; };
 		DB52AFC8F7C8BC528D1FFE06BF106056 /* SFSDKAppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFSDKAppDelegate.h; path = libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Protocols/SFSDKAppDelegate.h; sourceTree = "<group>"; };
 		DBB612BCF46D9E6DBE7D3A6083FA52F2 /* SmartSync-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SmartSync-umbrella.h"; sourceTree = "<group>"; };
@@ -1684,7 +1684,6 @@
 				FE597E462D921B68AB4C125A63152C5D /* SalesforceAnalytics */,
 				DCF696C69A2C8BBDC7229A3DCB5B66F7 /* Support Files */,
 			);
-			name = SalesforceAnalytics;
 			path = SalesforceAnalytics;
 			sourceTree = "<group>";
 		};
@@ -1712,7 +1711,6 @@
 				F7A85EF15F8862E5264F0AE4DFBA1197 /* SmartStore */,
 				355468A8A4417B02CDDEA9913CA4D436 /* Support Files */,
 			);
-			name = SmartStore;
 			path = SmartStore;
 			sourceTree = "<group>";
 		};
@@ -1732,7 +1730,6 @@
 				CB907F5132A716BAC922D1D718648492 /* SQLCipher */,
 				DD3A672AE16CE5B55C6969AB992372A2 /* Support Files */,
 			);
-			name = FMDB;
 			path = FMDB;
 			sourceTree = "<group>";
 		};
@@ -1909,7 +1906,6 @@
 				E6D361AB58109E4C04FE1955C00DC01F /* Reachability.swift */,
 				39BFD67AD3E6F41717D7C4165475CAA5 /* Support Files */,
 			);
-			name = ReachabilitySwift;
 			path = ReachabilitySwift;
 			sourceTree = "<group>";
 		};
@@ -1952,7 +1948,6 @@
 				E0FAB9CC8BEF6E8B27E088EF43A576C5 /* SalesforceSDKCore */,
 				D48B57F0212308CF5FB74EAAC694A334 /* Support Files */,
 			);
-			name = SalesforceSDKCore;
 			path = SalesforceSDKCore;
 			sourceTree = "<group>";
 		};
@@ -1977,7 +1972,6 @@
 				7C84DDD09FCE4DAC63587B090E5D22C7 /* Resources */,
 				C82A426434591BF84E170D58ED1112D7 /* Support Files */,
 			);
-			name = DateToolsSwift;
 			path = DateToolsSwift;
 			sourceTree = "<group>";
 		};
@@ -2028,7 +2022,6 @@
 				ED0A5A8D2DD39209447C34C2D4BF7B61 /* common */,
 				9C896F211859A1C28BC2D5D0E76D8AF7 /* Support Files */,
 			);
-			name = SQLCipher;
 			path = SQLCipher;
 			sourceTree = "<group>";
 		};
@@ -2112,7 +2105,6 @@
 				7B0E81C3BFF44DFE1A5EB5666970A596 /* Resources */,
 				CB90DD2B658BF1B3226EF632285B1E2F /* Support Files */,
 			);
-			name = IQKeyboardManagerSwift;
 			path = IQKeyboardManagerSwift;
 			sourceTree = "<group>";
 		};
@@ -2122,7 +2114,6 @@
 				5C8894F4E42395D17AB0F3F7AF4512F8 /* SmartSync */,
 				C4B82BB89A6C65C640497ED3F61ABF7B /* Support Files */,
 			);
-			name = SmartSync;
 			path = SmartSync;
 			sourceTree = "<group>";
 		};
@@ -2210,7 +2201,6 @@
 				963F218CA4E80E754577A430F4E00D60 /* CorePromise */,
 				F141589B12EBB0D0ED4F106900A3030C /* Support Files */,
 			);
-			name = PromiseKit;
 			path = PromiseKit;
 			sourceTree = "<group>";
 		};
@@ -2235,7 +2225,6 @@
 				253ED901CEBF6EAEE320EF61802B253F /* SwipeTransitionLayout.swift */,
 				F1C114BC0EE5124DF8502B303E0A6086 /* Support Files */,
 			);
-			name = SwipeCellKit;
 			path = SwipeCellKit;
 			sourceTree = "<group>";
 		};
@@ -2247,7 +2236,6 @@
 				54A1C1552B7A1262858DADE71134D2D4 /* Extensions */,
 				821648E3B990F991FDC9B075CD7B71D3 /* Support Files */,
 			);
-			name = CocoaLumberjack;
 			path = CocoaLumberjack;
 			sourceTree = "<group>";
 		};
@@ -2606,7 +2594,6 @@
 				06D3A0CEF6A2D823DBAA3655F8A28C49 /* SalesforceSwiftSDK */,
 				6F5F9E2B77948B7D02558A4C1FD901B4 /* Support Files */,
 			);
-			name = SalesforceSwiftSDK;
 			path = SalesforceSwiftSDK;
 			sourceTree = "<group>";
 		};
@@ -3517,7 +3504,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -4497,6 +4484,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;

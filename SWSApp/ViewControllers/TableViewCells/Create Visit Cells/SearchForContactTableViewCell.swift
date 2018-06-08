@@ -111,7 +111,7 @@ extension SearchForContactTableViewCell: UITextFieldDelegate {
         searchContacts = [Contact]()
         searchContactsString = [String]()
         if string.isEmpty{
-            search = String(search.characters.dropLast())
+            search = String(search.dropLast())
         }else{
             search = textField.text!+string
         }

@@ -564,7 +564,6 @@ extension AccountVisitListViewController{
     
     @IBAction func pageActionHandeler(sender: UIButton) {
         
-        print("\(sender.titleLabel)")
         print("\(sender.tag)")
         pageButtonArr[1].setTitleColor(UIColor.black, for: .normal)
         pageButtonArr[2].setTitleColor(UIColor.black, for: .normal)

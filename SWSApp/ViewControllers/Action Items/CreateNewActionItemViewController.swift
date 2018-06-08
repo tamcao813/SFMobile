@@ -181,7 +181,7 @@ class CreateNewActionItemViewController: UIViewController {
         
         newActionItem.subject = actionTitleTextField.text!
         newActionItem.description = actionItemDescriptionTextView.text!
-        newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
+        newActionItem.activityDate = DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: dueDateTextField.text!)
         if newActionItem.activityDate != ""{
           //  newActionItem.activityDate =
             if ActionItemSortUtility().isItOpenState(dueDate: DateTimeUtility.convertUtcDatetoReadableDateString(dateString: newActionItem.activityDate)){
@@ -246,7 +246,7 @@ class CreateNewActionItemViewController: UIViewController {
         }
         editActionItem.subject = actionTitleTextField.text!
         editActionItem.description = actionItemDescriptionTextView.text!
-        editActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
+        editActionItem.activityDate = DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: dueDateTextField.text!)
         if let status = actionItemObject?.status {
             editActionItem.status = status
             if editActionItem.activityDate != ""{
@@ -383,8 +383,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             cell?.headerLabel.text = "Due Date"
             if let actionItem = actionItemObject {
                 cell?.actionItem = actionItem
-                cell?.dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: actionItemObject?.activityDate)
-                
+                cell?.dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItemObject?.activityDate))
             }
             return cell!
         default:

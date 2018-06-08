@@ -118,6 +118,22 @@ class DateTimeUtility
         return dateString!
     }
     
+    func convertMMDDYYYtoUTCWithoutTime(dateString: String?) -> String{
+        if (dateString?.isEmpty)! {
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        
+        let date = dateFormatter.date(from: dateString!)// create date from string
+        if date != nil{
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let timeStamp = dateFormatter.string(from: date!)
+            return timeStamp
+        }
+        return dateString!
+    }
+    
     static func convertUtcDatetoReadableDateLikeStrategy(dateString :String?)->String{
         if(dateString?.isEmpty)!{
             return ""
@@ -143,6 +159,7 @@ class DateTimeUtility
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         var date = dateFormatter.date(from: dateString!)// create date from string
+        
         // change to a readable time format and change to local time zone
         if date == nil {
             date = self.getDateActionItemFromDateString(dateString: dateString!)

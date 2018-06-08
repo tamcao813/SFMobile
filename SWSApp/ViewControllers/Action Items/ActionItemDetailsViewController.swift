@@ -68,7 +68,7 @@ class ActionItemDetailsViewController: UIViewController {
         footerView.dropShadow()
         actionItemStatusLabel.text = actionItemObject?.status
         if let actionItem = actionItemObject {
-            dueDateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: actionItem.activityDate)
+            dueDateLabel.text =   DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))          
         }
     }
     

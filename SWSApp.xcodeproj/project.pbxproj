@@ -1821,6 +1821,7 @@
 				D1FB18212062A7C00072F4C1 /* Resources */,
 				39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */,
 				F128C77A0859D84A433127D5 /* [CP] Copy Pods Resources */,
+				F27DFA1520CAD19800CCA244 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2302,6 +2303,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F27DFA1520CAD19800CCA244 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 

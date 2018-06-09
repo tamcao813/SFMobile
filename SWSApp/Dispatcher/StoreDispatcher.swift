@@ -1704,7 +1704,7 @@ class StoreDispatcher {
     
     func syncDownVisits(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "select Id,Subject,SGWS_WorkOrder_Location__c, AccountId,ContactId,SGWS_Appointment_Status__c, StartDate,EndDate, SGWS_Visit_Purpose__c, Description, SGWS_Agenda_Notes__c,Status,SGWS_AppModified_DateTime__c,RecordTypeId,SGWS_All_Day_Event__c from WorkOrder"
+        let soqlQuery = "select Id,Subject,SGWS_WorkOrder_Location__c, AccountId,ContactId,SGWS_Appointment_Status__c, StartDate,EndDate, SGWS_Visit_Purpose__c, Description, SGWS_Agenda_Notes__c,Status,SGWS_AppModified_DateTime__c,RecordTypeId,SGWS_All_Day_Event__c,OwnerId from WorkOrder"
         
         print("soql visit query is \(soqlQuery)")
         

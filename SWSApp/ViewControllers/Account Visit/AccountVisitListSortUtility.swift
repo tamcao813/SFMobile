@@ -148,7 +148,17 @@ class AccountVisitListSortUtility {
         
         let pastEventsArray = filterOnPastVisitsBasis(actionItems: filteredArray)
         
-        return pastEventsArray
+        let teamBasesArray = filterOnTeamBasis(actionItems: pastEventsArray)
+        
+        return teamBasesArray
+    }
+    
+    func filterOnTeamBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
+        if let id = AccountVisitListFilterModel.selectedConsultant?.id {
+            return actionItems.filter( { return $0.ownerId.contains(id) } )
+        }
+        
+        return actionItems
     }
     
     func filterOnRecordTypeBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{

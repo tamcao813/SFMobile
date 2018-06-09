@@ -18,7 +18,6 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
     @IBOutlet weak var btnViewPerformance : UIButton?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-    // let endUrl = "/one/one.app?source=alohaHeader#/sObject/Event/home"
     
     var reachability = Reachability()!
     
@@ -35,18 +34,18 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.loadUrlRequest()
+    }
+    
+    //Used to load the Web Content Within the app Using WEBKIT VIEW
+    func loadUrlRequest(){
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         
         let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.apexChatterUrl + AccountId.selectedAccountId
         
         //let accountUrl: String = authUrl +  endUrl
-        
-        let url  =  URL(string:authUrl)//+accountUrl)
-        let requestObj = URLRequest(url: url!)
-        webView?.navigationDelegate = self
-        
-        //webView?.load(requestObj)
+        //let url  =  URL(string:authUrl)//+accountUrl)
         
         reachability.whenReachable = { reachability in
             if reachability.connection == .wifi {
@@ -55,10 +54,13 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
                 print("Reachable via Cellular")
             }
             
+            let url = URL(string:  StringConstants.netSalesUrl)
+            let requestObj = URLRequest(url: url!)
+            self.webView?.navigationDelegate = self
             self.lblNoNetworkConnection?.isHidden = true
             self.btnViewPerformance?.isUserInteractionEnabled = true//isHidden = false
             self.webView?.isHidden = false
-            //self.webView?.load(requestObj)
+            self.webView?.load(requestObj)
         }
         
         reachability.whenUnreachable = { _ in
@@ -80,7 +82,7 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
     }
 }
 
-////MARK:- UIWebView Delegate
+//MARK:- UIWebView Delegate
 extension HomeNetSalesVarianceViewController :UIWebViewDelegate{
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {

@@ -8,21 +8,15 @@
 
 import UIKit
 
-class CalendarFilter {
-    
+class CalendarFilter {    
     var sectionNames : Array<Any>  = ["Appointment Type"]
-    
     var sectionItems : Array<Any> = [ ["Visits", "Events"] ]
-    
 }
 
 let CalendarFilterCell = "calendarMenuTableTableViewCell"
 
 struct CalendarFilterMenuModel {
-
     static var searchText = ""
-
     static var visitsType = ""
     static var eventsType = ""
-
 }

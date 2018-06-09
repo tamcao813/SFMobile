@@ -30,7 +30,7 @@ class ContactsViewModel{
     }
     
     func contacts(forAccount accountId:String) -> [Contact] {
-       return StoreDispatcher.shared.fetchContacts(forAccount: accountId)
+        return StoreDispatcher.shared.fetchContacts(forAccount: accountId)
     }
     
     func accountsForContacts() -> [AccountContactRelation] {
@@ -48,30 +48,22 @@ class ContactsViewModel{
     func contactIdForACR(with tempId: String) -> String {
         return StoreDispatcher.shared.fetchContactId(for: tempId)
     }
-    /*
-    func aCRsWithBuyingPower(forAccount accountId:String) -> [AccountContactRelation] {
-        return StoreDispatcher.shared.fetchACRsWithBuyingPower(forAccount: accountId)
-    }
-    */
+    
     //sync up Contact then sync down
     func syncContactWithServer(_ completion:@escaping (_ error: NSError?)->()) {
         let fields: [String] = Contact.ContactFields
-        
         StoreDispatcher.shared.syncUpContact(fieldsToUpload: fields, completion: {error in
-            
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("syncContactWithServer: Contacts Sync up failed")
                 completion(error)
-            }
-            else {
+            }else {
                 StoreDispatcher.shared.syncDownContact( { error in
                     if error != nil {
                         print(error?.localizedDescription ?? "error")
                         print("syncContactWithServer: Contacts Sync down failed")
                         completion(error)
-                    }
-                    else {
+                    }else {
                         completion(nil)
                     }
                 })
@@ -82,21 +74,18 @@ class ContactsViewModel{
     //sync up ACR then sync down
     func syncACRwithServer(_ completion:@escaping (_ error: NSError?)->()) {
         let fields: [String] = AccountContactRelation.AccountContactRelationFields
-        
         StoreDispatcher.shared.syncUpACR(fieldsToUpload: fields, completion: {error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("syncACRwithServer: ACR Sync up failed")
                 completion(error)
-            }
-            else {
+            }else {
                 StoreDispatcher.shared.syncDownACR( { error in
                     if error != nil {
                         print(error?.localizedDescription ?? "error")
                         print("syncACRwithServer: ACR Sync down failed")
                         completion(error)
-                    }
-                    else {
+                    }else {
                         completion(nil)
                     }
                 })
@@ -108,14 +97,11 @@ class ContactsViewModel{
     func uploadContactToServer(object: Contact, completion: @escaping (_ error: NSError?)->() ) {
         let fields: [String:Any] = object.toJson()
         let keys = fields.map{ $0.key }
-        
         StoreDispatcher.shared.syncUpContact(fieldsToUpload: keys, completion: {error in
-            
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 completion(error)
-            }
-            else {
+            }else {
                 completion(nil)
             }
         })
@@ -123,15 +109,12 @@ class ContactsViewModel{
     
     func uploadContactToServerAndSyncDownACR( completion: @escaping (_ error: NSError?)->() ) {
         let fields: [String] = Contact.ContactFields
-        
         StoreDispatcher.shared.syncUpContact(fieldsToUpload: fields, completion: {error in
-            
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("Contacts Sync up failed")
                 completion(error)
-            }
-            else {
+            }else {
                 StoreDispatcher.shared.syncDownACR( { error in
                     completion(error)
                 })
@@ -161,12 +144,10 @@ class ContactsViewModel{
                 break
             }
         }
-        
         return success
     }
     
     func editNewContactToSoup(object: Contact) -> Bool {
-        
         let fields: [String:Any] = object.toJson()
         return StoreDispatcher.shared.editContactToSoup(fields: fields)
     }

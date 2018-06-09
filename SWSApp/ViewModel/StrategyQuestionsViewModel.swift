@@ -12,7 +12,4 @@ class StrategyQuestionsViewModel {
     func getStrategyQuestions(accountId: String) -> [StrategyQuestions] {
         return StoreDispatcher.shared.fetchStrategyQuestions(forAccount: accountId)
     }
-    
-    
-    
 }

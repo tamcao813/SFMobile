@@ -9,18 +9,12 @@
 import UIKit
 
 class VisitSortUtility {
-
-    static func searchVisitByVisitId(visitId:String) -> WorkOrderUserObject?
-    {
-        
+    static func searchVisitByVisitId(visitId:String) -> WorkOrderUserObject?{
         let visitList =  VisitsViewModel().visitsForUser().filter( { return $0.Id == visitId } )
         if visitList.count > 0 {
             return visitList[0]
-        }
-        else {
+        }else {
             return nil
         }
-        
     }
-    
 }

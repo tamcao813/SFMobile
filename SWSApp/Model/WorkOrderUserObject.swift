@@ -21,15 +21,11 @@ class WorkOrderUserObject {
     var accountId : String
     var accountName : String
     var accountNumber : String
-
-
-    
     var shippingCity: String
     var shippingCountry: String
     var shippingPostalCode: String
     var shippingState: String
     var shippingStreet: String
-    
     var sgwsAppointmentStatus : Bool
     var startDate : String
     var dateStart : Date?
@@ -52,10 +48,8 @@ class WorkOrderUserObject {
     var recordTypeId: String
     var soupEntryId: Int
     var location :String
-
+    
     var sgwsAlldayEvent :Bool
-    
-    
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(WorkOrderUserObject.WorkOrderUserObjectFields, ary))
@@ -69,7 +63,7 @@ class WorkOrderUserObject {
         accountId = json["AccountId"] as? String ?? ""
         accountName = json["Account.Name"] as? String ?? ""
         accountNumber = json["Account.AccountNumber"] as? String ?? ""
-
+        
         shippingCity = json["Account.ShippingCity"] as? String ?? ""
         shippingCountry = json["Account.ShippingCountry"] as? String ?? ""
         shippingPostalCode = json["Account.ShippingPostalCode"] as? String ?? ""
@@ -117,9 +111,9 @@ class WorkOrderUserObject {
         }
         phone = json["Phone"] as? String ?? ""
         email = json["Email"] as? String ?? ""
-
+        
         recordTypeId = json["RecordTypeId"] as? String ?? ""
-
+        
         soupEntryId = json["_soupEntryId"] as? Int ?? 0
         location = json["SGWS_WorkOrder_Location__c"] as? String ?? ""
         sgwsAlldayEvent = json["SGWS_All_Day_Event__c"] as? Bool ?? false
@@ -131,9 +125,6 @@ class WorkOrderUserObject {
         if sgwsAlldayEventString == "1" {
             sgwsAlldayEvent = true
         }
-
-        
-
     }
     
     init(for: String) {
@@ -170,7 +161,6 @@ class WorkOrderUserObject {
         soupEntryId = 0
         location = ""
         sgwsAlldayEvent=false
-        
     }
 }
 
@@ -183,6 +173,3 @@ extension WorkOrderUserObject: Equatable,Hashable {
         return lhs.Id == rhs.Id
     }
 }
-
-
-

@@ -23,7 +23,7 @@ class Notifications {
     var soupEntryId : String
     var sgwsType :String
     
-
+    
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Notifications.notificationsFields, ary))

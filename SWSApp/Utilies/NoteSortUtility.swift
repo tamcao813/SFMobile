@@ -13,28 +13,21 @@ class NoteSortUtility {
     {
         
         var alphabeticallySortedNotesList = [AccountNotes]()
-        if(ascending == true)
-        {
+        if(ascending == true){
             alphabeticallySortedNotesList = notesListToBeSorted.sorted { $0.name.lowercased() < $1.name.lowercased() }
-        }
-        else
-        {
+        }else{
             alphabeticallySortedNotesList = notesListToBeSorted.sorted { $1.name.lowercased() < $0.name.lowercased() }
         }
-        
-        
         return alphabeticallySortedNotesList
-}
+    }
     
-        static func sortAccountsByNotesDateModified(accountNotesToBeSorted: [AccountNotes], ascending: Bool) -> [AccountNotes]{
-    
-            var dateSortedNotesList = [AccountNotes]()
-    
-            if(ascending == true) {
-                dateSortedNotesList = accountNotesToBeSorted.sorted(by:{ ($0.lastModifiedDate).compare(($1.lastModifiedDate)) == .orderedAscending })
-            } else {
-                dateSortedNotesList = accountNotesToBeSorted.sorted(by:{ ($0.lastModifiedDate).compare(($1.lastModifiedDate)) == .orderedDescending })
-            }
-        return dateSortedNotesList
+    static func sortAccountsByNotesDateModified(accountNotesToBeSorted: [AccountNotes], ascending: Bool) -> [AccountNotes]{
+        var dateSortedNotesList = [AccountNotes]()
+        if(ascending == true) {
+            dateSortedNotesList = accountNotesToBeSorted.sorted(by:{ ($0.lastModifiedDate).compare(($1.lastModifiedDate)) == .orderedAscending })
+        } else {
+            dateSortedNotesList = accountNotesToBeSorted.sorted(by:{ ($0.lastModifiedDate).compare(($1.lastModifiedDate)) == .orderedDescending })
         }
+        return dateSortedNotesList
+    }
 }

@@ -41,21 +41,4 @@ class AccountNotes {
         accountNotesDesc =  ""
         
     }
-    
-    
-    
-    static func mockNotes() -> AccountNotes {
-        let notes = AccountNotes(for: "mockUp")
-        notes.Id = "1234"
-        notes.lastModifiedDate =  "1/2/18"
-        notes.name = "shubham shukla"
-        notes.ownerId = "5678"
-        notes.accountId = "9012"
-        notes.accountNotesDesc = "This is my first Note"
-        return notes
-    }
-    
-    
-    
 }
-

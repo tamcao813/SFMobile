@@ -17,7 +17,7 @@ class Filter {
                                       ["On","Off"], ["Single","Multi"],["W","L","B","N"]]
     
     func sectionNames(isManager: Bool = false) -> [String] {
-        var names = ["Past Due", "Action Items", "Status", "Premise" , "Single / Multi locations" ,"Channel", "Sub-Channel" ,"License Type"]
+        var names = ["Past Due","Action Items","Status","Premise","Single / Multi locations","Channel","Sub-Channel","License Type"]
         
         if isManager {
             names.append("My Team")

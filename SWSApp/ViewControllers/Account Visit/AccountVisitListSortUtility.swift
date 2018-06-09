@@ -189,18 +189,19 @@ class AccountVisitListSortUtility {
         var weekRangeArray = [WorkOrderUserObject]()
         var dateRangeArray = [WorkOrderUserObject]()
         
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         dateFormatter.timeZone = TimeZone.current
         
         if AccountVisitListFilterModel.isToday == "YES"{
             let timeStamp = dateFormatter.string(from: date)
             
             todayArray = actionItems.filter( {
-                let dateSeperator = $0.startDate.components(separatedBy: "T")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+               // let dateSeperator = $0.startDate.components(separatedBy: "T")
+                 let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+//                var dateOnly = ""
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly == timeStamp
             } )
             dateRangeAdded = true
@@ -211,11 +212,11 @@ class AccountVisitListSortUtility {
             let timeStamp = dateFormatter.string(from: date)
             
             tomorrowDateArray = actionItems.filter( {
-                let dateSeperator = $0.startDate.components(separatedBy: "T")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+//                let dateSeperator = $0.startDate.components(separatedBy: "T")
+                let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly == timeStamp
             } )
             dateRangeAdded = true
@@ -228,11 +229,11 @@ class AccountVisitListSortUtility {
             let timeStamp = dateFormatter.string(from: date.endOfWeek.add(component: .day, value: 1))
             
             weekRangeArray = actionItems.filter( {
-                let dateSeperator = $0.startDate.components(separatedBy: "")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+//                let dateSeperator = $0.startDate.components(separatedBy: "")
+                let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly <= timeStamp
             } )
             dateRangeAdded = true
@@ -242,20 +243,21 @@ class AccountVisitListSortUtility {
         if AccountVisitListFilterModel.startDate != "" && AccountVisitListFilterModel.endDate != ""{
             
             dateRangeArray = actionItems.filter( {
-                let dateSeperator = $0.startDate.components(separatedBy: "T")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+//                let dateSeperator = $0.startDate.components(separatedBy: "T")
+                let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly >= AccountVisitListFilterModel.startDate
             } )
             
             dateRangeArray = dateRangeArray.filter( {
-                let dateSeperator = $0.endDate.components(separatedBy: "T")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+//              let dateSeperator = $0.endDate.components(separatedBy: "T")
+                let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.endDate)
+
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly <= AccountVisitListFilterModel.endDate
             } )
             

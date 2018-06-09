@@ -181,7 +181,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
     
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         
         if sender.tag == 300{
             eventStartDateTextField.text = dateFormatter.string(from: datePickerView.date)
@@ -192,14 +192,9 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         }
         
         if (!eventStartDateTextField.text!.isEmpty && !eventEndDateTextField.text!.isEmpty) {
-            if DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventStartDateTextField.text!).compare(DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: eventEndDateTextField.text!)) == .orderedDescending  {
+            if DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: eventStartDateTextField.text!).compare(DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: eventEndDateTextField.text!)) == .orderedDescending  {
                 eventEndDateTextField.text! = ""
-                
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Date should be lesser than End Date"
-                alert.addButton(withTitle: "OK")
-                alert.show()
+                  showAlert(message: "Start Date should be lesser than End Date")
             }
         }
         
@@ -236,23 +231,13 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
             
             
         }else if (!eventStartTimeTextField.text!.isEmpty && !eventEndTimeTextField.text!.isEmpty) {
-            if convertToDate(dateString: eventStartTimeTextField.text!) == convertToDate(dateString: eventEndTimeTextField.text!)  {
+            if DateTimeUtility.getTimeFromDateString(dateString: eventStartTimeTextField.text!) == DateTimeUtility.getTimeFromDateString(dateString: eventEndTimeTextField.text!)  {
                 eventEndTimeTextField.text! = ""
+                showAlert(message: "Start Time should be lesser than End Time")
                 
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
-                
-            } else if convertToDate(dateString: eventStartTimeTextField.text!).compare(convertToDate(dateString: eventEndTimeTextField.text!)) == .orderedDescending  {
+            } else if DateTimeUtility.getTimeFromDateString(dateString: eventStartTimeTextField.text!).compare(DateTimeUtility.getTimeFromDateString(dateString: eventEndTimeTextField.text!)) == .orderedDescending  {
                 eventEndTimeTextField.text! = ""
-                
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
+                showAlert(message: "Start Time should be lesser than End Time")
             }
         }
         
@@ -261,19 +246,28 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         //        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
     }
     
-    func convertToDate(dateString: String) -> Date {
-        let dateformatter = DateFormatter()
-        dateformatter.timeStyle = .medium
-        dateformatter.dateFormat = "hh:mm a"
-        var dateFromString = Date()
-        if dateformatter.date(from:(dateString)) != nil {
-            dateFromString = dateformatter.date(from: dateString)!
-        } else {
-            dateformatter.timeStyle = .medium
-            dateformatter.dateFormat = "HH:mm a"
-            dateFromString = dateformatter.date(from: dateString)!
-        }
+    func showAlert(message:String){
+        let alert = UIAlertView()
+        alert.title = "Alert"
+        alert.message = message
+        alert.addButton(withTitle: "OK")
+        alert.show()
         
-        return dateFromString
     }
+    
+//    func convertToDate(dateString: String) -> Date {
+//        let dateformatter = DateFormatter()
+//        dateformatter.timeStyle = .medium
+//        dateformatter.dateFormat = "hh:mm a"
+//        var dateFromString = Date()
+//        if dateformatter.date(from:(dateString)) != nil {
+//            dateFromString = dateformatter.date(from: dateString)!
+//        } else {
+//            dateformatter.timeStyle = .medium
+//            dateformatter.dateFormat = "HH:mm a"
+//            dateFromString = dateformatter.date(from: dateString)!
+//        }
+//
+//        return dateFromString
+//    }
 }

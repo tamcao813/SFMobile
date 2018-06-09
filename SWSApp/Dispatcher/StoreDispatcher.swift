@@ -203,6 +203,11 @@ class StoreDispatcher {
             group.leave()
         }
         
+        group.enter()
+        syncDownNotification() { _ in
+            group.leave()
+        }
+        
         group.notify(queue: queue) {
             completion(nil)
         }
@@ -292,7 +297,7 @@ class StoreDispatcher {
                 print(error.localizedDescription)
         }
     }
-    // FIXIT : - (j.kannayyagari) Please move it in Model
+    
     var sessionID:String = ""
     
     /**
@@ -305,7 +310,7 @@ class StoreDispatcher {
         sessionID = "SID:\(newSyncLog.Id)"
         newSyncLog.sessionID = sessionID
         newSyncLog.activityType = "Sync Start"
-        newSyncLog.activityTime = getTimeStampInString()
+        newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
         newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\"}"
 //        createOneSyncLog(newSyncLog)
@@ -337,7 +342,7 @@ class StoreDispatcher {
         newSyncLog.Id = generateRandomIDForSyncLog()
         newSyncLog.sessionID = sessionID
         newSyncLog.activityType = "Sync Stop"
-        newSyncLog.activityTime = getTimeStampInString()
+        newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
         newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\"}"
     
@@ -371,15 +376,28 @@ class StoreDispatcher {
         let newSyncLog = SyncLog(for: "NewSyncLog")
         newSyncLog.Id = generateRandomIDForSyncLog()
         newSyncLog.sessionID = "SID:\(newSyncLog.Id)"
+        newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newSyncLog.activityType = "Sync Error"
-        newSyncLog.activityTime = getTimeStampInString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
 
-        let returnValue: String? = UserDefaults.standard.object(forKey: "errorSDKUserDefault") as? String
+        var syncMsg = ""
+        if let sync: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultsync") as? String {
+            syncMsg = sync
+        }
+        var failureMsg = ""
+        if let failureMessage: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultMessage") as? String {
+            failureMsg = failureMessage
+        }
+        var errorMsg = ""
+        if let error: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") as? String {
+            errorMsg = error
+        }
         
         UserDefaults.standard.removeObject(forKey:"key_name")
+        
+        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\",\"sync\":"+syncMsg+",\"failureMessage\":"+failureMsg+",\"Error\":"+errorMsg+"}"
 
-        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\",\"Error\":"+returnValue!+"}"
+        
         //        createOneSyncLog(newSyncLog)
         
         let attributeDict = ["type":SoupSyncLog]
@@ -445,15 +463,7 @@ class StoreDispatcher {
         print("number in notes is \(someString)")
         return someString
     }
-    
-    func getTimeStampInString() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
-    }
-    
+ 
     func syncUpLogHandeler() {
         syncUpSyncLog(fieldsToUpload: ["Id","SGWS_Session_ID__c","SGWS_Activity__c","SGWS_Activity_Timestamp__c","SGWS_User_Id__c","SGWS_Activity_Detail__c"], completion: {error in
             
@@ -1094,30 +1104,6 @@ class StoreDispatcher {
         }
     }
     
-    func fetchConsultants() -> [Consultant] {
-        var consultants = [Consultant]()
-        
-        let userid = UserViewModel().loggedInUser?.userId
-
-        //let soqlQuery = "Select {UserSimple:Id} from {UserSimple} Where {UserSimple:ManagerId} = '\(userid)'"
-        
-        let soqlQuery = "Select {User:Id}, {User:User.Name} from {User} Where {User:User.ManagerId} = '\(userid)'"
-        
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
-        
-        if result.count > 0 {
-            for i in 0...result.count - 1 {
-                let ary:[Any] = result[i] as! [Any]
-                
-            }
-        }
-        
-        return consultants
-    }
-    
     //Accounts
     //Use either fetchAccountsForLoggedUser() or fetchAccountsForCurrentUser() is ok, it's just to avoid code change in many places
     func fetchAccountsForLoggedUser() -> [Account] {
@@ -1755,9 +1741,7 @@ class StoreDispatcher {
     
     func fetchEvents()->[Visit]{
         
-        var visit: [Visit] = []
-        var duplicateVisitArray: [Visit] = []
-        
+        var visit: [Visit] = []        
         let soapQuery = "Select * FROM {WorkOrder} WHERE {WorkOrder:RecordTypeId} = '\(workOrderRecordTypeIdEvent)'"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
@@ -1963,7 +1947,7 @@ class StoreDispatcher {
                 }
                 
                 let ary:[Any] = result[i] as! [Any]
-                let actionItemArray = ActionItem(withAry: ary)
+                let actionItemArray = ActionItem(withAryAccount: ary)
                 actionItem.append(actionItemArray)
                 print("task of  array is  \(actionItemArray)")
             }
@@ -1994,7 +1978,7 @@ class StoreDispatcher {
                 }
                 
                 let aryWithoutAccount:[Any] = resultWithoutAccount[i] as! [Any]
-                let actionItemArrayWithoutAccount = ActionItem(withAry: aryWithoutAccount)
+                let actionItemArrayWithoutAccount = ActionItem(withAryNoAccount: aryWithoutAccount)
                 actionItem.append(actionItemArrayWithoutAccount)
             }
         }

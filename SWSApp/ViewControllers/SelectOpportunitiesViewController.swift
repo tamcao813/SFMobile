@@ -37,7 +37,7 @@ class SelectOpportunitiesViewController: UIViewController {
     @IBAction func saveAndClose(sender: UIButton) {
         //STATEMACHINE:If you com tho this Screen its in Planned state
         PlanVisitManager.sharedInstance.visit?.status = "Planned"
-        PlanVisitManager.sharedInstance.editAndSaveVisit()
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
         DispatchQueue.main.async {
             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         }

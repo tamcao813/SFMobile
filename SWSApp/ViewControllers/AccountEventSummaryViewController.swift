@@ -62,7 +62,7 @@ class AccountEventSummaryViewController: UIViewController {
         if let id = visitId{
             let visitArray = VisitsViewModel().visitsForUser()
             for visit in visitArray {
-                if visit.Id == visitId {
+                if visit.Id == id {
                     visitObject = visit
                     break
                 }
@@ -126,71 +126,22 @@ class AccountEventSummaryViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        
         guard let visitStartDateString = visitObject?.startDate else {
             //TODO: handle it in better way, Ideally visitObject.startDate should never be null
             return
         }
         
-        var date = dateFormatter.date(from: visitStartDateString)
-        if date == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-            dateFormatter.timeZone = TimeZone.current
-            date = dateFormatter.date(from: visitStartDateString)
-        }
-        if date != nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-            dateFormatter.timeZone = TimeZone.current
-            let localTimeZoneString = dateFormatter.string(from: date!)
-            date = dateFormatter.date(from: localTimeZoneString)
-        }
+        monthLabel.text =   DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"MMM")
+        dayLabel.text =   DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"dd")
+
         var startTime = ""
         var endTime = ""
-        
-        guard let formattedStartDate = date else {
-            //TODO: handle it in better way, Ideally formattedDate should never be null
-            return
-        }
-        //according to date format
-        dateFormatter.dateFormat = "MMM" //Your date format
-        let month = dateFormatter.string(from: formattedStartDate)
-        monthLabel.text = month
-        dateFormatter.dateFormat = "dd" //Your date format
-        let day = dateFormatter.string(from: formattedStartDate)
-        dayLabel.text = day
-        dateFormatter.dateFormat = "hh:mm a" //Your date format
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
-        startTime = dateFormatter.string(from: formattedStartDate)
-        
+        startTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"hh:mm a")
         guard let visitEndDateString = visitObject?.endDate else {
             //TODO: handle it in better way, Ideally visitObject.enddate should never be null
             return
         }
-        
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        var visitEndDate = dateFormatter.date(from: visitEndDateString)
-        if visitEndDate == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-            dateFormatter.timeZone = TimeZone.current
-            date = dateFormatter.date(from: visitEndDateString)
-        }
-        if visitEndDate != nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm a"
-            dateFormatter.timeZone = TimeZone.current
-            let localTimeZoneString = dateFormatter.string(from: visitEndDate!)
-            visitEndDate = dateFormatter.date(from: localTimeZoneString)
-        }
-        
-        guard let formattedEndDate = visitEndDate else {
-            //TODO: handle it in better way, Ideally formattedEndDate should never be null
-            return
-        }
-        dateFormatter.dateFormat = "hh:mm a"
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
-        endTime = dateFormatter.string(from: formattedEndDate)
+        endTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitEndDateString,dateFormat:"hh:mm a")
         timeLabel.text = "\(startTime)-\(endTime)"
     }
     

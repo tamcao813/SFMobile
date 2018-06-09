@@ -91,20 +91,14 @@ class AccountsMenuViewController: UIViewController {
         
         let accountViewModel = AccountsViewModel()
         accountsForLoggedUserFiltered = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser(), ascending: true)
-        //print(accountsForLoggedUserFiltered.count)
-        
         
         var channelData = [String]()
         var subChannelData = [String]()
         
         for item in accountsForLoggedUserFiltered{
-            
             let channel = item.channelTD
             let subchannel = item.subChannelTD
-            
-            print(channel)
-            print(subchannel)
-            
+
             if channel != "" {
                 if subchannel != ""{
                     if !(channelData.contains(channel)){
@@ -119,20 +113,13 @@ class AccountsMenuViewController: UIViewController {
         
         if channelData.count > 0 {
             if subChannelData.count > 0{
-                
                 filterClass.sectionItems.insert(channelData, at: 5)
                 filterClass.sectionItems.insert(subChannelData, at: 6)
-                
             }
         }else{
-            
             filterClass.sectionItems.insert([], at: 5)
             filterClass.sectionItems.insert([], at: 6)
         }
-        
-        print(filterClass.sectionItems)
-        
-        
     }
     
     //MARK:-
@@ -172,11 +159,8 @@ class AccountsMenuViewController: UIViewController {
     
     //Used to Clear the Model Data
     func clearFilterModelData(){
-        
         if FilterMenuModel.comingFromDetailsScreen == "YES"{
-            
             FilterMenuModel.comingFromDetailsScreen = "NO"
-            
         }else{
             
             //reset to loggedInUser/Manager
@@ -240,7 +224,6 @@ class AccountsMenuViewController: UIViewController {
         
         if selectedSection == 6{
             if FilterMenuModel.channel == ""{
-                print("Your Channel is not Selected")
             }else{
                 self.sectionHeaderOperation(section: section!, eImageView: eImageView)
             }
@@ -257,7 +240,6 @@ class AccountsMenuViewController: UIViewController {
         } else {
             if (self.expandedSectionHeaderNumber == section) {
                 tableViewCollapeSection(section, imageView: eImageView!)
-                //If expanded section is clicked make this below variable to -1 so that arrow mark will be down
                 self.selectedSection = -1
             } else {
                 let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
@@ -284,7 +266,6 @@ class AccountsMenuViewController: UIViewController {
                 let index = IndexPath(row: i, section: section)
                 indexesPath.append(index)
             }
-
             
             self.tableView!.beginUpdates()
             self.tableView!.deleteRows(at: indexesPath, with: UITableViewRowAnimation.fade)
@@ -315,38 +296,28 @@ class AccountsMenuViewController: UIViewController {
     
     //Dropdown Single selection option clicked and is assigned to model class
     func tableViewCellClickedSingleSelection(indexPath : IndexPath , arrayContent : Array<Any>) {
-        
         switch indexPath.section {
         case 0:
             self.performPastDueOperations(indexPath: indexPath)
-            
         case 2:
             self.performStatusOperation(indexPath: indexPath, arrayContent: arrayContent)
-            
         case 3:
             self.performPremiseOperation(indexPath: indexPath)
-            
         case 4:
             self.performSingleOrMultiSelection(indexPath: indexPath)
-            
         case 5:
             self.performChannelOperation(indexPath: indexPath, arrayContent: arrayContent)
-            
         case 6:
             self.performSubChannelOperation(indexPath: indexPath, arrayContent: arrayContent)
-            
         case 7:
             self.performLicenseOperation(indexPath: indexPath)
-            
         case 8:
             self.performSelectConsultantOperation(indexPath: indexPath)
-            
         default:
             break
         }
         
         tableView.reloadData()
-        
     }
     //PastDue operations
     func performPastDueOperations(indexPath : IndexPath){
@@ -388,7 +359,6 @@ class AccountsMenuViewController: UIViewController {
     
     //Premise Operations
     func performPremiseOperation(indexPath : IndexPath){
-        
         switch indexPath.row {
         case 0:
             FilterMenuModel.premiseOn = "YES"
@@ -607,9 +577,9 @@ extension AccountsMenuViewController : UITableViewDataSource{
         }
         
         //As Action Item is in Sprint 2, Dropdown icon is set to DownArrow
-        if section == 1{
-            theImageView.image = UIImage(named: "dropDown")
-        }
+//        if section == 1{
+//            theImageView.image = UIImage(named: "dropDown")
+//        }
         
         //Used to check Subchannel Click action. if Channel is empty dont change the drop down icon
         if section == 6{

@@ -104,51 +104,22 @@ class ContactListDetailsTableViewCell: UITableViewCell {
     func displayEventContent(_ labelToDisplay: UILabel, textToDisply: String, dateString: String) {
         
         labelToDisplay.text = ""
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.timeZone = TimeZone(identifier:"UTC")
-        
-        if let date: Date = dateFormatter.date(from: dateString) {
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            labelToDisplay.text = dateFormatter.string(from: date)
-            return
-        }
-        
-        let dateFormatterType2 = DateFormatter()
-        dateFormatterType2.dateFormat = "MM/dd/yyyy"
-        dateFormatterType2.timeZone = TimeZone(identifier:"UTC")
-
-        if let date: Date = dateFormatterType2.date(from: dateString) {
-            dateFormatterType2.dateFormat = "MM/dd/yyyy"
-            labelToDisplay.text = dateFormatterType2.string(from: date)
-            return
+        if !(dateString.isEmpty) {
+            labelToDisplay.text =  DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: dateString)
         }
     }
     
     func displayChildContent(_ labelToDisplay: UILabel, textToDisply: String, dateString: String) {
-        
         labelToDisplay.text = ""
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.timeZone = TimeZone(identifier:"UTC")
-        
-        if let date: Date = dateFormatter.date(from: dateString) {
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            labelToDisplay.text = textToDisply + " (" + dateFormatter.string(from: date) + ")"
+        if !(dateString.isEmpty) {
+             labelToDisplay.text = textToDisply + "(" + DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: dateString) + ")"
         }
-        else {
-            labelToDisplay.text = textToDisply
-        }
-        
+       
     }
     
     func displayFourthRowCellContent(_ contactDetails: Contact) {
-        
         preferredContactMethodValueLabel.text = contactDetails.preferredCommunicationMethod
         notesValueLabel.text = contactDetails.sgwsNotes
-        
     }
     
     @IBAction func editContactButtonTapped(_ sender: UIButton){

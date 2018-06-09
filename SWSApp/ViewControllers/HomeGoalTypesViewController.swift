@@ -43,7 +43,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         //let accountUrl: String = authUrl +  endUrl
         
         let url  =  URL(string:authUrl)//+accountUrl)
-        let requestObj = URLRequest(url: url!)
+        _ = URLRequest(url: url!)
         webView?.navigationDelegate = self
         self.webView?.load(requestObj)
         

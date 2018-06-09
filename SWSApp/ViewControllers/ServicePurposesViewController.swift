@@ -211,7 +211,10 @@ extension ServicePurposesViewController : UICollectionViewDataSource {
                 cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "editAccountStrategyCell", for: indexPath) as! EditAccountStrategyCollectionViewCell
 
                 let dict = PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!)[indexPath.row] as! Dictionary<String, Any>
-                (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = dict["value"] as! String
+                
+                if let valueString = dict["value"] as? String {
+                      (cell1 as! EditAccountStrategyCollectionViewCell).centerLabel?.text = valueString
+                }
                 
                 cell1?.layer.borderWidth = 3.0
                 if selectedValuesList[indexPath.row] == "true" {

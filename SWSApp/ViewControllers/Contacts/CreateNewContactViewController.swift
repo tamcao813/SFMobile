@@ -330,29 +330,31 @@ class CreateNewContactViewController: UIViewController {
         newContact.email = emailTextField.text!
         newContact.contactHours = contactHoursTextField.text!
         newContact.favouriteActivities = favouriteTextView.text!
-        newContact.lastModifiedDate = getTimeStampInString()
+        newContact.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newContact.buyerFlag = doesHaveBuyingPower
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
-        newContact.birthDate = (birthdayTextField.text! == "Select") ? "" : DateTimeUtility().convertDateSendToServerActionItem(dateString: birthdayTextField.text!)
+        newContact.birthDate = (birthdayTextField.text! == "Select") ? "" : DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: birthdayTextField.text!)
         
-        newContact.anniversary = (anniversaryTextField.text! == "Select") ? "" : DateTimeUtility().convertDateSendToServerActionItem(dateString: anniversaryTextField.text!)
+        newContact.anniversary = (anniversaryTextField.text! == "Select") ? "" : DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: anniversaryTextField.text!)
         
         newContact.child1Name = familyName1Textfield.text!
-        newContact.child1Birthday = (familyDate1Textfield.text! == "Select") ? "" : familyDate1Textfield.text!
+        newContact.child1Birthday = (familyDate1Textfield.text! == "Select") ? "" : DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: familyDate1Textfield.text!)
+
         
         newContact.child2Name = familyName2Textfield.text!
-        newContact.child2Birthday = (familyDate2Textfield.text! == "Select") ? "" : familyDate2Textfield.text!
+        newContact.child2Birthday = (familyDate2Textfield.text! == "Select") ? "" :  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: familyDate2Textfield.text!)
         
         newContact.child3Name = familyName3Textfield.text!
-        newContact.child3Birthday = (familyDate3Textfield.text! == "Select") ? "" : familyDate3Textfield.text!
-        
+        newContact.child3Birthday = (familyDate3Textfield.text! == "Select") ? "" :  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: familyDate3Textfield.text!)
+
         newContact.child4Name = familyName4Textfield.text!
-        newContact.child4Birthday = (familyDate4Textfield.text! == "Select") ? "" : familyDate4Textfield.text!
-        
+        newContact.child4Birthday = (familyDate4Textfield.text! == "Select") ? "" :          DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: familyDate4Textfield.text!)
+
         newContact.child5Name = familyName5Textfield.text!
-        newContact.child5Birthday = (familyDate5Textfield.text! == "Select") ? "" : familyDate5Textfield.text!
+        newContact.child5Birthday = (familyDate5Textfield.text! == "Select") ? "" :
+            DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: familyDate5Textfield.text!)
         
         newContact.likes = likeTextView.text!
         newContact.dislikes = dislikeTextView.text!
@@ -360,14 +362,6 @@ class CreateNewContactViewController: UIViewController {
         newContact.fax = faxTextField.text!
         
         return newContact
-    }
-    
-    func getTimeStampInString() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
     }
     
     func createAcrSoupEntry(contact: Contact) -> Bool {
@@ -384,21 +378,14 @@ class CreateNewContactViewController: UIViewController {
     
     func checkDuplicateEntryExist(newContact: Contact) -> Bool{
         globalContacts = ContactsViewModel().globalContacts()
-        if globalContacts.count > 0 {
-            for index in 0 ... globalContacts.count - 1 {
-                if globalContacts[index].contactId == newContact.contactId {
-                    globalContacts.remove(at: index)
-                    break
-                }
-            }
-        }
+        let getFilteredContacts = globalContacts.filter( { return $0.contactId != newContact.contactId } )
         
         // Checkin Duplicate Entry
-        for contact in globalContacts {
-            if contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.phoneNumber == newContact.phoneNumber || contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.email == newContact.email {
-                showAlert(message: "A duplicate contact with the same name and phone or name and email has been detected")
-                return true
-            }
+        let duplicateEntry = getFilteredContacts.filter( { return ($0.firstName.lowercased().contains(newContact.firstName.lowercased()) && $0.lastName.lowercased().contains(newContact.lastName.lowercased()) && $0.phoneNumber.lowercased().contains(newContact.phoneNumber.lowercased())) || ($0.firstName.lowercased().contains(newContact.firstName.lowercased()) && $0.lastName.lowercased().contains(newContact.lastName.lowercased()) && $0.email.lowercased().contains(newContact.email.lowercased())) } )
+        
+        if duplicateEntry.count > 0{
+            showAlert(message: "A duplicate contact with the same name and phone or name and email has been detected")
+            return true
         }
         return false
     }
@@ -630,7 +617,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child1Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+            cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:childDate)
         }
         return cell!
     }
@@ -649,7 +636,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child2Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+            cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:childDate)
         }
         return cell!
     }
@@ -668,7 +655,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child3Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+             cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:childDate)
         }
         return cell!
     }
@@ -687,7 +674,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child4Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+            cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:childDate)
         }
         return cell!
     }
@@ -706,7 +693,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child5Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+             cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:childDate)
         }
         return cell!
     }

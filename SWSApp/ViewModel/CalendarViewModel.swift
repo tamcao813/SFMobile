@@ -39,7 +39,7 @@ class CalendarViewModel {
                         continue
                     }
                     var visitTitle = ""
-                    var visitType = "visit"                    if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == visit.recordTypeId){
+                    var visitType = "visit";                    if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == visit.recordTypeId){
                         visitType = "visit"
                         
                         visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarFilter {
+class CalendarFilter {    
     var sectionNames : Array<Any>  = ["Appointment Type"]
     var sectionItems : Array<Any> = [ ["Visits", "Events"] ]
 }

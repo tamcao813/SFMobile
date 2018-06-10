@@ -32,6 +32,7 @@ class StoreDispatcher {
     //Sync Configurations
     let SoupSyncConfiguration = "SyncConfiguration"
     let SoupSyncLog = "SGWS_Sync_Logs__c"
+    let SoupOpportunity = "Opportunity"
     
     // Workorder Types Visit OR Event
     let workOrderTypeVisit = "SGWS_WorkOrder_Visit"
@@ -67,6 +68,7 @@ class StoreDispatcher {
         registerSyncConfiguration()
         registerActionItemSoup()
         registerNotificationsSoup()
+        registerOpportunity()
         registerSyncLogSoup()
     }
     
@@ -139,6 +141,12 @@ class StoreDispatcher {
         
         group.enter()
         syncDownActionItem() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownOpportunity() { _ in
+            let _ = OpportunityViewModel().globalOpportunityReload()
             group.leave()
         }
         
@@ -3325,4 +3333,87 @@ class StoreDispatcher {
             return false
         }
     }
+
+    func registerOpportunity() {
+        
+        let syncOpportunityFields = Opportunity.opportunityFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...syncOpportunityFields.count - 2 {
+            let sfIndex = SFSoupIndex(path: syncOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncOpportunityFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 1], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 1])!)
+        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupOpportunity, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunity soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func syncDownOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "select Id,AccountId,SGWS_Product_Name__c,SGWS_Opportunity_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c, SGWS_Sold__c,SGWS_Month_Active__c,SGWS_Status__c,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,(select name,SGWS_Objectives__r.name from Opportunity_Objective_Junction__r) from opportunity"
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupOpportunity)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownOpportunity() done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownOpportunity()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownOpportunity()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+        
+    }
+    
+    func fetchOpportunity() -> [Opportunity] {
+        
+        var opportunity: [Opportunity] = []
+        
+        let opportunityFields = Opportunity.opportunityFields.map{"{Opportunity:\($0)}"}
+        let soqlQuery = "Select \(opportunityFields.joined(separator: ",")) FROM {Opportunity}"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        guard error == nil else {
+            print("fetchOpportunity \(error?.userInfo as Any)")
+            
+            return [Opportunity]()
+        }
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let opportunityArray = Opportunity(withAry: ary)
+                opportunity.append(opportunityArray)
+            }
+        }
+        else {
+            return [Opportunity]()
+        }
+        return opportunity
+    }
+    
 }

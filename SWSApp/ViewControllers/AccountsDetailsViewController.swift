@@ -371,6 +371,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
 
             let opportunitiesViewController: OpportunitiesViewController = opportunitiesStoryboard.instantiateViewController(withIdentifier: "OpportunitiesViewControllerID") as! OpportunitiesViewController
+            OpportunitiesFilterMenuModel.accountId = accountDetailForLoggedInUser?.account_Id
+
             activeViewController = opportunitiesViewController
             selectedIndex = 3
             

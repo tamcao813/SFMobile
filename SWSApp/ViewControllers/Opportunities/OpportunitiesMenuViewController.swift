@@ -93,6 +93,14 @@ class OpportunitiesMenuViewController: UIViewController {
         
         OpportunitiesFilterMenuModel.viewByCaseDecimal = "YES"
         OpportunitiesFilterMenuModel.viewBy9L = "NO"
+        
+        OpportunitiesFilterMenuModel.isAscendingProductName = ""
+        OpportunitiesFilterMenuModel.isAscendingSource = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
 
         if searchBar != nil{
             searchBar.text = ""

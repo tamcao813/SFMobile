@@ -33,15 +33,16 @@ class DateFieldTableViewCell: UITableViewCell {
     
     func displayCellContent(){
         if dateTextfield.tag == 1{
-            dateTextfield.text = contactDetail?.birthDate
+            
+            dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString:  contactDetail?.birthDate) )
         }else{
-            dateTextfield.text = contactDetail?.anniversary
+            dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString:  contactDetail?.anniversary))
         }
     }
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let dateString = dateFormatter.string(from: sender.date)
         dateTextfield.text = dateString
     }
@@ -64,7 +65,7 @@ class DateFieldTableViewCell: UITableViewCell {
     
     @objc func donePicker(){
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let dateString = dateFormatter.string(from: datePickerView.date)
 //        let date = dateFormatter.date(from: dateString)
 //        dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -93,7 +94,7 @@ extension DateFieldTableViewCell: UITextFieldDelegate {
         }
         
         if let item = actionItem {
-            actionItem?.activityDate = textField.text!
+            item.activityDate = textField.text!
         }
     }
     

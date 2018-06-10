@@ -16,8 +16,8 @@ class NotificationsViewModel {
     func editNotificationsLocally(fields: [String:Any]) -> Bool {
         return StoreDispatcher.shared.editNotificationsLocally(fieldsToUpload:fields)
     }
+    
     func unreadNotificationsCountForUser()->Int {
         return StoreDispatcher.shared.fetchUnreadNotificationsCount()
     }
-    
 }

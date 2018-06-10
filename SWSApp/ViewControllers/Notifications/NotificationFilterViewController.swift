@@ -18,6 +18,7 @@ class NotificationFilterViewController: UIViewController {
     let kHeaderSectionTag: Int = 6900;
     var expandedSectionHeaderNumber: Int = -1
     var expandedSectionHeader: UITableViewHeaderFooterView!
+    
     //Used for selected section in TableView
     var selectedSection = -1
     var delegate : NotificationSearchButtonTappedDelegate?
@@ -27,19 +28,12 @@ class NotificationFilterViewController: UIViewController {
     @IBOutlet weak var searchBar : UISearchBar!
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
         self.customizeSearchBar()
         DispatchQueue.main.async {
             self.addSearchIconInSearchBar()
         }
         self.tableView!.tableFooterView = UIView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        DispatchQueue.main.async {
-//            self.addSearchIconInSearchBar()
-//        }
     }
     
     //MARK:-
@@ -66,12 +60,12 @@ class NotificationFilterViewController: UIViewController {
     func addSearchIconInSearchBar(){
         let searchTextField:UITextField = searchBar.subviews[0].subviews.last as! UITextField
         searchTextField.layer.cornerRadius = 15
-        //searchTextField.frame = CGRect(x: 10, y: 10, width: 20, height: 20)
         searchTextField.textAlignment = NSTextAlignment.left
         let image:UIImage = UIImage(named: "searchIcon")!
         let imageView:UIImageView = UIImageView.init(image: image)
         self.view.bringSubview(toFront : imageView)
         searchTextField.leftView = nil
+        
         //Added attributedPlaceholder with ubuntu font
         searchTextField.attributedPlaceholder = NSAttributedString(string:"Search", attributes: [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 18)!])
         searchTextField.rightView = imageView
@@ -216,13 +210,18 @@ class NotificationFilterViewController: UIViewController {
             break
         }
     }
-
+    
     func clearActionItemFilterModel(){
-        NotificationFilterModel.isLicenseExpiration = "No"
-        NotificationFilterModel.isContactBirthday = "No"
+        NotificationFilterModel.isLicenseExpiration = "NO"
+        NotificationFilterModel.isContactBirthday = "NO"
         
-        NotificationFilterModel.isRead = "No"
-        NotificationFilterModel.isUnread = "No"
+        NotificationFilterModel.isRead = "NO"
+        NotificationFilterModel.isUnread = "NO"
+        selectedSection = -1
+        if self.expandedSectionHeaderNumber != -1{
+            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+        }
         
         searchBar.text = ""
         NotificationFilterModel.filterApplied = false
@@ -301,16 +300,8 @@ extension NotificationFilterViewController : UITableViewDataSource{
         
         if self.selectedSection == section{
             theImageView.image = UIImage(named: "dropUp")
-            print("UP")
         }else{
             theImageView.image = UIImage(named: "dropDown")
-            print("Down")
-        }
-        //Used to check Subchannel Click action. if Channel is empty dont change the drop down icon
-        if section == 6{
-            if FilterMenuModel.channel == ""{
-                theImageView.image = UIImage(named: "dropDown")
-            }
         }
         
         theImageView.tag = kHeaderSectionTag + section
@@ -324,9 +315,8 @@ extension NotificationFilterViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationFilterTableViewCell", for: indexPath) as! NotificationFilterTableViewCell
-        cell.selectionStyle = .none        
+        cell.selectionStyle = .none
         self.passDataToTableViewCell(cell: cell, indexPath: indexPath)
         
         return cell
@@ -339,9 +329,7 @@ extension NotificationFilterViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
-        
         self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : notification.sectionItems)
-        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -372,21 +360,8 @@ extension NotificationFilterViewController : UISearchBarDelegate{
         searchBar.resignFirstResponder()
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
-        if searchText.count == 0
-        {
-            //self.searchByEnteredTextDelegate?.filtering(filtering: false)
-            //searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
-        }/*
-         else
-         {
-         self.searchByEnteredTextDelegate?.filtering(filtering: true)
-         self.searchByEnteredTextDelegate?.sortAccountsData(searchString: searchText)
-         }*/
-    }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0.1)
     }
 }
+

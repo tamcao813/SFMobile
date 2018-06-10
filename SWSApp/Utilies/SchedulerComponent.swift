@@ -48,7 +48,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField =  DesignableUITextField(frame: CGRect(x: 0, y: 30, width: 180, height: 40))
         dateTextField.rightImage = UIImage(named:"Calender_Icon")!
         dateTextField.rightPadding = 8
-        dateTextField.placeholder = "yyyy-MM-dd"
+        dateTextField.placeholder = "MM/DD/YYYY"
         dateTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         dateTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
         dateTextField.layer.borderWidth = 1.0
@@ -61,7 +61,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         startTimeTextField.rightImage = UIImage(named:"dropDownLight")!
         startTimeTextField.rightPadding = 8
         startTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
-        startTimeTextField.placeholder = "hh:mm"
+        startTimeTextField.placeholder = "HH:MM"
         startTimeTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         startTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
         startTimeTextField.tag = 201
@@ -74,7 +74,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         endTimeTextField.rightImage = UIImage(named:"dropDownLight")!
         endTimeTextField.rightPadding = 8
         endTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
-        endTimeTextField.placeholder = "hh:mm"
+        endTimeTextField.placeholder = "HH:MM"
         endTimeTextField.tag = 202
         endTimeTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         endTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
@@ -123,7 +123,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
     
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         dateTextField.text = dateFormatter.string(from: datePickerView.date)
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
@@ -140,29 +140,28 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
             endTimeTextField.text = dateFormatter.string(from: datePickerView.date)
         }
         if (!startTimeTextField.text!.isEmpty && !endTimeTextField.text!.isEmpty) {
-            if convertToDate(dateString: startTimeTextField.text!) == convertToDate(dateString: endTimeTextField.text!)  {
+            if DateTimeUtility.getTimeFromDateString(dateString: startTimeTextField.text!) == DateTimeUtility.getTimeFromDateString(dateString: endTimeTextField.text!)  {
                 endTimeTextField.text! = ""
+                 showAlert(message: "Start Time should be lesser than End Time")
                 
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
-                
-            } else if convertToDate(dateString: startTimeTextField.text!).compare(convertToDate(dateString: endTimeTextField.text!)) == .orderedDescending  {
+            } else if DateTimeUtility.getTimeFromDateString(dateString: startTimeTextField.text!).compare(DateTimeUtility.getTimeFromDateString(dateString: endTimeTextField.text!)) == .orderedDescending  {
                 endTimeTextField.text! = ""
-                
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
+                showAlert(message: "Start Time should be lesser than End Time")
+              
             }
         }
         
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
 //        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
+    }
+    
+    func showAlert(message:String) {
+        let alert = UIAlertView()
+        alert.title = "Alert"
+        alert.message = message
+        alert.addButton(withTitle: "OK")
+        alert.show()
     }
     
     @objc func doneButton(sender:UIButton)
@@ -224,21 +223,24 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         textField.inputAccessoryView = toolBar
     }
     
-    func convertToDate(dateString: String) -> Date {
-        let dateformatter = DateFormatter()
-        dateformatter.timeStyle = .medium
-        dateformatter.dateFormat = "hh:mm a"
-        var dateFromString = Date()
-        if dateformatter.date(from:(dateString)) != nil {
-            dateFromString = dateformatter.date(from: dateString)!
-        } else {
-            dateformatter.timeStyle = .medium
-            dateformatter.dateFormat = "HH:mm a"
-            dateFromString = dateformatter.date(from: dateString)!
-        }
-        
-        return dateFromString
-    }
+//    func convertToDate(dateString: String) -> Date {
+//        let dateformatter = DateFormatter()
+//        dateformatter.timeStyle = .medium
+//        dateformatter.dateFormat = "hh:mm a"
+//        var dateFromString = Date()
+//        if dateformatter.date(from:(dateString)) != nil {
+//            dateFromString = dateformatter.date(from: dateString)!
+//        } else {
+//            dateformatter.timeStyle = .medium
+//            dateformatter.dateFormat = "HH:mm a"
+//            dateFromString = dateformatter.date(from: dateString)!
+//        }
+//
+//        return dateFromString
+//    }
+//
+//
+    
     
     func resignTextField(){
         dateTextField.resignFirstResponder()

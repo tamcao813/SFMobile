@@ -129,7 +129,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // select the home tab after login
         topMenuBar?.selectedSegment = 0
         // show the relevant tab
-        displayCurrentTab(0)
+        _ = displayCurrentTab(0)
         
         reachability.whenReachable = { reachability in
             if reachability.connection == .wifi {
@@ -467,7 +467,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
-                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)
+                    self.getUnreadNotificationsCount()
                     if ActionItemFilterModel.fromAccount{
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
                     }else{
@@ -513,7 +515,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     {
         //print("Tab tapped" + String(selectedSegment))
         // display other tabs
-        displayCurrentTab(selectedSegment)
+        _ = displayCurrentTab(selectedSegment)
         if(selectedSegment == 0) {
             defaults.set(true, forKey: "FromHomeVC")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
@@ -565,20 +567,17 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             
             let moreVC1:MoreViewController = self.moreVC as! MoreViewController
             let currentViewController = self.displayCurrentTab(selectedIndex)
-            
-            self.removeSubviews()
-            
             currentViewController?.view.addSubview(moreVC1.view)
-            
+            for view in moreVC1.view.subviews{
+                view.removeFromSuperview()
+            }
             if index != 1{
                 let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
                 accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
             }
             
             self.clearAccountsVisitFilterModel()
-            
             SelectedMoreButton.selectedItem = index
-            //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
             switch index {
             case 0:
                 moreVC1.view.addSubview((self.actionItemParent?.view)!)
@@ -632,13 +631,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     private func removeSubviews(){
         
-        for view in self.view.subviews{
-            
-            // Set the identifier for globalNotification view
-            if(view.restorationIdentifier == "globalNotification"){
-                view.removeFromSuperview()
-            }
-        }
     }
     
     private func instantiateViewController(identifier : String , moreOptionVC : MoreViewController, index : Int){
@@ -727,7 +719,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if(GlobalConstants.persistenMenuTabVCIndex.MoreVCIndex != selectedVC) {
             self.moreDropDownSelectionIndex = -1
         }
-        //        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         ifMoreVC = false
         var vc: UIViewController?
         switch selectedVC {
@@ -746,19 +737,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             contactVC.contactDetails?.view.removeFromSuperview()
             contactVC.contactDetails?.removeFromParentViewController()
             vc = contactVC
-        //            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
             vc = calendarVC
             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             vc = objectivesVC
             ContactsGlobal.accountId = ""
-            
-            // have to cover all cases from defined enum, else compiler wont be happy :D
-            /*default:
-             return nil*/
-            //       case .MoreVCIndex:
-        //            vc = moreVC
+
         default:
             ifMoreVC = true
             break
@@ -802,6 +787,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         notificationParent?.resetFilters()
         notificationParent?.delegate = self
         moreVC1.view.addSubview((notificationParent?.view)!)
+        self.moreDropDownSelectionIndex = 4
+        topMenuBar?.selectedSegment = 5
     }
     
     func getUnreadNotificationsCount(){

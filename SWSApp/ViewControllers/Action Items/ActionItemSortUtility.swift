@@ -36,9 +36,10 @@ class ActionItemSortUtility {
     
     func filterOnly(actionItems: [ActionItem]) -> [ActionItem]{
         var filteredArray = [ActionItem]()
-        let filteredStatusArray = filterOnStatusBasis(actionItems: actionItems)
-        let filteredUrgentArray = filterOnUrgentBasis(actionItems: actionItems)
-        let filteredDueDateArray = filterOnDueDateBasis(actionItems: actionItems)
+        let filterOnTeamArray = filterOnTeamBasis(actionItems: actionItems)
+        let filteredStatusArray = filterOnStatusBasis(actionItems: filterOnTeamArray)
+        let filteredUrgentArray = filterOnUrgentBasis(actionItems: filterOnTeamArray)
+        let filteredDueDateArray = filterOnDueDateBasis(actionItems: filterOnTeamArray)
         
         if statusFilterAdded && urgentFilterAdded && dueFilterAdded {
             var localFilteredArray = [ActionItem]()
@@ -131,10 +132,18 @@ class ActionItemSortUtility {
         }
         
         if !statusFilterAdded && !urgentFilterAdded && !dueFilterAdded {
-            filteredArray = actionItems
+            filteredArray = filterOnTeamArray
         }
         
         return filteredArray
+    }
+    
+    func filterOnTeamBasis(actionItems: [ActionItem]) -> [ActionItem]{
+        if let id = ActionItemFilterModel.selectedConsultant?.id {
+            return actionItems.filter( { return $0.ownerId.contains(id) } )
+        }
+        
+        return actionItems
     }
     
     func filterOnStatusBasis(actionItems: [ActionItem]) -> [ActionItem]{
@@ -229,7 +238,7 @@ class ActionItemSortUtility {
             return false
         }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let date = dateFormatter.date(from: dueDate)
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
         if date! >= yesterday! {
@@ -238,15 +247,6 @@ class ActionItemSortUtility {
             return false
         }
     }
-    
-    func getTimestamp() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
-    }
-    
 }
 
 extension Sequence where Iterator.Element: Hashable {

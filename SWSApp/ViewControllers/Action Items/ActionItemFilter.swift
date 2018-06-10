@@ -9,12 +9,17 @@
 import Foundation
 
 class ActionItemFilter {
+    func sectionNames(isManager: Bool = false) -> [String] {
+        var names = ["Action Item Status","Action Item Type","Due Date"]
+        if isManager {
+            names.append("My Team")
+        }
+        return names
+    }
     
-    var sectionNames : Array<Any>  = ["Action Item Status", "Action Item Type", "Due Date"]
-    
-    var sectionItems : Array<Any> = [ ["Complete", "Open", "Overdue"],
-                                      ["Urgent","Not Urgent"],
-                                      ["Yes", "No"] ]
+    var sectionItems: [[Any]] = [ ["Complete", "Open", "Overdue"],
+                                  ["Urgent","Not Urgent"],
+                                  ["Yes", "No"]]
     
 }
 
@@ -36,4 +41,5 @@ struct ActionItemFilterModel {
     
     static var filterApplied = false
     
+    static var selectedConsultant: Consultant?
 }

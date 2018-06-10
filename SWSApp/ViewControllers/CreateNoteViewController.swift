@@ -79,29 +79,10 @@ class CreateNoteViewController : UIViewController{
         return someString
     }
     
-    
-    
-    func getDateForNotes()  {
-        
-        let currentdate = Date()
-        print("Current date is \(currentdate)")
-        
-    }
-    
     func createNewNotes() {
-        
-        let date = Date()
-        print(date)
-        let dateFormatter = DateFormatter()
-        //let dt = dateFormatter.date(from: date)
-        // dateFormatter.timeZone = TimeZone
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        print(timeStamp)
-        
         let new_notes = AccountNotes(for: "newNotes")
         new_notes.Id = self.generateRandomIDForNotes()
-        new_notes.lastModifiedDate = timeStamp
+        new_notes.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         new_notes.name = self.notesTitleTextField.text!
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         new_notes.ownerId = (appDelegate.loggedInUser?.userId)!
@@ -212,17 +193,7 @@ class CreateNoteViewController : UIViewController{
     
     
     func editNote() {
-        
-        let date = Date()
-        print(date)
-        let dateFormatter = DateFormatter()
-        //let dt = dateFormatter.date(from: date)
-        // dateFormatter.timeZone = TimeZone
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        print(timeStamp)
-        
-        notesToEdit.lastModifiedDate = timeStamp
+        notesToEdit.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"SGWS_Account_Notes__c"]
         
         if(notesToEdit.accountNotesDesc != self.textView.text){

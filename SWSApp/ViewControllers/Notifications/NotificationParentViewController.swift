@@ -12,7 +12,7 @@ protocol NotificationParentViewControllerDelegate: NSObjectProtocol {
 }
 
 class NotificationParentViewController: UIViewController {
-
+    
     var notificationFilterVC : NotificationFilterViewController?
     var notificationListVC : NotificationListViewController?
     weak var delegate:NotificationParentViewControllerDelegate?
@@ -20,12 +20,12 @@ class NotificationParentViewController: UIViewController {
         super.viewDidLoad()
         notificationFilterVC?.delegate = notificationListVC
         notificationFilterVC?.clearActionItemFilterModel()
-        
     }
     
     func resetFilters(){
         notificationFilterVC?.clearActionItemFilterModel()
         notificationListVC?.getNotifications()
+        notificationListVC?.tableView.setContentOffset(.zero, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -43,3 +43,4 @@ extension NotificationParentViewController: NotificationListViewControllerDelega
         self.delegate?.updateParent()
     }
 }
+

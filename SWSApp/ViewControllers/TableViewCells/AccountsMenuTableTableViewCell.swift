@@ -51,28 +51,20 @@ class AccountsMenuTableTableViewCell: UITableViewCell {
         switch indexPath.section{
         case 0:
             self.showPastDueCell(indexPath: indexPath)
-            
         case 2:
             self.showStatusCell(indexPath: indexPath)
-            
         case 3:
             self.showPremiseCell(indexPath: indexPath)
-            
         case 4:
             self.showSingleOrMultiSelectionCell(indexPath: indexPath)
-            
         case 5:
             self.showChannelCell(indexPath: indexPath)
-            
         case 6:
             self.showSubchannelCell(indexPath: indexPath)
-            
         case 7:
             self.showLicenseCell(indexPath: indexPath)
-        
         case 8:
             self.showManagerCell(indexPath: indexPath, rowContent: titleContent as! [Consultant])
-            
         default:
             break
         }

@@ -10,8 +10,6 @@ import Foundation
 
 class AccountsViewModel {
     
-    //let accountsForLoggedUser: [Account] = StoreDispatcher.shared.fetchAccountsForLoggedUser()
-    
     func accountsForLoggedUser() -> [Account] {
         return StoreDispatcher.shared.fetchAccountsForLoggedUser()
     }

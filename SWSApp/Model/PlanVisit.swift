@@ -28,7 +28,7 @@ class PlanVisit {
     var location:String
     var soupEntryId : Int
     var workOrderType :String
-
+    
     var sgwsAlldayEvent :Bool
     
     convenience init(withAry ary: [Any]) {
@@ -54,8 +54,8 @@ class PlanVisit {
         location =  json["SGWS_WorkOrder_Location__c"] as? String ?? ""
         soupEntryId = json["_soupEntryId"] as? Int ?? 0
         sgwsAlldayEvent = json["SGWS_All_Day_Event__c"] as? Bool ?? false
-
-
+        
+        
         if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == StoreDispatcher.shared.workOrderRecordTypeIdVisit){
             workOrderType = StoreDispatcher.shared.workOrderTypeVisit
         } else {
@@ -83,6 +83,6 @@ class PlanVisit {
         soupEntryId = 0
         workOrderType = ""
         sgwsAlldayEvent = false
-
+        
     }
 }

@@ -89,7 +89,7 @@ class AccountVisitListViewController: UIViewController {
         
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date)
         
@@ -564,7 +564,6 @@ extension AccountVisitListViewController{
     
     @IBAction func pageActionHandeler(sender: UIButton) {
         
-        print("\(sender.titleLabel)")
         print("\(sender.tag)")
         pageButtonArr[1].setTitleColor(UIColor.black, for: .normal)
         pageButtonArr[2].setTitleColor(UIColor.black, for: .normal)

@@ -14,7 +14,7 @@ protocol NotificationListViewControllerDelegate : NSObjectProtocol {
 }
 
 class NotificationListViewController: UIViewController {
-
+    
     var notificationsArray = [Notifications]()
     var filteredNotificationsArray = [Notifications]()
     @IBOutlet weak var tableView: UITableView!
@@ -22,8 +22,13 @@ class NotificationListViewController: UIViewController {
     weak var delegate : NotificationListViewControllerDelegate?
     
     override func viewDidLoad() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotification), name: NSNotification.Name("refreshNotification"), object: nil)
         super.viewDidLoad()
         customizedUI()
+        getNotifications()
+    }
+    
+    @objc func refreshNotification()   {
         getNotifications()
     }
     
@@ -65,7 +70,7 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
         }
         reloadTableView()
     }
-
+    
     func clearFilter(){
         NotificationFilterModel.filterApplied = false
         reloadTableView()
@@ -79,14 +84,10 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
         }else{
             editNotification.isRead = true
         }
-//        editNotification. = ActionItemSortUtility().getTimestamp()
         let attributeDict = ["type":"FS_Notification__c"]
         let notificationDict: [String:Any] = [
-            
             Notifications.notificationsFields[0]: editNotification.Id,
             Notifications.notificationsFields[8]: editNotification.isRead,
-//            ActionItem.AccountActionItemFields[7]: editNotification.lastModifiedDate,
-            
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:false,
             kSyncTargetLocallyUpdated:true,
@@ -107,7 +108,7 @@ extension NotificationListViewController : UITableViewDelegate, UITableViewDataS
         if NotificationFilterModel.filterApplied {
             return filteredNotificationsArray.count
         }else{
-            return notificationsArray.count
+            return  notificationsArray.count
         }
     }
     
@@ -128,5 +129,5 @@ extension NotificationListViewController : UITableViewDelegate, UITableViewDataS
             self.editNotification(notification: notificationsArray[indexPath.row])
         }
     }
-    
 }
+

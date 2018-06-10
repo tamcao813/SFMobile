@@ -29,14 +29,14 @@ class DateTimeUtility
     
     /* Function Will return the date in format yyyy-dd-mm from sting in format yyyy-dd-mm */
     
-    static func getDDMMYYYFormattedDateFromString(dateString: String) -> Date {
+    static func getMMDDYYYFormattedDateFromString(dateString: String) -> Date {
         
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
-        let DateArray = dateString.components(separatedBy: "-")
+        let DateArray = dateString.components(separatedBy: "/")
         let components = NSDateComponents()
-        components.year = Int(DateArray[0])!
-        components.month = Int(DateArray[1])!
-        components.day = Int(DateArray[2])!
+        components.year = Int(DateArray[02])!
+        components.month = Int(DateArray[0])!
+        components.day = Int(DateArray[1])!
         components.timeZone = TimeZone(abbreviation: "GMT+0:00")
         let date = calendar.date(from: components as DateComponents)
         
@@ -62,17 +62,17 @@ class DateTimeUtility
         return timeStamp
     }
     
-    static func convertUtcDatetoReadInOverview(dateStringfromAccountNotes:String?)->String{
-        if(dateStringfromAccountNotes?.isEmpty)!{
+    static func convertUTCDateStringToLocalTimeZone(dateString:String?,dateFormat:String)->String{
+        if(dateString?.isEmpty)!{
             return ""
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
-        let date = dateFormatter.date(from: dateStringfromAccountNotes!)// create date from string
+        let date = dateFormatter.date(from: dateString!)// create date from string
         // change to a readable time format and change to local time zone
-        dateFormatter.dateFormat = "MM/dd/YYYY hh:mm a"
+        dateFormatter.dateFormat = dateFormat
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone.current
@@ -80,6 +80,7 @@ class DateTimeUtility
         
         return timeStamp
     }
+    
     
     static func convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:String?)->String{
         if(dateStringfromAccountNotes?.isEmpty)!{
@@ -105,9 +106,26 @@ class DateTimeUtility
             return ""
         }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         
         let date = dateFormatter.date(from: dateString!)// create date from string        
+        if date != nil{
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            let timeStamp = dateFormatter.string(from: date!)
+            return timeStamp
+        }
+        return dateString!
+    }
+    
+    func convertMMDDYYYtoUTCWithoutTime(dateString: String?) -> String{
+        if (dateString?.isEmpty)! {
+            return ""
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        
+        let date = dateFormatter.date(from: dateString!)// create date from string
         if date != nil{
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let timeStamp = dateFormatter.string(from: date!)
@@ -140,14 +158,18 @@ class DateTimeUtility
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
-        let date = dateFormatter.date(from: dateString!)// create date from string
-        // change to a readable time format and change to local time zone
+        var date = dateFormatter.date(from: dateString!)// create date from string
         
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        // change to a readable time format and change to local time zone
+        if date == nil {
+            date = self.getDateActionItemFromDateString(dateString: dateString!)
+        }
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp
     }
+    
     
     static func convertUtcDatetoReadableDateAndTimeString(dateString :String?)->String{
         if(dateString?.isEmpty)!{
@@ -158,7 +180,7 @@ class DateTimeUtility
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         let date = dateFormatter.date(from: dateString!)// create date from string
         
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:a"
+        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm:a"
         dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp
@@ -224,7 +246,7 @@ class DateTimeUtility
         return (dateString1 + " - " + dateString2 + ", " + dateString3)
     }
     
-    static func getDateFromyyyyMMddTimeFormattedDateString(dateString: String) -> Date? {
+    static func getDateInUTCFormatFromDateString(dateString: String) -> Date? {
         
         var returnDate: Date?
         
@@ -274,7 +296,7 @@ class DateTimeUtility
         
     }
     
-    static func sendCurrentDateToServer() -> String? {
+    static func getCurrentTimeStampInUTCAsString() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
@@ -337,6 +359,25 @@ class DateTimeUtility
         return fullTime
     }
     
+    
+    static func getTimeFromDateString(dateString: String) -> Date {
+        let dateformatter = DateFormatter()
+        dateformatter.timeStyle = .medium
+        dateformatter.dateFormat = "hh:mm a"
+        var dateFromString = Date()
+        if dateformatter.date(from:(dateString)) != nil {
+            dateFromString = dateformatter.date(from: dateString)!
+        } else {
+            dateformatter.timeStyle = .medium
+            dateformatter.dateFormat = "HH:mm a"
+            dateFromString = dateformatter.date(from: dateString)!
+        }
+        
+        return dateFromString
+    }
+    
+    
+    
     ///------------ Convert Date To Time Format - END ------- ///
     
     
@@ -364,11 +405,12 @@ class DateTimeUtility
         // convert your string to date
         let yourDate = formatter.date(from: myString)
         //then again set the date format whhich type of output you need
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "MM/dd/yyyy"
         // again convert your date to string
         let myStringafd = formatter.string(from: yourDate!)
         return myStringafd
     }
+    
     
     /// Get Substring from String To Format dd-MM-yyyy from dd-MM-yyy HH:mm:ss - START //
     static func getFormattCurrentDateString(dateStr: String) -> String {

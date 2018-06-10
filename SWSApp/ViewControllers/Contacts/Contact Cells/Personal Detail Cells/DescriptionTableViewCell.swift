@@ -54,7 +54,7 @@ extension DescriptionTableViewCell: UITextViewDelegate {
         }
         
         if let actionItem = actionItemObject {
-            actionItemObject?.description = textView.text
+            actionItem.description = textView.text
         }
     }
     

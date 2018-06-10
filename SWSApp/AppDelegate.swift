@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var currentSelectedUserId: String = ""
     var consultants = [Consultant]()
     var alertVisible = false
-    let isMockUser = false //set it to true to use mock data or set it to false if testing with real data
     
     override init(){
         
@@ -62,8 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //setup StoreDispatcher by registering soups
                 StoreDispatcher.shared.registerSoups()
                 self.setupRootViewController()
-                SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .error
-                SFSDKCoreLogger.sharedInstance().logLevel       =    .error
+                SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .off
+                SFSDKCoreLogger.sharedInstance().logLevel       =    .off
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in

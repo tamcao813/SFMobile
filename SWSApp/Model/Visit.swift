@@ -28,13 +28,9 @@ class Visit{
     var lastModifiedDate : String
     var recordTypeId : String
     var location:String
-    
     var soupEntryId:Int
-    
     var workOrderType :String
-    
     var sgwsAlldayEvent:Bool
-
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Visit.VisitsFields, ary))
@@ -42,21 +38,17 @@ class Visit{
     }
     
     init(json: [String: Any]) {
-        
         Id = json["Id"] as? String ?? ""
         subject = json["Subject"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
-      
         contactId = json["ContactId"] as? String ?? ""
-        
         sgwsAppointmentStatus = json["SGWS_Appointment_Status__c"] as? Bool ?? false
-
         let sgwsAppointmentStatusString = json["SGWS_Appointment_Status__c"] as? String ?? ""
         if sgwsAppointmentStatusString == "true" {
-                    sgwsAppointmentStatus = true
+            sgwsAppointmentStatus = true
         }
         if sgwsAppointmentStatusString == "1" {
-                    sgwsAppointmentStatus = true
+            sgwsAppointmentStatus = true
         }
         
         
@@ -65,14 +57,14 @@ class Visit{
             dateStart = nil
         }
         else {
-            dateStart = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: startDate)
+            dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: startDate)
         }
         endDate = json["EndDate"] as? String ?? ""
         if endDate == "" {
             dateEnd = nil
         }
         else {
-            dateEnd = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: endDate)
+            dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: endDate)
         }
         sgwsVisitPurpose = json["SGWS_Visit_Purpose__c"] as? String ?? ""
         description = json["Description"] as? String ?? ""
@@ -95,18 +87,14 @@ class Visit{
             workOrderType = StoreDispatcher.shared.workOrderTypeVisit
         } else {
             workOrderType = StoreDispatcher.shared.workOrderTypeEvent
-            
         }
     }
     
     init(for: String) {
-        
         Id = ""
         subject = ""
         accountId = ""
-       
         contactId = ""
-       
         sgwsAppointmentStatus = false
         startDate = ""
         dateStart = nil
@@ -124,6 +112,3 @@ class Visit{
         sgwsAlldayEvent = false
     }
 }
-
-
-

@@ -325,7 +325,7 @@ extension ActionItemsListViewController {
             }
         }
         
-        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             

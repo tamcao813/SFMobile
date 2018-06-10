@@ -60,7 +60,7 @@ class AccountDetailTabViewController: UITableViewController {
     
     // Battery indicator implementation....
     func batteryIndicator(headerCell:UITableViewCell) {
-        var mtdValue:Double = ((account?.percentageLastYearMTDNetSales)! as NSString).doubleValue
+        let mtdValue:Double = ((account?.percentageLastYearMTDNetSales)! as NSString).doubleValue
         print("MTD value is \(mtdValue)")
         
         if (mtdValue >= 0.0 && mtdValue < 0.4 )

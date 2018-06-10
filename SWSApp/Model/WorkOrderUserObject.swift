@@ -14,22 +14,18 @@ class WorkOrderUserObject {
     
     //["Id","Subject","AccountId","Account.Name","Account.AccountNumber","Account.BillingAddress","ContactId","Contact.Name","Contact.Phone","Contact.Email","Contact.SGWS_Roles__c","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","SGWS_WorkOrder_Location__c ","RecordTypeId"]
     
-    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c","AccountId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","OwnerId","_soupEntryId","SGWS_All_Day_Event__c"]
+    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c","AccountId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c"]
     
     var Id : String
     var subject : String
     var accountId : String
     var accountName : String
     var accountNumber : String
-
-
-    
     var shippingCity: String
     var shippingCountry: String
     var shippingPostalCode: String
     var shippingState: String
     var shippingStreet: String
-    
     var sgwsAppointmentStatus : Bool
     var startDate : String
     var dateStart : Date?
@@ -50,14 +46,10 @@ class WorkOrderUserObject {
     
     
     var recordTypeId: String
-    var ownerId : String
     var soupEntryId: Int
     var location :String
-
+    
     var sgwsAlldayEvent :Bool
-    
-    
-    
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(WorkOrderUserObject.WorkOrderUserObjectFields, ary))
@@ -71,7 +63,7 @@ class WorkOrderUserObject {
         accountId = json["AccountId"] as? String ?? ""
         accountName = json["Account.Name"] as? String ?? ""
         accountNumber = json["Account.AccountNumber"] as? String ?? ""
-
+        
         shippingCity = json["Account.ShippingCity"] as? String ?? ""
         shippingCountry = json["Account.ShippingCountry"] as? String ?? ""
         shippingPostalCode = json["Account.ShippingPostalCode"] as? String ?? ""
@@ -119,9 +111,9 @@ class WorkOrderUserObject {
         }
         phone = json["Phone"] as? String ?? ""
         email = json["Email"] as? String ?? ""
-
+        
         recordTypeId = json["RecordTypeId"] as? String ?? ""
-        ownerId = json["OwnerId"] as? String ?? ""
+        
         soupEntryId = json["_soupEntryId"] as? Int ?? 0
         location = json["SGWS_WorkOrder_Location__c"] as? String ?? ""
         sgwsAlldayEvent = json["SGWS_All_Day_Event__c"] as? Bool ?? false
@@ -133,9 +125,6 @@ class WorkOrderUserObject {
         if sgwsAlldayEventString == "1" {
             sgwsAlldayEvent = true
         }
-
-       
-
     }
     
     init(for: String) {
@@ -169,12 +158,9 @@ class WorkOrderUserObject {
         recordTypeId = ""
         email = ""
         phone = ""
-        ownerId = ""
         soupEntryId = 0
         location = ""
         sgwsAlldayEvent=false
-        
-        
     }
 }
 
@@ -187,6 +173,3 @@ extension WorkOrderUserObject: Equatable,Hashable {
         return lhs.Id == rhs.Id
     }
 }
-
-
-

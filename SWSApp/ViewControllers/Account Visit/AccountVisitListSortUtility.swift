@@ -15,11 +15,11 @@ class AccountVisitListSortUtility {
     var dateRangeAdded = false
     var statusAdded = false
     var pastVisitsAdded = false
-    
     var filteredArray = [WorkOrderUserObject]()
     var date = Date()
     let dateFormatter = DateFormatter()
     
+    //Used to perform both Filter and search operations
     func searchAndFilter(searchStr: String,actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         let searchOnlyArray = searchOnly(searchStr: searchStr,actionItems: actionItems)
 
@@ -28,6 +28,7 @@ class AccountVisitListSortUtility {
         return filterOnlyArray
     }
     
+    //Perform Search Operation Only
     func searchOnly(searchStr: String,actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         let subjectFilteredArray = actionItems.filter( { return $0.subject.lowercased().contains(searchStr.lowercased()) } )
         
@@ -48,6 +49,7 @@ class AccountVisitListSortUtility {
         return filteredArray.uniqueValues()
     }
     
+    //Perform Filter Operation Only
     func filterOnly(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         var filteredArray = [WorkOrderUserObject]()
         
@@ -153,6 +155,7 @@ class AccountVisitListSortUtility {
         return teamBasesArray
     }
     
+    //Perform Filter based on Team Basis
     func filterOnTeamBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         if let id = AccountVisitListFilterModel.selectedConsultant?.id {
             return actionItems.filter( { return $0.ownerId.contains(id) } )
@@ -161,6 +164,7 @@ class AccountVisitListSortUtility {
         return actionItems
     }
     
+    //Perform Filter based on Type
     func filterOnRecordTypeBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         var isVisitArray = [WorkOrderUserObject]()
         var isEventArray = [WorkOrderUserObject]()
@@ -182,6 +186,7 @@ class AccountVisitListSortUtility {
         }
     }
     
+    //Perform Filter based on Date Range
     func filterOnDateRangeBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
   
         var todayArray = [WorkOrderUserObject]()
@@ -272,6 +277,7 @@ class AccountVisitListSortUtility {
         }
     }
     
+    //Perform Filter based on Status
     func filterOnStatusBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         var scheduledArray = [WorkOrderUserObject]()
         var planned = [WorkOrderUserObject]()
@@ -305,6 +311,7 @@ class AccountVisitListSortUtility {
         }
     }
     
+    //Perform filter based on Past Visits 
     func filterOnPastVisitsBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         var pastVisitsArray = [WorkOrderUserObject]()
         

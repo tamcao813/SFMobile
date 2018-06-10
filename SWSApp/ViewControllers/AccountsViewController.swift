@@ -10,7 +10,6 @@ import UIKit
 
 class AccountsViewController: UIViewController , DetailsScreenDelegate{
     
-    
     var accountDetails : AccountDetailsViewController?
     var accountListVC :AccountsListViewController?
     var filterMenuVC: AccountsMenuViewController?
@@ -25,19 +24,15 @@ class AccountsViewController: UIViewController , DetailsScreenDelegate{
         super.viewWillAppear(animated)
         print("Accounts VC will appear")
         filterMenuVC?.searchByEnteredTextDelegate = accountListVC
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("Accounts VC will disappear")
-        
-        
         self.accountDetails?.view.removeFromSuperview()
     }
     
     //MARK:-
-    
     //Used to push the screen to Details ViewController
     func pushTheScreenToDetailsScreen(accountData: Account) {
         accountDetails = self.storyboard?.instantiateViewController(withIdentifier: "AccountDetailsViewControllerID") as? AccountDetailsViewController
@@ -54,6 +49,7 @@ class AccountsViewController: UIViewController , DetailsScreenDelegate{
         self.view.endEditing(true)
     }
     
+    //MARK:- Segue Methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "mySegue") {
             accountListVC = segue.destination as? AccountsListViewController
@@ -65,6 +61,7 @@ class AccountsViewController: UIViewController , DetailsScreenDelegate{
             filterMenuVC = segue.destination as? AccountsMenuViewController
         }
     }
-    
-    
 }
+
+
+

@@ -11,21 +11,17 @@ import SmartStore
 import SmartSync
 
 class HomeViewController: UIViewController {
+    
     let userViewModel = UserViewModel()
     var loggerInUser: User?
     
     @IBOutlet weak var scollView : UIScrollView?
     
+    //MARK: - ViewLifeCycle Methods
     override func viewDidLoad() {
         loggerInUser = userViewModel.loggedInUser
         
         
-    }
-    
-    func scrollToTop(){
-        DispatchQueue.main.async {
-            self.scollView?.setContentOffset(CGPoint.zero, animated: true)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +39,13 @@ class HomeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("Home VC will disappear")
+    }
+    
+    //Scroll Tableview Content to Top
+    func scrollToTop(){
+        DispatchQueue.main.async {
+            self.scollView?.setContentOffset(CGPoint.zero, animated: true)
+        }
     }
 }
 

@@ -59,12 +59,6 @@ class EditAccountStrategyViewController: UIViewController {
             collectionViewWidth = 650
         }
         
-        //        let plistPath = Bundle.main.path(forResource: "EditAccountStrategy", ofType: ".plist", inDirectory: nil)
-        //        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
-        //        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
-        //        print(dictionary!)
-        
-        
         self.getEditStrategyData()
         
         //Clearing model for 1st time load
@@ -228,6 +222,7 @@ class EditAccountStrategyViewController: UIViewController {
         }
     }
     
+    //Show an alert with appropriate text
     func showAlert(){
         
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
@@ -485,7 +480,8 @@ class EditAccountStrategyViewController: UIViewController {
         
     }
     
-    //MARK:- Button Actions
+    //MARK:- IBActions
+    //Save button Clicked
     @IBAction func saveButtonAction(sender : UIButton){
         print("Save button Clicked")
         validateTheReguiredVield.isSaveClicked = "1"
@@ -503,11 +499,13 @@ class EditAccountStrategyViewController: UIViewController {
         }
     }
     
+    //Cancel button Clicked
     @IBAction func cancelButtonAction(sender : UIButton){
         print("Cancel button Clicked")
         self.showAlert()
     }
     
+    //Close Button Clicked
     @IBAction func closeButtonAction(sender : UIButton){
         print("Close button Clicked")
         self.showAlert()

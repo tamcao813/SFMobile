@@ -37,6 +37,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         self.loadUrlRequest()
     }
     
+    //MARK:-
     //Used to load the Web Content Within the app Using WEBKIT VIEW
     func loadUrlRequest(){
         
@@ -77,7 +78,8 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         }
     }
     
-    //MARK:- IBActions
+    //MARK:- IBAction Methods
+    //Close button Clicked
     @IBAction func closeButtonAction(sender : UIButton){
         self.dismiss(animated: true, completion: nil)
     }

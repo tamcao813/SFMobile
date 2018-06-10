@@ -16,7 +16,6 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dropDownImageView : UIImageView!
-    
     @IBOutlet weak var lblStartDate : UITextField?
     @IBOutlet weak var lblEndDate : UITextField?
     
@@ -32,7 +31,6 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
     

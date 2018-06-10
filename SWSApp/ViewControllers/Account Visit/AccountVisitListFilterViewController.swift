@@ -13,6 +13,15 @@ protocol AccountVisitSearchButtonTappedDelegate {
     func clearFilter()
 }
 
+//VisitListing Filter Menu Options
+enum VisitListingFilterMenuOptions : Int{
+    case type = 0
+    case dateRange = 1
+    case status = 2
+    case pastVisit = 3
+    case myteam = 4
+}
+
 class AccountVisitListFilterViewController : UIViewController{
     
     let kHeaderSectionTag: Int = 6900;
@@ -32,12 +41,12 @@ class AccountVisitListFilterViewController : UIViewController{
     var sectionData = [[Any]]()
     var sectionNames = [String]()
     
+    //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.customizeSearchBar()
         self.tableView!.tableFooterView = UIView()
-        
         
         //To check the User is Manager or Consultant
         consultantAry = UserViewModel().consultants
@@ -115,6 +124,7 @@ class AccountVisitListFilterViewController : UIViewController{
         }
     }
     
+    //Perform Expansion and Collapsion based on Section Header Click
     func sectionHeaderOperation(section : Int , eImageView : UIImageView?){
         
         if (self.expandedSectionHeaderNumber == -1) {
@@ -183,6 +193,7 @@ class AccountVisitListFilterViewController : UIViewController{
         (cell as? AccountVisitListFilterTableViewCell)?.displayCellContent(sectionContent: sectionData as NSArray, indexPath: indexPath)
     }
     
+    //Perform filter for SalesConsultant
     func performSelectConsultantOperation(indexPath : IndexPath) {
         AccountVisitListFilterModel.selectedConsultant = consultantAry[indexPath.row]
         
@@ -194,15 +205,15 @@ class AccountVisitListFilterViewController : UIViewController{
     func tableViewCellClickedSingleSelection(indexPath : IndexPath , arrayContent : Array<Any>) {
         
         switch indexPath.section {
-        case 0:
+        case VisitListingFilterMenuOptions.type.rawValue :
             self.performTypeOperation(indexPath: indexPath)
-        case 1:
+        case VisitListingFilterMenuOptions.dateRange.rawValue :
             self.performDateRangeOperation(indexPath: indexPath)
-        case 2:
+        case VisitListingFilterMenuOptions.status.rawValue:
             self.performStatusOperation(indexPath: indexPath)
-        case 3:
+        case VisitListingFilterMenuOptions.pastVisit.rawValue:
             self.performPastVisitsOperation(indexPath: indexPath)
-        case 4:
+        case VisitListingFilterMenuOptions.myteam.rawValue:
             self.performSelectConsultantOperation(indexPath: indexPath)
         default:
             break
@@ -210,6 +221,7 @@ class AccountVisitListFilterViewController : UIViewController{
         tableView.reloadData()
     }
     
+    //Perform Type filter Operation
     func performTypeOperation(indexPath: IndexPath){
         
         switch indexPath.row {
@@ -230,6 +242,7 @@ class AccountVisitListFilterViewController : UIViewController{
         }
     }
     
+    //Perform Date range filter operation
     func performDateRangeOperation(indexPath: IndexPath){
         //MAking to empty if other date ranges are clicked
         AccountVisitListFilterModel.startDate = ""
@@ -253,6 +266,7 @@ class AccountVisitListFilterViewController : UIViewController{
         }
     }
     
+    //Perform Status filter Operation
     func performStatusOperation(indexPath: IndexPath){
         
         switch indexPath.row {
@@ -284,7 +298,8 @@ class AccountVisitListFilterViewController : UIViewController{
             break
         }
     }
-        
+    
+    //Perform Visit filter Operations
     func performPastVisitsOperation(indexPath: IndexPath){
         
         switch indexPath.row {
@@ -299,6 +314,7 @@ class AccountVisitListFilterViewController : UIViewController{
         }
     }
     
+    //Clear the Model data
     func clearAccountVisitFilterModel(){
         
         AccountVisitListFilterModel.isTypeVisit = "NO"
@@ -342,11 +358,13 @@ class AccountVisitListFilterViewController : UIViewController{
         
     }
     
-    //MARK:- Button Actions
+    //MARK:- IBAction Methods
+    //Clear button Clicked
     @IBAction func clearButtonTapped(_ sender: UIButton){
         self.clearAccountVisitFilterModel()
     }
     
+    //Submit Button Clicked
     @IBAction func submitButtonTapped(_ sender: UIButton){
         delegate?.performFilterOperation(searchText: searchBar)
     }
@@ -536,7 +554,7 @@ extension AccountVisitListFilterViewController : ReloadTableViewForNewAppliedFil
     }
 }
 
-//MARK:-
+//MARK:- ClearTheAccountVisitModel Delegate
 extension AccountVisitListFilterViewController : ClearTheAccountVisitModelDelegate{
     func reloadTheDataFromBegining() {
         self.clearAccountVisitFilterModel()

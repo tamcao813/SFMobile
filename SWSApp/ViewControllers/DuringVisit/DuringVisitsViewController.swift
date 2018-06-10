@@ -42,6 +42,7 @@ class  DuringVisitsViewController : UIViewController {
     let strategyAnswersViewModel = StrategyAnswersViewModel()
     var tableViewData : NSMutableArray?
     
+    //Present Active ViewController
     private var activeViewController: UIViewController? {
         didSet {
             removeInactiveViewController(inactiveViewController: oldValue)
@@ -49,6 +50,7 @@ class  DuringVisitsViewController : UIViewController {
         }
     }
     
+    //Remove Inactive ViewController
     private func removeInactiveViewController(inactiveViewController: UIViewController?) {
         if let inActiveVC = inactiveViewController {
             // call before removing child view controller's view from hierarchy
@@ -61,6 +63,7 @@ class  DuringVisitsViewController : UIViewController {
         }
     }
     
+    //Update Active ViewController
     private func updateActiveViewController() {
         if let activeVC = activeViewController {
             // call before adding child view controller's view as subview
@@ -309,6 +312,7 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     //MARK:- IBAction Methods
+    //Close Button Clicked
     @IBAction func closeButtonClicked(sender : UIButton){
         
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
@@ -321,18 +325,21 @@ class  DuringVisitsViewController : UIViewController {
         
     }
     
+    //Transaction button clicked
     @IBAction func transactionClicked(sender : UIButton){
         UIApplication.shared.open(URL(string : StringConstants.googleUrl)!, options: [:], completionHandler: { (status) in
             
         })
     }
     
+    //GoSpot Button Clicked
     @IBAction func goSpotClicked(sender : UIButton){
         UIApplication.shared.open(URL(string : StringConstants.googleUrl)!, options: [:], completionHandler: { (status) in
             
         })
     }
     
+    //Back Button Clicked
     @IBAction func backButtonClicked(sender : UIButton){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         btnBack?.isHidden = true
@@ -350,6 +357,7 @@ class  DuringVisitsViewController : UIViewController {
         activeViewController = duringVisitVC
     }
     
+    //Save button Clicked
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
         if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue"{
@@ -382,6 +390,7 @@ class  DuringVisitsViewController : UIViewController {
         activeViewController = duringVisitVC
     }
     
+    //Edit Account strategy Clicked
     @IBAction func loadEditAccountStrategy(sender : UIButton){
         let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
         let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditAccountStrategyViewControllerID") as! EditAccountStrategyViewController
@@ -393,6 +402,7 @@ class  DuringVisitsViewController : UIViewController {
         (vc as! EditAccountStrategyViewController).delegate = self
     }
     
+    //Contact button Clicked
     @IBAction func contactsClicked(sender : UIButton){
         DispatchQueue.main.async {
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {                
@@ -404,6 +414,7 @@ class  DuringVisitsViewController : UIViewController {
         }
     }
     
+    //Chatter Button Clicked
     @IBAction func chatterClicked(sender : UIButton){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             DispatchQueue.main.async {
@@ -420,6 +431,7 @@ class  DuringVisitsViewController : UIViewController {
         }
     }
     
+    //Action Item Button Clicked
     @IBAction func actionItemsClicked(sender : UIButton){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             self.dismiss(animated: true, completion: nil)
@@ -429,6 +441,7 @@ class  DuringVisitsViewController : UIViewController {
         }
     }
     
+    //Notification Button Clicked
     @IBAction func notificationsClicked(sender : UIButton){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             self.dismiss(animated: true, completion: nil)

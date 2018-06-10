@@ -14,20 +14,19 @@ class AccountVisitEmbedViewController : UIViewController{
     var accountVisitListVC : AccountVisitListViewController?
     var accountVisitFilterVC : AccountVisitListFilterViewController?
     
+    //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         accountVisitFilterVC?.delegate = accountVisitListVC
         accountVisitListVC?.delegate = accountVisitFilterVC
     }
     
-    
+    //MARK:- Segue Methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "listSegue") {
             accountVisitListVC = segue.destination as? AccountVisitListViewController
@@ -35,7 +34,6 @@ class AccountVisitEmbedViewController : UIViewController{
             
         }else if (segue.identifier == "filterSegue") {
             accountVisitFilterVC = segue.destination as? AccountVisitListFilterViewController
-            
         }
     }
 }

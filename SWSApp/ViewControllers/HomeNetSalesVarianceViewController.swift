@@ -37,6 +37,7 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
         self.loadUrlRequest()
     }
     
+    //MARK:-
     //Used to load the Web Content Within the app Using WEBKIT VIEW
     func loadUrlRequest(){
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
@@ -76,7 +77,8 @@ class HomeNetSalesVarianceViewController : UIViewController , WKNavigationDelega
         }
     }
     
-    //MARK:- IBActions
+    //MARK:- IBAction Methods
+    //Close button Clicked
     @IBAction func closeButtonAction(sender : UIButton){
         self.dismiss(animated: true, completion: nil)
     }

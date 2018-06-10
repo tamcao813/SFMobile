@@ -10,38 +10,26 @@ import UIKit
 
 class Opportunity {
 
-    static let opportunityFields: [String] = ["Id", "Name", "AccountId", "Account.Name", "CloseDate", "Candidate_Product__r.Name", "Objectives__r.Name", "SGWS_Objective_Type__c", "SGWS_Product_Name__c", "SGWS_Product_Description__c", "RecordType.Name", "Amount", "Type", "StageName", "SGWS_Month_Active__c", "SGWS_Commit__c", "SGWS_PYCM_Sold__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Comparison_Segment__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Frequency__c", "SGWS_Unsold_Period_Days__c", "SGWS_Sold__c", "SGWS_Source__c"]
+    static let opportunityFields: [String] = [ "Id", "AccountId", "SGWS_Product_Name__c", "SGWS_Opportunity_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "SGWS_Status__c", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "Opportunity_Objective_Junction__r" ]
     
-    var id : String
-    var name : String
-    var accountId : String
-    var accountName : String
-    var closeDate : String
-    var candidateProductName : String
-    var ObjectivesName : String
-    var ObjectivesType : String
-    var productName : String
-    var productDesc : String
-    var recordTypeName : String
-    var amount : String
-    var type : String
-    var stageName : String
-    var monthActive : String
-    var commit : String
-    var PYCMSold : String
-    var R6Trend : String
-    var R3Trend : String
-    var acct : String
-    var segment : String
-    var gap : String
-    var comparisonSegment : String
-    var salesTrend : String
-    var orderSize : String
-    var frequency : String
-    var unsoldPeriodDays : String
-    var sold : String
-    var source : String
-    
+    var id: String
+    var accountId: String
+    var productName: String
+    var source: String
+    var PYCMSold: String
+    var commit: String
+    var sold: String
+    var monthActive: String
+    var status: String
+    var R12: String
+    var R6Trend: String
+    var R3Trend: String
+    var objectiveJunction: String
+
+    var PYCMSold9L: String
+    var commit9L: String
+    var sold9L: String
+
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Opportunity.opportunityFields, ary))
         self.init(json: resultDict)
@@ -50,69 +38,99 @@ class Opportunity {
     init(json: [String: Any]) {
         
         id = json["Id"] as? String ?? ""
-        name = json["Name"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
-        accountName = json["Account.Name"] as? String ?? ""
-        closeDate = json["CloseDate"] as? String ?? ""
-        candidateProductName = json["Candidate_Product__r.Name"] as? String ?? ""
-        ObjectivesName = json["Objectives__r.Name"] as? String ?? ""
-        ObjectivesType = json["SGWS_Objective_Type__c"] as? String ?? ""
         productName = json["SGWS_Product_Name__c"] as? String ?? ""
-        productDesc = json["SGWS_Product_Description__c"] as? String ?? ""
-        recordTypeName = json["RecordType.Name"] as? String ?? ""
-        amount = json["Amount"] as? String ?? ""
-        type = json["Type"] as? String ?? ""
-        stageName = json["StageName"] as? String ?? ""
-        monthActive = json["SGWS_Month_Active__c"] as? String ?? ""
-        commit = json["SGWS_Commit__c"] as? String ?? ""
+        source = json["SGWS_Opportunity_source__c"] as? String ?? ""
         PYCMSold = json["SGWS_PYCM_Sold__c"] as? String ?? ""
+        commit = json["SGWS_Commit__c"] as? String ?? ""
+        sold = json["SGWS_Sold__c"] as? String ?? ""
+        monthActive = json["SGWS_Month_Active__c"] as? String ?? ""
+        status = json["SGWS_Status__c"] as? String ?? ""
+        R12 = json["SGWS_R12__c"] as? String ?? ""
         R6Trend = json["SGWS_R6_Trend__c"] as? String ?? ""
         R3Trend = json["SGWS_R3_Trend__c"] as? String ?? ""
-        acct = json["SGWS_Acct__c"] as? String ?? ""
-        segment = json["SGWS_Segment__c"] as? String ?? ""
-        gap = json["SGWS_Gap__c"] as? String ?? ""
-        comparisonSegment = json["SGWS_Comparison_Segment__c"] as? String ?? ""
-        salesTrend = json["SGWS_Sales_Trend__c"] as? String ?? ""
-        orderSize = json["SGWS_Order_Size__c"] as? String ?? ""
-        frequency = json["SGWS_Frequency__c"] as? String ?? ""
-        unsoldPeriodDays  = json["SGWS_Unsold_Period_Days__c"] as? String ?? ""
-        sold = json["SGWS_Sold__c"] as? String ?? ""
-        source = json["SGWS_Source__c"] as? String ?? ""
+        objectiveJunction = ""
 
+        PYCMSold9L = ""
+        commit9L = ""
+        sold9L = ""
+
+        PYCMSold9L = valueAfter9Lcalculation(PYCMSold)
+        commit9L = valueAfter9Lcalculation(commit)
+        sold9L = valueAfter9Lcalculation(sold)
+
+        if !(json["Opportunity_Objective_Junction__r"] is NSNull) {
+            if let jsonString = json["Opportunity_Objective_Junction__r"] as? String {
+                do {
+                    if let object = try JSONSerialization.jsonObject(with: jsonString.data(using: .utf8)!, options: []) as? [String: Any] {
+                        print("dictionary is : \(object)")
+                        
+                        objectiveJunction = processObjectiveJunction(object)
+                        print("objectiveJunction is \(objectiveJunction)")
+                    }
+                } catch {
+                }
+            }
+        }
+
+    }
+    
+    func processObjectiveJunction(_ jsonDict: [String: Any]) -> String {
+        
+        var resultString: String = ""
+        
+        if let resultObj = jsonDict["records"] as? NSArray {
+            print("resultObj is : \(resultObj)")
+            
+            for obj in resultObj {
+                if let objDic = obj as? [String: Any] {
+                    if let nameString = objDic["Name"] as? String {
+                        if resultString == "" {
+                            resultString = nameString
+                        }
+                        else {
+                            resultString = resultString + ", " + nameString
+                        }
+                    }
+                }
+            }
+        }
+        
+        return resultString
+    }
+
+    // (<Value> * the Bottles Per Case for that product * the Size (in Liters) of that product) / 9
+    func valueAfter9Lcalculation(_ valueToConvert: String) -> String {
+        
+        // TBD to check for null values input values
+        
+        let valueInt: Int = (valueToConvert as NSString).integerValue
+        let bottlesPerCaseInt: Int = 1 // (valueToConvert as NSString).integerValue //TBD not sure with column mapping
+        let sizeInt: Int = 1 // (opportunityDetails.orderSize as NSString).integerValue
+        
+        return String((valueInt * bottlesPerCaseInt * sizeInt) / 9)
     }
 
     init(for: String) {
         
         id = ""
-        name = ""
         accountId = ""
-        accountName = ""
-        closeDate = ""
-        candidateProductName = ""
-        ObjectivesName = ""
-        ObjectivesType = ""
         productName = ""
-        productDesc = ""
-        recordTypeName = ""
-        amount = ""
-        type = ""
-        stageName = ""
-        monthActive = ""
-        commit = ""
+        source = ""
         PYCMSold = ""
+        commit = ""
+        sold = ""
+        monthActive = ""
+        status = ""
+        R12 = ""
         R6Trend = ""
         R3Trend = ""
-        acct = ""
-        segment = ""
-        gap = ""
-        comparisonSegment = ""
-        salesTrend = ""
-        orderSize = ""
-        frequency = ""
-        unsoldPeriodDays  = ""
-        sold = ""
-        source = ""
+        objectiveJunction = ""
+
+        PYCMSold9L = ""
+        commit9L = ""
+        sold9L = ""
 
     }
-    
+
 }

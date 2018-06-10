@@ -3420,12 +3420,14 @@ class StoreDispatcher {
         let syncOpportunityFields = Opportunity.opportunityFields
         
         var indexSpec:[SFSoupIndex] = []
-        for i in 0...syncOpportunityFields.count - 1 {
+        for i in 0...syncOpportunityFields.count - 2 {
             let sfIndex = SFSoupIndex(path: syncOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncOpportunityFields[i])!
             indexSpec.append(sfIndex)
         }
+        indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 1], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 1])!)
         
         indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
+
         do {
             try sfaStore.registerSoup(SoupOpportunity, withIndexSpecs: indexSpec, error: ())
             
@@ -3436,7 +3438,7 @@ class StoreDispatcher {
     
     func syncDownOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "Select \(Opportunity.opportunityFields.joined(separator: ",")) FROM Opportunity"
+        let soqlQuery = "select Id,AccountId,SGWS_Product_Name__c,SGWS_Opportunity_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c, SGWS_Sold__c,SGWS_Month_Active__c,SGWS_Status__c,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,(select name,SGWS_Objectives__r.name from Opportunity_Objective_Junction__r) from opportunity"
 
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)

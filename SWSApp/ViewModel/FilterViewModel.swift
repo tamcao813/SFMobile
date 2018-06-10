@@ -13,8 +13,8 @@ class Filter {
     //var sectionNames : Array<Any>  = ["Past Due", "Action Items", "Status", "Premise" , "Single / Multi locations" ,"Channel", "Sub-Channel" ,"License Type"]
     
     var sectionItems: [[Any]] = [ ["Yes", "No"],[],
-                                      ["Active", "Inactive","Suspended"],
-                                      ["On","Off"], ["Single","Multi"],["W","L","B","N"]]
+                                  ["Active", "Inactive","Suspended"],
+                                  ["On","Off"], ["Single","Multi"],["W","L","B","N"]]
     
     func sectionNames(isManager: Bool = false) -> [String] {
         var names = ["Past Due","Action Items","Status","Premise","Single / Multi locations","Channel","Sub-Channel","License Type"]
@@ -25,7 +25,7 @@ class Filter {
         
         return names
     }
-
+    
 }
 
 let filterCell = "customCell1"
@@ -66,6 +66,6 @@ struct FilterMenuModel {
     
     static var comingFromDetailsScreen = ""
     static var selectedAccountId = ""
-
+    
     static var selectedConsultant: Consultant?
 }

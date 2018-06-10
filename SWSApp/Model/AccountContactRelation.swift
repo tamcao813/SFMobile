@@ -80,11 +80,8 @@ class AccountContactRelation {
         }
         
         json["SGWS_Other_Specification__c"] = otherSpecification
-        
         json["SGWS_IsActive__c"] = isActive
-        
         json["SGWS_Buying_Power__c"] = buyingPower
-        
         if contactClassification.count > 0 {
             json["SGWS_Contact_Classification__c"] = contactClassification
         }

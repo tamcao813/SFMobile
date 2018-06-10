@@ -9,13 +9,13 @@
 import UIKit
 
 class ContactFilter {
-
+    
     var sectionNames : Array<Any>  = ["Contact Association", "Function/Role", "Buying Power"]
     
     var sectionItems : Array<Any> = [ ["All Contacts", "Contacts On My Route"],
                                       ["All"],
                                       ["All", "Buying Power", "No Buying Power"] ]
-
+    
 }
 
 let ContactFilterCell = "customContactCell1"
@@ -32,8 +32,8 @@ struct ContactFilterMenuModel {
     static var allBuyingPower = ""
     static var buyingPower = ""
     static var nobuyingPower = ""
-
+    
     static var comingFromDetailsScreen = ""
     static var selectedContactId = ""
-
+    
 }

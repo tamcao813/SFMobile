@@ -20,20 +20,16 @@ class StrategyQAViewModel {
     }
     func uploadStrategyQAToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
         StoreDispatcher.shared.syncUpStrategyQA(fieldsToUpload: fields, completion: {error in
-            
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 completion(error)
-            }
-            else {
+            }else {
                 completion(nil)
             }
         })
     }
     
     func fetchStrategy(acc: String)->[StrategyQA]{
-        
         return StoreDispatcher.shared.fetchStrategy(forAccount: acc)
     }
-    
 }

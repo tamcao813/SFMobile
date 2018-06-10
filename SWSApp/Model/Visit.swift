@@ -28,11 +28,8 @@ class Visit{
     var lastModifiedDate : String
     var recordTypeId : String
     var location:String
-    
     var soupEntryId:Int
-    
     var workOrderType :String
-    
     var sgwsAlldayEvent:Bool
     var ownerId: String
 
@@ -43,21 +40,17 @@ class Visit{
     }
     
     init(json: [String: Any]) {
-        
         Id = json["Id"] as? String ?? ""
         subject = json["Subject"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
-      
         contactId = json["ContactId"] as? String ?? ""
-        
         sgwsAppointmentStatus = json["SGWS_Appointment_Status__c"] as? Bool ?? false
-
         let sgwsAppointmentStatusString = json["SGWS_Appointment_Status__c"] as? String ?? ""
         if sgwsAppointmentStatusString == "true" {
-                    sgwsAppointmentStatus = true
+            sgwsAppointmentStatus = true
         }
         if sgwsAppointmentStatusString == "1" {
-                    sgwsAppointmentStatus = true
+            sgwsAppointmentStatus = true
         }
         
         
@@ -96,19 +89,15 @@ class Visit{
             workOrderType = StoreDispatcher.shared.workOrderTypeVisit
         } else {
             workOrderType = StoreDispatcher.shared.workOrderTypeEvent
-            
         }
         ownerId = json["OwnerId"] as? String ?? ""
     }
     
     init(for: String) {
-        
         Id = ""
         subject = ""
         accountId = ""
-       
         contactId = ""
-       
         sgwsAppointmentStatus = false
         startDate = ""
         dateStart = nil
@@ -127,6 +116,3 @@ class Visit{
         ownerId = ""
     }
 }
-
-
-

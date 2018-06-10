@@ -21,7 +21,6 @@ class VisitSchedulerViewModel {
     }
     
     func createNewVisitLocally(fields: [String:Any]) -> (Bool,Int) {
-        //contactfields.removeValue(forKey: "_soupEntryId")
         return StoreDispatcher.shared.createNewVisitLocally(fieldsToUpload:fields)
     }
     
@@ -36,21 +35,17 @@ class VisitSchedulerViewModel {
     
     
     func uploadVisitToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
-        
         StoreDispatcher.shared.syncUpVisits(fieldsToUpload: fields, completion: {error in
-            
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("Visit Sync up failed")
                 completion(error)
-            }
-            else {
+            }else {
                 print("Syncup for Visit Completed")
                 completion(nil)
             }
         })
-        
-}
+    }
     
     func editVisitToSoup(fields: [String:Any]) -> Bool {
         if StoreDispatcher.shared.editVisit(fields:fields){
@@ -60,8 +55,4 @@ class VisitSchedulerViewModel {
         }
         return false
     }
-    
-  
-    
-
 }

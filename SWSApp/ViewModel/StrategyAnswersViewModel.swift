@@ -12,5 +12,4 @@ class StrategyAnswersViewModel {
     func getStrategyAnswers() -> [StrategyAnswers] {
         return StoreDispatcher.shared.fetchStrategyAnswers()
     }
-
 }

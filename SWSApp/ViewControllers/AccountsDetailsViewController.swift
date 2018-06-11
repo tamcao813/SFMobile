@@ -11,6 +11,24 @@ import UIKit
 //import DropDown
 import IQKeyboardManagerSwift
 
+//DropDown menu optrions when AddNew is clicked
+enum DropDownMenuOptionsInDetails : Int{
+    case visit = 0
+    case event = 1
+    case actionItems = 2
+    case notes = 3
+}
+
+//Detail screen Options
+enum DetailsScreenEnumOptions : Int {
+    case overview = 0
+    case details = 1
+    case opportunities = 3
+    case strategy = 4
+    case actionItems = 5
+    case notes = 6
+}
+
 struct AccountId {
     static var selectedAccountId = ""
 }
@@ -20,22 +38,6 @@ protocol SendDataToContainerDelegate {
 }
 
 class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDelegate{
-    func displayAccountNotes() {
-        
-    }
-    
-    func dismissEditNote() {
-        
-    }
-    
-    func noteCreated() {
-        
-    }
-    
-    var accountDetailForLoggedInUser : Account?
-    var goingFromAccountDetails = true
-    
-    
     
     @IBOutlet weak var centerLabel : UILabel?
     @IBOutlet weak var lblAccountTitle : UILabel?
@@ -47,9 +49,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     @IBOutlet weak var lblActionItem : UILabel?
     @IBOutlet weak var lblPhoneNumber : UILabel?
     @IBOutlet weak var btnPercentage : UIButton?
-    
     @IBOutlet weak var containerView : UIView?
-    
     @IBOutlet weak var btnOverview : UIButton?
     @IBOutlet weak var btnDetails : UIButton?
     @IBOutlet weak var btnInsights : UIButton?
@@ -58,20 +58,16 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     @IBOutlet weak var btnActionItems : UIButton?
     @IBOutlet weak var btnNotes : UIButton?
     @IBOutlet weak var imgStatus : UIImageView?
-    
     @IBOutlet weak var addNewButton: UIButton!
     
+    var accountDetailForLoggedInUser : Account?
+    var goingFromAccountDetails = true
     var selectedIndex : Int = 0
-    
     var firstViewController: NotesViewController?
     var detailsViewController : AccountDetailsViewController?
-    
     var secondViewController: UIViewController?
-    
     var delegate : SendDataToContainerDelegate?
-    
     var addNewDropDown = DropDown()
-    
     let contactsStoryboard = UIStoryboard.init(name: "AccountsContactsVC", bundle: nil)
     let accountOverViewStoryboard = UIStoryboard.init(name: "AccountOverView", bundle: nil)
     let notesStoryboard = UIStoryboard.init(name: "Notes", bundle: nil)
@@ -85,6 +81,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         return actionItemVC
     }()
     
+    //Present Active ViewController
     private var activeViewController: UIViewController? {
         didSet {
             removeInactiveViewController(inactiveViewController: oldValue)
@@ -92,6 +89,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
     
+    //Remove Inactive ViewController
     private func removeInactiveViewController(inactiveViewController: UIViewController?) {
         if let inActiveVC = inactiveViewController {
             // call before removing child view controller's view from hierarchy
@@ -104,6 +102,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
     
+    //Update Active ViewController
     private func updateActiveViewController() {
         if let activeVC = activeViewController {
             // call before adding child view controller's view as subview
@@ -119,121 +118,31 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
     
-    @IBAction func addNewButtonClicked(_ sender: Any) {
-        addNewDropDown.anchorView = addNewButton
-        
-        addNewDropDown.bottomOffset = CGPoint(x: 0, y:(addNewDropDown.anchorView?.plainView.bounds.height)!)
-        addNewDropDown.backgroundColor = UIColor.white
-        addNewDropDown.dataSource = ["Visit", "Event", "Action Item", "Note"]
-        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 14)!
-        self.addNewDropDown.textColor = UIColor.black
-        
-        addNewDropDown.show()
-        
-        addNewDropDown.selectionAction = {(index: Int, item: String) in
-            switch index {
-            case 0:
-                print(index)
-                
-                let storyboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
-                let vc: CreateNewVisitViewController = storyboard.instantiateViewController(withIdentifier: "CreateNewVisitViewController") as! CreateNewVisitViewController
-                vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-                vc.selectedAccount = self.accountDetailForLoggedInUser
-                
-                //As we are creating a new Visit Make the Shared instance Nil
-                PlanVisitManager.sharedInstance.visit = nil
-                
-                self.present(vc, animated: true, completion: nil)
-                
-            case 1:
-                print(index)
-                
-                 let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
-                createEventViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-                createEventViewController.selectedAccount = self.accountDetailForLoggedInUser
-                //As we are creating a new Visit Make the Shared instance Nil
-                PlanVisitManager.sharedInstance.visit = nil
-                
-                self.present(createEventViewController, animated: true, completion: nil)
-                
-            case 2:
-                DispatchQueue.main.async {
-                    let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
-                    createActionItemViewController.isEditingMode = false
-                    createActionItemViewController.selectedAccount = self.accountDetailForLoggedInUser
-//                    createActionItemViewController.delegate = self
-                    self.present(createActionItemViewController, animated: true)
-                }
-            case 3:
-                let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
-                let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
-                vc.notesAccountId = self.accountDetailForLoggedInUser?.account_Id
-                vc.comingFromAccountDetails = self.goingFromAccountDetails
-                vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-                
-                self.present(vc, animated: true, completion: nil)
-                vc.sendNoteDelegate = self
-            default:
-                break
-            }
-        }
-    }
-    
-    //    @IBAction func addNewButtonClicked(_ sender: Any) {
-    //        let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
-    //        let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
-    //        vc.notesAccountId = accountDetailForLoggedInUser?.account_Id
-    //        vc.comingFromAccountDetails = goingFromAccountDetails
-    //        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-    //
-    //        self.present(vc, animated: true, completion: nil)
-    //        vc.sendNoteDelegate = self
-    //
-    //    }
-    
-    func navigateToNotesSection() {
-        
-        let button = UIButton()
-        button.tag = 6
-        self.itemsClicked(sender: button)
-        
-    }
-    
+    //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         //containerView?.isHidden = true
         
-       let button = UIButton()
+        let button = UIButton()
         button.tag = 0
         self.itemsClicked(sender: button)
         
         //containerView?.isHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshActionItemList), name: NSNotification.Name("refreshActionItemList"), object: nil)
-        
         addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
     }
     
-    @objc func refreshActionItemList(){
-        if selectedIndex == 5{
-            let button = UIButton()
-            button.tag = 5
-            self.itemsClicked(sender: button)
-        }
-    }
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.setupDetailsScreenUI()
         self.setupPastDueUI()
         self.setupAccountHealthGrade()
         self.setupPercentageValue()
         IQKeyboardManager.shared.enable = true
-        
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -246,7 +155,23 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         
     }
     
+    //MARK:-
+    //Navigate to Notes Section after adding Notes
+    func navigateToNotesSection() {
+        let button = UIButton()
+        button.tag = 6
+        self.itemsClicked(sender: button)
+    }
     
+    @objc func refreshActionItemList(){
+        if selectedIndex == 5{
+            let button = UIButton()
+            button.tag = 5
+            self.itemsClicked(sender: button)
+        }
+    }
+    
+    //Initial setup for Deatils Screen UI
     func setupDetailsScreenUI(){
         
         AccountId.selectedAccountId = (accountDetailForLoggedInUser?.account_Id)!
@@ -279,6 +204,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
     
+    //Setup Past Due UI
     func setupPastDueUI(){
         
         if accountDetailForLoggedInUser!.pastDueAmountDouble <= 0.0 {
@@ -288,6 +214,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
     
+    //Setup Health Grade value wheather its Good, Medium or Bad
     func setupAccountHealthGrade(){
         if accountDetailForLoggedInUser?.acctHealthGrade == "A"{
             centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
@@ -307,15 +234,11 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
     
-    
+    //Based on Percentage values images Bad, Medium and Good are shown
     func setupPercentageValue(){
         
         let percLastYearR12DivideBy100:Double = ((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)!as NSString).doubleValue / 100
         let percentYearR12Double:Double =  ((accountDetailForLoggedInUser?.percentageLastYearR12NetSales)!as NSString).doubleValue
-        
-        //        var strVal = String(percLastYearR12DivideBy100)
-        //        var fullPerR12NetSaleValue = strVal.components(separatedBy: ".")
-        //        var strNew = fullPerR12NetSaleValue[0] + "." + String(fullPerR12NetSaleValue[1].prefix(2)) + "%"
         
         let titleForButton = String(format: "%.02f",percentYearR12Double) + "%"
         
@@ -334,10 +257,73 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
     
+    //MARK:- IBAction Methods
+    @IBAction func addNewButtonClicked(_ sender: Any) {
+        addNewDropDown.anchorView = addNewButton
+        
+        addNewDropDown.bottomOffset = CGPoint(x: 0, y:(addNewDropDown.anchorView?.plainView.bounds.height)!)
+        addNewDropDown.backgroundColor = UIColor.white
+        addNewDropDown.dataSource = ["Visit", "Event", "Action Item", "Note"]
+        self.addNewDropDown.textFont = UIFont(name: "Ubuntu", size: 14)!
+        self.addNewDropDown.textColor = UIColor.black
+        
+        addNewDropDown.show()
+        
+        addNewDropDown.selectionAction = {(index: Int, item: String) in
+            switch index {
+            case DropDownMenuOptionsInDetails.visit.rawValue :
+                print(index)
+                
+                let storyboard: UIStoryboard = UIStoryboard(name: "AccountVisit", bundle: nil)
+                let vc: CreateNewVisitViewController = storyboard.instantiateViewController(withIdentifier: "CreateNewVisitViewController") as! CreateNewVisitViewController
+                vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                vc.selectedAccount = self.accountDetailForLoggedInUser
+                
+                //As we are creating a new Visit Make the Shared instance Nil
+                PlanVisitManager.sharedInstance.visit = nil
+                
+                self.present(vc, animated: true, completion: nil)
+                
+            case DropDownMenuOptionsInDetails.event.rawValue :
+                print(index)
+                
+                let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
+                createEventViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                createEventViewController.selectedAccount = self.accountDetailForLoggedInUser
+                //As we are creating a new Visit Make the Shared instance Nil
+                PlanVisitManager.sharedInstance.visit = nil
+                
+                self.present(createEventViewController, animated: true, completion: nil)
+                
+            case DropDownMenuOptionsInDetails.actionItems.rawValue:
+                DispatchQueue.main.async {
+                    let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
+                    createActionItemViewController.isEditingMode = false
+                    createActionItemViewController.selectedAccount = self.accountDetailForLoggedInUser
+                    //                    createActionItemViewController.delegate = self
+                    self.present(createActionItemViewController, animated: true)
+                }
+            case DropDownMenuOptionsInDetails.notes.rawValue :
+                let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
+                let vc: CreateNoteViewController = storyboard.instantiateViewController(withIdentifier: "NotesID") as! CreateNoteViewController
+                vc.notesAccountId = self.accountDetailForLoggedInUser?.account_Id
+                vc.comingFromAccountDetails = self.goingFromAccountDetails
+                vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                
+                self.present(vc, animated: true, completion: nil)
+                vc.sendNoteDelegate = self
+            default:
+                break
+            }
+        }
+    }
+    
+    //Back Button Clicked
     @IBAction func backButtonAction(sender : UIButton){
         self.view.removeFromSuperview()
     }
     
+    //Details header Section Clicked
     @IBAction func itemsClicked(sender : UIButton){
         
         containerView?.isHidden = true
@@ -359,7 +345,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         btnNotes?.setTitleColor(UIColor.gray, for: .normal)
         
         switch sender.tag {
-        case 0:
+        case DetailsScreenEnumOptions.overview.rawValue :
             containerView?.isHidden = false
             btnOverview?.backgroundColor = UIColor.white
             btnOverview?.setTitleColor(UIColor.black, for: .normal)
@@ -367,7 +353,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             accountOverView.account = accountDetailForLoggedInUser
             activeViewController = accountOverView
             selectedIndex = 0
-        case 1:
+            
+        case DetailsScreenEnumOptions.details.rawValue :
             containerView?.isHidden = false
             btnDetails?.backgroundColor = UIColor.white
             btnDetails?.setTitleColor(UIColor.black, for: .normal)
@@ -377,11 +364,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             detailsViewController.account = accountDetailForLoggedInUser
             activeViewController = detailsViewController
             selectedIndex = 1
-        case 2:
-            btnInsights?.backgroundColor = UIColor.white
-            btnInsights?.setTitleColor(UIColor.black, for: .normal)
-            selectedIndex = 2
-        case 3:
+            
+        case DetailsScreenEnumOptions.opportunities.rawValue :
             containerView?.isHidden = false
             btnOpportunities?.backgroundColor = UIColor.white
             btnOpportunities?.setTitleColor(UIColor.black, for: .normal)
@@ -391,7 +375,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
 
             activeViewController = opportunitiesViewController
             selectedIndex = 3
-        case 4:
+            
+        case DetailsScreenEnumOptions.strategy.rawValue :
             containerView?.isHidden = false
             btnStrategy?.backgroundColor = UIColor.white
             btnStrategy?.setTitleColor(UIColor.black, for: .normal)
@@ -399,7 +384,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             let strategyViewController: AccountStrategyViewController = strategyStoryboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
             activeViewController = strategyViewController
             selectedIndex = 4
-        case 5:
+            
+        case DetailsScreenEnumOptions.actionItems.rawValue :
             btnActionItems?.backgroundColor = UIColor.white
             btnActionItems?.setTitleColor(UIColor.black, for: .normal)
             containerView?.isHidden = false
@@ -408,7 +394,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
             activeViewController = actionItemContainerVC
             actionItemContainerVC?.fromPersistentMenu = false
             selectedIndex = 5
-        case 6:
+            
+        case DetailsScreenEnumOptions.notes.rawValue :
             btnNotes?.backgroundColor = UIColor.white
             btnNotes?.setTitleColor(UIColor.black, for: .normal)
             containerView?.isHidden = false
@@ -420,6 +407,18 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         default:
             break
         }
+    }
+    
+    func displayAccountNotes() {
+        
+    }
+    
+    func dismissEditNote() {
+        
+    }
+    
+    func noteCreated() {
+        
     }
 }
 

@@ -32,11 +32,6 @@ class AccountStrategyViewController : UIViewController{
         super.viewDidLoad()
         print("Account Strategy Screen Loaded")
         
-        //        let plistPath = Bundle.main.path(forResource: "AccountStrategy", ofType: ".plist", inDirectory: nil)
-        //        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
-        //        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
-        //        print(dictionary!)
-        
         if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
             editIcon?.isHidden = false
             closeIcon?.isHidden = true
@@ -163,7 +158,6 @@ class AccountStrategyViewController : UIViewController{
         tableviewData.add(dict)
         
     }
-    
     
     //Used to load the Strategy Subheader Questions
     func loadTheSubheaders(data : [StrategyQA] , tableViewData : NSMutableArray){
@@ -310,7 +304,8 @@ class AccountStrategyViewController : UIViewController{
         }
     }
     
-    //MARK:- Button Actions
+    //MARK:- IBActions
+    //Edit button clicked
     @IBAction func editButtonClicked(sender : UIButton){
         
         if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {

@@ -13,6 +13,15 @@ protocol AccountVisitSearchButtonTappedDelegate {
     func clearFilter()
 }
 
+//VisitListing Filter Menu Options
+enum VisitListingFilterMenuOptions : Int{
+    case type = 0
+    case dateRange = 1
+    case status = 2
+    case pastVisit = 3
+    case myteam = 4
+}
+
 class AccountVisitListFilterViewController : UIViewController{
     
     let kHeaderSectionTag: Int = 6900;
@@ -26,11 +35,31 @@ class AccountVisitListFilterViewController : UIViewController{
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar : UISearchBar!
     
+    var isManager: Bool = false
+    var consultantAry = [Consultant]()
+    
+    var sectionData = [[Any]]()
+    var sectionNames = [String]()
+    
+    //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.customizeSearchBar()
         self.tableView!.tableFooterView = UIView()
+        
+        //To check the User is Manager or Consultant
+        consultantAry = UserViewModel().consultants
+        consultantAry = consultantAry.sorted { $0.name < $1.name }
+        
+        isManager = consultantAry.count > 0
+        sectionNames = AccountVisitListFilter().sectionNames(isManager: isManager)
+        sectionData = AccountVisitListFilter().sectionItems
+        
+        if isManager {
+            sectionData.insert(consultantAry, at: 4)
+            AccountVisitListFilter().sectionItems = sectionData
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -95,6 +124,7 @@ class AccountVisitListFilterViewController : UIViewController{
         }
     }
     
+    //Perform Expansion and Collapsion based on Section Header Click
     func sectionHeaderOperation(section : Int , eImageView : UIImageView?){
         
         if (self.expandedSectionHeaderNumber == -1) {
@@ -115,7 +145,7 @@ class AccountVisitListFilterViewController : UIViewController{
     
     //Used to dismiss Dropdown menu
     func tableViewCollapeSection(_ section: Int, imageView: UIImageView) {
-        let sectionData = accountVisit.sectionItems[section] as! NSArray
+        let sectionData = self.sectionData[section]
         self.expandedSectionHeaderNumber = -1
         
         if (sectionData.count == 0) {
@@ -138,7 +168,7 @@ class AccountVisitListFilterViewController : UIViewController{
     //Used to show Dropdown menu
     func tableViewExpandSection(_ section: Int, imageView: UIImageView) {
         
-        let sectionData = accountVisit.sectionItems[section] as! NSArray
+        let sectionData = self.sectionData[section]
         if (sectionData.count == 0) {
             self.expandedSectionHeaderNumber = -1;
             return;
@@ -160,31 +190,38 @@ class AccountVisitListFilterViewController : UIViewController{
     
     //Data to pass for Respective Cell Class
     func passDataToTableViewCell(cell : UITableViewCell, indexPath : IndexPath){
-        (cell as? AccountVisitListFilterTableViewCell)?.displayCellContent(sectionContent: accountVisit.sectionItems as NSArray, indexPath: indexPath)
+        (cell as? AccountVisitListFilterTableViewCell)?.displayCellContent(sectionContent: sectionData as NSArray, indexPath: indexPath)
+    }
+    
+    //Perform filter for SalesConsultant
+    func performSelectConsultantOperation(indexPath : IndexPath) {
+        AccountVisitListFilterModel.selectedConsultant = consultantAry[indexPath.row]
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.currentSelectedUserId = consultantAry[indexPath.row].id
     }
     
     //Dropdown Single selection option clicked and is assigned to model class
     func tableViewCellClickedSingleSelection(indexPath : IndexPath , arrayContent : Array<Any>) {
         
         switch indexPath.section {
-        case 0:
+        case VisitListingFilterMenuOptions.type.rawValue :
             self.performTypeOperation(indexPath: indexPath)
-            
-        case 1:
+        case VisitListingFilterMenuOptions.dateRange.rawValue :
             self.performDateRangeOperation(indexPath: indexPath)
-            
-        case 2:
+        case VisitListingFilterMenuOptions.status.rawValue:
             self.performStatusOperation(indexPath: indexPath)
-            
-        case 3:
+        case VisitListingFilterMenuOptions.pastVisit.rawValue:
             self.performPastVisitsOperation(indexPath: indexPath)
-            
+        case VisitListingFilterMenuOptions.myteam.rawValue:
+            self.performSelectConsultantOperation(indexPath: indexPath)
         default:
             break
         }
         tableView.reloadData()
     }
     
+    //Perform Type filter Operation
     func performTypeOperation(indexPath: IndexPath){
         
         switch indexPath.row {
@@ -205,6 +242,7 @@ class AccountVisitListFilterViewController : UIViewController{
         }
     }
     
+    //Perform Date range filter operation
     func performDateRangeOperation(indexPath: IndexPath){
         //MAking to empty if other date ranges are clicked
         AccountVisitListFilterModel.startDate = ""
@@ -228,6 +266,7 @@ class AccountVisitListFilterViewController : UIViewController{
         }
     }
     
+    //Perform Status filter Operation
     func performStatusOperation(indexPath: IndexPath){
         
         switch indexPath.row {
@@ -259,7 +298,8 @@ class AccountVisitListFilterViewController : UIViewController{
             break
         }
     }
-        
+    
+    //Perform Visit filter Operations
     func performPastVisitsOperation(indexPath: IndexPath){
         
         switch indexPath.row {
@@ -274,6 +314,7 @@ class AccountVisitListFilterViewController : UIViewController{
         }
     }
     
+    //Clear the Model data
     func clearAccountVisitFilterModel(){
         
         AccountVisitListFilterModel.isTypeVisit = "NO"
@@ -310,13 +351,20 @@ class AccountVisitListFilterViewController : UIViewController{
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.currentSelectedUserId = (appDelegate.loggedInUser?.userId)!
+        AccountVisitListFilterModel.selectedConsultant = nil
+        
     }
     
-    //MARK:- Button Actions
+    //MARK:- IBAction Methods
+    //Clear button Clicked
     @IBAction func clearButtonTapped(_ sender: UIButton){
         self.clearAccountVisitFilterModel()
     }
     
+    //Submit Button Clicked
     @IBAction func submitButtonTapped(_ sender: UIButton){
         delegate?.performFilterOperation(searchText: searchBar)
     }
@@ -326,16 +374,16 @@ class AccountVisitListFilterViewController : UIViewController{
 extension AccountVisitListFilterViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if accountVisit.sectionNames.count > 0 {
+        if sectionNames.count > 0 {
             tableView.backgroundView = nil
-            return accountVisit.sectionNames.count
+            return sectionNames.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (self.expandedSectionHeaderNumber == section) {
-            let arrayOfItems = accountVisit.sectionItems[section] as! NSArray
+            let arrayOfItems = sectionData[section] as NSArray
             return arrayOfItems.count;
         }else {
             return 0;
@@ -356,7 +404,7 @@ extension AccountVisitListFilterViewController : UITableViewDataSource{
         let myLabel = UILabel()
         myLabel.frame = CGRect(x: 15, y: 18, width: tableView.frame.size.width, height: 20)
         myLabel.font = UIFont(name:"Ubuntu", size: 18.0)
-        myLabel.text = accountVisit.sectionNames[section] as? String
+        myLabel.text = sectionNames[section]
         
         let headerView = UIView()
         headerView.addSubview(myLabel)
@@ -365,8 +413,8 @@ extension AccountVisitListFilterViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (accountVisit.sectionNames.count > 0) {
-            return accountVisit.sectionNames[section] as? String
+        if (sectionNames.count > 0) {
+            return sectionNames[section]
         }
         return ""
     }
@@ -449,7 +497,7 @@ extension AccountVisitListFilterViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
-        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : accountVisit.sectionItems)        
+        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : sectionData)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -506,7 +554,7 @@ extension AccountVisitListFilterViewController : ReloadTableViewForNewAppliedFil
     }
 }
 
-//MARK:-
+//MARK:- ClearTheAccountVisitModel Delegate
 extension AccountVisitListFilterViewController : ClearTheAccountVisitModelDelegate{
     func reloadTheDataFromBegining() {
         self.clearAccountVisitFilterModel()

@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 protocol NavigateToVisitSummaryScreenDelegate {
     func navigateToVisitSummaryScreen()
 }
@@ -21,31 +20,14 @@ class  DuringVisitsTopicsViewController : UIViewController {
     var visitObject : WorkOrderUserObject?
     var accountObject: Account?
     var collectionViewRowDetails : NSMutableArray?
-    
     var delegate : NavigateToVisitSummaryScreenDelegate?
-    
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewRowDetails = NSMutableArray()
         fetchAccountDetails()
-        //let plistPath = Bundle.main.path(forResource: "DuringVisitTopics", ofType: ".plist", inDirectory: nil)
-        //let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
-        //collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
-        
-        //print(dictionary!)
-    }
-    
-    func fetchAccountDetails(){
-        if let accountId = visitObject?.accountId {
-            let accountsArray = AccountsViewModel().accountsForLoggedUser()
-            for account in accountsArray{
-                if account.account_Id == accountId {
-                    accountObject = account
-                }
-            }
-        }
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,31 +60,6 @@ class  DuringVisitsTopicsViewController : UIViewController {
         addressDict.setValue(fullAddress, forKey: "storeAddress")
         mainArray.add(addressDict)
         
-//        addressLabel?.text = fullAddress
-        
-//        if let address = accountObject.accountBillingAddress {
-//
-//            if address != ""{
-//                let data = self.convertToDictionary(text: address)
-//
-//                let street = data!["street"] as? String ?? ""
-//    //            guard let street = data!["street"] as? String else{
-//    //                return
-//    //            }
-//                let city = data!["city"] as? String ?? ""
-//    //            guard let city = data!["city"] as? String else{
-//    //                return
-//    //            }
-//                let postalCode = data!["postalCode"] as? String ?? ""
-//    //            guard let postalCode = data!["postalCode"] as? String else {
-//    //                return
-//    //            }
-//                let addressString = street + " " + city + " " + postalCode
-//
-//
-//            }
-//        }
-
         let visitNotes = visitObject?.description
         let displayDataDict = NSMutableDictionary()
         displayDataDict.setValue("Visit Notes", forKey: "headerText")
@@ -125,13 +82,24 @@ class  DuringVisitsTopicsViewController : UIViewController {
         agentDict.setValue(agentArray, forKey: "answers")
         mainArray.add(agentDict)
         
-
-        
         collectionViewRowDetails = mainArray
         print(mainArray)
         
     }
 
+    //Fetch the from Accounts View Model
+    func fetchAccountDetails(){
+        if let accountId = visitObject?.accountId {
+            let accountsArray = AccountsViewModel().accountsForLoggedUser()
+            for account in accountsArray{
+                if account.account_Id == accountId {
+                    accountObject = account
+                }
+            }
+        }
+    }
+    
+    //Covert the String to Dictionart
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
             do {
@@ -142,10 +110,7 @@ class  DuringVisitsTopicsViewController : UIViewController {
         }
         return nil
     }
-
 }
-
-
 
 //MARK:- UICollectionView DataSource
 extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
@@ -216,7 +181,6 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
         return cell!
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         FilterMenuModel.comingFromDetailsScreen = "YES"
         FilterMenuModel.selectedAccountId = (accountObject?.account_Id)!
@@ -232,13 +196,8 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
                 }
             }
         }
-        
-        
-        
-        
     }
 }
-
 
 //MARK:- UICollectionView Delegate
 extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
@@ -277,7 +236,6 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
         return CGSize(width: 0.0, height: 0.0)
     }
 }
-
 
 //MARK:- NavigateToStrategyFromDuringVisits Delegate
 extension DuringVisitsTopicsViewController : NavigateToStrategyFromDuringVisitsDelegate{

@@ -16,7 +16,6 @@ class DuringVisitsInsightsViewController : UIViewController{
     
     var collectionViewRowDetails : NSMutableArray?
     
-    
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +46,7 @@ class DuringVisitsInsightsViewController : UIViewController{
         
         
     }
-    
 }
-
 
 //MARK:- UICollectionView DataSource
 extension DuringVisitsInsightsViewController : UICollectionViewDataSource {

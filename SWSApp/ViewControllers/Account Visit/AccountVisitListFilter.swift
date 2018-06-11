@@ -10,9 +10,23 @@ import Foundation
 
 class AccountVisitListFilter {
     
-    var sectionNames : Array<Any>  = ["Type", "Date Range", "Status", "Past Visits"]
+    func sectionNames(isManager: Bool = false) -> [String] {
+        var names = [String]()
+        names.append("Type")
+        names.append("Date Range")
+        names.append("Status")
+        names.append("Past Visits")
+        
+        if isManager {
+            names.append("My Team")
+        }
+        
+        return names
+    }
     
-    var sectionItems : Array<Any> = [ ["Visit", "Event"],
+    //var sectionNames : Array<Any>  = ["Type", "Date Range", "Status", "Past Visits"]
+    
+    var sectionItems : [[Any]] = [ ["Visit", "Event"],
                                       ["","","Today","Tomorrow", "This Week"],
                                       ["Scheduled" , "Planned", "In Progress", "Complete"],
                                       ["Past Visits"]]
@@ -40,4 +54,5 @@ struct AccountVisitListFilterModel {
     
     static var filterApplied = false
     
+    static var selectedConsultant: Consultant?
 }

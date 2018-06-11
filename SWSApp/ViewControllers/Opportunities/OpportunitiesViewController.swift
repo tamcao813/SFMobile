@@ -21,7 +21,7 @@ class OpportunitiesViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        filterMenuVC?.searchByEnteredTextDelegate = opportunitiesListVC
+        filterMenuVC?.searchByEnteredTextDelegate = opportunitiesListVC
     }
     
     override func didReceiveMemoryWarning() {

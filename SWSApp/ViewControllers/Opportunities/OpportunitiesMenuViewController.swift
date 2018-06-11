@@ -441,26 +441,22 @@ class OpportunitiesMenuViewController: UIViewController {
         {
             OpportunitiesFilterMenuModel.searchText = searchBar.text!
             
-//            self.searchByEnteredTextDelegate?.filteringCalendar(filtering: true)
-//            searchByEnteredTextDelegate?.performCalendarFilterOperation(searchString: searchBar.text!)
-            
+            searchByEnteredTextDelegate?.performOpportunitiesFilterOperation(searchString: searchBar.text!)
         }
         else
         {
             //reset the table view data to main array
-//            self.searchByEnteredTextDelegate?.filteringCalendar(filtering: false)
+            self.searchByEnteredTextDelegate?.filteringOpportunities(filtering: false)
         }
         let _:[String: String] = ["SearchStr": searchBar.text!]
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "EVENT_FILTER"), object: nil, userInfo: searchDict)
         self.tableView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     //Clears all the filter selection
     @IBAction func clearButton(_ sender: Any) {
         self.clearFilterModelData()
-//        self.searchByEnteredTextDelegate?.filteringCalendar(filtering: false)
+        self.searchByEnteredTextDelegate?.filteringOpportunities(filtering: false)
         let _:[String: String] = ["SearchStr": searchBar.text!]
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "EVENT_FILTER"), object: nil, userInfo: searchDict)
     }
     
 }

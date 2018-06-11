@@ -28,20 +28,12 @@ class AccountsNotesViewModel {
     
     func uploadNotesToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
         StoreDispatcher.shared.syncUpNotes(fieldsToUpload: fields, completion: {error in
-            
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 completion(error)
-            }
-            else {
-
+            }else {
                 completion(nil)
             }
         })
     }
-    
-    
-    
-    
-    
 }

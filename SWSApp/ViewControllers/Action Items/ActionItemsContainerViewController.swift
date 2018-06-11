@@ -27,6 +27,7 @@ class ActionItemsContainerViewController: UIViewController {
         actionItemFilterVC?.clearActionItemFilterModel()
         actionItemListVC?.refreshActionItemList()
         actionItemFilterVC?.delegate = actionItemListVC
+        actionItemListVC?.tableView.setContentOffset(.zero, animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -42,38 +42,32 @@ class User {
             id = ""
         } else {
             id = json[User.UserFields[0]] as! String
-            
         }
         
         if json[User.UserFields[1]] is NSNull {
             username = ""
         } else {
             username = json[User.UserFields[1]] as! String
-            
         }
         if json[User.UserFields[2]] is NSNull {
             fullName = ""
         } else {
             fullName = json[User.UserFields[2]] as! String
-            
         }
         if json[User.UserFields[3]] is NSNull {
             accountId = ""
         } else {
             accountId = json[User.UserFields[3]] as! String
-            
         }
         if json[User.UserFields[4]] is NSNull {
             userId = ""
         } else {
             userId = json[User.UserFields[4]] as! String
-            
         }
         if json[User.UserFields[5]] is NSNull {
             userEmail = ""
         } else {
             userEmail = json[User.UserFields[5]] as! String
-            
         }
         if json[User.UserFields[6]] is NSNull {
             userPhone = ""
@@ -85,19 +79,16 @@ class User {
             userTeamMemberRole = ""
         } else {
             userTeamMemberRole = json[User.UserFields[7]] as! String
-            
         }
         if json[User.UserFields[8]] is NSNull {
             userSite = ""
         } else {
             userSite = json[User.UserFields[8]] as! String
-            
         }
         if json[User.UserFields[9]] is NSNull {
             userManagerId = ""
         } else {
-            userManagerId = json[User.UserFields[9]] as! String
-            
+            userManagerId = json[User.UserFields[9]] as! String            
         }
         
         recordTypeId = json["Account.RecordTypeId"] as? String ?? ""
@@ -111,25 +102,15 @@ class User {
     init(jsonSimple: [String: Any]) {
         
         id = jsonSimple["Id"] as? String ?? ""
-        
         userId = id
-        
         username = jsonSimple["Username"] as? String ?? ""
-        
         fullName = jsonSimple["Name"] as? String ?? ""
-        
         accountId = jsonSimple["AccountId"] as? String ?? ""
-        
         userEmail = jsonSimple["Email"] as? String ?? ""
-        
         userPhone = jsonSimple["Phone"] as? String ?? ""
-        
         userSite = jsonSimple["SGWS_Site__c"] as? String ?? ""
-        
         userManagerId = jsonSimple["ManagerId"] as? String ?? ""
-        
         recordTypeId = jsonSimple["Account.RecordTypeId"] as? String ?? ""
-        
         userTeamMemberRole = ""
     }
     
@@ -139,26 +120,13 @@ class User {
         fullName = ""
         accountId = ""
         userId = ""
-        
         userEmail = ""
         userPhone = ""
         userTeamMemberRole = ""
         userSite = ""
         userManagerId = ""
-        
         recordTypeId = ""
     }
-    
-    //    static func mockUser() -> User {
-    //        let user = User(for: "mockup")
-    //        user.userid = "005i0000002XxdhAAC"
-    //        user.firstName = "Lucas"
-    //        user.lastName = "Giant"
-    //        user.name = "Lucas Giant"
-    //        user.userName = "lua@tahoo.com"
-    //        user.userSite = "70010"
-    //        return user
-    //    }
 }
 
 

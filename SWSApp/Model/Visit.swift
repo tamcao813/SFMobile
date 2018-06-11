@@ -10,7 +10,7 @@ import Foundation
 
 class Visit{
     
-    static let VisitsFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c", "AccountId","ContactId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c"]
+    static let VisitsFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c", "AccountId","ContactId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c","OwnerId"]
     
     var Id : String
     var subject : String
@@ -28,12 +28,10 @@ class Visit{
     var lastModifiedDate : String
     var recordTypeId : String
     var location:String
-    
     var soupEntryId:Int
-    
     var workOrderType :String
-    
     var sgwsAlldayEvent:Bool
+    var ownerId: String
 
     
     convenience init(withAry ary: [Any]) {
@@ -42,21 +40,17 @@ class Visit{
     }
     
     init(json: [String: Any]) {
-        
         Id = json["Id"] as? String ?? ""
         subject = json["Subject"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
-      
         contactId = json["ContactId"] as? String ?? ""
-        
         sgwsAppointmentStatus = json["SGWS_Appointment_Status__c"] as? Bool ?? false
-
         let sgwsAppointmentStatusString = json["SGWS_Appointment_Status__c"] as? String ?? ""
         if sgwsAppointmentStatusString == "true" {
-                    sgwsAppointmentStatus = true
+            sgwsAppointmentStatus = true
         }
         if sgwsAppointmentStatusString == "1" {
-                    sgwsAppointmentStatus = true
+            sgwsAppointmentStatus = true
         }
         
         
@@ -65,14 +59,14 @@ class Visit{
             dateStart = nil
         }
         else {
-            dateStart = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: startDate)
+            dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: startDate)
         }
         endDate = json["EndDate"] as? String ?? ""
         if endDate == "" {
             dateEnd = nil
         }
         else {
-            dateEnd = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: endDate)
+            dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: endDate)
         }
         sgwsVisitPurpose = json["SGWS_Visit_Purpose__c"] as? String ?? ""
         description = json["Description"] as? String ?? ""
@@ -95,18 +89,15 @@ class Visit{
             workOrderType = StoreDispatcher.shared.workOrderTypeVisit
         } else {
             workOrderType = StoreDispatcher.shared.workOrderTypeEvent
-            
         }
+        ownerId = json["OwnerId"] as? String ?? ""
     }
     
     init(for: String) {
-        
         Id = ""
         subject = ""
         accountId = ""
-       
         contactId = ""
-       
         sgwsAppointmentStatus = false
         startDate = ""
         dateStart = nil
@@ -122,8 +113,6 @@ class Visit{
         soupEntryId = 0
         workOrderType = ""
         sgwsAlldayEvent = false
+        ownerId = ""
     }
 }
-
-
-

@@ -15,11 +15,11 @@ class AccountVisitListSortUtility {
     var dateRangeAdded = false
     var statusAdded = false
     var pastVisitsAdded = false
-    
     var filteredArray = [WorkOrderUserObject]()
     var date = Date()
     let dateFormatter = DateFormatter()
     
+    //Used to perform both Filter and search operations
     func searchAndFilter(searchStr: String,actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         let searchOnlyArray = searchOnly(searchStr: searchStr,actionItems: actionItems)
 
@@ -28,6 +28,7 @@ class AccountVisitListSortUtility {
         return filterOnlyArray
     }
     
+    //Perform Search Operation Only
     func searchOnly(searchStr: String,actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         let subjectFilteredArray = actionItems.filter( { return $0.subject.lowercased().contains(searchStr.lowercased()) } )
         
@@ -48,6 +49,7 @@ class AccountVisitListSortUtility {
         return filteredArray.uniqueValues()
     }
     
+    //Perform Filter Operation Only
     func filterOnly(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         var filteredArray = [WorkOrderUserObject]()
         
@@ -148,9 +150,21 @@ class AccountVisitListSortUtility {
         
         let pastEventsArray = filterOnPastVisitsBasis(actionItems: filteredArray)
         
-        return pastEventsArray
+        let teamBasesArray = filterOnTeamBasis(actionItems: pastEventsArray)
+        
+        return teamBasesArray
     }
     
+    //Perform Filter based on Team Basis
+    func filterOnTeamBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
+        if let id = AccountVisitListFilterModel.selectedConsultant?.id {
+            return actionItems.filter( { return $0.ownerId.contains(id) } )
+        }
+        
+        return actionItems
+    }
+    
+    //Perform Filter based on Type
     func filterOnRecordTypeBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         var isVisitArray = [WorkOrderUserObject]()
         var isEventArray = [WorkOrderUserObject]()
@@ -172,6 +186,7 @@ class AccountVisitListSortUtility {
         }
     }
     
+    //Perform Filter based on Date Range
     func filterOnDateRangeBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
   
         var todayArray = [WorkOrderUserObject]()
@@ -179,18 +194,19 @@ class AccountVisitListSortUtility {
         var weekRangeArray = [WorkOrderUserObject]()
         var dateRangeArray = [WorkOrderUserObject]()
         
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         dateFormatter.timeZone = TimeZone.current
         
         if AccountVisitListFilterModel.isToday == "YES"{
             let timeStamp = dateFormatter.string(from: date)
             
             todayArray = actionItems.filter( {
-                let dateSeperator = $0.startDate.components(separatedBy: "T")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+               // let dateSeperator = $0.startDate.components(separatedBy: "T")
+                 let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+//                var dateOnly = ""
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly == timeStamp
             } )
             dateRangeAdded = true
@@ -201,11 +217,11 @@ class AccountVisitListSortUtility {
             let timeStamp = dateFormatter.string(from: date)
             
             tomorrowDateArray = actionItems.filter( {
-                let dateSeperator = $0.startDate.components(separatedBy: "T")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+//                let dateSeperator = $0.startDate.components(separatedBy: "T")
+                let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly == timeStamp
             } )
             dateRangeAdded = true
@@ -218,11 +234,11 @@ class AccountVisitListSortUtility {
             let timeStamp = dateFormatter.string(from: date.endOfWeek.add(component: .day, value: 1))
             
             weekRangeArray = actionItems.filter( {
-                let dateSeperator = $0.startDate.components(separatedBy: "")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+//                let dateSeperator = $0.startDate.components(separatedBy: "")
+                let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly <= timeStamp
             } )
             dateRangeAdded = true
@@ -232,20 +248,21 @@ class AccountVisitListSortUtility {
         if AccountVisitListFilterModel.startDate != "" && AccountVisitListFilterModel.endDate != ""{
             
             dateRangeArray = actionItems.filter( {
-                let dateSeperator = $0.startDate.components(separatedBy: "T")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+//                let dateSeperator = $0.startDate.components(separatedBy: "T")
+                let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.startDate)
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly >= AccountVisitListFilterModel.startDate
             } )
             
             dateRangeArray = dateRangeArray.filter( {
-                let dateSeperator = $0.endDate.components(separatedBy: "T")
-                var dateOnly = ""
-                if dateSeperator.count > 0{
-                    dateOnly = dateSeperator[0]
-                }
+//              let dateSeperator = $0.endDate.components(separatedBy: "T")
+                let dateOnly = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: $0.endDate)
+
+//                if dateSeperator.count > 0{
+//                    dateOnly = dateSeperator[0]
+//                }
                 return dateOnly <= AccountVisitListFilterModel.endDate
             } )
             
@@ -260,6 +277,7 @@ class AccountVisitListSortUtility {
         }
     }
     
+    //Perform Filter based on Status
     func filterOnStatusBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         var scheduledArray = [WorkOrderUserObject]()
         var planned = [WorkOrderUserObject]()
@@ -293,6 +311,7 @@ class AccountVisitListSortUtility {
         }
     }
     
+    //Perform filter based on Past Visits 
     func filterOnPastVisitsBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         var pastVisitsArray = [WorkOrderUserObject]()
         

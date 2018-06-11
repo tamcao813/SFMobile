@@ -10,9 +10,6 @@ import UIKit
 
 class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-    
-    
-    
     @IBOutlet weak var upcomingActivitiesTableView: UITableView!
     @IBOutlet weak var pastActivitiesTableView: UITableView!
     var account : Account?
@@ -39,14 +36,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     let dateFormatter = DateFormatter()
     let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
     
-    
-    
     var accountId : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         upcomingActivitiesTableView.delegate = self
         upcomingActivitiesTableView.dataSource = self
@@ -63,6 +56,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
     }
     
+    /// Notification function to refresh the arrays 
     @objc func refreshAccountOverView()   {
         getDB()
     }
@@ -80,6 +74,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         self.pastActivitiesTableView.reloadData()
     }
     
+    /// Function to get the array of all the objects (action items,Notifications,Visits and event)
     func getDB()  {
         
         upcomingVisitArrayToDisplay = [WorkOrderUserObject]()
@@ -92,25 +87,17 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         notificationArray = notificationModel.notificationsForUser()
         notificationArrayToDisplay = notificationArray.filter( { return $0.account == accountId } )
         
-        
-        
         //creating upcomingvisit array according to accountId
-        
         upcomingVisit = visitModel.visitsForUserTwoWeeksUpcoming()
         upcomingVisitArrayToDisplay = upcomingVisit.filter( { return $0.accountId == accountId } )
-        
-        
         
         //creating upcoming action item array according to accountId
         upcomingActionItem = actionItemModel.actionItemForUserTwoWeeksUpcoming()
         upcomingActionItemArrayToDisplay =  upcomingActionItem.filter( { return $0.accountId == accountId } )
         
-        
-        
         //creating pastvisit array according to accountId
         pastVisit = visitModel.visitsForUserOneWeeksPast()
         pastVisitArrayToDisplay = pastVisit.filter( { return $0.accountId == accountId } )
-        
         
         //creating past action item array according to accountId
         pastActionItem = actionItemModel.actionItemForUserOneWeeksPast()
@@ -123,8 +110,12 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
     }
     
+    
+    /// Function to get the Visit day of the date
+    ///
+    /// - Parameter dateToConvert: Pass the Visit date in String which need to check
+    /// - Returns: Day of the Date
     func getDayForVisitCurrentWeek(dateToConvert:String) ->String  {
-        
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         let date = dateFormatter.date(from: dateToConvert)
         let myComponents = myCalendar.components(.weekday, from: date!)
@@ -149,9 +140,11 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         }
     }
     
-    
+    /// Function to get the Action Item day of the date
+    ///
+    /// - Parameter dateToConvert: Pass the Action Item date in String which need to check
+    /// - Returns: Day of the Date
     func getDayForActionCurrentWeek(dateToConvert:String) ->String  {
-        
         dateFormatter.dateFormat = "MM/dd/yyyy"
         let date = dateFormatter.date(from: dateToConvert)
         let myComponents = myCalendar.components(.weekday, from: date!)
@@ -178,6 +171,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     
     
+    /// Function to check visit date  in Today,Yesterday,Tomorrow or in current week else any other date
+    ///
+    /// - Parameter dateToConvert: Pass the Visit date in String which need to check
+    /// - Returns: Return day if in current week else date
     func getDayFromVisit(dateToConvert:String)-> String  {
         //Getting Today, Tomorrow, Yesterday
         let calendar = Calendar.current
@@ -185,11 +182,8 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
-        let getTime = DateTimeUtility.convertUtcDatetoReadInOverview(dateStringfromAccountNotes: dateToConvert)
-        
+        let getTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: dateToConvert,dateFormat:"MM/dd/YYYY hh:mm a")
         let dayToCheck = dateFormatter.string(from: date!)
-        //        let now = Date()
-        //        let dateFromWeek = dateFormatter.string(from: now)
         var dateTime = getTime.components(separatedBy: " ")
         
         if calendar.isDateInToday(date!){
@@ -250,8 +244,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         return timeStamp
     }
     
-    
-    
+    /// Function to check Action Item date  in Today,Yesterday,Tomorrow or in current week else any other date
+    ///
+    /// - Parameter dateToConvert: Pass the Action Item date in String which need to check
+    /// - Returns: Return day if in current week else date
     func getDayFromActionItem(dateToConvert:String)-> String  {
         //Getting Today, Tomorrow, Yesterday
         let calendar = Calendar.current
@@ -312,20 +308,10 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         return timeStamp
     }
     
-    func getDateTimeFromNotification(dateToConvert:String)-> String  {
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let date = dateFormatter.date(from: dateToConvert)
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        let timeStamp = dateFormatter.string(from: date!)
-        return timeStamp
-    }
-    
-    
     
     // MARK: - TableView Functions
     // tableView.tag == 1 = Upcoming Activities table
     // tableView.tag == 2 = Past Activities table
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
@@ -368,13 +354,14 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             if tableView.tag == 1{
                 if notificationArrayToDisplay[indexPath.row].sgwsType == "Birthday"{
                     cell.UpComingActivities_TitleLabel.text = notificationArrayToDisplay[indexPath.row].sgwsContactBirthdayNotification
-                    cell.UpComingActivities_TimeLabel.text = getDateTimeFromNotification(dateToConvert: notificationArrayToDisplay[indexPath.row].createdDate)
+                    cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: notificationArrayToDisplay[indexPath.row].createdDate)
+                    
                     cell.UpComingActivities_Image.image = UIImage(named: "Bell")
                     return cell
                 }else{
                     
                     cell.UpComingActivities_TitleLabel.text = notificationArrayToDisplay[indexPath.row].sgwsAccLicenseNotification
-                    cell.UpComingActivities_TimeLabel.text = getDateTimeFromNotification(dateToConvert: notificationArrayToDisplay[indexPath.row].createdDate)
+                    cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: notificationArrayToDisplay[indexPath.row].createdDate)
                     cell.UpComingActivities_Image.image = UIImage(named: "Small Status Critical")
                     return cell
                 }
@@ -499,9 +486,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         }
     }
     
-    //    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    //       return 150
-    //    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView.tag == 2{
             
@@ -620,6 +605,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
 }
 
+// MARK: - Date Extension to check dates in week, month, today, future.
 extension Date {
     func isInSameWeek(date: Date) -> Bool {
         

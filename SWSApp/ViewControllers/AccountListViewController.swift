@@ -50,8 +50,6 @@ class AccountsListViewController: UIViewController {
     //Used for Page control operation
     @IBOutlet var pageButtonArr: [UIButton]!
     
-    //var inputArray = [1,2,3,4, 5,6,7,8, 9,10,11,12, 13,14,15,16, 17,18,19,20, 21,22,23,24, 25,26,27,28, 29,30,31,32, 33,34,35,36, 37,38,39,40, 41]
-    
     //External
     var outputArray:[Any]?
     var indexInOrignalArray:Int?
@@ -75,13 +73,10 @@ class AccountsListViewController: UIViewController {
     
     //MARK:- ViewLifeCycle
     override func viewDidLoad() {
-
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountItemList), name: NSNotification.Name("reloadAccountsData"), object: nil)
-        
-      self.reloadAllAccountListData()
-        
+        self.reloadAllAccountListData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,9 +86,21 @@ class AccountsListViewController: UIViewController {
         print("AccountListviewcontroller currentSelectedUserId: " + currentUserId)
         
         //self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+    }
+    
+    //MARK:-
+    //Reload all the Account List Data
     func reloadAllAccountListData(){
         //isAscending = true
         accountsForLoggedUserOriginal = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:accountViewModel.accountsForLoggedUser(), ascending: true)
@@ -109,22 +116,23 @@ class AccountsListViewController: UIViewController {
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
         updateUI()
         
-        let consultants = UserViewModel().consultants
     }
     
     @objc func refreshAccountItemList(notification: NSNotification){
         self.reloadAllAccountListData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    //Account List Notification
+    @objc func reloadAllAccounts(notification: NSNotification){
         
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+        if FilterMenuModel.selectedAccountId != "" {
+            let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser(), accountId: FilterMenuModel.selectedAccountId)
+            guard accountList != nil, (accountList?.count)! > 0  else {
+                return;
+            }
+            delegate?.pushTheScreenToDetailsScreen(accountData: accountList![0])
+            FilterMenuModel.selectedAccountId = ""
+        }
     }
     
     //MARK:- Segue Methods
@@ -135,25 +143,8 @@ class AccountsListViewController: UIViewController {
         }
     }
     
-    //MARK:- Account List Notification
-    @objc func reloadAllAccounts(notification: NSNotification){
-        
-        if FilterMenuModel.selectedAccountId != "" {
-            
-            let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser(), accountId: FilterMenuModel.selectedAccountId)
-            guard accountList != nil, (accountList?.count)! > 0  else {
-                return;
-            }
-            
-            delegate?.pushTheScreenToDetailsScreen(accountData: accountList![0])
-            
-            FilterMenuModel.selectedAccountId = ""
-            
-        }
-
-    }
-        
-    //MARK:- Account List Sorting related
+    //MARK:- IBAction Methods
+    //Sort by Account Name
     @IBAction func sortAccountListByAccountName(_ sender: Any)
     {
         print("sortAccountListByAccountName")
@@ -190,6 +181,7 @@ class AccountsListViewController: UIViewController {
         
     }
     
+    //Sort by Action Item
     @IBAction func sortAccountListByActionItems(_ sender: Any)
     {
         print("sortAccountListByActionItems")
@@ -227,6 +219,7 @@ class AccountsListViewController: UIViewController {
         self.updateTheTableViewDataAccordingly()
     }
     
+    //Sort by NetSales
     @IBAction func sortAccountListByNetSales(_ sender: Any)
     {
         print("sortAccountListByNetSales")
@@ -264,6 +257,7 @@ class AccountsListViewController: UIViewController {
         self.updateTheTableViewDataAccordingly()
     }
     
+    //Sort by Balence
     @IBAction func sortAccountListByBalance(_ sender: Any)
     {
         print("sortAccountListByBalance")
@@ -303,6 +297,7 @@ class AccountsListViewController: UIViewController {
         self.updateTheTableViewDataAccordingly()
     }
     
+    //Sort by Next Delivery Date
     @IBAction func sortAccountListByNextDelivery(_ sender: Any)
     {
         print("sortAccountListByNextDelivery")
@@ -338,7 +333,7 @@ class AccountsListViewController: UIViewController {
         self.updateTheTableViewDataAccordingly()
     }
     
-    
+    //Navigate to Details Screen
     @objc func navigateToDetailsScreen(){
         
         if ScreenLoadFromParent.loadedFromParent == "YES"{
@@ -351,7 +346,7 @@ class AccountsListViewController: UIViewController {
         }
     }
     
-    //MARK:- sort by entered text
+    //Sort by entered text
     func sortAccountsData(searchString: String)
     {
         isSorting = false
@@ -376,6 +371,7 @@ class AccountsListViewController: UIViewController {
         self.updateTheTableViewDataAccordingly()
     }
     
+    //Used to check wheather to perform Filter by search or only Filter
     func filtering(filtering: Bool)
     {
         isFiltering = filtering
@@ -401,7 +397,6 @@ class AccountsListViewController: UIViewController {
         pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         //}
     }
-    
     
     //Use to update the table view data
     func updateTheTableViewDataAccordingly(){
@@ -471,7 +466,6 @@ class AccountRowCell: UITableViewCell
     
 }
 
-
 //MARK:- PageControl Implementation
 extension AccountsListViewController{
     enum Page: Int {
@@ -479,6 +473,7 @@ extension AccountsListViewController{
         case first = 100, previous, one, two, three, four, five, next,last
     }
     
+    //Initialize the Page with the Pagination
     func initPageViewWith(inputArr: [Any], pageSize:Int) {
         self.kOrignalArray = inputArr
         self.kPageSize = pageSize
@@ -500,18 +495,10 @@ extension AccountsListViewController{
         self.currentPageIndex = 0   //It will have index value of the page it is displaying right now, 0 or 5 or next 10, 15---
         self.currentPageSet = 0     //[1][2][3][4][5][6] --- CPI
         
-        //if inputArr.count >= 10{
-        //tableViewDisplayData = tableViewDisplayData[0...4]
-        //    print(tableViewDisplayData)
-        // }else{
-        //let items = inputArr.count - 1
-        // tableViewDisplayData = tableViewDisplayData[0...items]
-        //    print(tableViewDisplayData)
-        // }
-        
         accountListTableView.reloadData()
     }
     
+    //Disable the button for the available items
     func disableBtn(from:Int, to:Int) {
         for i in from...to {
             pageButtonArr[i].isEnabled = false
@@ -519,12 +506,14 @@ extension AccountsListViewController{
         }
     }
     
+    //Enable the button for the available items
     func enableBtn(from:Int, to:Int) {
         for i in from...to {
             pageButtonArr[i].isEnabled = true
         }
     }
     
+    //Used to change the button text title
     func changeBtnText(byPageSet:Int) {
         if(currentPageSet! + byPageSet >= 0 &&
             currentPageSet! < kNoOfPageSet!) {
@@ -541,6 +530,7 @@ extension AccountsListViewController{
         }
     }
     
+    //Used to update the UI Based the User Input
     func updateUI(){
         
         if(kSizeOfArray == 0) {
@@ -572,6 +562,7 @@ extension AccountsListViewController{
         }
     }
     
+    //Pagination Button Action
     @IBAction func pageActionHandeler(sender: UIButton) {
         
         pageButtonArr[1].setTitleColor(UIColor.black, for: .normal)
@@ -597,6 +588,7 @@ extension AccountsListViewController{
         }
     }
     
+    //Used to change the pagination Title Text
     private func changePaginationTitleText(sender : Int){
         
         switch sender {
@@ -660,6 +652,7 @@ extension AccountsListViewController{
         }
     }
     
+    //Used to setup the first pagination button
     func setupFirstPageButton(){
         for i in 1...kNoOfPagesInEachSet {
             pageButtonArr[i].setTitle(String(i), for: .normal)
@@ -671,6 +664,7 @@ extension AccountsListViewController{
         print ("New \(self.currentPageIndex!)")
     }
     
+    //Used to setup last Pagination Button
     func setupLastPageButton(){
         self.setCurrentPageIndex()
         self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
@@ -680,6 +674,7 @@ extension AccountsListViewController{
         print ("New \(self.currentPageIndex!)")
     }
     
+    //Used to set the current page index
     func setCurrentPageIndex(){
         let lastSetNo = (kNoOfPageSet!-1) * kNoOfPagesInEachSet
         for i in 1...kNoOfPagesInEachSet {
@@ -697,7 +692,6 @@ extension AccountsListViewController : SearchByEnteredTextDelegate{
         self.updateTheTableViewDataAccordingly()
     }
 }
-
 
 //MARK:- UITableView DataSource
 extension AccountsListViewController : UITableViewDataSource{
@@ -744,7 +738,6 @@ extension AccountsListViewController : UITableViewDataSource{
         cell.accountNumberLabel.text = account.accountNumber
         //cell.percentR12NetSales.setTitle("150 " + "%", for: .normal)
         
-        
         // Create Full shipping address
         var fullAddress = ""
         if account.shippingStreet == "" && account.shippingCity == "" && account.shippingState == "" && account.shippingPostalCode == "" {
@@ -762,14 +755,7 @@ extension AccountsListViewController : UITableViewDataSource{
             }
         }
         cell.addressLabel.text = fullAddress
-        //cell.actionItemsLabel.text = String(account.actionItem)
-        //        let formatter = NumberFormatter()
-        //        formatter.locale = Locale.current // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
-        //        formatter.numberStyle = .currency
-        //        if let formattedTipAmount = formatter.string(from: account.totalCYR12NetSales as NSNumber) {
-        //            cell.netSalesAmountLabel.text = formattedTipAmount
-        //        }
-        
+    
         cell.netSalesAmountLabel.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: account.totalCYR12NetSales)
         
         cell.pastDueAmountTextLabel.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: account.pastDueAmountDouble) //String(format: "$%.2f",account.pastDueAmountDouble)
@@ -784,8 +770,6 @@ extension AccountsListViewController : UITableViewDataSource{
         
         cell.nextDeliveryDateLabel.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account.nextDeliveryDate)
         
-        
-            
         let percLastYearR12DivideBy100:Double = ((account.percentageLastYearR12NetSales)as NSString).doubleValue / 100
         let percentYearR12Double:Double =  ((account.percentageLastYearR12NetSales)as NSString).doubleValue
             
@@ -802,13 +786,9 @@ extension AccountsListViewController : UITableViewDataSource{
                 cell.percentR12NetSales?.setTitle(titleForButton, for: .normal)
                 cell.percentR12NetSales?.backgroundColor = UIColor(named: "Good")
             }
-     
-        
         return cell
-        
     }
 }
-
 
 //MARK:- UITableView Delegate
 extension AccountsListViewController : UITableViewDelegate{

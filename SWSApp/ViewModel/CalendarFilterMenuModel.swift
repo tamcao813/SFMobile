@@ -10,19 +10,30 @@ import UIKit
 
 class CalendarFilter {
     
-    var sectionNames : Array<Any>  = ["Appointment Type"]
+    func sectionNames(isManager: Bool = false) -> [String] {
+        var names = [String]()
+        names.append("Appointment Type")
+        
+        if isManager {
+            names.append("My Team")
+        }
+        
+        return names
+    }
     
-    var sectionItems : Array<Any> = [ ["Visits", "Events"] ]
+    //var sectionNames : Array<Any>  = ["Appointment Type"]
+    
+    var sectionItems : [[Any]] = [ ["Visits", "Events"] ]
     
 }
 
 let CalendarFilterCell = "calendarMenuTableTableViewCell"
 
 struct CalendarFilterMenuModel {
-
     static var searchText = ""
-
     static var visitsType = ""
     static var eventsType = ""
-
+    
+    static var selectedConsultant: Consultant?
+    
 }

@@ -46,11 +46,11 @@ class ActionItemsListViewController: UIViewController {
         fetchActionItemsFromDB()
     }
     
-    
     @objc func refreshActionItemList(){
         fetchActionItemsFromDB()
     }
     
+    /// Fetches Action Items From Task Table and sort filters 4 months of Action Item in Sort by Date Pattern
     func fetchActionItemsFromDB(){
         actionItemsArray = [ActionItem]()
         if ActionItemFilterModel.fromAccount{
@@ -65,7 +65,6 @@ class ActionItemsListViewController: UIViewController {
         }else{
             actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
         }
-       // actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
         if ActionItemFilterModel.filterApplied {
             applyFilter(searchText: searchStr)
         }
@@ -229,7 +228,7 @@ extension ActionItemsListViewController : UITableViewDelegate, UITableViewDataSo
     }
 }
 
-//MARK:- Swipe Evenyt Delegate Methods
+//MARK:- Swipe Event Delegate Methods
 extension ActionItemsListViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
@@ -325,7 +324,7 @@ extension ActionItemsListViewController {
             }
         }
         
-        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             

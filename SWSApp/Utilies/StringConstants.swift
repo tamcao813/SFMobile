@@ -49,5 +49,16 @@ class StringConstants {
     static let accountVisitPurposePlist = globalUrlDictionary["accountVisitPurposePlist"] as! String
 
     static let swsUri = globalUrlDictionary["swsUri"] as! String
+    
+    //HomeScreen URLS
+    static let goalsUrl = globalUrlDictionary["goalsUrl"] as! String
+    static let netSalesUrl = globalUrlDictionary["netSalesUrl"] as! String
+    
+    //Objectives URLS
+    static let objectivesUrl = globalUrlDictionary["objectivesUrl"] as! String
+    
+    //Insights URLS
+    static let insightsUrl = globalUrlDictionary["insightsUrl"] as! String
+    
 }
 

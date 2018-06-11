@@ -14,7 +14,6 @@ class NotificationFilter {
     
     var sectionItems : Array<Any> = [ ["License Expiration", "Contact Birthday"],
                                       ["Read","Unread"]]
-    
 }
 
 struct NotificationFilterModel {
@@ -28,5 +27,4 @@ struct NotificationFilterModel {
     static var isUnread = "NO"
     
     static var filterApplied = false
-    
 }

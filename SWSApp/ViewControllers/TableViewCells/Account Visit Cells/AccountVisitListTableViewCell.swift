@@ -22,7 +22,7 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
     @IBOutlet weak var lblAddress : UILabel!
     @IBOutlet weak var lblLocation : UILabel!
    
-    
+    //Display cell data from WorkOrderUserObject
     func displayCellData(data : WorkOrderUserObject?){
         //Used to Check wheather its an Event or Visit
         if(data?.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){

@@ -34,9 +34,18 @@ class OpportunitiesMenuTableViewCell: UITableViewCell {
         self.filterLabel.text = titleContent![indexPath.row] as? String
         self.titleLabel.text = ""
         
-        switch indexPath.section{
+        switch indexPath.section {
         case 0:
             displayViewByCellContent(indexPath)
+            
+        case 1:
+            displayStatusCellContent(indexPath)
+            
+        case 2:
+            displaySourceCellContent(indexPath)
+            
+        case 3:
+            displayObjectiveCellContent(indexPath)
             
         default:
             break
@@ -65,5 +74,129 @@ class OpportunitiesMenuTableViewCell: UITableViewCell {
         
     }
     
+    func displayStatusCellContent(_ indexPath : IndexPath){
+        
+        switch indexPath.row{
+        case 0:
+            if OpportunitiesFilterMenuModel.statusOpen == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 1:
+            if OpportunitiesFilterMenuModel.statusPlanned == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 2:
+            if OpportunitiesFilterMenuModel.statusClosedWon == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 3:
+            if OpportunitiesFilterMenuModel.statusClosed == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
 
+        default:
+            break
+        }
+        
+    }
+    
+    func displaySourceCellContent(_ indexPath : IndexPath){
+        
+        switch indexPath.row{
+        case 0:
+            if OpportunitiesFilterMenuModel.sourceBookOfBusiness == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 1:
+            if OpportunitiesFilterMenuModel.sourceTopSellers == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 2:
+            if OpportunitiesFilterMenuModel.sourceUndersold == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 3:
+            if OpportunitiesFilterMenuModel.sourceHotNot == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 4:
+            if OpportunitiesFilterMenuModel.sourceUnsold == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        default:
+            break
+        }
+        
+    }
+    
+    func displayObjectiveCellContent(_ indexPath : IndexPath){
+        
+        switch indexPath.row{
+        case 0:
+            if OpportunitiesFilterMenuModel.objective9L == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 1:
+            if OpportunitiesFilterMenuModel.objectiveDecimal == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 2:
+            if OpportunitiesFilterMenuModel.objectiveRevenue == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 3:
+            if OpportunitiesFilterMenuModel.objectiveACS == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 4:
+            if OpportunitiesFilterMenuModel.objectivePOD == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        default:
+            break
+        }
+        
+    }
+    
 }

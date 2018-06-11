@@ -43,7 +43,7 @@ extension PhoneTableViewCell: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string.isEmpty{
-            search = String(search.characters.dropLast())
+            search = String(search.dropLast())
         }else{
             search = textField.text!+string
         }

@@ -18,7 +18,6 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
-
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +55,6 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
             lblNoNetworkConnection?.isHidden = false
         }
     }
-    
 }
 
 ////MARK:- UIWebView Delegate

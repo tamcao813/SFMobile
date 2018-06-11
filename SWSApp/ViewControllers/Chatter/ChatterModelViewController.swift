@@ -16,14 +16,12 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-    // let endUrl = "/one/one.app?source=alohaHeader#/sObject/Event/home"
-    
     
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //set up activity indicator
+        //Set up activity indicator
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
@@ -53,10 +51,10 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
     }
     
     //MARK:- IBActions
+    //Close Button Clicked
     @IBAction func closeButtonAction(sender : UIButton){
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 ////MARK:- UIWebView Delegate

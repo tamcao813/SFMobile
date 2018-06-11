@@ -16,7 +16,6 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dropDownImageView : UIImageView!
-    
     @IBOutlet weak var lblStartDate : UITextField?
     @IBOutlet weak var lblEndDate : UITextField?
     
@@ -32,14 +31,20 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
     
     //Used to display cell content
     func displayCellContent(sectionContent : NSArray , indexPath : IndexPath){
         let titleContent = sectionContent[indexPath.section] as? NSArray
-        self.titleLabel.text = titleContent![indexPath.row] as? String
+        
+        if indexPath.section == 4 { //Manager section
+            let consult = titleContent![indexPath.row] as? Consultant
+            self.titleLabel.text = consult?.name
+        }
+        else {
+            self.titleLabel.text = titleContent![indexPath.row] as? String
+        }
         
         switch indexPath.section{
         case 0:
@@ -50,6 +55,8 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
             self.showStatusCell(indexPath: indexPath)
         case 3:
             self.showPastVisitCell(indexPath: indexPath)
+        case 4:
+            self.showManagerCell(indexPath: indexPath, rowContent: titleContent as! [Consultant])
         default:
             break
         }
@@ -182,7 +189,7 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         
         if sender.tag == 300{
             lblStartDate?.text = dateFormatter.string(from: datePickerView.date)
@@ -191,7 +198,7 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
         }
         
         if ((lblStartDate?.text! == "") && (lblEndDate?.text! == "")) {
-            if DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: (lblStartDate?.text!)!).compare(DateTimeUtility.getDDMMYYYFormattedDateFromString(dateString: (lblEndDate?.text!)!)) == .orderedDescending  {
+            if DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: (lblStartDate?.text!)!).compare(DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: (lblEndDate?.text!)!)) == .orderedDescending  {
                 lblEndDate?.text! = ""
                 
                 let alert = UIAlertView()
@@ -213,6 +220,17 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     @objc func doneButton(sender:UIButton){
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
+    }
+    
+    //Show Manager Cell
+    func showManagerCell(indexPath : IndexPath, rowContent: [Consultant]){
+        self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+        
+        if let consult = AccountVisitListFilterModel.selectedConsultant {
+            if consult.name == rowContent[indexPath.row].name && consult.id == rowContent[indexPath.row].id {
+                self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+            }
+        }
     }
 }
 

@@ -22,24 +22,20 @@ class UserViewModel {
     
     var loggedInUser: User? {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
         if let currentUser = appDelegate.loggedInUser {
             return currentUser
-        }
-        else {
+        }else {
             return nil
         }
     }
     
     var selectedUserId: String {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
         return appDelegate.currentSelectedUserId
     }
     
     var consultants: [Consultant] {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
         return appDelegate.consultants
     }
 }

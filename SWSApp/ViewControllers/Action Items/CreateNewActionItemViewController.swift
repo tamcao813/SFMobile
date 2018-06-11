@@ -181,9 +181,10 @@ class CreateNewActionItemViewController: UIViewController {
         
         newActionItem.subject = actionTitleTextField.text!
         newActionItem.description = actionItemDescriptionTextView.text!
-        newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
+        newActionItem.activityDate = DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: dueDateTextField.text!)
         if newActionItem.activityDate != ""{
-            if ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
+          //  newActionItem.activityDate =
+            if ActionItemSortUtility().isItOpenState(dueDate: DateTimeUtility.convertUtcDatetoReadableDateString(dateString: newActionItem.activityDate)){
                 newActionItem.status = "Open"
             }else{
                 newActionItem.status = "Overdue"
@@ -197,7 +198,7 @@ class CreateNewActionItemViewController: UIViewController {
         }else{
             newActionItem.isUrgent = false
         }
-        newActionItem.lastModifiedDate = getTimestamp()
+        newActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         var actionItemDict: [String:Any] = [
             
@@ -220,8 +221,6 @@ class CreateNewActionItemViewController: UIViewController {
             
             actionItemDict.removeValue(forKey: "ActivityDate")
         }
-            
-            
         
         let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
         if success {
@@ -247,12 +246,12 @@ class CreateNewActionItemViewController: UIViewController {
         }
         editActionItem.subject = actionTitleTextField.text!
         editActionItem.description = actionItemDescriptionTextView.text!
-        editActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
+        editActionItem.activityDate = DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: dueDateTextField.text!)
         if let status = actionItemObject?.status {
             editActionItem.status = status
             if editActionItem.activityDate != ""{
                 if editActionItem.status == "Open" || editActionItem.status == "Overdue"{
-                    if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
+                    if ActionItemSortUtility().isItOpenState(dueDate:DateTimeUtility.convertUtcDatetoReadableDateString(dateString: editActionItem.activityDate)){
                         editActionItem.status = "Open"
                     }else{
                         editActionItem.status = "Overdue"
@@ -265,7 +264,7 @@ class CreateNewActionItemViewController: UIViewController {
         }else{
             editActionItem.isUrgent = false
         }
-        editActionItem.lastModifiedDate = getTimestamp()
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             
@@ -292,10 +291,8 @@ class CreateNewActionItemViewController: UIViewController {
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
-            
             self.dismiss(animated: true, completion: nil)
         }
-       
     }
     
     func generateRandomIDForActionItems()->String  {
@@ -305,14 +302,6 @@ class CreateNewActionItemViewController: UIViewController {
         let someString:String = String(randomNum)
         print("number in notes is \(someString)")
         return someString
-    }
-    
-    func getTimestamp() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
     }
 }
 
@@ -394,8 +383,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             cell?.headerLabel.text = "Due Date"
             if let actionItem = actionItemObject {
                 cell?.actionItem = actionItem
-                cell?.dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: actionItemObject?.activityDate)
-                
+                cell?.dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItemObject?.activityDate))
             }
             return cell!
         default:

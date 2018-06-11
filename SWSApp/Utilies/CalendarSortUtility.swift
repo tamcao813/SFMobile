@@ -48,9 +48,23 @@ class CalendarSortUtility {
         else {
             filteredEvents = [WREvent]()
         }
+        
+        
+        
+        //let teamBasesArray = filterOnTeamBasis(actionItems: pastEventsArray)
+        
 
         return filteredEvents
     }
+    
+    //Perform Filter based on Team Basis
+    func filterOnTeamBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
+        if let id = AccountVisitListFilterModel.selectedConsultant?.id {
+            return actionItems.filter( { return $0.ownerId.contains(id) } )
+        }
+        return actionItems
+    }
+    
     
     static func searchCalendarBySearchText(calendarEvents:[WREvent], searchText:String)->(Bool, [WREvent])
     {

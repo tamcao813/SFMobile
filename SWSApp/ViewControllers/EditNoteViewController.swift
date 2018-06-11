@@ -125,7 +125,7 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         let ownerId = appDelegate.loggedInUser?.userId
         //Delete is allowed only for Note owner
         if(ownerId == self.notesToBeEdited.ownerId){
-        let alert = UIAlertController(title: "Notes Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Delete Note?", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
         let continueAction = UIAlertAction(title: "Delete", style: .default) {
             action in        self.notesToBeEdited.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"SGWS_Account_Notes__c"]

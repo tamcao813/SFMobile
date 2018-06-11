@@ -40,5 +40,9 @@
 	<string>https://sgws-de--dedev1.cs20.my.salesforce.com/analytics/wave/wave.apexp?tsid=02u31000000p1rD#dashboard/0FKm00000004D2wGAE</string>
 	<key>netSalesUrl</key>
 	<string>https://sgws-de--dedev1.cs20.my.salesforce.com/analytics/wave/wave.apexp?tsid=02u31000000p1rD#dashboard/0FKm00000004D3uGAE</string>
+	<key>objectivesUrl</key>
+	<string>https://sgws-de--dedev1.lightning.force.com/lightning/o/SGWS_Objectives__c/list?filterName=00Bm0000001EHSwEAO</string>
+	<key>insightsUrl</key>
+	<string>&quot;https://sgws-de--dedev1.lightning.force.com/lightning/r/SGWS_Objectives__c/a0Zm0000002QccKEAS/view&quot;</string>
 </dict>
 </plist>

@@ -71,6 +71,141 @@ class SelectOpportunitiesViewController: UIViewController {
         
     }
     
+    
+    //MARK:- Sort Button Actions
+    @IBAction func actionSortProductName(_ sender: Any) {
+        
+        if OpportunitiesFilterMenuModel.isAscendingProductName == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingProductName = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingProductName = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingSource = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    @IBAction func actionSortSource(_ sender: Any) {
+        
+        if OpportunitiesFilterMenuModel.isAscendingSource == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingSource = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingSource = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingProductName = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    @IBAction func actionSortPYCMSold(_ sender: Any) {
+        
+        if OpportunitiesFilterMenuModel.isAscendingPYCMSold == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingPYCMSold = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingPYCMSold = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingProductName = ""
+        OpportunitiesFilterMenuModel.isAscendingSource = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    @IBAction func actionSortCommit(_ sender: Any) {
+        
+        if OpportunitiesFilterMenuModel.isAscendingCommit == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingCommit = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingCommit = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingProductName = ""
+        OpportunitiesFilterMenuModel.isAscendingSource = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    @IBAction func actionSortSold(_ sender: Any) {
+        
+        if OpportunitiesFilterMenuModel.isAscendingSold == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingSold = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingSold = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingProductName = ""
+        OpportunitiesFilterMenuModel.isAscendingSource = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    @IBAction func actionSortMonth(_ sender: Any) {
+        
+        if OpportunitiesFilterMenuModel.isAscendingMonth == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingMonth = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingMonth = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingProductName = ""
+        OpportunitiesFilterMenuModel.isAscendingSource = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    @IBAction func actionSortStatus(_ sender: Any) {
+        
+        if OpportunitiesFilterMenuModel.isAscendingStatus == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingStatus = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingStatus = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingProductName = ""
+        OpportunitiesFilterMenuModel.isAscendingSource = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    func sortAndRelaodTable() {
+        
+        opportunityList =  OpportunitySortUtility().opportunitySort(opportunityList)
+        
+        opportunitiesListView.reloadData()
+    }
+    
 }
 //MARK:- TableView DataSource Methods
 extension SelectOpportunitiesViewController : UITableViewDataSource {

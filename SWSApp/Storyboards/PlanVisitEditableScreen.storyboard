@@ -586,6 +586,9 @@
                                                         <state key="normal" title="Product Name">
                                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="actionSortProductName:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="xe7-Nx-xZn"/>
+                                                        </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="JQe-nn-90j">
                                                         <rect key="frame" x="122" y="16" width="8" height="8"/>
@@ -626,6 +629,9 @@
                                                                 <state key="normal" title="Source">
                                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="actionSortSource:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="v8s-R6-Rm7"/>
+                                                                </connections>
                                                             </button>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="lBw-eT-sJM">
                                                                 <rect key="frame" x="51" y="16" width="8" height="8"/>
@@ -651,6 +657,9 @@
                                                                 <state key="normal" title="PYCM Sold">
                                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="actionSortPYCMSold:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="uvN-cq-dzL"/>
+                                                                </connections>
                                                             </button>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="43v-bS-i77">
                                                                 <rect key="frame" x="78" y="16" width="8" height="8"/>
@@ -678,6 +687,9 @@
                                                                 <state key="normal" title="Commit">
                                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="actionSortCommit:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="kx7-1U-Xc3"/>
+                                                                </connections>
                                                             </button>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="qVs-yd-P8M">
                                                                 <rect key="frame" x="58" y="13" width="8" height="8"/>
@@ -705,6 +717,9 @@
                                                                 <state key="normal" title="Sold">
                                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="actionSortSold:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="HG1-l6-YnJ"/>
+                                                                </connections>
                                                             </button>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="1fe-tr-0SU">
                                                                 <rect key="frame" x="34" y="13" width="8" height="8"/>
@@ -767,6 +782,9 @@
                                                         <state key="normal" title="Month">
                                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="actionSortMonth:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="XGl-8G-9eK"/>
+                                                        </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="xXH-SX-W7l">
                                                         <rect key="frame" x="46" y="16" width="8" height="8"/>
@@ -801,6 +819,9 @@
                                                         <state key="normal" title="Status">
                                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="actionSortStatus:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="ZSW-k3-DIO"/>
+                                                        </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="J8M-4N-ekf">
                                                         <rect key="frame" x="48" y="16" width="8" height="8"/>

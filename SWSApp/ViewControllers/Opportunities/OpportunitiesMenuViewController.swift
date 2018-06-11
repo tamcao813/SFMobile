@@ -222,7 +222,16 @@ class OpportunitiesMenuViewController: UIViewController {
         
         switch indexPath.section {
         case 0:
-            opportunitiesCellClickedSingleSelection(indexPath)
+            opportunitiesViewByCellClickedSingleSelection(indexPath)
+            
+        case 1:
+            opportunitiesStatusCellClickedMultiSelection(indexPath)
+            
+        case 2:
+            opportunitiesSourceCellClickedMultiSelection(indexPath)
+            
+        case 3:
+            opportunitiesObjectiveCellClickedMultiSelection(indexPath)
             
         default:
             break
@@ -233,7 +242,7 @@ class OpportunitiesMenuViewController: UIViewController {
         
     }
     
-    func opportunitiesCellClickedSingleSelection(_ indexPath: IndexPath) {
+    func opportunitiesViewByCellClickedSingleSelection(_ indexPath: IndexPath) {
         
         switch indexPath.row {
         case 0:
@@ -245,7 +254,57 @@ class OpportunitiesMenuViewController: UIViewController {
                 OpportunitiesFilterMenuModel.viewByCaseDecimal = "YES"
                 OpportunitiesFilterMenuModel.viewBy9L = "NO"
             }
+
+        case 1:
+            if OpportunitiesFilterMenuModel.viewBy9L == "YES" {
+                OpportunitiesFilterMenuModel.viewBy9L = "NO"
+                OpportunitiesFilterMenuModel.viewByCaseDecimal = "YES"
+            }
+            else {
+                OpportunitiesFilterMenuModel.viewBy9L = "YES"
+                OpportunitiesFilterMenuModel.viewByCaseDecimal = "NO"
+            }
+
+        default:
+            break
+        }
+        
+    }
+    
+    func opportunitiesStatusCellClickedMultiSelection(_ indexPath: IndexPath) {
+        
+        switch indexPath.row {
+        case 0:
+            if OpportunitiesFilterMenuModel.statusOpen == "YES" {
+                OpportunitiesFilterMenuModel.statusOpen = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.statusOpen = "YES"
+            }
             
+        case 1:
+            if OpportunitiesFilterMenuModel.statusPlanned == "YES" {
+                OpportunitiesFilterMenuModel.statusPlanned = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.statusPlanned = "YES"
+            }
+            
+        case 2:
+            if OpportunitiesFilterMenuModel.statusClosedWon == "YES" {
+                OpportunitiesFilterMenuModel.statusClosedWon = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.statusClosedWon = "YES"
+            }
+            
+        case 3:
+            if OpportunitiesFilterMenuModel.statusClosed == "YES" {
+                OpportunitiesFilterMenuModel.statusClosed = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.statusClosed = "YES"
+            }
             
         default:
             break
@@ -253,6 +312,104 @@ class OpportunitiesMenuViewController: UIViewController {
         
     }
     
+    func opportunitiesSourceCellClickedMultiSelection(_ indexPath: IndexPath) {
+        
+        switch indexPath.row {
+        case 0:
+            if OpportunitiesFilterMenuModel.sourceBookOfBusiness == "YES" {
+                OpportunitiesFilterMenuModel.sourceBookOfBusiness = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.sourceBookOfBusiness = "YES"
+            }
+            
+        case 1:
+            if OpportunitiesFilterMenuModel.sourceTopSellers == "YES" {
+                OpportunitiesFilterMenuModel.sourceTopSellers = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.sourceTopSellers = "YES"
+            }
+            
+        case 2:
+            if OpportunitiesFilterMenuModel.sourceUndersold == "YES" {
+                OpportunitiesFilterMenuModel.sourceUndersold = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.sourceUndersold = "YES"
+            }
+            
+        case 3:
+            if OpportunitiesFilterMenuModel.sourceHotNot == "YES" {
+                OpportunitiesFilterMenuModel.sourceHotNot = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.sourceHotNot = "YES"
+            }
+            
+        case 4:
+            if OpportunitiesFilterMenuModel.sourceUnsold == "YES" {
+                OpportunitiesFilterMenuModel.sourceUnsold = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.sourceUnsold = "YES"
+            }
+            
+        default:
+            break
+        }
+        
+    }
+
+    func opportunitiesObjectiveCellClickedMultiSelection(_ indexPath: IndexPath) {
+        
+        switch indexPath.row {
+        case 0:
+            if OpportunitiesFilterMenuModel.objective9L == "YES" {
+                OpportunitiesFilterMenuModel.objective9L = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.objective9L = "YES"
+            }
+            
+        case 1:
+            if OpportunitiesFilterMenuModel.objectiveDecimal == "YES" {
+                OpportunitiesFilterMenuModel.objectiveDecimal = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.objectiveDecimal = "YES"
+            }
+            
+        case 2:
+            if OpportunitiesFilterMenuModel.objectiveRevenue == "YES" {
+                OpportunitiesFilterMenuModel.objectiveRevenue = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.objectiveRevenue = "YES"
+            }
+            
+        case 3:
+            if OpportunitiesFilterMenuModel.objectiveACS == "YES" {
+                OpportunitiesFilterMenuModel.objectiveACS = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.objectiveACS = "YES"
+            }
+            
+        case 4:
+            if OpportunitiesFilterMenuModel.objectivePOD == "YES" {
+                OpportunitiesFilterMenuModel.objectivePOD = "NO"
+            }
+            else {
+                OpportunitiesFilterMenuModel.objectivePOD = "YES"
+            }
+            
+        default:
+            break
+        }
+        
+    }
+
     //Data to pass for Respective Cell Class
     func passDataToTableViewCell(cell : UITableViewCell, indexPath : IndexPath){
         (cell as? OpportunitiesMenuTableViewCell)?.displayCellContent(sectionContent: filterClass.sectionItems as NSArray, indexPath: indexPath)

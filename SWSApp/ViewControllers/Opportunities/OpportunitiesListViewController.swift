@@ -44,6 +44,8 @@ class OpportunitiesListViewController: UIViewController {
         OpportunitiesFilterMenuModel.isAscendingSold = ""
         OpportunitiesFilterMenuModel.isAscendingMonth = ""
         OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
     }
     
     @IBAction func actionSortSource(_ sender: Any) {
@@ -60,6 +62,8 @@ class OpportunitiesListViewController: UIViewController {
         OpportunitiesFilterMenuModel.isAscendingSold = ""
         OpportunitiesFilterMenuModel.isAscendingMonth = ""
         OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
     }
     
     @IBAction func actionSortPYCMSold(_ sender: Any) {
@@ -76,6 +80,8 @@ class OpportunitiesListViewController: UIViewController {
         OpportunitiesFilterMenuModel.isAscendingSold = ""
         OpportunitiesFilterMenuModel.isAscendingMonth = ""
         OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
     }
     
     @IBAction func actionSortCommit(_ sender: Any) {
@@ -92,6 +98,8 @@ class OpportunitiesListViewController: UIViewController {
         OpportunitiesFilterMenuModel.isAscendingSold = ""
         OpportunitiesFilterMenuModel.isAscendingMonth = ""
         OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
     }
     
     @IBAction func actionSortSold(_ sender: Any) {
@@ -108,6 +116,8 @@ class OpportunitiesListViewController: UIViewController {
         OpportunitiesFilterMenuModel.isAscendingCommit = ""
         OpportunitiesFilterMenuModel.isAscendingMonth = ""
         OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
     }
     
     @IBAction func actionSortMonth(_ sender: Any) {
@@ -124,6 +134,8 @@ class OpportunitiesListViewController: UIViewController {
         OpportunitiesFilterMenuModel.isAscendingCommit = ""
         OpportunitiesFilterMenuModel.isAscendingSold = ""
         OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
     }
     
     @IBAction func actionSortStatus(_ sender: Any) {
@@ -140,24 +152,14 @@ class OpportunitiesListViewController: UIViewController {
         OpportunitiesFilterMenuModel.isAscendingCommit = ""
         OpportunitiesFilterMenuModel.isAscendingSold = ""
         OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        
+        sortAndRelaodTable()
     }
     
     func sortAndRelaodTable() {
         
-        if OpportunitiesFilterMenuModel.isAscendingProductName != "" {
-        }
-        else if OpportunitiesFilterMenuModel.isAscendingSource != "" {
-        }
-        else if OpportunitiesFilterMenuModel.isAscendingPYCMSold != "" {
-        }
-        else if OpportunitiesFilterMenuModel.isAscendingCommit != "" {
-        }
-        else if OpportunitiesFilterMenuModel.isAscendingSold != "" {
-        }
-        else if OpportunitiesFilterMenuModel.isAscendingMonth != "" {
-        }
-        else if OpportunitiesFilterMenuModel.isAscendingStatus != "" {
-        }
+       opportunityList =  OpportunitySortUtility().opportunitySort(opportunityList)
+
         opportunitiesListTableView.reloadData()
     }
     

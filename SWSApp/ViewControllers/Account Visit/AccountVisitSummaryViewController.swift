@@ -320,7 +320,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func numberOfSections(in tableView: UITableView) -> Int {
         switch visitStatus {
         case .scheduled?:
-            return 2
+            return 3
         case .inProgress?,.planned?,.completed?:
             return 6
         default:
@@ -420,6 +420,8 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case 0:
             return getLocationCell()
         case 1:
+            return getConatactCell() // As er Dileep request we have added contact cell in scedule status
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
             cell?.delegate = self
             return cell!

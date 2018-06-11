@@ -7,8 +7,19 @@
 //
 
 import Foundation
+import SwipeCellKit
 
 class SelectOpportunitiesViewController: UIViewController {
+    @IBOutlet weak var opportunitiesListView: UITableView!
+    var opportunityAccountId: String?
+    var opportunityList = [Opportunity]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -58,6 +69,56 @@ class SelectOpportunitiesViewController: UIViewController {
             self.present(vc, animated: true, completion: nil)
         }
         
+    }
+    
+}
+//MARK:- TableView DataSource Methods
+extension SelectOpportunitiesViewController : UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return opportunityList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "opportunitiesListTableViewCell", for: indexPath) as? OpportunitiesListTableViewCell
+        cell?.selectionStyle = .none
+        
+        cell?.displayCellContent(opportunityList[indexPath.row])
+        cell?.delegate =  self
+        return cell ?? UITableViewCell()
+    }
+    
+}
+
+//MARK:- Swipe Evenyt Delegate Methods
+extension SelectOpportunitiesViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
+            DispatchQueue.main.async {
+                // TBD action Edit
+            }
+        }
+        editAction.hidesWhenSelected = true
+        editAction.image = #imageLiteral(resourceName: "editIcon")
+        editAction.backgroundColor = UIColor(named:"InitialsBackground")
+        
+        return [editAction]
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
+        var options = SwipeTableOptions()
+        options.transitionStyle = .drag
+        return options
+    }
+}
+
+//MARK:- TableView Delegate Methods
+extension SelectOpportunitiesViewController : UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 180
     }
     
 }

@@ -22,7 +22,6 @@ class ContactClassificationTableViewCell: UITableViewCell {
     }
     
     func displayCellContents(){
-        //        let classificationOpts = PlistMap.sharedInstance.getPicklist(fieldname: "ContactClassification")
         let classificationOpts = PlistMap.sharedInstance.readPList(plist: "/ContactClassification.plist")
         
         pickerOption = classificationOpts as! [[String : Any]]
@@ -71,17 +70,21 @@ class ContactClassificationTableViewCell: UITableViewCell {
     }
     
     @objc func donePicker(){
-        if !selectedOption.isEmpty {
-            let value = selectedOption["value"] as! String
-            classificationTextField.text = value
-            classificationTextField.resignFirstResponder()
-            if value == "Other" {
-                otherTextField.isHidden = false
-            }else{
-                otherTextField.isHidden = true
-                otherTextField.text = ""
+        if selectedOption.isEmpty {
+            if pickerOption.count > 0{
+                selectedOption = pickerOption[0]
             }
         }
+        let value = selectedOption["value"] as! String
+        classificationTextField.text = value
+        classificationTextField.resignFirstResponder()
+        if value == "Other" {
+            otherTextField.isHidden = false
+        }else{
+            otherTextField.isHidden = true
+            otherTextField.text = ""
+        }
+        
     }
     
     @objc func cancelPicker(){

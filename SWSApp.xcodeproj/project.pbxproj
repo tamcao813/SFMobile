@@ -284,6 +284,9 @@
 		D2EAEB942074EF88005F7792 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EAEB932074EF88005F7792 /* NotificationsViewController.swift */; };
 		EA69F234B4F821BD07B76811 /* Pods_SWSAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */; };
 		F2062E5E2091ED6E0005DD2A /* DuringVisit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2062E5D2091ED6E0005DD2A /* DuringVisit.storyboard */; };
+		F2064C8820CE64CF00FC03A0 /* OpportunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2064C8720CE64CF00FC03A0 /* OpportunityViewModel.swift */; };
+		F2064C8A20CE664600FC03A0 /* Opportunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2064C8920CE664600FC03A0 /* Opportunity.swift */; };
+		F2064C8C20CE669A00FC03A0 /* OpportunitySortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2064C8B20CE669900FC03A0 /* OpportunitySortUtility.swift */; };
 		F2086B7520B5B424008A61F0 /* VisitCallToConfirmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2086B7120B5B423008A61F0 /* VisitCallToConfirmTableViewCell.xib */; };
 		F2086B7620B5B424008A61F0 /* VisitCallToConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2086B7220B5B423008A61F0 /* VisitCallToConfirmTableViewCell.swift */; };
 		F2086B7720B5B424008A61F0 /* VisitLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2086B7320B5B423008A61F0 /* VisitLocationTableViewCell.xib */; };
@@ -640,6 +643,9 @@
 		D2EAEB912074EDBE005F7792 /* ActionItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionItemsViewController.swift; sourceTree = "<group>"; };
 		D2EAEB932074EF88005F7792 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		F2062E5D2091ED6E0005DD2A /* DuringVisit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DuringVisit.storyboard; sourceTree = "<group>"; };
+		F2064C8720CE64CF00FC03A0 /* OpportunityViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpportunityViewModel.swift; sourceTree = "<group>"; };
+		F2064C8920CE664600FC03A0 /* Opportunity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Opportunity.swift; sourceTree = "<group>"; };
+		F2064C8B20CE669900FC03A0 /* OpportunitySortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpportunitySortUtility.swift; sourceTree = "<group>"; };
 		F2086B7120B5B423008A61F0 /* VisitCallToConfirmTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCallToConfirmTableViewCell.xib; sourceTree = "<group>"; };
 		F2086B7220B5B423008A61F0 /* VisitCallToConfirmTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCallToConfirmTableViewCell.swift; sourceTree = "<group>"; };
 		F2086B7320B5B423008A61F0 /* VisitLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitLocationTableViewCell.xib; sourceTree = "<group>"; };
@@ -1166,6 +1172,7 @@
 		D125133E206480E400CD6CB4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F2064C8920CE664600FC03A0 /* Opportunity.swift */,
 				F2FDA1492099D92D000921A8 /* Visit.swift */,
 				6DDF2B2420A9EBF300FA5A87 /* SyncConfiguration.swift */,
 				4A00BB4F20BBBCC60003C3ED /* SyncLog.swift */,
@@ -1360,6 +1367,7 @@
 				129A699D2099BB8300642B14 /* StrategyAnswersViewModel.swift */,
 				AE43DD1A209C73EF005D8DD1 /* VisitSchedulerViewModel.swift */,
 				12A5BFC420BEDED900D6CD81 /* NotificationsViewModel.swift */,
+				F2064C8720CE64CF00FC03A0 /* OpportunityViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1375,6 +1383,7 @@
 		D1FE1D0320657B47009CC47C /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
+				F2064C8B20CE669900FC03A0 /* OpportunitySortUtility.swift */,
 				AE3D30D320BCC1AA0053ACE0 /* PaddingLabel.swift */,
 				AE1FAABF20B6C2EE005B44EC /* ColumnFlowLayout.swift */,
 				AE1FAABD20B6C2ED005B44EC /* CustomMethods.swift */,
@@ -2011,6 +2020,7 @@
 				D2EAEB922074EDBE005F7792 /* ActionItemsViewController.swift in Sources */,
 				8D17A5D020A2023000ABC9DC /* ContactVisitLinkTableViewCell.swift in Sources */,
 				AE8F41F420A09F1B0033F81D /* UIView+Properties.swift in Sources */,
+				F2064C8820CE64CF00FC03A0 /* OpportunityViewModel.swift in Sources */,
 				8D4BA39E20B45B58005CFE56 /* PrimaryFunctionTableViewCell.swift in Sources */,
 				9187924120A55C2A009CB557 /* CalendarViewController.swift in Sources */,
 				4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */,
@@ -2023,6 +2033,7 @@
 				8D4BA32E20B455EB005CFE56 /* ActionItemSortUtility.swift in Sources */,
 				8D4BA37820B45B58005CFE56 /* ContactListDetailsViewController.swift in Sources */,
 				AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */,
+				F2064C8C20CE669A00FC03A0 /* OpportunitySortUtility.swift in Sources */,
 				F2919DA020AEEBBA00267A60 /* AccountVisitEmbedViewController.swift in Sources */,
 				121D740F207E73070046BE41 /* String+PartString.swift in Sources */,
 				D125134420648E1000CD6CB4 /* User.swift in Sources */,
@@ -2094,6 +2105,7 @@
 				8D17A5D620A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
 				8D4BA3A220B45B58005CFE56 /* SearchAccountTableViewCell.swift in Sources */,
 				D2CD7F63208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
+				F2064C8A20CE664600FC03A0 /* Opportunity.swift in Sources */,
 				914E4F3B20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */,
 				C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */,
 				D1FE1D0720657B7E009CC47C /* SFAError.swift in Sources */,

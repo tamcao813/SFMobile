@@ -46,6 +46,10 @@ class ActionItemsListViewController: UIViewController {
         fetchActionItemsFromDB()
     }
     
+    @objc func refreshActionItemList(){
+        fetchActionItemsFromDB()
+    }
+    
     /// Fetches Action Items From Task Table and sort filters 4 months of Action Item in Sort by Date Pattern
     func fetchActionItemsFromDB(){
         actionItemsArray = [ActionItem]()

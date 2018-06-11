@@ -114,6 +114,7 @@ class CalendarMenuViewController: UIViewController {
 
         CalendarFilterMenuModel.visitsType = "YES"
         CalendarFilterMenuModel.eventsType = "YES"
+        CalendarFilterMenuModel.selectConsultantClicked = ""
         
         if searchBar != nil{
             searchBar.text = ""
@@ -244,7 +245,7 @@ class CalendarMenuViewController: UIViewController {
     
     func performSelectConsultantOperation(indexPath : IndexPath) {
         CalendarFilterMenuModel.selectedConsultant = consultantAry[indexPath.row]
-        
+        CalendarFilterMenuModel.selectConsultantClicked = "YES"
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.currentSelectedUserId = consultantAry[indexPath.row].id
     }
@@ -289,7 +290,7 @@ class CalendarMenuViewController: UIViewController {
     private func isValidUserInputAtSearchFilterPanel()->Bool{
         var validInput = false
         if(searchBar.text!.count > 0 ||
-            (CalendarFilterMenuModel.visitsType == "NO" || CalendarFilterMenuModel.eventsType == "NO"))
+            (CalendarFilterMenuModel.visitsType == "NO" || CalendarFilterMenuModel.eventsType == "NO") ||  CalendarFilterMenuModel.selectConsultantClicked != "")
         {
             validInput = true
         }

@@ -10,7 +10,7 @@ import Foundation
 
 class PlanVisit {
     
-    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","_soupEntryId","SGWS_WorkOrder_Location__c","SGWS_All_Day_Event__c"]
+    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","_soupEntryId","SGWS_WorkOrder_Location__c","SGWS_All_Day_Event__c","OwnerId"]
     
     var Id : String
     var subject : String
@@ -30,6 +30,8 @@ class PlanVisit {
     var workOrderType :String
     
     var sgwsAlldayEvent :Bool
+    
+    var ownerId : String
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(PlanVisit.planVisitFields, ary))
@@ -55,6 +57,7 @@ class PlanVisit {
         soupEntryId = json["_soupEntryId"] as? Int ?? 0
         sgwsAlldayEvent = json["SGWS_All_Day_Event__c"] as? Bool ?? false
         
+        ownerId = json["OwnerId"] as? String ?? ""
         
         if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == StoreDispatcher.shared.workOrderRecordTypeIdVisit){
             workOrderType = StoreDispatcher.shared.workOrderTypeVisit
@@ -83,6 +86,8 @@ class PlanVisit {
         soupEntryId = 0
         workOrderType = ""
         sgwsAlldayEvent = false
+        
+        ownerId = ""
         
     }
 }

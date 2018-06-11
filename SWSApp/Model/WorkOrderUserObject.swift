@@ -14,7 +14,7 @@ class WorkOrderUserObject {
     
     //["Id","Subject","AccountId","Account.Name","Account.AccountNumber","Account.BillingAddress","ContactId","Contact.Name","Contact.Phone","Contact.Email","Contact.SGWS_Roles__c","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","SGWS_WorkOrder_Location__c ","RecordTypeId"]
     
-    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c","AccountId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","OwnerId","_soupEntryId","SGWS_All_Day_Event__c"]
+    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c","AccountId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c","OwnerId"]
     
     var Id : String
     var subject : String

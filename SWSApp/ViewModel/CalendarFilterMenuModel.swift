@@ -34,6 +34,7 @@ struct CalendarFilterMenuModel {
     static var visitsType = ""
     static var eventsType = ""
     
+    static var selectConsultantClicked = ""
     static var selectedConsultant: Consultant?
     
 }

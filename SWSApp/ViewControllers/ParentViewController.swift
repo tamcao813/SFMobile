@@ -686,6 +686,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if previouslySelectedVCIndex == 0{
             let homeScreen = self.homeVC as? HomeViewController
             homeScreen?.scrollToTop()
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "scrollToTopHomeActivities"), object:nil)
+            
         }
     }
     

@@ -31,6 +31,8 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshDB), name: NSNotification.Name(rawValue: "refreshHomeActivities"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.scrollToTop), name: NSNotification.Name(rawValue: "scrollToTopHomeActivities"), object: nil)
+        
         
         tableView?.tableFooterView = UIView()
         
@@ -49,6 +51,19 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     }
     
     
+    @objc func scrollToTop(){
+        DispatchQueue.main.async {
+            if(self.notificationsToDisplay.count > 0) || (self.actionItemToDisplay.count > 0){
+                self.tableView?.setContentOffset(.zero, animated: true)
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
     
     /// Finction to get the Array of Notifications and Action Items
     func getDB() {

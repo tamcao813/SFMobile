@@ -10,7 +10,7 @@ import Foundation
 
 class Visit{
     
-    static let VisitsFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c", "AccountId","ContactId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c"]
+    static let VisitsFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c", "AccountId","ContactId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c","OwnerId"]
     
     var Id : String
     var subject : String
@@ -31,6 +31,8 @@ class Visit{
     var soupEntryId:Int
     var workOrderType :String
     var sgwsAlldayEvent:Bool
+    var ownerId: String
+
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Visit.VisitsFields, ary))
@@ -88,6 +90,7 @@ class Visit{
         } else {
             workOrderType = StoreDispatcher.shared.workOrderTypeEvent
         }
+        ownerId = json["OwnerId"] as? String ?? ""
     }
     
     init(for: String) {
@@ -110,5 +113,6 @@ class Visit{
         soupEntryId = 0
         workOrderType = ""
         sgwsAlldayEvent = false
+        ownerId = ""
     }
 }

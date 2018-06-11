@@ -13,6 +13,12 @@ protocol ClearTheAccountVisitModelDelegate{
     func reloadTheDataFromBegining()
 }
 
+//Create new Visit or Events
+enum CreateNewItem : Int{
+    case visit = 0
+    case event = 1
+}
+
 class AccountVisitListViewController: UIViewController {
     
     //External
@@ -34,13 +40,7 @@ class AccountVisitListViewController: UIViewController {
     var kRemainderNoLeft = 0
     var kOrignalArray:[Any]?
     var isDisabledPreviously = false
-    //Outlets Used for Page control operation
-    @IBOutlet var pageButtonArr: [UIButton]!
     var numberOfAccountRows = 0
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var addNewButton : UIButton!
-    
     var globalWorkorderObjectArray = [WorkOrderUserObject]()
     var mainArray = [WorkOrderUserObject]()
     var dataArrayFromToday = [WorkOrderUserObject]()
@@ -48,13 +48,18 @@ class AccountVisitListViewController: UIViewController {
     var filteredTableViewDataArray = [WorkOrderUserObject]()
     var addNewDropDown = DropDown()
     var searchStr = ""
-    
     var titleAscendingSort = false
     var statusAscendingSort = false
     var dateAscendingSort = false
     
+    //Outlets Used for Page control operation
+    @IBOutlet var pageButtonArr: [UIButton]!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addNewButton : UIButton!
+    
     var delegate : ClearTheAccountVisitModelDelegate?
     
+    //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
@@ -64,23 +69,22 @@ class AccountVisitListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //initializingXIBs()
         addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //DispatchQueue.global().async {
-       
-        //}
-    }
-    
-    @objc func refreshAccountVisitList(){
 
-        getTheDataFromDB()
-       
+
     }
     
+    //MARK:-
+    //Used to Fetch the New Data from DB after Sync UP process
+    @objc func refreshAccountVisitList(){
+        getTheDataFromDB()
+    }
+    
+    //Get the data for the Selected dates to display in the list View
     func getTheDataFromDB(){
         let visitArray = VisitsViewModel()
         globalWorkorderObjectArray = visitArray.visitsForUser()
@@ -122,6 +126,7 @@ class AccountVisitListViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshAccountVisitList"), object: nil)
     }
     
+    //Customize the UI for Table View
     func customizedUI(){
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
@@ -129,10 +134,7 @@ class AccountVisitListViewController: UIViewController {
         self.tableView.allowsMultipleSelectionDuringEditing = true
     }
     
-    func initializingXIBs(){
-        //self.tableView.register(UINib(nibName: "AccountVisitListTableViewCell", bundle: nil), forCellReuseIdentifier: "AccountVisitListTableViewCell")
-    }
-    
+    //Scroll the Tableview content to top
     func scrollTableViewToTop(){
         tableView.reloadData()
         DispatchQueue.main.async {
@@ -142,6 +144,9 @@ class AccountVisitListViewController: UIViewController {
         }
     }
     
+    //MARK:- IBAction Methods
+    
+    //New Button Clicked
     @IBAction func newVisitButtonTapped(_ sender: UIButton){
         
         addNewDropDown.anchorView = sender
@@ -155,14 +160,14 @@ class AccountVisitListViewController: UIViewController {
         
         addNewDropDown.selectionAction = {(index: Int, item: String) in
             switch index {
-            case 0:
+            case CreateNewItem.visit.rawValue :
                 let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
                 createVisitViewController.isEditingMode = false
                 PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
                     self.present(createVisitViewController, animated: true)
                 }
-            case 1:
+            case CreateNewItem.event.rawValue:
                 let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
                 PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
@@ -174,6 +179,7 @@ class AccountVisitListViewController: UIViewController {
         }
     }
     
+    //Perform sort by Title
     @IBAction func sortByTitleButtonAction(_ sender: UIButton){
         
         if titleAscendingSort {
@@ -186,6 +192,7 @@ class AccountVisitListViewController: UIViewController {
         self.scrollTableViewToTop()
     }
     
+    //Perform sort by Status
     @IBAction func sortByStatusButtonAction(_ sender: UIButton){
         
         if statusAscendingSort{
@@ -198,6 +205,7 @@ class AccountVisitListViewController: UIViewController {
         self.scrollTableViewToTop()
     }
     
+    //Perform sort by Date
     @IBAction func sortByDateButtonAction(_ sender: UIButton){
       
         if dateAscendingSort{
@@ -211,15 +219,12 @@ class AccountVisitListViewController: UIViewController {
     }
 }
 
-extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataSource {
+//MARK:- UITableView DataSource
+extension AccountVisitListViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 180
     }
-    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return kPageSize //tableViewDataArray.count
-//    }
     
     //Pagination changes needed in TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -246,7 +251,6 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
     // custom header for the section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountVisitListHeaderTableViewCell") as? AccountVisitListTableViewCell
-        //cell?.cen
         return cell
     }
     
@@ -313,6 +317,10 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 //        return options
 //    }
     
+}
+
+//MARK:- UITableView Delegate
+extension AccountVisitListViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.endEditing(true)
         
@@ -334,7 +342,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
             
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
-   
+            
             PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row]
             accountVisitsVC?.visitId = tableViewDataArray[indexPath.row].Id
             
@@ -350,6 +358,7 @@ extension AccountVisitListViewController : UITableViewDelegate, UITableViewDataS
 //MARK:- AccountVisitSearchButtonTapped Delegate
 extension AccountVisitListViewController : AccountVisitSearchButtonTappedDelegate{
     
+    //Used to clear the filter and scoll the Table view to top
     func clearFilter() {
         AccountVisitListFilterModel.filterApplied = false
         
@@ -360,12 +369,14 @@ extension AccountVisitListViewController : AccountVisitSearchButtonTappedDelegat
         self.scrollTableViewToTop()
     }
     
+    //Used to perform the filter operation
     func performFilterOperation(searchText: UISearchBar) {
         AccountVisitListFilterModel.filterApplied = true
         //Perform Search Operation First then do Filtering
         applyFilter(searchText: searchText.text!)
     }
     
+    //Apply the filter based on the text input
     func applyFilter(searchText: String){
         if searchText != ""{
             searchStr = searchText
@@ -440,7 +451,6 @@ enum AccountVisitStatus : String {
     case planned
 }
 
-
 //MARK:- PageControl Implementation
 extension AccountVisitListViewController{
     enum Page: Int {
@@ -468,6 +478,7 @@ extension AccountVisitListViewController{
         pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
     }
     
+    //Initialize the Page with the Pagination
     func initPageViewWith(inputArr: [Any], pageSize:Int) {
         self.kOrignalArray = inputArr
         self.kPageSize = pageSize
@@ -488,20 +499,13 @@ extension AccountVisitListViewController{
         }
         self.currentPageIndex = 0   //It will have index value of the page it is displaying right now, 0 or 5 or next 10, 15---
         self.currentPageSet = 0     //[1][2][3][4][5][6] --- CPI
-        
-        //if inputArr.count >= 10{
-        //tableViewDisplayData = tableViewDisplayData[0...4]
-        //    print(tableViewDisplayData)
-        // }else{
-        //let items = inputArr.count - 1
-        // tableViewDisplayData = tableViewDisplayData[0...items]
-        //    print(tableViewDisplayData)
-        // }
+      
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     
+    //Disable the button for the available items
     func disableBtn(from:Int, to:Int) {
         for i in from...to {
             pageButtonArr[i].isEnabled = false
@@ -509,12 +513,14 @@ extension AccountVisitListViewController{
         }
     }
     
+    //Enable the button for the available items
     func enableBtn(from:Int, to:Int) {
         for i in from...to {
             pageButtonArr[i].isEnabled = true
         }
     }
     
+    //Used to change the button text title
     func changeBtnText(byPageSet:Int) {
         if(currentPageSet! + byPageSet >= 0 &&
             currentPageSet! < kNoOfPageSet!) {
@@ -531,6 +537,7 @@ extension AccountVisitListViewController{
         }
     }
     
+    //Used to update the UI Based the User Input
     func updateUI(){
         
         if(kSizeOfArray == 0) {
@@ -562,6 +569,7 @@ extension AccountVisitListViewController{
         }
     }
     
+    //Pagination Button Action
     @IBAction func pageActionHandeler(sender: UIButton) {
         
         print("\(sender.tag)")
@@ -588,6 +596,7 @@ extension AccountVisitListViewController{
         }
     }
     
+    //Used to change the pagination Title Text
     private func changePaginationTitleText(sender : Int){
         
         switch sender {
@@ -651,6 +660,7 @@ extension AccountVisitListViewController{
         }
     }
     
+    //Used to setup the first pagination button
     func setupFirstPageButton(){
         for i in 1...kNoOfPagesInEachSet {
             pageButtonArr[i].setTitle(String(i), for: .normal)
@@ -662,6 +672,7 @@ extension AccountVisitListViewController{
         print ("New \(self.currentPageIndex!)")
     }
     
+    //Used to setup last Pagination Button
     func setupLastPageButton(){
         self.setCurrentPageIndex()
         self.currentPageIndex = (kNoOfPageSet!-1) * kPageSize * kNoOfPagesInEachSet
@@ -671,6 +682,7 @@ extension AccountVisitListViewController{
         print ("New \(self.currentPageIndex!)")
     }
     
+    //Used to set the current page index
     func setCurrentPageIndex(){
         let lastSetNo = (kNoOfPageSet!-1) * kNoOfPagesInEachSet
         for i in 1...kNoOfPagesInEachSet {

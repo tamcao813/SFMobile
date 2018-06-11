@@ -37,6 +37,10 @@ class CalendarSortUtility {
             filteredEvents.append(contentsOf: filteredEventEvents)
         }
         
+        if CalendarFilterMenuModel.selectConsultantClicked != ""{
+            filteredEvents = filterOnTeamBasis(actionItems: filteredEvents)
+        }
+        
         guard searchText != "" else {
             return filteredEvents
         }
@@ -49,17 +53,13 @@ class CalendarSortUtility {
             filteredEvents = [WREvent]()
         }
         
-        
-        
-        //let teamBasesArray = filterOnTeamBasis(actionItems: pastEventsArray)
-        
-
         return filteredEvents
     }
     
     //Perform Filter based on Team Basis
-    func filterOnTeamBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
-        if let id = AccountVisitListFilterModel.selectedConsultant?.id {
+    static func filterOnTeamBasis(actionItems: [WREvent]) -> [WREvent]{
+        if let id = CalendarFilterMenuModel.selectedConsultant?.id {
+            print(id)
             return actionItems.filter( { return $0.ownerId.contains(id) } )
         }
         return actionItems

@@ -28,7 +28,7 @@ class NotificationListTableViewCell: UITableViewCell {
         }
         
         if notificationObject.sgwsType == "Birthday" {
-            let image = #imageLiteral(resourceName: "Calender").withRenderingMode(.alwaysTemplate)
+            let image = #imageLiteral(resourceName: "Calender_Icon").withRenderingMode(.alwaysTemplate)
             notificationImage.image = image
             notificationImage.tintColor = UIColor(named: "Data New")
             notificationTitle.text = notificationObject.sgwsContactBirthdayNotification

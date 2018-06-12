@@ -3339,10 +3339,11 @@ class StoreDispatcher {
         let syncOpportunityFields = Opportunity.opportunityFields
         
         var indexSpec:[SFSoupIndex] = []
-        for i in 0...syncOpportunityFields.count - 2 {
+        for i in 0...syncOpportunityFields.count - 3 {
             let sfIndex = SFSoupIndex(path: syncOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncOpportunityFields[i])!
             indexSpec.append(sfIndex)
         }
+        indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 2], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 2])!)
         indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 1], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 1])!)
         
         indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
@@ -3357,8 +3358,8 @@ class StoreDispatcher {
     
     func syncDownOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "select Id,AccountId,SGWS_Product_Name__c,SGWS_Opportunity_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c, SGWS_Sold__c,SGWS_Month_Active__c,SGWS_Status__c,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,(select name,SGWS_Objectives__r.name from Opportunity_Objective_Junction__r) from opportunity"
-        
+        let soqlQuery = "select id,AccountId,SGWS_Opportunity_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c, SGWS_Sold__c, SGWS_Month_Active__c,SGWS_Status__c,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,(select name,SGWS_Objectives__r.name,SGWS_Objectives__r.SGWS_Select_Objective_Type__c from Opportunity_Objective_Junction__r),(select Product2Id, Product2.Name,Product2.SGWS_CORP_ITEM_BOTTLES_PER_CASE__c,Product2.SGWS_CORP_ITEM_SIZE__c,Product2.SGWS_Corp_Brand__c from OpportunityLineItems) from opportunity"
+
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
         

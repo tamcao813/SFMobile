@@ -349,7 +349,7 @@ class OpportunitySortUtility {
             var filteredObjectiveOpenOpportunityArray = [Opportunity]()
             
             enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveJunction.self.range(of: "9L", options: .caseInsensitive) != nil) } )
+            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveTypes.self.range(of: "9L", options: .caseInsensitive) != nil) } )
             
             if filteredObjectiveOpenOpportunityArray.count > 0 {
                 filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
@@ -361,7 +361,7 @@ class OpportunitySortUtility {
             var filteredObjectiveOpenOpportunityArray = [Opportunity]()
             
             enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveJunction.self.range(of: "Decimal", options: .caseInsensitive) != nil) } )
+            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveTypes.self.range(of: "Decimal", options: .caseInsensitive) != nil) } )
             
             if filteredObjectiveOpenOpportunityArray.count > 0 {
                 filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
@@ -373,7 +373,7 @@ class OpportunitySortUtility {
             var filteredObjectiveOpenOpportunityArray = [Opportunity]()
             
             enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveJunction.self.range(of: "Revenue", options: .caseInsensitive) != nil) } )
+            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveTypes.self.range(of: "Revenue", options: .caseInsensitive) != nil) } )
             
             if filteredObjectiveOpenOpportunityArray.count > 0 {
                 filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
@@ -385,7 +385,7 @@ class OpportunitySortUtility {
             var filteredObjectiveOpenOpportunityArray = [Opportunity]()
             
             enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveJunction.self.range(of: "ACS", options: .caseInsensitive) != nil) } )
+            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveTypes.self.range(of: "ACS", options: .caseInsensitive) != nil) } )
             
             if filteredObjectiveOpenOpportunityArray.count > 0 {
                 filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
@@ -397,7 +397,7 @@ class OpportunitySortUtility {
             var filteredObjectiveOpenOpportunityArray = [Opportunity]()
             
             enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveJunction.self.range(of: "POD", options: .caseInsensitive) != nil) } )
+            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveTypes.self.range(of: "POD", options: .caseInsensitive) != nil) } )
             
             if filteredObjectiveOpenOpportunityArray.count > 0 {
                 filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
@@ -417,7 +417,7 @@ class OpportunitySortUtility {
             var filteredObjectiveOpenOpportunityArray = [Opportunity]()
             
             enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.productName.self.range(of: searchText, options: .caseInsensitive) != nil) } )
+            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return (($0.productName.self.range(of: searchText, options: .caseInsensitive) != nil) || ($0.productID.self.range(of: searchText, options: .caseInsensitive) != nil)) } )
             
             if filteredObjectiveOpenOpportunityArray.count > 0 {
                 filteredOpportunityArray += filteredObjectiveOpenOpportunityArray

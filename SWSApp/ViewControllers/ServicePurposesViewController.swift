@@ -38,6 +38,8 @@ class ServicePurposesViewController: UIViewController {
         }
         
         var planArray = PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";")
+        
+        if(PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!) != nil){
         for i in (0..<PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count)
         {
             for j in (0..<planArray!.count)
@@ -48,7 +50,7 @@ class ServicePurposesViewController: UIViewController {
                 }
             }
         }
-        
+        }
         for _ in 0...PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count {
             selectedValuesList.append("false")
         }

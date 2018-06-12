@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var currentSelectedUserId: String = ""
     var consultants = [Consultant]()
     var alertVisible = false
+    var launchedBefore:Bool = false
     
     override init(){
         
@@ -58,8 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
                 let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
                 SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
-                //setup StoreDispatcher by registering soups
-                StoreDispatcher.shared.registerSoups()
+                //If launched first time setup StoreDispatcher by registering soups
+                if(!self.launchedBefore){
+                    StoreDispatcher.shared.registerSoups()
+                }
                 self.setupRootViewController()
                 SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .off
                 SFSDKCoreLogger.sharedInstance().logLevel       =    .off
@@ -110,6 +113,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        self.launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        
+        if launchedBefore
+        {
+            print("Not first launch.")
+        }
+        else
+        {
+            print("First launch")
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+        }
+        
         initializeAppViewState()
         SalesforceSDKManager.shared().launch()
         DropDown.startListeningToKeyboard()
@@ -119,6 +134,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
+
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -136,6 +153,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
+        
     }
     
     func initializeAppViewState() {
@@ -232,26 +251,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.loggedInUser =  user
                         self.currentSelectedUserId = user.userId
                         self.consultants = consults
+			print("appdelegate: currentSelectedUserId: " + self.currentSelectedUserId)
                         
-                        print("appdelegate: currentSelectedUserId: " + self.currentSelectedUserId)
+                        if(self.isKeyPresentInUserDefaults(key: "resyncDictionary")){
+                            StoreDispatcher.shared.syncIdDictionary = UserDefaults.standard.dictionary(forKey: "resyncDictionary") as! [String : UInt]
+                        }
                         
-                        //       self.validateRole(user: self.loggedInUser!, completion: {_ in
-                        
-                        StoreDispatcher.shared.downloadAllSoups({ (error) in
-                            if error != nil {
-                                print("error in downloadAllSoups")
-                                return
-                            }
-                            DispatchQueue.main.async(execute: {
-                                //to do: show progress 100% completed and dismiss Hub
+                        //If first time download all soups
+                        if(!self.launchedBefore){
+                            StoreDispatcher.shared.downloadAllSoups({ (error) in
+                                if error != nil {
+                                    print("error in downloadAllSoups")
+                                    return
+                                }
+                                //save the resyncdictionary to defaults
+                                UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
                                 
-                                print("DispatchQueue.main.async rootViewController")
-                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
-                                window.rootViewController = viewController
-                                window.makeKeyAndVisible()
+                                DispatchQueue.main.async(execute: {
+                                    //to do: show progress 100% completed and dismiss Hub
+                                    
+                                    print("DispatchQueue.main.async rootViewController")
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                                    window.rootViewController = viewController
+                                    window.makeKeyAndVisible()
+                                })
+                                
                             })
-                        })
+                        } else {
+                            
+                            StoreDispatcher.shared.resyncAllSoups({ (error) in
+                                if error != nil {
+                                    print("error in resyncAllSoups")
+                                    return
+                                }
+                                //save the resyncdictionary to defaults
+                                UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
+                                
+                                DispatchQueue.main.async(execute: {
+                                    //to do: show progress 100% completed and dismiss Hub
+                                    
+                                    print("DispatchQueue.main.async rootViewController")
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                                    window.rootViewController = viewController
+                                    window.makeKeyAndVisible()
+                                })
+                            })
+                        }
+                        //} //else resync
+                        
                         // })
                     })
                 })
@@ -320,5 +369,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //        }
     //
     //    }
+    
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
     
 }

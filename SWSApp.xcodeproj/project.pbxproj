@@ -44,6 +44,8 @@
 		4A39D30320AC496C00F79D95 /* AccountsActionItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */; };
 		4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */; };
 		6D38329B20875E00006805C6 /* SFPropertydev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D38329A20875E00006805C6 /* SFPropertydev.plist */; };
+		6DB9E3AC20CFBE9700041850 /* SoupConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB9E3AB20CFBE9600041850 /* SoupConstants.swift */; };
+		6DB9E3AE20CFBEA500041850 /* ConfigurationAndPickListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB9E3AD20CFBEA500041850 /* ConfigurationAndPickListModel.swift */; };
 		6DBD031A2077B5EF0083419E /* UFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030B2077B5EE0083419E /* UFL.txt */; };
 		6DBD031B2077B5EF0083419E /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030C2077B5EE0083419E /* Ubuntu-Italic.ttf */; };
 		6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030D2077B5EE0083419E /* CrimsonText-Bold.ttf */; };
@@ -398,6 +400,8 @@
 		5AA42EFBD421FE930972321D /* Pods-SWSApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B3277C8952E6C9483CD1CA7 /* Pods-SWSAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6D38329A20875E00006805C6 /* SFPropertydev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SFPropertydev.plist; sourceTree = "<group>"; };
+		6DB9E3AB20CFBE9600041850 /* SoupConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoupConstants.swift; sourceTree = "<group>"; };
+		6DB9E3AD20CFBEA500041850 /* ConfigurationAndPickListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationAndPickListModel.swift; sourceTree = "<group>"; };
 		6DBD030B2077B5EE0083419E /* UFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = UFL.txt; path = SWSApp/Resources/Fonts/UFL.txt; sourceTree = SOURCE_ROOT; };
 		6DBD030C2077B5EE0083419E /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-Italic.ttf"; path = "SWSApp/Resources/Fonts/Ubuntu-Italic.ttf"; sourceTree = SOURCE_ROOT; };
 		6DBD030D2077B5EE0083419E /* CrimsonText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Bold.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Bold.ttf"; sourceTree = SOURCE_ROOT; };
@@ -1354,6 +1358,7 @@
 		D1FCDE0A20732199005F956D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				6DB9E3AD20CFBEA500041850 /* ConfigurationAndPickListModel.swift */,
 				F2FDA1472099D924000921A8 /* VisitsViewModel.swift */,
 				9141111C20A95565006AD7CD /* CalendarViewModel.swift */,
 				914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */,
@@ -1378,6 +1383,7 @@
 		D1FCDE13207332B9005F956D /* Dispatcher */ = {
 			isa = PBXGroup;
 			children = (
+				6DB9E3AB20CFBE9600041850 /* SoupConstants.swift */,
 				D1FE1CD520654734009CC47C /* StoreDispatcher.swift */,
 			);
 			path = Dispatcher;
@@ -1984,6 +1990,7 @@
 				F29A645A20B816B000D73AE9 /* AccountVisitListFilterViewController.swift in Sources */,
 				91FAEF6120A57DD500209D71 /* StringExtension.swift in Sources */,
 				D17BD572209115CD000F38FA /* PlistMap.swift in Sources */,
+				6DB9E3AE20CFBEA500041850 /* ConfigurationAndPickListModel.swift in Sources */,
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
 				F20C1A2F20937C3700D2351C /* AccountsNotesViewModel.swift in Sources */,
 				121468E820AD603A00942A00 /* DPDKeyboardListener.swift in Sources */,
@@ -2008,6 +2015,7 @@
 				8D8D000420C14597009683AC /* NotificationFilterViewController.swift in Sources */,
 				F2AB94552095CBA90028802E /* AlertUtility.swift in Sources */,
 				8D17A5CA20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */,
+				6DB9E3AC20CFBE9700041850 /* SoupConstants.swift in Sources */,
 				D1FCDE1020733025005F956D /* UserViewModel.swift in Sources */,
 				8D4BA39620B45B58005CFE56 /* ContactHoursTableViewCell.swift in Sources */,
 				D125134220648C4F00CD6CB4 /* Account.swift in Sources */,

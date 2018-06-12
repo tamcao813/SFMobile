@@ -41,7 +41,7 @@ class OpportunitiesListTableViewCell: SwipeTableViewCell {
         monthLabel.text = opportunityDetails.monthActive
         statusLabel.text = opportunityDetails.status
 
-        relatedLabel.text = "Related Objectives: " + opportunityDetails.objectiveJunction
+        relatedLabel.text = "Related Objectives: " + opportunityDetails.objectiveNames
     }
 
     func displayViewByCellContent(_ opportunityDetails: Opportunity) {

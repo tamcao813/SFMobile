@@ -97,6 +97,8 @@ class AccountVisitSummaryViewController: UIViewController {
                 if contact.contactId == contactId {
                     selectedContact = contact
                     break
+                } else {
+                    selectedContact = nil
                 }
                 
             }

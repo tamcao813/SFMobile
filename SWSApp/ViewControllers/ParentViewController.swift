@@ -599,11 +599,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
             StoreDispatcher.shared.createSyncLogOnSyncStop(networkType: self.networkType)
             self.syncProgress = 100
-            
-            DispatchQueue.main.async {
-                self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true)
-            }
-            
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true)            
             SyncUpDailogGlobal.isSyncing = false
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)

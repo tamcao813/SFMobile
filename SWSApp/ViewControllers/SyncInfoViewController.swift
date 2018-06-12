@@ -63,22 +63,20 @@ class SyncInfoViewController: UIViewController {
         }
     }
     
-    func setLastSyncValues(){
-        DispatchQueue.main.async {
-            if let status = UserDefaults.standard.object(forKey: "lastSyncStatus") as? String {
-                self.lastSyncStatusLabel.text = status
-            }else{
-                self.lastSyncStatusLabel.text = "Last Sync"
-            }
-            
-            if let date = UserDefaults.standard.object(forKey: "lastSyncDate") as? String {
-                self.lastSyncDateLabel.text = date
-            }else{
-                self.lastSyncDateLabel.text = ""
-            }
-            self.setProgress(progress: Float(0))
-            SyncUpDailogGlobal.isSyncing = false
-        }        
+    func setLastSyncValues(){        
+        if let status = UserDefaults.standard.object(forKey: "lastSyncStatus") as? String {
+            self.lastSyncStatusLabel.text = status
+        }else{
+            self.lastSyncStatusLabel.text = "Last Sync"
+        }
+        
+        if let date = UserDefaults.standard.object(forKey: "lastSyncDate") as? String {
+            self.lastSyncDateLabel.text = date
+        }else{
+            self.lastSyncDateLabel.text = ""
+        }
+        self.setProgress(progress: Float(0))
+        SyncUpDailogGlobal.isSyncing = false
     }
     
     @IBAction func closeDialogue(sender : UIButton) {

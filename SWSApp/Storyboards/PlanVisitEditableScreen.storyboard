@@ -1102,7 +1102,7 @@
                                             <outlet property="delegate" destination="mXE-Oo-LSt" id="Rp0-dq-QOH"/>
                                         </connections>
                                     </tableView>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKX-iw-0zU" userLabel="Pagination View">
+                                    <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKX-iw-0zU" userLabel="Pagination View">
                                         <rect key="frame" x="8" y="590" width="1008" height="37"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="C9w-So-teP">
@@ -1340,7 +1340,7 @@
                                     <color key="titleColor" name="Data New"/>
                                 </state>
                                 <connections>
-                                    <action selector="loadStrategyScreenWithSender:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="BWA-NR-R4c"/>
+                                    <action selector="loadInsightsScreenWithSender:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="GQ2-CT-4MX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1758,12 +1758,6 @@
         </namedColor>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Data New">
-            <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Data New">
-            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightGrey">
             <color red="0.94099998470000001" green="0.95700001720000005" blue="0.96899998190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

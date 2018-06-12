@@ -71,6 +71,10 @@ class SelectOpportunitiesViewController: UIViewController {
         
     }
     
+    @IBAction func loadInsightsScreen(sender:UIButton) {
+        
+    }
+    
     
     //MARK:- Sort Button Actions
     @IBAction func actionSortProductName(_ sender: Any) {

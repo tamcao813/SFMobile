@@ -56,9 +56,18 @@ extension DuringVisitsInsightsViewController : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+//        if section == 0 {
+//            return 1
+//        }else {
+//            let tableData = collectionViewRowDetails![section] as! NSDictionary
+//            let tableContent = tableData["answers"] as! NSMutableArray
+//            return tableContent.count
+//        }
         let tableData = collectionViewRowDetails![section] as! NSDictionary
         let tableContent = tableData["answers"] as! NSMutableArray
         return tableContent.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -74,14 +83,28 @@ extension DuringVisitsInsightsViewController : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+//        if indexPath.section == 0{
+//            let cellData:NSDictionary = ["storeName":"Blenders Pride","accountNumber":"15626627272","storeAddress":"California"]
+//
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell1", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
+//            cell.displayAddressCellData(data: cellData)
+//            return cell
+//
+//        }else {
+//            let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
+//            let tableContent = tableData["answers"] as! NSMutableArray
+//            let answers = tableContent[indexPath.row] as! NSMutableDictionary
+//
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitInsightsCell", for: indexPath) as! DuringVisitsInsightsCollectionViewCell
+//            cell.displayCellData(data: answers , indexPath : indexPath)
+//            return cell
+//        }
         let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
         let tableContent = tableData["answers"] as! NSMutableArray
         let answers = tableContent[indexPath.row] as! NSMutableDictionary
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitInsightsCell", for: indexPath) as! DuringVisitsInsightsCollectionViewCell
         cell.displayCellData(data: answers , indexPath : indexPath)
-        
         return cell
     }
 }

@@ -239,13 +239,24 @@ class ActionItemSortUtility {
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        let date = dateFormatter.date(from: dueDate)
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-        if date! >= yesterday! {
-            return true
+        if let mmddyyDate = dateFormatter.date(from: dueDate) {
+            if mmddyyDate >= yesterday! {
+                return true
+            }else{
+                return false
+            }
         }else{
-            return false
+            dateFormatter.dateFormat = "yyyy/MM/dd"
+            if let dateyymmdd = dateFormatter.date(from: dueDate){
+                if dateyymmdd >= yesterday! {
+                    return true
+                }else{
+                    return false
+                }
+            }
         }
+        return false
     }
 }
 

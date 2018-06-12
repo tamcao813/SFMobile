@@ -35,6 +35,7 @@ class AccountEventSummaryViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
+
     }
     
     
@@ -95,6 +96,8 @@ class AccountEventSummaryViewController: UIViewController {
                 if contact.contactId == contactId {
                     selectedContact = contact
                     break
+                } else {
+                    selectedContact = nil
                 }
                 
             }

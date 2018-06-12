@@ -232,6 +232,7 @@
 		AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF951172089C7800083EA47 /* AccountTableViewCell.swift */; };
 		AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */; };
 		AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */; };
+		BAE613A220CFE2790075FEFA /* OpportunitiesListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE613A120CFE2790075FEFA /* OpportunitiesListViewCell.swift */; };
 		BDC2971F8C914488A5B7964D /* Pods_SWSApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */; };
 		C9B63C68208DB6DB008D9E14 /* Notes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B63C67208DB6DB008D9E14 /* Notes.storyboard */; };
 		C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */; };
@@ -587,6 +588,7 @@
 		AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
 		AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanVisitEditableScreen.storyboard; sourceTree = "<group>"; };
 		BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BAE613A120CFE2790075FEFA /* OpportunitiesListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesListViewCell.swift; sourceTree = "<group>"; };
 		C9B63C67208DB6DB008D9E14 /* Notes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notes.storyboard; sourceTree = "<group>"; };
 		C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
@@ -1052,6 +1054,7 @@
 			children = (
 				91AB8C1B20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift */,
 				9188866720C68BD300560860 /* OpportunitiesListTableViewCell.swift */,
+				BAE613A120CFE2790075FEFA /* OpportunitiesListViewCell.swift */,
 			);
 			path = Opportunities;
 			sourceTree = "<group>";
@@ -1957,6 +1960,7 @@
 				8D8D001420C1BD10009683AC /* NotificationsSortUtility.swift in Sources */,
 				12B7362E209777CC0063F847 /* StrategyQAViewModel.swift in Sources */,
 				91FAEF4D20A57DD500209D71 /* WRColumnHeader.swift in Sources */,
+				BAE613A220CFE2790075FEFA /* OpportunitiesListViewCell.swift in Sources */,
 				AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */,
 				6DDF2B1820A9A70500FA5A87 /* WorkOrderUserObject.swift in Sources */,
 				6DDF2B2520A9EBF300FA5A87 /* SyncConfiguration.swift in Sources */,

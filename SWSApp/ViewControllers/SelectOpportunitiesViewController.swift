@@ -14,6 +14,7 @@ class SelectOpportunitiesViewController: UIViewController {
     var opportunityAccountId: String?
     var opportunityList = [Opportunity]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -167,23 +168,7 @@ class SelectOpportunitiesViewController: UIViewController {
         sortAndRelaodTable()
     }
     
-    @IBAction func actionSortMonth(_ sender: Any) {
-        
-        if OpportunitiesFilterMenuModel.isAscendingMonth == "YES" {
-            OpportunitiesFilterMenuModel.isAscendingMonth = "NO"
-        }
-        else {
-            OpportunitiesFilterMenuModel.isAscendingMonth = "YES"
-        }
-        OpportunitiesFilterMenuModel.isAscendingProductName = ""
-        OpportunitiesFilterMenuModel.isAscendingSource = ""
-        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
-        OpportunitiesFilterMenuModel.isAscendingCommit = ""
-        OpportunitiesFilterMenuModel.isAscendingSold = ""
-        OpportunitiesFilterMenuModel.isAscendingStatus = ""
-        
-        sortAndRelaodTable()
-    }
+
     
     @IBAction func actionSortStatus(_ sender: Any) {
         
@@ -219,9 +204,8 @@ extension SelectOpportunitiesViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "opportunitiesListTableViewCell", for: indexPath) as? OpportunitiesListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "opportunitiesListViewCell", for: indexPath) as? OpportunitiesListViewCell
         cell?.selectionStyle = .none
-        
         cell?.displayCellContent(opportunityList[indexPath.row])
         cell?.delegate =  self
         return cell ?? UITableViewCell()
@@ -257,7 +241,19 @@ extension SelectOpportunitiesViewController: SwipeTableViewCellDelegate {
 extension SelectOpportunitiesViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 180
+        return  80
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      
+    // opportunityList["isOpportunitySelected"] =
+        
+        if  opportunityList[indexPath.row].isOpportunitySelected == false{
+             opportunityList[indexPath.row].isOpportunitySelected = true
+        }else{
+           opportunityList[indexPath.row].isOpportunitySelected = false
+        }
+        self.opportunitiesListView.reloadData()
+    }
+
 }

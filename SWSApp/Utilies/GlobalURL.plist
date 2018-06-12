@@ -43,6 +43,6 @@
 	<key>objectivesUrl</key>
 	<string>https://sgws-de--dedev1.lightning.force.com/lightning/o/SGWS_Objectives__c/list?filterName=00Bm0000001EHSwEAO</string>
 	<key>insightsUrl</key>
-	<string>&quot;https://sgws-de--dedev1.lightning.force.com/lightning/r/SGWS_Objectives__c/a0Zm0000002QccKEAS/view&quot;</string>
+	<string>https://sgws-de--dedev1.lightning.force.com/lightning/r/SGWS_Objectives__c/a0Zm0000002QccKEAS/view</string>
 </dict>
 </plist>

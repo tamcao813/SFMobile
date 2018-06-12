@@ -61,7 +61,7 @@ class Opportunity {
 
         productName = ""
         productID = ""
-        itemBottlesPerCase = 0.0
+        itemBottlesPerCase = 1.0
         itemSize = 0.0
         brand = ""
 
@@ -183,7 +183,8 @@ class Opportunity {
         
         if let index = valueToConvert.range(of: "ML", options: .backwards)?.lowerBound {
             let substring = String(valueToConvert[..<index])
-            return (substring as NSString).floatValue
+            let mlValue = (substring as NSString).floatValue
+            return (mlValue/1000.0)
         }
         else if let index = valueToConvert.range(of: "L", options: .backwards)?.lowerBound {
             let substring = String(valueToConvert[..<index])
@@ -212,7 +213,7 @@ class Opportunity {
 
         productName = ""
         productID = ""
-        itemBottlesPerCase = 0.0
+        itemBottlesPerCase = 1.0
         itemSize = 0.0
         brand = ""
 

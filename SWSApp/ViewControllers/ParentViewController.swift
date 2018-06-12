@@ -249,7 +249,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     @objc func showContact(notification: NSNotification){
         
-        defaults.set(false, forKey: "FromHomeVC")
         topMenuBar?.selectedSegment = 2
         _ = displayCurrentTab(2)
         

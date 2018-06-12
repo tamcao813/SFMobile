@@ -59,6 +59,7 @@ class StringConstants {
     
     //Insights URLS
     static let insightsUrl = globalUrlDictionary["insightsUrl"] as! String
+    static let insightsAccountUrl = globalUrlDictionary["insightsAccountUrl"] as! String
     
 }
 

@@ -21,6 +21,8 @@ class AccountStrategyViewController : UIViewController{
     @IBOutlet weak var editIcon : UIButton?
     @IBOutlet weak var closeIcon : UIButton?
     
+    @IBOutlet var topConstraint : NSLayoutConstraint?
+    
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
     let strategyAnswersViewModel = StrategyAnswersViewModel()
@@ -33,10 +35,12 @@ class AccountStrategyViewController : UIViewController{
         print("Account Strategy Screen Loaded")
         
         if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
-            editIcon?.isHidden = false
+            //editIcon?.isHidden = false
+            topConstraint?.constant = 20.0
             closeIcon?.isHidden = true
         }else{
-            editIcon?.isHidden = true
+            editIcon?.isHidden = false
+            topConstraint?.constant = 75.0
             closeIcon?.isHidden = false
         }
         
@@ -82,8 +86,10 @@ class AccountStrategyViewController : UIViewController{
         }else{
             if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
                 editIcon?.isHidden = false
+                topConstraint?.constant = 20.0
             }else{
-                editIcon?.isHidden = true
+                editIcon?.isHidden = false
+                topConstraint?.constant = 75.0
             }
             
             lblNoData?.text = "The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now."
@@ -308,14 +314,18 @@ class AccountStrategyViewController : UIViewController{
     //Edit button clicked
     @IBAction func editButtonClicked(sender : UIButton){
         
-        if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
+        //if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
             performSegue(withIdentifier: "editStrategySegue", sender: nil)
             
-        }else{
+        //}else{
             //Used Same method to Dismiss the Strategy
-            StrategyScreenLoadFrom.isLoadFromStrategy = "0"
-            self.dismiss(animated: true, completion: nil)
-        }
+        //    StrategyScreenLoadFrom.isLoadFromStrategy = "0"
+        //    self.dismiss(animated: true, completion: nil)
+        //}
+    }
+    
+    @IBAction func closeButtonClicked(sender : UIButton){
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

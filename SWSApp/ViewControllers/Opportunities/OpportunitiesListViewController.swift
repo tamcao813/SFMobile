@@ -215,3 +215,35 @@ extension OpportunitiesListViewController : UITableViewDelegate {
     }
     
 }
+
+//MARK:- SearchCalendarByEnteredTextDelegate Delegate
+extension OpportunitiesListViewController : SearchOpportunitiesByEnteredTextDelegate{
+    
+    func sortOpportunitiesData(searchString: String) {
+        print("sortOpportunitiesData")
+    }
+    
+    func filteringOpportunities(filtering: Bool) {
+        if !filtering {
+            opportunityList = OpportunitySortUtility().opportunityFor(forAccount: OpportunitiesFilterMenuModel.accountId!)
+            DispatchQueue.main.async {
+                self.opportunitiesListTableView.reloadData()
+            }
+        }
+    }
+    
+    func performOpportunitiesFilterOperation(searchString: String) {
+        if let opportunitiesFiltered = OpportunitySortUtility().searchOpportunityBySearchBarQuery(opportunityToSearch: OpportunitySortUtility().opportunityFor(forAccount: OpportunitiesFilterMenuModel.accountId!), searchText: searchString) {
+            
+            opportunityList = opportunitiesFiltered
+        }
+        else {
+            opportunityList = OpportunitySortUtility().opportunityFor(forAccount: OpportunitiesFilterMenuModel.accountId!)
+        }
+
+        DispatchQueue.main.async {
+            self.opportunitiesListTableView.reloadData()
+        }
+    }
+    
+}

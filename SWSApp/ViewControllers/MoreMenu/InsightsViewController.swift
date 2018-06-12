@@ -31,7 +31,7 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl
-        let authUrl = "https://sgws-de--dedev1.lightning.force.com/lightning/r/SGWS_Objectives__c/a0Zm0000002QccKEAS/view"
+        let authUrl = StringConstants.insightsUrl
         //let accountUrl: String = authUrl +  StringConstants.endUrl
         
         let url  =  URL(string:authUrl)//+accountUrl)

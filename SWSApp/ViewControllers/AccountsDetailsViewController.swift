@@ -132,6 +132,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         //containerView?.isHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshActionItemList), name: NSNotification.Name("refreshActionItemList"), object: nil)
         addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
+        
+        StrategyScreenLoadFrom.isLoadFromStrategy = "0"
     }
     
     override func viewWillAppear(_ animated: Bool) {

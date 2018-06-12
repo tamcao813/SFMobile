@@ -32,7 +32,7 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        // let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl
-        let authUrl = "https://sgws-de--dedev1.lightning.force.com/lightning/o/SGWS_Objectives__c/list?filterName=00Bm0000001EHSwEAO"
+        let authUrl = StringConstants.objectivesUrl
         
         //let accountUrl: String = authUrl +  StringConstants.endUrl
         

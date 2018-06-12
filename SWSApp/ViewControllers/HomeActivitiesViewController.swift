@@ -31,10 +31,16 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshDB), name: NSNotification.Name(rawValue: "refreshHomeActivities"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.scrollToTop), name: NSNotification.Name(rawValue: "scrollToTopHomeActivities"), object: nil)
+        
+        
         tableView?.tableFooterView = UIView()
+        
+        // Date Format for Action Item
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateStringForActionItem = dateFormatter.string(from: dateToCheck)
         
+        // Date Format For Notification
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateStringForNotification = dateFormatter.string(from: dateToCheck)
         let dateSeprateWithTime = dateStringForNotification?.components(separatedBy: "T")
@@ -44,8 +50,23 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         
     }
     
-    func getDB() {
+    
+    @objc func scrollToTop(){
+        DispatchQueue.main.async {
+            if(self.notificationsToDisplay.count > 0) || (self.actionItemToDisplay.count > 0){
+                self.tableView?.setContentOffset(.zero, animated: true)
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        
+    }
+    
+    /// Finction to get the Array of Notifications and Action Items
+    func getDB() {
         actionItemToDisplay = [ActionItem]()
         notificationsToDisplay = [Notifications]()
         
@@ -72,13 +93,17 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         
     }
     
+    
+    
+    /// Notification function to refresh the arrays
     @objc func refreshDB()  {
         getDB()
     }
     
- 
+    
     
     //MARK:- Table View Functions
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -145,18 +170,18 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-      
-            let frame = tableView.frame
-            let sectionLabel = UILabel.init(frame: CGRect(x: 12, y: 5, width: 470, height: 50))
-            sectionLabel.text = "Activities"
-            sectionLabel.textColor = UIColor.black
-            sectionLabel.backgroundColor = UIColor.white
-            sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
-            
-            let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:frame.width , height:frame.height ))
-            headerView.backgroundColor = UIColor.white
-            headerView.addSubview(sectionLabel)
-            return headerView;
+        
+        let frame = tableView.frame
+        let sectionLabel = UILabel.init(frame: CGRect(x: 12, y: 5, width: 470, height: 50))
+        sectionLabel.text = "Activities"
+        sectionLabel.textColor = UIColor.black
+        sectionLabel.backgroundColor = UIColor.white
+        sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
+        
+        let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width:frame.width , height:frame.height ))
+        headerView.backgroundColor = UIColor.white
+        headerView.addSubview(sectionLabel)
+        return headerView;
         
     }
     
@@ -185,13 +210,18 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     }
     
     
+    /// Function to see all the notifications
+    /// Post a notification with the object to go Notification List View Controller
+    /// - Parameter sender: 4 Which is on 4 in  More
     @IBAction func viewAllNotifications(_ sender: Any) {
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToAllActionItem/Notification"), object:4)
     }
+    /// Function to see all the Action Items
+    /// Post a notification with the object to go Action Item List View Controller
+    /// - Parameter sender: 0 Which is on 0 in  More
     @IBAction func viewAllActionItem(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToAllActionItem/Notification"), object:0)
-        
         
     }
     

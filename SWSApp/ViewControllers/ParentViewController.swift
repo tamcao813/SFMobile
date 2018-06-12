@@ -173,6 +173,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showCalendar), name: NSNotification.Name(rawValue: "SwitchToCalendar"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showContact), name: NSNotification.Name(rawValue: "SwitchToContact"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showActionItemOrNotification), name: NSNotification.Name(rawValue: "goToAllActionItem/Notification"), object: nil)
         
         
@@ -245,6 +246,23 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         _ = displayCurrentTab(3)
         
     }
+    
+    @objc func showContact(notification: NSNotification){
+        
+        defaults.set(false, forKey: "FromHomeVC")
+        topMenuBar?.selectedSegment = 2
+        _ = displayCurrentTab(2)
+        
+        if let contact = notification.userInfo?["contact"] as? Contact {
+            
+              let contactDict:[String: Contact] = ["contact": contact]
+            // do something with your image
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SelectedContact"), object:nil, userInfo: contactDict)
+        }
+        
+    }
+    
+    
     
     @objc func showActionItemOrNotification(notification: NSNotification){
         let data : Int = notification.object.unsafelyUnwrapped as! Int

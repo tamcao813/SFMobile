@@ -486,6 +486,17 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         }
         return cell!
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 1 {
+            DispatchQueue.main.async {
+                self.dismiss(animated: false, completion: nil)
+            }
+            let contactDict:[String: Contact] = ["contact": selectedContact]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwitchToContact"), object:nil, userInfo: contactDict)
+        }
+    }
 }
 
 extension AccountVisitSummaryViewController: ButtonTableViewCellDelegate {

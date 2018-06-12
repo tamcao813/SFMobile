@@ -21,4 +21,40 @@ class AccountsViewModel {
     func accountNameFor(accountId: String) -> String {
         return StoreDispatcher.shared.fetchAccountName(for: accountId)
     }
+    
+    func syncAccountWithServer(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        //        StoreDispatcher.shared.reSyncUser { error in
+        //            if error != nil {
+        //
+        //            }
+        //
+        //            //1.Sync down User Data
+        //            StoreDispatcher.shared.syncDownUserDataForAccounts{ error in
+        //                if error != nil {
+        //
+        //                }
+        //            }
+        
+        // 2. Sync down Accounts
+        StoreDispatcher.shared.reSyncAccounts{ error in
+            if error == nil {
+                
+                StoreDispatcher.shared.syncDownUserDataForAccounts{ error in
+                    if error != nil {
+                        completion(error)
+                        
+                    } else {
+                        
+                        completion(nil)
+                        
+                    }
+                }
+                
+            }
+            else {
+                completion(error)
+            }
+        }
+    }
 }

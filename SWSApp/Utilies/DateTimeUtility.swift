@@ -101,7 +101,7 @@ class DateTimeUtility
         }
     }
     
-    func convertDateSendToServerActionItem(dateString: String?) -> String{
+   static func convertDateSendToServerActionItem(dateString: String?) -> String{
         if (dateString?.isEmpty)! {
             return ""
         }
@@ -421,7 +421,7 @@ class DateTimeUtility
     }
     /// Get Substring from String To Format dd-MM-yyyy from dd-MM-yyy HH:mm:ss - END //
     
-    /// Get Substring from String To Format dd-MM-yyyy from dd-MM-yyy'T'HH:mm:ss - START //
+    /// Get Substring from String To Format MM-dd-yyyy from yyyy-MM-dd'T'HH:mm:ss - START //
    static func getFormattString(dateStr: String) -> String {
         let delimiter = "T"
         var token = dateStr.components(separatedBy: delimiter)
@@ -438,7 +438,7 @@ class DateTimeUtility
          //Getting this right is very important!
         for visit in visitArray {
             var  isSameDate  = false
-            if getFormattCurrentDateString(dateStr: currentDate) == getFormattString(dateStr: visit.startDate)
+            if getFormattCurrentDateString(dateStr: currentDate) == getFormattString(dateStr: DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: visit.startDate))
             {
                 isSameDate = true
             }

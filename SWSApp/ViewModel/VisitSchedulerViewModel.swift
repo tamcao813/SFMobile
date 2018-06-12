@@ -55,4 +55,29 @@ class VisitSchedulerViewModel {
         }
         return false
     }
+    
+    func syncVisitsWithServer(_ completion:@escaping (_ error: NSError?)->()) {
+        let fields: [String] = ["Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c"]
+        
+        StoreDispatcher.shared.syncUpVisits(fieldsToUpload: fields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncVisitsWithServer: Visit Sync up failed")
+            }
+            
+            StoreDispatcher.shared.reSyncVisits { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                    print("syncVisitsWithServer: Visit reSync failed")
+                    completion(error)
+                }
+                else {
+                    completion(nil)
+                }
+            }
+        })
+    }
+  
+    
+
 }

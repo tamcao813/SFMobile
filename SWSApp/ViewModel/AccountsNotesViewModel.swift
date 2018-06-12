@@ -28,12 +28,39 @@ class AccountsNotesViewModel {
     
     func uploadNotesToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
         StoreDispatcher.shared.syncUpNotes(fieldsToUpload: fields, completion: {error in
+            
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 completion(error)
-            }else {
+            }
+            else {
+
                 completion(nil)
             }
         })
     }
+    
+    //sync up Notes then resync down
+    func syncNotesWithServer(_ completion:@escaping (_ error: NSError?)->()) {
+        let fields: [String] = AccountNotes.AccountNotesFields
+        
+        StoreDispatcher.shared.syncUpNotes(fieldsToUpload: fields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncNotesWithServer: Note Sync up failed")
+            }
+            
+            StoreDispatcher.shared.reSyncNote { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                    print("syncNotesWithServer: Note reSync failed")
+                    completion(error)
+                }
+                else {
+                    completion(nil)
+                }
+            }
+        })
+    }
+    
 }

@@ -238,6 +238,7 @@
 		C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */; };
 		C9B63C6E208DB819008D9E14 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */; };
 		C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B95098209307C900792AD3 /* AccountNotes.swift */; };
+		C9E2CDF120CFB6EC0038B509 /* InsightsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2CDF020CFB6EC0038B509 /* InsightsModalViewController.swift */; };
 		D10483962068381A00A0343B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483952068381A00A0343B /* Contact.swift */; };
 		D125134220648C4F00CD6CB4 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134120648C4F00CD6CB4 /* Account.swift */; };
 		D125134420648E1000CD6CB4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134320648E1000CD6CB4 /* User.swift */; };
@@ -593,6 +594,7 @@
 		C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
 		C9B95098209307C900792AD3 /* AccountNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotes.swift; sourceTree = "<group>"; };
 		C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsNotesViewModel.swift; sourceTree = "<group>"; };
+		C9E2CDF020CFB6EC0038B509 /* InsightsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsModalViewController.swift; sourceTree = "<group>"; };
 		D10483952068381A00A0343B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		D125134120648C4F00CD6CB4 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		D125134320648E1000CD6CB4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -1344,6 +1346,7 @@
 				F2CAD23020957E91001016C2 /* DuringVisit */,
 				F2AB94542095CBA90028802E /* AlertUtility.swift */,
 				8DDD4A4220BBD5FF00423E20 /* SyncInfoViewController.swift */,
+				C9E2CDF020CFB6EC0038B509 /* InsightsModalViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -2114,6 +2117,7 @@
 				8D8D001B20C2FE10009683AC /* OpportunitiesListViewController.swift in Sources */,
 				F20A89D820BA871200AF35EA /* AccountVisitListSortUtility.swift in Sources */,
 				D2E12D7120736C4B0005B982 /* InsightsViewController.swift in Sources */,
+				C9E2CDF120CFB6EC0038B509 /* InsightsModalViewController.swift in Sources */,
 				AE3D30D420BCC1AA0053ACE0 /* PaddingLabel.swift in Sources */,
 				121468F420AD603A00942A00 /* DropDown+Appearance.swift in Sources */,
 				12F0F89A208FA6BD00160C3D /* AccountContactRelation.swift in Sources */,

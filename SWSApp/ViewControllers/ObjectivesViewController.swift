@@ -31,12 +31,11 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       // let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl
-        let authUrl = StringConstants.objectivesUrl
+        let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
+        let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
+        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.objectivesUrl
         
-        //let accountUrl: String = authUrl +  StringConstants.endUrl
-        
-        let url  =  URL(string:authUrl)//+accountUrl)
+        let url  =  URL(string:authUrl)
         let requestObj = URLRequest(url: url!)
         webView?.navigationDelegate = self
         

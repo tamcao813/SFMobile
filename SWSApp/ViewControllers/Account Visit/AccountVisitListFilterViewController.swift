@@ -337,7 +337,9 @@ class AccountVisitListFilterViewController : UIViewController{
         AccountVisitListFilterModel.filterApplied = false
         
         if searchBar != nil{
-            searchBar.text = ""
+             DispatchQueue.main.async {
+                self.searchBar.text = ""
+            }
         }
         //Used to Clear the Expanded section of Filter Option
         selectedSection = -1

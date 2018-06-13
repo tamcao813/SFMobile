@@ -43,8 +43,8 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
-        
-        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.apexChatterUrl + AccountId.selectedAccountId
+                
+        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.goalsUrl
         
         //let accountUrl: String = authUrl +  endUrl
         //let url  =  URL(string:authUrl)//+accountUrl)
@@ -55,7 +55,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
             } else {
                 print("Reachable via Cellular")
             }
-            let url = URL(string: StringConstants.goalsUrl)
+            let url = URL(string: authUrl)
             let requestObj = URLRequest(url: url!)
             self.webView?.navigationDelegate = self
             

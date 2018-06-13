@@ -269,11 +269,13 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
             let ownerId = appDelegate.loggedInUser?.userId
             //Edit is allowed only for Note owner
             self.notesDataToEdit = self.tableViewDisplayData[indexPath.row]
-            if(ownerId == self.notesDataToEdit.ownerId){
-                self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
-            } else {
-                return
-            }
+            self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
+            
+//            if(ownerId == self.notesDataToEdit.ownerId){
+//                self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
+//            } else {
+//                return
+//            }
 
         }
         editAction.hidesWhenSelected = true
@@ -282,15 +284,16 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         
         let deleteAction = SwipeAction(style: .default, title: "Delete") {action, indexPath in
             
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let ownerId = appDelegate.loggedInUser?.userId
+         //   let appDelegate = UIApplication.shared.delegate as! AppDelegate
+         //   let ownerId = appDelegate.loggedInUser?.userId
             self.notesDataToEdit = self.tableViewDisplayData[indexPath.row]
+            //MARK:Shubham
             //Delete is allowed only for Note owner
-            if(ownerId == self.notesDataToEdit.ownerId){
+          //  if(ownerId == self.notesDataToEdit.ownerId){
             let cell = tableView.cellForRow(at: indexPath) as! NotesTableViewCell
             let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
             let notesDelete = self.tableViewDisplayData[indexPath.row]
-            let alert = UIAlertController(title: "Notes Delete", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Delete Note?", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
             let continueAction = UIAlertAction(title: "Delete", style: .default) { action in
                 // Handle when button is clicked
                 self.tableViewDisplayData.remove(at: indexPath.row)
@@ -313,9 +316,9 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
-            }else{
-                return
-            }
+//            }else{
+//                return
+//            }
         }
         deleteAction.image = UIImage(named:"deletX")
         deleteAction.backgroundColor = UIColor(named:"InitialsBackground")

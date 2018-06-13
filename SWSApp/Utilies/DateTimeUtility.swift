@@ -438,7 +438,7 @@ class DateTimeUtility
          //Getting this right is very important!
         for visit in visitArray {
             var  isSameDate  = false
-            if getFormattCurrentDateString(dateStr: currentDate) == getFormattString(dateStr: self.convertDateSendToServerActionItem(dateString: visit.startDate))
+            if getFormattCurrentDateString(dateStr: currentDate) == getFormattString(dateStr: DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: visit.startDate))
             {
                 isSameDate = true
             }
@@ -512,6 +512,25 @@ class DateTimeUtility
         default:
             return dateToConvert
         }
+    }
+    
+    /// Get Current Date in MMDDYY format
+    func getCurrentDate(date: Date) -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yy"
+        let dateString = formatter.string(from: date)
+        return dateString
+    }
+    
+    /// Get Current Time in 12-Hour format
+    func getCurrentTime(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        let timeString = formatter.string(from: date)
+        return timeString
     }
 
 }

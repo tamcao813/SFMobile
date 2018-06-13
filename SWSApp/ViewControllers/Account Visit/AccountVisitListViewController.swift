@@ -326,7 +326,7 @@ extension AccountVisitListViewController : UITableViewDelegate{
         
         let workOrder = tableViewDataArray[indexPath.row + currentPageIndex!]
         
-        if(workOrder.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
+        if(workOrder.recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforEvent()){
             let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
             

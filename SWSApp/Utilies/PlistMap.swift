@@ -47,8 +47,11 @@ class PlistMap {
         
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let path = documentDirectory.appending(plist)
-        let array = NSArray(contentsOfFile: path)
-        return array!
+        if let array = NSArray(contentsOfFile: path){
+            return array
+        } else {
+            return []
+        }
         
     }
     

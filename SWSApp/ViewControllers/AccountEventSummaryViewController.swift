@@ -35,6 +35,7 @@ class AccountEventSummaryViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
+
     }
     
     
@@ -95,6 +96,8 @@ class AccountEventSummaryViewController: UIViewController {
                 if contact.contactId == contactId {
                     selectedContact = contact
                     break
+                } else {
+                    selectedContact = nil
                 }
                 
             }
@@ -355,6 +358,17 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
             cell?.containerView.isHidden = true
         }
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 3 {
+            DispatchQueue.main.async {
+                self.dismiss(animated: false, completion: nil)
+            }
+            let contactDict:[String: Contact] = ["contact": selectedContact]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwitchToContact"), object:nil, userInfo: contactDict)
+        }
     }
 }
 

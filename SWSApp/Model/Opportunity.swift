@@ -10,7 +10,7 @@ import UIKit
 
 class Opportunity {
 
-    static let opportunityFields: [String] = [ "Id", "AccountId", "SGWS_Opportunity_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "SGWS_Status__c", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
+    static let opportunityFields: [String] = [ "Id", "AccountId", "SGWS_Opportunity_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "StageName", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Order_Frequency__c", "SGWS_Unsold_Period_Days__c",  "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
     
     var id: String
     var accountId: String
@@ -23,7 +23,14 @@ class Opportunity {
     var R12: String
     var R6Trend: String
     var R3Trend: String
-    
+    var acct: String
+    var segment: String
+    var gap: String
+    var salesTrend: String
+    var orderSize: String
+    var orderFrequency: String
+    var unsoldPeriodDays: String
+
     var objectiveNames: String
     var objectiveTypes: String
 
@@ -36,6 +43,7 @@ class Opportunity {
     var PYCMSold9L: String
     var commit9L: String
     var sold9L: String
+    var isOpportunitySelected:Bool
 
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Opportunity.opportunityFields, ary))
@@ -51,10 +59,18 @@ class Opportunity {
         commit = json["SGWS_Commit__c"] as? String ?? ""
         sold = json["SGWS_Sold__c"] as? String ?? ""
         monthActive = json["SGWS_Month_Active__c"] as? String ?? ""
-        status = json["SGWS_Status__c"] as? String ?? ""
+        status = json["StageName"] as? String ?? ""
         R12 = json["SGWS_R12__c"] as? String ?? ""
         R6Trend = json["SGWS_R6_Trend__c"] as? String ?? ""
         R3Trend = json["SGWS_R3_Trend__c"] as? String ?? ""
+        acct = json["SGWS_Acct__c"] as? String ?? ""
+        segment = json["SGWS_Segment__c"] as? String ?? ""
+        gap = json["SGWS_Gap__c"] as? String ?? ""
+        salesTrend = json["SGWS_Sales_Trend__c"] as? String ?? ""
+        orderSize = json["SGWS_Order_Size__c"] as? String ?? ""
+        orderFrequency = json["SGWS_Order_Frequency__c"] as? String ?? ""
+        unsoldPeriodDays = json["SGWS_Unsold_Period_Days__c"] as? String ?? ""
+        isOpportunitySelected = false
 
         objectiveNames = ""
         objectiveTypes = ""
@@ -207,7 +223,14 @@ class Opportunity {
         R12 = ""
         R6Trend = ""
         R3Trend = ""
-        
+        acct = ""
+        segment = ""
+        gap = ""
+        salesTrend = ""
+        orderSize = ""
+        orderFrequency = ""
+        unsoldPeriodDays = ""
+
         objectiveNames = ""
         objectiveTypes = ""
 
@@ -220,6 +243,7 @@ class Opportunity {
         PYCMSold9L = ""
         commit9L = ""
         sold9L = ""
+        isOpportunitySelected = false
 
     }
 

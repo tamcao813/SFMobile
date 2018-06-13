@@ -45,7 +45,7 @@ class SyncInfoViewController: UIViewController {
     
     func updateDailog(syncUpFailed: Bool){
         let date = Date()
-        let lastSyncDate = "\(self.getCurrentTime(date: date)) / \(self.getCurrentDate(date: date))"
+        let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
         UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
         if syncUpFailed {
             UserDefaults.standard.set("Last Sync Failed", forKey: "lastSyncStatus")
@@ -82,22 +82,4 @@ class SyncInfoViewController: UIViewController {
     @IBAction func closeDialogue(sender : UIButton) {
        self.dismiss(animated: true, completion: nil)
     }
-    
-    func getCurrentDate(date: Date) -> String {
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd-yy"
-        let dateString = formatter.string(from: date)
-        return dateString
-    }
-    
-    func getCurrentTime(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "H:mm a"
-        formatter.amSymbol = "AM"
-        formatter.pmSymbol = "PM"
-        let timeString = formatter.string(from: date)
-        return timeString
-    }
-    
 }

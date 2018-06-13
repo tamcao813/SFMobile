@@ -62,7 +62,9 @@ let SyncUpIdActionItem = "SyncUpIdActionItem"
 let SyncDownIdActionItem = "SyncDownIdActionItem"
 
 let SyncDownIdNotifications = "SyncNotifications"
+
 let SoupOpportunity = "Opportunity"
+let SoupOpportunityWorkorder = "OpportunityWorkorder"
 
 
 

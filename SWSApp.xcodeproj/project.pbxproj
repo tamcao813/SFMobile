@@ -167,6 +167,7 @@
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
 		9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
 		91497FF620C012E900A3F4F3 /* Opportunities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91497FF520C012E900A3F4F3 /* Opportunities.storyboard */; };
+		914E191820D10CBB0024E267 /* OpportunityWorkorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E191720D10CBB0024E267 /* OpportunityWorkorder.swift */; };
 		914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */; };
 		914E4F3B20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
@@ -231,6 +232,8 @@
 		AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974920888330004548E9 /* SchedulerComponent.swift */; };
 		AE8F41EE20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */; };
 		AE8F41F420A09F1B0033F81D /* UIView+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */; };
+		AEDF060120D1060600312E1C /* SyncConfigurationSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF060020D1060600312E1C /* SyncConfigurationSortUtility.swift */; };
+		AEDF060320D1065500312E1C /* SyncConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF060220D1065500312E1C /* SyncConfigurationViewModel.swift */; };
 		AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF951172089C7800083EA47 /* AccountTableViewCell.swift */; };
 		AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */; };
 		AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */; };
@@ -518,6 +521,7 @@
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
 		9141111C20A95565006AD7CD /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		91497FF520C012E900A3F4F3 /* Opportunities.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Opportunities.storyboard; sourceTree = "<group>"; };
+		914E191720D10CBB0024E267 /* OpportunityWorkorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunityWorkorder.swift; sourceTree = "<group>"; };
 		914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFilterMenuModel.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
@@ -588,6 +592,8 @@
 		AE5C974920888330004548E9 /* SchedulerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerComponent.swift; sourceTree = "<group>"; };
 		AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAgendaNoteViewController.swift; sourceTree = "<group>"; };
 		AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Properties.swift"; sourceTree = "<group>"; };
+		AEDF060020D1060600312E1C /* SyncConfigurationSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncConfigurationSortUtility.swift; sourceTree = "<group>"; };
+		AEDF060220D1065500312E1C /* SyncConfigurationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncConfigurationViewModel.swift; sourceTree = "<group>"; };
 		AEF951172089C7800083EA47 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
 		AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanVisitEditableScreen.storyboard; sourceTree = "<group>"; };
@@ -1179,6 +1185,7 @@
 			isa = PBXGroup;
 			children = (
 				F2064C8920CE664600FC03A0 /* Opportunity.swift */,
+				914E191720D10CBB0024E267 /* OpportunityWorkorder.swift */,
 				F2FDA1492099D92D000921A8 /* Visit.swift */,
 				6DDF2B2420A9EBF300FA5A87 /* SyncConfiguration.swift */,
 				4A00BB4F20BBBCC60003C3ED /* SyncLog.swift */,
@@ -1358,6 +1365,7 @@
 		D1FCDE0A20732199005F956D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				AEDF060220D1065500312E1C /* SyncConfigurationViewModel.swift */,
 				6DB9E3AD20CFBEA500041850 /* ConfigurationAndPickListModel.swift */,
 				F2FDA1472099D924000921A8 /* VisitsViewModel.swift */,
 				9141111C20A95565006AD7CD /* CalendarViewModel.swift */,
@@ -1392,6 +1400,7 @@
 		D1FE1D0320657B47009CC47C /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
+				AEDF060020D1060600312E1C /* SyncConfigurationSortUtility.swift */,
 				F2064C8B20CE669900FC03A0 /* OpportunitySortUtility.swift */,
 				AE3D30D320BCC1AA0053ACE0 /* PaddingLabel.swift */,
 				AE1FAABF20B6C2EE005B44EC /* ColumnFlowLayout.swift */,
@@ -1985,6 +1994,7 @@
 				914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */,
 				8DD15009209330E200858349 /* AccountView.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
+				914E191820D10CBB0024E267 /* OpportunityWorkorder.swift in Sources */,
 				F22DA90320C175FC00AA2B54 /* HomeGoalTypesViewController.swift in Sources */,
 				911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */,
 				F29A645A20B816B000D73AE9 /* AccountVisitListFilterViewController.swift in Sources */,
@@ -2112,6 +2122,7 @@
 				8DDD4A4A20BBFC5200423E20 /* TitleDepartmentTableViewCell.swift in Sources */,
 				8D4BA34420B455EC005CFE56 /* ActionItemTitleTableViewCell.swift in Sources */,
 				AE43DD1B209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */,
+				AEDF060320D1065500312E1C /* SyncConfigurationViewModel.swift in Sources */,
 				F2AB945F2095D5000028802E /* DuringVisitsTopicsViewController.swift in Sources */,
 				8D17A5D620A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
 				8D4BA3A220B45B58005CFE56 /* SearchAccountTableViewCell.swift in Sources */,
@@ -2152,6 +2163,7 @@
 				91FAEF5320A57DD500209D71 /* WRTodayBackground.swift in Sources */,
 				8D4BA37C20B45B58005CFE56 /* NameTableViewCell.swift in Sources */,
 				C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */,
+				AEDF060120D1060600312E1C /* SyncConfigurationSortUtility.swift in Sources */,
 				8D4BA3AC20B45B58005CFE56 /* AccountContactLinkTableViewCell.swift in Sources */,
 				8D4BA34220B455EC005CFE56 /* ActionItemsListTableViewCell.swift in Sources */,
 				8D4BA38420B45B58005CFE56 /* PhoneTableViewCell.swift in Sources */,

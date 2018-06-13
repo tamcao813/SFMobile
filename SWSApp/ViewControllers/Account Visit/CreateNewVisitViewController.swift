@@ -240,7 +240,7 @@ class CreateNewVisitViewController: UIViewController {
         PlanVisitManager.sharedInstance.visit?.location = locationStr
         PlanVisitManager.sharedInstance.visit?.sgwsAppointmentStatus = callToConfirm
         //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
-        PlanVisitManager.sharedInstance.visit?.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+        PlanVisitManager.sharedInstance.visit?.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforVisit()
         
         let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
@@ -280,7 +280,7 @@ class CreateNewVisitViewController: UIViewController {
         new_visit.location = locationStr
         new_visit.sgwsAppointmentStatus = callToConfirm
         
-        new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+        new_visit.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforVisit()
       //  new_visit.sgwsAlldayEvent = true
         //TBD location to be set , what is enetered in UI
         

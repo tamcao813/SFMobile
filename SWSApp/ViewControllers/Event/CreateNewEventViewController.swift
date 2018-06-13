@@ -169,7 +169,7 @@ class CreateNewEventViewController: UIViewController {
         PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
         PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
         //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
-        PlanVisitManager.sharedInstance.visit?.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdEvent
+        PlanVisitManager.sharedInstance.visit?.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforEvent()
         
         PlanVisitManager.sharedInstance.visit?.subject = CreateNewEventViewControllerGlobals.eventTitle
         PlanVisitManager.sharedInstance.visit?.location = CreateNewEventViewControllerGlobals.location
@@ -262,7 +262,7 @@ class CreateNewEventViewController: UIViewController {
         new_Event.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
         new_Event.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
         
-        new_Event.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdEvent
+        new_Event.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforEvent()
         
         new_Event.subject = CreateNewEventViewControllerGlobals.eventTitle
         

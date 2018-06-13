@@ -49,6 +49,8 @@
 	<key>homeScreenUrl</key>
 	<string>/analytics/wave/wave.apexp?tsid=02u31000000p1rD#application/00lm0000000YTvjAAG/edit</string>
 	<key>opportunitiesUrl</key>
-	<string>/lightning/r/Opportunity/006m0000008guyCAAQ/view?0.source=alohaHeader</string>
+	<string>/lightning/r/Opportunity/</string>
+	<key>opportunityEndUrl</key>
+	<string>/view?0.source=alohaHeader</string>
 </dict>
 </plist>

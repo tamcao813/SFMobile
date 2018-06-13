@@ -327,6 +327,7 @@
 		F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */; };
 		F2D7B8D720AA213D00A124BA /* ChatterModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */; };
 		F2DB9B8420C570B500338329 /* GlobalURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2DB9B8320C570B500338329 /* GlobalURL.plist */; };
+		F2DD034820D10A6D00CEB086 /* OpportunitiesWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DD034720D10A6D00CEB086 /* OpportunitiesWebViewController.swift */; };
 		F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */; };
 		F2FD2C2720919AE300037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */; };
 		F2FD2C2820919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */; };
@@ -689,6 +690,7 @@
 		F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterModelViewController.swift; sourceTree = "<group>"; };
 		F2DB9B8320C570B500338329 /* GlobalURL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GlobalURL.plist; sourceTree = "<group>"; };
+		F2DD034720D10A6D00CEB086 /* OpportunitiesWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesWebViewController.swift; sourceTree = "<group>"; };
 		F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsDetailsViewController.swift; sourceTree = "<group>"; };
 		F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionViewCell.swift; sourceTree = "<group>"; };
 		F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -1014,6 +1016,7 @@
 				8D8D001A20C2FE10009683AC /* OpportunitiesViewController.swift */,
 				8D8D001820C2FE10009683AC /* OpportunitiesListViewController.swift */,
 				8D8D001920C2FE10009683AC /* OpportunitiesMenuViewController.swift */,
+				F2DD034720D10A6D00CEB086 /* OpportunitiesWebViewController.swift */,
 			);
 			path = Opportunities;
 			sourceTree = "<group>";
@@ -2053,6 +2056,7 @@
 				129A69952099995F00642B14 /* StrategyQuestions.swift in Sources */,
 				D23C408E208DCF010006691C /* AccountVisitSummaryViewController.swift in Sources */,
 				1255F30F20A57BA900FC3796 /* AccountOverViewViewController.swift in Sources */,
+				F2DD034820D10A6D00CEB086 /* OpportunitiesWebViewController.swift in Sources */,
 				F2AB94592095D4E40028802E /* EditAccountStrategyViewController.swift in Sources */,
 				D1FCDE1120733025005F956D /* AccountsViewModel.swift in Sources */,
 				8D4BA34020B455EC005CFE56 /* ActionItemTitleDetailTableViewCell.swift in Sources */,

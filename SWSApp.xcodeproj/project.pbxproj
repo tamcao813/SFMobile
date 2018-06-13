@@ -167,6 +167,7 @@
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
 		9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
 		91497FF620C012E900A3F4F3 /* Opportunities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91497FF520C012E900A3F4F3 /* Opportunities.storyboard */; };
+		914E191820D10CBB0024E267 /* OpportunityWorkorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E191720D10CBB0024E267 /* OpportunityWorkorder.swift */; };
 		914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */; };
 		914E4F3B20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
@@ -518,6 +519,7 @@
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
 		9141111C20A95565006AD7CD /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		91497FF520C012E900A3F4F3 /* Opportunities.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Opportunities.storyboard; sourceTree = "<group>"; };
+		914E191720D10CBB0024E267 /* OpportunityWorkorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunityWorkorder.swift; sourceTree = "<group>"; };
 		914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFilterMenuModel.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
@@ -1179,6 +1181,7 @@
 			isa = PBXGroup;
 			children = (
 				F2064C8920CE664600FC03A0 /* Opportunity.swift */,
+				914E191720D10CBB0024E267 /* OpportunityWorkorder.swift */,
 				F2FDA1492099D92D000921A8 /* Visit.swift */,
 				6DDF2B2420A9EBF300FA5A87 /* SyncConfiguration.swift */,
 				4A00BB4F20BBBCC60003C3ED /* SyncLog.swift */,
@@ -1985,6 +1988,7 @@
 				914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */,
 				8DD15009209330E200858349 /* AccountView.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
+				914E191820D10CBB0024E267 /* OpportunityWorkorder.swift in Sources */,
 				F22DA90320C175FC00AA2B54 /* HomeGoalTypesViewController.swift in Sources */,
 				911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */,
 				F29A645A20B816B000D73AE9 /* AccountVisitListFilterViewController.swift in Sources */,

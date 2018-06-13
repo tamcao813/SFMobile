@@ -41,7 +41,7 @@
 	<key>netSalesUrl</key>
 	<string>https://sgws-de--dedev1.cs20.my.salesforce.com/analytics/wave/wave.apexp?tsid=02u31000000p1rD#dashboard/0FKm00000004D3uGAE</string>
 	<key>objectivesUrl</key>
-	<string>/analytics/wave/wave.apexp?tsid=02u31000000p1rD#application/00lm0000000YTvjAAG/edit</string>
+	<string>/lightning/o/SGWS_Objectives__c/list?filterName=00Bm0000001EROBEA4&amp;0.source=aloha</string>
 	<key>insightsUrl</key>
 	<string>/lightning/n/SGWS_Account_Insight</string>
 	<key>insightsAccountUrl</key>

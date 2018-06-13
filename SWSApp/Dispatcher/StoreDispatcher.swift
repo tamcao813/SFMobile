@@ -61,7 +61,7 @@ class StoreDispatcher {
         registerActionItemSoup()
         registerNotificationsSoup()
         registerOpportunity()
-//        registerOpportunityWorkorder()
+        registerOpportunityWorkorder()
         registerSyncLogSoup()
     }
     
@@ -228,6 +228,11 @@ class StoreDispatcher {
             group.leave()
         }
         
+        group.enter()
+        syncDownOpportunityWorkorder() { _ in
+            //            let _ = OpportunityViewModel().globalOpportunityReload()
+            group.leave()
+        }
         
         //to do: syncDown other soups
         group.notify(queue: queue) {
@@ -317,6 +322,12 @@ class StoreDispatcher {
         group.enter()
         syncDownOpportunity() { _ in
         let _ = OpportunityViewModel().globalOpportunityReload()
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownOpportunityWorkorder() { _ in
+            //            let _ = OpportunityViewModel().globalOpportunityReload()
             group.leave()
         }
         
@@ -3658,9 +3669,7 @@ class StoreDispatcher {
     
     func syncDownOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         
-//        let soqlQuery = "select id,AccountId,SGWS_Opportunity_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c,SGWS_Sold__c,SGWS_Month_Active__c,SGWS_Status__c,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,(select name,SGWS_Objectives__r.name,SGWS_Objectives__r.SGWS_Select_Objective_Type__c from Opportunity_Objective_Junction__r),(select Product2Id,Product2.Name,Product2.SGWS_CORP_ITEM_BOTTLES_PER_CASE__c,Product2.SGWS_CORP_ITEM_SIZE__c,Product2.SGWS_Corp_Brand__c from OpportunityLineItems) from opportunity"
-        // Removed ,SGWS_Status__c
-        let soqlQuery = "select id,AccountId,SGWS_Opportunity_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c,SGWS_Sold__c,SGWS_Month_Active__c,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,(select name,SGWS_Objectives__r.name,SGWS_Objectives__r.SGWS_Select_Objective_Type__c from Opportunity_Objective_Junction__r),(select Product2Id,Product2.Name,Product2.SGWS_CORP_ITEM_BOTTLES_PER_CASE__c,Product2.SGWS_CORP_ITEM_SIZE__c,Product2.SGWS_Corp_Brand__c from OpportunityLineItems) from opportunity"
+        let soqlQuery = "select id,AccountId,SGWS_Opportunity_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c,SGWS_Sold__c,SGWS_Month_Active__c,StageName,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,SGWS_Acct__c,SGWS_Segment__c,SGWS_Gap__c,SGWS_Sales_Trend__c,SGWS_Order_Size__c,SGWS_Order_Frequency__c,SGWS_Unsold_Period_Days__c,(select name,SGWS_Objectives__r.name,SGWS_Objectives__r.SGWS_Select_Objective_Type__c from Opportunity_Objective_Junction__r),(select Product2Id,Product2.Name,Product2.SGWS_CORP_ITEM_BOTTLES_PER_CASE__c,Product2.SGWS_CORP_ITEM_SIZE__c,Product2.SGWS_Corp_Brand__c from OpportunityLineItems) from opportunity"
 
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
@@ -3741,18 +3750,30 @@ class StoreDispatcher {
         }
     }
     
-    func createParentChildOpportunityWorkorder() {
+    func createParentChildOpportunityWorkorder(fieldsToUpload: [String]) {
         
+        // Creating object for parent info
         let parentInfo: SFParentInfo = SFParentInfo.new(withSObjectType: "WorkOrder", soupName: "WorkOrder", idFieldName: "Id", modificationDateFieldName: "LastModifiedDate")
         
+        // Creating object for children info
         let childrenInfo: SFChildrenInfo = SFChildrenInfo.new(withSObjectType: "SGWS_Opportunity_WorkOrder__c", sobjectTypePlural: "SGWS_Opportunity_WorkOrder__cs", soupName: "OpportunityWorkorder", parentIdFieldName: "SGWS_Work_Order__c", idFieldName: "Id", modificationDateFieldName: "LastModifiedDate")
 
+        // Creating sync up target
+        let syncUpTarget: SFParentChildrenSyncUpTarget = SFParentChildrenSyncUpTarget.newSyncTarget(with: parentInfo, parentCreateFieldlist: PlanVisit.planVisitFields, parentUpdateFieldlist: PlanVisit.workOrderSyncUpfields, childrenInfo: childrenInfo, childrenCreateFieldlist: OpportunityWorkorder.opportunityWorkorderFields, childrenUpdateFieldlist: OpportunityWorkorder.opportunityWorkorderSyncUpFields, relationshipType: .relationpshipMasterDetail)
         
+        // Creating sync down target
+//        let syncDownTarget: SFParentChildrenSyncDownTarget = SFParentChildrenSyncDownTarget.newSyncTarget(with: parentInfo, parentFieldlist: PlanVisit.planVisitFields, parentSoqlFilter: "*", childrenInfo: childrenInfo, childrenFieldlist: OpportunityWorkorder.opportunityWorkorderSyncUpFields, relationshipType: .relationpshipMasterDetail)
+        
+        // Running sync up
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        
+        _ = sfaSyncMgr.Promises.syncUp(target: syncUpTarget, options: syncOptions, soupName: SoupVisit)
+
     }
     
     func syncDownOpportunityWorkorder(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "select id,SGWS_Opportunity__c,SGWS_Work_Order__c,SGWS_Outcome__c from SGWS_Opportunity_WorkOrder__c"
+        let soqlQuery = "select SGWS_Opportunity__c,SGWS_Work_Order__c,SGWS_Outcome__c from SGWS_Opportunity_WorkOrder__c"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)

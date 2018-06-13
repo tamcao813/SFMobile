@@ -25,12 +25,16 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
         actionItemTitleLabel.text = actionItem.subject
         dueDateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))
         
-        
-        if actionItem.status == "Open",ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
-            actionItemStatusLabel.text = "Open"
+        if actionItem.activityDate != "" {
+            if actionItem.status == "Open",ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
+                actionItemStatusLabel.text = "Open"
+            }else{
+                actionItemStatusLabel.text = "Overdue"
+            }
         }else{
-            actionItemStatusLabel.text = "Overdue"
+            actionItemStatusLabel.text = actionItem.status
         }
+        
         
         if actionItem.isUrgent {
             urgentImageViewWidthConstarint.constant = 20

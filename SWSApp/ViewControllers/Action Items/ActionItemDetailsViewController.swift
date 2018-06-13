@@ -68,10 +68,14 @@ class ActionItemDetailsViewController: UIViewController {
         footerView.dropShadow()
         if let actionItem = actionItemObject {
             dueDateLabel.text =   DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))
-            if actionItem.status == "Open",ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
-                actionItemStatusLabel.text = "Open"
+            if actionItem.activityDate != "" {
+                if actionItem.status == "Open",ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
+                    actionItemStatusLabel.text = "Open"
+                }else{
+                    actionItemStatusLabel.text = "Overdue"
+                }
             }else{
-                actionItemStatusLabel.text = "Overdue"
+                actionItemStatusLabel.text = actionItem.status
             }
         }else{
             actionItemStatusLabel.text = actionItemObject?.status

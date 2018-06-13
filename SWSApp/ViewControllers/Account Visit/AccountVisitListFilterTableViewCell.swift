@@ -21,12 +21,15 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     
     var delegate : ReloadTableViewForNewAppliedFilterDelegate?
     let datePickerView = UIDatePicker()
+    var dateFormatter = DateFormatter()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         lblStartDate?.addPaddingLeft(10)
         lblEndDate?.addPaddingLeft(10)
+        
+        dateFormatter.dateFormat = "MM/dd/yyyy"
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -158,7 +161,7 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
         datePickerView.minuteInterval = 15
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM-dd-yyyy"
         
         if textField.tag == 301{
             let date = dateFormatter.date(from: AccountVisitListFilterModel.startDate)
@@ -188,8 +191,6 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     }
     
     @objc func handleDatePicker(sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
         
         if sender.tag == 300{
             lblStartDate?.text = dateFormatter.string(from: datePickerView.date)

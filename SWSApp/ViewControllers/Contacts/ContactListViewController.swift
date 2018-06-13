@@ -52,6 +52,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         globalContactCount = 0
         currentPageIndex = 0
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.selctedContact), name: NSNotification.Name(rawValue: "SelectedContact"), object: nil)
         fetchContacts()
     }
     
@@ -257,6 +258,14 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         
         
         self.tableView.reloadData()
+    }
+    
+    
+    @objc func selctedContact(notification: NSNotification){
+        
+        if let contact = notification.userInfo?["contact"] as? Contact {
+            delegate?.pushTheScreenToContactDetailsScreen(contactData: contact)
+        }
     }
     
     @objc func reloadAllContacts(notification: NSNotification){

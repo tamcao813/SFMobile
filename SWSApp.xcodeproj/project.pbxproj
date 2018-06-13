@@ -231,6 +231,8 @@
 		AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974920888330004548E9 /* SchedulerComponent.swift */; };
 		AE8F41EE20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */; };
 		AE8F41F420A09F1B0033F81D /* UIView+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */; };
+		AEDF060120D1060600312E1C /* SyncConfigurationSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF060020D1060600312E1C /* SyncConfigurationSortUtility.swift */; };
+		AEDF060320D1065500312E1C /* SyncConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF060220D1065500312E1C /* SyncConfigurationViewModel.swift */; };
 		AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF951172089C7800083EA47 /* AccountTableViewCell.swift */; };
 		AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */; };
 		AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */; };
@@ -240,6 +242,7 @@
 		C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */; };
 		C9B63C6E208DB819008D9E14 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */; };
 		C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B95098209307C900792AD3 /* AccountNotes.swift */; };
+		C9E2CDF120CFB6EC0038B509 /* InsightsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2CDF020CFB6EC0038B509 /* InsightsModalViewController.swift */; };
 		D10483962068381A00A0343B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483952068381A00A0343B /* Contact.swift */; };
 		D125134220648C4F00CD6CB4 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134120648C4F00CD6CB4 /* Account.swift */; };
 		D125134420648E1000CD6CB4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134320648E1000CD6CB4 /* User.swift */; };
@@ -587,6 +590,8 @@
 		AE5C974920888330004548E9 /* SchedulerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerComponent.swift; sourceTree = "<group>"; };
 		AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAgendaNoteViewController.swift; sourceTree = "<group>"; };
 		AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Properties.swift"; sourceTree = "<group>"; };
+		AEDF060020D1060600312E1C /* SyncConfigurationSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncConfigurationSortUtility.swift; sourceTree = "<group>"; };
+		AEDF060220D1065500312E1C /* SyncConfigurationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncConfigurationViewModel.swift; sourceTree = "<group>"; };
 		AEF951172089C7800083EA47 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
 		AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanVisitEditableScreen.storyboard; sourceTree = "<group>"; };
@@ -597,6 +602,7 @@
 		C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
 		C9B95098209307C900792AD3 /* AccountNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotes.swift; sourceTree = "<group>"; };
 		C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsNotesViewModel.swift; sourceTree = "<group>"; };
+		C9E2CDF020CFB6EC0038B509 /* InsightsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsModalViewController.swift; sourceTree = "<group>"; };
 		D10483952068381A00A0343B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		D125134120648C4F00CD6CB4 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		D125134320648E1000CD6CB4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -1348,6 +1354,7 @@
 				F2CAD23020957E91001016C2 /* DuringVisit */,
 				F2AB94542095CBA90028802E /* AlertUtility.swift */,
 				8DDD4A4220BBD5FF00423E20 /* SyncInfoViewController.swift */,
+				C9E2CDF020CFB6EC0038B509 /* InsightsModalViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1355,6 +1362,7 @@
 		D1FCDE0A20732199005F956D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				AEDF060220D1065500312E1C /* SyncConfigurationViewModel.swift */,
 				6DB9E3AD20CFBEA500041850 /* ConfigurationAndPickListModel.swift */,
 				F2FDA1472099D924000921A8 /* VisitsViewModel.swift */,
 				9141111C20A95565006AD7CD /* CalendarViewModel.swift */,
@@ -1389,6 +1397,7 @@
 		D1FE1D0320657B47009CC47C /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
+				AEDF060020D1060600312E1C /* SyncConfigurationSortUtility.swift */,
 				F2064C8B20CE669900FC03A0 /* OpportunitySortUtility.swift */,
 				AE3D30D320BCC1AA0053ACE0 /* PaddingLabel.swift */,
 				AE1FAABF20B6C2EE005B44EC /* ColumnFlowLayout.swift */,
@@ -2109,6 +2118,7 @@
 				8DDD4A4A20BBFC5200423E20 /* TitleDepartmentTableViewCell.swift in Sources */,
 				8D4BA34420B455EC005CFE56 /* ActionItemTitleTableViewCell.swift in Sources */,
 				AE43DD1B209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */,
+				AEDF060320D1065500312E1C /* SyncConfigurationViewModel.swift in Sources */,
 				F2AB945F2095D5000028802E /* DuringVisitsTopicsViewController.swift in Sources */,
 				8D17A5D620A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
 				8D4BA3A220B45B58005CFE56 /* SearchAccountTableViewCell.swift in Sources */,
@@ -2122,6 +2132,7 @@
 				8D8D001B20C2FE10009683AC /* OpportunitiesListViewController.swift in Sources */,
 				F20A89D820BA871200AF35EA /* AccountVisitListSortUtility.swift in Sources */,
 				D2E12D7120736C4B0005B982 /* InsightsViewController.swift in Sources */,
+				C9E2CDF120CFB6EC0038B509 /* InsightsModalViewController.swift in Sources */,
 				AE3D30D420BCC1AA0053ACE0 /* PaddingLabel.swift in Sources */,
 				121468F420AD603A00942A00 /* DropDown+Appearance.swift in Sources */,
 				12F0F89A208FA6BD00160C3D /* AccountContactRelation.swift in Sources */,
@@ -2148,6 +2159,7 @@
 				91FAEF5320A57DD500209D71 /* WRTodayBackground.swift in Sources */,
 				8D4BA37C20B45B58005CFE56 /* NameTableViewCell.swift in Sources */,
 				C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */,
+				AEDF060120D1060600312E1C /* SyncConfigurationSortUtility.swift in Sources */,
 				8D4BA3AC20B45B58005CFE56 /* AccountContactLinkTableViewCell.swift in Sources */,
 				8D4BA34220B455EC005CFE56 /* ActionItemsListTableViewCell.swift in Sources */,
 				8D4BA38420B45B58005CFE56 /* PhoneTableViewCell.swift in Sources */,

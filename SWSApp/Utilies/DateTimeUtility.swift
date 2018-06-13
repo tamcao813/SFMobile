@@ -513,6 +513,25 @@ class DateTimeUtility
             return dateToConvert
         }
     }
+    
+    /// Get Current Date in MMDDYY format
+    func getCurrentDate(date: Date) -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yy"
+        let dateString = formatter.string(from: date)
+        return dateString
+    }
+    
+    /// Get Current Time in 12-Hour format
+    func getCurrentTime(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        let timeString = formatter.string(from: date)
+        return timeString
+    }
 
 }
 

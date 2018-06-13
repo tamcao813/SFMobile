@@ -769,8 +769,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         case 3:
             self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
         case 4:
-            self.instantiateViewController(identifier: "NotificationsControllerID", moreOptionVC: moreVC1, index: index)
-            //notificationsVC.view.frame.origin.y = -63.5
+            self.notificationParent?.resetFilters()
+            self.notificationParent?.delegate = self
+            moreVC1.view.addSubview((self.notificationParent?.view)!)
+            self.moreDropDownSelectionIndex = index
             
         case 5:
             self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)

@@ -20,7 +20,6 @@ class SyncInfoViewController: UIViewController {
     @IBOutlet weak var lastSyncStatusLabel: UILabel!
     @IBOutlet weak var lastSyncDateLabel: UILabel!
     weak var delegate: SyncInfoViewControllerDelegate?
-    var syncUpFailed = false
 
     @IBOutlet weak var syncNowBtn: UIButton!
     
@@ -37,19 +36,12 @@ class SyncInfoViewController: UIViewController {
     
     func setProgress(progress: Float,progressComplete: Bool = false,syncUpFailed: Bool = false){
         DispatchQueue.main.async {
-            if !syncUpFailed{
-                self.progressView.progress = progress/100
-            }
+            self.progressView.progress = progress/100
             if progressComplete {
                 self.updateDailog(syncUpFailed: syncUpFailed)
             }
         }
     }
-    
-    func syncFailed(){
-        updateDailog(syncUpFailed: true)
-    }
-    
     
     func updateDailog(syncUpFailed: Bool){
         let date = Date()

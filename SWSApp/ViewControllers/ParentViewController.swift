@@ -907,6 +907,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
 
         default:
             ifMoreVC = true
+            ContactsGlobal.accountId = ""
             break
         }
         

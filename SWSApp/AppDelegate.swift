@@ -240,7 +240,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 StoreDispatcher.shared.syncDownUser({ (error) in
                     if error != nil {
                         print("error in syncDownUser")
-                        return
+                        //Don't return from here
+                     //   return
                     }
                     
                     StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in

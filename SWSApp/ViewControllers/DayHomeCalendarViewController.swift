@@ -218,6 +218,10 @@ class DayHomeCalendarViewController: UIViewController {
 
 //MARK:- NavigateToContacts Delegate
 extension DayHomeCalendarViewController : NavigateToContactsDelegate{
+    func navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        
+    }
+    
     func navigateToVisitListing() {
         self.dismiss(animated: true, completion: nil)
     }

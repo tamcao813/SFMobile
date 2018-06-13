@@ -389,6 +389,10 @@ extension AccountEventSummaryViewController: ButtonTableViewCellDelegate {
 
 //MARK:- NavigateToContacts Delegate
 extension AccountEventSummaryViewController : NavigateToAccountVisitSummaryDelegate , NavigateToAccountAccountVisitSummaryDelegate{
+    func NavigateToAccountVisitSummaryActionItems(data: LoadThePersistantMenuScreen) {
+        
+    }
+    
     
     func navigateToAccountVisitingScreen() {
         DispatchQueue.main.async {

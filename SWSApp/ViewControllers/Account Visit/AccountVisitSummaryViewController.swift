@@ -11,6 +11,7 @@ import SmartSync
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
+    func navigateTheScreenToActionItemsInPersistantMenu(data : LoadThePersistantMenuScreen)
     func navigateToAccountScreen()
 }
 
@@ -301,6 +302,12 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
         }
         
         
+    }
+    func NavigateToAccountVisitSummaryActionItems(data: LoadThePersistantMenuScreen) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: false, completion: nil)
+            self.delegate?.navigateTheScreenToActionItemsInPersistantMenu(data: data)
+        }
     }
     
     func navigateToAccountVisitSummaryScreen() {

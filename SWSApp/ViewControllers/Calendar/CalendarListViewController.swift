@@ -451,6 +451,10 @@ extension CalendarListViewController: WRWeekViewDelegate {
 
 //MARK:- NavigateToContacts Delegate
 extension CalendarListViewController : NavigateToContactsDelegate{
+    func navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        
+    }
+    
     func navigateToVisitListing() {
         self.dismiss(animated: true, completion: nil)
     }

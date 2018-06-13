@@ -73,6 +73,9 @@ class AccountsListViewController: UIViewController {
     
     //MARK:- ViewLifeCycle
     override func viewDidLoad() {
+        
+       
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountItemList), name: NSNotification.Name("reloadAccountsData"), object: nil)
@@ -114,7 +117,12 @@ class AccountsListViewController: UIViewController {
         }
         
         initPageViewWith(inputArr: tableViewDisplayData, pageSize: kPageSize)
-        updateUI()
+        DispatchQueue.main.async {
+           self.accountListTableView.reloadData()
+             self.updateUI()
+            
+        }
+       
         
     }
     
@@ -736,6 +744,7 @@ extension AccountsListViewController : UITableViewDataSource{
         cell.selectionStyle = .none
         cell.storeNameLabel.text = account.accountName
         cell.accountNumberLabel.text = account.accountNumber
+        cell.actionItemsLabel.text = String(account.actionItem) 
         //cell.percentR12NetSales.setTitle("150 " + "%", for: .normal)
         
         // Create Full shipping address

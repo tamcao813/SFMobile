@@ -24,7 +24,18 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
     func displayCellContent(actionItem: ActionItem){
         actionItemTitleLabel.text = actionItem.subject
         dueDateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))
-        actionItemStatusLabel.text = actionItem.status
+        
+        if actionItem.activityDate != "" {
+            if actionItem.status == "Open",ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
+                actionItemStatusLabel.text = "Open"
+            }else{
+                actionItemStatusLabel.text = "Overdue"
+            }
+        }else{
+            actionItemStatusLabel.text = actionItem.status
+        }
+        
+        
         if actionItem.isUrgent {
             urgentImageViewWidthConstarint.constant = 20
             titleLabelLeadingConstraints.constant = 10

@@ -149,7 +149,7 @@ class Opportunity {
                         productName = product2Dic["Name"] as? String ?? ""
                         
                         itemBottlesPerCase = ((product2Dic["SGWS_CORP_ITEM_BOTTLES_PER_CASE__c"] as? String ?? "") as NSString).floatValue
-                        if itemBottlesPerCase == 0.0 {
+                        if itemBottlesPerCase == 0 {
                             itemBottlesPerCase = 1.0
                         }
                         

@@ -376,7 +376,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         case 1:
             // upcoming visit section
             if tableView.tag == 1{
-                if upcomingVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit{
+                if upcomingVisitArrayToDisplay[indexPath.row].recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforVisit() {
                     cell.UpComingActivities_TitleLabel.text = "Visit " + upcomingVisitArrayToDisplay[indexPath.row].accountName
                 }else{
                     cell.UpComingActivities_TitleLabel.text = upcomingVisitArrayToDisplay[indexPath.row].subject
@@ -399,7 +399,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             }
                 // Past visit section
             else{
-                if pastVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit{
+                if pastVisitArrayToDisplay[indexPath.row].recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforVisit() {
                     cell.UpComingActivities_TitleLabel.text = "Visit " + pastVisitArrayToDisplay[indexPath.row].accountName
                 }else{
                     cell.UpComingActivities_TitleLabel.text =  pastVisitArrayToDisplay[indexPath.row].subject
@@ -510,7 +510,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         case 1:
             if indexPath.section == 1 {
                 
-                if(upcomingVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
+                if(upcomingVisitArrayToDisplay[indexPath.row].recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforEvent()){
                     
                     let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
                     let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
@@ -541,7 +541,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
             }
         case 2:
             if indexPath.section == 1 {
-                if(pastVisitArrayToDisplay[indexPath.row].recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
+                if(pastVisitArrayToDisplay[indexPath.row].recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforEvent()){
                     
                     let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
                     let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController

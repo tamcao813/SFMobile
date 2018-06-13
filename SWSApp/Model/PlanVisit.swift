@@ -13,7 +13,7 @@ class PlanVisit {
     //SyncUp
     static let workOrderSyncUpfields: [String] = ["Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c"]
     
-    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","_soupEntryId","SGWS_WorkOrder_Location__c","SGWS_All_Day_Event__c","OwnerId"]
+    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","_soupEntryId","SGWS_WorkOrder_Location__c","SGWS_All_Day_Event__c","OwnerId","visitTitle","visitType", "accountList", "systemConfigurationObject"]
     
     var Id : String
     var subject : String
@@ -35,6 +35,11 @@ class PlanVisit {
     var sgwsAlldayEvent :Bool
     
     var ownerId : String
+    
+    var visitTitle: String
+    var visitType: String
+    var accountList: [Account]?
+    let systemConfigurationObject:SyncConfiguration?
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(PlanVisit.planVisitFields, ary))
@@ -62,11 +67,31 @@ class PlanVisit {
         
         ownerId = json["OwnerId"] as? String ?? ""
         
-        if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == StoreDispatcher.shared.workOrderRecordTypeIdVisit){
-            workOrderType = StoreDispatcher.shared.workOrderTypeVisit
-        } else {
-            workOrderType = StoreDispatcher.shared.workOrderTypeEvent
-            
+        let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
+        let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
+        
+        
+//        if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == StoreDispatcher.shared.workOrderRecordTypeIdVisit){
+//            workOrderType = StoreDispatcher.shared.workOrderTypeVisit
+//        } else {
+//            workOrderType = StoreDispatcher.shared.workOrderTypeEvent
+//
+//        }
+        
+        accountList = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: globalAccountsForLoggedUser, accountId: self.accountId)
+        
+        workOrderType = ""
+        
+        systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId:recordTypeId)
+        visitType = ""
+        visitTitle = ""
+        if (systemConfigurationObject?.developerName == "SGWS_WorkOrder_Event") {
+            visitType = "event"
+            visitTitle = subject
+        }
+        else if (systemConfigurationObject?.developerName == "SGWS_WorkOrder_Visit") {
+            visitType = "visit"
+            visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
         }
     }
     
@@ -91,6 +116,11 @@ class PlanVisit {
         sgwsAlldayEvent = false
         
         ownerId = ""
+        
+        visitTitle = ""
+        visitType = ""
+        accountList = nil
+        systemConfigurationObject = nil
         
     }
 }

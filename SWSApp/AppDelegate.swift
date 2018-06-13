@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var consultants = [Consultant]()
     var alertVisible = false
     var launchedBefore:Bool = false
+    //reSync dictionary  Count - To be updated if more objects added here
+  //  let reSyncObjectDictCount:Int = 13
     
     override init(){
         
@@ -122,7 +124,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else
         {
             print("First launch")
-            UserDefaults.standard.set(true, forKey: "launchedBefore")
         }
         
         initializeAppViewState()
@@ -262,8 +263,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             StoreDispatcher.shared.downloadAllSoups({ (error) in
                                 if error != nil {
                                     print("error in downloadAllSoups")
+                                    StoreDispatcher.shared.syncIdDictionary.removeAll()
+                                    UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
                                     return
                                 }
+                                // If both register and syncdownall is completed than only set the launched comeplete flag
+                                UserDefaults.standard.set(true, forKey: "launchedBefore")
                                 //save the resyncdictionary to defaults
                                 UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
                                 

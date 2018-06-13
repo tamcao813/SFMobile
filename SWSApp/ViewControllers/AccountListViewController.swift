@@ -128,6 +128,11 @@ class AccountsListViewController: UIViewController {
     
     @objc func refreshAccountItemList(notification: NSNotification){
         self.reloadAllAccountListData()
+        DispatchQueue.main.async {
+            self.accountListTableView.reloadData()
+           
+            
+        }
     }
     
     //Account List Notification

@@ -34,7 +34,7 @@ class OpportunitiesWebViewController : UIViewController , WKNavigationDelegate{
         
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
-        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.apexChatterUrl + AccountId.selectedAccountId
+        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.opportunitiesUrl
         
         //let accountUrl: String = authUrl +  endUrl
         

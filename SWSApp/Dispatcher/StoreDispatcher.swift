@@ -61,6 +61,7 @@ class StoreDispatcher {
         registerActionItemSoup()
         registerNotificationsSoup()
         registerOpportunity()
+//        registerOpportunityWorkorder()
         registerSyncLogSoup()
     }
     
@@ -3718,6 +3719,67 @@ class StoreDispatcher {
         return opportunity
     }
     
+    func registerOpportunityWorkorder() {
+        
+        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...opportunityWorkorderFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: opportunityWorkorderFields[i], indexType: kSoupIndexTypeString, columnName: opportunityWorkorderFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupOpportunityWorkorder, withIndexSpecs: indexSpec, error: ())
+            
+//            createParentChildOpportunityWorkorder()
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunityWorkorder soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func createParentChildOpportunityWorkorder() {
+        
+        let parentInfo: SFParentInfo = SFParentInfo.new(withSObjectType: "WorkOrder", soupName: "WorkOrder", idFieldName: "Id", modificationDateFieldName: "LastModifiedDate")
+        
+        let childrenInfo: SFChildrenInfo = SFChildrenInfo.new(withSObjectType: "SGWS_Opportunity_WorkOrder__c", sobjectTypePlural: "SGWS_Opportunity_WorkOrder__cs", soupName: "OpportunityWorkorder", parentIdFieldName: "SGWS_Work_Order__c", idFieldName: "Id", modificationDateFieldName: "LastModifiedDate")
+
+        
+    }
+    
+    func syncDownOpportunityWorkorder(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "select id,SGWS_Opportunity__c,SGWS_Work_Order__c,SGWS_Outcome__c from SGWS_Opportunity_WorkOrder__c"
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupOpportunityWorkorder)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownOpportunityWorkorder() done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownOpportunityWorkorder()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownOpportunityWorkorder()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+        
+    }
+
     private func resyncError(syncConstant: String)->NSError{
         let meg = "Error reSync: " + syncConstant
         let userInfo: [String: Any] =

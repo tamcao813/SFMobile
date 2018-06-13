@@ -183,14 +183,12 @@ class CreateNewActionItemViewController: UIViewController {
         newActionItem.description = actionItemDescriptionTextView.text!
         newActionItem.activityDate = DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: dueDateTextField.text!)
         if newActionItem.activityDate != ""{
-          //  newActionItem.activityDate =
             if ActionItemSortUtility().isItOpenState(dueDate: DateTimeUtility.convertUtcDatetoReadableDateString(dateString: newActionItem.activityDate)){
                 newActionItem.status = "Open"
             }else{
                 newActionItem.status = "Overdue"
             }
         }else{
-            
             newActionItem.status = "Open"
         }
         if isUrgentSwitch.isOn {

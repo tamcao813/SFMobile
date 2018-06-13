@@ -85,15 +85,16 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
     @IBAction func editNote(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let ownerId = appDelegate.loggedInUser?.userId
+        self.performSegue(withIdentifier: "editToCreate", sender: nil)
         //is allowed nonly for Note owner
-        if(ownerId == notesToBeEdited.ownerId){
-            
-            self.performSegue(withIdentifier: "editToCreate", sender: nil)
-        }
-        else {
-            
-            return
-        }
+//        if(ownerId == notesToBeEdited.ownerId){
+//
+//            self.performSegue(withIdentifier: "editToCreate", sender: nil)
+//        }
+//        else {
+//
+//            return
+//        }
     }
     
     
@@ -124,7 +125,8 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let ownerId = appDelegate.loggedInUser?.userId
         //Delete is allowed only for Note owner
-        if(ownerId == self.notesToBeEdited.ownerId){
+        //MARK:Shubham
+      //  if(ownerId == self.notesToBeEdited.ownerId){
         let alert = UIAlertController(title: "Delete Note?", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
         let continueAction = UIAlertAction(title: "Delete", style: .default) {
             action in        self.notesToBeEdited.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
@@ -153,9 +155,9 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
-        }else{
-            return
-        }
+//        }else{
+//            return
+//        }
     }
     
     

@@ -27,6 +27,7 @@ class CalendarViewModel {
         var visitsToCalendarEventsArray = [WREvent]()
         let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
         let globalContactList = ContactsViewModel().globalContacts()
+        let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
         
         for visit in visitArray{
             let dateFormatter = DateFormatter()
@@ -40,13 +41,27 @@ class CalendarViewModel {
                     }
                     var visitTitle = ""
                     var visitType = "visit"
-                    if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == visit.recordTypeId){
-                        visitType = "visit"
-                        
-                        visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
-                    } else {
-                        visitType = "event"
-                        visitTitle = visit.subject
+//                    if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == visit.recordTypeId){
+//                        visitType = "visit"
+//
+//                        visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
+//                    } else {
+//                        visitType = "event"
+//                        visitTitle = visit.subject
+//                    }
+                    
+                    if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: visit.recordTypeId) {
+                        if systemConfigurationObject.developerName == "SGWS_WorkOrder_Event" {
+                            visitType = "event"
+                            visitTitle = visit.subject
+                        }
+                        else if systemConfigurationObject.developerName == "SGWS_WorkOrder_Visit" {
+                            visitType = "visit"
+                            visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
+                        }
+                        else {
+                            continue
+                        }
                     }
                     
                     guard let _ = visitTitle as String? else {

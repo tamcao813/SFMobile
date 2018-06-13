@@ -194,7 +194,7 @@ class AccountVisitListSortUtility {
         var weekRangeArray = [WorkOrderUserObject]()
         var dateRangeArray = [WorkOrderUserObject]()
         
-        dateFormatter.dateFormat = "MM/dd/yyyy"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone.current
         
         if AccountVisitListFilterModel.isToday == "YES"{
@@ -316,6 +316,7 @@ class AccountVisitListSortUtility {
         var pastVisitsArray = [WorkOrderUserObject]()
         
         if AccountVisitListFilterModel.isPastVisits == "YES"{
+            //dateFormatter.dateFormat = "yyyy/MM/DD"
             date.addTimeInterval(-(60 * 60 * 24))
             let timeStamp = dateFormatter.string(from: date)
             

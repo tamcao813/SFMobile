@@ -252,7 +252,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.loggedInUser =  user
                         self.currentSelectedUserId = user.userId
                         self.consultants = consults
-			print("appdelegate: currentSelectedUserId: " + self.currentSelectedUserId)
+            print("appdelegate: currentSelectedUserId: " + self.currentSelectedUserId)
                         
                         if(self.isKeyPresentInUserDefaults(key: "resyncDictionary")){
                             StoreDispatcher.shared.syncIdDictionary = UserDefaults.standard.dictionary(forKey: "resyncDictionary") as! [String : UInt]
@@ -265,10 +265,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     print("error in downloadAllSoups")
                                     StoreDispatcher.shared.syncIdDictionary.removeAll()
                                     UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
+                                    UserDefaults.standard.set("Last Sync Failed", forKey: "lastSyncStatus")
                                     return
                                 }
                                 // If both register and syncdownall is completed than only set the launched comeplete flag
                                 UserDefaults.standard.set(true, forKey: "launchedBefore")
+                                let date = Date()
+                                let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
+                                UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
+                                UserDefaults.standard.set("Last Sync Successful", forKey: "lastSyncStatus")
                                 //save the resyncdictionary to defaults
                                 UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
                                 

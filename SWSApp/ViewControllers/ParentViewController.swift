@@ -415,6 +415,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         AccountsNotesViewModel().syncNotesWithServer { error in
             if error != nil {
+                self.syncProgress = 0
+                self.syncUpInfoVC?.syncFailed()
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
@@ -486,6 +488,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
 //                }
                 
             } else {
+                self.syncProgress = 0
+                self.syncUpInfoVC?.syncFailed()
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print("syncContactWithServer error " + (error?.localizedDescription)!)
             }
@@ -496,6 +500,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         VisitSchedulerViewModel().syncVisitsWithServer{ error in
             if error != nil {
+                self.syncProgress = 0
+                self.syncUpInfoVC?.syncFailed()
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
@@ -509,6 +515,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         AccountsActionItemViewModel().syncAccountsActionItemWithServer{ error in
             if error != nil {
+                self.syncProgress = 0
+                self.syncUpInfoVC?.syncFailed()
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
@@ -522,6 +530,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         StrategyQAViewModel().syncStrategyWithServer{ error in
             if error != nil {
+                self.syncProgress = 0
+                self.syncUpInfoVC?.syncFailed()
                 //DispatchQueue.main.async { //do this in group.notify
                 //    MBProgressHUD.hide(forWindow: true)
                 //}
@@ -538,6 +548,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         StrategyQAViewModel().syncStrategyQuestionsWithServer{ error in
             if error != nil {
+                self.syncProgress = 0
+                self.syncUpInfoVC?.syncFailed()
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
@@ -551,6 +563,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         StrategyQAViewModel().syncStrategyAnswersWithServer{ error in
             if error != nil {
+                self.syncProgress = 0
+                self.syncUpInfoVC?.syncFailed()
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
@@ -563,6 +577,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         AccountsViewModel().syncAccountWithServer{ error in
             if error != nil {
+                self.syncProgress = 0
+                self.syncUpInfoVC?.syncFailed()
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
@@ -576,6 +592,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         NotificationsViewModel().syncNotificationWithServer{ error in
             if error != nil {
+                self.syncProgress = 0
+                self.syncUpInfoVC?.syncFailed()
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
@@ -602,6 +620,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         group.enter()
         ConfigurationAndPickListModel().syncPickListWithServer{ error in
             if error != nil {
+                self.syncProgress = 0
+                self.syncUpInfoVC?.syncFailed()
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }

@@ -43,6 +43,11 @@ class SyncInfoViewController: UIViewController {
         }
     }
     
+    func syncFailed(){
+        updateDailog(syncUpFailed: true)
+    }
+    
+    
     func updateDailog(syncUpFailed: Bool){
         let date = Date()
         let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"

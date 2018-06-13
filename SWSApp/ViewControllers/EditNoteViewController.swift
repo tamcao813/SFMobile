@@ -85,15 +85,16 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
     @IBAction func editNote(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let ownerId = appDelegate.loggedInUser?.userId
+        self.performSegue(withIdentifier: "editToCreate", sender: nil)
         //is allowed nonly for Note owner
-        if(ownerId == notesToBeEdited.ownerId){
-            
-            self.performSegue(withIdentifier: "editToCreate", sender: nil)
-        }
-        else {
-            
-            return
-        }
+//        if(ownerId == notesToBeEdited.ownerId){
+//
+//            self.performSegue(withIdentifier: "editToCreate", sender: nil)
+//        }
+//        else {
+//
+//            return
+//        }
     }
     
     

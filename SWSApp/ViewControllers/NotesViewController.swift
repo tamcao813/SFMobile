@@ -269,6 +269,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
             let ownerId = appDelegate.loggedInUser?.userId
             //Edit is allowed only for Note owner
             self.notesDataToEdit = self.tableViewDisplayData[indexPath.row]
+            self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
             
 //            if(ownerId == self.notesDataToEdit.ownerId){
 //                self.performSegue(withIdentifier: "createNoteSegue", sender: nil)

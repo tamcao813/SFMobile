@@ -170,12 +170,12 @@ class AccountVisitListSortUtility {
         var isEventArray = [WorkOrderUserObject]()
         
         if AccountVisitListFilterModel.isTypeVisit == "YES"{
-            isVisitArray = actionItems.filter( { return $0.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit } )
+            isVisitArray = actionItems.filter( { return $0.recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforVisit()  } )
             recordTypeAdded = true
         }
         
         if AccountVisitListFilterModel.isTypeEvent == "YES"{
-            isEventArray = actionItems.filter( { return $0.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent } )
+            isEventArray = actionItems.filter( { return $0.recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforEvent() } )
             recordTypeAdded = true
         }
         

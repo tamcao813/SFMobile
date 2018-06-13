@@ -13,6 +13,7 @@ class SelectOpportunitiesViewController: UIViewController {
     @IBOutlet weak var opportunitiesListView: UITableView!
     var opportunityAccountId: String?
     var opportunityList = [Opportunity]()
+    static var selectedOpportunitiesList = [Opportunity]()
     
     
     override func viewDidLoad() {
@@ -253,6 +254,7 @@ extension SelectOpportunitiesViewController : UITableViewDelegate {
         }else{
            opportunityList[indexPath.row].isOpportunitySelected = false
         }
+    SelectOpportunitiesViewController.selectedOpportunitiesList.append(opportunityList[indexPath.row])
         self.opportunitiesListView.reloadData()
     }
 

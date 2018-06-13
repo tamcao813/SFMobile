@@ -43,6 +43,7 @@ class Opportunity {
     var PYCMSold9L: String
     var commit9L: String
     var sold9L: String
+    var isOpportunitySelected:Bool
 
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(Opportunity.opportunityFields, ary))
@@ -69,6 +70,7 @@ class Opportunity {
         orderSize = json["SGWS_Order_Size__c"] as? String ?? ""
         orderFrequency = json["SGWS_Order_Frequency__c"] as? String ?? ""
         unsoldPeriodDays = json["SGWS_Unsold_Period_Days__c"] as? String ?? ""
+        isOpportunitySelected = false
 
         objectiveNames = ""
         objectiveTypes = ""
@@ -241,6 +243,7 @@ class Opportunity {
         PYCMSold9L = ""
         commit9L = ""
         sold9L = ""
+        isOpportunitySelected = false
 
     }
 

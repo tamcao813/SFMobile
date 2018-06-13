@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var consultants = [Consultant]()
     var alertVisible = false
     var launchedBefore:Bool = false
+    //reSync dictionary  Count - To be updated if more objects added here
+  //  let reSyncObjectDictCount:Int = 13
     
     override init(){
         
@@ -122,7 +124,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else
         {
             print("First launch")
-            UserDefaults.standard.set(true, forKey: "launchedBefore")
         }
         
         initializeAppViewState()
@@ -239,7 +240,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 StoreDispatcher.shared.syncDownUser({ (error) in
                     if error != nil {
                         print("error in syncDownUser")
-                        return
+                        //Don't return from here
+                     //   return
                     }
                     
                     StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
@@ -251,7 +253,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.loggedInUser =  user
                         self.currentSelectedUserId = user.userId
                         self.consultants = consults
-			print("appdelegate: currentSelectedUserId: " + self.currentSelectedUserId)
+            print("appdelegate: currentSelectedUserId: " + self.currentSelectedUserId)
                         
                         if(self.isKeyPresentInUserDefaults(key: "resyncDictionary")){
                             StoreDispatcher.shared.syncIdDictionary = UserDefaults.standard.dictionary(forKey: "resyncDictionary") as! [String : UInt]
@@ -262,9 +264,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             StoreDispatcher.shared.downloadAllSoups({ (error) in
                                 if error != nil {
                                     print("error in downloadAllSoups")
+                                    StoreDispatcher.shared.syncIdDictionary.removeAll()
+                                    UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
                                     UserDefaults.standard.set("Last Sync Failed", forKey: "lastSyncStatus")
                                     return
                                 }
+                                // If both register and syncdownall is completed than only set the launched comeplete flag
+                                UserDefaults.standard.set(true, forKey: "launchedBefore")
                                 let date = Date()
                                 let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
                                 UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")

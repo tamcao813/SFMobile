@@ -31,9 +31,9 @@ class HomeViewController: UIViewController {
         //        registerSyncLogSoup()
 
         //for soup testing
-        //        let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
-        //        present(SmartStoreViewController, animated: true, completion: nil)
-        
+//                let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
+//                present(SmartStoreViewController, animated: true, completion: nil)
+//        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

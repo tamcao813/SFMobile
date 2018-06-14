@@ -369,25 +369,25 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.section == (tableViewRowDetails?.count)! - 1 {//Used to make the Additional notes Dynamic
-            
-            let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
-            let tableContent = tableData["answers"] as! NSMutableArray
-            let questions = tableContent[indexPath.row] as! NSMutableDictionary
-            
-            let data = (questions["answerText"] as! String)
-            
-            if data.count > 115{
-                if data != ""{
-                    let constraintRect = CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
-                    let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18.0)])
-                    let dynamicSize: CGRect = attString.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, context: nil)
-                    return dynamicSize.size
-                }
-            }else{
-                return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)
-            }
-        }
+//        if indexPath.section == (tableViewRowDetails?.count)! - 1 {//Used to make the Additional notes Dynamic
+//            
+//            let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
+//            let tableContent = tableData["answers"] as! NSMutableArray
+//            let questions = tableContent[indexPath.row] as! NSMutableDictionary
+//            
+//            let data = (questions["answerText"] as! String)
+//            
+//            if data.count > 115{
+//                if data != ""{
+//                    let constraintRect = CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
+//                    let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18.0)])
+//                    let dynamicSize: CGRect = attString.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, context: nil)
+//                    return dynamicSize.size
+//                }
+//            }else{
+//                return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)
+//            }
+//        }
         return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)
     }
     

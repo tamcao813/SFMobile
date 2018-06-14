@@ -19,6 +19,8 @@ class AccountStrategyCollectionViewCell: UICollectionViewCell {
         }else{
             //lblTitleText?.text =  "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  "//(data["answerText"] as! String)
             
+            lblTitleText?.numberOfLines = 0
+            lblTitleText?.lineBreakMode = .byWordWrapping
             lblTitleText?.text = (data["answerText"] as! String)
         }
     }

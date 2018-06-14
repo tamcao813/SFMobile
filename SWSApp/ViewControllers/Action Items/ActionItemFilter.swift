@@ -42,4 +42,7 @@ struct ActionItemFilterModel {
     static var filterApplied = false
     
     static var selectedConsultant: Consultant?
+    static var comingFromDetailsScreen = ""
+    static var selectedContactId = ""
+    
 }

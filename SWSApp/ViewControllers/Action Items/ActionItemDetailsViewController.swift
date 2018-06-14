@@ -69,10 +69,14 @@ class ActionItemDetailsViewController: UIViewController {
         if let actionItem = actionItemObject {
             dueDateLabel.text =   DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))
             if actionItem.activityDate != "" {
-                if actionItem.status == "Open",ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
-                    actionItemStatusLabel.text = "Open"
+                if actionItem.status == "Open" {
+                    if ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
+                        actionItemStatusLabel.text = "Open"
+                    }else{
+                        actionItemStatusLabel.text = "Overdue"
+                    }
                 }else{
-                    actionItemStatusLabel.text = "Overdue"
+                    actionItemStatusLabel.text = actionItem.status
                 }
             }else{
                 actionItemStatusLabel.text = actionItem.status
@@ -105,6 +109,7 @@ class ActionItemDetailsViewController: UIViewController {
             if(success){
                 self.delegate?.updateList()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
                 if ActionItemFilterModel.fromAccount{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
@@ -127,6 +132,7 @@ class ActionItemDetailsViewController: UIViewController {
         DispatchQueue.main.async {
             self.delegate?.updateList()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
+             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)

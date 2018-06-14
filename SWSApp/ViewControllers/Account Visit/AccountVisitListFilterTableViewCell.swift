@@ -159,16 +159,22 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
         datePickerView.frame.origin = CGPoint(x: 350, y: 20)
         datePickerView.datePickerMode = .date
         datePickerView.minuteInterval = 15
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        if AccountVisitListFilterModel.startDate == "" || AccountVisitListFilterModel.endDate == ""{
+            datePickerView.date = Date()
+        }
         
         if textField.tag == 301{
             let date = dateFormatter.date(from: AccountVisitListFilterModel.startDate)
             datePickerView.minimumDate = date
+            if date != nil{
+                datePickerView.date = date!
+            }
         }else{
             let date = dateFormatter.date(from: AccountVisitListFilterModel.endDate)
             datePickerView.maximumDate = date
+            if date != nil{
+                datePickerView.date = date!
+            }
         }
         
         inputView.addSubview(datePickerView) // add date picker to UIView

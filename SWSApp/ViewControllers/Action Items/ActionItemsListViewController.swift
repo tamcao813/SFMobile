@@ -370,6 +370,7 @@ extension ActionItemsListViewController {
             if(success)
             {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 self.fetchActionItemsFromDB()
             }
             else {

@@ -62,7 +62,7 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
     func updateStatusInDB(actionItem: ActionItem,status: String){
         var editActionItem = ActionItem(for: "editActionItem")
         editActionItem = actionItem
-        editActionItem.status = "Complete"
+        editActionItem.status = status
         editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [

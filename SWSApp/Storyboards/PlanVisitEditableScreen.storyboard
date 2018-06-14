@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -503,10 +503,6 @@
                                             <action selector="backVCWithSender:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="G2c-bm-O2j"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BreadScrum_2" translatesAutoresizingMaskIntoConstraints="NO" id="Rfu-2B-4TX">
-                                        <rect key="frame" x="440" y="28" width="232" height="25"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4q4-Zw-0OA">
                                         <rect key="frame" x="0.0" y="1" width="1024" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -514,24 +510,56 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Opportunities" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-Gs-e26">
-                                        <rect key="frame" x="491" y="51" width="140" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="COq-Pb-qtO">
+                                        <rect key="frame" x="372" y="2" width="328" height="78"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ksd-Et-jux">
+                                                <rect key="frame" x="43" y="39" width="120" height="3"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Small Status Good" translatesAutoresizingMaskIntoConstraints="NO" id="VBd-7M-QKc">
+                                                <rect key="frame" x="24" y="30" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="selectedButton" translatesAutoresizingMaskIntoConstraints="NO" id="yX4-hM-JgT">
+                                                <rect key="frame" x="163" y="29" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TiH-hR-QEA">
+                                                <rect key="frame" x="183" y="38" width="120" height="3"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="selectedButton" translatesAutoresizingMaskIntoConstraints="NO" id="vIg-Mc-GYl">
+                                                <rect key="frame" x="304" y="29" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Opportunities" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-Gs-e26">
+                                                <rect key="frame" x="112" y="50" width="140" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" name="Color"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="0Dt-we-JUE"/>
                                     <constraint firstItem="3Io-U7-xeU" firstAttribute="top" secondItem="4q4-Zw-0OA" secondAttribute="bottom" constant="19" id="2Yx-V7-2Bl"/>
                                     <constraint firstAttribute="width" constant="1024" id="8HU-uy-KZ3"/>
+                                    <constraint firstItem="WFO-od-fjB" firstAttribute="leading" secondItem="COq-Pb-qtO" secondAttribute="trailing" constant="250" id="8aQ-Gk-8zb"/>
+                                    <constraint firstItem="COq-Pb-qtO" firstAttribute="leading" secondItem="3Io-U7-xeU" secondAttribute="trailing" constant="250" id="9me-zu-car"/>
                                     <constraint firstItem="zct-7Y-MTd" firstAttribute="top" secondItem="4q4-Zw-0OA" secondAttribute="bottom" constant="19" id="CJM-Xc-UAS"/>
                                     <constraint firstItem="WFO-od-fjB" firstAttribute="leading" secondItem="zct-7Y-MTd" secondAttribute="trailing" constant="18" id="Eft-RF-4eq"/>
                                     <constraint firstAttribute="trailing" secondItem="4q4-Zw-0OA" secondAttribute="trailing" id="Lnl-WT-NQD"/>
+                                    <constraint firstItem="COq-Pb-qtO" firstAttribute="top" secondItem="4q4-Zw-0OA" secondAttribute="bottom" constant="1" id="bZX-El-pIT"/>
                                     <constraint firstAttribute="bottom" secondItem="3Io-U7-xeU" secondAttribute="bottom" constant="20" id="dtA-qh-Edm"/>
                                     <constraint firstItem="3Io-U7-xeU" firstAttribute="leading" secondItem="D0M-Q1-z7j" secondAttribute="leading" constant="28" id="eqG-GA-sgf"/>
+                                    <constraint firstAttribute="bottom" secondItem="COq-Pb-qtO" secondAttribute="bottom" id="fDJ-oa-CKC"/>
                                     <constraint firstAttribute="bottom" secondItem="zct-7Y-MTd" secondAttribute="bottom" constant="20" id="gF3-CP-Ojb"/>
                                     <constraint firstItem="4q4-Zw-0OA" firstAttribute="leading" secondItem="D0M-Q1-z7j" secondAttribute="leading" id="q08-kT-ZxM"/>
                                     <constraint firstItem="WFO-od-fjB" firstAttribute="top" secondItem="4q4-Zw-0OA" secondAttribute="bottom" constant="19" id="qjg-WF-rEh"/>
@@ -1333,17 +1361,42 @@
                                             <action selector="backVCWithSender:" destination="2CD-Zp-IIL" eventType="touchUpInside" id="UdQ-nt-daN"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BreadScrum_3" translatesAutoresizingMaskIntoConstraints="NO" id="dwD-zy-Xcm">
-                                        <rect key="frame" x="440" y="27" width="232" height="25"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Visit Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfR-jq-3no">
-                                        <rect key="frame" x="593" y="55" width="140" height="21"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EQQ-An-VWh">
+                                        <rect key="frame" x="341" y="4" width="364" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Visit Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfR-jq-3no">
+                                                <rect key="frame" x="103" y="52" width="140" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R6c-am-Dl3">
+                                                <rect key="frame" x="43" y="39" width="120" height="3"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Small Status Good" translatesAutoresizingMaskIntoConstraints="NO" id="dl1-NV-phy">
+                                                <rect key="frame" x="24" y="30" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Small Status Good" translatesAutoresizingMaskIntoConstraints="NO" id="PZW-Za-aKg">
+                                                <rect key="frame" x="163" y="29" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X4D-eR-isK">
+                                                <rect key="frame" x="183" y="38" width="120" height="3"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="selectedButton" translatesAutoresizingMaskIntoConstraints="NO" id="gUQ-4k-XgF">
+                                                <rect key="frame" x="304" y="29" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" name="Color"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -1658,18 +1711,24 @@
     </scenes>
     <resources>
         <image name="BreadScrum_1" width="232" height="25"/>
-        <image name="BreadScrum_2" width="232" height="26"/>
-        <image name="BreadScrum_3" width="232" height="25"/>
         <image name="Checkbox" width="20" height="20"/>
         <image name="Close" width="38" height="38"/>
+        <image name="Small Status Good" width="18" height="18"/>
         <image name="Sort Gray" width="149" height="149"/>
         <image name="TableViewCellTick" width="50" height="50"/>
         <image name="Transparent" width="1134" height="567"/>
         <image name="checkMarkBlue" width="59" height="59"/>
         <image name="dropDownLight" width="10" height="15"/>
         <image name="searchIcon" width="14" height="14"/>
+        <image name="selectedButton" width="20" height="20"/>
         <namedColor name="Bad">
             <color red="0.83899998659999997" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

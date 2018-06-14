@@ -24,6 +24,10 @@ struct SyncUpDailogGlobal {
     static var isSyncing = false
 }
 
+struct ActionItemsGlobal {
+    static var accountId: String = ""
+}
+
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
 
     var status:String = ""
@@ -55,6 +59,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var previouslySelectedVCIndex = 0
     
     var ifMoreVC = false
+    let contact = Contact.init(for: "loggedInUser")
     
     let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
     
@@ -169,6 +174,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         } catch {
             print("Unable to start notifier")
         }
+        //Delegate notification from during visit
+         NotificationCenter.default.addObserver(self, selector: #selector(self.showActionItems), name: NSNotification.Name("showActionItems"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
@@ -294,6 +301,16 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
     }
     
+    @objc func showActionItems(notification: NSNotification){
+        if notification.object != nil{
+            ActionItemsGlobal.accountId = notification.object as! String
+        }
+        topMenuBar?.selectedSegment = 5
+        //_ = selectedDropDownOption(selectedIndex: 0)
+        navigateToMoreOptionsViewControllers(index: 0, selectedIndex: 0)
+        
+    }
+    
     
     // # MARK: setUpMenuBar
     private func setUpMenuBar()
@@ -316,12 +333,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     private func setupTopMenuIcons(){
         
+        let userId = SFUserAccountManager.sharedInstance().currentUser?.fullName
+        let loggedInUserInitials = Validations().getIntials(name: userId!)
+        print("Name is ----\(loggedInUserInitials)")
         self.userInitialLabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
-        self.userInitialLabel?.font  = UIFont.boldSystemFont(ofSize: 13)
-        self.userInitialLabel?.text = ""//"DB"
+        self.userInitialLabel?.font  = UIFont(name: "Ubuntu-Medium", size: 14)
+        self.userInitialLabel?.text = loggedInUserInitials
         self.userInitialLabel?.textAlignment = .center
         self.userInitialLabel?.textColor = UIColor.white
-        self.userInitialLabel?.backgroundColor = UIColor(named: "Data New")
+        self.userInitialLabel?.backgroundColor = UIColor(named: "InitialsBackground")
         self.userInitialLabel?.layer.cornerRadius = 35/2
         self.userInitialLabel?.clipsToBounds = true
         let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel!)
@@ -726,62 +746,131 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.selectedDropDownOption(selectedIndex : selectedIndex)
     }
     
+    func navigateToMoreOptionsViewControllers(index : Int , selectedIndex : Int){
+        
+        let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+        let currentViewController = self.displayCurrentTab(selectedIndex)
+        
+        self.removeSubviews()
+        
+        currentViewController?.view.addSubview(moreVC1.view)
+        
+        if index != 1{
+            let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
+            accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
+        }
+        
+        self.clearAccountsVisitFilterModel()
+        
+        SelectedMoreButton.selectedItem = index
+        //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
+        switch index {
+        case 0:
+            moreVC1.view.addSubview((self.actionItemParent?.view)!)
+            ActionItemFilterModel.fromAccount = false
+            ActionItemFilterModel.accountId = nil
+            self.actionItemParent?.fromPersistentMenu = true
+            self.moreDropDownSelectionIndex = index
+        case 1:
+            moreVC1.view.addSubview((self.accountVisit?.view)!)
+            self.moreDropDownSelectionIndex = index
+        case 2:
+            self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)
+        case 3:
+            self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
+        case 4:
+            self.notificationParent?.resetFilters()
+            self.notificationParent?.delegate = self
+            moreVC1.view.addSubview((self.notificationParent?.view)!)
+            self.moreDropDownSelectionIndex = index
+            
+        case 5:
+            self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
+            
+        case 6:
+            self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
+            
+        case 7:
+            self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
+            
+        case 8:
+            self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
+            
+        default:
+            break
+        }
+        
+    }
+    
+    
     private func selectedDropDownOption(selectedIndex : Int){
         moreDropDown.selectionAction = { (index: Int, item: String) in
             
-            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
-            let currentViewController = self.displayCurrentTab(selectedIndex)
-            currentViewController?.view.addSubview(moreVC1.view)
-            for view in moreVC1.view.subviews{
-                view.removeFromSuperview()
-            }
-            if index != 1{
-                let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
-                accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
-            }
+            self.navigateToMoreOptionsViewControllers(index: index , selectedIndex : selectedIndex)
             
-            self.clearAccountsVisitFilterModel()
-            SelectedMoreButton.selectedItem = index
-            switch index {
-            case 0:
-                moreVC1.view.addSubview((self.actionItemParent?.view)!)
-                ActionItemFilterModel.fromAccount = false
-                ActionItemFilterModel.accountId = nil
-                self.actionItemParent?.fromPersistentMenu = true
-                self.moreDropDownSelectionIndex = index
-            case 1:
-                moreVC1.view.addSubview((self.accountVisit?.view)!)
-                self.moreDropDownSelectionIndex = index
-            case 2:
-                self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)                
-            case 3:
-                self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
-            case 4:
-                self.notificationParent?.resetFilters()
-                self.notificationParent?.delegate = self
-                moreVC1.view.addSubview((self.notificationParent?.view)!)
-                self.moreDropDownSelectionIndex = index
-            case 5:
-                self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
-                
-            case 6:
-                self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
-                
-            case 7:
-                self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
-                
-            case 8:
-                self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
-                
-            default:
-                break
-            }
         }
         // display the dropdown
         moreDropDown.show()
         
         self.dropDownSelectedRow()
     }
+    
+//    private func selectedDropDownOption(selectedIndex : Int){
+//        moreDropDown.selectionAction = { (index: Int, item: String) in
+//
+//            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+//            let currentViewController = self.displayCurrentTab(selectedIndex)
+//            currentViewController?.view.addSubview(moreVC1.view)
+//            for view in moreVC1.view.subviews{
+//                view.removeFromSuperview()
+//            }
+//            if index != 1{
+//                let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
+//                accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
+//            }
+//
+//            self.clearAccountsVisitFilterModel()
+//            SelectedMoreButton.selectedItem = index
+//            switch index {
+//            case 0:
+//                moreVC1.view.addSubview((self.actionItemParent?.view)!)
+//                ActionItemFilterModel.fromAccount = false
+//                ActionItemFilterModel.accountId = nil
+//                self.actionItemParent?.fromPersistentMenu = true
+//                self.moreDropDownSelectionIndex = index
+//            case 1:
+//                moreVC1.view.addSubview((self.accountVisit?.view)!)
+//                self.moreDropDownSelectionIndex = index
+//            case 2:
+//                self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)
+//            case 3:
+//                self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
+//            case 4:
+//                self.notificationParent?.resetFilters()
+//                self.notificationParent?.delegate = self
+//                moreVC1.view.addSubview((self.notificationParent?.view)!)
+//                self.moreDropDownSelectionIndex = index
+//            case 5:
+//                self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
+//
+//            case 6:
+//                self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
+//
+//            case 7:
+//                self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
+//
+//            case 8:
+//                self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
+//
+//            default:
+//                break
+//            }
+//        }
+//        // display the dropdown
+//        moreDropDown.show()
+//
+//        self.dropDownSelectedRow()
+//    }
     
     private func dropDownSelectedRow(){
         

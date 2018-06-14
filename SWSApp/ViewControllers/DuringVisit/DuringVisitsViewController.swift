@@ -317,6 +317,7 @@ class  DuringVisitsViewController : UIViewController {
         
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
             self.dismiss(animated: true, completion: nil)
             
         }) {
@@ -342,6 +343,7 @@ class  DuringVisitsViewController : UIViewController {
     //Back Button Clicked
     @IBAction func backButtonClicked(sender : UIButton){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
         btnBack?.isHidden = true
         imgDiscussion?.image = UIImage(named: "selectedButton")
         imgInsights?.image = UIImage(named: "selectedGrey")

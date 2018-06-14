@@ -138,7 +138,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please correct required fields" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydP-gK-7Qf">
-                                        <rect key="frame" x="22" y="27" width="192" height="16"/>
+                                        <rect key="frame" x="22" y="27" width="191.5" height="16"/>
                                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="14"/>
                                         <color key="textColor" name="Bad"/>
                                         <nil key="highlightedColor"/>
@@ -190,7 +190,7 @@
                                     <constraint firstItem="fIC-6x-BtK" firstAttribute="centerY" secondItem="nCp-1G-zFz" secondAttribute="centerY" id="JN5-fi-Xk6"/>
                                     <constraint firstAttribute="trailing" secondItem="fIC-6x-BtK" secondAttribute="trailing" constant="24" id="XsP-gC-uB6"/>
                                     <constraint firstItem="ydP-gK-7Qf" firstAttribute="top" secondItem="XMH-pR-aLH" secondAttribute="bottom" constant="26" id="cYg-kJ-diV"/>
-                                    <constraint firstItem="XbU-1E-C7w" firstAttribute="centerY" secondItem="nCp-1G-zFz" secondAttribute="centerY" id="dn8-pu-wat"/>
+                                    <constraint firstItem="XbU-1E-C7w" firstAttribute="centerY" secondItem="nCp-1G-zFz" secondAttribute="centerY" constant="1" id="dn8-pu-wat"/>
                                     <constraint firstItem="XbU-1E-C7w" firstAttribute="centerX" secondItem="nCp-1G-zFz" secondAttribute="centerX" id="fWJ-eR-s8q"/>
                                     <constraint firstAttribute="height" constant="80" id="iuz-F6-3oW"/>
                                     <constraint firstItem="fIC-6x-BtK" firstAttribute="leading" secondItem="DpY-gt-cqR" secondAttribute="trailing" constant="18" id="oeO-w0-FR6"/>
@@ -303,13 +303,13 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZ9-L3-SEK">
-                                <rect key="frame" x="30" y="273" width="49" height="20"/>
+                                <rect key="frame" x="30" y="273" width="52.5" height="20"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scheduled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFp-xT-3QR">
-                                <rect key="frame" x="30" y="303" width="80.5" height="20"/>
+                                <rect key="frame" x="30" y="303" width="84.5" height="20"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -370,7 +370,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blD-Gm-ocV">
-                                <rect key="frame" x="964" y="42" width="40" height="40"/>
+                                <rect key="frame" x="964" y="42.5" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="JuD-Nf-dEE"/>
@@ -524,7 +524,7 @@
                                                     <rect key="frame" x="12" y="-3" width="218" height="72.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aT-d1-2Dd">
-                                                            <rect key="frame" x="6" y="2" width="33" height="16"/>
+                                                            <rect key="frame" x="6" y="2" width="34.5" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                             <color key="textColor" white="0.69999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -607,7 +607,7 @@
                                                     <rect key="frame" x="12" y="-3" width="218" height="72.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntZ-87-qoc">
-                                                            <rect key="frame" x="6" y="2" width="15.5" height="16"/>
+                                                            <rect key="frame" x="6" y="2" width="16.5" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                             <color key="textColor" white="0.69999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -819,13 +819,13 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiD-CS-yxS">
-                                                    <rect key="frame" x="25" y="16" width="29" height="16"/>
+                                                    <rect key="frame" x="25" y="16" width="31.5" height="16"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="Xyf-WF-FO7">
-                                                    <rect key="frame" x="62" y="19" width="10" height="10"/>
+                                                    <rect key="frame" x="64.5" y="19" width="10" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="qK9-Ih-cIZ"/>
                                                         <constraint firstAttribute="width" constant="10" id="xlE-cD-pjd"/>
@@ -842,13 +842,13 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rne-z0-pIs">
-                                                    <rect key="frame" x="416.5" y="16" width="40.5" height="16"/>
+                                                    <rect key="frame" x="411.5" y="16" width="43.5" height="16"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="9o0-t5-GFj">
-                                                    <rect key="frame" x="465" y="19" width="10" height="10"/>
+                                                    <rect key="frame" x="463" y="19" width="10" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="10" id="N1Y-2B-m4P"/>
                                                         <constraint firstAttribute="height" constant="10" id="hYX-g7-hxF"/>
@@ -865,7 +865,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EJ-v5-RZc">
-                                                    <rect key="frame" x="550.5" y="16" width="30.5" height="16"/>
+                                                    <rect key="frame" x="548.5" y="16" width="32.5" height="16"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -963,7 +963,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="10:30 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJV-ou-ev7">
-                                                            <rect key="frame" x="553" y="57" width="69" height="18"/>
+                                                            <rect key="frame" x="553" y="57" width="70.5" height="18"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -985,7 +985,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="560079" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiX-Va-Kay">
-                                                            <rect key="frame" x="30" y="139" width="54.5" height="18"/>
+                                                            <rect key="frame" x="30" y="139" width="55" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="feV-cK-RKA"/>
                                                             </constraints>

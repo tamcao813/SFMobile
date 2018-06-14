@@ -59,6 +59,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var previouslySelectedVCIndex = 0
     
     var ifMoreVC = false
+    let contact = Contact.init(for: "loggedInUser")
     
     let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
     
@@ -332,12 +333,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     private func setupTopMenuIcons(){
         
+        let userId = SFUserAccountManager.sharedInstance().currentUser?.fullName
+        let loggedInUserInitials = Validations().getIntials(name: userId!)
+        print("Name is ----\(loggedInUserInitials)")
         self.userInitialLabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
-        self.userInitialLabel?.font  = UIFont.boldSystemFont(ofSize: 13)
-        self.userInitialLabel?.text = ""//"DB"
+        self.userInitialLabel?.font  = UIFont(name: "Ubuntu-Medium", size: 14)
+        self.userInitialLabel?.text = loggedInUserInitials
         self.userInitialLabel?.textAlignment = .center
         self.userInitialLabel?.textColor = UIColor.white
-        self.userInitialLabel?.backgroundColor = UIColor(named: "Data New")
+        self.userInitialLabel?.backgroundColor = UIColor(named: "InitialsBackground")
         self.userInitialLabel?.layer.cornerRadius = 35/2
         self.userInitialLabel?.clipsToBounds = true
         let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel!)

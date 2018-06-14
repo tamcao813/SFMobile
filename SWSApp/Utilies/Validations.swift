@@ -85,7 +85,8 @@ class Validations {
         }
         if(initials[1] != "") {
             let firstCharIndex = initials[1].index(initials[1].startIndex, offsetBy: 1)
-            firstChar = String(initials[1][..<firstCharIndex])
+           // firstChar = String(initials[1][..<firstCharIndex])
+            firstChar = firstChar+String(initials[1][..<firstCharIndex])
             print(firstChar)
         }
         return firstChar

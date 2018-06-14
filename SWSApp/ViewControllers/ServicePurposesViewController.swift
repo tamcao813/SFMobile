@@ -129,6 +129,7 @@ class ServicePurposesViewController: UIViewController {
             self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
             
         }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
     }
     
     

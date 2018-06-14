@@ -69,10 +69,14 @@ class ActionItemDetailsViewController: UIViewController {
         if let actionItem = actionItemObject {
             dueDateLabel.text =   DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))
             if actionItem.activityDate != "" {
-                if actionItem.status == "Open",ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
-                    actionItemStatusLabel.text = "Open"
+                if actionItem.status == "Open" {
+                    if ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
+                        actionItemStatusLabel.text = "Open"
+                    }else{
+                        actionItemStatusLabel.text = "Overdue"
+                    }
                 }else{
-                    actionItemStatusLabel.text = "Overdue"
+                    actionItemStatusLabel.text = actionItem.status
                 }
             }else{
                 actionItemStatusLabel.text = actionItem.status

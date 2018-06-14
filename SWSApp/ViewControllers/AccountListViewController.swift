@@ -130,7 +130,7 @@ class AccountsListViewController: UIViewController {
         self.reloadAllAccountListData()
         DispatchQueue.main.async {
             self.accountListTableView.reloadData()
-           
+            self.updateUI()
             
         }
     }

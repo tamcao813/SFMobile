@@ -19,6 +19,7 @@ enum LoadThePersistantMenuScreen : Int{
 
 protocol NavigateToAccountVisitSummaryDelegate {
     func NavigateToAccountVisitSummary(data : LoadThePersistantMenuScreen)
+     func NavigateToAccountVisitSummaryActionItems(data : LoadThePersistantMenuScreen)
     func navigateToAccountVisitingScreen()
 }
 
@@ -435,7 +436,7 @@ class  DuringVisitsViewController : UIViewController {
     @IBAction func actionItemsClicked(sender : UIButton){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummary(data: .actionItems)
+            self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
         }) {
             
         }

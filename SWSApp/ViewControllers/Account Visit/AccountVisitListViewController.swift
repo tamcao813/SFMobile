@@ -436,6 +436,20 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
         }
     }
+    //Send a notification to Parent VC to load respective VC
+    func navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        if data == .actionItems{
+            ActionItemFilterModel.comingFromDetailsScreen = ""
+            if let visit = PlanVisitManager.sharedInstance.visit{
+                ActionItemsGlobal.accountId = visit.accountId
+            }
+            // Added this line so that Contact detail view is not launched for this scenario.
+            ActionItemFilterModel.selectedContactId = ""
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showActionItems"), object:nil)
+        }else {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
+        }
+    }
     
     func navigateToAccountScreen() {
         // Added this line so that Account detail view is not launched for this scenario.

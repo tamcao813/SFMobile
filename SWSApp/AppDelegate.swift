@@ -66,14 +66,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     StoreDispatcher.shared.registerSoups()
                 }
                 self.setupRootViewController()
-                SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .off
-                SFSDKCoreLogger.sharedInstance().logLevel       =    .off
+                SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .debug
+                SFSDKCoreLogger.sharedInstance().logLevel       =    .debug
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
                 self.handleUserSwitch(fromUser, toUser: toUser)
+                if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){
+                    UserDefaults.standard.set(false,forKey: "launchedBefore")
+                }
             }.launchError {  [unowned self] (error: Error, launchActionList: SFSDKLaunchAction) in
                 SFSDKLogger.log(type(of:self), level:.error, message:"Error during SDK launch: \(error.localizedDescription)")
+                if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){
+                    UserDefaults.standard.set(false,forKey: "launchedBefore")
+                }
                 self.initializeAppViewState()
                 SalesforceSDKManager.shared().launch()
             }

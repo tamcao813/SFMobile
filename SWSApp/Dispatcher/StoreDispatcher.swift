@@ -1425,7 +1425,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let user = User(withAry: ary)
                 
-                let json:[String:Any] = [ "Id":user.id, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                let json:[String:Any] = [ "Id":user.sgws_Employee_Contact, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
                 
                 let contact =  Contact.init(json: json)
                 

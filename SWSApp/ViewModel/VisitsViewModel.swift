@@ -11,7 +11,10 @@ import Foundation
 class VisitsViewModel {
     
     let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
-    let isManager:Bool = true
+    var isManager:Bool = false
+    
+    //To check the User is Manager or Consultant
+    let consultantAry = UserViewModel().consultants
     
     func visitsForUser() -> [WorkOrderUserObject] {
         return StoreDispatcher.shared.fetchVisits()
@@ -20,6 +23,7 @@ class VisitsViewModel {
     func visitsForUserFourMonthsSorted() -> [WorkOrderUserObject] {
         
         var visitsForUserArray = visitsForUser()
+        isManager = consultantAry.count > 0
         
         visitsForUserArray = visitsForUserArray.filter {
             if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: $0.recordTypeId) {

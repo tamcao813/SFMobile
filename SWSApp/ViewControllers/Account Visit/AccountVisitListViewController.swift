@@ -330,8 +330,8 @@ extension AccountVisitListViewController : UITableViewDelegate{
             let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
             
-            PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row]
-            accountVisitsVC?.visitId = tableViewDataArray[indexPath.row].Id
+            PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row + currentPageIndex!]
+            accountVisitsVC?.visitId = tableViewDataArray[indexPath.row + currentPageIndex!].Id
             
             (accountVisitsVC)?.delegate = self
             
@@ -343,8 +343,8 @@ extension AccountVisitListViewController : UITableViewDelegate{
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             
-            PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row]
-            accountVisitsVC?.visitId = tableViewDataArray[indexPath.row].Id
+            PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row + currentPageIndex!]
+            accountVisitsVC?.visitId = tableViewDataArray[indexPath.row + currentPageIndex!].Id
             
             (accountVisitsVC)?.delegate = self
             

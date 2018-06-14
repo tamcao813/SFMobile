@@ -38,6 +38,7 @@ class AccountVisitSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisitList(_:)), name: NSNotification.Name("refreshAccountVisit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
     }
     
@@ -53,6 +54,12 @@ class AccountVisitSummaryViewController: UIViewController {
         fetchVisit()
     }
     
+    @objc func refreshVisitList(_ notification: NSNotification){
+        if let visit = notification.userInfo?["visit"] as? WorkOrderUserObject {
+            fetchVisit(visitIdTemp:visit.Id)
+        }
+    }
+    
     @objc func navigateToAccountScreen(){
         DispatchQueue.main.async {
             FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
@@ -62,7 +69,25 @@ class AccountVisitSummaryViewController: UIViewController {
     }
     
     
+    func fetchVisit(visitIdTemp:String?){
+
+        if let id = visitIdTemp{
+            let visitArray = VisitsViewModel().visitsForUser()
+            for visit in visitArray {
+                if visit.Id == id {
+                    visitObject = visit
+                    break
+                }
+            }
+        }
+        PlanVisitManager.sharedInstance.visit = visitObject
+        fetchAccountDetails()
+        fetchContactDetails()
+        UICustomizations()
+    }
+    
     func fetchVisit(){
+        
         if let id = visitId{
             let visitArray = VisitsViewModel().visitsForUser()
             for visit in visitArray {

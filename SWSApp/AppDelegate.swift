@@ -186,7 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if user == nil {
                     if !self.alertVisible {
                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                            exit(0)
+                           // exit(0)
                         }))
                         self.window?.rootViewController?.present(alert, animated: true, completion: nil)
                         self.alertVisible = true

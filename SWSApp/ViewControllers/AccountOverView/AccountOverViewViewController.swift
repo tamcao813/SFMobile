@@ -252,9 +252,13 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         //Getting Today, Tomorrow, Yesterday
         let calendar = Calendar.current
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone.current
+       // dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         let date = dateFormatter.date(from: dateToConvert)
         //Gtting time and date
         dateFormatter.dateFormat = "MM/dd/yyyy"
+       
+        //dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date!)
         
         if calendar.isDateInToday(date!){
@@ -637,6 +641,10 @@ extension Date {
 
 //MARK:- NavigateToContacts Delegate
 extension AccountOverViewViewController : NavigateToContactsDelegate{
+    func navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+      
+    }
+    
     func navigateToVisitListing() {
         self.dismiss(animated: true, completion: nil)
     }

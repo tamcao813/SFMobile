@@ -72,8 +72,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.handleSdkManagerLogout()
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
                 self.handleUserSwitch(fromUser, toUser: toUser)
+                if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){
+                    UserDefaults.standard.set(false,forKey: "launchedBefore")
+                }
             }.launchError {  [unowned self] (error: Error, launchActionList: SFSDKLaunchAction) in
                 SFSDKLogger.log(type(of:self), level:.error, message:"Error during SDK launch: \(error.localizedDescription)")
+                if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){
+                    UserDefaults.standard.set(false,forKey: "launchedBefore")
+                }
                 self.initializeAppViewState()
                 SalesforceSDKManager.shared().launch()
             }
@@ -180,7 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if user == nil {
                     if !self.alertVisible {
                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                            exit(0)
+                           // exit(0)
                         }))
                         self.window?.rootViewController?.present(alert, animated: true, completion: nil)
                         self.alertVisible = true

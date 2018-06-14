@@ -62,7 +62,7 @@ class AccountVisitListViewController: UIViewController {
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshVisitEventList"), object: nil)
         self.getTheDataFromDB()
         //customizedUI()
     }

@@ -67,7 +67,7 @@ class Validations {
         let nameSep = name.components(separatedBy: " ")
         if (nameSep == [name]) || (nameSep == ["", nameSep[1]]) || (nameSep == [nameSep[0], ""])  {
             if name.count >= 2 {
-                return String(name.prefix(2))
+                return String(name.prefix(1))
             }
             else {
                 return name

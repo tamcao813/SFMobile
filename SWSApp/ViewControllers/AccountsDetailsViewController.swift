@@ -284,7 +284,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                 //As we are creating a new Visit Make the Shared instance Nil
                 PlanVisitManager.sharedInstance.visit = nil
                 
-                self.present(vc, animated: true, completion: nil)
+                self.present(vc, animated: false, completion: nil)
                 
             case DropDownMenuOptionsInDetails.event.rawValue :
                 print(index)
@@ -295,7 +295,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                 //As we are creating a new Visit Make the Shared instance Nil
                 PlanVisitManager.sharedInstance.visit = nil
                 
-                self.present(createEventViewController, animated: true, completion: nil)
+                self.present(createEventViewController, animated: false, completion: nil)
                 
             case DropDownMenuOptionsInDetails.actionItems.rawValue:
                 DispatchQueue.main.async {
@@ -303,7 +303,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                     createActionItemViewController.isEditingMode = false
                     createActionItemViewController.selectedAccount = self.accountDetailForLoggedInUser
                     //                    createActionItemViewController.delegate = self
-                    self.present(createActionItemViewController, animated: true)
+                    self.present(createActionItemViewController, animated: false)
                 }
             case DropDownMenuOptionsInDetails.notes.rawValue :
                 let storyboard: UIStoryboard = UIStoryboard(name: "Notes", bundle: nil)
@@ -312,7 +312,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
                 vc.comingFromAccountDetails = self.goingFromAccountDetails
                 vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
                 
-                self.present(vc, animated: true, completion: nil)
+                self.present(vc, animated: false, completion: nil)
                 vc.sendNoteDelegate = self
             default:
                 break

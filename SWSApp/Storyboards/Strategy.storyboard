@@ -88,7 +88,6 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="lblTitleText" destination="C3r-pi-2TG" id="iUa-Rc-avg"/>
-                                            <outlet property="lblTitleTextConstraint" destination="0qG-0w-Q3S" id="GOB-We-lG5"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -178,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgh-5G-dhT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11.870503597122303" y="-1129.4964028776978"/>
+            <point key="canvasLocation" x="11" y="-1130"/>
         </scene>
         <!--Edit Account Strategy View Controller-->
         <scene sceneID="exA-71-On1">

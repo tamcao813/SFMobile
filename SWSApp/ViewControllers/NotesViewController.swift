@@ -20,6 +20,12 @@ class NotesTableViewCell : SwipeTableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var strategyNotes : UILabel!
+    
+    override func awakeFromNib() {
+        sizeToFit()
+        layoutIfNeeded()
+    }
 }
 
 class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, NavigateToNotesVCDelegate {
@@ -45,7 +51,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     
     
     @IBOutlet weak var notesTableView : UITableView?
-    @IBOutlet weak var strategyNotes : UITextView?
+    var strategyNotes = ""
     
     //MARK:- ViewLifeCycle
     
@@ -70,10 +76,14 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         
         let data = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
         if data.count > 0{
-            let strategyNotes = (data.first?.SGWS_Notes__c)!
-            self.strategyNotes?.text = strategyNotes
+            strategyNotes = (data.first?.SGWS_Notes__c)!
         }
+     
+        self.notesTableView?.estimatedRowHeight = 600.0;
+        self.notesTableView?.rowHeight = UITableViewAutomaticDimension
         
+        self.notesTableView?.setNeedsLayout()
+        self.notesTableView?.layoutIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -200,8 +210,10 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         }
         originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: tableViewDisplayData, ascending: false)
         tableViewDisplayData = originalAccountNotesList
-        notesTableView?.reloadData()
         
+        DispatchQueue.main.async {
+            self.notesTableView?.reloadData()
+        }
     }
     
     @objc func refreshNotesListAfterDelete(notification: NSNotification){
@@ -213,7 +225,6 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         for accNotes in accountNotesArray {
             if(accNotes.accountId == self.accountId) {
                 tableViewDisplayData.append(accNotes)
-                
             }
             //filtered array of notes related to my notes
             print("Notes Array \(tableViewDisplayData)")
@@ -221,20 +232,26 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         }
         originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: tableViewDisplayData, ascending: false)
         tableViewDisplayData = originalAccountNotesList
-        notesTableView?.reloadData()
-        
+        DispatchQueue.main.async {
+            self.notesTableView?.reloadData()
+        }
     }
     
 }
 //MARK:- UITable view Delegate and Datasource,SwipeTableViewCellDelegate
 extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTableViewCellDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewDisplayData.count
+        return tableViewDisplayData.count + 1
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        if tableViewDisplayData.count == indexPath.row{
+             let cell = tableView.dequeueReusableCell(withIdentifier: "strategyNotesTitleCellIdentifier", for: indexPath) as! NotesTableViewCell
+            cell.selectionStyle = .none
+            cell.strategyNotes.text = strategyNotes
+            return cell
+        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "notesTitleCellIdentifier", for: indexPath) as! NotesTableViewCell
         
@@ -250,12 +267,15 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
                 cell.dateLabel?.text  = dateTime[0]
                 cell.timeLabel?.text = dateTime[1]
             }
+        }else{
+            cell.dateLabel?.text = "Date"
+            cell.timeLabel?.text = "Time"
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0;
+        return UITableViewAutomaticDimension
     }
     
     //MARK:- Table view on Swipe EDIT and DELETE actions
@@ -266,7 +286,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
         let editAction = SwipeAction(style: .default, title: "Edit") {action, indexPath in
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let ownerId = appDelegate.loggedInUser?.userId
+            _ = appDelegate.loggedInUser?.userId
             //Edit is allowed only for Note owner
             self.notesDataToEdit = self.tableViewDisplayData[indexPath.row]
             self.performSegue(withIdentifier: "createNoteSegue", sender: nil)
@@ -346,10 +366,10 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
     
     //MARK:- On select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        notesDataToEdit = tableViewDisplayData[indexPath.row]
-        self.performSegue(withIdentifier: "editNotesSegue", sender: nil)
-        
-        //        (vc as! EditNoteViewController).displayDictdata(name: tableViewData as! [Dictionary<String, String>], index: indexPath.row)
+        if tableViewDisplayData.count != indexPath.row{
+            notesDataToEdit = tableViewDisplayData[indexPath.row]
+            self.performSegue(withIdentifier: "editNotesSegue", sender: nil)
+        }
     }
     
 }

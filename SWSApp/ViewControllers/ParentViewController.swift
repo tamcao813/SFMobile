@@ -384,8 +384,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         onlineStatusView.addGestureRecognizer(tapOnline)
         
         self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, onlineSyncStatus!]
-        let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
-        logoButton.isEnabled = false
+        let logoButton = UIBarButtonItem(image: UIImage(named: "AppLogo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        //logoButton.isEnabled = true
+        //logoButton.tintColor = UIColor.red
+        logoButton.tintColor = UIColor.clear
+        logoButton.setBackgroundImage(UIImage(named: "AppLogo"), for: .normal, barMetrics: .default)
         self.navigationItem.leftBarButtonItem = logoButton
         
     }
@@ -648,6 +651,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
+                
                 self.getUnreadNotificationsCount()
                 if ActionItemFilterModel.fromAccount{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)

@@ -165,13 +165,13 @@ class AccountVisitListViewController: UIViewController {
                 createVisitViewController.isEditingMode = false
                 PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
-                    self.present(createVisitViewController, animated: true)
+                    self.present(createVisitViewController, animated: false)
                 }
             case CreateNewItem.event.rawValue:
                 let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
                 PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
-                    self.present(createEventViewController, animated: true, completion: nil)
+                    self.present(createEventViewController, animated: false, completion: nil)
                 }
             default:
                 break
@@ -432,6 +432,20 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
             // Added this line so that Contact detail view is not launched for this scenario.
             ContactFilterMenuModel.selectedContactId = ""
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+        }else {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
+        }
+    }
+    //Send a notification to Parent VC to load respective VC
+    func navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        if data == .actionItems{
+            ActionItemFilterModel.comingFromDetailsScreen = ""
+            if let visit = PlanVisitManager.sharedInstance.visit{
+                ActionItemsGlobal.accountId = visit.accountId
+            }
+            // Added this line so that Contact detail view is not launched for this scenario.
+            ActionItemFilterModel.selectedContactId = ""
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showActionItems"), object:nil)
         }else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
         }

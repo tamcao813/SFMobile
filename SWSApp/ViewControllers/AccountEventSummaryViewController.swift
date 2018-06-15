@@ -176,7 +176,7 @@ class AccountEventSummaryViewController: UIViewController {
             
             if(success){
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                 
                 self.dismiss(animated: true, completion: nil)
@@ -363,11 +363,13 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 3 {
-            DispatchQueue.main.async {
-                self.dismiss(animated: false, completion: nil)
+            if selectedContact != nil {
+                DispatchQueue.main.async {
+                    self.dismiss(animated: false, completion: nil)
+                }
+                let contactDict:[String: Contact] = ["contact": selectedContact]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwitchToContact"), object:nil, userInfo: contactDict)
             }
-            let contactDict:[String: Contact] = ["contact": selectedContact]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwitchToContact"), object:nil, userInfo: contactDict)
         }
     }
 }
@@ -389,6 +391,10 @@ extension AccountEventSummaryViewController: ButtonTableViewCellDelegate {
 
 //MARK:- NavigateToContacts Delegate
 extension AccountEventSummaryViewController : NavigateToAccountVisitSummaryDelegate , NavigateToAccountAccountVisitSummaryDelegate{
+    func NavigateToAccountVisitSummaryActionItems(data: LoadThePersistantMenuScreen) {
+        
+    }
+    
     
     func navigateToAccountVisitingScreen() {
         DispatchQueue.main.async {

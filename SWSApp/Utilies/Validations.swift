@@ -67,7 +67,7 @@ class Validations {
         let nameSep = name.components(separatedBy: " ")
         if (nameSep == [name]) || (nameSep == ["", nameSep[1]]) || (nameSep == [nameSep[0], ""])  {
             if name.count >= 2 {
-                return String(name.prefix(2))
+                return String(name.prefix(1))
             }
             else {
                 return name
@@ -85,7 +85,8 @@ class Validations {
         }
         if(initials[1] != "") {
             let firstCharIndex = initials[1].index(initials[1].startIndex, offsetBy: 1)
-            firstChar = String(initials[1][..<firstCharIndex])
+           // firstChar = String(initials[1][..<firstCharIndex])
+            firstChar = firstChar+String(initials[1][..<firstCharIndex])
             print(firstChar)
         }
         return firstChar

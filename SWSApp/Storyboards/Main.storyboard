@@ -1488,8 +1488,8 @@
                                     <constraint firstAttribute="width" constant="240" id="5Vg-UK-IuJ"/>
                                     <constraint firstItem="2qG-gP-sCC" firstAttribute="top" secondItem="d3L-lH-ldS" secondAttribute="bottom" id="76R-Z7-ISv"/>
                                     <constraint firstItem="d3L-lH-ldS" firstAttribute="top" secondItem="5YO-z9-pyU" secondAttribute="top" id="81g-Ae-91t"/>
+                                    <constraint firstAttribute="height" constant="130" id="92A-s5-Cn9"/>
                                     <constraint firstItem="2qG-gP-sCC" firstAttribute="leading" secondItem="5YO-z9-pyU" secondAttribute="leading" id="AJY-yb-BXu"/>
-                                    <constraint firstAttribute="height" constant="130" id="E0f-6C-ScA"/>
                                     <constraint firstAttribute="trailing" secondItem="d3L-lH-ldS" secondAttribute="trailing" id="Ooc-oE-8jv"/>
                                     <constraint firstItem="d3L-lH-ldS" firstAttribute="leading" secondItem="5YO-z9-pyU" secondAttribute="leading" id="WTo-Mj-k7k"/>
                                     <constraint firstAttribute="trailing" secondItem="2qG-gP-sCC" secondAttribute="trailing" id="kfg-NP-WAu"/>
@@ -1518,11 +1518,12 @@
                     </view>
                     <connections>
                         <outlet property="containerView" destination="5YO-z9-pyU" id="Rxo-p4-fYP"/>
+                        <outlet property="containerViewHeightConstraint" destination="92A-s5-Cn9" id="VnA-vy-rgD"/>
                         <outlet property="lastSyncDateLabel" destination="ph0-pU-OZd" id="OfU-U9-pZw"/>
                         <outlet property="lastSyncStatusLabel" destination="dtz-uk-zJN" id="OUn-Ph-GOq"/>
+                        <outlet property="progressContainerView" destination="2qG-gP-sCC" id="hrl-ad-E68"/>
                         <outlet property="progressView" destination="fgv-UD-mVg" id="E9m-jm-zEQ"/>
                         <outlet property="syncNowBtn" destination="b8V-oe-MsV" id="wcm-4R-pI9"/>
-                        <outlet property="syncNowViewHeightConstraint" destination="20w-ei-5j8" id="fbZ-mN-bi0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8bs-9P-hYl" userLabel="First Responder" sceneMemberID="firstResponder"/>

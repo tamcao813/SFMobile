@@ -146,15 +146,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         _ = displayCurrentTab(0)
         
         reachability.whenReachable = { reachability in
-            if reachability.connection == .wifi {
-                print("Reachable via WiFi")
-            } else {
-                print("Reachable via Cellular")
-            }
             self.statusLabel.text = "Online"
             self.onlineStatusView.backgroundColor = UIColor(named: "Good")
             DispatchQueue.main.async {
                 self.syncViewControllerSyncBtn?.isEnabled = true
+                self.syncUpInfoVC?.hideSyncButton(hide: false)
             }
         }
         
@@ -164,6 +160,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.userInitialLabel?.isUserInteractionEnabled = false
             DispatchQueue.main.async {
                 self.syncViewControllerSyncBtn?.isEnabled = false
+                self.syncUpInfoVC?.hideSyncButton(hide: true)
             }
         }
         

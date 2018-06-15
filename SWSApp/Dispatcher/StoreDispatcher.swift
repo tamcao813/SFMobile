@@ -1808,11 +1808,7 @@ class StoreDispatcher {
                         }
                     }
  */
-                    
-                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
-                        .done {_ in
-                            completion(nil)
-                    }
+                    completion(nil)
                     
                 }
                 else if syncStateStatus.hasFailed() {
@@ -1962,10 +1958,7 @@ class StoreDispatcher {
                     print(">>>>>> ActionItem SyncDown() done >>>>>")
                      let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdActionItem] = syncId
-                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
-                        .done {_ in
-                            completion(nil)
-                    }
+                    completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownActionItem() >>>>>>>"
@@ -2280,10 +2273,8 @@ class StoreDispatcher {
                     let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdNote] = syncId
                     print(">>>>>> Notes syncDownNote() done >>>>>")
-                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
-                        .done {_ in
-                            completion(nil)
-                    }                }
+                    completion(nil)
+                    }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownNotes() >>>>>>>"
                     let userInfo: [String: Any] =
@@ -2757,10 +2748,9 @@ class StoreDispatcher {
                     self.syncIdDictionary[SyncDownIdStrategyQA] = syncId
                     print(">>>>>>  syncDownStrategyQA() done >>>>>")
                     
-                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
-                        .done {_ in
-                            completion(nil)
-                    }                }
+                    completion(nil)
+                    
+                    }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownStrategyQA() >>>>>>>"
                     let userInfo: [String: Any] =
@@ -3481,6 +3471,10 @@ class StoreDispatcher {
     
     func reSyncSoup(syncid: UInt, syncConstant: String, completion:@escaping (_ error: NSError?)->()) {
         
+        //Ghost API called before calling resync
+        //Cleans the server deleted records in the application db store
+        _ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: syncid)
+        
         sfaSyncMgr.Promises.reSync(syncId: syncid)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
@@ -3488,7 +3482,7 @@ class StoreDispatcher {
                     self.syncIdDictionary[syncConstant] = syncId
                     
                     //do cleanResyncGhosts for data
-                    //_ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
+                    
                     
                     print("reSync done: " + syncConstant)
                     completion(nil)
@@ -3548,10 +3542,9 @@ class StoreDispatcher {
                     print(">>>>>> Notification SyncDown() done >>>>>")
                     let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdNotifications] = syncId
-                    self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
-                        .done {_ in
-                            completion(nil)
-                    }
+
+                    completion(nil)
+                   
                 }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownNotification() >>>>>>>"

@@ -423,23 +423,23 @@ class AccountsMenuViewController: UIViewController {
         
         switch indexPath.row {
         case 0:
-            FilterMenuModel.licenseW = "YES"
-            FilterMenuModel.licenseL = "NO"
+            FilterMenuModel.licenseL = "YES"
+            FilterMenuModel.licenseW = "NO"
             FilterMenuModel.licenseB = "NO"
             FilterMenuModel.licenseN = "NO"
         case 1:
-            FilterMenuModel.licenseW = "NO"
-            FilterMenuModel.licenseL = "YES"
+            FilterMenuModel.licenseL = "NO"
+            FilterMenuModel.licenseW = "YES"
             FilterMenuModel.licenseB = "NO"
             FilterMenuModel.licenseN = "NO"
         case 2:
-            FilterMenuModel.licenseW = "NO"
             FilterMenuModel.licenseL = "NO"
+            FilterMenuModel.licenseW = "NO"
             FilterMenuModel.licenseB = "YES"
             FilterMenuModel.licenseN = "NO"
         case 3:
-            FilterMenuModel.licenseW = "NO"
             FilterMenuModel.licenseL = "NO"
+            FilterMenuModel.licenseW = "NO"
             FilterMenuModel.licenseB = "NO"
             FilterMenuModel.licenseN = "YES"
         default:

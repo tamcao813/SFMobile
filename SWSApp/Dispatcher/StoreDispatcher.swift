@@ -2471,7 +2471,7 @@ class StoreDispatcher {
                     print("syncUPNotes done")
                     print(syncId)
                     //Refresh Notes List view
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
+                    //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {

@@ -196,10 +196,10 @@ class AccountVisitListViewController: UIViewController {
     @IBAction func sortByStatusButtonAction(_ sender: UIButton){
         
         if statusAscendingSort{
-            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.lowercased() < $1.status.lowercased() })
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() < $1.status.lowercased() })
             statusAscendingSort = false
         }else{
-            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.lowercased() > $1.status.lowercased() })
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() > $1.status.lowercased() })
             statusAscendingSort = true
         }
         self.scrollTableViewToTop()

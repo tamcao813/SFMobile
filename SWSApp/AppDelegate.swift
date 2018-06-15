@@ -70,6 +70,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 SFSDKCoreLogger.sharedInstance().logLevel       =    .off
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
+                if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){
+                    UserDefaults.standard.set(false,forKey: "launchedBefore")
+                }
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
                 self.handleUserSwitch(fromUser, toUser: toUser)
                 if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){

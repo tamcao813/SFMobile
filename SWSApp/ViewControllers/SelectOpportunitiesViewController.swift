@@ -11,6 +11,7 @@ import SwipeCellKit
 
 class SelectOpportunitiesViewController: UIViewController {
     @IBOutlet weak var opportunitiesListView: UITableView!
+    @IBOutlet weak var seperatorLabel: UILabel!
     var opportunityAccountId: String?
     var opportunityList = [Opportunity]()
     static var selectedOpportunitiesList = [Opportunity]()
@@ -21,6 +22,7 @@ class SelectOpportunitiesViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
+        topShadow(seperatorView: seperatorLabel)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -29,6 +31,21 @@ class SelectOpportunitiesViewController: UIViewController {
         PlanVisitManager.sharedInstance.editPlanVisit = false
     }
     
+    // MARK:- Custom Function
+    
+    func topShadow(seperatorView:UIView) {
+        
+        let shadowSize : CGFloat = 1.0
+        let shadowPath = UIBezierPath(rect: CGRect(x: -shadowSize / 2,
+                                                   y: -shadowSize / 2,
+                                                   width: seperatorView.frame.size.width + shadowSize,
+                                                   height: seperatorView.frame.size.height + shadowSize))
+        seperatorView.layer.masksToBounds = false
+        seperatorView.layer.shadowColor = UIColor.darkGray.cgColor
+        seperatorView.layer.shadowOffset = CGSize(width: 0.0, height: -5.0)
+        seperatorView.layer.shadowOpacity = 0.1
+        seperatorView.layer.shadowPath = shadowPath.cgPath
+    }
     
     // MARK:- IBAction
     

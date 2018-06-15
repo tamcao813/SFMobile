@@ -52,6 +52,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         dateTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
         dateTextField.layer.borderWidth = 1.0
+        dateTextField.layer.cornerRadius = 2.0
         dateTextField.tag = 200
         dateTextField.borderStyle = UITextBorderStyle.roundedRect
         dateTextField.delegate = self
@@ -66,6 +67,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         startTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
         startTimeTextField.tag = 201
         startTimeTextField.layer.borderWidth = 1.0
+        startTimeTextField.layer.cornerRadius = 2.0
         startTimeTextField.borderStyle = UITextBorderStyle.roundedRect
         startTimeTextField.delegate = self
         self.addSubview(startTimeTextField)
@@ -79,6 +81,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         endTimeTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         endTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
         endTimeTextField.layer.borderWidth = 1.0
+        endTimeTextField.layer.cornerRadius = 2.0
         endTimeTextField.borderStyle = UITextBorderStyle.roundedRect
         endTimeTextField.delegate = self
         self.addSubview(endTimeTextField)

@@ -469,6 +469,11 @@
                                         <state key="normal" title="Next">
                                             <color key="titleColor" name="Color"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <segue destination="2CD-Zp-IIL" kind="presentation" id="jA6-ua-kGE"/>
                                         </connections>
@@ -484,6 +489,11 @@
                                         <state key="normal" title="Save and Close">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="saveAndCloseWithSender:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="Yw8-pS-7A2"/>
                                         </connections>
@@ -499,6 +509,11 @@
                                         <state key="normal" title="Back">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="backVCWithSender:" destination="mXE-Oo-LSt" eventType="touchUpInside" id="G2c-bm-O2j"/>
                                         </connections>
@@ -1345,6 +1360,11 @@
                                         <state key="normal" title="Save and Close">
                                             <color key="titleColor" name="Color"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="saveAndCloseWithSender:" destination="2CD-Zp-IIL" eventType="touchUpInside" id="I3E-Ci-q5l"/>
                                         </connections>
@@ -1357,6 +1377,11 @@
                                         <state key="normal" title="Back">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="backVCWithSender:" destination="2CD-Zp-IIL" eventType="touchUpInside" id="UdQ-nt-daN"/>
                                         </connections>
@@ -1669,6 +1694,11 @@
                                         <state key="normal" title="Save and Close">
                                             <color key="titleColor" name="Color"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="saveAndCloseWithSender:" destination="8QP-qA-qc5" eventType="touchUpInside" id="lEe-uS-eoF"/>
                                         </connections>

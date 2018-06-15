@@ -21,10 +21,12 @@ class NotificationListTableViewCell: UITableViewCell {
     
     func displayCellContent(notificationObject: Notifications){
         dateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString:notificationObject.createdDate)
-        if notificationObject.isRead {
-            isReadView.backgroundColor = .clear
-        }else{
-            isReadView.backgroundColor = UIColor(named: "Data New")
+        DispatchQueue.main.async {
+            if notificationObject.isRead {
+                self.isReadView.backgroundColor = .clear
+            }else{
+                self.isReadView.backgroundColor = UIColor(named: "Data New")
+            }
         }
         
         if notificationObject.sgwsType == "Birthday" {

@@ -8,6 +8,7 @@
 
 import UIKit
 import SmartSync
+import Reachability
 
 protocol SyncInfoViewControllerDelegate: NSObjectProtocol {
     func startSyncUp()
@@ -20,6 +21,7 @@ class SyncInfoViewController: UIViewController {
     @IBOutlet weak var lastSyncStatusLabel: UILabel!
     @IBOutlet weak var lastSyncDateLabel: UILabel!
     weak var delegate: SyncInfoViewControllerDelegate?
+    @IBOutlet weak var syncNowViewHeightConstraint: NSLayoutConstraint!
 
     @IBOutlet weak var syncNowBtn: UIButton!
     
@@ -28,6 +30,25 @@ class SyncInfoViewController: UIViewController {
         customizedUI()
         setProgress(progress: 0.0)
         setLastSyncValues()
+        checkReachability()
+    }
+    
+    func checkReachability(){
+        let reachability = Reachability.init()
+        
+        reachability?.whenReachable = { reachability in
+            self.syncNowViewHeightConstraint.constant = 0
+        }
+        
+        reachability?.whenUnreachable = { _ in
+            self.syncNowViewHeightConstraint.constant = 0
+        }
+        
+        do {
+            try reachability?.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
     }
     
     func customizedUI(){

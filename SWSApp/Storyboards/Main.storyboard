@@ -534,14 +534,14 @@
                                                             <rect key="frame" x="451.5" y="0.5" width="133.5" height="70.5"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Large Status Critical" translatesAutoresizingMaskIntoConstraints="NO" id="bKe-MU-bAi">
-                                                                    <rect key="frame" x="54" y="0.0" width="25" height="25"/>
+                                                                    <rect key="frame" x="54.5" y="0.0" width="25" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="25" id="Q9d-0l-qw0"/>
                                                                         <constraint firstAttribute="height" constant="25" id="Tzl-QL-Ehg"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Past Due" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Edm-OT-zfd">
-                                                                    <rect key="frame" x="41.5" y="33" width="50" height="13.5"/>
+                                                                    <rect key="frame" x="42" y="33" width="50" height="13.5"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="12"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -1396,7 +1396,7 @@
                                 <rect key="frame" x="739" y="60" width="240" height="130"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d3L-lH-ldS">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="68"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="65"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Sync" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtz-uk-zJN">
                                                 <rect key="frame" x="10" y="10" width="220" height="16"/>
@@ -1405,7 +1405,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:32 AM / 04-26-18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ph0-pU-OZd">
-                                                <rect key="frame" x="10" y="42" width="220" height="16"/>
+                                                <rect key="frame" x="10" y="39" width="220" height="16"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1415,6 +1415,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="ph0-pU-OZd" secondAttribute="trailing" constant="10" id="Daw-tv-7kq"/>
                                             <constraint firstItem="ph0-pU-OZd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="dtz-uk-zJN" secondAttribute="bottom" constant="10" id="OLY-kl-LCV"/>
+                                            <constraint firstAttribute="height" constant="65" id="T1d-ud-75K"/>
                                             <constraint firstItem="dtz-uk-zJN" firstAttribute="leading" secondItem="d3L-lH-ldS" secondAttribute="leading" constant="10" id="Uar-kg-Ynd"/>
                                             <constraint firstItem="dtz-uk-zJN" firstAttribute="top" secondItem="d3L-lH-ldS" secondAttribute="top" constant="10" id="abS-MR-0D9"/>
                                             <constraint firstAttribute="bottom" secondItem="ph0-pU-OZd" secondAttribute="bottom" constant="10" id="c1h-Ux-deR"/>
@@ -1428,16 +1429,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2qG-gP-sCC">
-                                        <rect key="frame" x="0.0" y="62" width="240" height="68"/>
+                                        <rect key="frame" x="0.0" y="65" width="240" height="65"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8V-oe-MsV">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="68"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="65"/>
                                                 <connections>
                                                     <action selector="syncNowButtonTapped:" destination="hJa-6X-IYc" eventType="touchUpInside" id="y6S-BP-1ly"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sync Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="im3-uq-Fwn">
-                                                <rect key="frame" x="10" y="26" width="80" height="16"/>
+                                                <rect key="frame" x="10" y="24.5" width="80" height="16"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="3Gb-vc-NL6"/>
                                                 </constraints>
@@ -1446,14 +1447,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refreshBlue" translatesAutoresizingMaskIntoConstraints="NO" id="Ter-kd-CsV">
-                                                <rect key="frame" x="200" y="24" width="20" height="20"/>
+                                                <rect key="frame" x="200" y="22.5" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="N0A-aX-vhh"/>
                                                     <constraint firstAttribute="height" constant="20" id="SPi-sL-fwr"/>
                                                 </constraints>
                                             </imageView>
                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fgv-UD-mVg">
-                                                <rect key="frame" x="0.0" y="64" width="240" height="4"/>
+                                                <rect key="frame" x="0.0" y="61" width="240" height="4"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="4" id="qzw-Te-aOg"/>
                                                 </constraints>
@@ -1463,6 +1464,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="65" id="20w-ei-5j8"/>
                                             <constraint firstAttribute="trailing" secondItem="Ter-kd-CsV" secondAttribute="trailing" constant="20" id="7C9-ET-XHR"/>
                                             <constraint firstAttribute="bottom" secondItem="fgv-UD-mVg" secondAttribute="bottom" id="7cJ-wL-jcZ"/>
                                             <constraint firstAttribute="trailing" secondItem="b8V-oe-MsV" secondAttribute="trailing" id="C8H-Fs-0f5"/>
@@ -1484,7 +1486,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="5Vg-UK-IuJ"/>
-                                    <constraint firstItem="2qG-gP-sCC" firstAttribute="top" secondItem="d3L-lH-ldS" secondAttribute="bottom" constant="-6" id="76R-Z7-ISv"/>
+                                    <constraint firstItem="2qG-gP-sCC" firstAttribute="top" secondItem="d3L-lH-ldS" secondAttribute="bottom" id="76R-Z7-ISv"/>
                                     <constraint firstItem="d3L-lH-ldS" firstAttribute="top" secondItem="5YO-z9-pyU" secondAttribute="top" id="81g-Ae-91t"/>
                                     <constraint firstItem="2qG-gP-sCC" firstAttribute="leading" secondItem="5YO-z9-pyU" secondAttribute="leading" id="AJY-yb-BXu"/>
                                     <constraint firstAttribute="height" constant="130" id="E0f-6C-ScA"/>
@@ -1492,7 +1494,6 @@
                                     <constraint firstItem="d3L-lH-ldS" firstAttribute="leading" secondItem="5YO-z9-pyU" secondAttribute="leading" id="WTo-Mj-k7k"/>
                                     <constraint firstAttribute="trailing" secondItem="2qG-gP-sCC" secondAttribute="trailing" id="kfg-NP-WAu"/>
                                     <constraint firstAttribute="bottom" secondItem="2qG-gP-sCC" secondAttribute="bottom" id="lDn-U4-EXi"/>
-                                    <constraint firstItem="d3L-lH-ldS" firstAttribute="height" secondItem="2qG-gP-sCC" secondAttribute="height" id="vht-2u-swu"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1521,6 +1522,7 @@
                         <outlet property="lastSyncStatusLabel" destination="dtz-uk-zJN" id="OUn-Ph-GOq"/>
                         <outlet property="progressView" destination="fgv-UD-mVg" id="E9m-jm-zEQ"/>
                         <outlet property="syncNowBtn" destination="b8V-oe-MsV" id="wcm-4R-pI9"/>
+                        <outlet property="syncNowViewHeightConstraint" destination="20w-ei-5j8" id="fbZ-mN-bi0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8bs-9P-hYl" userLabel="First Responder" sceneMemberID="firstResponder"/>

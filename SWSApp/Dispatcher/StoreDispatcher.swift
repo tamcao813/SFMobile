@@ -135,7 +135,7 @@ class StoreDispatcher {
         //Strategy QA / Response
         group.enter()
         
-         let strategyResponsefields: [String] = ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c"]
+         let strategyResponsefields: [String] = ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"]
         
         syncUpStrategyQA(fieldsToUpload: strategyResponsefields, completion: {error in
             if error != nil {
@@ -3128,6 +3128,7 @@ class StoreDispatcher {
     
     func syncUpStrategyQA(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
         
+        print(fieldsToUpload)
         let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
         
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupStrategyQA)

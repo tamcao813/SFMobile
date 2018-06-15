@@ -17,8 +17,8 @@ class AccountStrategyCollectionViewCell: UICollectionViewCell {
         if indexPath.section < arrayData.count - 1{
              lblTitleText?.text = "\u{2022} " + (data["answerText"] as! String)
         }else{
-            //lblTitleText?.text =  "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  qwertyuiopasdfghjklzxcvbnm  "//(data["answerText"] as! String)
-            
+ 
+            //lblTitleTextConstraint?.constant = -50
             lblTitleText?.text = (data["answerText"] as! String)
         }
     }

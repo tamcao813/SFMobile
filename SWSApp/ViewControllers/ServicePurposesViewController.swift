@@ -13,6 +13,9 @@ class ServicePurposesViewController: UIViewController {
     
     @IBOutlet weak var collectionView : UICollectionView?
     @IBOutlet weak var textView : UITextView?
+    @IBOutlet weak var seperatorLabel: UILabel!
+    @IBOutlet weak var bottomView: UIView!
+    
     var tableViewRowDetails : NSMutableArray?
     var selectedValuesList = [String]()
     var count = 0
@@ -32,7 +35,8 @@ class ServicePurposesViewController: UIViewController {
         //STATEMACHINE:If you com tho this Screen its in Planned state
         PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
         print("ServicePurposesViewController")
-
+        topShadow(seperatorView: seperatorLabel)
+        
         if !(PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.isEmpty)! {
             selectedPurposesValuesList = (PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";"))!
         }
@@ -70,6 +74,22 @@ class ServicePurposesViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
 
+    }
+    
+    // MARK:- Custom Function
+    
+    func topShadow(seperatorView:UIView) {
+        
+        let shadowSize : CGFloat = 5.0
+        let shadowPath = UIBezierPath(rect: CGRect(x: -shadowSize / 2,
+                                                   y: -shadowSize / 2,
+                                                   width: seperatorView.frame.size.width + shadowSize,
+                                                   height: seperatorView.frame.size.height + shadowSize))
+        seperatorView.layer.masksToBounds = false
+        seperatorView.layer.shadowColor = UIColor.darkGray.cgColor
+        seperatorView.layer.shadowOffset = CGSize(width: 0.0, height: -5.0)
+        seperatorView.layer.shadowOpacity = 0.1
+        seperatorView.layer.shadowPath = shadowPath.cgPath
     }
     
 

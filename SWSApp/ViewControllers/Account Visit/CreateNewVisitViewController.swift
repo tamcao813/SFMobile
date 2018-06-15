@@ -14,6 +14,7 @@ import SmartSync
 class CreateNewVisitViewController: UIViewController {
     
     @IBOutlet weak var headingLabel: UILabel!
+    @IBOutlet weak var seperatorLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var accountsDropdown: DropDown!
     var contactsDropdown: DropDown!
@@ -49,6 +50,7 @@ class CreateNewVisitViewController: UIViewController {
         initializeNibs()
         customizedUI()
         fetchVisit()
+        topShadow(seperatorView: seperatorLabel)
         IQKeyboardManager.shared.enable = true
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -61,6 +63,20 @@ class CreateNewVisitViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         reloadTableView()
+    }
+    
+    func topShadow(seperatorView:UIView) {
+        
+        let shadowSize : CGFloat = 1.0
+        let shadowPath = UIBezierPath(rect: CGRect(x: -shadowSize / 2,
+                                                   y: -shadowSize / 2,
+                                                   width: seperatorView.frame.size.width + shadowSize,
+                                                   height: seperatorView.frame.size.height + shadowSize))
+        seperatorView.layer.masksToBounds = false
+        seperatorView.layer.shadowColor = UIColor.darkGray.cgColor
+        seperatorView.layer.shadowOffset = CGSize(width: 0.0, height: -5.0)
+        seperatorView.layer.shadowOpacity = 0.1
+        seperatorView.layer.shadowPath = shadowPath.cgPath
     }
     
     func fetchVisit(){

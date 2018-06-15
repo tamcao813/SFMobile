@@ -38,7 +38,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bFb-Eb-Z6M">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Department" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bFb-Eb-Z6M">
                         <rect key="frame" x="339" y="128.5" width="200" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="RTZ-8U-avW"/>
@@ -62,7 +62,7 @@
                             <outlet property="delegate" destination="KGk-i7-Jjw" id="GIb-QZ-61J"/>
                         </connections>
                     </textField>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K7b-rR-CQe">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K7b-rR-CQe">
                         <rect key="frame" x="40" y="128.5" width="200" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="6AH-1n-Ib0"/>

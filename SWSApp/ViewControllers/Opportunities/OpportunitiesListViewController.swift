@@ -16,6 +16,8 @@ class OpportunitiesListViewController: UIViewController {
     var opportunityAccountId: String?
     
     var opportunityList = [Opportunity]()
+    
+    var opportunityId = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,6 +165,15 @@ class OpportunitiesListViewController: UIViewController {
         opportunitiesListTableView.reloadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "opportunitiesWebView") {
+            let opportunityWebViewVC = segue.destination as? OpportunitiesWebViewController
+            opportunityWebViewVC?.opportunityWebViewId = opportunityId
+            
+        }
+        
+    }
+    
 }
 
 //MARK:- TableView DataSource Methods
@@ -191,6 +202,8 @@ extension OpportunitiesListViewController: SwipeTableViewCellDelegate {
         let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
             DispatchQueue.main.async {
                 // TBD action Edit
+                self.opportunityId = self.opportunityList[indexPath.row].id
+                self.performSegue(withIdentifier: "opportunitiesWebView", sender: nil)
             }
         }
         editAction.hidesWhenSelected = true
@@ -214,6 +227,10 @@ extension OpportunitiesListViewController : UITableViewDelegate {
         return 180
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        opportunityId = opportunityList[indexPath.row].id
+        self.performSegue(withIdentifier: "opportunitiesWebView", sender: nil)
+    }
 }
 
 //MARK:- SearchCalendarByEnteredTextDelegate Delegate

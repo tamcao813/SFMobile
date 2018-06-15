@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import SmartSync
+
+protocol SyncInfoViewControllerDelegate: NSObjectProtocol {
+    func startSyncUp()
+}
 
 class SyncInfoViewController: UIViewController {
 
@@ -14,31 +19,67 @@ class SyncInfoViewController: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var lastSyncStatusLabel: UILabel!
     @IBOutlet weak var lastSyncDateLabel: UILabel!
+    weak var delegate: SyncInfoViewControllerDelegate?
+
+    @IBOutlet weak var syncNowBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
+        setProgress(progress: 0.0)
+        setLastSyncValues()
     }
     
     func customizedUI(){
-        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
-        self.view.addGestureRecognizer(gesture)
         containerView.dropShadow(color: .lightGray, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
-        // Remove after actual implementation
-        setProgress(progress: 0.0)
     }
     
-    func setProgress(progress: Float){
-        progressView.progress = progress
+    func setProgress(progress: Float,progressComplete: Bool = false,syncUpFailed: Bool = false){
+        DispatchQueue.main.async {
+            self.progressView.progress = progress/100
+            if progressComplete {
+                self.updateDailog(syncUpFailed: syncUpFailed)
+            }
+        }
+    }
+    
+    func updateDailog(syncUpFailed: Bool){
+        let date = Date()
+        let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
+        UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
+        if syncUpFailed {
+            UserDefaults.standard.set("Last Sync Failed", forKey: "lastSyncStatus")
+        }else{
+            UserDefaults.standard.set("Last Sync Successful", forKey: "lastSyncStatus")
+        }
+        self.setLastSyncValues()
     }
     
     
     @IBAction func syncNowButtonTapped(_ sender: UIButton){
+        if !SyncUpDailogGlobal.isSyncing {
+            self.delegate?.startSyncUp()
+            SyncUpDailogGlobal.isSyncing = true
+        }
+    }
+    
+    func setLastSyncValues(){        
+        if let status = UserDefaults.standard.object(forKey: "lastSyncStatus") as? String {
+            self.lastSyncStatusLabel.text = status
+        }else{
+            self.lastSyncStatusLabel.text = "Last Sync"
+        }
         
+        if let date = UserDefaults.standard.object(forKey: "lastSyncDate") as? String {
+            self.lastSyncDateLabel.text = date
+        }else{
+            self.lastSyncDateLabel.text = ""
+        }
+        self.setProgress(progress: Float(0))
+        SyncUpDailogGlobal.isSyncing = false
     }
     
-    @objc func checkAction(sender : UITapGestureRecognizer) {
-        self.dismiss(animated: true, completion: nil)
+    @IBAction func closeDialogue(sender : UIButton) {
+       self.dismiss(animated: true, completion: nil)
     }
-    
 }

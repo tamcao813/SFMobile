@@ -38,6 +38,8 @@ class ServicePurposesViewController: UIViewController {
         }
         
         var planArray = PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose.components(separatedBy: ";")
+        
+        if(PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!) != nil){
         for i in (0..<PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count)
         {
             for j in (0..<planArray!.count)
@@ -48,7 +50,7 @@ class ServicePurposesViewController: UIViewController {
                 }
             }
         }
-        
+        }
         for _ in 0...PlistMap.sharedInstance.readPList(plist: plistDict["Login"]!).count {
             selectedValuesList.append("false")
         }
@@ -100,6 +102,7 @@ class ServicePurposesViewController: UIViewController {
             }
         }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
     }
     
     @IBAction func backVC(sender: UIButton) {
@@ -127,6 +130,8 @@ class ServicePurposesViewController: UIViewController {
             self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
             
         }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
     }
     
     

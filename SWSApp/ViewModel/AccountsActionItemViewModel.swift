@@ -102,4 +102,26 @@ class AccountsActionItemViewModel {
         actionForUserArray = actionForUserArray.sorted(by: { $0.isUrgent && !$1.isUrgent })
         return actionForUserArray
     }
+    
+    func syncAccountsActionItemWithServer(_ completion:@escaping (_ error: NSError?)->()) {
+        let fields: [String] = ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c"]
+        
+        StoreDispatcher.shared.syncUpActionItem(fieldsToUpload: fields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncAccountsActionItemWithServer: AccountsActionItem Sync up failed")
+            }
+            
+            StoreDispatcher.shared.reSyncAccountActionItem { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                    print("syncAccountsActionItemWithServer: AccountsActionItem reSync failed")
+                    completion(error)
+                }
+                else {
+                    completion(nil)
+                }
+            }
+        })
+    }
 }

@@ -30,8 +30,12 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl
-        let authUrl = StringConstants.insightsUrl
+        
+        let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
+        let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
+        
+        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.insightsUrl
+        
         //let accountUrl: String = authUrl +  StringConstants.endUrl
         
         let url  =  URL(string:authUrl)//+accountUrl)

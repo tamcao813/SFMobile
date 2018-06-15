@@ -66,9 +66,23 @@ class ActionItemDetailsViewController: UIViewController {
         self.tableView.estimatedRowHeight = 100
         initializeXibs()
         footerView.dropShadow()
-        actionItemStatusLabel.text = actionItemObject?.status
         if let actionItem = actionItemObject {
-            dueDateLabel.text =   DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))          
+            dueDateLabel.text =   DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))
+            if actionItem.activityDate != "" {
+                if actionItem.status == "Open" {
+                    if ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
+                        actionItemStatusLabel.text = "Open"
+                    }else{
+                        actionItemStatusLabel.text = "Overdue"
+                    }
+                }else{
+                    actionItemStatusLabel.text = actionItem.status
+                }
+            }else{
+                actionItemStatusLabel.text = actionItem.status
+            }
+        }else{
+            actionItemStatusLabel.text = actionItemObject?.status
         }
     }
     
@@ -95,6 +109,7 @@ class ActionItemDetailsViewController: UIViewController {
             if(success){
                 self.delegate?.updateList()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
                 if ActionItemFilterModel.fromAccount{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
@@ -117,10 +132,12 @@ class ActionItemDetailsViewController: UIViewController {
         DispatchQueue.main.async {
             self.delegate?.updateList()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
+             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
+            self.delegate?.updateList()
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -288,15 +305,9 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2{
             if let accountId = selectedAccount?.account_Id {
-                DispatchQueue.main.async {
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-                        FilterMenuModel.selectedAccountId = accountId
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
-                        self.dismiss(animated: true, completion: nil)
-                    }){
-                        
-                    }
-                }
+                FilterMenuModel.selectedAccountId = accountId
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }

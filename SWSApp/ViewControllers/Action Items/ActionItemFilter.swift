@@ -11,7 +11,7 @@ import Foundation
 class ActionItemFilter {
     func sectionNames(isManager: Bool = false) -> [String] {
         var names = ["Action Item Status","Action Item Type","Due Date"]
-        if isManager {
+        if isManager, !ActionItemFilterModel.fromAccount{
             names.append("My Team")
         }
         return names
@@ -42,4 +42,7 @@ struct ActionItemFilterModel {
     static var filterApplied = false
     
     static var selectedConsultant: Consultant?
+    static var comingFromDetailsScreen = ""
+    static var selectedContactId = ""
+    
 }

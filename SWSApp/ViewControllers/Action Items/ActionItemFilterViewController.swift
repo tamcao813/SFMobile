@@ -43,7 +43,7 @@ class ActionItemFilterViewController: UIViewController {
         sectionNames = ActionItemFilter().sectionNames(isManager: isManager)
         sectionData = ActionItemFilter().sectionItems
         
-        if isManager {
+        if isManager, !ActionItemFilterModel.fromAccount {
             sectionData.insert(consultantAry, at:  sectionData.count)
             ActionItemFilter().sectionItems = sectionData
         }

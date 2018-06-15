@@ -41,8 +41,16 @@
 	<key>netSalesUrl</key>
 	<string>https://sgws-de--dedev1.cs20.my.salesforce.com/analytics/wave/wave.apexp?tsid=02u31000000p1rD#dashboard/0FKm00000004D3uGAE</string>
 	<key>objectivesUrl</key>
-	<string>https://sgws-de--dedev1.lightning.force.com/lightning/o/SGWS_Objectives__c/list?filterName=00Bm0000001EHSwEAO</string>
+	<string>/lightning/o/SGWS_Objectives__c/list?filterName=Recent&amp;0.source=alohaHeader</string>
 	<key>insightsUrl</key>
-	<string>&quot;https://sgws-de--dedev1.lightning.force.com/lightning/r/SGWS_Objectives__c/a0Zm0000002QccKEAS/view&quot;</string>
+	<string>/lightning/n/SGWS_Account_Insight</string>
+	<key>insightsAccountUrl</key>
+	<string>/lightning/n/SGWS_Account_Insight?AccountID=</string>
+	<key>homeScreenUrl</key>
+	<string>/analytics/wave/wave.apexp?tsid=02u31000000p1rD#application/00lm0000000YTvjAAG/edit</string>
+	<key>opportunitiesUrl</key>
+	<string>/lightning/r/Opportunity/</string>
+	<key>opportunityEndUrl</key>
+	<string>/view?0.source=alohaHeader</string>
 </dict>
 </plist>

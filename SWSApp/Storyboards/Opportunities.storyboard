@@ -880,14 +880,76 @@
                     </view>
                     <connections>
                         <outlet property="opportunitiesListTableView" destination="48P-0x-iRf" id="2N4-nF-OXg"/>
+                        <segue destination="Zh0-78-XaO" kind="presentation" identifier="opportunitiesWebView" modalPresentationStyle="overCurrentContext" id="nbO-52-aQ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aR9-9I-vVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-285" y="839"/>
         </scene>
+        <!--Opportunities Web View Controller-->
+        <scene sceneID="1rl-ZD-jHf">
+            <objects>
+                <viewController storyboardIdentifier="ChatterModelViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zh0-78-XaO" customClass="OpportunitiesWebViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fEe-ZF-FE2">
+                        <rect key="frame" x="0.0" y="0.0" width="736" height="747"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D68-sg-WAN">
+                                <rect key="frame" x="674" y="42" width="38" height="38"/>
+                                <state key="normal" image="Close"/>
+                                <connections>
+                                    <action selector="closeButtonActionWithSender:" destination="Zh0-78-XaO" eventType="touchUpInside" id="nRZ-p9-7GC"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opportunities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q82-fR-W2P">
+                                <rect key="frame" x="32" y="44" width="192" height="34"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vbb-xM-IOP">
+                                <rect key="frame" x="0.0" y="97" width="736" height="650"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature is only available online." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="feY-3b-yLt">
+                                <rect key="frame" x="231.5" y="373.5" width="273.5" height="20"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qvk-m7-ea5" firstAttribute="top" secondItem="D68-sg-WAN" secondAttribute="top" constant="-22" id="7fh-rN-ec9"/>
+                            <constraint firstItem="vbb-xM-IOP" firstAttribute="bottom" secondItem="qvk-m7-ea5" secondAttribute="bottom" id="FbL-9y-gC0"/>
+                            <constraint firstItem="vbb-xM-IOP" firstAttribute="trailing" secondItem="qvk-m7-ea5" secondAttribute="trailing" id="c3r-Dj-rpz"/>
+                            <constraint firstItem="q82-fR-W2P" firstAttribute="top" secondItem="qvk-m7-ea5" secondAttribute="top" constant="24" id="fIl-Wu-fVr"/>
+                            <constraint firstItem="feY-3b-yLt" firstAttribute="centerY" secondItem="qvk-m7-ea5" secondAttribute="centerY" id="kHf-Ra-Sf3"/>
+                            <constraint firstItem="feY-3b-yLt" firstAttribute="centerX" secondItem="qvk-m7-ea5" secondAttribute="centerX" id="ld4-fY-Gnd"/>
+                            <constraint firstItem="q82-fR-W2P" firstAttribute="leading" secondItem="qvk-m7-ea5" secondAttribute="leading" constant="32" id="mIJ-o7-C1L"/>
+                            <constraint firstItem="vbb-xM-IOP" firstAttribute="leading" secondItem="qvk-m7-ea5" secondAttribute="leading" id="pc7-RO-7Hx"/>
+                            <constraint firstItem="vbb-xM-IOP" firstAttribute="top" secondItem="q82-fR-W2P" secondAttribute="bottom" constant="19" id="qoa-Em-wL7"/>
+                            <constraint firstItem="qvk-m7-ea5" firstAttribute="trailing" secondItem="D68-sg-WAN" secondAttribute="trailing" constant="24" id="wEi-XN-1co"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qvk-m7-ea5"/>
+                    </view>
+                    <connections>
+                        <outlet property="lblNoNetworkConnection" destination="feY-3b-yLt" id="S2T-of-9MS"/>
+                        <outlet property="webView" destination="vbb-xM-IOP" id="4wJ-bb-L54"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D3q-kP-6NJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="235" y="839"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="Close" width="38" height="38"/>
         <image name="Sort Gray" width="149" height="149"/>
         <image name="radioUnselected" width="20" height="20"/>
         <namedColor name="Data New">

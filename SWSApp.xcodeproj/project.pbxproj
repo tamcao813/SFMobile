@@ -44,6 +44,8 @@
 		4A39D30320AC496C00F79D95 /* AccountsActionItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */; };
 		4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */; };
 		6D38329B20875E00006805C6 /* SFPropertydev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D38329A20875E00006805C6 /* SFPropertydev.plist */; };
+		6DB9E3AC20CFBE9700041850 /* SoupConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB9E3AB20CFBE9600041850 /* SoupConstants.swift */; };
+		6DB9E3AE20CFBEA500041850 /* ConfigurationAndPickListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB9E3AD20CFBEA500041850 /* ConfigurationAndPickListModel.swift */; };
 		6DBD031A2077B5EF0083419E /* UFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030B2077B5EE0083419E /* UFL.txt */; };
 		6DBD031B2077B5EF0083419E /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030C2077B5EE0083419E /* Ubuntu-Italic.ttf */; };
 		6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030D2077B5EE0083419E /* CrimsonText-Bold.ttf */; };
@@ -165,6 +167,7 @@
 		913FA172208F2048004AAA0D /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA171208F2048004AAA0D /* ContactSortUtility.swift */; };
 		9141111D20A95565006AD7CD /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141111C20A95565006AD7CD /* CalendarViewModel.swift */; };
 		91497FF620C012E900A3F4F3 /* Opportunities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91497FF520C012E900A3F4F3 /* Opportunities.storyboard */; };
+		914E191820D10CBB0024E267 /* OpportunityWorkorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E191720D10CBB0024E267 /* OpportunityWorkorder.swift */; };
 		914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */; };
 		914E4F3B20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */; };
 		9165CFE4209040F0003E473C /* AccountContactRelationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */; };
@@ -229,15 +232,19 @@
 		AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5C974920888330004548E9 /* SchedulerComponent.swift */; };
 		AE8F41EE20A07BD40033F81D /* EditAgendaNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */; };
 		AE8F41F420A09F1B0033F81D /* UIView+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */; };
+		AEDF060120D1060600312E1C /* SyncConfigurationSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF060020D1060600312E1C /* SyncConfigurationSortUtility.swift */; };
+		AEDF060320D1065500312E1C /* SyncConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF060220D1065500312E1C /* SyncConfigurationViewModel.swift */; };
 		AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF951172089C7800083EA47 /* AccountTableViewCell.swift */; };
 		AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */; };
 		AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */; };
+		BAE613A220CFE2790075FEFA /* OpportunitiesListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE613A120CFE2790075FEFA /* OpportunitiesListViewCell.swift */; };
 		BDC2971F8C914488A5B7964D /* Pods_SWSApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */; };
 		C9B63C68208DB6DB008D9E14 /* Notes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B63C67208DB6DB008D9E14 /* Notes.storyboard */; };
 		C9B63C6A208DB7C8008D9E14 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */; };
 		C9B63C6C208DB7F8008D9E14 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */; };
 		C9B63C6E208DB819008D9E14 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */; };
 		C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B95098209307C900792AD3 /* AccountNotes.swift */; };
+		C9E2CDF120CFB6EC0038B509 /* InsightsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2CDF020CFB6EC0038B509 /* InsightsModalViewController.swift */; };
 		D10483962068381A00A0343B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10483952068381A00A0343B /* Contact.swift */; };
 		D125134220648C4F00CD6CB4 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134120648C4F00CD6CB4 /* Account.swift */; };
 		D125134420648E1000CD6CB4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D125134320648E1000CD6CB4 /* User.swift */; };
@@ -324,6 +331,7 @@
 		F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */; };
 		F2D7B8D720AA213D00A124BA /* ChatterModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */; };
 		F2DB9B8420C570B500338329 /* GlobalURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2DB9B8320C570B500338329 /* GlobalURL.plist */; };
+		F2DD034820D10A6D00CEB086 /* OpportunitiesWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DD034720D10A6D00CEB086 /* OpportunitiesWebViewController.swift */; };
 		F2E276F0207476AD00A835A9 /* AccountsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */; };
 		F2FD2C2720919AE300037BB2 /* EditAccountStrategyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */; };
 		F2FD2C2820919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */; };
@@ -397,6 +405,8 @@
 		5AA42EFBD421FE930972321D /* Pods-SWSApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B3277C8952E6C9483CD1CA7 /* Pods-SWSAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6D38329A20875E00006805C6 /* SFPropertydev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SFPropertydev.plist; sourceTree = "<group>"; };
+		6DB9E3AB20CFBE9600041850 /* SoupConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoupConstants.swift; sourceTree = "<group>"; };
+		6DB9E3AD20CFBEA500041850 /* ConfigurationAndPickListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationAndPickListModel.swift; sourceTree = "<group>"; };
 		6DBD030B2077B5EE0083419E /* UFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = UFL.txt; path = SWSApp/Resources/Fonts/UFL.txt; sourceTree = SOURCE_ROOT; };
 		6DBD030C2077B5EE0083419E /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-Italic.ttf"; path = "SWSApp/Resources/Fonts/Ubuntu-Italic.ttf"; sourceTree = SOURCE_ROOT; };
 		6DBD030D2077B5EE0083419E /* CrimsonText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CrimsonText-Bold.ttf"; path = "SWSApp/Resources/Fonts/CrimsonText-Bold.ttf"; sourceTree = SOURCE_ROOT; };
@@ -513,6 +523,7 @@
 		913FA171208F2048004AAA0D /* ContactSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
 		9141111C20A95565006AD7CD /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		91497FF520C012E900A3F4F3 /* Opportunities.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Opportunities.storyboard; sourceTree = "<group>"; };
+		914E191720D10CBB0024E267 /* OpportunityWorkorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunityWorkorder.swift; sourceTree = "<group>"; };
 		914E4F3720AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFilterMenuModel.swift; sourceTree = "<group>"; };
 		9165CFE3209040F0003E473C /* AccountContactRelationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContactRelationUtility.swift; sourceTree = "<group>"; };
@@ -583,16 +594,20 @@
 		AE5C974920888330004548E9 /* SchedulerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerComponent.swift; sourceTree = "<group>"; };
 		AE8F41ED20A07BD40033F81D /* EditAgendaNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAgendaNoteViewController.swift; sourceTree = "<group>"; };
 		AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Properties.swift"; sourceTree = "<group>"; };
+		AEDF060020D1060600312E1C /* SyncConfigurationSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncConfigurationSortUtility.swift; sourceTree = "<group>"; };
+		AEDF060220D1065500312E1C /* SyncConfigurationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncConfigurationViewModel.swift; sourceTree = "<group>"; };
 		AEF951172089C7800083EA47 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
 		AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanVisitEditableScreen.storyboard; sourceTree = "<group>"; };
 		BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BAE613A120CFE2790075FEFA /* OpportunitiesListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesListViewCell.swift; sourceTree = "<group>"; };
 		C9B63C67208DB6DB008D9E14 /* Notes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notes.storyboard; sourceTree = "<group>"; };
 		C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		C9B63C6B208DB7F8008D9E14 /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
 		C9B63C6D208DB819008D9E14 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
 		C9B95098209307C900792AD3 /* AccountNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotes.swift; sourceTree = "<group>"; };
 		C9B9509A2093081D00792AD3 /* AccountsNotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsNotesViewModel.swift; sourceTree = "<group>"; };
+		C9E2CDF020CFB6EC0038B509 /* InsightsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsModalViewController.swift; sourceTree = "<group>"; };
 		D10483952068381A00A0343B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		D125134120648C4F00CD6CB4 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		D125134320648E1000CD6CB4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -683,6 +698,7 @@
 		F2D2AFF720708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		F2D7B8D620AA213D00A124BA /* ChatterModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterModelViewController.swift; sourceTree = "<group>"; };
 		F2DB9B8320C570B500338329 /* GlobalURL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GlobalURL.plist; sourceTree = "<group>"; };
+		F2DD034720D10A6D00CEB086 /* OpportunitiesWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesWebViewController.swift; sourceTree = "<group>"; };
 		F2E276EF207476AD00A835A9 /* AccountsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsDetailsViewController.swift; sourceTree = "<group>"; };
 		F2FD2C2520919AE200037BB2 /* EditAccountStrategyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionViewCell.swift; sourceTree = "<group>"; };
 		F2FD2C2620919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountStrategyCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -1008,6 +1024,7 @@
 				8D8D001A20C2FE10009683AC /* OpportunitiesViewController.swift */,
 				8D8D001820C2FE10009683AC /* OpportunitiesListViewController.swift */,
 				8D8D001920C2FE10009683AC /* OpportunitiesMenuViewController.swift */,
+				F2DD034720D10A6D00CEB086 /* OpportunitiesWebViewController.swift */,
 			);
 			path = Opportunities;
 			sourceTree = "<group>";
@@ -1052,6 +1069,7 @@
 			children = (
 				91AB8C1B20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift */,
 				9188866720C68BD300560860 /* OpportunitiesListTableViewCell.swift */,
+				BAE613A120CFE2790075FEFA /* OpportunitiesListViewCell.swift */,
 			);
 			path = Opportunities;
 			sourceTree = "<group>";
@@ -1173,6 +1191,7 @@
 			isa = PBXGroup;
 			children = (
 				F2064C8920CE664600FC03A0 /* Opportunity.swift */,
+				914E191720D10CBB0024E267 /* OpportunityWorkorder.swift */,
 				F2FDA1492099D92D000921A8 /* Visit.swift */,
 				6DDF2B2420A9EBF300FA5A87 /* SyncConfiguration.swift */,
 				4A00BB4F20BBBCC60003C3ED /* SyncLog.swift */,
@@ -1344,6 +1363,7 @@
 				F2CAD23020957E91001016C2 /* DuringVisit */,
 				F2AB94542095CBA90028802E /* AlertUtility.swift */,
 				8DDD4A4220BBD5FF00423E20 /* SyncInfoViewController.swift */,
+				C9E2CDF020CFB6EC0038B509 /* InsightsModalViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1351,6 +1371,8 @@
 		D1FCDE0A20732199005F956D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				AEDF060220D1065500312E1C /* SyncConfigurationViewModel.swift */,
+				6DB9E3AD20CFBEA500041850 /* ConfigurationAndPickListModel.swift */,
 				F2FDA1472099D924000921A8 /* VisitsViewModel.swift */,
 				9141111C20A95565006AD7CD /* CalendarViewModel.swift */,
 				914E4F3A20AEA55D00FE01A5 /* CalendarFilterMenuModel.swift */,
@@ -1375,6 +1397,7 @@
 		D1FCDE13207332B9005F956D /* Dispatcher */ = {
 			isa = PBXGroup;
 			children = (
+				6DB9E3AB20CFBE9600041850 /* SoupConstants.swift */,
 				D1FE1CD520654734009CC47C /* StoreDispatcher.swift */,
 			);
 			path = Dispatcher;
@@ -1383,6 +1406,7 @@
 		D1FE1D0320657B47009CC47C /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
+				AEDF060020D1060600312E1C /* SyncConfigurationSortUtility.swift */,
 				F2064C8B20CE669900FC03A0 /* OpportunitySortUtility.swift */,
 				AE3D30D320BCC1AA0053ACE0 /* PaddingLabel.swift */,
 				AE1FAABF20B6C2EE005B44EC /* ColumnFlowLayout.swift */,
@@ -1957,6 +1981,7 @@
 				8D8D001420C1BD10009683AC /* NotificationsSortUtility.swift in Sources */,
 				12B7362E209777CC0063F847 /* StrategyQAViewModel.swift in Sources */,
 				91FAEF4D20A57DD500209D71 /* WRColumnHeader.swift in Sources */,
+				BAE613A220CFE2790075FEFA /* OpportunitiesListViewCell.swift in Sources */,
 				AE43DD03209622EB005D8DD1 /* ServicePurposesViewController.swift in Sources */,
 				6DDF2B1820A9A70500FA5A87 /* WorkOrderUserObject.swift in Sources */,
 				6DDF2B2520A9EBF300FA5A87 /* SyncConfiguration.swift in Sources */,
@@ -1976,11 +2001,13 @@
 				914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */,
 				8DD15009209330E200858349 /* AccountView.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
+				914E191820D10CBB0024E267 /* OpportunityWorkorder.swift in Sources */,
 				F22DA90320C175FC00AA2B54 /* HomeGoalTypesViewController.swift in Sources */,
 				911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */,
 				F29A645A20B816B000D73AE9 /* AccountVisitListFilterViewController.swift in Sources */,
 				91FAEF6120A57DD500209D71 /* StringExtension.swift in Sources */,
 				D17BD572209115CD000F38FA /* PlistMap.swift in Sources */,
+				6DB9E3AE20CFBEA500041850 /* ConfigurationAndPickListModel.swift in Sources */,
 				F2D2AFF820708EDB006DAD0E /* AccountsMenuTableTableViewCell.swift in Sources */,
 				F20C1A2F20937C3700D2351C /* AccountsNotesViewModel.swift in Sources */,
 				121468E820AD603A00942A00 /* DPDKeyboardListener.swift in Sources */,
@@ -2005,6 +2032,7 @@
 				8D8D000420C14597009683AC /* NotificationFilterViewController.swift in Sources */,
 				F2AB94552095CBA90028802E /* AlertUtility.swift in Sources */,
 				8D17A5CA20A1FFB600ABC9DC /* SearchForContactTableViewCell.swift in Sources */,
+				6DB9E3AC20CFBE9700041850 /* SoupConstants.swift in Sources */,
 				D1FCDE1020733025005F956D /* UserViewModel.swift in Sources */,
 				8D4BA39620B45B58005CFE56 /* ContactHoursTableViewCell.swift in Sources */,
 				D125134220648C4F00CD6CB4 /* Account.swift in Sources */,
@@ -2042,6 +2070,7 @@
 				129A69952099995F00642B14 /* StrategyQuestions.swift in Sources */,
 				D23C408E208DCF010006691C /* AccountVisitSummaryViewController.swift in Sources */,
 				1255F30F20A57BA900FC3796 /* AccountOverViewViewController.swift in Sources */,
+				F2DD034820D10A6D00CEB086 /* OpportunitiesWebViewController.swift in Sources */,
 				F2AB94592095D4E40028802E /* EditAccountStrategyViewController.swift in Sources */,
 				D1FCDE1120733025005F956D /* AccountsViewModel.swift in Sources */,
 				8D4BA34020B455EC005CFE56 /* ActionItemTitleDetailTableViewCell.swift in Sources */,
@@ -2101,6 +2130,7 @@
 				8DDD4A4A20BBFC5200423E20 /* TitleDepartmentTableViewCell.swift in Sources */,
 				8D4BA34420B455EC005CFE56 /* ActionItemTitleTableViewCell.swift in Sources */,
 				AE43DD1B209C73F0005D8DD1 /* VisitSchedulerViewModel.swift in Sources */,
+				AEDF060320D1065500312E1C /* SyncConfigurationViewModel.swift in Sources */,
 				F2AB945F2095D5000028802E /* DuringVisitsTopicsViewController.swift in Sources */,
 				8D17A5D620A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
 				8D4BA3A220B45B58005CFE56 /* SearchAccountTableViewCell.swift in Sources */,
@@ -2114,6 +2144,7 @@
 				8D8D001B20C2FE10009683AC /* OpportunitiesListViewController.swift in Sources */,
 				F20A89D820BA871200AF35EA /* AccountVisitListSortUtility.swift in Sources */,
 				D2E12D7120736C4B0005B982 /* InsightsViewController.swift in Sources */,
+				C9E2CDF120CFB6EC0038B509 /* InsightsModalViewController.swift in Sources */,
 				AE3D30D420BCC1AA0053ACE0 /* PaddingLabel.swift in Sources */,
 				121468F420AD603A00942A00 /* DropDown+Appearance.swift in Sources */,
 				12F0F89A208FA6BD00160C3D /* AccountContactRelation.swift in Sources */,
@@ -2140,6 +2171,7 @@
 				91FAEF5320A57DD500209D71 /* WRTodayBackground.swift in Sources */,
 				8D4BA37C20B45B58005CFE56 /* NameTableViewCell.swift in Sources */,
 				C9B95099209307C900792AD3 /* AccountNotes.swift in Sources */,
+				AEDF060120D1060600312E1C /* SyncConfigurationSortUtility.swift in Sources */,
 				8D4BA3AC20B45B58005CFE56 /* AccountContactLinkTableViewCell.swift in Sources */,
 				8D4BA34220B455EC005CFE56 /* ActionItemsListTableViewCell.swift in Sources */,
 				8D4BA38420B45B58005CFE56 /* PhoneTableViewCell.swift in Sources */,

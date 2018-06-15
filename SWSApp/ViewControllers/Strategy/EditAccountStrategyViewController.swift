@@ -569,6 +569,7 @@ extension EditAccountStrategyViewController : UICollectionViewDataSource {
             if isFirstTimeLoad == true{
                 isFirstTimeLoad = false
                 (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = strategyNotes
+                StrategyNotes.accountStrategyNotes = strategyNotes
             }
             
         }else{

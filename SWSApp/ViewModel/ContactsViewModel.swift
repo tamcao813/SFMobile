@@ -58,10 +58,10 @@ class ContactsViewModel{
                 print("syncContactWithServer: Contacts Sync up failed")
                 completion(error)
             }else {
-                StoreDispatcher.shared.syncDownContact( { error in
+                StoreDispatcher.shared.reSyncContact( { error in
                     if error != nil {
                         print(error?.localizedDescription ?? "error")
-                        print("syncContactWithServer: Contacts Sync down failed")
+                        print("syncContactWithServer: Contacts reSync failed")
                         completion(error)
                     }else {
                         completion(nil)
@@ -80,10 +80,10 @@ class ContactsViewModel{
                 print("syncACRwithServer: ACR Sync up failed")
                 completion(error)
             }else {
-                StoreDispatcher.shared.syncDownACR( { error in
+                StoreDispatcher.shared.reSyncACR( { error in
                     if error != nil {
                         print(error?.localizedDescription ?? "error")
-                        print("syncACRwithServer: ACR Sync down failed")
+                        print("syncACRwithServer: ACR resync failed")
                         completion(error)
                     }else {
                         completion(nil)

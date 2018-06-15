@@ -39,6 +39,9 @@ class OpportunitySortUtility {
         else if OpportunitiesFilterMenuModel.isAscendingStatus != "" {
             opportunitySorted = opportunitySortStatus(opportunityToSort)
         }
+        else {
+            opportunitySorted = opportunityToSort
+        }
 
         return opportunitySorted
     }
@@ -188,18 +191,21 @@ class OpportunitySortUtility {
         // filter by Status
         (enteredAnyFilterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterByStatus(opportunityToBeFiltered: opportunityToSearch!)
         if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCaseReturn = true
             filteredOpportunityArray += filteredByReturnArray
         }
         
         // filter by Source
         (enteredAnyFilterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterBySource(opportunityToBeFiltered: opportunityToSearch!)
         if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCaseReturn = true
             filteredOpportunityArray += filteredByReturnArray
         }
         
         // filter by Objective
         (enteredAnyFilterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterByObjective(opportunityToBeFiltered: opportunityToSearch!)
         if enteredAnyFilterCaseReturn {
+            enteredAnyFilterCaseReturn = true
             filteredOpportunityArray += filteredByReturnArray
         }
         
@@ -208,11 +214,20 @@ class OpportunitySortUtility {
         if(trimmedSearchString != ""){
             (enteredAnyFilterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterBySearchText(opportunityToBeFiltered: opportunityToSearch!, searchText: trimmedSearchString)
             if enteredAnyFilterCaseReturn {
+                enteredAnyFilterCaseReturn = true
                 filteredOpportunityArray += filteredByReturnArray
             }
         }
 
-        return filteredOpportunityArray
+        if enteredAnyFilterCaseReturn {
+            
+            filteredOpportunityArray = opportunityRemoveDuplicates(filteredOpportunityArray)
+            filteredOpportunityArray = opportunitySort(filteredOpportunityArray)
+                        
+            return filteredOpportunityArray
+        }
+        
+        return opportunityToSearch
     }
     
     static func filterOpportunityByFilterByStatus(opportunityToBeFiltered : [Opportunity])-> (Bool, [Opportunity]){
@@ -220,52 +235,21 @@ class OpportunitySortUtility {
         var filteredOpportunityArray = [Opportunity]()
         var enteredAnyFilterCase = false
         
-        if OpportunitiesFilterMenuModel.statusOpen == "YES"{
-
+        if (OpportunitiesFilterMenuModel.statusOpen == "YES" || OpportunitiesFilterMenuModel.statusPlanned == "YES" || OpportunitiesFilterMenuModel.statusClosedWon == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES") {
+            
             var filteredStatusOpenOpportunityArray = [Opportunity]()
-
+            
             enteredAnyFilterCase = true
-            filteredStatusOpenOpportunityArray = opportunityToBeFiltered.filter( { return $0.status == "Open" } )
-
+            filteredStatusOpenOpportunityArray = opportunityToBeFiltered.filter( { return
+                (OpportunitiesFilterMenuModel.statusOpen == "YES" && $0.status == "Open") ||
+                (OpportunitiesFilterMenuModel.statusPlanned == "YES" && $0.status == "Planned") ||
+                (OpportunitiesFilterMenuModel.statusClosedWon == "YES" && $0.status == "Closed-Won") ||
+                (OpportunitiesFilterMenuModel.statusClosed == "YES" && $0.status == "Closed") } )
+            
             if filteredStatusOpenOpportunityArray.count > 0 {
                 filteredOpportunityArray += filteredStatusOpenOpportunityArray
             }
-        }
 
-        if OpportunitiesFilterMenuModel.statusPlanned == "YES"{
-
-            var filteredStatusPlannedOpportunityArray = [Opportunity]()
-
-            enteredAnyFilterCase = true
-            filteredStatusPlannedOpportunityArray = opportunityToBeFiltered.filter( { return $0.status == "Planned" } )
-
-            if filteredStatusPlannedOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredStatusPlannedOpportunityArray
-            }
-        }
-        
-        if OpportunitiesFilterMenuModel.statusClosedWon == "YES"{
-            
-            var filteredStatusClosedWonOpportunityArray = [Opportunity]()
-            
-            enteredAnyFilterCase = true
-            filteredStatusClosedWonOpportunityArray = opportunityToBeFiltered.filter( { return $0.status == "Closed-Won" } )
-            
-            if filteredStatusClosedWonOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredStatusClosedWonOpportunityArray
-            }
-        }
-        
-        if OpportunitiesFilterMenuModel.statusClosed == "YES"{
-            
-            var filteredStatusClosedOpportunityArray = [Opportunity]()
-            
-            enteredAnyFilterCase = true
-            filteredStatusClosedOpportunityArray = opportunityToBeFiltered.filter( { return $0.status == "Closed" } )
-            
-            if filteredStatusClosedOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredStatusClosedOpportunityArray
-            }
         }
         
         return (enteredAnyFilterCase, filteredOpportunityArray)
@@ -276,64 +260,22 @@ class OpportunitySortUtility {
         var filteredOpportunityArray = [Opportunity]()
         var enteredAnyFilterCase = false
         
-        if OpportunitiesFilterMenuModel.sourceBookOfBusiness == "YES"{
+        if (OpportunitiesFilterMenuModel.sourceBookOfBusiness == "YES" || OpportunitiesFilterMenuModel.statusPlanned == "YES" || OpportunitiesFilterMenuModel.statusClosedWon == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES") {
             
-            var filteredSourceOpenOpportunityArray = [Opportunity]()
-            
-            enteredAnyFilterCase = true
-            filteredSourceOpenOpportunityArray = opportunityToBeFiltered.filter( { return $0.source == "Book Of Business" } )
-            
-            if filteredSourceOpenOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredSourceOpenOpportunityArray
-            }
-        }
-        
-        if OpportunitiesFilterMenuModel.sourceTopSellers == "YES"{
-            
-            var filteredSourceOpenOpportunityArray = [Opportunity]()
+            var filteredStatusOpenOpportunityArray = [Opportunity]()
             
             enteredAnyFilterCase = true
-            filteredSourceOpenOpportunityArray = opportunityToBeFiltered.filter( { return $0.source == "Top Sellers" } )
+            filteredStatusOpenOpportunityArray = opportunityToBeFiltered.filter( { return
+                (OpportunitiesFilterMenuModel.sourceBookOfBusiness == "YES" && $0.source == "Book Of Business") ||
+                    (OpportunitiesFilterMenuModel.sourceTopSellers == "YES" && $0.source == "Top Sellers") ||
+                    (OpportunitiesFilterMenuModel.sourceUndersold == "YES" && $0.source == "Undersold") ||
+                    (OpportunitiesFilterMenuModel.sourceHotNot == "YES" && $0.source == "What’s Hot/What’s Not") ||
+                    (OpportunitiesFilterMenuModel.sourceUnsold == "YES" && $0.source == "Unsold") } )
             
-            if filteredSourceOpenOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredSourceOpenOpportunityArray
+            if filteredStatusOpenOpportunityArray.count > 0 {
+                filteredOpportunityArray += filteredStatusOpenOpportunityArray
             }
-        }
-        
-        if OpportunitiesFilterMenuModel.sourceUndersold == "YES"{
             
-            var filteredSourceOpenOpportunityArray = [Opportunity]()
-            
-            enteredAnyFilterCase = true
-            filteredSourceOpenOpportunityArray = opportunityToBeFiltered.filter( { return $0.source == "Undersold " } )
-            
-            if filteredSourceOpenOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredSourceOpenOpportunityArray
-            }
-        }
-        
-        if OpportunitiesFilterMenuModel.sourceHotNot == "YES"{
-            
-            var filteredSourceOpenOpportunityArray = [Opportunity]()
-            
-            enteredAnyFilterCase = true
-            filteredSourceOpenOpportunityArray = opportunityToBeFiltered.filter( { return $0.source == "What’s Hot/What’s Not" } )
-            
-            if filteredSourceOpenOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredSourceOpenOpportunityArray
-            }
-        }
-        
-        if OpportunitiesFilterMenuModel.sourceUnsold == "YES"{
-            
-            var filteredSourceOpenOpportunityArray = [Opportunity]()
-            
-            enteredAnyFilterCase = true
-            filteredSourceOpenOpportunityArray = opportunityToBeFiltered.filter( { return $0.source == "Unsold" } )
-            
-            if filteredSourceOpenOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredSourceOpenOpportunityArray
-            }
         }
         
         return (enteredAnyFilterCase, filteredOpportunityArray)
@@ -344,66 +286,24 @@ class OpportunitySortUtility {
         var filteredOpportunityArray = [Opportunity]()
         var enteredAnyFilterCase = false
         
-        if OpportunitiesFilterMenuModel.objective9L == "YES"{
+        if (OpportunitiesFilterMenuModel.objective9L == "YES" || OpportunitiesFilterMenuModel.objectiveDecimal == "YES" || OpportunitiesFilterMenuModel.objectiveRevenue == "YES" || OpportunitiesFilterMenuModel.objectiveACS == "YES" || OpportunitiesFilterMenuModel.objectivePOD == "YES") {
             
-            var filteredObjectiveOpenOpportunityArray = [Opportunity]()
-            
-            enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveJunction.self.range(of: "9L", options: .caseInsensitive) != nil) } )
-            
-            if filteredObjectiveOpenOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
-            }
-        }
-        
-        if OpportunitiesFilterMenuModel.objectiveDecimal == "YES"{
-            
-            var filteredObjectiveOpenOpportunityArray = [Opportunity]()
+            var filteredStatusOpenOpportunityArray = [Opportunity]()
             
             enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveJunction.self.range(of: "Decimal", options: .caseInsensitive) != nil) } )
+            filteredStatusOpenOpportunityArray = opportunityToBeFiltered.filter( { return
+                (OpportunitiesFilterMenuModel.objective9L == "YES" && $0.objectiveTypes.self.range(of: "9L", options: .caseInsensitive) != nil) ||
+                    (OpportunitiesFilterMenuModel.objectiveDecimal == "YES" && $0.objectiveTypes.self.range(of: "Decimal", options: .caseInsensitive) != nil) ||
+                    (OpportunitiesFilterMenuModel.objectiveRevenue == "YES" && $0.objectiveTypes.self.range(of: "Revenue", options: .caseInsensitive) != nil) ||
+                    (OpportunitiesFilterMenuModel.objectiveACS == "YES" && $0.objectiveTypes.self.range(of: "ACS", options: .caseInsensitive) != nil) ||
+                    (OpportunitiesFilterMenuModel.objectivePOD == "YES" && $0.objectiveTypes.self.range(of: "POD", options: .caseInsensitive) != nil) } )
             
-            if filteredObjectiveOpenOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
+            if filteredStatusOpenOpportunityArray.count > 0 {
+                filteredOpportunityArray += filteredStatusOpenOpportunityArray
             }
+            
         }
-        
-        if OpportunitiesFilterMenuModel.objectiveRevenue == "YES"{
-            
-            var filteredObjectiveOpenOpportunityArray = [Opportunity]()
-            
-            enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveJunction.self.range(of: "Revenue", options: .caseInsensitive) != nil) } )
-            
-            if filteredObjectiveOpenOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
-            }
-        }
-        
-        if OpportunitiesFilterMenuModel.objectiveACS == "YES"{
-            
-            var filteredObjectiveOpenOpportunityArray = [Opportunity]()
-            
-            enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveJunction.self.range(of: "ACS", options: .caseInsensitive) != nil) } )
-            
-            if filteredObjectiveOpenOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
-            }
-        }
-        
-        if OpportunitiesFilterMenuModel.objectivePOD == "YES"{
-            
-            var filteredObjectiveOpenOpportunityArray = [Opportunity]()
-            
-            enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.objectiveJunction.self.range(of: "POD", options: .caseInsensitive) != nil) } )
-            
-            if filteredObjectiveOpenOpportunityArray.count > 0 {
-                filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
-            }
-        }
-        
+
         return (enteredAnyFilterCase, filteredOpportunityArray)
     }
     
@@ -417,7 +317,7 @@ class OpportunitySortUtility {
             var filteredObjectiveOpenOpportunityArray = [Opportunity]()
             
             enteredAnyFilterCase = true
-            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return ($0.productName.self.range(of: searchText, options: .caseInsensitive) != nil) } )
+            filteredObjectiveOpenOpportunityArray = opportunityToBeFiltered.filter( { return (($0.productName.self.range(of: searchText, options: .caseInsensitive) != nil) || ($0.productID.self.range(of: searchText, options: .caseInsensitive) != nil)) } )
             
             if filteredObjectiveOpenOpportunityArray.count > 0 {
                 filteredOpportunityArray += filteredObjectiveOpenOpportunityArray
@@ -428,5 +328,24 @@ class OpportunitySortUtility {
         return (enteredAnyFilterCase, filteredOpportunityArray)
     }
     
+    func opportunityRemoveDuplicates(_ opportunityToSort: [Opportunity]) -> [Opportunity] {
+        
+        var opportunitySorted = [Opportunity]()
+        
+        if opportunityToSort.count > 0 {
+            let filteredNoDuplicateOpportunityArray = opportunityToSort.reduce([]) { (r, p) -> [Opportunity] in
+                var r2 = r
+                if !r.contains (where: { $0.id == p.id }) {
+                    r2.append(p)
+                }
+                return r2
+            }
+            opportunitySorted = filteredNoDuplicateOpportunityArray
+        }
+
+        return opportunitySorted
+    }
+    
+
 }
 

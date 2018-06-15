@@ -27,6 +27,7 @@ class CalendarViewModel {
         var visitsToCalendarEventsArray = [WREvent]()
         let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
         let globalContactList = ContactsViewModel().globalContacts()
+        let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
         
         for visit in visitArray{
             let dateFormatter = DateFormatter()
@@ -40,13 +41,27 @@ class CalendarViewModel {
                     }
                     var visitTitle = ""
                     var visitType = "visit"
-                    if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == visit.recordTypeId){
-                        visitType = "visit"
-                        
-                        visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
-                    } else {
-                        visitType = "event"
-                        visitTitle = visit.subject
+//                    if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == visit.recordTypeId){
+//                        visitType = "visit"
+//
+//                        visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
+//                    } else {
+//                        visitType = "event"
+//                        visitTitle = visit.subject
+//                    }
+                    
+                    if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: visit.recordTypeId) {
+                        if systemConfigurationObject.developerName == "SGWS_WorkOrder_Event" {
+                            visitType = "event"
+                            visitTitle = visit.subject
+                        }
+                        else if systemConfigurationObject.developerName == "SGWS_WorkOrder_Visit" {
+                            visitType = "visit"
+                            visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
+                        }
+                        else {
+                            continue
+                        }
                     }
                     
                     guard let _ = visitTitle as String? else {
@@ -63,6 +78,11 @@ class CalendarViewModel {
                         vistAccountNumber = ""
                     }
                     
+                    var ownerId = visit.ownerId
+                    guard let _ = ownerId as String? else {
+                        ownerId = ""
+                    }
+                    
                     var visitContactName = ""
                     
                     if let selectedContact = ContactSortUtility.searchContactByContactId(contactList: globalContactList, contactId: visit.contactId)  {
@@ -72,7 +92,7 @@ class CalendarViewModel {
                     if daysBetween == 0 {
                         
                         let minutessBetween = Date.minutesBetween(start: eventStartDate, end: eventEndDate)
-                        let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventStartDate), chunk: (minutessBetween > 30) ? eventStartDate.chunkBetween(date: eventEndDate) : 30.minutes, title: visitTitle, location: visit.location)
+                        let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventStartDate), chunk: (minutessBetween > 30) ? eventStartDate.chunkBetween(date: eventEndDate) : 30.minutes, title: visitTitle, location: visit.location , ownerId:  ownerId)
                         visitEvent.accountId = visit.accountId
                         visitEvent.accountNumber = vistAccountNumber
                         visitEvent.accountName = vistAccountName
@@ -84,11 +104,11 @@ class CalendarViewModel {
                             let currentStartDate = eventStartDate.add(component: .day, value: day)
                             let visitEvent: WREvent!
                             if day == 0 {
-                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventStartDate), chunk: eventStartDate.chunkBetween(date: eventStartDate.endOfDay), title: visitTitle, location: visit.location)
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventStartDate), chunk: eventStartDate.chunkBetween(date: eventStartDate.endOfDay), title: visitTitle, location: visit.location, ownerId:  ownerId)
                             } else if day == daysBetween {
-                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventEndDate.startOfDay, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventEndDate.startOfDay), chunk: eventEndDate.startOfDay.chunkBetween(date: eventEndDate), title: visitTitle, location: visit.location)
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventEndDate.startOfDay, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventEndDate.startOfDay), chunk: eventEndDate.startOfDay.chunkBetween(date: eventEndDate), title: visitTitle, location: visit.location ,ownerId:  ownerId)
                             } else {
-                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: currentStartDate.startOfDay, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: currentStartDate.startOfDay), chunk: currentStartDate.startOfDay.chunkBetween(date: currentStartDate.endOfDay), title: visitTitle, location: visit.location)
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: currentStartDate.startOfDay, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: currentStartDate.startOfDay), chunk: currentStartDate.startOfDay.chunkBetween(date: currentStartDate.endOfDay), title: visitTitle, location: visit.location, ownerId:  ownerId)
                             }
                             visitEvent.accountId = visit.accountId
                             visitEvent.accountNumber = vistAccountNumber

@@ -62,7 +62,7 @@ class AccountVisitListViewController: UIViewController {
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountVisitList), name: NSNotification.Name("refreshVisitEventList"), object: nil)
         self.getTheDataFromDB()
         //customizedUI()
     }
@@ -165,13 +165,13 @@ class AccountVisitListViewController: UIViewController {
                 createVisitViewController.isEditingMode = false
                 PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
-                    self.present(createVisitViewController, animated: true)
+                    self.present(createVisitViewController, animated: false)
                 }
             case CreateNewItem.event.rawValue:
                 let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
                 PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
-                    self.present(createEventViewController, animated: true, completion: nil)
+                    self.present(createEventViewController, animated: false, completion: nil)
                 }
             default:
                 break
@@ -326,12 +326,12 @@ extension AccountVisitListViewController : UITableViewDelegate{
         
         let workOrder = tableViewDataArray[indexPath.row + currentPageIndex!]
         
-        if(workOrder.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
+        if(workOrder.recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforEvent()){
             let accountStoryboard = UIStoryboard.init(name: "Event", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountEventSummaryViewController") as? AccountEventSummaryViewController
             
-            PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row]
-            accountVisitsVC?.visitId = tableViewDataArray[indexPath.row].Id
+            PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row + currentPageIndex!]
+            accountVisitsVC?.visitId = tableViewDataArray[indexPath.row + currentPageIndex!].Id
             
             (accountVisitsVC)?.delegate = self
             
@@ -343,8 +343,8 @@ extension AccountVisitListViewController : UITableViewDelegate{
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             
-            PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row]
-            accountVisitsVC?.visitId = tableViewDataArray[indexPath.row].Id
+            PlanVisitManager.sharedInstance.visit = tableViewDataArray[indexPath.row + currentPageIndex!]
+            accountVisitsVC?.visitId = tableViewDataArray[indexPath.row + currentPageIndex!].Id
             
             (accountVisitsVC)?.delegate = self
             
@@ -432,6 +432,20 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
             // Added this line so that Contact detail view is not launched for this scenario.
             ContactFilterMenuModel.selectedContactId = ""
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
+        }else {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
+        }
+    }
+    //Send a notification to Parent VC to load respective VC
+    func navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        if data == .actionItems{
+            ActionItemFilterModel.comingFromDetailsScreen = ""
+            if let visit = PlanVisitManager.sharedInstance.visit{
+                ActionItemsGlobal.accountId = visit.accountId
+            }
+            // Added this line so that Contact detail view is not launched for this scenario.
+            ActionItemFilterModel.selectedContactId = ""
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showActionItems"), object:nil)
         }else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
         }

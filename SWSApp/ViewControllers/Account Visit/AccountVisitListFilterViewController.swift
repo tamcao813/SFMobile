@@ -337,13 +337,18 @@ class AccountVisitListFilterViewController : UIViewController{
         AccountVisitListFilterModel.filterApplied = false
         
         if searchBar != nil{
-            searchBar.text = ""
+             DispatchQueue.main.async {
+                self.searchBar.text = ""
+            }
         }
         //Used to Clear the Expanded section of Filter Option
         selectedSection = -1
-        if self.expandedSectionHeaderNumber != -1{
-            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+        
+        DispatchQueue.main.async {
+            if self.expandedSectionHeaderNumber != -1{
+                let cImageView = self.view.viewWithTag(self.kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+                self.tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+            }
         }
         
         delegate?.clearFilter()

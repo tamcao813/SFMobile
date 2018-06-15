@@ -11,6 +11,7 @@ import SmartSync
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
+    func navigateTheScreenToActionItemsInPersistantMenu(data : LoadThePersistantMenuScreen)
     func navigateToAccountScreen()
 }
 
@@ -38,6 +39,7 @@ class AccountVisitSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisitList(_:)), name: NSNotification.Name("refreshAccountVisit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
     }
     
@@ -53,6 +55,12 @@ class AccountVisitSummaryViewController: UIViewController {
         fetchVisit()
     }
     
+    @objc func refreshVisitList(_ notification: NSNotification){
+        if let visit = notification.userInfo?["visit"] as? WorkOrderUserObject {
+            fetchVisit(visitIdTemp:visit.Id)
+        }
+    }
+    
     @objc func navigateToAccountScreen(){
         DispatchQueue.main.async {
             FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
@@ -62,7 +70,25 @@ class AccountVisitSummaryViewController: UIViewController {
     }
     
     
+    func fetchVisit(visitIdTemp:String?){
+
+        if let id = visitIdTemp{
+            let visitArray = VisitsViewModel().visitsForUser()
+            for visit in visitArray {
+                if visit.Id == id {
+                    visitObject = visit
+                    break
+                }
+            }
+        }
+        PlanVisitManager.sharedInstance.visit = visitObject
+        fetchAccountDetails()
+        fetchContactDetails()
+        UICustomizations()
+    }
+    
     func fetchVisit(){
+        
         if let id = visitId{
             let visitArray = VisitsViewModel().visitsForUser()
             for visit in visitArray {
@@ -97,6 +123,8 @@ class AccountVisitSummaryViewController: UIViewController {
                 if contact.contactId == contactId {
                     selectedContact = contact
                     break
+                } else {
+                    selectedContact = nil
                 }
                 
             }
@@ -205,7 +233,7 @@ class AccountVisitSummaryViewController: UIViewController {
             
             if(success){
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                 self.dismiss(animated: true, completion: nil)
             }
@@ -299,6 +327,12 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
         }
         
         
+    }
+    func NavigateToAccountVisitSummaryActionItems(data: LoadThePersistantMenuScreen) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: false, completion: nil)
+            self.delegate?.navigateTheScreenToActionItemsInPersistantMenu(data: data)
+        }
     }
     
     func navigateToAccountVisitSummaryScreen() {
@@ -483,6 +517,20 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             cell?.containerView.isHidden = true            
         }
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 1 {
+            if(selectedContact != nil) {
+                DispatchQueue.main.async {
+                    self.dismiss(animated: false, completion: nil)
+                }
+                let contactDict:[String: Contact] = ["contact": selectedContact]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwitchToContact"), object:nil, userInfo: contactDict)
+            }
+
+        }
     }
 }
 

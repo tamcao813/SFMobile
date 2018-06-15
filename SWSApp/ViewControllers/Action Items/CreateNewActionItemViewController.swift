@@ -183,14 +183,12 @@ class CreateNewActionItemViewController: UIViewController {
         newActionItem.description = actionItemDescriptionTextView.text!
         newActionItem.activityDate = DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: dueDateTextField.text!)
         if newActionItem.activityDate != ""{
-          //  newActionItem.activityDate =
             if ActionItemSortUtility().isItOpenState(dueDate: DateTimeUtility.convertUtcDatetoReadableDateString(dateString: newActionItem.activityDate)){
                 newActionItem.status = "Open"
             }else{
                 newActionItem.status = "Overdue"
             }
         }else{
-            
             newActionItem.status = "Open"
         }
         if isUrgentSwitch.isOn {
@@ -232,6 +230,7 @@ class CreateNewActionItemViewController: UIViewController {
         }
         
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
     }
     

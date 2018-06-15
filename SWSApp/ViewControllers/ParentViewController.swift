@@ -20,6 +20,14 @@ struct ContactsGlobal {
     static var accountId: String = ""
 }
 
+struct SyncUpDailogGlobal {
+    static var isSyncing = false
+}
+
+struct ActionItemsGlobal {
+    static var accountId: String = ""
+}
+
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
 
     var status:String = ""
@@ -51,10 +59,16 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var previouslySelectedVCIndex = 0
     
     var ifMoreVC = false
+    let contact = Contact.init(for: "loggedInUser")
     
     let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
     
     let defaults:UserDefaults = UserDefaults.standard
+    var syncProgress:Float = 0
+    var syncViewControllerSyncBtn:UIButton?
+    
+    //Sync Object Count - To be updated if more objects added here
+    let syncObjectCount:Int = 10
     
     // keep the views loaded
     //home VC
@@ -140,12 +154,19 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.statusLabel.text = "Online"
             self.onlineStatusView.backgroundColor = UIColor(named: "Good")
             self.userInitialLabel?.isUserInteractionEnabled = true
+            DispatchQueue.main.async {
+            self.syncViewControllerSyncBtn?.isEnabled = true
+            }
         }
         
         reachability.whenUnreachable = { _ in
             self.onlineStatusView.backgroundColor = UIColor.lightGray
             self.statusLabel.text = "Offline"
             self.userInitialLabel?.isUserInteractionEnabled = false
+            DispatchQueue.main.async {
+            self.syncViewControllerSyncBtn?.isEnabled = false
+            }
+
         }
         
         do {
@@ -153,10 +174,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         } catch {
             print("Unable to start notifier")
         }
+        //Delegate notification from during visit
+         NotificationCenter.default.addObserver(self, selector: #selector(self.showActionItems), name: NSNotification.Name("showActionItems"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showCalendar), name: NSNotification.Name(rawValue: "SwitchToCalendar"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showContact), name: NSNotification.Name(rawValue: "SwitchToContact"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showActionItemOrNotification), name: NSNotification.Name(rawValue: "goToAllActionItem/Notification"), object: nil)
         
         
@@ -230,6 +254,22 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
     }
     
+    @objc func showContact(notification: NSNotification){
+        
+        topMenuBar?.selectedSegment = 2
+        _ = displayCurrentTab(2)
+        
+        if let contact = notification.userInfo?["contact"] as? Contact {
+            
+              let contactDict:[String: Contact] = ["contact": contact]
+            // do something with your image
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SelectedContact"), object:nil, userInfo: contactDict)
+        }
+        
+    }
+    
+    
+    
     @objc func showActionItemOrNotification(notification: NSNotification){
         let data : Int = notification.object.unsafelyUnwrapped as! Int
         let moreVC1:MoreViewController = self.moreVC as! MoreViewController
@@ -261,6 +301,16 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
     }
     
+    @objc func showActionItems(notification: NSNotification){
+        if notification.object != nil{
+            ActionItemsGlobal.accountId = notification.object as! String
+        }
+        topMenuBar?.selectedSegment = 5
+        //_ = selectedDropDownOption(selectedIndex: 0)
+        navigateToMoreOptionsViewControllers(index: 0, selectedIndex: 0)
+        
+    }
+    
     
     // # MARK: setUpMenuBar
     private func setUpMenuBar()
@@ -283,20 +333,23 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     private func setupTopMenuIcons(){
         
+        let userId = SFUserAccountManager.sharedInstance().currentUser?.fullName
+        let loggedInUserInitials = Validations().getIntials(name: userId!)
+        print("Name is ----\(loggedInUserInitials)")
         self.userInitialLabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
-        self.userInitialLabel?.font  = UIFont.boldSystemFont(ofSize: 13)
-        self.userInitialLabel?.text = ""//"DB"
+        self.userInitialLabel?.font  = UIFont(name: "Ubuntu-Medium", size: 14)
+        self.userInitialLabel?.text = loggedInUserInitials
         self.userInitialLabel?.textAlignment = .center
         self.userInitialLabel?.textColor = UIColor.white
-        self.userInitialLabel?.backgroundColor = UIColor(named: "Data New")
+        self.userInitialLabel?.backgroundColor = UIColor(named: "InitialsBackground")
         self.userInitialLabel?.layer.cornerRadius = 35/2
         self.userInitialLabel?.clipsToBounds = true
         let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel!)
         
         // adding TapGesture to userInitialLabel..
-        let userInitialLabelTap  = UITapGestureRecognizer(target: self, action:#selector(SyncUpData))
-        self.userInitialLabel?.isUserInteractionEnabled = true
-        self.userInitialLabel?.addGestureRecognizer(userInitialLabelTap)
+//        let userInitialLabelTap  = UITapGestureRecognizer(target: self, action:#selector(SyncUpData))
+//        self.userInitialLabel?.isUserInteractionEnabled = true
+//        self.userInitialLabel?.addGestureRecognizer(userInitialLabelTap)
         
         
         self.unreadNotificationCountLabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
@@ -343,13 +396,22 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
     }
     
+    // MARK: SyncUp Data and resync down
     
     @objc func syncButtonPressed(){
-        //        self.present(syncUpInfoVC!, animated: true, completion: nil)
+        syncUpInfoVC?.delegate = self
+        self.present(syncUpInfoVC!, animated: true, completion: {
+            self.syncViewControllerSyncBtn = self.syncUpInfoVC?.syncNowBtn
+
+        })
     }
     // MARK: SyncUp Data
-    @objc func SyncUpData()  {
-        MBProgressHUD.show(onWindow: true)
+    @objc func SyncUpData(){
+        var syncFailed = false
+        let syncObjectProgressIncrement:Float = (Float(100/syncObjectCount))
+
+        // Start sync progress
+        SyncUpDailogGlobal.isSyncing = true
         func network()->String{
             if reachability.connection == .wifi {
                 self.status = "WIFI"
@@ -363,24 +425,39 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         print(networkType)
         // Start sync progress
         StoreDispatcher.shared.createSyncLogOnSyncStart(networkType: networkType)
+        
+        self.syncProgress = 0
+        
+        let queue = DispatchQueue(label: "concurrent")
         let group = DispatchGroup()
+        
         // Sync Up Notes
         group.enter()
-        AccountsNotesViewModel().uploadNotesToServer(fields: ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"], completion: { error in
+        AccountsNotesViewModel().syncNotesWithServer { error in
             if error != nil {
+                syncFailed = true
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
+            print("syncNotesWithServer")
+            self.syncProgress +=  syncObjectProgressIncrement
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
             group.leave()
-        })
+        }
         
         // Contacts and ACRs Sync
         group.enter()
         ContactsViewModel().syncContactWithServer { error in
             if error == nil {
+                print("syncContactWithServer")
+                self.syncProgress += syncObjectProgressIncrement
+                self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+                
                 let acrArray = ContactsViewModel().accountsForContacts() //need all because some ACRs may be changed to unlinked
                 
                 var updatedACRs = [AccountContactRelation]()
+                
+                var meg = ""
                 for acr in acrArray {
                     if acr.contactId.starts(with: "NEW") {
                         let sfContactId = ContactsViewModel().contactIdForACR(with: acr.contactId)
@@ -389,7 +466,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                             updatedACRs.append(acr)
                         }
                         else {
-                            print("sfContactId is empty for tempId: " + acr.contactId)
+                            meg = meg + "sfContactId is empty for tempId: " + acr.contactId + " "
+                            print(meg)
                         }
                     }
                 }
@@ -401,6 +479,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                     }
                 }
                 
+//                onemore enter {
+//                    one more leage
+//                }
+//
+//                wati for leae {
+//                    group.leave
+//                    }
+            //    groupACR.enter()
                 ContactsViewModel().syncACRwithServer{ error in
                     if error == nil {
                         print("syncACRwithServer completed successfully")
@@ -409,74 +495,172 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                         print("syncACRwithServer failed")
                         StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                     }
-                    group.leave()
+                 //   groupACR.leave()
                 }
+                
+//                groupACR.notify(queue: queueACR) {
+//                    group.leave()
+//                }
+                
             } else {
+                syncFailed = true
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print("syncContactWithServer error " + (error?.localizedDescription)!)
-                group.leave()
             }
+            group.leave()
         }
         
         // Visits (WorkOrder) Sync Up
         group.enter()
-        VisitSchedulerViewModel().uploadVisitToServer(fields:["Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c"], completion:{ error in
+        VisitSchedulerViewModel().syncVisitsWithServer{ error in
             if error != nil {
+                syncFailed = true
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
+            print("syncVisitsWithServer")
+            self.syncProgress +=  syncObjectProgressIncrement
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
             group.leave()
-        } )
+        }
         
-        // Action Items (Task) Sync Up
+        // Action Item  Sync with server
         group.enter()
-        AccountsActionItemViewModel().uploadActionItemToServer(fields:["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c"], completion:{ error in
+        AccountsActionItemViewModel().syncAccountsActionItemWithServer{ error in
             if error != nil {
+                syncFailed = true
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
+            print("syncAccountsActionItemWithServer")
+            self.syncProgress +=  syncObjectProgressIncrement
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
             group.leave()
-        } )
+        }
         
-        // Strategy QA(SGWS_Response__c) Sync Up
-        //let fields: [String] = StrategyQA.StrategyQAFields
+        // StrategyQA  Sync with server
         group.enter()
-        StrategyQAViewModel().uploadStrategyQAToServer(fields: ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"], completion: { error in
+        StrategyQAViewModel().syncStrategyWithServer{ error in
             if error != nil {
+                syncFailed = true
                 //DispatchQueue.main.async { //do this in group.notify
                 //    MBProgressHUD.hide(forWindow: true)
                 //}
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print("Upload StrategyQA to Server " + (error?.localizedDescription)!)
             }
+            print("syncStrategyWithServer")
+            self.syncProgress +=  syncObjectProgressIncrement
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
             group.leave()
-        })
+        }
         
-        //Download all soups only after all above async operations complete
-        group.notify(queue: .main) {
+        // Strategy Questions  Sync with server
+        group.enter()
+        StrategyQAViewModel().syncStrategyQuestionsWithServer{ error in
+            if error != nil {
+                syncFailed = true
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
+                print(error?.localizedDescription ?? "error")
+            }
+            print("syncStrategyQuestionsWithServer")
+            self.syncProgress +=  syncObjectProgressIncrement
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+            group.leave()
+        }
+        
+        // Strategy Answers  Sync with server
+        group.enter()
+        StrategyQAViewModel().syncStrategyAnswersWithServer{ error in
+            if error != nil {
+                syncFailed = true
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
+                print(error?.localizedDescription ?? "error")
+            }
+            print("syncStrategyAnswersWithServer")
+            self.syncProgress +=  syncObjectProgressIncrement
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+            group.leave()
+        }
+        
+        group.enter()
+        AccountsViewModel().syncAccountWithServer{ error in
+            if error != nil {
+                syncFailed = true
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
+                print(error?.localizedDescription ?? "error")
+            }
+            print("syncAccountWithServer")
+            self.syncProgress +=  syncObjectProgressIncrement
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+            group.leave()
+        }
+        
+        // Notification Sync
+        group.enter()
+        NotificationsViewModel().syncNotificationWithServer{ error in
+            if error != nil {
+                syncFailed = true
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
+                print(error?.localizedDescription ?? "error")
+            }
+            print("syncNotificationWithServer")
+            self.syncProgress +=  syncObjectProgressIncrement
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+            group.leave()
+        }
+        
+//        // Configuration reSync
+//        group.enter()
+//        ConfigurationAndPickListModel().syncConfigurationWithServer{ error in
+//            if error != nil {
+//                StoreDispatcher.shared.createSyncLogOnSyncError(errorType: "SyncConfig")
+//                print(error?.localizedDescription ?? "error")
+//            }
+//            print("syncConfigurationWithServer")
+//            self.syncProgress +=  7
+//            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+//            group.leave()
+//        }
+//
+        // Picklist reSync
+        group.enter()
+        ConfigurationAndPickListModel().syncPickListWithServer{ error in
+            if error != nil {
+                syncFailed = true
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
+                print(error?.localizedDescription ?? "error")
+            }
+            print("syncPickListWithServer")
+            self.syncProgress +=  syncObjectProgressIncrement
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+            group.leave()
+        }
+        
+        group.notify(queue: queue) {
+            //Write to persistence for Resync to default
+            UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
             StoreDispatcher.shared.createSyncLogOnSyncStop(networkType: self.networkType)
-            StoreDispatcher.shared.syncDownSoupsAfterSyncUpData({ (error) in
-                if error != nil {
-                    print("PostSyncUp:downloadAllSoups")
+            self.syncProgress = 100
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true,syncUpFailed: syncFailed)            
+            SyncUpDailogGlobal.isSyncing = false
+            
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)
+                self.getUnreadNotificationsCount()
+                if ActionItemFilterModel.fromAccount{
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
+                }else{
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "actionItemSyncDownComplete"), object:nil)
                 }
-                DispatchQueue.main.async {
-                    MBProgressHUD.hide(forWindow: true)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)
-                    self.getUnreadNotificationsCount()
-                    if ActionItemFilterModel.fromAccount{
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
-                    }else{
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "actionItemSyncDownComplete"), object:nil)
-                    }
-                }
-            })
+            }
         }
         // Start sync progress
     }
@@ -562,62 +746,131 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.selectedDropDownOption(selectedIndex : selectedIndex)
     }
     
+    func navigateToMoreOptionsViewControllers(index : Int , selectedIndex : Int){
+        
+        let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+        let currentViewController = self.displayCurrentTab(selectedIndex)
+        
+        self.removeSubviews()
+        
+        currentViewController?.view.addSubview(moreVC1.view)
+        
+        if index != 1{
+            let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
+            accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
+        }
+        
+        self.clearAccountsVisitFilterModel()
+        
+        SelectedMoreButton.selectedItem = index
+        //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
+        switch index {
+        case 0:
+            moreVC1.view.addSubview((self.actionItemParent?.view)!)
+            ActionItemFilterModel.fromAccount = false
+            ActionItemFilterModel.accountId = nil
+            self.actionItemParent?.fromPersistentMenu = true
+            self.moreDropDownSelectionIndex = index
+        case 1:
+            moreVC1.view.addSubview((self.accountVisit?.view)!)
+            self.moreDropDownSelectionIndex = index
+        case 2:
+            self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)
+        case 3:
+            self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
+        case 4:
+            self.notificationParent?.resetFilters()
+            self.notificationParent?.delegate = self
+            moreVC1.view.addSubview((self.notificationParent?.view)!)
+            self.moreDropDownSelectionIndex = index
+            
+        case 5:
+            self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
+            
+        case 6:
+            self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
+            
+        case 7:
+            self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
+            
+        case 8:
+            self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
+            
+        default:
+            break
+        }
+        
+    }
+    
+    
     private func selectedDropDownOption(selectedIndex : Int){
         moreDropDown.selectionAction = { (index: Int, item: String) in
             
-            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
-            let currentViewController = self.displayCurrentTab(selectedIndex)
-            currentViewController?.view.addSubview(moreVC1.view)
-            for view in moreVC1.view.subviews{
-                view.removeFromSuperview()
-            }
-            if index != 1{
-                let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
-                accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
-            }
+            self.navigateToMoreOptionsViewControllers(index: index , selectedIndex : selectedIndex)
             
-            self.clearAccountsVisitFilterModel()
-            SelectedMoreButton.selectedItem = index
-            switch index {
-            case 0:
-                moreVC1.view.addSubview((self.actionItemParent?.view)!)
-                ActionItemFilterModel.fromAccount = false
-                ActionItemFilterModel.accountId = nil
-                self.actionItemParent?.fromPersistentMenu = true
-                self.moreDropDownSelectionIndex = index
-            case 1:
-                moreVC1.view.addSubview((self.accountVisit?.view)!)
-                self.moreDropDownSelectionIndex = index
-            case 2:
-                self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)                
-            case 3:
-                self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
-            case 4:
-                self.notificationParent?.resetFilters()
-                self.notificationParent?.delegate = self
-                moreVC1.view.addSubview((self.notificationParent?.view)!)
-                self.moreDropDownSelectionIndex = index
-            case 5:
-                self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
-                
-            case 6:
-                self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
-                
-            case 7:
-                self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
-                
-            case 8:
-                self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
-                
-            default:
-                break
-            }
         }
         // display the dropdown
         moreDropDown.show()
         
         self.dropDownSelectedRow()
     }
+    
+//    private func selectedDropDownOption(selectedIndex : Int){
+//        moreDropDown.selectionAction = { (index: Int, item: String) in
+//
+//            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+//            let currentViewController = self.displayCurrentTab(selectedIndex)
+//            currentViewController?.view.addSubview(moreVC1.view)
+//            for view in moreVC1.view.subviews{
+//                view.removeFromSuperview()
+//            }
+//            if index != 1{
+//                let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
+//                accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
+//            }
+//
+//            self.clearAccountsVisitFilterModel()
+//            SelectedMoreButton.selectedItem = index
+//            switch index {
+//            case 0:
+//                moreVC1.view.addSubview((self.actionItemParent?.view)!)
+//                ActionItemFilterModel.fromAccount = false
+//                ActionItemFilterModel.accountId = nil
+//                self.actionItemParent?.fromPersistentMenu = true
+//                self.moreDropDownSelectionIndex = index
+//            case 1:
+//                moreVC1.view.addSubview((self.accountVisit?.view)!)
+//                self.moreDropDownSelectionIndex = index
+//            case 2:
+//                self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)
+//            case 3:
+//                self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
+//            case 4:
+//                self.notificationParent?.resetFilters()
+//                self.notificationParent?.delegate = self
+//                moreVC1.view.addSubview((self.notificationParent?.view)!)
+//                self.moreDropDownSelectionIndex = index
+//            case 5:
+//                self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
+//
+//            case 6:
+//                self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
+//
+//            case 7:
+//                self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
+//
+//            case 8:
+//                self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
+//
+//            default:
+//                break
+//            }
+//        }
+//        // display the dropdown
+//        moreDropDown.show()
+//
+//        self.dropDownSelectedRow()
+//    }
     
     private func dropDownSelectedRow(){
         
@@ -686,6 +939,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if previouslySelectedVCIndex == 0{
             let homeScreen = self.homeVC as? HomeViewController
             homeScreen?.scrollToTop()
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "scrollToTopHomeActivities"), object:nil)
+            
         }
     }
     
@@ -742,10 +998,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             vc = objectivesVC
+            
+            let viewVc = objectivesVC as! ObjectivesViewController
+            viewVc.loadWebView()
             ContactsGlobal.accountId = ""
 
         default:
             ifMoreVC = true
+            ContactsGlobal.accountId = ""
             break
         }
         
@@ -810,5 +1070,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
 extension ParentViewController: NotificationParentViewControllerDelegate {
     func updateParent() {
         getUnreadNotificationsCount()
+    }
+}
+
+extension ParentViewController: SyncInfoViewControllerDelegate {
+    func startSyncUp(){
+        return SyncUpData()
     }
 }

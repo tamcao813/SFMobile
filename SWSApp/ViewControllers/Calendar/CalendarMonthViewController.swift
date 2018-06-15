@@ -518,6 +518,10 @@ extension CalendarMonthViewController: UICollectionViewDelegateFlowLayout {
 
 //MARK:- NavigateToContacts Delegate
 extension CalendarMonthViewController : NavigateToContactsDelegate{
+    func navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        
+    }
+    
     func navigateToVisitListing() {
         self.dismiss(animated: true, completion: nil)
     }

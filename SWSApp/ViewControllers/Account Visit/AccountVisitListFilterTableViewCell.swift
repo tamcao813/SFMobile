@@ -21,12 +21,15 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     
     var delegate : ReloadTableViewForNewAppliedFilterDelegate?
     let datePickerView = UIDatePicker()
+    var dateFormatter = DateFormatter()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         lblStartDate?.addPaddingLeft(10)
         lblEndDate?.addPaddingLeft(10)
+        
+        dateFormatter.dateFormat = "MM/dd/yyyy"
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -156,16 +159,22 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
         datePickerView.frame.origin = CGPoint(x: 350, y: 20)
         datePickerView.datePickerMode = .date
         datePickerView.minuteInterval = 15
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if AccountVisitListFilterModel.startDate == "" || AccountVisitListFilterModel.endDate == ""{
+            datePickerView.date = Date()
+        }
         
         if textField.tag == 301{
             let date = dateFormatter.date(from: AccountVisitListFilterModel.startDate)
             datePickerView.minimumDate = date
+            if date != nil{
+                datePickerView.date = date!
+            }
         }else{
             let date = dateFormatter.date(from: AccountVisitListFilterModel.endDate)
             datePickerView.maximumDate = date
+            if date != nil{
+                datePickerView.date = date!
+            }
         }
         
         inputView.addSubview(datePickerView) // add date picker to UIView
@@ -188,8 +197,6 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     }
     
     @objc func handleDatePicker(sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
         
         if sender.tag == 300{
             lblStartDate?.text = dateFormatter.string(from: datePickerView.date)

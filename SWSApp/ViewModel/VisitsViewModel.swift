@@ -10,26 +10,145 @@ import Foundation
 
 class VisitsViewModel {
     
+    let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
+    var isManager:Bool = false
+    
+    //To check the User is Manager or Consultant
+    let consultantAry = UserViewModel().consultants
+    
     func visitsForUser() -> [WorkOrderUserObject] {
         return StoreDispatcher.shared.fetchVisits()
     }
     
-    func visitsForUserFourMonthsSorted() -> [WorkOrderUserObject] {        
+    func visitsForUserFourMonthsSorted() -> [WorkOrderUserObject] {
+        
         var visitsForUserArray = visitsForUser()
-        let prevMonthDate = Date().add(component: .month, value: -1)
-        let next3MonthDate = Date().add(component: .month, value: 3)
+        isManager = consultantAry.count > 0
+        
         visitsForUserArray = visitsForUserArray.filter {
-            if let startDate = $0.dateStart {
-                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
-                    return true
-                }else {
-                    return false
+            if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: $0.recordTypeId) {
+                if systemConfigurationObject.developerName == "SGWS_WorkOrder_Event" {
+                    if isManager {
+                        if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
+                            let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesManagerSyncFrom as NSString).floatValue))
+                            let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesManagerSyncTo as NSString).floatValue))
+                            if let startDate = $0.dateStart {
+                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                    return true
+                                }
+                                else {
+                                    return false
+                                }
+                            }
+                        } else {
+                            let prevMonthDate = Date().add(component: .month, value: -1)
+                            let next3MonthDate = Date().add(component: .month, value: 3)
+                            if let startDate = $0.dateStart {
+                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                    return true
+                                }
+                                else {
+                                    return false
+                                }
+                            }
+                            
+                        }
+                        
+                    } else {
+                        if !systemConfigurationObject.salesConsultantSyncFrom.isEmpty {
+                            let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesConsultantSyncFrom as NSString).floatValue))
+                            let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesConsultantSyncTo as NSString).floatValue))
+                            if let startDate = $0.dateStart {
+                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                    return true
+                                }
+                                else {
+                                    return false
+                                }
+                            }
+                        } else {
+                            let prevMonthDate = Date().add(component: .month, value: -1)
+                            let next3MonthDate = Date().add(component: .month, value: 3)
+                            if let startDate = $0.dateStart {
+                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                    return true
+                                }
+                                else {
+                                    return false
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+                    
+                } else if systemConfigurationObject.developerName == "SGWS_WorkOrder_Visit" {
+                    if isManager {
+                        if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
+                            let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesManagerSyncFrom as NSString).floatValue))
+                            let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesManagerSyncTo as NSString).floatValue))
+                            if let startDate = $0.dateStart {
+                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                    return true
+                                }
+                                else {
+                                    return false
+                                }
+                            }
+                        } else {
+                            let prevMonthDate = Date().add(component: .month, value: -1)
+                            let next3MonthDate = Date().add(component: .month, value: 3)
+                            if let startDate = $0.dateStart {
+                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                    return true
+                                }
+                                else {
+                                    return false
+                                }
+                            }
+                            
+                        }
+                        
+                    } else {
+                        
+                        if !systemConfigurationObject.salesConsultantSyncFrom.isEmpty {
+                            let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesConsultantSyncFrom as NSString).floatValue))
+                            let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesConsultantSyncTo as NSString).floatValue))
+                            if let startDate = $0.dateStart {
+                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                    return true
+                                }
+                                else {
+                                    return false
+                                }
+                            }
+                        } else {
+                            let prevMonthDate = Date().add(component: .month, value: -1)
+                            let next3MonthDate = Date().add(component: .month, value: 3)
+                            if let startDate = $0.dateStart {
+                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                    return true
+                                }
+                                else {
+                                    return false
+                                }
+                            }
+                            
+                        }
+                        
+                    }
                 }
             }
+            //            if let startDate = DateTimeUtility.getDateFromyyyyMMddTimeFormattedDateString(dateString: $0.startDate) {
+            
             return false
+            
         }
+        
         visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        
         return visitsForUserArray
+        
     }
     
     func visitsForUserForDate(givenDate: Date) -> [WorkOrderUserObject] {

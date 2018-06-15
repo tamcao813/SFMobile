@@ -27,7 +27,7 @@ class AssociatedContactsTableViewCell: UITableViewCell {
         phoneLabel.text = contact.phoneNumber
         emailLabel.text = contact.email
         functionRoleLabel.text = contact.functionRole
-        initialsLabel.text = Validations().getIntials(name: contact.name)
+        initialsLabel.text = contact.getIntials(name: contact.name)
     }
     
 }

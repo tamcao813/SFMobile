@@ -18,36 +18,28 @@ class StoreDispatcher {
     static let shared = StoreDispatcher()
     static let SFADB = "SFADB"
     
-    let SoupUser = "User"
-    let SoupAccount = "AccountTeamMember"
-    let SoupContact = "Contact"
-    let SoupAccountContactRelation = "SGWS_AccountContactMobile__c"
-    let SoupAccountNotes = "SGWS_Account_Notes__c"
-    let SoupVisit = "WorkOrder"
-    let SoupStrategyQA = "SGWS_Response__c"
-    let SoupStrategyQuestion = "SGWS_Question__c"
-    let SoupStrategyAnswers = "SGWS_Answer__c"
-    let SoupActionItem = "Task"
-    let SoupNotifications = "FS_Notification__c"
-    //Sync Configurations
-    let SoupSyncConfiguration = "SyncConfiguration"
-    let SoupSyncLog = "SGWS_Sync_Logs__c"
-    let SoupOpportunity = "Opportunity"
-    
+
     // Workorder Types Visit OR Event
     let workOrderTypeVisit = "SGWS_WorkOrder_Visit"
     let workOrderTypeEvent = "SGWS_WorkOrder_Event"
-    
     let recordTypeDevTask = "SGWS_Task"
+
+//    var workOrderRecordTypeIdVisit = ""
+//    var workOrderRecordTypeIdEvent = ""
     
-    var workOrderRecordTypeIdVisit = ""
-    var workOrderRecordTypeIdEvent = ""
     var syncProgress:Int = 0
+    
+    
     var workOrderTypeDict:[String:String] = [:]
+    
+    // SyncId library
+    var syncIdDictionary = [String:UInt]()
+    
     
     lazy final var sfaStore: SFSmartStore = SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore
     
     lazy final var sfaSyncMgr: SFSmartSyncSyncManager = SFSmartSyncSyncManager.sharedInstance(for: sfaStore)!
+    
     
     var userVieModel: UserViewModel {
         return UserViewModel()
@@ -69,6 +61,7 @@ class StoreDispatcher {
         registerActionItemSoup()
         registerNotificationsSoup()
         registerOpportunity()
+        registerOpportunityWorkorder()
         registerSyncLogSoup()
     }
     
@@ -76,14 +69,192 @@ class StoreDispatcher {
         syncDownSoups(completion)
     }
     
-    //sync down all soups other than User
-    fileprivate func syncDownSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
+    func resyncAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
+        reSyncSoups(completion)
+        print("resyncdictionary \(syncIdDictionary)")
+    }
+    
+    //reSync all soups other than User
+    fileprivate func reSyncSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
+        
         let queue = DispatchQueue(label: "concurrent")
         let group = DispatchGroup()
         
         group.enter()
         syncDownSyncConfiguration(){_ in
+            
             _ = self.fetchSyncConfiguration()
+            
+            group.leave()
+        }
+        
+        //Notifications
+        group.enter()
+        reSyncNotifications() { _ in
+            group.leave()
+        }
+        
+        //Picklist Contact
+        group.enter()
+        downloadContactPLists() { _ in
+            group.leave()
+        }
+        
+        //Visit Purpose Picklist
+        group.enter()
+        downloadVisitPLists() { _ in
+            group.leave()
+        }
+        
+        //
+        //Accounts
+        group.enter()
+        reSyncAccounts() { _ in
+            self.syncDownUserDataForAccounts() { _ in
+                group.leave()
+            }
+        }
+        
+        
+        //ACR
+        group.enter()
+        let acrfields: [String] = AccountContactRelation.AccountContactRelationFields
+        
+        syncUpACR(fieldsToUpload: acrfields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncACRwithServer: ACR Sync up failed")
+            }
+            self.reSyncACR() { error in
+                group.leave()
+                
+            }
+        })
+        
+        
+        //Strategy QA / Response
+        group.enter()
+        
+         let strategyResponsefields: [String] = ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"]
+        
+        syncUpStrategyQA(fieldsToUpload: strategyResponsefields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncStrategyResponseWithServer: StrategyResponse Sync up failed")
+            }
+            self.reSyncStrategyQA() { error in
+                group.leave()
+                
+            }
+        })
+        
+        //Startegy Questions
+        group.enter()
+        reSyncStrategyQuestions() { _ in
+            group.leave()
+        }
+        
+        //Startegy Answers
+        group.enter()
+        reSyncStrategyAnswers() { _ in
+            group.leave()
+        }
+        
+        
+        //Contacts
+        group.enter()
+        let contactFields: [String] = Contact.ContactFields
+
+        syncUpContact(fieldsToUpload: contactFields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncContactsWithServer: Contacts Sync up failed")
+            }
+            self.reSyncContact() { error in
+                group.leave()
+                
+            }
+        })
+        
+        
+        
+        //resync Notes
+        group.enter()
+        
+        let accountNotesfields: [String] = AccountNotes.AccountNotesFields
+        
+        syncUpNotes(fieldsToUpload: accountNotesfields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncNotesWithServer: Note Sync up failed")
+            }
+            self.reSyncNote { error in
+                group.leave()
+
+            }
+        })
+        
+        //Visits
+        group.enter()
+        syncUpVisits(fieldsToUpload: PlanVisit.workOrderSyncUpfields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncUpVisits: Visit Sync up failed")
+            }
+            self.reSyncVisits { error in
+                group.leave()
+                
+            }
+        })
+        
+        //Action Item
+        group.enter()
+        
+        syncUpActionItem(fieldsToUpload: ActionItem.ActionItemSyncUpFields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncUpAction: Action Sync up failed")
+            }
+            self.reSyncAccountActionItem { error in
+                group.leave()
+                
+            }
+        })
+        
+        //TBD updated with resync function
+        group.enter()
+        syncDownOpportunity() { _ in
+            let _ = OpportunityViewModel().globalOpportunityReload()
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownOpportunityWorkorder() { _ in
+            //            let _ = OpportunityViewModel().globalOpportunityReload()
+            group.leave()
+        }
+        
+        //to do: syncDown other soups
+        group.notify(queue: queue) {
+            print("completion")
+
+            completion(nil)
+        }
+        
+        
+    }
+    
+    //sync down all soups other than User
+    fileprivate func syncDownSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
+        
+        let queue = DispatchQueue(label: "concurrent")
+        let group = DispatchGroup()
+        
+        group.enter()
+        syncDownSyncConfiguration(){_ in
+            
+            _ = self.fetchSyncConfiguration()
+            
             group.leave()
         }
         group.enter()
@@ -101,8 +272,10 @@ class StoreDispatcher {
             group.leave()
         }
         
+        
         group.enter()
         syncDownAccount() { _ in
+            
             self.syncDownACR() { _ in
             }
             
@@ -112,10 +285,12 @@ class StoreDispatcher {
             
             // Stage 2 StrategyQuestions download need survey Id's which are downlaoded in Account
             self.syncDownStrategyQuestions() { _ in
+                
                 //Stage 3 do only when we have all questions
                 self.syncDownStrategyAnswers() { _ in
                     group.leave()
                 }
+                
             }
         }
         
@@ -146,57 +321,62 @@ class StoreDispatcher {
         
         group.enter()
         syncDownOpportunity() { _ in
-            let _ = OpportunityViewModel().globalOpportunityReload()
+        let _ = OpportunityViewModel().globalOpportunityReload()
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownOpportunityWorkorder() { _ in
+            //            let _ = OpportunityViewModel().globalOpportunityReload()
             group.leave()
         }
         
         //to do: syncDown other soups
+        
         group.notify(queue: queue) {
             completion(nil)
         }
     }
     
-    //sync down soups - contact and ACR are already synced up, and no need to sync down plists
+    
+    //sync down soups - contact and ACR are already synced up and down, and no need to sync down plists
     func syncDownSoupsAfterSyncUpData(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
         
         let queue = DispatchQueue(label: "concurrent")
         let group = DispatchGroup()
         
-        group.enter()
-        syncDownAccount() { _ in
-            self.syncDownStrategyQA() { _ in
-            }
-            self.syncDownStrategyQuestions() { _ in
-                self.syncDownStrategyAnswers() { _ in
-                    group.leave()
-                }
-            }
-        }
+//        group.enter()
+//        syncDownAccount() { _ in
+//             group.leave()
+//            self.syncDownStrategyQA() { _ in
+//            }
+//
+//            self.syncDownStrategyQuestions() { _ in
+//                self.syncDownStrategyAnswers() { _ in
+//                    group.leave()
+//                }
+//            }
+  //      }
         
         group.enter()
         syncDownUserDataForAccounts() { _ in
             group.leave()
         }
-        
+        /*
         group.enter()
         syncDownNotes() { _ in
             group.leave()
         }
+        */
+//        group.enter()
+//        syncDownVisits() { _ in
+//            group.leave()
+//        }
         
-        group.enter()
-        syncDownVisits() { _ in
-            group.leave()
-        }
-        
-        group.enter()
-        syncDownActionItem() { _ in
-            group.leave()
-        }
-        
-        group.enter()
-        syncDownNotification() { _ in
-            group.leave()
-        }
+//        group.enter()
+//        syncDownActionItem() { _ in
+//            group.leave()
+//        }
         
         group.notify(queue: queue) {
             completion(nil)
@@ -821,6 +1001,8 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdUser] = syncId
                     print("syncDownUser() done")
                     completion(nil)
                 }
@@ -869,6 +1051,8 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdUserData] = syncId
                     print("syncDownUserDataForAccounts() done")
                     completion(nil)
                 }
@@ -899,6 +1083,8 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupAccount)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdAccount] = syncId
                     print("syncDownAccount() done")
                     completion(nil)
                 }
@@ -931,6 +1117,8 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupContact)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdContact] = syncId
                     print("syncDownContact() done")
                     completion(nil)
                 }
@@ -1095,7 +1283,7 @@ class StoreDispatcher {
         // Select only accounts for the selectedUserId
         let accIdArray = fetchAllAccountIds().joined(separator: "','")
         let formattedAccIdArray = "'" + accIdArray + "'"
-        let soqlQuery = "Select DISTINCT {AccountTeamMember:Account.SGWS_Account_Health_Grade__c},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.SWS_Total_CY_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_Total_AR_Balance__c},{AccountTeamMember:Account.IS_Next_Delivery_Date__c},{AccountTeamMember:Account.SWS_Premise_Code__c},{AccountTeamMember:Account.SWS_License_Type__c},{AccountTeamMember:Account.SWS_License__c},{AccountTeamMember:Account.Google_Place_Operating_Hours__c},{AccountTeamMember:Account.SWS_License_Expiration_Date__c},{AccountTeamMember:Account.SWS_Total_CY_R12_Net_Sales__c},{AccountTeamMember:Account.SWS_Credit_Limit__c},{AccountTeamMember:Account.SWS_TD_Channel__c},{AccountTeamMember:Account.SWS_TD_Sub_Channel__c},{AccountTeamMember:Account.SWS_License_Status_Description__c},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_AR_Past_Due_Amount__c},{AccountTeamMember:Account.SWS_Delivery_Frequency__c},{AccountTeamMember:Account.SGWS_Single_Multi_Locations_Filter__c},{AccountTeamMember:Account.Google_Place_Formatted_Phone__c},{AccountTeamMember:Account.SWS_Status_Description__c},{AccountTeamMember:AccountId},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c} from {AccountTeamMember} WHERE {AccountTeamMember:AccountId} IN (\(formattedAccIdArray))"
+        let soqlQuery = "Select DISTINCT {AccountTeamMember:Account.SGWS_Account_Health_Grade__c},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.SWS_Total_CY_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_Total_AR_Balance__c},{AccountTeamMember:Account.IS_Next_Delivery_Date__c},{AccountTeamMember:Account.SWS_Premise_Code__c},{AccountTeamMember:Account.SWS_License_Type__c},{AccountTeamMember:Account.SWS_License__c},{AccountTeamMember:Account.Google_Place_Operating_Hours__c},{AccountTeamMember:Account.SWS_License_Expiration_Date__c},{AccountTeamMember:Account.SWS_Total_CY_R12_Net_Sales__c},{AccountTeamMember:Account.SWS_Credit_Limit__c},{AccountTeamMember:Account.SWS_TD_Channel__c},{AccountTeamMember:Account.SWS_TD_Sub_Channel__c},{AccountTeamMember:Account.SWS_License_Status_Description__c},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_AR_Past_Due_Amount__c},{AccountTeamMember:Account.SWS_Delivery_Frequency__c},{AccountTeamMember:Account.SGWS_Single_Multi_Locations_Filter__c},{AccountTeamMember:Account.Google_Place_Formatted_Phone__c},{AccountTeamMember:Account.SWS_Status_Description__c},{AccountTeamMember:AccountId},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c},(SELECT   Count( DISTINCT {Task:Id}) FROM {Task} WHERE {Task:SGWS_Account__c} = {AccountTeamMember:AccountId}) from {AccountTeamMember} WHERE {AccountTeamMember:AccountId} IN (\(formattedAccIdArray))"
         
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
@@ -1531,7 +1719,12 @@ class StoreDispatcher {
         
         let fields : [String] = AccountContactRelation.AccountContactRelationFields
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) From " + SoupAccountContactRelation + " WHERE SGWS_Account__c IN (\(accIdsFormattedString))"
+        let userViewModel = UserViewModel()
+        
+        let userid: String = (userViewModel.loggedInUser?.userId)!
+        let childQuery = "SELECT AccountId FROM AccountTeamMember WHERE User.Id =" + "'\(userid)'"
+        
+        let soqlQuery = "Select \(fields.joined(separator: ",")) From " + SoupAccountContactRelation + " WHERE SGWS_Account__c IN (\(childQuery))"
         
         print(soqlQuery)
         
@@ -1542,6 +1735,8 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupAccountContactRelation)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdACR] = syncId
                     print("syncDownACR() done")
                     completion(nil)
                 }
@@ -1595,8 +1790,10 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupVisit)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdVisit] = syncId
                     print(">>>>>> visit syncDownVisit() done >>>>>")
-                    
+                    /*
                     let syncConfigArray = self.fetchSyncConfiguration()
                     
                     for scArray in syncConfigArray {
@@ -1610,6 +1807,7 @@ class StoreDispatcher {
                             self.workOrderTypeDict["SGWS_WorkOrder_Visit"] = self.workOrderRecordTypeIdVisit
                         }
                     }
+ */
                     
                     self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
                         .done {_ in
@@ -1636,7 +1834,7 @@ class StoreDispatcher {
     func fetchEvents()->[Visit]{
         
         var visit: [Visit] = []        
-        let soapQuery = "Select * FROM {WorkOrder} WHERE {WorkOrder:RecordTypeId} = '\(workOrderRecordTypeIdEvent)'"
+        let soapQuery = "Select * FROM {WorkOrder} WHERE {WorkOrder:RecordTypeId} = '\(SyncConfigurationViewModel().syncConfigurationRecordIdforEvent())'"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
@@ -1762,7 +1960,8 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print(">>>>>> ActionItem SyncDown() done >>>>>")
-                    //
+                     let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdActionItem] = syncId
                     self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
                         .done {_ in
                             completion(nil)
@@ -1788,8 +1987,9 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupActionItem)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncUpIdActionItem] = syncId
                     print(">>>>>> syncUPActionItem done")
-                    let syncId = syncStateStatus.syncId
                     print(syncId)
                     completion(nil)
                 }
@@ -2077,6 +2277,8 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupAccountNotes)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdNote] = syncId
                     print(">>>>>> Notes syncDownNote() done >>>>>")
                     self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
                         .done {_ in
@@ -2264,8 +2466,9 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupAccountNotes)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncUpIdNote] = syncId
                     print("syncUPNotes done")
-                    let syncId = syncStateStatus.syncId
                     print(syncId)
                     //Refresh Notes List view
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
@@ -2461,19 +2664,20 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupContact)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
-                    print("syncDownContact() done")
-                    let syncId = syncStateStatus.syncId
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncUpIdContact] = syncId
+                    print("syncUpContact() done")
                     print(syncId)
                     completion(nil)
                 }
                 else if syncStateStatus.hasFailed() {
-                    let meg = "ErrorDownloading: syncDownContact()"
+                    let meg = "ErrorDownloading: syncUpContact()"
                     let userInfo: [String: Any] =
                         [
                             NSLocalizedDescriptionKey : meg,
                             NSLocalizedFailureReasonErrorKey : meg
                     ]
-                    let err = NSError(domain: "syncDownContact()", code: 601, userInfo: userInfo)
+                    let err = NSError(domain: "syncUpContact()", code: 601, userInfo: userInfo)
                     completion(err as NSError?)
                 }
             }
@@ -2488,8 +2692,9 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupAccountContactRelation)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncUpIdACR] = syncId
                     print("syncUpACR() done")
-                    let syncId = syncStateStatus.syncId
                     print(syncId)
                     completion(nil)
                 }
@@ -2534,14 +2739,12 @@ class StoreDispatcher {
     //SyncDown StrategyQA Soup
     func syncDownStrategyQA(_ completion:@escaping (_ error: NSError?)->()) {
         
+        let userViewModel = UserViewModel()
         
-        let accIdsString = fetchAllAccountIds().joined(separator: "','")
-        print("account  ids \(accIdsString)")
+        let userid: String = (userViewModel.loggedInUser?.userId)!
+        let childQuery = "SELECT AccountId FROM AccountTeamMember WHERE User.Id =" + "'\(userid)'"
         
-        let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c,SGWS_AppModified_DateTime__c FROM SGWS_Response__c"
-        // account Ids
-        
-        print("soql syncDownStrategyQA query is \(soqlQuery)")
+        let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c,SGWS_AppModified_DateTime__c FROM SGWS_Response__c where SGWS_Account__c IN (\(childQuery))"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -2550,6 +2753,8 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupStrategyQA)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdStrategyQA] = syncId
                     print(">>>>>>  syncDownStrategyQA() done >>>>>")
                     
                     self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
@@ -2626,7 +2831,7 @@ class StoreDispatcher {
         
         let surveyIdsFormattedString = "'" + surveyIdsString + "'"
         
-        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c,SGWS_Question_Description__c FROM SGWS_Question__c where SGWS_Survey_ID__c IN (\(surveyIdsFormattedString))"
+        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c,SGWS_Question_Description__c FROM SGWS_Question__c"
         
         print("soql syncDownStrategyQuestions query is \(soqlQuery)")
         
@@ -2637,6 +2842,8 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupStrategyQuestion)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdStrategyQuestion] = syncId
                     print(">>>>>>  syncDownStrategyQuestions() done >>>>>")
                     completion(nil)
                 }
@@ -2738,15 +2945,8 @@ class StoreDispatcher {
     
     // SyncDown StrategyAnswers Soup
     func syncDownStrategyAnswers(_ completion:@escaping (_ error: NSError?)->()) {
-        
-        // Get All question Id's and Format as string with comma separator
-        let questionIdArray = fetchAllQuestionsId().joined(separator: "','")
-        
-        // Formatted questionIdArray String with adding "'" at start and end
-        let formattedquestionIdArray = "'" + questionIdArray + "'"
-        
-        
-        let soqlQuery = "SELECT Id,Name,SGWS_Answer_Description__c,SGWS_Deactivate_Answer__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Answer__c WHERE SGWS_Question__c IN (\(formattedquestionIdArray))"//"// for only downloaded question
+
+        let soqlQuery = "SELECT Id,Name,SGWS_Answer_Description__c,SGWS_Deactivate_Answer__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Answer__c"
         
         print("soql syncDownStrategyAnswers query is \(soqlQuery)")
         
@@ -2757,6 +2957,8 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupStrategyAnswers)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdStrategyAnswer] = syncId
                     print(">>>>>>  syncDownStrategyAnswers() done >>>>>")
                     completion(nil)
                 }
@@ -2830,8 +3032,9 @@ class StoreDispatcher {
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupVisit)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncUpIdVisit] = syncId
                     print("syncUPVisits done")
-                    let syncId = syncStateStatus.syncId
                     print(syncId)
                     //Refresh Notes List view
                     //  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
@@ -2935,13 +3138,15 @@ class StoreDispatcher {
     
     func syncUpStrategyQA(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
         
+        print(fieldsToUpload)
         let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
         
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupStrategyQA)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncUpIdStrategyQA] = syncId
                     print("syncUp Strategy QA done")
-                    let syncId = syncStateStatus.syncId
                     print(syncId)
                     completion(nil)
                 }
@@ -3070,18 +3275,19 @@ class StoreDispatcher {
         return surveyIdsArray
     }
     
-    func registerSyncConfiguration(){
+    func registerSyncConfiguration() {
         
         let syncConfigurationFields = SyncConfiguration.syncConfigurationFields
         
         var indexSpec:[SFSoupIndex] = []
         for i in 0...syncConfigurationFields.count - 1 {
             let sfIndex = SFSoupIndex(path: syncConfigurationFields[i], indexType: kSoupIndexTypeString, columnName: syncConfigurationFields[i])!
+            print(sfIndex.path)
+            print(sfIndex.columnName)
             indexSpec.append(sfIndex)
         }
         
-        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:nil)!)
-        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
         do {
             try sfaStore.registerSoup(SoupSyncConfiguration, withIndexSpecs: indexSpec, error: ())
             
@@ -3090,13 +3296,14 @@ class StoreDispatcher {
         }
     }
     
-    func syncDownSyncConfiguration(_ completion:@escaping (_ error: NSError?)->()){
+    
+    func syncDownSyncConfiguration(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id,DeveloperName FROM RecordType WHERE DeveloperName = '\(workOrderTypeVisit)' OR DeveloperName = '\(workOrderTypeEvent)' OR DeveloperName = '\(recordTypeDevTask)'"
+        //        let soqlQuery = "SELECT Id,DeveloperName FROM RecordType WHERE DeveloperName = '\(workOrderTypeVisit)' OR DeveloperName = '\(workOrderTypeEvent)' OR DeveloperName = '\(recordTypeDevTask)'"
+        let soqlQuery = "SELECT Id, SGWS_RecordTypeId__c, SGWS_RecordType_DeveloperName__c, SGWS_SalesConsultantSyncFrom__c, SGWS_SalesConsultantSyncTo__c, SGWS_SalesManagerSyncFrom__c, SGWS_SalesManagerSyncTo__c, SGWS_sObject__c FROM SGWS_SyncConfiguration__c"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
-        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
-            SFSyncStateMergeMode.overwrite)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
         
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupSyncConfiguration)
             .done { syncStateStatus in
@@ -3123,17 +3330,23 @@ class StoreDispatcher {
     
     
     
-    func fetchSyncConfiguration()->[SyncConfiguration]{
+    func fetchSyncConfiguration() -> [SyncConfiguration] {
         
-        var syncConfiguration:[SyncConfiguration] = []
+        var syncConfiguration: [SyncConfiguration] = []
         
-        let soqlQuery = "SELECT {SyncConfiguration:Id},{SyncConfiguration:DeveloperName},{SyncConfiguration:SObjectType} FROM {SyncConfiguration}"
+        //        let soqlQuery = "SELECT {SyncConfiguration:Id},{SyncConfiguration:DeveloperName},{SyncConfiguration:SObjectType} FROM {SyncConfiguration}"
+        let soqlQuery = "SELECT {SyncConfiguration:Id}, {SyncConfiguration:SGWS_RecordTypeId__c}, {SyncConfiguration:SGWS_RecordType_DeveloperName__c}, {SyncConfiguration:SGWS_SalesConsultantSyncFrom__c}, {SyncConfiguration:SGWS_SalesConsultantSyncTo__c}, {SyncConfiguration:SGWS_SalesManagerSyncFrom__c}, {SyncConfiguration:SGWS_SalesManagerSyncTo__c}, {SyncConfiguration:SGWS_sObject__c} FROM {SyncConfiguration}"
         
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100)
         
         var error : NSError?
         let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
         
+        guard error == nil else {
+            print("fetchSyncConfiguration \(error?.userInfo as Any)")
+            
+            return [SyncConfiguration]()
+        }
         
         if result.count > 0 {
             for i in 0...result.count - 1 {
@@ -3142,26 +3355,29 @@ class StoreDispatcher {
                 syncConfiguration.append(syncConfigurationArray)
             }
         }
-        for scArray in syncConfiguration {
-            
-            if(scArray.developerName == self.workOrderTypeEvent){
-                self.workOrderRecordTypeIdEvent = scArray.id
-                self.workOrderTypeDict["SGWS_WorkOrder_Event"] = self.workOrderRecordTypeIdEvent
-            }
-            if(scArray.developerName == self.workOrderTypeVisit){
-                self.workOrderRecordTypeIdVisit = scArray.id
-                self.workOrderTypeDict["SGWS_WorkOrder_Visit"] = self.workOrderRecordTypeIdVisit
-            }
+        else {
+            return [SyncConfiguration]()
         }
+        /*
+         for scArray in syncConfiguration {
+         
+         if(scArray.developerName == self.workOrderTypeEvent){
+         self.workOrderRecordTypeIdEvent = scArray.id
+         self.workOrderTypeDict["SGWS_WorkOrder_Event"] = self.workOrderRecordTypeIdEvent
+         }
+         if(scArray.developerName == self.workOrderTypeVisit){
+         self.workOrderRecordTypeIdVisit = scArray.id
+         self.workOrderTypeDict["SGWS_WorkOrder_Visit"] = self.workOrderRecordTypeIdVisit
+         }
+         }*/
         return syncConfiguration
-        
     }
     
     func fetchWorkOrderUserObjectObject()->[WorkOrderUserObject]{
         
         var accVisitEventArray:[WorkOrderUserObject] = []
         
-        let soupQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = '' UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} is NULL"
+        let soupQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = '' UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} is NULL"
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
@@ -3195,10 +3411,105 @@ class StoreDispatcher {
         return accVisitEventArray
         
     }
+    //MARK:- Resync functions CODE
+    // Resync functions
+    func reSyncContact(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdContact] else { return completion(resyncError(syncConstant: SyncDownIdContact))  }
+        
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdContact, completion: completion)
+    }
+    
+    func reSyncACR(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdACR] else { return completion(resyncError(syncConstant: SyncDownIdACR))  }
+        print("reSyncACR \(sId)")
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdACR, completion: completion)
+    }
+    
+    func reSyncNote(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdNote] else { return completion(resyncError(syncConstant: SyncDownIdNote))   }
+        
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdNote, completion: completion)
+    }
+    
+    func reSyncConfiguration(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdConfiguration] else { return completion(resyncError(syncConstant: SyncDownIdConfiguration))   }
+        
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdConfiguration, completion: completion)
+    }
+    
+    func reSyncVisits(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdVisit] else { return completion(resyncError(syncConstant: SyncDownIdVisit))  }
+        
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdVisit, completion: completion)
+    }
+    
+    func reSyncAccountActionItem(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdActionItem] else { return completion(resyncError(syncConstant: SyncDownIdActionItem))  }
+        
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdActionItem, completion: completion)
+    }
+    
+    func reSyncStrategyQA(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdStrategyQA] else {  return completion(resyncError(syncConstant: SyncDownIdStrategyQA)) }
+        
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdStrategyQA, completion: completion)
+    }
+    
+    func reSyncAccounts(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdAccount] else { return completion(resyncError(syncConstant: SyncDownIdAccount)) }
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdAccount, completion: completion)
+    }
+    
+    func reSyncStrategyQuestions(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdStrategyQuestion] else { return completion(resyncError(syncConstant: SyncDownIdStrategyQuestion)) }
+        
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdStrategyQuestion, completion: completion)
+    }
+    
+    func reSyncStrategyAnswers(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdStrategyAnswer] else { return completion(resyncError(syncConstant: SyncDownIdStrategyAnswer))  }
+        
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdStrategyAnswer, completion: completion)
+    }
     
     
+    func reSyncNotifications(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdNotifications] else { return completion(resyncError(syncConstant: SyncDownIdNotifications))}
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdNotifications, completion: completion)
+    }
     
-    //MARK:- Notifications Related Code
+    
+    func reSyncSoup(syncid: UInt, syncConstant: String, completion:@escaping (_ error: NSError?)->()) {
+        
+        sfaSyncMgr.Promises.reSync(syncId: syncid)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[syncConstant] = syncId
+                    
+                    //do cleanResyncGhosts for data
+                    //_ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
+                    
+                    print("reSync done: " + syncConstant)
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "Error reSync: " + syncConstant
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "reSyncSoup()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+
+ //MARK:- Notifications Related Code
     
     func registerNotificationsSoup(){
         
@@ -3235,7 +3546,8 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print(">>>>>> Notification SyncDown() done >>>>>")
-                    //
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdNotifications] = syncId
                     self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId: UInt(syncStateStatus.syncId))
                         .done {_ in
                             completion(nil)
@@ -3339,10 +3651,11 @@ class StoreDispatcher {
         let syncOpportunityFields = Opportunity.opportunityFields
         
         var indexSpec:[SFSoupIndex] = []
-        for i in 0...syncOpportunityFields.count - 2 {
+        for i in 0...syncOpportunityFields.count - 3 {
             let sfIndex = SFSoupIndex(path: syncOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncOpportunityFields[i])!
             indexSpec.append(sfIndex)
         }
+        indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 2], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 2])!)
         indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 1], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 1])!)
         
         indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
@@ -3357,8 +3670,8 @@ class StoreDispatcher {
     
     func syncDownOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "select Id,AccountId,SGWS_Product_Name__c,SGWS_Opportunity_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c, SGWS_Sold__c,SGWS_Month_Active__c,SGWS_Status__c,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,(select name,SGWS_Objectives__r.name from Opportunity_Objective_Junction__r) from opportunity"
-        
+        let soqlQuery = "select id,AccountId,SGWS_Opportunity_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c,SGWS_Sold__c,SGWS_Month_Active__c,StageName,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,SGWS_Acct__c,SGWS_Segment__c,SGWS_Gap__c,SGWS_Sales_Trend__c,SGWS_Order_Size__c,SGWS_Order_Frequency__c,SGWS_Unsold_Period_Days__c,(select name,SGWS_Objectives__r.name,SGWS_Objectives__r.SGWS_Select_Objective_Type__c from Opportunity_Objective_Junction__r),(select Product2Id,Product2.Name,Product2.SGWS_CORP_ITEM_BOTTLES_PER_CASE__c,Product2.SGWS_CORP_ITEM_SIZE__c,Product2.SGWS_Corp_Brand__c from OpportunityLineItems) from opportunity"
+
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
         
@@ -3414,6 +3727,90 @@ class StoreDispatcher {
             return [Opportunity]()
         }
         return opportunity
+    }
+    
+    func registerOpportunityWorkorder() {
+        
+        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...opportunityWorkorderFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: opportunityWorkorderFields[i], indexType: kSoupIndexTypeString, columnName: opportunityWorkorderFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupOpportunityWorkorder, withIndexSpecs: indexSpec, error: ())
+            
+//            createParentChildOpportunityWorkorder()
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunityWorkorder soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func createParentChildOpportunityWorkorder(fieldsToUpload: [String]) {
+        
+        // Creating object for parent info
+        let parentInfo: SFParentInfo = SFParentInfo.new(withSObjectType: "WorkOrder", soupName: "WorkOrder", idFieldName: "Id", modificationDateFieldName: "LastModifiedDate")
+        
+        // Creating object for children info
+        let childrenInfo: SFChildrenInfo = SFChildrenInfo.new(withSObjectType: "SGWS_Opportunity_WorkOrder__c", sobjectTypePlural: "SGWS_Opportunity_WorkOrder__cs", soupName: "OpportunityWorkorder", parentIdFieldName: "SGWS_Work_Order__c", idFieldName: "Id", modificationDateFieldName: "LastModifiedDate")
+
+        // Creating sync up target
+        let syncUpTarget: SFParentChildrenSyncUpTarget = SFParentChildrenSyncUpTarget.newSyncTarget(with: parentInfo, parentCreateFieldlist: PlanVisit.planVisitFields, parentUpdateFieldlist: PlanVisit.workOrderSyncUpfields, childrenInfo: childrenInfo, childrenCreateFieldlist: OpportunityWorkorder.opportunityWorkorderFields, childrenUpdateFieldlist: OpportunityWorkorder.opportunityWorkorderSyncUpFields, relationshipType: .relationpshipMasterDetail)
+        
+        // Creating sync down target
+//        let syncDownTarget: SFParentChildrenSyncDownTarget = SFParentChildrenSyncDownTarget.newSyncTarget(with: parentInfo, parentFieldlist: PlanVisit.planVisitFields, parentSoqlFilter: "*", childrenInfo: childrenInfo, childrenFieldlist: OpportunityWorkorder.opportunityWorkorderSyncUpFields, relationshipType: .relationpshipMasterDetail)
+        
+        // Running sync up
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        
+        _ = sfaSyncMgr.Promises.syncUp(target: syncUpTarget, options: syncOptions, soupName: SoupVisit)
+
+    }
+    
+    func syncDownOpportunityWorkorder(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "select SGWS_Opportunity__c,SGWS_Work_Order__c,SGWS_Outcome__c from SGWS_Opportunity_WorkOrder__c"
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupOpportunityWorkorder)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownOpportunityWorkorder() done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownOpportunityWorkorder()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownOpportunityWorkorder()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+        
+    }
+
+    private func resyncError(syncConstant: String)->NSError{
+        let meg = "Error reSync: " + syncConstant
+        let userInfo: [String: Any] =
+            [
+                NSLocalizedDescriptionKey : meg,
+                NSLocalizedFailureReasonErrorKey : meg
+        ]
+        let err = NSError(domain: "reSyncSoup()", code: 602, userInfo: userInfo)
+        return err
     }
     
 }

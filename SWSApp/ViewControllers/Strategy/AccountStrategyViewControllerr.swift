@@ -21,6 +21,8 @@ class AccountStrategyViewController : UIViewController{
     @IBOutlet weak var editIcon : UIButton?
     @IBOutlet weak var closeIcon : UIButton?
     
+    @IBOutlet var topConstraint : NSLayoutConstraint?
+    
     let strategyQAViewModel = StrategyQAViewModel()
     let strategyQuestionsViewModel = StrategyQuestionsViewModel()
     let strategyAnswersViewModel = StrategyAnswersViewModel()
@@ -33,10 +35,12 @@ class AccountStrategyViewController : UIViewController{
         print("Account Strategy Screen Loaded")
         
         if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
-            editIcon?.isHidden = false
+            //editIcon?.isHidden = false
+            topConstraint?.constant = 20.0
             closeIcon?.isHidden = true
         }else{
-            editIcon?.isHidden = true
+            editIcon?.isHidden = false
+            topConstraint?.constant = 75.0
             closeIcon?.isHidden = false
         }
         
@@ -82,8 +86,10 @@ class AccountStrategyViewController : UIViewController{
         }else{
             if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
                 editIcon?.isHidden = false
+                topConstraint?.constant = 20.0
             }else{
-                editIcon?.isHidden = true
+                editIcon?.isHidden = false
+                topConstraint?.constant = 75.0
             }
             
             lblNoData?.text = "The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now."
@@ -308,14 +314,18 @@ class AccountStrategyViewController : UIViewController{
     //Edit button clicked
     @IBAction func editButtonClicked(sender : UIButton){
         
-        if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
+        //if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
             performSegue(withIdentifier: "editStrategySegue", sender: nil)
             
-        }else{
+        //}else{
             //Used Same method to Dismiss the Strategy
-            StrategyScreenLoadFrom.isLoadFromStrategy = "0"
-            self.dismiss(animated: true, completion: nil)
-        }
+        //    StrategyScreenLoadFrom.isLoadFromStrategy = "0"
+        //    self.dismiss(animated: true, completion: nil)
+        //}
+    }
+    
+    @IBAction func closeButtonClicked(sender : UIButton){
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -358,24 +368,24 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+
         if indexPath.section == (tableViewRowDetails?.count)! - 1 {//Used to make the Additional notes Dynamic
-            
+
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
-            
+
             let data = (questions["answerText"] as! String)
-            
-            if data.count > 115{
-                if data != ""{
-                    let constraintRect = CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
-                    let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18.0)])
-                    let dynamicSize: CGRect = attString.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, context: nil)
-                    return dynamicSize.size
-                }
-            }else{
-                return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)
+
+            if data != ""{
+                
+                let approximateWidthOfContent = view.frame.width
+                // x is the width of the logo in the left
+                let size = CGSize(width: approximateWidthOfContent, height: CGFloat.greatestFiniteMagnitude)
+                //1000 is the large arbitrary values which should be taken in case of very high amount of content
+                let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)]
+                let estimatedFrame = NSString(string: data).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+                return CGSize(width: (self.collectionView?.frame.size.width)!, height: estimatedFrame.height)
             }
         }
         return CGSize(width: (self.collectionView?.frame.size.width)!, height: 25)
@@ -390,14 +400,25 @@ extension AccountStrategyViewController : UICollectionViewDataSource , UICollect
         let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "accountStrategyCell", for: indexPath) as! AccountStrategyCollectionViewCell
         cell1.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         cell1.displayCellData(data: questions , indexPath: indexPath, arrayData: tableViewRowDetails!)
-        //cell1.lblTitleText?.preferredMaxLayoutWidth = 50//.preferredMaxLayoutWidth = 50
-        return cell1
         
+        return cell1
+    }
+    
+    func heightForView(label:UILabel, width:CGFloat) -> CGFloat{
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.sizeToFit()
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = true
+        return label.frame.height
     }
     
     //Used to set width and height of HeaderView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
+        if section == (tableViewRowDetails?.count)! - 1 {
+            return CGSize(width: collectionView.frame.size.width, height: 50)
+        }
         return CGSize(width: collectionView.frame.size.width, height: 75)
     }
 }

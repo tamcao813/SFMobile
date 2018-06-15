@@ -8,6 +8,8 @@
 
 import UIKit
 import SwipeCellKit
+import SmartStore
+import SmartSync
 
 class ActionItemsListTableViewCell: SwipeTableViewCell {
     
@@ -24,7 +26,24 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
     func displayCellContent(actionItem: ActionItem){
         actionItemTitleLabel.text = actionItem.subject
         dueDateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))
-        actionItemStatusLabel.text = actionItem.status
+        
+        if actionItem.activityDate != "" {
+            if actionItem.status == "Open" {
+                if ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
+                    actionItemStatusLabel.text = "Open"
+                    updateStatusInDB(actionItem: actionItem, status: "Open")
+                }else{
+                    actionItemStatusLabel.text = "Overdue"
+                    updateStatusInDB(actionItem: actionItem, status: "Overdue")
+                }
+            }else{
+                actionItemStatusLabel.text = actionItem.status
+            }
+        }else{
+            actionItemStatusLabel.text = actionItem.status
+        }
+        
+        
         if actionItem.isUrgent {
             urgentImageViewWidthConstarint.constant = 20
             titleLabelLeadingConstraints.constant = 10
@@ -37,6 +56,29 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
         }else{
             accountViewHeightConstraint.constant = 80
             fetchAccountDetails(actionItem: actionItem)
+        }
+    }
+    
+    func updateStatusInDB(actionItem: ActionItem,status: String){
+        var editActionItem = ActionItem(for: "editActionItem")
+        editActionItem = actionItem
+        editActionItem.status = status
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+        let attributeDict = ["type":"Task"]
+        let actionItemDict: [String:Any] = [
+            
+            ActionItem.AccountActionItemFields[0]: editActionItem.Id,
+            ActionItem.AccountActionItemFields[4]: editActionItem.status,
+            ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:false,
+            kSyncTargetLocallyUpdated:true,
+            kSyncTargetLocallyDeleted:false,
+            "attributes":attributeDict]
+        
+        if AccountsActionItemViewModel().editActionItemStatusLocally(fields: actionItemDict){
+            
         }
     }
     

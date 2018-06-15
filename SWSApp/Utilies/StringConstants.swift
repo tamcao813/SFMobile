@@ -51,7 +51,7 @@ class StringConstants {
     static let swsUri = globalUrlDictionary["swsUri"] as! String
     
     //HomeScreen URLS
-    static let goalsUrl = globalUrlDictionary["goalsUrl"] as! String
+    static let goalsUrl = globalUrlDictionary["homeScreenUrl"] as! String
     static let netSalesUrl = globalUrlDictionary["netSalesUrl"] as! String
     
     //Objectives URLS
@@ -59,6 +59,9 @@ class StringConstants {
     
     //Insights URLS
     static let insightsUrl = globalUrlDictionary["insightsUrl"] as! String
-    
+    static let insightsAccountUrl = globalUrlDictionary["insightsAccountUrl"] as! String
+    //Opportunities
+    static let opportunitiesUrl = globalUrlDictionary["opportunitiesUrl"] as! String
+    static let opportunityEndUrl = globalUrlDictionary["opportunityEndUrl"] as! String
 }
 

@@ -219,7 +219,7 @@ class CreateNewVisitViewController: UIViewController {
             errorLbl.text = StringConstants.emptyFieldError
             return false
         }else if (endTime.text?.isEmpty)! {
-            contactsAccountTextField.borderColor = .red
+            endTime.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .top, animated: true)
             errorLbl.text = StringConstants.emptyFieldError
             return false
@@ -240,7 +240,7 @@ class CreateNewVisitViewController: UIViewController {
         PlanVisitManager.sharedInstance.visit?.location = locationStr
         PlanVisitManager.sharedInstance.visit?.sgwsAppointmentStatus = callToConfirm
         //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
-        PlanVisitManager.sharedInstance.visit?.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+        PlanVisitManager.sharedInstance.visit?.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforVisit()
         
         let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
@@ -280,7 +280,7 @@ class CreateNewVisitViewController: UIViewController {
         new_visit.location = locationStr
         new_visit.sgwsAppointmentStatus = callToConfirm
         
-        new_visit.recordTypeId = StoreDispatcher.shared.workOrderRecordTypeIdVisit
+        new_visit.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforVisit()
       //  new_visit.sgwsAlldayEvent = true
         //TBD location to be set , what is enetered in UI
         
@@ -338,7 +338,9 @@ class CreateNewVisitViewController: UIViewController {
         
         if(success){
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+            let visitDataDict:[String: WorkOrderUserObject] = ["visit": PlanVisitManager.sharedInstance.visit!]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisit"), object:nil, userInfo: visitDataDict)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             if dismiss {

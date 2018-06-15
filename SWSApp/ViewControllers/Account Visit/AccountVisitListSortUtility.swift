@@ -170,12 +170,12 @@ class AccountVisitListSortUtility {
         var isEventArray = [WorkOrderUserObject]()
         
         if AccountVisitListFilterModel.isTypeVisit == "YES"{
-            isVisitArray = actionItems.filter( { return $0.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdVisit } )
+            isVisitArray = actionItems.filter( { return $0.recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforVisit()  } )
             recordTypeAdded = true
         }
         
         if AccountVisitListFilterModel.isTypeEvent == "YES"{
-            isEventArray = actionItems.filter( { return $0.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent } )
+            isEventArray = actionItems.filter( { return $0.recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforEvent() } )
             recordTypeAdded = true
         }
         
@@ -314,8 +314,10 @@ class AccountVisitListSortUtility {
     //Perform filter based on Past Visits 
     func filterOnPastVisitsBasis(actionItems: [WorkOrderUserObject]) -> [WorkOrderUserObject]{
         var pastVisitsArray = [WorkOrderUserObject]()
-        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         if AccountVisitListFilterModel.isPastVisits == "YES"{
+            
             date.addTimeInterval(-(60 * 60 * 24))
             let timeStamp = dateFormatter.string(from: date)
             

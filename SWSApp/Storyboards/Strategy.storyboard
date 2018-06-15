@@ -88,6 +88,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="lblTitleText" destination="C3r-pi-2TG" id="iUa-Rc-avg"/>
+                                            <outlet property="lblTitleTextConstraint" destination="0qG-0w-Q3S" id="GOB-We-lG5"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -102,7 +103,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Situation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8P3-tz-QJs">
-                                            <rect key="frame" x="33" y="46.5" width="148.5" height="21"/>
+                                            <rect key="frame" x="33" y="46" width="148.5" height="21"/>
                                             <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>

@@ -144,11 +144,6 @@ class CreateNewActionItemViewController: UIViewController {
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return
-//        }else if selectedAccount == nil {
-//            searchAccountTextField.borderColor = .red
-//            tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
-//            errorLabel.text = StringConstants.emptyFieldError
-//            return
         }else if actionItemDescriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
             actionItemDescriptionTextView.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
@@ -183,7 +178,7 @@ class CreateNewActionItemViewController: UIViewController {
         newActionItem.description = actionItemDescriptionTextView.text!
         newActionItem.activityDate = DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: dueDateTextField.text!)
         if newActionItem.activityDate != ""{
-            if ActionItemSortUtility().isItOpenState(dueDate: DateTimeUtility.convertUtcDatetoReadableDateString(dateString: newActionItem.activityDate)){
+            if ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
                 newActionItem.status = "Open"
             }else{
                 newActionItem.status = "Overdue"
@@ -216,7 +211,6 @@ class CreateNewActionItemViewController: UIViewController {
             "attributes":attributeDict]
         
         if(actionItemDict["ActivityDate"] as! String == ""){
-            
             actionItemDict.removeValue(forKey: "ActivityDate")
         }
         
@@ -250,7 +244,7 @@ class CreateNewActionItemViewController: UIViewController {
             editActionItem.status = status
             if editActionItem.activityDate != ""{
                 if editActionItem.status == "Open" || editActionItem.status == "Overdue"{
-                    if ActionItemSortUtility().isItOpenState(dueDate:DateTimeUtility.convertUtcDatetoReadableDateString(dateString: editActionItem.activityDate)){
+                    if ActionItemSortUtility().isItOpenState(dueDate: editActionItem.activityDate){
                         editActionItem.status = "Open"
                     }else{
                         editActionItem.status = "Overdue"

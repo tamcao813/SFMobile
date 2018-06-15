@@ -1366,7 +1366,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Visit Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfR-jq-3no">
-                                                <rect key="frame" x="103" y="52" width="140" height="21"/>
+                                                <rect key="frame" x="262" y="52" width="110" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                 <nil key="textColor"/>
@@ -1584,7 +1584,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gJY-sg-eCp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3671.223021582734" y="-1351.7985611510792"/>
+            <point key="canvasLocation" x="3670.8984374999995" y="-1352.34375"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="apO-7U-nIU">
@@ -1723,12 +1723,6 @@
         <image name="selectedButton" width="20" height="20"/>
         <namedColor name="Bad">
             <color red="0.83899998659999997" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

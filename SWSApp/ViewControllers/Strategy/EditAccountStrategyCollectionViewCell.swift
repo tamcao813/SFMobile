@@ -43,9 +43,9 @@ class EditAccountStrategyCollectionViewCell: UICollectionViewCell {
 extension EditAccountStrategyCollectionViewCell : UITextViewDelegate{
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n"{
-            self.endEditing(true)
-        }
+//        if text == "\n"{
+//            self.endEditing(true)
+//        }
         return true
     }
     

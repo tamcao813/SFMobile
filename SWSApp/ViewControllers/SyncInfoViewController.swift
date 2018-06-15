@@ -85,13 +85,17 @@ class SyncInfoViewController: UIViewController {
     
     func setLastSyncValues(){        
         if let status = UserDefaults.standard.object(forKey: "lastSyncStatus") as? String {
-            self.lastSyncStatusLabel.text = status
+            DispatchQueue.main.async {
+                self.lastSyncStatusLabel.text = status
+            }
         }else{
             self.lastSyncStatusLabel.text = "Last Sync"
         }
         
         if let date = UserDefaults.standard.object(forKey: "lastSyncDate") as? String {
-            self.lastSyncDateLabel.text = date
+            DispatchQueue.main.async {
+                self.lastSyncDateLabel.text = date
+            }
         }else{
             self.lastSyncDateLabel.text = ""
         }

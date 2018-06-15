@@ -216,7 +216,7 @@ class CalendarListViewController: UIViewController {
         //Reset the PlanVisitManager
         PlanVisitManager.sharedInstance.visit = nil
         
-        self.present(createVisitViewController, animated: true)
+        self.present(createVisitViewController, animated: false)
     }
 
     func launchNewEvent() {
@@ -226,7 +226,7 @@ class CalendarListViewController: UIViewController {
         createEventViewController?.isEditingMode = false
         PlanVisitManager.sharedInstance.visit = nil
         DispatchQueue.main.async {
-            self.present(createEventViewController!, animated: true, completion: nil)
+            self.present(createEventViewController!, animated: false, completion: nil)
         }
     }
 

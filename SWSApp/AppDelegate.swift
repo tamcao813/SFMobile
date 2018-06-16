@@ -70,19 +70,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 SFSDKCoreLogger.sharedInstance().logLevel       =    .off
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
-                if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){
-                    UserDefaults.standard.set(false,forKey: "launchedBefore")
-                }
+                print("postLogout")
+                self.resetLaunchandResyncConfiguration()
+                
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
                 self.handleUserSwitch(fromUser, toUser: toUser)
-                if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){
-                    UserDefaults.standard.set(false,forKey: "launchedBefore")
-                }
+                self.resetLaunchandResyncConfiguration()
             }.launchError {  [unowned self] (error: Error, launchActionList: SFSDKLaunchAction) in
                 SFSDKLogger.log(type(of:self), level:.error, message:"Error during SDK launch: \(error.localizedDescription)")
-                if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){
-                    UserDefaults.standard.set(false,forKey: "launchedBefore")
-                }
+                self.resetLaunchandResyncConfiguration()
                 self.initializeAppViewState()
                 SalesforceSDKManager.shared().launch()
             }
@@ -138,6 +134,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         initializeAppViewState()
         SalesforceSDKManager.shared().launch()
         DropDown.startListeningToKeyboard()
+        
+        //Listen to kSFUserWillLogoutNotification
+        NotificationCenter.default.addObserver(self, selector: #selector(self.resetLaunchandResyncConfiguration), name: NSNotification.Name("kSFUserWillLogoutNotification"), object: nil)
+        
         return true
     }
     
@@ -392,6 +392,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
+    @objc func resetLaunchandResyncConfiguration(){
+        if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){
+            UserDefaults.standard.set(false,forKey: "launchedBefore")
+        }
+        StoreDispatcher.shared.syncIdDictionary.removeAll()
+        UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
     }
     
 }

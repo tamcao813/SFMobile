@@ -652,6 +652,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
                 
                 self.getUnreadNotificationsCount()
                 if ActionItemFilterModel.fromAccount{

@@ -39,7 +39,7 @@ class SyncConfigurationSortUtility {
    static func getActionItemDataUsingSyncTime(objectArray: Array<ActionItem>) -> Array<ActionItem>  {
     
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
-        let isManager:Bool = false
+        let isManager:Bool = UserViewModel().consultants.count > 0
         
         let objectArray = objectArray.filter {
             if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: $0.recordTypeId) {
@@ -113,7 +113,7 @@ class SyncConfigurationSortUtility {
     static func getNotificationDataUsingSyncTime(objectArray: Array<Notifications>) -> Array<Notifications>  {
         
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
-        let isManager:Bool = false
+        let isManager:Bool = UserViewModel().consultants.count > 0
         
         let objectArray = objectArray.filter {
             if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: $0.Id) { /// REPLACE ID WITH RECORD ID
@@ -187,10 +187,10 @@ class SyncConfigurationSortUtility {
     static func getAccountNotesDataUsingSyncTime(objectArray: Array<AccountNotes>) -> Array<AccountNotes>  {
         
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
-        let isManager:Bool = false
+        let isManager:Bool = UserViewModel().consultants.count > 0
         
         let objectArray = objectArray.filter {
-            if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: $0.Id) {
+            if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: $0.Id) { // CHANGE ID TO RECORD ID
                 if systemConfigurationObject.developerName == "" {
                     if isManager {
                         if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
@@ -256,6 +256,64 @@ class SyncConfigurationSortUtility {
         }
         
         return objectArray
+    }
+    
+   func getDateRangeForActionItemFromSyncConfig() -> (syncFrom: Int, syncTo: Int)
+   {
+    let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
+    let isManager:Bool = UserViewModel().consultants.count > 0
+    
+    if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: "0120t0000008cMCAAY") { /// REPLACE ID WITH RECORD ID
+        if systemConfigurationObject.developerName == "SGWS_Task" {
+            if isManager {
+                if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
+                    return ( Int(systemConfigurationObject.salesManagerSyncFrom)!, Int(systemConfigurationObject.salesManagerSyncTo)!)
+                    
+                } else {
+                    return (30,90)
+                }
+                
+            } else {
+                
+                if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
+                    return ( Int(systemConfigurationObject.salesConsultantSyncFrom)!, Int(systemConfigurationObject.salesConsultantSyncTo)!)
+                    
+                } else {
+                    return (30,90)
+                }
+            }
+        }
+    }
+    return (30,90)
+}
+    
+    func getDateRangeForNotificationsFromSyncConfig() -> (syncFrom: Int, syncTo: Int)
+    {
+        let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
+        let isManager:Bool = UserViewModel().consultants.count > 0
+        
+        if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: "0120t0000008cMBAAY") { /// REPLACE ID WITH RECORD ID
+            if systemConfigurationObject.developerName == "SGWS_Notification" {
+                if isManager {
+                    if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
+                        return ( Int(systemConfigurationObject.salesManagerSyncFrom)!, Int(systemConfigurationObject.salesManagerSyncTo)!)
+                        
+                    } else {
+                        return (30,90)
+                    }
+                    
+                } else {
+                    
+                    if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
+                        return ( Int(systemConfigurationObject.salesConsultantSyncFrom)!, Int(systemConfigurationObject.salesConsultantSyncTo)!)
+                        
+                    } else {
+                        return (30,90)
+                    }
+                }
+            }
+        }
+        return (30,90)
     }
     
 }

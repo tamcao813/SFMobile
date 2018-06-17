@@ -172,7 +172,7 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let frame = tableView.frame
-        let sectionLabel = UILabel.init(frame: CGRect(x: 12, y: 5, width: 470, height: 50))
+        let sectionLabel = UILabel.init(frame: CGRect(x: 12, y: 5, width: 470, height: 30))
         sectionLabel.text = "Activities"
         sectionLabel.textColor = UIColor.black
         sectionLabel.backgroundColor = UIColor.white

@@ -60,7 +60,21 @@ class SyncInfoViewController: UIViewController {
         if !SyncUpDailogGlobal.isSyncing {
             self.delegate?.startSyncUp()
             SyncUpDailogGlobal.isSyncing = true
+            SyncUpDailogGlobal.syncType = "Manual"
         }
+    }
+    
+    func automticResync()
+    {
+        let t = DispatchSource.makeTimerSource()
+        t.schedule(deadline: .now(), repeating: DispatchTimeInterval.seconds(60)) //schedule(deadline: .now(), interval: .seconds(60))
+        t.setEventHandler(handler: {
+            if !SyncUpDailogGlobal.isSyncing {
+                self.delegate?.startSyncUp()
+                SyncUpDailogGlobal.isSyncing = true
+                SyncUpDailogGlobal.syncType = "Automatic"
+            }
+        })
     }
     
     func setLastSyncValues(){        

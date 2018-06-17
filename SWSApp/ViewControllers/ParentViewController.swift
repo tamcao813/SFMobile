@@ -22,6 +22,7 @@ struct ContactsGlobal {
 
 struct SyncUpDailogGlobal {
     static var isSyncing = false
+    static var syncType = "automtic"
 }
 
 struct ActionItemsGlobal {
@@ -29,8 +30,9 @@ struct ActionItemsGlobal {
 }
 
 class ParentViewController: UIViewController, XMSegmentedControlDelegate{
-
+    //autoSync automtic/manual and Status of network wifi/cell
     var status:String = ""
+    
     var networkType:String = ""
     // drop down on tapping more
     let moreDropDown = DropDown()
@@ -193,6 +195,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let contactVc = contactsVC as! ContactsViewController
         self.addChildViewController(contactVc)
         contactVc.view.frame = self.contentView.bounds
+        
+        //DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
+        //    self.automticResync()
+//            self.SyncUpData()
+        //}
+        
         
     }
     

@@ -158,6 +158,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
         
         reachability.whenUnreachable = { _ in
+            MBProgressHUD.hide(forWindow: true)
             self.onlineStatusView.backgroundColor = UIColor.lightGray
             self.statusLabel.text = "Offline"
             self.userInitialLabel?.isUserInteractionEnabled = false
@@ -421,6 +422,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     // MARK: SyncUp Data
     @objc func SyncUpData(){
+        
+        DispatchQueue.main.async { //do this in group.notify
+            MBProgressHUD.show(onWindow: true)
+        }
         var syncFailed = false
         let syncObjectProgressIncrement:Float = (Float(100/syncObjectCount))
         
@@ -677,6 +682,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 }else{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "actionItemSyncDownComplete"), object:nil)
                 }
+                    MBProgressHUD.hide(forWindow: true)
             }
         }
         // Start sync progress

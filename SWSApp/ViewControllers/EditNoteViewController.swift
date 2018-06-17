@@ -123,7 +123,7 @@ class EditNoteViewController : UIViewController,sendNotesDataToNotesDelegate{
     @IBAction func deleteNote(_ sender: Any) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let ownerId = appDelegate.loggedInUser?.userId
+        _ = appDelegate.loggedInUser?.userId
         //Delete is allowed only for Note owner
         //MARK:Shubham
       //  if(ownerId == self.notesToBeEdited.ownerId){

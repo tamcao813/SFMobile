@@ -117,14 +117,28 @@ class CreateNoteViewController : UIViewController{
     //    self.notesTitleTextField?.text = notesToEdit.name
     //    }
     
-    //MARK:- IB Button actions
-    @IBAction func closeButtonClicked(_ sender: Any) {
+    //Show Alert Message
+    func showAlert(){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             self.dismiss(animated: true, completion: nil)
         }){
             
         }
-       // self.dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK:- IB Button actions
+    @IBAction func closeButtonClicked(_ sender: Any) {
+        if(!isAddingNewNote) {
+            if self.textView?.text != notesToEdit.accountNotesDesc || self.notesTitleTextField?.text != notesToEdit.name {
+                self.showAlert()
+            }else{
+                self.dismiss(animated: true, completion: nil)
+            }
+        }else if notesTitleTextField.text != "" || textView.text != ""{
+            self.showAlert()
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func saveAndCloseButtonClicked(_ sender: Any) {

@@ -148,16 +148,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         _ = displayCurrentTab(0)
         
         reachability.whenReachable = { reachability in
-            if reachability.connection == .wifi {
-                print("Reachable via WiFi")
-            } else {
-                print("Reachable via Cellular")
-            }
             self.statusLabel.text = "Online"
             self.onlineStatusView.backgroundColor = UIColor(named: "Good")
-            self.userInitialLabel?.isUserInteractionEnabled = true
             DispatchQueue.main.async {
-            self.syncViewControllerSyncBtn?.isEnabled = true
+                self.syncViewControllerSyncBtn?.isEnabled = true
+                self.syncUpInfoVC?.hideSyncButton(hide: false)
             }
         }
         
@@ -166,9 +161,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.statusLabel.text = "Offline"
             self.userInitialLabel?.isUserInteractionEnabled = false
             DispatchQueue.main.async {
-            self.syncViewControllerSyncBtn?.isEnabled = false
+                self.syncViewControllerSyncBtn?.isEnabled = false
+                self.syncUpInfoVC?.hideSyncButton(hide: true)
             }
-
         }
         
         do {
@@ -177,7 +172,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             print("Unable to start notifier")
         }
         //Delegate notification from during visit
-         NotificationCenter.default.addObserver(self, selector: #selector(self.showActionItems), name: NSNotification.Name("showActionItems"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showActionItems), name: NSNotification.Name("showActionItems"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllContacts), name: NSNotification.Name("showAllContacts"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadMoreScreens), name: NSNotification.Name("loadMoreScreens"), object: nil)
@@ -227,7 +222,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if notification.object != nil{
             ContactsGlobal.accountId = notification.object as! String
         }
-        //        print(notification.object!)
         topMenuBar?.selectedSegment = 2
         _ = displayCurrentTab(2)
         
@@ -269,7 +263,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         if let contact = notification.userInfo?["contact"] as? Contact {
             
-              let contactDict:[String: Contact] = ["contact": contact]
+            let contactDict:[String: Contact] = ["contact": contact]
             // do something with your image
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SelectedContact"), object:nil, userInfo: contactDict)
         }
@@ -291,7 +285,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             moreVC1.view.addSubview((self.notificationParent?.view)!)
             self.moreDropDownSelectionIndex = 4
             topMenuBar?.selectedSegment = 5
-        
+            
         }
             
         else if data == 0{
@@ -302,7 +296,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.actionItemParent?.fromPersistentMenu = true
             self.moreDropDownSelectionIndex = 0
             topMenuBar?.selectedSegment = 5
-           // self.instantiateViewController(identifier: "ActionItemsContainerViewController", moreOptionVC: moreVC1, index: 0)
+            // self.instantiateViewController(identifier: "ActionItemsContainerViewController", moreOptionVC: moreVC1, index: 0)
             
         }
         
@@ -355,9 +349,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let userInitialLabelButton = UIBarButtonItem.init(customView: userInitialLabel!)
         
         // adding TapGesture to userInitialLabel..
-//        let userInitialLabelTap  = UITapGestureRecognizer(target: self, action:#selector(SyncUpData))
-//        self.userInitialLabel?.isUserInteractionEnabled = true
-//        self.userInitialLabel?.addGestureRecognizer(userInitialLabelTap)
+        //        let userInitialLabelTap  = UITapGestureRecognizer(target: self, action:#selector(SyncUpData))
+        //        self.userInitialLabel?.isUserInteractionEnabled = true
+        //        self.userInitialLabel?.addGestureRecognizer(userInitialLabelTap)
         
         
         self.unreadNotificationCountLabel = UILabel(frame: CGRect(x: 30, y:5, width: 20, height: 20))
@@ -398,8 +392,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         onlineStatusView.addGestureRecognizer(tapOnline)
         
         self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, onlineSyncStatus!]
-        let logoButton = UIBarButtonItem(image: UIImage(named: "logo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
-        logoButton.isEnabled = false
+        let logoButton = UIBarButtonItem(image: UIImage(named: "AppLogo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
+        //logoButton.isEnabled = true
+        //logoButton.tintColor = UIColor.red
+        logoButton.tintColor = UIColor.clear
+        logoButton.setBackgroundImage(UIImage(named: "AppLogo"), for: .normal, barMetrics: .default)
         self.navigationItem.leftBarButtonItem = logoButton
         
     }
@@ -410,14 +407,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         syncUpInfoVC?.delegate = self
         self.present(syncUpInfoVC!, animated: true, completion: {
             self.syncViewControllerSyncBtn = self.syncUpInfoVC?.syncNowBtn
-
+            
         })
     }
     // MARK: SyncUp Data
     @objc func SyncUpData(){
         var syncFailed = false
         let syncObjectProgressIncrement:Float = (Float(100/syncObjectCount))
-
+        
         // Start sync progress
         SyncUpDailogGlobal.isSyncing = true
         func network()->String{
@@ -487,14 +484,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                     }
                 }
                 
-//                onemore enter {
-//                    one more leage
-//                }
-//
-//                wati for leae {
-//                    group.leave
-//                    }
-            //    groupACR.enter()
+                //                onemore enter {
+                //                    one more leage
+                //                }
+                //
+                //                wati for leae {
+                //                    group.leave
+                //                    }
+                //    groupACR.enter()
                 ContactsViewModel().syncACRwithServer{ error in
                     if error == nil {
                         print("syncACRwithServer completed successfully")
@@ -503,12 +500,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                         print("syncACRwithServer failed")
                         StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                     }
-                 //   groupACR.leave()
+                    //   groupACR.leave()
                 }
                 
-//                groupACR.notify(queue: queueACR) {
-//                    group.leave()
-//                }
+                //                groupACR.notify(queue: queueACR) {
+                //                    group.leave()
+                //                }
                 
             } else {
                 syncFailed = true
@@ -618,19 +615,19 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             group.leave()
         }
         
-//        // Configuration reSync
-//        group.enter()
-//        ConfigurationAndPickListModel().syncConfigurationWithServer{ error in
-//            if error != nil {
-//                StoreDispatcher.shared.createSyncLogOnSyncError(errorType: "SyncConfig")
-//                print(error?.localizedDescription ?? "error")
-//            }
-//            print("syncConfigurationWithServer")
-//            self.syncProgress +=  7
-//            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
-//            group.leave()
-//        }
-//
+        //        // Configuration reSync
+        //        group.enter()
+        //        ConfigurationAndPickListModel().syncConfigurationWithServer{ error in
+        //            if error != nil {
+        //                StoreDispatcher.shared.createSyncLogOnSyncError(errorType: "SyncConfig")
+        //                print(error?.localizedDescription ?? "error")
+        //            }
+        //            print("syncConfigurationWithServer")
+        //            self.syncProgress +=  7
+        //            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+        //            group.leave()
+        //        }
+        //
         // Picklist reSync
         group.enter()
         ConfigurationAndPickListModel().syncPickListWithServer{ error in
@@ -662,6 +659,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
+                
                 self.getUnreadNotificationsCount()
                 if ActionItemFilterModel.fromAccount{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
@@ -823,62 +823,62 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.dropDownSelectedRow()
     }
     
-//    private func selectedDropDownOption(selectedIndex : Int){
-//        moreDropDown.selectionAction = { (index: Int, item: String) in
-//
-//            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
-//            let currentViewController = self.displayCurrentTab(selectedIndex)
-//            currentViewController?.view.addSubview(moreVC1.view)
-//            for view in moreVC1.view.subviews{
-//                view.removeFromSuperview()
-//            }
-//            if index != 1{
-//                let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
-//                accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
-//            }
-//
-//            self.clearAccountsVisitFilterModel()
-//            SelectedMoreButton.selectedItem = index
-//            switch index {
-//            case 0:
-//                moreVC1.view.addSubview((self.actionItemParent?.view)!)
-//                ActionItemFilterModel.fromAccount = false
-//                ActionItemFilterModel.accountId = nil
-//                self.actionItemParent?.fromPersistentMenu = true
-//                self.moreDropDownSelectionIndex = index
-//            case 1:
-//                moreVC1.view.addSubview((self.accountVisit?.view)!)
-//                self.moreDropDownSelectionIndex = index
-//            case 2:
-//                self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)
-//            case 3:
-//                self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
-//            case 4:
-//                self.notificationParent?.resetFilters()
-//                self.notificationParent?.delegate = self
-//                moreVC1.view.addSubview((self.notificationParent?.view)!)
-//                self.moreDropDownSelectionIndex = index
-//            case 5:
-//                self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
-//
-//            case 6:
-//                self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
-//
-//            case 7:
-//                self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
-//
-//            case 8:
-//                self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
-//
-//            default:
-//                break
-//            }
-//        }
-//        // display the dropdown
-//        moreDropDown.show()
-//
-//        self.dropDownSelectedRow()
-//    }
+    //    private func selectedDropDownOption(selectedIndex : Int){
+    //        moreDropDown.selectionAction = { (index: Int, item: String) in
+    //
+    //            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+    //            let currentViewController = self.displayCurrentTab(selectedIndex)
+    //            currentViewController?.view.addSubview(moreVC1.view)
+    //            for view in moreVC1.view.subviews{
+    //                view.removeFromSuperview()
+    //            }
+    //            if index != 1{
+    //                let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
+    //                accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
+    //            }
+    //
+    //            self.clearAccountsVisitFilterModel()
+    //            SelectedMoreButton.selectedItem = index
+    //            switch index {
+    //            case 0:
+    //                moreVC1.view.addSubview((self.actionItemParent?.view)!)
+    //                ActionItemFilterModel.fromAccount = false
+    //                ActionItemFilterModel.accountId = nil
+    //                self.actionItemParent?.fromPersistentMenu = true
+    //                self.moreDropDownSelectionIndex = index
+    //            case 1:
+    //                moreVC1.view.addSubview((self.accountVisit?.view)!)
+    //                self.moreDropDownSelectionIndex = index
+    //            case 2:
+    //                self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)
+    //            case 3:
+    //                self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
+    //            case 4:
+    //                self.notificationParent?.resetFilters()
+    //                self.notificationParent?.delegate = self
+    //                moreVC1.view.addSubview((self.notificationParent?.view)!)
+    //                self.moreDropDownSelectionIndex = index
+    //            case 5:
+    //                self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
+    //
+    //            case 6:
+    //                self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
+    //
+    //            case 7:
+    //                self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
+    //
+    //            case 8:
+    //                self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
+    //
+    //            default:
+    //                break
+    //            }
+    //        }
+    //        // display the dropdown
+    //        moreDropDown.show()
+    //
+    //        self.dropDownSelectedRow()
+    //    }
     
     private func dropDownSelectedRow(){
         
@@ -1006,8 +1006,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             vc = objectivesVC
+            
+            let viewVc = objectivesVC as! ObjectivesViewController
+            viewVc.loadWebView()
             ContactsGlobal.accountId = ""
-
+            
         default:
             ifMoreVC = true
             ContactsGlobal.accountId = ""

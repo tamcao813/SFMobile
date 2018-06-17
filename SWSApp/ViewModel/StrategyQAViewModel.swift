@@ -34,7 +34,7 @@ class StrategyQAViewModel {
     }
     
     func syncStrategyWithServer(_ completion:@escaping (_ error: NSError?)->()) {
-        let fields: [String] = ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c"]
+        let fields: [String] = ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"]
         
         StoreDispatcher.shared.syncUpStrategyQA(fieldsToUpload: fields, completion: {error in
             if error != nil {

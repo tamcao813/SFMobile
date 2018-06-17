@@ -8,6 +8,7 @@
 
 import UIKit
 import SmartSync
+import Reachability
 
 protocol SyncInfoViewControllerDelegate: NSObjectProtocol {
     func startSyncUp()
@@ -20,6 +21,8 @@ class SyncInfoViewController: UIViewController {
     @IBOutlet weak var lastSyncStatusLabel: UILabel!
     @IBOutlet weak var lastSyncDateLabel: UILabel!
     weak var delegate: SyncInfoViewControllerDelegate?
+    @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var progressContainerView: UIView!
 
     @IBOutlet weak var syncNowBtn: UIButton!
     
@@ -28,6 +31,23 @@ class SyncInfoViewController: UIViewController {
         customizedUI()
         setProgress(progress: 0.0)
         setLastSyncValues()
+    }
+    
+    func hideSyncButton(hide: Bool){
+        DispatchQueue.main.async {
+            if self.containerViewHeightConstraint != nil {
+                if hide {
+                    self.containerViewHeightConstraint.constant = 65
+                    self.progressContainerView.isHidden = true
+                }else{
+                    self.containerViewHeightConstraint.constant = 130
+                    self.progressContainerView.isHidden = false
+                }
+                self.containerView.layoutIfNeeded()
+                self.customizedUI()
+            }
+        }
+        
     }
     
     func customizedUI(){
@@ -79,13 +99,17 @@ class SyncInfoViewController: UIViewController {
     
     func setLastSyncValues(){        
         if let status = UserDefaults.standard.object(forKey: "lastSyncStatus") as? String {
-            self.lastSyncStatusLabel.text = status
+            DispatchQueue.main.async {
+                self.lastSyncStatusLabel.text = status
+            }
         }else{
             self.lastSyncStatusLabel.text = "Last Sync"
         }
         
         if let date = UserDefaults.standard.object(forKey: "lastSyncDate") as? String {
-            self.lastSyncDateLabel.text = date
+            DispatchQueue.main.async {
+                self.lastSyncDateLabel.text = date
+            }
         }else{
             self.lastSyncDateLabel.text = ""
         }

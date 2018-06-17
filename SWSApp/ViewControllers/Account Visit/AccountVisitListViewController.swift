@@ -123,7 +123,7 @@ class AccountVisitListViewController: UIViewController {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshAccountVisitList"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshVisitEventList"), object: nil)
     }
     
     //Customize the UI for Table View
@@ -165,13 +165,13 @@ class AccountVisitListViewController: UIViewController {
                 createVisitViewController.isEditingMode = false
                 PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
-                    self.present(createVisitViewController, animated: true)
+                    self.present(createVisitViewController, animated: false)
                 }
             case CreateNewItem.event.rawValue:
                 let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
                 PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
-                    self.present(createEventViewController, animated: true, completion: nil)
+                    self.present(createEventViewController, animated: false, completion: nil)
                 }
             default:
                 break
@@ -196,10 +196,10 @@ class AccountVisitListViewController: UIViewController {
     @IBAction func sortByStatusButtonAction(_ sender: UIButton){
         
         if statusAscendingSort{
-            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.lowercased() < $1.status.lowercased() })
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() < $1.status.lowercased() })
             statusAscendingSort = false
         }else{
-            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.lowercased() > $1.status.lowercased() })
+            tableViewDataArray = tableViewDataArray.sorted(by: { $0.status.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() > $1.status.lowercased() })
             statusAscendingSort = true
         }
         self.scrollTableViewToTop()

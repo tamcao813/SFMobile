@@ -23,6 +23,7 @@ struct ContactsGlobal {
 struct SyncUpDailogGlobal {
     static var isSyncing = false
     static var syncType = "automtic"
+    static var isSyncError = false
 }
 
 struct ActionItemsGlobal {
@@ -191,12 +192,20 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.addChildViewController(contactVc)
         contactVc.view.frame = self.contentView.bounds
         
-        //DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
-        //    self.automticResync()
-//            self.SyncUpData()
-        //}
-        
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
+            var autoSyncTimer: Timer!
+            autoSyncTimer = Timer.scheduledTimer(timeInterval: 60*30, target: self, selector: #selector(self.automticResync), userInfo: nil, repeats: true)
+        }
+    }
+    
+    @objc func automticResync()
+    {
+        print("$$$$$$$$$$$$$$$$$$$$ Autosync called")
+        if !SyncUpDailogGlobal.isSyncing {
+            self.startSyncUp()
+            SyncUpDailogGlobal.isSyncing = true
+            SyncUpDailogGlobal.syncType = "Automatic"
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

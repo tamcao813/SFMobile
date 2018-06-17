@@ -56,9 +56,17 @@ class SyncInfoViewController: UIViewController {
     
     func setProgress(progress: Float,progressComplete: Bool = false,syncUpFailed: Bool = false){
         DispatchQueue.main.async {
+            if let _ = self.progressView {
             self.progressView.progress = progress/100
-            if progressComplete {
-                self.updateDailog(syncUpFailed: syncUpFailed)
+                if(SyncUpDailogGlobal.isSyncError == true) {
+                    self.updateDailog(syncUpFailed: true)
+                    SyncUpDailogGlobal.isSyncError = false
+                    return
+                }
+                
+                if progressComplete {
+                    self.updateDailog(syncUpFailed: syncUpFailed)
+                }
             }
         }
     }
@@ -82,19 +90,6 @@ class SyncInfoViewController: UIViewController {
             SyncUpDailogGlobal.isSyncing = true
             SyncUpDailogGlobal.syncType = "Manual"
         }
-    }
-    
-    func automticResync()
-    {
-        let t = DispatchSource.makeTimerSource()
-        t.schedule(deadline: .now(), repeating: DispatchTimeInterval.seconds(60)) //schedule(deadline: .now(), interval: .seconds(60))
-        t.setEventHandler(handler: {
-            if !SyncUpDailogGlobal.isSyncing {
-                self.delegate?.startSyncUp()
-                SyncUpDailogGlobal.isSyncing = true
-                SyncUpDailogGlobal.syncType = "Automatic"
-            }
-        })
     }
     
     func setLastSyncValues(){        

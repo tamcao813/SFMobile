@@ -477,7 +477,7 @@ class StoreDispatcher {
         newSyncLog.activityType = "Sync Start"
         newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
-        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\"}"
+        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\(SyncUpDailogGlobal.syncType)}"
         let attributeDict = ["type":SoupSyncLog]
         let syncLogDict: [String:Any] = [
             SyncLog.SyncLogFields[0]: newSyncLog.Id,
@@ -507,7 +507,7 @@ class StoreDispatcher {
         newSyncLog.activityType = "Sync Stop"
         newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
-        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\"}"
+        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\(SyncUpDailogGlobal.syncType)}"
         
         //        createOneSyncLog(newSyncLog)
         let attributeDict = ["type":SoupSyncLog]
@@ -558,7 +558,7 @@ class StoreDispatcher {
         
         UserDefaults.standard.removeObject(forKey:"key_name")
         
-        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\"Manual\",\"sync\":"+syncMsg+",\"failureMessage\":"+failureMsg+",\"Error\":"+errorMsg+"}"
+        newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\(SyncUpDailogGlobal.syncType),\"sync\":"+syncMsg+",\"failureMessage\":"+failureMsg+",\"Error\":"+errorMsg+"}"
         //        createOneSyncLog(newSyncLog)
         
         let attributeDict = ["type":SoupSyncLog]

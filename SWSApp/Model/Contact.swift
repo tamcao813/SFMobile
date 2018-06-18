@@ -91,11 +91,13 @@ class Contact {
         preferredCommunicationMethod = json["SGWS_Preferred_Communication_Method__c"] as? String ?? ""
         sgwsNotes = json["SGWS_Notes__c"] as? String ?? ""
         lastModifiedByName = json["LastModifiedBy.Name"] as? String ?? ""
-//        if let name = lastModifiedByString!["Name"] as? String {
-//            lastModifiedByName = name
-//        }else{
-//            lastModifiedByName = ""
-//        }
+        
+        if let lastModified = json["LastModifiedBy"] as? [String:AnyObject],
+            let name = lastModified["Name"] as? String {
+            lastModifiedByName = name
+            
+        }
+
         
         lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
         child1Name = json["SGWS_Child_1_Name__c"] as? String ?? ""

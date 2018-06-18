@@ -63,5 +63,10 @@ class StringConstants {
     //Opportunities
     static let opportunitiesUrl = globalUrlDictionary["opportunitiesUrl"] as! String
     static let opportunityEndUrl = globalUrlDictionary["opportunityEndUrl"] as! String
+    
+    //User Title or Roles
+    static let salesConsultantTitle = globalUrlDictionary["salesConsultantTitle"] as! String
+    static let salesManagerTitle = globalUrlDictionary["salesManagerTitle"] as! String
+
 }
 

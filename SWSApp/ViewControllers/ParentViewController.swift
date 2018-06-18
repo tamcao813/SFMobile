@@ -22,6 +22,8 @@ struct ContactsGlobal {
 
 struct SyncUpDailogGlobal {
     static var isSyncing = false
+    static var syncType = "automtic"
+    static var isSyncError = false
 }
 
 struct ActionItemsGlobal {
@@ -155,6 +157,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
         
         reachability.whenUnreachable = { _ in
+            MBProgressHUD.hide(forWindow: true)
             self.onlineStatusView.backgroundColor = UIColor.lightGray
             self.statusLabel.text = "Offline"
             self.userInitialLabel?.isUserInteractionEnabled = false
@@ -188,7 +191,21 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let contactVc = contactsVC as! ContactsViewController
         self.addChildViewController(contactVc)
         contactVc.view.frame = self.contentView.bounds
-        
+        //Initial dely for 1 min so that there is no conflict
+        DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
+            var autoSyncTimer: Timer!   //Set timer to 30min sync
+            autoSyncTimer = Timer.scheduledTimer(timeInterval: 60*30, target: self, selector: #selector(self.automticResync), userInfo: nil, repeats: true)
+        }
+    }
+    
+    @objc func automticResync()
+    {
+        print("$$$$$$$$$$$$$$$$$$$$ Autosync called")
+        if !SyncUpDailogGlobal.isSyncing {
+            self.startSyncUp()
+            SyncUpDailogGlobal.isSyncing = true
+            SyncUpDailogGlobal.syncType = "Automatic"
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -404,6 +421,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }
     // MARK: SyncUp Data
     @objc func SyncUpData(){
+        
+        DispatchQueue.main.async { //do this in group.notify
+            MBProgressHUD.show(onWindow: true)
+        }
         var syncFailed = false
         let syncObjectProgressIncrement:Float = (Float(100/syncObjectCount))
         
@@ -660,6 +681,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 }else{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "actionItemSyncDownComplete"), object:nil)
                 }
+                    MBProgressHUD.hide(forWindow: true)
             }
         }
         // Start sync progress

@@ -52,5 +52,9 @@
 	<string>/lightning/r/Opportunity/</string>
 	<key>opportunityEndUrl</key>
 	<string>/view?0.source=alohaHeader</string>
+	<key>salesConsultantTitle</key>
+	<string>Sales Consultant</string>
+	<key>salesManagerTitle</key>
+	<string>Sales Manager</string>
 </dict>
 </plist>

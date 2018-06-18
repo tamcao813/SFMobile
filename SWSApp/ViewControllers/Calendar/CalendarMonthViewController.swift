@@ -349,7 +349,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             cell.dateLabel.textColor = UIColor.lightGray
             cell.isHidden = false
 
-            let dateStr = "\(getPreviousYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))" + "-" + String(format: "%02d", getPreviousMonth(currentMonthIndex: currentMonthIndex)) + "-" + String(format: "%02d", (previousMonthDates[indexPath.row]))+" "+"00:00:00"
+            let dateStr = String(format: "%02d", getPreviousMonth(currentMonthIndex: currentMonthIndex)) + "/" + String(format: "%02d", (previousMonthDates[indexPath.row]))+"/" + "\(getPreviousYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))"
 
             //------------- Adding Events To Past Calendar Dates - START --------------- //
             
@@ -386,7 +386,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             cell.dateLabel.textColor = UIColor.black
 
             //------------- Adding Events To Present Calendar Dates - START --------------- //
-                let dateStr = "\(self.currentYear)" + "-" + String(format: "%02d", self.currentMonthIndex) + "-" + String(format: "%02d", calcDate)+" "+"00:00:00"
+                let dateStr =  String(format: "%02d", self.currentMonthIndex) + "/" + String(format: "%02d", calcDate)+"/" + "\(self.currentYear)"
                 let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits, dateFormatter: self.dateFormatter).0
                 let isMore = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits, dateFormatter: self.dateFormatter).1
                 if isMore {
@@ -415,7 +415,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
             cell.dateLabel.textColor = UIColor.lightGray
             cell.isHidden = false
             
-            let dateStr = "\(getNextYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))" + "-" + String(format: "%02d", getNextMonth(currentMonthIndex: currentMonthIndex)) + "-" + String(format: "%02d", dateInc) + " " + "00:00:00"
+            let dateStr =  String(format: "%02d", getNextMonth(currentMonthIndex: currentMonthIndex)) + "/" + String(format: "%02d", dateInc) + "/" + "\(getNextYear(currentMonthIndex: currentMonthIndex, currentYearIndex: currentYear))"
             
             //------------- Adding Events To Future Calendar Dates - START --------------- //
                 let eventArr = DateTimeUtility.getEventDates(currentDate: dateStr, visitArray: self.visits, dateFormatter: self.dateFormatter).0

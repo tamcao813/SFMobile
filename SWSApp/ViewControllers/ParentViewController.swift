@@ -666,7 +666,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
             StoreDispatcher.shared.createSyncLogOnSyncStop(networkType: self.networkType)
             self.syncProgress = 100
-            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true,syncUpFailed: syncFailed)            
+            
+            DispatchQueue.main.async{
+                self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true,syncUpFailed: syncFailed)
+            }
+            
             SyncUpDailogGlobal.isSyncing = false
             
             DispatchQueue.main.async {

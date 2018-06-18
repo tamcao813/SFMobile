@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>RemoteAccessConsumerKey</key>
-	<string>3MVG9RHx1QGZ7Osh_vtc0e3wNtWVhM7NEKUUwNMuN3zr4RmYpcJsPmeU5Pd9eXyIFfh1Qk6J7qG2WW7sqaid4</string>
+	<string>3MVG9ifmAKCHISbYK1eSz9ju2BJlU6xXXblAG1DxAuorvOWQLJdSoCEYBHMY25X1taJY7wQ5fk8WcLwhxRW0N</string>
 	<key>OAuthRedirectURI</key>
 	<string>sws://success</string>
 </dict>

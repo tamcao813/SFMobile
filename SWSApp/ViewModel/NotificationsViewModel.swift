@@ -10,7 +10,10 @@ import Foundation
 class NotificationsViewModel {
     
     func notificationsForUser() -> [Notifications] {
-        return StoreDispatcher.shared.fetchNotifications()
+        let notificationsArray = StoreDispatcher.shared.fetchNotifications()
+//        var filteredNotificationArray = SyncConfigurationSortUtility.getNotificationDataUsingSyncTime(objectArray: notificationsArray)
+//        filteredNotificationArray = filteredNotificationArray.sorted(by: { $0.createdDate < $1.createdDate })
+        return filteredNotificationArray
     }
     
     func editNotificationsLocally(fields: [String:Any]) -> Bool {

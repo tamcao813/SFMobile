@@ -295,6 +295,31 @@ class DateTimeUtility
         return returnDate
         
     }
+
+    static func getDateNotificationFromDateString(dateString: String) -> Date? {
+        
+        var returnDate: Date?
+        
+        if(dateString == "") {
+            return returnDate
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        returnDate = dateFormatter.date(from: dateString)
+        
+        guard let _ = returnDate else {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter.timeZone = TimeZone(identifier:"UTC")
+            returnDate = dateFormatter.date(from: dateString)
+            
+            return returnDate
+        }
+        
+        return returnDate
+        
+    }
     
     static func getCurrentTimeStampInUTCAsString() -> String {
         let date = Date()

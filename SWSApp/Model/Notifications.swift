@@ -41,7 +41,7 @@ class Notifications {
             createdDataInDateType = nil
         }
         else {
-            createdDataInDateType = DateTimeUtility.getDateActionItemFromDateString(dateString: createdDate)
+            createdDataInDateType = DateTimeUtility.getDateNotificationFromDateString(dateString: createdDate)
         }
         name = json["Name"] as? String ?? ""
         sgwsAccLicenseNotification = json["SGWS_Account_License_Notification__c"] as? String ?? ""
@@ -65,6 +65,7 @@ class Notifications {
         Id = ""
         account = ""
         createdDate = ""
+        createdDataInDateType = nil
         name = ""
         sgwsAccLicenseNotification = ""
         sgwsSite = ""

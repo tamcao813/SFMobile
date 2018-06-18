@@ -46,11 +46,7 @@ class SyncInfoViewController: UIViewController {
                 self.containerView.layoutIfNeeded()
                 self.customizedUI()
             }
-        }else{
-            self.containerViewHeightConstraint.constant = 65
-            self.progressContainerView.isHidden = true
         }
-        
     }
     
     func customizedUI(){

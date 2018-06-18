@@ -413,6 +413,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     // MARK: SyncUp Data and resync down
     
     @objc func syncButtonPressed(){
+        
+        if AppDelegate.isConnectedToNetwork(){
+            self.syncUpInfoVC?.hideSyncButton(hide: false)
+        }else{
+            self.syncUpInfoVC?.hideSyncButton(hide: true)
+        }
         syncUpInfoVC?.delegate = self
         self.present(syncUpInfoVC!, animated: true, completion: {
             self.syncViewControllerSyncBtn = self.syncUpInfoVC?.syncNowBtn

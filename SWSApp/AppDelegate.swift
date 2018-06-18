@@ -27,8 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var consultants = [Consultant]()
     var alertVisible = false
     var launchedBefore:Bool = false
-    //reSync dictionary  Count - To be updated if more objects added here
-  //  let reSyncObjectDictCount:Int = 13
+
     
     override init(){
         
@@ -256,8 +255,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                         guard let user = user else {
                             print("No logged in user retrieved")
+                            let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
+                            if(globalAccountsForLoggedUser.count == 0){
+                                // Show Alert and exit the app
+                                self.showAlertandExit()
+                            }
                             return
                         }
+                        
+                        //Validate User Role
+                        
+                        //self.validateUserRole({ (user, error) in
                         
                         self.loggedInUser =  user
                         self.currentSelectedUserId = user.userId
@@ -321,10 +329,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                         //} //else resync
                         
-                        // })
+                        //})
                     })
                 })
             })
+        //})
         }
         reachability?.whenUnreachable = { _ in
             StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
@@ -366,29 +375,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //return false;
     }
     
-    //    func validateRole(user: User, completion: @escaping (Bool) -> ()) {
-    //
-    //        let alert = UIAlertController(title: "Alert", message: "You do not have access to the SFA mobile application", preferredStyle: UIAlertControllerStyle.alert)
-    //
-    //
-    //        // Check if this user is Sales Rep OR Sales Manager or not
-    //        // If not show Alert and logout
-    //        if((user.userTeamMemberRole == "Sales Rep") || (user.userTeamMemberRole == "Sales Manager")){
-    //
-    //            completion(true)
-    //
-    //        }
-    //        else {
-    //            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-    //                // StoreDispatcher.shared.deleteSmartStore()
-    //                SFUserAccountManager.sharedInstance().logout()
-    //                completion(true)
-    //                exit(0)
-    //            }))
-    //            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-    //        }
-    //
-    //    }
+//        func validateUserRole(user: User,completion: @escaping (Bool) -> ()) {
+//    
+//            let alert = UIAlertController(title: "Alert", message: "You do not have access to the SFA mobile application", preferredStyle: UIAlertControllerStyle.alert)
+//    
+//            // Check if this user is Sales Consultant OR Sales Manager or not
+//            // If not show Alert and logout
+//            if((user.userTeamMemberRole == StringConstants.salesConsultantTitle) || (user.userTeamMemberRole == StringConstants.salesManagerTitle)){
+//                completion(true)
+//            }
+//            else {
+//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+//                    SFUserAccountManager.sharedInstance().logout()
+//                    //       completion(true)
+//
+//                    exit(0)
+//                }))
+//                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+//            }
+//    
+//        }
+    
+        func showAlertandExit() {
+    
+            let alert = UIAlertController(title: "Alert", message: "Logged in user don’t have any associated accounts, Please contact admin!", preferredStyle: UIAlertControllerStyle.alert)
+    
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    SFUserAccountManager.sharedInstance().logout()
+                    exit(0)
+                }))
+                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+    
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil

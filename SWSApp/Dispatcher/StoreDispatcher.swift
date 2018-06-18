@@ -947,7 +947,8 @@ class StoreDispatcher {
             SFSoupIndex(path: "AccountId", indexType: kSoupIndexTypeString, columnName: "AccountId")!,
             SFSoupIndex(path: "Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c", indexType: kSoupIndexTypeString, columnName: "Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c")!,
             SFSoupIndex(path: "Account.SGWS_SurveyId__c", indexType: kSoupIndexTypeString, columnName: "Account.SGWS_SurveyId__c")!,
-            SFSoupIndex(path: "UserId", indexType: kSoupIndexTypeString, columnName: "UserId")!
+            SFSoupIndex(path: "UserId", indexType: kSoupIndexTypeString, columnName: "UserId")!,
+            SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!
         ]
         let indexSpecs: [AnyObject] = SFSoupIndex.asArraySoupIndexes(indexes) as [AnyObject]
         do {
@@ -2735,7 +2736,7 @@ class StoreDispatcher {
         let userid: String = (userViewModel.loggedInUser?.userId)!
         let childQuery = "SELECT AccountId FROM AccountTeamMember WHERE User.Id =" + "'\(userid)'"
         
-        let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c,SGWS_AppModified_DateTime__c FROM SGWS_Response__c where SGWS_Account__c IN (\(childQuery))"
+        let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c,SGWS_AppModified_DateTime__c FROM SGWS_Response__c where SGWS_Account__c IN (\(childQuery)) AND OwnerId = '\(userid)'"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:

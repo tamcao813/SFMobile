@@ -47,7 +47,6 @@ class SyncInfoViewController: UIViewController {
                 self.customizedUI()
             }
         }
-        
     }
     
     func customizedUI(){
@@ -56,12 +55,22 @@ class SyncInfoViewController: UIViewController {
     
     func setProgress(progress: Float,progressComplete: Bool = false,syncUpFailed: Bool = false){
         DispatchQueue.main.async {
-            self.progressView.progress = progress/100
-            if progressComplete {
-                self.updateDailog(syncUpFailed: syncUpFailed)
+            if let _ = self.progressView { //Check if progressview is instantited, if not than dont disply in Autosync
+                self.progressView.progress = progress/100
+                
+                if(SyncUpDailogGlobal.isSyncError == true) {
+                    self.updateDailog(syncUpFailed: true)
+                    SyncUpDailogGlobal.isSyncError = false
+                    return  //If error return without incrementing progress
+                }
+                
+                if progressComplete {
+                    self.updateDailog(syncUpFailed: syncUpFailed)
+                }
             }
         }
     }
+    
     
     func updateDailog(syncUpFailed: Bool){
         let date = Date()
@@ -80,16 +89,19 @@ class SyncInfoViewController: UIViewController {
         if !SyncUpDailogGlobal.isSyncing {
             self.delegate?.startSyncUp()
             SyncUpDailogGlobal.isSyncing = true
+            SyncUpDailogGlobal.syncType = "Manual"  
         }
     }
     
-    func setLastSyncValues(){        
+    func setLastSyncValues(){
         if let status = UserDefaults.standard.object(forKey: "lastSyncStatus") as? String {
             DispatchQueue.main.async {
                 self.lastSyncStatusLabel.text = status
             }
         }else{
-            self.lastSyncStatusLabel.text = "Last Sync"
+            DispatchQueue.main.async {
+                self.lastSyncStatusLabel.text = "Last Sync"
+            }
         }
         
         if let date = UserDefaults.standard.object(forKey: "lastSyncDate") as? String {
@@ -97,7 +109,9 @@ class SyncInfoViewController: UIViewController {
                 self.lastSyncDateLabel.text = date
             }
         }else{
-            self.lastSyncDateLabel.text = ""
+            DispatchQueue.main.async {
+                self.lastSyncDateLabel.text = ""
+            }
         }
         self.setProgress(progress: Float(0))
         SyncUpDailogGlobal.isSyncing = false

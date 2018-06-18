@@ -123,7 +123,7 @@ class AccountVisitListViewController: UIViewController {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshAccountVisitList"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("refreshVisitEventList"), object: nil)
     }
     
     //Customize the UI for Table View

@@ -438,7 +438,7 @@ class DateTimeUtility
          //Getting this right is very important!
         for visit in visitArray {
             var  isSameDate  = false
-            if getFormattCurrentDateString(dateStr: currentDate) == getFormattString(dateStr: DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: visit.startDate))
+            if getFormattCurrentDateString(dateStr: currentDate) == getFormattString(dateStr: visit.startDate)
             {
                 isSameDate = true
             }

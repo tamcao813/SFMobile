@@ -206,7 +206,7 @@ class HomeActivitiesViewController: UIViewController, UITableViewDataSource,UITa
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 100
     }
     
     

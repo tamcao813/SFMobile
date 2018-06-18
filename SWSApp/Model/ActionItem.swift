@@ -60,7 +60,7 @@ class ActionItem {
             dateStart = nil
         }
         else {
-            dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: activityDate)
+            dateStart = DateTimeUtility.getDateActionItemFromDateString(dateString: activityDate)
         }
         isUrgent = json["SGWS_Urgent__c"] as? Bool ?? false
         let isUrgentString = json["SGWS_Urgent__c"] as? String ?? ""

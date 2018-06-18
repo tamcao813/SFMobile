@@ -28,7 +28,7 @@ class AccountsActionItemViewModel {
         
         var filteredActionItemArray = SyncConfigurationSortUtility.getActionItemDataUsingSyncTime(objectArray: actionItemsArray)
         filteredActionItemArray = filteredActionItemArray.sorted(by: { $0.activityDate < $1.activityDate })
-        return actionItemsArray
+        return filteredActionItemArray
     }
     
     

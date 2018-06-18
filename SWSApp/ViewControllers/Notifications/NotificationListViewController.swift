@@ -35,7 +35,6 @@ class NotificationListViewController: UIViewController {
     func getNotifications(){
         notificationsArray = [Notifications]()
         notificationsArray = NotificationsViewModel().notificationsForUser()
-        notificationsArray = notificationsArray.sorted(by: { $0.createdDate < $1.createdDate })
         reloadTableView()
     }
     

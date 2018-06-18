@@ -46,6 +46,9 @@ class SyncInfoViewController: UIViewController {
                 self.containerView.layoutIfNeeded()
                 self.customizedUI()
             }
+        }else{
+            self.containerViewHeightConstraint.constant = 65
+            self.progressContainerView.isHidden = true
         }
         
     }
@@ -83,13 +86,15 @@ class SyncInfoViewController: UIViewController {
         }
     }
     
-    func setLastSyncValues(){        
+    func setLastSyncValues(){
         if let status = UserDefaults.standard.object(forKey: "lastSyncStatus") as? String {
             DispatchQueue.main.async {
                 self.lastSyncStatusLabel.text = status
             }
         }else{
-            self.lastSyncStatusLabel.text = "Last Sync"
+            DispatchQueue.main.async {
+                self.lastSyncStatusLabel.text = "Last Sync"
+            }
         }
         
         if let date = UserDefaults.standard.object(forKey: "lastSyncDate") as? String {
@@ -97,7 +102,9 @@ class SyncInfoViewController: UIViewController {
                 self.lastSyncDateLabel.text = date
             }
         }else{
-            self.lastSyncDateLabel.text = ""
+            DispatchQueue.main.async {
+                self.lastSyncDateLabel.text = ""
+            }
         }
         self.setProgress(progress: Float(0))
         SyncUpDailogGlobal.isSyncing = false

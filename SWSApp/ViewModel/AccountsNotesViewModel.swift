@@ -44,14 +44,17 @@ class AccountsNotesViewModel {
     func syncNotesWithServer(_ completion:@escaping (_ error: NSError?)->()) {
         let fields: [String] = AccountNotes.AccountNotesFields
         
+        var isError:Bool = false
+        
         StoreDispatcher.shared.syncUpNotes(fieldsToUpload: fields, completion: {error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("syncNotesWithServer: Note Sync up failed")
+                isError =  true
             }
-            
+
             StoreDispatcher.shared.reSyncNote { error in
-                if error != nil {
+                if isError || error != nil {
                     print(error?.localizedDescription ?? "error")
                     print("syncNotesWithServer: Note reSync failed")
                     completion(error)
@@ -60,6 +63,7 @@ class AccountsNotesViewModel {
                     completion(nil)
                 }
             }
+
         })
     }
     

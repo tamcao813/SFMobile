@@ -11,21 +11,23 @@ import Foundation
 class AccountsActionItemViewModel {
     
     func actionItemFourMonthsSorted() -> [ActionItem] {
-        var actionItemsArray = getAcctionItemForUser()
-        let prevMonthDate = Date().add(component: .month, value: -1)
-        let next3MonthDate = Date().add(component: .month, value: 3)
+        let actionItemsArray = getAcctionItemForUser()
+//        let prevMonthDate = Date().add(component: .month, value: -1)
+//        let next3MonthDate = Date().add(component: .month, value: 3)
+//
+//        actionItemsArray = actionItemsArray.filter {
+//            if let activityDate = DateTimeUtility.getDateActionItemFromDateString(dateString: $0.activityDate) {
+//                if activityDate.isLater(than: prevMonthDate), activityDate.isEarlier(than: next3MonthDate) {
+//                    return true
+//                }else {
+//                    return false
+//                }
+//            }
+//            return true
+//        }
         
-        actionItemsArray = actionItemsArray.filter {
-            if let activityDate = DateTimeUtility.getDateActionItemFromDateString(dateString: $0.activityDate) {
-                if activityDate.isLater(than: prevMonthDate), activityDate.isEarlier(than: next3MonthDate) {
-                    return true
-                }else {
-                    return false
-                }
-            }
-            return true
-        }
-        actionItemsArray = actionItemsArray.sorted(by: { $0.activityDate < $1.activityDate })
+        var filteredActionItemArray = SyncConfigurationSortUtility.getActionItemDataUsingSyncTime(objectArray: actionItemsArray)
+        filteredActionItemArray = filteredActionItemArray.sorted(by: { $0.activityDate < $1.activityDate })
         return actionItemsArray
     }
     

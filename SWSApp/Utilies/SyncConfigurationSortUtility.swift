@@ -42,7 +42,8 @@ class SyncConfigurationSortUtility {
         let isManager:Bool = UserViewModel().consultants.count > 0
         
         let objectArray = objectArray.filter {
-            if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: $0.recordTypeId) {
+            if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: "0120t0000008cMCAAY") {
+                // Fix RecordTypeID - Make it Dynamic for action item
                 if systemConfigurationObject.developerName == "SGWS_Task" {
                     if isManager {
                         if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
@@ -56,7 +57,9 @@ class SyncConfigurationSortUtility {
                                     return false
                                 }
                             }
-                            
+                            else{
+                                return true
+                            }                            
                         } else {
                             let prevMonthDate = Date().add(component: .month, value: -1)
                             let next3MonthDate = Date().add(component: .month, value: 3)
@@ -68,6 +71,9 @@ class SyncConfigurationSortUtility {
                                 else {
                                     return false
                                 }
+                            }
+                            else{
+                                return true
                             }
                         }
                     }else {
@@ -75,13 +81,15 @@ class SyncConfigurationSortUtility {
                             let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesConsultantSyncFrom as NSString).floatValue))
                             let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesConsultantSyncTo as NSString).floatValue))
                             /* REPLACE dateStart With YOUR DATE PROPERTY */
-                            if let startDate = $0.dateStart {
+                            if let startDate = $0.dateStart{
                                 if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
                                     return true
                                 }
                                 else {
                                     return false
                                 }
+                            }else{
+                                return true
                             }
                             
                             
@@ -96,6 +104,9 @@ class SyncConfigurationSortUtility {
                                 else {
                                     return false
                                 }
+                            }
+                            else{
+                                return true
                             }
                         }
                     }

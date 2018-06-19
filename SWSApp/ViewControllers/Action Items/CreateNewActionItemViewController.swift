@@ -192,6 +192,8 @@ class CreateNewActionItemViewController: UIViewController {
             newActionItem.isUrgent = false
         }
         newActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+        // Fix RecordTypeID - Make it Dynamic for action item
+        newActionItem.recordTypeId = "0120t0000008cMCAAY"
         let attributeDict = ["type":"Task"]
         var actionItemDict: [String:Any] = [
             
@@ -203,6 +205,7 @@ class CreateNewActionItemViewController: UIViewController {
             ActionItem.AccountActionItemFields[5]: newActionItem.activityDate,
             ActionItem.AccountActionItemFields[6]: newActionItem.isUrgent,
             ActionItem.AccountActionItemFields[7]: newActionItem.lastModifiedDate,
+            ActionItem.AccountActionItemFields[8]: newActionItem.recordTypeId,
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,

@@ -346,7 +346,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fh2-vm-Ac9">
-                                <rect key="frame" x="30" y="403" width="120" height="40"/>
+                                <rect key="frame" x="30" y="401" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="GUy-Xc-Bq2"/>
@@ -365,21 +365,6 @@
                                     <action selector="editVisitOrNotesButtonTapped:" destination="v9Q-k8-N2k" eventType="touchUpInside" id="al8-vs-ZCe"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-iM-AOQ">
-                                <rect key="frame" x="30" y="453" width="120" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="aex-pJ-A1H"/>
-                                    <constraint firstAttribute="height" constant="40" id="hdL-mC-hZq"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
-                                <state key="normal" title="   Delete Visit" image="delete">
-                                    <color key="titleColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="deleteVisitButtonTapped:" destination="v9Q-k8-N2k" eventType="touchUpInside" id="3RN-8W-cKL"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blD-Gm-ocV">
                                 <rect key="frame" x="964" y="41.5" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -394,12 +379,50 @@
                                     <action selector="closeButtonTapped:" destination="v9Q-k8-N2k" eventType="touchUpInside" id="VGM-y9-eup"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ml-Uq-XLP">
+                                <rect key="frame" x="735" y="41" width="200" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="D5c-IP-FBr"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="SCG-Ky-YfM"/>
+                                    <constraint firstAttribute="width" constant="200" id="paS-2Y-aa8"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="z38-ns-LfI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <state key="normal" title="Account Strategy">
+                                    <color key="titleColor" name="Data New"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="accountStrategyButtonTapped:" destination="v9Q-k8-N2k" eventType="touchUpInside" id="Vpn-EI-nqZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-iM-AOQ">
+                                <rect key="frame" x="30" y="449" width="120" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="aex-pJ-A1H"/>
+                                    <constraint firstAttribute="height" constant="40" id="hdL-mC-hZq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                <state key="normal" title="   Delete Visit" image="delete">
+                                    <color key="titleColor" red="0.25882352939999997" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteVisitButtonTapped:" destination="v9Q-k8-N2k" eventType="touchUpInside" id="3RN-8W-cKL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fh2-vm-Ac9" firstAttribute="top" secondItem="TGd-Ri-gvD" secondAttribute="bottom" constant="10" id="9N8-Bm-7W0"/>
+                            <constraint firstItem="fh2-vm-Ac9" firstAttribute="top" secondItem="TGd-Ri-gvD" secondAttribute="bottom" constant="8" id="9N8-Bm-7W0"/>
                             <constraint firstItem="FFp-xT-3QR" firstAttribute="top" secondItem="OZ9-L3-SEK" secondAttribute="bottom" constant="10" id="BDy-YD-LaO"/>
                             <constraint firstItem="PON-ss-Nsr" firstAttribute="bottom" secondItem="BhT-dr-UMH" secondAttribute="bottom" id="FE1-Mf-zUP"/>
+                            <constraint firstItem="3Ml-Uq-XLP" firstAttribute="top" secondItem="BhT-dr-UMH" secondAttribute="top" constant="21" id="HTo-MO-Fw9"/>
                             <constraint firstItem="fh2-vm-Ac9" firstAttribute="leading" secondItem="TGd-Ri-gvD" secondAttribute="leading" id="I4D-Zz-erK"/>
                             <constraint firstItem="xYG-9I-MTa" firstAttribute="leading" secondItem="BhT-dr-UMH" secondAttribute="leading" constant="30" id="IMv-ix-8kB"/>
                             <constraint firstItem="blD-Gm-ocV" firstAttribute="centerY" secondItem="4Dt-tf-onC" secondAttribute="centerY" id="MOq-yq-3p4"/>
@@ -413,9 +436,10 @@
                             <constraint firstItem="PON-ss-Nsr" firstAttribute="top" secondItem="xYG-9I-MTa" secondAttribute="top" id="fmi-YU-zLd"/>
                             <constraint firstItem="TGd-Ri-gvD" firstAttribute="leading" secondItem="FFp-xT-3QR" secondAttribute="leading" id="jjj-wg-Peq"/>
                             <constraint firstItem="Dp6-iM-AOQ" firstAttribute="leading" secondItem="fh2-vm-Ac9" secondAttribute="leading" id="leK-pC-9fT"/>
+                            <constraint firstItem="blD-Gm-ocV" firstAttribute="leading" secondItem="3Ml-Uq-XLP" secondAttribute="trailing" constant="29" id="mTf-es-iwH"/>
                             <constraint firstItem="PON-ss-Nsr" firstAttribute="leading" secondItem="xYG-9I-MTa" secondAttribute="trailing" constant="30" id="nky-J3-yrx"/>
                             <constraint firstItem="TGd-Ri-gvD" firstAttribute="top" secondItem="FFp-xT-3QR" secondAttribute="bottom" constant="30" id="uXx-2n-NKf"/>
-                            <constraint firstItem="Dp6-iM-AOQ" firstAttribute="top" secondItem="fh2-vm-Ac9" secondAttribute="bottom" constant="10" id="y19-qD-Iyj"/>
+                            <constraint firstItem="Dp6-iM-AOQ" firstAttribute="top" secondItem="fh2-vm-Ac9" secondAttribute="bottom" constant="8" id="y19-qD-Iyj"/>
                             <constraint firstItem="4Dt-tf-onC" firstAttribute="top" secondItem="BhT-dr-UMH" secondAttribute="top" constant="20" id="zSu-XS-hO2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BhT-dr-UMH"/>
@@ -466,7 +490,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXz-8p-Q5P">
-                                                    <rect key="frame" x="12" y="9" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ey-Yn-1IT">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -532,7 +556,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xP-xi-8E1">
-                                                    <rect key="frame" x="12" y="-3.5" width="218" height="72.5"/>
+                                                    <rect key="frame" x="12" y="-3" width="218" height="72.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aT-d1-2Dd">
                                                             <rect key="frame" x="6" y="2" width="33" height="16"/>
@@ -615,7 +639,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ywo-bW-epi">
-                                                    <rect key="frame" x="12" y="-3.5" width="218" height="72.5"/>
+                                                    <rect key="frame" x="12" y="-3" width="218" height="72.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntZ-87-qoc">
                                                             <rect key="frame" x="6" y="2" width="15.5" height="16"/>
@@ -815,7 +839,7 @@
                                 <rect key="frame" x="12" y="80" width="710" height="560"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="20" reuseIdentifier="AccountVisitListHeaderTableViewCell" rowHeight="50" id="X3T-wC-Cwx" customClass="AccountVisitListTableViewCell" customModule="SWSApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="20" reuseIdentifier="AccountVisitListHeaderTableViewCell" rowHeight="50" id="X3T-wC-Cwx" customClass="AccountVisitListTableViewCell" customModule="SWSApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="710" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X3T-wC-Cwx" id="62Z-2l-9ui">
@@ -823,7 +847,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JLW-b0-WOu">
-                                                    <rect key="frame" x="0.0" y="47" width="426" height="4"/>
+                                                    <rect key="frame" x="0.0" y="47" width="710" height="4"/>
                                                     <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="4" id="cYA-Wx-7o1"/>
@@ -853,20 +877,20 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rne-z0-pIs">
-                                                    <rect key="frame" x="132.5" y="16" width="40.5" height="16"/>
+                                                    <rect key="frame" x="416.5" y="16" width="40.5" height="16"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="9o0-t5-GFj">
-                                                    <rect key="frame" x="181" y="19" width="10" height="10"/>
+                                                    <rect key="frame" x="465" y="19" width="10" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="10" id="N1Y-2B-m4P"/>
                                                         <constraint firstAttribute="height" constant="10" id="hYX-g7-hxF"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Js-YX-JF4">
-                                                    <rect key="frame" x="121" y="0.0" width="84" height="50"/>
+                                                    <rect key="frame" x="405" y="0.0" width="84" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="84" id="mjw-Mt-2Wl"/>
@@ -876,20 +900,20 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EJ-v5-RZc">
-                                                    <rect key="frame" x="266.5" y="16" width="30.5" height="16"/>
+                                                    <rect key="frame" x="550.5" y="16" width="30.5" height="16"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="O2Y-Lb-wWl">
-                                                    <rect key="frame" x="305" y="19" width="10" height="10"/>
+                                                    <rect key="frame" x="589" y="19" width="10" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="6Y2-lC-Uab"/>
                                                         <constraint firstAttribute="width" constant="10" id="QPI-hD-Fi1"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oeo-u4-Rca">
-                                                    <rect key="frame" x="241" y="0.0" width="84" height="50"/>
+                                                    <rect key="frame" x="525" y="0.0" width="84" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="84" id="kit-ot-FFw"/>
@@ -928,7 +952,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountVisitListTableViewCell" rowHeight="180" id="256-bR-TCM" customClass="AccountVisitListTableViewCell" customModule="SWSApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountVisitListTableViewCell" rowHeight="180" id="256-bR-TCM" customClass="AccountVisitListTableViewCell" customModule="SWSApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="78" width="710" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="256-bR-TCM" id="8ia-pV-fib">
@@ -936,7 +960,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mMI-tp-0ed">
-                                                    <rect key="frame" x="0.0" y="8" width="426" height="170"/>
+                                                    <rect key="frame" x="0.0" y="8" width="710" height="170"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HM0-AI-dCb">
                                                             <rect key="frame" x="0.0" y="0.0" width="5" height="170"/>
@@ -955,7 +979,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="751" text="Scheduled" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VjM-od-8oK">
-                                                            <rect key="frame" x="133.5" y="35" width="86" height="18"/>
+                                                            <rect key="frame" x="417.5" y="35" width="86" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="CfQ-oL-DIV"/>
                                                                 <constraint firstAttribute="width" constant="86" id="ETo-WB-NTc"/>
@@ -965,7 +989,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="02-15-2018" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ebu-i4-gbS">
-                                                            <rect key="frame" x="269" y="35" width="102" height="18"/>
+                                                            <rect key="frame" x="553" y="35" width="102" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="102" id="3ph-CF-Lip"/>
                                                             </constraints>
@@ -974,13 +998,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="10:30 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJV-ou-ev7">
-                                                            <rect key="frame" x="269" y="57" width="68.5" height="18"/>
+                                                            <rect key="frame" x="553" y="57" width="68.5" height="18"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l5Q-hh-LZz">
-                                                            <rect key="frame" x="10" y="100" width="416" height="2"/>
+                                                            <rect key="frame" x="10" y="100" width="700" height="2"/>
                                                             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="2" id="BrI-Kw-A3k"/>
@@ -1015,7 +1039,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Location name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaK-Ew-k1B">
-                                                            <rect key="frame" x="134" y="127" width="262" height="20"/>
+                                                            <rect key="frame" x="418" y="127" width="262" height="20"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1274,6 +1298,9 @@
         </namedColor>
         <namedColor name="Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Data New">
+            <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Data New">
             <color red="0.24300000071525574" green="0.52499997615814209" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

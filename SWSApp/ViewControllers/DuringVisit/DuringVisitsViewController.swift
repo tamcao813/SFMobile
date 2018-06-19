@@ -397,6 +397,16 @@ class  DuringVisitsViewController : UIViewController {
         activeViewController = duringVisitVC
     }
     
+    //Account strategy Clicked
+    @IBAction func loadStrategyViewController(sender : UIButton){
+        let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
+        let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
+        StrategyScreenLoadFrom.isLoadFromStrategy = "1"
+        
+        (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     //Edit Account strategy Clicked
     @IBAction func loadEditAccountStrategy(sender : UIButton){
         let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)

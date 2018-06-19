@@ -33,7 +33,6 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     var selectedContact: Contact!
     var visitObject: WorkOrderUserObject?
-    
     var visitStatus: AccountVisitStatus?
     var delegate : NavigateToContactsDelegate?
     
@@ -83,6 +82,7 @@ class AccountVisitSummaryViewController: UIViewController {
             }
         }
         PlanVisitManager.sharedInstance.visit = visitObject
+        
         fetchAccountDetails()
         fetchContactDetails()
         UICustomizations()

@@ -23,6 +23,7 @@ let SoupSyncConfiguration = "SyncConfiguration"
 let SoupActionItem = "Task"
 let SoupNotifications = "FS_Notification__c"
 let SoupSyncLog = "SGWS_Sync_Logs__c"
+let SoupRecordType = "RecordType"
 
 let SoupOpportunity = "opportunity"
 let SoupUploadOpportunity = "uploadOpportunity"
@@ -69,6 +70,7 @@ let SyncUpIdActionItem = "SyncUpIdActionItem"
 let SyncDownIdActionItem = "SyncDownIdActionItem"
 
 let SyncDownIdNotifications = "SyncNotifications"
+let SyncDownIdRecordType = "SyncDownIdRecordType"
 
 
 

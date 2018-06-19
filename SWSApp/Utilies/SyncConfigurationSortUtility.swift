@@ -42,8 +42,7 @@ class SyncConfigurationSortUtility {
         let isManager:Bool = UserViewModel().consultants.count > 0
         
         let objectArray = objectArray.filter {
-            if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: "0120t0000008cMCAAY") {
-                // Fix RecordTypeID - Make it Dynamic for action item
+            if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: $0.recordTypeId) {
                 if systemConfigurationObject.developerName == "SGWS_Task" {
                     if isManager {
                         if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {

@@ -21,14 +21,14 @@ class StoreDispatcher {
     static let shared = StoreDispatcher()
     static let SFADB = "SFADB"
     
-
+    
     // Workorder Types Visit OR Event
     let workOrderTypeVisit = "SGWS_WorkOrder_Visit"
     let workOrderTypeEvent = "SGWS_WorkOrder_Event"
     let recordTypeDevTask = "SGWS_Task"
-
-//    var workOrderRecordTypeIdVisit = ""
-//    var workOrderRecordTypeIdEvent = ""
+    
+    //    var workOrderRecordTypeIdVisit = ""
+    //    var workOrderRecordTypeIdEvent = ""
     
     var syncProgress:Int = 0
     
@@ -64,8 +64,10 @@ class StoreDispatcher {
         registerActionItemSoup()
         registerNotificationsSoup()
         registerOpportunity()
+        registerUploadOpportunity()
         registerOpportunityWorkorder()
         registerSyncLogSoup()
+        registerRecordTypeSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -94,6 +96,11 @@ class StoreDispatcher {
         //Notifications
         group.enter()
         reSyncNotifications() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        reSyncRecordType() { _ in
             group.leave()
         }
         
@@ -138,7 +145,7 @@ class StoreDispatcher {
         //Strategy QA / Response
         group.enter()
         
-         let strategyResponsefields: [String] = ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"]
+        let strategyResponsefields: [String] = ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"]
         
         syncUpStrategyQA(fieldsToUpload: strategyResponsefields, completion: {error in
             if error != nil {
@@ -167,7 +174,7 @@ class StoreDispatcher {
         //Contacts
         group.enter()
         let contactFields: [String] = Contact.ContactFields
-
+        
         syncUpContact(fieldsToUpload: contactFields, completion: {error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
@@ -193,7 +200,7 @@ class StoreDispatcher {
             }
             self.reSyncNote { error in
                 group.leave()
-
+                
             }
         })
         
@@ -237,17 +244,21 @@ class StoreDispatcher {
             }
         })
         
-        //TBD updated with resync function
         group.enter()
         syncDownOpportunity() { _ in
             let _ = OpportunityViewModel().globalOpportunityReload()
             group.leave()
         }
         
+        group.enter()
+        syncDownUploadOpportunity() { _ in
+            group.leave()
+        }
+        
         //to do: syncDown other soups
         group.notify(queue: queue) {
             print("completion")
-
+            
             completion(nil)
         }
         
@@ -269,6 +280,11 @@ class StoreDispatcher {
         }
         group.enter()
         syncDownNotification() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownRecordType() { _ in
             group.leave()
         }
         
@@ -329,7 +345,12 @@ class StoreDispatcher {
         
         group.enter()
         syncDownOpportunity() { _ in
-        let _ = OpportunityViewModel().globalOpportunityReload()
+            let _ = OpportunityViewModel().globalOpportunityReload()
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownUploadOpportunity() { _ in
             group.leave()
         }
         
@@ -602,7 +623,7 @@ class StoreDispatcher {
         sfaStore.clearSoup(SoupSyncLog)
     }
     
-
+    
     
     //MARK:- Contat Sync CODE
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {
@@ -641,7 +662,7 @@ class StoreDispatcher {
                 self.downloadSWGSOutcomePList(recordTypeId: recordTypeId) { _ in
                     group.leave()
                 }
-
+                
                 
                 group.notify(queue: queue) {
                     completion(nil)
@@ -685,7 +706,7 @@ class StoreDispatcher {
     }
     
     func downloadContactRolesPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
-        let recordTypeId = recordTypeId 
+        let recordTypeId = recordTypeId
         let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.rules
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
         request.endpoint = StringConstants.serviceUrl
@@ -826,7 +847,7 @@ class StoreDispatcher {
         }
     }
     
-
+    
     
     func downloadVisitPLists(_ completion:@escaping (_ error: NSError?)->()) {
         let query = "SELECT id FROM RecordType where SobjectType = 'WorkOrder'"
@@ -1646,7 +1667,7 @@ class StoreDispatcher {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
                 let acr = AccountContactRelation(withAry: ary)
-                if acr.buyingPower == 1 { 
+                if acr.buyingPower == 1 {
                     acrObjects.append(acr)
                 }
             }
@@ -1803,9 +1824,9 @@ class StoreDispatcher {
                     print(">>>>>> visit syncDownVisit() done >>>>>")
                     
                     let _ = OpportunityViewModel().globalOpportunityWorkorder()
-                    //                    self.syncDownOpportunityWorkorder() { _ in
-                    //                        let _ = OpportunityViewModel().globalOpportunityWorkorder()
-                    //                    }
+                    self.syncDownOpportunityWorkorder() { _ in
+//                        let _ = OpportunityViewModel().globalOpportunityWorkorder()
+                    }
                     completion(nil)
                     
                 }
@@ -1828,7 +1849,7 @@ class StoreDispatcher {
     
     func fetchEvents()->[Visit]{
         
-        var visit: [Visit] = []        
+        var visit: [Visit] = []
         let soapQuery = "Select * FROM {WorkOrder} WHERE {WorkOrder:RecordTypeId} = '\(SyncConfigurationViewModel().syncConfigurationRecordIdforEvent())'"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
@@ -1955,7 +1976,7 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print(">>>>>> ActionItem SyncDown() done >>>>>")
-                     let syncId:UInt = UInt(syncStateStatus.syncId)
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdActionItem] = syncId
                     completion(nil)
                 }
@@ -2273,7 +2294,7 @@ class StoreDispatcher {
                     self.syncIdDictionary[SyncDownIdNote] = syncId
                     print(">>>>>> Notes syncDownNote() done >>>>>")
                     completion(nil)
-                    }
+                }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownNotes() >>>>>>>"
                     let userInfo: [String: Any] =
@@ -2749,7 +2770,7 @@ class StoreDispatcher {
                     
                     completion(nil)
                     
-                    }
+                }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownStrategyQA() >>>>>>>"
                     let userInfo: [String: Any] =
@@ -2934,7 +2955,7 @@ class StoreDispatcher {
     
     // SyncDown StrategyAnswers Soup
     func syncDownStrategyAnswers(_ completion:@escaping (_ error: NSError?)->()) {
-
+        
         let soqlQuery = "SELECT Id,Name,SGWS_Answer_Description__c,SGWS_Deactivate_Answer__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Answer__c"
         
         print("soql syncDownStrategyAnswers query is \(soqlQuery)")
@@ -3172,7 +3193,7 @@ class StoreDispatcher {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
             print("\(result) Visit is deleted  successfully" )
-            print(soupEntryId!)            
+            print(soupEntryId!)
             return true
         }
         else {
@@ -3517,8 +3538,8 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
     }
-
- //MARK:- Notifications Related Code
+    
+    //MARK:- Notifications Related Code
     
     func registerNotificationsSoup(){
         
@@ -3557,9 +3578,9 @@ class StoreDispatcher {
                     print(">>>>>> Notification SyncDown() done >>>>>")
                     let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdNotifications] = syncId
-
+                    
                     completion(nil)
-                   
+                    
                 }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownNotification() >>>>>>>"
@@ -3653,7 +3674,7 @@ class StoreDispatcher {
             return false
         }
     }
-
+    
     func registerOpportunity() {
         
         let syncOpportunityFields = Opportunity.opportunityFields
@@ -3673,6 +3694,26 @@ class StoreDispatcher {
             
         } catch let error as NSError {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunity soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func registerUploadOpportunity() {
+        
+        let syncUploadOpportunityFields = Opportunity.opportunityUploadFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...syncUploadOpportunityFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: syncUploadOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncUploadOpportunityFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupUploadOpportunity, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupUploadOpportunity soup: \(error.localizedDescription)")
         }
     }
     
@@ -3790,8 +3831,8 @@ class StoreDispatcher {
     
     func syncUpOpportunity(completion:@escaping (_ error: NSError?)->()) {
         
-        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: Opportunity.opportunitySyncUpFields, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
-        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupOpportunity)
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: Opportunity.opportunityUploadSyncUpFields, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupUploadOpportunity)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     let syncId:UInt = UInt(syncStateStatus.syncId)
@@ -3835,7 +3876,7 @@ class StoreDispatcher {
         }
     }
     
-    /* Not used as SGWS_Opportunity_WorkOrder__c is sync downed as part of Parent-Child syncdownvisit
+    // Not used as SGWS_Opportunity_WorkOrder__c is sync downed as part of Parent-Child syncdownvisit
     func syncDownOpportunityWorkorder(_ completion:@escaping (_ error: NSError?)->()) {
         
         let soqlQuery = "select Id,SGWS_Opportunity__c,SGWS_Work_Order__c,SGWS_Outcome__c from SGWS_Opportunity_WorkOrder__c"
@@ -3865,8 +3906,38 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
         
-    }*/
+    }
     
+    func syncDownUploadOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "select id,AccountId,sgws_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c from opportunity"
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUploadOpportunity)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownUploadOpportunity() done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownUploadOpportunity()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownUploadOpportunity()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+        
+    }
+
     func createNewOpportunityWorkorderLocally(fieldsToUpload: [String:Any]) -> (Bool,Int){
         
         var allFields = fieldsToUpload
@@ -3919,7 +3990,7 @@ class StoreDispatcher {
         }
         return opportunityWorkorder
     }
-
+    
     private func resyncError(syncConstant: String)->NSError{
         let meg = "Error reSync: " + syncConstant
         let userInfo: [String: Any] =
@@ -3932,7 +4003,7 @@ class StoreDispatcher {
     }
     
     func editOpportunityCommitToSoup(fieldsToUpload: [String:Any]) -> Bool{
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunity, withOrderPath: "SGWS_Opportunity_source__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupUploadOpportunity, withOrderPath: "SGWS_Commit__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
@@ -3940,9 +4011,16 @@ class StoreDispatcher {
         
         for  opportunity in result{
             var oppotunityModif = opportunity as! [String:Any]
-            let opportunityModifIdValue = oppotunityModif["Id"] as! String
-            let fieldsIdValue = fieldsToUpload["Id"] as! String
-            
+            let opportunityModifIdValue = oppotunityModif["Id"] as? String ?? ""
+            if opportunityModifIdValue.isEmpty {
+                continue
+            }
+
+            let fieldsIdValue = fieldsToUpload["id"] as? String ?? ""
+            if fieldsIdValue.isEmpty {
+                continue
+            }
+
             if(fieldsIdValue == opportunityModifIdValue){
                 oppotunityModif["SGWS_Commit__c"] = fieldsToUpload["SGWS_Commit__c"]
                 oppotunityModif[kSyncTargetLocal] = true
@@ -3960,7 +4038,7 @@ class StoreDispatcher {
             }
         }
         
-        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupOpportunity)
+        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupUploadOpportunity)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
@@ -3976,7 +4054,7 @@ class StoreDispatcher {
     
     
     func editOpportunityOutcomeToSoup(fieldsToUpload: [String:Any]) -> Bool{
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Opportunity__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Outcome__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
@@ -3984,12 +4062,15 @@ class StoreDispatcher {
         
         for  workOrderopportunity in result{
             var oppotunityModif = workOrderopportunity as! [String:Any]
-            let opportunityModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
+            let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
             if opportunityModifIdValue.isEmpty {
                 continue
             }
             let fieldsIdValue = fieldsToUpload["Id"] as? String ?? ""
-            
+            if fieldsIdValue.isEmpty {
+                continue
+            }
+
             if(fieldsIdValue == opportunityModifIdValue){
                 oppotunityModif["SGWS_Outcome__c"] = fieldsToUpload["SGWS_Outcome__c"]
                 oppotunityModif[kSyncTargetLocal] = true
@@ -4021,8 +4102,84 @@ class StoreDispatcher {
         }
     }
     
+    //MARK:- Record Type Related Code
+    func registerRecordTypeSoup(){
+        
+        let recordTypeQueryFields = RecordType.recordTypesFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...recordTypeQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: recordTypeQueryFields[i], indexType: kSoupIndexTypeString, columnName: recordTypeQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupRecordType, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register RecordType soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func reSyncRecordType(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdRecordType] else { return completion(resyncError(syncConstant: SyncDownIdRecordType))}
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdRecordType, completion: completion)
+    }
     
     
-
+    func syncDownRecordType(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "SELECT CreatedDate,Description,DeveloperName,Id,IsActive FROM RecordType"
+        
+        print("soql recordType query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupRecordType)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> Record Type SyncDown() done >>>>>")
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdRecordType] = syncId
+                    
+                    completion(nil)
+                    
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownRecordType() >>>>>>>"
+                    let userInfo: [String: Any] = [NSLocalizedDescriptionKey : meg,
+                                                   NSLocalizedFailureReasonErrorKey : meg]
+                    let err = NSError(domain: "syncDownRecordType()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
     
+    func fetchRecordTypeForDeveloperName()->[RecordType] {
+        var recordType: [RecordType] = []
+        let recordTypeFields = RecordType.recordTypesFields.map{"{RecordType:\($0)}"}
+        let soapQuery = "Select \(recordTypeFields.joined(separator: ",")) FROM {RecordType}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let recordTypeArray = RecordType(withAry: ary)
+                recordType.append(recordTypeArray)
+                print("recordTypeArray \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch recordTypeArray " + " error:" + (error?.localizedDescription)!)
+        }
+        return recordType
+    }
 }

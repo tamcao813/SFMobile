@@ -35,6 +35,8 @@ class OpportunityViewModel {
                 print("syncOpportunitysWithServer: Sync up failed")
             }
             
+            StoreDispatcher.shared.syncDownUploadOpportunity() { _ in
+            }
             StoreDispatcher.shared.syncDownOpportunity() { _ in
                 let _ = self.globalOpportunityReload()
                 completion(nil)

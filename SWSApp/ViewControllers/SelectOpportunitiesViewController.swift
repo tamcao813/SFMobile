@@ -8,6 +8,7 @@
 
 import Foundation
 import SwipeCellKit
+import SmartSync
 
 class SelectOpportunitiesViewController: UIViewController {
     @IBOutlet weak var opportunitiesListView: UITableView!

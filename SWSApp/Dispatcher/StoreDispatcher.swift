@@ -269,6 +269,11 @@ class StoreDispatcher {
             group.leave()
         }
         
+//        group.enter()
+//        syncDownNotification() { _ in
+//            group.leave()
+//        }
+        
         group.enter()
         downloadContactPLists() { _ in
             group.leave()
@@ -4013,6 +4018,83 @@ class StoreDispatcher {
         ]
         let err = NSError(domain: "reSyncSoup()", code: 602, userInfo: userInfo)
         return err
+    }
+    
+    //MARK:- Record Type Related Code
+    func registerRecordTypeSoup(){
+        
+        let recordTypeQueryFields = RecordType.recordTypesFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...recordTypeQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: recordTypeQueryFields[i], indexType: kSoupIndexTypeString, columnName: recordTypeQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupRecordType, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register RecordType soup: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    
+    func syncDownRecordType(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "SELECT CreatedDate,Description,DeveloperName,Id,IsActive FROM RecordType"
+        
+        print("soql recordType query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupNotifications)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> Record Type SyncDown() done >>>>>")
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdRecordType] = syncId
+                    
+                    completion(nil)
+                    
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownRecordType() >>>>>>>"
+                    let userInfo: [String: Any] = [NSLocalizedDescriptionKey : meg,
+                                                   NSLocalizedFailureReasonErrorKey : meg]
+                    let err = NSError(domain: "syncDownRecordType()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    func fetchRecordTypeForDeveloperName(developerName: String)->[RecordType] {
+        var recordType: [RecordType] = []
+        let recordTypeFields = RecordType.recordTypesFields.map{"{RecordType:\($0)}"}
+        let soapQuery = "Select \(recordTypeFields.joined(separator: ",")) FROM {RecordType} WHERE {RecordType:DeveloperName} = '\(developerName)' "
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let recordTypeArray = RecordType(withAry: ary)
+                recordType.append(recordTypeArray)
+                print("recordTypeArray \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch recordTypeArray " + " error:" + (error?.localizedDescription)!)
+        }
+        return recordType
     }
     
 }

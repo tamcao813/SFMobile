@@ -37,7 +37,7 @@ class AccountsViewModel {
         //            }
         
         // 2. Sync down Accounts
-        StoreDispatcher.shared.reSyncAccounts{ error in
+        StoreDispatcher.shared.syncDownAccount{ error in
             if error == nil {
                 
                 StoreDispatcher.shared.syncDownUserDataForAccounts{ error in

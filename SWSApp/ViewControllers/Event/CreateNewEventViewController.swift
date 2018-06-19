@@ -296,13 +296,14 @@ class CreateNewEventViewController: UIViewController {
             "attributes":attributeDict]
         
         //let (success,Id) = visitViewModel.createNewVisitLocally(fields: addNewDict)
-        let (success,_) = visitViewModel.createNewVisitLocally(fields: addNewDict)
+        let (success,soupID) = visitViewModel.createNewVisitLocally(fields: addNewDict)
         
         if(success){
             let event = WorkOrderUserObject(for: "")
             //Add the soup entry Id
             event.Id = new_Event.Id//String((success,Id).1)
             event.accountId = new_Event.accountId
+            event.soupEntryId = soupID
             event.contactId = new_Event.contactId
             event.startDate = new_Event.startDate
             event.endDate = new_Event.endDate

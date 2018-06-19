@@ -35,7 +35,7 @@ class OpportunityWorkorder {
         }
         workOrder = json["SGWS_Work_Order__c"] as? String ?? ""
         if workOrder == "" {
-            workOrder = json["sgws_source"] as? String ?? ""
+            workOrder = json["sgws_source__c"] as? String ?? ""
         }
         outcome = json["SGWS_Outcome__c"] as? String ?? ""
         if outcome == "" {

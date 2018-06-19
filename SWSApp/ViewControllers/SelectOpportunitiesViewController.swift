@@ -15,7 +15,7 @@ class SelectOpportunitiesViewController: UIViewController {
     var opportunityAccountId: String?
     var opportunityList = [Opportunity]()
     static var selectedOpportunitiesList = [Opportunity]()
-    
+    var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,8 @@ class SelectOpportunitiesViewController: UIViewController {
         // Do any additional setup after loading the view.
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
         topShadow(seperatorView: seperatorLabel)
+        selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -64,6 +66,36 @@ class SelectOpportunitiesViewController: UIViewController {
             self.dismiss(animated: true)
         }
     }
+    
+    @IBAction func nextVC(_ sender: Any) {
+        
+        // TBD to insert data into SGWS_Opportunity_WorkOrder__c
+        let attributeDict = ["type":"SGWS_Opportunity_WorkOrder__c"]
+        
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        print("random Id for Opput_workorder  is \(someString)")
+        
+        if SelectOpportunitiesViewController.selectedOpportunitiesList.count > 0 {
+            for opportunity in SelectOpportunitiesViewController.selectedOpportunitiesList {
+                let addNewDict: [String:Any] = [
+                    OpportunityWorkorder.opportunityWorkorderFields[0]: someString,
+                    OpportunityWorkorder.opportunityWorkorderFields[1]: opportunity.id,
+                    OpportunityWorkorder.opportunityWorkorderFields[2]:(PlanVisitManager.sharedInstance.visit?.Id)! ,
+                    OpportunityWorkorder.opportunityWorkorderFields[3]: "",
+                    kSyncTargetLocal:true,
+                    kSyncTargetLocallyCreated:true,
+                    kSyncTargetLocallyUpdated:false,
+                    kSyncTargetLocallyDeleted:false,
+                    "attributes":attributeDict]
+                _ = OpportunityViewModel().createNewOpportunityWorkorderLocally(fields: addNewDict)
+            }
+        }
+    }
+
+    
     
     @IBAction func saveAndClose(sender: UIButton) {
         //STATEMACHINE:If you com tho this Screen its in Planned state
@@ -225,36 +257,41 @@ extension SelectOpportunitiesViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "opportunitiesListViewCell", for: indexPath) as? OpportunitiesListViewCell
         cell?.selectionStyle = .none
+        if selectedOpportunitiesFromDB.count > 0 {
+            
+            if (selectedOpportunitiesFromDB.contains(where: {($0.workOrder == opportunityList[indexPath.row].id)})) {
+                opportunityList[indexPath.row].isOpportunitySelected = true
+            }
+        }
         cell?.displayCellContent(opportunityList[indexPath.row])
-        cell?.delegate =  self
         return cell ?? UITableViewCell()
     }
     
 }
 
 //MARK:- Swipe Evenyt Delegate Methods
-extension SelectOpportunitiesViewController: SwipeTableViewCellDelegate {
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil }
-        
-        let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
-            DispatchQueue.main.async {
-                // TBD action Edit
-            }
-        }
-        editAction.hidesWhenSelected = true
-        editAction.image = #imageLiteral(resourceName: "editIcon")
-        editAction.backgroundColor = UIColor(named:"InitialsBackground")
-        
-        return [editAction]
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
-        var options = SwipeTableOptions()
-        options.transitionStyle = .drag
-        return options
-    }
-}
+//extension SelectOpportunitiesViewController: SwipeTableViewCellDelegate {
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+//        guard orientation == .right else { return nil }
+//
+//        let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
+//            DispatchQueue.main.async {
+//                // TBD action Edit
+//            }
+//        }
+//        editAction.hidesWhenSelected = true
+//        editAction.image = #imageLiteral(resourceName: "editIcon")
+//        editAction.backgroundColor = UIColor(named:"InitialsBackground")
+//
+//        return [editAction]
+//    }
+//
+//    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
+//        var options = SwipeTableOptions()
+//        options.transitionStyle = .drag
+//        return options
+//    }
+//}
 
 //MARK:- TableView Delegate Methods
 extension SelectOpportunitiesViewController : UITableViewDelegate {
@@ -272,7 +309,9 @@ extension SelectOpportunitiesViewController : UITableViewDelegate {
         }else{
            opportunityList[indexPath.row].isOpportunitySelected = false
         }
-    SelectOpportunitiesViewController.selectedOpportunitiesList.append(opportunityList[indexPath.row])
+        if opportunityList[indexPath.row].isOpportunitySelected {
+            SelectOpportunitiesViewController.selectedOpportunitiesList.append(opportunityList[indexPath.row])
+        }
         self.opportunitiesListView.reloadData()
     }
 

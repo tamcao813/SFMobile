@@ -107,15 +107,18 @@ class AccountsActionItemViewModel {
     
     func syncAccountsActionItemWithServer(_ completion:@escaping (_ error: NSError?)->()) {
         let fields: [String] = ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c"]
-        
+
+        var isError:Bool = false
+
         StoreDispatcher.shared.syncUpActionItem(fieldsToUpload: fields, completion: {error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("syncAccountsActionItemWithServer: AccountsActionItem Sync up failed")
+                isError =  true
             }
             
             StoreDispatcher.shared.reSyncAccountActionItem { error in
-                if error != nil {
+                if isError || error != nil {
                     print(error?.localizedDescription ?? "error")
                     print("syncAccountsActionItemWithServer: AccountsActionItem reSync failed")
                     completion(error)

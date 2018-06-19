@@ -52,14 +52,18 @@ class ContactsViewModel{
     //sync up Contact then sync down
     func syncContactWithServer(_ completion:@escaping (_ error: NSError?)->()) {
         let fields: [String] = Contact.ContactFields
+        
+        var isError:Bool = false
+
         StoreDispatcher.shared.syncUpContact(fieldsToUpload: fields, completion: {error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("syncContactWithServer: Contacts Sync up failed")
-                completion(error)
-            }else {
+                isError =  true
+                //completion(error)
+            }//else {
                 StoreDispatcher.shared.reSyncContact( { error in
-                    if error != nil {
+                    if isError || error != nil {
                         print(error?.localizedDescription ?? "error")
                         print("syncContactWithServer: Contacts reSync failed")
                         completion(error)
@@ -67,21 +71,25 @@ class ContactsViewModel{
                         completion(nil)
                     }
                 })
-            }
+           // }
         })
     }
     
     //sync up ACR then sync down
     func syncACRwithServer(_ completion:@escaping (_ error: NSError?)->()) {
         let fields: [String] = AccountContactRelation.AccountContactRelationFields
+        
+        var isError:Bool = false
+        
         StoreDispatcher.shared.syncUpACR(fieldsToUpload: fields, completion: {error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("syncACRwithServer: ACR Sync up failed")
-                completion(error)
-            }else {
+                isError =  true
+                //completion(error)
+            }//else {
                 StoreDispatcher.shared.reSyncACR( { error in
-                    if error != nil {
+                    if isError || error != nil {
                         print(error?.localizedDescription ?? "error")
                         print("syncACRwithServer: ACR resync failed")
                         completion(error)
@@ -89,7 +97,7 @@ class ContactsViewModel{
                         completion(nil)
                     }
                 })
-            }
+            //}
         })
     }
     

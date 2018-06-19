@@ -133,7 +133,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         return notificationParentVC
     }()
     
+    lazy var insightsViewController : UIViewController? = {
+        let insightsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "InsightsViewControllerID") as UIViewController
+        return insightsVC
+    }()
     
+    lazy var chatterViewController : UIViewController? = {
+        let chatterVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ChatterViewControllerID") as UIViewController
+        return chatterVC
+    }()
     
     var reachability = Reachability()!
     
@@ -823,7 +831,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             moreVC1.view.addSubview((self.accountVisit?.view)!)
             self.moreDropDownSelectionIndex = index
         case 2:
-            self.instantiateViewController(identifier: "InsightsViewControllerID", moreOptionVC: moreVC1, index: index)
+            moreVC1.view.addSubview((self.insightsViewController?.view)!)
+            self.moreDropDownSelectionIndex = index
         case 3:
             self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
         case 4:
@@ -831,25 +840,20 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.notificationParent?.delegate = self
             moreVC1.view.addSubview((self.notificationParent?.view)!)
             self.moreDropDownSelectionIndex = index
-            
         case 5:
-            self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: index)
-            
+            moreVC1.view.addSubview((self.chatterViewController?.view)!)
+            self.moreDropDownSelectionIndex = index
         case 6:
             self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
-            
         case 7:
             self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
-            
         case 8:
             self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
             
         default:
             break
         }
-        
     }
-    
     
     private func selectedDropDownOption(selectedIndex : Int){
         moreDropDown.selectionAction = { (index: Int, item: String) in

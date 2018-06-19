@@ -24,7 +24,7 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         
         //set up activity indicator
-        activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
+        activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 70)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
     }

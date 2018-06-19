@@ -14,6 +14,7 @@ class Notifications {
     var Id : String
     var account : String
     var createdDate : String
+    var createdDataInDateType: Date?
     var name : String
     var sgwsAccLicenseNotification : String
     var sgwsSite : String
@@ -21,7 +22,8 @@ class Notifications {
     var sgwsContact :String
     var isRead : Bool
     var soupEntryId : String
-    var sgwsType :String
+    var sgwsType : String
+//    var recordTypeId : String
     
     
     
@@ -35,6 +37,12 @@ class Notifications {
         Id = json["Id"] as? String ?? ""
         account = json["Account__c"] as? String ?? ""
         createdDate = json["CreatedDate"] as? String ?? ""
+        if createdDate == "" {
+            createdDataInDateType = nil
+        }
+        else {
+            createdDataInDateType = DateTimeUtility.getDateNotificationFromDateString(dateString: createdDate)
+        }
         name = json["Name"] as? String ?? ""
         sgwsAccLicenseNotification = json["SGWS_Account_License_Notification__c"] as? String ?? ""
         sgwsSite = json["SGWS_Site__c"] as? String ?? ""
@@ -49,13 +57,15 @@ class Notifications {
             isRead = true
         }
         soupEntryId = json["_soupEntryId"] as? String ?? ""
-        sgwsType = json["SGWS_Type__c"]  as? String ?? ""       
+        sgwsType = json["SGWS_Type__c"]  as? String ?? ""
+//        recordTypeId = json["RecordTypeId"]  as? String ?? ""
     }
     
     init(for: String) {
         Id = ""
         account = ""
         createdDate = ""
+        createdDataInDateType = nil
         name = ""
         sgwsAccLicenseNotification = ""
         sgwsSite = ""
@@ -64,6 +74,7 @@ class Notifications {
         isRead = false
         soupEntryId = ""
         sgwsType = ""
+//        recordTypeId = ""
     }
     
 }

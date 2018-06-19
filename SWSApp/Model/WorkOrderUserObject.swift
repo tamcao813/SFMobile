@@ -14,7 +14,12 @@ class WorkOrderUserObject {
     
     //["Id","Subject","AccountId","Account.Name","Account.AccountNumber","Account.BillingAddress","ContactId","Contact.Name","Contact.Phone","Contact.Email","Contact.SGWS_Roles__c","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","SGWS_WorkOrder_Location__c ","RecordTypeId"]
     
-    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c","AccountId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c","OwnerId"]
+    static let WorkOrderUserObjectFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c","AccountId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId", "Name", "FirstName", "LastName","Phone","Email","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c","OwnerId","SGWS_Start_Latitude__c","SGWS_Start_Longitude__c","SGWS_Start_Time_of_Visit__c","SGWS_End_Latitude__c","SGWS_End_Longitude__c","SGWS_End_Time_of_Visit__c"
+    ]
+    
+    static let parentCreateFieldList = ["Id", "Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c","OwnerId","SGWS_Start_Latitude__c","SGWS_Start_Longitude__c","SGWS_Start_Time_of_Visit__c","SGWS_End_Latitude__c","SGWS_End_Longitude__c","SGWS_End_Time_of_Visit__c" ]
+    
+    static let parentUpdateFieldList = ["Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c","OwnerId","SGWS_Start_Latitude__c","SGWS_Start_Longitude__c","SGWS_Start_Time_of_Visit__c","SGWS_End_Latitude__c","SGWS_End_Longitude__c","SGWS_End_Time_of_Visit__c" ]
     
     var Id : String
     var subject : String
@@ -52,6 +57,12 @@ class WorkOrderUserObject {
     
     var sgwsAlldayEvent :Bool
     
+    var startLatitude: String
+    var startLongitude: String
+    var startTime_of_Visit: String
+    var endLatitude: String
+    var endLongitude : String
+    var endTimeOfVisit: String
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(WorkOrderUserObject.WorkOrderUserObjectFields, ary))
@@ -128,8 +139,13 @@ class WorkOrderUserObject {
             sgwsAlldayEvent = true
         }
         
-        
-        
+        startLatitude = json["SGWS_Start_Latitude__c"] as? String ?? ""
+        startLongitude = json["SGWS_Start_Longitude__c"] as? String ?? ""
+        startTime_of_Visit = json["SGWS_Start_Time_of_Visit__c"] as? String ?? ""
+        endLatitude = json["SGWS_End_Latitude__c"] as? String ?? ""
+        endLongitude = json["SGWS_End_Longitude__c"] as? String ?? ""
+        endTimeOfVisit = json["SGWS_End_Time_of_Visit__c"] as? String ?? ""
+
     }
     
     init(for: String) {
@@ -168,7 +184,13 @@ class WorkOrderUserObject {
         location = ""
         sgwsAlldayEvent=false
         
-        
+        startLatitude = ""
+        startLongitude = ""
+        startTime_of_Visit = ""
+        endLatitude = ""
+        endLongitude = ""
+        endTimeOfVisit = ""
+
     }
 }
 

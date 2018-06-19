@@ -12,7 +12,7 @@ class OpportunitiesFilter {
 
     var sectionNames : Array<Any>  = ["View By", "Status", "Source", "Objective"]
     
-    var sectionItems : Array<Any> = [ ["Case Decimal", "9L"], ["Open", "Planned", "Closed-Won", "Closed"], ["Book of Business", "Top Sellers", "Undersold", "What’s Hot/What’s Not", "Unsold"], ["9L​", "Decimal", "Revenue", "ACS", "POD"] ]
+    var sectionItems : Array<Any> = [ ["9L Case", "Case Decimal"], ["Closed", "Closed-Won", "Open", "Planned"], ["Overview", "Top Sellers", "Undersold", "What’s Hot", "Unsold"], ["9L​ Case", "ACS", "Case Decimal", "POD", "Revenue"] ]
 
 }
 
@@ -35,21 +35,21 @@ struct OpportunitiesFilterMenuModel {
     static var viewBy9L = ""
     static var viewByCaseDecimal = ""
 
+    static var statusClosed = ""
+    static var statusClosedWon = ""
     static var statusOpen = ""
     static var statusPlanned = ""
-    static var statusClosedWon = ""
-    static var statusClosed = ""
 
-    static var sourceBookOfBusiness = ""
+    static var sourceOverview = ""
     static var sourceTopSellers = ""
     static var sourceUndersold = ""
     static var sourceHotNot = ""
     static var sourceUnsold = ""
 
     static var objective9L = ""
-    static var objectiveDecimal = ""
-    static var objectiveRevenue = ""
     static var objectiveACS = ""
+    static var objectiveDecimal = ""
     static var objectivePOD = ""
+    static var objectiveRevenue = ""
     
 }

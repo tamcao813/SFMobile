@@ -24,6 +24,9 @@ let SoupActionItem = "Task"
 let SoupNotifications = "FS_Notification__c"
 let SoupSyncLog = "SGWS_Sync_Logs__c"
 
+let SoupOpportunity = "opportunity"
+let SoupOpportunityWorkorder = "SGWS_Opportunity_WorkOrder__c"
+
 // SyncId constants
 let SyncUpIdUser = "SyncUpIdUser"
 let SyncDownIdUser = "SyncDownIdUser"
@@ -46,6 +49,9 @@ let SyncDownIdNote = "SyncDownIdNote"
 let SyncUpIdVisit = "SyncUpIdVisit"
 let SyncDownIdVisit = "SyncDownIdVisit"
 
+let SyncUpIdOpportunity = "SyncUpIdOpportunity"
+let SyncDownIdOpportunity = "SyncDownIdOpportunity"
+
 let SyncUpIdStrategyQA = "SyncUpIdStrategyQA"
 let SyncDownIdStrategyQA = "SyncDownIdStrategyQA"
 
@@ -62,9 +68,6 @@ let SyncUpIdActionItem = "SyncUpIdActionItem"
 let SyncDownIdActionItem = "SyncDownIdActionItem"
 
 let SyncDownIdNotifications = "SyncNotifications"
-
-let SoupOpportunity = "Opportunity"
-let SoupOpportunityWorkorder = "OpportunityWorkorder"
 
 
 

@@ -57,13 +57,13 @@ class OpportunitiesMenuTableViewCell: UITableViewCell {
         
         switch indexPath.row{
         case 0:
-            if OpportunitiesFilterMenuModel.viewByCaseDecimal == "YES"{
+            if OpportunitiesFilterMenuModel.viewBy9L == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "radioSelected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
             }
         case 1:
-            if OpportunitiesFilterMenuModel.viewBy9L == "YES"{
+            if OpportunitiesFilterMenuModel.viewByCaseDecimal == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "radioSelected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
@@ -78,33 +78,33 @@ class OpportunitiesMenuTableViewCell: UITableViewCell {
         
         switch indexPath.row{
         case 0:
-            if OpportunitiesFilterMenuModel.statusOpen == "YES"{
+            if OpportunitiesFilterMenuModel.statusClosed == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")
             }
             
         case 1:
-            if OpportunitiesFilterMenuModel.statusPlanned == "YES"{
-                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-            }else{
-                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-            }
-            
-        case 2:
             if OpportunitiesFilterMenuModel.statusClosedWon == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")
             }
             
-        case 3:
-            if OpportunitiesFilterMenuModel.statusClosed == "YES"{
+        case 2:
+            if OpportunitiesFilterMenuModel.statusOpen == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")
             }
-
+            
+        case 3:
+            if OpportunitiesFilterMenuModel.statusPlanned == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
         default:
             break
         }
@@ -115,7 +115,7 @@ class OpportunitiesMenuTableViewCell: UITableViewCell {
         
         switch indexPath.row{
         case 0:
-            if OpportunitiesFilterMenuModel.sourceBookOfBusiness == "YES"{
+            if OpportunitiesFilterMenuModel.sourceOverview == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")
@@ -166,28 +166,28 @@ class OpportunitiesMenuTableViewCell: UITableViewCell {
             }
             
         case 1:
-            if OpportunitiesFilterMenuModel.objectiveDecimal == "YES"{
-                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-            }else{
-                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-            }
-            
-        case 2:
-            if OpportunitiesFilterMenuModel.objectiveRevenue == "YES"{
-                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
-            }else{
-                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
-            }
-            
-        case 3:
             if OpportunitiesFilterMenuModel.objectiveACS == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")
             }
             
-        case 4:
+        case 2:
+            if OpportunitiesFilterMenuModel.objectiveDecimal == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 3:
             if OpportunitiesFilterMenuModel.objectivePOD == "YES"{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
+            }else{
+                self.dropDownImageView.image = UIImage.init(named: "Checkbox")
+            }
+            
+        case 4:
+            if OpportunitiesFilterMenuModel.objectiveRevenue == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")

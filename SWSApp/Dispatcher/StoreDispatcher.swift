@@ -13,6 +13,9 @@ import PromiseKit
 import SmartStore
 import SmartSync
 
+struct DOWNLOAD_SIZE {
+    static let CONTACT_SIZE = 10000
+}
 
 class StoreDispatcher {
     static let shared = StoreDispatcher()
@@ -530,6 +533,7 @@ class StoreDispatcher {
         if let error: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") as? String {
             errorMsg = error
         }
+        SyncUpDailogGlobal.isSyncError = true
         
         UserDefaults.standard.removeObject(forKey:"key_name")
         
@@ -1367,9 +1371,9 @@ class StoreDispatcher {
         var contactAry: [Contact] = []
         
         let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:Id} IN (\(idFormattedString))"
+        let soupQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:Id} IN (\(idFormattedString))"
         
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
@@ -1399,9 +1403,9 @@ class StoreDispatcher {
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:AccountId} = '\(accountId)' "
+        let soupQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:AccountId} = '\(accountId)' "
         
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
@@ -1433,9 +1437,9 @@ class StoreDispatcher {
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
-        let soqlQuery = "Select DISTINCT \(fields.joined(separator: ",")) from {User}"
+        let soupQuery = "Select DISTINCT \(fields.joined(separator: ",")) from {User}"
         
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
@@ -1445,7 +1449,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let user = User(withAry: ary)
                 
-                let json:[String:Any] = [ "Id":user.id, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                let json:[String:Any] = [ "Id":user.sgws_Employee_Contact, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
                 
                 let contact =  Contact.init(json: json)
                 
@@ -1457,7 +1461,7 @@ class StoreDispatcher {
             
         }
         print("All SGWS Employees Contacts are \(contactAry)")
-        return contactAry
+        return contactAry.unique()
         
     }
     
@@ -3393,7 +3397,7 @@ class StoreDispatcher {
         
         var accVisitEventArray:[WorkOrderUserObject] = []
         
-        let soupQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = '' UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} is NULL"
+        let soupQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:User.SGWS_Employee_Contact_Id__c} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = '' UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} is NULL"
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         

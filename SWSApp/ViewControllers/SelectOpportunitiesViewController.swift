@@ -86,10 +86,10 @@ class SelectOpportunitiesViewController: UIViewController {
                     OpportunityWorkorder.opportunityWorkorderFields[1]: opportunity.id,
                     OpportunityWorkorder.opportunityWorkorderFields[2]:(PlanVisitManager.sharedInstance.visit?.Id)! ,
                     OpportunityWorkorder.opportunityWorkorderFields[3]: "",
-                    kSyncTargetLocal:true,
-                    kSyncTargetLocallyCreated:true,
-                    kSyncTargetLocallyUpdated:false,
-                    kSyncTargetLocallyDeleted:false,
+//                    kSyncTargetLocal:true,
+//                    kSyncTargetLocallyCreated:true,
+//                    kSyncTargetLocallyUpdated:false,
+//                    kSyncTargetLocallyDeleted:false,
                     "attributes":attributeDict]
                 _ = OpportunityViewModel().createNewOpportunityWorkorderLocally(fields: addNewDict)
             }

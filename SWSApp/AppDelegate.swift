@@ -310,9 +310,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
                             StoreDispatcher.shared.resyncAllSoups({ (error) in
                                 if error != nil {
+                                    let date = Date()
+                                    let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
+                                    UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
                                     print("error in resyncAllSoups")
+                                 UserDefaults.standard.set("Last Sync Failed", forKey: "lastSyncStatus")
                                     return
                                 }
+                                let date = Date()
+                                let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
+                                UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
+                                UserDefaults.standard.set("Last Sync Successful", forKey: "lastSyncStatus")
                                 //save the resyncdictionary to defaults
                                 UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
                                 

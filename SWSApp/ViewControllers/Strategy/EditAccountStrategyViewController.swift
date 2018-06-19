@@ -305,14 +305,16 @@ class EditAccountStrategyViewController: UIViewController {
                 for _ in 0...strategyArray.count - 1{//r in strategyArray{
                     let response : NSMutableDictionary
                     print("This is the Index %@",q)
-                    //if q < strategyArray.count{
-                    response = strategyArray[q] as! NSMutableDictionary
-                    //}
-                    //else{
-                    //    break
-                    //}
                     
-                    self.checkAnswerSelectedForTheQuestionaires(response: response, q: q, new_Strategy: new_Strategy)
+                    if q <= strategyArray.count - 1{
+                        response = strategyArray[q] as! NSMutableDictionary
+                        
+                        self.checkAnswerSelectedForTheQuestionaires(response: response, q: q, new_Strategy: new_Strategy)
+                    }else{
+                        //Insert new entry into DB
+                        self.createNewStrategyAnswers(q: q, new_Strategy: new_Strategy)
+                    }
+                    
                     break
                 }
                 
@@ -321,7 +323,7 @@ class EditAccountStrategyViewController: UIViewController {
                 self.createNewStrategyAnswers(q: q, new_Strategy: new_Strategy)
             }
         }
-        
+
         self.dismiss(animated: true, completion: nil)
         self.delegate?.refreshStrategyScreenToLoadNewData()
     }

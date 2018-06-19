@@ -4085,7 +4085,7 @@ class StoreDispatcher {
         }
     }
     
-    func fetchRecordType()->[RecordType] {
+    func fetchRecordTypeForDeveloperName()->[RecordType] {
         var recordType: [RecordType] = []
         let recordTypeFields = RecordType.recordTypesFields.map{"{RecordType:\($0)}"}
         let soapQuery = "Select \(recordTypeFields.joined(separator: ",")) FROM {RecordType}"

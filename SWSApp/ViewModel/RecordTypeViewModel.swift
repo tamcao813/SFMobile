@@ -10,7 +10,7 @@ import Foundation
 
 class RecordTypeViewModel {
     func getRecordTypeForDeveloper() -> [RecordType] {
-        let recordTypeArray = StoreDispatcher.shared.fetchRecordType()
+        let recordTypeArray = StoreDispatcher.shared.fetchRecordTypeForDeveloperName()
         return recordTypeArray
     }
 }

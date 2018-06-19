@@ -109,7 +109,7 @@ class StoreDispatcher {
         //
         //Accounts
         group.enter()
-        reSyncAccounts() { _ in
+        syncDownAccount() { _ in
             self.syncDownUserDataForAccounts() { _ in
                 group.leave()
             }
@@ -283,6 +283,9 @@ class StoreDispatcher {
         group.enter()
         syncDownAccount() { _ in
             
+            self.syncDownUserDataForAccounts() { _ in
+            }
+            
             self.syncDownACR() { _ in
             }
             
@@ -299,11 +302,6 @@ class StoreDispatcher {
                 }
                 
             }
-        }
-        
-        group.enter()
-        syncDownUserDataForAccounts() { _ in
-            group.leave()
         }
         
         group.enter()
@@ -333,51 +331,6 @@ class StoreDispatcher {
         }
         
         //to do: syncDown other soups
-        
-        group.notify(queue: queue) {
-            completion(nil)
-        }
-    }
-    
-    
-    //sync down soups - contact and ACR are already synced up and down, and no need to sync down plists
-    func syncDownSoupsAfterSyncUpData(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
-        
-        let queue = DispatchQueue(label: "concurrent")
-        let group = DispatchGroup()
-        
-//        group.enter()
-//        syncDownAccount() { _ in
-//             group.leave()
-//            self.syncDownStrategyQA() { _ in
-//            }
-//
-//            self.syncDownStrategyQuestions() { _ in
-//                self.syncDownStrategyAnswers() { _ in
-//                    group.leave()
-//                }
-//            }
-  //      }
-        
-        group.enter()
-        syncDownUserDataForAccounts() { _ in
-            group.leave()
-        }
-        /*
-        group.enter()
-        syncDownNotes() { _ in
-            group.leave()
-        }
-        */
-//        group.enter()
-//        syncDownVisits() { _ in
-//            group.leave()
-//        }
-        
-//        group.enter()
-//        syncDownActionItem() { _ in
-//            group.leave()
-//        }
         
         group.notify(queue: queue) {
             completion(nil)

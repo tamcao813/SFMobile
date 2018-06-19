@@ -40,6 +40,7 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
         
         let url  =  URL(string:authUrl)//+accountUrl)
         let requestObj = URLRequest(url: url!)
+        self.webView.uiDelegate = self
         webView?.navigationDelegate = self
         
         webView?.load(requestObj)
@@ -53,7 +54,7 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
 }
 
 ////MARK:- UIWebView Delegate
-extension InsightsViewController : UIWebViewDelegate{
+extension InsightsViewController : UIWebViewDelegate, WKUIDelegate{
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
@@ -68,5 +69,26 @@ extension InsightsViewController : UIWebViewDelegate{
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
        // activityIndicator.stopAnimating()
+    }
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,
+                 completionHandler: @escaping () -> Void) {
+        
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            completionHandler()
+        }))
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        decisionHandler(.allow)
+    }
+    
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        return nil
     }
 }

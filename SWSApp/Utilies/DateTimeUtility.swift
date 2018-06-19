@@ -543,7 +543,7 @@ class DateTimeUtility
     func getCurrentDate(date: Date) -> String {
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yy"
+        formatter.dateFormat = "MM/dd/yyyy"
         let dateString = formatter.string(from: date)
         return dateString
     }

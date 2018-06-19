@@ -20,7 +20,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     func updateDataFromTopSellerCellButton(_index: Int, outcome: String) {
        // var modifiedOutcomeObject : NSDictionary?
         let modifiedOutcomeObject = NSMutableDictionary()
-        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "id")
+        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
         modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
         DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
     }

@@ -57,6 +57,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
             }
             let url = URL(string: authUrl)
             let requestObj = URLRequest(url: url!)
+            self.webView?.uiDelegate = self
             self.webView?.navigationDelegate = self
             
             self.lblNoNetworkConnection?.isHidden = true
@@ -86,7 +87,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
 }
 
 //MARK:- UIWebView Delegate
-extension HomeGoalTypesViewController :UIWebViewDelegate{
+extension HomeGoalTypesViewController :UIWebViewDelegate, WKUIDelegate{
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
@@ -102,4 +103,26 @@ extension HomeGoalTypesViewController :UIWebViewDelegate{
         print("finish to load")
         //activityIndicator.stopAnimating()
     }
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,
+                 completionHandler: @escaping () -> Void) {
+        
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            completionHandler()
+        }))
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        decisionHandler(.allow)
+    }
+    
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        return nil
+    }
+
 }

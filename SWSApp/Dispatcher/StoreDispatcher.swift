@@ -60,6 +60,7 @@ class StoreDispatcher {
         registerSyncConfiguration()
         registerActionItemSoup()
         registerNotificationsSoup()
+        registerRecordTypeSoup()
         registerOpportunity()
         registerOpportunityWorkorder()
         registerSyncLogSoup()
@@ -91,6 +92,11 @@ class StoreDispatcher {
         //Notifications
         group.enter()
         reSyncNotifications() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        reSyncRecordType() { _ in
             group.leave()
         }
         
@@ -269,10 +275,10 @@ class StoreDispatcher {
             group.leave()
         }
         
-//        group.enter()
-//        syncDownNotification() { _ in
-//            group.leave()
-//        }
+        group.enter()
+        syncDownRecordType() { _ in
+            group.leave()
+        }
         
         group.enter()
         downloadContactPLists() { _ in
@@ -4039,7 +4045,11 @@ class StoreDispatcher {
         } catch let error as NSError {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register RecordType soup: \(error.localizedDescription)")
         }
-        
+    }
+    
+    func reSyncRecordType(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdRecordType] else { return completion(resyncError(syncConstant: SyncDownIdRecordType))}
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdRecordType, completion: completion)
     }
     
     
@@ -4075,10 +4085,10 @@ class StoreDispatcher {
         }
     }
     
-    func fetchRecordTypeForDeveloperName(developerName: String)->[RecordType] {
+    func fetchRecordType()->[RecordType] {
         var recordType: [RecordType] = []
         let recordTypeFields = RecordType.recordTypesFields.map{"{RecordType:\($0)}"}
-        let soapQuery = "Select \(recordTypeFields.joined(separator: ",")) FROM {RecordType} WHERE {RecordType:DeveloperName} = '\(developerName)' "
+        let soapQuery = "Select \(recordTypeFields.joined(separator: ",")) FROM {RecordType}"
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?

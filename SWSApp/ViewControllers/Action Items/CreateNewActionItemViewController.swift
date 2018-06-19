@@ -193,7 +193,13 @@ class CreateNewActionItemViewController: UIViewController {
         }
         newActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         // Fix RecordTypeID - Make it Dynamic for action item
+        let actionItemRecordType = RecordTypeViewModel().getRecordTypeForDeveloper()
+        
         newActionItem.recordTypeId = "0120t0000008cMCAAY"
+        
+        
+        
+        
         let attributeDict = ["type":"Task"]
         var actionItemDict: [String:Any] = [
             

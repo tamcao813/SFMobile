@@ -4062,7 +4062,7 @@ class StoreDispatcher {
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
         
-        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupNotifications)
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupRecordType)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print(">>>>>> Record Type SyncDown() done >>>>>")

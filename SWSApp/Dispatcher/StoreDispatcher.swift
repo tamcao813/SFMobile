@@ -645,6 +645,8 @@ class StoreDispatcher {
         sfaStore.clearSoup(SoupSyncLog)
     }
     
+
+    
     //MARK:- Contat Sync CODE
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {
         let query = "SELECT id FROM RecordType where DeveloperName = 'customer' and isActive = true and SobjectType = 'Contact'"
@@ -833,7 +835,7 @@ class StoreDispatcher {
     
     func downloadSWGSOutcomePList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         //Record id is different for dev environment
-        let recordTypeId = "012m0000000Dplk"
+        let recordTypeId = "0120t0000008dGKAAY"
         let path = StringConstants.outcomePicklistValue + recordTypeId + "/SGWS_Outcome__c"
         
         //        let path = "ui-api/object-info/SGWS_Opportunity_WorkOrder__c/picklist-values/012i0000000PebvAAC/SGWS_Outcome__c"
@@ -4146,6 +4148,8 @@ class StoreDispatcher {
             return false
         }
     }
+    
+    
     
 
     

@@ -237,6 +237,9 @@
 		AEF951182089C7800083EA47 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF951172089C7800083EA47 /* AccountTableViewCell.swift */; };
 		AEF9511A2089C7D70083EA47 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */; };
 		AEF9511C2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */; };
+		BADB33BB20D909BE006585F5 /* SourceUndersoldTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB33B820D909BD006585F5 /* SourceUndersoldTableviewCell.swift */; };
+		BADB33BC20D909BE006585F5 /* InsightsUnsoldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB33B920D909BD006585F5 /* InsightsUnsoldTableViewCell.swift */; };
+		BADB33BD20D909BE006585F5 /* SourceTopSellerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB33BA20D909BD006585F5 /* SourceTopSellerTableViewCell.swift */; };
 		BAE613A220CFE2790075FEFA /* OpportunitiesListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE613A120CFE2790075FEFA /* OpportunitiesListViewCell.swift */; };
 		BDC2971F8C914488A5B7964D /* Pods_SWSApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D409D51DB706FCACCE1C749 /* Pods_SWSApp.framework */; };
 		C9B63C68208DB6DB008D9E14 /* Notes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B63C67208DB6DB008D9E14 /* Notes.storyboard */; };
@@ -600,6 +603,9 @@
 		AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
 		AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanVisitEditableScreen.storyboard; sourceTree = "<group>"; };
 		BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BADB33B820D909BD006585F5 /* SourceUndersoldTableviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceUndersoldTableviewCell.swift; sourceTree = "<group>"; };
+		BADB33B920D909BD006585F5 /* InsightsUnsoldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsightsUnsoldTableViewCell.swift; sourceTree = "<group>"; };
+		BADB33BA20D909BD006585F5 /* SourceTopSellerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceTopSellerTableViewCell.swift; sourceTree = "<group>"; };
 		BAE613A120CFE2790075FEFA /* OpportunitiesListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesListViewCell.swift; sourceTree = "<group>"; };
 		C9B63C67208DB6DB008D9E14 /* Notes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notes.storyboard; sourceTree = "<group>"; };
 		C9B63C69208DB7C8008D9E14 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
@@ -1504,6 +1510,9 @@
 		F2CAD23020957E91001016C2 /* DuringVisit */ = {
 			isa = PBXGroup;
 			children = (
+				BADB33B920D909BD006585F5 /* InsightsUnsoldTableViewCell.swift */,
+				BADB33BA20D909BD006585F5 /* SourceTopSellerTableViewCell.swift */,
+				BADB33B820D909BD006585F5 /* SourceUndersoldTableviewCell.swift */,
 				F2AB945D2095D5000028802E /* DuringVisitsInsightsViewController.swift */,
 				F2AB945C2095D5000028802E /* DuringVisitsTopicsViewController.swift */,
 				F2AB945B2095D5000028802E /* DuringVisitsViewController.swift */,
@@ -2000,6 +2009,7 @@
 				8D4BA38E20B45B58005CFE56 /* DescriptionTableViewCell.swift in Sources */,
 				914E4F3820AEA31100FE01A5 /* CalendarMenuTableTableViewCell.swift in Sources */,
 				8DD15009209330E200858349 /* AccountView.swift in Sources */,
+				BADB33BB20D909BE006585F5 /* SourceUndersoldTableviewCell.swift in Sources */,
 				12D725062083A845000E7015 /* CurrencyFormatter.swift in Sources */,
 				914E191820D10CBB0024E267 /* OpportunityWorkorder.swift in Sources */,
 				F22DA90320C175FC00AA2B54 /* HomeGoalTypesViewController.swift in Sources */,
@@ -2079,6 +2089,7 @@
 				1268ED47209868170027013D /* NoteSortUtility.swift in Sources */,
 				D24E5B0B2073635D00641814 /* ObjectivesViewController.swift in Sources */,
 				8D4BA37620B45B58005CFE56 /* ContactsViewController.swift in Sources */,
+				BADB33BC20D909BE006585F5 /* InsightsUnsoldTableViewCell.swift in Sources */,
 				F2FD2C2820919AE300037BB2 /* EditAccountStrategyCollectionReusableView.swift in Sources */,
 				AE43DD1E209C7401005D8DD1 /* PlanVisit.swift in Sources */,
 				91FAEF5F20A57DD500209D71 /* UIColorExtention.swift in Sources */,
@@ -2112,6 +2123,7 @@
 				8D4BA3B020B45B58005CFE56 /* LinkAccountToContactViewController.swift in Sources */,
 				AE1FAABB20B6C212005B44EC /* CalendarMonthViewController.swift in Sources */,
 				91FAEF4520A57DD500209D71 /* WRGridLine.swift in Sources */,
+				BADB33BD20D909BE006585F5 /* SourceTopSellerTableViewCell.swift in Sources */,
 				F2086B7620B5B424008A61F0 /* VisitCallToConfirmTableViewCell.swift in Sources */,
 				AE1FAAB220B6C200005B44EC /* DateCollectionViewCell.swift in Sources */,
 				F22DA90620C1766600AA2B54 /* HomeNetSalesVarianceViewController.swift in Sources */,

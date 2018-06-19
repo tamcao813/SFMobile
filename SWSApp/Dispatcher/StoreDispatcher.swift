@@ -631,6 +631,11 @@ class StoreDispatcher {
                 self.downloadContactClassificationPList(recordTypeId: recordTypeId) { _ in
                     group.leave()
                 }
+                group.enter()
+                self.downloadSWGSOutcomePList(recordTypeId: recordTypeId) { _ in
+                    group.leave()
+                }
+
                 
                 group.notify(queue: queue) {
                     completion(nil)
@@ -779,6 +784,43 @@ class StoreDispatcher {
         }
     }
     
+    func downloadSWGSOutcomePList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
+        //Record id is different for dev environment
+        let recordTypeId = "012m0000000Dplk"
+        let path = StringConstants.outcomePicklistValue + recordTypeId + "/SGWS_Outcome__c"
+        
+        //        let path = "ui-api/object-info/SGWS_Opportunity_WorkOrder__c/picklist-values/012i0000000PebvAAC/SGWS_Outcome__c"
+        let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
+        request.endpoint = StringConstants.serviceUrl
+        
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                let response = sfRestResponse.asJsonDictionary()
+                var outcomePicklist = [String:[PlistOption]]()
+                if response.count > 0 {
+                    var ary = [PlistOption]()
+                    self.createPList(plist: StringConstants.outcomePicklistValue, plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    if let options = response["values"] as? [[String : AnyObject]] {
+                        for option in options {
+                            let label = option["label"] as? String ?? ""
+                            let value = option["value"] as? String ?? ""
+                            let preferred = PlistOption(label: label, value: value)
+                            ary.append(preferred)
+                        }
+                        outcomePicklist["outcomePicklistValue"] = ary
+                    }
+                }
+                
+                PlistMap.sharedInstance.addToMap(field: "outcomePicklistValue", map: outcomePicklist["outcomePicklistValue"]!)
+                completion(nil)
+            }
+            .catch { error in
+                print("swgs outcome plist error: " + error.localizedDescription)
+                completion(error as NSError?)
+        }
+    }
+    
+
     
     func downloadVisitPLists(_ completion:@escaping (_ error: NSError?)->()) {
         let query = "SELECT id FROM RecordType where SobjectType = 'WorkOrder'"
@@ -3966,5 +4008,97 @@ class StoreDispatcher {
         let err = NSError(domain: "reSyncSoup()", code: 602, userInfo: userInfo)
         return err
     }
+    
+    func editOpportunityCommitToSoup(fieldsToUpload: [String:Any]) -> Bool{
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunity, withOrderPath: "SGWS_Opportunity_source__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var modifiedOpportunity = [String: Any]()
+        
+        for  opportunity in result{
+            var oppotunityModif = opportunity as! [String:Any]
+            let opportunityModifIdValue = oppotunityModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == opportunityModifIdValue){
+                oppotunityModif["SGWS_Commit__c"] = fieldsToUpload["SGWS_Commit__c"]
+                oppotunityModif[kSyncTargetLocal] = true
+                let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as! Bool
+                if(createdFlag){
+                    oppotunityModif[kSyncTargetLocallyUpdated] = false
+                    oppotunityModif[kSyncTargetLocallyCreated] = true
+                }else {
+                    oppotunityModif[kSyncTargetLocallyCreated] = false
+                    oppotunityModif[kSyncTargetLocallyUpdated] = true
+                }
+                oppotunityModif[kSyncTargetLocallyDeleted] = false
+                modifiedOpportunity = oppotunityModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupOpportunity)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) opportunity commit is saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving opportunity commit" )
+            return false
+        }
+    }
+    
+    
+    func editOpportunityOutcomeToSoup(fieldsToUpload: [String:Any]) -> Bool{
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Opportunity__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var modifiedOpportunity = [String: Any]()
+        
+        for  workOrderopportunity in result{
+            var oppotunityModif = workOrderopportunity as! [String:Any]
+            let opportunityModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
+            if opportunityModifIdValue.isEmpty {
+                continue
+            }
+            let fieldsIdValue = fieldsToUpload["Id"] as? String ?? ""
+            
+            if(fieldsIdValue == opportunityModifIdValue){
+                oppotunityModif["SGWS_Outcome__c"] = fieldsToUpload["SGWS_Outcome__c"]
+                oppotunityModif[kSyncTargetLocal] = true
+                let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as! Bool
+                if(createdFlag){
+                    oppotunityModif[kSyncTargetLocallyUpdated] = false
+                    oppotunityModif[kSyncTargetLocallyCreated] = true
+                }else {
+                    oppotunityModif[kSyncTargetLocallyCreated] = false
+                    oppotunityModif[kSyncTargetLocallyUpdated] = true
+                }
+                oppotunityModif[kSyncTargetLocallyDeleted] = false
+                modifiedOpportunity = oppotunityModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupOpportunityWorkorder)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) opportunity outcome is saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving opportunity outcome" )
+            return false
+        }
+    }
+    
+
     
 }

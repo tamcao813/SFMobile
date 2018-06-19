@@ -40,6 +40,8 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     var kOrignalArray:[Any]?
     var isDisabledPreviously = false
     
+    var isAccountSpecific: Bool = false
+    
     //Used for Page control operation
     @IBOutlet var pageButtonArr: [UIButton]!
     var globalContactCount:Int?
@@ -172,14 +174,20 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         
         if ContactsGlobal.accountId == "" {
             
+            isAccountSpecific = false
+
             globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: "")
             
         }else{
+            
+            isAccountSpecific = true
             
             delegate?.clearAllMenu()
             
             globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
             print("globalContactsForList.count  = \(globalContactsForList.count)")
+            
+            ContactsGlobal.accountId = ""
             
         }
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
@@ -225,7 +233,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("performContactFilterOperation")
         print(ContactFilterMenuModel.functionRoles)
         
-        if (ContactsGlobal.accountId == "" || ContactFilterMenuModel.comingFromDetailsScreen != "YES") {
+        if (!isAccountSpecific || ContactFilterMenuModel.comingFromDetailsScreen != "YES") {
             globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
         } else {
             globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.contacts(forAccount: ContactsGlobal.accountId), searchBarText: searchString)

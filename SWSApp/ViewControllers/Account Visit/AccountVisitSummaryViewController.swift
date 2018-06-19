@@ -20,6 +20,7 @@ class AccountVisitSummaryViewController: UIViewController {
     var visitId: String?
     var accountObject: Account?
     
+   
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editVisitButtonHeightConstraint: NSLayoutConstraint!
@@ -185,7 +186,7 @@ class AccountVisitSummaryViewController: UIViewController {
         self.tableView.register(UINib(nibName: "HeadSubHeadTableViewCell", bundle: nil), forCellReuseIdentifier: "HeadSubHeadTableViewCell")
         self.tableView.register(UINib(nibName: "AssociatedContactsTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociatedContactsTableViewCell")
         self.tableView.register(UINib(nibName: "UnorderedListTableViewCell", bundle: nil), forCellReuseIdentifier: "UnorderedListTableViewCell")
-        self.tableView.register(UINib(nibName: "ButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ButtonTableViewCell")
+       // self.tableView.register(UINib(nibName: "ButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ButtonTableViewCell")
     }
     
     func refactoringUIOnApplicationStatusBasis(){
@@ -311,6 +312,18 @@ class AccountVisitSummaryViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func accountStrategyButtonTapped(_ sender: Any) {
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
+        let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
+        StrategyScreenLoadFrom.isLoadFromStrategy = "1"
+        
+        AccountId.selectedAccountId = (accountObject?.account_Id)!
+        
+        (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(vc, animated: true, completion: nil)
+    }
+    
 }
 
 //MARK:- NavigateToContacts Delegate
@@ -356,9 +369,9 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func numberOfSections(in tableView: UITableView) -> Int {
         switch visitStatus {
         case .scheduled?:
-            return 3
+            return 2
         case .inProgress?,.planned?,.completed?:
-            return 6
+            return 5
         default:
             return 0
         }
@@ -457,10 +470,6 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             return getLocationCell()
         case 1:
             return getConatactCell() // As er Dileep request we have added contact cell in scedule status
-        case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
-            cell?.delegate = self
-            return cell!
         default:
             return UITableViewCell()
         }
@@ -489,10 +498,6 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
             cell?.headingLabel.text = "Agenda Notes"
             cell?.SubheadingLabel.text = visitObject?.sgwsAgendaNotes
-            return cell!
-        case 5:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell") as? ButtonTableViewCell
-            cell?.delegate = self
             return cell!
         default:
             return UITableViewCell()

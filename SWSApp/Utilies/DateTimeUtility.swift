@@ -295,6 +295,31 @@ class DateTimeUtility
         return returnDate
         
     }
+
+    static func getDateNotificationFromDateString(dateString: String) -> Date? {
+        
+        var returnDate: Date?
+        
+        if(dateString == "") {
+            return returnDate
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        dateFormatter.timeZone = TimeZone(identifier:"UTC")
+        returnDate = dateFormatter.date(from: dateString)
+        
+        guard let _ = returnDate else {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter.timeZone = TimeZone(identifier:"UTC")
+            returnDate = dateFormatter.date(from: dateString)
+            
+            return returnDate
+        }
+        
+        return returnDate
+        
+    }
     
     static func getCurrentTimeStampInUTCAsString() -> String {
         let date = Date()
@@ -438,7 +463,7 @@ class DateTimeUtility
          //Getting this right is very important!
         for visit in visitArray {
             var  isSameDate  = false
-            if getFormattCurrentDateString(dateStr: currentDate) == getFormattString(dateStr: DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: visit.startDate))
+            if getFormattCurrentDateString(dateStr: currentDate) == getFormattString(dateStr: visit.startDate)
             {
                 isSameDate = true
             }
@@ -518,7 +543,7 @@ class DateTimeUtility
     func getCurrentDate(date: Date) -> String {
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yy"
+        formatter.dateFormat = "MM/dd/yyyy"
         let dateString = formatter.string(from: date)
         return dateString
     }

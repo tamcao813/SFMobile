@@ -22,6 +22,7 @@ class ActionItem {
     var description: String
     var status: String
     var activityDate: String
+    var dateStart : Date?
     var isUrgent:Bool
     var lastModifiedDate: String
     var recordTypeId: String
@@ -55,6 +56,12 @@ class ActionItem {
         description = json["Description"] as? String ?? ""
         status = json["Status"] as? String ?? ""
         activityDate = json["ActivityDate"] as? String ?? ""
+        if activityDate == "" {
+            dateStart = nil
+        }
+        else {
+            dateStart = DateTimeUtility.getDateActionItemFromDateString(dateString: activityDate)
+        }
         isUrgent = json["SGWS_Urgent__c"] as? Bool ?? false
         let isUrgentString = json["SGWS_Urgent__c"] as? String ?? ""
         if isUrgentString == "true" {
@@ -85,6 +92,7 @@ class ActionItem {
         description = ""
         status = ""
         activityDate = ""
+        dateStart = nil
         isUrgent = false
         lastModifiedDate = ""
         recordTypeId = ""

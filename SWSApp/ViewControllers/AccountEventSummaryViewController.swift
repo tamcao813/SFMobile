@@ -318,8 +318,12 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
             let attributedString = NSMutableAttributedString(string:text!)
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = 10
+            paragraphStyle.lineBreakMode = .byTruncatingTail
             attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+            attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Ubuntu", size: 17.0)!, range: NSMakeRange(0, attributedString.length))
+
             cell?.descLabel.attributedText = attributedString;
+
             return cell!
         case 1:
             return getLocationCell()

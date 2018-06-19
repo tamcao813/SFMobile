@@ -89,7 +89,7 @@ class SyncInfoViewController: UIViewController {
         if !SyncUpDailogGlobal.isSyncing {
             self.delegate?.startSyncUp()
             SyncUpDailogGlobal.isSyncing = true
-            SyncUpDailogGlobal.syncType = "Manual"  
+            SyncUpDailogGlobal.syncType = "Manual"
         }
     }
     

@@ -82,6 +82,8 @@
 		8D17A5D820A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D17A5D520A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib */; };
 		8D17A5DD20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D17A5DB20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift */; };
 		8D17A5DF20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D17A5DC20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib */; };
+		8D3D470920D8FA3D00EEC78F /* RecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D470820D8FA3D00EEC78F /* RecordType.swift */; };
+		8D3D470B20D9048B00EEC78F /* RecordTypeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D470A20D9048B00EEC78F /* RecordTypeViewModel.swift */; };
 		8D4BA32E20B455EB005CFE56 /* ActionItemSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4BA31D20B455EB005CFE56 /* ActionItemSortUtility.swift */; };
 		8D4BA33020B455EB005CFE56 /* CreateNewActionItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4BA31E20B455EB005CFE56 /* CreateNewActionItemViewController.swift */; };
 		8D4BA33220B455EB005CFE56 /* ActionItemFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4BA31F20B455EB005CFE56 /* ActionItemFilterViewController.swift */; };
@@ -446,6 +448,8 @@
 		8D17A5D520A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewContactLinkToVisitTableViewCell.xib; sourceTree = "<group>"; };
 		8D17A5DB20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleAppointmentTableViewCell.swift; sourceTree = "<group>"; };
 		8D17A5DC20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleAppointmentTableViewCell.xib; sourceTree = "<group>"; };
+		8D3D470820D8FA3D00EEC78F /* RecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordType.swift; sourceTree = "<group>"; };
+		8D3D470A20D9048B00EEC78F /* RecordTypeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeViewModel.swift; sourceTree = "<group>"; };
 		8D4BA31D20B455EB005CFE56 /* ActionItemSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionItemSortUtility.swift; sourceTree = "<group>"; };
 		8D4BA31E20B455EB005CFE56 /* CreateNewActionItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNewActionItemViewController.swift; sourceTree = "<group>"; };
 		8D4BA31F20B455EB005CFE56 /* ActionItemFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionItemFilterViewController.swift; sourceTree = "<group>"; };
@@ -1213,6 +1217,7 @@
 				AE43DD1D209C7401005D8DD1 /* PlanVisit.swift */,
 				6DDF2B1720A9A70500FA5A87 /* WorkOrderUserObject.swift */,
 				12A5BFC120BEC88300D6CD81 /* Notifications.swift */,
+				8D3D470820D8FA3D00EEC78F /* RecordType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1396,6 +1401,7 @@
 				AE43DD1A209C73EF005D8DD1 /* VisitSchedulerViewModel.swift */,
 				12A5BFC420BEDED900D6CD81 /* NotificationsViewModel.swift */,
 				F2064C8720CE64CF00FC03A0 /* OpportunityViewModel.swift */,
+				8D3D470A20D9048B00EEC78F /* RecordTypeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2073,6 +2079,7 @@
 				AE5C974A20888330004548E9 /* SchedulerComponent.swift in Sources */,
 				F2064C8C20CE669A00FC03A0 /* OpportunitySortUtility.swift in Sources */,
 				F2919DA020AEEBBA00267A60 /* AccountVisitEmbedViewController.swift in Sources */,
+				8D3D470920D8FA3D00EEC78F /* RecordType.swift in Sources */,
 				121D740F207E73070046BE41 /* String+PartString.swift in Sources */,
 				D125134420648E1000CD6CB4 /* User.swift in Sources */,
 				F293733020B8266B00E659CB /* AccountVisitListFilterTableViewCell.swift in Sources */,
@@ -2162,6 +2169,7 @@
 				12F0F89A208FA6BD00160C3D /* AccountContactRelation.swift in Sources */,
 				8D4BA33620B455EC005CFE56 /* ActionItemsListViewController.swift in Sources */,
 				6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */,
+				8D3D470B20D9048B00EEC78F /* RecordTypeViewModel.swift in Sources */,
 				6F3D309E206BA066000CFFCC /* AccountsViewController.swift in Sources */,
 				F2923C9C208DE9A900D797E1 /* AccountStrategyCollectionReusableView.swift in Sources */,
 				91FAEF3B20A57DD500209D71 /* WREvent.swift in Sources */,

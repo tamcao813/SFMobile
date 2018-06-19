@@ -186,25 +186,27 @@ class OpportunitySortUtility {
         
         var filteredOpportunityArray = [Opportunity]()
         var filteredByReturnArray = [Opportunity]()
+        var filterCaseReturn = false
         var enteredAnyFilterCaseReturn = false
 
+
         // filter by Status
-        (enteredAnyFilterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterByStatus(opportunityToBeFiltered: opportunityToSearch!)
-        if enteredAnyFilterCaseReturn {
+        (filterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterByStatus(opportunityToBeFiltered: opportunityToSearch!)
+        if filterCaseReturn {
             enteredAnyFilterCaseReturn = true
             filteredOpportunityArray += filteredByReturnArray
         }
         
         // filter by Source
-        (enteredAnyFilterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterBySource(opportunityToBeFiltered: opportunityToSearch!)
-        if enteredAnyFilterCaseReturn {
+        (filterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterBySource(opportunityToBeFiltered: opportunityToSearch!)
+        if filterCaseReturn {
             enteredAnyFilterCaseReturn = true
             filteredOpportunityArray += filteredByReturnArray
         }
         
         // filter by Objective
-        (enteredAnyFilterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterByObjective(opportunityToBeFiltered: opportunityToSearch!)
-        if enteredAnyFilterCaseReturn {
+        (filterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterByObjective(opportunityToBeFiltered: opportunityToSearch!)
+        if filterCaseReturn {
             enteredAnyFilterCaseReturn = true
             filteredOpportunityArray += filteredByReturnArray
         }
@@ -212,8 +214,8 @@ class OpportunitySortUtility {
         // now search filtered list by search text
         let trimmedSearchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         if(trimmedSearchString != ""){
-            (enteredAnyFilterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterBySearchText(opportunityToBeFiltered: opportunityToSearch!, searchText: trimmedSearchString)
-            if enteredAnyFilterCaseReturn {
+            (filterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterBySearchText(opportunityToBeFiltered: opportunityToSearch!, searchText: trimmedSearchString)
+            if filterCaseReturn {
                 enteredAnyFilterCaseReturn = true
                 filteredOpportunityArray += filteredByReturnArray
             }

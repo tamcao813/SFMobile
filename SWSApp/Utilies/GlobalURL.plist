@@ -30,6 +30,8 @@
 	<string>/ContactClassification.plist</string>
 	<key>workorderPicklistValue</key>
 	<string>ui-api/object-info/WorkOrder/picklist-values/</string>
+	<key>outcomePicklistValue</key>
+	<string>ui-api/object-info/SGWS_Opportunity_WorkOrder__c/picklist-values/</string>
 	<key>visitPurpose</key>
 	<string>/SGWS_Visit_Purpose__c</string>
 	<key>accountVisitPurposePlist</key>

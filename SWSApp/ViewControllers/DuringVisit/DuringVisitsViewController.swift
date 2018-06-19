@@ -376,6 +376,8 @@ class  DuringVisitsViewController : UIViewController {
             
             //Save the data in DB
             _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+            self.saveOpportunityCommitValuesLocally()
+            self.saveOutcomeToWorkOrderOpportunityLocally()
             delegate?.navigateToAccountVisitingScreen()
             return
         }
@@ -390,6 +392,8 @@ class  DuringVisitsViewController : UIViewController {
         
         let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
         let duringVisitVC: DuringVisitsInsightsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsInsightsViewControllerID") as! DuringVisitsInsightsViewController
+        duringVisitVC.visitInformation = visitObject
+        activeViewController = duringVisitVC
         activeViewController = duringVisitVC
     }
     
@@ -454,6 +458,24 @@ class  DuringVisitsViewController : UIViewController {
             
         }
     }
+    @objc func saveOpportunityCommitValuesLocally() {
+        if DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.count > 0 {
+            for opportunity in DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList {
+                _ = StoreDispatcher.shared.editOpportunityCommitToSoup(fieldsToUpload: ["id":opportunity.id,"SGWS_Commit__c":opportunity.commit])
+            }
+        }
+    }
+    
+    @objc func saveOutcomeToWorkOrderOpportunityLocally() {
+        if  DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.count > 0 {
+            for object in DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList {
+                _ = StoreDispatcher.shared.editOpportunityOutcomeToSoup(fieldsToUpload: ["Id":object["Id"],"SGWS_Outcome__c":object["SGWS_Outcome__c"]])
+            }
+        }
+        
+    }
+
+    
 }
 
 //MARK:- RefreshStrategyScreen Delegate

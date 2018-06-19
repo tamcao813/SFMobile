@@ -56,8 +56,8 @@ class ContactsViewModel{
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("syncContactWithServer: Contacts Sync up failed")
-                completion(error)
-            }else {
+                //completion(error)
+            }//else {
                 StoreDispatcher.shared.reSyncContact( { error in
                     if error != nil {
                         print(error?.localizedDescription ?? "error")
@@ -67,7 +67,7 @@ class ContactsViewModel{
                         completion(nil)
                     }
                 })
-            }
+           // }
         })
     }
     

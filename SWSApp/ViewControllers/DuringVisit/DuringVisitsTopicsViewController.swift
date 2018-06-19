@@ -122,7 +122,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         //used to many cells under Account Strategy and Buying Motives
-        if section >= 3{
+        if section >= 2{
             let tableData = collectionViewRowDetails![section] as! NSDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             return tableContent.count
@@ -138,7 +138,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
             
             sectionHeader.isHidden = true
             
-            if indexPath.section >= 3{
+            if indexPath.section >= 2{
                 sectionHeader.isHidden = false
                 sectionHeader.displayHeaderViewData(data: collectionViewRowDetails!, indexPath: indexPath)
             }
@@ -211,21 +211,19 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
         if indexPath.section == 1{
             return CGSize(width: collectionView.frame.size.width, height: 250)
             
-        }else if indexPath.section == 20{//used to change the height of cell Dynamically
-            
+        }else if indexPath.section >= 2{//used to change the height of cell Dynamically
             let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
-            
             let data = (questions["answerText"] as! String)
             
-            let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15.0)])
-            let dynamicSize: CGRect = attString.boundingRect(with: CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-            
-            return dynamicSize.size
-            
-        } else if indexPath.section >= 3{
-            return CGSize(width: collectionView.frame.size.width, height: 20)
+            let approximateWidthOfContent = view.frame.width
+            // x is the width of the logo in the left
+            let size = CGSize(width: approximateWidthOfContent, height: CGFloat.greatestFiniteMagnitude)
+            //1000 is the large arbitrary values which should be taken in case of very high amount of content
+            let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)]
+            let estimatedFrame = NSString(string: data).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+            return CGSize(width: (self.collectionView?.frame.size.width)!, height: estimatedFrame.height)
         }
         return CGSize(width: collectionView.frame.size.width, height: 100)
     }
@@ -234,8 +232,8 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
         //Used to display header for last cell only
-        if section >= 3{
-            return CGSize(width: collectionView.frame.size.width  , height: 80)
+        if section >= 2{
+            return CGSize(width: collectionView.frame.size.width  , height: 50)
         }
         return CGSize(width: 0.0, height: 0.0)
     }

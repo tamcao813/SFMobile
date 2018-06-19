@@ -118,7 +118,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visit Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20y-wE-jOK">
-                                                    <rect key="frame" x="20" y="20" width="107" height="22.5"/>
+                                                    <rect key="frame" x="30" y="20" width="107" height="22.5"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -162,7 +162,7 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="KeU-E2-JrY" firstAttribute="leading" secondItem="lKX-jB-duc" secondAttribute="leading" constant="19.5" id="6WQ-mP-015"/>
-                                            <constraint firstItem="20y-wE-jOK" firstAttribute="leading" secondItem="lKX-jB-duc" secondAttribute="leading" constant="20" id="6lH-Zg-TGw"/>
+                                            <constraint firstItem="20y-wE-jOK" firstAttribute="leading" secondItem="lKX-jB-duc" secondAttribute="leading" constant="30" id="6lH-Zg-TGw"/>
                                             <constraint firstItem="KeU-E2-JrY" firstAttribute="top" secondItem="p1f-Ml-DLF" secondAttribute="bottom" constant="24" id="DPf-ln-1ye"/>
                                             <constraint firstItem="p1f-Ml-DLF" firstAttribute="top" secondItem="20y-wE-jOK" secondAttribute="bottom" constant="10.5" id="N6g-Dg-ZGv"/>
                                             <constraint firstAttribute="bottom" secondItem="KeU-E2-JrY" secondAttribute="bottom" constant="23" id="Oe5-3X-G1I"/>
@@ -216,7 +216,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a77-a4-jBl">
-                                                    <rect key="frame" x="20" y="2" width="960" height="26"/>
+                                                    <rect key="frame" x="30" y="2" width="950" height="26"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -225,7 +225,7 @@
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="a77-a4-jBl" secondAttribute="trailing" constant="20" id="XWi-c7-oDe"/>
-                                            <constraint firstItem="a77-a4-jBl" firstAttribute="leading" secondItem="QoP-xg-xZa" secondAttribute="leading" constant="20" id="dYN-mC-l1g"/>
+                                            <constraint firstItem="a77-a4-jBl" firstAttribute="leading" secondItem="QoP-xg-xZa" secondAttribute="leading" constant="30" id="dYN-mC-l1g"/>
                                             <constraint firstAttribute="bottom" secondItem="a77-a4-jBl" secondAttribute="bottom" constant="2" id="hLY-3m-V5u"/>
                                             <constraint firstItem="a77-a4-jBl" firstAttribute="top" secondItem="QoP-xg-xZa" secondAttribute="top" constant="2" id="rYP-zB-b8B"/>
                                         </constraints>
@@ -1266,9 +1266,6 @@
         <image name="Sort Gray" width="149" height="149"/>
         <image name="radioUnselected" width="20" height="20"/>
         <image name="selectedButton" width="20" height="20"/>
-        <namedColor name="Data New">
-            <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

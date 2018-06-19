@@ -193,13 +193,14 @@ class AccountsMenuTableTableViewCell: UITableViewCell {
         
         switch indexPath.row{
         case 0:
-            if FilterMenuModel.licenseW == "YES"{
+            if FilterMenuModel.licenseL == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "radioSelected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
             }
+            
         case 1:
-            if FilterMenuModel.licenseL == "YES"{
+            if FilterMenuModel.licenseW == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "radioSelected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "radioUnselected")

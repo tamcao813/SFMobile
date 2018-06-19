@@ -10,8 +10,8 @@ import UIKit
 
 class Opportunity {
 
-    static let opportunityFields: [String] = [ "Id", "AccountId", "sgws_source", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "StageName", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Order_Frequency__c", "SGWS_Unsold_Period_Days__c",  "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
-    static let opportunitySyncUpFields: [String] = [ "Id", "AccountId", "sgws_source", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "StageName", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Order_Frequency__c", "SGWS_Unsold_Period_Days__c",  "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
+    static let opportunityFields: [String] = [ "Id", "AccountId", "sgws_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "StageName", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Order_Frequency__c", "SGWS_Unsold_Period_Days__c",  "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
+    static let opportunitySyncUpFields: [String] = [ "Id", "AccountId", "sgws_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "StageName", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Order_Frequency__c", "SGWS_Unsold_Period_Days__c",  "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
 
     var id: String
     var accountId: String
@@ -58,7 +58,7 @@ class Opportunity {
         
         id = json["Id"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
-        source = json["sgws_source"] as? String ?? ""
+        source = json["sgws_source__c"] as? String ?? ""
         PYCMSold = json["SGWS_PYCM_Sold__c"] as? String ?? ""
         commit = json["SGWS_Commit__c"] as? String ?? ""
         sold = json["SGWS_Sold__c"] as? String ?? ""

@@ -192,8 +192,13 @@ class CreateNewActionItemViewController: UIViewController {
             newActionItem.isUrgent = false
         }
         newActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-        // Fix RecordTypeID - Make it Dynamic for action item
-        newActionItem.recordTypeId = "0120t0000008cMCAAY"
+        let recordTypeArray = RecordTypeViewModel().getRecordTypeForDeveloper()
+        let actionItemRecordType = recordTypeArray.filter( { return $0.developerName.contains("SGWS_Task") } )
+        
+        if actionItemRecordType.count > 0{
+            newActionItem.recordTypeId = actionItemRecordType[0].Id
+        }
+        
         let attributeDict = ["type":"Task"]
         var actionItemDict: [String:Any] = [
             

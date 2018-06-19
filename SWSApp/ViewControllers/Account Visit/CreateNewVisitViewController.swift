@@ -80,7 +80,6 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     func fetchVisit(){
-        //if let id = visitId{
         if let _ = visitId{
             let visitArray = VisitsViewModel().visitsForUser()
             for visit in visitArray {
@@ -90,6 +89,7 @@ class CreateNewVisitViewController: UIViewController {
                 }
             }
         }
+        //TODO: MANU to REVIEW WHY Account and Contacts are Loaded twice
         fetchAccountDetails()
         fetchContactDetails()
     }
@@ -107,7 +107,8 @@ class CreateNewVisitViewController: UIViewController {
     
     func fetchContactDetails(){
         if let contactId = visitObject?.contactId {
-            let contactsArray = ContactsViewModel().globalContacts()
+            var contactsArray = ContactsViewModel().globalContacts()
+            contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
             for contact in contactsArray {
                 if contact.contactId == contactId {
                     selectedContact = contact

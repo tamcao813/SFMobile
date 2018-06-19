@@ -13,19 +13,22 @@ import PromiseKit
 import SmartStore
 import SmartSync
 
+struct DOWNLOAD_SIZE {
+    static let CONTACT_SIZE = 10000
+}
 
 class StoreDispatcher {
     static let shared = StoreDispatcher()
     static let SFADB = "SFADB"
     
-
+    
     // Workorder Types Visit OR Event
     let workOrderTypeVisit = "SGWS_WorkOrder_Visit"
     let workOrderTypeEvent = "SGWS_WorkOrder_Event"
     let recordTypeDevTask = "SGWS_Task"
-
-//    var workOrderRecordTypeIdVisit = ""
-//    var workOrderRecordTypeIdEvent = ""
+    
+    //    var workOrderRecordTypeIdVisit = ""
+    //    var workOrderRecordTypeIdEvent = ""
     
     var syncProgress:Int = 0
     
@@ -61,8 +64,10 @@ class StoreDispatcher {
         registerActionItemSoup()
         registerNotificationsSoup()
         registerOpportunity()
+        registerUploadOpportunity()
         registerOpportunityWorkorder()
         registerSyncLogSoup()
+        registerRecordTypeSoup()
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -91,6 +96,11 @@ class StoreDispatcher {
         //Notifications
         group.enter()
         reSyncNotifications() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        reSyncRecordType() { _ in
             group.leave()
         }
         
@@ -135,7 +145,7 @@ class StoreDispatcher {
         //Strategy QA / Response
         group.enter()
         
-         let strategyResponsefields: [String] = ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"]
+        let strategyResponsefields: [String] = ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"]
         
         syncUpStrategyQA(fieldsToUpload: strategyResponsefields, completion: {error in
             if error != nil {
@@ -164,7 +174,7 @@ class StoreDispatcher {
         //Contacts
         group.enter()
         let contactFields: [String] = Contact.ContactFields
-
+        
         syncUpContact(fieldsToUpload: contactFields, completion: {error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
@@ -190,7 +200,7 @@ class StoreDispatcher {
             }
             self.reSyncNote { error in
                 group.leave()
-
+                
             }
         })
         
@@ -234,17 +244,21 @@ class StoreDispatcher {
             }
         })
         
-        //TBD updated with resync function
         group.enter()
         syncDownOpportunity() { _ in
             let _ = OpportunityViewModel().globalOpportunityReload()
             group.leave()
         }
         
+        group.enter()
+        syncDownUploadOpportunity() { _ in
+            group.leave()
+        }
+        
         //to do: syncDown other soups
         group.notify(queue: queue) {
             print("completion")
-
+            
             completion(nil)
         }
         
@@ -266,6 +280,11 @@ class StoreDispatcher {
         }
         group.enter()
         syncDownNotification() { _ in
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownRecordType() { _ in
             group.leave()
         }
         
@@ -326,7 +345,12 @@ class StoreDispatcher {
         
         group.enter()
         syncDownOpportunity() { _ in
-        let _ = OpportunityViewModel().globalOpportunityReload()
+            let _ = OpportunityViewModel().globalOpportunityReload()
+            group.leave()
+        }
+        
+        group.enter()
+        syncDownUploadOpportunity() { _ in
             group.leave()
         }
         
@@ -509,6 +533,7 @@ class StoreDispatcher {
         if let error: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") as? String {
             errorMsg = error
         }
+        SyncUpDailogGlobal.isSyncError = true
         
         UserDefaults.standard.removeObject(forKey:"key_name")
         
@@ -598,6 +623,8 @@ class StoreDispatcher {
         sfaStore.clearSoup(SoupSyncLog)
     }
     
+    
+    
     //MARK:- Contat Sync CODE
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {
         let query = "SELECT id FROM RecordType where DeveloperName = 'customer' and isActive = true and SobjectType = 'Contact'"
@@ -631,6 +658,11 @@ class StoreDispatcher {
                 self.downloadContactClassificationPList(recordTypeId: recordTypeId) { _ in
                     group.leave()
                 }
+                group.enter()
+                self.downloadSWGSOutcomePList(recordTypeId: recordTypeId) { _ in
+                    group.leave()
+                }
+                
                 
                 group.notify(queue: queue) {
                     completion(nil)
@@ -674,7 +706,7 @@ class StoreDispatcher {
     }
     
     func downloadContactRolesPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
-        let recordTypeId = recordTypeId 
+        let recordTypeId = recordTypeId
         let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.rules
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
         request.endpoint = StringConstants.serviceUrl
@@ -778,6 +810,43 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
     }
+    
+    func downloadSWGSOutcomePList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
+        //Record id is different for dev environment
+        let recordTypeId = "0120t0000008dGKAAY"
+        let path = StringConstants.outcomePicklistValue + recordTypeId + "/SGWS_Outcome__c"
+        
+        //        let path = "ui-api/object-info/SGWS_Opportunity_WorkOrder__c/picklist-values/012i0000000PebvAAC/SGWS_Outcome__c"
+        let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
+        request.endpoint = StringConstants.serviceUrl
+        
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                let response = sfRestResponse.asJsonDictionary()
+                var outcomePicklist = [String:[PlistOption]]()
+                if response.count > 0 {
+                    var ary = [PlistOption]()
+                    self.createPList(plist: StringConstants.outcomePicklistValue, plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    if let options = response["values"] as? [[String : AnyObject]] {
+                        for option in options {
+                            let label = option["label"] as? String ?? ""
+                            let value = option["value"] as? String ?? ""
+                            let preferred = PlistOption(label: label, value: value)
+                            ary.append(preferred)
+                        }
+                        outcomePicklist["outcomePicklistValue"] = ary
+                    }
+                }
+                
+                PlistMap.sharedInstance.addToMap(field: "outcomePicklistValue", map: outcomePicklist["outcomePicklistValue"]!)
+                completion(nil)
+            }
+            .catch { error in
+                print("swgs outcome plist error: " + error.localizedDescription)
+                completion(error as NSError?)
+        }
+    }
+    
     
     
     func downloadVisitPLists(_ completion:@escaping (_ error: NSError?)->()) {
@@ -1302,9 +1371,9 @@ class StoreDispatcher {
         var contactAry: [Contact] = []
         
         let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:Id} IN (\(idFormattedString))"
+        let soupQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:Id} IN (\(idFormattedString))"
         
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
@@ -1334,9 +1403,9 @@ class StoreDispatcher {
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:AccountId} = '\(accountId)' "
+        let soupQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:AccountId} = '\(accountId)' "
         
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
@@ -1368,9 +1437,9 @@ class StoreDispatcher {
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
-        let soqlQuery = "Select DISTINCT \(fields.joined(separator: ",")) from {User}"
+        let soupQuery = "Select DISTINCT \(fields.joined(separator: ",")) from {User}"
         
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
@@ -1380,7 +1449,7 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let user = User(withAry: ary)
                 
-                let json:[String:Any] = [ "Id":user.id, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                let json:[String:Any] = [ "Id":user.sgws_Employee_Contact, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
                 
                 let contact =  Contact.init(json: json)
                 
@@ -1392,7 +1461,7 @@ class StoreDispatcher {
             
         }
         print("All SGWS Employees Contacts are \(contactAry)")
-        return contactAry
+        return contactAry.unique()
         
     }
     
@@ -1598,7 +1667,7 @@ class StoreDispatcher {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
                 let acr = AccountContactRelation(withAry: ary)
-                if acr.buyingPower == 1 { 
+                if acr.buyingPower == 1 {
                     acrObjects.append(acr)
                 }
             }
@@ -1755,9 +1824,9 @@ class StoreDispatcher {
                     print(">>>>>> visit syncDownVisit() done >>>>>")
                     
                     let _ = OpportunityViewModel().globalOpportunityWorkorder()
-                    //                    self.syncDownOpportunityWorkorder() { _ in
-                    //                        let _ = OpportunityViewModel().globalOpportunityWorkorder()
-                    //                    }
+                    self.syncDownOpportunityWorkorder() { _ in
+//                        let _ = OpportunityViewModel().globalOpportunityWorkorder()
+                    }
                     completion(nil)
                     
                 }
@@ -1780,7 +1849,7 @@ class StoreDispatcher {
     
     func fetchEvents()->[Visit]{
         
-        var visit: [Visit] = []        
+        var visit: [Visit] = []
         let soapQuery = "Select * FROM {WorkOrder} WHERE {WorkOrder:RecordTypeId} = '\(SyncConfigurationViewModel().syncConfigurationRecordIdforEvent())'"
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
@@ -1907,7 +1976,7 @@ class StoreDispatcher {
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     print(">>>>>> ActionItem SyncDown() done >>>>>")
-                     let syncId:UInt = UInt(syncStateStatus.syncId)
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdActionItem] = syncId
                     completion(nil)
                 }
@@ -2225,7 +2294,7 @@ class StoreDispatcher {
                     self.syncIdDictionary[SyncDownIdNote] = syncId
                     print(">>>>>> Notes syncDownNote() done >>>>>")
                     completion(nil)
-                    }
+                }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownNotes() >>>>>>>"
                     let userInfo: [String: Any] =
@@ -2701,7 +2770,7 @@ class StoreDispatcher {
                     
                     completion(nil)
                     
-                    }
+                }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownStrategyQA() >>>>>>>"
                     let userInfo: [String: Any] =
@@ -2886,7 +2955,7 @@ class StoreDispatcher {
     
     // SyncDown StrategyAnswers Soup
     func syncDownStrategyAnswers(_ completion:@escaping (_ error: NSError?)->()) {
-
+        
         let soqlQuery = "SELECT Id,Name,SGWS_Answer_Description__c,SGWS_Deactivate_Answer__c,SGWS_Question_Description__c,SGWS_Question__c FROM SGWS_Answer__c"
         
         print("soql syncDownStrategyAnswers query is \(soqlQuery)")
@@ -3124,7 +3193,7 @@ class StoreDispatcher {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
             print("\(result) Visit is deleted  successfully" )
-            print(soupEntryId!)            
+            print(soupEntryId!)
             return true
         }
         else {
@@ -3328,7 +3397,7 @@ class StoreDispatcher {
         
         var accVisitEventArray:[WorkOrderUserObject] = []
         
-        let soupQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = '' UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} is NULL"
+        let soupQuery = "SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{Contact:Name},{Contact:FirstName},{Contact:LastName},{Contact:Phone},{Contact:Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {Contact:Id} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},{WorkOrder:ContactId},{User:User.Name},{User:User.Username},{User:User.Username},{User:User.Phone},{User:User.Email},{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{User} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = {User:User.SGWS_Employee_Contact_Id__c} UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} = '' UNION SELECT DISTINCT {WorkOrder:Id},{WorkOrder:Subject},{WorkOrder:SGWS_WorkOrder_Location__c},{WorkOrder:AccountId},A.{AccountTeamMember:Account.Name},A.{AccountTeamMember:Account.AccountNumber},A.{AccountTeamMember:Account.ShippingCity},A.{AccountTeamMember:Account.ShippingCountry},A.{AccountTeamMember:Account.ShippingPostalCode},A.{AccountTeamMember:Account.ShippingState},A.{AccountTeamMember:Account.ShippingStreet},{WorkOrder:SGWS_Appointment_Status__c},{WorkOrder:StartDate},{WorkOrder:EndDate},{WorkOrder:SGWS_Visit_Purpose__c},{WorkOrder:Description},{WorkOrder:SGWS_Agenda_Notes__c},{WorkOrder:Status},{WorkOrder:SGWS_AppModified_DateTime__c},NULL,NULL,NULL,NULL,NULL,NULL,{WorkOrder:RecordTypeId},{WorkOrder:_soupEntryId},{WorkOrder:SGWS_All_Day_Event__c},{WorkOrder:OwnerId} FROM {WorkOrder},{Contact} INNER JOIN {AccountTeamMember} as A where {WorkOrder:AccountId} = A.{AccountTeamMember:AccountId} AND {WorkOrder:ContactId} is NULL"
         
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
@@ -3469,8 +3538,8 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
     }
-
- //MARK:- Notifications Related Code
+    
+    //MARK:- Notifications Related Code
     
     func registerNotificationsSoup(){
         
@@ -3509,9 +3578,9 @@ class StoreDispatcher {
                     print(">>>>>> Notification SyncDown() done >>>>>")
                     let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdNotifications] = syncId
-
+                    
                     completion(nil)
-                   
+                    
                 }
                 else if syncStateStatus.hasFailed() {
                     let meg = "ErrorDownloading: syncDownNotification() >>>>>>>"
@@ -3605,7 +3674,7 @@ class StoreDispatcher {
             return false
         }
     }
-
+    
     func registerOpportunity() {
         
         let syncOpportunityFields = Opportunity.opportunityFields
@@ -3625,6 +3694,26 @@ class StoreDispatcher {
             
         } catch let error as NSError {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunity soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func registerUploadOpportunity() {
+        
+        let syncUploadOpportunityFields = Opportunity.opportunityUploadFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...syncUploadOpportunityFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: syncUploadOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncUploadOpportunityFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupUploadOpportunity, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupUploadOpportunity soup: \(error.localizedDescription)")
         }
     }
     
@@ -3742,8 +3831,8 @@ class StoreDispatcher {
     
     func syncUpOpportunity(completion:@escaping (_ error: NSError?)->()) {
         
-        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: Opportunity.opportunitySyncUpFields, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
-        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupOpportunity)
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: Opportunity.opportunityUploadSyncUpFields, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupUploadOpportunity)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     let syncId:UInt = UInt(syncStateStatus.syncId)
@@ -3787,7 +3876,7 @@ class StoreDispatcher {
         }
     }
     
-    /* Not used as SGWS_Opportunity_WorkOrder__c is sync downed as part of Parent-Child syncdownvisit
+    // Not used as SGWS_Opportunity_WorkOrder__c is sync downed as part of Parent-Child syncdownvisit
     func syncDownOpportunityWorkorder(_ completion:@escaping (_ error: NSError?)->()) {
         
         let soqlQuery = "select Id,SGWS_Opportunity__c,SGWS_Work_Order__c,SGWS_Outcome__c from SGWS_Opportunity_WorkOrder__c"
@@ -3817,8 +3906,38 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
         
-    }*/
+    }
     
+    func syncDownUploadOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "select id,AccountId,sgws_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c from opportunity"
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUploadOpportunity)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownUploadOpportunity() done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownUploadOpportunity()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownUploadOpportunity()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+        
+    }
+
     func createNewOpportunityWorkorderLocally(fieldsToUpload: [String:Any]) -> (Bool,Int){
         
         var allFields = fieldsToUpload
@@ -3838,90 +3957,6 @@ class StoreDispatcher {
         }
         else {
             return (false,0)
-        }
-    }
-    
-    func editOpportunityWorkorderLocally(fields: [String:Any]) -> Bool {
-        
-        var allFields = fields
-        allFields["attributes"] = ["type":"SGWS_Opportunity_WorkOrder__c"]
-        allFields[kSyncTargetLocal] = true
-        var ary = [Any]()
-        
-        let soupEntryId = allFields["_soupEntryId"]
-        
-        let entryArray = sfaStore.retrieveEntries([soupEntryId!] , fromSoup: SoupOpportunityWorkorder)
-        
-        if(entryArray.count > 0){
-            
-            let entry = entryArray[0]
-            var soupEntry = entry as! [String:Any]
-            
-            let createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
-            
-            if(createdFlag){
-                soupEntry[kSyncTargetLocal] = true
-                soupEntry[kSyncTargetLocallyUpdated] = false
-                soupEntry[kSyncTargetLocallyCreated] = true
-                
-            }else {
-                soupEntry[kSyncTargetLocal] = true
-                soupEntry[kSyncTargetLocallyCreated] = false
-                soupEntry[kSyncTargetLocallyUpdated] = true
-                
-            }
-            soupEntry["SGWS_Outcome__c"] = allFields["SGWS_Outcome__c"]
-            
-            soupEntry[kSyncTargetLocallyDeleted] = false
-            
-            ary = sfaStore.upsertEntries([soupEntry], toSoup: SoupOpportunityWorkorder)
-            
-            if ary.count > 0 {
-                var result = ary[0] as! [String:Any]
-                let soupEntryId = result["_soupEntryId"]
-                print(result)
-                print(soupEntryId!)
-                return true
-            }
-            else {
-                return false
-            }
-        }
-        return false
-    }
-    
-    func deleteOpportunityWorkorderLocally(fieldsToUpload: [String:Any]) -> Bool{
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
-        
-        var opportunityWorkorderItem = [String: Any]()
-        
-        for  singleOpportunityWorkorder in result{
-            var singleOpportunityWorkorderModif = singleOpportunityWorkorder as! [String:Any]
-            let singleOpportunityWorkorderModifValue = singleOpportunityWorkorderModif["Id"] as! String
-            let fieldsIdValue = fieldsToUpload["Id"] as! String
-            //Search ID to be deleted
-            if(fieldsIdValue == singleOpportunityWorkorderModifValue){
-                singleOpportunityWorkorderModif["__local__"] = true
-                singleOpportunityWorkorderModif["__locally_deleted__"] = true
-                opportunityWorkorderItem = singleOpportunityWorkorderModif
-                break
-            }
-        }
-        
-        let ary = sfaStore.upsertEntries([opportunityWorkorderItem], toSoup: SoupOpportunityWorkorder)
-        if ary.count > 0 {
-            var result = ary[0] as! [String:Any]
-            let soupEntryId = result["_soupEntryId"]
-            print("\(result) OpportunityWorkorder is deleted  successfully" )
-            print(soupEntryId!)
-            return true
-        }
-        else {
-            print(" Error in deleting  OpportunityWorkorder" )
-            return false
         }
     }
     
@@ -3955,7 +3990,7 @@ class StoreDispatcher {
         }
         return opportunityWorkorder
     }
-
+    
     private func resyncError(syncConstant: String)->NSError{
         let meg = "Error reSync: " + syncConstant
         let userInfo: [String: Any] =
@@ -3967,4 +4002,184 @@ class StoreDispatcher {
         return err
     }
     
+    func editOpportunityCommitToSoup(fieldsToUpload: [String:Any]) -> Bool{
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupUploadOpportunity, withOrderPath: "SGWS_Commit__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var modifiedOpportunity = [String: Any]()
+        
+        for  opportunity in result{
+            var oppotunityModif = opportunity as! [String:Any]
+            let opportunityModifIdValue = oppotunityModif["Id"] as? String ?? ""
+            if opportunityModifIdValue.isEmpty {
+                continue
+            }
+
+            let fieldsIdValue = fieldsToUpload["id"] as? String ?? ""
+            if fieldsIdValue.isEmpty {
+                continue
+            }
+
+            if(fieldsIdValue == opportunityModifIdValue){
+                oppotunityModif["SGWS_Commit__c"] = fieldsToUpload["SGWS_Commit__c"]
+                oppotunityModif[kSyncTargetLocal] = true
+                let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as! Bool
+                if(createdFlag){
+                    oppotunityModif[kSyncTargetLocallyUpdated] = false
+                    oppotunityModif[kSyncTargetLocallyCreated] = true
+                }else {
+                    oppotunityModif[kSyncTargetLocallyCreated] = false
+                    oppotunityModif[kSyncTargetLocallyUpdated] = true
+                }
+                oppotunityModif[kSyncTargetLocallyDeleted] = false
+                modifiedOpportunity = oppotunityModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupUploadOpportunity)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) opportunity commit is saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving opportunity commit" )
+            return false
+        }
+    }
+    
+    
+    func editOpportunityOutcomeToSoup(fieldsToUpload: [String:Any]) -> Bool{
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Outcome__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var modifiedOpportunity = [String: Any]()
+        
+        for  workOrderopportunity in result{
+            var oppotunityModif = workOrderopportunity as! [String:Any]
+            let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
+            if opportunityModifIdValue.isEmpty {
+                continue
+            }
+            let fieldsIdValue = fieldsToUpload["Id"] as? String ?? ""
+            if fieldsIdValue.isEmpty {
+                continue
+            }
+
+            if(fieldsIdValue == opportunityModifIdValue){
+                oppotunityModif["SGWS_Outcome__c"] = fieldsToUpload["SGWS_Outcome__c"]
+                oppotunityModif[kSyncTargetLocal] = true
+                let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as! Bool
+                if(createdFlag){
+                    oppotunityModif[kSyncTargetLocallyUpdated] = false
+                    oppotunityModif[kSyncTargetLocallyCreated] = true
+                }else {
+                    oppotunityModif[kSyncTargetLocallyCreated] = false
+                    oppotunityModif[kSyncTargetLocallyUpdated] = true
+                }
+                oppotunityModif[kSyncTargetLocallyDeleted] = false
+                modifiedOpportunity = oppotunityModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupOpportunityWorkorder)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) opportunity outcome is saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving opportunity outcome" )
+            return false
+        }
+    }
+    
+    //MARK:- Record Type Related Code
+    func registerRecordTypeSoup(){
+        
+        let recordTypeQueryFields = RecordType.recordTypesFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...recordTypeQueryFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: recordTypeQueryFields[i], indexType: kSoupIndexTypeString, columnName: recordTypeQueryFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupRecordType, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register RecordType soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func reSyncRecordType(_ completion:@escaping (_ error: NSError?)->()) {
+        guard let sId = syncIdDictionary[SyncDownIdRecordType] else { return completion(resyncError(syncConstant: SyncDownIdRecordType))}
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdRecordType, completion: completion)
+    }
+    
+    
+    func syncDownRecordType(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "SELECT CreatedDate,Description,DeveloperName,Id,IsActive FROM RecordType"
+        
+        print("soql recordType query is \(soqlQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupRecordType)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print(">>>>>> Record Type SyncDown() done >>>>>")
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdRecordType] = syncId
+                    
+                    completion(nil)
+                    
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownRecordType() >>>>>>>"
+                    let userInfo: [String: Any] = [NSLocalizedDescriptionKey : meg,
+                                                   NSLocalizedFailureReasonErrorKey : meg]
+                    let err = NSError(domain: "syncDownRecordType()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+    }
+    
+    func fetchRecordTypeForDeveloperName()->[RecordType] {
+        var recordType: [RecordType] = []
+        let recordTypeFields = RecordType.recordTypesFields.map{"{RecordType:\($0)}"}
+        let soapQuery = "Select \(recordTypeFields.joined(separator: ",")) FROM {RecordType}"
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let recordTypeArray = RecordType(withAry: ary)
+                recordType.append(recordTypeArray)
+                print("recordTypeArray \(ary)")
+            }
+        }
+        else if error != nil {
+            print("fetch recordTypeArray " + " error:" + (error?.localizedDescription)!)
+        }
+        return recordType
+    }
 }

@@ -941,8 +941,22 @@
                                             <action selector="closeButtonClickedWithSender:" destination="VfR-jM-hAA" eventType="touchUpInside" id="CUN-z8-94P"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cE8-bw-o9L">
+                                        <rect key="frame" x="824" y="37" width="107" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="5ft-Lr-xGu"/>
+                                            <constraint firstAttribute="width" constant="107" id="MdZ-Qa-VKG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                                        <state key="normal" title="Account Strategy">
+                                            <color key="titleColor" name="Data New"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loadStrategyViewControllerWithSender:" destination="VfR-jM-hAA" eventType="touchUpInside" id="VvE-i4-Po6"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gM-nd-Zd3">
-                                        <rect key="frame" x="843" y="37" width="94" height="30"/>
+                                        <rect key="frame" x="723" y="37" width="94" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="9jW-Dp-e8j"/>
                                             <constraint firstAttribute="width" constant="94" id="bwC-OA-DW9"/>
@@ -956,7 +970,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jd-a1-eva">
-                                        <rect key="frame" x="753" y="37" width="94" height="30"/>
+                                        <rect key="frame" x="632" y="37" width="94" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="94" id="Bux-wL-osz"/>
                                             <constraint firstAttribute="height" constant="30" id="Xcw-yn-bfy"/>
@@ -970,7 +984,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZU-mu-fqD">
-                                        <rect key="frame" x="694" y="37" width="60" height="30"/>
+                                        <rect key="frame" x="573" y="37" width="60" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="aRb-ms-n75"/>
                                             <constraint firstAttribute="height" constant="30" id="u5h-xd-Swt"/>
@@ -984,7 +998,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGz-hj-dCP">
-                                        <rect key="frame" x="588" y="37" width="101" height="30"/>
+                                        <rect key="frame" x="467" y="37" width="101" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="101" id="gF6-jG-ZsU"/>
                                             <constraint firstAttribute="height" constant="30" id="ikX-or-hUJ"/>
@@ -998,7 +1012,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O6r-GT-fPE">
-                                        <rect key="frame" x="440" y="37" width="143" height="30"/>
+                                        <rect key="frame" x="319" y="37" width="143" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="143" id="5OS-ea-Z5s"/>
                                             <constraint firstAttribute="height" constant="30" id="An4-K7-cem"/>
@@ -1012,7 +1026,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9mp-0t-N3K">
-                                        <rect key="frame" x="361" y="37" width="72" height="30"/>
+                                        <rect key="frame" x="240" y="37" width="72" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="72" id="2bJ-SW-hYv"/>
                                             <constraint firstAttribute="height" constant="30" id="x5x-6h-hbM"/>
@@ -1030,15 +1044,17 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="93" id="2ny-NB-qVo"/>
                                     <constraint firstItem="fGz-hj-dCP" firstAttribute="top" secondItem="ElV-dq-EAo" secondAttribute="top" constant="37" id="53W-lE-8Z3"/>
+                                    <constraint firstItem="Ed5-bl-9Vy" firstAttribute="leading" secondItem="cE8-bw-o9L" secondAttribute="trailing" constant="27" id="6GG-2T-5sL"/>
                                     <constraint firstItem="9mp-0t-N3K" firstAttribute="top" secondItem="ElV-dq-EAo" secondAttribute="top" constant="37" id="8Ba-3O-ynK"/>
-                                    <constraint firstItem="3gM-nd-Zd3" firstAttribute="leading" secondItem="2jd-a1-eva" secondAttribute="trailing" constant="-4" id="HI4-CW-NSi"/>
-                                    <constraint firstItem="Ed5-bl-9Vy" firstAttribute="leading" secondItem="3gM-nd-Zd3" secondAttribute="trailing" constant="21" id="IHQ-RM-jFM"/>
+                                    <constraint firstItem="3gM-nd-Zd3" firstAttribute="leading" secondItem="2jd-a1-eva" secondAttribute="trailing" constant="-3" id="HI4-CW-NSi"/>
                                     <constraint firstItem="fGz-hj-dCP" firstAttribute="leading" secondItem="O6r-GT-fPE" secondAttribute="trailing" constant="5" id="J7U-cg-exb"/>
                                     <constraint firstItem="RZU-mu-fqD" firstAttribute="top" secondItem="ElV-dq-EAo" secondAttribute="top" constant="37" id="NdG-E2-ru2"/>
+                                    <constraint firstItem="cE8-bw-o9L" firstAttribute="leading" secondItem="3gM-nd-Zd3" secondAttribute="trailing" constant="7" id="Odd-YN-pbw"/>
                                     <constraint firstItem="O6r-GT-fPE" firstAttribute="leading" secondItem="9mp-0t-N3K" secondAttribute="trailing" constant="7" id="QTu-k4-NWu"/>
                                     <constraint firstItem="3gM-nd-Zd3" firstAttribute="top" secondItem="ElV-dq-EAo" secondAttribute="top" constant="37" id="hyk-UE-4bN"/>
                                     <constraint firstItem="2jd-a1-eva" firstAttribute="top" secondItem="ElV-dq-EAo" secondAttribute="top" constant="37" id="kcS-3E-07V"/>
                                     <constraint firstAttribute="trailing" secondItem="Ed5-bl-9Vy" secondAttribute="trailing" constant="28" id="pRj-Y0-eyH"/>
+                                    <constraint firstItem="cE8-bw-o9L" firstAttribute="top" secondItem="ElV-dq-EAo" secondAttribute="top" constant="37" id="sXJ-gs-OiJ"/>
                                     <constraint firstItem="O6r-GT-fPE" firstAttribute="top" secondItem="ElV-dq-EAo" secondAttribute="top" constant="37" id="xhK-n7-kyu"/>
                                     <constraint firstItem="Ed5-bl-9Vy" firstAttribute="top" secondItem="ElV-dq-EAo" secondAttribute="top" constant="33" id="yVh-0H-bEC"/>
                                     <constraint firstItem="2jd-a1-eva" firstAttribute="leading" secondItem="RZU-mu-fqD" secondAttribute="trailing" constant="-1" id="ycj-cc-EWb"/>
@@ -1250,6 +1266,9 @@
         <image name="Sort Gray" width="149" height="149"/>
         <image name="radioUnselected" width="20" height="20"/>
         <image name="selectedButton" width="20" height="20"/>
+        <namedColor name="Data New">
+            <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Data New">
             <color red="0.2430000007" green="0.52499997620000005" blue="0.76899999379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

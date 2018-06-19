@@ -66,10 +66,10 @@ class  DuringVisitsTopicsViewController : UIViewController {
         displayDataDict.setValue(visitNotes, forKey: "notesText")
         mainArray.add(displayDataDict)
         
-        let strategyDictionary = NSMutableDictionary()
-        strategyDictionary.setValue("Account Strategy", forKey: "headerText")
-        strategyDictionary.setValue("Load the Account Strategy", forKey: "subHeader")
-        mainArray.add(strategyDictionary)
+        //let strategyDictionary = NSMutableDictionary()
+        //strategyDictionary.setValue("Account Strategy", forKey: "headerText")
+        //strategyDictionary.setValue("Load the Account Strategy", forKey: "subHeader")
+        //mainArray.add(strategyDictionary)
         
         let agendaNotes = visitObject?.sgwsAgendaNotes
         let agentDict = NSMutableDictionary()
@@ -162,11 +162,15 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell2", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
             (cell as! DuringVisitsTopicsCollectionViewCell).displayNotesCellData(data: cellData)
             
-        }else if indexPath.section == 2{
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
-            (cell as! DuringVisitsTopicsCollectionViewCell).delegate = self
-            
-        }else if indexPath.section >= 3{
+        }
+        
+//        else if indexPath.section == 2{
+//            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
+//            (cell as! DuringVisitsTopicsCollectionViewCell).delegate = self
+//
+//        }
+        
+        else if indexPath.section >= 2{
             
             let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray

@@ -35,10 +35,10 @@ struct OpportunitiesFilterMenuModel {
     static var viewBy9L = ""
     static var viewByCaseDecimal = ""
 
+    static var statusClosed = ""
+    static var statusClosedWon = ""
     static var statusOpen = ""
     static var statusPlanned = ""
-    static var statusClosedWon = ""
-    static var statusClosed = ""
 
     static var sourceOverview = ""
     static var sourceTopSellers = ""
@@ -47,9 +47,9 @@ struct OpportunitiesFilterMenuModel {
     static var sourceUnsold = ""
 
     static var objective9L = ""
-    static var objectiveDecimal = ""
-    static var objectiveRevenue = ""
     static var objectiveACS = ""
+    static var objectiveDecimal = ""
     static var objectivePOD = ""
+    static var objectiveRevenue = ""
     
 }

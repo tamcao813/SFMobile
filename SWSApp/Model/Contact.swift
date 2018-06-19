@@ -304,3 +304,13 @@ class Contact {
         return firstChar
     }
 }
+//Contacts code to fetch unique contacts in SGWS contact.
+extension Contact: Equatable,Hashable {
+    var hashValue: Int {
+        return contactId.hashValue
+    }
+    
+    static func == (lhs: Contact, rhs: Contact) -> Bool {
+        return lhs.contactId == rhs.contactId
+    }
+}

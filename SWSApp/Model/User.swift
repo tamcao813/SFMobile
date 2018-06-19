@@ -10,7 +10,7 @@ import Foundation
 
 
 class User {
-    static let UserFields = ["Id", "User.Username", "User.Name", "AccountId", "UserId", "User.Email","User.Phone","TeamMemberRole","User.SGWS_Site__c","User.ManagerId", "Account.RecordTypeId"] // Stage 1
+    static let UserFields = ["Id", "User.Username", "User.Name", "AccountId", "UserId", "User.Email","User.Phone","TeamMemberRole","User.SGWS_Site__c","User.ManagerId", "Account.RecordTypeId","User.SGWS_Employee_Contact_Id__c"] // Stage 1
     
     static let UserSimpleFields =
      ["Id", "Username", "Name", "AccountId", "Email","Phone","SGWS_Site__c","ManagerId", "Account.RecordTypeId"]
@@ -29,6 +29,7 @@ class User {
     
     var recordTypeId: String
     
+    var sgws_Employee_Contact: String
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(User.UserFields, ary))
@@ -92,6 +93,12 @@ class User {
         }
         
         recordTypeId = json["Account.RecordTypeId"] as? String ?? ""
+        
+        if json[User.UserFields[11]] is NSNull {
+            sgws_Employee_Contact = ""
+        } else {
+            sgws_Employee_Contact = json[User.UserFields[11]] as! String
+        }
     }
     
     convenience init(withAryForUserSimple ary: [Any]) {
@@ -112,6 +119,7 @@ class User {
         userManagerId = jsonSimple["ManagerId"] as? String ?? ""
         recordTypeId = jsonSimple["Account.RecordTypeId"] as? String ?? ""
         userTeamMemberRole = ""
+        sgws_Employee_Contact = jsonSimple["SGWS_Employee_Contact_Id__c"] as? String ?? ""
     }
     
     init(for: String) {
@@ -126,6 +134,7 @@ class User {
         userSite = ""
         userManagerId = ""
         recordTypeId = ""
+        sgws_Employee_Contact = ""
     }
 }
 

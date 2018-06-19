@@ -245,6 +245,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             DispatchQueue.main.async(execute: {
                 //to do: show Hub and progress
                 
+                if(self.isKeyPresentInUserDefaults(key: "resyncDictionary")){
+                    StoreDispatcher.shared.syncIdDictionary = UserDefaults.standard.dictionary(forKey: "resyncDictionary") as! [String : UInt]
+                }
+                
                 StoreDispatcher.shared.syncDownUser({ (error) in
                     if error != nil {
                         print("error in syncDownUser")
@@ -257,6 +261,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             print("No logged in user retrieved")
                             let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
                             if(globalAccountsForLoggedUser.count == 0){
+                                self.resetLaunchandResyncConfiguration()
                                 // Show Alert and exit the app
                                 self.showAlertandExit()
                             }
@@ -271,10 +276,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.currentSelectedUserId = user.userId
                         self.consultants = consults
             print("appdelegate: currentSelectedUserId: " + self.currentSelectedUserId)
-                        
-                        if(self.isKeyPresentInUserDefaults(key: "resyncDictionary")){
-                            StoreDispatcher.shared.syncIdDictionary = UserDefaults.standard.dictionary(forKey: "resyncDictionary") as! [String : UInt]
-                        }
                         
                         //If first time download all soups
                         if(!self.launchedBefore){
@@ -315,7 +316,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 }
                                 //save the resyncdictionary to defaults
                                 UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
-                                
+                                 print("resyncAllSoups resyncDictionary \(StoreDispatcher.shared.syncIdDictionary)")
                                 DispatchQueue.main.async(execute: {
                                     //to do: show progress 100% completed and dismiss Hub
                                     
@@ -336,6 +337,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //})
         }
         reachability?.whenUnreachable = { _ in
+            
+            if(self.isKeyPresentInUserDefaults(key: "resyncDictionary")){
+                StoreDispatcher.shared.syncIdDictionary = UserDefaults.standard.dictionary(forKey: "resyncDictionary") as! [String : UInt]
+            }
+            
             StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                 guard let user = user else {
                     print("No logged in user retrieved")

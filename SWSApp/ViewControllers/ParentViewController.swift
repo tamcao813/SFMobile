@@ -548,6 +548,21 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             group.leave()
         }
         
+        // Oppurtunity Sync Up
+        group.enter()
+        OpportunityViewModel().syncOpportunitysWithServer(){ error in
+            if error != nil {
+                syncFailed = true
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
+                print(error?.localizedDescription ?? "error")
+            }
+            print("syncOpportunitysWithServer")
+            self.syncProgress +=  syncObjectProgressIncrement
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+            group.leave()
+        }
+        
+
         // Action Item  Sync with server
         group.enter()
         AccountsActionItemViewModel().syncAccountsActionItemWithServer{ error in

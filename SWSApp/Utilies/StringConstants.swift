@@ -35,6 +35,7 @@ class StringConstants {
     
     //Store Dispatcher
     static let contactPicklistValue = globalUrlDictionary["contactPicklistValue"] as! String
+    static let outcomePicklistValue = globalUrlDictionary["outcomePicklistValue"] as! String
     static let rules = globalUrlDictionary["rules"] as! String
     static let serviceUrl = globalUrlDictionary["serviceUrl"] as! String
     static let contactRolesPlist = globalUrlDictionary["contactRolesPlist"] as! String

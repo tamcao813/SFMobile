@@ -33,9 +33,6 @@ class AccountVisitSummaryViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     var selectedContact: Contact!
     var visitObject: WorkOrderUserObject?
-    
-    var visitObjectNew : WorkOrderUserObject?
-    
     var visitStatus: AccountVisitStatus?
     var delegate : NavigateToContactsDelegate?
     
@@ -51,7 +48,6 @@ class AccountVisitSummaryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchVisit()
-        visitObjectNew = visitObject
         initializingXIBs()
     }
     
@@ -261,7 +257,7 @@ class AccountVisitSummaryViewController: UIViewController {
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             PlanVisitManager.sharedInstance.visit = visitObject
-            (vc as DuringVisitsViewController).visitObject = visitObjectNew
+            (vc as DuringVisitsViewController).visitObject = visitObject
             (vc as DuringVisitsViewController).delegate = self
             self.present(vc, animated: true, completion: nil)
         }else{

@@ -26,10 +26,21 @@ class OpportunityWorkorder {
     
     init(json: [String: Any]) {
         
+        print("OpportunityWorkorder : json : \(json)")
+        
         id = json["Id"] as? String ?? ""
         opportunityId = json["SGWS_Opportunity__c"] as? String ?? ""
+        if opportunityId == "" {
+            opportunityId = json["AccountId"] as? String ?? ""
+        }
         workOrder = json["SGWS_Work_Order__c"] as? String ?? ""
+        if workOrder == "" {
+            workOrder = json["sgws_source"] as? String ?? ""
+        }
         outcome = json["SGWS_Outcome__c"] as? String ?? ""
+        if outcome == "" {
+            outcome = json["SGWS_PYCM_Sold__c"] as? String ?? ""
+        }
     }
     
     init(for: String) {

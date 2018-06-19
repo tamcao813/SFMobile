@@ -19,6 +19,35 @@ class OpportunityViewModel {
         return GlobalOpportunityModel.globalOpportunity
     }
     
+    func createNewOpportunityWorkorderLocally(fields: [String:Any]) -> (Bool,Int) {
+        return StoreDispatcher.shared.createNewOpportunityWorkorderLocally(fieldsToUpload:fields)
+    }
+    
+    func globalOpportunityWorkorder() -> [OpportunityWorkorder] {
+        return StoreDispatcher.shared.fetchOpportunityWorkorder()
+    }
+    
+    func syncOpportunitysWithServer(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        StoreDispatcher.shared.syncUpOpportunity(completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncOpportunitysWithServer: Sync up failed")
+            }
+            
+            StoreDispatcher.shared.reSyncOpportunity { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                    print("syncOpportunitysWithServer: reSync failed")
+                    completion(error)
+                }
+                else {
+                    completion(nil)
+                }
+            }
+        })
+    }
+
 }
 
 struct GlobalOpportunityModel {

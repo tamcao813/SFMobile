@@ -55,12 +55,13 @@ class SyncInfoViewController: UIViewController {
     
     func setProgress(progress: Float,progressComplete: Bool = false,syncUpFailed: Bool = false){
         DispatchQueue.main.async {
-            if let _ = self.progressView {
-            self.progressView.progress = progress/100
+            if let _ = self.progressView { //Check if progressview is instantited, if not than dont disply in Autosync
+                self.progressView.progress = progress/100
+                
                 if(SyncUpDailogGlobal.isSyncError == true) {
                     self.updateDailog(syncUpFailed: true)
                     SyncUpDailogGlobal.isSyncError = false
-                    return
+                    return  //If error return without incrementing progress
                 }
                 
                 if progressComplete {

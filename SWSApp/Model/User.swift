@@ -94,10 +94,10 @@ class User {
         
         recordTypeId = json["Account.RecordTypeId"] as? String ?? ""
         
-        if json[User.UserFields[10]] is NSNull {
+        if json[User.UserFields[11]] is NSNull {
             sgws_Employee_Contact = ""
         } else {
-            sgws_Employee_Contact = json[User.UserFields[10]] as! String
+            sgws_Employee_Contact = json[User.UserFields[11]] as! String
         }
     }
     

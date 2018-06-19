@@ -16,6 +16,7 @@ class EventDescriptionTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         descLabel.sizeToFit()
+        descLabel.font = UIFont(name:"Ubuntu", size: 17.0)
     }
     
      override func setSelected(_ selected: Bool, animated: Bool) {

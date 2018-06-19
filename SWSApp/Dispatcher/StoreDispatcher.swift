@@ -13,6 +13,9 @@ import PromiseKit
 import SmartStore
 import SmartSync
 
+struct DOWNLOAD_SIZE {
+    static let CONTACT_SIZE = 10000
+}
 
 class StoreDispatcher {
     static let shared = StoreDispatcher()
@@ -1347,9 +1350,9 @@ class StoreDispatcher {
         var contactAry: [Contact] = []
         
         let fields = Contact.ContactFields.map{"{Contact:\($0)}"}
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:Id} IN (\(idFormattedString))"
+        let soupQuery = "Select \(fields.joined(separator: ",")) from {Contact} Where {Contact:Id} IN (\(idFormattedString))"
         
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
@@ -1379,9 +1382,9 @@ class StoreDispatcher {
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:AccountId} = '\(accountId)' "
+        let soupQuery = "Select \(fields.joined(separator: ",")) from {User} Where {User:AccountId} = '\(accountId)' "
         
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
@@ -1413,9 +1416,9 @@ class StoreDispatcher {
         
         let fields = User.UserFields.map{"{User:\($0)}"}
         
-        let soqlQuery = "Select DISTINCT \(fields.joined(separator: ",")) from {User}"
+        let soupQuery = "Select DISTINCT \(fields.joined(separator: ",")) from {User}"
         
-        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soupQuery, withPageSize: 100000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)

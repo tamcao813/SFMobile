@@ -677,7 +677,7 @@ class StoreDispatcher {
         let fileManager = FileManager.default
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let path = documentDirectory.appending(plist)
-        if(!fileManager.fileExists(atPath: path)){
+//        if(!fileManager.fileExists(atPath: path)){
             var tempArr = [Dictionary<String, Any>]()
             var targetDict = [String: Any]()
             for object in plistObject {
@@ -700,9 +700,9 @@ class StoreDispatcher {
             
             let isWritten = (tempArr as NSArray).write(toFile: path, atomically: true)
             print("is the file created: \(isWritten)")
-        } else {
-            print("file exists")
-        }
+//        } else {
+//            print("file exists")
+//        }
     }
     
     func downloadContactRolesPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {

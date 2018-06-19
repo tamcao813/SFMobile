@@ -88,8 +88,8 @@ class AccountVisitListViewController: UIViewController {
     func getTheDataFromDB(){
         let visitArray = VisitsViewModel()
         globalWorkorderObjectArray = visitArray.visitsForUser()
-        mainArray = visitArray.visitsForUser()
-        tableViewDataArray = visitArray.visitsForUser()
+        mainArray = globalWorkorderObjectArray//visitArray.visitsForUser()
+        tableViewDataArray = globalWorkorderObjectArray//visitArray.visitsForUser()
         
         let date = Date()
         let dateFormatter = DateFormatter()

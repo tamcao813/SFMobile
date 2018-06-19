@@ -115,7 +115,7 @@ class OpportunitiesMenuTableViewCell: UITableViewCell {
         
         switch indexPath.row{
         case 0:
-            if OpportunitiesFilterMenuModel.sourceBookOfBusiness == "YES"{
+            if OpportunitiesFilterMenuModel.sourceOverview == "YES"{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox Selected")
             }else{
                 self.dropDownImageView.image = UIImage.init(named: "Checkbox")

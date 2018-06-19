@@ -316,11 +316,11 @@ class OpportunitiesMenuViewController: UIViewController {
         
         switch indexPath.row {
         case 0:
-            if OpportunitiesFilterMenuModel.sourceBookOfBusiness == "YES" {
-                OpportunitiesFilterMenuModel.sourceBookOfBusiness = "NO"
+            if OpportunitiesFilterMenuModel.sourceOverview == "YES" {
+                OpportunitiesFilterMenuModel.sourceOverview = "NO"
             }
             else {
-                OpportunitiesFilterMenuModel.sourceBookOfBusiness = "YES"
+                OpportunitiesFilterMenuModel.sourceOverview = "YES"
             }
             
         case 1:

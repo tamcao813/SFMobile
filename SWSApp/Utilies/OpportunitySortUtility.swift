@@ -260,16 +260,16 @@ class OpportunitySortUtility {
         var filteredOpportunityArray = [Opportunity]()
         var enteredAnyFilterCase = false
         
-        if (OpportunitiesFilterMenuModel.sourceBookOfBusiness == "YES" || OpportunitiesFilterMenuModel.statusPlanned == "YES" || OpportunitiesFilterMenuModel.statusClosedWon == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES") {
+        if (OpportunitiesFilterMenuModel.sourceOverview == "YES" || OpportunitiesFilterMenuModel.statusPlanned == "YES" || OpportunitiesFilterMenuModel.statusClosedWon == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES") {
             
             var filteredStatusOpenOpportunityArray = [Opportunity]()
             
             enteredAnyFilterCase = true
             filteredStatusOpenOpportunityArray = opportunityToBeFiltered.filter( { return
-                (OpportunitiesFilterMenuModel.sourceBookOfBusiness == "YES" && $0.source == "Book Of Business") ||
+                (OpportunitiesFilterMenuModel.sourceOverview == "YES" && $0.source == "Overview") ||
                     (OpportunitiesFilterMenuModel.sourceTopSellers == "YES" && $0.source == "Top Sellers") ||
                     (OpportunitiesFilterMenuModel.sourceUndersold == "YES" && $0.source == "Undersold") ||
-                    (OpportunitiesFilterMenuModel.sourceHotNot == "YES" && $0.source == "What’s Hot/What’s Not") ||
+                    (OpportunitiesFilterMenuModel.sourceHotNot == "YES" && $0.source == "What’s Hot") ||
                     (OpportunitiesFilterMenuModel.sourceUnsold == "YES" && $0.source == "Unsold") } )
             
             if filteredStatusOpenOpportunityArray.count > 0 {

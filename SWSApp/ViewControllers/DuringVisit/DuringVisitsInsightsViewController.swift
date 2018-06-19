@@ -207,8 +207,26 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
             cell.cellDelegate = self
              cell.dropDown.dataSource = pickListValuesForOpportunities
             return cell
+            
+            
         default:
-            return UITableViewCell()
+            //return UITableViewCell()
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnderSoldTableViewCell", for: indexPath) as! InsightsSourceUnderSoldTableViewCell
+            cell.productNameLabel.text = currentOpportunity.productName
+//            cell.sourceLabel.text = currentOpportunity.source
+//            cell.accLabel.text = "Acct\n" + currentOpportunity.acct
+//            cell.segmentLabel.text = "Segment\n" + currentOpportunity.segment
+//            cell.gapLabel.text = "Gap\n" + currentOpportunity.gap
+            cell.commitAmtTextFiels.text = currentOpportunity.commit
+            cell.commitAmtTextFiels.tag = indexPath.row
+            cell.outcomeButton.tag = indexPath.row
+            cell.layer.borderColor = UIColor.black.cgColor
+            cell.cellDelegate = self
+            cell.dropDown.dataSource = pickListValuesForOpportunities
+            return cell
+            
+            
             
         }
     }

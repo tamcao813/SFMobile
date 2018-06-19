@@ -65,9 +65,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     
     static var modifiedCommitOpportunitiesList = [Opportunity]()
     static var modifiedOutcomeWorkOrderList = [NSDictionary]()
-   
-    var opp:Opportunity = Opportunity(json: ["123":"Id","Whats's Hot":"SGWS_Opportunity_source__c"])
-//
+   //
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -79,8 +77,6 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         pinCodeLbl?.text = accountObject?.accountNumber
         accAddressLbl?.text = getFullAccountAddress()
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
-        opportunityList.append(opp)
-        opportunityList.append(opp)
         let plistPath = Bundle.main.path(forResource: "Insights", ofType: ".plist", inDirectory: nil)
         let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
@@ -166,15 +162,7 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        opportunityList[0].source = "What's Hot"
-        opportunityList[0].commit = "0.1"
-        opportunityList[0].id = "123"
-
-        
-        opportunityList[1].source = "Undersold"
-        opportunityList[1].commit = "0.1"
-         opportunityList[1].id = "1234"
-
+    
         let currentOpportunity:Opportunity = opportunityList[indexPath.row]
         switch currentOpportunity.source {
         case "What's Hot","Top Seller":

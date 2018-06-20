@@ -814,7 +814,7 @@ class StoreDispatcher {
     func downloadSWGSOutcomePList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         //Record id is different for dev environment
         let recordTypeId = "0120t0000008dGKAAY"
-        let path = StringConstants.outcomePicklistValue + recordTypeId + "/SGWS_Outcome__c"
+        let path = StringConstants.outcomePicklistValue + recordTypeId + StringConstants.sgwsOutcome
         
         //        let path = "ui-api/object-info/SGWS_Opportunity_WorkOrder__c/picklist-values/012i0000000PebvAAC/SGWS_Outcome__c"
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)

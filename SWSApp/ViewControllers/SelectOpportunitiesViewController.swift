@@ -16,6 +16,8 @@ class SelectOpportunitiesViewController: UIViewController {
     var opportunityAccountId: String?
     var opportunityList = [Opportunity]()
     static var selectedOpportunitiesList = [Opportunity]()
+    var unselectedOpportunityList = [Opportunity]()
+    
     var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
     
     override func viewDidLoad() {
@@ -23,6 +25,9 @@ class SelectOpportunitiesViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
+        //Do not show  the closed opportunities
+        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed-Won")}
+        
         topShadow(seperatorView: seperatorLabel)
         selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
 
@@ -79,6 +84,17 @@ class SelectOpportunitiesViewController: UIViewController {
         let someString:String = String(randomNum)
         print("random Id for Opput_workorder  is \(someString)")
         
+        if self.unselectedOpportunityList.count > 0 {
+            for opportunity in self.unselectedOpportunityList {
+                let addNewDict: [String:Any] = [
+                    OpportunityWorkorder.opportunityWorkorderFields[0]: someString,
+                    OpportunityWorkorder.opportunityWorkorderFields[1]: opportunity.id,
+                    OpportunityWorkorder.opportunityWorkorderFields[2]:(PlanVisitManager.sharedInstance.visit?.Id)! ,
+                    OpportunityWorkorder.opportunityWorkorderFields[3]: "",
+                    "attributes":attributeDict]
+                _ = StoreDispatcher.shared.deleteOpportunityWorkorderLocally(fieldsToUpload: addNewDict)
+            }
+        }
         if SelectOpportunitiesViewController.selectedOpportunitiesList.count > 0 {
             for opportunity in SelectOpportunitiesViewController.selectedOpportunitiesList {
                 let addNewDict: [String:Any] = [
@@ -86,16 +102,37 @@ class SelectOpportunitiesViewController: UIViewController {
                     OpportunityWorkorder.opportunityWorkorderFields[1]: opportunity.id,
                     OpportunityWorkorder.opportunityWorkorderFields[2]:(PlanVisitManager.sharedInstance.visit?.Id)! ,
                     OpportunityWorkorder.opportunityWorkorderFields[3]: "",
-//                    kSyncTargetLocal:true,
-//                    kSyncTargetLocallyCreated:true,
-//                    kSyncTargetLocallyUpdated:false,
-//                    kSyncTargetLocallyDeleted:false,
                     "attributes":attributeDict]
-                _ = OpportunityViewModel().createNewOpportunityWorkorderLocally(fields: addNewDict)
+                if doesExistInDeleted(checkDict: addNewDict) {
+                    
+                }
+                else {
+                    _ = OpportunityViewModel().createNewOpportunityWorkorderLocally(fields: addNewDict)
+                }
             }
         }
+        
     }
 
+    func doesExistInDeleted(checkDict: [String:Any]) -> Bool {
+        
+        for  singleOpportunityWorkorder in self.unselectedOpportunityList {
+            if singleOpportunityWorkorder.id.isEmpty {
+                continue
+            }
+
+            let opportunityDicId = checkDict["SGWS_Opportunity__c"] as? String ?? ""
+            if opportunityDicId.isEmpty {
+                continue
+            }
+            
+            //Search ID
+            if(opportunityDicId == singleOpportunityWorkorder.id) {
+                return true
+            }
+        }
+        return false
+    }
     
     
     @IBAction func saveAndClose(sender: UIButton) {
@@ -270,45 +307,21 @@ extension SelectOpportunitiesViewController : UITableViewDataSource {
     
 }
 
-//MARK:- Swipe Evenyt Delegate Methods
-//extension SelectOpportunitiesViewController: SwipeTableViewCellDelegate {
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-//        guard orientation == .right else { return nil }
-//
-//        let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
-//            DispatchQueue.main.async {
-//                // TBD action Edit
-//            }
-//        }
-//        editAction.hidesWhenSelected = true
-//        editAction.image = #imageLiteral(resourceName: "editIcon")
-//        editAction.backgroundColor = UIColor(named:"InitialsBackground")
-//
-//        return [editAction]
-//    }
-//
-//    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
-//        var options = SwipeTableOptions()
-//        options.transitionStyle = .drag
-//        return options
-//    }
-//}
 
 //MARK:- TableView Delegate Methods
 extension SelectOpportunitiesViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return  80
+        return  81
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
-    // opportunityList["isOpportunitySelected"] =
-        
         if  opportunityList[indexPath.row].isOpportunitySelected == false{
              opportunityList[indexPath.row].isOpportunitySelected = true
         }else{
            opportunityList[indexPath.row].isOpportunitySelected = false
+            self.unselectedOpportunityList.append(opportunityList[indexPath.row])
         }
         if opportunityList[indexPath.row].isOpportunitySelected {
             SelectOpportunitiesViewController.selectedOpportunitiesList.append(opportunityList[indexPath.row])

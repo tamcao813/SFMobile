@@ -34,6 +34,8 @@ class AccountStrategyViewController : UIViewController{
         super.viewDidLoad()
         print("Account Strategy Screen Loaded")
         
+        StrategyNotes.isStrategyText = "YES"
+        
         if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
             //editIcon?.isHidden = false
             topConstraint?.constant = 20.0

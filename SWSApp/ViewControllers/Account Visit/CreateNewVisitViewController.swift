@@ -54,6 +54,8 @@ class CreateNewVisitViewController: UIViewController {
         IQKeyboardManager.shared.enable = true
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        StrategyNotes.isStrategyText = "NO"
     }
     
     deinit {

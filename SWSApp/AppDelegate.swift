@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         super.init()
         var  plistpath:String? = ""
+        //TODO: [SMK] Move the RemoteAccessConsumerKey in plist and put it in keychain
         #if DEVELOPMENT
             plistpath  = Bundle.main.path(forResource: "SFPropertydev", ofType: "plist")
         #else
@@ -65,6 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     StoreDispatcher.shared.registerSoups()
                 }
                 self.setupRootViewController()
+                //For SDK error one can use .debug or .error to switch off .off
                 SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .off
                 SFSDKCoreLogger.sharedInstance().logLevel       =    .off
             }.postLogout {  [unowned self] in

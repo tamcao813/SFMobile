@@ -71,6 +71,7 @@ class PlanVisitManager {
         new_visit.location = (visit?.location)!
         new_visit.sgwsAlldayEvent = (visit?.sgwsAlldayEvent)!
         
+        
         let attributeDict = ["type":"WorkOrder"]
         
         let addNewDict: [String:Any] = [

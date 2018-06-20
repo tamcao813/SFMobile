@@ -8,6 +8,10 @@
 
 import UIKit
 import SmartSync
+//LOCATION
+import CoreLocation
+
+
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
@@ -15,7 +19,7 @@ protocol NavigateToContactsDelegate {
     func navigateToAccountScreen()
 }
 
-class AccountVisitSummaryViewController: UIViewController {
+class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDelegate {
     
     var visitId: String?
     var accountObject: Account?
@@ -36,11 +40,37 @@ class AccountVisitSummaryViewController: UIViewController {
     var visitStatus: AccountVisitStatus?
     var delegate : NavigateToContactsDelegate?
     
+    //LOCATION
+    var locationManager = CLLocationManager()
+    
+    func setLocationManager(){
+        locationManager.distanceFilter  = kCLLocationAccuracyNearestTenMeters;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+    }
+    
+    func startUpdatingLocationAlerts() {
+        // 1. status is not determined
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestAlwaysAuthorization()
+        }
+            // 2. authorization were denied
+        else if CLLocationManager.authorizationStatus() == .denied {
+            print("Location services were previously denied. Please enable location services for this app in Settings.")
+        }
+            // 3. we do have authorization
+        else if CLLocationManager.authorizationStatus() == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisitList(_:)), name: NSNotification.Name("refreshAccountVisit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
+        self.setLocationManager()
     }
     
     
@@ -49,6 +79,16 @@ class AccountVisitSummaryViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchVisit()
         initializingXIBs()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.locationManager.stopUpdatingLocation()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.locationManager.stopUpdatingLocation()
+        
     }
     
     @objc func refreshVisit(){
@@ -259,7 +299,13 @@ class AccountVisitSummaryViewController: UIViewController {
             PlanVisitManager.sharedInstance.visit = visitObject
             (vc as DuringVisitsViewController).visitObject = visitObject
             (vc as DuringVisitsViewController).delegate = self
+            
+            //location related code
+            self.startUpdatingLocationAlerts()
+            
             self.present(vc, animated: true, completion: nil)
+            
+            
         }else{
             
             let storyboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
@@ -322,6 +368,18 @@ class AccountVisitSummaryViewController: UIViewController {
         
         (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.present(vc, animated: true, completion: nil)
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        visitObject?.startLatitude = userLocation.coordinate.latitude
+        visitObject?.startLongitude = userLocation.coordinate.longitude
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("The error is in location \(error)")
     }
     
 }

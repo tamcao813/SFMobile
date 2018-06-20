@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import IQKeyboardManagerSwift
+import CoreLocation
 
 enum LoadThePersistantMenuScreen : Int{
     case contacts = 0
@@ -23,7 +24,7 @@ protocol NavigateToAccountVisitSummaryDelegate {
     func navigateToAccountVisitingScreen()
 }
 
-class  DuringVisitsViewController : UIViewController {
+class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     @IBOutlet weak var containerView : UIView?
     @IBOutlet weak var btnBack : UIButton?
@@ -33,6 +34,30 @@ class  DuringVisitsViewController : UIViewController {
     @IBOutlet weak var btnInsights : UIButton?
     @IBOutlet weak var btnEditAccountStrategy : UIButton?
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
+    
+    //LOCATION
+    var locationManager = CLLocationManager()
+    
+    func setLocationManager(){
+        locationManager.distanceFilter  = kCLLocationAccuracyNearestTenMeters;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+    }
+    
+    func startUpdatingLocationAlerts() {
+        // 1. status is not determined
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestAlwaysAuthorization()
+        }
+            // 2. authorization were denied
+        else if CLLocationManager.authorizationStatus() == .denied {
+            print("Location services were previously denied. Please enable location services for this app in Settings.")
+        }
+            // 3. we do have authorization
+        else if CLLocationManager.authorizationStatus() == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
+    }
     
     var visitObject: WorkOrderUserObject?
     
@@ -370,6 +395,10 @@ class  DuringVisitsViewController : UIViewController {
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
             PlanVisitManager.sharedInstance.visit?.status = "Completed"
+            
+            //location related code
+            self.startUpdatingLocationAlerts()
+            
             DispatchQueue.main.async{
                 self.dismiss(animated: true, completion: nil)
             }
@@ -396,6 +425,20 @@ class  DuringVisitsViewController : UIViewController {
         activeViewController = duringVisitVC
         activeViewController = duringVisitVC
     }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        visitObject?.endLatitude = userLocation.coordinate.latitude
+        visitObject?.endLongitude = userLocation.coordinate.longitude
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("The error is in location \(error)")
+    }
+    
+    
     
     //Account strategy Clicked
     @IBAction func loadStrategyViewController(sender : UIButton){

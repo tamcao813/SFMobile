@@ -57,11 +57,11 @@ class WorkOrderUserObject {
     
     var sgwsAlldayEvent :Bool
     
-    var startLatitude: String
-    var startLongitude: String
+    var startLatitude: Double
+    var startLongitude: Double
     var startTime_of_Visit: String
-    var endLatitude: String
-    var endLongitude : String
+    var endLatitude: Double
+    var endLongitude : Double
     var endTimeOfVisit: String
     
     convenience init(withAry ary: [Any]) {
@@ -139,11 +139,11 @@ class WorkOrderUserObject {
             sgwsAlldayEvent = true
         }
         
-        startLatitude = json["SGWS_Start_Latitude__c"] as? String ?? ""
-        startLongitude = json["SGWS_Start_Longitude__c"] as? String ?? ""
+        startLatitude = json["SGWS_Start_Latitude__c"] as? Double ?? 0.0
+        startLongitude = json["SGWS_Start_Longitude__c"] as? Double ?? 0.0
         startTime_of_Visit = json["SGWS_Start_Time_of_Visit__c"] as? String ?? ""
-        endLatitude = json["SGWS_End_Latitude__c"] as? String ?? ""
-        endLongitude = json["SGWS_End_Longitude__c"] as? String ?? ""
+        endLatitude = json["SGWS_End_Latitude__c"] as? Double ?? 0.0
+        endLongitude = json["SGWS_End_Longitude__c"] as? Double ?? 0.0
         endTimeOfVisit = json["SGWS_End_Time_of_Visit__c"] as? String ?? ""
 
     }
@@ -184,11 +184,11 @@ class WorkOrderUserObject {
         location = ""
         sgwsAlldayEvent=false
         
-        startLatitude = ""
-        startLongitude = ""
+        startLatitude = 0.0
+        startLongitude = 0.0
         startTime_of_Visit = ""
-        endLatitude = ""
-        endLongitude = ""
+        endLatitude = 0.0
+        endLongitude = 0.0
         endTimeOfVisit = ""
 
     }

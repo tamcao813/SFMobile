@@ -3960,6 +3960,53 @@ class StoreDispatcher {
         }
     }
     
+    //"SGWS_Opportunity__c", "SGWS_Work_Order__c"
+    func deleteOpportunityWorkorderLocally(fieldsToUpload: [String:Any]) -> Bool {
+        
+        let fieldsIdValue = fieldsToUpload["SGWS_Opportunity__c"] as? String ?? ""
+        let fieldsWorkOrderValue = fieldsToUpload["SGWS_Work_Order__c"] as? String ?? ""
+        if fieldsIdValue.isEmpty || fieldsWorkOrderValue.isEmpty {
+            return false
+        }
+
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Work_Order__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var opportunityWorkorderItem = [String: Any]()
+        
+        for  singleOpportunityWorkorder in result{
+            var singleOpportunityWorkorderModif = singleOpportunityWorkorder as! [String:Any]
+            let singleOpportunityWorkorderModifValue = singleOpportunityWorkorderModif["SGWS_Opportunity__c"] as? String ?? ""
+            let singleWorkorderModifValue = singleOpportunityWorkorderModif["SGWS_Work_Order__c"] as? String ?? ""
+
+            if singleOpportunityWorkorderModifValue.isEmpty || singleWorkorderModifValue.isEmpty {
+                continue
+            }
+            //Search ID to be deleted
+            if((fieldsIdValue == singleOpportunityWorkorderModifValue) || (fieldsWorkOrderValue == singleWorkorderModifValue)) {
+                singleOpportunityWorkorderModif["__local__"] = true
+                singleOpportunityWorkorderModif["__locally_deleted__"] = true
+                opportunityWorkorderItem = singleOpportunityWorkorderModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([opportunityWorkorderItem], toSoup: SoupOpportunityWorkorder)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) OpportunityWorkorder is deleted  successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in deleting  OpportunityWorkorder" )
+            return false
+        }
+    }
+
     func fetchOpportunityWorkorder() -> [OpportunityWorkorder] {
         
         var opportunityWorkorder: [OpportunityWorkorder] = []

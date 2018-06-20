@@ -1824,9 +1824,9 @@ class StoreDispatcher {
                     print(">>>>>> visit syncDownVisit() done >>>>>")
                     
                     let _ = OpportunityViewModel().globalOpportunityWorkorder()
-                    self.syncDownOpportunityWorkorder() { _ in
+//                    self.syncDownOpportunityWorkorder() { _ in
 //                        let _ = OpportunityViewModel().globalOpportunityWorkorder()
-                    }
+//                    }
                     completion(nil)
                     
                 }
@@ -3877,6 +3877,7 @@ class StoreDispatcher {
     }
     
     // Not used as SGWS_Opportunity_WorkOrder__c is sync downed as part of Parent-Child syncdownvisit
+    /*
     func syncDownOpportunityWorkorder(_ completion:@escaping (_ error: NSError?)->()) {
         
         let soqlQuery = "select Id,SGWS_Opportunity__c,SGWS_Work_Order__c,SGWS_Outcome__c from SGWS_Opportunity_WorkOrder__c"
@@ -3905,8 +3906,7 @@ class StoreDispatcher {
             .catch { error in
                 completion(error as NSError?)
         }
-        
-    }
+    }*/
     
     func syncDownUploadOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         

@@ -10,6 +10,7 @@ import UIKit
 
 struct StrategyNotes {
     static var accountStrategyNotes = ""
+    static var isStrategyText = ""
 }
 
 class EditAccountStrategyCollectionViewCell: UICollectionViewCell {
@@ -55,10 +56,11 @@ extension EditAccountStrategyCollectionViewCell : UITextViewDelegate{
     
     func textViewDidEndEditing(_ textView: UITextView) {
         
-        StrategyNotes.accountStrategyNotes = textView.text
-        
-        //PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = textView.text
-        
+        if StrategyNotes.isStrategyText == "YES"{
+            StrategyNotes.accountStrategyNotes = textView.text
+        }else{
+            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = textView.text
+        }
     }
     
     

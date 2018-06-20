@@ -336,6 +336,7 @@ class  DuringVisitsViewController : UIViewController {
     
     //GoSpot Button Clicked
     @IBAction func goSpotClicked(sender : UIButton){
+        
         UIApplication.shared.open(URL(string : StringConstants.googleUrl)!, options: [:], completionHandler: { (status) in
             
         })

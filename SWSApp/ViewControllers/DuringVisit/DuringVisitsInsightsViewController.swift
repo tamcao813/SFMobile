@@ -91,6 +91,9 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList = [Opportunity]()
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList = [NSDictionary]()
     }
     
     

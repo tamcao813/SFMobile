@@ -479,7 +479,7 @@ class  DuringVisitsViewController : UIViewController {
     @objc func saveOutcomeToWorkOrderOpportunityLocally() {
         if  DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.count > 0 {
             for object in DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList {
-                _ = StoreDispatcher.shared.editOpportunityOutcomeToSoup(fieldsToUpload: ["Id":object["Id"],"SGWS_Outcome__c":object["SGWS_Outcome__c"]])
+                _ = StoreDispatcher.shared.editOpportunityOutcomeToSoup(fieldsToUpload: ["Id":object["Id"]!,"SGWS_Outcome__c":object["SGWS_Outcome__c"]!])
             }
         }
         

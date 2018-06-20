@@ -69,5 +69,10 @@ class StringConstants {
     static let salesConsultantTitle = globalUrlDictionary["salesConsultantTitle"] as! String
     static let salesManagerTitle = globalUrlDictionary["salesManagerTitle"] as! String
 
+    static let sgwsOutcome = globalUrlDictionary["sgwsOutcome"] as! String
+    
+    //Gospotcheck and topaz url
+    static let gospotcheckUrl = globalUrlDictionary["gospotcheckUrl"] as! String
+    static let topazUrl = globalUrlDictionary["topazUrl"] as! String
 }
 

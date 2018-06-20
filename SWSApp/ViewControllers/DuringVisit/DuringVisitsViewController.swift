@@ -329,16 +329,68 @@ class  DuringVisitsViewController : UIViewController {
     
     //Transaction button clicked
     @IBAction func transactionClicked(sender : UIButton){
-        UIApplication.shared.open(URL(string : StringConstants.googleUrl)!, options: [:], completionHandler: { (status) in
-            
-        })
+        
+        DispatchQueue.main.async {
+            if let url = URL(string: StringConstants.topazUrl)
+            {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.open(url, options: [:], completionHandler: {
+                        (success) in
+                        if (success)
+                        {
+                            print("OPENED \(url): \(success)")
+                        }
+                        else
+                        {
+                            print("FAILED to open \(url)")
+                        }
+                    })
+                }
+                else
+                {
+                    let alert = UIAlertController(title: "Alert", message: "Topaz app is not installed", preferredStyle: .alert)
+                    
+                    let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    
+                    alert.addAction(cancelAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     //GoSpot Button Clicked
     @IBAction func goSpotClicked(sender : UIButton){
-        UIApplication.shared.open(URL(string : StringConstants.googleUrl)!, options: [:], completionHandler: { (status) in
-            
-        })
+        
+        DispatchQueue.main.async {
+            if let url = URL(string: StringConstants.gospotcheckUrl)
+            {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.open(url, options: [:], completionHandler: {
+                        (success) in
+                        if (success)
+                        {
+                            print("OPENED \(url): \(success)")
+                        }
+                        else
+                        {
+                            print("FAILED to open \(url)")
+                        }
+                    })
+                }
+                else
+                {
+                    let alert = UIAlertController(title: "Alert", message: "Gospotcheck app is not installed", preferredStyle: .alert)
+                    
+                    let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    
+                    alert.addAction(cancelAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     //Back Button Clicked

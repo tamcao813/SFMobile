@@ -33,6 +33,32 @@ class AccountStrategyViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Account Strategy Screen Loaded")
+        self.initializeStrategyUi()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadStrategyData), name: NSNotification.Name("actionItemSyncDownComplete"), object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func reloadStrategyData(){
+        self.initializeStrategyUi()
+        collectionView?.reloadData()
+    }
+    
+    func initializeStrategyUi(){
         
         StrategyNotes.isStrategyText = "YES"
         
@@ -51,23 +77,6 @@ class AccountStrategyViewController : UIViewController{
             flowLayout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1)
         }
         self.loadTheDataFromStrategyQA()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
         
     }
     

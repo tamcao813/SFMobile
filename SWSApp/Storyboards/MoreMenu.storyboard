@@ -218,7 +218,7 @@
         <!--Transactions View Controller-->
         <scene sceneID="b9L-h2-b9e">
             <objects>
-                <viewController storyboardIdentifier="TopazViewControllerID" id="aUf-HF-4XN" customClass="TransactionsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TopazViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aUf-HF-4XN" customClass="TransactionsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R2S-Ec-hEC">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -288,7 +288,7 @@
         <!--Go Spot Check View Controller-->
         <scene sceneID="tne-w2-19W">
             <objects>
-                <viewController storyboardIdentifier="GoSpotViewControllerID" id="W8C-lY-QPP" customClass="GoSpotCheckViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GoSpotViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="W8C-lY-QPP" customClass="GoSpotCheckViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3QK-Ka-amI">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

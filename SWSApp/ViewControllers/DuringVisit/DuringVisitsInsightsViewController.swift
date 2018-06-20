@@ -163,12 +163,12 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2//opportunityList.count
+        return opportunityList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-        let currentOpportunity:Opportunity = opportunityList[0]
+        let currentOpportunity:Opportunity = opportunityList[indexPath.row]
         switch currentOpportunity.source {
         case "What's Hot","Top Seller":
              let cell = tableView.dequeueReusableCell(withIdentifier: "insightsTopSellerTableViewCell", for: indexPath) as! InsightsSourceTopSellerTableViewCell
@@ -203,7 +203,7 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnsoldTableViewCell", for: indexPath) as! InsightsSourceUnsoldTableViewCell
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-            cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays
+            cell.unsoldPeriodLabel.text = "Unsold Period\n" + currentOpportunity.unsoldPeriodDays
             cell.commitAmtTextFiels.text = currentOpportunity.commit
             cell.commitAmtTextFiels.tag = indexPath.row
             cell.outcomeButton.tag = indexPath.row

@@ -34,23 +34,10 @@ class AccountStrategyViewController : UIViewController{
         super.viewDidLoad()
         print("Account Strategy Screen Loaded")
         
-        StrategyNotes.isStrategyText = "YES"
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadStrategyData), name: NSNotification.Name("actionItemSyncDownComplete"), object: nil)
         
-        if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
-            //editIcon?.isHidden = false
-            topConstraint?.constant = 20.0
-            closeIcon?.isHidden = true
-        }else{
-            editIcon?.isHidden = false
-            topConstraint?.constant = 75.0
-            closeIcon?.isHidden = false
-        }
+        self.initializeStrategyUi()
         
-        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            //flowLayout.estimatedItemSize = CGSize(width: 1024, height: 200)//CGSizeMake(1, 1)
-            flowLayout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1)
-        }
-        self.loadTheDataFromStrategyQA()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +55,33 @@ class AccountStrategyViewController : UIViewController{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        
+    }
+    
+    @objc func reloadStrategyData(){
+        self.initializeStrategyUi()
+        collectionView?.reloadData()
+    }
+    
+    func initializeStrategyUi(){
+        
+        StrategyNotes.isStrategyText = "YES"
+        
+        if StrategyScreenLoadFrom.isLoadFromStrategy == "0" {
+            //editIcon?.isHidden = false
+            topConstraint?.constant = 20.0
+            closeIcon?.isHidden = true
+        }else{
+            editIcon?.isHidden = false
+            topConstraint?.constant = 75.0
+            closeIcon?.isHidden = false
+        }
+        
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            //flowLayout.estimatedItemSize = CGSize(width: 1024, height: 200)//CGSizeMake(1, 1)
+            flowLayout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1)
+        }
+        self.loadTheDataFromStrategyQA()
         
     }
     

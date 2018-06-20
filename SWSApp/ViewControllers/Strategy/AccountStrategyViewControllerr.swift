@@ -33,17 +33,13 @@ class AccountStrategyViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Account Strategy Screen Loaded")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadStrategyData), name: NSNotification.Name("actionItemSyncDownComplete"), object: nil)
-        
         self.initializeStrategyUi()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadStrategyData), name: NSNotification.Name("actionItemSyncDownComplete"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,8 +50,7 @@ class AccountStrategyViewController : UIViewController{
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func reloadStrategyData(){

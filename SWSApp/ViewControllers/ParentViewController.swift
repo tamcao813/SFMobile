@@ -143,6 +143,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         return chatterVC
     }()
     
+    lazy var gospotcheckViewController : UIViewController? = {
+        let gospotcheckVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "GoSpotViewControllerID") as UIViewController
+        return gospotcheckVC
+    }()
+    
     var reachability = Reachability()!
     
     override func viewDidLoad() {
@@ -848,7 +853,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         case 7:
             self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
         case 8:
-            self.instantiateViewController(identifier: "GoSpotViewControllerID", moreOptionVC: moreVC1, index: index)
+            moreVC1.view.addSubview((self.gospotcheckViewController?.view)!)
+            self.moreDropDownSelectionIndex = index
+
             
         default:
             break

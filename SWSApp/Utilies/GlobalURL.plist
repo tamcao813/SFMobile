@@ -58,5 +58,11 @@
 	<string>Sales Consultant</string>
 	<key>salesManagerTitle</key>
 	<string>Sales Manager</string>
+	<key>sgwsOutcome</key>
+	<string>/SGWS_Outcome__c</string>
+	<key>gospotcheckUrl</key>
+	<string>Gospotcheck://</string>
+	<key>topazUrl</key>
+	<string>Southernglazerstopaz://</string>
 </dict>
 </plist>

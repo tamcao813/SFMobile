@@ -509,13 +509,32 @@ class  DuringVisitsViewController : UIViewController {
     @objc func saveOutcomeToWorkOrderOpportunityLocally() {
         if  DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.count > 0 {
             for object in DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList {
-                _ = StoreDispatcher.shared.editOpportunityOutcomeToSoup(fieldsToUpload: ["Id":object["Id"]!,"SGWS_Outcome__c":object["SGWS_Outcome__c"]!])
+                
+                let workOrder: String = PlanVisitManager.sharedInstance.visit?.Id ?? ""
+                _ = StoreDispatcher.shared.editOpportunityOutcomeToSoup(fieldsToUpload: [
+                    "Id": object["Id"]!,
+                    "SGWS_Outcome__c": object["SGWS_Outcome__c"]!,
+                    "SGWS_Work_Order__c": workOrder] )
+//                _ = StoreDispatcher.shared.fetchOpportunityWorkorderDebug()
+                
+                let attributeDict = ["type":"WorkOrder"]
+                
+                let addNewDict: [String:Any] = [
+                    
+                    PlanVisit.planVisitFields[13]:PlanVisitManager.sharedInstance.visit?.soupEntryId ?? "",
+                    kSyncTargetLocal:true,
+                    kSyncTargetLocallyCreated:true,
+                    kSyncTargetLocallyUpdated:false,
+                    kSyncTargetLocallyDeleted:false,
+                    "attributes":attributeDict]
+                
+                _ = VisitSchedulerViewModel().editVisitToSoupEx(fields: addNewDict)
+
             }
         }
         
     }
 
-    
 }
 
 //MARK:- RefreshStrategyScreen Delegate

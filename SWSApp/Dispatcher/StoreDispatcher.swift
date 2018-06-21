@@ -110,6 +110,13 @@ class StoreDispatcher {
             group.leave()
         }
         
+        //Picklist opportunities
+        group.enter()
+        getRecordTypeIdForOutcomePickListValues() { _ in
+            group.leave()
+        }
+        
+        
         //Visit Purpose Picklist
         group.enter()
         downloadVisitPLists() { _ in
@@ -295,6 +302,11 @@ class StoreDispatcher {
         
         group.enter()
         downloadVisitPLists() { _ in
+            group.leave()
+        }
+        //Picklist opportunities
+        group.enter()
+        getRecordTypeIdForOutcomePickListValues() { _ in
             group.leave()
         }
         
@@ -624,6 +636,37 @@ class StoreDispatcher {
     }
     
     
+    func getRecordTypeIdForOutcomePickListValues(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let query = "SELECT DeveloperName,Id,SobjectType FROM RecordType WHERE DeveloperName = 'SGWS_OpportunityWorkOrder' AND SobjectType = 'SGWS_Opportunity_WorkOrder__c'"
+        
+        SFRestAPI.sharedInstance().performSOQLQuery(query, fail: {
+            (error, response) in
+            print(error?.localizedDescription as Any)
+            completion(error! as NSError)
+            
+        }) { (data, response) in  //success
+            if let data = data, data.count > 0 {
+                let response:[Any]  = data[AnyHashable("records")] as! [Any]
+                let dict:[String: Any] = response[0] as! [String: Any]
+                let recordTypeId: String = dict["Id"] as! String
+                print(recordTypeId)
+                
+                let queue = DispatchQueue(label: "concurrent")
+                let group = DispatchGroup()
+                group.enter()
+                self.downloadSWGSOutcomePList(recordTypeId: recordTypeId) { _ in
+                    group.leave()
+                }
+                group.notify(queue: queue) {
+                    completion(nil)
+                }
+            }
+        }
+        
+        
+    }
+    
     
     //MARK:- Contat Sync CODE
     func downloadContactPLists(_ completion:@escaping (_ error: NSError?)->()) {
@@ -658,11 +701,6 @@ class StoreDispatcher {
                 self.downloadContactClassificationPList(recordTypeId: recordTypeId) { _ in
                     group.leave()
                 }
-                group.enter()
-                self.downloadSWGSOutcomePList(recordTypeId: recordTypeId) { _ in
-                    group.leave()
-                }
-                
                 
                 group.notify(queue: queue) {
                     completion(nil)
@@ -813,7 +851,7 @@ class StoreDispatcher {
     
     func downloadSWGSOutcomePList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         //Record id is different for dev environment
-        let recordTypeId = "0120t0000008dGKAAY"
+      //  let recordTypeId = "0120t0000008dGKAAY"
         let path = StringConstants.outcomePicklistValue + recordTypeId + StringConstants.sgwsOutcome
         
         //        let path = "ui-api/object-info/SGWS_Opportunity_WorkOrder__c/picklist-values/012i0000000PebvAAC/SGWS_Outcome__c"

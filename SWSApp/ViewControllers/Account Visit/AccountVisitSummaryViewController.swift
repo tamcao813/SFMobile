@@ -527,10 +527,10 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func getConatactCell() -> AssociatedContactsTableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssociatedContactsTableViewCell") as? AssociatedContactsTableViewCell
         
-        if let contactId = selectedContact, contactId.contactId != "" {
+        if selectedContact != nil {
             cell?.containerHeightConstraint.constant = 75
             cell?.containerView.isHidden = false
-            cell?.displayCellContent(contact: contactId)
+            cell?.displayCellContent(contact: selectedContact)
         }else{
             cell?.containerHeightConstraint.constant = 0
             cell?.containerView.isHidden = true            

@@ -31,26 +31,15 @@ class GoSpotCheckViewController: UIViewController {
             {
                 if UIApplication.shared.canOpenURL(url)
                 {
-                    UIApplication.shared.open(url, options: [:], completionHandler: {
-                        (success) in
-                        if (success)
-                        {
-                            print("OPENED \(url): \(success)")
-                        }
-                        else
-                        {
-                            print("FAILED to open \(url)")
-                        }
-                    })
+                    UIApplication.shared.open(url)
                 }
                 else
                 {
-                        let alert = UIAlertController(title: "Alert", message: "Gospotcheck app is not installed", preferredStyle: .alert)
-                        
-                        let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                        
-                        alert.addAction(cancelAction)
-                        self.present(alert, animated: true, completion: nil)
+                    let url  = URL(string: StringConstants.gospotItuneUrl)
+                    
+                    if UIApplication.shared.canOpenURL(url!) {
+                        UIApplication.shared.open(url!)
+                    }
                 }
             }
         }

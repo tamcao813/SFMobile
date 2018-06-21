@@ -88,6 +88,7 @@ class InsightsSourceUnderSoldTableViewCell: UITableViewCell,UITextFieldDelegate 
     }
     
     @IBAction func showDropDownMenu(sender:UIButton) {
+        self.endEditing(true)
         buttonTag = sender.tag
         dropDown.show()
     }

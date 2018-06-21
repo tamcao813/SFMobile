@@ -335,27 +335,16 @@ class  DuringVisitsViewController : UIViewController {
             {
                 if UIApplication.shared.canOpenURL(url)
                 {
-                    UIApplication.shared.open(url, options: [:], completionHandler: {
-                        (success) in
-                        if (success)
-                        {
-                            print("OPENED \(url): \(success)")
-                        }
-                        else
-                        {
-                            print("FAILED to open \(url)")
-                        }
-                    })
+                    UIApplication.shared.open(url)
                 }
                 else
                 {
                     let alert = UIAlertController(title: "Alert", message: "Topaz app is not installed", preferredStyle: .alert)
-                    
+
                     let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    
+
                     alert.addAction(cancelAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                    self.present(alert, animated: true, completion: nil)                }
             }
         }
     }
@@ -368,26 +357,15 @@ class  DuringVisitsViewController : UIViewController {
             {
                 if UIApplication.shared.canOpenURL(url)
                 {
-                    UIApplication.shared.open(url, options: [:], completionHandler: {
-                        (success) in
-                        if (success)
-                        {
-                            print("OPENED \(url): \(success)")
-                        }
-                        else
-                        {
-                            print("FAILED to open \(url)")
-                        }
-                    })
+                    UIApplication.shared.open(url)
                 }
                 else
                 {
-                    let alert = UIAlertController(title: "Alert", message: "Gospotcheck app is not installed", preferredStyle: .alert)
+                    let url  = URL(string: StringConstants.gospotItuneUrl)
                     
-                    let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    
-                    alert.addAction(cancelAction)
-                    self.present(alert, animated: true, completion: nil)
+                    if UIApplication.shared.canOpenURL(url!) {
+                        UIApplication.shared.open(url!)
+                    }
                 }
             }
         }
@@ -537,6 +515,21 @@ class  DuringVisitsViewController : UIViewController {
                     "Id": object["Id"]!,
                     "SGWS_Outcome__c": object["SGWS_Outcome__c"]!,
                     "SGWS_Work_Order__c": workOrder] )
+//                _ = StoreDispatcher.shared.fetchOpportunityWorkorderDebug()
+                
+                let attributeDict = ["type":"WorkOrder"]
+                
+                let addNewDict: [String:Any] = [
+                    
+                    PlanVisit.planVisitFields[13]:PlanVisitManager.sharedInstance.visit?.soupEntryId ?? "",
+                    kSyncTargetLocal:true,
+                    kSyncTargetLocallyCreated:true,
+                    kSyncTargetLocallyUpdated:false,
+                    kSyncTargetLocallyDeleted:false,
+                    "attributes":attributeDict]
+                
+                _ = VisitSchedulerViewModel().editVisitToSoupEx(fields: addNewDict)
+
             }
         }
         

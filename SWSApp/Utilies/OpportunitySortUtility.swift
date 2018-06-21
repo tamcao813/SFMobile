@@ -11,6 +11,9 @@ import UIKit
 class OpportunitySortUtility {
 
     func opportunityFor(forAccount accountId: String) -> [Opportunity] {
+        if GlobalOpportunityModel.globalOpportunity.count == 0 {
+            _ = OpportunityViewModel().globalOpportunityReload()
+        }
         return GlobalOpportunityModel.globalOpportunity.filter( { return $0.accountId == accountId } )
     }
     

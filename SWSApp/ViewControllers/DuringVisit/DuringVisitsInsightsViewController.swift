@@ -23,6 +23,8 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     var accountObject: Account?
     var pickListValuesForOpportunities = [String]()
     var collectionViewRowDetails : NSMutableArray?
+    var pickerOptions = [[String:Any]]()
+
     
     static var modifiedCommitOpportunitiesList = [Opportunity]()
     static var modifiedOutcomeWorkOrderList = [NSDictionary]()
@@ -41,10 +43,17 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
         
-        let outcomePicklistValues = PlistMap.sharedInstance.getPicklist(fieldname: "outcomePicklistValue")
-        for plistOption in outcomePicklistValues {
-            pickListValuesForOpportunities.append(plistOption.value)
+        let opts = PlistMap.sharedInstance.readPList(plist: "/Opportunity.plist")
+        pickerOptions = opts as! [[String : Any]]
+        for pickerOption in pickerOptions {
+            
+            if let value = pickerOption["value"] as?  String {
+                pickListValuesForOpportunities.append(value)
+
+            }
         }
+
+      
         insightsTableViewController?.contentInsetAdjustmentBehavior = .never
     }
     

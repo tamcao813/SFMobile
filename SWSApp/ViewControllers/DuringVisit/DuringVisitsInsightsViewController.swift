@@ -12,53 +12,12 @@ import IQKeyboardManagerSwift
 
 
 class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDelegate,InsightsUndersoldSourceTableCellDelegate,InsightsSourceUnsoldTableCellDelegate{
- 
-    func updateDataFromTopSellerCellTextfield(_ index: Int,commit: String) {
-        opportunityList[index].commit = commit
-        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
-    }
     
-    func updateDataFromTopSellerCellButton(_index: Int, outcome: String) {
-       // var modifiedOutcomeObject : NSDictionary?
-        let modifiedOutcomeObject = NSMutableDictionary()
-        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
-        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
-        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
-    }
-    
-    
-    func updateDataFromUnsoldTableCellTextField(_ index: Int,commit: String) {
-        opportunityList[index].commit = commit
-        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
-    }
-    
-    func updateDataFromUnsoldTableCellButtton(_index: Int, outcome: String) {
-       // var modifiedOutcomeObject : NSDictionary?
-        let modifiedOutcomeObject = NSMutableDictionary()
-        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
-        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
-        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
-    }
-    
-
-    func updateDataFromUndersoldTableCellTextfield(_ index: Int,commit: String) {
-        opportunityList[index].commit = commit
-        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
-    }
-    
-    func updateDataFromUndersoldTableCellButton(index: Int, outcome: String) {
-     
-        let modifiedOutcomeObject = NSMutableDictionary()
-        modifiedOutcomeObject.setValue(opportunityList[index].id, forKey: "Id")
-        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
-        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
-    }
-    
-
     @IBOutlet weak var insightsTableViewController : UITableView?
     @IBOutlet weak var accNameLbl : UILabel?
     @IBOutlet weak var pinCodeLbl : UILabel?
     @IBOutlet weak var accAddressLbl : UILabel?
+    
     var visitInformation :WorkOrderUserObject?
     var opportunityList = [Opportunity]()
     var accountObject: Account?
@@ -67,7 +26,6 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     
     static var modifiedCommitOpportunitiesList = [Opportunity]()
     static var modifiedOutcomeWorkOrderList = [NSDictionary]()
-   //
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -87,11 +45,10 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         for plistOption in outcomePicklistValues {
             pickListValuesForOpportunities.append(plistOption.value)
         }
-        
         insightsTableViewController?.contentInsetAdjustmentBehavior = .never
     }
     
-  
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -111,6 +68,57 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         
     }
     
+    //MARK:-
+    //Update the data from Top Sellers TextField
+    func updateDataFromTopSellerCellTextfield(_ index: Int,commit: String) {
+        opportunityList[index].commit = commit
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
+    }
+    
+    //Update the data from Top Sellers Button Action
+    func updateDataFromTopSellerCellButton(_index: Int, outcome: String) {
+       // var modifiedOutcomeObject : NSDictionary?
+        let modifiedOutcomeObject = NSMutableDictionary()
+        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
+        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
+    }
+    
+    //Update the data from Unsold TextField
+    func updateDataFromUnsoldTableCellTextField(_ index: Int,commit: String) {
+        opportunityList[index].commit = commit
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
+    }
+    
+    //Update the data from Unsold Button Action
+    func updateDataFromUnsoldTableCellButtton(_index: Int, outcome: String) {
+       // var modifiedOutcomeObject : NSDictionary?
+        let modifiedOutcomeObject = NSMutableDictionary()
+        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
+        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
+    }
+    
+    //Update the data from Undersold Textfield
+    func updateDataFromUndersoldTableCellTextfield(_ index: Int,commit: String) {
+        opportunityList[index].commit = commit
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
+    }
+    
+    //Update the data from Undersold Button Action
+    func updateDataFromUndersoldTableCellButton(index: Int, outcome: String) {
+     
+        let modifiedOutcomeObject = NSMutableDictionary()
+        modifiedOutcomeObject.setValue(opportunityList[index].id, forKey: "Id")
+        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
+    }
+    
+    //Used to Reload the TableView Data
+    func sortAndRelaodTable() {
+        opportunityList =  OpportunitySortUtility().opportunitySort(opportunityList)
+        insightsTableViewController?.reloadData()
+    }
     
     //Fetch the from Accounts View Model
     func fetchAccountDetails(){
@@ -120,7 +128,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         }
     }
     
-    
+    //Get Full account Address from Account Object
     func getFullAccountAddress()->String {
         
         var fullAddress = ""
@@ -143,8 +151,54 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         
         return fullAddress
     }
-  
-
+    
+    //MARK:- IBActions Methods
+    //Sort By Product Name
+    @IBAction func productNameButtonCLicked(sender : UIButton){
+        
+        if OpportunitiesFilterMenuModel.isAscendingProductName == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingProductName = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingProductName = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingSource = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    //Sort By Source
+    @IBAction func sourceButtonCLicked(sender : UIButton){
+        if OpportunitiesFilterMenuModel.isAscendingSource == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingSource = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingSource = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingProductName = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    @IBAction func commitAmtButtonCLicked(sender : UIButton){
+     
+        
+    }
+    
+    @IBAction func outcomeButtonCLicked(sender : UIButton){
+        
+        
+    }
 }
 
 //MARK:- TableView Delegate Methods
@@ -163,7 +217,7 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 95
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -207,7 +261,7 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnsoldTableViewCell", for: indexPath) as! InsightsSourceUnsoldTableViewCell
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-            cell.unsoldPeriodLabel.text = "Unsold Period\n" + currentOpportunity.unsoldPeriodDays
+            cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays
             cell.commitAmtTextFiels.text = currentOpportunity.commit
             cell.commitAmtTextFiels.tag = indexPath.row
             cell.outcomeButton.tag = indexPath.row

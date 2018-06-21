@@ -116,25 +116,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today is Jeanna Smith’s Birthday" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8KJ-Ld-d1N">
-                                                    <rect key="frame" x="15" y="20" width="472" height="37"/>
+                                                    <rect key="frame" x="15" y="20" width="472" height="36.5"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bell" translatesAutoresizingMaskIntoConstraints="NO" id="LK4-qy-RVx">
-                                                    <rect key="frame" x="15" y="61.5" width="20" height="20"/>
+                                                    <rect key="frame" x="15" y="61" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="Eke-aW-2sP"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Hours Ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nr3-fl-sbc">
-                                                    <rect key="frame" x="45" y="62.5" width="84" height="17"/>
+                                                    <rect key="frame" x="45" y="62" width="84" height="17"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJt-js-fQV">
-                                                    <rect key="frame" x="15" y="98" width="465" height="1"/>
+                                                    <rect key="frame" x="15" y="98.5" width="465" height="1"/>
                                                     <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="Laf-5n-O5j"/>
@@ -339,89 +339,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KPw-lP-rQ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2207.51953125" y="1910.9375"/>
-        </scene>
-        <!--Home Net Sales Variance View Controller-->
-        <scene sceneID="QWL-Og-TNo">
-            <objects>
-                <viewController id="Esz-sC-bwx" customClass="HomeNetSalesVarianceViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="oeG-ms-Rp7">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bpY-lL-cdH">
-                                <rect key="frame" x="8" y="64" width="1002" height="684"/>
-                                <subviews>
-                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2x-L2-zas">
-                                        <rect key="frame" x="0.0" y="0.0" width="996.5" height="606"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <wkWebViewConfiguration key="configuration">
-                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                            <wkPreferences key="preferences"/>
-                                        </wkWebViewConfiguration>
-                                    </wkWebView>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature is only available online." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u48-Vc-cyL">
-                                        <rect key="frame" x="367" y="293" width="273.5" height="20"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgJ-Gl-bJd">
-                                        <rect key="frame" x="32" y="614" width="942.5" height="35"/>
-                                        <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="x52-pL-cZH"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                        <state key="normal" title="View Trends">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="x2x-L2-zas" secondAttribute="trailing" constant="5.5" id="4hG-xo-WMI"/>
-                                    <constraint firstAttribute="trailing" secondItem="qgJ-Gl-bJd" secondAttribute="trailing" constant="27.5" id="O29-LN-2Bt"/>
-                                    <constraint firstItem="x2x-L2-zas" firstAttribute="leading" secondItem="bpY-lL-cdH" secondAttribute="leading" id="gsl-mc-IJt"/>
-                                    <constraint firstItem="qgJ-Gl-bJd" firstAttribute="top" secondItem="x2x-L2-zas" secondAttribute="bottom" constant="8" id="ioD-yN-jlS"/>
-                                    <constraint firstItem="x2x-L2-zas" firstAttribute="top" secondItem="bpY-lL-cdH" secondAttribute="top" id="o23-Ed-uW8"/>
-                                    <constraint firstItem="u48-Vc-cyL" firstAttribute="centerX" secondItem="bpY-lL-cdH" secondAttribute="centerX" constant="2.75" id="oJk-VP-vNE"/>
-                                    <constraint firstItem="qgJ-Gl-bJd" firstAttribute="leading" secondItem="bpY-lL-cdH" secondAttribute="leading" constant="32" id="oaf-l6-meY"/>
-                                    <constraint firstItem="u48-Vc-cyL" firstAttribute="centerY" secondItem="bpY-lL-cdH" secondAttribute="centerY" constant="-39" id="trn-Qw-Vbb"/>
-                                    <constraint firstAttribute="bottom" secondItem="qgJ-Gl-bJd" secondAttribute="bottom" constant="35" id="uNC-tk-UbH"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Ncg-aS-U49" firstAttribute="bottom" secondItem="bpY-lL-cdH" secondAttribute="bottom" constant="20" id="3pC-jo-5tm"/>
-                            <constraint firstItem="Ncg-aS-U49" firstAttribute="trailing" secondItem="bpY-lL-cdH" secondAttribute="trailing" constant="14" id="6X4-K2-ddy"/>
-                            <constraint firstItem="bpY-lL-cdH" firstAttribute="top" secondItem="Ncg-aS-U49" secondAttribute="top" constant="44" id="EPs-1I-nag"/>
-                            <constraint firstItem="bpY-lL-cdH" firstAttribute="leading" secondItem="Ncg-aS-U49" secondAttribute="leading" constant="8" id="cGX-Ol-hyR"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Ncg-aS-U49"/>
-                    </view>
-                    <connections>
-                        <outlet property="btnViewPerformance" destination="qgJ-Gl-bJd" id="87o-tS-kst"/>
-                        <outlet property="lblNoNetworkConnection" destination="u48-Vc-cyL" id="dm1-Xw-IIX"/>
-                        <outlet property="webView" destination="x2x-L2-zas" id="GGV-0H-GWa"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QaR-Dr-tkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2146" y="2770"/>
         </scene>
         <!--Day Home Calendar View Controller-->
         <scene sceneID="ui6-Wc-vmK">

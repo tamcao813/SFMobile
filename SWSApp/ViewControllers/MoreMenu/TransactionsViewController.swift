@@ -32,26 +32,17 @@ class TransactionsViewController: UIViewController {
             {
                 if UIApplication.shared.canOpenURL(url)
                 {
-                    UIApplication.shared.open(url, options: [:], completionHandler: {
-                        (success) in
-                        if (success)
-                        {
-                            print("OPENED \(url): \(success)")
-                        }
-                        else
-                        {
-                            print("FAILED to open \(url)")
-                        }
-                    })
+                    UIApplication.shared.open(url)
                 }
                 else
                 {
-                    let alert = UIAlertController(title: "Alert!", message: "Topaz app is not installed", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Alert", message: "Topaz app is not installed", preferredStyle: .alert)
                     
                     let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     
                     alert.addAction(cancelAction)
                     self.present(alert, animated: true, completion: nil)
+                    
                 }
             }
         }

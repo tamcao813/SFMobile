@@ -37,6 +37,37 @@ class InsightsSourceTopSellerTableViewCell: UITableViewCell,UITextFieldDelegate{
         cellDelegate?.updateDataFromTopSellerCellTextfield(textField.tag,commit:textField.text!)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string == "\n" || string == ""{
+            return true
+        }else if (textField.text?.count)! > 4{
+            return false
+        }
+        
+        let inverseSet = NSCharacterSet(charactersIn:"0123456789").inverted
+        let components = string.components(separatedBy: inverseSet)
+        let filtered = components.joined(separator: "")
+        
+        if filtered == string {
+            return true
+        } else {
+            if string == "." {
+                let countdots = textField.text!.components(separatedBy:".").count - 1
+                if countdots == 0 {
+                    return true
+                }else{
+                    if countdots > 0 && string == "." {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+            }else{
+                return false
+            }
+        }
+    }
     
     func addNewDropDown() {
         dropDown.anchorView = self.outcomeButton

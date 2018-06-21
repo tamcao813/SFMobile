@@ -37,11 +37,7 @@ class OpportunityViewModel {
             
             StoreDispatcher.shared.syncDownUploadOpportunity() { _ in
             }
-            StoreDispatcher.shared.syncDownOpportunity() { _ in
-                let _ = self.globalOpportunityReload()
-                completion(nil)
-            }
-            /*
+            
             StoreDispatcher.shared.reSyncOpportunity { error in
                 if error != nil {
                     print(error?.localizedDescription ?? "error")
@@ -51,7 +47,7 @@ class OpportunityViewModel {
                 else {
                     completion(nil)
                 }
-            }*/
+            }
         })
     }
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManagerSwift
 
 
 class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDelegate,InsightsUndersoldSourceTableCellDelegate,InsightsSourceUnsoldTableCellDelegate{
@@ -30,6 +31,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         opportunityList[index].commit = commit
         DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
     }
+    
     func updateDataFromUnsoldTableCellButtton(_index: Int, outcome: String) {
        // var modifiedOutcomeObject : NSDictionary?
         let modifiedOutcomeObject = NSMutableDictionary()
@@ -70,7 +72,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        IQKeyboardManager.shared.enable = true
         self.fetchAccountDetails()
         
         accNameLbl?.text = accountObject?.accountName
@@ -86,7 +88,8 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
             pickListValuesForOpportunities.append(plistOption.value)
         }
         
-    }    
+        insightsTableViewController?.contentInsetAdjustmentBehavior = .never
+    }
     
   
     override func viewWillAppear(_ animated: Bool) {
@@ -148,7 +151,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
 extension DuringVisitsInsightsViewController : UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
+       tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -156,8 +159,11 @@ extension DuringVisitsInsightsViewController : UITableViewDelegate{
 extension DuringVisitsInsightsViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -170,30 +176,29 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
         switch currentOpportunity.source {
         case "What's Hot","Top Seller":
              let cell = tableView.dequeueReusableCell(withIdentifier: "insightsTopSellerTableViewCell", for: indexPath) as! InsightsSourceTopSellerTableViewCell
+             
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-             cell.r12Label.text = "R12\n" + currentOpportunity.R12
-            cell.r6TrendLabel.text = "R6 Trend\n" + currentOpportunity.R6Trend
-            cell.r3TrendLabel.text = "R3 Trend\n" + currentOpportunity.R3Trend
+            cell.r12Label.text = currentOpportunity.R12
+            cell.r6TrendLabel.text = currentOpportunity.R6Trend
+            cell.r3TrendLabel.text = currentOpportunity.R3Trend
             cell.commitAmtTextFiels.text = currentOpportunity.commit
             cell.cellDelegate = self
             cell.commitAmtTextFiels.tag = indexPath.row
-             cell.outcomeButton.tag = indexPath.row
+            cell.outcomeButton.tag = indexPath.row
             cell.dropDown.dataSource = pickListValuesForOpportunities
-            cell.layer.borderColor = UIColor.black.cgColor
             return cell
             
         case "Undersold":
             let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnderSoldTableViewCell", for: indexPath) as! InsightsSourceUnderSoldTableViewCell
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-            cell.accLabel.text = "Acct\n" + currentOpportunity.acct
-            cell.segmentLabel.text = "Segment\n" + currentOpportunity.segment
-            cell.gapLabel.text = "Gap\n" + currentOpportunity.gap
+            cell.accLabel.text = currentOpportunity.acct
+            cell.segmentLabel.text = currentOpportunity.segment
+            cell.gapLabel.text = currentOpportunity.gap
             cell.commitAmtTextFiels.text = currentOpportunity.commit
             cell.commitAmtTextFiels.tag = indexPath.row
             cell.outcomeButton.tag = indexPath.row
-             cell.layer.borderColor = UIColor.black.cgColor
             cell.cellDelegate = self
             cell.dropDown.dataSource = pickListValuesForOpportunities
             return cell
@@ -206,30 +211,24 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
             cell.commitAmtTextFiels.text = currentOpportunity.commit
             cell.commitAmtTextFiels.tag = indexPath.row
             cell.outcomeButton.tag = indexPath.row
-             cell.layer.borderColor = UIColor.black.cgColor
-            cell.cellDelegate = self
-             cell.dropDown.dataSource = pickListValuesForOpportunities
-            return cell
-            
-            
-        default:
-            //return UITableViewCell()
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnderSoldTableViewCell", for: indexPath) as! InsightsSourceUnderSoldTableViewCell
-            cell.productNameLabel.text = currentOpportunity.productName
-//            cell.sourceLabel.text = currentOpportunity.source
-//            cell.accLabel.text = "Acct\n" + currentOpportunity.acct
-//            cell.segmentLabel.text = "Segment\n" + currentOpportunity.segment
-//            cell.gapLabel.text = "Gap\n" + currentOpportunity.gap
-            cell.commitAmtTextFiels.text = currentOpportunity.commit
-            cell.commitAmtTextFiels.tag = indexPath.row
-            cell.outcomeButton.tag = indexPath.row
-            cell.layer.borderColor = UIColor.black.cgColor
             cell.cellDelegate = self
             cell.dropDown.dataSource = pickListValuesForOpportunities
             return cell
             
+        default:
             
+            let cell = tableView.dequeueReusableCell(withIdentifier: "insightsTopSellerTableViewCell", for: indexPath) as! InsightsSourceTopSellerTableViewCell
+            cell.productNameLabel.text = currentOpportunity.productName
+            cell.sourceLabel.text = currentOpportunity.source
+            cell.r12Label.text = currentOpportunity.acct
+            cell.r6TrendLabel.text = currentOpportunity.segment
+            cell.r3TrendLabel.text = currentOpportunity.gap
+            cell.commitAmtTextFiels.text = currentOpportunity.commit
+            cell.commitAmtTextFiels.tag = indexPath.row
+            cell.outcomeButton.tag = indexPath.row
+            cell.cellDelegate = self
+            cell.dropDown.dataSource = pickListValuesForOpportunities
+            return cell
             
         }
     }

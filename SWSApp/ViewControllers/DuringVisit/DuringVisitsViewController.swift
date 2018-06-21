@@ -537,6 +537,21 @@ class  DuringVisitsViewController : UIViewController {
                     "Id": object["Id"]!,
                     "SGWS_Outcome__c": object["SGWS_Outcome__c"]!,
                     "SGWS_Work_Order__c": workOrder] )
+//                _ = StoreDispatcher.shared.fetchOpportunityWorkorderDebug()
+                
+                let attributeDict = ["type":"WorkOrder"]
+                
+                let addNewDict: [String:Any] = [
+                    
+                    PlanVisit.planVisitFields[13]:PlanVisitManager.sharedInstance.visit?.soupEntryId ?? "",
+                    kSyncTargetLocal:true,
+                    kSyncTargetLocallyCreated:true,
+                    kSyncTargetLocallyUpdated:false,
+                    kSyncTargetLocallyDeleted:false,
+                    "attributes":attributeDict]
+                
+                _ = VisitSchedulerViewModel().editVisitToSoupEx(fields: addNewDict)
+
             }
         }
         

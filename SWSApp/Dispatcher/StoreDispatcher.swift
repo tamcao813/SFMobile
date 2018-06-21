@@ -4106,6 +4106,8 @@ class StoreDispatcher {
     
     
     func editOpportunityOutcomeToSoup(fieldsToUpload: [String:Any]) -> Bool{
+        
+        print("editOpportunityOutcomeToSoup : fieldsToUpload : \(fieldsToUpload)")
         let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Outcome__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -4118,12 +4120,28 @@ class StoreDispatcher {
             if opportunityModifIdValue.isEmpty {
                 continue
             }
-            let fieldsIdValue = fieldsToUpload["Id"] as? String ?? ""
-            if fieldsIdValue.isEmpty {
+
+            let workOrderModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
+            if workOrderModifIdValue.isEmpty {
                 continue
             }
 
-            if(fieldsIdValue == opportunityModifIdValue){
+            let fieldsOppurValue = fieldsToUpload["Id"] as? String ?? ""
+            if fieldsOppurValue.isEmpty {
+                continue
+            }
+
+            let fieldsWorkOrderValue = fieldsToUpload["SGWS_Work_Order__c"] as? String ?? ""
+            if fieldsWorkOrderValue.isEmpty {
+                continue
+            }
+            print("fieldsOppurValue : \(fieldsOppurValue)")
+            print("opportunityModifIdValue : \(opportunityModifIdValue)")
+            
+            print("fieldsWorkOrderValue : \(fieldsWorkOrderValue)")
+            print("workOrderModifIdValue : \(workOrderModifIdValue)")
+
+            if((fieldsOppurValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)) {
                 oppotunityModif["SGWS_Outcome__c"] = fieldsToUpload["SGWS_Outcome__c"]
                 oppotunityModif[kSyncTargetLocal] = true
                 let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as! Bool
@@ -4136,6 +4154,7 @@ class StoreDispatcher {
                 }
                 oppotunityModif[kSyncTargetLocallyDeleted] = false
                 modifiedOpportunity = oppotunityModif
+                print("modifiedOpportunity : \(modifiedOpportunity)")
                 break
             }
         }
@@ -4143,6 +4162,8 @@ class StoreDispatcher {
         let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupOpportunityWorkorder)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
+            print("result : \(result)")
+
             let soupEntryId = result["_soupEntryId"]
             print("\(result) opportunity outcome is saved successfully" )
             print(soupEntryId!)

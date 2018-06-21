@@ -186,6 +186,8 @@ class AccountVisitSummaryViewController: UIViewController {
         self.tableView.register(UINib(nibName: "HeadSubHeadTableViewCell", bundle: nil), forCellReuseIdentifier: "HeadSubHeadTableViewCell")
         self.tableView.register(UINib(nibName: "AssociatedContactsTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociatedContactsTableViewCell")
         self.tableView.register(UINib(nibName: "UnorderedListTableViewCell", bundle: nil), forCellReuseIdentifier: "UnorderedListTableViewCell")
+        self.tableView.register(UINib(nibName: "AccountsSummaryOpportunities", bundle: nil), forCellReuseIdentifier: "AccountOpportunityCell")
+
        // self.tableView.register(UINib(nibName: "ButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ButtonTableViewCell")
     }
     
@@ -389,6 +391,13 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 return 50
             case 1:
                 return 0
+            case 2:
+//               var opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
+//              opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed-Won")}
+//              opportunityList = opportunityList.filter({$0.isOpportunitySelected == true})
+//
+//               return CGFloat((opportunityList.count)*80)
+                return 30
             default:
                 return 0
             }
@@ -397,7 +406,10 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             case 0:
                 return 50
             case 1:
-                return 30            
+                return 30
+                
+            case 2:
+                return 30
             default:
                 return 0
             }
@@ -482,9 +494,9 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case 1:
             return getConatactCell()
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AccountOpportunityCell") as? AccountsSummaryOpportunityCell
             cell?.headingLabel.text = "Opportunities Selected"
-            cell?.SubheadingLabel.text = ""
+//            cell?.SubheadingLabel.text = ""
             return cell!
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell

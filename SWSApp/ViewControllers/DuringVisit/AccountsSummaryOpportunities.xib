@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountOpportunityCell" rowHeight="258" id="fCJ-43-APQ" customClass="AccountsSummaryOpportunityCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="935" height="258"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fCJ-43-APQ" id="A5g-or-Nj2">
+                <rect key="frame" x="0.0" y="0.0" width="935" height="257.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opportunities Selected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4h-6d-okr">
+                        <rect key="frame" x="0.0" y="0.0" width="195" height="20.5"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KFI-37-LHs">
+                        <rect key="frame" x="0.0" y="23" width="906" height="40"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCy-5E-Ohs" userLabel="Sub View 1">
+                                <rect key="frame" x="11" y="0.0" width="214" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KpL-4D-9yZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="214" height="40"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="11"/>
+                                        <inset key="titleEdgeInsets" minX="-130" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Product Name">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="KpL-4D-9yZ" firstAttribute="leading" secondItem="QCy-5E-Ohs" secondAttribute="leading" id="0Ui-8c-XeK"/>
+                                    <constraint firstAttribute="bottom" secondItem="KpL-4D-9yZ" secondAttribute="bottom" id="FIC-Le-WA9"/>
+                                    <constraint firstItem="KpL-4D-9yZ" firstAttribute="top" secondItem="QCy-5E-Ohs" secondAttribute="top" id="KTR-rW-qax"/>
+                                    <constraint firstAttribute="width" constant="214" id="UaU-D8-laG"/>
+                                    <constraint firstAttribute="trailing" secondItem="KpL-4D-9yZ" secondAttribute="trailing" id="vsw-lo-phq"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gsw-UM-m9C" userLabel="Sub View 2">
+                                <rect key="frame" x="150" y="0.0" width="166" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggo-Be-CCo">
+                                        <rect key="frame" x="0.0" y="0.0" width="136" height="40"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="11"/>
+                                        <inset key="titleEdgeInsets" minX="-38" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Source">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Ggo-Be-CCo" secondAttribute="bottom" id="1Q8-r4-a2Z"/>
+                                    <constraint firstItem="Ggo-Be-CCo" firstAttribute="leading" secondItem="Gsw-UM-m9C" secondAttribute="leading" id="6wG-xK-xya"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ggo-Be-CCo" secondAttribute="trailing" constant="30" id="KUg-UG-Dms"/>
+                                    <constraint firstAttribute="width" constant="166" id="cmJ-IY-UAB"/>
+                                    <constraint firstItem="Ggo-Be-CCo" firstAttribute="top" secondItem="Gsw-UM-m9C" secondAttribute="top" id="epC-4k-9Rr"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pys-fZ-b3Q" userLabel="Sub View 3">
+                                <rect key="frame" x="700" y="0.0" width="104" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydi-AX-mYP">
+                                        <rect key="frame" x="0.0" y="0.0" width="104" height="40"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="11"/>
+                                        <state key="normal" title="Commit Amt">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ydi-AX-mYP" secondAttribute="bottom" id="1w3-PV-KzH"/>
+                                    <constraint firstAttribute="trailing" secondItem="ydi-AX-mYP" secondAttribute="trailing" id="9pd-aU-OZF"/>
+                                    <constraint firstAttribute="width" constant="104" id="QHb-lJ-RRf"/>
+                                    <constraint firstItem="ydi-AX-mYP" firstAttribute="top" secondItem="Pys-fZ-b3Q" secondAttribute="top" id="XSc-Jn-rGJ"/>
+                                    <constraint firstItem="ydi-AX-mYP" firstAttribute="leading" secondItem="Pys-fZ-b3Q" secondAttribute="leading" id="vvx-HW-CeP"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lul-eB-wuF" userLabel="Sub View 4">
+                                <rect key="frame" x="800" y="0.0" width="86" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ear-sL-Pb0">
+                                        <rect key="frame" x="0.0" y="0.0" width="86" height="40"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="11"/>
+                                        <state key="normal" title="Outcome">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ear-sL-Pb0" firstAttribute="leading" secondItem="lul-eB-wuF" secondAttribute="leading" id="DBN-vd-IP1"/>
+                                    <constraint firstAttribute="bottom" secondItem="ear-sL-Pb0" secondAttribute="bottom" id="Z2w-Ww-kBN"/>
+                                    <constraint firstAttribute="trailing" secondItem="ear-sL-Pb0" secondAttribute="trailing" id="cDF-6V-XWI"/>
+                                    <constraint firstAttribute="width" constant="86" id="dVb-sb-xvw"/>
+                                    <constraint firstItem="ear-sL-Pb0" firstAttribute="top" secondItem="lul-eB-wuF" secondAttribute="top" id="qfE-bL-8hp"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="3Ar-aB-MhS"/>
+                            <constraint firstAttribute="bottom" secondItem="lul-eB-wuF" secondAttribute="bottom" id="60o-9H-Ons"/>
+                            <constraint firstAttribute="bottom" secondItem="Pys-fZ-b3Q" secondAttribute="bottom" id="NV4-4i-QnH"/>
+                            <constraint firstItem="lul-eB-wuF" firstAttribute="leading" secondItem="Pys-fZ-b3Q" secondAttribute="trailing" constant="-4" id="NXl-sx-dLT"/>
+                            <constraint firstItem="Pys-fZ-b3Q" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="O0U-fd-QrL"/>
+                            <constraint firstItem="QCy-5E-Ohs" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="Pdi-RG-Fly"/>
+                            <constraint firstItem="QCy-5E-Ohs" firstAttribute="leading" secondItem="KFI-37-LHs" secondAttribute="leading" constant="11" id="bDx-uh-jvt"/>
+                            <constraint firstItem="Gsw-UM-m9C" firstAttribute="leading" secondItem="QCy-5E-Ohs" secondAttribute="trailing" constant="-75" id="bSU-c2-dis"/>
+                            <constraint firstItem="lul-eB-wuF" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="h8A-JU-lph"/>
+                            <constraint firstAttribute="trailing" secondItem="lul-eB-wuF" secondAttribute="trailing" constant="20" id="hLP-A3-7N4"/>
+                            <constraint firstItem="Gsw-UM-m9C" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="k5V-v7-GOW"/>
+                            <constraint firstAttribute="bottom" secondItem="Gsw-UM-m9C" secondAttribute="bottom" id="k5f-hF-pRX"/>
+                            <constraint firstAttribute="bottom" secondItem="QCy-5E-Ohs" secondAttribute="bottom" id="zuZ-s2-4sG"/>
+                        </constraints>
+                    </view>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="rac-nk-PeR">
+                        <rect key="frame" x="10" y="63" width="892" height="194"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="194" id="cW6-04-83P"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="dataSource" destination="fCJ-43-APQ" id="C4B-gA-PDu"/>
+                            <outlet property="delegate" destination="fCJ-43-APQ" id="nbF-Fc-mjY"/>
+                        </connections>
+                    </tableView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="F4h-6d-okr" firstAttribute="top" secondItem="A5g-or-Nj2" secondAttribute="top" id="4ah-ax-fwo"/>
+                    <constraint firstItem="rac-nk-PeR" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="bottom" id="9UM-7g-eF7"/>
+                    <constraint firstItem="KFI-37-LHs" firstAttribute="top" secondItem="F4h-6d-okr" secondAttribute="bottom" constant="2.5" id="I6k-8O-Ws4"/>
+                    <constraint firstItem="rac-nk-PeR" firstAttribute="leading" secondItem="A5g-or-Nj2" secondAttribute="leading" constant="10" id="fF2-Pb-woH"/>
+                    <constraint firstAttribute="trailing" secondItem="KFI-37-LHs" secondAttribute="trailing" constant="29" id="fbG-5v-Dvm"/>
+                    <constraint firstAttribute="bottom" secondItem="rac-nk-PeR" secondAttribute="bottom" constant="0.5" id="q7S-Bj-8rU"/>
+                    <constraint firstAttribute="trailing" secondItem="rac-nk-PeR" secondAttribute="trailing" constant="33" id="sEs-so-pgP"/>
+                    <constraint firstItem="KFI-37-LHs" firstAttribute="leading" secondItem="A5g-or-Nj2" secondAttribute="leading" id="vMZ-YS-eW5"/>
+                    <constraint firstItem="F4h-6d-okr" firstAttribute="leading" secondItem="A5g-or-Nj2" secondAttribute="leading" id="vrW-XO-xIj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="headingLabel" destination="F4h-6d-okr" id="gsF-E3-X0u"/>
+                <outlet property="tableView" destination="rac-nk-PeR" id="S93-ce-8Rg"/>
+            </connections>
+            <point key="canvasLocation" x="154.5" y="-5"/>
+        </tableViewCell>
+    </objects>
+</document>

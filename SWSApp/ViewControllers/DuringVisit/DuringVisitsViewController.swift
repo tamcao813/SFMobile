@@ -55,6 +55,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }
             // 3. we do have authorization
         else if CLLocationManager.authorizationStatus() == .authorizedAlways {
+            locationManager.delegate = self
             locationManager.startUpdatingLocation()
         }
     }
@@ -115,6 +116,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         duringVisitVC.visitObject = visitObject
         activeViewController = duringVisitVC
         IQKeyboardManager.shared.enable = true
+        self.setLocationManager()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,6 +136,13 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+         geoLocationForVisit.startLatitude = 0.0
+         geoLocationForVisit.startLongitude = 0.0
+         geoLocationForVisit.startTime = ""
+         geoLocationForVisit.endLatitude = 0.0
+         geoLocationForVisit.endLongitude = 0.0
+         geoLocationForVisit.endTime = ""
         
         
     }
@@ -397,6 +406,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             PlanVisitManager.sharedInstance.visit?.status = "Completed"
             
             //location related code
+            geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
             self.startUpdatingLocationAlerts()
             
             DispatchQueue.main.async{
@@ -429,8 +439,9 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
-        visitObject?.endLatitude = userLocation.coordinate.latitude
-        visitObject?.endLongitude = userLocation.coordinate.longitude
+       geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
+        geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
     }
     
     

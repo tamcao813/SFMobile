@@ -19,6 +19,18 @@ protocol NavigateToContactsDelegate {
     func navigateToAccountScreen()
 }
 
+struct geoLocationForVisit {
+    static var startLatitude:Double = 0.0
+    static var startLongitude:Double = 0.0
+    static var startTime:String = ""
+    static var endLatitude:Double = 0.0
+    static var endLongitude:Double = 0.0
+    static var endTime:String = ""
+    
+}
+
+
+
 class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDelegate {
     
     var visitId: String?
@@ -81,15 +93,8 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         initializingXIBs()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.locationManager.stopUpdatingLocation()
-    }
+  
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.locationManager.stopUpdatingLocation()
-        
-    }
     
     @objc func refreshVisit(){
         fetchVisit()
@@ -296,11 +301,14 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            
             PlanVisitManager.sharedInstance.visit = visitObject
             (vc as DuringVisitsViewController).visitObject = visitObject
             (vc as DuringVisitsViewController).delegate = self
             
             //location related code
+            
+            geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
             self.startUpdatingLocationAlerts()
             
             self.present(vc, animated: true, completion: nil)
@@ -373,8 +381,9 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
-        visitObject?.startLatitude = userLocation.coordinate.latitude
-        visitObject?.startLongitude = userLocation.coordinate.longitude
+         geoLocationForVisit.startLatitude = userLocation.coordinate.latitude
+         geoLocationForVisit.startLongitude = userLocation.coordinate.longitude
+
     }
     
     

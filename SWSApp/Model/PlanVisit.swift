@@ -13,7 +13,7 @@ class PlanVisit {
     //SyncUp
     static let workOrderSyncUpfields: [String] = ["Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c"]
     
-    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","_soupEntryId","SGWS_WorkOrder_Location__c","SGWS_All_Day_Event__c","OwnerId","visitTitle","visitType", "accountList", "systemConfigurationObject"]
+    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","_soupEntryId","SGWS_WorkOrder_Location__c","SGWS_All_Day_Event__c","OwnerId","visitTitle","visitType","accountList","systemConfigurationObject","SGWS_Start_Latitude__c","SGWS_Start_Longitude__c","SGWS_Start_Time_of_Visit__c","SGWS_End_Latitude__c","SGWS_End_Longitude__c","SGWS_End_Time_of_Visit__c"]
     
     var Id : String
     var subject : String
@@ -41,6 +41,16 @@ class PlanVisit {
     var accountList: [Account]?
     let systemConfigurationObject:SyncConfiguration?
     
+    // location related
+    var startLatitude:Double
+    var startLongitude:Double
+    var startTime_of_Visit: String
+ 
+    var endLatitude:Double
+    var endLongitude:Double
+    var endTime_of_Visit: String
+    
+    
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(PlanVisit.planVisitFields, ary))
         self.init(json: resultDict)
@@ -66,6 +76,16 @@ class PlanVisit {
         sgwsAlldayEvent = json["SGWS_All_Day_Event__c"] as? Bool ?? false
         
         ownerId = json["OwnerId"] as? String ?? ""
+        startLatitude = json["SGWS_Start_Latitude__c"] as? Double ?? 0.0
+        startLongitude = json["SGWS_Start_Longitude__c"] as? Double ?? 0.0
+        startTime_of_Visit = json["SGWS_Start_Time_of_Visit__c"] as? String ?? ""
+ 
+        
+        
+        endLatitude = json["SGWS_End_Latitude__c"] as? Double ?? 0.0
+        endLongitude = json["SGWS_End_Longitude__c"] as? Double ?? 0.0
+        endTime_of_Visit = json["SGWS_End_Time_of_Visit__c"] as? String ?? ""
+        
         
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
         let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
@@ -114,13 +134,18 @@ class PlanVisit {
         soupEntryId = 0
         workOrderType = ""
         sgwsAlldayEvent = false
-        
         ownerId = ""
-        
         visitTitle = ""
         visitType = ""
         accountList = nil
         systemConfigurationObject = nil
+        startLatitude = 0.0
+         startLongitude = 0.0
+        startTime_of_Visit = ""
+        endLatitude = 0.0
+        endLongitude = 0.0
+        endTime_of_Visit = ""
+        
         
     }
 }

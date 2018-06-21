@@ -212,7 +212,7 @@ class CalendarListViewController: UIViewController {
     func launchNewVisit() {
         let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
         createVisitViewController.isEditingMode = false
-        
+        createVisitViewController.delegate = self
         //Reset the PlanVisitManager
         PlanVisitManager.sharedInstance.visit = nil
         
@@ -518,6 +518,16 @@ extension CalendarListViewController : SearchCalendarByEnteredTextDelegate{
 extension CalendarListViewController : GlobalArrayDelegate{
     func arrayFetch() -> [WREvent] {
         return self.globalVisit
+    }
+}
+
+extension CalendarListViewController : CreateNewVisitViewControllerDelegate {
+    func updateVisitListFromCreate() {
+        globalVisit = CalendarViewModel().loadVisitData()!
+        reloadCalendarView()
+        if self.currentCalendarViewType == .Month {
+            self.calendarMonthController?.refreshMonthCalendar()
+        }
     }
 }
 

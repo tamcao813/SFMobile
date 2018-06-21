@@ -7,14 +7,44 @@
 //
 
 import UIKit
+ //LOCATION
+import CoreLocation
+//protocol LocationDelegate {
+//    func onTimeTap(latitude:String, longitude:String, startTime:String)
+//}
 
-class SchedulerComponent: UIView, UITextFieldDelegate {
+class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate {
     
     var dateTextField = DesignableUITextField()
     var startTimeTextField = DesignableUITextField()
     var endTimeTextField = DesignableUITextField()
     let datePickerView = UIDatePicker()
     
+    //LOCATION
+   // var locationManager = CLLocationManager()
+    
+//    func setLocationManager(){
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.delegate = self
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
+//    }
+    
+//    func startUpdatingLocation() {
+//        // 1. status is not determined
+//        if CLLocationManager.authorizationStatus() == .NotDetermined {
+//            locationManager.requestAlwaysAuthorization()
+//        }
+//            // 2. authorization were denied
+//        else if CLLocationManager.authorizationStatus() == .Denied {
+//            showAlert("Location services were previously denied. Please enable location services for this app in Settings.")
+//        }
+//            // 3. we do have authorization
+//        else if CLLocationManager.authorizationStatus() == .AuthorizedAlways {
+//            locationManager.startUpdatingLocation()
+//        }
+//    }
+//
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -22,9 +52,11 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+//        
+//        setLocationManager()
+//        startUpdatingLocation()
         
         // Set UILabel size and position
-        
         let dateLabel = UILabel(frame: CGRect(x: 0, y: 5, width: 100, height: 21))
         dateLabel.text = "Date of Visit"
         dateLabel.textColor = UIColor(fromHexValue: "#9A9A9A")

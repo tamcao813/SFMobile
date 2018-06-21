@@ -188,6 +188,10 @@ static NSString * const kSFSoqlSyncTargetQuery = @"query";
 - (NSString *)getSoqlForRemoteIds {
     NSMutableString* soql = [[NSMutableString alloc] initWithString:@"SELECT "];
     [soql appendString:self.idFieldName];
+    if (([self.query rangeOfString:@"from Opportunity_Objective_Junction__r"].location != NSNotFound) && ([self.query rangeOfString:@"from OpportunityLineItems"].location != NSNotFound)) {
+        return [[NSMutableString alloc] initWithString:@"SELECT Id from opportunity"];
+    }
+
     NSRegularExpression* regexp = [NSRegularExpression regularExpressionWithPattern:@" from " options:NSRegularExpressionCaseInsensitive error:nil];
     NSRange rangeFirst = [regexp rangeOfFirstMatchInString:self.query options:0 range:NSMakeRange(0, self.query.length)];
     NSString* fromClause = [self.query substringFromIndex:rangeFirst.location];
@@ -215,7 +219,12 @@ static NSString * const kSFSoqlSyncTargetQuery = @"query";
         if ([[query lowercaseString] rangeOfString:@" where "].location != NSNotFound) {
             queryToRun = [SFSoqlSyncDownTarget appendToFirstOccurence:query pattern:@" where " stringToAppend:[@[extraPredicate, @" and "] componentsJoinedByString:@""]];
         } else {
-            queryToRun = [SFSoqlSyncDownTarget appendToFirstOccurence:query pattern:@" from[ ]+[^ ]*" stringToAppend:[@[@" where ", extraPredicate] componentsJoinedByString:@""]];
+            if (([query rangeOfString:@"from Opportunity_Objective_Junction__r"].location != NSNotFound) && ([query rangeOfString:@"from OpportunityLineItems"].location != NSNotFound)) {
+                queryToRun = [NSString stringWithFormat:@"%@ %@", query, [@[@" where ", extraPredicate] componentsJoinedByString:@""]];
+            }
+            else {
+                queryToRun = [SFSoqlSyncDownTarget appendToFirstOccurence:query pattern:@" from[ ]+[^ ]*" stringToAppend:[@[@" where ", extraPredicate] componentsJoinedByString:@""]];
+            }
         }
     }
     return queryToRun;

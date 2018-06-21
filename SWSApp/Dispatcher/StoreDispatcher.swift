@@ -3464,13 +3464,14 @@ class StoreDispatcher {
     }
     
     func reSyncOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
-        guard let _ = syncIdDictionary[SyncDownIdOpportunity] else { return completion(resyncError(syncConstant: SyncDownIdOpportunity))  }
+        guard let sId = syncIdDictionary[SyncDownIdOpportunity] else { return completion(resyncError(syncConstant: SyncDownIdOpportunity))  }
+        /*
         StoreDispatcher.shared.syncDownOpportunity() { _ in
             let _ = OpportunityViewModel().globalOpportunityReload()
 //            completion(nil)
-        }
-//        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdOpportunity, completion: completion)
-        return completion(nil)
+        }*/
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdOpportunity, completion: completion)
+//        return completion(nil)
     }
     
     func reSyncAccountActionItem(_ completion:@escaping (_ error: NSError?)->()) {

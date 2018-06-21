@@ -38,6 +38,38 @@ class InsightsSourceUnderSoldTableViewCell: UITableViewCell,UITextFieldDelegate 
         cellDelegate?.updateDataFromUndersoldTableCellTextfield(textField.tag,commit:textField.text!)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string == "\n" || string == ""{
+            return true
+        }else if (textField.text?.count)! > 4{
+            return false
+        }
+        
+        let inverseSet = NSCharacterSet(charactersIn:"0123456789").inverted
+        let components = string.components(separatedBy: inverseSet)
+        let filtered = components.joined(separator: "")
+        
+        if filtered == string {
+            return true
+        } else {
+            if string == "." {
+                let countdots = textField.text!.components(separatedBy:".").count - 1
+                if countdots == 0 {
+                    return true
+                }else{
+                    if countdots > 0 && string == "." {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+            }else{
+                return false
+            }
+        }
+    }
+    
     func addNewDropDown() {
         dropDown.anchorView = self.outcomeButton
         dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
@@ -56,6 +88,7 @@ class InsightsSourceUnderSoldTableViewCell: UITableViewCell,UITextFieldDelegate 
     }
     
     @IBAction func showDropDownMenu(sender:UIButton) {
+        self.endEditing(true)
         buttonTag = sender.tag
         dropDown.show()
     }

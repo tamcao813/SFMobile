@@ -38,10 +38,6 @@
 	<string>/AccountVisitPurpose.plist</string>
 	<key>swsUri</key>
 	<string>sws://success</string>
-	<key>goalsUrl</key>
-	<string>https://sgws-de--dedev1.cs20.my.salesforce.com/analytics/wave/wave.apexp?tsid=02u31000000p1rD#dashboard/0FKm00000004D2wGAE</string>
-	<key>netSalesUrl</key>
-	<string>https://sgws-de--dedev1.cs20.my.salesforce.com/analytics/wave/wave.apexp?tsid=02u31000000p1rD#dashboard/0FKm00000004D3uGAE</string>
 	<key>objectivesUrl</key>
 	<string>/lightning/o/SGWS_Objectives__c/list?filterName=Recent&amp;0.source=alohaHeader</string>
 	<key>insightsUrl</key>
@@ -58,5 +54,13 @@
 	<string>Sales Consultant</string>
 	<key>salesManagerTitle</key>
 	<string>Sales Manager</string>
+	<key>sgwsOutcome</key>
+	<string>/SGWS_Outcome__c</string>
+	<key>gospotcheckUrl</key>
+	<string>GoSpotCheck://</string>
+	<key>topazUrl</key>
+	<string>Southernglazerstopaz://</string>
+	<key>gospotItuneUrl</key>
+	<string>itms://itunes.apple.com/us/app/gospotcheck-team/id571011905?platform=ipad&amp;preserveScrollPosition=true#platform/ipad</string>
 </dict>
 </plist>

@@ -44,7 +44,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
                 
-        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.goalsUrl
+        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenUrl
         
         //let accountUrl: String = authUrl +  endUrl
         //let url  =  URL(string:authUrl)//+accountUrl)

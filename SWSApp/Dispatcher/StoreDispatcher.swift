@@ -814,7 +814,7 @@ class StoreDispatcher {
     func downloadSWGSOutcomePList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         //Record id is different for dev environment
         let recordTypeId = "0120t0000008dGKAAY"
-        let path = StringConstants.outcomePicklistValue + recordTypeId + "/SGWS_Outcome__c"
+        let path = StringConstants.outcomePicklistValue + recordTypeId + StringConstants.sgwsOutcome
         
         //        let path = "ui-api/object-info/SGWS_Opportunity_WorkOrder__c/picklist-values/012i0000000PebvAAC/SGWS_Outcome__c"
         let request = SFRestRequest(method: .GET, path: path, queryParams: nil)
@@ -3275,6 +3275,53 @@ class StoreDispatcher {
         return false
     }
     
+    func editVisitEx(fields: [String:Any]) -> Bool{
+        var allFields = fields
+        allFields["attributes"] = ["type":"WorkOrder"]
+        allFields[kSyncTargetLocal] = true
+        var ary = [Any]()
+        
+        let soupEntryId = allFields["_soupEntryId"]
+        
+        let entryArray = sfaStore.retrieveEntries([soupEntryId!] , fromSoup: SoupVisit)
+        
+        if(entryArray.count > 0){
+            
+            let entry = entryArray[0]
+            var soupEntry = entry as! [String:Any]
+            
+            let createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
+            
+            if(createdFlag){
+                soupEntry[kSyncTargetLocal] = true
+                soupEntry[kSyncTargetLocallyUpdated] = false
+                soupEntry[kSyncTargetLocallyCreated] = true
+                
+            }else {
+                soupEntry[kSyncTargetLocal] = true
+                soupEntry[kSyncTargetLocallyCreated] = false
+                soupEntry[kSyncTargetLocallyUpdated] = true
+                
+            }
+            
+            soupEntry[kSyncTargetLocallyDeleted] = false
+            
+            ary = sfaStore.upsertEntries([soupEntry], toSoup: SoupVisit)
+            
+            if ary.count > 0 {
+                var result = ary[0] as! [String:Any]
+                let soupEntryId = result["_soupEntryId"]
+                print(result)
+                print(soupEntryId!)
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        return false
+    }
+
     func fetchAllSurveyIdsForAccoount(accountId:String)->[String]{
         
         var surveyIdsArray:[String] = []
@@ -3473,8 +3520,13 @@ class StoreDispatcher {
     
     func reSyncOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         guard let sId = syncIdDictionary[SyncDownIdOpportunity] else { return completion(resyncError(syncConstant: SyncDownIdOpportunity))  }
-        
+        /*
+        StoreDispatcher.shared.syncDownOpportunity() { _ in
+            let _ = OpportunityViewModel().globalOpportunityReload()
+//            completion(nil)
+        }*/
         return reSyncSoup(syncid: sId, syncConstant: SyncDownIdOpportunity, completion: completion)
+//        return completion(nil)
     }
     
     func reSyncAccountActionItem(_ completion:@escaping (_ error: NSError?)->()) {
@@ -4109,6 +4161,8 @@ class StoreDispatcher {
     
     
     func editOpportunityOutcomeToSoup(fieldsToUpload: [String:Any]) -> Bool{
+        
+        print("editOpportunityOutcomeToSoup : fieldsToUpload : \(fieldsToUpload)")
         let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Outcome__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -4121,12 +4175,30 @@ class StoreDispatcher {
             if opportunityModifIdValue.isEmpty {
                 continue
             }
-            let fieldsIdValue = fieldsToUpload["Id"] as? String ?? ""
-            if fieldsIdValue.isEmpty {
+
+            let workOrderModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
+            if workOrderModifIdValue.isEmpty {
                 continue
             }
 
-            if(fieldsIdValue == opportunityModifIdValue){
+            let fieldsOppurValue = fieldsToUpload["Id"] as? String ?? ""
+            if fieldsOppurValue.isEmpty {
+                continue
+            }
+
+            let fieldsWorkOrderValue = fieldsToUpload["SGWS_Work_Order__c"] as? String ?? ""
+            if fieldsWorkOrderValue.isEmpty {
+                continue
+            }
+            print("fieldsOppurValue : \(fieldsOppurValue)")
+            print("opportunityModifIdValue : \(opportunityModifIdValue)")
+            
+            print("fieldsWorkOrderValue : \(fieldsWorkOrderValue)")
+            print("workOrderModifIdValue : \(workOrderModifIdValue)")
+
+            if((fieldsOppurValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)) {
+                
+                print("oppotunityModif : \(oppotunityModif)")
                 oppotunityModif["SGWS_Outcome__c"] = fieldsToUpload["SGWS_Outcome__c"]
                 oppotunityModif[kSyncTargetLocal] = true
                 let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as! Bool
@@ -4139,6 +4211,7 @@ class StoreDispatcher {
                 }
                 oppotunityModif[kSyncTargetLocallyDeleted] = false
                 modifiedOpportunity = oppotunityModif
+                print("modifiedOpportunity : \(modifiedOpportunity)")
                 break
             }
         }
@@ -4146,6 +4219,8 @@ class StoreDispatcher {
         let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupOpportunityWorkorder)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
+            print("result : \(result)")
+
             let soupEntryId = result["_soupEntryId"]
             print("\(result) opportunity outcome is saved successfully" )
             print(soupEntryId!)

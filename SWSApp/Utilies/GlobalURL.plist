@@ -11,7 +11,7 @@
 	<key>retUrl</key>
 	<string>&amp;retURL=</string>
 	<key>googleUrl</key>
-	<string>http://www.google.com</string>
+	<string>https://www.google.com</string>
 	<key>contactPicklistValue</key>
 	<string>ui-api/object-info/Contact/picklist-values/</string>
 	<key>rules</key>

@@ -151,7 +151,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
 extension DuringVisitsInsightsViewController : UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
+       tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -160,6 +160,10 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -175,13 +179,13 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
              
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-             cell.r12Label.text = currentOpportunity.R12
+            cell.r12Label.text = currentOpportunity.R12
             cell.r6TrendLabel.text = currentOpportunity.R6Trend
             cell.r3TrendLabel.text = currentOpportunity.R3Trend
             cell.commitAmtTextFiels.text = currentOpportunity.commit
             cell.cellDelegate = self
             cell.commitAmtTextFiels.tag = indexPath.row
-             cell.outcomeButton.tag = indexPath.row
+            cell.outcomeButton.tag = indexPath.row
             cell.dropDown.dataSource = pickListValuesForOpportunities
             return cell
             
@@ -208,7 +212,7 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
             cell.commitAmtTextFiels.tag = indexPath.row
             cell.outcomeButton.tag = indexPath.row
             cell.cellDelegate = self
-             cell.dropDown.dataSource = pickListValuesForOpportunities
+            cell.dropDown.dataSource = pickListValuesForOpportunities
             return cell
             
         default:
@@ -225,8 +229,6 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
             cell.cellDelegate = self
             cell.dropDown.dataSource = pickListValuesForOpportunities
             return cell
-            
-            
             
         }
     }

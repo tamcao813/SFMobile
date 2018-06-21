@@ -61,8 +61,10 @@
 	<key>sgwsOutcome</key>
 	<string>/SGWS_Outcome__c</string>
 	<key>gospotcheckUrl</key>
-	<string>Gospotcheck://</string>
+	<string>GoSpotCheck://</string>
 	<key>topazUrl</key>
 	<string>Southernglazerstopaz://</string>
+	<key>gospotItuneUrl</key>
+	<string>itms://itunes.apple.com/us/app/gospotcheck-team/id571011905?platform=ipad&amp;preserveScrollPosition=true#platform/ipad</string>
 </dict>
 </plist>

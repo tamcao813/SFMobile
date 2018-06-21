@@ -10,8 +10,6 @@
 	<string>/one/one.app?source=alohaHeader#/sObject/Event/home</string>
 	<key>retUrl</key>
 	<string>&amp;retURL=</string>
-	<key>googleUrl</key>
-	<string>https://www.google.com</string>
 	<key>contactPicklistValue</key>
 	<string>ui-api/object-info/Contact/picklist-values/</string>
 	<key>rules</key>

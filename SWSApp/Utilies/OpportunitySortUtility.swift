@@ -217,10 +217,10 @@ class OpportunitySortUtility {
         // now search filtered list by search text
         let trimmedSearchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         if(trimmedSearchString != ""){
-            (filterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterBySearchText(opportunityToBeFiltered: opportunityToSearch!, searchText: trimmedSearchString)
+            (filterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterBySearchText(opportunityToBeFiltered : enteredAnyFilterCaseReturn ? filteredOpportunityArray : opportunityToSearch!, searchText: trimmedSearchString)
             if filterCaseReturn {
                 enteredAnyFilterCaseReturn = true
-                filteredOpportunityArray += filteredByReturnArray
+                filteredOpportunityArray = filteredByReturnArray
             }
         }
 

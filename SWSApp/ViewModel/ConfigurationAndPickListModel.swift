@@ -31,7 +31,7 @@ class ConfigurationAndPickListModel {
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 print("downloadVisitPLists: resync done")
-                completion(error)
+//                completion(error)
             }
             else {
                 
@@ -39,9 +39,9 @@ class ConfigurationAndPickListModel {
                     if error != nil {
                         print(error?.localizedDescription ?? "error")
                         print("downloadContactPLists: resync done")
-                        completion(error)
+//                        completion(error)
                     }else {
-                        completion(nil)
+//                        completion(nil)
                     }
                 }
             }

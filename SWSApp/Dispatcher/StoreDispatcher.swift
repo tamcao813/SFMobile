@@ -232,6 +232,9 @@ class StoreDispatcher {
                 print("syncUpOpportunity: Sync up failed")
             }
             self.reSyncOpportunity { error in
+                
+                let _ = OpportunityViewModel().globalOpportunityReload()
+                
                 group.leave()
                 
             }
@@ -250,12 +253,6 @@ class StoreDispatcher {
                 
             }
         })
-        
-        group.enter()
-        syncDownOpportunity() { _ in
-            let _ = OpportunityViewModel().globalOpportunityReload()
-            group.leave()
-        }
         
         group.enter()
         syncDownUploadOpportunity() { _ in
@@ -3566,11 +3563,6 @@ class StoreDispatcher {
     
     func reSyncOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         guard let sId = syncIdDictionary[SyncDownIdOpportunity] else { return completion(resyncError(syncConstant: SyncDownIdOpportunity))  }
-        /*
-        StoreDispatcher.shared.syncDownOpportunity() { _ in
-            let _ = OpportunityViewModel().globalOpportunityReload()
-//            completion(nil)
-        }*/
         return reSyncSoup(syncid: sId, syncConstant: SyncDownIdOpportunity, completion: completion)
 //        return completion(nil)
     }

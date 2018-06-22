@@ -86,10 +86,13 @@ class AccountVisitListViewController: UIViewController {
     
     //Get the data for the Selected dates to display in the list View
     func getTheDataFromDB(){
-        let visitArray = VisitsViewModel()
-        globalWorkorderObjectArray = visitArray.visitsForUser()
-        mainArray = globalWorkorderObjectArray//visitArray.visitsForUser()
-        tableViewDataArray = globalWorkorderObjectArray//visitArray.visitsForUser()
+//        let visitArray = VisitsViewModel()
+//        globalWorkorderObjectArray = visitArray.visitsForUser()
+//        mainArray = globalWorkorderObjectArray//visitArray.visitsForUser()
+        mainArray = GlobalWorkOrderArray.workOrderArray
+        tableViewDataArray = GlobalWorkOrderArray.workOrderArray
+//        tableViewDataArray = globalWorkorderObjectArray//visitArray.visitsForUser()
+        print("tableViewDataArray", tableViewDataArray)
         
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -262,7 +265,7 @@ extension AccountVisitListViewController : UITableViewDataSource {
         //cell?.delegate = self as! SwipeTableViewCellDelegate
         
 //        let celldata = tableViewDataArray[indexPath.row]
-        
+        print("")
         cell?.displayCellData(data: visitNEventCellData)
         
         return cell!

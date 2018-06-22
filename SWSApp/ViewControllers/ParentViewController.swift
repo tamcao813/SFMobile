@@ -24,6 +24,7 @@ struct SyncUpDailogGlobal {
     static var isSyncing = false
     static var syncType = "automtic"
     static var isSyncError = false
+    
 }
 
 struct ActionItemsGlobal {
@@ -62,6 +63,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var previouslySelectedVCIndex = 0
     
     var ifMoreVC = false
+    var isVisitSynDownComplete = false
     let contact = Contact.init(for: "loggedInUser")
     
     let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
@@ -556,9 +558,25 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
+            
             print("syncVisitsWithServer")
             self.syncProgress +=  syncObjectProgressIncrement
             self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+            self.isVisitSynDownComplete = true
+            
+            
+            if self.isVisitSynDownComplete {
+                group.enter()
+                    DispatchQueue.global(qos: .background).async {
+                        GlobalWorkOrderArray.workOrderArray = StoreDispatcher.shared.fetchVisits()
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+                    }
+                    group.leave()
+                }
+            }
             group.leave()
         }
         
@@ -705,9 +723,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)

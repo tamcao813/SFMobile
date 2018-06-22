@@ -10,6 +10,10 @@ import UIKit
 import SmartStore
 import SmartSync
 
+struct GlobalWorkOrderArray {
+    static var workOrderArray  =  [WorkOrderUserObject]()
+}
+
 class HomeViewController: UIViewController {
     
     let userViewModel = UserViewModel()
@@ -20,6 +24,7 @@ class HomeViewController: UIViewController {
     //MARK: - ViewLifeCycle Methods
     override func viewDidLoad() {
         loggerInUser = userViewModel.loggedInUser
+        GlobalWorkOrderArray.workOrderArray = StoreDispatcher.shared.fetchVisits()
         
         
     }

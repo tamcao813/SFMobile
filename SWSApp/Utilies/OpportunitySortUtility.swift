@@ -217,10 +217,10 @@ class OpportunitySortUtility {
         // now search filtered list by search text
         let trimmedSearchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         if(trimmedSearchString != ""){
-            (filterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterBySearchText(opportunityToBeFiltered: opportunityToSearch!, searchText: trimmedSearchString)
+            (filterCaseReturn, filteredByReturnArray) = OpportunitySortUtility.filterOpportunityByFilterBySearchText(opportunityToBeFiltered : enteredAnyFilterCaseReturn ? filteredOpportunityArray : opportunityToSearch!, searchText: trimmedSearchString)
             if filterCaseReturn {
                 enteredAnyFilterCaseReturn = true
-                filteredOpportunityArray += filteredByReturnArray
+                filteredOpportunityArray = filteredByReturnArray
             }
         }
 
@@ -248,7 +248,7 @@ class OpportunitySortUtility {
             filteredStatusOpenOpportunityArray = opportunityToBeFiltered.filter( { return
                 (OpportunitiesFilterMenuModel.statusOpen == "YES" && $0.status == "Open") ||
                 (OpportunitiesFilterMenuModel.statusPlanned == "YES" && $0.status == "Planned") ||
-                (OpportunitiesFilterMenuModel.statusClosedWon == "YES" && $0.status == "Closed-Won") ||
+                (OpportunitiesFilterMenuModel.statusClosedWon == "YES" && $0.status == "Closed Won") ||
                 (OpportunitiesFilterMenuModel.statusClosed == "YES" && $0.status == "Closed") } )
             
             if filteredStatusOpenOpportunityArray.count > 0 {
@@ -265,7 +265,7 @@ class OpportunitySortUtility {
         var filteredOpportunityArray = [Opportunity]()
         var enteredAnyFilterCase = false
         
-        if (OpportunitiesFilterMenuModel.sourceOverview == "YES" || OpportunitiesFilterMenuModel.statusPlanned == "YES" || OpportunitiesFilterMenuModel.statusClosedWon == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES") {
+        if (OpportunitiesFilterMenuModel.sourceOverview == "YES" || OpportunitiesFilterMenuModel.sourceTopSellers == "YES" || OpportunitiesFilterMenuModel.sourceUndersold == "YES" || OpportunitiesFilterMenuModel.sourceHotNot == "YES" || OpportunitiesFilterMenuModel.sourceUnsold == "YES") {
             
             var filteredStatusOpenOpportunityArray = [Opportunity]()
             

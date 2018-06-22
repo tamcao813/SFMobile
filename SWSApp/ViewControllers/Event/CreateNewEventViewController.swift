@@ -10,6 +10,10 @@ import UIKit
 import IQKeyboardManagerSwift
 import SmartSync
 
+protocol CreateNewEventControllerDelegate : NSObjectProtocol{
+    func updateEventListFromCreate()
+}
+
 struct CreateNewEventViewControllerGlobals {
     
     static var userInput = false
@@ -48,6 +52,7 @@ class CreateNewEventViewController: UIViewController {
     var selectedContact: Contact!
     var eventWorkOrderObject: WorkOrderUserObject!
     var visitViewModel = VisitSchedulerViewModel()
+    weak var delegate: CreateNewEventControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,7 +128,7 @@ class CreateNewEventViewController: UIViewController {
                 }
             }else{
                 self.dismiss(animated: true, completion: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                self.delegate?.updateEventListFromCreate()
             }
         }
     }
@@ -136,12 +141,12 @@ class CreateNewEventViewController: UIViewController {
                     editCurrentEvent()
                     DispatchQueue.main.async {
                         self.dismiss(animated: true)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                        self.delegate?.updateEventListFromCreate()
                     }
                 }
             }else{
                 createNewEvent()
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                self.delegate?.updateEventListFromCreate()
             }
         }
     }
@@ -168,6 +173,8 @@ class CreateNewEventViewController: UIViewController {
         }
         PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
         PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
+        PlanVisitManager.sharedInstance.visit?.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)
+        PlanVisitManager.sharedInstance.visit?.dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.endDate)!)
         //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
         PlanVisitManager.sharedInstance.visit?.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforEvent()
         
@@ -175,8 +182,18 @@ class CreateNewEventViewController: UIViewController {
         PlanVisitManager.sharedInstance.visit?.location = CreateNewEventViewControllerGlobals.location
         PlanVisitManager.sharedInstance.visit?.description = CreateNewEventViewControllerGlobals.description
         PlanVisitManager.sharedInstance.visit?.sgwsAlldayEvent = CreateNewEventViewControllerGlobals.allDayEventSelected
+        PlanVisitManager.sharedInstance.visit?.accountName = selectedAccount.accountName
+        PlanVisitManager.sharedInstance.visit?.accountNumber = selectedAccount.accountNumber
+        PlanVisitManager.sharedInstance.visit?.shippingStreet = selectedAccount.shippingStreet
+        PlanVisitManager.sharedInstance.visit?.shippingCity = selectedAccount.shippingCity
+        PlanVisitManager.sharedInstance.visit?.shippingState = selectedAccount.shippingState
+        PlanVisitManager.sharedInstance.visit?.shippingPostalCode = selectedAccount.shippingPostalCode
         
         let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        
+        if let row = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == PlanVisitManager.sharedInstance.visit?.Id}) {
+            GlobalWorkOrderArray.workOrderArray[row] = PlanVisitManager.sharedInstance.visit!
+        }
     }
     
     func allFieldsAreValidated() -> Bool{
@@ -302,7 +319,7 @@ class CreateNewEventViewController: UIViewController {
             let event = WorkOrderUserObject(for: "")
             //Add the soup entry Id
             event.Id = new_Event.Id//String((success,Id).1)
-            event.accountId = new_Event.accountId
+            
             event.soupEntryId = soupID
             event.contactId = new_Event.contactId
             event.startDate = new_Event.startDate
@@ -313,8 +330,18 @@ class CreateNewEventViewController: UIViewController {
             event.subject = new_Event.subject
             event.location = new_Event.location
             event.sgwsAlldayEvent = new_Event.sgwsAlldayEvent
+            event.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: new_Event.startDate)
+            event.dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: new_Event.endDate)
+            event.accountId = new_Event.accountId
+            event.accountName = selectedAccount.accountName
+            event.accountNumber = selectedAccount.accountNumber
+            event.shippingStreet = selectedAccount.shippingStreet
+            event.shippingCity = selectedAccount.shippingCity
+            event.shippingState = selectedAccount.shippingState
+            event.shippingPostalCode = selectedAccount.shippingPostalCode
             
             PlanVisitManager.sharedInstance.visit = event
+        GlobalWorkOrderArray.workOrderArray.append(PlanVisitManager.sharedInstance.visit!)
         }
         
         if(success){

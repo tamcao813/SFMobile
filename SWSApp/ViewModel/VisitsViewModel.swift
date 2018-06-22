@@ -17,7 +17,8 @@ class VisitsViewModel {
     let consultantAry = UserViewModel().consultants
     
     func visitsForUser() -> [WorkOrderUserObject] {
-        return StoreDispatcher.shared.fetchVisits()
+      //  return StoreDispatcher.shared.fetchVisits()
+        return GlobalWorkOrderArray.workOrderArray
     }
     
     func visitsForUserFourMonthsSorted() -> [WorkOrderUserObject] {

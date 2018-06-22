@@ -45,6 +45,8 @@ class OpportunityViewModel {
                     completion(error)
                 }
                 else {
+                    let _ = OpportunityViewModel().globalOpportunityReload()
+
                     completion(nil)
                 }
             }

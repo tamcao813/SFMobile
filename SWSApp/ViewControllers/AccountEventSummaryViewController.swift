@@ -61,7 +61,8 @@ class AccountEventSummaryViewController: UIViewController {
     
     func fetchVisit(){
         if let id = visitId{
-            let visitArray = VisitsViewModel().visitsForUser()
+//            let visitArray = VisitsViewModel().visitsForUser()
+            let visitArray = GlobalWorkOrderArray.workOrderArray
             for visit in visitArray {
                 if visit.Id == id {
                     visitObject = visit
@@ -91,17 +92,21 @@ class AccountEventSummaryViewController: UIViewController {
     
     func fetchContactDetails(){
         if let contactId = visitObject?.contactId {
-            var contactsArray = ContactsViewModel().globalContacts()
-            contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
-            for contact in contactsArray {
-                if contact.contactId == contactId {
-                    selectedContact = contact
-                    break
-                } else {
-                    selectedContact = nil
+            if contactId.isEmpty {
+                selectedContact = nil
+            } else {
+                var contactsArray = ContactsViewModel().globalContacts()
+                contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
+                for contact in contactsArray {
+                    if contact.contactId == contactId {
+                        selectedContact = contact
+                        break
+                    } else {
+                        selectedContact = nil
+                    }
                 }
-                
             }
+
         }
         tableView.reloadData()
     }
@@ -175,10 +180,15 @@ class AccountEventSummaryViewController: UIViewController {
             
             let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
             
+            if let index = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == self.visitObject?.Id}) {
+                GlobalWorkOrderArray.workOrderArray.remove(at: index)
+            }
+            
             if(success){
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
                 
                 self.dismiss(animated: true, completion: nil)
             }
@@ -196,7 +206,7 @@ class AccountEventSummaryViewController: UIViewController {
         let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
         
         createEventViewController.isEditingMode = true
-        
+        createEventViewController.delegate = self
         createEventViewController.selectedAccount = accountObject
         createEventViewController.selectedContact = selectedContact
         createEventViewController.eventWorkOrderObject = visitObject
@@ -427,5 +437,11 @@ extension AccountEventSummaryViewController : NavigateToAccountVisitSummaryDeleg
             }
         }
    // }
+}
+
+extension AccountEventSummaryViewController : CreateNewEventControllerDelegate {
+    func updateEventListFromCreate() {
+        fetchVisit()
+    }
 }
 

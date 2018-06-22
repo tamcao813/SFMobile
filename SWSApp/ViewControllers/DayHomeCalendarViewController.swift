@@ -190,6 +190,7 @@ class DayHomeCalendarViewController: UIViewController {
         let eventStoryboard = UIStoryboard.init(name: "CreateEvent", bundle: nil)
         let createEventViewController = eventStoryboard.instantiateViewController(withIdentifier: "CreateNewEventViewController") as? CreateNewEventViewController
         createEventViewController?.isEditingMode = false
+        createEventViewController?.delegate = self
         PlanVisitManager.sharedInstance.visit = nil
         DispatchQueue.main.async {
             self.present(createEventViewController!, animated: false, completion: nil)
@@ -303,6 +304,13 @@ extension DayHomeCalendarViewController: WRWeekViewDelegate {
 }
 extension DayHomeCalendarViewController: CreateNewVisitViewControllerDelegate {
     func updateVisitListFromCreate() {
+        self.globalVisit = CalendarViewModel().loadVisitData()!
+        self.reloadCalendarView()
+    }
+}
+
+extension DayHomeCalendarViewController : CreateNewEventControllerDelegate {
+    func updateEventListFromCreate() {
         self.globalVisit = CalendarViewModel().loadVisitData()!
         self.reloadCalendarView()
     }

@@ -143,6 +143,9 @@ class ServicePurposesViewController: UIViewController {
             PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = stringRepresentation
            // PlanVisitManager.sharedInstance.sgwsAgendaNotes =
             let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
+            if let row = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == PlanVisitManager.sharedInstance.visit?.Id}) {
+                GlobalWorkOrderArray.workOrderArray[row] = PlanVisitManager.sharedInstance.visit!
+            }
             print(status)
         }
         

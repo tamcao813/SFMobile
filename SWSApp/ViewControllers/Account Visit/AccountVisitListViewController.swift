@@ -86,10 +86,13 @@ class AccountVisitListViewController: UIViewController {
     
     //Get the data for the Selected dates to display in the list View
     func getTheDataFromDB(){
-        let visitArray = VisitsViewModel()
-        globalWorkorderObjectArray = visitArray.visitsForUser()
-        mainArray = globalWorkorderObjectArray//visitArray.visitsForUser()
-        tableViewDataArray = globalWorkorderObjectArray//visitArray.visitsForUser()
+//        let visitArray = VisitsViewModel()
+//        globalWorkorderObjectArray = visitArray.visitsForUser()
+//        mainArray = globalWorkorderObjectArray//visitArray.visitsForUser()
+        mainArray = GlobalWorkOrderArray.workOrderArray
+        tableViewDataArray = GlobalWorkOrderArray.workOrderArray
+//        tableViewDataArray = globalWorkorderObjectArray//visitArray.visitsForUser()
+        print("tableViewDataArray", tableViewDataArray)
         
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -162,6 +165,7 @@ class AccountVisitListViewController: UIViewController {
             switch index {
             case CreateNewItem.visit.rawValue :
                 let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+                createVisitViewController.delegate = self
                 createVisitViewController.isEditingMode = false
                 PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
@@ -169,6 +173,7 @@ class AccountVisitListViewController: UIViewController {
                 }
             case CreateNewItem.event.rawValue:
                 let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
+                createEventViewController.delegate = self
                 PlanVisitManager.sharedInstance.visit = nil
                 DispatchQueue.main.async {
                     self.present(createEventViewController, animated: false, completion: nil)
@@ -262,7 +267,7 @@ extension AccountVisitListViewController : UITableViewDataSource {
         //cell?.delegate = self as! SwipeTableViewCellDelegate
         
 //        let celldata = tableViewDataArray[indexPath.row]
-        
+        print("")
         cell?.displayCellData(data: visitNEventCellData)
         
         return cell!
@@ -702,6 +707,18 @@ extension AccountVisitListViewController{
         for i in 1...kNoOfPagesInEachSet {
             pageButtonArr[i].setTitle(String(lastSetNo + i), for: .normal)
         }
+    }
+}
+
+extension AccountVisitListViewController: CreateNewVisitViewControllerDelegate {
+    func updateVisitListFromCreate() {
+        getTheDataFromDB()
+    }
+}
+
+extension AccountVisitListViewController : CreateNewEventControllerDelegate {
+    func updateEventListFromCreate() {
+        getTheDataFromDB()
     }
 }
 

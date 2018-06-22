@@ -118,7 +118,8 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     func fetchVisit(visitIdTemp:String?){
 
         if let id = visitIdTemp{
-            let visitArray = VisitsViewModel().visitsForUser()
+//            let visitArray = VisitsViewModel().visitsForUser()
+            let visitArray = GlobalWorkOrderArray.workOrderArray
             for visit in visitArray {
                 if visit.Id == id {
                     visitObject = visit
@@ -136,7 +137,8 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     func fetchVisit(){
         
         if let id = visitId{
-            let visitArray = VisitsViewModel().visitsForUser()
+//            let visitArray = VisitsViewModel().visitsForUser()
+            let visitArray = GlobalWorkOrderArray.workOrderArray
             for visit in visitArray {
                 if visit.Id == id {
                     visitObject = visit
@@ -165,14 +167,19 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     /// fetchContactDetails will fetch both Global and SGWS contact
     func fetchContactDetails(){
         if let contactId = visitObject?.contactId {
-            var contactsArray = ContactsViewModel().globalContacts()
-            contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
-            for contact in contactsArray {
-                if contact.contactId == contactId {
-                    selectedContact = contact
-                    break
-                } else {
-                    selectedContact = nil
+            if contactId.isEmpty {
+                selectedContact = nil
+            } else {
+                var contactsArray = ContactsViewModel().globalContacts()
+                contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
+                for contact in contactsArray {
+                    if contact.contactId == contactId {
+                        selectedContact = contact
+                        break
+                    } else {
+                        selectedContact = nil
+                    }
+                    
                 }
                 
             }
@@ -281,9 +288,14 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             
             let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
             
+            if let index = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == self.visitObject?.Id}) {
+                GlobalWorkOrderArray.workOrderArray.remove(at: index)
+            }
+            
             if(success){
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                 self.dismiss(animated: true, completion: nil)
             }

@@ -35,13 +35,6 @@
     <string></string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-        <key>NSAllowsArbitraryLoadsInWebContent</key>
-        <true/>
-    </dict>
     <key>SFDCOAuthLoginHost</key>
     <string>sgws-de--detest.cs77.my.salesforce.com</string>
     <key>UIAppFonts</key>
@@ -84,10 +77,10 @@
 	<string>App Needs Location permission.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>App Needs Location permission.</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>itms</string>
-		<string>GoSpotCheck</string>
-	</array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>itms</string>
+        <string>GoSpotCheck</string>
+    </array>
 </dict>
 </plist>

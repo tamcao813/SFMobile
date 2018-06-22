@@ -726,6 +726,53 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         // Start sync progress
     }
     
+    
+    //MARK: calling GospotCheck
+    func launchGospotCheckApp() {
+        DispatchQueue.main.async {
+            if let url = URL(string: StringConstants.gospotcheckUrl)
+            {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.open(url)
+                }
+                else
+                {
+                    let url  = URL(string: StringConstants.gospotItuneUrl)
+                    
+                    if UIApplication.shared.canOpenURL(url!) {
+                        UIApplication.shared.open(url!)
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    //MARK:Calling Topaz URL
+    func launchTopazApp() {
+        DispatchQueue.main.async {
+            if let url = URL(string: StringConstants.topazUrl)
+            {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.open(url)
+                }
+                else
+                {
+                    let alert = UIAlertController(title: "Alert", message: "Topaz app is not installed", preferredStyle: .alert)
+                    
+                    let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    
+                    alert.addAction(cancelAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }
+            }
+        }
+        
+    }
+    
     private func setupTopMenuItems(){
         
         // get the menu items from localized strings
@@ -812,9 +859,17 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         let moreVC1:MoreViewController = self.moreVC as! MoreViewController
         let currentViewController = self.displayCurrentTab(selectedIndex)
         
+        if index == 6{
+            launchTopazApp()
+            return
+        }else if index == 8{
+            launchGospotCheckApp()
+            return
+        }
+                
         self.removeSubviews()
-        
         currentViewController?.view.addSubview(moreVC1.view)
+        SelectedMoreButton.selectedItem = index
         
         if index != 1{
             let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
@@ -823,7 +878,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         
         self.clearAccountsVisitFilterModel()
         
-        SelectedMoreButton.selectedItem = index
         //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
         switch index {
         case 0:
@@ -849,13 +903,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             moreVC1.view.addSubview((self.chatterViewController?.view)!)
             self.moreDropDownSelectionIndex = index
         case 6:
-            self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
+            launchTopazApp()
+            //self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
         case 7:
             self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
         case 8:
-            moreVC1.view.addSubview((self.gospotcheckViewController?.view)!)
-            self.moreDropDownSelectionIndex = index
-
+            launchGospotCheckApp()
+            //moreVC1.view.addSubview((self.gospotcheckViewController?.view)!)
+           // self.moreDropDownSelectionIndex = index
             
         default:
             break

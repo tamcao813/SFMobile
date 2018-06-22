@@ -219,8 +219,18 @@ static NSString * const kSFSoqlSyncTargetQuery = @"query";
         if ([[query lowercaseString] rangeOfString:@" where "].location != NSNotFound) {
             queryToRun = [SFSoqlSyncDownTarget appendToFirstOccurence:query pattern:@" where " stringToAppend:[@[extraPredicate, @" and "] componentsJoinedByString:@""]];
         } else {
-            if (([query rangeOfString:@"from Opportunity_Objective_Junction__r"].location != NSNotFound) && ([query rangeOfString:@"from OpportunityLineItems"].location != NSNotFound)) {
-                queryToRun = [NSString stringWithFormat:@"%@ %@", query, [@[@" where ", extraPredicate] componentsJoinedByString:@""]];
+            
+            NSString *strObj = @"from Opportunity_Objective_Junction__r";
+            NSString *strOpp = @"from OpportunityLineItems";
+            
+            if (([query rangeOfString:strObj].location != NSNotFound) && ([query rangeOfString:strOpp].location != NSNotFound)) {
+                
+                NSString *strPrediate = [@[@" where ", extraPredicate] componentsJoinedByString:@""];
+                
+                query = [query stringByReplacingOccurrencesOfString:strObj withString:[NSString stringWithFormat:@"%@%@", strObj, strPrediate]];
+                query = [query stringByReplacingOccurrencesOfString:strOpp withString:[NSString stringWithFormat:@"%@%@", strOpp, strPrediate]];
+
+                queryToRun = [NSString stringWithFormat:@"%@%@", query, strPrediate];
             }
             else {
                 queryToRun = [SFSoqlSyncDownTarget appendToFirstOccurence:query pattern:@" from[ ]+[^ ]*" stringToAppend:[@[@" where ", extraPredicate] componentsJoinedByString:@""]];

@@ -206,7 +206,7 @@ class AccountEventSummaryViewController: UIViewController {
         let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
         
         createEventViewController.isEditingMode = true
-        
+        createEventViewController.delegate = self
         createEventViewController.selectedAccount = accountObject
         createEventViewController.selectedContact = selectedContact
         createEventViewController.eventWorkOrderObject = visitObject
@@ -437,5 +437,11 @@ extension AccountEventSummaryViewController : NavigateToAccountVisitSummaryDeleg
             }
         }
    // }
+}
+
+extension AccountEventSummaryViewController : CreateNewEventControllerDelegate {
+    func updateEventListFromCreate() {
+        fetchVisit()
+    }
 }
 

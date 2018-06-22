@@ -64,6 +64,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     var ifMoreVC = false
     var isVisitSynDownComplete = false
+    var isAccountSyncDownComplete =  false
     let contact = Contact.init(for: "loggedInUser")
     
     let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
@@ -664,6 +665,16 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             print("syncAccountWithServer")
             self.syncProgress +=  syncObjectProgressIncrement
             self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+            if self.isAccountSyncDownComplete {
+                group.enter()
+                DispatchQueue.global(qos: .background).async {
+                    GlobalWorkOrderArray.accountArray = StoreDispatcher.shared.fetchAccountsForLoggedUser()
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+                    }
+                    group.leave()
+                }
+            }
             group.leave()
         }
         

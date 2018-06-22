@@ -132,7 +132,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     //Fetch the from Accounts View Model
     func fetchAccountDetails(){
         if let accountId = visitInformation?.accountId {
-            let accountsArray = AccountsViewModel().accountsForLoggedUser()
+            let accountsArray = GlobalWorkOrderArray.accountArray
             accountObject = accountsArray.filter({$0.account_Id == accountId }).first
         }
     }

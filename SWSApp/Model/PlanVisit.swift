@@ -88,7 +88,7 @@ class PlanVisit {
         
         
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
-        let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
+        let globalAccountsForLoggedUser = GlobalWorkOrderArray.accountArray
         
         
 //        if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == StoreDispatcher.shared.workOrderRecordTypeIdVisit){

@@ -37,6 +37,12 @@ class SelectOpportunitiesViewController: UIViewController {
         super.viewDidDisappear(animated)
         print("Plan VC will disappear")
         PlanVisitManager.sharedInstance.editPlanVisit = false
+        
+//        for data in opportunityList{
+//            data.isOpportunitySelected = false
+//        }
+        
+        
     }
     
     // MARK:- Custom Function
@@ -165,7 +171,6 @@ class SelectOpportunitiesViewController: UIViewController {
         
     }
     
-    
     //MARK:- Sort Button Actions
     @IBAction func actionSortProductName(_ sender: Any) {
         
@@ -288,8 +293,25 @@ class SelectOpportunitiesViewController: UIViewController {
 //MARK:- TableView DataSource Methods
 extension SelectOpportunitiesViewController : UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return opportunityList.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0{
+            return 0
+        }
+        return 8
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView:UIView = UIView()
+        headerView.backgroundColor = UIColor.white
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -297,14 +319,13 @@ extension SelectOpportunitiesViewController : UITableViewDataSource {
         cell?.selectionStyle = .none
         if selectedOpportunitiesFromDB.count > 0 {
             
-            if (selectedOpportunitiesFromDB.contains(where: {($0.workOrder == opportunityList[indexPath.row].id)})) {
-                opportunityList[indexPath.row].isOpportunitySelected = true
+            if (selectedOpportunitiesFromDB.contains(where: {($0.workOrder == opportunityList[indexPath.section].id)})) {
+                opportunityList[indexPath.section].isOpportunitySelected = true
             }
         }
-        cell?.displayCellContent(opportunityList[indexPath.row])
+        cell?.displayCellContent(opportunityList[indexPath.section])
         return cell ?? UITableViewCell()
     }
-    
 }
 
 
@@ -312,19 +333,19 @@ extension SelectOpportunitiesViewController : UITableViewDataSource {
 extension SelectOpportunitiesViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return  81
+        return  80
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
-        if  opportunityList[indexPath.row].isOpportunitySelected == false{
-             opportunityList[indexPath.row].isOpportunitySelected = true
+        if  opportunityList[indexPath.section].isOpportunitySelected == false{
+             opportunityList[indexPath.section].isOpportunitySelected = true
         }else{
-           opportunityList[indexPath.row].isOpportunitySelected = false
-            self.unselectedOpportunityList.append(opportunityList[indexPath.row])
+           opportunityList[indexPath.section].isOpportunitySelected = false
+            self.unselectedOpportunityList.append(opportunityList[indexPath.section])
         }
-        if opportunityList[indexPath.row].isOpportunitySelected {
-            SelectOpportunitiesViewController.selectedOpportunitiesList.append(opportunityList[indexPath.row])
+        if opportunityList[indexPath.section].isOpportunitySelected {
+            SelectOpportunitiesViewController.selectedOpportunitiesList.append(opportunityList[indexPath.section])
         }
         self.opportunitiesListView.reloadData()
     }

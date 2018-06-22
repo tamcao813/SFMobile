@@ -65,9 +65,9 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5678 W. Main St. New York, NY 54331" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fy5-Wo-f3L">
-                                                            <rect key="frame" x="353.5" y="21" width="285" height="41"/>
+                                                            <rect key="frame" x="354" y="21" width="250" height="41"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="285" id="ae5-S3-6oZ"/>
+                                                                <constraint firstAttribute="width" constant="250" id="ae5-S3-6oZ"/>
                                                                 <constraint firstAttribute="height" constant="41" id="r3a-X6-l5n"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
@@ -327,6 +327,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SlT-zI-xB2">
+                                        <rect key="frame" x="8" y="-2" width="943" height="77"/>
+                                        <connections>
+                                            <action selector="accountsDetailsButtonClickedWithSender:" destination="idV-bH-NYZ" eventType="touchUpInside" id="m3J-qE-Aat"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -335,8 +341,12 @@
                                     <constraint firstAttribute="height" constant="80" id="Fq2-nE-ZHd"/>
                                     <constraint firstItem="5Mj-7Y-art" firstAttribute="top" secondItem="zf1-79-iKs" secondAttribute="top" constant="2" id="GeF-0t-3nb"/>
                                     <constraint firstItem="KEX-NN-470" firstAttribute="top" secondItem="zf1-79-iKs" secondAttribute="top" constant="23" id="O9l-yg-br2"/>
+                                    <constraint firstAttribute="trailing" secondItem="SlT-zI-xB2" secondAttribute="trailing" constant="8" id="OjL-d2-Rs1"/>
                                     <constraint firstItem="KAr-Up-7Q9" firstAttribute="leading" secondItem="zf1-79-iKs" secondAttribute="leading" constant="26" id="PMB-XW-b3p"/>
+                                    <constraint firstItem="SlT-zI-xB2" firstAttribute="top" secondItem="zf1-79-iKs" secondAttribute="top" constant="-2" id="Wsg-Fe-coR"/>
+                                    <constraint firstItem="SlT-zI-xB2" firstAttribute="leading" secondItem="zf1-79-iKs" secondAttribute="leading" constant="8" id="bd1-62-mjQ"/>
                                     <constraint firstItem="KAr-Up-7Q9" firstAttribute="top" secondItem="KEX-NN-470" secondAttribute="bottom" constant="2" id="lzQ-Gx-5kI"/>
+                                    <constraint firstAttribute="bottom" secondItem="SlT-zI-xB2" secondAttribute="bottom" constant="5" id="nGg-7a-YDa"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">

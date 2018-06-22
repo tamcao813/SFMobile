@@ -11,7 +11,8 @@ import UIKit
 class OpportunityWorkorder {
 
     static let opportunityWorkorderFields: [String] = [ "Id", "SGWS_Opportunity__c", "SGWS_Work_Order__c", "SGWS_Outcome__c" ]
-    static let opportunityWorkorderSyncUpFields: [String] = [ "SGWS_Opportunity__c", "SGWS_Work_Order__c", "SGWS_Outcome__c" ]
+//    static let opportunityWorkorderSyncUpFields: [String] = [ "SGWS_Opportunity__c", "SGWS_Work_Order__c", "SGWS_Outcome__c" ]
+    static let opportunityWorkorderSyncUpFields: [String] = [ "SGWS_Outcome__c" ]
 
     var id: String
     var opportunityId: String

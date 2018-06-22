@@ -11,6 +11,10 @@ import UIKit
 import IQKeyboardManagerSwift
 import SmartSync
 
+protocol CreateNewVisitViewControllerDelegate : NSObjectProtocol{
+    func updateVisitListFromCreate()
+}
+
 class CreateNewVisitViewController: UIViewController {
     
     @IBOutlet weak var headingLabel: UILabel!
@@ -27,6 +31,8 @@ class CreateNewVisitViewController: UIViewController {
     var visitObject: WorkOrderUserObject?
     @IBOutlet weak var errorLbl: UILabel!
     var visitViewModel = VisitSchedulerViewModel()
+    weak var delegate: CreateNewVisitViewControllerDelegate?
+
     
     //TextFields
     var searchAccountTextField: UITextField!
@@ -210,8 +216,8 @@ class CreateNewVisitViewController: UIViewController {
                 }
             }else{
                 createNewVisit(dismiss: true)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             }
         }
     }
@@ -262,7 +268,8 @@ class CreateNewVisitViewController: UIViewController {
         PlanVisitManager.sharedInstance.visit?.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforVisit()
         
         let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+        self.delegate?.updateVisitListFromCreate()
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
     }
     
     func createNewVisit(dismiss: Bool) {
@@ -356,11 +363,12 @@ class CreateNewVisitViewController: UIViewController {
         }
         
         if(success){
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+            self.delegate?.updateVisitListFromCreate()
             let visitDataDict:[String: WorkOrderUserObject] = ["visit": PlanVisitManager.sharedInstance.visit!]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisit"), object:nil, userInfo: visitDataDict)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             if dismiss {
                 DispatchQueue.main.async {

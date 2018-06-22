@@ -10,7 +10,7 @@ import Foundation
 
 class Contact {
     
-    static let ContactFields: [String] = ["Id", "SGWS_TECH_MobileField__c", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buying_Power__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Site_Number__c","SGWS_Title__c","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","SGWS_AppModified_DateTime__c","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","Fax","SGWS_Other_Specification__c","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c", "SGWS_Contact_Classification__c"]
+    static let ContactFields: [String] = ["Id", "SGWS_TECH_MobileField__c", "Name", "FirstName", "LastName", "Phone", "Email", "Birthdate","SGWS_Buying_Power__c","AccountId", "Account.SWS_Account_Site__c","SGWS_Site_Number__c","SGWS_Title__c","Department","SGWS_Preferred_Name__c","SGWS_Contact_Hours__c","SGWS_Notes__c", "LastModifiedBy.Name","SGWS_AppModified_DateTime__c","SGWS_Child_1_Name__c","SGWS_Child_1_Birthday__c","SGWS_Child_2_Name__c","SGWS_Child_2_Birthday__c","SGWS_Child_3_Name__c","SGWS_Child_3_Birthday__c","SGWS_Child_4_Name__c","SGWS_Child_4_Birthday__c","SGWS_Child_5_Name__c","SGWS_Child_5_Birthday__c","SGWS_Anniversary__c","SGWS_Likes__c","SGWS_Dislikes__c","SGWS_Favorite_Activities__c","SGWS_Life_Events__c","SGWS_Life_Events_Date__c","Fax","SGWS_Other_Specification__c","SGWS_Roles__c","SGWS_Preferred_Communication_Method__c", "SGWS_Contact_Classification__c","SGWS_SFA_Customer_Check__c"]
     
     
     var contactId: String
@@ -54,7 +54,7 @@ class Contact {
     var otherSpecification: String
     var _soupEntryId: Int  //should not need this
     var tempId: String
-    
+    var sgws_sfa_customer_check: Bool
     
     convenience init(withAry resultDict: [String:Any]) {
         //  let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
@@ -121,6 +121,8 @@ class Contact {
         otherSpecification = json["SGWS_Other_Specification__c"] as? String ?? ""
         _soupEntryId = json["_soupEntryId"] as? Int ?? 0
         tempId = json["SGWS_TECH_MobileField__c"] as? String ?? ""
+        sgws_sfa_customer_check = true
+
     }
     
     func toJson() -> [String:Any] { //only pak the fields we need
@@ -233,6 +235,9 @@ class Contact {
         
         json["_soupEntryId"] = _soupEntryId
         
+        //SGWS_SFA_Customer_Check__c make true , since Contact is created from Mobile
+        json["SGWS_SFA_Customer_Check__c"] = true
+        
         return json
     }
     
@@ -279,6 +284,7 @@ class Contact {
         contactClassification = ""
         otherSpecification = ""
         _soupEntryId = 0
+        sgws_sfa_customer_check = true
     }
     
     func getIntials(name: String) -> String{

@@ -95,6 +95,16 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     
     //MARK:- Custom Methods
     
+    func refreshVisitsCalendar() {
+        let tempVisitArray = delegate?.arrayFetch()
+        let eventsFiltered = CalendarSortUtility.searchCalendarBySearchBarQuery(calendarEvents: tempVisitArray, searchText: CalendarFilterMenuModel.searchText)
+        self.visits = eventsFiltered!
+        dateInc = 1
+        UIView.performWithoutAnimation {
+            collectionView?.reloadData()
+        }
+    }
+    
     func getAttributedSting(date:Date, title:String) -> NSMutableAttributedString {
         
         let timeAttributes = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 9)]

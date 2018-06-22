@@ -11,7 +11,8 @@ import UIKit
 class OpportunityWorkorder {
 
     static let opportunityWorkorderFields: [String] = [ "Id", "SGWS_Opportunity__c", "SGWS_Work_Order__c", "SGWS_Outcome__c" ]
-    static let opportunityWorkorderSyncUpFields: [String] = [ "SGWS_Opportunity__c", "SGWS_Work_Order__c", "SGWS_Outcome__c" ]
+//    static let opportunityWorkorderSyncUpFields: [String] = [ "SGWS_Opportunity__c", "SGWS_Work_Order__c", "SGWS_Outcome__c" ]
+    static let opportunityWorkorderSyncUpFields: [String] = [ "SGWS_Outcome__c" ]
 
     var id: String
     var opportunityId: String
@@ -20,7 +21,7 @@ class OpportunityWorkorder {
 
     convenience init(withAry ary: [Any]) {
         
-        let resultDict = Dictionary(uniqueKeysWithValues: zip(Opportunity.opportunityFields, ary))
+        let resultDict = Dictionary(uniqueKeysWithValues: zip(OpportunityWorkorder.opportunityWorkorderFields, ary))
         self.init(json: resultDict)
     }
     
@@ -30,17 +31,8 @@ class OpportunityWorkorder {
         
         id = json["Id"] as? String ?? ""
         opportunityId = json["SGWS_Opportunity__c"] as? String ?? ""
-        if opportunityId == "" {
-            opportunityId = json["AccountId"] as? String ?? ""
-        }
         workOrder = json["SGWS_Work_Order__c"] as? String ?? ""
-        if workOrder == "" {
-            workOrder = json["sgws_source__c"] as? String ?? ""
-        }
         outcome = json["SGWS_Outcome__c"] as? String ?? ""
-        if outcome == "" {
-            outcome = json["SGWS_PYCM_Sold__c"] as? String ?? ""
-        }
     }
     
     init(for: String) {

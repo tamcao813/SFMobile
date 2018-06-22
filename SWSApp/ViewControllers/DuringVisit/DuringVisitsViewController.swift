@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import IQKeyboardManagerSwift
+import CoreLocation
 
 enum LoadThePersistantMenuScreen : Int{
     case contacts = 0
@@ -23,7 +24,7 @@ protocol NavigateToAccountVisitSummaryDelegate {
     func navigateToAccountVisitingScreen()
 }
 
-class  DuringVisitsViewController : UIViewController {
+class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     @IBOutlet weak var containerView : UIView?
     @IBOutlet weak var btnBack : UIButton?
@@ -33,6 +34,31 @@ class  DuringVisitsViewController : UIViewController {
     @IBOutlet weak var btnInsights : UIButton?
     @IBOutlet weak var btnEditAccountStrategy : UIButton?
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
+    
+    //LOCATION
+    var locationManager = CLLocationManager()
+    
+    func setLocationManager(){
+        locationManager.distanceFilter  = kCLLocationAccuracyNearestTenMeters;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+    }
+    
+    func startUpdatingLocationAlerts() {
+        // 1. status is not determined
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestAlwaysAuthorization()
+        }
+            // 2. authorization were denied
+        else if CLLocationManager.authorizationStatus() == .denied {
+            print("Location services were previously denied. Please enable location services for this app in Settings.")
+        }
+            // 3. we do have authorization
+        else if CLLocationManager.authorizationStatus() == .authorizedAlways {
+            locationManager.delegate = self
+            locationManager.startUpdatingLocation()
+        }
+    }
     
     var visitObject: WorkOrderUserObject?
     
@@ -90,6 +116,7 @@ class  DuringVisitsViewController : UIViewController {
         duringVisitVC.visitObject = visitObject
         activeViewController = duringVisitVC
         IQKeyboardManager.shared.enable = true
+        self.setLocationManager()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,6 +136,13 @@ class  DuringVisitsViewController : UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+         geoLocationForVisit.startLatitude = 0.0
+         geoLocationForVisit.startLongitude = 0.0
+         geoLocationForVisit.startTime = ""
+         geoLocationForVisit.endLatitude = 0.0
+         geoLocationForVisit.endLongitude = 0.0
+         geoLocationForVisit.endTime = ""
         
         
     }
@@ -329,9 +363,24 @@ class  DuringVisitsViewController : UIViewController {
     
     //Transaction button clicked
     @IBAction func transactionClicked(sender : UIButton){
-        UIApplication.shared.open(URL(string : StringConstants.googleUrl)!, options: [:], completionHandler: { (status) in
-            
-        })
+        
+        DispatchQueue.main.async {
+            if let url = URL(string: StringConstants.topazUrl)
+            {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.open(url)
+                }
+                else
+                {
+                    let alert = UIAlertController(title: "Alert", message: "Topaz app is not installed", preferredStyle: .alert)
+
+                    let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+
+                    alert.addAction(cancelAction)
+                    self.present(alert, animated: true, completion: nil)                }
+            }
+        }
     }
     
     //GoSpot Button Clicked
@@ -371,6 +420,11 @@ class  DuringVisitsViewController : UIViewController {
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
             PlanVisitManager.sharedInstance.visit?.status = "Completed"
+            
+            //location related code
+            geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+            self.startUpdatingLocationAlerts()
+            
             DispatchQueue.main.async{
                 self.dismiss(animated: true, completion: nil)
             }
@@ -397,6 +451,21 @@ class  DuringVisitsViewController : UIViewController {
         activeViewController = duringVisitVC
         activeViewController = duringVisitVC
     }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+       geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
+        geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("The error is in location \(error)")
+    }
+    
+    
     
     //Account strategy Clicked
     @IBAction func loadStrategyViewController(sender : UIButton){
@@ -480,13 +549,32 @@ class  DuringVisitsViewController : UIViewController {
     @objc func saveOutcomeToWorkOrderOpportunityLocally() {
         if  DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.count > 0 {
             for object in DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList {
-                _ = StoreDispatcher.shared.editOpportunityOutcomeToSoup(fieldsToUpload: ["Id":object["Id"]!,"SGWS_Outcome__c":object["SGWS_Outcome__c"]!])
+                
+                let workOrder: String = PlanVisitManager.sharedInstance.visit?.Id ?? ""
+                _ = StoreDispatcher.shared.editOpportunityOutcomeToSoup(fieldsToUpload: [
+                    "Id": object["Id"]!,
+                    "SGWS_Outcome__c": object["SGWS_Outcome__c"]!,
+                    "SGWS_Work_Order__c": workOrder] )
+//                _ = StoreDispatcher.shared.fetchOpportunityWorkorderDebug()
+                
+                let attributeDict = ["type":"WorkOrder"]
+                
+                let addNewDict: [String:Any] = [
+                    
+                    PlanVisit.planVisitFields[13]:PlanVisitManager.sharedInstance.visit?.soupEntryId ?? "",
+                    kSyncTargetLocal:true,
+                    kSyncTargetLocallyCreated:true,
+                    kSyncTargetLocallyUpdated:false,
+                    kSyncTargetLocallyDeleted:false,
+                    "attributes":attributeDict]
+                
+                _ = VisitSchedulerViewModel().editVisitToSoupEx(fields: addNewDict)
+
             }
         }
         
     }
 
-    
 }
 
 //MARK:- RefreshStrategyScreen Delegate

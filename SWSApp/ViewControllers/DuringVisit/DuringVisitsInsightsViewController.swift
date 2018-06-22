@@ -8,69 +8,31 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManagerSwift
 
 
 class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDelegate,InsightsUndersoldSourceTableCellDelegate,InsightsSourceUnsoldTableCellDelegate{
- 
-    func updateDataFromTopSellerCellTextfield(_ index: Int,commit: String) {
-        opportunityList[index].commit = commit
-        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
-    }
     
-    func updateDataFromTopSellerCellButton(_index: Int, outcome: String) {
-       // var modifiedOutcomeObject : NSDictionary?
-        let modifiedOutcomeObject = NSMutableDictionary()
-        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
-        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
-        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
-    }
-    
-    
-    func updateDataFromUnsoldTableCellTextField(_ index: Int,commit: String) {
-        opportunityList[index].commit = commit
-        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
-    }
-    func updateDataFromUnsoldTableCellButtton(_index: Int, outcome: String) {
-       // var modifiedOutcomeObject : NSDictionary?
-        let modifiedOutcomeObject = NSMutableDictionary()
-        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
-        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
-        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
-    }
-    
-
-    func updateDataFromUndersoldTableCellTextfield(_ index: Int,commit: String) {
-        opportunityList[index].commit = commit
-        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
-    }
-    
-    func updateDataFromUndersoldTableCellButton(index: Int, outcome: String) {
-     
-        let modifiedOutcomeObject = NSMutableDictionary()
-        modifiedOutcomeObject.setValue(opportunityList[index].id, forKey: "Id")
-        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
-        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
-    }
-    
-
     @IBOutlet weak var insightsTableViewController : UITableView?
     @IBOutlet weak var accNameLbl : UILabel?
     @IBOutlet weak var pinCodeLbl : UILabel?
     @IBOutlet weak var accAddressLbl : UILabel?
+    
     var visitInformation :WorkOrderUserObject?
     var opportunityList = [Opportunity]()
     var accountObject: Account?
     var pickListValuesForOpportunities = [String]()
     var collectionViewRowDetails : NSMutableArray?
+    var pickerOptions = [[String:Any]]()
+
     
     static var modifiedCommitOpportunitiesList = [Opportunity]()
     static var modifiedOutcomeWorkOrderList = [NSDictionary]()
-   //
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        IQKeyboardManager.shared.enable = true
         self.fetchAccountDetails()
         
         accNameLbl?.text = accountObject?.accountName
@@ -81,14 +43,21 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
         
-        let outcomePicklistValues = PlistMap.sharedInstance.getPicklist(fieldname: "outcomePicklistValue")
-        for plistOption in outcomePicklistValues {
-            pickListValuesForOpportunities.append(plistOption.value)
+        let opts = PlistMap.sharedInstance.readPList(plist: "/Opportunity.plist")
+        pickerOptions = opts as! [[String : Any]]
+        for pickerOption in pickerOptions {
+            
+            if let value = pickerOption["value"] as?  String {
+                pickListValuesForOpportunities.append(value)
+
+            }
         }
-        
-    }    
+
+      
+        insightsTableViewController?.contentInsetAdjustmentBehavior = .never
+    }
     
-  
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -108,6 +77,57 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         
     }
     
+    //MARK:-
+    //Update the data from Top Sellers TextField
+    func updateDataFromTopSellerCellTextfield(_ index: Int,commit: String) {
+        opportunityList[index].commit = commit
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
+    }
+    
+    //Update the data from Top Sellers Button Action
+    func updateDataFromTopSellerCellButton(_index: Int, outcome: String) {
+       // var modifiedOutcomeObject : NSDictionary?
+        let modifiedOutcomeObject = NSMutableDictionary()
+        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
+        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
+    }
+    
+    //Update the data from Unsold TextField
+    func updateDataFromUnsoldTableCellTextField(_ index: Int,commit: String) {
+        opportunityList[index].commit = commit
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
+    }
+    
+    //Update the data from Unsold Button Action
+    func updateDataFromUnsoldTableCellButtton(_index: Int, outcome: String) {
+       // var modifiedOutcomeObject : NSDictionary?
+        let modifiedOutcomeObject = NSMutableDictionary()
+        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
+        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
+    }
+    
+    //Update the data from Undersold Textfield
+    func updateDataFromUndersoldTableCellTextfield(_ index: Int,commit: String) {
+        opportunityList[index].commit = commit
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
+    }
+    
+    //Update the data from Undersold Button Action
+    func updateDataFromUndersoldTableCellButton(index: Int, outcome: String) {
+     
+        let modifiedOutcomeObject = NSMutableDictionary()
+        modifiedOutcomeObject.setValue(opportunityList[index].id, forKey: "Id")
+        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
+    }
+    
+    //Used to Reload the TableView Data
+    func sortAndRelaodTable() {
+        opportunityList =  OpportunitySortUtility().opportunitySort(opportunityList)
+        insightsTableViewController?.reloadData()
+    }
     
     //Fetch the from Accounts View Model
     func fetchAccountDetails(){
@@ -117,7 +137,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         }
     }
     
-    
+    //Get Full account Address from Account Object
     func getFullAccountAddress()->String {
         
         var fullAddress = ""
@@ -140,15 +160,61 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         
         return fullAddress
     }
-  
-
+    
+    //MARK:- IBActions Methods
+    //Sort By Product Name
+    @IBAction func productNameButtonCLicked(sender : UIButton){
+        
+        if OpportunitiesFilterMenuModel.isAscendingProductName == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingProductName = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingProductName = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingSource = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    //Sort By Source
+    @IBAction func sourceButtonCLicked(sender : UIButton){
+        if OpportunitiesFilterMenuModel.isAscendingSource == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingSource = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingSource = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingProductName = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    @IBAction func commitAmtButtonCLicked(sender : UIButton){
+     
+        
+    }
+    
+    @IBAction func outcomeButtonCLicked(sender : UIButton){
+        
+        
+    }
 }
 
 //MARK:- TableView Delegate Methods
 extension DuringVisitsInsightsViewController : UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
+       tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -156,8 +222,11 @@ extension DuringVisitsInsightsViewController : UITableViewDelegate{
 extension DuringVisitsInsightsViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 95
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -170,30 +239,29 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
         switch currentOpportunity.source {
         case "What's Hot","Top Seller":
              let cell = tableView.dequeueReusableCell(withIdentifier: "insightsTopSellerTableViewCell", for: indexPath) as! InsightsSourceTopSellerTableViewCell
+             
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-             cell.r12Label.text = "R12\n" + currentOpportunity.R12
-            cell.r6TrendLabel.text = "R6 Trend\n" + currentOpportunity.R6Trend
-            cell.r3TrendLabel.text = "R3 Trend\n" + currentOpportunity.R3Trend
+            cell.r12Label.text = currentOpportunity.R12
+            cell.r6TrendLabel.text = currentOpportunity.R6Trend
+            cell.r3TrendLabel.text = currentOpportunity.R3Trend
             cell.commitAmtTextFiels.text = currentOpportunity.commit
             cell.cellDelegate = self
             cell.commitAmtTextFiels.tag = indexPath.row
-             cell.outcomeButton.tag = indexPath.row
+            cell.outcomeButton.tag = indexPath.row
             cell.dropDown.dataSource = pickListValuesForOpportunities
-            cell.layer.borderColor = UIColor.black.cgColor
             return cell
             
         case "Undersold":
             let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnderSoldTableViewCell", for: indexPath) as! InsightsSourceUnderSoldTableViewCell
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-            cell.accLabel.text = "Acct\n" + currentOpportunity.acct
-            cell.segmentLabel.text = "Segment\n" + currentOpportunity.segment
-            cell.gapLabel.text = "Gap\n" + currentOpportunity.gap
+            cell.accLabel.text = currentOpportunity.acct
+            cell.segmentLabel.text = currentOpportunity.segment
+            cell.gapLabel.text = currentOpportunity.gap
             cell.commitAmtTextFiels.text = currentOpportunity.commit
             cell.commitAmtTextFiels.tag = indexPath.row
             cell.outcomeButton.tag = indexPath.row
-             cell.layer.borderColor = UIColor.black.cgColor
             cell.cellDelegate = self
             cell.dropDown.dataSource = pickListValuesForOpportunities
             return cell
@@ -202,34 +270,28 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnsoldTableViewCell", for: indexPath) as! InsightsSourceUnsoldTableViewCell
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-            cell.unsoldPeriodLabel.text = "Unsold Period\n" + currentOpportunity.unsoldPeriodDays
+            cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays
             cell.commitAmtTextFiels.text = currentOpportunity.commit
             cell.commitAmtTextFiels.tag = indexPath.row
             cell.outcomeButton.tag = indexPath.row
-             cell.layer.borderColor = UIColor.black.cgColor
-            cell.cellDelegate = self
-             cell.dropDown.dataSource = pickListValuesForOpportunities
-            return cell
-            
-            
-        default:
-            //return UITableViewCell()
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnderSoldTableViewCell", for: indexPath) as! InsightsSourceUnderSoldTableViewCell
-            cell.productNameLabel.text = currentOpportunity.productName
-//            cell.sourceLabel.text = currentOpportunity.source
-//            cell.accLabel.text = "Acct\n" + currentOpportunity.acct
-//            cell.segmentLabel.text = "Segment\n" + currentOpportunity.segment
-//            cell.gapLabel.text = "Gap\n" + currentOpportunity.gap
-            cell.commitAmtTextFiels.text = currentOpportunity.commit
-            cell.commitAmtTextFiels.tag = indexPath.row
-            cell.outcomeButton.tag = indexPath.row
-            cell.layer.borderColor = UIColor.black.cgColor
             cell.cellDelegate = self
             cell.dropDown.dataSource = pickListValuesForOpportunities
             return cell
             
+        default:
             
+            let cell = tableView.dequeueReusableCell(withIdentifier: "insightsTopSellerTableViewCell", for: indexPath) as! InsightsSourceTopSellerTableViewCell
+            cell.productNameLabel.text = currentOpportunity.productName
+            cell.sourceLabel.text = currentOpportunity.source
+            cell.r12Label.text = currentOpportunity.acct
+            cell.r6TrendLabel.text = currentOpportunity.segment
+            cell.r3TrendLabel.text = currentOpportunity.gap
+            cell.commitAmtTextFiels.text = currentOpportunity.commit
+            cell.commitAmtTextFiels.tag = indexPath.row
+            cell.outcomeButton.tag = indexPath.row
+            cell.cellDelegate = self
+            cell.dropDown.dataSource = pickListValuesForOpportunities
+            return cell
             
         }
     }

@@ -37,16 +37,16 @@
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="666"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QqU-hP-mbQ" userLabel="Content View">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="780"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="779"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plan a Visit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WA3-P6-Jsh">
-                                                        <rect key="frame" x="40" y="40" width="864" height="26"/>
+                                                        <rect key="frame" x="40" y="40" width="864" height="25"/>
                                                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="goD-Yo-bBl">
-                                                        <rect key="frame" x="944" y="37" width="40" height="40"/>
+                                                        <rect key="frame" x="944" y="36" width="40" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="40" id="PQB-0Y-1SO"/>
                                                             <constraint firstAttribute="height" constant="40" id="WpS-ke-EAy"/>
@@ -57,13 +57,13 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for an Account *" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7S-or-paa">
-                                                        <rect key="frame" x="40" y="106" width="864" height="23"/>
+                                                        <rect key="frame" x="40" y="105" width="864" height="23"/>
                                                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" tag="100" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search by Account name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40f-R6-X0Y" customClass="DesignableUITextField" customModule="SWSApp" customModuleProvider="target">
-                                                        <rect key="frame" x="40" y="149" width="924" height="50"/>
+                                                        <rect key="frame" x="40" y="148" width="924" height="50"/>
                                                         <color key="backgroundColor" name="Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="psv-Dv-vaT"/>
@@ -95,13 +95,13 @@
                                                         </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Associated Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJf-Ie-UoV">
-                                                        <rect key="frame" x="40" y="229" width="864" height="23"/>
+                                                        <rect key="frame" x="40" y="228" width="864" height="23"/>
                                                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" tag="101" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search for Contacts" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dqb-AI-xcH" customClass="DesignableUITextField" customModule="SWSApp" customModuleProvider="target">
-                                                        <rect key="frame" x="40" y="272" width="924" height="50"/>
+                                                        <rect key="frame" x="40" y="271" width="924" height="50"/>
                                                         <color key="backgroundColor" name="Color"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
@@ -130,29 +130,29 @@
                                                         </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFk-bV-lek">
-                                                        <rect key="frame" x="40" y="352" width="924" height="428"/>
+                                                        <rect key="frame" x="40" y="351" width="924" height="428"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scheduled Appointment *" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ocf-uG-twY">
-                                                                <rect key="frame" x="0.0" y="0.0" width="924" height="23.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="924" height="22.5"/>
                                                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="20"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="geW-KD-PA2" customClass="SchedulerComponent" customModule="SWSApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="53.5" width="400" height="70"/>
+                                                                <rect key="frame" x="0.0" y="52.5" width="400" height="70"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="400" id="pbx-oN-R9g"/>
                                                                     <constraint firstAttribute="height" constant="70" id="zb2-N4-aTY"/>
                                                                 </constraints>
                                                             </view>
                                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did You Call to Confirm?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLw-1P-g2A">
-                                                                <rect key="frame" x="0.0" y="153.5" width="154.5" height="16"/>
+                                                                <rect key="frame" x="0.0" y="152.5" width="153" height="16"/>
                                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="h6B-Mz-Pou">
-                                                                <rect key="frame" x="0.0" y="179.5" width="73" height="29"/>
+                                                                <rect key="frame" x="0.0" y="178.5" width="73" height="29"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="73" id="HAh-Xl-lJB"/>
                                                                     <constraint firstAttribute="height" constant="28" id="tfT-xr-sSC"/>
@@ -163,13 +163,13 @@
                                                                 </segments>
                                                             </segmentedControl>
                                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reccurence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVq-CH-5qF">
-                                                                <rect key="frame" x="0.0" y="237.5" width="107" height="23.5"/>
+                                                                <rect key="frame" x="0.0" y="236.5" width="107" height="22.5"/>
                                                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="20"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaX-Fx-qUa">
-                                                                <rect key="frame" x="0.0" y="316" width="22" height="22"/>
+                                                                <rect key="frame" x="0.0" y="314" width="22" height="22"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="22" id="fuo-CQ-TKT"/>
                                                                     <constraint firstAttribute="width" constant="22" id="nNG-QV-8Zz"/>
@@ -177,7 +177,7 @@
                                                                 <state key="normal" image="Checkbox"/>
                                                             </button>
                                                             <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Daily" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QZ6-Lr-ThD" customClass="DesignableUITextField" customModule="SWSApp" customModuleProvider="target">
-                                                                <rect key="frame" x="108" y="307" width="150" height="40"/>
+                                                                <rect key="frame" x="108" y="305" width="150" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="CaG-z9-4Ux"/>
                                                                     <constraint firstAttribute="width" constant="150" id="ZX7-Ts-jun"/>
@@ -206,13 +206,13 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reccurence Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cct-Ra-EKO">
-                                                                <rect key="frame" x="291" y="281" width="109" height="16"/>
+                                                                <rect key="frame" x="291" y="279" width="108" height="16"/>
                                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                 <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="03-20-2018" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iim-q6-U1a" customClass="DesignableUITextField" customModule="SWSApp" customModuleProvider="target">
-                                                                <rect key="frame" x="291" y="307" width="150" height="40"/>
+                                                                <rect key="frame" x="291" y="305" width="150" height="40"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -237,13 +237,13 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reccurence End" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OhE-3R-sld">
-                                                                <rect key="frame" x="463" y="281" width="103.5" height="16"/>
+                                                                <rect key="frame" x="463" y="279" width="101" height="16"/>
                                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                 <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="03-20-2019" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SpN-3Q-Tho" customClass="DesignableUITextField" customModule="SWSApp" customModuleProvider="target">
-                                                                <rect key="frame" x="463" y="307" width="150" height="40"/>
+                                                                <rect key="frame" x="463" y="305" width="150" height="40"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -354,7 +354,7 @@
                                 <rect key="frame" x="0.0" y="686" width="1024" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmw-8X-Woa">
-                                        <rect key="frame" x="950" y="25.5" width="50" height="29"/>
+                                        <rect key="frame" x="950" y="26" width="50" height="28"/>
                                         <color key="backgroundColor" red="0.25882352941176467" green="0.52941176470588236" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="0yd-6x-d2o"/>
@@ -368,7 +368,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gg-xe-lmS">
-                                        <rect key="frame" x="782" y="25.5" width="150" height="29"/>
+                                        <rect key="frame" x="782" y="26" width="150" height="28"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="ysI-fn-ivl"/>
@@ -382,7 +382,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BreadScrum_1" translatesAutoresizingMaskIntoConstraints="NO" id="6tl-B1-0jd">
-                                        <rect key="frame" x="396" y="22.5" width="232" height="25"/>
+                                        <rect key="frame" x="396" y="22" width="232" height="25"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7In-hE-dGa">
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1"/>
@@ -395,7 +395,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please correct required fields" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9Y-xw-VRY">
-                                        <rect key="frame" x="22" y="27" width="182.5" height="16"/>
+                                        <rect key="frame" x="22" y="26.5" width="191.5" height="16"/>
                                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="14"/>
                                         <color key="textColor" name="Bad"/>
                                         <nil key="highlightedColor"/>

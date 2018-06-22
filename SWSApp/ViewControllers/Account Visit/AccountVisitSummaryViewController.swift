@@ -8,6 +8,10 @@
 
 import UIKit
 import SmartSync
+//LOCATION
+import CoreLocation
+
+
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
@@ -15,7 +19,19 @@ protocol NavigateToContactsDelegate {
     func navigateToAccountScreen()
 }
 
-class AccountVisitSummaryViewController: UIViewController {
+struct geoLocationForVisit {
+    static var startLatitude:Double = 0.0
+    static var startLongitude:Double = 0.0
+    static var startTime:String = ""
+    static var endLatitude:Double = 0.0
+    static var endLongitude:Double = 0.0
+    static var endTime:String = ""
+    
+}
+
+
+
+class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDelegate {
     
     var visitId: String?
     var accountObject: Account?
@@ -36,11 +52,37 @@ class AccountVisitSummaryViewController: UIViewController {
     var visitStatus: AccountVisitStatus?
     var delegate : NavigateToContactsDelegate?
     
+    //LOCATION
+    var locationManager = CLLocationManager()
+    
+    func setLocationManager(){
+        locationManager.distanceFilter  = kCLLocationAccuracyNearestTenMeters;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+    }
+    
+    func startUpdatingLocationAlerts() {
+        // 1. status is not determined
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestAlwaysAuthorization()
+        }
+            // 2. authorization were denied
+        else if CLLocationManager.authorizationStatus() == .denied {
+            print("Location services were previously denied. Please enable location services for this app in Settings.")
+        }
+            // 3. we do have authorization
+        else if CLLocationManager.authorizationStatus() == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisitList(_:)), name: NSNotification.Name("refreshAccountVisit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
+        self.setLocationManager()
     }
     
     
@@ -50,6 +92,9 @@ class AccountVisitSummaryViewController: UIViewController {
         fetchVisit()
         initializingXIBs()
     }
+    
+  
+    
     
     @objc func refreshVisit(){
         fetchVisit()
@@ -186,6 +231,8 @@ class AccountVisitSummaryViewController: UIViewController {
         self.tableView.register(UINib(nibName: "HeadSubHeadTableViewCell", bundle: nil), forCellReuseIdentifier: "HeadSubHeadTableViewCell")
         self.tableView.register(UINib(nibName: "AssociatedContactsTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociatedContactsTableViewCell")
         self.tableView.register(UINib(nibName: "UnorderedListTableViewCell", bundle: nil), forCellReuseIdentifier: "UnorderedListTableViewCell")
+        self.tableView.register(UINib(nibName: "AccountsSummaryOpportunities", bundle: nil), forCellReuseIdentifier: "AccountOpportunityCell")
+
        // self.tableView.register(UINib(nibName: "ButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ButtonTableViewCell")
     }
     
@@ -256,10 +303,19 @@ class AccountVisitSummaryViewController: UIViewController {
             let storyboard: UIStoryboard = UIStoryboard(name: "DuringVisit", bundle: nil)
             let vc: DuringVisitsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsViewControllerID") as! DuringVisitsViewController
             (vc as DuringVisitsViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            
             PlanVisitManager.sharedInstance.visit = visitObject
             (vc as DuringVisitsViewController).visitObject = visitObject
             (vc as DuringVisitsViewController).delegate = self
+            
+            //location related code
+            
+            geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+            self.startUpdatingLocationAlerts()
+            
             self.present(vc, animated: true, completion: nil)
+            
+            
         }else{
             
             let storyboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
@@ -322,6 +378,19 @@ class AccountVisitSummaryViewController: UIViewController {
         
         (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.present(vc, animated: true, completion: nil)
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+         geoLocationForVisit.startLatitude = userLocation.coordinate.latitude
+         geoLocationForVisit.startLongitude = userLocation.coordinate.longitude
+
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("The error is in location \(error)")
     }
     
 }
@@ -389,6 +458,13 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 return 50
             case 1:
                 return 0
+            case 2:
+//               var opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
+//              opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed-Won")}
+//              opportunityList = opportunityList.filter({$0.isOpportunitySelected == true})
+//
+//               return CGFloat((opportunityList.count)*80)
+                return 30
             default:
                 return 0
             }
@@ -397,7 +473,10 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             case 0:
                 return 50
             case 1:
-                return 30            
+                return 30
+                
+            case 2:
+                return 30
             default:
                 return 0
             }
@@ -482,9 +561,9 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case 1:
             return getConatactCell()
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AccountOpportunityCell") as? AccountsSummaryOpportunityCell
             cell?.headingLabel.text = "Opportunities Selected"
-            cell?.SubheadingLabel.text = ""
+//            cell?.SubheadingLabel.text = ""
             return cell!
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
@@ -515,10 +594,10 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func getConatactCell() -> AssociatedContactsTableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssociatedContactsTableViewCell") as? AssociatedContactsTableViewCell
         
-        if let contactId = selectedContact, contactId.contactId != "" {
+        if selectedContact != nil {
             cell?.containerHeightConstraint.constant = 75
             cell?.containerView.isHidden = false
-            cell?.displayCellContent(contact: contactId)
+            cell?.displayCellContent(contact: selectedContact)
         }else{
             cell?.containerHeightConstraint.constant = 0
             cell?.containerView.isHidden = true            

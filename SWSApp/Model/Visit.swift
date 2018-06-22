@@ -10,7 +10,7 @@ import Foundation
 
 class Visit{
     
-    static let VisitsFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c", "AccountId","ContactId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c","OwnerId","visitTitle","visitType", "accountList", "systemConfigurationObject"]
+    static let VisitsFields: [String] = ["Id","Subject","SGWS_WorkOrder_Location__c", "AccountId","ContactId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","RecordTypeId","_soupEntryId","SGWS_All_Day_Event__c","OwnerId","visitTitle","visitType", "accountList", "systemConfigurationObject","SGWS_Start_Latitude__c","SGWS_Start_Longitude__c","SGWS_Start_Time_of_Visit__c","SGWS_End_Latitude__c","SGWS_End_Longitude__c","SGWS_End_Time_of_Visit__c"]
     
     var Id : String
     var subject : String
@@ -37,6 +37,16 @@ class Visit{
     var visitType: String
     var accountList: [Account]?
     let systemConfigurationObject:SyncConfiguration?
+    
+    // location related
+    var startLatitude:Double
+    var startLongitude:Double
+    var startTime_of_Visit: String
+    
+    
+    var endLatitude:Double
+    var endLongitude:Double
+    var endTime_of_Visit: String
 
     
     convenience init(withAry ary: [Any]) {
@@ -91,6 +101,14 @@ class Visit{
             sgwsAlldayEvent = true
         }
         
+        startLatitude = json["SGWS_Start_Latitude__c"] as? Double ?? 0.0
+        startLongitude = json["SGWS_Start_Longitude__c"] as? Double ?? 0.0
+        startTime_of_Visit = json["SGWS_Start_Time_of_Visit__c"] as? String ?? ""
+        endLatitude = json["SGWS_End_Latitude__c"] as? Double ?? 0.0
+        endLongitude = json["SGWS_End_Longitude__c"] as? Double ?? 0.0
+        endTime_of_Visit = json["SGWS_End_Time_of_Visit__c"] as? String ?? ""
+       
+        
 //        if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == StoreDispatcher.shared.workOrderRecordTypeIdVisit){
 //            workOrderType = StoreDispatcher.shared.workOrderTypeVisit
 //        } else {
@@ -139,5 +157,11 @@ class Visit{
         visitType = ""
         accountList = nil
         systemConfigurationObject = nil
+        startLatitude = 0.0
+        startLongitude = 0.0
+        startTime_of_Visit = ""
+        endLatitude = 0.0
+        endLongitude = 0.0
+        endTime_of_Visit = "" 
     }
 }

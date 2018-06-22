@@ -178,7 +178,7 @@ class DayHomeCalendarViewController: UIViewController {
     func launchNewVisit() {
         let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
         createVisitViewController.isEditingMode = false
-        
+        createVisitViewController.delegate = self
         //Reset the PlanVisitManager
         PlanVisitManager.sharedInstance.visit = nil
         
@@ -299,5 +299,11 @@ extension DayHomeCalendarViewController: WRWeekViewDelegate {
             }
         }
         
+    }
+}
+extension DayHomeCalendarViewController: CreateNewVisitViewControllerDelegate {
+    func updateVisitListFromCreate() {
+        self.globalVisit = CalendarViewModel().loadVisitData()!
+        self.reloadCalendarView()
     }
 }

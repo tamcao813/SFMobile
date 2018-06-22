@@ -34,6 +34,12 @@ class PlanVisitManager {
     var lastModifiedDate = ""
     var userID = ""
     var workOrderType = ""
+    var startLatitude = 0.0
+    var startLongitude = 0.0
+    var endLatitude = 0.0
+    var endLongitude = 0.0
+    
+    
 
     // Networking: communicating server
     func network() {
@@ -70,6 +76,13 @@ class PlanVisitManager {
         new_visit.recordTypeId = (visit?.recordTypeId)!
         new_visit.location = (visit?.location)!
         new_visit.sgwsAlldayEvent = (visit?.sgwsAlldayEvent)!
+        new_visit.startLatitude = geoLocationForVisit.startLatitude
+        new_visit.startLongitude = geoLocationForVisit.startLongitude
+        new_visit.endLatitude =  geoLocationForVisit.endLatitude
+        new_visit.endLongitude = geoLocationForVisit.endLongitude
+        new_visit.startTime_of_Visit = geoLocationForVisit.startTime
+        new_visit.endTime_of_Visit = geoLocationForVisit.endTime
+        
         
         let attributeDict = ["type":"WorkOrder"]
         
@@ -85,12 +98,19 @@ class PlanVisitManager {
             PlanVisit.planVisitFields[7]: new_visit.description,
             PlanVisit.planVisitFields[8]: new_visit.sgwsAgendaNotes,
             PlanVisit.planVisitFields[9]: new_visit.status,
-            PlanVisit.planVisitFields[11]: new_visit.contactId,
             PlanVisit.planVisitFields[10]:new_visit.lastModifiedDate,
+            PlanVisit.planVisitFields[11]: new_visit.contactId,
             PlanVisit.planVisitFields[12]:new_visit.recordTypeId,
             PlanVisit.planVisitFields[13]:new_visit.soupEntryId,
             PlanVisit.planVisitFields[14]:new_visit.location,
             PlanVisit.planVisitFields[15]:new_visit.sgwsAlldayEvent,
+            PlanVisit.planVisitFields[21]:new_visit.startLatitude,
+            PlanVisit.planVisitFields[22]:new_visit.startLongitude,
+            PlanVisit.planVisitFields[23]:new_visit.startTime_of_Visit,
+            PlanVisit.planVisitFields[24]:new_visit.endLatitude,
+            PlanVisit.planVisitFields[25]:new_visit.endLongitude,
+            PlanVisit.planVisitFields[26]:new_visit.endTime_of_Visit,
+            
             
             
             kSyncTargetLocal:true,

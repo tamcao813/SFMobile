@@ -224,6 +224,7 @@ class CalendarListViewController: UIViewController {
         let eventStoryboard = UIStoryboard.init(name: "CreateEvent", bundle: nil)
         let createEventViewController = eventStoryboard.instantiateViewController(withIdentifier: "CreateNewEventViewController") as? CreateNewEventViewController
         createEventViewController?.isEditingMode = false
+        createEventViewController?.delegate = self
         PlanVisitManager.sharedInstance.visit = nil
         DispatchQueue.main.async {
             self.present(createEventViewController!, animated: false, completion: nil)
@@ -526,6 +527,16 @@ extension CalendarListViewController : GlobalArrayDelegate{
 
 extension CalendarListViewController : CreateNewVisitViewControllerDelegate {
     func updateVisitListFromCreate() {
+        globalVisit = CalendarViewModel().loadVisitData()!
+        reloadCalendarView()
+        if self.currentCalendarViewType == .Month {
+            self.calendarMonthController?.refreshMonthCalendar()
+        }
+    }
+}
+
+extension CalendarListViewController : CreateNewEventControllerDelegate {
+    func updateEventListFromCreate() {
         globalVisit = CalendarViewModel().loadVisitData()!
         reloadCalendarView()
         if self.currentCalendarViewType == .Month {

@@ -10,6 +10,10 @@ import UIKit
 import IQKeyboardManagerSwift
 import SmartSync
 
+protocol CreateNewEventControllerDelegate : NSObjectProtocol{
+    func updateEventListFromCreate()
+}
+
 struct CreateNewEventViewControllerGlobals {
     
     static var userInput = false
@@ -48,6 +52,7 @@ class CreateNewEventViewController: UIViewController {
     var selectedContact: Contact!
     var eventWorkOrderObject: WorkOrderUserObject!
     var visitViewModel = VisitSchedulerViewModel()
+    weak var delegate: CreateNewEventControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,7 +128,7 @@ class CreateNewEventViewController: UIViewController {
                 }
             }else{
                 self.dismiss(animated: true, completion: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                self.delegate?.updateEventListFromCreate()
             }
         }
     }
@@ -136,12 +141,12 @@ class CreateNewEventViewController: UIViewController {
                     editCurrentEvent()
                     DispatchQueue.main.async {
                         self.dismiss(animated: true)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                        self.delegate?.updateEventListFromCreate()
                     }
                 }
             }else{
                 createNewEvent()
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                self.delegate?.updateEventListFromCreate()
             }
         }
     }

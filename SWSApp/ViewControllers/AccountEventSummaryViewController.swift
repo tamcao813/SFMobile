@@ -92,17 +92,21 @@ class AccountEventSummaryViewController: UIViewController {
     
     func fetchContactDetails(){
         if let contactId = visitObject?.contactId {
-            var contactsArray = ContactsViewModel().globalContacts()
-            contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
-            for contact in contactsArray {
-                if contact.contactId == contactId {
-                    selectedContact = contact
-                    break
-                } else {
-                    selectedContact = nil
+            if contactId.isEmpty {
+                selectedContact = nil
+            } else {
+                var contactsArray = ContactsViewModel().globalContacts()
+                contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
+                for contact in contactsArray {
+                    if contact.contactId == contactId {
+                        selectedContact = contact
+                        break
+                    } else {
+                        selectedContact = nil
+                    }
                 }
-                
             }
+
         }
         tableView.reloadData()
     }
@@ -202,7 +206,7 @@ class AccountEventSummaryViewController: UIViewController {
         let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
         
         createEventViewController.isEditingMode = true
-        
+        createEventViewController.delegate = self
         createEventViewController.selectedAccount = accountObject
         createEventViewController.selectedContact = selectedContact
         createEventViewController.eventWorkOrderObject = visitObject
@@ -433,5 +437,11 @@ extension AccountEventSummaryViewController : NavigateToAccountVisitSummaryDeleg
             }
         }
    // }
+}
+
+extension AccountEventSummaryViewController : CreateNewEventControllerDelegate {
+    func updateEventListFromCreate() {
+        fetchVisit()
+    }
 }
 

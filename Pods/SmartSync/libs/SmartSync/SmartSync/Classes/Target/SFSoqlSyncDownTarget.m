@@ -230,7 +230,7 @@ static NSString * const kSFSoqlSyncTargetQuery = @"query";
                 query = [query stringByReplacingOccurrencesOfString:strObj withString:[NSString stringWithFormat:@"%@%@", strObj, strPrediate]];
                 query = [query stringByReplacingOccurrencesOfString:strOpp withString:[NSString stringWithFormat:@"%@%@", strOpp, strPrediate]];
 
-                queryToRun = [NSString stringWithFormat:@"%@ %@", query, strPrediate];
+                queryToRun = [NSString stringWithFormat:@"%@%@", query, strPrediate];
             }
             else {
                 queryToRun = [SFSoqlSyncDownTarget appendToFirstOccurence:query pattern:@" from[ ]+[^ ]*" stringToAppend:[@[@" where ", extraPredicate] componentsJoinedByString:@""]];

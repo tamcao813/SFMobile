@@ -361,6 +361,8 @@ class CreateNewContactViewController: UIViewController {
         newContact.sgwsNotes = notesTextView.text!
         newContact.fax = faxTextField.text!
         
+        newContact.sgws_sfa_customer_check = true
+        
         return newContact
     }
     

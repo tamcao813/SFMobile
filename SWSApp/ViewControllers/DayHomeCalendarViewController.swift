@@ -19,6 +19,7 @@ class DayHomeCalendarViewController: UIViewController {
     let dropDownAddNew = DropDown()
     let defaults:UserDefaults = UserDefaults.standard
     
+    
     @IBOutlet weak var weekView: WRWeekView!
     @IBOutlet weak var dateHeaderLabel: UILabel!
     @IBOutlet weak var addNewButton: UIButton!
@@ -212,14 +213,21 @@ class DayHomeCalendarViewController: UIViewController {
     }
     @IBAction func viewCalendar(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwitchToCalendar"), object:nil)
-
+        
     }
 }
 
+
+
 //MARK:- NavigateToContacts Delegate
 extension DayHomeCalendarViewController : NavigateToContactsDelegate{
+    
+    
     func navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        if data == .actionItems{
         
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showActionItems"), object:nil)
+        }
     }
     
     func navigateToVisitListing() {

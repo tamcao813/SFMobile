@@ -1137,7 +1137,14 @@ class StoreDispatcher {
     
     
     func syncDownAccount(_ completion:@escaping (_ error: NSError?)->()) {
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000"
+        
+        let userViewModel = UserViewModel()
+        
+        let userid: String = (userViewModel.loggedInUser?.userId)!
+        
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' AND UserId = '\(userid)' limit 10000 "
+        
+    
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
@@ -1169,9 +1176,10 @@ class StoreDispatcher {
     func syncDownContact(_ completion:@escaping (_ error: NSError?)->()) {
         let siteid:String = (userVieModel.loggedInUser?.userSite)!
         
-        let fields = "Select Id,Name,FirstName,LastName,Phone,Email,Birthdate,SGWS_Buying_Power__c,AccountId,Account.SWS_Account_Site__c,SGWS_Site_Number__c,SGWS_Title__c,Department,SGWS_Preferred_Name__c,SGWS_Contact_Hours__c,SGWS_Notes__c,LastModifiedBy.Name,SGWS_AppModified_DateTime__c,SGWS_Child_1_Name__c,SGWS_Child_1_Birthday__c,SGWS_Child_2_Name__c,SGWS_Child_2_Birthday__c,SGWS_Child_3_Name__c,SGWS_Child_3_Birthday__c,SGWS_Child_4_Name__c,SGWS_Child_4_Birthday__c,SGWS_Child_5_Name__c,SGWS_Child_5_Birthday__c,SGWS_Anniversary__c,SGWS_Likes__c,SGWS_Dislikes__c,SGWS_Favorite_Activities__c,SGWS_Life_Events__c,SGWS_Life_Events_Date__c,Fax,SGWS_Other_Specification__c,SGWS_Roles__c,SGWS_Preferred_Communication_Method__c,SGWS_Contact_Classification__c,SGWS_TECH_MobileField__c"
+        let fields = "Select Id,Name,FirstName,LastName,Phone,Email,Birthdate,SGWS_Buying_Power__c,AccountId,Account.SWS_Account_Site__c,SGWS_Site_Number__c,SGWS_Title__c,Department,SGWS_Preferred_Name__c,SGWS_Contact_Hours__c,SGWS_Notes__c,LastModifiedBy.Name,SGWS_AppModified_DateTime__c,SGWS_Child_1_Name__c,SGWS_Child_1_Birthday__c,SGWS_Child_2_Name__c,SGWS_Child_2_Birthday__c,SGWS_Child_3_Name__c,SGWS_Child_3_Birthday__c,SGWS_Child_4_Name__c,SGWS_Child_4_Birthday__c,SGWS_Child_5_Name__c,SGWS_Child_5_Birthday__c,SGWS_Anniversary__c,SGWS_Likes__c,SGWS_Dislikes__c,SGWS_Favorite_Activities__c,SGWS_Life_Events__c,SGWS_Life_Events_Date__c,Fax,SGWS_Other_Specification__c,SGWS_Roles__c,SGWS_Preferred_Communication_Method__c,SGWS_Contact_Classification__c,SGWS_TECH_MobileField__c,SGWS_SFA_Customer_Check__c"
         
-        let soqlQuery = "\(fields) from Contact where SGWS_Site_Number__c = '\(siteid)' and RecordType.DeveloperName = 'Customer' " //and AccountId IN(Select AccountId from AccountTeamMember where UserId = '\(userid)' "
+        let soqlQuery = "\(fields) from Contact where SGWS_Site_Number__c = '\(siteid)' and RecordType.DeveloperName = 'Customer' and  SGWS_SFA_Customer_Check__c = true"
+        //and AccountId IN(Select AccountId from AccountTeamMember where UserId = '\(userid)' "
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
@@ -1508,7 +1516,7 @@ class StoreDispatcher {
         
         var contactAry: [Contact] = []
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupContact, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupContact, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 10000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)

@@ -93,6 +93,10 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         initializingXIBs()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        locationManager.stopUpdatingLocation()
+    }
   
     
     
@@ -377,6 +381,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+        locationManager.stopUpdatingLocation()
         self.dismiss(animated: true, completion: nil)
     }
     

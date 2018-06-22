@@ -248,7 +248,7 @@ class OpportunitySortUtility {
             filteredStatusOpenOpportunityArray = opportunityToBeFiltered.filter( { return
                 (OpportunitiesFilterMenuModel.statusOpen == "YES" && $0.status == "Open") ||
                 (OpportunitiesFilterMenuModel.statusPlanned == "YES" && $0.status == "Planned") ||
-                (OpportunitiesFilterMenuModel.statusClosedWon == "YES" && $0.status == "Closed-Won") ||
+                (OpportunitiesFilterMenuModel.statusClosedWon == "YES" && $0.status == "Closed Won") ||
                 (OpportunitiesFilterMenuModel.statusClosed == "YES" && $0.status == "Closed") } )
             
             if filteredStatusOpenOpportunityArray.count > 0 {
@@ -265,7 +265,7 @@ class OpportunitySortUtility {
         var filteredOpportunityArray = [Opportunity]()
         var enteredAnyFilterCase = false
         
-        if (OpportunitiesFilterMenuModel.sourceOverview == "YES" || OpportunitiesFilterMenuModel.statusPlanned == "YES" || OpportunitiesFilterMenuModel.statusClosedWon == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES" || OpportunitiesFilterMenuModel.statusClosed == "YES") {
+        if (OpportunitiesFilterMenuModel.sourceOverview == "YES" || OpportunitiesFilterMenuModel.sourceTopSellers == "YES" || OpportunitiesFilterMenuModel.sourceUndersold == "YES" || OpportunitiesFilterMenuModel.sourceHotNot == "YES" || OpportunitiesFilterMenuModel.sourceUnsold == "YES") {
             
             var filteredStatusOpenOpportunityArray = [Opportunity]()
             

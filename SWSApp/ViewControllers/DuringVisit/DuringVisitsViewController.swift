@@ -386,9 +386,23 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     //GoSpot Button Clicked
     @IBAction func goSpotClicked(sender : UIButton){
         
-        UIApplication.shared.open(URL(string : StringConstants.googleUrl)!, options: [:], completionHandler: { (status) in
-            
-        })
+        DispatchQueue.main.async {
+            if let url = URL(string: StringConstants.gospotcheckUrl)
+            {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.open(url)
+                }
+                else
+                {
+                    let url  = URL(string: StringConstants.gospotItuneUrl)
+                    
+                    if UIApplication.shared.canOpenURL(url!) {
+                        UIApplication.shared.open(url!)
+                    }
+                }
+            }
+        }
     }
     
     //Back Button Clicked

@@ -46,5 +46,25 @@ class ConfigurationAndPickListModel {
                 }
             }
         }
+        StoreDispatcher.shared.getRecordTypeIdForOutcomePickListValues {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("downloadOutcomePicker: resync done")
+                completion(error)
+            }
+            else {
+                
+                StoreDispatcher.shared.downloadContactPLists {error in
+                    if error != nil {
+                        print(error?.localizedDescription ?? "error")
+                        print("downloadContactPLists: resync done")
+                        completion(error)
+                    }else {
+                        completion(nil)
+                    }
+                }
+            }
+        }
+        
     }
 }

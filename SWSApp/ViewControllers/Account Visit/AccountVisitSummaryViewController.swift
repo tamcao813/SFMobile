@@ -122,14 +122,19 @@ class AccountVisitSummaryViewController: UIViewController {
     /// fetchContactDetails will fetch both Global and SGWS contact
     func fetchContactDetails(){
         if let contactId = visitObject?.contactId {
-            var contactsArray = ContactsViewModel().globalContacts()
-            contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
-            for contact in contactsArray {
-                if contact.contactId == contactId {
-                    selectedContact = contact
-                    break
-                } else {
-                    selectedContact = nil
+            if contactId.isEmpty {
+                selectedContact = nil
+            } else {
+                var contactsArray = ContactsViewModel().globalContacts()
+                contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
+                for contact in contactsArray {
+                    if contact.contactId == contactId {
+                        selectedContact = contact
+                        break
+                    } else {
+                        selectedContact = nil
+                    }
+                    
                 }
                 
             }

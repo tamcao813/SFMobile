@@ -353,7 +353,7 @@ class CreateNewVisitViewController: UIViewController {
             "attributes":attributeDict]
         
         //let (success,Id) = visitViewModel.createNewVisitLocally(fields: addNewDict)
-        let (success,_) = visitViewModel.createNewVisitLocally(fields: addNewDict)
+        let (success,soupID) = visitViewModel.createNewVisitLocally(fields: addNewDict)
         
         if(success){
             let visit = WorkOrderUserObject(for: "")
@@ -361,6 +361,7 @@ class CreateNewVisitViewController: UIViewController {
             visit.Id = new_visit.Id//String((success,Id).1)
             
             visit.contactId = new_visit.contactId
+            visit.soupEntryId = soupID
             visit.startDate = new_visit.startDate
             visit.endDate = new_visit.endDate
             visit.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: new_visit.startDate)

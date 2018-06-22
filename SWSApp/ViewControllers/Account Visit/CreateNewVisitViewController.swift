@@ -105,7 +105,7 @@ class CreateNewVisitViewController: UIViewController {
     
     func fetchAccountDetails(){
         if let accountId = visitObject?.accountId {
-            let accountsArray = AccountsViewModel().accountsForLoggedUser()
+            let accountsArray = GlobalWorkOrderArray.accountArray
             for account in accountsArray{
                 if account.account_Id == accountId {
                     selectedAccount = account

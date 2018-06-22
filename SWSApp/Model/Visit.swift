@@ -58,7 +58,7 @@ class Visit{
             sgwsAppointmentStatus = true
         }
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
-        let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
+        let globalAccountsForLoggedUser = GlobalWorkOrderArray.accountArray
         
         startDate = json["StartDate"] as? String ?? ""
         if startDate == "" {

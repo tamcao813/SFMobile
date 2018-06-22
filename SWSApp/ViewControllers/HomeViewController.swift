@@ -12,6 +12,7 @@ import SmartSync
 
 struct GlobalWorkOrderArray {
     static var workOrderArray  =  [WorkOrderUserObject]()
+    static var accountArray  =  [Account]()
 }
 
 class HomeViewController: UIViewController {
@@ -25,7 +26,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         loggerInUser = userViewModel.loggedInUser
         GlobalWorkOrderArray.workOrderArray = StoreDispatcher.shared.fetchVisits()
-        
+        GlobalWorkOrderArray.accountArray = StoreDispatcher.shared.fetchAccountsForLoggedUser()
         
     }
     

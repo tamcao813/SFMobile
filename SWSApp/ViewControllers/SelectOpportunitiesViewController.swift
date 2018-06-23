@@ -15,7 +15,7 @@ class SelectOpportunitiesViewController: UIViewController {
     @IBOutlet weak var seperatorLabel: UILabel!
     var opportunityAccountId: String?
     var opportunityList = [Opportunity]()
-    static var selectedOpportunitiesList = [Opportunity]()
+    var selectedOpportunitiesList = [Opportunity]()
     var unselectedOpportunityList = [Opportunity]()
     
     var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
@@ -26,22 +26,27 @@ class SelectOpportunitiesViewController: UIViewController {
         // Do any additional setup after loading the view.
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
         //Do not show  the closed opportunities
-        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed-Won")}
+        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
         
         topShadow(seperatorView: seperatorLabel)
         selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
-
+        if selectedOpportunitiesFromDB.count > 0 {
+            
+            selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
+            if selectedOpportunitiesFromDB.count > 0 {
+                
+                for obj in selectedOpportunitiesFromDB {
+                    
+                    selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
+                }
+            }
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("Plan VC will disappear")
         PlanVisitManager.sharedInstance.editPlanVisit = false
-        
-//        for data in opportunityList{
-//            data.isOpportunitySelected = false
-//        }
-        
         
     }
     
@@ -101,8 +106,8 @@ class SelectOpportunitiesViewController: UIViewController {
                 _ = StoreDispatcher.shared.deleteOpportunityWorkorderLocally(fieldsToUpload: addNewDict)
             }
         }
-        if SelectOpportunitiesViewController.selectedOpportunitiesList.count > 0 {
-            for opportunity in SelectOpportunitiesViewController.selectedOpportunitiesList {
+        if self.selectedOpportunitiesList.count > 0 {
+            for opportunity in self.selectedOpportunitiesList {
                 let addNewDict: [String:Any] = [
                     OpportunityWorkorder.opportunityWorkorderFields[0]: someString,
                     OpportunityWorkorder.opportunityWorkorderFields[1]: opportunity.id,
@@ -140,7 +145,13 @@ class SelectOpportunitiesViewController: UIViewController {
         return false
     }
     
+    func doesOppurtunitySelected(selectedOppurtunityId: String) -> Bool {
+        
+        
+        return false
+    }
     
+
     @IBAction func saveAndClose(sender: UIButton) {
         //STATEMACHINE:If you com tho this Screen its in Planned state
         PlanVisitManager.sharedInstance.visit?.status = "Planned"
@@ -317,13 +328,13 @@ extension SelectOpportunitiesViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "opportunitiesListViewCell", for: indexPath) as? OpportunitiesListViewCell
         cell?.selectionStyle = .none
-        if selectedOpportunitiesFromDB.count > 0 {
+
+        var bSelected: Bool = false
+        if selectedOpportunitiesList.contains(where: {($0.id == opportunityList[indexPath.section].id)}) {
             
-            if (selectedOpportunitiesFromDB.contains(where: {($0.workOrder == opportunityList[indexPath.section].id)})) {
-                opportunityList[indexPath.section].isOpportunitySelected = true
-            }
+            bSelected = true
         }
-        cell?.displayCellContent(opportunityList[indexPath.section])
+        cell?.displayCellContent(opportunityList[indexPath.section], withSelection: bSelected)
         return cell ?? UITableViewCell()
     }
 }
@@ -337,15 +348,14 @@ extension SelectOpportunitiesViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      
-        if  opportunityList[indexPath.section].isOpportunitySelected == false{
-             opportunityList[indexPath.section].isOpportunitySelected = true
-        }else{
-           opportunityList[indexPath.section].isOpportunitySelected = false
+
+        if self.selectedOpportunitiesList.contains(where: {($0.id == opportunityList[indexPath.section].id)}) {
+            self.selectedOpportunitiesList = self.selectedOpportunitiesList.filter(){$0.id != opportunityList[indexPath.section].id}
             self.unselectedOpportunityList.append(opportunityList[indexPath.section])
         }
-        if opportunityList[indexPath.section].isOpportunitySelected {
-            SelectOpportunitiesViewController.selectedOpportunitiesList.append(opportunityList[indexPath.section])
+        else {
+            self.selectedOpportunitiesList.append(opportunityList[indexPath.section])
+            self.unselectedOpportunityList = self.unselectedOpportunityList.filter(){$0.id != opportunityList[indexPath.section].id}
         }
         self.opportunitiesListView.reloadData()
     }

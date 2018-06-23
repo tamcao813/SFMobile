@@ -136,15 +136,15 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
          geoLocationForVisit.startLatitude = 0.0
          geoLocationForVisit.startLongitude = 0.0
          geoLocationForVisit.startTime = ""
          geoLocationForVisit.endLatitude = 0.0
          geoLocationForVisit.endLongitude = 0.0
          geoLocationForVisit.endTime = ""
-        
-        
+
+
     }
     
     //MARK:-
@@ -434,7 +434,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
             PlanVisitManager.sharedInstance.visit?.status = "Completed"
-            
+        
             //location related code
             geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
             self.startUpdatingLocationAlerts()

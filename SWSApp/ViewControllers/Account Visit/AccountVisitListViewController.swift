@@ -91,6 +91,7 @@ class AccountVisitListViewController: UIViewController {
 //        mainArray = globalWorkorderObjectArray//visitArray.visitsForUser()
         mainArray = GlobalWorkOrderArray.workOrderArray
         tableViewDataArray = GlobalWorkOrderArray.workOrderArray
+        globalWorkorderObjectArray = GlobalWorkOrderArray.workOrderArray
 //        tableViewDataArray = globalWorkorderObjectArray//visitArray.visitsForUser()
         print("tableViewDataArray", tableViewDataArray)
         

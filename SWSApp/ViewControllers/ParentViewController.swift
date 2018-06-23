@@ -9,6 +9,7 @@
 import UIKit
 //import DropDown
 import Reachability
+import CoreLocation
 
 
 struct SelectedMoreButton {
@@ -152,9 +153,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }()
     
     var reachability = Reachability()!
+    var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         self.startUpdatingLocationAlerts()
         
         // Do any additional setup after loading the view, typically from a nib.
         // set up persistent menu
@@ -215,6 +218,23 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
     }
     
+    
+    func startUpdatingLocationAlerts() {
+        // 1. status is not determined
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestAlwaysAuthorization()
+        }
+            // 2. authorization were denied
+        else if CLLocationManager.authorizationStatus() == .denied {
+            print("Location services were previously denied. Please enable location services for this app in Settings.")
+        }
+            // 3. we do have authorization
+        else if CLLocationManager.authorizationStatus() == .authorizedAlways {
+            print("Authorized always")
+            
+        }
+        
+    }
     @objc func automticResync()
     {
         print("$$$$$$$$$$$$$$$$$$$$ Autosync called")

@@ -76,26 +76,21 @@ class PlanVisitManager {
         new_visit.recordTypeId = (visit?.recordTypeId)!
         new_visit.location = (visit?.location)!
         new_visit.sgwsAlldayEvent = (visit?.sgwsAlldayEvent)!
+        
         // in progress
-        if new_visit.startLatitude != 0.0  {
             new_visit.startLatitude = geoLocationForVisit.startLatitude
             new_visit.startLongitude = geoLocationForVisit.startLongitude
             new_visit.startTime_of_Visit = geoLocationForVisit.startTime
             
-            geoLocationForVisit.startLatitude = 0.0
-            geoLocationForVisit.startLongitude = 0.0
-            geoLocationForVisit.startTime = ""
-           
             
-        }
+            
+        
         
         new_visit.endLatitude =  geoLocationForVisit.endLatitude
         new_visit.endLongitude = geoLocationForVisit.endLongitude
         new_visit.endTime_of_Visit = geoLocationForVisit.endTime
         
-        geoLocationForVisit.endLatitude = 0.0
-        geoLocationForVisit.endLongitude = 0.0
-        geoLocationForVisit.endTime = ""
+       
         
         
         let attributeDict = ["type":"WorkOrder"]

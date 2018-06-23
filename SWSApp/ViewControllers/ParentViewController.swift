@@ -571,9 +571,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                     DispatchQueue.global(qos: .background).async {
                         GlobalWorkOrderArray.workOrderArray = StoreDispatcher.shared.fetchVisits()
                     DispatchQueue.main.async {
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+                        print("Visit Download Complete")
                     }
                     group.leave()
                 }
@@ -734,9 +732,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
-//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
-//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)

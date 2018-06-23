@@ -227,7 +227,6 @@ class CalendarMonthViewController: UIViewController, monthViewDelegate, actionDe
     func onVisitButtonTap(sender: UIButton, visit:WREvent) {
         
         if visit.type == "visit" {
-            PlanVisitManager.sharedInstance.visit?.Id = visit.Id
             
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController

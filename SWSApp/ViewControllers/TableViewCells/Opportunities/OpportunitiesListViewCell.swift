@@ -31,12 +31,12 @@ class OpportunitiesListViewCell: SwipeTableViewCell {
         
     }
     
-    func displayCellContent(_ opportunityDetails: Opportunity) {
+    func displayCellContent(_ opportunityDetails: Opportunity, withSelection: Bool) {
         
         productNameLabel.text = opportunityDetails.productName
         sourceLabel.text = opportunityDetails.source
        
-        if opportunityDetails.isOpportunitySelected {
+        if withSelection {
             selectedIcon?.isHidden = false
             self.layer.borderColor = UIColor(named: "Data New")?.cgColor
             self.layer.borderWidth = 2

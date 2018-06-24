@@ -425,13 +425,11 @@ extension CalendarListViewController: WRWeekViewDelegate {
         
         if event.type == "visit" {
             PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "") // Todo read visit object from VisitViewModel
-            PlanVisitManager.sharedInstance.visit?.Id = event.Id
             
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             accountVisitsVC?.visitId = event.Id
             accountVisitsVC?.delegate = self
-            PlanVisitManager.sharedInstance.visit?.Id = event.Id
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }

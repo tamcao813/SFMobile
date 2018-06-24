@@ -158,7 +158,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     func fetchAccountDetails(){
         if let accountId = visitObject?.accountId {
-            let accountsArray = GlobalWorkOrderArray.accountArray
+            let accountsArray = AccountsViewModel().accountsForLoggedUser()
             for account in accountsArray{
                 if account.account_Id == accountId {
                     accountObject = account

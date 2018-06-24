@@ -25,7 +25,7 @@ class CalendarViewModel {
     
     func loadVisitsToCalendarEvents(visitArray: [WorkOrderUserObject]) -> [WREvent]? {
         var visitsToCalendarEventsArray = [WREvent]()
-        let globalAccountsForLoggedUser = GlobalWorkOrderArray.accountArray
+        let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
         let globalContactList = ContactsViewModel().globalContacts()
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
         

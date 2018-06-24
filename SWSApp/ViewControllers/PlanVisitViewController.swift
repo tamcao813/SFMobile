@@ -264,7 +264,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         self.accountView.accountLabel.text = editVist?.accountName
         self.accountView.phoneNumberLabel.text = editVist?.accountNumber
         var accountObject: Account?
-        let accounts = GlobalWorkOrderArray.accountArray
+        let accounts = AccountsViewModel().accountsForLoggedUser()
         if let accountId = editVist?.accountId {
             for account in accounts {
                 if account.account_Id == accountId {
@@ -364,7 +364,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     // Get Account array after searching keyword
     
     func getAccountData(searchStr: String) -> [Account] {
-        let account = GlobalWorkOrderArray.accountArray
+        let account = AccountsViewModel().accountsForLoggedUser()
         let arr = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
         print(arr)
         return arr
@@ -599,7 +599,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
             myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 310))
             textFieldTag = textField.tag
             myTableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: "MyCell")
-            searchAccounts = GlobalWorkOrderArray.accountArray
+            searchAccounts = AccountsViewModel().accountsForLoggedUser()
             myTableView.separatorStyle = UITableViewCellSeparatorStyle.none
             myTableView.dataSource = self
             myTableView.delegate = self
@@ -628,7 +628,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
     {
         if(textFieldTag == kAccountTxtTag) {
             if string.isEmpty {
-                self.searchAccounts = GlobalWorkOrderArray.accountArray
+                self.searchAccounts = AccountsViewModel().accountsForLoggedUser()
                 myTableView.reloadData()
             } else {
                 self.searchAccounts = self.getAccountData(searchStr: textField.text!+string)

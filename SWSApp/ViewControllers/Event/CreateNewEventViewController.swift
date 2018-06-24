@@ -324,7 +324,6 @@ class CreateNewEventViewController: UIViewController {
             event.contactId = new_Event.contactId
             event.startDate = new_Event.startDate
             event.endDate = new_Event.endDate
-            event.status = new_Event.status
             event.description = new_Event.description
             event.lastModifiedDate = new_Event.lastModifiedDate
             event.recordTypeId = new_Event.recordTypeId

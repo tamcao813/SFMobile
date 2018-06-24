@@ -39,8 +39,6 @@ class PlanVisitManager {
     var endLatitude = 0.0
     var endLongitude = 0.0
     
-    
-
     // Networking: communicating server
     func network() {
         // get everything
@@ -50,10 +48,7 @@ class PlanVisitManager {
         print("CloudCodeExecutor has been initialized")
     }
     
-    
     func editAndSaveVisit()->Bool{
-        
-        
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
@@ -78,20 +73,16 @@ class PlanVisitManager {
         new_visit.sgwsAlldayEvent = (visit?.sgwsAlldayEvent)!
         
         // in progress
+        if (visit?.status)! == "In-Progress" && geoLocationForVisit.lastVisitStatus == "Scheduled"{
             new_visit.startLatitude = geoLocationForVisit.startLatitude
             new_visit.startLongitude = geoLocationForVisit.startLongitude
             new_visit.startTime_of_Visit = geoLocationForVisit.startTime
-            
-            
-            
-        
-        
-        new_visit.endLatitude =  geoLocationForVisit.endLatitude
-        new_visit.endLongitude = geoLocationForVisit.endLongitude
-        new_visit.endTime_of_Visit = geoLocationForVisit.endTime
-        
-       
-        
+        }
+        else if (visit?.status)! == "Completed" {
+            new_visit.endLatitude =  geoLocationForVisit.endLatitude
+            new_visit.endLongitude = geoLocationForVisit.endLongitude
+            new_visit.endTime_of_Visit = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+        }
         
         let attributeDict = ["type":"WorkOrder"]
         

@@ -20,13 +20,14 @@ protocol NavigateToContactsDelegate {
 }
 
 struct geoLocationForVisit {
+    static var didReceiveLocation = false
     static var startLatitude:Double = 0.0
     static var startLongitude:Double = 0.0
     static var startTime:String = ""
     static var endLatitude:Double = 0.0
     static var endLongitude:Double = 0.0
     static var endTime:String = ""
-    
+    static var lastVisitStatus = ""
 }
 
 
@@ -400,9 +401,9 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
-         geoLocationForVisit.startLatitude = userLocation.coordinate.latitude
-         geoLocationForVisit.startLongitude = userLocation.coordinate.longitude
-
+        geoLocationForVisit.startLatitude = userLocation.coordinate.latitude
+        geoLocationForVisit.startLongitude = userLocation.coordinate.longitude
+        geoLocationForVisit.didReceiveLocation = true //Added to bloack till Lat long received
     }
     
     

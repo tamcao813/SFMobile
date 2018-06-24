@@ -3289,15 +3289,18 @@ class StoreDispatcher {
             soupEntry["SGWS_WorkOrder_Location__c"] = allFields["SGWS_WorkOrder_Location__c"]
             soupEntry["RecordTypeId"] = allFields["RecordTypeId"]
             soupEntry["SGWS_All_Day_Event__c"] = allFields["SGWS_All_Day_Event__c"]
-            
-            soupEntry["SGWS_Start_Latitude__c"] = allFields["SGWS_Start_Latitude__c"]
-            soupEntry["SGWS_Start_Longitude__c"] = allFields["SGWS_Start_Longitude__c"]
-            soupEntry["SGWS_Start_Time_of_Visit__c"] = allFields["SGWS_Start_Time_of_Visit__c"]
-            
-            soupEntry["SGWS_End_Latitude__c"] = allFields["SGWS_End_Latitude__c"]
-            soupEntry["SGWS_End_Longitude__c"] = allFields["SGWS_End_Longitude__c"]
-            soupEntry["SGWS_End_Time_of_Visit__c"] = allFields["SGWS_End_Time_of_Visit__c"]
-            
+            //TODO:  [SHUBHAM] If Plan and Continue will need sync down.
+            let statusString = allFields["Status"] as! String
+            if statusString == "In-Progress" && geoLocationForVisit.lastVisitStatus == "Scheduled" {
+                soupEntry["SGWS_Start_Latitude__c"] = allFields["SGWS_Start_Latitude__c"]
+                soupEntry["SGWS_Start_Longitude__c"] = allFields["SGWS_Start_Longitude__c"]
+                soupEntry["SGWS_Start_Time_of_Visit__c"] = allFields["SGWS_Start_Time_of_Visit__c"]
+            }
+            else if statusString == "Completed" {
+                soupEntry["SGWS_End_Latitude__c"] = allFields["SGWS_End_Latitude__c"]
+                soupEntry["SGWS_End_Longitude__c"] = allFields["SGWS_End_Longitude__c"]
+                soupEntry["SGWS_End_Time_of_Visit__c"] = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+            }
             
             
             soupEntry[kSyncTargetLocallyDeleted] = false

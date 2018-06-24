@@ -68,6 +68,8 @@ class ServicePurposesViewController: UIViewController {
             
         }
         
+        StrategyNotes.isStrategyText = "NO"
+        
         //Used to get the Account id of the user
     }
     

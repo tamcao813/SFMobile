@@ -283,10 +283,8 @@ class CreateNewVisitViewController: UIViewController {
         if let row = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == visitObject?.Id}) {
             GlobalWorkOrderArray.workOrderArray[row] = visitObject!
         }
-        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
-        self.delegate?.updateVisitListFromCreate()
+        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()        
         
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
     }
     
     func createNewVisit(dismiss: Bool) {

@@ -231,13 +231,26 @@ class StoreDispatcher {
                 print(error?.localizedDescription ?? "error")
                 print("syncUpOpportunity: Sync up failed")
             }
+            /*
             self.reSyncOpportunity { error in
                 
                 let _ = OpportunityViewModel().globalOpportunityReload()
                 
                 group.leave()
                 
+            }*/
+            self.syncDownOpportunity() { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                    print("syncOpportunitysWithServer: reSync failed")
+                    group.leave()
+                }
+                else {
+                    let _ = OpportunityViewModel().globalOpportunityReload()
+                    group.leave()
+                }
             }
+
         })
         
         //Action Item
@@ -4027,9 +4040,27 @@ class StoreDispatcher {
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
+        if result.count == 0 {
+            return false
+        }
+        
         var opportunityWorkorderItem = [String: Any]()
         
-        for  singleOpportunityWorkorder in result{
+        let resultOpportunity = result.filter( {
+            var oppotunityModif = $0 as! [String:Any]
+            let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
+            if opportunityModifIdValue.isEmpty {
+                return false
+            }
+            let workOrderModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
+            if workOrderModifIdValue.isEmpty {
+                return false
+            }
+            else {
+                return (fieldsIdValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)
+            }
+        })
+        for  singleOpportunityWorkorder in resultOpportunity{
             var singleOpportunityWorkorderModif = singleOpportunityWorkorder as! [String:Any]
             let singleOpportunityWorkorderModifValue = singleOpportunityWorkorderModif["SGWS_Opportunity__c"] as? String ?? ""
             let singleWorkorderModifValue = singleOpportunityWorkorderModif["SGWS_Work_Order__c"] as? String ?? ""
@@ -4104,21 +4135,37 @@ class StoreDispatcher {
     
     func editOpportunityCommitToSoup(fieldsToUpload: [String:Any]) -> Bool{
         
+        let fieldsIdValue = fieldsToUpload["id"] as? String ?? ""
+        if fieldsIdValue.isEmpty {
+            return false
+        }
+        
         let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunity, withOrderPath: "SGWS_Commit__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
+        if result.count == 0 {
+            return false
+        }
+        
         var modifiedOpportunity = [String: Any]()
         
-        for  opportunity in result{
+        let resultOpportunity = result.filter( {
+            var oppotunityModif = $0 as! [String:Any]
+            let opportunityModifIdValue = oppotunityModif["Id"] as? String ?? ""
+            if opportunityModifIdValue.isEmpty {
+                return false
+            }
+            else {
+                return opportunityModifIdValue == fieldsIdValue
+            }
+        })
+        for  opportunity in resultOpportunity{
+
             var oppotunityModif = opportunity as! [String:Any]
             let opportunityModifIdValue = oppotunityModif["Id"] as? String ?? ""
             if opportunityModifIdValue.isEmpty {
-                continue
-            }
-            
-            let fieldsIdValue = fieldsToUpload["id"] as? String ?? ""
-            if fieldsIdValue.isEmpty {
                 continue
             }
             
@@ -4158,13 +4205,41 @@ class StoreDispatcher {
     func editOpportunityOutcomeToSoup(fieldsToUpload: [String:Any]) -> Bool{
         
         print("editOpportunityOutcomeToSoup : fieldsToUpload : \(fieldsToUpload)")
+        let fieldsOppurValue = fieldsToUpload["Id"] as? String ?? ""
+        if fieldsOppurValue.isEmpty {
+            return false
+        }
+        
+        let fieldsWorkOrderValue = fieldsToUpload["SGWS_Work_Order__c"] as? String ?? ""
+        if fieldsWorkOrderValue.isEmpty {
+            return false
+        }
+
         let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Outcome__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
+        if result.count == 0 {
+            return false
+        }
+        
         var modifiedOpportunity = [String: Any]()
         
-        for  workOrderopportunity in result{
+        let resultOpportunity = result.filter( {
+            var oppotunityModif = $0 as! [String:Any]
+            let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
+            if opportunityModifIdValue.isEmpty {
+                return false
+            }
+            let workOrderModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
+            if workOrderModifIdValue.isEmpty {
+                return false
+            }
+            else {
+                return (fieldsOppurValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)
+            }
+        })
+        for  workOrderopportunity in resultOpportunity{
             var oppotunityModif = workOrderopportunity as! [String:Any]
             let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
             if opportunityModifIdValue.isEmpty {
@@ -4176,15 +4251,6 @@ class StoreDispatcher {
                 continue
             }
 
-            let fieldsOppurValue = fieldsToUpload["Id"] as? String ?? ""
-            if fieldsOppurValue.isEmpty {
-                continue
-            }
-
-            let fieldsWorkOrderValue = fieldsToUpload["SGWS_Work_Order__c"] as? String ?? ""
-            if fieldsWorkOrderValue.isEmpty {
-                continue
-            }
             print("fieldsOppurValue : \(fieldsOppurValue)")
             print("opportunityModifIdValue : \(opportunityModifIdValue)")
             

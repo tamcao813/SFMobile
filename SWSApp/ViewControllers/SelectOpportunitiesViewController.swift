@@ -94,13 +94,14 @@ class SelectOpportunitiesViewController: UIViewController {
         // convert the UInt32 to some other  types
         let someString:String = String(randomNum)
         print("random Id for Opput_workorder  is \(someString)")
+        let visitId = (PlanVisitManager.sharedInstance.visit?.Id) ?? ""
         
         if self.unselectedOpportunityList.count > 0 {
             for opportunity in self.unselectedOpportunityList {
                 let addNewDict: [String:Any] = [
                     OpportunityWorkorder.opportunityWorkorderFields[0]: someString,
                     OpportunityWorkorder.opportunityWorkorderFields[1]: opportunity.id,
-                    OpportunityWorkorder.opportunityWorkorderFields[2]:(PlanVisitManager.sharedInstance.visit?.Id)! ,
+                    OpportunityWorkorder.opportunityWorkorderFields[2]: visitId ,
                     OpportunityWorkorder.opportunityWorkorderFields[3]: "",
                     "attributes":attributeDict]
                 _ = StoreDispatcher.shared.deleteOpportunityWorkorderLocally(fieldsToUpload: addNewDict)
@@ -111,7 +112,7 @@ class SelectOpportunitiesViewController: UIViewController {
                 let addNewDict: [String:Any] = [
                     OpportunityWorkorder.opportunityWorkorderFields[0]: someString,
                     OpportunityWorkorder.opportunityWorkorderFields[1]: opportunity.id,
-                    OpportunityWorkorder.opportunityWorkorderFields[2]:(PlanVisitManager.sharedInstance.visit?.Id)! ,
+                    OpportunityWorkorder.opportunityWorkorderFields[2]: visitId ,
                     OpportunityWorkorder.opportunityWorkorderFields[3]: "",
                     "attributes":attributeDict]
                 if doesExistInDeleted(checkDict: addNewDict) {

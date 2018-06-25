@@ -30,11 +30,20 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>5</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>itms</string>
+		<string>GoSpotCheck</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App Needs Location permission.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App Needs Location permission.</string>
 	<key>SFDCOAuthLoginHost</key>
 	<string>sgws-de--detest.cs77.my.salesforce.com</string>
 	<key>UIAppFonts</key>
@@ -72,15 +81,6 @@
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>App Needs Location permission.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App Needs Location permission.</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>itms</string>
-		<string>GoSpotCheck</string>
 	</array>
 </dict>
 </plist>

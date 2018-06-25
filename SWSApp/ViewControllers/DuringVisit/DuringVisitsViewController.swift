@@ -427,7 +427,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     /// fetchLocationTill will block the Save button till location is received
     func fetchLocationTill(){
-        var count = 12
+        var count = 4
         while geoLocationForVisit.didReceiveLocation == false && count > 0{
             sleep(5)
             count = count - 1

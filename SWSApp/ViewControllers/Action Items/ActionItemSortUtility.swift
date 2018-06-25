@@ -235,7 +235,7 @@ class ActionItemSortUtility {
     
     func isItOpenState(dueDate: String) -> Bool{
         if dueDate == "" {
-            return false
+            return true
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"

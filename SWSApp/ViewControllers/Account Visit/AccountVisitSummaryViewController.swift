@@ -36,8 +36,9 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     var visitId: String?
     var accountObject: Account?
+    var opportunityList = [Opportunity]()
+    var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
     
-   
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editVisitButtonHeightConstraint: NSLayoutConstraint!
@@ -477,11 +478,6 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             case 1:
                 return 0
             case 2:
-//               var opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
-//              opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed-Won")}
-//              opportunityList = opportunityList.filter({$0.isOpportunitySelected == true})
-//
-//               return CGFloat((opportunityList.count)*80)
                 return 30
             default:
                 return 0
@@ -494,7 +490,28 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 return 30
                 
             case 2:
-                return 30
+                opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
+                opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed-Won")}
+                var selectedOpportunitiesList = [Opportunity]()
+                selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
+                if selectedOpportunitiesFromDB.count > 0 {
+                    
+                    selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
+                    if selectedOpportunitiesFromDB.count > 0 {
+                        
+                        for obj in selectedOpportunitiesFromDB {
+                            
+                            selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
+                        }
+                    }
+                }
+                
+                opportunityList = selectedOpportunitiesList
+                if opportunityList.count > 0 {
+                    return 30
+                } else {
+                    return 0
+                }
             default:
                 return 0
             }
@@ -579,10 +596,10 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case 1:
             return getConatactCell()
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AccountOpportunityCell") as? AccountsSummaryOpportunityCell
-            cell?.headingLabel.text = "Opportunities Selected"
-//            cell?.SubheadingLabel.text = ""
-            return cell!
+            if opportunityList.count > 0 {
+                return getOpportunitiesCell()
+            }
+            return UITableViewCell()
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
             cell?.headingLabel.text = "Service Purposes"
@@ -606,6 +623,13 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         cell?.delegate = self
         cell?.account = accountObject
         cell?.displayCellContent()
+        return cell!
+    }
+    
+    
+    func getOpportunitiesCell() -> AccountsSummaryOpportunityCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountOpportunityCell") as? AccountsSummaryOpportunityCell
+        cell?.headingLabel.text = "Opportunities Selected"
         return cell!
     }
     

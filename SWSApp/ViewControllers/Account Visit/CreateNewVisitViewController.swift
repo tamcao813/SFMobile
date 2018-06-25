@@ -316,7 +316,7 @@ class CreateNewVisitViewController: UIViewController {
         if dismiss {
             new_visit.status = "Scheduled"
         }else{
-            new_visit.status = "Planned"
+            new_visit.status = "Scheduled"
         }
         new_visit.location = locationStr
         new_visit.sgwsAppointmentStatus = callToConfirm

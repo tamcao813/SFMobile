@@ -1,0 +1,102 @@
+//
+//  DuringVisitActionItemModelViewController.swift
+//  SWSApp
+//
+//  Created by Jagadeeshwar Reddy on 22/06/18.
+//  Copyright © 2018 maria.min-hui.yu. All rights reserved.
+//
+
+import Foundation
+import SmartSync
+
+
+protocol NavigateToDuringVisitViewControllerDelegate {
+    func navigateToDuringVisitVC()
+}
+
+
+class DuringVisitActionItemModelViewController:UIViewController {
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var bgView: UIView!
+    
+    var actionItemsArray = [ActionItem]()
+    
+    
+    //MARK:- View Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        bgView.backgroundColor = UIColor.white
+        bgView.layer.shadowColor = UIColor.lightGray.cgColor
+        bgView.layer.shadowOpacity = 1
+        bgView.layer.shadowOffset = CGSize.zero
+        bgView.layer.shadowRadius = 5
+        fetchActionItemsFromDB()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    /// Fetches Action Items From Task Table and sort filters 4 months of Action Item in Sort by Date Pattern
+    func fetchActionItemsFromDB(){
+        actionItemsArray = [ActionItem]()
+        if ActionItemFilterModel.fromAccount{
+            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsSorted()
+            if let accountId = ActionItemFilterModel.accountId {
+                for actionItem in actionItemsArrayLocal {
+                    if actionItem.accountId == accountId {
+                        actionItemsArray.append(actionItem)
+                    }
+                }
+            }
+        }else{
+            actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
+        }
+    }
+    
+    var navigationDelegate : NavigateToDuringVisitViewControllerDelegate?
+    //MARK:- IBActions
+    @IBAction func closeButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func viewAllActionItemButton(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                
+                self.dismiss(animated: true, completion: nil)
+                self.navigationDelegate?.navigateToDuringVisitVC()
+                
+            }) {
+                
+            }
+        }
+
+    }
+    
+}
+
+//MARK:- Delegate and DataSource methods
+extension DuringVisitActionItemModelViewController:UITableViewDelegate,UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return actionItemsArray.count
+    }
+    
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "actionItemModelCellID", for: indexPath) as! ActionItemModalTableViewCell
+        cell.selectionStyle = .none
+        let actionItem = actionItemsArray[indexPath.row]
+        cell.actionItemTitleLbl?.text = actionItem.description
+        cell.dueDateLbl?.text = actionItem.activityDate
+        cell.statusLbl?.text = actionItem.status
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 112
+    }
+    
+}
+

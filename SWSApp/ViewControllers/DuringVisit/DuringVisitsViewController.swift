@@ -534,23 +534,38 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     //Action Item Button Clicked
     @IBAction func actionItemsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
-        }) {
-            
+        DispatchQueue.main.async {
+            let modalPopupStoryboard = UIStoryboard.init(name: "PopupModal", bundle: nil)
+            let modalPopupViewController: DuringVisitActionItemModelViewController = modalPopupStoryboard.instantiateViewController(withIdentifier: "ActionItemsModalID") as! DuringVisitActionItemModelViewController
+            modalPopupViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(modalPopupViewController, animated: true, completion: nil)
+            modalPopupViewController.navigationDelegate = self
         }
+//        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+//            self.dismiss(animated: true, completion: nil)
+//            self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
+//        }) {
+//
+//        }
     }
     
     //Notification Button Clicked
     @IBAction func notificationsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
-            
-        }) {
+        DispatchQueue.main.async {
+            let modalPopupStoryboard = UIStoryboard.init(name: "PopupModal", bundle: nil)
+            let modalPopupViewController: DuringVisitNotificationModalviewController = modalPopupStoryboard.instantiateViewController(withIdentifier: "notificationID") as! DuringVisitNotificationModalviewController
+            modalPopupViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(modalPopupViewController, animated: true, completion: nil)
+            modalPopupViewController.delegate = self
             
         }
+//        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+//            self.dismiss(animated: true, completion: nil)
+//            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
+//
+//        }) {
+//
+//        }
     }
     @objc func saveOpportunityCommitValuesLocally() {
         if DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.count > 0 {
@@ -599,4 +614,22 @@ extension DuringVisitsViewController : RefreshStrategyScreenDelegate{
         self.loadTheDataFromStrategyQA()
     }
 }
+
+extension DuringVisitsViewController : NavigateToDuringVisitViewControllerDelegate{
+    func navigateToDuringVisitVC() {
+        self.dismiss(animated: true, completion: nil)
+        self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
+    }
+}
+
+extension DuringVisitsViewController :NavigateToDuringVisitViewController{
+    func navigateNotificationToDuringVisitVC() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
+        }
+        
+    }
+}
+
 

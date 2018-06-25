@@ -17,7 +17,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     @IBOutlet weak var accNameLbl : UILabel?
     @IBOutlet weak var pinCodeLbl : UILabel?
     @IBOutlet weak var accAddressLbl : UILabel?
-    @IBOutlet weak var recomendLabel : UILabel?
+    @IBOutlet weak var recommendLabel : UILabel?
     
     var visitInformation :WorkOrderUserObject?
     var opportunityList = [Opportunity]()

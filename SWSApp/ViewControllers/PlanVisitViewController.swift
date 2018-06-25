@@ -364,7 +364,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     // Get Account array after searching keyword
     
     func getAccountData(searchStr: String) -> [Account] {
-        let account = self.accountViewModel.accountsForLoggedUser()
+        let account = AccountsViewModel().accountsForLoggedUser()
         let arr = account.filter( { return $0.accountName.lowercased().contains(searchStr.lowercased()) } )
         print(arr)
         return arr
@@ -599,7 +599,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
             myTableView = UITableView(frame: CGRect(x: textField.frame.origin.x, y: textField.frame.origin.y + textField.frame.size.height, width: textField.frame.size.width, height: 310))
             textFieldTag = textField.tag
             myTableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: "MyCell")
-            searchAccounts = self.accountViewModel.accountsForLoggedUser()
+            searchAccounts = AccountsViewModel().accountsForLoggedUser()
             myTableView.separatorStyle = UITableViewCellSeparatorStyle.none
             myTableView.dataSource = self
             myTableView.delegate = self
@@ -628,7 +628,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
     {
         if(textFieldTag == kAccountTxtTag) {
             if string.isEmpty {
-                self.searchAccounts = self.accountViewModel.accountsForLoggedUser()
+                self.searchAccounts = AccountsViewModel().accountsForLoggedUser()
                 myTableView.reloadData()
             } else {
                 self.searchAccounts = self.getAccountData(searchStr: textField.text!+string)

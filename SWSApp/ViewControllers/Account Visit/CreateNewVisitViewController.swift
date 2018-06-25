@@ -89,7 +89,8 @@ class CreateNewVisitViewController: UIViewController {
     
     func fetchVisit(){
         if let _ = visitId{
-            let visitArray = VisitsViewModel().visitsForUser()
+//            let visitArray = VisitsViewModel().visitsForUser()
+            let visitArray = GlobalWorkOrderArray.workOrderArray
             for visit in visitArray {
                 if visit.Id == visitId {
                     visitObject = visit
@@ -115,14 +116,18 @@ class CreateNewVisitViewController: UIViewController {
     
     func fetchContactDetails(){
         if let contactId = visitObject?.contactId {
-            var contactsArray = ContactsViewModel().globalContacts()
-            contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
-            for contact in contactsArray {
-                if contact.contactId == contactId {
-                    selectedContact = contact
-                    break
+            if contactId.isEmpty {
+                selectedContact = nil
+            } else {
+                var contactsArray = ContactsViewModel().globalContacts()
+                contactsArray = contactsArray + ContactsViewModel().sgwsEmployeeContacts()
+                for contact in contactsArray {
+                    if contact.contactId == contactId {
+                        selectedContact = contact
+                        break
+                    }
+                    
                 }
-                
             }
         }
     }
@@ -255,6 +260,12 @@ class CreateNewVisitViewController: UIViewController {
     
     func editCurrentVisit(){
         PlanVisitManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
+        PlanVisitManager.sharedInstance.visit?.accountName = selectedAccount.accountName
+        PlanVisitManager.sharedInstance.visit?.accountNumber = selectedAccount.accountNumber
+        PlanVisitManager.sharedInstance.visit?.shippingStreet = selectedAccount.shippingStreet
+        PlanVisitManager.sharedInstance.visit?.shippingCity = selectedAccount.shippingCity
+        PlanVisitManager.sharedInstance.visit?.shippingState = selectedAccount.shippingState
+        PlanVisitManager.sharedInstance.visit?.shippingPostalCode = selectedAccount.shippingPostalCode
         if let contact = selectedContact {
             PlanVisitManager.sharedInstance.visit?.contactId = contact.contactId
         }else{
@@ -262,14 +273,18 @@ class CreateNewVisitViewController: UIViewController {
         }
         PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
         PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+        PlanVisitManager.sharedInstance.visit?.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)
+        PlanVisitManager.sharedInstance.visit?.dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.endDate)!)
         PlanVisitManager.sharedInstance.visit?.location = locationStr
         PlanVisitManager.sharedInstance.visit?.sgwsAppointmentStatus = callToConfirm
         //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
         PlanVisitManager.sharedInstance.visit?.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforVisit()
         
-        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
-        self.delegate?.updateVisitListFromCreate()
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+        if let row = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == visitObject?.Id}) {
+            GlobalWorkOrderArray.workOrderArray[row] = visitObject!
+        }
+        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()        
+        
     }
     
     func createNewVisit(dismiss: Bool) {
@@ -340,16 +355,19 @@ class CreateNewVisitViewController: UIViewController {
             "attributes":attributeDict]
         
         //let (success,Id) = visitViewModel.createNewVisitLocally(fields: addNewDict)
-        let (success,_) = visitViewModel.createNewVisitLocally(fields: addNewDict)
+        let (success,soupID) = visitViewModel.createNewVisitLocally(fields: addNewDict)
         
         if(success){
             let visit = WorkOrderUserObject(for: "")
             //Add the soup entry Id
             visit.Id = new_visit.Id//String((success,Id).1)
-            visit.accountId = new_visit.accountId
+            
             visit.contactId = new_visit.contactId
+            visit.soupEntryId = soupID
             visit.startDate = new_visit.startDate
             visit.endDate = new_visit.endDate
+            visit.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: new_visit.startDate)
+            visit.dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: new_visit.endDate)
             visit.status = new_visit.status
             visit.description = new_visit.description
             visit.sgwsAgendaNotes = new_visit.sgwsAgendaNotes
@@ -358,8 +376,18 @@ class CreateNewVisitViewController: UIViewController {
             visit.recordTypeId = new_visit.recordTypeId
             visit.subject = new_visit.subject
             visit.location = new_visit.location
+            visit.accountId = new_visit.accountId
+            visit.accountName = selectedAccount.accountName
+            visit.accountNumber = selectedAccount.accountNumber
+            visit.shippingStreet = selectedAccount.shippingStreet
+            visit.shippingCity = selectedAccount.shippingCity
+            visit.shippingState = selectedAccount.shippingState
+            visit.shippingPostalCode = selectedAccount.shippingPostalCode
+            
+
             
             PlanVisitManager.sharedInstance.visit = visit
+            GlobalWorkOrderArray.workOrderArray.append(PlanVisitManager.sharedInstance.visit!)
         }
         
         if(success){
@@ -374,6 +402,7 @@ class CreateNewVisitViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
                 }
+            
             }else{
                 let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
                 let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")

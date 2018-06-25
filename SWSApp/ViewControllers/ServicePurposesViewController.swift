@@ -68,6 +68,8 @@ class ServicePurposesViewController: UIViewController {
             
         }
         
+        StrategyNotes.isStrategyText = "NO"
+        
         //Used to get the Account id of the user
     }
     
@@ -96,6 +98,12 @@ class ServicePurposesViewController: UIViewController {
     // MARK:- IBAction
     
     @IBAction func closeVC(sender: UIButton) {
+        
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+            
+            PlanVisitManager.sharedInstance.visit?.status = "Planned"
+        }
+        
         if selectedValuesList.contains("true") {
             //do something
             let uiAlertController = UIAlertController(// create new instance alert  controller
@@ -143,6 +151,9 @@ class ServicePurposesViewController: UIViewController {
             PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = stringRepresentation
            // PlanVisitManager.sharedInstance.sgwsAgendaNotes =
             let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
+            if let row = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == PlanVisitManager.sharedInstance.visit?.Id}) {
+                GlobalWorkOrderArray.workOrderArray[row] = PlanVisitManager.sharedInstance.visit!
+            }
             print(status)
         }
         

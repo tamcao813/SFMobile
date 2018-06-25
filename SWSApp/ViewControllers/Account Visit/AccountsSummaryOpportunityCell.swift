@@ -14,6 +14,7 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
     @IBOutlet weak var tableView: UITableView!
 //    @IBOutlet weak var SubheadingLabel: UILabel!
       var opportunityList = [Opportunity]()
+    var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,9 +25,22 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
 
         
          opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
-        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed-Won")}
-        opportunityList = opportunityList.filter({$0.isOpportunitySelected == true})
-    
+        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
+        var selectedOpportunitiesList = [Opportunity]()
+        selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
+        if selectedOpportunitiesFromDB.count > 0 {
+            
+            selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
+            if selectedOpportunitiesFromDB.count > 0 {
+                
+                for obj in selectedOpportunitiesFromDB {
+                    
+                    selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
+                }
+            }
+        }
+        
+        opportunityList = selectedOpportunitiesList
     }
     
     
@@ -43,6 +57,11 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
         let currentOpportunity:Opportunity = opportunityList[indexPath.row]
+        let thisOppur = selectedOpportunitiesFromDB.filter( { $0.opportunityId ==  currentOpportunity.id } )
+        var outcomeValue = "--"
+        if thisOppur.count > 0 {
+            outcomeValue = thisOppur[0].outcome
+        }
         switch currentOpportunity.source {
         case "What's Hot","Top Seller":
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopSellerCell", for: indexPath) as! AccountsSourceTopSellerTableViewCell
@@ -52,8 +71,8 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
             cell.r12Label.text = currentOpportunity.R12
             cell.r6TrendLabel.text = currentOpportunity.R6Trend
             cell.r3TrendLabel.text = currentOpportunity.R3Trend
-            cell.commitAmtLabel.text = "--"
-            cell.outcomeLabel.text = "--"
+            cell.commitAmtLabel.text = currentOpportunity.commit
+            cell.outcomeLabel.text = outcomeValue
             return cell
             
         case "Undersold":
@@ -63,8 +82,8 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
             cell.accLabel.text = currentOpportunity.acct
             cell.segmentLabel.text = currentOpportunity.segment
             cell.gapLabel.text = currentOpportunity.gap
-            cell.commitAmtLabel.text = "--"
-            cell.outcomeLabel.text = "--"
+            cell.commitAmtLabel.text = currentOpportunity.commit
+            cell.outcomeLabel.text = outcomeValue
             return cell
             
         case "Unsold":
@@ -72,8 +91,8 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
             cell.unsoldPeriodLabel.text = "Unsold Period\n" + currentOpportunity.unsoldPeriodDays
-            cell.commitAmtLabel.text = "--"
-            cell.outcomeLabel.text = "--"
+            cell.commitAmtLabel.text = currentOpportunity.commit
+            cell.outcomeLabel.text = outcomeValue
             return cell
             
         default:
@@ -84,8 +103,8 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
             cell.r12Label.text = currentOpportunity.R12
             cell.r6TrendLabel.text = currentOpportunity.R6Trend
             cell.r3TrendLabel.text = currentOpportunity.R3Trend
-            cell.commitAmtLabel.text = "--"
-            cell.outcomeLabel.text = "--"
+            cell.commitAmtLabel.text = currentOpportunity.commit
+            cell.outcomeLabel.text = outcomeValue
             return cell
             
         }

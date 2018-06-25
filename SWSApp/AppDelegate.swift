@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //For SDK error one can use .debug or .error to switch off .off
                 SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .off
                 SFSDKCoreLogger.sharedInstance().logLevel       =    .off
+                
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
                 print("postLogout")

@@ -9,6 +9,7 @@
 import UIKit
 //import DropDown
 import Reachability
+import CoreLocation
 
 
 struct SelectedMoreButton {
@@ -24,6 +25,7 @@ struct SyncUpDailogGlobal {
     static var isSyncing = false
     static var syncType = "automtic"
     static var isSyncError = false
+    
 }
 
 struct ActionItemsGlobal {
@@ -62,6 +64,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     var previouslySelectedVCIndex = 0
     
     var ifMoreVC = false
+    var isVisitSynDownComplete = false
+    var isAccountSyncDownComplete =  false
     let contact = Contact.init(for: "loggedInUser")
     
     let moreMenuStoryboard = UIStoryboard.init(name: "MoreMenu", bundle: nil)
@@ -149,9 +153,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     }()
     
     var reachability = Reachability()!
+    var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         self.startUpdatingLocationAlerts()
         
         // Do any additional setup after loading the view, typically from a nib.
         // set up persistent menu
@@ -212,6 +218,23 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         }
     }
     
+    
+    func startUpdatingLocationAlerts() {
+        // 1. status is not determined
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestAlwaysAuthorization()
+        }
+            // 2. authorization were denied
+        else if CLLocationManager.authorizationStatus() == .denied {
+            print("Location services were previously denied. Please enable location services for this app in Settings.")
+        }
+            // 3. we do have authorization
+        else if CLLocationManager.authorizationStatus() == .authorizedAlways {
+            print("Authorized always")
+            
+        }
+        
+    }
     @objc func automticResync()
     {
         print("$$$$$$$$$$$$$$$$$$$$ Autosync called")
@@ -556,9 +579,23 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
                 print(error?.localizedDescription ?? "error")
             }
+            
             print("syncVisitsWithServer")
             self.syncProgress +=  syncObjectProgressIncrement
             self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+            self.isVisitSynDownComplete = true
+            
+            
+            if self.isVisitSynDownComplete {
+                group.enter()
+                    DispatchQueue.global(qos: .background).async {
+                        GlobalWorkOrderArray.workOrderArray = StoreDispatcher.shared.fetchVisits()
+                    DispatchQueue.main.async {
+                        print("Visit Download Complete")
+                    }
+                    group.leave()
+                }
+            }
             group.leave()
         }
         
@@ -646,6 +683,16 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             print("syncAccountWithServer")
             self.syncProgress +=  syncObjectProgressIncrement
             self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: false, syncUpFailed: false)
+            if self.isAccountSyncDownComplete {
+                group.enter()
+                DispatchQueue.global(qos: .background).async {
+                    GlobalWorkOrderArray.accountArray = StoreDispatcher.shared.fetchAccountsForLoggedUser()
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+                    }
+                    group.leave()
+                }
+            }
             group.leave()
         }
         

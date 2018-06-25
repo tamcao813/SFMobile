@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import IQKeyboardManagerSwift
 import CoreLocation
+import SmartSync
 
 enum LoadThePersistantMenuScreen : Int{
     case contacts = 0
@@ -136,15 +137,15 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
          geoLocationForVisit.startLatitude = 0.0
          geoLocationForVisit.startLongitude = 0.0
          geoLocationForVisit.startTime = ""
          geoLocationForVisit.endLatitude = 0.0
          geoLocationForVisit.endLongitude = 0.0
          geoLocationForVisit.endTime = ""
-        
-        
+
+
     }
     
     //MARK:-
@@ -424,30 +425,48 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         activeViewController = duringVisitVC
     }
     
+    /// fetchLocationTill will block the Save button till location is received
+    func fetchLocationTill(){
+        var count = 4
+        while geoLocationForVisit.didReceiveLocation == false && count > 0{
+            sleep(5)
+            count = count - 1
+        }
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        geoLocationForVisit.didReceiveLocation = false
+    }
+    
     //Save button Clicked
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
-        if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue"{
+        if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue" {
+            geoLocationForVisit.lastVisitStatus = (PlanVisitManager.sharedInstance.visit?.status)!
             PlanVisitManager.sharedInstance.visit?.status = "In-Progress"
             //Save the data in DB
-            _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+            
+            // in progress
+            if geoLocationForVisit.lastVisitStatus == "Scheduled"{
+                fetchLocationTill()
+            }
+            else {
+                _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+            }
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
+            //location related code
+            self.startUpdatingLocationAlerts()
+            geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
             PlanVisitManager.sharedInstance.visit?.status = "Completed"
             
-            //location related code
-            geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-            self.startUpdatingLocationAlerts()
-            
-            DispatchQueue.main.async{
-                self.dismiss(animated: true, completion: nil)
-            }
-            
-            //Save the data in DB
-            _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+            //Save the data and wait till location is received
+            fetchLocationTill()
             self.saveOpportunityCommitValuesLocally()
             self.saveOutcomeToWorkOrderOpportunityLocally()
             delegate?.navigateToAccountVisitingScreen()
+            //Must dismiss at last
+            DispatchQueue.main.async{
+                self.dismiss(animated: true, completion: nil)
+            }
             return
         }
         
@@ -469,10 +488,18 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
-       geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
+        geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
         geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        geoLocationForVisit.didReceiveLocation = true
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit() //This line may not be received
     }
+    
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        let userLocation:CLLocation = locations[0] as CLLocation
+//        geoLocationForVisit.startLatitude = userLocation.coordinate.latitude
+//        geoLocationForVisit.startLongitude = userLocation.coordinate.longitude
+//        geoLocationForVisit.didReceiveLocation = true
+//    }
     
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

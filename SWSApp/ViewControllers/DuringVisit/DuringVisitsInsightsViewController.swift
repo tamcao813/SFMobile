@@ -17,6 +17,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     @IBOutlet weak var accNameLbl : UILabel?
     @IBOutlet weak var pinCodeLbl : UILabel?
     @IBOutlet weak var accAddressLbl : UILabel?
+    @IBOutlet weak var recommendLabel : UILabel?
     
     var visitInformation :WorkOrderUserObject?
     var opportunityList = [Opportunity]()
@@ -24,7 +25,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     var pickListValuesForOpportunities = [String]()
     var collectionViewRowDetails : NSMutableArray?
     var pickerOptions = [[String:Any]]()
-
+    var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
     
     static var modifiedCommitOpportunitiesList = [Opportunity]()
     static var modifiedOutcomeWorkOrderList = [NSDictionary]()
@@ -39,6 +40,25 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         pinCodeLbl?.text = accountObject?.accountNumber
         accAddressLbl?.text = getFullAccountAddress()
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
+        
+        
+        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
+        var selectedOpportunitiesList = [Opportunity]()
+        selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
+        if selectedOpportunitiesFromDB.count > 0 {
+            
+            selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
+            if selectedOpportunitiesFromDB.count > 0 {
+                
+                for obj in selectedOpportunitiesFromDB {
+                    
+                    selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
+                }
+            }
+        }
+        opportunityList = selectedOpportunitiesList
+        
+        
         let plistPath = Bundle.main.path(forResource: "Insights", ofType: ".plist", inDirectory: nil)
         let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
@@ -53,7 +73,11 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
             }
         }
 
-      
+        if opportunityList.count > 0 {
+            self.insightsTableViewController?.isHidden = false
+        }else {
+            self.insightsTableViewController?.isHidden = true
+        }
         insightsTableViewController?.contentInsetAdjustmentBehavior = .never
     }
     
@@ -207,6 +231,18 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     @IBAction func outcomeButtonCLicked(sender : UIButton){
         
         
+    }
+    
+    @IBAction func accountsDetailsButtonClicked(sender : UIButton){
+        DispatchQueue.main.async {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
+                self.dismiss(animated: false, completion: nil)
+            }){
+                
+            }
+        }
     }
 }
 

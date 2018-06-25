@@ -19,6 +19,7 @@ class DayHomeCalendarViewController: UIViewController {
     let dropDownAddNew = DropDown()
     let defaults:UserDefaults = UserDefaults.standard
     
+    
     @IBOutlet weak var weekView: WRWeekView!
     @IBOutlet weak var dateHeaderLabel: UILabel!
     @IBOutlet weak var addNewButton: UIButton!
@@ -189,6 +190,7 @@ class DayHomeCalendarViewController: UIViewController {
         let eventStoryboard = UIStoryboard.init(name: "CreateEvent", bundle: nil)
         let createEventViewController = eventStoryboard.instantiateViewController(withIdentifier: "CreateNewEventViewController") as? CreateNewEventViewController
         createEventViewController?.isEditingMode = false
+        createEventViewController?.delegate = self
         PlanVisitManager.sharedInstance.visit = nil
         DispatchQueue.main.async {
             self.present(createEventViewController!, animated: false, completion: nil)
@@ -212,14 +214,21 @@ class DayHomeCalendarViewController: UIViewController {
     }
     @IBAction func viewCalendar(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwitchToCalendar"), object:nil)
-
+        
     }
 }
 
+
+
 //MARK:- NavigateToContacts Delegate
 extension DayHomeCalendarViewController : NavigateToContactsDelegate{
+    
+    
     func navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen) {
+        if data == .actionItems{
         
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showActionItems"), object:nil)
+        }
     }
     
     func navigateToVisitListing() {
@@ -269,13 +278,11 @@ extension DayHomeCalendarViewController: WRWeekViewDelegate {
         
         if event.type == "visit" {
             PlanVisitManager.sharedInstance.visit = WorkOrderUserObject(for: "") // Todo read visit object from VisitViewModel
-            PlanVisitManager.sharedInstance.visit?.Id = event.Id
             
             let accountStoryboard = UIStoryboard.init(name: "AccountVisit", bundle: nil)
             let accountVisitsVC = accountStoryboard.instantiateViewController(withIdentifier: "AccountVisitSummaryViewController") as? AccountVisitSummaryViewController
             accountVisitsVC?.visitId = event.Id
             accountVisitsVC?.delegate = self
-            PlanVisitManager.sharedInstance.visit?.Id = event.Id
             DispatchQueue.main.async {
                 self.present(accountVisitsVC!, animated: true, completion: nil)
             }
@@ -295,6 +302,13 @@ extension DayHomeCalendarViewController: WRWeekViewDelegate {
 }
 extension DayHomeCalendarViewController: CreateNewVisitViewControllerDelegate {
     func updateVisitListFromCreate() {
+        self.globalVisit = CalendarViewModel().loadVisitData()!
+        self.reloadCalendarView()
+    }
+}
+
+extension DayHomeCalendarViewController : CreateNewEventControllerDelegate {
+    func updateEventListFromCreate() {
         self.globalVisit = CalendarViewModel().loadVisitData()!
         self.reloadCalendarView()
     }

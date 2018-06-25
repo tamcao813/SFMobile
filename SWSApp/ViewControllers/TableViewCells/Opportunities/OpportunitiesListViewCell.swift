@@ -27,27 +27,26 @@ class OpportunitiesListViewCell: SwipeTableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
+        
     }
     
-    func displayCellContent(_ opportunityDetails: Opportunity) {
+    func displayCellContent(_ opportunityDetails: Opportunity, withSelection: Bool) {
         
         productNameLabel.text = opportunityDetails.productName
         sourceLabel.text = opportunityDetails.source
        
-  
-        if opportunityDetails.isOpportunitySelected {
+        if withSelection {
             selectedIcon?.isHidden = false
             self.layer.borderColor = UIColor(named: "Data New")?.cgColor
+            self.layer.borderWidth = 2
         }else{
             selectedIcon?.isHidden = true
-             self.layer.borderColor = UIColor.white.cgColor
+             self.layer.borderColor = UIColor.lightGray.cgColor
+            self.layer.borderWidth = 1
         }
         displayViewByCellContent(opportunityDetails)
-        
         statusLabel.text = opportunityDetails.status
-        
     }
     
     func displayViewByCellContent(_ opportunityDetails: Opportunity) {
@@ -56,8 +55,7 @@ class OpportunitiesListViewCell: SwipeTableViewCell {
             pycmSoldLabel.text = opportunityDetails.PYCMSold9L
             commitLabel.text = opportunityDetails.commit9L
             soldLabel.text = opportunityDetails.sold9L
-        }
-        else {
+        }else {
             pycmSoldLabel.text = opportunityDetails.PYCMSold
             commitLabel.text = opportunityDetails.commit
             soldLabel.text = opportunityDetails.sold

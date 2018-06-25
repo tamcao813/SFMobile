@@ -42,7 +42,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
         
         
-        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed-Won")}
+        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
         var selectedOpportunitiesList = [Opportunity]()
         selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
         if selectedOpportunitiesFromDB.count > 0 {

@@ -43,7 +43,7 @@
 	<key>insightsAccountUrl</key>
 	<string>/lightning/n/SGWS_Account_Insight?AccountID=</string>
 	<key>homeScreenUrl</key>
-	<string>/analytics/wave/wave.apexp?tsid=02u31000000p1rD#dashboard/0FK0t0000008OeVGAU</string>
+	<string>/lightning/n/Home_Page</string>
 	<key>opportunitiesUrl</key>
 	<string>/lightning/r/Opportunity/</string>
 	<key>opportunityEndUrl</key>

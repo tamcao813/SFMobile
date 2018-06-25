@@ -34,10 +34,7 @@ class OpportunityViewModel {
                 print(error?.localizedDescription ?? "error")
                 print("syncOpportunitysWithServer: Sync up failed")
             }
-            
-            StoreDispatcher.shared.syncDownUploadOpportunity() { _ in
-            }
-            
+            /*
             StoreDispatcher.shared.reSyncOpportunity { error in
                 if error != nil {
                     print(error?.localizedDescription ?? "error")
@@ -47,6 +44,20 @@ class OpportunityViewModel {
                 else {
                     let _ = OpportunityViewModel().globalOpportunityReload()
 
+//                    StoreDispatcher.shared.syncDownUploadOpportunity() { _ in
+//                    }
+                    
+                    completion(nil)
+                }
+            }*/
+            StoreDispatcher.shared.syncDownOpportunity() { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                    print("syncOpportunitysWithServer: reSync failed")
+                    completion(error)
+                }
+                else {
+                    let _ = OpportunityViewModel().globalOpportunityReload()
                     completion(nil)
                 }
             }

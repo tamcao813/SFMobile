@@ -64,7 +64,7 @@ class StoreDispatcher {
         registerActionItemSoup()
         registerNotificationsSoup()
         registerOpportunity()
-        registerUploadOpportunity()
+//        registerUploadOpportunity()
         registerOpportunityWorkorder()
         registerSyncLogSoup()
         registerRecordTypeSoup()
@@ -254,10 +254,11 @@ class StoreDispatcher {
             }
         })
         
+        /*
         group.enter()
         syncDownUploadOpportunity() { _ in
             group.leave()
-        }
+        }*/
         
         //to do: syncDown other soups
         group.notify(queue: queue) {
@@ -357,11 +358,11 @@ class StoreDispatcher {
             let _ = OpportunityViewModel().globalOpportunityReload()
             group.leave()
         }
-        
+        /*
         group.enter()
         syncDownUploadOpportunity() { _ in
             group.leave()
-        }
+        }*/
         
         //to do: syncDown other soups
         
@@ -3797,7 +3798,7 @@ class StoreDispatcher {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunity soup: \(error.localizedDescription)")
         }
     }
-    
+    /*
     func registerUploadOpportunity() {
         
         let syncUploadOpportunityFields = Opportunity.opportunityUploadFields
@@ -3816,7 +3817,7 @@ class StoreDispatcher {
         } catch let error as NSError {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupUploadOpportunity soup: \(error.localizedDescription)")
         }
-    }
+    }*/
     
     func syncDownOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         
@@ -3848,55 +3849,6 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
         
-    }
-    
-    func editOpportunityLocally(fields: [String:Any]) -> Bool {
-        
-        var allFields = fields
-        allFields["attributes"] = ["type":"opportunity"]
-        allFields[kSyncTargetLocal] = true
-        var ary = [Any]()
-        
-        let soupEntryId = allFields["_soupEntryId"]
-        
-        let entryArray = sfaStore.retrieveEntries([soupEntryId!] , fromSoup: SoupOpportunity)
-        
-        if(entryArray.count > 0){
-            
-            let entry = entryArray[0]
-            var soupEntry = entry as! [String:Any]
-            
-            let createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
-            
-            if(createdFlag){
-                soupEntry[kSyncTargetLocal] = true
-                soupEntry[kSyncTargetLocallyUpdated] = false
-                soupEntry[kSyncTargetLocallyCreated] = true
-                
-            }else {
-                soupEntry[kSyncTargetLocal] = true
-                soupEntry[kSyncTargetLocallyCreated] = false
-                soupEntry[kSyncTargetLocallyUpdated] = true
-                
-            }
-            soupEntry["SGWS_Commit__c"] = allFields["SGWS_Commit__c"]
-            
-            soupEntry[kSyncTargetLocallyDeleted] = false
-            
-            ary = sfaStore.upsertEntries([soupEntry], toSoup: SoupOpportunity)
-            
-            if ary.count > 0 {
-                var result = ary[0] as! [String:Any]
-                let soupEntryId = result["_soupEntryId"]
-                print(result)
-                print(soupEntryId!)
-                return true
-            }
-            else {
-                return false
-            }
-        }
-        return false
     }
     
     func fetchOpportunity() -> [Opportunity] {
@@ -3932,8 +3884,8 @@ class StoreDispatcher {
     
     func syncUpOpportunity(completion:@escaping (_ error: NSError?)->()) {
         
-        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: Opportunity.opportunityUploadSyncUpFields, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
-        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupUploadOpportunity)
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: Opportunity.opportunityUploadSyncUpFields, mergeMode: SFSyncStateMergeMode.overwrite)
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupOpportunity)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     let syncId:UInt = UInt(syncStateStatus.syncId)
@@ -4008,7 +3960,7 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
     }*/
-    
+    /*
     func syncDownUploadOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         
         let soqlQuery = "select id,AccountId,sgws_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c from opportunity"
@@ -4037,7 +3989,7 @@ class StoreDispatcher {
                 completion(error as NSError?)
         }
         
-    }
+    }*/
 
     func createNewOpportunityWorkorderLocally(fieldsToUpload: [String:Any]) -> (Bool,Int){
         
@@ -4151,7 +4103,8 @@ class StoreDispatcher {
     }
     
     func editOpportunityCommitToSoup(fieldsToUpload: [String:Any]) -> Bool{
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupUploadOpportunity, withOrderPath: "SGWS_Commit__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunity, withOrderPath: "SGWS_Commit__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
@@ -4163,12 +4116,12 @@ class StoreDispatcher {
             if opportunityModifIdValue.isEmpty {
                 continue
             }
-
+            
             let fieldsIdValue = fieldsToUpload["id"] as? String ?? ""
             if fieldsIdValue.isEmpty {
                 continue
             }
-
+            
             if(fieldsIdValue == opportunityModifIdValue){
                 oppotunityModif["SGWS_Commit__c"] = fieldsToUpload["SGWS_Commit__c"]
                 oppotunityModif[kSyncTargetLocal] = true
@@ -4186,7 +4139,7 @@ class StoreDispatcher {
             }
         }
         
-        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupUploadOpportunity)
+        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupOpportunity)
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
@@ -4198,6 +4151,7 @@ class StoreDispatcher {
             print(" Error in saving opportunity commit" )
             return false
         }
+        
     }
     
     

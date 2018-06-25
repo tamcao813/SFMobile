@@ -14,7 +14,8 @@ class Opportunity {
     static let opportunitySyncUpFields: [String] = [ "AccountId", "sgws_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "StageName", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Order_Frequency__c", "SGWS_Unsold_Period_Days__c",  "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
 
     static let opportunityUploadFields: [String] = [ "Id", "AccountId", "sgws_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c" ]
-    static let opportunityUploadSyncUpFields: [String] = [ "AccountId", "sgws_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c" ]
+//    static let opportunityUploadSyncUpFields: [String] = [ "AccountId", "sgws_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c" ]
+    static let opportunityUploadSyncUpFields: [String] = [ "SGWS_Commit__c" ]
 
     
     var id: String

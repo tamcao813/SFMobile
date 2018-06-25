@@ -322,6 +322,7 @@ class CreateNewEventViewController: UIViewController {
             
             event.soupEntryId = soupID
             event.contactId = new_Event.contactId
+            event.status = new_Event.status
             event.startDate = new_Event.startDate
             event.endDate = new_Event.endDate
             event.description = new_Event.description

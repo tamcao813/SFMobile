@@ -231,13 +231,26 @@ class StoreDispatcher {
                 print(error?.localizedDescription ?? "error")
                 print("syncUpOpportunity: Sync up failed")
             }
+            /*
             self.reSyncOpportunity { error in
                 
                 let _ = OpportunityViewModel().globalOpportunityReload()
                 
                 group.leave()
                 
+            }*/
+            self.syncDownOpportunity() { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                    print("syncOpportunitysWithServer: reSync failed")
+                    group.leave()
+                }
+                else {
+                    let _ = OpportunityViewModel().globalOpportunityReload()
+                    group.leave()
+                }
             }
+
         })
         
         //Action Item

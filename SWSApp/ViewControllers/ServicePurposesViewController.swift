@@ -98,6 +98,12 @@ class ServicePurposesViewController: UIViewController {
     // MARK:- IBAction
     
     @IBAction func closeVC(sender: UIButton) {
+        
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+            
+            PlanVisitManager.sharedInstance.visit?.status = "Planned"
+        }
+        
         if selectedValuesList.contains("true") {
             //do something
             let uiAlertController = UIAlertController(// create new instance alert  controller

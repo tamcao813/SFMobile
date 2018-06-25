@@ -1013,6 +1013,7 @@
                         <outlet property="accNameLbl" destination="KEX-NN-470" id="lgC-U6-UNr"/>
                         <outlet property="insightsTableViewController" destination="6Rh-G1-yeb" id="sCL-JU-1cB"/>
                         <outlet property="pinCodeLbl" destination="KAr-Up-7Q9" id="rWO-hI-V1d"/>
+                        <outlet property="recommendLabel" destination="nie-JW-HC7" id="stc-Ra-lqa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FCD-wp-PhV" userLabel="First Responder" sceneMemberID="firstResponder"/>

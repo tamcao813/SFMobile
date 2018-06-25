@@ -17,6 +17,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     @IBOutlet weak var accNameLbl : UILabel?
     @IBOutlet weak var pinCodeLbl : UILabel?
     @IBOutlet weak var accAddressLbl : UILabel?
+    @IBOutlet weak var recommendLabel : UILabel?
     
     var visitInformation :WorkOrderUserObject?
     var opportunityList = [Opportunity]()
@@ -53,7 +54,11 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
             }
         }
 
-      
+        if opportunityList.count > 0 {
+            self.insightsTableViewController?.isHidden = false
+        }else {
+            self.insightsTableViewController?.isHidden = true
+        }
         insightsTableViewController?.contentInsetAdjustmentBehavior = .never
     }
     

@@ -17,7 +17,8 @@ class SelectOpportunitiesViewController: UIViewController {
     var opportunityList = [Opportunity]()
     var selectedOpportunitiesList = [Opportunity]()
     var unselectedOpportunityList = [Opportunity]()
-    
+    var initialselectedOpportunityList = [Opportunity]()
+
     var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
     
     override func viewDidLoad() {
@@ -39,6 +40,7 @@ class SelectOpportunitiesViewController: UIViewController {
                     
                     selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
                 }
+                initialselectedOpportunityList = selectedOpportunitiesList
             }
         }
     }
@@ -119,7 +121,12 @@ class SelectOpportunitiesViewController: UIViewController {
                     
                 }
                 else {
-                    _ = OpportunityViewModel().createNewOpportunityWorkorderLocally(fields: addNewDict)
+                    if doesOppurtunitySelected(selectedOppurtunityId: opportunity.id) {
+                        
+                    }
+                    else {
+                        _ = OpportunityViewModel().createNewOpportunityWorkorderLocally(fields: addNewDict)
+                    }
                 }
             }
         }
@@ -148,7 +155,10 @@ class SelectOpportunitiesViewController: UIViewController {
     
     func doesOppurtunitySelected(selectedOppurtunityId: String) -> Bool {
         
-        
+        let checkArray = initialselectedOpportunityList.filter( { $0.id == selectedOppurtunityId } )
+        if checkArray.count > 0 {
+            return true
+        }
         return false
     }
     

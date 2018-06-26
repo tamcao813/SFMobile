@@ -67,5 +67,7 @@ struct FilterMenuModel {
     static var comingFromDetailsScreen = ""
     static var selectedAccountId = ""
     
+    static var isFromAccountVisitSummary = ""
+    
     static var selectedConsultant: Consultant?
 }

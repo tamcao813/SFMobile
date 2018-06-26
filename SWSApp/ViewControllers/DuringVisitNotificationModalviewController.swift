@@ -17,6 +17,7 @@ class DuringVisitNotificationModalviewController:UIViewController{
     
     @IBOutlet weak var bgView: UIView!
     var notificationsArray = [Notifications]()
+    var notificationArrayToDisplay = [Notifications]()
     //MARK:- View Life Cycles
     
     override func viewDidLoad() {
@@ -33,8 +34,11 @@ class DuringVisitNotificationModalviewController:UIViewController{
     }
     
     func getNotifications(){
+        //creating notifications array according to accountId
+        let accountId = PlanVisitManager.sharedInstance.visit?.accountId
         notificationsArray = [Notifications]()
         notificationsArray = NotificationsViewModel().notificationsForUser()
+        notificationArrayToDisplay = notificationsArray.filter( { return $0.account == accountId } )
     }
     
     var delegate : NavigateToDuringVisitViewController?
@@ -67,13 +71,13 @@ class DuringVisitNotificationModalviewController:UIViewController{
 extension DuringVisitNotificationModalviewController:UITableViewDataSource,UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notificationsArray.count
+        return notificationArrayToDisplay.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "notificationModalID", for: indexPath) as! NotificationModalTableViewCell
         cell.selectionStyle = .none
-        let notification = notificationsArray[indexPath.row]
+        let notification = notificationArrayToDisplay[indexPath.row]
         cell.notificationLbl?.text = notification.sgwsContactBirthdayNotification
 
         return cell

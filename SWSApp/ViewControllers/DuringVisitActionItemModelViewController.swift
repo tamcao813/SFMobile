@@ -41,18 +41,13 @@ class DuringVisitActionItemModelViewController:UIViewController {
     /// Fetches Action Items From Task Table and sort filters 4 months of Action Item in Sort by Date Pattern
     func fetchActionItemsFromDB(){
         actionItemsArray = [ActionItem]()
-        if ActionItemFilterModel.fromAccount{
-            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsSorted()
-            if let accountId = ActionItemFilterModel.accountId {
+        let accountId = PlanVisitManager.sharedInstance.visit?.accountId
+            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
                 for actionItem in actionItemsArrayLocal {
                     if actionItem.accountId == accountId {
                         actionItemsArray.append(actionItem)
                     }
                 }
-            }
-        }else{
-            actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
-        }
     }
     
     var navigationDelegate : NavigateToDuringVisitViewControllerDelegate?

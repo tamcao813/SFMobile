@@ -12,6 +12,10 @@ import IQKeyboardManagerSwift
 import CoreLocation
 import SmartSync
 
+struct AccountObject {
+    static var account : Account?
+}
+
 enum LoadThePersistantMenuScreen : Int{
     case contacts = 0
     case chatter
@@ -35,6 +39,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var btnInsights : UIButton?
     @IBOutlet weak var btnEditAccountStrategy : UIButton?
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
+    @IBOutlet weak var btnCreateActionItem : UIButton?
     
     //LOCATION
     var locationManager = CLLocationManager()
@@ -406,11 +411,24 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }
     }
     
+    
+    @IBAction func createActionItemButtonClicked(_ sender: UIButton) {
+        
+        btnCreateActionItem?.isHidden = false
+            let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
+            createActionItemViewController.isEditingMode = false
+            createActionItemViewController.selectedAccount = AccountObject.account
+            self.present(createActionItemViewController, animated: false)
+    }
+    
+    
+    
     //Back Button Clicked
     @IBAction func backButtonClicked(sender : UIButton){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
         btnBack?.isHidden = true
+        btnCreateActionItem?.isHidden = false
         imgDiscussion?.image = UIImage(named: "selectedButton")
         imgInsights?.image = UIImage(named: "selectedGrey")
         
@@ -471,6 +489,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }
         
         btnBack?.isHidden = false
+        btnCreateActionItem?.isHidden = true
         imgDiscussion?.image = UIImage(named: "Small Status Good")
         imgInsights?.image = UIImage(named: "selectedButton")
         

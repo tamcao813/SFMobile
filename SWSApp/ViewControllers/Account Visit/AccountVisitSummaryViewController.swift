@@ -98,6 +98,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         locationManager.stopUpdatingLocation()
+        NotificationCenter.default.removeObserver(self)
     }
   
     
@@ -164,6 +165,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             for account in accountsArray{
                 if account.account_Id == accountId {
                     accountObject = account
+                    AccountObject.account = account
                     break
                 }
             }
@@ -381,7 +383,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         }
     }
     
-    @IBAction func closeButtonTapped(_ sender: UIButton){
+    @IBAction func closeButtonTapped(_ sender: UIButton?){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
         locationManager.stopUpdatingLocation()
         self.dismiss(animated: true, completion: nil)
@@ -424,18 +426,27 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     }
     
     func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
-        DispatchQueue.main.async {
-            self.dismiss(animated: false, completion: nil)
-            self.delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+           
+            self.closeButtonTapped(nil)
         }
+       
+        self.delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
+        
         
         
     }
     func NavigateToAccountVisitSummaryActionItems(data: LoadThePersistantMenuScreen) {
-        DispatchQueue.main.async {
-            self.dismiss(animated: false, completion: nil)
-            self.delegate?.navigateTheScreenToActionItemsInPersistantMenu(data: data)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.closeButtonTapped(nil)
         }
+         FilterMenuModel.isFromAccountVisitSummary = "YES"
+        FilterMenuModel.selectedAccountId = (AccountObject.account?.account_Id)!
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
+           // self.delegate?.navigateTheScreenToActionItemsInPersistantMenu(data: data)
+
     }
     
     func navigateToAccountVisitSummaryScreen() {

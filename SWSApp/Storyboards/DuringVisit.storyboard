@@ -1283,6 +1283,21 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h90-8v-GK5">
+                                        <rect key="frame" x="55" y="22" width="145" height="30"/>
+                                        <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="03q-9Y-n3B"/>
+                                            <constraint firstAttribute="width" constant="145" id="frb-3y-aDM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                        <state key="normal" title="Create Action Item">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="createActionItemButtonClicked:" destination="VfR-jM-hAA" eventType="touchUpInside" id="Sgb-ez-Gmu"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1298,12 +1313,14 @@
                                     <constraint firstItem="RTw-mo-EOj" firstAttribute="leading" secondItem="JFp-ni-Ckj" secondAttribute="trailing" constant="13" id="MS5-TO-riQ"/>
                                     <constraint firstItem="4kW-W6-kt8" firstAttribute="centerY" secondItem="TBB-hq-gJK" secondAttribute="centerY" constant="-10" id="Pdn-RM-u8y"/>
                                     <constraint firstItem="4g1-C2-Qx4" firstAttribute="centerX" secondItem="TBB-hq-gJK" secondAttribute="centerX" constant="-5" id="Pha-2Q-1aW"/>
+                                    <constraint firstItem="h90-8v-GK5" firstAttribute="leading" secondItem="TBB-hq-gJK" secondAttribute="leading" constant="55" id="Qig-BR-C1H"/>
                                     <constraint firstItem="GPC-hx-GO0" firstAttribute="centerX" secondItem="4g1-C2-Qx4" secondAttribute="centerX" constant="2" id="Uwt-3Q-9v4"/>
                                     <constraint firstItem="W47-5B-VdI" firstAttribute="leading" secondItem="TBB-hq-gJK" secondAttribute="leading" id="X7J-Nw-tka"/>
                                     <constraint firstAttribute="trailing" secondItem="W47-5B-VdI" secondAttribute="trailing" id="XqF-5M-LyU"/>
                                     <constraint firstAttribute="height" constant="74" id="ZD3-1J-9cb"/>
                                     <constraint firstAttribute="bottom" secondItem="nz0-rQ-QL9" secondAttribute="bottom" constant="20" id="ZTB-au-QnX"/>
                                     <constraint firstAttribute="bottom" secondItem="JFp-ni-Ckj" secondAttribute="bottom" constant="20" id="dnE-qw-oKT"/>
+                                    <constraint firstAttribute="bottom" secondItem="h90-8v-GK5" secondAttribute="bottom" constant="22" id="eXk-iG-Y02"/>
                                     <constraint firstAttribute="bottom" secondItem="RTw-mo-EOj" secondAttribute="bottom" constant="20" id="hOP-XN-X5H"/>
                                     <constraint firstItem="W47-5B-VdI" firstAttribute="top" secondItem="TBB-hq-gJK" secondAttribute="top" id="k7s-NU-E51"/>
                                 </constraints>
@@ -1326,6 +1343,7 @@
                     </view>
                     <connections>
                         <outlet property="btnBack" destination="nz0-rQ-QL9" id="80l-f3-lVE"/>
+                        <outlet property="btnCreateActionItem" destination="h90-8v-GK5" id="cgU-j3-rKc"/>
                         <outlet property="btnDiscussion" destination="LUE-67-Pvy" id="KVg-Jm-H43"/>
                         <outlet property="btnEditAccountStrategy" destination="JFp-ni-Ckj" id="FBA-oE-aiQ"/>
                         <outlet property="btnInsights" destination="GPC-hx-GO0" id="RN2-dN-1eg"/>

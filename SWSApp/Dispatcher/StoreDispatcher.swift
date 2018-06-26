@@ -231,14 +231,15 @@ class StoreDispatcher {
                 print(error?.localizedDescription ?? "error")
                 print("syncUpOpportunity: Sync up failed")
             }
-            /*
+            
             self.reSyncOpportunity { error in
                 
                 let _ = OpportunityViewModel().globalOpportunityReload()
                 
                 group.leave()
                 
-            }*/
+            }
+            /*
             self.syncDownOpportunity() { error in
                 if error != nil {
                     print(error?.localizedDescription ?? "error")
@@ -249,7 +250,7 @@ class StoreDispatcher {
                     let _ = OpportunityViewModel().globalOpportunityReload()
                     group.leave()
                 }
-            }
+            }*/
 
         })
         
@@ -371,11 +372,6 @@ class StoreDispatcher {
             let _ = OpportunityViewModel().globalOpportunityReload()
             group.leave()
         }
-        /*
-        group.enter()
-        syncDownUploadOpportunity() { _ in
-            group.leave()
-        }*/
         
         //to do: syncDown other soups
         

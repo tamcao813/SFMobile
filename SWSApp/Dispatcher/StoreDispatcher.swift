@@ -3301,7 +3301,9 @@ class StoreDispatcher {
             soupEntry["SGWS_All_Day_Event__c"] = allFields["SGWS_All_Day_Event__c"]
             //TODO:  [SHUBHAM] If Plan and Continue will need sync down.
             let statusString = allFields["Status"] as! String
-            if statusString == "In-Progress" && geoLocationForVisit.lastVisitStatus == "Scheduled" {
+            if  statusString == "In-Progress" &&
+                (geoLocationForVisit.startTime != "FromContinueVisit")
+            {
                 soupEntry["SGWS_Start_Latitude__c"] = allFields["SGWS_Start_Latitude__c"]
                 soupEntry["SGWS_Start_Longitude__c"] = allFields["SGWS_Start_Longitude__c"]
                 soupEntry["SGWS_Start_Time_of_Visit__c"] = allFields["SGWS_Start_Time_of_Visit__c"]

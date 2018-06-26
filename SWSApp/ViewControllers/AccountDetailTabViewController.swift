@@ -145,7 +145,7 @@ class AccountDetailTabViewController: UITableViewController {
         cell.nameLabel.text = contact.name
         cell.phoneNumberLabel.text = contact.phoneNumber
         cell.function_RoleLabel.text = contact.functionRole
-        cell.initialsLabel.text = contact.getIntials(name: contact.name)
+        cell.initialsLabel.text =  Validations().getIntials(name: contact.name) //contact.getIntials(name: contact.name)
 
         cell.selectionStyle = .none
         return cell
@@ -283,6 +283,7 @@ class AccountDetailTabViewController: UITableViewController {
         
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
@@ -308,7 +309,7 @@ class AccountDetailTabViewController: UITableViewController {
 
     @objc func viewAllContactFunction()  {
         
-        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+        ContactFilterMenuModel.comingFromDetailsScreen = ""
         ContactFilterMenuModel.selectedContactId = ""
 
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:account?.account_Id)

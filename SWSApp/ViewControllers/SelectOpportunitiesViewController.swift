@@ -25,11 +25,13 @@ class SelectOpportunitiesViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+         topShadow(seperatorView: seperatorLabel)
+    }
+    
+    func getInitialSelectedOpportunities() {
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
         //Do not show  the closed opportunities
         opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
-        
-        topShadow(seperatorView: seperatorLabel)
         selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
         if selectedOpportunitiesFromDB.count > 0 {
             
@@ -43,6 +45,10 @@ class SelectOpportunitiesViewController: UIViewController {
                 initialselectedOpportunityList = selectedOpportunitiesList
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getInitialSelectedOpportunities()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -91,17 +97,12 @@ class SelectOpportunitiesViewController: UIViewController {
         // TBD to insert data into SGWS_Opportunity_WorkOrder__c
         let attributeDict = ["type":"SGWS_Opportunity_WorkOrder__c"]
         
-        //  Make a variable equal to a random number....
-        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
-        // convert the UInt32 to some other  types
-        let someString:String = String(randomNum)
-        print("random Id for Opput_workorder  is \(someString)")
         let visitId = (PlanVisitManager.sharedInstance.visit?.Id) ?? ""
         
         if self.unselectedOpportunityList.count > 0 {
             for opportunity in self.unselectedOpportunityList {
                 let addNewDict: [String:Any] = [
-                    OpportunityWorkorder.opportunityWorkorderFields[0]: someString,
+                    OpportunityWorkorder.opportunityWorkorderFields[0]: getRandomId(),
                     OpportunityWorkorder.opportunityWorkorderFields[1]: opportunity.id,
                     OpportunityWorkorder.opportunityWorkorderFields[2]: visitId ,
                     OpportunityWorkorder.opportunityWorkorderFields[3]: "",
@@ -112,7 +113,7 @@ class SelectOpportunitiesViewController: UIViewController {
         if self.selectedOpportunitiesList.count > 0 {
             for opportunity in self.selectedOpportunitiesList {
                 let addNewDict: [String:Any] = [
-                    OpportunityWorkorder.opportunityWorkorderFields[0]: someString,
+                    OpportunityWorkorder.opportunityWorkorderFields[0]: getRandomId(),
                     OpportunityWorkorder.opportunityWorkorderFields[1]: opportunity.id,
                     OpportunityWorkorder.opportunityWorkorderFields[2]: visitId ,
                     OpportunityWorkorder.opportunityWorkorderFields[3]: "",
@@ -162,6 +163,16 @@ class SelectOpportunitiesViewController: UIViewController {
         return false
     }
     
+    func getRandomId() -> String {
+        
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        print("random Id for Opput_workorder  is \(someString)")
+
+        return someString
+    }
 
     @IBAction func saveAndClose(sender: UIButton) {
         //STATEMACHINE:If you com tho this Screen its in Planned state

@@ -18,6 +18,8 @@
 	<string>/services/data/v41.0/</string>
 	<key>contactRolesPlist</key>
 	<string>/ContactRoles.plist</string>
+	<key>workOrderPlist</key>
+	<string>/Opportunity.plist</string>
 	<key>preferredCommunicationUrl</key>
 	<string>/SGWS_Preferred_Communication_Method__c</string>
 	<key>contactClassification</key>
@@ -43,7 +45,7 @@
 	<key>insightsAccountUrl</key>
 	<string>/lightning/n/SGWS_Account_Insight?AccountID=</string>
 	<key>homeScreenUrl</key>
-	<string>/analytics/wave/wave.apexp?tsid=02u31000000p1rD#dashboard/0FK0t0000008OeVGAU</string>
+	<string>/lightning/n/SGWS_Home_Page</string>
 	<key>opportunitiesUrl</key>
 	<string>/lightning/r/Opportunity/</string>
 	<key>opportunityEndUrl</key>

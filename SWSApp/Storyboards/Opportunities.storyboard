@@ -83,16 +83,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mot-9u-2ar">
-                                                    <rect key="frame" x="15" y="3" width="37" height="26.5"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGE-4B-dYw">
-                                                    <rect key="frame" x="12" y="9" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="trJ-Mc-msK">
-                                                            <rect key="frame" x="6" y="0.0" width="183" height="20.5"/>
+                                                            <rect key="frame" x="6" y="0.0" width="185" height="20.5"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="0.74590118839999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -116,7 +116,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="ucM-PO-WKM" firstAttribute="leading" secondItem="trJ-Mc-msK" secondAttribute="trailing" constant="2" id="6es-Kc-epe"/>
+                                                        <constraint firstItem="ucM-PO-WKM" firstAttribute="leading" secondItem="trJ-Mc-msK" secondAttribute="trailing" id="6es-Kc-epe"/>
                                                         <constraint firstAttribute="bottom" secondItem="ucM-PO-WKM" secondAttribute="bottom" constant="-0.5" id="Cx0-2R-uCm"/>
                                                         <constraint firstItem="trJ-Mc-msK" firstAttribute="leading" secondItem="vGE-4B-dYw" secondAttribute="leading" constant="6" id="DcR-GE-RcP"/>
                                                         <constraint firstAttribute="trailing" secondItem="ucM-PO-WKM" secondAttribute="trailing" constant="7" id="boj-ZS-UWv"/>
@@ -544,7 +544,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="89.5" height="100"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top Sellers" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijT-zV-HJc">
-                                                                            <rect key="frame" x="0.0" y="41" width="74.5" height="17"/>
+                                                                            <rect key="frame" x="0.0" y="41" width="86.5" height="17"/>
                                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -552,7 +552,9 @@
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
+                                                                        <constraint firstAttribute="trailing" secondItem="ijT-zV-HJc" secondAttribute="trailing" constant="3" id="JDJ-aD-lcX"/>
                                                                         <constraint firstItem="ijT-zV-HJc" firstAttribute="leading" secondItem="CCb-V7-OLj" secondAttribute="leading" id="XKw-le-yJE"/>
+                                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ijT-zV-HJc" secondAttribute="bottom" constant="3" id="hNV-SB-xfL"/>
                                                                     </constraints>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ska-ck-OUK" userLabel="Sub View 2">

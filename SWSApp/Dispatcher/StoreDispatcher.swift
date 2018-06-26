@@ -231,14 +231,15 @@ class StoreDispatcher {
                 print(error?.localizedDescription ?? "error")
                 print("syncUpOpportunity: Sync up failed")
             }
-            /*
+            
             self.reSyncOpportunity { error in
                 
                 let _ = OpportunityViewModel().globalOpportunityReload()
                 
                 group.leave()
                 
-            }*/
+            }
+            /*
             self.syncDownOpportunity() { error in
                 if error != nil {
                     print(error?.localizedDescription ?? "error")
@@ -249,7 +250,7 @@ class StoreDispatcher {
                     let _ = OpportunityViewModel().globalOpportunityReload()
                     group.leave()
                 }
-            }
+            }*/
 
         })
         
@@ -371,11 +372,6 @@ class StoreDispatcher {
             let _ = OpportunityViewModel().globalOpportunityReload()
             group.leave()
         }
-        /*
-        group.enter()
-        syncDownUploadOpportunity() { _ in
-            group.leave()
-        }*/
         
         //to do: syncDown other soups
         
@@ -875,7 +871,7 @@ class StoreDispatcher {
                 var outcomePicklist = [String:[PlistOption]]()
                 if response.count > 0 {
                     var ary = [PlistOption]()
-                    self.createPList(plist: "/Opportunity.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    self.createPList(plist: StringConstants.workOrderPlist, plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -1153,7 +1149,7 @@ class StoreDispatcher {
         
         let userid: String = (userViewModel.loggedInUser?.userId)!
         
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000 "
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' AND (UserId = '\(userid)' OR User.ManagerId = '\(userid)') limit 10000 "
         
     
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
@@ -3305,7 +3301,9 @@ class StoreDispatcher {
             soupEntry["SGWS_All_Day_Event__c"] = allFields["SGWS_All_Day_Event__c"]
             //TODO:  [SHUBHAM] If Plan and Continue will need sync down.
             let statusString = allFields["Status"] as! String
-            if statusString == "In-Progress" && geoLocationForVisit.lastVisitStatus == "Scheduled" {
+            if  statusString == "In-Progress" &&
+                (geoLocationForVisit.startTime != "FromContinueVisit")
+            {
                 soupEntry["SGWS_Start_Latitude__c"] = allFields["SGWS_Start_Latitude__c"]
                 soupEntry["SGWS_Start_Longitude__c"] = allFields["SGWS_Start_Longitude__c"]
                 soupEntry["SGWS_Start_Time_of_Visit__c"] = allFields["SGWS_Start_Time_of_Visit__c"]
@@ -4095,9 +4093,10 @@ class StoreDispatcher {
         
         var opportunityWorkorder: [OpportunityWorkorder] = []
         
-        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields.map{"{SGWS_Opportunity_WorkOrder__c:\($0)}"}
-        let soqlQuery = "Select \(opportunityWorkorderFields.joined(separator: ",")) FROM {SGWS_Opportunity_WorkOrder__c}"
-        
+//        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields.map{"{SGWS_Opportunity_WorkOrder__c:\($0)}"}
+//        let soqlQuery = "Select \(opportunityWorkorderFields.joined(separator: ",")) FROM {SGWS_Opportunity_WorkOrder__c}"
+        let soqlQuery = "Select * FROM {SGWS_Opportunity_WorkOrder__c}"
+
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -4111,8 +4110,26 @@ class StoreDispatcher {
         
         if result.count > 0 {
             for i in 0...result.count - 1 {
-                let ary:[Any] = result[i] as! [Any]
-                let opportunityWorkorderArray = OpportunityWorkorder(withAry: ary)
+                
+                let modifResult = result[i] as! [Any]
+                let item = modifResult[1]
+                let subItem = item as! [String:Any]
+
+                if let flag = subItem["__locally_deleted__"] as? Bool {
+                    // if deleted skip
+                    if(flag){
+                        continue
+                    }
+                }
+                else {
+                    continue
+                }
+
+//                let ary:[Any] = result[i] as! [Any]
+//                let opportunityWorkorderArray = OpportunityWorkorder(withAry: ary)
+                let resultDict = modifResult[1]  as! [String:Any]
+                let opportunityWorkorderArray = OpportunityWorkorder(json: resultDict)
+                
                 opportunityWorkorder.append(opportunityWorkorderArray)
             }
         }

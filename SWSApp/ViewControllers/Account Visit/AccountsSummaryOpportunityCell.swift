@@ -12,6 +12,7 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
     
     @IBOutlet weak var headingLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
 //    @IBOutlet weak var SubheadingLabel: UILabel!
       var opportunityList = [Opportunity]()
     var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
@@ -22,27 +23,17 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
         self.tableView.register(UINib(nibName: "SourceTopSellerTableViewCell", bundle: nil), forCellReuseIdentifier: "TopSellerCell")
         self.tableView.register(UINib(nibName: "SourceUndersoldTableviewCell", bundle: nil), forCellReuseIdentifier: "underSoldTableViewCell")
         self.tableView.register(UINib(nibName: "InsightsUnsoldTableViewCell", bundle: nil), forCellReuseIdentifier: "unsoldTableViewCell")
-
-        
-         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
-        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
-        var selectedOpportunitiesList = [Opportunity]()
-        selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
-        if selectedOpportunitiesFromDB.count > 0 {
-            
-            selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
-            if selectedOpportunitiesFromDB.count > 0 {
-                
-                for obj in selectedOpportunitiesFromDB {
-                    
-                    selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
-                }
-            }
-        }
-        
-        opportunityList = selectedOpportunitiesList
+   
     }
     
+    func displayCellContent(selectedOpportunityList:[Opportunity]) {
+        
+        opportunityList = selectedOpportunityList
+       self.tableHeightConstraint.constant = CGFloat(opportunityList.count * 60)
+     
+        self.tableView.reloadData()
+        
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return opportunityList.count
@@ -56,6 +47,10 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
+        selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
+            
+        selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
+        
         let currentOpportunity:Opportunity = opportunityList[indexPath.row]
         let thisOppur = selectedOpportunitiesFromDB.filter( { $0.opportunityId ==  currentOpportunity.id } )
         var outcomeValue = "--"
@@ -63,7 +58,7 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
             outcomeValue = thisOppur[0].outcome
         }
         switch currentOpportunity.source {
-        case "What's Hot","Top Seller":
+        case "What's Hot/What's Not":
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopSellerCell", for: indexPath) as! AccountsSourceTopSellerTableViewCell
             
             cell.productNameLabel.text = currentOpportunity.productName
@@ -90,7 +85,11 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
             let cell = tableView.dequeueReusableCell(withIdentifier: "unsoldTableViewCell", for: indexPath) as! AccountsUnsoldTableViewCell
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-            cell.unsoldPeriodLabel.text = "Unsold Period\n" + currentOpportunity.unsoldPeriodDays
+            if currentOpportunity.unsoldPeriodDays.isEmpty {
+                cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays
+            }else {
+                 cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays + " Days"
+            }
             cell.commitAmtLabel.text = currentOpportunity.commit
             cell.outcomeLabel.text = outcomeValue
             return cell

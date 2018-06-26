@@ -48,6 +48,7 @@ class StringConstants {
     static let workorderPicklistValue = globalUrlDictionary["workorderPicklistValue"] as! String
     static let visitPurpose = globalUrlDictionary["visitPurpose"] as! String
     static let accountVisitPurposePlist = globalUrlDictionary["accountVisitPurposePlist"] as! String
+    static let workOrderPlist = globalUrlDictionary["workOrderPlist"] as! String
 
     static let swsUri = globalUrlDictionary["swsUri"] as! String
     

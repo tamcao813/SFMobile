@@ -8,10 +8,8 @@
 
 import UIKit
 import SmartSync
-//LOCATION
+//MARK: LOCATION Related Code
 import CoreLocation
-
-
 
 protocol NavigateToContactsDelegate {
     func navigateTheScreenToContactsInPersistantMenu(data : LoadThePersistantMenuScreen)
@@ -77,8 +75,20 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             locationManager.startUpdatingLocation()
         }
     }
+    //Location related callbacks
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        locationManager.stopUpdatingLocation()
+        //Kep the location fetched so that delay is less
+        geoLocationForVisit.startLatitude = userLocation.coordinate.latitude
+        geoLocationForVisit.startLongitude = userLocation.coordinate.longitude
+    }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("The error is in location \(error)")
+    }
     
+    //MARK: View life cycle code
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
@@ -87,12 +97,11 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         self.setLocationManager()
     }
     
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchVisit()
         initializingXIBs()
+        fetchOpportunityList()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -100,17 +109,17 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         locationManager.stopUpdatingLocation()
         NotificationCenter.default.removeObserver(self)
     }
-  
-    
     
     @objc func refreshVisit(){
         fetchVisit()
+        fetchOpportunityList()
     }
     
     @objc func refreshVisitList(_ notification: NSNotification){
         if let visit = notification.userInfo?["visit"] as? WorkOrderUserObject {
             fetchVisit(visitIdTemp:visit.Id)
         }
+         fetchOpportunityList()
     }
     
     @objc func navigateToAccountScreen(){
@@ -121,11 +130,9 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         }
     }
     
-    
+    //MARK: Visit/Event related helper method
     func fetchVisit(visitIdTemp:String?){
-
         if let id = visitIdTemp{
-//            let visitArray = VisitsViewModel().visitsForUser()
             let visitArray = GlobalWorkOrderArray.workOrderArray
             for visit in visitArray {
                 if visit.Id == id {
@@ -141,8 +148,26 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         UICustomizations()
     }
     
+    func fetchOpportunityList() {
+        opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
+        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
+        var selectedOpportunitiesList = [Opportunity]()
+        selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
+        if selectedOpportunitiesFromDB.count > 0 {
+            
+            selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
+            if selectedOpportunitiesFromDB.count > 0 {
+                
+                for obj in selectedOpportunitiesFromDB {
+                    
+                    selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
+                }
+            }
+        }
+        opportunityList = selectedOpportunitiesList
+    }
+    
     func fetchVisit(){
-        
         if let id = visitId{
 //            let visitArray = VisitsViewModel().visitsForUser()
             let visitArray = GlobalWorkOrderArray.workOrderArray
@@ -187,9 +212,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
                     } else {
                         selectedContact = nil
                     }
-                    
                 }
-                
             }
         }
         tableView.reloadData()
@@ -307,15 +330,9 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
                 self.dismiss(animated: true, completion: nil)
             }
-            
-            
         }) {
-            
             print("Cancel")
         }
-        
-
-        
     }
     
     @IBAction func startOrContinueVisitButtonTapped(_ sender: UIButton){
@@ -328,14 +345,16 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             (vc as DuringVisitsViewController).visitObject = visitObject
             (vc as DuringVisitsViewController).delegate = self
             
-            //location related code
-            
-            geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-            self.startUpdatingLocationAlerts()
+            //location related code: If coming from "Continue Visit" set flag so no start time goes on server
+            if(visitStatus == .inProgress && sender.titleLabel?.text! == "Continue Visit"){
+                geoLocationForVisit.startTime = "FromContinueVisit"
+            }
+            else {
+                geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+                self.startUpdatingLocationAlerts()
+            }
             
             self.present(vc, animated: true, completion: nil)
-            
-            
         }else{
             
             let storyboard: UIStoryboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
@@ -400,20 +419,6 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.present(vc, animated: true, completion: nil)
     }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation:CLLocation = locations[0] as CLLocation
-        geoLocationForVisit.startLatitude = userLocation.coordinate.latitude
-        geoLocationForVisit.startLongitude = userLocation.coordinate.longitude
-        geoLocationForVisit.didReceiveLocation = true //Added to bloack till Lat long received
-    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("The error is in location \(error)")
-    }
-    
 }
 
 //MARK:- NavigateToContacts Delegate
@@ -501,23 +506,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 return 30
                 
             case 2:
-                opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
-                opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed-Won")}
-                var selectedOpportunitiesList = [Opportunity]()
-                selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
-                if selectedOpportunitiesFromDB.count > 0 {
-                    
-                    selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
-                    if selectedOpportunitiesFromDB.count > 0 {
-                        
-                        for obj in selectedOpportunitiesFromDB {
-                            
-                            selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
-                        }
-                    }
-                }
-                
-                opportunityList = selectedOpportunitiesList
+//                fetchOpportunityList()
                 if opportunityList.count > 0 {
                     return 30
                 } else {
@@ -641,6 +630,8 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func getOpportunitiesCell() -> AccountsSummaryOpportunityCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountOpportunityCell") as? AccountsSummaryOpportunityCell
         cell?.headingLabel.text = "Opportunities Selected"
+        cell?.displayCellContent(selectedOpportunityList: opportunityList)
+        
         return cell!
     }
     

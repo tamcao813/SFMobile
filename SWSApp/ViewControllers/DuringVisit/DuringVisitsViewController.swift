@@ -41,7 +41,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
     @IBOutlet weak var btnCreateActionItem : UIButton?
     
-    //LOCATION
+    //MARK: LOCATION
     var locationManager = CLLocationManager()
     
     func setLocationManager(){
@@ -65,6 +65,33 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
         }
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        locationManager.stopUpdatingLocation()
+        
+        geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
+        geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
+//        geoLocationForVisit.didReceiveLocation = true
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit() //This line may not be received
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        locationManager.stopUpdatingLocation()
+        print("The error is in location \(error)")
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit() //This line may not be received
+    }
+    
+//    /// fetchLocationTill will block the Save button till location is received
+//    func fetchLocationTill(){
+//        var count = 4
+//        while geoLocationForVisit.didReceiveLocation == false && count > 0{
+//            sleep(5)
+//            count = count - 1
+//        }
+//        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+//        geoLocationForVisit.didReceiveLocation = false
+//    }
     
     var visitObject: WorkOrderUserObject?
     
@@ -136,21 +163,17 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
-         geoLocationForVisit.startLatitude = 0.0
-         geoLocationForVisit.startLongitude = 0.0
-         geoLocationForVisit.startTime = ""
-         geoLocationForVisit.endLatitude = 0.0
-         geoLocationForVisit.endLongitude = 0.0
-         geoLocationForVisit.endTime = ""
-
-
+        locationManager.stopUpdatingLocation()
+        geoLocationForVisit.startLatitude = 0.0
+        geoLocationForVisit.startLongitude = 0.0
+        geoLocationForVisit.startTime = ""
+        geoLocationForVisit.endLatitude = 0.0
+        geoLocationForVisit.endLongitude = 0.0
+        geoLocationForVisit.endTime = ""
     }
     
     //MARK:-
@@ -234,7 +257,6 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
         
         tableviewData.add(dict)
-        
     }
     
     //Used to load the Strategy Subheader Questions
@@ -364,7 +386,6 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }) {
             print("No")
         }
-        
     }
     
     //Transaction button clicked
@@ -443,31 +464,21 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         activeViewController = duringVisitVC
     }
     
-    /// fetchLocationTill will block the Save button till location is received
-    func fetchLocationTill(){
-        var count = 4
-        while geoLocationForVisit.didReceiveLocation == false && count > 0{
-            sleep(5)
-            count = count - 1
-        }
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
-        geoLocationForVisit.didReceiveLocation = false
-    }
-    
     //Save button Clicked
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
         if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue" {
             geoLocationForVisit.lastVisitStatus = (PlanVisitManager.sharedInstance.visit?.status)!
             PlanVisitManager.sharedInstance.visit?.status = "In-Progress"
-            //Save the data in DB
             
-            // in progress
-            if geoLocationForVisit.lastVisitStatus == "Scheduled"{
-                fetchLocationTill()
-            }
-            else {
-                _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+            //if geoLocationForVisit.startTime == "FromContinueVisit" do not save s it ws done previously
+            if(geoLocationForVisit.startTime != "FromContinueVisit") {
+                if  geoLocationForVisit.lastVisitStatus == "Scheduled" ||
+                    geoLocationForVisit.lastVisitStatus == "Planned"{
+                    //Get time on button clicked
+                    geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+                    _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+                }
             }
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
@@ -475,14 +486,13 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             self.startUpdatingLocationAlerts()
             geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
             PlanVisitManager.sharedInstance.visit?.status = "Completed"
-            
-            //Save the data and wait till location is received
-            fetchLocationTill()
+
             self.saveOpportunityCommitValuesLocally()
             self.saveOutcomeToWorkOrderOpportunityLocally()
             delegate?.navigateToAccountVisitingScreen()
             //Must dismiss at last
             DispatchQueue.main.async{
+                _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
                 self.dismiss(animated: true, completion: nil)
             }
             return
@@ -503,29 +513,6 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         activeViewController = duringVisitVC
         activeViewController = duringVisitVC
     }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation:CLLocation = locations[0] as CLLocation
-        geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
-        geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
-        geoLocationForVisit.didReceiveLocation = true
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit() //This line may not be received
-    }
-    
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        let userLocation:CLLocation = locations[0] as CLLocation
-//        geoLocationForVisit.startLatitude = userLocation.coordinate.latitude
-//        geoLocationForVisit.startLongitude = userLocation.coordinate.longitude
-//        geoLocationForVisit.didReceiveLocation = true
-//    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("The error is in location \(error)")
-    }
-    
-    
     
     //Account strategy Clicked
     @IBAction func loadStrategyViewController(sender : UIButton){
@@ -644,12 +631,10 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
                     "attributes":attributeDict]
                 
                 _ = VisitSchedulerViewModel().editVisitToSoupEx(fields: addNewDict)
-
             }
         }
-        
     }
-
+    
 }
 
 //MARK:- RefreshStrategyScreen Delegate

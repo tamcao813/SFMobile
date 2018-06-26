@@ -871,7 +871,7 @@ class StoreDispatcher {
                 var outcomePicklist = [String:[PlistOption]]()
                 if response.count > 0 {
                     var ary = [PlistOption]()
-                    self.createPList(plist: "/Opportunity.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    self.createPList(plist: StringConstants.workOrderPlist, plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""

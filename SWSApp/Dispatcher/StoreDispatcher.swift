@@ -231,14 +231,15 @@ class StoreDispatcher {
                 print(error?.localizedDescription ?? "error")
                 print("syncUpOpportunity: Sync up failed")
             }
-            /*
+            
             self.reSyncOpportunity { error in
                 
                 let _ = OpportunityViewModel().globalOpportunityReload()
                 
                 group.leave()
                 
-            }*/
+            }
+            /*
             self.syncDownOpportunity() { error in
                 if error != nil {
                     print(error?.localizedDescription ?? "error")
@@ -249,7 +250,7 @@ class StoreDispatcher {
                     let _ = OpportunityViewModel().globalOpportunityReload()
                     group.leave()
                 }
-            }
+            }*/
 
         })
         
@@ -371,11 +372,6 @@ class StoreDispatcher {
             let _ = OpportunityViewModel().globalOpportunityReload()
             group.leave()
         }
-        /*
-        group.enter()
-        syncDownUploadOpportunity() { _ in
-            group.leave()
-        }*/
         
         //to do: syncDown other soups
         
@@ -1153,7 +1149,7 @@ class StoreDispatcher {
         
         let userid: String = (userViewModel.loggedInUser?.userId)!
         
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' limit 10000 "
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' AND (UserId = '\(userid)' OR User.ManagerId = '\(userid)') limit 10000 "
         
     
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)

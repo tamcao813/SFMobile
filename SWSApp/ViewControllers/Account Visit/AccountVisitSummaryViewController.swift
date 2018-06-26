@@ -104,12 +104,14 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     @objc func refreshVisit(){
         fetchVisit()
+        fetchOpportunityList()
     }
     
     @objc func refreshVisitList(_ notification: NSNotification){
         if let visit = notification.userInfo?["visit"] as? WorkOrderUserObject {
             fetchVisit(visitIdTemp:visit.Id)
         }
+         fetchOpportunityList()
     }
     
     @objc func navigateToAccountScreen(){
@@ -138,6 +140,26 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         fetchAccountDetails()
         fetchContactDetails()
         UICustomizations()
+    }
+    
+    
+    func fetchOpportunityList() {
+        opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
+        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
+        var selectedOpportunitiesList = [Opportunity]()
+        selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
+        if selectedOpportunitiesFromDB.count > 0 {
+            
+            selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
+            if selectedOpportunitiesFromDB.count > 0 {
+                
+                for obj in selectedOpportunitiesFromDB {
+                    
+                    selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
+                }
+            }
+        }
+        opportunityList = selectedOpportunitiesList
     }
     
     func fetchVisit(){
@@ -490,23 +512,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 return 30
                 
             case 2:
-                opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
-                opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed-Won")}
-                var selectedOpportunitiesList = [Opportunity]()
-                selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
-                if selectedOpportunitiesFromDB.count > 0 {
-                    
-                    selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
-                    if selectedOpportunitiesFromDB.count > 0 {
-                        
-                        for obj in selectedOpportunitiesFromDB {
-                            
-                            selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
-                        }
-                    }
-                }
-                
-                opportunityList = selectedOpportunitiesList
+                fetchOpportunityList()
                 if opportunityList.count > 0 {
                     return 30
                 } else {
@@ -630,6 +636,8 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func getOpportunitiesCell() -> AccountsSummaryOpportunityCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountOpportunityCell") as? AccountsSummaryOpportunityCell
         cell?.headingLabel.text = "Opportunities Selected"
+        cell?.displayCellContent(selectedOpportunityList: opportunityList)
+        
         return cell!
     }
     

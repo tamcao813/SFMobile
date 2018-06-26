@@ -12,6 +12,7 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
     
     @IBOutlet weak var headingLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
 //    @IBOutlet weak var SubheadingLabel: UILabel!
       var opportunityList = [Opportunity]()
     var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
@@ -28,6 +29,8 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
     func displayCellContent(selectedOpportunityList:[Opportunity]) {
         
         opportunityList = selectedOpportunityList
+       self.tableHeightConstraint.constant = CGFloat(opportunityList.count * 60)
+     
         self.tableView.reloadData()
         
     }

@@ -4091,9 +4091,10 @@ class StoreDispatcher {
         
         var opportunityWorkorder: [OpportunityWorkorder] = []
         
-        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields.map{"{SGWS_Opportunity_WorkOrder__c:\($0)}"}
-        let soqlQuery = "Select \(opportunityWorkorderFields.joined(separator: ",")) FROM {SGWS_Opportunity_WorkOrder__c}"
-        
+//        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields.map{"{SGWS_Opportunity_WorkOrder__c:\($0)}"}
+//        let soqlQuery = "Select \(opportunityWorkorderFields.joined(separator: ",")) FROM {SGWS_Opportunity_WorkOrder__c}"
+        let soqlQuery = "Select * FROM {SGWS_Opportunity_WorkOrder__c}"
+
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -4107,8 +4108,26 @@ class StoreDispatcher {
         
         if result.count > 0 {
             for i in 0...result.count - 1 {
-                let ary:[Any] = result[i] as! [Any]
-                let opportunityWorkorderArray = OpportunityWorkorder(withAry: ary)
+                
+                let modifResult = result[i] as! [Any]
+                let item = modifResult[1]
+                let subItem = item as! [String:Any]
+
+                if let flag = subItem["__locally_deleted__"] as? Bool {
+                    // if deleted skip
+                    if(flag){
+                        continue
+                    }
+                }
+                else {
+                    continue
+                }
+
+//                let ary:[Any] = result[i] as! [Any]
+//                let opportunityWorkorderArray = OpportunityWorkorder(withAry: ary)
+                let resultDict = modifResult[1]  as! [String:Any]
+                let opportunityWorkorderArray = OpportunityWorkorder(json: resultDict)
+                
                 opportunityWorkorder.append(opportunityWorkorderArray)
             }
         }

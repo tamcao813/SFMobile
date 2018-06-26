@@ -93,6 +93,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         super.viewWillAppear(animated)
         fetchVisit()
         initializingXIBs()
+        fetchOpportunityList()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -512,7 +513,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 return 30
                 
             case 2:
-                fetchOpportunityList()
+//                fetchOpportunityList()
                 if opportunityList.count > 0 {
                     return 30
                 } else {

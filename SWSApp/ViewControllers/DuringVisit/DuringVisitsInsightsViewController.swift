@@ -306,7 +306,11 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnsoldTableViewCell", for: indexPath) as! InsightsSourceUnsoldTableViewCell
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-            cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays
+            if currentOpportunity.unsoldPeriodDays.isEmpty {
+                cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays
+            }else {
+               cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays + " Days"
+            }
             cell.commitAmtTextFiels.text = currentOpportunity.commit
             cell.commitAmtTextFiels.tag = indexPath.row
             cell.outcomeButton.tag = indexPath.row

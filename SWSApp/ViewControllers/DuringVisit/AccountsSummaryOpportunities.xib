@@ -56,7 +56,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gsw-UM-m9C" userLabel="Sub View 2">
-                                <rect key="frame" x="150" y="0.0" width="166" height="40"/>
+                                <rect key="frame" x="170" y="0.0" width="180" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggo-Be-CCo">
                                         <rect key="frame" x="0.0" y="0.0" width="136" height="40"/>
@@ -71,8 +71,8 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Ggo-Be-CCo" secondAttribute="bottom" id="1Q8-r4-a2Z"/>
                                     <constraint firstItem="Ggo-Be-CCo" firstAttribute="leading" secondItem="Gsw-UM-m9C" secondAttribute="leading" id="6wG-xK-xya"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ggo-Be-CCo" secondAttribute="trailing" constant="30" id="KUg-UG-Dms"/>
-                                    <constraint firstAttribute="width" constant="166" id="cmJ-IY-UAB"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ggo-Be-CCo" secondAttribute="trailing" constant="44" id="KUg-UG-Dms"/>
+                                    <constraint firstAttribute="width" constant="180" id="cmJ-IY-UAB"/>
                                     <constraint firstItem="Ggo-Be-CCo" firstAttribute="top" secondItem="Gsw-UM-m9C" secondAttribute="top" id="epC-4k-9Rr"/>
                                 </constraints>
                             </view>
@@ -126,7 +126,7 @@
                             <constraint firstItem="Pys-fZ-b3Q" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="O0U-fd-QrL"/>
                             <constraint firstItem="QCy-5E-Ohs" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="Pdi-RG-Fly"/>
                             <constraint firstItem="QCy-5E-Ohs" firstAttribute="leading" secondItem="KFI-37-LHs" secondAttribute="leading" constant="11" id="bDx-uh-jvt"/>
-                            <constraint firstItem="Gsw-UM-m9C" firstAttribute="leading" secondItem="QCy-5E-Ohs" secondAttribute="trailing" constant="-75" id="bSU-c2-dis"/>
+                            <constraint firstItem="Gsw-UM-m9C" firstAttribute="leading" secondItem="QCy-5E-Ohs" secondAttribute="trailing" constant="-55" id="bSU-c2-dis"/>
                             <constraint firstItem="lul-eB-wuF" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="h8A-JU-lph"/>
                             <constraint firstAttribute="trailing" secondItem="lul-eB-wuF" secondAttribute="trailing" constant="20" id="hLP-A3-7N4"/>
                             <constraint firstItem="Gsw-UM-m9C" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="k5V-v7-GOW"/>

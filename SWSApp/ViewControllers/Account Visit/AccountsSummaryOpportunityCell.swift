@@ -85,7 +85,11 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
             let cell = tableView.dequeueReusableCell(withIdentifier: "unsoldTableViewCell", for: indexPath) as! AccountsUnsoldTableViewCell
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-            cell.unsoldPeriodLabel.text = "Unsold Period\n" + currentOpportunity.unsoldPeriodDays
+            if currentOpportunity.unsoldPeriodDays.isEmpty {
+                cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays
+            }else {
+                 cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays + " Days"
+            }
             cell.commitAmtLabel.text = currentOpportunity.commit
             cell.outcomeLabel.text = outcomeValue
             return cell

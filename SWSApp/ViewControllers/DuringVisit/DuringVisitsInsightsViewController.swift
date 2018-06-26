@@ -63,7 +63,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
         let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
         
-        let opts = PlistMap.sharedInstance.readPList(plist: "/Opportunity.plist")
+        let opts = PlistMap.sharedInstance.readPList(plist: StringConstants.workOrderPlist)
         pickerOptions = opts as! [[String : Any]]
         for pickerOption in pickerOptions {
             

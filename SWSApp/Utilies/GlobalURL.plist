@@ -18,6 +18,8 @@
 	<string>/services/data/v41.0/</string>
 	<key>contactRolesPlist</key>
 	<string>/ContactRoles.plist</string>
+	<key>workOrderPlist</key>
+	<string>/Opportunity.plist</string>
 	<key>preferredCommunicationUrl</key>
 	<string>/SGWS_Preferred_Communication_Method__c</string>
 	<key>contactClassification</key>

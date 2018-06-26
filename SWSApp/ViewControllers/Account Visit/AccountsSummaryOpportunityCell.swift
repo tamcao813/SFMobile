@@ -22,27 +22,15 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
         self.tableView.register(UINib(nibName: "SourceTopSellerTableViewCell", bundle: nil), forCellReuseIdentifier: "TopSellerCell")
         self.tableView.register(UINib(nibName: "SourceUndersoldTableviewCell", bundle: nil), forCellReuseIdentifier: "underSoldTableViewCell")
         self.tableView.register(UINib(nibName: "InsightsUnsoldTableViewCell", bundle: nil), forCellReuseIdentifier: "unsoldTableViewCell")
-
-        
-         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
-        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
-        var selectedOpportunitiesList = [Opportunity]()
-        selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
-        if selectedOpportunitiesFromDB.count > 0 {
-            
-            selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
-            if selectedOpportunitiesFromDB.count > 0 {
-                
-                for obj in selectedOpportunitiesFromDB {
-                    
-                    selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
-                }
-            }
-        }
-        
-        opportunityList = selectedOpportunitiesList
+   
     }
     
+    func displayCellContent(selectedOpportunityList:[Opportunity]) {
+        
+        opportunityList = selectedOpportunityList
+        self.tableView.reloadData()
+        
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return opportunityList.count
@@ -56,6 +44,10 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
+        selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
+            
+        selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
+        
         let currentOpportunity:Opportunity = opportunityList[indexPath.row]
         let thisOppur = selectedOpportunitiesFromDB.filter( { $0.opportunityId ==  currentOpportunity.id } )
         var outcomeValue = "--"

@@ -273,7 +273,7 @@ extension DuringVisitsInsightsViewController : UITableViewDataSource{
     
         let currentOpportunity:Opportunity = opportunityList[indexPath.row]
         switch currentOpportunity.source {
-        case "What's Hot","Top Sellers":
+        case "What's Hot/What's Not":
              let cell = tableView.dequeueReusableCell(withIdentifier: "insightsTopSellerTableViewCell", for: indexPath) as! InsightsSourceTopSellerTableViewCell
              
             cell.productNameLabel.text = currentOpportunity.productName

@@ -58,7 +58,7 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
             outcomeValue = thisOppur[0].outcome
         }
         switch currentOpportunity.source {
-        case "What's Hot","Top Sellers":
+        case "What's Hot/What's Not":
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopSellerCell", for: indexPath) as! AccountsSourceTopSellerTableViewCell
             
             cell.productNameLabel.text = currentOpportunity.productName

@@ -19,7 +19,7 @@ class LinkAccountToContactViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pageHeadingLabel: UILabel!
     var accountSelected: Account?
-    var doesHaveBuyingPower = true
+    var doesHaveBuyingPower: Bool?
     var primaryFunctionTextField : UITextField!
     var searchAccountTextField : UITextField!
     var contactClassificationTextField : UITextField!
@@ -35,6 +35,8 @@ class LinkAccountToContactViewController: UIViewController {
     var isFirstTimeLoaded: Bool = true
     var countOfLinkedAccounts: Int = 0
     var alreadyLinkedAccounts = [String]()
+    var pickerOption: [String : Any]?
+    var fromPicker = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,11 +180,12 @@ class LinkAccountToContactViewController: UIViewController {
         }
         
         aCR.roles = primaryFunctionTextField.text!
-        aCR.buyingPower = doesHaveBuyingPower ? 1:0
+        if let buyingPower = doesHaveBuyingPower {
+            aCR.buyingPower = buyingPower ? 1:0
+        }
         
-        if !doesHaveBuyingPower {
-            aCR.contactClassification = contactClassificationTextField.text!
-            
+        if let buyingPower = doesHaveBuyingPower,!buyingPower {
+            aCR.contactClassification = contactClassificationTextField.text!            
             if aCR.contactClassification == "Other" {
                 aCR.otherSpecification = otherReasonTextField.text!
             }
@@ -244,12 +247,16 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
         case 2:
             return 1
         case 3:
-            if doesHaveBuyingPower {
-                contactClassificationTextField?.text = "" //clear the text
-                otherReasonTextField?.text = "" //clear the text
-                return 1
+            if let buyingPower = doesHaveBuyingPower {
+                if buyingPower {
+                    contactClassificationTextField?.text = "" //clear the text
+                    otherReasonTextField?.text = "" //clear the text
+                    return 1
+                }else{
+                    return 2
+                }
             }else{
-                return 2
+                return 1
             }
         default:
             return 0
@@ -277,31 +284,47 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
             
-            cell?.setBuyingPower(value: doesHaveBuyingPower)
+//            cell?.setBuyingPower(value: doesHaveBuyingPower)
             
             if let acr = accContactRelation { //this is for editing
                 if isFirstTimeLoaded {
                     cell?.primaryFunctionTextField.text = acr.roles
                 }
             }
-            //cell?.delegate = self
-            primaryFunctionTextField = cell?.primaryFunctionTextField
+            cell?.delegate = self
+            primaryFunctionTextField = cell?.primaryFunctionTextField            
             return cell!
         case 3:
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
-                cell?.setBuyingPower(value: doesHaveBuyingPower)
+                if let option = pickerOption, fromPicker{
+                    if option["validFor"] as! Int == 1 {
+                        doesHaveBuyingPower = true
+                        cell?.yesButton.isUserInteractionEnabled = true
+                        cell?.noButton.isUserInteractionEnabled = true
+                    }else{
+                        doesHaveBuyingPower = false
+                        cell?.yesButton.isUserInteractionEnabled = false
+                        cell?.noButton.isUserInteractionEnabled = false
+                    }
+                    fromPicker = false
+                }
+                
+                if let buyingPower = doesHaveBuyingPower{
+                    if buyingPower {
+                        cell?.setBuyingPower(value: true)
+                    }else{
+                        cell?.setBuyingPower(value: false)
+                    }
+                }
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
                 cell?.displayCellContents()
-                
-                cell?.setBuyingPower(value: doesHaveBuyingPower)
-                
                 if let acr = accContactRelation {
-                    if isFirstTimeLoaded && !doesHaveBuyingPower {
+                    if let buyingPower = doesHaveBuyingPower,!buyingPower,isFirstTimeLoaded {
                         cell?.classificationTextField.text = acr.contactClassification
                         if acr.contactClassification == "Other" {
                             cell?.otherTextField.text = acr.otherSpecification
@@ -330,9 +353,10 @@ extension LinkAccountToContactViewController: AccountContactLinkTableViewCellDel
 }
 
 extension LinkAccountToContactViewController: PrimaryFunctionTableViewCellDelegate {
-    func primaryFunctionValueSelected(value: String) {
-        // Assign Value to buyerflag according to the primary function dropdown value and disable the toggle switch accordingly and reload table
-        
+    func primaryFunctionValueSelected(pickerOption: [String : Any]) {
+        self.pickerOption = pickerOption
+        self.fromPicker = true
+        self.tableView.reloadData()
     }
 }
 

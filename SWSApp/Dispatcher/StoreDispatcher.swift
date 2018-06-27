@@ -4079,7 +4079,7 @@ class StoreDispatcher {
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
-            print("\(result) OpportunityWorkorder is deleted  successfully" )
+            print("\(result) OpportunityWorkord_er is deleted  successfully" )
             print(soupEntryId!)
             return true
         }

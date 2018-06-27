@@ -824,6 +824,82 @@ class StoreDispatcher {
         }
     }
     
+    func deleteVisitFromOutlook(recordTypeId: String, completion:@escaping (_ error: NSError?)->()){
+        
+        let path = StringConstants.serviceUrl + StringConstants.eventUrl + recordTypeId
+        
+        let request = SFRestRequest(method: .DELETE, path: path, queryParams: nil)
+        request.endpoint = StringConstants.serviceUrl
+        
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                let response = sfRestResponse.asJsonDictionary()
+                if response.count > 0 {
+                    print("Delete URL Success")
+                    
+                    
+                }
+            }
+            .catch { error in
+                print("preferredCommunication plist error: " + error.localizedDescription)
+                completion(error as NSError?)
+        }
+    }
+    
+    func convertStringToDictionary(text: String) -> [String:AnyObject]? {
+        if let data = text.data(using: String.Encoding.utf8) {
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
+                return json
+            } catch {
+                print("Something went wrong")
+            }
+        }
+        return nil
+    }
+    
+    func editVisitFromOutlook(recordTypeId: String, completion:@escaping (_ error: NSError?)->()){
+        let path = StringConstants.serviceUrl + StringConstants.eventUrl + recordTypeId
+        print(path)
+        
+        var requestParams = [String: Any]()
+        var requestData = [String: String]()
+        
+        requestData["StartDate"] = "2020-06-21T13:00:00.000Z"
+        requestData["EndDate"] = "2020-06-21T14:00:00.000Z"
+
+        let jsonData = try! JSONSerialization.data(withJSONObject: requestData, options: JSONSerialization.WritingOptions.prettyPrinted)
+        
+        let jsonString = String(data: jsonData, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
+
+        requestParams["fields"] =  jsonString //"{StartDate = 2020-06-21T13:00:00.000Z,EndDate = 2020-06-21T14:00:00.000Z}" //jsonString
+        
+        
+        
+        //let data = self.convertStringToDictionary(text: jsonString)
+        //print(data)
+        
+        let request = SFRestRequest(method: .PATCH, path: path, queryParams: requestParams)
+        request.endpoint = StringConstants.serviceUrl
+        
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                let response = sfRestResponse.asJsonDictionary()
+                if response.count > 0 {
+                    print("Edit URL Success")
+                    //Call the Sync Down and Update the Value
+                    
+                    
+                    
+                    
+                }
+            }
+            .catch { error in
+                print("preferredCommunication plist error: " + error.localizedDescription)
+                completion(error as NSError?)
+        }
+    }
+    
     func downloadContactClassificationPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId
         let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.contactClassification

@@ -126,7 +126,12 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         //containerView?.isHidden = true
         
         let button = UIButton()
-        button.tag = 0
+        if FilterMenuModel.isFromAccountVisitSummary == "YES"{
+            FilterMenuModel.isFromAccountVisitSummary = ""
+            button.tag = 5
+        }else{
+            button.tag = 0
+        }
         self.itemsClicked(sender: button)
         
         //containerView?.isHidden = true
@@ -134,6 +139,9 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
         
         StrategyScreenLoadFrom.isLoadFromStrategy = "0"
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

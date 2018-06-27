@@ -25,6 +25,8 @@ let SoupNotifications = "FS_Notification__c"
 let SoupSyncLog = "SGWS_Sync_Logs__c"
 let SoupRecordType = "RecordType"
 
+var soupNames: [String] = [SoupUser,SoupAccount,SoupContact,SoupAccountContactRelation,SoupAccountNotes,SoupVisit,SoupStrategyQA,SoupStrategyQuestion,SoupStrategyAnswers,SoupSyncConfiguration,SoupActionItem,SoupNotifications,SoupSyncLog,SoupRecordType]
+
 let SoupOpportunity = "opportunity"
 //let SoupUploadOpportunity = "uploadOpportunity"
 let SoupOpportunityWorkorder = "SGWS_Opportunity_WorkOrder__c"

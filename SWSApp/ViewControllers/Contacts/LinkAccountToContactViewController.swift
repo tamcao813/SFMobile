@@ -163,6 +163,22 @@ class LinkAccountToContactViewController: UIViewController {
             return
         }
         
+        if let buyerFlag = doesHaveBuyingPower,!buyerFlag && (contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+            contactClassificationTextField.borderColor = .red
+            contactClassificationTextField.becomeFirstResponder()
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            errorLabel.text = StringConstants.emptyFieldError
+            return
+        }
+
+        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,(contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == "Other" {
+            otherReasonTextField.borderColor = .red
+            otherReasonTextField.becomeFirstResponder()
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            errorLabel.text = StringConstants.emptyFieldError
+            return
+        }
+        
         var  aCR = AccountContactRelation(for:"NewACR")
     
         if isInEditMode {

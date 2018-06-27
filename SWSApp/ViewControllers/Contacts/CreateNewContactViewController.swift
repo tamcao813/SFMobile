@@ -159,7 +159,8 @@ class CreateNewContactViewController: UIViewController {
             primaryFunctionTextField.borderColor = .lightGray
         }
         
-        if let buyingPower = doesHaveBuyingPower,buyingPower,isNewContact {
+        if let buyingPower = doesHaveBuyingPower,!buyingPower,isNewContact {
+            contactClassificationTextField.borderColor = .lightGray
             otherReasonTextField.borderColor = .lightGray
         }
         
@@ -170,7 +171,7 @@ class CreateNewContactViewController: UIViewController {
     
     func checkValidations() -> Bool{
         if isNewContact {
-            if checkAccountSelectedValidation() && checkPrimaryFunctionValidation() && checkFirstNameValidation() && checkLastNameValidation() && checkPhoneNumberValidation() && checkFaxNumberValidation() && checkEmailValidation(){
+            if checkAccountSelectedValidation() && checkPrimaryFunctionValidation() && checkContactClassificationValidation() && checkOtherSpecificationValidation() && checkFirstNameValidation() && checkLastNameValidation() && checkPhoneNumberValidation() && checkFaxNumberValidation() && checkEmailValidation(){
                 return true
             }else{
                 return false
@@ -199,6 +200,28 @@ class CreateNewContactViewController: UIViewController {
             primaryFunctionTextField.borderColor = .red
             primaryFunctionTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 2), at: .top, animated: true)
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        return true
+    }
+    
+    func checkContactClassificationValidation() -> Bool {
+        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,isNewContact && (contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+            contactClassificationTextField.borderColor = .red
+            contactClassificationTextField.becomeFirstResponder()
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        return true
+    }
+    
+    func checkOtherSpecificationValidation() -> Bool {
+        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,isNewContact && (contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == "Other" {
+            otherReasonTextField.borderColor = .red
+            otherReasonTextField.becomeFirstResponder()
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return false
         }
@@ -314,7 +337,6 @@ class CreateNewContactViewController: UIViewController {
         if !isNewContact {
             newContact = contactDetail!
             newContact.buyerFlag = (contactDetail?.buyerFlag)!
-            
         }else{
             newContact.buyerFlag = true
             newContact.accountId = accountSelected.account_Id
@@ -333,7 +355,9 @@ class CreateNewContactViewController: UIViewController {
         newContact.contactHours = contactHoursTextField.text!
         newContact.favouriteActivities = favouriteTextView.text!
         newContact.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-        newContact.buyerFlag = doesHaveBuyingPower!
+        if let buyerFlag = doesHaveBuyingPower {
+            newContact.buyerFlag = buyerFlag
+        }
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
@@ -365,6 +389,13 @@ class CreateNewContactViewController: UIViewController {
         
         newContact.sgws_sfa_customer_check = true
         
+        if !newContact.buyerFlag {
+            newContact.contactClassification = contactClassificationTextField.text!
+            if newContact.contactClassification == "Other"{
+                newContact.otherSpecification = otherReasonTextField.text!
+            }
+        }
+        
         return newContact
     }
     
@@ -376,6 +407,12 @@ class CreateNewContactViewController: UIViewController {
         newACR.roles = contact.functionRole
         newACR.isActive = 1
         newACR.buyingPower = contact.buyerFlag ? 1:0
+        if !contact.buyerFlag {
+            newACR.contactClassification = contact.contactClassification
+            if newACR.contactClassification == "Other"{
+                newACR.otherSpecification = contact.otherSpecification
+            }
+        }
         
         return ContactsViewModel().createNewACRToSoup(object: newACR)
     }

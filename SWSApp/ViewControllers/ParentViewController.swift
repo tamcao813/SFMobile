@@ -33,7 +33,7 @@ struct ActionItemsGlobal {
 }
 
 protocol ParentViewControllerDelegate {
-    func getUpdatedDataFromServer(accounts:[Opportunity])
+    func getUpdatedDataFromServer(opportunities:[Opportunity])
 }
 class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     
@@ -767,7 +767,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
                 
 //                self.opportunityViewModel.globalOpportunityReload()
                 let opportunities = self.opportunityViewModel.globalOpportunityReload()
-                ParentViewController.delegate?.getUpdatedDataFromServer(accounts: opportunities)
+                ParentViewController.delegate?.getUpdatedDataFromServer(opportunities: opportunities)
                 
                 self.getUnreadNotificationsCount()
                 if ActionItemFilterModel.fromAccount{

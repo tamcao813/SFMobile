@@ -11,7 +11,7 @@ import SwipeCellKit
 
 class OpportunitiesListViewController: UIViewController,ParentViewControllerDelegate {
     
-    func getUpdatedDataFromServer(accounts: [Opportunity]) {
+    func getUpdatedDataFromServer(opportunities: [Opportunity]) {
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: OpportunitiesFilterMenuModel.accountId!)
         self.opportunitiesListTableView.reloadData()
     }

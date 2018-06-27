@@ -32,7 +32,11 @@ struct ActionItemsGlobal {
     static var accountId: String = ""
 }
 
-class ParentViewController: UIViewController, XMSegmentedControlDelegate{
+protocol ParentViewControllerDelegate {
+    func getUpdatedDataFromServer(accounts:[Opportunity])
+}
+class ParentViewController: UIViewController, XMSegmentedControlDelegate {
+    
     //autoSync automtic/manual and Status of network wifi/cell
     var status:String = ""
     
@@ -50,7 +54,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     var notificationButton:UIBarButtonItem? = nil
     var unreadNotificationCountLabel = UILabel()
-    
+    static var delegate:ParentViewControllerDelegate?
     @IBOutlet weak var contentView: UIView!
     // current view controller
     var currentViewController: UIViewController?
@@ -73,7 +77,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     let defaults:UserDefaults = UserDefaults.standard
     var syncProgress:Float = 0
     var syncViewControllerSyncBtn:UIButton?
-    
+    let opportunityViewModel = OpportunityViewModel()
     //Sync Object Count - To be updated if more objects added here
     let syncObjectCount:Int = 10
     
@@ -760,6 +764,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
+                
+//                self.opportunityViewModel.globalOpportunityReload()
+                let opportunities = self.opportunityViewModel.globalOpportunityReload()
+                ParentViewController.delegate?.getUpdatedDataFromServer(accounts: opportunities)
                 
                 self.getUnreadNotificationsCount()
                 if ActionItemFilterModel.fromAccount{

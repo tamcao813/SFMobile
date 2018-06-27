@@ -9,8 +9,13 @@
 import UIKit
 import SwipeCellKit
 
-class OpportunitiesListViewController: UIViewController {
-
+class OpportunitiesListViewController: UIViewController,ParentViewControllerDelegate {
+    
+    func getUpdatedDataFromServer(accounts: [Opportunity]) {
+        opportunityList = OpportunitySortUtility().opportunityFor(forAccount: OpportunitiesFilterMenuModel.accountId!)
+        self.opportunitiesListTableView.reloadData()
+    }
+    
     @IBOutlet weak var opportunitiesListTableView: UITableView!
 
     var opportunityAccountId: String?
@@ -21,7 +26,8 @@ class OpportunitiesListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ParentViewController.delegate = self
+        
         // Do any additional setup after loading the view.
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: OpportunitiesFilterMenuModel.accountId!)
     }

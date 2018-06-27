@@ -15,11 +15,12 @@ protocol NavigateToDuringVisitViewController {
 
 class DuringVisitNotificationModalviewController:UIViewController{
     
+    //outlets
     @IBOutlet weak var bgView: UIView!
     var notificationsArray = [Notifications]()
     var notificationArrayToDisplay = [Notifications]()
-    //MARK:- View Life Cycles
     
+    //MARK:- View Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         bgView.backgroundColor = UIColor.white
@@ -29,8 +30,13 @@ class DuringVisitNotificationModalviewController:UIViewController{
         bgView.layer.shadowRadius = 5
         getNotifications()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     func getNotifications(){
@@ -44,10 +50,11 @@ class DuringVisitNotificationModalviewController:UIViewController{
     var delegate : NavigateToDuringVisitViewController?
     
     //MARK:- IBActions
+    //close button
     @IBAction func closeButtonClicked(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+    //View All notifications button
     @IBAction func viewAllNotificationButtonClicked(_ sender: UIButton) {
         DispatchQueue.main.async {
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
@@ -59,12 +66,7 @@ class DuringVisitNotificationModalviewController:UIViewController{
                 
             }
         }
-
-        
     }
-    
-    
-    
 }
 
 //MARK:- Delegate and DataSource methods
@@ -84,7 +86,7 @@ extension DuringVisitNotificationModalviewController:UITableViewDataSource,UITab
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 112
+        return 90
     }
     
 }

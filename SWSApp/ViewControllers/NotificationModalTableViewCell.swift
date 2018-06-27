@@ -10,6 +10,7 @@ import Foundation
 
 
 class NotificationModalTableViewCell: UITableViewCell{
+    
     //IBOutlet
     @IBOutlet weak var notificationLbl : UILabel?
     

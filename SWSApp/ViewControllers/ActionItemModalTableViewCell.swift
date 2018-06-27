@@ -10,6 +10,7 @@ import Foundation
 
 
 class ActionItemModalTableViewCell:UITableViewCell{
+    
     //MARK:IBOutlets
     @IBOutlet weak var statusLbl : UILabel?
     @IBOutlet weak var dueDateLbl: UILabel!

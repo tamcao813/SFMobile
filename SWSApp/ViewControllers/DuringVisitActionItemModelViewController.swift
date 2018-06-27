@@ -17,6 +17,7 @@ protocol NavigateToDuringVisitViewControllerDelegate {
 
 class DuringVisitActionItemModelViewController:UIViewController {
     
+    //Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var bgView: UIView!
     
@@ -38,6 +39,10 @@ class DuringVisitActionItemModelViewController:UIViewController {
         super.viewWillAppear(animated)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
     /// Fetches Action Items From Task Table and sort filters 4 months of Action Item in Sort by Date Pattern
     func fetchActionItemsFromDB(){
         actionItemsArray = [ActionItem]()
@@ -51,11 +56,13 @@ class DuringVisitActionItemModelViewController:UIViewController {
     }
     
     var navigationDelegate : NavigateToDuringVisitViewControllerDelegate?
+    
     //MARK:- IBActions
+    //close button
     @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+    //view All Action Item Button
     @IBAction func viewAllActionItemButton(_ sender: UIButton) {
         DispatchQueue.main.async {
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
@@ -83,8 +90,8 @@ extension DuringVisitActionItemModelViewController:UITableViewDelegate,UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "actionItemModelCellID", for: indexPath) as! ActionItemModalTableViewCell
         cell.selectionStyle = .none
         let actionItem = actionItemsArray[indexPath.row]
-        cell.actionItemTitleLbl?.text = actionItem.description
-        cell.dueDateLbl?.text = actionItem.activityDate
+        cell.actionItemTitleLbl?.text = actionItem.subject
+        cell.dueDateLbl?.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))
         cell.statusLbl?.text = actionItem.status
         return cell
     }

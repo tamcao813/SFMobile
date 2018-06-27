@@ -432,7 +432,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }
     }
     
-    
+    // Create Action Item Button clicked
     @IBAction func createActionItemButtonClicked(_ sender: UIButton) {
         
         btnCreateActionItem?.isHidden = false
@@ -574,12 +574,6 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             self.present(modalPopupViewController, animated: true, completion: nil)
             modalPopupViewController.navigationDelegate = self
         }
-//        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-//            self.dismiss(animated: true, completion: nil)
-//            self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
-//        }) {
-//
-//        }
     }
     
     //Notification Button Clicked
@@ -592,14 +586,8 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             modalPopupViewController.delegate = self
             
         }
-//        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-//            self.dismiss(animated: true, completion: nil)
-//            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
-//
-//        }) {
-//
-//        }
     }
+    
     @objc func saveOpportunityCommitValuesLocally() {
         if DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.count > 0 {
             for opportunity in DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList {
@@ -647,6 +635,8 @@ extension DuringVisitsViewController : RefreshStrategyScreenDelegate{
 }
 
 extension DuringVisitsViewController : NavigateToDuringVisitViewControllerDelegate{
+    
+    //After coming back from Action Item Modal View
     func navigateToDuringVisitVC() {
         self.dismiss(animated: true, completion: nil)
         self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
@@ -654,6 +644,8 @@ extension DuringVisitsViewController : NavigateToDuringVisitViewControllerDelega
 }
 
 extension DuringVisitsViewController :NavigateToDuringVisitViewController{
+    
+    //After coming back from Notifications Modal View
     func navigateNotificationToDuringVisitVC() {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)

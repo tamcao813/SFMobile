@@ -62,7 +62,22 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         accountNotesArray = accNotesViewModel.accountsNotesForUser()
         tableViewDisplayData = accountNotesArray
         
-        notesArray = accountNotesArray.filter{$0.accountId == self.accountId}
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let userViewModel = UserViewModel()
+        
+        let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+
+        if(appDelegate.currentSelectedUserId != loggedInuserid){
+            
+            let notesArryfilteredByCounsultant:[AccountNotes] = accountNotesArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
+            
+            notesArray =  notesArryfilteredByCounsultant
+            notesArray = notesArray.filter{$0.accountId == self.accountId}
+        } else {
+        // = accountNotesArray.filter{$0.accountId == self.accountId}
+            notesArray = accountNotesArray.filter{$0.accountId == self.accountId}
+        }
         
 //        for accNotes in accountNotesArray {
 //            if(accNotes.accountId == self.accountId) {

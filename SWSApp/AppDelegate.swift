@@ -287,11 +287,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     self.resetLaunchandResyncConfiguration()
                                     return
                                 }
+                                DispatchQueue.main.async(){
                                 let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
                                 if(globalAccountsForLoggedUser.count == 0){
                                     self.resetLaunchandResyncConfiguration()
+                                    
                                     // Show Alert and exit the app
-                                    self.showAlertandExit()
+                                        self.showAlertandExit()
+                                    }
                                 }
                                 // If both register and syncdownall is completed than only set the launched comeplete flag
                                 UserDefaults.standard.set(true, forKey: "launchedBefore")

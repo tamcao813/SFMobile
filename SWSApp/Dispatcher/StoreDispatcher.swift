@@ -826,7 +826,7 @@ class StoreDispatcher {
     
     func deleteVisitFromOutlook(recordTypeId: String, completion:@escaping (_ error: NSError?)->()){
         
-        let path = StringConstants.serviceUrl + StringConstants.eventUrl + recordTypeId
+        let path = StringConstants.eventUrl + recordTypeId
         
         let request = SFRestRequest(method: .DELETE, path: path, queryParams: nil)
         request.endpoint = StringConstants.serviceUrl
@@ -859,19 +859,28 @@ class StoreDispatcher {
     }
     
     func editVisitFromOutlook(recordTypeId: String, completion:@escaping (_ error: NSError?)->()){
-        let path = StringConstants.serviceUrl + StringConstants.eventUrl + recordTypeId
+        let path = StringConstants.eventUrl + recordTypeId
         print(path)
         
         var requestParams = [String: Any]()
         var requestData = [String: String]()
         
-        requestData["StartDate"] = "2020-06-21T13:00:00.000Z"
-        requestData["EndDate"] = "2020-06-21T14:00:00.000Z"
+        requestData["StartDate"] = "2018-07-21T13:00:00.000Z"
+        requestData["EndDate"] = "2018-07-21T14:00:00.000Z"
 
-        let jsonData = try! JSONSerialization.data(withJSONObject: requestData, options: JSONSerialization.WritingOptions.prettyPrinted)
         
-        let jsonString = String(data: jsonData, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
-
+        var jsonString : String = ""
+        if let theJSONData = try? JSONSerialization.data(
+            withJSONObject: requestData,
+            options: []) {
+            let theJSONText = String(data: theJSONData,
+                                     encoding: .ascii)
+            print("JSON string = \(theJSONText!)")
+            
+            jsonString = theJSONText!
+        }
+        
+    
         requestParams["fields"] =  jsonString //"{StartDate = 2020-06-21T13:00:00.000Z,EndDate = 2020-06-21T14:00:00.000Z}" //jsonString
         
         

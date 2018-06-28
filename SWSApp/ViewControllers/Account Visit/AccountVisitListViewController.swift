@@ -439,6 +439,7 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
             ContactFilterMenuModel.selectedContactId = ""
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
         }else {
+            FilterMenuModel.isFromAccountVisitSummary = "YES"
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
         }
     }

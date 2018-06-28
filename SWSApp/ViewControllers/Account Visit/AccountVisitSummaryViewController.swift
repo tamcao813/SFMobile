@@ -446,6 +446,7 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.closeButtonTapped(nil)
         }
+        FilterMenuModel.selectedAccountId = (AccountObject.account?.account_Id)!
         FilterMenuModel.isFromAccountVisitSummary = "YES"        
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
            // self.delegate?.navigateTheScreenToActionItemsInPersistantMenu(data: data)

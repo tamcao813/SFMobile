@@ -4277,6 +4277,17 @@ class StoreDispatcher {
         })*/
         for  workOrderopportunity in result{
             var oppotunityModif = workOrderopportunity as! [String:Any]
+            
+            if let flag = oppotunityModif["__locally_deleted__"] as? Bool {
+                // if deleted skip
+                if(flag){
+                    continue
+                }
+            }
+            else {
+                continue
+            }
+
             let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
             if opportunityModifIdValue.isEmpty {
                 continue

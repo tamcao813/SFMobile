@@ -25,11 +25,13 @@ class SelectOpportunitiesViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+         topShadow(seperatorView: seperatorLabel)
+    }
+    
+    func getInitialSelectedOpportunities() {
         opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
         //Do not show  the closed opportunities
         opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
-        
-        topShadow(seperatorView: seperatorLabel)
         selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
         if selectedOpportunitiesFromDB.count > 0 {
             
@@ -43,6 +45,10 @@ class SelectOpportunitiesViewController: UIViewController {
                 initialselectedOpportunityList = selectedOpportunitiesList
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getInitialSelectedOpportunities()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

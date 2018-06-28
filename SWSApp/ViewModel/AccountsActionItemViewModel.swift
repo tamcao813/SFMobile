@@ -30,6 +30,13 @@ class AccountsActionItemViewModel {
         filteredActionItemArray = filteredActionItemArray.sorted(by: { $0.activityDate < $1.activityDate })
         return filteredActionItemArray
     }
+    //actionItems Descending order
+    func actionItemFourMonthsDescSorted() -> [ActionItem] {
+        let actionItemsArray = getAcctionItemForUser()
+        var filteredActionItemArray = SyncConfigurationSortUtility.getActionItemDataUsingSyncTime(objectArray: actionItemsArray)
+        filteredActionItemArray = filteredActionItemArray.sorted(by: { $0.activityDate > $1.activityDate })
+        return filteredActionItemArray
+    }
     
     
     

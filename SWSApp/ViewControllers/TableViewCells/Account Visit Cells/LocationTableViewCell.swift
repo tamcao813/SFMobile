@@ -29,6 +29,13 @@ class LocationTableViewCell: UITableViewCell {
         accountNumberLabel.text = account?.accountNumber
         accountLabel.text = account?.accountName
         var fullAddress = ""
+        //If not a account than disable the click and return
+        if(account != nil){
+            self.isUserInteractionEnabled = true
+        } else {
+            self.isUserInteractionEnabled = false
+        }
+        
         if let shippingStreet = account?.shippingStreet, let shippingCity = account?.shippingCity , let shippingState = account?.shippingState, let shippingPostalCode = account?.shippingPostalCode{
             // latitudeDouble and longitudeDouble are non-optional in here
             if shippingStreet == "" && shippingCity == "" && shippingState == "" && shippingPostalCode == "" {

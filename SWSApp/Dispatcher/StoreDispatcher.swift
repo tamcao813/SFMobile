@@ -17,6 +17,7 @@ struct DOWNLOAD_SIZE {
     static let CONTACT_SIZE = 10000
 }
 
+
 class StoreDispatcher {
     static let shared = StoreDispatcher()
     static let SFADB = "SFADB"
@@ -68,6 +69,16 @@ class StoreDispatcher {
         registerOpportunityWorkorder()
         registerSyncLogSoup()
         registerRecordTypeSoup()
+    }
+    
+    func checkIfAllSoupsExist()->Bool{
+        
+        for soupName in soupNames{
+            if(!sfaStore.soupExists(soupName)){
+                return false
+            }
+        }
+        return true
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -871,7 +882,7 @@ class StoreDispatcher {
                 var outcomePicklist = [String:[PlistOption]]()
                 if response.count > 0 {
                     var ary = [PlistOption]()
-                    self.createPList(plist: "/Opportunity.plist", plistObject: (response["values"] as? [[String : AnyObject]])! )
+                    self.createPList(plist: StringConstants.workOrderPlist, plistObject: (response["values"] as? [[String : AnyObject]])! )
                     if let options = response["values"] as? [[String : AnyObject]] {
                         for option in options {
                             let label = option["label"] as? String ?? ""
@@ -4092,7 +4103,7 @@ class StoreDispatcher {
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
-            print("\(result) OpportunityWorkorder is deleted  successfully" )
+            print("\(result) OpportunityWorkord_er is deleted  successfully" )
             print(soupEntryId!)
             return true
         }
@@ -4106,9 +4117,10 @@ class StoreDispatcher {
         
         var opportunityWorkorder: [OpportunityWorkorder] = []
         
-        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields.map{"{SGWS_Opportunity_WorkOrder__c:\($0)}"}
-        let soqlQuery = "Select \(opportunityWorkorderFields.joined(separator: ",")) FROM {SGWS_Opportunity_WorkOrder__c}"
-        
+//        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields.map{"{SGWS_Opportunity_WorkOrder__c:\($0)}"}
+//        let soqlQuery = "Select \(opportunityWorkorderFields.joined(separator: ",")) FROM {SGWS_Opportunity_WorkOrder__c}"
+        let soqlQuery = "Select * FROM {SGWS_Opportunity_WorkOrder__c}"
+
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
         var error : NSError?
@@ -4122,8 +4134,26 @@ class StoreDispatcher {
         
         if result.count > 0 {
             for i in 0...result.count - 1 {
-                let ary:[Any] = result[i] as! [Any]
-                let opportunityWorkorderArray = OpportunityWorkorder(withAry: ary)
+                
+                let modifResult = result[i] as! [Any]
+                let item = modifResult[1]
+                let subItem = item as! [String:Any]
+
+                if let flag = subItem["__locally_deleted__"] as? Bool {
+                    // if deleted skip
+                    if(flag){
+                        continue
+                    }
+                }
+                else {
+                    continue
+                }
+
+//                let ary:[Any] = result[i] as! [Any]
+//                let opportunityWorkorderArray = OpportunityWorkorder(withAry: ary)
+                let resultDict = modifResult[1]  as! [String:Any]
+                let opportunityWorkorderArray = OpportunityWorkorder(json: resultDict)
+                
                 opportunityWorkorder.append(opportunityWorkorderArray)
             }
         }
@@ -4151,17 +4181,18 @@ class StoreDispatcher {
             return false
         }
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunity, withOrderPath: "SGWS_Commit__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+//        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunity, withOrderPath: "SGWS_Commit__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll = SFQuerySpec.newExactQuerySpec(SoupOpportunity, withSelectPaths: nil, withPath: "Id", withMatchKey: "\(fieldsIdValue)", withOrderPath: "SGWS_Commit__c", with: .ascending, withPageSize: 1)
         
         var error : NSError?
-        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        let result = sfaStore.query(with: querySpecAll!, pageIndex: 0, error: &error)
         
         if result.count == 0 {
             return false
         }
         
         var modifiedOpportunity = [String: Any]()
-        
+        /*
         let resultOpportunity = result.filter( {
             var oppotunityModif = $0 as! [String:Any]
             let opportunityModifIdValue = oppotunityModif["Id"] as? String ?? ""
@@ -4171,10 +4202,11 @@ class StoreDispatcher {
             else {
                 return opportunityModifIdValue == fieldsIdValue
             }
-        })
-        for  opportunity in resultOpportunity{
+        })*/
+        for  opportunity in result{
 
             var oppotunityModif = opportunity as! [String:Any]
+
             let opportunityModifIdValue = oppotunityModif["Id"] as? String ?? ""
             if opportunityModifIdValue.isEmpty {
                 continue
@@ -4183,17 +4215,21 @@ class StoreDispatcher {
             if(fieldsIdValue == opportunityModifIdValue){
                 oppotunityModif["SGWS_Commit__c"] = fieldsToUpload["SGWS_Commit__c"]
                 oppotunityModif[kSyncTargetLocal] = true
-                let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as! Bool
-                if(createdFlag){
-                    oppotunityModif[kSyncTargetLocallyUpdated] = false
-                    oppotunityModif[kSyncTargetLocallyCreated] = true
-                }else {
-                    oppotunityModif[kSyncTargetLocallyCreated] = false
-                    oppotunityModif[kSyncTargetLocallyUpdated] = true
+                if let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as? Bool {
+                    if(createdFlag){
+                        oppotunityModif[kSyncTargetLocallyUpdated] = false
+                        oppotunityModif[kSyncTargetLocallyCreated] = true
+                    }else {
+                        oppotunityModif[kSyncTargetLocallyCreated] = false
+                        oppotunityModif[kSyncTargetLocallyUpdated] = true
+                    }
+                    oppotunityModif[kSyncTargetLocallyDeleted] = false
+                    modifiedOpportunity = oppotunityModif
+                    break
                 }
-                oppotunityModif[kSyncTargetLocallyDeleted] = false
-                modifiedOpportunity = oppotunityModif
-                break
+                else {
+                    continue
+                }
             }
         }
         
@@ -4226,16 +4262,18 @@ class StoreDispatcher {
             return false
         }
 
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Outcome__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+//        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Outcome__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll = SFQuerySpec.newExactQuerySpec(SoupOpportunityWorkorder, withSelectPaths: nil, withPath: "SGWS_Work_Order__c", withMatchKey: "\(fieldsWorkOrderValue)", withOrderPath: "SGWS_Outcome__c", with: .ascending, withPageSize: 1000)
+
         var error : NSError?
-        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        let result = sfaStore.query(with: querySpecAll!, pageIndex: 0, error: &error)
         
         if result.count == 0 {
             return false
         }
         
         var modifiedOpportunity = [String: Any]()
-        
+        /*
         let resultOpportunity = result.filter( {
             var oppotunityModif = $0 as! [String:Any]
             let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
@@ -4249,9 +4287,20 @@ class StoreDispatcher {
             else {
                 return (fieldsOppurValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)
             }
-        })
-        for  workOrderopportunity in resultOpportunity{
+        })*/
+        for  workOrderopportunity in result{
             var oppotunityModif = workOrderopportunity as! [String:Any]
+            
+            if let flag = oppotunityModif["__locally_deleted__"] as? Bool {
+                // if deleted skip
+                if(flag){
+                    continue
+                }
+            }
+            else {
+                continue
+            }
+
             let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
             if opportunityModifIdValue.isEmpty {
                 continue
@@ -4273,18 +4322,22 @@ class StoreDispatcher {
                 print("oppotunityModif : \(oppotunityModif)")
                 oppotunityModif["SGWS_Outcome__c"] = fieldsToUpload["SGWS_Outcome__c"]
                 oppotunityModif[kSyncTargetLocal] = true
-                let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as! Bool
-                if(createdFlag){
-                    oppotunityModif[kSyncTargetLocallyUpdated] = false
-                    oppotunityModif[kSyncTargetLocallyCreated] = true
-                }else {
-                    oppotunityModif[kSyncTargetLocallyCreated] = false
-                    oppotunityModif[kSyncTargetLocallyUpdated] = true
+                if let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as? Bool {
+                    if(createdFlag){
+                        oppotunityModif[kSyncTargetLocallyUpdated] = false
+                        oppotunityModif[kSyncTargetLocallyCreated] = true
+                    }else {
+                        oppotunityModif[kSyncTargetLocallyCreated] = false
+                        oppotunityModif[kSyncTargetLocallyUpdated] = true
+                    }
+                    oppotunityModif[kSyncTargetLocallyDeleted] = false
+                    modifiedOpportunity = oppotunityModif
+                    print("modifiedOpportunity : \(modifiedOpportunity)")
+                    break
                 }
-                oppotunityModif[kSyncTargetLocallyDeleted] = false
-                modifiedOpportunity = oppotunityModif
-                print("modifiedOpportunity : \(modifiedOpportunity)")
-                break
+                else {
+                    continue
+                }
             }
         }
         

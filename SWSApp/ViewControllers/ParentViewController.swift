@@ -744,6 +744,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.syncProgress = 100
             
             DispatchQueue.main.async{
+                if let error = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") {
+                    syncFailed = true
+                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultError")
+                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultsync")
+                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultMessage")
+                    
+                }
                 self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true,syncUpFailed: syncFailed)
             }
             

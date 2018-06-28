@@ -30,11 +30,15 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
         if actionItem.activityDate != "" {
             if actionItem.status == "Open" {
                 if ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
-                    actionItemStatusLabel.text = "Open"
-                    updateStatusInDB(actionItem: actionItem, status: "Open")
+                    if actionItem.status != "Open" {
+                        actionItemStatusLabel.text = "Open"
+                        updateStatusInDB(actionItem: actionItem, status: "Open")
+                    }                    
                 }else{
-                    actionItemStatusLabel.text = "Overdue"
-                    updateStatusInDB(actionItem: actionItem, status: "Overdue")
+                    if actionItem.status != "Overdue" {
+                        actionItemStatusLabel.text = "Overdue"
+                        updateStatusInDB(actionItem: actionItem, status: "Overdue")
+                    }
                 }
             }else{
                 actionItemStatusLabel.text = actionItem.status
@@ -71,13 +75,13 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
             ActionItem.AccountActionItemFields[4]: editActionItem.status,
             ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
             
-            kSyncTargetLocal:true,
-            kSyncTargetLocallyCreated:false,
-            kSyncTargetLocallyUpdated:true,
-            kSyncTargetLocallyDeleted:false,
+//            kSyncTargetLocal:true,
+//            kSyncTargetLocallyCreated:false,
+//            kSyncTargetLocallyUpdated:true,
+//            kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
         
-        if AccountsActionItemViewModel().editActionItemStatusLocally(fields: actionItemDict){
+        if AccountsActionItemViewModel().editActionItemStatusLocallyAutomatically(fields: actionItemDict){
             
         }
     }

@@ -65,7 +65,6 @@ class StoreDispatcher {
         registerActionItemSoup()
         registerNotificationsSoup()
         registerOpportunity()
-//        registerUploadOpportunity()
         registerOpportunityWorkorder()
         registerSyncLogSoup()
         registerRecordTypeSoup()
@@ -1160,7 +1159,18 @@ class StoreDispatcher {
         
         let userid: String = (userViewModel.loggedInUser?.userId)!
         
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' AND (UserId = '\(userid)' OR User.ManagerId = '\(userid)') limit 10000 "
+        //SMK: When resync check if last sync date is older than account updated
+        var resyncClause:String = ""
+        if UserDefaults.standard.bool(forKey: "launchedBefore") == true {
+            if let LastSyncDateUTC: Date = UserDefaults.standard.object(forKey: "lastSyncDateInDateFormat") as? Date {
+                let str = "\(LastSyncDateUTC)"
+                let arrOfSplitDate = str.components(separatedBy: " ")
+                let dateCombineStringInFormat = "\(arrOfSplitDate[0])T\(arrOfSplitDate[1])\(arrOfSplitDate[2])"
+                resyncClause = "AND Account.LastModifiedDate > \(dateCombineStringInFormat)"
+            }
+        }
+        
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' AND (UserId = '\(userid)' OR User.ManagerId = '\(userid)') \(resyncClause) limit 10000 "
         
     
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
@@ -1402,6 +1412,39 @@ class StoreDispatcher {
         
         //let fields = StrategyQA.StrategyQAFields.map{"{\(SoupStrategyQA):\($0)}"}
         let soqlQuery = "SELECT {SGWS_Response__c:Id},{SGWS_Response__c:SGWS_Answer_Description_List__c},{SGWS_Question__c:Id},{SGWS_Question__c:SGWS_Question_Type__c},{SGWS_Question__c:SGWS_Question_Sub_Type__c},{SGWS_Response__c:SGWS_Notes__c},{SGWS_Response__c:SGWS_AppModified_DateTime__c} from {SGWS_Response__c} INNER JOIN {SGWS_Question__c} where {SGWS_Question__c:Id} = {SGWS_Response__c:SGWS_Question__c} AND {SGWS_Response__c:SGWS_Account__c} = '\(accountId)' "
+        
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                
+                let json:[String:Any] = [ "SGWS_Account__c":ary[2],"Id":ary[0], "SGWS_Question_Sub_Type__c":ary[4], "SGWS_Question__c":ary[3], "SGWS_Answer_Description_List__c":ary[1],"SGWS_Notes__c":ary[5],"SGWS_AppModified_DateTime__c":ary[6]]
+                
+                let strategy = StrategyQA.init(json: json)
+                strategyAry.append(strategy)
+                
+            }
+        }
+        else if error != nil {
+            print("fetchStrategyQA " + " error:" + (error?.localizedDescription)!)
+        }
+        return strategyAry
+        
+    }
+
+    func fetchStrategy(forAccount accountId: String, withOwner ownerId: String) -> [StrategyQA] {
+        
+        print("fetchStrategy \(accountId)")
+        print("fetchStrategy \(ownerId)")
+        var strategyAry: [StrategyQA] = []
+        
+        //let fields = StrategyQA.StrategyQAFields.map{"{\(SoupStrategyQA):\($0)}"}
+        let soqlQuery = "SELECT {SGWS_Response__c:Id},{SGWS_Response__c:SGWS_Answer_Description_List__c},{SGWS_Question__c:Id},{SGWS_Question__c:SGWS_Question_Type__c},{SGWS_Question__c:SGWS_Question_Sub_Type__c},{SGWS_Response__c:SGWS_Notes__c},{SGWS_Response__c:SGWS_AppModified_DateTime__c} from {SGWS_Response__c} INNER JOIN {SGWS_Question__c} where {SGWS_Question__c:Id} = {SGWS_Response__c:SGWS_Question__c} AND {SGWS_Response__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_Response__c:OwnerId} = '\(ownerId)' "
         
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
@@ -2297,6 +2340,60 @@ class StoreDispatcher {
                     
                 }
                 ActionItemModif[kSyncTargetLocallyDeleted] = false
+                
+                ActionItemModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
+                editedActionItem = ActionItemModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedActionItem], toSoup: SoupActionItem)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) ActionItem is edited and saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving editing ActionItem" )
+            return false
+        }
+    }
+    
+    func editActionItemStatusLocallyAutomatically(fieldsToUpload: [String:Any]) -> Bool{
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedActionItem = [String: Any]()
+        
+        for  actionItem in result{
+            var ActionItemModif = actionItem as! [String:Any]
+            let singleNoteModifValue = ActionItemModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == singleNoteModifValue){
+                //                ActionItemModif["SGWS_Account__c"] = fieldsToUpload["SGWS_Account__c"]
+                //                ActionItemModif["Subject"] = fieldsToUpload["Subject"]
+                //                ActionItemModif["Description"] = fieldsToUpload["Description"]
+                ActionItemModif["Status"] = fieldsToUpload["Status"]
+                //                ActionItemModif["ActivityDate"] = fieldsToUpload["ActivityDate"]
+                //                ActionItemModif["SGWS_Urgent__c"] = fieldsToUpload["SGWS_Urgent__c"]
+                ActionItemModif[kSyncTargetLocal] = true
+                
+                //                let createdFlag = ActionItemModif[kSyncTargetLocallyCreated] as! Bool
+                //
+                //                if(createdFlag){
+                //                    ActionItemModif[kSyncTargetLocallyUpdated] = false
+                //                    ActionItemModif[kSyncTargetLocallyCreated] = true
+                //
+                //                }else {
+                //                    ActionItemModif[kSyncTargetLocallyCreated] = false
+                //                    ActionItemModif[kSyncTargetLocallyUpdated] = true
+                //
+                //                }
+                //                ActionItemModif[kSyncTargetLocallyDeleted] = false
                 
                 ActionItemModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
                 editedActionItem = ActionItemModif
@@ -3535,20 +3632,22 @@ class StoreDispatcher {
                 let soupData = result[i] as! [Any]
                 
                 let entryArry = sfaStore.retrieveEntries([soupData[26]], fromSoup: SoupVisit)
-                
-                let item = entryArry[0]
-                let subItem = item as! [String:Any]
-                
-                let flag = subItem["__locally_deleted__"] as! Bool
-                // if deleted skip
-                if(flag){
-                    continue
+                //Crash when no data
+                if(entryArry.count > 0){
+                    let item = entryArry[0]
+                    let subItem = item as! [String:Any]
+                    
+                    let flag = subItem["__locally_deleted__"] as! Bool
+                    // if deleted skip
+                    if(flag){
+                        continue
+                    }
+                    
+                    
+                    let ary:[Any] = result[i] as! [Any]
+                    let accountVisitEvent = WorkOrderUserObject(withAry: ary)
+                    accVisitEventArray.append(accountVisitEvent)
                 }
-                
-                
-                let ary:[Any] = result[i] as! [Any]
-                let accountVisitEvent = WorkOrderUserObject(withAry: ary)
-                accVisitEventArray.append(accountVisitEvent)
             }
         }
         
@@ -3820,30 +3919,10 @@ class StoreDispatcher {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunity soup: \(error.localizedDescription)")
         }
     }
-    /*
-    func registerUploadOpportunity() {
-        
-        let syncUploadOpportunityFields = Opportunity.opportunityUploadFields
-        
-        var indexSpec:[SFSoupIndex] = []
-        for i in 0...syncUploadOpportunityFields.count - 1 {
-            let sfIndex = SFSoupIndex(path: syncUploadOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncUploadOpportunityFields[i])!
-            indexSpec.append(sfIndex)
-        }
-        
-        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
-        
-        do {
-            try sfaStore.registerSoup(SoupUploadOpportunity, withIndexSpecs: indexSpec, error: ())
-            
-        } catch let error as NSError {
-            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupUploadOpportunity soup: \(error.localizedDescription)")
-        }
-    }*/
     
     func syncDownOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "select id,AccountId,sgws_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c,SGWS_Sold__c,SGWS_Month_Active__c,StageName,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,SGWS_Acct__c,SGWS_Segment__c,SGWS_Gap__c,SGWS_Sales_Trend__c,SGWS_Order_Size__c,SGWS_Order_Frequency__c,SGWS_Unsold_Period_Days__c,(select name,SGWS_Objectives__r.name,SGWS_Objectives__r.SGWS_Select_Objective_Type__c from Opportunity_Objective_Junction__r),(select Product2Id,Product2.Name,Product2.SGWS_CORP_ITEM_BOTTLES_PER_CASE__c,Product2.SGWS_CORP_ITEM_SIZE__c,Product2.SGWS_Corp_Brand__c from OpportunityLineItems) from opportunity"
+        let soqlQuery = "select id,OwnerId,AccountId,sgws_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c,SGWS_Sold__c,SGWS_Month_Active__c,StageName,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,SGWS_Acct__c,SGWS_Segment__c,SGWS_Gap__c,SGWS_Sales_Trend__c,SGWS_Order_Size__c,SGWS_Order_Frequency__c,SGWS_Unsold_Period_Days__c,(select name,SGWS_Objectives__r.name,SGWS_Objectives__r.SGWS_Select_Objective_Type__c from Opportunity_Objective_Junction__r),(select Product2Id,Product2.Name,Product2.SGWS_CORP_ITEM_BOTTLES_PER_CASE__c,Product2.SGWS_CORP_ITEM_SIZE__c,Product2.SGWS_Corp_Brand__c from OpportunityLineItems) from opportunity"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
@@ -4090,7 +4169,7 @@ class StoreDispatcher {
         if ary.count > 0 {
             var result = ary[0] as! [String:Any]
             let soupEntryId = result["_soupEntryId"]
-            print("\(result) OpportunityWorkorder is deleted  successfully" )
+            print("\(result) OpportunityWorkord_er is deleted  successfully" )
             print(soupEntryId!)
             return true
         }

@@ -11,10 +11,22 @@ import UIKit
 class OpportunitySortUtility {
 
     func opportunityFor(forAccount accountId: String) -> [Opportunity] {
+        
         if GlobalOpportunityModel.globalOpportunity.count == 0 {
             _ = OpportunityViewModel().globalOpportunityReload()
         }
+        
+        if let loggedInuserid: String = (UserViewModel().loggedInUser?.userId) {
+            
+            let currentSelectedUSerId = (UIApplication.shared.delegate as! AppDelegate).currentSelectedUserId
+            if(currentSelectedUSerId != loggedInuserid) {
+
+                return GlobalOpportunityModel.globalOpportunity.filter( { return ($0.ownerId == currentSelectedUSerId) && ($0.accountId == accountId) } )
+            }
+        }
+
         return GlobalOpportunityModel.globalOpportunity.filter( { return $0.accountId == accountId } )
+
     }
     
     func opportunitySort(_ opportunityToSort: [Opportunity]) -> [Opportunity] {

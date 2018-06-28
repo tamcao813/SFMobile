@@ -37,7 +37,7 @@ protocol SendDataToContainerDelegate {
     func passTheViewControllerToBeLoadedInContainerView(index : Int)
 }
 
-class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDelegate{
+class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDelegate,DetailsScreenDelegate{
     
     @IBOutlet weak var centerLabel : UILabel?
     @IBOutlet weak var lblAccountTitle : UILabel?
@@ -67,6 +67,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     var detailsViewController : AccountDetailsViewController?
     var secondViewController: UIViewController?
     var delegate : SendDataToContainerDelegate?
+    var detailDelegate : DetailsScreenDelegate?
     let accountViewModel = AccountsViewModel()
     var addNewDropDown = DropDown()
     let contactsStoryboard = UIStoryboard.init(name: "AccountsContactsVC", bundle: nil)
@@ -81,6 +82,13 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         let actionItemVC = actionItemStoryboard.instantiateViewController(withIdentifier: "ActionItemsContainerViewController") as? ActionItemsContainerViewController
         return actionItemVC
     }()
+    
+    func dismissKeyBoard() {
+        
+    }
+    func pushTheScreenToDetailsScreen(accountData: Account) {
+        accountDetailForLoggedInUser = accountData
+    }
     
     //Present Active ViewController
     private var activeViewController: UIViewController? {
@@ -125,7 +133,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         //containerView?.isHidden = true
-        
+        AccountsListViewController.accountListDelegate = self
         let button = UIButton()
         button.tag = 0
         self.itemsClicked(sender: button)
@@ -328,9 +336,6 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     
     //Details header Section Clicked
     @IBAction func itemsClicked(sender : UIButton){
-        
-        accountDetailForLoggedInUser = accountViewModel.accountsForLoggedUser().filter({$0.account_Id == accountDetailForLoggedInUser?.account_Id}).first
-        
         containerView?.isHidden = true
         
         btnOverview?.backgroundColor = UIColor(named: "VeryLightGrey")

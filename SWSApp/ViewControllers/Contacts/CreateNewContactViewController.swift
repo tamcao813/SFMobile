@@ -56,7 +56,7 @@ class CreateNewContactViewController: UIViewController {
     var familyDate4Textfield: UITextField!
     var familyDate5Textfield: UITextField!
     @IBOutlet weak var headingLabel: UITextField!
-    var doesHaveBuyingPower: Bool = true
+    var doesHaveBuyingPower: Bool?
     weak var delegate: CreateNewContactViewControllerDelegate!
     var isNewContact: Bool = true
     var contactId: String?
@@ -65,6 +65,8 @@ class CreateNewContactViewController: UIViewController {
     var globalContacts = [Contact]()
     @IBOutlet weak var errorLabel: UILabel!
     var accountsDropDown : DropDown?
+    var pickerOption: [String : Any]?
+    var fromPicker = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,7 +159,8 @@ class CreateNewContactViewController: UIViewController {
             primaryFunctionTextField.borderColor = .lightGray
         }
         
-        if isNewContact && !doesHaveBuyingPower{
+        if let buyingPower = doesHaveBuyingPower,!buyingPower,isNewContact {
+            contactClassificationTextField.borderColor = .lightGray
             otherReasonTextField.borderColor = .lightGray
         }
         
@@ -168,7 +171,7 @@ class CreateNewContactViewController: UIViewController {
     
     func checkValidations() -> Bool{
         if isNewContact {
-            if checkAccountSelectedValidation() && checkPrimaryFunctionValidation() && checkFirstNameValidation() && checkLastNameValidation() && checkPhoneNumberValidation() && checkFaxNumberValidation() && checkEmailValidation(){
+            if checkAccountSelectedValidation() && checkPrimaryFunctionValidation() && checkContactClassificationValidation() && checkOtherSpecificationValidation() && checkFirstNameValidation() && checkLastNameValidation() && checkPhoneNumberValidation() && checkFaxNumberValidation() && checkEmailValidation(){
                 return true
             }else{
                 return false
@@ -197,6 +200,28 @@ class CreateNewContactViewController: UIViewController {
             primaryFunctionTextField.borderColor = .red
             primaryFunctionTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 2), at: .top, animated: true)
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        return true
+    }
+    
+    func checkContactClassificationValidation() -> Bool {
+        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,isNewContact && (contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+            contactClassificationTextField.borderColor = .red
+            contactClassificationTextField.becomeFirstResponder()
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        return true
+    }
+    
+    func checkOtherSpecificationValidation() -> Bool {
+        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,isNewContact && (contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == "Other" {
+            otherReasonTextField.borderColor = .red
+            otherReasonTextField.becomeFirstResponder()
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return false
         }
@@ -312,7 +337,6 @@ class CreateNewContactViewController: UIViewController {
         if !isNewContact {
             newContact = contactDetail!
             newContact.buyerFlag = (contactDetail?.buyerFlag)!
-            
         }else{
             newContact.buyerFlag = true
             newContact.accountId = accountSelected.account_Id
@@ -331,7 +355,9 @@ class CreateNewContactViewController: UIViewController {
         newContact.contactHours = contactHoursTextField.text!
         newContact.favouriteActivities = favouriteTextView.text!
         newContact.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-        newContact.buyerFlag = doesHaveBuyingPower
+        if let buyerFlag = doesHaveBuyingPower {
+            newContact.buyerFlag = buyerFlag
+        }
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
@@ -363,6 +389,13 @@ class CreateNewContactViewController: UIViewController {
         
         newContact.sgws_sfa_customer_check = true
         
+        if !newContact.buyerFlag {
+            newContact.contactClassification = contactClassificationTextField.text!
+            if newContact.contactClassification == "Other"{
+                newContact.otherSpecification = otherReasonTextField.text!
+            }
+        }
+        
         return newContact
     }
     
@@ -374,6 +407,12 @@ class CreateNewContactViewController: UIViewController {
         newACR.roles = contact.functionRole
         newACR.isActive = 1
         newACR.buyingPower = contact.buyerFlag ? 1:0
+        if !contact.buyerFlag {
+            newACR.contactClassification = contact.contactClassification
+            if newACR.contactClassification == "Other"{
+                newACR.otherSpecification = contact.otherSpecification
+            }
+        }
         
         return ContactsViewModel().createNewACRToSoup(object: newACR)
     }
@@ -477,10 +516,14 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
     
     func getNumberOfRowsForBuyerFlagSection() -> Int {
         if isNewContact {
-            if doesHaveBuyingPower {
-                return 1
+            if let buyingPower = doesHaveBuyingPower {
+                if buyingPower {
+                    return 1
+                }else{
+                    return 2
+                }
             }else{
-                return 2
+                return 1
             }
         }else{
             return 0
@@ -515,7 +558,27 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
-                cell?.setBuyingPower(value:  doesHaveBuyingPower)
+                
+                if let option = pickerOption, fromPicker{
+                    if option["validFor"] as! Int == 1 {
+                        doesHaveBuyingPower = true
+                        cell?.yesButton.isUserInteractionEnabled = true
+                        cell?.noButton.isUserInteractionEnabled = true
+                    }else{
+                        doesHaveBuyingPower = false
+                        cell?.yesButton.isUserInteractionEnabled = false
+                        cell?.noButton.isUserInteractionEnabled = false
+                    }
+                    fromPicker = false
+                }
+                
+                if let buyingPower = doesHaveBuyingPower{
+                    if buyingPower {
+                        cell?.setBuyingPower(value: true)
+                    }else{
+                        cell?.setBuyingPower(value: false)
+                    }
+                }
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
@@ -748,8 +811,8 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
     
     func getPrimaryFunctionCell() -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
-        cell?.setBuyingPower(value: doesHaveBuyingPower)
-        
+//        cell?.setBuyingPower(value: doesHaveBuyingPower)
+        cell?.delegate = self
         if let contactDetail = contactDetail {
             cell?.contactDetail = contactDetail
             cell?.displayCellContent()
@@ -829,7 +892,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
 extension CreateNewContactViewController: ToggleTableViewCellDelegate {
     func buyingPowerChanged(buyingPower: Bool) {
         doesHaveBuyingPower = buyingPower
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
 }
 
@@ -850,5 +913,13 @@ extension CreateNewContactViewController: AccountContactLinkTableViewCellDelegat
         createNewGlobals.userInput = true
         accountSelected = nil
         tableView.reloadData()
+    }
+}
+
+extension CreateNewContactViewController: PrimaryFunctionTableViewCellDelegate {
+    func primaryFunctionValueSelected(pickerOption: [String : Any]) {
+        self.pickerOption = pickerOption
+        self.fromPicker = true
+        self.tableView.reloadData()
     }
 }

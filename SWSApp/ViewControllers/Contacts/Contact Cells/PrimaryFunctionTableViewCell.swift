@@ -9,20 +9,18 @@
 import UIKit
 
 protocol PrimaryFunctionTableViewCellDelegate: NSObjectProtocol {
-    func primaryFunctionValueSelected(value: String)
+    func primaryFunctionValueSelected(pickerOption: [String:Any])
 }
 
 class PrimaryFunctionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var primaryFunctionTextField: CustomUITextField!    
-    //weak var delegate: PrimaryFunctionTableViewCellDelegate?
+    weak var delegate: PrimaryFunctionTableViewCellDelegate?
     
     var pickerOption = [[String:Any]]()
     var selectedPrimaryFunctionOption  = [String:Any]()
     var contactDetail: Contact?
     var buyingPower: Bool = true
-    var pickerOptionBuyingPower = [[String:Any]]()
-    var pickerOptionNoBuyingPower = [[String:Any]]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,24 +36,12 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
         addPickerView(textField: primaryFunctionTextField)
         
         let opts = PlistMap.sharedInstance.readPList(plist: "/ContactRoles.plist")
-        
         //filter picker options with respect to buying power
         for opt in opts {
             let option = opt as! [String: Any]
-            if option["validFor"] as! Int == 1 {
-                pickerOptionBuyingPower.append(option)
-            }
-            else if option["validFor"] as! Int == 0 {
-                pickerOptionNoBuyingPower.append(option)
-            }
+            pickerOption.append(option)
         }
-        
-        if buyingPower {
-            pickerOption = pickerOptionBuyingPower
-        }
-        else {
-            pickerOption = pickerOptionNoBuyingPower
-        }
+
     }
     
     func setBuyingPower(value: Bool) {
@@ -65,14 +51,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
             selectedPrimaryFunctionOption  = [String:Any]()
         }
         
-        buyingPower = value
-        
-        if buyingPower {
-            pickerOption = pickerOptionBuyingPower
-        }
-        else {
-            pickerOption = pickerOptionNoBuyingPower
-        }
+        buyingPower = value        
     }
     
     func displayCellContent(){
@@ -111,7 +90,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
                 primaryFunctionTextField.text = selectedPrimaryFunctionOption["value"] as? String
             }
         }
-        //self.delegate?.primaryFunctionValueSelected(value: selectedPrimaryFunctionOption["value"]! as! String)
+        self.delegate?.primaryFunctionValueSelected(pickerOption: selectedPrimaryFunctionOption)
         primaryFunctionTextField.resignFirstResponder()
     }
     

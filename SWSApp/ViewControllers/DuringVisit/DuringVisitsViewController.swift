@@ -12,6 +12,10 @@ import IQKeyboardManagerSwift
 import CoreLocation
 import SmartSync
 
+struct AccountObject {
+    static var account : Account?
+}
+
 enum LoadThePersistantMenuScreen : Int{
     case contacts = 0
     case chatter
@@ -35,6 +39,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var btnInsights : UIButton?
     @IBOutlet weak var btnEditAccountStrategy : UIButton?
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
+    @IBOutlet weak var btnCreateActionItem : UIButton?
     
     //MARK: LOCATION
     var locationManager = CLLocationManager()
@@ -427,11 +432,24 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }
     }
     
+    // Create Action Item Button clicked
+    @IBAction func createActionItemButtonClicked(_ sender: UIButton) {
+        
+        btnCreateActionItem?.isHidden = false
+            let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
+            createActionItemViewController.isEditingMode = false
+            createActionItemViewController.selectedAccount = AccountObject.account
+            self.present(createActionItemViewController, animated: false)
+    }
+    
+    
+    
     //Back Button Clicked
     @IBAction func backButtonClicked(sender : UIButton){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
         btnBack?.isHidden = true
+        btnCreateActionItem?.isHidden = false
         imgDiscussion?.image = UIImage(named: "selectedButton")
         imgInsights?.image = UIImage(named: "selectedGrey")
         
@@ -481,6 +499,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }
         
         btnBack?.isHidden = false
+        btnCreateActionItem?.isHidden = true
         imgDiscussion?.image = UIImage(named: "Small Status Good")
         imgInsights?.image = UIImage(named: "selectedButton")
         
@@ -548,24 +567,27 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     //Action Item Button Clicked
     @IBAction func actionItemsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
-        }) {
-            
+        DispatchQueue.main.async {
+            let modalPopupStoryboard = UIStoryboard.init(name: "PopupModal", bundle: nil)
+            let modalPopupViewController: DuringVisitActionItemModelViewController = modalPopupStoryboard.instantiateViewController(withIdentifier: "ActionItemsModalID") as! DuringVisitActionItemModelViewController
+            modalPopupViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(modalPopupViewController, animated: true, completion: nil)
+            modalPopupViewController.navigationDelegate = self
         }
     }
     
     //Notification Button Clicked
     @IBAction func notificationsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
-            
-        }) {
+        DispatchQueue.main.async {
+            let modalPopupStoryboard = UIStoryboard.init(name: "PopupModal", bundle: nil)
+            let modalPopupViewController: DuringVisitNotificationModalviewController = modalPopupStoryboard.instantiateViewController(withIdentifier: "notificationID") as! DuringVisitNotificationModalviewController
+            modalPopupViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(modalPopupViewController, animated: true, completion: nil)
+            modalPopupViewController.delegate = self
             
         }
     }
+    
     @objc func saveOpportunityCommitValuesLocally() {
         if DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.count > 0 {
             for opportunity in DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList {
@@ -611,4 +633,26 @@ extension DuringVisitsViewController : RefreshStrategyScreenDelegate{
         self.loadTheDataFromStrategyQA()
     }
 }
+
+extension DuringVisitsViewController : NavigateToDuringVisitViewControllerDelegate{
+    
+    //After coming back from Action Item Modal View
+    func navigateToDuringVisitVC() {
+        self.dismiss(animated: true, completion: nil)
+        self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
+    }
+}
+
+extension DuringVisitsViewController :NavigateToDuringVisitViewController{
+    
+    //After coming back from Notifications Modal View
+    func navigateNotificationToDuringVisitVC() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
+        }
+        
+    }
+}
+
 

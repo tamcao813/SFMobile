@@ -17,6 +17,7 @@ struct DOWNLOAD_SIZE {
     static let CONTACT_SIZE = 10000
 }
 
+
 class StoreDispatcher {
     static let shared = StoreDispatcher()
     static let SFADB = "SFADB"
@@ -68,6 +69,16 @@ class StoreDispatcher {
         registerOpportunityWorkorder()
         registerSyncLogSoup()
         registerRecordTypeSoup()
+    }
+    
+    func checkIfAllSoupsExist()->Bool{
+        
+        for soupName in soupNames{
+            if(!sfaStore.soupExists(soupName)){
+                return false
+            }
+        }
+        return true
     }
     
     func downloadAllSoups(_ completion: @escaping ((_ error: NSError?) -> ()) ) {
@@ -4266,6 +4277,17 @@ class StoreDispatcher {
         })*/
         for  workOrderopportunity in result{
             var oppotunityModif = workOrderopportunity as! [String:Any]
+            
+            if let flag = oppotunityModif["__locally_deleted__"] as? Bool {
+                // if deleted skip
+                if(flag){
+                    continue
+                }
+            }
+            else {
+                continue
+            }
+
             let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
             if opportunityModifIdValue.isEmpty {
                 continue

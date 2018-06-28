@@ -49,7 +49,7 @@
 	<key>opportunitiesUrl</key>
 	<string>/lightning/r/Opportunity/</string>
 	<key>opportunityEndUrl</key>
-	<string>/view?0.source=alohaHeader</string>
+	<string>/view?iospref=web&amp;0.source=alohaHeader</string>
 	<key>salesConsultantTitle</key>
 	<string>Sales Consultant</string>
 	<key>salesManagerTitle</key>

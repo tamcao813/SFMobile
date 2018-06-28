@@ -71,13 +71,13 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
             ActionItem.AccountActionItemFields[4]: editActionItem.status,
             ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
             
-            kSyncTargetLocal:true,
-            kSyncTargetLocallyCreated:false,
-            kSyncTargetLocallyUpdated:true,
-            kSyncTargetLocallyDeleted:false,
+//            kSyncTargetLocal:true,
+//            kSyncTargetLocallyCreated:false,
+//            kSyncTargetLocallyUpdated:true,
+//            kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
         
-        if AccountsActionItemViewModel().editActionItemStatusLocally(fields: actionItemDict){
+        if AccountsActionItemViewModel().editActionItemStatusLocallyAutomatically(fields: actionItemDict){
             
         }
     }

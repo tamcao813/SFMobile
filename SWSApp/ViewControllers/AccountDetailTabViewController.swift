@@ -32,7 +32,7 @@ class AccountDetailTabViewController: UITableViewController {
         print("globalContactas.count = " + "\(globalContactas.count)")
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountItemList), name: NSNotification.Name("reloadAccountsData"), object: nil)
-        self.reloadAllAccountListData()
+       // self.reloadAllAccountListData()
 
     }
     

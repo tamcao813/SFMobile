@@ -67,6 +67,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     var detailsViewController : AccountDetailsViewController?
     var secondViewController: UIViewController?
     var delegate : SendDataToContainerDelegate?
+    let accountViewModel = AccountsViewModel()
     var addNewDropDown = DropDown()
     let contactsStoryboard = UIStoryboard.init(name: "AccountsContactsVC", bundle: nil)
     let accountOverViewStoryboard = UIStoryboard.init(name: "AccountOverView", bundle: nil)
@@ -327,6 +328,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     
     //Details header Section Clicked
     @IBAction func itemsClicked(sender : UIButton){
+        
+        accountDetailForLoggedInUser = accountViewModel.accountsForLoggedUser().filter({$0.account_Id == accountDetailForLoggedInUser?.account_Id}).first
         
         containerView?.isHidden = true
         

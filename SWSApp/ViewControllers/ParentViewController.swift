@@ -33,7 +33,7 @@ struct ActionItemsGlobal {
 }
 
 protocol ParentViewControllerDelegate {
-    func getUpdatedDataFromServer(opportunities:[Opportunity])
+    func reloadOpportunityDataFromDB()
 }
 class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     
@@ -765,9 +765,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
                 
-//                self.opportunityViewModel.globalOpportunityReload()
-                let opportunities = self.opportunityViewModel.globalOpportunityReload()
-                ParentViewController.delegate?.getUpdatedDataFromServer(opportunities: opportunities)
+                ParentViewController.delegate?.reloadOpportunityDataFromDB()
                 
                 self.getUnreadNotificationsCount()
                 if ActionItemFilterModel.fromAccount{

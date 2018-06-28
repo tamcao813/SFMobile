@@ -1160,7 +1160,18 @@ class StoreDispatcher {
         
         let userid: String = (userViewModel.loggedInUser?.userId)!
         
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' AND (UserId = '\(userid)' OR User.ManagerId = '\(userid)') limit 10000 "
+        //SMK: When resync check if last sync date is older than account updated
+        var resyncClause:String = ""
+        if UserDefaults.standard.bool(forKey: "launchedBefore") == true {
+            if let LastSyncDateUTC: Date = UserDefaults.standard.object(forKey: "lastSyncDateInDateFormat") as? Date {
+                let str = "\(LastSyncDateUTC)"
+                let arrOfSplitDate = str.components(separatedBy: " ")
+                let dateCombineStringInFormat = "\(arrOfSplitDate[0])T\(arrOfSplitDate[1])\(arrOfSplitDate[2])"
+                resyncClause = "AND Account.LastModifiedDate > \(dateCombineStringInFormat)"
+            }
+        }
+        
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' AND (UserId = '\(userid)' OR User.ManagerId = '\(userid)') \(resyncClause) limit 10000 "
         
     
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
@@ -3535,20 +3546,22 @@ class StoreDispatcher {
                 let soupData = result[i] as! [Any]
                 
                 let entryArry = sfaStore.retrieveEntries([soupData[26]], fromSoup: SoupVisit)
-                
-                let item = entryArry[0]
-                let subItem = item as! [String:Any]
-                
-                let flag = subItem["__locally_deleted__"] as! Bool
-                // if deleted skip
-                if(flag){
-                    continue
+                //Crash when no data
+                if(entryArry.count > 0){
+                    let item = entryArry[0]
+                    let subItem = item as! [String:Any]
+                    
+                    let flag = subItem["__locally_deleted__"] as! Bool
+                    // if deleted skip
+                    if(flag){
+                        continue
+                    }
+                    
+                    
+                    let ary:[Any] = result[i] as! [Any]
+                    let accountVisitEvent = WorkOrderUserObject(withAry: ary)
+                    accVisitEventArray.append(accountVisitEvent)
                 }
-                
-                
-                let ary:[Any] = result[i] as! [Any]
-                let accountVisitEvent = WorkOrderUserObject(withAry: ary)
-                accVisitEventArray.append(accountVisitEvent)
             }
         }
         

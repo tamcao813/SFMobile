@@ -30,11 +30,15 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
         if actionItem.activityDate != "" {
             if actionItem.status == "Open" {
                 if ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
-                    actionItemStatusLabel.text = "Open"
-                    updateStatusInDB(actionItem: actionItem, status: "Open")
+                    if actionItem.status != "Open" {
+                        actionItemStatusLabel.text = "Open"
+                        updateStatusInDB(actionItem: actionItem, status: "Open")
+                    }                    
                 }else{
-                    actionItemStatusLabel.text = "Overdue"
-                    updateStatusInDB(actionItem: actionItem, status: "Overdue")
+                    if actionItem.status != "Overdue" {
+                        actionItemStatusLabel.text = "Overdue"
+                        updateStatusInDB(actionItem: actionItem, status: "Overdue")
+                    }
                 }
             }else{
                 actionItemStatusLabel.text = actionItem.status

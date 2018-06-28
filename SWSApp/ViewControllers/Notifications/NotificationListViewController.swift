@@ -33,9 +33,20 @@ class NotificationListViewController: UIViewController {
     }
     
     func getNotifications(){
-        notificationsArray = [Notifications]()
-        notificationsArray = NotificationsViewModel().notificationsForUser()
-        reloadTableView()
+        if FilterMenuModel.isFromAccountVisitSummary == "YES" {
+            FilterMenuModel.isFromAccountVisitSummary = ""
+            notificationsArray = NotificationsViewModel().notificationsForUser()
+            notificationsArray = notificationsArray.filter( { return $0.account ==  (AccountObject.account?.account_Id)! } )
+        }
+        else{
+            notificationsArray = [Notifications]()
+            notificationsArray = NotificationsViewModel().notificationsForUser()
+        }
+
+        //DispatchQueue.main.async {
+            self.reloadTableView()
+        //}
+        
     }
     
     func customizedUI(){
@@ -73,6 +84,7 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
     func clearFilter(){
         NotificationFilterModel.filterApplied = false
         reloadTableView()
+        getNotifications()
     }
     
     func editNotification(notification: Notifications){

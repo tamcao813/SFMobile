@@ -35,5 +35,6 @@ struct ContactFilterMenuModel {
     
     static var comingFromDetailsScreen = ""
     static var selectedContactId = ""
+    static var selectedContactIdFromDetailScreen = ""
     
 }

@@ -30,6 +30,16 @@ class StrategyQAViewModel {
     }
     
     func fetchStrategy(acc: String)->[StrategyQA]{
+        
+        if let loggedInuserid: String = (UserViewModel().loggedInUser?.userId) {
+            
+            let currentSelectedUSerId = (UIApplication.shared.delegate as! AppDelegate).currentSelectedUserId
+            if(currentSelectedUSerId != loggedInuserid) {
+                
+                return StoreDispatcher.shared.fetchStrategy(forAccount: acc, withOwner: currentSelectedUSerId)
+            }
+        }
+
         return StoreDispatcher.shared.fetchStrategy(forAccount: acc)
     }
     

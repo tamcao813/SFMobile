@@ -1436,6 +1436,39 @@ class StoreDispatcher {
         return strategyAry
         
     }
+
+    func fetchStrategy(forAccount accountId: String, withOwner ownerId: String) -> [StrategyQA] {
+        
+        print("fetchStrategy \(accountId)")
+        print("fetchStrategy \(ownerId)")
+        var strategyAry: [StrategyQA] = []
+        
+        //let fields = StrategyQA.StrategyQAFields.map{"{\(SoupStrategyQA):\($0)}"}
+        let soqlQuery = "SELECT {SGWS_Response__c:Id},{SGWS_Response__c:SGWS_Answer_Description_List__c},{SGWS_Question__c:Id},{SGWS_Question__c:SGWS_Question_Type__c},{SGWS_Question__c:SGWS_Question_Sub_Type__c},{SGWS_Response__c:SGWS_Notes__c},{SGWS_Response__c:SGWS_AppModified_DateTime__c} from {SGWS_Response__c} INNER JOIN {SGWS_Question__c} where {SGWS_Question__c:Id} = {SGWS_Response__c:SGWS_Question__c} AND {SGWS_Response__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_Response__c:OwnerId} = '\(ownerId)' "
+        
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                
+                let json:[String:Any] = [ "SGWS_Account__c":ary[2],"Id":ary[0], "SGWS_Question_Sub_Type__c":ary[4], "SGWS_Question__c":ary[3], "SGWS_Answer_Description_List__c":ary[1],"SGWS_Notes__c":ary[5],"SGWS_AppModified_DateTime__c":ary[6]]
+                
+                let strategy = StrategyQA.init(json: json)
+                strategyAry.append(strategy)
+                
+            }
+        }
+        else if error != nil {
+            print("fetchStrategyQA " + " error:" + (error?.localizedDescription)!)
+        }
+        return strategyAry
+        
+    }
     
     // MARK:- Contacts
     func fetchContactsWithBuyingPower(forAccount accountId: String) -> [Contact] {

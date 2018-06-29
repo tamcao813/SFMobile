@@ -348,6 +348,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         }
     }
     
+   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell:UpComingVisitTableViewCell = upcomingActivitiesTableView.dequeueReusableCell(withIdentifier: "upcomingVisitCell") as! UpComingVisitTableViewCell
@@ -395,7 +396,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 else
                 {
                     
-                    cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: upcomingVisitArrayToDisplay[indexPath.row].startDate)
+                    cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateAndTimeString(dateString:upcomingVisitArrayToDisplay[indexPath.row].startDate)
                 }
                 cell.UpComingActivities_Image.image = UIImage(named: "Bell")
                 return cell
@@ -416,7 +417,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                     
                 } else
                 {
-                    cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: pastVisitArrayToDisplay[indexPath.row].startDate)
+                    cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateAndTimeString(dateString: pastVisitArrayToDisplay[indexPath.row].startDate)
                     
                 }
                 

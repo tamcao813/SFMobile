@@ -185,7 +185,7 @@ class VisitsViewModel {
             return false
         }
         
-        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
         return visitsForUserArray
     }
 
@@ -207,7 +207,7 @@ class VisitsViewModel {
             }
             return false
         }
-        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate < $1.lastModifiedDate })
+        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
         return visitsForUserArray
     }
 }

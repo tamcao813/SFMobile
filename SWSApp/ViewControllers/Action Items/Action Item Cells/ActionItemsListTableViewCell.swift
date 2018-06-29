@@ -33,11 +33,15 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
                     if actionItem.status != "Open" {
                         actionItemStatusLabel.text = "Open"
                         updateStatusInDB(actionItem: actionItem, status: "Open")
-                    }                    
+                    }else{
+                        actionItemStatusLabel.text = actionItem.status
+                    }
                 }else{
                     if actionItem.status != "Overdue" {
                         actionItemStatusLabel.text = "Overdue"
                         updateStatusInDB(actionItem: actionItem, status: "Overdue")
+                    }else{
+                        actionItemStatusLabel.text = actionItem.status
                     }
                 }
             }else{
@@ -74,15 +78,10 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
             ActionItem.AccountActionItemFields[0]: editActionItem.Id,
             ActionItem.AccountActionItemFields[4]: editActionItem.status,
             ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
-            
-//            kSyncTargetLocal:true,
-//            kSyncTargetLocallyCreated:false,
-//            kSyncTargetLocallyUpdated:true,
-//            kSyncTargetLocallyDeleted:false,
+
             "attributes":attributeDict]
         
-        if AccountsActionItemViewModel().editActionItemStatusLocallyAutomatically(fields: actionItemDict){
-            
+        if AccountsActionItemViewModel().editActionItemStatusLocallyAutomatically(fields: actionItemDict){            
         }
     }
     

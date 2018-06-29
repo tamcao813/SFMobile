@@ -421,7 +421,7 @@
                                                 <constraint firstAttribute="width" constant="90" id="rH9-iR-YTM"/>
                                             </constraints>
                                         </view>
-                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPa-DL-VbM" userLabel="Sub View 3">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPa-DL-VbM" userLabel="Sub View 3">
                                             <rect key="frame" x="705" y="0.0" width="107" height="40"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tlo-sq-nTQ">
@@ -446,14 +446,14 @@
                                                 <constraint firstAttribute="width" constant="107" id="m2X-gu-uDu"/>
                                             </constraints>
                                         </view>
-                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcB-fn-Nbf" userLabel="Sub View 4">
-                                            <rect key="frame" x="832" y="0.0" width="90" height="40"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcB-fn-Nbf" userLabel="Sub View 4">
+                                            <rect key="frame" x="840" y="0.0" width="90" height="40"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OsQ-qj-9DU">
                                                     <rect key="frame" x="0.0" y="0.0" width="90" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="11"/>
-                                                    <inset key="titleEdgeInsets" minX="-55" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <inset key="titleEdgeInsets" minX="-38" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Outcome">
                                                         <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -462,7 +462,7 @@
                                                     </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Sort Gray" translatesAutoresizingMaskIntoConstraints="NO" id="BpK-nt-2M9">
-                                                    <rect key="frame" x="45" y="17" width="8" height="8"/>
+                                                    <rect key="frame" x="55" y="17" width="8" height="8"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -474,12 +474,12 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="UcB-fn-Nbf" secondAttribute="trailing" constant="62" id="Dxn-RL-WfZ"/>
+                                        <constraint firstAttribute="trailing" secondItem="UcB-fn-Nbf" secondAttribute="trailing" constant="54" id="Dxn-RL-WfZ"/>
                                         <constraint firstItem="mEY-du-ugN" firstAttribute="top" secondItem="WY1-t7-oFB" secondAttribute="top" id="Ej1-Cz-3Hr"/>
                                         <constraint firstItem="373-IB-hSd" firstAttribute="top" secondItem="WY1-t7-oFB" secondAttribute="top" id="Kat-xG-wta"/>
                                         <constraint firstItem="CPa-DL-VbM" firstAttribute="top" secondItem="WY1-t7-oFB" secondAttribute="top" id="MDN-7y-gua"/>
                                         <constraint firstAttribute="bottom" secondItem="CPa-DL-VbM" secondAttribute="bottom" id="XKe-RW-JlD"/>
-                                        <constraint firstItem="UcB-fn-Nbf" firstAttribute="leading" secondItem="CPa-DL-VbM" secondAttribute="trailing" constant="20" id="bDw-l0-0oO"/>
+                                        <constraint firstItem="UcB-fn-Nbf" firstAttribute="leading" secondItem="CPa-DL-VbM" secondAttribute="trailing" constant="28" id="bDw-l0-0oO"/>
                                         <constraint firstItem="373-IB-hSd" firstAttribute="leading" secondItem="mEY-du-ugN" secondAttribute="trailing" constant="15" id="isv-sY-waX"/>
                                         <constraint firstItem="UcB-fn-Nbf" firstAttribute="top" secondItem="WY1-t7-oFB" secondAttribute="top" id="oGg-Us-FoV"/>
                                         <constraint firstAttribute="bottom" secondItem="373-IB-hSd" secondAttribute="bottom" id="qhG-kM-NDV"/>

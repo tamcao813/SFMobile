@@ -1107,6 +1107,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
             accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
         }
+        if SelectedMoreButton.selectedItem == 0{
+            let accountsActionItem = self.actionItemParent
+            accountsActionItem?.actionItemListVC?.fetchActionItemsFromDB()
+        }
     }
     
     private func homeScreenScrollToTop(){

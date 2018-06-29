@@ -72,8 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 self.setupRootViewController()
                 //For SDK error one can use .debug or .error to switch off .off
-                SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .off
-                SFSDKCoreLogger.sharedInstance().logLevel       =    .off
+                SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .error
+                SFSDKCoreLogger.sharedInstance().logLevel       =    .error
                 
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
@@ -299,6 +299,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 // If both register and syncdownall is completed than only set the launched comeplete flag
                                 UserDefaults.standard.set(true, forKey: "launchedBefore")
                                 let date = Date()
+                                UserDefaults.standard.set(date, forKey: "lastSyncDateInDateFormat")
                                 let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
                                 UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
                                 UserDefaults.standard.set("Last Sync Successful", forKey: "lastSyncStatus")
@@ -320,6 +321,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
                             StoreDispatcher.shared.resyncAllSoups({ (error) in
                                 let date = Date()
+                                UserDefaults.standard.set(date, forKey: "lastSyncDateInDateFormat")
                                 let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
                                 UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
                                 if error != nil {

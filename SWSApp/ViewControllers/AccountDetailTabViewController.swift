@@ -16,6 +16,8 @@ class AccountDetailTabViewController: UITableViewController {
     var contactsWithBuyingPower = [Contact]()
     var contactsForSG = [Contact]()
     var account : Account?
+    @IBOutlet weak var accountDetailsTableView: UITableView!
+    let accountViewModel = AccountsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +30,26 @@ class AccountDetailTabViewController: UITableViewController {
         //just testing globalContacts here
         let globalContactas = contactViewModel.globalContacts()
         print("globalContactas.count = " + "\(globalContactas.count)")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountItemList), name: NSNotification.Name("reloadAccountsData"), object: nil)
+       // self.reloadAllAccountListData()
+
     }
+    
+    @objc func refreshAccountItemList(notification: NSNotification){
+        self.reloadAllAccountListData()
+    }
+    //Reload all the Account List Data
+    func reloadAllAccountListData(){
+        //isAscending = true
+       account = accountViewModel.accountsForLoggedUser().filter({$0.account_Id == account?.account_Id}).first
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            
+        }
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

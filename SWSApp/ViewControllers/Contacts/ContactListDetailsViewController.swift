@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactListDetailsViewController: UIViewController {
+class ContactListDetailsViewController: UIViewController,ContactDetailsScreenDelegate {
 
     @IBOutlet weak var contactDetailsTableView: UITableView!
 
@@ -19,8 +19,15 @@ class ContactListDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ContactListViewController.refreshContactDetailDelegate = self
         // Do any additional setup after loading the view.
+    }
+    func clearAllMenu() {
+        
+    }
+    func pushTheScreenToContactDetailsScreen(contactData: Contact) {
+        contactDetail = contactData
+        self.contactDetailsTableView.reloadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {

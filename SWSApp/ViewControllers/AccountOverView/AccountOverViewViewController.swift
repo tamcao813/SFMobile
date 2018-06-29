@@ -395,7 +395,9 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                 }
                 else
                 {
-                    
+                    /*  BUG:6: Visit and Event scheduled time displayed in Account Overview is not matching with actual scheduled time of the Visit and Event
+                     Fixed by adding method with UTC and Current Time ZONE
+                     */
                     cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateAndTimeString(dateString:upcomingVisitArrayToDisplay[indexPath.row].startDate)
                 }
                 cell.UpComingActivities_Image.image = UIImage(named: "Bell")
@@ -417,6 +419,9 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
                     
                 } else
                 {
+                    /*  BUG:6: Visit and Event scheduled time displayed in Account Overview is not matching with actual scheduled time of the Visit and Event
+                     Fixed by adding method with UTC and Current Time ZONE
+                     */
                     cell.UpComingActivities_TimeLabel.text = DateTimeUtility.convertUtcDatetoReadableDateAndTimeString(dateString: pastVisitArrayToDisplay[indexPath.row].startDate)
                     
                 }

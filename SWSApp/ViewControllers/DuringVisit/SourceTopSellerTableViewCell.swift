@@ -39,6 +39,11 @@ class InsightsSourceTopSellerTableViewCell: UITableViewCell,UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
+        if(range.length + range.location > (textField.text?.count)!)
+        {
+            return false
+        }
+        
         if string == "\n" || string == ""{
             return true
         }else if (textField.text?.count)! > 4{

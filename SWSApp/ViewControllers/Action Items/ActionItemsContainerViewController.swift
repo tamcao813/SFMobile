@@ -24,7 +24,8 @@ class ActionItemsContainerViewController: UIViewController {
             ActionItemFilterModel.fromAccount = false
             ActionItemFilterModel.accountId = nil
         }
-        actionItemFilterVC?.clearActionItemFilterModel()
+        //SNK
+       // actionItemFilterVC?.clearActionItemFilterModel()
         actionItemListVC?.refreshActionItemList()
         actionItemFilterVC?.delegate = actionItemListVC
         actionItemListVC?.tableView.setContentOffset(.zero, animated: true)

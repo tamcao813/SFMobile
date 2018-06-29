@@ -293,7 +293,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: 0)
             
         }else if  data == LoadThePersistantMenuScreen.notifications.rawValue {
-        self.navigateToMoreOptionsViewControllers(index: 4, selectedIndex: 4)
+            self.navigateToMoreOptionsViewControllers(index: 4, selectedIndex: 4)
         }
     }
     
@@ -910,6 +910,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         self.moreDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
         self.moreDropDown.textColor =  UIColor.gray
         
+        FilterMenuModel.isFromAccountVisitSummary = ""
         self.selectedDropDownOption(selectedIndex : selectedIndex)
     }
     

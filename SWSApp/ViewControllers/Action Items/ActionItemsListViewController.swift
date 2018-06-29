@@ -42,6 +42,11 @@ class ActionItemsListViewController: UIViewController {
         fetchActionItemsFromDB()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        FilterMenuModel.isFromAccountVisitSummary = ""
+    }
+    
     @objc func actionItemSyncDownComplete(){
         fetchActionItemsFromDB()
     }
@@ -62,7 +67,16 @@ class ActionItemsListViewController: UIViewController {
                     }
                 }
             }
-        }else{
+        }else if FilterMenuModel.isFromAccountVisitSummary == "YES"{
+           // actionItemsArray = [ActionItem]()
+            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
+            for actionItem in actionItemsArrayLocal {
+                if actionItem.accountId == (AccountObject.account?.account_Id)! {
+                    actionItemsArray.append(actionItem)
+                }
+            }
+        }
+        else{
             actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
         }
         if ActionItemFilterModel.filterApplied {
@@ -183,8 +197,10 @@ extension ActionItemsListViewController : ActionItemSearchButtonTappedDelegate{
     }
     
     func clearFilter(){
+        FilterMenuModel.isFromAccountVisitSummary = ""
         ActionItemFilterModel.filterApplied = false
-        reloadTableView()
+       // reloadTableView()
+        fetchActionItemsFromDB()
     }
 }
 

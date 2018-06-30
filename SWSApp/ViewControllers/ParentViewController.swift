@@ -438,13 +438,19 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         onlineStatusView.addGestureRecognizer(tapOnline)
         
         self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, onlineSyncStatus!]
-        let logoButton = UIBarButtonItem(image: UIImage(named: "AppLogo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
-        //logoButton.isEnabled = true
+        let logoButton = UIBarButtonItem(image: UIImage(named: "AppLogo"), style:UIBarButtonItemStyle.plain, target: self, action: #selector(addTapped))
+        logoButton.isEnabled = true
         //logoButton.tintColor = UIColor.red
         logoButton.tintColor = UIColor.clear
         logoButton.setBackgroundImage(UIImage(named: "AppLogo"), for: .normal, barMetrics: .default)
         self.navigationItem.leftBarButtonItem = logoButton
         
+        
+    }
+
+    @objc func addTapped(){
+        let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
+            present(SmartStoreViewController, animated: true, completion: nil)
     }
     
     // MARK: SyncUp Data and resync down

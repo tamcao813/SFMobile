@@ -827,68 +827,39 @@ class StoreDispatcher {
     func deleteVisitFromOutlook(recordTypeId: String, completion:@escaping (_ error: NSError?)->()){
         
         let path = StringConstants.eventUrl + recordTypeId
-        
         let request = SFRestRequest(method: .DELETE, path: path, queryParams: nil)
         request.endpoint = StringConstants.serviceUrl
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
             .done { sfRestResponse in
-                let response = sfRestResponse.asJsonDictionary()
-                if response.count > 0 {
+                //let response = sfRestResponse.asJsonDictionary()
+                //if response.count > 0 {
                     print("Delete URL Success")
-                    
-                    
-                }
+                    completion(nil)
+                //}
             }
             .catch { error in
-                print("preferredCommunication plist error: " + error.localizedDescription)
+                print(error.localizedDescription)
                 completion(error as NSError?)
         }
     }
     
-    func convertStringToDictionary(text: String) -> [String:AnyObject]? {
-        if let data = text.data(using: String.Encoding.utf8) {
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
-                return json
-            } catch {
-                print("Something went wrong")
-            }
-        }
-        return nil
-    }
-    
-    func editVisitFromOutlook(recordTypeId: String, completion:@escaping (_ error: NSError?)->()){
-        let path = StringConstants.eventUrl + recordTypeId
-        print(path)
-        
+    func editVisitFromOutlook(VisitData: WorkOrderUserObject, completion:@escaping (_ error: NSError?)->()){
+
+        let path = StringConstants.eventUrl + VisitData.Id
         var requestParams = [String: Any]()
         var requestData = [String: String]()
+        requestData["StartDate"] = VisitData.startDate
+        requestData["EndDate"] = VisitData.endDate
+        requestData["ContactId"] = VisitData.contactId
+        requestData["SGWS_WorkOrder_Location__c"] = VisitData.location
+        //requestData["SGWS_Appointment_Status__c"] = VisitData.sgwsAppointmentStatus
         
-        requestData["StartDate"] = "2018-07-21T13:00:00.000Z"
-        requestData["EndDate"] = "2018-07-21T14:00:00.000Z"
+        
+        requestParams["fields"] =  requestData
 
-        
-        var jsonString : String = ""
-        if let theJSONData = try? JSONSerialization.data(
-            withJSONObject: requestData,
-            options: []) {
-            let theJSONText = String(data: theJSONData,
-                                     encoding: .ascii)
-            print("JSON string = \(theJSONText!)")
-            
-            jsonString = theJSONText!
-        }
-        
-    
-        requestParams["fields"] =  jsonString //"{StartDate = 2020-06-21T13:00:00.000Z,EndDate = 2020-06-21T14:00:00.000Z}" //jsonString
-        
-        
-        
-        //let data = self.convertStringToDictionary(text: jsonString)
-        //print(data)
-        
-        let request = SFRestRequest(method: .PATCH, path: path, queryParams: requestParams)
+        let request = SFRestRequest(method: .PATCH, path: path, queryParams: nil)
+        request.setCustomRequestBodyDictionary(requestParams, contentType: "application/json")
         request.endpoint = StringConstants.serviceUrl
         
         SFRestAPI.sharedInstance().Promises.send(request: request)
@@ -897,14 +868,12 @@ class StoreDispatcher {
                 if response.count > 0 {
                     print("Edit URL Success")
                     //Call the Sync Down and Update the Value
-                    
-                    
-                    
+                    completion(nil)
                     
                 }
             }
             .catch { error in
-                print("preferredCommunication plist error: " + error.localizedDescription)
+                print(error.localizedDescription)
                 completion(error as NSError?)
         }
     }

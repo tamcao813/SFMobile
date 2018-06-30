@@ -8,6 +8,10 @@
 
 import SmartSync
 
+struct VisitModelForUIAPI {
+    static var isEditMode = false
+}
+
 class PlanVisitManager {
     static let sharedInstance = PlanVisitManager()
     
@@ -49,6 +53,40 @@ class PlanVisitManager {
     }
     
     func editAndSaveVisit()->Bool{
+        //Check is it getting called for Edit Mode if yes , if network available call UI API else Show Alert
+        if VisitModelForUIAPI.isEditMode{
+            VisitModelForUIAPI.isEditMode = false
+            if AppDelegate.isConnectedToNetwork(){
+                //Call UI API , after success of that Save in Local
+                
+                StoreDispatcher.shared.editVisitFromOutlook(VisitData: visit!) { (data) in
+                    if data == nil{
+                        //Success Save to DB
+                        self.editAndSaveVisitData()
+                        
+                    }else{
+                        //Failure Show Alert
+                        let alert = UIAlertView()
+                        alert.title = "Alert"
+                        alert.message = "Saving of Visit has failed, Please try again"
+                        alert.addButton(withTitle: "OK")
+                        alert.show()
+                        
+                    }
+                }
+            }
+            
+        }else{
+            
+            self.editAndSaveVisitData()
+            
+        }
+        
+        return true
+    }
+    
+    func editAndSaveVisitData(){
+        
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
@@ -122,16 +160,13 @@ class PlanVisitManager {
         let success = VisitSchedulerViewModel().editVisitToSoup(fields: addNewDict)
         let visitDataDict:[String: WorkOrderUserObject] = ["visit": visit!]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisit"), object:nil, userInfo: visitDataDict)
-         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
         
         print("Success is here \(success)")
         
-        
-        
-        return true
     }
     
 }

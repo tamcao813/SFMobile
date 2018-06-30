@@ -86,17 +86,6 @@ class SyncInfoViewController: UIViewController {
     
     
     @IBAction func syncNowButtonTapped(_ sender: UIButton){
-        StoreDispatcher.shared.editVisitFromOutlook(recordTypeId: "0WO0t000000QUmnGAG") { (error) in
-            print(error?.description)
-        }
-    
-    
-//        StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: "0WO0t000000QUmnGAG") { (error) in
-//            print(error?.description)
-//        }
-    
-        
-        return
         
         if !SyncUpDailogGlobal.isSyncing {
             self.delegate?.startSyncUp()

@@ -141,6 +141,7 @@ class ServicePurposesViewController: UIViewController {
     
     @IBAction func saveAndClose(sender: UIButton) {
        
+        VisitModelForUIAPI.isEditMode = true
         
         if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
             

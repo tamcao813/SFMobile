@@ -9,12 +9,13 @@
 import Foundation
 import UIKit
 import SalesforceSDKCore
+import Reachability
 
 class InsightsModelViewController : UIViewController , WKNavigationDelegate{
     
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var lblNoNetworkConnection: UILabel!
-    
+    var reachability = Reachability()!
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
@@ -25,12 +26,35 @@ class InsightsModelViewController : UIViewController , WKNavigationDelegate{
         //Set up activity indicator
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
         activityIndicator.color = UIColor.lightGray
-        webView?.addSubview(activityIndicator)
+        webView?.addSubview(activityIndicator)        
+        initializeReachability()
+    }
+    
+    func initializeReachability(){
+        reachability.whenReachable = { reachability in
+            self.loadWebView()
+        }
+        
+        reachability.whenUnreachable = { _ in
+            self.loadWebView()
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        loadWebView()
+    }
+    
+    //MARK:- IBActions
+    //Close Button Clicked
+    
+    func loadWebView(){
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.insightsAccountUrl + AccountId.selectedAccountId
@@ -43,13 +67,12 @@ class InsightsModelViewController : UIViewController , WKNavigationDelegate{
         
         if AppDelegate.isConnectedToNetwork(){
             lblNoNetworkConnection?.isHidden = true
+            webView.isHidden = false
         }else{
             lblNoNetworkConnection?.isHidden = false
+            webView.isHidden = true
         }
     }
-    
-    //MARK:- IBActions
-    //Close Button Clicked
     
     @IBAction func closeButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)

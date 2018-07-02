@@ -123,6 +123,6 @@ extension SearchAccountTableViewCell: UITextFieldDelegate {
         accountsDropDown.dataSource = searchAccountsString
         accountsDropDown.reloadAllComponents()
         accountsDropDown.show()
-        return true
+        return AlertUtilities.disableEmojis(text: string)
     }
 }

@@ -51,3 +51,10 @@ class EditAgendaNoteViewController: UIViewController {
         }        
     }
 }
+
+extension EditAgendaNoteViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return AlertUtilities.disableEmojis(text: string)
+    }
+}

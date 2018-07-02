@@ -15,7 +15,7 @@
 	<key>rules</key>
 	<string>/SGWS_Roles__c</string>
 	<key>serviceUrl</key>
-	<string>/services/data/v43.0/</string>
+	<string>/services/data/v41.0/</string>
 	<key>contactRolesPlist</key>
 	<string>/ContactRoles.plist</string>
 	<key>workOrderPlist</key>

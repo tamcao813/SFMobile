@@ -94,6 +94,9 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisitList(_:)), name: NSNotification.Name("refreshAccountVisit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
+        
+        VisitModelForUIAPI.isEditMode = false
+        
         self.setLocationManager()
     }
     
@@ -396,7 +399,9 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     }
     
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
-                
+        
+        VisitModelForUIAPI.isEditMode = true
+        
         switch visitStatus {
         case .scheduled?:
             PlanVisitManager.sharedInstance.editPlanVisit = true

@@ -42,6 +42,11 @@ class ActionItemsListViewController: UIViewController {
         fetchActionItemsFromDB()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        FilterMenuModel.isFromAccountVisitSummary = ""
+    }
+    
     @objc func actionItemSyncDownComplete(){
         fetchActionItemsFromDB()
     }
@@ -195,8 +200,10 @@ extension ActionItemsListViewController : ActionItemSearchButtonTappedDelegate{
     }
     
     func clearFilter(){
+        FilterMenuModel.isFromAccountVisitSummary = ""
         ActionItemFilterModel.filterApplied = false
-        reloadTableView()
+       // reloadTableView()
+        fetchActionItemsFromDB()
     }
 }
 

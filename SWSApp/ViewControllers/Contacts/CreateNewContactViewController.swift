@@ -389,7 +389,7 @@ class CreateNewContactViewController: UIViewController {
         
         newContact.sgws_sfa_customer_check = true
         
-        if !newContact.buyerFlag {
+        if isNewContact, !newContact.buyerFlag {
             newContact.contactClassification = contactClassificationTextField.text!
             if newContact.contactClassification == "Other"{
                 newContact.otherSpecification = otherReasonTextField.text!

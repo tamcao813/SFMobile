@@ -10,13 +10,11 @@ import UIKit
 import Foundation
 import SalesforceSDKCore
 import WebKit
-import Reachability
 
 class ChatterViewController: UIViewController , WKNavigationDelegate {
     
     @IBOutlet var webView : WKWebView?
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
-    var reachability = Reachability()!
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
     //MARK:- View LifeCycle Methods
@@ -31,16 +29,16 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     }
     
     func initializeReachability(){
-        reachability.whenReachable = { reachability in
+        ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
             self.loadWebView()
         }
         
-        reachability.whenUnreachable = { _ in
+        ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
             self.loadWebView()
         }
         
         do {
-            try reachability.startNotifier()
+            try ReachabilitySingleton.sharedInstance().startNotifier()
         } catch {
             print("Unable to start notifier")
         }

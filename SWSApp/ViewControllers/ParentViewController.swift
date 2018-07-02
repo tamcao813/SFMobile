@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import DropDown
 import Reachability
 import CoreLocation
 
@@ -106,8 +105,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         return calendarTabVC
     }()
     // objectives VC
-    lazy var objectivesVC : UIViewController? = {
-        let objectivesTabVC = self.storyboard?.instantiateViewController(withIdentifier: "ObjectivesControllerID")
+    lazy var objectivesVC : ObjectivesViewController? = {
+        let objectivesTabVC = self.storyboard?.instantiateViewController(withIdentifier: "ObjectivesControllerID") as? ObjectivesViewController
         return objectivesTabVC
     }()
     // more VC

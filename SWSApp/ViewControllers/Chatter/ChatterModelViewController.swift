@@ -25,11 +25,31 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
+        initializeReachability()
+    }
+    
+    func initializeReachability(){
+        ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
+            self.loadWebView()
+        }
+        
+        ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
+            self.loadWebView()
+        }
+        
+        do {
+            try ReachabilitySingleton.sharedInstance().startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        loadWebView()        
+    }
+    
+    func loadWebView(){
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.apexChatterUrl + AccountId.selectedAccountId
@@ -44,8 +64,10 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
         
         if AppDelegate.isConnectedToNetwork(){
             lblNoNetworkConnection?.isHidden = true
+            webView?.isHidden = false
         }else{
             lblNoNetworkConnection?.isHidden = false
+            webView?.isHidden = true
         }
     }
     

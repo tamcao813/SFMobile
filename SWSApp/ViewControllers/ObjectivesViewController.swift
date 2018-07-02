@@ -27,6 +27,23 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 70)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
+        initializeReachability()
+    }
+    
+    func initializeReachability(){
+        ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
+            self.loadWebView()
+        }
+        
+        ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
+            self.loadWebView()
+        }
+        
+        do {
+            try ReachabilitySingleton.sharedInstance().startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,8 +70,10 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
             
             if AppDelegate.isConnectedToNetwork(){
                 self.lblNoNetworkConnection?.isHidden = true
+                self.webView.isHidden = false
             }else{
                 self.lblNoNetworkConnection?.isHidden = false
+                self.webView.isHidden = true
             }
         }
     }

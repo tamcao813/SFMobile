@@ -49,4 +49,7 @@ extension TitleDepartmentTableViewCell: UITextFieldDelegate {
         contactDetail?.title = titleTextField.text!
         contactDetail?.department = departmentTextField.text!
     }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return AlertUtilities.disableEmojis(text: string)
+    }
 }

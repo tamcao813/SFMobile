@@ -132,5 +132,9 @@ extension FamilyTableViewCell: UITextFieldDelegate {
             contactDetail?.child5Birthday = dateTextField.text!
         }
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return AlertUtilities.disableEmojis(text: string)
+    }
 }
 

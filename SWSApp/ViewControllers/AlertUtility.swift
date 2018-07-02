@@ -36,6 +36,14 @@ class AlertUtilities: NSObject {
         return someString
     }
     
+    class func disableEmojis(text : String) -> Bool{
+        if !text.canBeConverted(to: String.Encoding.ascii){
+            return false
+        }
+        return true
+    }
+    
+    
 }
 
 

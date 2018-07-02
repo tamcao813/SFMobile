@@ -644,7 +644,7 @@ extension PlanVisitViewController : UITextFieldDelegate{
             }
         }
         
-        return true
+        return AlertUtilities.disableEmojis(text: string)
     }
     
     func generateRandomIDForVisit()->String  {

@@ -607,7 +607,7 @@ extension OpportunitiesMenuViewController : UISearchBarDelegate{
     }
     
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        return true
+        return AlertUtilities.disableEmojis(text: text)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

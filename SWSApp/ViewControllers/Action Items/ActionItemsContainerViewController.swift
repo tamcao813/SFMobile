@@ -42,5 +42,10 @@ class ActionItemsContainerViewController: UIViewController {
         }
     }
     
+    func clearActionItemFilter(){
+        actionItemFilterVC?.clearActionItemFilterModel()
+    }
     
 }
+
+

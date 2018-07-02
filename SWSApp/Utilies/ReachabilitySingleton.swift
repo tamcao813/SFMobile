@@ -14,6 +14,9 @@ class ReachabilitySingleton {
     var isReachable: Bool?
     static var instance : Reachability? = nil
     
+    // Singleton should be used for network reachability check
+    // This was intergrated for webview offline issue so that now it has been applied to all webview instances
+    
     class func sharedInstance() -> Reachability{
         instance = instance ?? Reachability()
         return instance!

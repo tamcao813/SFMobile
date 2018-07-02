@@ -18,7 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountOpportunityCell" rowHeight="258" id="fCJ-43-APQ" customClass="AccountsSummaryOpportunityCell" customModule="SWSApp" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountOpportunityCell" rowHeight="258" id="fCJ-43-APQ" customClass="AccountsSummaryOpportunityCell" customModule="SWSApp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="935" height="258"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fCJ-43-APQ" id="A5g-or-Nj2">
@@ -56,7 +56,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gsw-UM-m9C" userLabel="Sub View 2">
-                                <rect key="frame" x="150" y="0.0" width="166" height="40"/>
+                                <rect key="frame" x="170" y="0.0" width="180" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggo-Be-CCo">
                                         <rect key="frame" x="0.0" y="0.0" width="136" height="40"/>
@@ -71,8 +71,8 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Ggo-Be-CCo" secondAttribute="bottom" id="1Q8-r4-a2Z"/>
                                     <constraint firstItem="Ggo-Be-CCo" firstAttribute="leading" secondItem="Gsw-UM-m9C" secondAttribute="leading" id="6wG-xK-xya"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ggo-Be-CCo" secondAttribute="trailing" constant="30" id="KUg-UG-Dms"/>
-                                    <constraint firstAttribute="width" constant="166" id="cmJ-IY-UAB"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ggo-Be-CCo" secondAttribute="trailing" constant="44" id="KUg-UG-Dms"/>
+                                    <constraint firstAttribute="width" constant="180" id="cmJ-IY-UAB"/>
                                     <constraint firstItem="Ggo-Be-CCo" firstAttribute="top" secondItem="Gsw-UM-m9C" secondAttribute="top" id="epC-4k-9Rr"/>
                                 </constraints>
                             </view>
@@ -126,7 +126,7 @@
                             <constraint firstItem="Pys-fZ-b3Q" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="O0U-fd-QrL"/>
                             <constraint firstItem="QCy-5E-Ohs" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="Pdi-RG-Fly"/>
                             <constraint firstItem="QCy-5E-Ohs" firstAttribute="leading" secondItem="KFI-37-LHs" secondAttribute="leading" constant="11" id="bDx-uh-jvt"/>
-                            <constraint firstItem="Gsw-UM-m9C" firstAttribute="leading" secondItem="QCy-5E-Ohs" secondAttribute="trailing" constant="-75" id="bSU-c2-dis"/>
+                            <constraint firstItem="Gsw-UM-m9C" firstAttribute="leading" secondItem="QCy-5E-Ohs" secondAttribute="trailing" constant="-55" id="bSU-c2-dis"/>
                             <constraint firstItem="lul-eB-wuF" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="h8A-JU-lph"/>
                             <constraint firstAttribute="trailing" secondItem="lul-eB-wuF" secondAttribute="trailing" constant="20" id="hLP-A3-7N4"/>
                             <constraint firstItem="Gsw-UM-m9C" firstAttribute="top" secondItem="KFI-37-LHs" secondAttribute="top" id="k5V-v7-GOW"/>
@@ -159,7 +159,9 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="headerView" destination="KFI-37-LHs" id="8z1-bb-jzE"/>
                 <outlet property="headingLabel" destination="F4h-6d-okr" id="gsF-E3-X0u"/>
+                <outlet property="tableHeightConstraint" destination="cW6-04-83P" id="dzC-hr-d0D"/>
                 <outlet property="tableView" destination="rac-nk-PeR" id="S93-ce-8Rg"/>
             </connections>
             <point key="canvasLocation" x="154.5" y="-5"/>

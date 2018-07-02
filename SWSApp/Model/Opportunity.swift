@@ -10,15 +10,13 @@ import UIKit
 
 class Opportunity {
 
-    static let opportunityFields: [String] = [ "Id", "AccountId", "sgws_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "StageName", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Order_Frequency__c", "SGWS_Unsold_Period_Days__c",  "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
-    static let opportunitySyncUpFields: [String] = [ "AccountId", "sgws_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "StageName", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Order_Frequency__c", "SGWS_Unsold_Period_Days__c",  "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
+    static let opportunityFields: [String] = [ "Id", "OwnerId", "AccountId", "SGWS_Source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "StageName", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Order_Frequency__c", "SGWS_Unsold_Period_Days__c",  "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
 
-    static let opportunityUploadFields: [String] = [ "Id", "AccountId", "sgws_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c" ]
-//    static let opportunityUploadSyncUpFields: [String] = [ "AccountId", "sgws_source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c" ]
     static let opportunityUploadSyncUpFields: [String] = [ "SGWS_Commit__c" ]
 
     
     var id: String
+    var ownerId: String
     var accountId: String
     var source: String
     var PYCMSold: String
@@ -60,8 +58,9 @@ class Opportunity {
         print("Opportunity : json : \(json)")
         
         id = json["Id"] as? String ?? ""
+        ownerId = json["OwnerId"] as? String ?? ""
         accountId = json["AccountId"] as? String ?? ""
-        source = json["sgws_source__c"] as? String ?? ""
+        source = json["SGWS_Source__c"] as? String ?? ""
         PYCMSold = json["SGWS_PYCM_Sold__c"] as? String ?? ""
         commit = json["SGWS_Commit__c"] as? String ?? ""
         sold = json["SGWS_Sold__c"] as? String ?? ""
@@ -219,6 +218,7 @@ class Opportunity {
     init(for: String) {
         
         id = ""
+        ownerId = ""
         accountId = ""
         source = ""
         PYCMSold = ""

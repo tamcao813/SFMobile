@@ -16,7 +16,7 @@ protocol ContactDetailsScreenDelegate{
 class ContactListViewController: UIViewController, UITableViewDataSource {
     
     var delegate : ContactDetailsScreenDelegate?
-    
+    static var refreshContactDetailDelegate: ContactDetailsScreenDelegate?
     let contactViewModel = ContactsViewModel()
     var globalContactsForList = [Contact]()
     var accountContactsForList = [Contact]()
@@ -305,9 +305,15 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         }
         pageButtonArr[1].backgroundColor = UIColor.lightGray
         pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
-        
-        
         loadContactData()
+        
+        //Pass data to child using delegates
+        if !ContactFilterMenuModel.selectedContactIdFromDetailScreen.isEmpty {
+            guard let selectedContact = ContactSortUtility.searchContactByContactId( ContactFilterMenuModel.selectedContactIdFromDetailScreen) else {
+                return
+            }
+              ContactListViewController.refreshContactDetailDelegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
+        }
         
         if ContactFilterMenuModel.comingFromDetailsScreen == "YES", ContactFilterMenuModel.selectedContactId != "" {
             
@@ -538,6 +544,7 @@ extension ContactListViewController : UITableViewDelegate{
             let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
             delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
             ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+            ContactFilterMenuModel.selectedContactIdFromDetailScreen = globalContact.contactId
         }
     }
 }

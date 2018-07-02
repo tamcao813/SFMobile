@@ -30,6 +30,13 @@ class AccountsActionItemViewModel {
         filteredActionItemArray = filteredActionItemArray.sorted(by: { $0.activityDate < $1.activityDate })
         return filteredActionItemArray
     }
+    //actionItems Descending order
+    func actionItemFourMonthsDescSorted() -> [ActionItem] {
+        let actionItemsArray = getAcctionItemForUser()
+        var filteredActionItemArray = SyncConfigurationSortUtility.getActionItemDataUsingSyncTime(objectArray: actionItemsArray)
+        filteredActionItemArray = filteredActionItemArray.sorted(by: { $0.activityDate > $1.activityDate })
+        return filteredActionItemArray
+    }
     
     
     
@@ -45,9 +52,12 @@ class AccountsActionItemViewModel {
         return StoreDispatcher.shared.editActionItemLocally(fieldsToUpload:fields)
     }
     
-    
     func editActionItemStatusLocally(fields: [String:Any]) -> Bool {
         return StoreDispatcher.shared.editActionItemStatusLocally(fieldsToUpload:fields)
+    }
+    
+    func editActionItemStatusLocallyAutomatically(fields: [String:Any]) -> Bool{
+        return StoreDispatcher.shared.editActionItemStatusLocallyAutomatically(fieldsToUpload:fields)
     }
     
     func deleteActionItemLocally(fields: [String:Any]) -> Bool {

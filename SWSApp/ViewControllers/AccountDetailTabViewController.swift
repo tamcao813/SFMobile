@@ -16,6 +16,8 @@ class AccountDetailTabViewController: UITableViewController {
     var contactsWithBuyingPower = [Contact]()
     var contactsForSG = [Contact]()
     var account : Account?
+    @IBOutlet weak var accountDetailsTableView: UITableView!
+    let accountViewModel = AccountsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +30,26 @@ class AccountDetailTabViewController: UITableViewController {
         //just testing globalContacts here
         let globalContactas = contactViewModel.globalContacts()
         print("globalContactas.count = " + "\(globalContactas.count)")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountItemList), name: NSNotification.Name("reloadAccountsData"), object: nil)
+       // self.reloadAllAccountListData()
+
     }
+    
+    @objc func refreshAccountItemList(notification: NSNotification){
+        self.reloadAllAccountListData()
+    }
+    //Reload all the Account List Data
+    func reloadAllAccountListData(){
+        //isAscending = true
+       account = accountViewModel.accountsForLoggedUser().filter({$0.account_Id == account?.account_Id}).first
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            
+        }
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -145,7 +166,7 @@ class AccountDetailTabViewController: UITableViewController {
         cell.nameLabel.text = contact.name
         cell.phoneNumberLabel.text = contact.phoneNumber
         cell.function_RoleLabel.text = contact.functionRole
-        cell.initialsLabel.text = contact.getIntials(name: contact.name)
+        cell.initialsLabel.text =  Validations().getIntials(name: contact.name) //contact.getIntials(name: contact.name)
 
         cell.selectionStyle = .none
         return cell
@@ -283,6 +304,7 @@ class AccountDetailTabViewController: UITableViewController {
         
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
@@ -308,7 +330,7 @@ class AccountDetailTabViewController: UITableViewController {
 
     @objc func viewAllContactFunction()  {
         
-        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+        ContactFilterMenuModel.comingFromDetailsScreen = ""
         ContactFilterMenuModel.selectedContactId = ""
 
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:account?.account_Id)

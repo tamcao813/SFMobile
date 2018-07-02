@@ -12,7 +12,7 @@ class OpportunitiesFilter {
 
     var sectionNames : Array<Any>  = ["View By", "Status", "Source", "Objective"]
     
-    var sectionItems : Array<Any> = [ ["9L Case", "Case Decimal"], ["Closed", "Closed Won", "Open", "Planned"], ["Overview", "Top Sellers", "Undersold", "What’s Hot", "Unsold"], ["9L​ Case", "ACS", "Case Decimal", "POD", "Revenue"] ]
+    var sectionItems : Array<Any> = [ ["9L Case", "Case Decimal"], ["Closed", "Closed Won", "Open", "Planned"], ["Book Of Business", "Top Sellers", "Undersold", "What’s Hot", "Unsold"], ["9L​ Case", "ACS", "Case Decimal", "POD", "Revenue"] ]
 
 }
 

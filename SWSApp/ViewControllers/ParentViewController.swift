@@ -32,7 +32,11 @@ struct ActionItemsGlobal {
     static var accountId: String = ""
 }
 
-class ParentViewController: UIViewController, XMSegmentedControlDelegate{
+protocol ParentViewControllerDelegate {
+    func reloadOpportunityDataFromDB()
+}
+class ParentViewController: UIViewController, XMSegmentedControlDelegate {
+    
     //autoSync automtic/manual and Status of network wifi/cell
     var status:String = ""
     
@@ -50,7 +54,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     
     var notificationButton:UIBarButtonItem? = nil
     var unreadNotificationCountLabel = UILabel()
-    
+    static var delegate:ParentViewControllerDelegate?
     @IBOutlet weak var contentView: UIView!
     // current view controller
     var currentViewController: UIViewController?
@@ -73,7 +77,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
     let defaults:UserDefaults = UserDefaults.standard
     var syncProgress:Float = 0
     var syncViewControllerSyncBtn:UIButton?
-    
+    let opportunityViewModel = OpportunityViewModel()
     //Sync Object Count - To be updated if more objects added here
     let syncObjectCount:Int = 10
     
@@ -289,8 +293,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: 0)
             
         }else if  data == LoadThePersistantMenuScreen.notifications.rawValue {
-            moreVC1.view.addSubview((notificationParent?.view)!)
-            self.moreDropDownSelectionIndex = 4
+            self.navigateToMoreOptionsViewControllers(index: 4, selectedIndex: 4)
         }
     }
     
@@ -750,6 +753,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
             self.syncProgress = 100
             
             DispatchQueue.main.async{
+                if let error = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") {
+                    syncFailed = true
+                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultError")
+                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultsync")
+                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultMessage")
+                    
+                }
                 self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true,syncUpFailed: syncFailed)
             }
             
@@ -766,6 +776,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotification"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
+                
+                ParentViewController.delegate?.reloadOpportunityDataFromDB()
                 
                 self.getUnreadNotificationsCount()
                 if ActionItemFilterModel.fromAccount{
@@ -904,6 +916,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         self.moreDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
         self.moreDropDown.textColor =  UIColor.gray
         
+        FilterMenuModel.isFromAccountVisitSummary = ""
         self.selectedDropDownOption(selectedIndex : selectedIndex)
     }
     
@@ -1099,6 +1112,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate{
         if SelectedMoreButton.selectedItem == 1{
             let accountsVisits = self.accountVisit as? AccountVisitEmbedViewController
             accountsVisits?.accountVisitFilterVC?.clearAccountVisitFilterModel()
+        }
+        if SelectedMoreButton.selectedItem == 0{
+            let accountsActionItem = self.actionItemParent
+            accountsActionItem?.actionItemListVC?.fetchActionItemsFromDB()
         }
     }
     

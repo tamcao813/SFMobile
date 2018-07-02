@@ -37,7 +37,7 @@ protocol SendDataToContainerDelegate {
     func passTheViewControllerToBeLoadedInContainerView(index : Int)
 }
 
-class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDelegate{
+class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDelegate,DetailsScreenDelegate{
     
     @IBOutlet weak var centerLabel : UILabel?
     @IBOutlet weak var lblAccountTitle : UILabel?
@@ -67,6 +67,8 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     var detailsViewController : AccountDetailsViewController?
     var secondViewController: UIViewController?
     var delegate : SendDataToContainerDelegate?
+    var detailDelegate : DetailsScreenDelegate?
+    let accountViewModel = AccountsViewModel()
     var addNewDropDown = DropDown()
     let contactsStoryboard = UIStoryboard.init(name: "AccountsContactsVC", bundle: nil)
     let accountOverViewStoryboard = UIStoryboard.init(name: "AccountOverView", bundle: nil)
@@ -80,6 +82,13 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         let actionItemVC = actionItemStoryboard.instantiateViewController(withIdentifier: "ActionItemsContainerViewController") as? ActionItemsContainerViewController
         return actionItemVC
     }()
+    
+    func dismissKeyBoard() {
+        
+    }
+    func pushTheScreenToDetailsScreen(accountData: Account) {
+        accountDetailForLoggedInUser = accountData
+    }
     
     //Present Active ViewController
     private var activeViewController: UIViewController? {
@@ -124,9 +133,14 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         print("Account details Screen is loaded")
         lblActionItem?.layer.borderColor = UIColor.init(named: "Data New")?.cgColor
         //containerView?.isHidden = true
-        
+        AccountsListViewController.accountListDelegate = self
         let button = UIButton()
-        button.tag = 0
+        if FilterMenuModel.isFromAccountVisitSummary == "YES"{
+            FilterMenuModel.isFromAccountVisitSummary = ""
+            button.tag = 5
+        }else{
+            button.tag = 0
+        }
         self.itemsClicked(sender: button)
         
         //containerView?.isHidden = true
@@ -134,6 +148,9 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         addNewButton.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
         
         StrategyScreenLoadFrom.isLoadFromStrategy = "0"
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -327,7 +344,6 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     
     //Details header Section Clicked
     @IBAction func itemsClicked(sender : UIButton){
-        
         containerView?.isHidden = true
         
         btnOverview?.backgroundColor = UIColor(named: "VeryLightGrey")

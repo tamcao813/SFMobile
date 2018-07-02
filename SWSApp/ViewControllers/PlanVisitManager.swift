@@ -110,8 +110,9 @@ class PlanVisitManager {
         new_visit.location = (visit?.location)!
         new_visit.sgwsAlldayEvent = (visit?.sgwsAlldayEvent)!
         
-        // in progress
-        if (visit?.status)! == "In-Progress" && geoLocationForVisit.lastVisitStatus == "Scheduled"{
+        if (visit?.status)! == "In-Progress" &&
+            (geoLocationForVisit.lastVisitStatus == "Scheduled" ||
+            geoLocationForVisit.lastVisitStatus == "Planned") {
             new_visit.startLatitude = geoLocationForVisit.startLatitude
             new_visit.startLongitude = geoLocationForVisit.startLongitude
             new_visit.startTime_of_Visit = geoLocationForVisit.startTime

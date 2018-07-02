@@ -18,6 +18,8 @@
 	<string>/services/data/v43.0/</string>
 	<key>contactRolesPlist</key>
 	<string>/ContactRoles.plist</string>
+	<key>workOrderPlist</key>
+	<string>/Opportunity.plist</string>
 	<key>preferredCommunicationUrl</key>
 	<string>/SGWS_Preferred_Communication_Method__c</string>
 	<key>contactClassification</key>
@@ -43,11 +45,11 @@
 	<key>insightsAccountUrl</key>
 	<string>/lightning/n/SGWS_Account_Insight?AccountID=</string>
 	<key>homeScreenUrl</key>
-	<string>/lightning/n/Home_Page</string>
+	<string>/lightning/n/SGWS_Home_Page</string>
 	<key>opportunitiesUrl</key>
 	<string>/lightning/r/Opportunity/</string>
 	<key>opportunityEndUrl</key>
-	<string>/view?0.source=alohaHeader</string>
+	<string>/view?iospref=web&amp;0.source=alohaHeader</string>
 	<key>salesConsultantTitle</key>
 	<string>Sales Consultant</string>
 	<key>salesManagerTitle</key>

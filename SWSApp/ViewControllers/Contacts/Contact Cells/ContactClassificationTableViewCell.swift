@@ -37,15 +37,15 @@ class ContactClassificationTableViewCell: UITableViewCell {
         classificationTextField.rightViewMode = .always
         self.addPickerView(textField: classificationTextField)
     }
-    
-    func setBuyingPower(value: Bool) {
-        if buyingPower != value { //if switching to true, clear the textfield
-            classificationTextField.text = ""
-            otherTextField.text = ""
-        }
-        
-        buyingPower = value
-    }
+//    
+//    func setBuyingPower(value: Bool) {
+//        if buyingPower != value { //if switching to true, clear the textfield
+//            classificationTextField.text = ""
+//            otherTextField.text = ""
+//        }
+//        
+//        buyingPower = value
+//    }
     
     func addPickerView(textField: UITextField){
         let pickerView = UIPickerView()

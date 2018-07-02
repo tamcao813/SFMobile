@@ -40,10 +40,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="What's hot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vX-8d-UbT">
-                        <rect key="frame" x="177" y="18" width="101" height="27"/>
+                        <rect key="frame" x="179" y="18" width="120" height="27"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="101" id="gxN-Wu-cZv"/>
+                            <constraint firstAttribute="width" constant="120" id="gxN-Wu-cZv"/>
                             <constraint firstAttribute="height" constant="27" id="i2U-lc-Sti"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
@@ -142,7 +142,7 @@
                     <constraint firstItem="YMT-dp-s2N" firstAttribute="leading" secondItem="n36-ax-4IH" secondAttribute="leading" id="ewH-h3-WM1"/>
                     <constraint firstItem="n36-ax-4IH" firstAttribute="leading" secondItem="BfJ-XO-7a7" secondAttribute="trailing" constant="-5.5" id="fGF-do-OD6"/>
                     <constraint firstItem="BfJ-XO-7a7" firstAttribute="top" secondItem="JTF-Qe-L00" secondAttribute="bottom" id="gIb-vj-THY"/>
-                    <constraint firstItem="5vX-8d-UbT" firstAttribute="leading" secondItem="CFb-Mx-fpb" secondAttribute="trailing" constant="-2" id="oGd-rX-Php"/>
+                    <constraint firstItem="5vX-8d-UbT" firstAttribute="leading" secondItem="CFb-Mx-fpb" secondAttribute="trailing" id="oGd-rX-Php"/>
                     <constraint firstItem="Cys-5c-bxU" firstAttribute="centerY" secondItem="liD-ed-gXN" secondAttribute="centerY" constant="2.75" id="wJ9-XY-SP3"/>
                     <constraint firstItem="y0J-KH-k8p" firstAttribute="leading" secondItem="Cys-5c-bxU" secondAttribute="trailing" constant="34" id="wPv-Tn-yUG"/>
                 </constraints>

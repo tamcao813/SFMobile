@@ -22,6 +22,7 @@ class AccountsListViewController: UIViewController {
     @IBOutlet weak var accountListTableView: UITableView!
     
     var delegate : DetailsScreenDelegate?
+    static var accountListDelegate:DetailsScreenDelegate?
     
     let accountViewModel = AccountsViewModel()
     // sorting flags
@@ -124,6 +125,12 @@ class AccountsListViewController: UIViewController {
         }
        
         
+        let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: accountsForLoggedUserOriginal, accountId: AccountId.selectedAccountId)
+        guard accountList != nil, (accountList?.count)! > 0  else {
+            return;
+        }
+        AccountsListViewController.accountListDelegate?.pushTheScreenToDetailsScreen(accountData: (accountList?.first)!)
+
     }
     
     @objc func refreshAccountItemList(notification: NSNotification){

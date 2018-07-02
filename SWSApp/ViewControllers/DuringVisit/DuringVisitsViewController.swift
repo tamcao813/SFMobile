@@ -12,6 +12,10 @@ import IQKeyboardManagerSwift
 import CoreLocation
 import SmartSync
 
+struct AccountObject {
+    static var account : Account?
+}
+
 enum LoadThePersistantMenuScreen : Int{
     case contacts = 0
     case chatter
@@ -35,8 +39,9 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var btnInsights : UIButton?
     @IBOutlet weak var btnEditAccountStrategy : UIButton?
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
+    @IBOutlet weak var btnCreateActionItem : UIButton?
     
-    //LOCATION
+    //MARK: LOCATION
     var locationManager = CLLocationManager()
     
     func setLocationManager(){
@@ -60,6 +65,33 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
         }
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        locationManager.stopUpdatingLocation()
+        
+        geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
+        geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
+//        geoLocationForVisit.didReceiveLocation = true
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit() //This line may not be received
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        locationManager.stopUpdatingLocation()
+        print("The error is in location \(error)")
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit() //This line may not be received
+    }
+    
+//    /// fetchLocationTill will block the Save button till location is received
+//    func fetchLocationTill(){
+//        var count = 4
+//        while geoLocationForVisit.didReceiveLocation == false && count > 0{
+//            sleep(5)
+//            count = count - 1
+//        }
+//        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+//        geoLocationForVisit.didReceiveLocation = false
+//    }
     
     var visitObject: WorkOrderUserObject?
     
@@ -131,21 +163,17 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
-         geoLocationForVisit.startLatitude = 0.0
-         geoLocationForVisit.startLongitude = 0.0
-         geoLocationForVisit.startTime = ""
-         geoLocationForVisit.endLatitude = 0.0
-         geoLocationForVisit.endLongitude = 0.0
-         geoLocationForVisit.endTime = ""
-
-
+        locationManager.stopUpdatingLocation()
+        geoLocationForVisit.startLatitude = 0.0
+        geoLocationForVisit.startLongitude = 0.0
+        geoLocationForVisit.startTime = ""
+        geoLocationForVisit.endLatitude = 0.0
+        geoLocationForVisit.endLongitude = 0.0
+        geoLocationForVisit.endTime = ""
     }
     
     //MARK:-
@@ -229,7 +257,6 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
         
         tableviewData.add(dict)
-        
     }
     
     //Used to load the Strategy Subheader Questions
@@ -359,7 +386,6 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }) {
             print("No")
         }
-        
     }
     
     //Transaction button clicked
@@ -406,11 +432,24 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }
     }
     
+    // Create Action Item Button clicked
+    @IBAction func createActionItemButtonClicked(_ sender: UIButton) {
+        
+        btnCreateActionItem?.isHidden = false
+            let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
+            createActionItemViewController.isEditingMode = false
+            createActionItemViewController.selectedAccount = AccountObject.account
+            self.present(createActionItemViewController, animated: false)
+    }
+    
+    
+    
     //Back Button Clicked
     @IBAction func backButtonClicked(sender : UIButton){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
         btnBack?.isHidden = true
+        btnCreateActionItem?.isHidden = false
         imgDiscussion?.image = UIImage(named: "selectedButton")
         imgInsights?.image = UIImage(named: "selectedGrey")
         
@@ -425,31 +464,21 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         activeViewController = duringVisitVC
     }
     
-    /// fetchLocationTill will block the Save button till location is received
-    func fetchLocationTill(){
-        var count = 4
-        while geoLocationForVisit.didReceiveLocation == false && count > 0{
-            sleep(5)
-            count = count - 1
-        }
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
-        geoLocationForVisit.didReceiveLocation = false
-    }
-    
     //Save button Clicked
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
         if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue" {
             geoLocationForVisit.lastVisitStatus = (PlanVisitManager.sharedInstance.visit?.status)!
             PlanVisitManager.sharedInstance.visit?.status = "In-Progress"
-            //Save the data in DB
             
-            // in progress
-            if geoLocationForVisit.lastVisitStatus == "Scheduled"{
-                fetchLocationTill()
-            }
-            else {
-                _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+            //if geoLocationForVisit.startTime == "FromContinueVisit" do not save s it ws done previously
+            if(geoLocationForVisit.startTime != "FromContinueVisit") {
+                if  geoLocationForVisit.lastVisitStatus == "Scheduled" ||
+                    geoLocationForVisit.lastVisitStatus == "Planned"{
+                    //Get time on button clicked
+                    geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+                    _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+                }
             }
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
@@ -457,20 +486,20 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             self.startUpdatingLocationAlerts()
             geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
             PlanVisitManager.sharedInstance.visit?.status = "Completed"
-            
-            //Save the data and wait till location is received
-            fetchLocationTill()
+
             self.saveOpportunityCommitValuesLocally()
             self.saveOutcomeToWorkOrderOpportunityLocally()
             delegate?.navigateToAccountVisitingScreen()
             //Must dismiss at last
             DispatchQueue.main.async{
+                _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
                 self.dismiss(animated: true, completion: nil)
             }
             return
         }
         
         btnBack?.isHidden = false
+        btnCreateActionItem?.isHidden = true
         imgDiscussion?.image = UIImage(named: "Small Status Good")
         imgInsights?.image = UIImage(named: "selectedButton")
         
@@ -484,29 +513,6 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         activeViewController = duringVisitVC
         activeViewController = duringVisitVC
     }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation:CLLocation = locations[0] as CLLocation
-        geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
-        geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
-        geoLocationForVisit.didReceiveLocation = true
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit() //This line may not be received
-    }
-    
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        let userLocation:CLLocation = locations[0] as CLLocation
-//        geoLocationForVisit.startLatitude = userLocation.coordinate.latitude
-//        geoLocationForVisit.startLongitude = userLocation.coordinate.longitude
-//        geoLocationForVisit.didReceiveLocation = true
-//    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("The error is in location \(error)")
-    }
-    
-    
     
     //Account strategy Clicked
     @IBAction func loadStrategyViewController(sender : UIButton){
@@ -561,24 +567,27 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     //Action Item Button Clicked
     @IBAction func actionItemsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
-        }) {
-            
+        DispatchQueue.main.async {
+            let modalPopupStoryboard = UIStoryboard.init(name: "PopupModal", bundle: nil)
+            let modalPopupViewController: DuringVisitActionItemModelViewController = modalPopupStoryboard.instantiateViewController(withIdentifier: "ActionItemsModalID") as! DuringVisitActionItemModelViewController
+            modalPopupViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(modalPopupViewController, animated: true, completion: nil)
+            modalPopupViewController.navigationDelegate = self
         }
     }
     
     //Notification Button Clicked
     @IBAction func notificationsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
-            
-        }) {
+        DispatchQueue.main.async {
+            let modalPopupStoryboard = UIStoryboard.init(name: "PopupModal", bundle: nil)
+            let modalPopupViewController: DuringVisitNotificationModalviewController = modalPopupStoryboard.instantiateViewController(withIdentifier: "notificationID") as! DuringVisitNotificationModalviewController
+            modalPopupViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(modalPopupViewController, animated: true, completion: nil)
+            modalPopupViewController.delegate = self
             
         }
     }
+    
     @objc func saveOpportunityCommitValuesLocally() {
         if DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.count > 0 {
             for opportunity in DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList {
@@ -610,12 +619,10 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
                     "attributes":attributeDict]
                 
                 _ = VisitSchedulerViewModel().editVisitToSoupEx(fields: addNewDict)
-
             }
         }
-        
     }
-
+    
 }
 
 //MARK:- RefreshStrategyScreen Delegate
@@ -626,4 +633,26 @@ extension DuringVisitsViewController : RefreshStrategyScreenDelegate{
         self.loadTheDataFromStrategyQA()
     }
 }
+
+extension DuringVisitsViewController : NavigateToDuringVisitViewControllerDelegate{
+    
+    //After coming back from Action Item Modal View
+    func navigateToDuringVisitVC() {
+        self.dismiss(animated: true, completion: nil)
+        self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
+    }
+}
+
+extension DuringVisitsViewController :NavigateToDuringVisitViewController{
+    
+    //After coming back from Notifications Modal View
+    func navigateNotificationToDuringVisitVC() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
+        }
+        
+    }
+}
+
 

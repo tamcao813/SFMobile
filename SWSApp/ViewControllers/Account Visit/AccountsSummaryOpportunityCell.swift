@@ -12,7 +12,8 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
     
     @IBOutlet weak var headingLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-//    @IBOutlet weak var SubheadingLabel: UILabel!
+    @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerView: UIView!
       var opportunityList = [Opportunity]()
     var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
     
@@ -28,6 +29,8 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
     func displayCellContent(selectedOpportunityList:[Opportunity]) {
         
         opportunityList = selectedOpportunityList
+      // self.tableHeightConstraint.constant = CGFloat(opportunityList.count * 60)
+     
         self.tableView.reloadData()
         
     }
@@ -55,7 +58,7 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
             outcomeValue = thisOppur[0].outcome
         }
         switch currentOpportunity.source {
-        case "What's Hot","Top Seller":
+        case "What's Hot/What's Not":
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopSellerCell", for: indexPath) as! AccountsSourceTopSellerTableViewCell
             
             cell.productNameLabel.text = currentOpportunity.productName
@@ -82,7 +85,11 @@ class AccountsSummaryOpportunityCell: UITableViewCell,UITableViewDataSource,UITa
             let cell = tableView.dequeueReusableCell(withIdentifier: "unsoldTableViewCell", for: indexPath) as! AccountsUnsoldTableViewCell
             cell.productNameLabel.text = currentOpportunity.productName
             cell.sourceLabel.text = currentOpportunity.source
-            cell.unsoldPeriodLabel.text = "Unsold Period\n" + currentOpportunity.unsoldPeriodDays
+            if currentOpportunity.unsoldPeriodDays.isEmpty {
+                cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays
+            }else {
+                 cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays + " Days"
+            }
             cell.commitAmtLabel.text = currentOpportunity.commit
             cell.outcomeLabel.text = outcomeValue
             return cell

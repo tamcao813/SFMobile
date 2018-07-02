@@ -59,12 +59,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 SFUserAccountManager.sharedInstance().advancedAuthConfiguration = SFOAuthAdvancedAuthConfiguration.require;
             }
             .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
+                let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
                 let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
                 SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
-                //If launched first time setup StoreDispatcher by registering soups
-                if(!self.launchedBefore){
-                    StoreDispatcher.shared.registerSoups()
-                }
+                //If launched first time Or Any soup is missing than treat it as first launch and call StoreDispatcher register soups
+                let isAllSoupExist = StoreDispatcher.shared.checkIfAllSoupsExist()
+                if((!launchedBefore && !isAllSoupExist)){
+                        StoreDispatcher.shared.sfaStore.removeAllSoups()
+                        StoreDispatcher.shared.registerSoups()
+                        self.resetLaunchandResyncConfiguration()
+                    }
+                
                 self.setupRootViewController()
                 //For SDK error one can use .debug or .error to switch off .off
                 SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .all
@@ -262,12 +267,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                         guard let user = user else {
                             print("No logged in user retrieved")
-                            let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
-                            if(globalAccountsForLoggedUser.count == 0){
-                                self.resetLaunchandResyncConfiguration()
-                                // Show Alert and exit the app
-                                self.showAlertandExit()
-                            }
                             return
                         }
                         
@@ -285,14 +284,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             StoreDispatcher.shared.downloadAllSoups({ (error) in
                                 if error != nil {
                                     print("error in downloadAllSoups")
-                                    StoreDispatcher.shared.syncIdDictionary.removeAll()
-                                    UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
-                                    UserDefaults.standard.set("Last Sync Failed", forKey: "lastSyncStatus")
+                                    self.resetLaunchandResyncConfiguration()
                                     return
+                                }
+                                DispatchQueue.main.async(){
+                                let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
+                                if(globalAccountsForLoggedUser.count == 0){
+                                    self.resetLaunchandResyncConfiguration()
+                                    
+                                    // Show Alert and exit the app
+                                        self.showAlertandExit()
+                                    }
                                 }
                                 // If both register and syncdownall is completed than only set the launched comeplete flag
                                 UserDefaults.standard.set(true, forKey: "launchedBefore")
                                 let date = Date()
+                                UserDefaults.standard.set(date, forKey: "lastSyncDateInDateFormat")
                                 let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
                                 UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
                                 UserDefaults.standard.set("Last Sync Successful", forKey: "lastSyncStatus")
@@ -314,6 +321,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
                             StoreDispatcher.shared.resyncAllSoups({ (error) in
                                 let date = Date()
+                                UserDefaults.standard.set(date, forKey: "lastSyncDateInDateFormat")
                                 let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
                                 UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
                                 if error != nil {

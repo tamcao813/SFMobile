@@ -11,10 +11,22 @@ import UIKit
 class OpportunitySortUtility {
 
     func opportunityFor(forAccount accountId: String) -> [Opportunity] {
+        
         if GlobalOpportunityModel.globalOpportunity.count == 0 {
             _ = OpportunityViewModel().globalOpportunityReload()
         }
+        
+        if let loggedInuserid: String = (UserViewModel().loggedInUser?.userId) {
+            
+            let currentSelectedUSerId = (UIApplication.shared.delegate as! AppDelegate).currentSelectedUserId
+            if(currentSelectedUSerId != loggedInuserid) {
+
+                return GlobalOpportunityModel.globalOpportunity.filter( { return ($0.ownerId == currentSelectedUSerId) && ($0.accountId == accountId) } )
+            }
+        }
+
         return GlobalOpportunityModel.globalOpportunity.filter( { return $0.accountId == accountId } )
+
     }
     
     func opportunitySort(_ opportunityToSort: [Opportunity]) -> [Opportunity] {
@@ -271,10 +283,10 @@ class OpportunitySortUtility {
             
             enteredAnyFilterCase = true
             filteredStatusOpenOpportunityArray = opportunityToBeFiltered.filter( { return
-                (OpportunitiesFilterMenuModel.sourceOverview == "YES" && $0.source == "Overview") ||
+                (OpportunitiesFilterMenuModel.sourceOverview == "YES" && $0.source == "Book Of Business") ||
                     (OpportunitiesFilterMenuModel.sourceTopSellers == "YES" && $0.source == "Top Sellers") ||
                     (OpportunitiesFilterMenuModel.sourceUndersold == "YES" && $0.source == "Undersold") ||
-                    (OpportunitiesFilterMenuModel.sourceHotNot == "YES" && $0.source == "What’s Hot") ||
+                    (OpportunitiesFilterMenuModel.sourceHotNot == "YES" && $0.source == "What's Hot/What's Not") ||
                     (OpportunitiesFilterMenuModel.sourceUnsold == "YES" && $0.source == "Unsold") } )
             
             if filteredStatusOpenOpportunityArray.count > 0 {

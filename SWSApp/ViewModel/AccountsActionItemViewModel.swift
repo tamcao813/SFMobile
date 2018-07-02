@@ -52,9 +52,12 @@ class AccountsActionItemViewModel {
         return StoreDispatcher.shared.editActionItemLocally(fieldsToUpload:fields)
     }
     
-    
     func editActionItemStatusLocally(fields: [String:Any]) -> Bool {
         return StoreDispatcher.shared.editActionItemStatusLocally(fieldsToUpload:fields)
+    }
+    
+    func editActionItemStatusLocallyAutomatically(fields: [String:Any]) -> Bool{
+        return StoreDispatcher.shared.editActionItemStatusLocallyAutomatically(fieldsToUpload:fields)
     }
     
     func deleteActionItemLocally(fields: [String:Any]) -> Bool {

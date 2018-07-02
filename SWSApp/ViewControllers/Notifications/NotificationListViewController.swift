@@ -28,14 +28,25 @@ class NotificationListViewController: UIViewController {
         getNotifications()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        FilterMenuModel.isFromAccountVisitSummary = ""
+    }
+    
     @objc func refreshNotification()   {
         getNotifications()
     }
     
     func getNotifications(){
-        notificationsArray = [Notifications]()
-        notificationsArray = NotificationsViewModel().notificationsForUser()
-        reloadTableView()
+        if FilterMenuModel.isFromAccountVisitSummary == "YES" {
+            notificationsArray = NotificationsViewModel().notificationsForUser()
+            notificationsArray = notificationsArray.filter( { return $0.account ==  (AccountObject.account?.account_Id)! } )
+        }
+        else{
+            notificationsArray = [Notifications]()
+            notificationsArray = NotificationsViewModel().notificationsForUser()
+        }
+            self.reloadTableView()
     }
     
     func customizedUI(){
@@ -51,8 +62,17 @@ class NotificationListViewController: UIViewController {
     }
     
     func reloadTableView(){
+        tableView.reloadData()
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            if NotificationFilterModel.filterApplied {
+                if(self.filteredNotificationsArray.count > 0){
+                    self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+                }
+            }else{
+                if (self.notificationsArray.count > 0) {
+                    self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+                }
+            }
         }
     }
 }
@@ -71,8 +91,10 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
     }
     
     func clearFilter(){
+        FilterMenuModel.isFromAccountVisitSummary = ""
         NotificationFilterModel.filterApplied = false
-        reloadTableView()
+        //reloadTableView()
+        getNotifications()
     }
     
     func editNotification(notification: Notifications){

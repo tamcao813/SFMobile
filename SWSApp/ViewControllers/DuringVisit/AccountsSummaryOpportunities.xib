@@ -159,6 +159,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="headerView" destination="KFI-37-LHs" id="8z1-bb-jzE"/>
                 <outlet property="headingLabel" destination="F4h-6d-okr" id="gsF-E3-X0u"/>
                 <outlet property="tableHeightConstraint" destination="cW6-04-83P" id="dzC-hr-d0D"/>
                 <outlet property="tableView" destination="rac-nk-PeR" id="S93-ce-8Rg"/>

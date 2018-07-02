@@ -2341,12 +2341,7 @@ class StoreDispatcher {
             let fieldsIdValue = fieldsToUpload["Id"] as! String
             
             if(fieldsIdValue == singleNoteModifValue){
-                //                ActionItemModif["SGWS_Account__c"] = fieldsToUpload["SGWS_Account__c"]
-                //                ActionItemModif["Subject"] = fieldsToUpload["Subject"]
-                //                ActionItemModif["Description"] = fieldsToUpload["Description"]
                 ActionItemModif["Status"] = fieldsToUpload["Status"]
-                //                ActionItemModif["ActivityDate"] = fieldsToUpload["ActivityDate"]
-                //                ActionItemModif["SGWS_Urgent__c"] = fieldsToUpload["SGWS_Urgent__c"]
                 ActionItemModif[kSyncTargetLocal] = true
                 
                 let createdFlag = ActionItemModif[kSyncTargetLocallyCreated] as! Bool
@@ -2362,6 +2357,41 @@ class StoreDispatcher {
                 }
                 ActionItemModif[kSyncTargetLocallyDeleted] = false
                 
+                ActionItemModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
+                editedActionItem = ActionItemModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([editedActionItem], toSoup: SoupActionItem)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) ActionItem is edited and saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving editing ActionItem" )
+            return false
+        }
+    }
+    
+    func editActionItemStatusLocallyAutomatically(fieldsToUpload: [String:Any]) -> Bool{
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        var editedActionItem = [String: Any]()
+        
+        for  actionItem in result{
+            var ActionItemModif = actionItem as! [String:Any]
+            let singleNoteModifValue = ActionItemModif["Id"] as! String
+            let fieldsIdValue = fieldsToUpload["Id"] as! String
+            
+            if(fieldsIdValue == singleNoteModifValue){
+                ActionItemModif["Status"] = fieldsToUpload["Status"]
+                ActionItemModif[kSyncTargetLocal] = true
                 ActionItemModif["SGWS_AppModified_DateTime__c"] = fieldsToUpload["SGWS_AppModified_DateTime__c"]
                 editedActionItem = ActionItemModif
                 break

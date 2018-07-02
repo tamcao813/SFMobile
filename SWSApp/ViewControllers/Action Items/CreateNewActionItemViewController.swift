@@ -267,7 +267,7 @@ class CreateNewActionItemViewController: UIViewController {
         }
         editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
-        let actionItemDict: [String:Any] = [
+        var actionItemDict: [String:Any] = [
             
             ActionItem.AccountActionItemFields[0]: editActionItem.Id,
             ActionItem.AccountActionItemFields[1]: editActionItem.accountId,
@@ -283,6 +283,14 @@ class CreateNewActionItemViewController: UIViewController {
             kSyncTargetLocallyUpdated:true,
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
+        
+        /*  BUG:9: Edited Action Item is not getting synced to Server Without Activity Date
+         Fixed by adding Below Check  for activity date.
+         */
+        
+        if(actionItemDict["ActivityDate"] as! String == ""){
+            actionItemDict.removeValue(forKey: "ActivityDate")
+        }
         
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {

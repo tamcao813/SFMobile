@@ -446,11 +446,10 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.closeButtonTapped(nil)
         }
-         FilterMenuModel.isFromAccountVisitSummary = "YES"
-        FilterMenuModel.selectedAccountId = (AccountObject.account?.account_Id)!
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
-           // self.delegate?.navigateTheScreenToActionItemsInPersistantMenu(data: data)
+       // FilterMenuModel.selectedAccountId = (AccountObject.account?.account_Id)!
+      //  FilterMenuModel.isFromAccountVisitSummary = "YES"        
+      //  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
+        self.delegate?.navigateTheScreenToActionItemsInPersistantMenu(data: data)
 
     }
     
@@ -596,10 +595,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case 1:
             return getConatactCell()
         case 2:
-            if opportunityList.count > 0 {
                 return getOpportunitiesCell()
-            }
-            return UITableViewCell()
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
             cell?.headingLabel.text = "Service Purposes"
@@ -630,7 +626,16 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
     func getOpportunitiesCell() -> AccountsSummaryOpportunityCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountOpportunityCell") as? AccountsSummaryOpportunityCell
         cell?.headingLabel.text = "Opportunities Selected"
-        cell?.displayCellContent(selectedOpportunityList: opportunityList)
+        if opportunityList.count > 0 {
+            cell?.headerView.isHidden = false
+            cell?.tableHeightConstraint.constant = CGFloat(opportunityList.count * 60)
+            cell?.displayCellContent(selectedOpportunityList: opportunityList)
+        }else {
+            cell?.tableHeightConstraint.constant = 0.0
+            cell?.headerView.isHidden = true
+            
+
+        }
         
         return cell!
     }

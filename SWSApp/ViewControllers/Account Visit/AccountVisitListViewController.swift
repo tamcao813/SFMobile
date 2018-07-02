@@ -452,6 +452,7 @@ extension AccountVisitListViewController : NavigateToContactsDelegate{
             }
             // Added this line so that Contact detail view is not launched for this scenario.
             ActionItemFilterModel.selectedContactId = ""
+            FilterMenuModel.isFromAccountVisitSummary = "YES"
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showActionItems"), object:nil)
         }else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)

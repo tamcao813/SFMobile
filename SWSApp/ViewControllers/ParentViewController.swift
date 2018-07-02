@@ -176,9 +176,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             DispatchQueue.main.async {
                 self.syncViewControllerSyncBtn?.isEnabled = true
                 self.syncUpInfoVC?.hideSyncButton(hide: false)
-//                if let objectiveVC = self.objectivesVC{
-//                    objectiveVC.loadWebView()
-//                }
             }
         }
         
@@ -190,9 +187,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             DispatchQueue.main.async {
                 self.syncViewControllerSyncBtn?.isEnabled = false
                 self.syncUpInfoVC?.hideSyncButton(hide: true)
-//                if let objectiveVC = self.objectivesVC{
-//                    objectiveVC.loadWebView()
-//                }
             }
         }
         

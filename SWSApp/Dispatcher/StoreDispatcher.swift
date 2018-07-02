@@ -548,7 +548,17 @@ class StoreDispatcher {
         newSyncLog.sessionID = "SID:\(newSyncLog.Id)"
         newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         newSyncLog.activityType = "Sync Error"
-        newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
+        if let user = (SFUserAccountManager.sharedInstance().currentUser) {
+            if let userID = user.credentials.userId {
+                newSyncLog.userId = userID
+            }
+            else {
+                newSyncLog.userId = "EMPTYUSER"
+            }
+        }
+        else {
+            newSyncLog.userId = "EMPTYUSER"
+        }
         
         var syncMsg = ""
         if let sync: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultsync") as? String {
@@ -563,6 +573,7 @@ class StoreDispatcher {
             errorMsg = error
         }
         SyncUpDailogGlobal.isSyncError = true
+        SyncUpDailogGlobal.isSyncErrorNoCallBack = false
         
         UserDefaults.standard.removeObject(forKey:"key_name")
         
@@ -650,6 +661,16 @@ class StoreDispatcher {
      */
     func clearSyncUpLogSOUP(){
         sfaStore.clearSoup(SoupSyncLog)
+
+//    Add the cleAr code here
+        DispatchQueue.main.async{
+            if UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") != nil {
+                UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultError")
+                UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultsync")
+                UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultMessage")
+                
+            }
+        }
     }
     
     

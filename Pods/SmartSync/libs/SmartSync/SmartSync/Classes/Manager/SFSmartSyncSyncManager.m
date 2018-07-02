@@ -570,6 +570,12 @@ static NSMutableDictionary *syncMgrList = nil;
                                      index:i+1
                                 updateSync:updateSync
                                  failBlock:failBlock];
+                //MARK: This error will come when there is syncup issue due to sync conflict with server and device.
+                NSString *errorSDKStrMsg = [NSString stringWithFormat:@"syncUpOneRecord: Record not synced since client does not have the latest from server:%@", record];
+                [[NSUserDefaults standardUserDefaults] setObject:@"Syncup Error" forKey:@"errorSDKUserDefaultsync"];
+                [[NSUserDefaults standardUserDefaults] setObject:errorSDKStrMsg forKey:@"errorSDKUserDefaultMessage"];
+                [[NSUserDefaults standardUserDefaults] setObject:@"Syncup Error" forKey:@"errorSDKUserDefaultError"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
         }];
     } else {

@@ -25,7 +25,7 @@ struct SyncUpDailogGlobal {
     static var isSyncing = false
     static var syncType = "automtic"
     static var isSyncError = false
-    
+    static var isSyncErrorNoCallBack = true //will be true if not fromcallback set to true only once
 }
 
 struct ActionItemsGlobal {
@@ -469,6 +469,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     // MARK: SyncUp Data
     @objc func SyncUpData(){
         
+        SyncUpDailogGlobal.isSyncError = false
+        SyncUpDailogGlobal.isSyncErrorNoCallBack = true
+        
         DispatchQueue.main.async { //do this in group.notify
             MBProgressHUD.show(onWindow: true)
         }
@@ -742,21 +745,25 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         }
         
         group.notify(queue: queue) {
+            //If Error is there and no callback than push the error to DB so that it can be sync
+            if SyncUpDailogGlobal.isSyncErrorNoCallBack == true {
+                //Check if ther is error register without callback in userdefaults if so force enter in DB
+                if UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") != nil {
+                    StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
+                    syncFailed = true
+                }
+            }
+            
             //Write to persistence for Resync to default
             UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
             StoreDispatcher.shared.createSyncLogOnSyncStop(networkType: self.networkType)
             self.syncProgress = 100
             
-            DispatchQueue.main.async{
-                if let error = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") {
-                    syncFailed = true
-                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultError")
-                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultsync")
-                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultMessage")
-                    
-                }
-                self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true,syncUpFailed: syncFailed)
+            if SyncUpDailogGlobal.isSyncError == true {
+                syncFailed = true
             }
+            
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true,syncUpFailed: syncFailed)
             
             SyncUpDailogGlobal.isSyncing = false
             

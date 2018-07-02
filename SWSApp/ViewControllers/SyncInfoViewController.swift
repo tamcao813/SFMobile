@@ -87,6 +87,7 @@ class SyncInfoViewController: UIViewController {
     
     
     @IBAction func syncNowButtonTapped(_ sender: UIButton){
+        
         if !SyncUpDailogGlobal.isSyncing {
             self.delegate?.startSyncUp()
             SyncUpDailogGlobal.isSyncing = true

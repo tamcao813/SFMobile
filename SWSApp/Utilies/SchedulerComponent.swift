@@ -131,11 +131,27 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField.tag {
         case 200:
-            self.dateView(textField: textField)
+            
+            if AppDelegate.isConnectedToNetwork(){
+                textField.isUserInteractionEnabled = true
+                self.dateView(textField: textField)
+            }else{
+                textField.isUserInteractionEnabled = false
+            }
         case 201:
-            self.timeView(textField: textField)
+            if AppDelegate.isConnectedToNetwork(){
+                textField.isUserInteractionEnabled = true
+                self.timeView(textField: textField)
+            }else{
+                textField.isUserInteractionEnabled = false
+            }
         case 202:
-            self.timeView(textField: textField)
+            if AppDelegate.isConnectedToNetwork(){
+                textField.isUserInteractionEnabled = true
+                self.timeView(textField: textField)
+            }else{
+                textField.isUserInteractionEnabled = false
+            }
         default:
             print("default")
         }

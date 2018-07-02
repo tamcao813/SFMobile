@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import DropDown
 import Reachability
 import CoreLocation
 
@@ -106,8 +105,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         return calendarTabVC
     }()
     // objectives VC
-    lazy var objectivesVC : UIViewController? = {
-        let objectivesTabVC = self.storyboard?.instantiateViewController(withIdentifier: "ObjectivesControllerID")
+    lazy var objectivesVC : ObjectivesViewController? = {
+        let objectivesTabVC = self.storyboard?.instantiateViewController(withIdentifier: "ObjectivesControllerID") as? ObjectivesViewController
         return objectivesTabVC
     }()
     // more VC
@@ -177,6 +176,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             DispatchQueue.main.async {
                 self.syncViewControllerSyncBtn?.isEnabled = true
                 self.syncUpInfoVC?.hideSyncButton(hide: false)
+//                if let objectiveVC = self.objectivesVC{
+//                    objectiveVC.loadWebView()
+//                }
             }
         }
         
@@ -188,6 +190,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             DispatchQueue.main.async {
                 self.syncViewControllerSyncBtn?.isEnabled = false
                 self.syncUpInfoVC?.hideSyncButton(hide: true)
+//                if let objectiveVC = self.objectivesVC{
+//                    objectiveVC.loadWebView()
+//                }
             }
         }
         

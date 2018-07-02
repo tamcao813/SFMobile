@@ -10,11 +10,13 @@ import UIKit
 import Foundation
 import SalesforceSDKCore
 import WebKit
+import Reachability
 
 class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var lblNoNetworkConnection: UILabel!
+    var reachability = Reachability()!
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
@@ -27,6 +29,23 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 70)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
+        initializeReachability()
+    }
+    
+    func initializeReachability(){
+        reachability.whenReachable = { reachability in
+            self.loadWebView()
+        }
+        
+        reachability.whenUnreachable = { _ in
+            self.loadWebView()
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,8 +72,10 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
             
             if AppDelegate.isConnectedToNetwork(){
                 self.lblNoNetworkConnection?.isHidden = true
+                self.webView.isHidden = false
             }else{
                 self.lblNoNetworkConnection?.isHidden = false
+                self.webView.isHidden = true
             }
         }
     }

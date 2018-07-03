@@ -95,14 +95,16 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         
         if VisitModelForUIAPI.isEditMode{
             
-            if StoreDispatcher.shared.isWorkOrderSynced(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
-                //Its a local created entry
-                if textField.tag == 300 || textField.tag == 302{
-                    self.dateView(textField: textField)
-                }else{
-                    self.timeView(textField: textField)
-                }
+            if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
                 
+                if StoreDispatcher.shared.isWorkOrderSynced(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+                    //Its a local created entry
+                    if textField.tag == 300 || textField.tag == 302{
+                        self.dateView(textField: textField)
+                    }else{
+                        self.timeView(textField: textField)
+                    }
+                }
             }else{
                 //Its already Synced UP
                 if AppDelegate.isConnectedToNetwork(){

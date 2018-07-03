@@ -132,15 +132,17 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
         
         if VisitModelForUIAPI.isEditMode{
             
-            if StoreDispatcher.shared.isWorkOrderSynced(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+            if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
                 
-                //Its a local created entry
-                if textField.tag == 200{
-                    self.dateView(textField: textField)
-                }else{
-                    self.timeView(textField: textField)
+                if StoreDispatcher.shared.isWorkOrderSynced(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+                    
+                    //Its a local created entry
+                    if textField.tag == 200{
+                        self.dateView(textField: textField)
+                    }else{
+                        self.timeView(textField: textField)
+                    }
                 }
-                
             }else{
                 
                 //Its already Synced UP

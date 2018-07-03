@@ -57,31 +57,35 @@ class PlanVisitManager {
         if VisitModelForUIAPI.isEditMode{
             VisitModelForUIAPI.isEditMode = false
             if AppDelegate.isConnectedToNetwork(){
-                //Call UI API , after success of that Save in Local
                 
-                StoreDispatcher.shared.editVisitFromOutlook(VisitData: visit!) { (data) in
-                    if data == nil{
-                        //Success Save to DB
-                        self.editAndSaveVisitData()
-                        
-                    }else{
-                        //Failure Show Alert
-                        let alert = UIAlertView()
-                        alert.title = "Alert"
-                        alert.message = "Saving of Visit has failed, Please try again"
-                        alert.addButton(withTitle: "OK")
-                        alert.show()
-                        
+                //Check the Visit/Event is created Locally which is not synced up
+                if StoreDispatcher.shared.isWorkOrderSynced(id: visit!.Id){
+                    
+                    self.editAndSaveVisitData()
+                    
+                }else{
+                    //Call UI API , after success of that Save in Local
+                    StoreDispatcher.shared.editVisitFromOutlook(VisitData: visit!) { (data) in
+                        if data == nil{
+                            //Success Save to DB
+                            self.editAndSaveVisitData()
+                            
+                        }else{
+                            //Failure Show Alert
+                            let alert = UIAlertView()
+                            alert.title = "Alert"
+                            alert.message = "Saving of Visit has failed, Please try again"
+                            alert.addButton(withTitle: "OK")
+                            alert.show()
+                            
+                        }
                     }
                 }
             }
             
         }else{
-            
             self.editAndSaveVisitData()
-            
         }
-        
         return true
     }
     

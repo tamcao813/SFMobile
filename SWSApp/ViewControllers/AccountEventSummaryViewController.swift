@@ -164,35 +164,63 @@ class AccountEventSummaryViewController: UIViewController {
         self.tableView.register(UINib(nibName: "EventLocationTableViewCell", bundle: nil), forCellReuseIdentifier: "EventLocationTableViewCell")
     }
     
+    func deleteLocalEventEntry(){
+        let attributeDict = ["type":"WorkOrder"]
+        let visitNoteDict: [String:Any] = [
+            Visit.VisitsFields[0]: self.visitObject!.Id,
+            Visit.VisitsFields[14]:self.visitObject?.soupEntryId,
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:false,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:true,
+            "attributes":attributeDict]
+        
+        let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
+        
+        if let index = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == self.visitObject?.Id}) {
+            GlobalWorkOrderArray.workOrderArray.remove(at: index)
+        }
+        
+        if(success){
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
         
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Event Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
             
-            let attributeDict = ["type":"WorkOrder"]
-            let visitNoteDict: [String:Any] = [
-                Visit.VisitsFields[0]: self.visitObject!.Id,
-                Visit.VisitsFields[14]:self.visitObject?.soupEntryId,
-                kSyncTargetLocal:true,
-                kSyncTargetLocallyCreated:false,
-                kSyncTargetLocallyUpdated:false,
-                kSyncTargetLocallyDeleted:true,
-                "attributes":attributeDict]
-            
-            let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
-            
-            if let index = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == self.visitObject?.Id}) {
-                GlobalWorkOrderArray.workOrderArray.remove(at: index)
-            }
-            
-            if(success){
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+            if StoreDispatcher.shared.isWorkOrderSynced(id: self.visitObject!.Id){
                 
-                
+                self.deleteLocalEventEntry()
                 self.dismiss(animated: true, completion: nil)
+                
+            }else{
+                
+                //Call Delete UI API and after success save the data to DB
+                StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
+                    if data == nil{
+                        
+                        self.deleteLocalEventEntry()
+                        self.dismiss(animated: true, completion: nil)
+                        
+                    }else{
+                        
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Event has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                            
+                            // self.dismiss(animated: true, completion: nil)
+                            
+                        }, action2: {
+                            
+                        })
+                    }
+                }
             }
+
         }) {
             
             print("Cancel")
@@ -202,6 +230,8 @@ class AccountEventSummaryViewController: UIViewController {
     
     
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
+        
+        VisitModelForUIAPI.isEditMode = true
         
         PlanVisitManager.sharedInstance.editPlanVisit = true
         let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController

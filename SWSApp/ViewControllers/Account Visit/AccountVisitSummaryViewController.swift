@@ -343,22 +343,30 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
             
-            //Call Delete UI API and after success save the data to DB
-            StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
-                if data == nil{
-                    
-                    self.deleteLocalVisitEntry()
-                    self.dismiss(animated: true, completion: nil)
-                    
-                }else{
-                    
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+            if StoreDispatcher.shared.isWorkOrderSynced(id: self.visitObject!.Id){
+                
+                self.deleteLocalVisitEntry()
+                self.dismiss(animated: true, completion: nil)
+                
+            }else{
+            
+                //Call Delete UI API and after success save the data to DB
+                StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
+                    if data == nil{
                         
-                       // self.dismiss(animated: true, completion: nil)
+                        self.deleteLocalVisitEntry()
+                        self.dismiss(animated: true, completion: nil)
                         
-                    }, action2: {
+                    }else{
                         
-                    })
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                            
+                           // self.dismiss(animated: true, completion: nil)
+                            
+                        }, action2: {
+                            
+                        })
+                    }
                 }
             }
             

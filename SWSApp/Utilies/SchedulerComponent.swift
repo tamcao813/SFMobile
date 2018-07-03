@@ -128,30 +128,61 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
         super.init(coder: aDecoder)
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 200:
+    func checkVisitStates(textField : UITextField){
+        
+        if VisitModelForUIAPI.isEditMode{
             
-            if AppDelegate.isConnectedToNetwork(){
-                textField.isUserInteractionEnabled = true
+            if StoreDispatcher.shared.isWorkOrderSynced(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+                
+                //Its a local created entry
+                if textField.tag == 200{
+                    self.dateView(textField: textField)
+                }else{
+                    self.timeView(textField: textField)
+                }
+                
+            }else{
+                
+                //Its already Synced UP
+                if AppDelegate.isConnectedToNetwork(){
+                    textField.isUserInteractionEnabled = true
+                    if textField.tag == 200{
+                        self.dateView(textField: textField)
+                    }else{
+                        self.timeView(textField: textField)
+                    }
+                    
+                }else{
+                    textField.isUserInteractionEnabled = false
+                }
+            }
+            
+        }else{
+            if textField.tag == 200{
                 self.dateView(textField: textField)
             }else{
-                textField.isUserInteractionEnabled = false
+                self.timeView(textField: textField)
             }
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        textField.isUserInteractionEnabled = true
+        
+        switch textField.tag {
+        case 200:
+         
+            self.checkVisitStates(textField: textField)
+
         case 201:
-            if AppDelegate.isConnectedToNetwork(){
-                textField.isUserInteractionEnabled = true
-                self.timeView(textField: textField)
-            }else{
-                textField.isUserInteractionEnabled = false
-            }
+            
+            self.checkVisitStates(textField: textField)
+            
         case 202:
-            if AppDelegate.isConnectedToNetwork(){
-                textField.isUserInteractionEnabled = true
-                self.timeView(textField: textField)
-            }else{
-                textField.isUserInteractionEnabled = false
-            }
+           
+            self.checkVisitStates(textField: textField)
+            
         default:
             print("default")
         }

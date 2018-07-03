@@ -62,6 +62,7 @@ class CreateNewVisitViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         StrategyNotes.isStrategyText = "NO"
+        VisitModelForUIAPI.isEditMode = false
     }
     
     deinit {
@@ -508,6 +509,9 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
                 cell?.schedulerComponentView.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: visit.startDate)
                 cell?.schedulerComponentView.startTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.startDate,dateFormat:"hh:mm a")
                 cell?.schedulerComponentView.endTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.endDate,dateFormat:"hh:mm a")
+                
+                
+                
                 cell?.layoutIfNeeded()
             }
             return cell!

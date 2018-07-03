@@ -62,5 +62,7 @@
 	<string>Southernglazerstopaz://</string>
 	<key>gospotItuneUrl</key>
 	<string>itms://itunes.apple.com/us/app/gospotcheck-team/id571011905?platform=ipad&amp;preserveScrollPosition=true#platform/ipad</string>
+	<key>eventUrl</key>
+	<string>ui-api/records/</string>
 </dict>
 </plist>

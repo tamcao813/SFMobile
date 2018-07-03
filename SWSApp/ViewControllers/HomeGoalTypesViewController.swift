@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import SalesforceSDKCore
-import Reachability
 
 class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
     
@@ -18,9 +17,6 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
     @IBOutlet weak var btnViewPerformance : UIButton?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-    
-    var reachability = Reachability()!
-    
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +45,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         //let accountUrl: String = authUrl +  endUrl
         //let url  =  URL(string:authUrl)//+accountUrl)
         
-        reachability.whenReachable = { reachability in
+        ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
             if reachability.connection == .wifi {
                 print("Reachable via WiFi")
             } else {
@@ -66,14 +62,14 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
             self.webView?.load(requestObj)
         }
         
-        reachability.whenUnreachable = { _ in
+        ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
             self.lblNoNetworkConnection?.isHidden = false
             self.btnViewPerformance?.isUserInteractionEnabled = false//isHidden = true
             self.webView?.isHidden = true
         }
         
         do {
-            try reachability.startNotifier()
+            try ReachabilitySingleton.sharedInstance().startNotifier()
         } catch {
             print("Unable to start notifier")
         }

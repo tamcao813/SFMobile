@@ -125,6 +125,10 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         }
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return AlertUtilities.disableEmojis(text: string)
+    }
+    
     func dateView(textField: UITextField) {
         
         let inputView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 240))

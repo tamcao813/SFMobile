@@ -127,7 +127,7 @@ extension SearchForContactTableViewCell: UITextFieldDelegate {
         contactDropDown.dataSource = searchContactsString
         contactDropDown.reloadAllComponents()
         contactDropDown.show()
-        return true
+        return AlertUtilities.disableEmojis(text: string)
     }
 }
 

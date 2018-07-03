@@ -31,7 +31,6 @@ class AccountsListViewController: UIViewController {
     var isAscendingNetSales = false
     var isAscendingBalance = false
     var isAscendingNextDeliveryDate = false
-    var accountDetailsScreen:AccountDetailsViewController?
     
     //Master Data to display Tableview when First Logged in
     var accountsForLoggedUserOriginal = [Account]()
@@ -159,8 +158,8 @@ class AccountsListViewController: UIViewController {
     //MARK:- Segue Methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailsScreenSegue" {
-            accountDetailsScreen = segue.destination as! AccountDetailsViewController
-            accountDetailsScreen?.accountDetailForLoggedInUser = selectedAccount
+           let accountDetailsScreen = segue.destination as! AccountDetailsViewController
+            accountDetailsScreen.accountDetailForLoggedInUser = selectedAccount
         }
     }
     
@@ -418,8 +417,6 @@ class AccountsListViewController: UIViewController {
         pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
         //}
         
-        //
-        //accountDetailsScreen?.actionItemContainerVC?.clearActionItemFilter()
     }
     
     //Use to update the table view data

@@ -66,5 +66,7 @@
 	<string>ui-api/records/</string>
 	<key>detestServerUrl</key>
 	<string>https://sgws-de--deTest.cs77.my.salesforce.com</string>
+	<key>visitContactAlertMessage</key>
+	<string>Selected Contact cannot be invited for a visit ! Please perform sync prior selecting this contact for a visit</string>
 </dict>
 </plist>

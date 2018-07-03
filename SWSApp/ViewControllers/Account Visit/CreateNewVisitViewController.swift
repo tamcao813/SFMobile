@@ -577,8 +577,21 @@ extension CreateNewVisitViewController: AccountContactLinkTableViewCellDelegate 
 extension CreateNewVisitViewController: SearchForContactTableViewCellDelegate {
     func contactSelected(contact: Contact) {
         createNewVisitViewControllerGlobals.userInput = true
-        selectedContact = contact
-        reloadTableView()
+        if StoreDispatcher.shared.isContactSynced(id: contact.contactId){
+            showAlert()
+            return
+        }else{
+            selectedContact = contact
+            reloadTableView()
+        }
+    }
+    
+    func showAlert() {
+        let alertController = UIAlertController(title: "Alert", message:
+            StringConstants.checkContactId, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

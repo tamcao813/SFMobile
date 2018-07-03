@@ -4545,4 +4545,19 @@ class StoreDispatcher {
         }
         return recordType
     }
+    
+    //Check weather the contact is creted locally or Synced UP
+    func isContactSynced(id: String) -> Bool{
+        var createdFlag = false
+        let workOrderEntry = sfaStore.lookupSoupEntryId(forSoupName: SoupContact, forFieldPath: "Id", fieldValue: id, error: nil)
+        let entryArray = sfaStore.retrieveEntries([workOrderEntry] , fromSoup: SoupContact)
+        if(entryArray.count > 0){
+            let entry = entryArray[0]
+            var soupEntry = entry as! [String:Any]
+            createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
+        }else{
+            createdFlag = true
+        }
+        return createdFlag
+    }
 }

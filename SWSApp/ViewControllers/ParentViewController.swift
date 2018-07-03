@@ -9,7 +9,7 @@
 import UIKit
 import Reachability
 import CoreLocation
-
+import SmartStore
 
 struct SelectedMoreButton {
     static var selectedItem : Int = -1

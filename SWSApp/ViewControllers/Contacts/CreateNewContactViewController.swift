@@ -920,6 +920,11 @@ extension CreateNewContactViewController: PrimaryFunctionTableViewCellDelegate {
     func primaryFunctionValueSelected(pickerOption: [String : Any]) {
         self.pickerOption = pickerOption
         self.fromPicker = true
+        if pickerOption["validFor"] as! Int == 1 {
+            doesHaveBuyingPower = true
+        }else{
+            doesHaveBuyingPower = false
+        }
         self.tableView.reloadData()
     }
 }

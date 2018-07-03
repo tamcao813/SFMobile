@@ -476,6 +476,14 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             searchAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.accountsDropDown
             cell?.delegate = self
+            if visitId != nil {
+                cell?.searchContactTextField.isUserInteractionEnabled = false
+                cell?.searchContactTextField.alpha = 0.5
+            }else {
+                cell?.searchContactTextField.isUserInteractionEnabled = true
+                cell?.searchContactTextField.alpha = 1.0
+                cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
+            }
             return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell") as? AccountContactLinkTableViewCell
@@ -485,6 +493,19 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             if let account = selectedAccount {
                 cell?.displayCellContent(account: account)
             }
+            if visitId != nil {
+                  cell?.deleteButton.isUserInteractionEnabled = false
+                  cell?.deleteButton.alpha = 0.3
+//                cell?.containerView.isUserInteractionEnabled = false
+//               cell?.containerView.backgroundColor = UIColor.lightGray
+//                cell?.containerView.alpha = 0.2
+            }else {
+                cell?.deleteButton.isUserInteractionEnabled = true
+                cell?.deleteButton.alpha = 1.0
+//                cell?.containerView.backgroundColor = UIColor.clear
+//                cell?.containerView.alpha = 1.0
+            }
+
             return cell!
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchForContactTableViewCell") as? SearchForContactTableViewCell

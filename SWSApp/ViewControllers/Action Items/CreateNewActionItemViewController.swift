@@ -352,6 +352,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             searchAccountTextField = cell?.searchContactTextField
             accountDropDown = cell?.accountsDropDown
             cell?.titleLabel.text = "Link an Account"
+            cell?.searchContactTextField.backgroundColor = UIColor.clear
             cell?.delegate = self
             return cell!
         case 2:

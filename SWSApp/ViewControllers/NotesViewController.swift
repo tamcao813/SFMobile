@@ -223,8 +223,28 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
             print("Notes Array \(tableViewDisplayData)")
             
         }
-        originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: tableViewDisplayData, ascending: false)
-        tableViewDisplayData = originalAccountNotesList
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let userViewModel = UserViewModel()
+        
+        let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+        
+        //If Consultant is selected , filter the data based on owner
+        if(appDelegate.currentSelectedUserId != loggedInuserid){
+            
+            let notesArryfilteredByCounsultant:[AccountNotes] = tableViewDisplayData.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
+            
+            tableViewDisplayData =  notesArryfilteredByCounsultant
+            
+            tableViewDisplayData = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: tableViewDisplayData, ascending: false)
+
+            
+        } else {
+            originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: tableViewDisplayData, ascending: false)
+            
+            tableViewDisplayData = originalAccountNotesList
+        }
         
         DispatchQueue.main.async {
             self.notesTableView?.reloadData()

@@ -61,13 +61,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         getDB()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
+  
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.upcomingActivitiesTableView.reloadData()
@@ -83,26 +77,63 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         pastActionItemArrayToDisplay = [ActionItem]()
         notificationArrayToDisplay = [Notifications]()
         
+        
         //creating notifications array according to accountId
         notificationArray = notificationModel.notificationsForUser()
         notificationArrayToDisplay = notificationArray.filter( { return $0.account == accountId } )
         
         //creating upcomingvisit array according to accountId
         upcomingVisit = visitModel.visitsForUserTwoWeeksUpcoming()
-        upcomingVisitArrayToDisplay = upcomingVisit.filter( { return $0.accountId == accountId } )
+        //upcomingVisitArrayToDisplay = upcomingVisit.filter( { return $0.accountId == accountId } )
         
         //creating upcoming action item array according to accountId
         upcomingActionItem = actionItemModel.actionItemForUserTwoWeeksUpcoming()
-        upcomingActionItemArrayToDisplay =  upcomingActionItem.filter( { return $0.accountId == accountId } )
+        //upcomingActionItemArrayToDisplay =  upcomingActionItem.filter( { return $0.accountId == accountId } )
         
         //creating pastvisit array according to accountId
         pastVisit = visitModel.visitsForUserOneWeeksPast()
-        pastVisitArrayToDisplay = pastVisit.filter( { return $0.accountId == accountId } )
+        //pastVisitArrayToDisplay = pastVisit.filter( { return $0.accountId == accountId } )
         
         //creating past action item array according to accountId
         pastActionItem = actionItemModel.actionItemForUserOneWeeksPast()
-        pastActionItemArrayToDisplay = pastActionItem.filter( { return $0.accountId == accountId } )
+       // pastActionItemArrayToDisplay = pastActionItem.filter( { return $0.accountId == accountId } )
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let userViewModel = UserViewModel()
+        let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+        
+        if(appDelegate.currentSelectedUserId != loggedInuserid){
+            
+        let upcomingVisitArryfilteredByCounsultant:[WorkOrderUserObject] = upcomingVisit.filter( { return $0.ownerId == appDelegate.currentSelectedUserId })
+            
+            upcomingVisitArrayToDisplay =  upcomingVisitArryfilteredByCounsultant
+            upcomingVisitArrayToDisplay = upcomingVisitArrayToDisplay.filter{$0.accountId == self.accountId}
+            
+            
+        let pastVisitArryfilteredByCounsultant:[WorkOrderUserObject] = pastVisit.filter( { return $0.ownerId == appDelegate.currentSelectedUserId })
+            
+            pastVisitArrayToDisplay =  pastVisitArryfilteredByCounsultant
+            pastVisitArrayToDisplay = pastVisitArrayToDisplay.filter{$0.accountId == self.accountId}
+            
+        let upcomingActionItemArryfilteredByCounsultant:[ActionItem] = upcomingActionItem.filter( { return $0.ownerId == appDelegate.currentSelectedUserId })
+            
+            upcomingActionItemArrayToDisplay =  upcomingActionItemArryfilteredByCounsultant
+            upcomingActionItemArrayToDisplay = upcomingActionItemArrayToDisplay.filter{$0.accountId == self.accountId}
+            
+        let pastActionItemArryfilteredByCounsultant:[ActionItem] = pastActionItem.filter( { return $0.ownerId == appDelegate.currentSelectedUserId })
+            
+            pastActionItemArrayToDisplay =  pastActionItemArryfilteredByCounsultant
+            pastActionItemArrayToDisplay = pastActionItemArrayToDisplay.filter{$0.accountId == self.accountId}
+            
+            
+        } else {
+            upcomingVisitArrayToDisplay = upcomingVisit.filter( { return $0.accountId == accountId } )
+            pastVisitArrayToDisplay = pastVisit.filter( { return $0.accountId == accountId } )
+            upcomingActionItemArrayToDisplay =  upcomingActionItem.filter( { return $0.accountId == accountId } )
+            pastActionItemArrayToDisplay = pastActionItem.filter( { return $0.accountId == accountId } )
+            
+        }
+  
         DispatchQueue.main.async {
             self.upcomingActivitiesTableView.reloadData()
             self.pastActivitiesTableView.reloadData()

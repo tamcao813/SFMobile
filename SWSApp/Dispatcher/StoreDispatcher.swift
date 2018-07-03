@@ -64,7 +64,9 @@ class StoreDispatcher {
         registerSyncConfiguration()
         registerActionItemSoup()
         registerNotificationsSoup()
+        registerUploadOpportunity()
         registerOpportunity()
+        registerOpportunityObjective()
         registerOpportunityWorkorder()
         registerSyncLogSoup()
         registerRecordTypeSoup()
@@ -378,11 +380,15 @@ class StoreDispatcher {
         }
         
         group.enter()
-        syncDownOpportunity() { _ in
-            let _ = OpportunityViewModel().globalOpportunityReload()
-            group.leave()
+        syncDownUploadOpportunity() { _ in
+            self.syncDownOpportunityObjective() { _ in
+                self.syncDownOpportunity() { _ in
+                    let _ = OpportunityViewModel().globalOpportunityReload()
+                    group.leave()
+                }
+            }
         }
-        
+
         //to do: syncDown other soups
         
         group.notify(queue: queue) {
@@ -1997,9 +2003,6 @@ class StoreDispatcher {
                     print(">>>>>> visit syncDownVisit() done >>>>>")
                     
                     let _ = OpportunityViewModel().globalOpportunityWorkorder()
-//                    self.syncDownOpportunityWorkorder() { _ in
-//                        let _ = OpportunityViewModel().globalOpportunityWorkorder()
-//                    }
                     completion(nil)
                     
                 }
@@ -3728,12 +3731,26 @@ class StoreDispatcher {
         return reSyncSoup(syncid: sId, syncConstant: SyncDownIdVisit, completion: completion)
     }
     
-    func reSyncOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
-        guard let sId = syncIdDictionary[SyncDownIdOpportunity] else { return completion(resyncError(syncConstant: SyncDownIdOpportunity))  }
-        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdOpportunity, completion: completion)
-//        return completion(nil)
+    func reSyncUploadOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        guard let sId = syncIdDictionary[SyncDownIdUploadOpportunity] else { return completion(resyncError(syncConstant: SyncDownIdUploadOpportunity))  }
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdUploadOpportunity, completion: completion)
+        
     }
     
+    func reSyncOpportunityObjective(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        guard let sId = syncIdDictionary[SyncDownIdOpportunityObjective] else { return completion(resyncError(syncConstant: SyncDownIdOpportunityObjective))  }
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdOpportunityObjective, completion: completion)
+        
+    }
+    
+    func reSyncOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        guard let sId = syncIdDictionary[SyncDownIdOpportunityLineItem] else { return completion(resyncError(syncConstant: SyncDownIdOpportunityLineItem))  }
+        return reSyncSoup(syncid: sId, syncConstant: SyncDownIdOpportunityLineItem, completion: completion)
+    }
+
     func reSyncAccountActionItem(_ completion:@escaping (_ error: NSError?)->()) {
         guard let sId = syncIdDictionary[SyncDownIdActionItem] else { return completion(resyncError(syncConstant: SyncDownIdActionItem))  }
         
@@ -3940,336 +3957,7 @@ class StoreDispatcher {
         }
     }
     
-    func registerOpportunity() {
-        
-        let syncOpportunityFields = Opportunity.opportunityFields
-        
-        var indexSpec:[SFSoupIndex] = []
-        for i in 0...syncOpportunityFields.count - 3 {
-            let sfIndex = SFSoupIndex(path: syncOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncOpportunityFields[i])!
-            indexSpec.append(sfIndex)
-        }
-        indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 2], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 2])!)
-        indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 1], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 1])!)
-        
-        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
-        
-        do {
-            try sfaStore.registerSoup(SoupOpportunity, withIndexSpecs: indexSpec, error: ())
-            
-        } catch let error as NSError {
-            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunity soup: \(error.localizedDescription)")
-        }
-    }
-    
-    func syncDownOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
-        
-        let soqlQuery = "select id,OwnerId,AccountId,sgws_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c,SGWS_Sold__c,SGWS_Month_Active__c,StageName,SGWS_R12__c,SGWS_R6_Trend__c,SGWS_R3_Trend__c,SGWS_Acct__c,SGWS_Segment__c,SGWS_Gap__c,SGWS_Sales_Trend__c,SGWS_Order_Size__c,SGWS_Order_Frequency__c,SGWS_Unsold_Period_Days__c,(select name,SGWS_Objectives__r.name,SGWS_Objectives__r.SGWS_Select_Objective_Type__c from Opportunity_Objective_Junction__r),(select Product2Id,Product2.Name,Product2.SGWS_CORP_ITEM_BOTTLES_PER_CASE__c,Product2.SGWS_CORP_ITEM_SIZE__c,Product2.SGWS_Corp_Brand__c from OpportunityLineItems) from opportunity"
-        
-        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
-        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
-        
-        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupOpportunity)
-            .done { syncStateStatus in
-                if syncStateStatus.isDone() {
-                    print("syncDownOpportunity() done")
-                    let syncId:UInt = UInt(syncStateStatus.syncId)
-                    self.syncIdDictionary[SyncDownIdOpportunity] = syncId
-                    completion(nil)
-                }
-                else if syncStateStatus.hasFailed() {
-                    let meg = "ErrorDownloading: syncDownOpportunity()"
-                    let userInfo: [String: Any] =
-                        [
-                            NSLocalizedDescriptionKey : meg,
-                            NSLocalizedFailureReasonErrorKey : meg
-                    ]
-                    let err = NSError(domain: "syncDownOpportunity()", code: 601, userInfo: userInfo)
-                    completion(err as NSError?)
-                }
-            }
-            .catch { error in
-                completion(error as NSError?)
-        }
-        
-    }
-    
-    func fetchOpportunity() -> [Opportunity] {
-        
-        var opportunity: [Opportunity] = []
-        
-        let opportunityFields = Opportunity.opportunityFields.map{"{opportunity:\($0)}"}
-        let soqlQuery = "Select \(opportunityFields.joined(separator: ",")) FROM {opportunity}"
-        
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
-        
-        guard error == nil else {
-            print("fetchOpportunity \(error?.userInfo as Any)")
-            
-            return [Opportunity]()
-        }
-        
-        if result.count > 0 {
-            for i in 0...result.count - 1 {
-                let ary:[Any] = result[i] as! [Any]
-                let opportunityArray = Opportunity(withAry: ary)
-                opportunity.append(opportunityArray)
-            }
-        }
-        else {
-            return [Opportunity]()
-        }
-        return opportunity
-    }
-    
-    func syncUpOpportunity(completion:@escaping (_ error: NSError?)->()) {
-        
-        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: Opportunity.opportunityUploadSyncUpFields, mergeMode: SFSyncStateMergeMode.overwrite)
-        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupOpportunity)
-            .done { syncStateStatus in
-                if syncStateStatus.isDone() {
-                    let syncId:UInt = UInt(syncStateStatus.syncId)
-                    self.syncIdDictionary[SyncUpIdOpportunity] = syncId
-                    print("syncUpOpportunity done")
-                    completion(nil)
-                }
-                else if syncStateStatus.hasFailed() {
-                    let meg = "ErrorDownloading: syncUpOpportunity()"
-                    let userInfo: [String: Any] =
-                        [
-                            NSLocalizedDescriptionKey : meg,
-                            NSLocalizedFailureReasonErrorKey : meg
-                    ]
-                    let err = NSError(domain: "syncUpOpportunity()", code: 601, userInfo: userInfo)
-                    completion(err as NSError?)
-                }
-            }
-            .catch { error in
-                completion(error as NSError?)
-        }
-        
-    }
-    
-    func registerOpportunityWorkorder() {
-        
-        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields
-        
-        var indexSpec:[SFSoupIndex] = []
-        for i in 0...opportunityWorkorderFields.count - 1 {
-            let sfIndex = SFSoupIndex(path: opportunityWorkorderFields[i], indexType: kSoupIndexTypeString, columnName: opportunityWorkorderFields[i])!
-            indexSpec.append(sfIndex)
-        }
-        
-        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
-        
-        do {
-            try sfaStore.registerSoup(SoupOpportunityWorkorder, withIndexSpecs: indexSpec, error: ())
-        } catch let error as NSError {
-            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunityWorkorder soup: \(error.localizedDescription)")
-        }
-    }
-    
-    // Not used as SGWS_Opportunity_WorkOrder__c is sync downed as part of Parent-Child syncdownvisit
-    /*
-    func syncDownOpportunityWorkorder(_ completion:@escaping (_ error: NSError?)->()) {
-        
-        let soqlQuery = "select Id,SGWS_Opportunity__c,SGWS_Work_Order__c,SGWS_Outcome__c from SGWS_Opportunity_WorkOrder__c"
-        //        let soqlQuery = "select id,SGWS_Opportunity__c,SGWS_Work_Order__c,SGWS_Outcome__c from SGWS_Opportunity_WorkOrder__c"
-        
-        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
-        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
-        
-        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupOpportunityWorkorder)
-            .done { syncStateStatus in
-                if syncStateStatus.isDone() {
-                    print("syncDownOpportunityWorkorder() done")
-                    completion(nil)
-                }
-                else if syncStateStatus.hasFailed() {
-                    let meg = "ErrorDownloading: syncDownOpportunityWorkorder()"
-                    let userInfo: [String: Any] =
-                        [
-                            NSLocalizedDescriptionKey : meg,
-                            NSLocalizedFailureReasonErrorKey : meg
-                    ]
-                    let err = NSError(domain: "syncDownOpportunityWorkorder()", code: 601, userInfo: userInfo)
-                    completion(err as NSError?)
-                }
-            }
-            .catch { error in
-                completion(error as NSError?)
-        }
-    }*/
-    /*
-    func syncDownUploadOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
-        
-        let soqlQuery = "select id,AccountId,sgws_source__c,SGWS_PYCM_Sold__c,SGWS_Commit__c from opportunity"
-        
-        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
-        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
-        
-        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUploadOpportunity)
-            .done { syncStateStatus in
-                if syncStateStatus.isDone() {
-                    print("syncDownUploadOpportunity() done")
-                    completion(nil)
-                }
-                else if syncStateStatus.hasFailed() {
-                    let meg = "ErrorDownloading: syncDownUploadOpportunity()"
-                    let userInfo: [String: Any] =
-                        [
-                            NSLocalizedDescriptionKey : meg,
-                            NSLocalizedFailureReasonErrorKey : meg
-                    ]
-                    let err = NSError(domain: "syncDownUploadOpportunity()", code: 601, userInfo: userInfo)
-                    completion(err as NSError?)
-                }
-            }
-            .catch { error in
-                completion(error as NSError?)
-        }
-        
-    }*/
 
-    func createNewOpportunityWorkorderLocally(fieldsToUpload: [String:Any]) -> (Bool,Int){
-        
-        var allFields = fieldsToUpload
-        allFields["attributes"] = ["type":"SGWS_Opportunity_WorkOrder__c"]
-        allFields[kSyncTargetLocal] = true
-        allFields[kSyncTargetLocallyCreated] = true
-        allFields[kSyncTargetLocallyUpdated] = false
-        allFields[kSyncTargetLocallyDeleted] = false
-        
-        let ary = sfaStore.upsertEntries([allFields], toSoup: SoupOpportunityWorkorder)
-        if ary.count > 0 {
-            var result = ary[0] as! [String:Any]
-            let soupEntryId = result["_soupEntryId"]
-            print(result)
-            print(soupEntryId!)
-            return (true,soupEntryId as! Int)
-        }
-        else {
-            return (false,0)
-        }
-    }
-    
-    //"SGWS_Opportunity__c", "SGWS_Work_Order__c"
-    func deleteOpportunityWorkorderLocally(fieldsToUpload: [String:Any]) -> Bool {
-        
-        let fieldsIdValue = fieldsToUpload["SGWS_Opportunity__c"] as? String ?? ""
-        let fieldsWorkOrderValue = fieldsToUpload["SGWS_Work_Order__c"] as? String ?? ""
-        if fieldsIdValue.isEmpty || fieldsWorkOrderValue.isEmpty {
-            return false
-        }
-
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Work_Order__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
-        
-        if result.count == 0 {
-            return false
-        }
-        
-        var opportunityWorkorderItem = [String: Any]()
-        
-        let resultOpportunity = result.filter( {
-            var oppotunityModif = $0 as! [String:Any]
-            let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
-            if opportunityModifIdValue.isEmpty {
-                return false
-            }
-            let workOrderModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
-            if workOrderModifIdValue.isEmpty {
-                return false
-            }
-            else {
-                return (fieldsIdValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)
-            }
-        })
-        for  singleOpportunityWorkorder in resultOpportunity{
-            var singleOpportunityWorkorderModif = singleOpportunityWorkorder as! [String:Any]
-            let singleOpportunityWorkorderModifValue = singleOpportunityWorkorderModif["SGWS_Opportunity__c"] as? String ?? ""
-            let singleWorkorderModifValue = singleOpportunityWorkorderModif["SGWS_Work_Order__c"] as? String ?? ""
-
-            if singleOpportunityWorkorderModifValue.isEmpty || singleWorkorderModifValue.isEmpty {
-                continue
-            }
-            //Search ID to be deleted
-            if((fieldsIdValue == singleOpportunityWorkorderModifValue) || (fieldsWorkOrderValue == singleWorkorderModifValue)) {
-                singleOpportunityWorkorderModif["__local__"] = true
-                singleOpportunityWorkorderModif["__locally_deleted__"] = true
-                opportunityWorkorderItem = singleOpportunityWorkorderModif
-                break
-            }
-        }
-        
-        let ary = sfaStore.upsertEntries([opportunityWorkorderItem], toSoup: SoupOpportunityWorkorder)
-        if ary.count > 0 {
-            var result = ary[0] as! [String:Any]
-            let soupEntryId = result["_soupEntryId"]
-            print("\(result) OpportunityWorkord_er is deleted  successfully" )
-            print(soupEntryId!)
-            return true
-        }
-        else {
-            print(" Error in deleting  OpportunityWorkorder" )
-            return false
-        }
-    }
-
-    func fetchOpportunityWorkorder() -> [OpportunityWorkorder] {
-        
-        var opportunityWorkorder: [OpportunityWorkorder] = []
-        
-//        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields.map{"{SGWS_Opportunity_WorkOrder__c:\($0)}"}
-//        let soqlQuery = "Select \(opportunityWorkorderFields.joined(separator: ",")) FROM {SGWS_Opportunity_WorkOrder__c}"
-        let soqlQuery = "Select * FROM {SGWS_Opportunity_WorkOrder__c}"
-
-        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
-        
-        guard error == nil else {
-            print("opportunityWorkorder \(error?.userInfo as Any)")
-            
-            return [OpportunityWorkorder]()
-        }
-        
-        if result.count > 0 {
-            for i in 0...result.count - 1 {
-                
-                let modifResult = result[i] as! [Any]
-                let item = modifResult[1]
-                let subItem = item as! [String:Any]
-
-                if let flag = subItem["__locally_deleted__"] as? Bool {
-                    // if deleted skip
-                    if(flag){
-                        continue
-                    }
-                }
-                else {
-                    continue
-                }
-
-//                let ary:[Any] = result[i] as! [Any]
-//                let opportunityWorkorderArray = OpportunityWorkorder(withAry: ary)
-                let resultDict = modifResult[1]  as! [String:Any]
-                let opportunityWorkorderArray = OpportunityWorkorder(json: resultDict)
-                
-                opportunityWorkorder.append(opportunityWorkorderArray)
-            }
-        }
-        else {
-            return [OpportunityWorkorder]()
-        }
-        return opportunityWorkorder
-    }
     
     private func resyncError(syncConstant: String)->NSError{
         let meg = "Error reSync: " + syncConstant
@@ -4282,188 +3970,7 @@ class StoreDispatcher {
         return err
     }
     
-    func editOpportunityCommitToSoup(fieldsToUpload: [String:Any]) -> Bool{
-        
-        let fieldsIdValue = fieldsToUpload["id"] as? String ?? ""
-        if fieldsIdValue.isEmpty {
-            return false
-        }
-        
-//        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunity, withOrderPath: "SGWS_Commit__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
-        let querySpecAll = SFQuerySpec.newExactQuerySpec(SoupOpportunity, withSelectPaths: nil, withPath: "Id", withMatchKey: "\(fieldsIdValue)", withOrderPath: "SGWS_Commit__c", with: .ascending, withPageSize: 1)
-        
-        var error : NSError?
-        let result = sfaStore.query(with: querySpecAll!, pageIndex: 0, error: &error)
-        
-        if result.count == 0 {
-            return false
-        }
-        
-        var modifiedOpportunity = [String: Any]()
-        /*
-        let resultOpportunity = result.filter( {
-            var oppotunityModif = $0 as! [String:Any]
-            let opportunityModifIdValue = oppotunityModif["Id"] as? String ?? ""
-            if opportunityModifIdValue.isEmpty {
-                return false
-            }
-            else {
-                return opportunityModifIdValue == fieldsIdValue
-            }
-        })*/
-        for  opportunity in result{
 
-            var oppotunityModif = opportunity as! [String:Any]
-
-            let opportunityModifIdValue = oppotunityModif["Id"] as? String ?? ""
-            if opportunityModifIdValue.isEmpty {
-                continue
-            }
-            
-            if(fieldsIdValue == opportunityModifIdValue){
-                oppotunityModif["SGWS_Commit__c"] = fieldsToUpload["SGWS_Commit__c"]
-                oppotunityModif[kSyncTargetLocal] = true
-                if let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as? Bool {
-                    if(createdFlag){
-                        oppotunityModif[kSyncTargetLocallyUpdated] = false
-                        oppotunityModif[kSyncTargetLocallyCreated] = true
-                    }else {
-                        oppotunityModif[kSyncTargetLocallyCreated] = false
-                        oppotunityModif[kSyncTargetLocallyUpdated] = true
-                    }
-                    oppotunityModif[kSyncTargetLocallyDeleted] = false
-                    modifiedOpportunity = oppotunityModif
-                    break
-                }
-                else {
-                    continue
-                }
-            }
-        }
-        
-        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupOpportunity)
-        if ary.count > 0 {
-            var result = ary[0] as! [String:Any]
-            let soupEntryId = result["_soupEntryId"]
-            print("\(result) opportunity commit is saved successfully" )
-            print(soupEntryId!)
-            return true
-        }
-        else {
-            print(" Error in saving opportunity commit" )
-            return false
-        }
-        
-    }
-    
-    
-    func editOpportunityOutcomeToSoup(fieldsToUpload: [String:Any]) -> Bool{
-        
-        print("editOpportunityOutcomeToSoup : fieldsToUpload : \(fieldsToUpload)")
-        let fieldsOppurValue = fieldsToUpload["Id"] as? String ?? ""
-        if fieldsOppurValue.isEmpty {
-            return false
-        }
-        
-        let fieldsWorkOrderValue = fieldsToUpload["SGWS_Work_Order__c"] as? String ?? ""
-        if fieldsWorkOrderValue.isEmpty {
-            return false
-        }
-
-//        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Outcome__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
-        let querySpecAll = SFQuerySpec.newExactQuerySpec(SoupOpportunityWorkorder, withSelectPaths: nil, withPath: "SGWS_Work_Order__c", withMatchKey: "\(fieldsWorkOrderValue)", withOrderPath: "SGWS_Outcome__c", with: .ascending, withPageSize: 1000)
-
-        var error : NSError?
-        let result = sfaStore.query(with: querySpecAll!, pageIndex: 0, error: &error)
-        
-        if result.count == 0 {
-            return false
-        }
-        
-        var modifiedOpportunity = [String: Any]()
-        /*
-        let resultOpportunity = result.filter( {
-            var oppotunityModif = $0 as! [String:Any]
-            let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
-            if opportunityModifIdValue.isEmpty {
-                return false
-            }
-            let workOrderModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
-            if workOrderModifIdValue.isEmpty {
-                return false
-            }
-            else {
-                return (fieldsOppurValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)
-            }
-        })*/
-        for  workOrderopportunity in result{
-            var oppotunityModif = workOrderopportunity as! [String:Any]
-            
-            if let flag = oppotunityModif["__locally_deleted__"] as? Bool {
-                // if deleted skip
-                if(flag){
-                    continue
-                }
-            }
-            else {
-                continue
-            }
-
-            let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
-            if opportunityModifIdValue.isEmpty {
-                continue
-            }
-
-            let workOrderModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
-            if workOrderModifIdValue.isEmpty {
-                continue
-            }
-
-            print("fieldsOppurValue : \(fieldsOppurValue)")
-            print("opportunityModifIdValue : \(opportunityModifIdValue)")
-            
-            print("fieldsWorkOrderValue : \(fieldsWorkOrderValue)")
-            print("workOrderModifIdValue : \(workOrderModifIdValue)")
-
-            if((fieldsOppurValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)) {
-                
-                print("oppotunityModif : \(oppotunityModif)")
-                oppotunityModif["SGWS_Outcome__c"] = fieldsToUpload["SGWS_Outcome__c"]
-                oppotunityModif[kSyncTargetLocal] = true
-                if let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as? Bool {
-                    if(createdFlag){
-                        oppotunityModif[kSyncTargetLocallyUpdated] = false
-                        oppotunityModif[kSyncTargetLocallyCreated] = true
-                    }else {
-                        oppotunityModif[kSyncTargetLocallyCreated] = false
-                        oppotunityModif[kSyncTargetLocallyUpdated] = true
-                    }
-                    oppotunityModif[kSyncTargetLocallyDeleted] = false
-                    modifiedOpportunity = oppotunityModif
-                    print("modifiedOpportunity : \(modifiedOpportunity)")
-                    break
-                }
-                else {
-                    continue
-                }
-            }
-        }
-        
-        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupOpportunityWorkorder)
-        if ary.count > 0 {
-            var result = ary[0] as! [String:Any]
-            print("result : \(result)")
-
-            let soupEntryId = result["_soupEntryId"]
-            print("\(result) opportunity outcome is saved successfully" )
-            print(soupEntryId!)
-            return true
-        }
-        else {
-            print(" Error in saving opportunity outcome" )
-            return false
-        }
-    }
     
     //MARK:- Record Type Related Code
     func registerRecordTypeSoup(){
@@ -4560,4 +4067,610 @@ class StoreDispatcher {
         }
         return createdFlag
     }
+    
+    //MARK:- Opportunity Related Code
+    func registerUploadOpportunity() {
+        
+        let syncOpportunityFields = Opportunity.opportunityUploadSyncDownFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        
+        for i in 0...syncOpportunityFields.count - 2 {
+            let sfIndex = SFSoupIndex(path: syncOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncOpportunityFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        let sfIndex = SFSoupIndex(path: syncOpportunityFields[syncOpportunityFields.count - 1], indexType: kSoupIndexTypeFloating, columnName: syncOpportunityFields[syncOpportunityFields.count - 1])!
+        indexSpec.append(sfIndex)
+        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupUploadOpportunity, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register registerUploadOpportunity soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func syncDownUploadOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "select Id,SGWS_Commit__c from Opportunity"
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        //Running sync down target
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUploadOpportunity)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdUploadOpportunity] = syncId
+                    print(">>>>>> visit syncDownUploadOpportunity() done >>>>>")
+                    completion(nil)
+                    
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownUploadOpportunity() >>>>>>>"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownUploadOpportunity()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+        
+    }
+    
+    func registerOpportunity() {
+        
+        let syncOpportunityFields = Opportunity.opportunityFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        
+        for i in 0...syncOpportunityFields.count - 3 {
+            let sfIndex = SFSoupIndex(path: syncOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncOpportunityFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 2], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 2])!)
+        indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 1], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 1])!)
+        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupOpportunity, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunity soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func syncDownOpportunity(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "select id,Opportunity.id,Opportunity.OwnerId,Opportunity.AccountId,Opportunity.SGWS_Source__c,Opportunity.SGWS_PYCM_Sold__c, Opportunity.SGWS_Commit__c,Opportunity.SGWS_Sold__c,Opportunity.SGWS_Month_Active__c,Opportunity.StageName,Opportunity.SGWS_R12__c, Opportunity.SGWS_R6_Trend__c,Opportunity.SGWS_R3_Trend__c,Opportunity.SGWS_Acct__c,Opportunity.SGWS_Segment__c,Opportunity.SGWS_Gap__c, Opportunity.SGWS_Sales_Trend__c,Opportunity.SGWS_Order_Size__c,Opportunity.SGWS_Order_Frequency__c,Opportunity.SGWS_Unsold_Period_Days__c,Product2Id,Product2.Name,Product2.SGWS_CORP_ITEM_BOTTLES_PER_CASE__c,Product2.SGWS_CORP_ITEM_SIZE__c,Product2.SGWS_Corp_Brand__c from OpportunityLineItem"
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupOpportunity)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownOpportunity() done")
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdOpportunityLineItem] = syncId
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownOpportunity()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownOpportunity()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+        
+    }
+    
+    func fetchOpportunity() -> [Opportunity] {
+        
+        var opportunity: [Opportunity] = []
+        
+        let opportunityFields = Opportunity.opportunityFields.map{"{\(SoupOpportunity):\($0)}"}
+        let soqlQuery = "Select \(opportunityFields.joined(separator: ",")) FROM {\(SoupOpportunity)}"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        guard error == nil else {
+            print("fetchOpportunity \(error?.userInfo as Any)")
+            
+            return [Opportunity]()
+        }
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let opportunityArray = Opportunity(withAry: ary)
+                opportunity.append(opportunityArray)
+            }
+        }
+        else {
+            return [Opportunity]()
+        }
+        return opportunity
+    }
+    
+    func syncUpOpportunity(completion:@escaping (_ error: NSError?)->()) {
+        
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: Opportunity.opportunityUploadSyncUpFields, mergeMode: SFSyncStateMergeMode.overwrite)
+        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupUploadOpportunity)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncUpIdOpportunity] = syncId
+                    print("syncUpOpportunity done")
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "Error: syncUpOpportunity()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncUpOpportunity()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+        
+    }
+    
+    func registerOpportunityObjective() {
+        
+        let syncOpportunityFields = OpportunityObjective.opportunityObjectiveFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        
+        for i in 0...syncOpportunityFields.count - 3 {
+            let sfIndex = SFSoupIndex(path: syncOpportunityFields[i], indexType: kSoupIndexTypeString, columnName: syncOpportunityFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 2], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 2])!)
+        indexSpec.append(SFSoupIndex(path:syncOpportunityFields[syncOpportunityFields.count - 1], indexType:kSoupIndexTypeJSON1, columnName:syncOpportunityFields[syncOpportunityFields.count - 1])!)
+        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupOpportunityObjective, withIndexSpecs: indexSpec, error: ())
+            
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunityWorkorder soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func syncDownOpportunityObjective(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        let soqlQuery = "Select Id, SGWS_Opportunity__r.id, SGWS_Objectives__r.name,SGWS_Objectives__r.SGWS_Select_Objective_Type__c from SGWS_Opportunity_Objective__c"
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
+        
+        sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupOpportunityObjective)
+            .done { syncStateStatus in
+                if syncStateStatus.isDone() {
+                    print("syncDownOpportunityObjective() done")
+                    let syncId:UInt = UInt(syncStateStatus.syncId)
+                    self.syncIdDictionary[SyncDownIdOpportunityObjective] = syncId
+                    completion(nil)
+                }
+                else if syncStateStatus.hasFailed() {
+                    let meg = "ErrorDownloading: syncDownOpportunityObjective()"
+                    let userInfo: [String: Any] =
+                        [
+                            NSLocalizedDescriptionKey : meg,
+                            NSLocalizedFailureReasonErrorKey : meg
+                    ]
+                    let err = NSError(domain: "syncDownOpportunityObjective()", code: 601, userInfo: userInfo)
+                    completion(err as NSError?)
+                }
+            }
+            .catch { error in
+                completion(error as NSError?)
+        }
+        
+    }
+    
+    func fetchOpportunityObjective() -> [OpportunityObjective] {
+        
+        var opportunityObjective: [OpportunityObjective] = []
+        
+        let opportunityObjectiveFields = OpportunityObjective.opportunityObjectiveFields.map{"{\(SoupOpportunityObjective):\($0)}"}
+        let soqlQuery = "Select \(opportunityObjectiveFields.joined(separator: ",")) FROM {\(SoupOpportunityObjective)}"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        guard error == nil else {
+            print("fetchOpportunityObjective \(error?.userInfo as Any)")
+            
+            return [OpportunityObjective]()
+        }
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let opportunityObjectiveArray = OpportunityObjective(withAry: ary)
+                opportunityObjective.append(opportunityObjectiveArray)
+            }
+        }
+        else {
+            return [OpportunityObjective]()
+        }
+        return opportunityObjective
+    }
+    
+    func registerOpportunityWorkorder() {
+        
+        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields
+        
+        var indexSpec:[SFSoupIndex] = []
+        for i in 0...opportunityWorkorderFields.count - 1 {
+            let sfIndex = SFSoupIndex(path: opportunityWorkorderFields[i], indexType: kSoupIndexTypeString, columnName: opportunityWorkorderFields[i])!
+            indexSpec.append(sfIndex)
+        }
+        
+        indexSpec.append(SFSoupIndex(path:kSyncTargetLocal, indexType:kSoupIndexTypeString, columnName:"kSyncTargetLocal")!)
+        
+        do {
+            try sfaStore.registerSoup(SoupOpportunityWorkorder, withIndexSpecs: indexSpec, error: ())
+        } catch let error as NSError {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message: "failed to register SoupOpportunityWorkorder soup: \(error.localizedDescription)")
+        }
+    }
+    
+    func createNewOpportunityWorkorderLocally(fieldsToUpload: [String:Any]) -> (Bool,Int){
+        
+        var allFields = fieldsToUpload
+        allFields["attributes"] = ["type":"SGWS_Opportunity_WorkOrder__c"]
+        allFields[kSyncTargetLocal] = true
+        allFields[kSyncTargetLocallyCreated] = true
+        allFields[kSyncTargetLocallyUpdated] = false
+        allFields[kSyncTargetLocallyDeleted] = false
+        
+        let ary = sfaStore.upsertEntries([allFields], toSoup: SoupOpportunityWorkorder)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print(result)
+            print(soupEntryId!)
+            return (true,soupEntryId as! Int)
+        }
+        else {
+            return (false,0)
+        }
+    }
+    
+    //"SGWS_Opportunity__c", "SGWS_Work_Order__c"
+    func deleteOpportunityWorkorderLocally(fieldsToUpload: [String:Any]) -> Bool {
+        
+        let fieldsIdValue = fieldsToUpload["SGWS_Opportunity__c"] as? String ?? ""
+        let fieldsWorkOrderValue = fieldsToUpload["SGWS_Work_Order__c"] as? String ?? ""
+        if fieldsIdValue.isEmpty || fieldsWorkOrderValue.isEmpty {
+            return false
+        }
+        
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Work_Order__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
+        
+        if result.count == 0 {
+            return false
+        }
+        
+        var opportunityWorkorderItem = [String: Any]()
+        
+        let resultOpportunity = result.filter( {
+            var oppotunityModif = $0 as! [String:Any]
+            let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
+            if opportunityModifIdValue.isEmpty {
+                return false
+            }
+            let workOrderModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
+            if workOrderModifIdValue.isEmpty {
+                return false
+            }
+            else {
+                return (fieldsIdValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)
+            }
+        })
+        for  singleOpportunityWorkorder in resultOpportunity{
+            var singleOpportunityWorkorderModif = singleOpportunityWorkorder as! [String:Any]
+            let singleOpportunityWorkorderModifValue = singleOpportunityWorkorderModif["SGWS_Opportunity__c"] as? String ?? ""
+            let singleWorkorderModifValue = singleOpportunityWorkorderModif["SGWS_Work_Order__c"] as? String ?? ""
+            
+            if singleOpportunityWorkorderModifValue.isEmpty || singleWorkorderModifValue.isEmpty {
+                continue
+            }
+            //Search ID to be deleted
+            if((fieldsIdValue == singleOpportunityWorkorderModifValue) || (fieldsWorkOrderValue == singleWorkorderModifValue)) {
+                singleOpportunityWorkorderModif["__local__"] = true
+                singleOpportunityWorkorderModif["__locally_deleted__"] = true
+                opportunityWorkorderItem = singleOpportunityWorkorderModif
+                break
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([opportunityWorkorderItem], toSoup: SoupOpportunityWorkorder)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) OpportunityWorkord_er is deleted  successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in deleting  OpportunityWorkorder" )
+            return false
+        }
+    }
+    
+    func fetchOpportunityWorkorder() -> [OpportunityWorkorder] {
+        
+        var opportunityWorkorder: [OpportunityWorkorder] = []
+        
+        //        let opportunityWorkorderFields = OpportunityWorkorder.opportunityWorkorderFields.map{"{SGWS_Opportunity_WorkOrder__c:\($0)}"}
+        //        let soqlQuery = "Select \(opportunityWorkorderFields.joined(separator: ",")) FROM {SGWS_Opportunity_WorkOrder__c}"
+        let soqlQuery = "Select * FROM {SGWS_Opportunity_WorkOrder__c}"
+        
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        
+        guard error == nil else {
+            print("opportunityWorkorder \(error?.userInfo as Any)")
+            
+            return [OpportunityWorkorder]()
+        }
+        
+        if result.count > 0 {
+            for i in 0...result.count - 1 {
+                
+                let modifResult = result[i] as! [Any]
+                let item = modifResult[1]
+                let subItem = item as! [String:Any]
+                
+                if let flag = subItem["__locally_deleted__"] as? Bool {
+                    // if deleted skip
+                    if(flag){
+                        continue
+                    }
+                }
+                else {
+                    continue
+                }
+                
+                //                let ary:[Any] = result[i] as! [Any]
+                //                let opportunityWorkorderArray = OpportunityWorkorder(withAry: ary)
+                let resultDict = modifResult[1]  as! [String:Any]
+                let opportunityWorkorderArray = OpportunityWorkorder(json: resultDict)
+                
+                opportunityWorkorder.append(opportunityWorkorderArray)
+            }
+        }
+        else {
+            return [OpportunityWorkorder]()
+        }
+        return opportunityWorkorder
+    }
+    
+    func editOpportunityCommitToSoup(fieldsToUpload: [String:Any]) -> Bool{
+        
+        let fieldsIdValue = fieldsToUpload["id"] as? String ?? ""
+        if fieldsIdValue.isEmpty {
+            return false
+        }
+        
+        //        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunity, withOrderPath: "SGWS_Commit__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll = SFQuerySpec.newExactQuerySpec(SoupUploadOpportunity, withSelectPaths: nil, withPath: "Id", withMatchKey: "\(fieldsIdValue)", withOrderPath: "Id", with: .ascending, withPageSize: 1)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll!, pageIndex: 0, error: &error)
+        
+        if result.count == 0 {
+            return false
+        }
+        
+        var modifiedOpportunity = [String: Any]()
+        /*
+         let resultOpportunity = result.filter( {
+         var oppotunityModif = $0 as! [String:Any]
+         let opportunityModifIdValue = oppotunityModif["Id"] as? String ?? ""
+         if opportunityModifIdValue.isEmpty {
+         return false
+         }
+         else {
+         return opportunityModifIdValue == fieldsIdValue
+         }
+         })*/
+        for  opportunity in result{
+            
+            var oppotunityModif = opportunity as! [String:Any]
+            
+            let opportunityModifIdValue = oppotunityModif["Id"] as? String ?? ""
+            if opportunityModifIdValue.isEmpty {
+                continue
+            }
+            
+            if(fieldsIdValue == opportunityModifIdValue){
+                
+                //                var oppotunityDicModif = oppotunityModif["Opportunity"] as! [String:Any]
+                //                oppotunityDicModif["SGWS_Commit__c"] = (fieldsToUpload["SGWS_Commit__c"] as! NSString).doubleValue
+                //                oppotunityModif["Opportunity"] = oppotunityDicModif
+                
+                oppotunityModif["SGWS_Commit__c"] = (fieldsToUpload["SGWS_Commit__c"] as! NSString).doubleValue
+                
+                oppotunityModif[kSyncTargetLocal] = true
+                if let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as? Bool {
+                    if(createdFlag){
+                        oppotunityModif[kSyncTargetLocallyUpdated] = false
+                        oppotunityModif[kSyncTargetLocallyCreated] = true
+                    }else {
+                        oppotunityModif[kSyncTargetLocallyCreated] = false
+                        oppotunityModif[kSyncTargetLocallyUpdated] = true
+                    }
+                    oppotunityModif[kSyncTargetLocallyDeleted] = false
+                    modifiedOpportunity = oppotunityModif
+                    break
+                }
+                else {
+                    continue
+                }
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupUploadOpportunity)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) opportunity commit is saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving opportunity commit" )
+            return false
+        }
+        
+    }
+    
+    
+    func editOpportunityOutcomeToSoup(fieldsToUpload: [String:Any]) -> Bool{
+        
+        print("editOpportunityOutcomeToSoup : fieldsToUpload : \(fieldsToUpload)")
+        let fieldsOppurValue = fieldsToUpload["Id"] as? String ?? ""
+        if fieldsOppurValue.isEmpty {
+            return false
+        }
+        
+        let fieldsWorkOrderValue = fieldsToUpload["SGWS_Work_Order__c"] as? String ?? ""
+        if fieldsWorkOrderValue.isEmpty {
+            return false
+        }
+        
+        //        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Outcome__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll = SFQuerySpec.newExactQuerySpec(SoupOpportunityWorkorder, withSelectPaths: nil, withPath: "SGWS_Work_Order__c", withMatchKey: "\(fieldsWorkOrderValue)", withOrderPath: "SGWS_Outcome__c", with: .ascending, withPageSize: 1000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll!, pageIndex: 0, error: &error)
+        
+        if result.count == 0 {
+            return false
+        }
+        
+        var modifiedOpportunity = [String: Any]()
+        /*
+         let resultOpportunity = result.filter( {
+         var oppotunityModif = $0 as! [String:Any]
+         let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
+         if opportunityModifIdValue.isEmpty {
+         return false
+         }
+         let workOrderModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
+         if workOrderModifIdValue.isEmpty {
+         return false
+         }
+         else {
+         return (fieldsOppurValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)
+         }
+         })*/
+        for  workOrderopportunity in result{
+            var oppotunityModif = workOrderopportunity as! [String:Any]
+            
+            if let flag = oppotunityModif["__locally_deleted__"] as? Bool {
+                // if deleted skip
+                if(flag){
+                    continue
+                }
+            }
+            else {
+                continue
+            }
+            
+            let opportunityModifIdValue = oppotunityModif["SGWS_Opportunity__c"] as? String ?? ""
+            if opportunityModifIdValue.isEmpty {
+                continue
+            }
+            
+            let workOrderModifIdValue = oppotunityModif["SGWS_Work_Order__c"] as? String ?? ""
+            if workOrderModifIdValue.isEmpty {
+                continue
+            }
+            
+            print("fieldsOppurValue : \(fieldsOppurValue)")
+            print("opportunityModifIdValue : \(opportunityModifIdValue)")
+            
+            print("fieldsWorkOrderValue : \(fieldsWorkOrderValue)")
+            print("workOrderModifIdValue : \(workOrderModifIdValue)")
+            
+            if((fieldsOppurValue == opportunityModifIdValue) && (fieldsWorkOrderValue == workOrderModifIdValue)) {
+                
+                print("oppotunityModif : \(oppotunityModif)")
+                oppotunityModif["SGWS_Outcome__c"] = fieldsToUpload["SGWS_Outcome__c"]
+                oppotunityModif[kSyncTargetLocal] = true
+                if let createdFlag = oppotunityModif[kSyncTargetLocallyCreated] as? Bool {
+                    if(createdFlag){
+                        oppotunityModif[kSyncTargetLocallyUpdated] = false
+                        oppotunityModif[kSyncTargetLocallyCreated] = true
+                    }else {
+                        oppotunityModif[kSyncTargetLocallyCreated] = false
+                        oppotunityModif[kSyncTargetLocallyUpdated] = true
+                    }
+                    oppotunityModif[kSyncTargetLocallyDeleted] = false
+                    modifiedOpportunity = oppotunityModif
+                    print("modifiedOpportunity : \(modifiedOpportunity)")
+                    break
+                }
+                else {
+                    continue
+                }
+            }
+        }
+        
+        let ary = sfaStore.upsertEntries([modifiedOpportunity], toSoup: SoupOpportunityWorkorder)
+        if ary.count > 0 {
+            var result = ary[0] as! [String:Any]
+            print("result : \(result)")
+            
+            let soupEntryId = result["_soupEntryId"]
+            print("\(result) opportunity outcome is saved successfully" )
+            print(soupEntryId!)
+            return true
+        }
+        else {
+            print(" Error in saving opportunity outcome" )
+            return false
+        }
+    }
+    
 }

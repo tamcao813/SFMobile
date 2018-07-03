@@ -496,14 +496,9 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             if visitId != nil {
                   cell?.deleteButton.isUserInteractionEnabled = false
                   cell?.deleteButton.alpha = 0.3
-//                cell?.containerView.isUserInteractionEnabled = false
-//               cell?.containerView.backgroundColor = UIColor.lightGray
-//                cell?.containerView.alpha = 0.2
             }else {
                 cell?.deleteButton.isUserInteractionEnabled = true
                 cell?.deleteButton.alpha = 1.0
-//                cell?.containerView.backgroundColor = UIColor.clear
-//                cell?.containerView.alpha = 1.0
             }
 
             return cell!

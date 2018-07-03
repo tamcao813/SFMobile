@@ -419,7 +419,7 @@ class AccountsListViewController: UIViewController {
         //}
         
         //
-        accountDetailsScreen?.actionItemContainerVC?.clearActionItemFilter()
+        //accountDetailsScreen?.actionItemContainerVC?.clearActionItemFilter()
     }
     
     //Use to update the table view data

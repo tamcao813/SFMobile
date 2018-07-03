@@ -44,13 +44,13 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 btnAllDayEvent?.setImage(UIImage(named:"Checkbox Selected"), for: .normal)
                 
                 eventEndDateTextField.text = eventStartDateTextField.text
-                eventStartTimeTextField.text = "00:00 AM"
-                eventEndTimeTextField.text = "11:59 PM"
+                eventStartTimeTextField.text = "00:00"
+                eventEndTimeTextField.text = "23:59"
                 
                 //Assign the model data also for saving
                 CreateNewEventViewControllerGlobals.endDate = eventStartDateTextField.text!
-                CreateNewEventViewControllerGlobals.startTime = "00:00 AM"
-                CreateNewEventViewControllerGlobals.endTime = "11:59 PM"
+                CreateNewEventViewControllerGlobals.startTime = "00:00"
+                CreateNewEventViewControllerGlobals.endTime = "23:59"
                 
                 self.startAndEndDatesUserInteractionDisabled()
                 CreateNewEventViewControllerGlobals.allDayEventSelected = true

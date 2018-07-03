@@ -439,9 +439,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         onlineStatusView.isUserInteractionEnabled = true
         onlineStatusView.addGestureRecognizer(tapOnline)
         
+        let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, onlineSyncStatus!]
         let logoButton = UIBarButtonItem(image: UIImage(named: "AppLogo"), style:UIBarButtonItemStyle.plain, target: self, action: #selector(addTapped))
+        
+        if instanceUrl == StringConstants.detestServerUrl {
         logoButton.isEnabled = true
+        }else{
+            logoButton.isEnabled = false
+        }
         //logoButton.tintColor = UIColor.red
         logoButton.tintColor = UIColor.clear
         logoButton.setBackgroundImage(UIImage(named: "AppLogo"), for: .normal, barMetrics: .default)

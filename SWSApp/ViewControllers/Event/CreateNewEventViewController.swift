@@ -359,7 +359,7 @@ class CreateNewEventViewController: UIViewController {
     
     func getDataTimeinStr(date:String, time: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy'T'hh:mm a"
+        dateFormatter.dateFormat = "MM/dd/yyyy'T'HH:mm"
         var string = date + "T" + time
         if let dateFromString = dateFormatter.date(from: string) {
             //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string

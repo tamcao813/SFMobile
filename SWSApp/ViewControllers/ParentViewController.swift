@@ -48,7 +48,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     var userInitialLabel:UILabel? = nil
     var onlineStatusView = UIView()
     var statusLabel = UILabel()
-    var instanceUrlTest = ""
     
     var moreDropDownSelectionIndex:Int?=0
     
@@ -440,11 +439,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         onlineStatusView.isUserInteractionEnabled = true
         onlineStatusView.addGestureRecognizer(tapOnline)
         
+        self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, onlineSyncStatus!]
+        let logoButton = UIBarButtonItem(image: UIImage(named: "AppLogo"), style:UIBarButtonItemStyle.plain, target: self, action: #selector(addTapped))
+        var instanceUrlTest = ""
         if let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl?.description {
             instanceUrlTest = instanceUrl
         }
-        self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, onlineSyncStatus!]
-        let logoButton = UIBarButtonItem(image: UIImage(named: "AppLogo"), style:UIBarButtonItemStyle.plain, target: self, action: #selector(addTapped))
         
         if instanceUrlTest == StringConstants.detestServerUrl {
             logoButton.isEnabled = true

@@ -78,6 +78,9 @@ class StringConstants {
     
     //Event URL
     static let eventUrl = globalUrlDictionary["eventUrl"] as! String
+    
+    //DetestServer Url
+    static let detestServerUrl = globalUrlDictionary["detestServerUrl"] as! String
 }
 
 

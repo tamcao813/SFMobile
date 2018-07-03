@@ -135,12 +135,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         //containerView?.isHidden = true
         AccountsListViewController.accountListDelegate = self
         let button = UIButton()
-        if FilterMenuModel.isFromAccountVisitSummary == "YES"{
-            FilterMenuModel.isFromAccountVisitSummary = ""
-            button.tag = 5
-        }else{
-            button.tag = 0
-        }
+        button.tag = 0
         self.itemsClicked(sender: button)
         
         //containerView?.isHidden = true

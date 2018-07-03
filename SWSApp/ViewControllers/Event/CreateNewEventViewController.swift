@@ -488,6 +488,14 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             searchAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.accountsDropDown
             cell?.delegate = self
+            if eventWorkOrderObject != nil {
+                cell?.searchContactTextField.isUserInteractionEnabled = false
+                cell?.searchContactTextField.alpha = 0.5
+            }else {
+                cell?.searchContactTextField.isUserInteractionEnabled = true
+                 cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
+                cell?.searchContactTextField.alpha = 1.0
+            }
             return cell!
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell") as? AccountContactLinkTableViewCell
@@ -496,6 +504,13 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             cell?.delegate = self
             if let account = selectedAccount {
                 cell?.displayCellContent(account: account)
+            }
+            if eventWorkOrderObject != nil {
+                cell?.deleteButton.isUserInteractionEnabled = false
+                 cell?.deleteButton.alpha = 0.3
+            }else {
+                cell?.deleteButton.isUserInteractionEnabled = true
+                cell?.deleteButton.alpha = 1.0
             }
             return cell!
         case 4:

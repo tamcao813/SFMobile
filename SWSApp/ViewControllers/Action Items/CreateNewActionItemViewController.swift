@@ -352,6 +352,15 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             searchAccountTextField = cell?.searchContactTextField
             accountDropDown = cell?.accountsDropDown
             cell?.titleLabel.text = "Link an Account"
+            //Enable the search field during edit action items when the accountid is nil
+            if (actionItemObject != nil && !((actionItemObject?.accountId.isEmpty)!)){
+                cell?.searchContactTextField.isUserInteractionEnabled = false
+                cell?.searchContactTextField.alpha = 0.5
+            }else {
+                cell?.searchContactTextField.isUserInteractionEnabled = true
+                cell?.searchContactTextField.backgroundColor = UIColor.clear
+                cell?.searchContactTextField.alpha = 1.0
+            }
             cell?.delegate = self
             return cell!
         case 2:
@@ -361,6 +370,13 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             cell?.delegate = self
             if let account = selectedAccount {
                 cell?.displayCellContent(account: account)
+            }
+            if actionItemObject != nil && !((actionItemObject?.accountId.isEmpty)!)  {
+                cell?.deleteButton.isUserInteractionEnabled = false
+                cell?.deleteButton.alpha = 0.3
+            }else {
+                cell?.deleteButton.isUserInteractionEnabled = true
+                cell?.deleteButton.alpha = 1.0
             }
             return cell!
         case 3:

@@ -366,6 +366,17 @@ class CreateNewEventViewController: UIViewController {
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
             dateFormatter.timeZone = TimeZone(identifier:"UTC")
             string = dateFormatter.string(from: dateFromString)
+            return string
+        }
+        let dateFormatter12hr = DateFormatter()
+        dateFormatter12hr.dateFormat = "MM/dd/yyyy'T'hh:mm a"
+        var string12hr = date + "T" + time
+        if let dateFromString = dateFormatter12hr.date(from: string12hr) {
+            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
+            dateFormatter12hr.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter12hr.timeZone = TimeZone(identifier:"UTC")
+            string12hr = dateFormatter12hr.string(from: dateFromString)
+            return string12hr
         }
         return string
     }

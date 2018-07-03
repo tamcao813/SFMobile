@@ -359,13 +359,24 @@ class CreateNewEventViewController: UIViewController {
     
     func getDataTimeinStr(date:String, time: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy'T'hh:mm a"
+        dateFormatter.dateFormat = "MM/dd/yyyy'T'HH:mm"
         var string = date + "T" + time
         if let dateFromString = dateFormatter.date(from: string) {
             //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
             dateFormatter.timeZone = TimeZone(identifier:"UTC")
             string = dateFormatter.string(from: dateFromString)
+            return string
+        }
+        let dateFormatter12hr = DateFormatter()
+        dateFormatter12hr.dateFormat = "MM/dd/yyyy'T'hh:mm a"
+        var string12hr = date + "T" + time
+        if let dateFromString = dateFormatter12hr.date(from: string12hr) {
+            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
+            dateFormatter12hr.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter12hr.timeZone = TimeZone(identifier:"UTC")
+            string12hr = dateFormatter12hr.string(from: dateFromString)
+            return string12hr
         }
         return string
     }
@@ -477,6 +488,14 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             searchAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.accountsDropDown
             cell?.delegate = self
+            if eventWorkOrderObject != nil {
+                cell?.searchContactTextField.isUserInteractionEnabled = false
+                cell?.searchContactTextField.alpha = 0.5
+            }else {
+                cell?.searchContactTextField.isUserInteractionEnabled = true
+                 cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
+                cell?.searchContactTextField.alpha = 1.0
+            }
             return cell!
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell") as? AccountContactLinkTableViewCell
@@ -485,6 +504,13 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             cell?.delegate = self
             if let account = selectedAccount {
                 cell?.displayCellContent(account: account)
+            }
+            if eventWorkOrderObject != nil {
+                cell?.deleteButton.isUserInteractionEnabled = false
+                 cell?.deleteButton.alpha = 0.3
+            }else {
+                cell?.deleteButton.isUserInteractionEnabled = true
+                cell?.deleteButton.alpha = 1.0
             }
             return cell!
         case 4:

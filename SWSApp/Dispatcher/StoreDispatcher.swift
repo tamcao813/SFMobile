@@ -830,6 +830,60 @@ class StoreDispatcher {
         }
     }
     
+    func deleteVisitFromOutlook(recordTypeId: String, completion:@escaping (_ error: NSError?)->()){
+        
+        let path = StringConstants.eventUrl + recordTypeId
+        let request = SFRestRequest(method: .DELETE, path: path, queryParams: nil)
+        request.endpoint = StringConstants.serviceUrl
+        
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                //let response = sfRestResponse.asJsonDictionary()
+                //if response.count > 0 {
+                    print("Delete URL Success")
+                    completion(nil)
+                //}
+            }
+            .catch { error in
+                print(error.localizedDescription)
+                completion(error as NSError?)
+        }
+    }
+    
+    func editVisitFromOutlook(VisitData: WorkOrderUserObject, completion:@escaping (_ error: NSError?)->()){
+
+        let path = StringConstants.eventUrl + VisitData.Id
+        var requestParams = [String: Any]()
+        var requestData = [String: String]()
+        requestData["StartDate"] = VisitData.startDate
+        requestData["EndDate"] = VisitData.endDate
+        requestData["ContactId"] = VisitData.contactId
+        requestData["SGWS_WorkOrder_Location__c"] = VisitData.location
+        //requestData["SGWS_Appointment_Status__c"] = VisitData.sgwsAppointmentStatus
+        
+        
+        requestParams["fields"] =  requestData
+
+        let request = SFRestRequest(method: .PATCH, path: path, queryParams: nil)
+        request.setCustomRequestBodyDictionary(requestParams, contentType: "application/json")
+        request.endpoint = StringConstants.serviceUrl
+        
+        SFRestAPI.sharedInstance().Promises.send(request: request)
+            .done { sfRestResponse in
+                let response = sfRestResponse.asJsonDictionary()
+                if response.count > 0 {
+                    print("Edit URL Success")
+                    //Call the Sync Down and Update the Value
+                    completion(nil)
+                    
+                }
+            }
+            .catch { error in
+                print(error.localizedDescription)
+                completion(error as NSError?)
+        }
+    }
+    
     func downloadContactClassificationPList(recordTypeId: String, completion:@escaping (_ error: NSError?)->()) {
         let recordTypeId = recordTypeId
         let path = StringConstants.contactPicklistValue + recordTypeId + StringConstants.contactClassification
@@ -1556,7 +1610,19 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let user = User(withAry: ary)
                 
-                let json:[String:Any] = [ "Id":user.sgws_Employee_Contact, "Name":user.fullName, "FirstName":user.username, "LastName":user.username, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
+                let fullNameArray = user.fullName.components(separatedBy: " ")
+                var firstName = ""
+                var lastName = ""
+                if fullNameArray.count > 0,fullNameArray[0] != "" {
+                    firstName = fullNameArray[0]
+                }
+                
+                if fullNameArray.count > 1, fullNameArray[1] != "" {
+                    lastName = fullNameArray[1]
+                }
+                
+                
+                let json:[String:Any] = [ "Id":user.sgws_Employee_Contact, "Name":user.fullName, "FirstName":firstName, "LastName":lastName, "Phone":user.userPhone, "Email":user.userEmail, "Birthdate":"", "AccountId":user.accountId, "Account.SWS_Account_Site__c":user.userSite, "SGWS_Site_Number__c":user.userSite,"SGWS_Buying_Power__c":"","SGWS_Roles__c":user.userTeamMemberRole]
                 
                 let contact =  Contact.init(json: json)
                 
@@ -4478,5 +4544,20 @@ class StoreDispatcher {
             print("fetch recordTypeArray " + " error:" + (error?.localizedDescription)!)
         }
         return recordType
+    }
+    
+    //Check weather the contact is creted locally or Synced UP
+    func isContactSynced(id: String) -> Bool{
+        var createdFlag = false
+        let workOrderEntry = sfaStore.lookupSoupEntryId(forSoupName: SoupContact, forFieldPath: "Id", fieldValue: id, error: nil)
+        let entryArray = sfaStore.retrieveEntries([workOrderEntry] , fromSoup: SoupContact)
+        if(entryArray.count > 0){
+            let entry = entryArray[0]
+            var soupEntry = entry as! [String:Any]
+            createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
+        }else{
+            createdFlag = true
+        }
+        return createdFlag
     }
 }

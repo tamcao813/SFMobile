@@ -441,15 +441,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         
         self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, onlineSyncStatus!]
         let logoButton = UIBarButtonItem(image: UIImage(named: "AppLogo"), style:UIBarButtonItemStyle.plain, target: self, action: #selector(addTapped))
-        var instanceUrlTest = ""
         if let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl?.description {
-            instanceUrlTest = instanceUrl
-        }
-        
-        if instanceUrlTest == StringConstants.detestServerUrl {
-            logoButton.isEnabled = true
-        }else{
-            logoButton.isEnabled = false
+            if instanceUrl == StringConstants.detestServerUrl {
+                logoButton.isEnabled = true
+            }else{
+                logoButton.isEnabled = false
+            }
         }
         //logoButton.tintColor = UIColor.red
         logoButton.tintColor = UIColor.clear

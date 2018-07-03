@@ -476,14 +476,6 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             searchAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.accountsDropDown
             cell?.delegate = self
-            if visitId != nil {
-                cell?.searchContactTextField.isUserInteractionEnabled = false
-                cell?.searchContactTextField.alpha = 0.3
-            }else {
-                cell?.searchContactTextField.isUserInteractionEnabled = true
-                cell?.searchContactTextField.alpha = 1.0
-            }
-           
             return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell") as? AccountContactLinkTableViewCell
@@ -492,15 +484,6 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             cell?.delegate = self
             if let account = selectedAccount {
                 cell?.displayCellContent(account: account)
-            }
-            if visitId != nil {
-                cell?.containerView.isUserInteractionEnabled = false
-                //cell?.isUserInteractionEnabled = false
-                cell?.containerView.alpha = 0.3
-            }else {
-                 cell?.containerView.isUserInteractionEnabled = true
-                //cell?.isUserInteractionEnabled = true
-                cell?.containerView.alpha = 1.0
             }
             return cell!
         case 2:

@@ -334,6 +334,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     
     //Back Button Clicked
     @IBAction func backButtonAction(sender : UIButton){
+        FilterMenuModel.comingFromDetailsScreen = "NO"
         self.view.removeFromSuperview()
     }
     

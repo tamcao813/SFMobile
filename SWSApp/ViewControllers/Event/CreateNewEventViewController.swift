@@ -173,11 +173,11 @@ class CreateNewEventViewController: UIViewController {
         }
         
         //Check Weather the dates are changed or not(Used to Check States for UI API)
-        if PlanVisitManager.sharedInstance.visit?.startDate != getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime){
+        if PlanVisitManager.sharedInstance.visit?.startDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime){
             
             VisitModelForUIAPI.isEditMode = true
             
-        }else if PlanVisitManager.sharedInstance.visit?.endDate != getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime){
+        }else if PlanVisitManager.sharedInstance.visit?.endDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime){
             
             VisitModelForUIAPI.isEditMode = true
             
@@ -191,8 +191,8 @@ class CreateNewEventViewController: UIViewController {
             VisitModelForUIAPI.isEditMode = false
         }
         
-        PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
-        PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
+        PlanVisitManager.sharedInstance.visit?.startDate =  DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
+        PlanVisitManager.sharedInstance.visit?.endDate = DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
         PlanVisitManager.sharedInstance.visit?.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)
         PlanVisitManager.sharedInstance.visit?.dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.endDate)!)
         //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
@@ -296,8 +296,8 @@ class CreateNewEventViewController: UIViewController {
         }else{
             new_Event.contactId = ""
         }
-        new_Event.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
-        new_Event.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
+        new_Event.startDate =  DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
+        new_Event.endDate = DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
         
         new_Event.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforEvent()
         
@@ -375,30 +375,6 @@ class CreateNewEventViewController: UIViewController {
                 self.dismiss(animated: true)
             }
         }
-    }
-    
-    func getDataTimeinStr(date:String, time: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy'T'HH:mm"
-        var string = date + "T" + time
-        if let dateFromString = dateFormatter.date(from: string) {
-            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            dateFormatter.timeZone = TimeZone(identifier:"UTC")
-            string = dateFormatter.string(from: dateFromString)
-            return string
-        }
-        let dateFormatter12hr = DateFormatter()
-        dateFormatter12hr.dateFormat = "MM/dd/yyyy'T'hh:mm a"
-        var string12hr = date + "T" + time
-        if let dateFromString = dateFormatter12hr.date(from: string12hr) {
-            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
-            dateFormatter12hr.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            dateFormatter12hr.timeZone = TimeZone(identifier:"UTC")
-            string12hr = dateFormatter12hr.string(from: dateFromString)
-            return string12hr
-        }
-        return string
     }
 }
 

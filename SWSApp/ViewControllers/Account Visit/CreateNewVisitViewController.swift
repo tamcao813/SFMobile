@@ -280,10 +280,10 @@ class CreateNewVisitViewController: UIViewController {
         }
         
         //Check Weather the dates are changed or not(Used to Check States for UI API)
-        if PlanVisitManager.sharedInstance.visit?.startDate != getDataTimeinStr(date: startDate.text!, time: startTime.text!){
+        if PlanVisitManager.sharedInstance.visit?.startDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: startTime.text!){
             VisitModelForUIAPI.isEditMode = true
             
-        }else if PlanVisitManager.sharedInstance.visit?.endDate != getDataTimeinStr(date: startDate.text!, time: endTime.text!){
+        }else if PlanVisitManager.sharedInstance.visit?.endDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: endTime.text!){
             VisitModelForUIAPI.isEditMode = true
             
         }else{
@@ -297,8 +297,8 @@ class CreateNewVisitViewController: UIViewController {
             VisitModelForUIAPI.isEditMode = false
         }
         
-        PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
-        PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+        PlanVisitManager.sharedInstance.visit?.startDate =  DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: startTime.text!)
+        PlanVisitManager.sharedInstance.visit?.endDate = DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: endTime.text!)
         PlanVisitManager.sharedInstance.visit?.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)
         PlanVisitManager.sharedInstance.visit?.dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.endDate)!)
         PlanVisitManager.sharedInstance.visit?.location = locationStr
@@ -337,8 +337,8 @@ class CreateNewVisitViewController: UIViewController {
         }else{
             new_visit.contactId = ""
         }
-        new_visit.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
-        new_visit.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+        new_visit.startDate =  DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: startTime.text!)
+        new_visit.endDate = DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: endTime.text!)
         if dismiss {
             new_visit.status = "Scheduled"
         }else{
@@ -445,19 +445,6 @@ class CreateNewVisitViewController: UIViewController {
         // convert the UInt32 to some other  types
         let someString:String = String(randomNum)
         return someString
-    }
-    
-    func getDataTimeinStr(date:String, time: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy'T'hh:mm a"
-        var string = date + "T" + time
-        if let dateFromString = dateFormatter.date(from: string) {
-            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            dateFormatter.timeZone = TimeZone(identifier:"UTC")
-            string = dateFormatter.string(from: dateFromString)
-        }
-        return string
     }
 }
 

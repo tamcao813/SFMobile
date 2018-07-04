@@ -194,21 +194,46 @@ class AccountEventSummaryViewController: UIViewController {
         
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Event Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
             
-            if StoreDispatcher.shared.isWorkOrderSynced(id: self.visitObject!.Id){
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
                 
                 self.deleteLocalEventEntry()
                 self.dismiss(animated: true, completion: nil)
                 
             }else{
                 
+                DispatchQueue.main.async { //do this in group.notify
+                    MBProgressHUD.show(onWindow: true)
+                }
+                
                 //Call Delete UI API and after success save the data to DB
                 StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
                     if data == nil{
                         
+                        DispatchQueue.main.async { //do this in group.notify
+                            MBProgressHUD.hide(forWindow: true)
+                        }
                         self.deleteLocalEventEntry()
+                        
+                        VisitSchedulerViewModel().syncVisitsWithServer{ error in
+                            
+                            if error != nil{
+                                
+                                print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
+                                
+                            }
+                            DispatchQueue.main.async {
+                                VisitModelForUIAPI.isEditMode = false
+                                MBProgressHUD.hide(forWindow: true)
+                            }
+                        }
+                        
                         self.dismiss(animated: true, completion: nil)
                         
                     }else{
+                        
+                        DispatchQueue.main.async { //do this in group.notify
+                            MBProgressHUD.hide(forWindow: true)
+                        }
                         
                         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Event has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                             
@@ -231,7 +256,7 @@ class AccountEventSummaryViewController: UIViewController {
     
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
         
-        VisitModelForUIAPI.isEditMode = true
+        //VisitModelForUIAPI.isEditMode = true
         
         PlanVisitManager.sharedInstance.editPlanVisit = true
         let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController

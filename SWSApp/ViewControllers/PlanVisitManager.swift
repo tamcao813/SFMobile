@@ -52,38 +52,52 @@ class PlanVisitManager {
         print("CloudCodeExecutor has been initialized")
     }
     
+    //ON call of Plan or Save
     func editAndSaveVisit()->Bool{
-        //Check is it getting called for Edit Mode if yes , if network available call UI API else Show Alert
+        
+        //Checking if Date is changed only than this flow else old flow
         if VisitModelForUIAPI.isEditMode{
-            VisitModelForUIAPI.isEditMode = false
-            if AppDelegate.isConnectedToNetwork(){
-                
-                //Check the Visit/Event is created Locally which is not synced up
-                if StoreDispatcher.shared.isWorkOrderSynced(id: visit!.Id){
-                    
+            
+            DispatchQueue.main.async { //do this in group.notify
+                MBProgressHUD.show(onWindow: true)
+            }
+            //Call UI API , after success of that Save in Local
+            StoreDispatcher.shared.editVisitFromOutlook(VisitData: visit!) { (data) in
+                if data == nil{
+                    //Success Save to DB
                     self.editAndSaveVisitData()
                     
-                }else{
-                    //Call UI API , after success of that Save in Local
-                    StoreDispatcher.shared.editVisitFromOutlook(VisitData: visit!) { (data) in
-                        if data == nil{
-                            //Success Save to DB
-                            self.editAndSaveVisitData()
+                    VisitSchedulerViewModel().syncVisitsWithServer{ error in
+                        
+                        if error != nil{
                             
-                        }else{
-                            //Failure Show Alert
-                            let alert = UIAlertView()
-                            alert.title = "Alert"
-                            alert.message = "Saving of Visit has failed, Please try again"
-                            alert.addButton(withTitle: "OK")
-                            alert.show()
+                            print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
                             
                         }
+                        DispatchQueue.main.async { 
+                            VisitModelForUIAPI.isEditMode = false
+                            MBProgressHUD.hide(forWindow: true)
+                        }
                     }
+                    
+                }else{
+                    
+                    DispatchQueue.main.async { //do this in group.notify
+                        MBProgressHUD.hide(forWindow: true)
+                        VisitModelForUIAPI.isEditMode = false
+                    }
+                    
+                    //Failure Show Alert
+                    let alert = UIAlertView()
+                    alert.title = "Alert"
+                    alert.message = "Saving of Visit/Event has failed, Please try again"
+                    alert.addButton(withTitle: "OK")
+                    alert.show()
+                    
                 }
             }
-            
-        }else{
+        }//old flow
+        else{
             self.editAndSaveVisitData()
         }
         return true
@@ -157,8 +171,8 @@ class PlanVisitManager {
             
             
             kSyncTargetLocal:true,
-            kSyncTargetLocallyCreated:true,
-            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyCreated:false,
+            kSyncTargetLocallyUpdated:true,
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
         

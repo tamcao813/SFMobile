@@ -851,7 +851,7 @@ class StoreDispatcher {
     }
     
     //Check weather the Visit/Event is creted locally or Synced UP
-    func isWorkOrderSynced(id: String) -> Bool{
+    func isWorkOrderCreatedLocally(id: String) -> Bool{
         var createdFlag = false
         let workOrderEntry = sfaStore.lookupSoupEntryId(forSoupName: SoupVisit, forFieldPath: "Id", fieldValue: id, error: nil)
         let entryArray = sfaStore.retrieveEntries([workOrderEntry] , fromSoup: SoupVisit)
@@ -872,7 +872,7 @@ class StoreDispatcher {
         var requestData = [String: String]()
         requestData["StartDate"] = VisitData.startDate
         requestData["EndDate"] = VisitData.endDate
-        requestData["ContactId"] = VisitData.contactId
+//        requestData["ContactId"] = VisitData.contactId
         requestData["SGWS_WorkOrder_Location__c"] = VisitData.location
         requestData["Subject"] = VisitData.subject
         //requestData["SGWS_Appointment_Status__c"] = VisitData.sgwsAppointmentStatus

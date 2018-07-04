@@ -130,18 +130,15 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
     
     func checkVisitStates(textField : UITextField){
         
-        if VisitModelForUIAPI.isEditMode{
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
             
-            if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
                 
-                if StoreDispatcher.shared.isWorkOrderSynced(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
-                    
-                    //Its a local created entry
-                    if textField.tag == 200{
-                        self.dateView(textField: textField)
-                    }else{
-                        self.timeView(textField: textField)
-                    }
+                //Its a local created entry
+                if textField.tag == 200{
+                    self.dateView(textField: textField)
+                }else{
+                    self.timeView(textField: textField)
                 }
             }else{
                 
@@ -160,6 +157,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
             }
             
         }else{
+            //Its a new local created entry
             if textField.tag == 200{
                 self.dateView(textField: textField)
             }else{
@@ -260,6 +258,15 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
         inputView.backgroundColor = UIColor.white
         datePickerView.frame.origin = CGPoint(x: self.frame.width/1.2, y: 20)
         datePickerView.datePickerMode = .date
+        
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+            
+            let startDate = DateTimeUtility.covertUTCtoLocalTimeZone(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)
+            
+            datePickerView.date = startDate!
+            
+        }
+        
         datePickerView.minimumDate = NSDate() as Date
         inputView.addSubview(datePickerView) // add date picker to UIView
         

@@ -93,18 +93,16 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
     
     func checkEventStates(textField : UITextField){
         
-        if VisitModelForUIAPI.isEditMode{
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
             
-            if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
-                
-                if StoreDispatcher.shared.isWorkOrderSynced(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
-                    //Its a local created entry
-                    if textField.tag == 300 || textField.tag == 302{
-                        self.dateView(textField: textField)
-                    }else{
-                        self.timeView(textField: textField)
-                    }
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+                //Its a local created entry
+                if textField.tag == 300 || textField.tag == 302{
+                    self.dateView(textField: textField)
+                }else{
+                    self.timeView(textField: textField)
                 }
+                
             }else{
                 //Its already Synced UP
                 if AppDelegate.isConnectedToNetwork(){
@@ -121,6 +119,8 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
             }
             
         }else{
+            
+            //Its a new local created entry
             if textField.tag == 300 || textField.tag == 302{
                 self.dateView(textField: textField)
             }else{

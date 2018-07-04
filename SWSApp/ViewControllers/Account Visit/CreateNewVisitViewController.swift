@@ -62,7 +62,8 @@ class CreateNewVisitViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         StrategyNotes.isStrategyText = "NO"
-        VisitModelForUIAPI.isEditMode = false
+        //VisitModelForUIAPI.isEditMode = false
+        
     }
     
     deinit {
@@ -197,6 +198,11 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     @IBAction func planButtonTapped(sender: UIButton) {
+        
+        DispatchQueue.main.async { //do this in group.notify
+            MBProgressHUD.hide(forWindow: true)
+        }
+        
         if validateVisitData() {
             errorLbl.text = ""
             if PlanVisitManager.sharedInstance.visit != nil {
@@ -272,6 +278,25 @@ class CreateNewVisitViewController: UIViewController {
         }else{
             PlanVisitManager.sharedInstance.visit?.contactId = ""
         }
+        
+        //Check Weather the dates are changed or not(Used to Check States for UI API)
+        if PlanVisitManager.sharedInstance.visit?.startDate != getDataTimeinStr(date: startDate.text!, time: startTime.text!){
+            VisitModelForUIAPI.isEditMode = true
+            
+        }else if PlanVisitManager.sharedInstance.visit?.endDate != getDataTimeinStr(date: startDate.text!, time: endTime.text!){
+            VisitModelForUIAPI.isEditMode = true
+            
+        }else{
+            
+            VisitModelForUIAPI.isEditMode = false
+        }
+        
+        
+        if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+            
+            VisitModelForUIAPI.isEditMode = false
+        }
+        
         PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
         PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
         PlanVisitManager.sharedInstance.visit?.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)

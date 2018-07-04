@@ -370,15 +370,7 @@ extension SelectOpportunitiesViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        /*
-        if self.selectedOpportunitiesList.contains(where: {($0.id == opportunityList[indexPath.section].id)}) {
-            self.selectedOpportunitiesList = self.selectedOpportunitiesList.filter(){$0.id != opportunityList[indexPath.section].id}
-            self.unselectedOpportunityList.append(opportunityList[indexPath.section])
-        }
-        else {
-            self.selectedOpportunitiesList.append(opportunityList[indexPath.section])
-            self.unselectedOpportunityList = self.unselectedOpportunityList.filter(){$0.id != opportunityList[indexPath.section].id}
-        }*/
+
         if self.selectedOpportunitiesList.contains(where: {($0.recordId == opportunityList[indexPath.section].recordId)}) {
             self.selectedOpportunitiesList = self.selectedOpportunitiesList.filter(){$0.recordId != opportunityList[indexPath.section].recordId}
             self.unselectedOpportunityList.append(opportunityList[indexPath.section])

@@ -466,7 +466,7 @@ class OpportunitiesMenuViewController: UIViewController {
             self.searchByEnteredTextDelegate?.filteringOpportunities(filtering: false)
         }
         let _:[String: String] = ["SearchStr": searchBar.text!]
-        self.tableView.setContentOffset(CGPoint.zero, animated: false)
+//        self.tableView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     //Clears all the filter selection

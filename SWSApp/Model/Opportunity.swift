@@ -10,11 +10,13 @@ import UIKit
 
 class Opportunity {
 
-    static let opportunityFields: [String] = [ "Id", "OwnerId", "AccountId", "SGWS_Source__c", "SGWS_PYCM_Sold__c", "SGWS_Commit__c", "SGWS_Sold__c", "SGWS_Month_Active__c", "StageName", "SGWS_R12__c", "SGWS_R6_Trend__c", "SGWS_R3_Trend__c", "SGWS_Acct__c", "SGWS_Segment__c", "SGWS_Gap__c", "SGWS_Sales_Trend__c", "SGWS_Order_Size__c", "SGWS_Order_Frequency__c", "SGWS_Unsold_Period_Days__c",  "Opportunity_Objective_Junction__r", "OpportunityLineItems" ]
-
-    static let opportunityUploadSyncUpFields: [String] = [ "SGWS_Commit__c" ]
-
+    static let opportunityFields: [String] = [ "Id", "Opportunity", "Product2" ]
     
+    static let opportunityUploadSyncDownFields: [String] = [ "Id", "SGWS_Commit__c" ]
+    static let opportunityUploadSyncUpFields: [String] = [ "SGWS_Commit__c" ]
+//    static let opportunityUploadSyncUpFields: [String] = [ "Opportunity" ]
+
+    var recordId: String
     var id: String
     var ownerId: String
     var accountId: String
@@ -57,28 +59,26 @@ class Opportunity {
         
         print("Opportunity : json : \(json)")
         
-        id = json["Id"] as? String ?? ""
-        ownerId = json["OwnerId"] as? String ?? ""
-        accountId = json["AccountId"] as? String ?? ""
-        source = json["SGWS_Source__c"] as? String ?? ""
-        PYCMSold = json["SGWS_PYCM_Sold__c"] as? String ?? ""
-        commit = json["SGWS_Commit__c"] as? String ?? ""
-        sold = json["SGWS_Sold__c"] as? String ?? ""
-        monthActive = json["SGWS_Month_Active__c"] as? String ?? ""
-        status = json["StageName"] as? String ?? ""
-        R12 = json["SGWS_R12__c"] as? String ?? ""
-        R6Trend = json["SGWS_R6_Trend__c"] as? String ?? ""
-        R3Trend = json["SGWS_R3_Trend__c"] as? String ?? ""
-        acct = json["SGWS_Acct__c"] as? String ?? ""
-        segment = json["SGWS_Segment__c"] as? String ?? ""
-        gap = json["SGWS_Gap__c"] as? String ?? ""
-        salesTrend = json["SGWS_Sales_Trend__c"] as? String ?? ""
-        orderSize = json["SGWS_Order_Size__c"] as? String ?? ""
-        orderFrequency = json["SGWS_Order_Frequency__c"] as? String ?? ""
-        unsoldPeriodDays = json["SGWS_Unsold_Period_Days__c"] as? String ?? ""
-        
-        objectiveNames = ""
-        objectiveTypes = ""
+        recordId = json["Id"] as? String ?? ""
+        id = ""
+        ownerId = ""
+        accountId = ""
+        source = ""
+        PYCMSold = ""
+        commit = ""
+        sold = ""
+        monthActive = ""
+        status = ""
+        R12 = ""
+        R6Trend = ""
+        R3Trend = ""
+        acct = ""
+        segment = ""
+        gap = ""
+        salesTrend = ""
+        orderSize = ""
+        orderFrequency = ""
+        unsoldPeriodDays = ""
 
         productName = ""
         productID = ""
@@ -90,96 +90,100 @@ class Opportunity {
         commit9L = ""
         sold9L = ""
 
-        if !(json["Opportunity_Objective_Junction__r"] is NSNull) {
-            if let jsonString = json["Opportunity_Objective_Junction__r"] as? String {
-                do {
-                    if let object = try JSONSerialization.jsonObject(with: jsonString.data(using: .utf8)!, options: []) as? [String: Any] {
-                        print("Opportunity_Objective_Junction__r : dictionary is : \(object)")
-                        
-                        processObjectiveJunction(object)
-                    }
-                } catch {
+        objectiveNames = ""
+        objectiveTypes = ""
+        
+        if let jsonString = json["Opportunity"] as? String {
+            do {
+                if let object = try JSONSerialization.jsonObject(with: jsonString.data(using: .utf8)!, options: []) as? [String: Any] {
+                    print("Opportunity : dictionary is : \(object)")
+                    
+                    processOpportunity(object)
                 }
+            } catch {
             }
         }
 
-        if !(json["OpportunityLineItems"] is NSNull) {
-            if let jsonString = json["OpportunityLineItems"] as? String {
-                do {
-                    if let object = try JSONSerialization.jsonObject(with: jsonString.data(using: .utf8)!, options: []) as? [String: Any] {
-                        print("OpportunityLineItems : dictionary is : \(object)")
-                        
-                        processOpportunityLineItems(object)
-                    }
-                } catch {
+        if let jsonString = json["Product2"] as? String {
+            do {
+                if let object = try JSONSerialization.jsonObject(with: jsonString.data(using: .utf8)!, options: []) as? [String: Any] {
+                    print("Product2 : dictionary is : \(object)")
+                    
+                    processOpportunityLineItems(object)
                 }
+            } catch {
             }
         }
-
+        
         PYCMSold9L = valueAfter9Lcalculation(PYCMSold)
         commit9L = valueAfter9Lcalculation(commit)
         sold9L = valueAfter9Lcalculation(sold)
         
+        processObjectiveJunction()
+        
     }
     
-    func processObjectiveJunction(_ jsonDict: [String: Any]) {
+    func processOpportunity(_ jsonDict: [String: Any]) {
         
-        var namesString: String = ""
-        var typesString: String = ""
-
-        if let resultObj = jsonDict["records"] as? NSArray {
-            print("resultObj is : \(resultObj)")
-            
-            for obj in resultObj {
-                if let objDic = obj as? [String: Any] {
-                    if let nameString = objDic["Name"] as? String {
-                        if namesString == "" {
-                            namesString = nameString
-                        }
-                        else {
-                            namesString = namesString + ", " + nameString
-                        }
-                    }
-
-                    if let typeString = objDic["SGWS_Select_Objective_Type__c"] as? String {
-                        if typesString == "" {
-                            typesString = typeString
-                        }
-                        else {
-                            typesString = typesString + ", " + typeString
-                        }
-                    }
-                }
-            }
-        }
-        
-        objectiveNames = namesString
-        objectiveTypes = typesString
+        id = jsonDict["Id"] as? String ?? ""
+        ownerId = jsonDict["OwnerId"] as? String ?? ""
+        accountId = jsonDict["AccountId"] as? String ?? ""
+        source = jsonDict["SGWS_Source__c"] as? String ?? ""
+        PYCMSold = valueAfterConversionToString(jsonDict, key: "SGWS_PYCM_Sold__c")
+        commit = valueAfterConversionToString(jsonDict, key: "SGWS_Commit__c")
+        sold = valueAfterConversionToString(jsonDict, key: "SGWS_Sold__c")
+        monthActive = jsonDict["SGWS_Month_Active__c"] as? String ?? ""
+        status = jsonDict["StageName"] as? String ?? ""
+        R12 = valueAfterConversionToString(jsonDict, key: "SGWS_R12__c")
+        R6Trend = valueAfterConversionToString(jsonDict, key: "SGWS_R6_Trend__c")
+        R3Trend = valueAfterConversionToString(jsonDict, key: "SGWS_R3_Trend__c")
+        acct = valueAfterConversionToString(jsonDict, key: "SGWS_Acct__c")
+        segment = valueAfterConversionToString(jsonDict, key: "SGWS_Segment__c")
+        gap = valueAfterConversionToString(jsonDict, key: "SGWS_Gap__c")
+        salesTrend = valueAfterConversionToString(jsonDict, key: "SGWS_Sales_Trend__c")
+        orderSize = valueAfterConversionToString(jsonDict, key: "SGWS_Order_Size__c")
+        orderFrequency = valueAfterConversionToString(jsonDict, key: "SGWS_Order_Frequency__c")
+        unsoldPeriodDays = jsonDict["SGWS_Unsold_Period_Days__c"] as? String ?? ""
     }
-
+    
     func processOpportunityLineItems(_ jsonDict: [String: Any]) {
         
-        if let resultObj = jsonDict["records"] as? NSArray {
-            print("resultObj is : \(resultObj)")
+        productID = jsonDict["Product2Id"] as? String ?? ""
+        productName = jsonDict["Name"] as? String ?? ""
+        
+        itemBottlesPerCase = ((jsonDict["SGWS_CORP_ITEM_BOTTLES_PER_CASE__c"] as? String ?? "") as NSString).floatValue
+        if itemBottlesPerCase == 0 {
+            itemBottlesPerCase = 1.0
+        }
+        
+        let bottlePerCase = jsonDict["SGWS_CORP_ITEM_SIZE__c"] as? String ?? ""
+        if bottlePerCase == "" {
+            itemSize = 1.0
+        }
+        else {
+            itemSize = valueAfterConversionToLiters(bottlePerCase)
+        }
+        
+        brand = jsonDict["SGWS_Corp_Brand__c"] as? String ?? ""
+    }
+
+    func processObjectiveJunction() {
+        
+        let opportunitiesList = OpportunityObjectiveSortUtility.filterOpportunityObjectiveByFilterByOpportunity(opportunityIdToBeFiltered: id)
+        for object in opportunitiesList {
             
-            if resultObj.count > 0 {
-                if let productDic = resultObj[0] as? [String: Any] {
-                    productID = productDic["Product2Id"] as? String ?? ""
-                    
-                    if let product2Dic = productDic["Product2"] as? [String: Any] {
-                        productName = product2Dic["Name"] as? String ?? ""
-                        
-                        itemBottlesPerCase = ((product2Dic["SGWS_CORP_ITEM_BOTTLES_PER_CASE__c"] as? String ?? "") as NSString).floatValue
-                        if itemBottlesPerCase == 0 {
-                            itemBottlesPerCase = 1.0
-                        }
-                        
-                        let bottlePerCase = product2Dic["SGWS_CORP_ITEM_SIZE__c"] as? String ?? ""
-                        itemSize = valueAfterConversionToLiters(bottlePerCase)
-                        
-                        brand = product2Dic["SGWS_Corp_Brand__c"] as? String ?? ""
-                    }
-                }
+            if objectiveNames == "" {
+                objectiveNames = object.ObjectiveName
+            }
+            else {
+                objectiveNames = objectiveNames + ", " + object.ObjectiveName
+            }
+
+            if objectiveTypes == "" {
+                objectiveTypes = object.ObjectiveType
+            }
+            else {
+                objectiveTypes = objectiveTypes + ", " + object.ObjectiveType
             }
         }
     }
@@ -193,7 +197,8 @@ class Opportunity {
 
         let valueInt: Float = (valueToConvert as NSString).floatValue
         
-        return String(format: "%.2f", String((valueInt * itemBottlesPerCase * itemSize) / 9.0))
+        let finalInt: Float = (valueInt * itemBottlesPerCase * itemSize) / 9.0
+        return String(format: "%.2f", finalInt)
     }
 
     func valueAfterConversionToLiters(_ valueToConvert: String) -> Float {
@@ -215,8 +220,21 @@ class Opportunity {
         return 0.0
     }
     
+    func valueAfterConversionToString(_ jsonDict: [String: Any], key: String) -> String {
+        
+        var convertedString = jsonDict[key] as? String ?? ""
+        if convertedString == "" {
+            if let dValue: Double = jsonDict[key] as? Double {
+                convertedString = String(dValue)
+            }
+        }
+
+        return convertedString
+    }
+    
     init(for: String) {
         
+        recordId = ""
         id = ""
         ownerId = ""
         accountId = ""

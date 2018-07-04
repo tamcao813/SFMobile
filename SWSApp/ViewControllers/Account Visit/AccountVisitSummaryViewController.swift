@@ -95,7 +95,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisitList(_:)), name: NSNotification.Name("refreshAccountVisit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
         
-        VisitModelForUIAPI.isEditMode = false
+        //VisitModelForUIAPI.isEditMode = false
         
         self.setLocationManager()
     }
@@ -122,7 +122,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         if let visit = notification.userInfo?["visit"] as? WorkOrderUserObject {
             fetchVisit(visitIdTemp:visit.Id)
         }
-         fetchOpportunityList()
+        fetchOpportunityList()
     }
     
     @objc func navigateToAccountScreen(){
@@ -172,7 +172,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     func fetchVisit(){
         if let id = visitId{
-//            let visitArray = VisitsViewModel().visitsForUser()
+            //            let visitArray = VisitsViewModel().visitsForUser()
             let visitArray = GlobalWorkOrderArray.workOrderArray
             for visit in visitArray {
                 if visit.Id == id {
@@ -242,11 +242,11 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         self.getStartDateAndEndTime()
         refactoringUIOnApplicationStatusBasis()
         
-        if AppDelegate.isConnectedToNetwork(){
-            deleteVisitButton.isUserInteractionEnabled = true
-        }else{
-            deleteVisitButton.isUserInteractionEnabled = false
-        }
+        //        if AppDelegate.isConnectedToNetwork(){
+        //            deleteVisitButton.isUserInteractionEnabled = true
+        //        }else{
+        //            deleteVisitButton.isUserInteractionEnabled = false
+        //        }
     }
     
     func getStartDateAndEndTime() {
@@ -279,8 +279,8 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         self.tableView.register(UINib(nibName: "AssociatedContactsTableViewCell", bundle: nil), forCellReuseIdentifier: "AssociatedContactsTableViewCell")
         self.tableView.register(UINib(nibName: "UnorderedListTableViewCell", bundle: nil), forCellReuseIdentifier: "UnorderedListTableViewCell")
         self.tableView.register(UINib(nibName: "AccountsSummaryOpportunities", bundle: nil), forCellReuseIdentifier: "AccountOpportunityCell")
-
-       // self.tableView.register(UINib(nibName: "ButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ButtonTableViewCell")
+        
+        // self.tableView.register(UINib(nibName: "ButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ButtonTableViewCell")
     }
     
     func refactoringUIOnApplicationStatusBasis(){
@@ -343,22 +343,52 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
             
-            //Call Delete UI API and after success save the data to DB
-            StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
-                if data == nil{
-                    
-                    self.deleteLocalVisitEntry()
-                    self.dismiss(animated: true, completion: nil)
-                    
-                }else{
-                    
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
+                
+                self.deleteLocalVisitEntry()
+                self.dismiss(animated: true, completion: nil)
+                
+            }else{
+                
+                DispatchQueue.main.async { //do this in group.notify
+                    MBProgressHUD.show(onWindow: true)
+                }
+                
+                //Call Delete UI API and after success save the data to DB
+                StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
+                    if data == nil{
                         
-                       // self.dismiss(animated: true, completion: nil)
+                        self.deleteLocalVisitEntry()
                         
-                    }, action2: {
+                        VisitSchedulerViewModel().syncVisitsWithServer{ error in
+                            
+                            if error != nil{
+                                
+                                print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
+                                
+                            }
+                            DispatchQueue.main.async {
+                                VisitModelForUIAPI.isEditMode = false
+                                MBProgressHUD.hide(forWindow: true)
+                            }
+                        }
                         
-                    })
+                        self.dismiss(animated: true, completion: nil)
+                        
+                    }else{
+                        
+                        DispatchQueue.main.async { //do this in group.notify
+                            MBProgressHUD.hide(forWindow: true)
+                        }
+                        
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                            
+                            // self.dismiss(animated: true, completion: nil)
+                            
+                        }, action2: {
+                            
+                        })
+                    }
                 }
             }
             
@@ -394,13 +424,11 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             let vc: SelectOpportunitiesViewController = storyboard.instantiateViewController(withIdentifier: "SelectOpportunitiesViewControllerID") as! SelectOpportunitiesViewController
             (vc as SelectOpportunitiesViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             self.present(vc, animated: true, completion: nil)
-
+            
         }
     }
     
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
-        
-        VisitModelForUIAPI.isEditMode = true
         
         switch visitStatus {
         case .scheduled?:
@@ -462,17 +490,17 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     
     func navigateToAccountVisitingScreen() {
         DispatchQueue.main.async {
-        self.dismiss(animated: false, completion: nil)
+            self.dismiss(animated: false, completion: nil)
         }
     }
     
     func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-           
+            
             self.closeButtonTapped(nil)
         }
-       
+        
         self.delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
         
         
@@ -482,23 +510,23 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.closeButtonTapped(nil)
         }
-       // FilterMenuModel.selectedAccountId = (AccountObject.account?.account_Id)!
-      //  FilterMenuModel.isFromAccountVisitSummary = "YES"        
-      //  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
+        // FilterMenuModel.selectedAccountId = (AccountObject.account?.account_Id)!
+        //  FilterMenuModel.isFromAccountVisitSummary = "YES"
+        //  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
         self.delegate?.navigateTheScreenToActionItemsInPersistantMenu(data: data)
-
+        
     }
     
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
-         //   AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
-                self.dismiss(animated: true, completion: nil)
-                self.delegate?.navigateToAccountScreen()
-           // }){
-                
-            }
-        }        
+            //   AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.navigateToAccountScreen()
+            // }){
+            
+        }
+    }
     //}
 }
 
@@ -541,7 +569,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 return 30
                 
             case 2:
-//                fetchOpportunityList()
+                //                fetchOpportunityList()
                 if opportunityList.count > 0 {
                     return 30
                 } else {
@@ -631,7 +659,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
         case 1:
             return getConatactCell()
         case 2:
-                return getOpportunitiesCell()
+            return getOpportunitiesCell()
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "HeadSubHeadTableViewCell") as? HeadSubHeadTableViewCell
             cell?.headingLabel.text = "Service Purposes"
@@ -670,7 +698,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
             cell?.tableHeightConstraint.constant = 0.0
             cell?.headerView.isHidden = true
             
-
+            
         }
         
         return cell!
@@ -709,7 +737,7 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                 let contactDict:[String: Contact] = ["contact": selectedContact]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwitchToContact"), object:nil, userInfo: contactDict)
             }
-
+            
         }
     }
 }
@@ -730,7 +758,7 @@ extension AccountVisitSummaryViewController: ButtonTableViewCellDelegate {
 }
 
 extension AccountVisitSummaryViewController : NavigateToVisitSummaryScreenDelegate{
-   
+    
     func navigateToVisitSummaryScreen() {
         self.dismiss(animated: true, completion: nil)
     }

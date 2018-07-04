@@ -188,9 +188,6 @@ static NSString * const kSFSoqlSyncTargetQuery = @"query";
 - (NSString *)getSoqlForRemoteIds {
     NSMutableString* soql = [[NSMutableString alloc] initWithString:@"SELECT "];
     [soql appendString:self.idFieldName];
-    if (([self.query rangeOfString:@"from Opportunity_Objective_Junction__r"].location != NSNotFound) && ([self.query rangeOfString:@"from OpportunityLineItems"].location != NSNotFound)) {
-        return [[NSMutableString alloc] initWithString:@"SELECT Id from opportunity"];
-    }
 
     NSRegularExpression* regexp = [NSRegularExpression regularExpressionWithPattern:@" from " options:NSRegularExpressionCaseInsensitive error:nil];
     NSRange rangeFirst = [regexp rangeOfFirstMatchInString:self.query options:0 range:NSMakeRange(0, self.query.length)];
@@ -220,19 +217,24 @@ static NSString * const kSFSoqlSyncTargetQuery = @"query";
             queryToRun = [SFSoqlSyncDownTarget appendToFirstOccurence:query pattern:@" where " stringToAppend:[@[extraPredicate, @" and "] componentsJoinedByString:@""]];
         } else {
             
-            NSString *strObj = @"from Opportunity_Objective_Junction__r";
-            NSString *strOpp = @"from OpportunityLineItems";
+            NSString *strObj = @"from SGWS_Opportunity_Objective__c";
+            NSString *strOpp = @"from OpportunityLineItem";
             
-            if (([query rangeOfString:strObj].location != NSNotFound) && ([query rangeOfString:strOpp].location != NSNotFound)) {
+            if ([query rangeOfString:strObj].location != NSNotFound) {
                 
                 NSString *strPrediate = [@[@" where ", extraPredicate] componentsJoinedByString:@""];
                 
-//                query = [query stringByReplacingOccurrencesOfString:strObj withString:[NSString stringWithFormat:@"%@%@", strObj, strPrediate]];
-                query = [query stringByReplacingOccurrencesOfString:strObj withString:[NSString stringWithFormat:@"%@", strObj]];
-//                query = [query stringByReplacingOccurrencesOfString:strOpp withString:[NSString stringWithFormat:@"%@%@", strOpp, strPrediate]];
-                query = [query stringByReplacingOccurrencesOfString:strOpp withString:[NSString stringWithFormat:@"%@", strOpp]];
-
-                queryToRun = [NSString stringWithFormat:@"%@%@", query, strPrediate];
+                query = [query stringByReplacingOccurrencesOfString:strObj withString:[NSString stringWithFormat:@"%@%@ OR SGWS_Opportunity__r.%@ OR SGWS_Objectives__r.%@", strObj, strPrediate, extraPredicate, extraPredicate]];
+                
+                queryToRun = [NSString stringWithFormat:@"%@", query];
+            }
+            else if ([query rangeOfString:strOpp].location != NSNotFound) {
+                
+                NSString *strPrediate = [@[@" where ", extraPredicate] componentsJoinedByString:@""];
+                
+                query = [query stringByReplacingOccurrencesOfString:strOpp withString:[NSString stringWithFormat:@"%@%@ OR Opportunity.%@ OR Product2.%@", strOpp, strPrediate, extraPredicate, extraPredicate]];
+                
+                queryToRun = [NSString stringWithFormat:@"%@", query];
             }
             else {
                 queryToRun = [SFSoqlSyncDownTarget appendToFirstOccurence:query pattern:@" from[ ]+[^ ]*" stringToAppend:[@[@" where ", extraPredicate] componentsJoinedByString:@""]];

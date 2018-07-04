@@ -81,6 +81,8 @@ class StringConstants {
     
     //DetestServer Url
     static let detestServerUrl = globalUrlDictionary["detestServerUrl"] as! String
+    
+    static let checkContactId = globalUrlDictionary["visitContactAlertMessage"] as! String
 }
 
 

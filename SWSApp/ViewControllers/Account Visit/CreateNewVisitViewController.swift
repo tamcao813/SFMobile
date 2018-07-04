@@ -502,6 +502,14 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             searchAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.accountsDropDown
             cell?.delegate = self
+            if visitId != nil {
+                cell?.searchContactTextField.isUserInteractionEnabled = false
+                cell?.searchContactTextField.alpha = 0.5
+            }else {
+                cell?.searchContactTextField.isUserInteractionEnabled = true
+                cell?.searchContactTextField.alpha = 1.0
+                cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
+            }
             return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell") as? AccountContactLinkTableViewCell
@@ -511,6 +519,14 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             if let account = selectedAccount {
                 cell?.displayCellContent(account: account)
             }
+            if visitId != nil {
+                  cell?.deleteButton.isUserInteractionEnabled = false
+                  cell?.deleteButton.alpha = 0.3
+            }else {
+                cell?.deleteButton.isUserInteractionEnabled = true
+                cell?.deleteButton.alpha = 1.0
+            }
+
             return cell!
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchForContactTableViewCell") as? SearchForContactTableViewCell
@@ -590,8 +606,21 @@ extension CreateNewVisitViewController: AccountContactLinkTableViewCellDelegate 
 extension CreateNewVisitViewController: SearchForContactTableViewCellDelegate {
     func contactSelected(contact: Contact) {
         createNewVisitViewControllerGlobals.userInput = true
-        selectedContact = contact
-        reloadTableView()
+        if StoreDispatcher.shared.isContactSynced(id: contact.contactId){
+            showAlert()
+            return
+        }else{
+            selectedContact = contact
+            reloadTableView()
+        }
+    }
+    
+    func showAlert() {
+        let alertController = UIAlertController(title: "Alert", message:
+            StringConstants.checkContactId, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

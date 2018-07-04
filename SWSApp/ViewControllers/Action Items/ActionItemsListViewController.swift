@@ -67,6 +67,17 @@ class ActionItemsListViewController: UIViewController {
                     }
                 }
             }
+            //If consultant is selected, Filter items based on seleted consultant
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            let userViewModel = UserViewModel()
+            
+            let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+            
+            if(appDelegate.currentSelectedUserId != loggedInuserid){
+                
+                actionItemsArray = actionItemsArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
+            }
         }else if FilterMenuModel.isFromAccountVisitSummary == "YES"{
            // actionItemsArray = [ActionItem]()
             let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()

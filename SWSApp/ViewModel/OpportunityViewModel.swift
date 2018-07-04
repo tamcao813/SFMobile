@@ -15,8 +15,13 @@ class OpportunityViewModel {
     }
     
     func globalOpportunityReload() -> [Opportunity] {
+        GlobalOpportunityObjectiveModel.globalOpportunityObjective = StoreDispatcher.shared.fetchOpportunityObjective()
         GlobalOpportunityModel.globalOpportunity = StoreDispatcher.shared.fetchOpportunity()
         return GlobalOpportunityModel.globalOpportunity
+    }
+    
+    func globalOpportunityObjective() -> [OpportunityObjective] {
+        return GlobalOpportunityObjectiveModel.globalOpportunityObjective
     }
     
     func createNewOpportunityWorkorderLocally(fields: [String:Any]) -> (Bool,Int) {
@@ -32,33 +37,35 @@ class OpportunityViewModel {
         StoreDispatcher.shared.syncUpOpportunity(completion: {error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
-                print("syncOpportunitysWithServer: Sync up failed")
+                print("syncOpportunitysWithServer: syncUpOpportunity failed")
             }
             
-            StoreDispatcher.shared.reSyncOpportunity { error in
+            StoreDispatcher.shared.reSyncUploadOpportunity { error in
                 if error != nil {
                     print(error?.localizedDescription ?? "error")
-                    print("syncOpportunitysWithServer: reSync failed")
-                    completion(error)
+                    print("syncOpportunitysWithServer: reSyncOpportunityObjective failed")
                 }
-                else {
-                    let _ = OpportunityViewModel().globalOpportunityReload()
+                
+                StoreDispatcher.shared.reSyncOpportunityObjective { error in
+                    if error != nil {
+                        print(error?.localizedDescription ?? "error")
+                        print("syncOpportunitysWithServer: reSyncOpportunityObjective failed")
+                    }
                     
-                    completion(nil)
+                    StoreDispatcher.shared.reSyncOpportunity { error in
+                        if error != nil {
+                            print(error?.localizedDescription ?? "error")
+                            print("syncOpportunitysWithServer: reSyncOpportunity failed")
+                            completion(error)
+                        }
+                        else {
+                            let _ = OpportunityViewModel().globalOpportunityReload()
+                            
+                            completion(nil)
+                        }
+                    }
                 }
             }
-            /*
-            StoreDispatcher.shared.syncDownOpportunity() { error in
-                if error != nil {
-                    print(error?.localizedDescription ?? "error")
-                    print("syncOpportunitysWithServer: reSync failed")
-                    completion(error)
-                }
-                else {
-                    let _ = OpportunityViewModel().globalOpportunityReload()
-                    completion(nil)
-                }
-            }*/
         })
     }
 
@@ -66,4 +73,8 @@ class OpportunityViewModel {
 
 struct GlobalOpportunityModel {
     static var globalOpportunity = [Opportunity]()
+}
+
+struct GlobalOpportunityObjectiveModel {
+    static var globalOpportunityObjective = [OpportunityObjective]()
 }

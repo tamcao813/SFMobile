@@ -95,7 +95,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisitList(_:)), name: NSNotification.Name("refreshAccountVisit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
         
-        VisitModelForUIAPI.isEditMode = false
+        //VisitModelForUIAPI.isEditMode = false
         
         self.setLocationManager()
     }
@@ -242,11 +242,11 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         self.getStartDateAndEndTime()
         refactoringUIOnApplicationStatusBasis()
         
-        if AppDelegate.isConnectedToNetwork(){
-            deleteVisitButton.isUserInteractionEnabled = true
-        }else{
-            deleteVisitButton.isUserInteractionEnabled = false
-        }
+//        if AppDelegate.isConnectedToNetwork(){
+//            deleteVisitButton.isUserInteractionEnabled = true
+//        }else{
+//            deleteVisitButton.isUserInteractionEnabled = false
+//        }
     }
     
     func getStartDateAndEndTime() {
@@ -343,22 +343,56 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
             
-            //Call Delete UI API and after success save the data to DB
-            StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
-                if data == nil{
-                    
-                    self.deleteLocalVisitEntry()
-                    self.dismiss(animated: true, completion: nil)
-                    
-                }else{
-                    
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
+                
+                self.deleteLocalVisitEntry()
+                self.dismiss(animated: true, completion: nil)
+                
+            }else{
+                
+                DispatchQueue.main.async { //do this in group.notify
+                    MBProgressHUD.show(onWindow: true)
+                }
+            
+                //Call Delete UI API and after success save the data to DB
+                StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
+                    if data == nil{
                         
-                       // self.dismiss(animated: true, completion: nil)
+                        DispatchQueue.main.async { //do this in group.notify
+                            MBProgressHUD.hide(forWindow: true)
+                        }
                         
-                    }, action2: {
+                        self.deleteLocalVisitEntry()
                         
-                    })
+                        VisitSchedulerViewModel().syncVisitsWithServer{ error in
+                            
+                            if error != nil{
+                                
+                                print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
+                                
+                            }
+                            DispatchQueue.main.async {
+                                VisitModelForUIAPI.isEditMode = false
+                                MBProgressHUD.hide(forWindow: true)
+                            }
+                        }
+                        
+                        self.dismiss(animated: true, completion: nil)
+                        
+                    }else{
+                        
+                        DispatchQueue.main.async { //do this in group.notify
+                            MBProgressHUD.hide(forWindow: true)
+                        }
+                        
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                            
+                           // self.dismiss(animated: true, completion: nil)
+                            
+                        }, action2: {
+                            
+                        })
+                    }
                 }
             }
             
@@ -399,8 +433,6 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     }
     
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
-        
-        VisitModelForUIAPI.isEditMode = true
         
         switch visitStatus {
         case .scheduled?:

@@ -91,22 +91,60 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         eventEndTimeTextField.isUserInteractionEnabled = true
     }
     
+    func checkEventStates(textField : UITextField){
+        
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+            
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+                //Its a local created entry
+                if textField.tag == 300 || textField.tag == 302{
+                    self.dateView(textField: textField)
+                }else{
+                    self.timeView(textField: textField)
+                }
+                
+            }else{
+                //Its already Synced UP
+                if AppDelegate.isConnectedToNetwork(){
+                    textField.isUserInteractionEnabled = true
+                    if textField.tag == 300 || textField.tag == 302{
+                        self.dateView(textField: textField)
+                    }else{
+                        self.timeView(textField: textField)
+                    }
+                    
+                }else{
+                    textField.isUserInteractionEnabled = false
+                }
+            }
+            
+        }else{
+            
+            //Its a new local created entry
+            if textField.tag == 300 || textField.tag == 302{
+                self.dateView(textField: textField)
+            }else{
+                self.timeView(textField: textField)
+            }
+        }
+    }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
         CreateNewEventViewControllerGlobals.isFirstTimeLoad = false
+        textField.isUserInteractionEnabled = true
         
         if textField.tag == 300{
-             self.dateView(textField: textField)
+            self.checkEventStates(textField: textField)
             
         }else if textField.tag == 301{
-            self.timeView(textField: textField)
+            self.checkEventStates(textField: textField)
             
         }else if textField.tag == 302{
-            self.dateView(textField: textField)
+            self.checkEventStates(textField: textField)
             
         }else if textField.tag == 303{
-            self.timeView(textField: textField)
+            self.checkEventStates(textField: textField)
         }
     }
     

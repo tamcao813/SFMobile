@@ -630,7 +630,7 @@ extension CreateNewEventViewController: SearchForContactTableViewCellDelegate {
     
     func showAlert() {
         let alertController = UIAlertController(title: "Alert", message:
-            StringConstants.checkContactId, preferredStyle: UIAlertControllerStyle.alert)
+            StringConstants.eventCheckContactId, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)

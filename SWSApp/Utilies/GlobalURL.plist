@@ -68,5 +68,7 @@
 	<string>https://sgws-de--deTest.cs77.my.salesforce.com</string>
 	<key>visitContactAlertMessage</key>
 	<string>Selected Contact cannot be invited for a visit ! Please perform sync prior selecting this contact for a visit</string>
+	<key>eventContactAlertMessage</key>
+	<string>Selected Contact cannot be invited for a event ! Please perform sync prior selecting this contact for a event</string>
 </dict>
 </plist>

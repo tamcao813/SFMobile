@@ -11,6 +11,9 @@ import SalesforceSDKCore
 import SalesforceSwiftSDK
 import PromiseKit
 import Reachability
+import Fabric
+import Crashlytics
+
 //import DropDown
 
 
@@ -144,7 +147,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Listen to kSFUserWillLogoutNotification
         NotificationCenter.default.addObserver(self, selector: #selector(self.resetLaunchandResyncConfiguration), name: NSNotification.Name("kSFUserWillLogoutNotification"), object: nil)
-        
+        Fabric.with([Crashlytics.self])
+
         return true
     }
     

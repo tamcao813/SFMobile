@@ -35,7 +35,7 @@ class AccountEventSummaryViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
-
+        
     }
     
     
@@ -61,7 +61,7 @@ class AccountEventSummaryViewController: UIViewController {
     
     func fetchVisit(){
         if let id = visitId{
-//            let visitArray = VisitsViewModel().visitsForUser()
+            //            let visitArray = VisitsViewModel().visitsForUser()
             let visitArray = GlobalWorkOrderArray.workOrderArray
             for visit in visitArray {
                 if visit.Id == id {
@@ -106,7 +106,7 @@ class AccountEventSummaryViewController: UIViewController {
                     }
                 }
             }
-
+            
         }
         tableView.reloadData()
     }
@@ -142,7 +142,7 @@ class AccountEventSummaryViewController: UIViewController {
         
         monthLabel.text =   DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"MMM")
         dayLabel.text =   DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"dd")
-
+        
         var startTime = ""
         var endTime = ""
         startTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"hh:mm a")
@@ -208,10 +208,6 @@ class AccountEventSummaryViewController: UIViewController {
                 //Call Delete UI API and after success save the data to DB
                 StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
                     if data == nil{
-                        
-                        DispatchQueue.main.async { //do this in group.notify
-                            MBProgressHUD.hide(forWindow: true)
-                        }
                         self.deleteLocalEventEntry()
                         
                         VisitSchedulerViewModel().syncVisitsWithServer{ error in
@@ -245,7 +241,7 @@ class AccountEventSummaryViewController: UIViewController {
                     }
                 }
             }
-
+            
         }) {
             
             print("Cancel")
@@ -387,9 +383,9 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
             paragraphStyle.lineBreakMode = .byTruncatingTail
             attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
             attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Ubuntu", size: 17.0)!, range: NSMakeRange(0, attributedString.length))
-
+            
             cell?.descLabel.attributedText = attributedString;
-
+            
             return cell!
         case 1:
             return getLocationCell()
@@ -484,15 +480,15 @@ extension AccountEventSummaryViewController : NavigateToAccountVisitSummaryDeleg
     
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
-       //     AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
-                self.dismiss(animated: true, completion: nil)
-                self.delegate?.navigateToAccountScreen()
-          //  }){
-                
-            }
+            //     AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.navigateToAccountScreen()
+            //  }){
+            
         }
-   // }
+    }
+    // }
 }
 
 extension AccountEventSummaryViewController : CreateNewEventControllerDelegate {

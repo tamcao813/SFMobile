@@ -180,7 +180,7 @@ class DateTimeUtility
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         let date = dateFormatter.date(from: dateString!)// create date from string
         
-        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm:a"
+        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
         dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp
@@ -419,7 +419,7 @@ class DateTimeUtility
             dateFromString = dateformatter.date(from: dateString)!
         } else {
             dateformatter.timeStyle = .medium
-            dateformatter.dateFormat = "HH:mm a"
+            dateformatter.dateFormat = "HH:mm"
             dateFromString = dateformatter.date(from: dateString)!
         }
         
@@ -581,6 +581,30 @@ class DateTimeUtility
         formatter.pmSymbol = "PM"
         let timeString = formatter.string(from: date)
         return timeString
+    }
+    
+    func getDateFromDateAndTimeInYYYYDDMMFormat(date:String, time: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy'T'HH:mm"
+        var string = date + "T" + time
+        if let dateFromString = dateFormatter.date(from: string) {
+            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter.timeZone = TimeZone(identifier:"UTC")
+            string = dateFormatter.string(from: dateFromString)
+            return string
+        }
+        let dateFormatter12hr = DateFormatter()
+        dateFormatter12hr.dateFormat = "MM/dd/yyyy'T'hh:mm a"
+        var string12hr = date + "T" + time
+        if let dateFromString = dateFormatter12hr.date(from: string12hr) {
+            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
+            dateFormatter12hr.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+            dateFormatter12hr.timeZone = TimeZone(identifier:"UTC")
+            string12hr = dateFormatter12hr.string(from: dateFromString)
+            return string12hr
+        }
+        return string
     }
 
 }

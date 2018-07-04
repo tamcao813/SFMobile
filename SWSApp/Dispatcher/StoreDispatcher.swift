@@ -856,6 +856,21 @@ class StoreDispatcher {
         }
     }
     
+    //Check weather the Visit/Event is creted locally or Synced UP
+    func isWorkOrderCreatedLocally(id: String) -> Bool{
+        var createdFlag = false
+        let workOrderEntry = sfaStore.lookupSoupEntryId(forSoupName: SoupVisit, forFieldPath: "Id", fieldValue: id, error: nil)
+        let entryArray = sfaStore.retrieveEntries([workOrderEntry] , fromSoup: SoupVisit)
+        if(entryArray.count > 0){
+            let entry = entryArray[0]
+            var soupEntry = entry as! [String:Any]
+            createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
+        }else{
+            createdFlag = true
+        }
+        return createdFlag
+    }
+    
     func editVisitFromOutlook(VisitData: WorkOrderUserObject, completion:@escaping (_ error: NSError?)->()){
 
         let path = StringConstants.eventUrl + VisitData.Id
@@ -863,10 +878,10 @@ class StoreDispatcher {
         var requestData = [String: String]()
         requestData["StartDate"] = VisitData.startDate
         requestData["EndDate"] = VisitData.endDate
-        requestData["ContactId"] = VisitData.contactId
+//        requestData["ContactId"] = VisitData.contactId
         requestData["SGWS_WorkOrder_Location__c"] = VisitData.location
+        requestData["Subject"] = VisitData.subject
         //requestData["SGWS_Appointment_Status__c"] = VisitData.sgwsAppointmentStatus
-        
         
         requestParams["fields"] =  requestData
 

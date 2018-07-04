@@ -171,6 +171,26 @@ class CreateNewEventViewController: UIViewController {
         }else{
             PlanVisitManager.sharedInstance.visit?.contactId = ""
         }
+        
+        //Check Weather the dates are changed or not(Used to Check States for UI API)
+        if PlanVisitManager.sharedInstance.visit?.startDate != getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime){
+            
+            VisitModelForUIAPI.isEditMode = true
+            
+        }else if PlanVisitManager.sharedInstance.visit?.endDate != getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime){
+            
+            VisitModelForUIAPI.isEditMode = true
+            
+        }else{
+            
+            VisitModelForUIAPI.isEditMode = false
+        }
+        
+        if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+            
+            VisitModelForUIAPI.isEditMode = false
+        }
+        
         PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
         PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
         PlanVisitManager.sharedInstance.visit?.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)

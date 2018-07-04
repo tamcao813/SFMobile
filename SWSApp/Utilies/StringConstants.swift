@@ -82,7 +82,10 @@ class StringConstants {
     //DetestServer Url
     static let detestServerUrl = globalUrlDictionary["detestServerUrl"] as! String
     
+    //Alert for offline contact in Visits and Events
     static let checkContactId = globalUrlDictionary["visitContactAlertMessage"] as! String
+    static let eventCheckContactId = globalUrlDictionary["eventContactAlertMessage"] as! String
+    
 }
 
 

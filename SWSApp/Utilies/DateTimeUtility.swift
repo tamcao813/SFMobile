@@ -180,7 +180,7 @@ class DateTimeUtility
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         let date = dateFormatter.date(from: dateString!)// create date from string
         
-        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm:a"
+        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
         dateFormatter.timeZone = TimeZone.current
         let timeStamp = dateFormatter.string(from: date!)
         return timeStamp

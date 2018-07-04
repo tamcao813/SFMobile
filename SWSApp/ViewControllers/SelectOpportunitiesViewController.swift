@@ -352,7 +352,7 @@ extension SelectOpportunitiesViewController : UITableViewDataSource {
         cell?.selectionStyle = .none
 
         var bSelected: Bool = false
-        if selectedOpportunitiesList.contains(where: {($0.id == opportunityList[indexPath.section].id)}) {
+        if selectedOpportunitiesList.contains(where: {($0.recordId == opportunityList[indexPath.section].recordId)}) {
             
             bSelected = true
         }

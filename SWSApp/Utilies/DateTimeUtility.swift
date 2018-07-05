@@ -69,17 +69,17 @@ class DateTimeUtility
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        
-        let date = dateFormatter.date(from: dateString!)// create date from string
         var timeStamp:String = ""
-        dateFormatter.dateFormat = dateFormat
-        dateFormatter.timeZone = TimeZone.current
-        if isDeviceIsin24hrFormat() {
-            timeStamp = dateFormatter.string(from: date!)
-        }else {
-            dateFormatter.amSymbol = "AM"
-            dateFormatter.pmSymbol = "PM"
-            timeStamp = dateFormatter.string(from: date!)
+        if let date = dateFormatter.date(from: dateString!) {
+            dateFormatter.dateFormat = dateFormat
+            dateFormatter.timeZone = TimeZone.current
+            if isDeviceIsin24hrFormat() {
+                timeStamp = dateFormatter.string(from: date)
+            }else {
+                dateFormatter.amSymbol = "AM"
+                dateFormatter.pmSymbol = "PM"
+                timeStamp = dateFormatter.string(from: date)
+            }
         }
         return timeStamp
     }
@@ -197,17 +197,18 @@ class DateTimeUtility
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
-        let date = dateFormatter.date(from: dateString!)// create date from string
         var timeStamp: String = ""
-        dateFormatter.timeZone = TimeZone.current
-        if isDeviceIsin24hrFormat() {
-            dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
-            timeStamp = dateFormatter.string(from: date!)
-        }else {
-            dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
-            timeStamp = dateFormatter.string(from: date!)
+        if let date = dateFormatter.date(from: dateString!) {
+            dateFormatter.timeZone = TimeZone.current
+            if isDeviceIsin24hrFormat() {
+                dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
+                timeStamp = dateFormatter.string(from: date)
+            }else {
+                dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
+                timeStamp = dateFormatter.string(from: date)
+            }
+            
         }
-        
         return timeStamp
     }
     
@@ -632,7 +633,7 @@ class DateTimeUtility
             string = dateFormatter.string(from: dateFromString)
             return string
         }
-        return string
+        return ""
     }
 
 }

@@ -208,32 +208,37 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     /// - Returns: Return day if in current week else date
     func getDayFromVisit(dateToConvert:String)-> String  {
         //Getting Today, Tomorrow, Yesterday
-        let calendar = Calendar.current
-        //        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        //        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        //        let date = dateFormatter.date(from: dateToConvert)
+        if dateToConvert == "" {
+            return ""
+        }
         
-        let date = DateTimeUtility.covertUTCtoLocalTimeZone(dateString: dateToConvert)
+        let calendar = Calendar.current
+        let getTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: dateToConvert,dateFormat:"MM/dd/YYYY hh:mm a")
+        var dateTime = getTime.components(separatedBy: " ")
+        if dateTime.count < 2 {
+            return ""
+        }
+        
+        guard let date = DateTimeUtility.covertUTCtoLocalTimeZone(dateString: dateToConvert) else {
+            return ""
+        }
         
         //Gtting time and date
-        let getTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: dateToConvert,dateFormat:"MM/dd/YYYY hh:mm a")
-        let dayToCheck = dateFormatter.string(from: date!)
-        var dateTime = getTime.components(separatedBy: " ")
+        let dayToCheck = dateFormatter.string(from: date)
         
-        if calendar.isDateInToday(date!){
-            
+        if calendar.isDateInToday(date){
             if dateTime.count == 2 {
                 return  "Today at " + dateTime[1]
             }
             return  "Today at " + dateTime[1] + " " + dateTime[2]
         }
-        else if calendar.isDateInTomorrow(date!){
+        else if calendar.isDateInTomorrow(date){
             if dateTime.count == 2 {
                 return  "Tomorrow at " + dateTime[1]
             }
             return  "Tomorrow at " + dateTime[1] + " " + dateTime[2]
             
-        }else if calendar.isDateInYesterday(date!){
+        }else if calendar.isDateInYesterday(date){
             if dateTime.count == 2 {
                 return  "Yesterday at " + dateTime[1]
             }
@@ -271,14 +276,13 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Saturday"{
             
             return "Saturday"
-            
         }
         
         dateFormatter.dateFormat = "MM/dd/yyyy h:mm a"
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone.current
-        let timeStamp = dateFormatter.string(from: date!)
+        let timeStamp = dateFormatter.string(from: date)
         return timeStamp
     }
     

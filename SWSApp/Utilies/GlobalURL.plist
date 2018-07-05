@@ -45,7 +45,7 @@
 	<key>insightsAccountUrl</key>
 	<string>/lightning/n/SGWS_Account_Insight?AccountID=</string>
 	<key>homeScreenUrl</key>
-	<string>/lightning/n/SGWS_Home_Page</string>
+	<string>/lightning/n/Home_Page</string>
 	<key>opportunitiesUrl</key>
 	<string>/lightning/r/Opportunity/</string>
 	<key>opportunityEndUrl</key>

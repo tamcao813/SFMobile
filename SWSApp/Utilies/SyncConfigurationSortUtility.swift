@@ -139,7 +139,7 @@ class SyncConfigurationSortUtility {
         let notficationRecordTypeId = recordTypeIdArray.filter( { return $0.developerName == "SGWS_Notification" } )
         recordTypeId = notficationRecordTypeId[0].Id
         if recordTypeId == ""{
-            return
+            return []
         }
         let objectArray = objectArray.filter {
             if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: recordTypeId) {

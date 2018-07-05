@@ -71,14 +71,33 @@ class DateTimeUtility
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
         let date = dateFormatter.date(from: dateString!)// create date from string
-        // change to a readable time format and change to local time zone
+        var timeStamp:String = ""
         dateFormatter.dateFormat = dateFormat
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone.current
-        let timeStamp = dateFormatter.string(from: date!)
-        
+        if isDeviceIsin24hrFormat() {
+            timeStamp = dateFormatter.string(from: date!)
+        }else {
+            dateFormatter.amSymbol = "AM"
+            dateFormatter.pmSymbol = "PM"
+            timeStamp = dateFormatter.string(from: date!)
+        }
         return timeStamp
+    }
+    
+    static func isDeviceIsin24hrFormat() -> Bool {
+        
+        let formatter = DateFormatter()
+        formatter.locale = NSLocale.current
+        formatter.dateStyle = DateFormatter.Style.none
+        formatter.timeStyle = DateFormatter.Style.short
+        
+        let dateString = formatter.string(from: Date())
+        let amRange = dateString.range(of: formatter.amSymbol)
+        let pmRange = dateString.range(of: formatter.pmSymbol)
+        if amRange == nil && pmRange == nil {
+            return true
+        }
+        return false
     }
     
     
@@ -179,10 +198,16 @@ class DateTimeUtility
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
         dateFormatter.timeZone = TimeZone(identifier:"UTC")
         let date = dateFormatter.date(from: dateString!)// create date from string
-        
-        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
+        var timeStamp: String = ""
         dateFormatter.timeZone = TimeZone.current
-        let timeStamp = dateFormatter.string(from: date!)
+        if isDeviceIsin24hrFormat() {
+            dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
+            timeStamp = dateFormatter.string(from: date!)
+        }else {
+            dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
+            timeStamp = dateFormatter.string(from: date!)
+        }
+        
         return timeStamp
     }
     
@@ -404,11 +429,14 @@ class DateTimeUtility
     
     static func getTimeFromDate(date: Date) -> String {
         let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "h:mm a"
+        if DateTimeUtility.isDeviceIsin24hrFormat() {
+            timeFormatter.dateFormat = "H:mm"
+        }else {
+            timeFormatter.dateFormat = "h:mm a"
+        }
         let fullTime = timeFormatter.string(from: date)
         return fullTime
     }
-    
     
     static func getTimeFromDateString(dateString: String) -> Date {
         let dateformatter = DateFormatter()
@@ -576,33 +604,33 @@ class DateTimeUtility
     /// Get Current Time in 12-Hour format
     func getCurrentTime(date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        formatter.amSymbol = "AM"
-        formatter.pmSymbol = "PM"
-        let timeString = formatter.string(from: date)
+        var timeString:String = ""
+        if DateTimeUtility.isDeviceIsin24hrFormat() {
+              formatter.dateFormat = "H:mm"
+              timeString = formatter.string(from: date)
+        }else {
+            formatter.dateFormat = "h:mm a"
+            formatter.amSymbol = "AM"
+            formatter.pmSymbol = "PM"
+            timeString = formatter.string(from: date)
+        }
         return timeString
     }
     
     func getDateFromDateAndTimeInYYYYDDMMFormat(date:String, time: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy'T'HH:mm"
-        var string = date + "T" + time
+        if DateTimeUtility.isDeviceIsin24hrFormat() {
+            dateFormatter.dateFormat = "MM/dd/yyyy'T'HH:mm"
+        }else {
+            dateFormatter.dateFormat = "MM/dd/yyyy'T'hh:mm a"
+        }
+         var string = date + "T" + time
         if let dateFromString = dateFormatter.date(from: string) {
             //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
             dateFormatter.timeZone = TimeZone(identifier:"UTC")
             string = dateFormatter.string(from: dateFromString)
             return string
-        }
-        let dateFormatter12hr = DateFormatter()
-        dateFormatter12hr.dateFormat = "MM/dd/yyyy'T'hh:mm a"
-        var string12hr = date + "T" + time
-        if let dateFromString = dateFormatter12hr.date(from: string12hr) {
-            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
-            dateFormatter12hr.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            dateFormatter12hr.timeZone = TimeZone(identifier:"UTC")
-            string12hr = dateFormatter12hr.string(from: dateFromString)
-            return string12hr
         }
         return string
     }

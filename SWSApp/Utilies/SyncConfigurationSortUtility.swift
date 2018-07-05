@@ -36,6 +36,19 @@ class SyncConfigurationSortUtility {
         
     }
     
+    static func searchSyncConfigurationByDeveloperName(syncConfigurationList: [SyncConfiguration], developerName: String) -> SyncConfiguration?
+    {
+        
+        let syncConfigurationList = syncConfigurationList.filter( { return $0.developerName ==  developerName} )
+        if syncConfigurationList.count > 0 {
+            return syncConfigurationList[0]
+        }
+        else {
+            return nil
+        }
+        
+    }
+    
     static func getActionItemDataUsingSyncTime(objectArray: Array<ActionItem>) -> Array<ActionItem>  {
         
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
@@ -120,67 +133,72 @@ class SyncConfigurationSortUtility {
         
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
         let isManager:Bool = UserViewModel().consultants.count > 0
+        var recordTypeId = ""
         
+        let recordTypeIdArray = RecordTypeViewModel().getRecordTypeForDeveloper()
+        let notficationRecordTypeId = recordTypeIdArray.filter( { return $0.developerName == "SGWS_Notification" } )
+        recordTypeId = notficationRecordTypeId[0].Id
+        if recordTypeId == ""{
+            return []
+        }
         let objectArray = objectArray.filter {
-            if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: "0120t0000008cMBAAY") {
-                if systemConfigurationObject.developerName == "SGWS_Notification" {
-                    if isManager {
-                        if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
-                            let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesManagerSyncFrom as NSString).floatValue))
-                            let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesManagerSyncTo as NSString).floatValue))
-                            
-                            /* REPLACE dateStart With YOUR DATE PROPERTY */
-                            if let startDate = $0.createdDataInDateType {
-                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
-                                    return true
-                                }
-                                else {
-                                    return false
-                                }
+            if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: recordTypeId) {
+                if isManager {
+                    if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
+                        let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesManagerSyncFrom as NSString).floatValue))
+                        let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesManagerSyncTo as NSString).floatValue))
+                        
+                        /* REPLACE dateStart With YOUR DATE PROPERTY */
+                        if let startDate = $0.createdDataInDateType {
+                            if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                return true
                             }
-                            
-                        } else {
-                            let prevMonthDate = Date().add(component: .month, value: -1)
-                            let next3MonthDate = Date().add(component: .month, value: 3)
-                            /* REPLACE dateStart With YOUR DATE PROPERTY */
-                            if let startDate = $0.createdDataInDateType {
-                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
-                                    return true
-                                }
-                                else {
-                                    return false
-                                }
+                            else {
+                                return false
                             }
                         }
+                        
                     } else {
-                        if !systemConfigurationObject.salesConsultantSyncFrom.isEmpty {
-                            let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesConsultantSyncFrom as NSString).floatValue))
-                            let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesConsultantSyncTo as NSString).floatValue))
-                            /* REPLACE dateStart With YOUR DATE PROPERTY */
-                            if let startDate = $0.createdDataInDateType {
-                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
-                                    return true
-                                }
-                                else {
-                                    return false
-                                }
+                        let prevMonthDate = Date().add(component: .month, value: -1)
+                        let next3MonthDate = Date().add(component: .month, value: 3)
+                        /* REPLACE dateStart With YOUR DATE PROPERTY */
+                        if let startDate = $0.createdDataInDateType {
+                            if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                return true
                             }
-                            
-                            
-                        } else {
-                            let prevMonthDate = Date().add(component: .month, value: -1)
-                            let next3MonthDate = Date().add(component: .month, value: 3)
-                            /* REPLACE dateStart With YOUR DATE PROPERTY */
-                            if let startDate = $0.createdDataInDateType {
-                                if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
-                                    return true
-                                }
-                                else {
-                                    return false
-                                }
+                            else {
+                                return false
                             }
-                            
                         }
+                    }
+                } else {
+                    if !systemConfigurationObject.salesConsultantSyncFrom.isEmpty {
+                        let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesConsultantSyncFrom as NSString).floatValue))
+                        let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesConsultantSyncTo as NSString).floatValue))
+                        /* REPLACE dateStart With YOUR DATE PROPERTY */
+                        if let startDate = $0.createdDataInDateType {
+                            if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        }
+                        
+                        
+                    } else {
+                        let prevMonthDate = Date().add(component: .month, value: -1)
+                        let next3MonthDate = Date().add(component: .month, value: 3)
+                        /* REPLACE dateStart With YOUR DATE PROPERTY */
+                        if let startDate = $0.createdDataInDateType {
+                            if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        }
+                        
                     }
                 }
             }

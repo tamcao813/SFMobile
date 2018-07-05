@@ -539,6 +539,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
             searchAccountTextField = cell?.searchContactTextField
+            cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
             accountsDropDown = cell?.accountsDropDown
             cell?.delegate = self
             return cell!

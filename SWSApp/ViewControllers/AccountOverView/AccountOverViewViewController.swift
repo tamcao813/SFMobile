@@ -215,10 +215,16 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         let calendar = Calendar.current
         let getTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: dateToConvert,dateFormat:"MM/dd/YYYY hh:mm a")
         var dateTime = getTime.components(separatedBy: " ")
-        if dateTime.count < 2 {
+        if dateTime.count == 0 {
             return ""
         }
-        
+        if dateTime.count == 1 {
+            dateTime.append("")
+            dateTime.append("")
+        }
+        if dateTime.count == 2 {
+            dateTime.append("")
+        }
         guard let date = DateTimeUtility.covertUTCtoLocalTimeZone(dateString: dateToConvert) else {
             return ""
         }
@@ -227,22 +233,17 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         let dayToCheck = dateFormatter.string(from: date)
         
         if calendar.isDateInToday(date){
-            if dateTime.count == 2 {
-                return  "Today at " + dateTime[1]
-            }
+
             return  "Today at " + dateTime[1] + " " + dateTime[2]
         }
         else if calendar.isDateInTomorrow(date){
-            if dateTime.count == 2 {
-                return  "Tomorrow at " + dateTime[1]
-            }
+
             return  "Tomorrow at " + dateTime[1] + " " + dateTime[2]
             
         }else if calendar.isDateInYesterday(date){
-            if dateTime.count == 2 {
-                return  "Yesterday at " + dateTime[1]
-            }
+            
             return  "Yesterday at " + dateTime[1] + " " + dateTime[2]
+            
         }else if getDayForVisitCurrentWeek(dateToConvert: dayToCheck) == "Sunday"{
             
             return "Sunday"

@@ -451,15 +451,28 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
                     
                     cell.eventStartDateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.startDate)
                     cell.eventEndDateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.endDate)
-                    cell.eventStartTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"hh:mm a")
-                    cell.eventEndTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"hh:mm a")
+                    if DateTimeUtility.isDeviceIsin24hrFormat() {
+                        cell.eventStartTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"HH:mm")
+                        cell.eventEndTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"HH:mm")
+                    }else {
+                        cell.eventStartTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"hh:mm a")
+                        cell.eventEndTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"hh:mm a")
+                    }
                     
                     //Setting the model Data in Edit Mode
                     CreateNewEventViewControllerGlobals.startDate = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.startDate)
                     CreateNewEventViewControllerGlobals.endDate = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.endDate)
-                    CreateNewEventViewControllerGlobals.startTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"hh:mm a")
-                    CreateNewEventViewControllerGlobals.endTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"hh:mm a")
                     
+                    if DateTimeUtility.isDeviceIsin24hrFormat() {
+                        CreateNewEventViewControllerGlobals.startTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"HH:mm")
+                        CreateNewEventViewControllerGlobals.endTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"HH:mm")
+                        
+                    }else {
+                        CreateNewEventViewControllerGlobals.startTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"hh:mm a")
+                        CreateNewEventViewControllerGlobals.endTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"hh:mm a")
+                        
+                    }
+                  
                     if eventObject.sgwsAlldayEvent == true{
                         cell.btnAllDayEvent?.setImage(UIImage(named:"Checkbox Selected"), for: .normal)
                         cell.isSelectedFlag = true

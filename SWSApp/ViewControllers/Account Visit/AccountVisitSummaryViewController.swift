@@ -264,12 +264,20 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         dayLabel.text =   DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"dd")
         var startTime = ""
         var endTime = ""
-        startTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"hh:mm a")
+        
         guard let visitEndDateString = visitObject?.endDate else {
             //TODO: handle it in better way, Ideally visitObject.enddate should never be null
             return
         }
-        endTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitEndDateString,dateFormat:"hh:mm a")
+        if DateTimeUtility.isDeviceIsin24hrFormat() {
+           startTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"HH:mm")
+            endTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitEndDateString,dateFormat:"HH:mm")
+
+        }else {
+            startTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"hh:mm a")
+            endTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitEndDateString,dateFormat:"hh:mm a")
+        }
+        
         timeLabel.text = "\(startTime)-\(endTime)"
     }
     

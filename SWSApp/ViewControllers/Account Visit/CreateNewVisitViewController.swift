@@ -535,11 +535,15 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             endTime = cell?.schedulerComponentView.endTimeTextField
             if let visit = visitObject {
                 cell?.schedulerComponentView.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: visit.startDate)
-                cell?.schedulerComponentView.startTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.startDate,dateFormat:"hh:mm a")
-                cell?.schedulerComponentView.endTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.endDate,dateFormat:"hh:mm a")
                 
-                
-                
+                if DateTimeUtility.isDeviceIsin24hrFormat() {
+                    cell?.schedulerComponentView.startTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.startDate,dateFormat:"HH:mm")
+                    cell?.schedulerComponentView.endTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.endDate,dateFormat:"HH:mm")
+                    
+                }else {
+                    cell?.schedulerComponentView.startTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.startDate,dateFormat:"hh:mm a")
+                    cell?.schedulerComponentView.endTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.endDate,dateFormat:"hh:mm a")
+                }
                 cell?.layoutIfNeeded()
             }
             return cell!

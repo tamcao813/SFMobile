@@ -28,7 +28,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="733" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CFb-Mx-fpb">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CFb-Mx-fpb">
                         <rect key="frame" x="10" y="18" width="169" height="26"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -39,8 +39,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="What's hot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vX-8d-UbT">
-                        <rect key="frame" x="179" y="18" width="120" height="27"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="What's hot" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vX-8d-UbT">
+                        <rect key="frame" x="184" y="18" width="120" height="27"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="gxN-Wu-cZv"/>
@@ -50,14 +50,14 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTF-Qe-L00">
-                        <rect key="frame" x="318" y="17" width="18" height="11"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTF-Qe-L00">
+                        <rect key="frame" x="312.5" y="17" width="18" height="11"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="10"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R12 Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfJ-XO-7a7">
-                        <rect key="frame" x="317.5" y="28" width="78" height="13"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R12 Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfJ-XO-7a7">
+                        <rect key="frame" x="312" y="28" width="78" height="13"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="EWP-px-EFG"/>
@@ -67,13 +67,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R6 Trend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMT-dp-s2N">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R6 Trend" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMT-dp-s2N">
                         <rect key="frame" x="390" y="17" width="41.5" height="11"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="10"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R6 Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n36-ax-4IH">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R6 Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n36-ax-4IH">
                         <rect key="frame" x="390" y="28" width="69" height="13"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -84,13 +84,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R3 Trend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uk-ST-Sbj">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R3 Trend" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uk-ST-Sbj">
                         <rect key="frame" x="467" y="17" width="42" height="11"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="10"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R3 Lbl" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JRU-7X-JU6">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R3 Lbl" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JRU-7X-JU6">
                         <rect key="frame" x="467" y="28" width="75" height="13"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -101,8 +101,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cys-5c-bxU">
-                        <rect key="frame" x="567" y="20" width="53" height="25"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cys-5c-bxU">
+                        <rect key="frame" x="582" y="20" width="53" height="25"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="Uhh-bn-K7Z"/>
@@ -112,11 +112,11 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0J-KH-k8p">
-                        <rect key="frame" x="654" y="20" width="57" height="25"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0J-KH-k8p">
+                        <rect key="frame" x="645" y="20" width="83" height="25"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="57" id="eyl-Nk-4FC"/>
+                            <constraint firstAttribute="width" constant="83" id="eyl-Nk-4FC"/>
                             <constraint firstAttribute="height" constant="25" id="gZZ-t5-Dkc"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
@@ -126,7 +126,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="JTF-Qe-L00" firstAttribute="leading" secondItem="BfJ-XO-7a7" secondAttribute="leading" id="48U-ig-4TR"/>
-                    <constraint firstAttribute="trailing" secondItem="y0J-KH-k8p" secondAttribute="trailing" constant="22" id="4iR-i6-inp"/>
+                    <constraint firstAttribute="trailing" secondItem="y0J-KH-k8p" secondAttribute="trailing" constant="5" id="4iR-i6-inp"/>
                     <constraint firstItem="JRU-7X-JU6" firstAttribute="top" secondItem="9uk-ST-Sbj" secondAttribute="bottom" id="7cV-2H-PSc"/>
                     <constraint firstItem="5vX-8d-UbT" firstAttribute="centerY" secondItem="liD-ed-gXN" secondAttribute="centerY" constant="1.75" id="82r-wY-Br5"/>
                     <constraint firstItem="n36-ax-4IH" firstAttribute="top" secondItem="YMT-dp-s2N" secondAttribute="bottom" id="D6I-yE-wd6"/>
@@ -140,11 +140,11 @@
                     <constraint firstItem="n36-ax-4IH" firstAttribute="centerX" secondItem="liD-ed-gXN" secondAttribute="centerX" constant="58" id="cLu-Bb-tQo"/>
                     <constraint firstItem="y0J-KH-k8p" firstAttribute="centerY" secondItem="liD-ed-gXN" secondAttribute="centerY" constant="2.75" id="dKV-Zz-Fsh"/>
                     <constraint firstItem="YMT-dp-s2N" firstAttribute="leading" secondItem="n36-ax-4IH" secondAttribute="leading" id="ewH-h3-WM1"/>
-                    <constraint firstItem="n36-ax-4IH" firstAttribute="leading" secondItem="BfJ-XO-7a7" secondAttribute="trailing" constant="-5.5" id="fGF-do-OD6"/>
+                    <constraint firstItem="n36-ax-4IH" firstAttribute="leading" secondItem="BfJ-XO-7a7" secondAttribute="trailing" id="fGF-do-OD6"/>
                     <constraint firstItem="BfJ-XO-7a7" firstAttribute="top" secondItem="JTF-Qe-L00" secondAttribute="bottom" id="gIb-vj-THY"/>
-                    <constraint firstItem="5vX-8d-UbT" firstAttribute="leading" secondItem="CFb-Mx-fpb" secondAttribute="trailing" id="oGd-rX-Php"/>
+                    <constraint firstItem="5vX-8d-UbT" firstAttribute="leading" secondItem="CFb-Mx-fpb" secondAttribute="trailing" constant="5" id="oGd-rX-Php"/>
                     <constraint firstItem="Cys-5c-bxU" firstAttribute="centerY" secondItem="liD-ed-gXN" secondAttribute="centerY" constant="2.75" id="wJ9-XY-SP3"/>
-                    <constraint firstItem="y0J-KH-k8p" firstAttribute="leading" secondItem="Cys-5c-bxU" secondAttribute="trailing" constant="34" id="wPv-Tn-yUG"/>
+                    <constraint firstItem="y0J-KH-k8p" firstAttribute="leading" secondItem="Cys-5c-bxU" secondAttribute="trailing" constant="10" id="wPv-Tn-yUG"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -28,7 +28,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="733" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGN-vE-qMk">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGN-vE-qMk">
                         <rect key="frame" x="10" y="18" width="169" height="26"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -39,8 +39,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="What's hot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qet-sf-lrV">
-                        <rect key="frame" x="179" y="18" width="120" height="27"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="What's hot" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qet-sf-lrV">
+                        <rect key="frame" x="184" y="18" width="120" height="27"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27" id="BaT-1H-VBa"/>
@@ -50,14 +50,14 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InX-Xh-YDn">
-                        <rect key="frame" x="318" y="17" width="20.5" height="11"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acct" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InX-Xh-YDn">
+                        <rect key="frame" x="312.5" y="17" width="20.5" height="11"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="10"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Act" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2l-Gu-Lap">
-                        <rect key="frame" x="317.5" y="28" width="78" height="13"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Act" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2l-Gu-Lap">
+                        <rect key="frame" x="312" y="28" width="78" height="13"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="60i-jP-cnn"/>
@@ -67,13 +67,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Segment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euZ-Yz-eCc">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Segment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euZ-Yz-eCc">
                         <rect key="frame" x="390" y="17" width="41.5" height="11"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="10"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="segment" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYx-9h-QBq">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="segment" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYx-9h-QBq">
                         <rect key="frame" x="390" y="28" width="69" height="13"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -84,13 +84,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daJ-ke-j7j">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daJ-ke-j7j">
                         <rect key="frame" x="467" y="17" width="18.5" height="11"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="10"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gap Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHh-ly-6CO">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gap Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHh-ly-6CO">
                         <rect key="frame" x="467" y="28" width="75" height="13"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -101,8 +101,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5e2-yd-z0t">
-                        <rect key="frame" x="568" y="20" width="53" height="25"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5e2-yd-z0t">
+                        <rect key="frame" x="582" y="20" width="53" height="25"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="Zng-4t-XiZ"/>
@@ -112,11 +112,11 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inZ-nJ-Iwx">
-                        <rect key="frame" x="654" y="20" width="57" height="25"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inZ-nJ-Iwx">
+                        <rect key="frame" x="645" y="20" width="83" height="25"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="57" id="1yC-El-Wd2"/>
+                            <constraint firstAttribute="width" constant="83" id="1yC-El-Wd2"/>
                             <constraint firstAttribute="height" constant="25" id="4Ik-KP-UjZ"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
@@ -127,7 +127,7 @@
                 <constraints>
                     <constraint firstItem="euZ-Yz-eCc" firstAttribute="leading" secondItem="PYx-9h-QBq" secondAttribute="leading" id="Dvv-aa-LjL"/>
                     <constraint firstItem="nGN-vE-qMk" firstAttribute="centerY" secondItem="jYS-CC-7dS" secondAttribute="centerY" constant="1.25" id="GB2-gh-137"/>
-                    <constraint firstItem="qet-sf-lrV" firstAttribute="leading" secondItem="nGN-vE-qMk" secondAttribute="trailing" id="MVe-0G-5Jx"/>
+                    <constraint firstItem="qet-sf-lrV" firstAttribute="leading" secondItem="nGN-vE-qMk" secondAttribute="trailing" constant="5" id="MVe-0G-5Jx"/>
                     <constraint firstItem="OHh-ly-6CO" firstAttribute="leading" secondItem="PYx-9h-QBq" secondAttribute="trailing" constant="8" id="PZ2-X1-jXh"/>
                     <constraint firstItem="PYx-9h-QBq" firstAttribute="centerY" secondItem="jYS-CC-7dS" secondAttribute="centerY" constant="4.75" id="SsG-qB-brX"/>
                     <constraint firstItem="OHh-ly-6CO" firstAttribute="centerY" secondItem="jYS-CC-7dS" secondAttribute="centerY" constant="4.75" id="U5N-as-QL6"/>
@@ -136,9 +136,9 @@
                     <constraint firstItem="PYx-9h-QBq" firstAttribute="centerX" secondItem="jYS-CC-7dS" secondAttribute="centerX" constant="58" id="dRZ-BJ-tCC"/>
                     <constraint firstItem="5e2-yd-z0t" firstAttribute="centerY" secondItem="jYS-CC-7dS" secondAttribute="centerY" constant="2.75" id="dfG-Rn-Xc8"/>
                     <constraint firstItem="daJ-ke-j7j" firstAttribute="leading" secondItem="OHh-ly-6CO" secondAttribute="leading" id="hIQ-QB-lIN"/>
-                    <constraint firstAttribute="trailing" secondItem="inZ-nJ-Iwx" secondAttribute="trailing" constant="22" id="hjY-Oz-JgN"/>
-                    <constraint firstItem="inZ-nJ-Iwx" firstAttribute="leading" secondItem="5e2-yd-z0t" secondAttribute="trailing" constant="33" id="kUl-mo-GdD"/>
-                    <constraint firstItem="PYx-9h-QBq" firstAttribute="leading" secondItem="d2l-Gu-Lap" secondAttribute="trailing" constant="-5.5" id="kWw-gg-UVU"/>
+                    <constraint firstAttribute="trailing" secondItem="inZ-nJ-Iwx" secondAttribute="trailing" constant="5" id="hjY-Oz-JgN"/>
+                    <constraint firstItem="inZ-nJ-Iwx" firstAttribute="leading" secondItem="5e2-yd-z0t" secondAttribute="trailing" constant="10" id="kUl-mo-GdD"/>
+                    <constraint firstItem="PYx-9h-QBq" firstAttribute="leading" secondItem="d2l-Gu-Lap" secondAttribute="trailing" id="kWw-gg-UVU"/>
                     <constraint firstItem="nGN-vE-qMk" firstAttribute="leading" secondItem="jYS-CC-7dS" secondAttribute="leading" constant="10" id="lnS-RI-qFO"/>
                     <constraint firstItem="inZ-nJ-Iwx" firstAttribute="centerY" secondItem="jYS-CC-7dS" secondAttribute="centerY" constant="2.75" id="n9N-aT-9ld"/>
                     <constraint firstItem="PYx-9h-QBq" firstAttribute="top" secondItem="euZ-Yz-eCc" secondAttribute="bottom" id="nir-ZE-Mye"/>
@@ -162,7 +162,7 @@
                 <outlet property="segmentLabel" destination="PYx-9h-QBq" id="caH-IC-9Jp"/>
                 <outlet property="sourceLabel" destination="qet-sf-lrV" id="zQV-QK-DDq"/>
             </connections>
-            <point key="canvasLocation" x="359" y="-211"/>
+            <point key="canvasLocation" x="358.5" y="-211"/>
         </tableViewCell>
     </objects>
 </document>

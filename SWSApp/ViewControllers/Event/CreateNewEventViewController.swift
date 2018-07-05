@@ -595,15 +595,28 @@ extension CreateNewEventViewController: AccountContactLinkTableViewCellDelegate 
 extension CreateNewEventViewController: SearchForContactTableViewCellDelegate {
     func contactSelected(contact: Contact) {
         CreateNewEventViewControllerGlobals.userInput = true
-        if StoreDispatcher.shared.isContactSynced(id: contact.contactId){
-            showAlert()
-            return
-        }else{
+        
+        //Check if this selected contact is SGWS Employees return
+        let sgwsContacts = StoreDispatcher.shared.fetchAllSGWSEmployeeContacts()
+        
+        let sgwsContact = sgwsContacts.filter( { return $0.contactId == contact.contactId } )
+        
+        if(sgwsContact.count > 0){
+            
             selectedContact = contact
             reloadTableView()
+            
+        } else {
+            
+            if StoreDispatcher.shared.isContactSynced(id: contact.contactId){
+                showAlert()
+                return
+            }else{
+                selectedContact = contact
+                reloadTableView()
+            }
         }
     }
-    
     func showAlert() {
         let alertController = UIAlertController(title: "Alert", message:
             StringConstants.eventCheckContactId, preferredStyle: UIAlertControllerStyle.alert)

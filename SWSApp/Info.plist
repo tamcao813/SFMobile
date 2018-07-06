@@ -60,7 +60,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>App Needs Location permission.</string>
 	<key>SFDCOAuthLoginHost</key>
-	<string>sgws-de--deint.cs95.my.salesforce.com</string>
+	<string>sgws-de--detest.cs77.my.salesforce.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>CrimsonText-Bold.ttf</string>

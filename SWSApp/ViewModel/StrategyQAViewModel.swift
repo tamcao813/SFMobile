@@ -40,8 +40,8 @@ class StrategyQAViewModel {
                 return StoreDispatcher.shared.fetchStrategy(forAccount: acc, withOwner: currentSelectedUSerId)
             }
         }
-
-        return StoreDispatcher.shared.fetchStrategy(forAccount: acc)
+        let currentSelectedUSerId = (UIApplication.shared.delegate as! AppDelegate).currentSelectedUserId
+        return StoreDispatcher.shared.fetchStrategy(forAccount: acc, withOwner: currentSelectedUSerId)
     }
     
     func syncStrategyWithServer(_ completion:@escaping (_ error: NSError?)->()) {

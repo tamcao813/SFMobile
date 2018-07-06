@@ -21,10 +21,10 @@ struct ContactsGlobal {
 }
 
 struct SyncUpDailogGlobal {
-    static var isSyncing = false
-    static var syncType = "automtic"
-    static var isSyncError = false
-    
+    static var isSyncing    = false
+    static var syncType     = "automtic"
+    static var isSyncError      = false
+    static var isSyncWarning    = false
 }
 
 struct ActionItemsGlobal {
@@ -479,6 +479,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     // MARK: SyncUp Data
     @objc func SyncUpData(){
         
+        SyncUpDailogGlobal.isSyncError      = false
+        SyncUpDailogGlobal.isSyncWarning    = false
+        
         DispatchQueue.main.async { //do this in group.notify
             MBProgressHUD.show(onWindow: true)
         }
@@ -752,21 +755,26 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         }
         
         group.notify(queue: queue) {
+            //If Error is there and no callback than push the error to DB so that it can be sync
+            if UserDefaults.standard.object(forKey: "errorSDKUserDefaultSyncWarningMessage") != nil {
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
+                syncFailed = true
+            }
+            else if SyncUpDailogGlobal.isSyncWarning == true {
+                //Check if ther is error register without callback in userdefaults if so force enter in DB
+                syncFailed = true
+            }
+            
             //Write to persistence for Resync to default
             UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
             StoreDispatcher.shared.createSyncLogOnSyncStop(networkType: self.networkType)
             self.syncProgress = 100
             
-            DispatchQueue.main.async{
-                if let error = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") {
-                    syncFailed = true
-                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultError")
-                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultsync")
-                    UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultMessage")
-                    
-                }
-                self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true,syncUpFailed: syncFailed)
+            if SyncUpDailogGlobal.isSyncError == true {
+                syncFailed = true
             }
+            
+            self.syncUpInfoVC?.setProgress(progress: Float(self.syncProgress), progressComplete: true,syncUpFailed: syncFailed)
             
             SyncUpDailogGlobal.isSyncing = false
             
@@ -1139,11 +1147,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
         
         self.view.endEditing(true)
-        
+        FilterMenuModel.isFromAccountListView = ""
+
         if index != 1{
             filterMenuModel.clearFilterModelData()
         }
-        
+
         if index != 2{
             
             let accVC = contactsVC as? ContactsViewController

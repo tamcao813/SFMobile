@@ -62,6 +62,12 @@ class ActionItemFilterViewController: UIViewController {
         }
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        clearActionItemFilterModel()
+    }
+    
     //MARK:-
     //Used to customize the search bar background
     func customizeSearchBar(){

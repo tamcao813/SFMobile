@@ -34,7 +34,7 @@ class StrategyQAViewModel {
         if let loggedInuserid: String = (UserViewModel().loggedInUser?.userId) {
             
             let currentSelectedUSerId = (UIApplication.shared.delegate as! AppDelegate).currentSelectedUserId
-            if(currentSelectedUSerId != loggedInuserid) {
+            if (FilterMenuModel.isFromAccountListView == "YES") && (currentSelectedUSerId != loggedInuserid) {
                 
                 return StoreDispatcher.shared.fetchStrategy(forAccount: acc, withOwner: currentSelectedUSerId)
             }

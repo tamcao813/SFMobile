@@ -68,7 +68,7 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         
         let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
 
-        if (FilterMenuModel.isFromAccountListView == "NO") && (appDelegate.currentSelectedUserId != loggedInuserid){
+        if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid){
             
             let notesArryfilteredByCounsultant:[AccountNotes] = accountNotesArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
             

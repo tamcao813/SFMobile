@@ -218,7 +218,7 @@ class CreateNewContactViewController: UIViewController {
     }
     
     func checkOtherSpecificationValidation() -> Bool {
-        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,isNewContact && (contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == "Other" {
+        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,isNewContact && (contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == "Other",(otherReasonTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             otherReasonTextField.borderColor = .red
             otherReasonTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)

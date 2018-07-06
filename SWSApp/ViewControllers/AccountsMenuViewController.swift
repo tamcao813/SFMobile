@@ -211,6 +211,7 @@ class AccountsMenuViewController: UIViewController {
             }
             
             if tableView != nil{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 tableView.reloadData()
             }
         }

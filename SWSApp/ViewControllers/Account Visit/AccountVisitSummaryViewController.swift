@@ -346,64 +346,73 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         }
     }
     
-    
+    //TODO: RAVI put all alert messages in string constant file
     @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
-        
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
-            
-            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
+        if AppDelegate.isConnectedToNetwork(){
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
                 
-                self.deleteLocalVisitEntry()
-                self.dismiss(animated: true, completion: nil)
-                
-            }else{
-                
-                DispatchQueue.main.async { //do this in group.notify
-                    MBProgressHUD.show(onWindow: true)
-                }
-                
-                //Call Delete UI API and after success save the data to DB
-                StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
-                    if data == nil{
-                        
-                        self.deleteLocalVisitEntry()
-                        
-                        VisitSchedulerViewModel().syncVisitsWithServer{ error in
+                if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
+                    
+                    self.deleteLocalVisitEntry()
+                    self.dismiss(animated: true, completion: nil)
+                    
+                }else{
+                    
+                    DispatchQueue.main.async { //do this in group.notify
+                        MBProgressHUD.show(onWindow: true)
+                    }
+                    
+                    //Call Delete UI API and after success save the data to DB
+                    StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
+                        if data == nil{
                             
-                            if error != nil{
+                            self.deleteLocalVisitEntry()
+                            
+                            VisitSchedulerViewModel().syncVisitsWithServer{ error in
                                 
-                                print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
-                                
+                                if error != nil{
+                                    
+                                    print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
+                                    
+                                }
+                                DispatchQueue.main.async {
+                                    VisitModelForUIAPI.isEditMode = false
+                                    MBProgressHUD.hide(forWindow: true)
+                                }
                             }
-                            DispatchQueue.main.async {
-                                VisitModelForUIAPI.isEditMode = false
+                            
+                            self.dismiss(animated: true, completion: nil)
+                            
+                        }else{
+                            
+                            DispatchQueue.main.async { //do this in group.notify
                                 MBProgressHUD.hide(forWindow: true)
                             }
+                            
+                            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                                
+                                // self.dismiss(animated: true, completion: nil)
+                                
+                            }, action2: {
+                                
+                            })
                         }
-                        
-                        self.dismiss(animated: true, completion: nil)
-                        
-                    }else{
-                        
-                        DispatchQueue.main.async { //do this in group.notify
-                            MBProgressHUD.hide(forWindow: true)
-                        }
-                        
-                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-                            
-                            // self.dismiss(animated: true, completion: nil)
-                            
-                        }, action2: {
-                            
-                        })
                     }
                 }
+                
+            }) {
+                print("Cancel")
             }
-            
-        }) {
-            print("Cancel")
+        } else{
+            print("NO Connection")
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit not allowed in offline, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                
+                // self.dismiss(animated: true, completion: nil)
+                
+            }, action2: {
+                
+            })
         }
-        
     }
     
     @IBAction func startOrContinueVisitButtonTapped(_ sender: UIButton){

@@ -20,6 +20,7 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     var pickerOption = [[String:Any]]()
     var selectedPrimaryFunctionOption  = [String:Any]()
     var contactDetail: Contact?
+    var acrDetail: AccountContactRelation?
     var buyingPower: Bool = true
     
     override func awakeFromNib() {
@@ -56,6 +57,10 @@ class PrimaryFunctionTableViewCell: UITableViewCell {
     
     func displayCellContent(){
         if let role = contactDetail?.functionRole, role != "" {
+            primaryFunctionTextField.text = role
+        }
+        
+        if let role = acrDetail?.roles, role != ""{
             primaryFunctionTextField.text = role
         }
     }

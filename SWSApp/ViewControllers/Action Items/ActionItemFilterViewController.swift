@@ -293,8 +293,8 @@ class ActionItemFilterViewController: UIViewController {
             tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
         }
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.currentSelectedUserId = (appDelegate.loggedInUser?.userId)!
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        appDelegate.currentSelectedUserId = (appDelegate.loggedInUser?.userId)!
         ActionItemFilterModel.selectedConsultant = nil
         tableView.reloadData()
     }

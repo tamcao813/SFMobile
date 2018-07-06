@@ -489,7 +489,19 @@ class StoreDispatcher {
         newSyncLog.sessionID = sessionID
         newSyncLog.activityType = "Sync Start"
         newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-        newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
+//        newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
+        if let user = (SFUserAccountManager.sharedInstance().currentUser) {
+            if let userID = user.credentials.userId {
+                newSyncLog.userId = userID
+            }
+            else {
+                return
+            }
+        }
+        else {
+            return
+        }
+        
         newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\(SyncUpDailogGlobal.syncType)}"
         let attributeDict = ["type":SoupSyncLog]
         let syncLogDict: [String:Any] = [
@@ -519,7 +531,19 @@ class StoreDispatcher {
         newSyncLog.sessionID = sessionID
         newSyncLog.activityType = "Sync Stop"
         newSyncLog.activityTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-        newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
+//        newSyncLog.userId = (SFUserAccountManager.sharedInstance().currentUser?.credentials.userId)!
+        if let user = (SFUserAccountManager.sharedInstance().currentUser) {
+            if let userID = user.credentials.userId {
+                newSyncLog.userId = userID
+            }
+            else {
+                return
+            }
+        }
+        else {
+            return
+        }
+        
         newSyncLog.activityDetails = "{\"ConnectionType\":"+networkType+",\"SyncType\":\(SyncUpDailogGlobal.syncType)}"
         
         //        createOneSyncLog(newSyncLog)
@@ -1274,7 +1298,7 @@ class StoreDispatcher {
                 let str = "\(LastSyncDateUTC)"
                 let arrOfSplitDate = str.components(separatedBy: " ")
                 let dateCombineStringInFormat = "\(arrOfSplitDate[0])T\(arrOfSplitDate[1])\(arrOfSplitDate[2])"
-                resyncClause = "AND Account.LastModifiedDate > \(dateCombineStringInFormat)"
+                resyncClause = "AND (Account.LastModifiedDate > \(dateCombineStringInFormat) OR AccountTeamMember.LastModifiedDate > \(dateCombineStringInFormat))"
             }
         }
         

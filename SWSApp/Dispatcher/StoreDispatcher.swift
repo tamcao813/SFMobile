@@ -1484,13 +1484,27 @@ class StoreDispatcher {
     
     func fetchAccounts() -> [Account] {
         var accountAry: [Account] = []
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let userViewModel = UserViewModel()
+        let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+         var taskOwnerId = ""
+        
+        if(appDelegate.currentSelectedUserId != loggedInuserid){
+             taskOwnerId = appDelegate.currentSelectedUserId
+        }
         
         // Get All Account Id's and Format as string with comma separator
         // Select only accounts for the selectedUserId
         let accIdArray = fetchAllAccountIds().joined(separator: "','")
         let formattedAccIdArray = "'" + accIdArray + "'"
-        let soqlQuery = "Select DISTINCT {AccountTeamMember:Account.SGWS_Account_Health_Grade__c},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.SWS_Total_CY_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_Total_AR_Balance__c},{AccountTeamMember:Account.IS_Next_Delivery_Date__c},{AccountTeamMember:Account.SWS_Premise_Code__c},{AccountTeamMember:Account.SWS_License_Type__c},{AccountTeamMember:Account.SWS_License__c},{AccountTeamMember:Account.Google_Place_Operating_Hours__c},{AccountTeamMember:Account.SWS_License_Expiration_Date__c},{AccountTeamMember:Account.SWS_Total_CY_R12_Net_Sales__c},{AccountTeamMember:Account.SWS_Credit_Limit__c},{AccountTeamMember:Account.SWS_TD_Channel__c},{AccountTeamMember:Account.SWS_TD_Sub_Channel__c},{AccountTeamMember:Account.SWS_License_Status_Description__c},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_AR_Past_Due_Amount__c},{AccountTeamMember:Account.SWS_Delivery_Frequency__c},{AccountTeamMember:Account.SGWS_Single_Multi_Locations_Filter__c},{AccountTeamMember:Account.Google_Place_Formatted_Phone__c},{AccountTeamMember:Account.SWS_Status_Description__c},{AccountTeamMember:AccountId},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c},(SELECT   Count( DISTINCT {Task:Id}) FROM {Task} WHERE {Task:SGWS_Account__c} = {AccountTeamMember:AccountId}) from {AccountTeamMember} WHERE {AccountTeamMember:AccountId} IN (\(formattedAccIdArray))"
         
+        
+        var soqlQuery = "Select DISTINCT {AccountTeamMember:Account.SGWS_Account_Health_Grade__c},{AccountTeamMember:Account.Name},{AccountTeamMember:Account.AccountNumber},{AccountTeamMember:Account.SWS_Total_CY_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_Total_AR_Balance__c},{AccountTeamMember:Account.IS_Next_Delivery_Date__c},{AccountTeamMember:Account.SWS_Premise_Code__c},{AccountTeamMember:Account.SWS_License_Type__c},{AccountTeamMember:Account.SWS_License__c},{AccountTeamMember:Account.Google_Place_Operating_Hours__c},{AccountTeamMember:Account.SWS_License_Expiration_Date__c},{AccountTeamMember:Account.SWS_Total_CY_R12_Net_Sales__c},{AccountTeamMember:Account.SWS_Credit_Limit__c},{AccountTeamMember:Account.SWS_TD_Channel__c},{AccountTeamMember:Account.SWS_TD_Sub_Channel__c},{AccountTeamMember:Account.SWS_License_Status_Description__c},{AccountTeamMember:Account.ShippingCity},{AccountTeamMember:Account.ShippingCountry},{AccountTeamMember:Account.ShippingPostalCode},{AccountTeamMember:Account.ShippingState},{AccountTeamMember:Account.ShippingStreet},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c},{AccountTeamMember:Account.SWS_AR_Past_Due_Amount__c},{AccountTeamMember:Account.SWS_Delivery_Frequency__c},{AccountTeamMember:Account.SGWS_Single_Multi_Locations_Filter__c},{AccountTeamMember:Account.Google_Place_Formatted_Phone__c},{AccountTeamMember:Account.SWS_Status_Description__c},{AccountTeamMember:AccountId},{AccountTeamMember:Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c},(SELECT Count( DISTINCT {Task:Id}) FROM {Task} WHERE {Task:SGWS_Account__c} = {AccountTeamMember:AccountId}"
+        if taskOwnerId == ""{
+            soqlQuery = soqlQuery + ") FROM {AccountTeamMember} WHERE {AccountTeamMember:AccountId} IN (\(formattedAccIdArray))"
+        }else{
+            soqlQuery = soqlQuery + " AND {Task:OwnerId} = '\(taskOwnerId)' ) from {AccountTeamMember} WHERE {AccountTeamMember:AccountId} IN (\(formattedAccIdArray))"
+        }
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         
@@ -3895,11 +3909,16 @@ class StoreDispatcher {
     
     func syncDownNotification(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c,SGWS_Type__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false"
+        let userViewModel = UserViewModel()
         
-        print("soql notification query is \(soqlQuery)")
+        let userid: String = (userViewModel.loggedInUser?.userId)!
+        let childQuery = "SELECT AccountId FROM AccountTeamMember WHERE User.Id =" + "'\(userid)'"
         
-        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let soupQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c,SGWS_Type__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false AND SGWS_Account__c IN (\(childQuery))"
+        
+        print("soupQuery notification query is \(soupQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soupQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
         
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupNotifications)

@@ -57,7 +57,6 @@ class PlanVisitManager {
         
         //Checking if Date is changed only than this flow else old flow
         if VisitModelForUIAPI.isEditMode{
-            
             DispatchQueue.main.async { //do this in group.notify
                 MBProgressHUD.show(onWindow: true)
             }
@@ -68,32 +67,28 @@ class PlanVisitManager {
                     self.editAndSaveVisitData()
                     
                     VisitSchedulerViewModel().syncVisitsWithServer{ error in
-                        
                         if error != nil{
-                            
                             print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
-                            
                         }
                         DispatchQueue.main.async { 
                             VisitModelForUIAPI.isEditMode = false
                             MBProgressHUD.hide(forWindow: true)
                         }
                     }
-                    
                 }else{
-                    
                     DispatchQueue.main.async { //do this in group.notify
                         MBProgressHUD.hide(forWindow: true)
                         VisitModelForUIAPI.isEditMode = false
                     }
                     
-                    //Failure Show Alert
-                    let alert = UIAlertView()
-                    alert.title = "Alert"
-                    alert.message = "Saving of Visit/Event has failed, Please try again"
-                    alert.addButton(withTitle: "OK")
-                    alert.show()
-                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        //Failure Show Alert
+                        let alert = UIAlertView()
+                        alert.title = "Alert"
+                        alert.message = "Saving of Visit/Event has failed, Please try again"
+                        alert.addButton(withTitle: "OK")
+                        alert.show()
+                    })
                 }
             }
         }//old flow
@@ -130,7 +125,7 @@ class PlanVisitManager {
         
         if (visit?.status)! == "In-Progress" &&
             (geoLocationForVisit.lastVisitStatus == "Scheduled" ||
-            geoLocationForVisit.lastVisitStatus == "Planned") {
+                geoLocationForVisit.lastVisitStatus == "Planned") {
             new_visit.startLatitude = geoLocationForVisit.startLatitude
             new_visit.startLongitude = geoLocationForVisit.startLongitude
             new_visit.startTime_of_Visit = geoLocationForVisit.startTime

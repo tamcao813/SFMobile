@@ -39,6 +39,12 @@ class ActionItemsListViewController: UIViewController {
         
         btnAddNew.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New", bigString: "+"), for: .normal)
         
+//        fetchActionItemsFromDB()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         fetchActionItemsFromDB()
     }
     

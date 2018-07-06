@@ -1590,7 +1590,7 @@ class StoreDispatcher {
         var strategyAry: [StrategyQA] = []
         
         //let fields = StrategyQA.StrategyQAFields.map{"{\(SoupStrategyQA):\($0)}"}
-        let soqlQuery = "SELECT {SGWS_Response__c:Id},{SGWS_Response__c:SGWS_Answer_Description_List__c},{SGWS_Question__c:Id},{SGWS_Question__c:SGWS_Question_Type__c},{SGWS_Question__c:SGWS_Question_Sub_Type__c},{SGWS_Response__c:SGWS_Notes__c},{SGWS_Response__c:SGWS_AppModified_DateTime__c} from {SGWS_Response__c} INNER JOIN {SGWS_Question__c} where {SGWS_Question__c:Id} = {SGWS_Response__c:SGWS_Question__c} AND {SGWS_Response__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_Response__c:OwnerId} = '\(ownerId)' "
+        let soqlQuery = "SELECT {SGWS_Response__c:Id},{SGWS_Response__c:SGWS_Answer_Description_List__c},{SGWS_Question__c:Id},{SGWS_Question__c:SGWS_Question_Type__c},{SGWS_Question__c:SGWS_Question_Sub_Type__c},{SGWS_Response__c:SGWS_Notes__c},{SGWS_Response__c:SGWS_AppModified_DateTime__c},{SGWS_Response__c:OwnerId} from {SGWS_Response__c} INNER JOIN {SGWS_Question__c} where {SGWS_Question__c:Id} = {SGWS_Response__c:SGWS_Question__c} AND {SGWS_Response__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_Response__c:OwnerId} = '\(ownerId)' "
         
         
         let querySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
@@ -1602,7 +1602,7 @@ class StoreDispatcher {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
                 
-                let json:[String:Any] = [ "SGWS_Account__c":ary[2],"Id":ary[0], "SGWS_Question_Sub_Type__c":ary[4], "SGWS_Question__c":ary[3], "SGWS_Answer_Description_List__c":ary[1],"SGWS_Notes__c":ary[5],"SGWS_AppModified_DateTime__c":ary[6]]
+                let json:[String:Any] = [ "SGWS_Account__c":ary[2],"Id":ary[0], "SGWS_Question_Sub_Type__c":ary[4], "SGWS_Question__c":ary[3], "SGWS_Answer_Description_List__c":ary[1],"SGWS_Notes__c":ary[5],"SGWS_AppModified_DateTime__c":ary[6],"OwnerId":ary[7]]
                 
                 let strategy = StrategyQA.init(json: json)
                 strategyAry.append(strategy)
@@ -3047,7 +3047,7 @@ class StoreDispatcher {
         let userid: String = (userViewModel.loggedInUser?.userId)!
         let childQuery = "SELECT AccountId FROM AccountTeamMember WHERE User.Id =" + "'\(userid)'"
         
-        let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c,SGWS_AppModified_DateTime__c FROM SGWS_Response__c where SGWS_Account__c IN (\(childQuery)) AND OwnerId = '\(userid)'"
+        let soqlQuery = "SELECT Id, SGWS_Account__c,SGWS_Answer_Description_List__c,SGWS_Answer_Options__c,SGWS_Answer__c,SGWS_Notes__c,SGWS_Question_Description__c,SGWS_Question__c,SGWS_AppModified_DateTime__c,OwnerId FROM SGWS_Response__c where SGWS_Account__c IN (\(childQuery))"// AND OwnerId = '\(userid)'"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
@@ -3413,7 +3413,7 @@ class StoreDispatcher {
                 singleVisitModif["SGWS_Notes__c"] = allFields["SGWS_Notes__c"]
                 singleVisitModif["SGWS_Question_Sub_Type__c"] = allFields["SGWS_Question_Sub_Type__c"]
                 singleVisitModif["SGWS_AppModified_DateTime__c"] = allFields["SGWS_AppModified_DateTime__c"]
-                singleVisitModif["OwnerId"] = allFields["OwnerId"]
+                //singleVisitModif["OwnerId"] = allFields["OwnerId"]
                 
                 
                 if(createdFlag){
@@ -3938,7 +3938,7 @@ class StoreDispatcher {
         let userid: String = (userViewModel.loggedInUser?.userId)!
         let childQuery = "SELECT AccountId FROM AccountTeamMember WHERE User.Id =" + "'\(userid)'"
         
-        let soupQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c,SGWS_Type__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false AND SGWS_Account__c IN (\(childQuery))"
+        let soupQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c,SGWS_Type__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false"//and Account__c  IN (\(childQuery))"
         
         print("soupQuery notification query is \(soupQuery)")
         

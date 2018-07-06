@@ -463,7 +463,7 @@ class EditAccountStrategyViewController: UIViewController {
         
         let addNewDict: [String:Any] = [
             StrategyQA.StrategyQAFields[0]:editStrategy.Id,
-            StrategyQA.StrategyQAFields[7]:editStrategy.OwnerId,
+            //StrategyQA.StrategyQAFields[7]:editStrategy.OwnerId,
             StrategyQA.StrategyQAFields[1]:editStrategy.SGWS_Account__c,
             StrategyQA.StrategyQAFields[8]:editStrategy.SGWS_Answer_Description_List__c,
             StrategyQA.StrategyQAFields[4]:editStrategy.SGWS_Notes__c,

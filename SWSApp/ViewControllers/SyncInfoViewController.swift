@@ -91,8 +91,9 @@ class SyncInfoViewController: UIViewController {
             self.delegate?.startSyncUp()
             SyncUpDailogGlobal.isSyncing    = true
             SyncUpDailogGlobal.syncType     = "Manual"
-            SyncUpDailogGlobal.isSyncError  = false //Error Flag to reset on synccall
-            SyncUpDailogGlobal.isSyncErrorNoCallBack = true
+            //Error & Warning Flag to reset false on synccall
+            SyncUpDailogGlobal.isSyncError  = false
+            SyncUpDailogGlobal.isSyncWarning = false
         }
     }
     

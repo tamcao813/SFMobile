@@ -21,10 +21,10 @@ struct ContactsGlobal {
 }
 
 struct SyncUpDailogGlobal {
-    static var isSyncing = false
-    static var syncType = "automtic"
-    static var isSyncError = false
-    static var isSyncErrorNoCallBack = true //will be true if not fromcallback set to true only once
+    static var isSyncing    = false
+    static var syncType     = "automtic"
+    static var isSyncError      = false
+    static var isSyncWarning    = false
 }
 
 struct ActionItemsGlobal {
@@ -479,8 +479,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     // MARK: SyncUp Data
     @objc func SyncUpData(){
         
-        SyncUpDailogGlobal.isSyncError = false
-        SyncUpDailogGlobal.isSyncErrorNoCallBack = true
+        SyncUpDailogGlobal.isSyncError      = false
+        SyncUpDailogGlobal.isSyncWarning    = false
         
         DispatchQueue.main.async { //do this in group.notify
             MBProgressHUD.show(onWindow: true)
@@ -756,12 +756,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         
         group.notify(queue: queue) {
             //If Error is there and no callback than push the error to DB so that it can be sync
-            if SyncUpDailogGlobal.isSyncErrorNoCallBack == true {
+            if UserDefaults.standard.object(forKey: "errorSDKUserDefaultSyncWarningMessage") != nil {
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
+                syncFailed = true
+            }
+            else if SyncUpDailogGlobal.isSyncWarning == true {
                 //Check if ther is error register without callback in userdefaults if so force enter in DB
-                if UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") != nil {
-                    StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
-                    syncFailed = true
-                }
+                syncFailed = true
             }
             
             //Write to persistence for Resync to default

@@ -559,27 +559,41 @@ class StoreDispatcher {
                 newSyncLog.userId = userID
             }
             else {
-                newSyncLog.userId = "EMPTYUSER"
+                return
             }
         }
         else {
-            newSyncLog.userId = "EMPTYUSER"
+            return
         }
         
         var syncMsg = ""
-        if let sync: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultsync") as? String {
-            syncMsg = sync
-        }
         var failureMsg = ""
-        if let failureMessage: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultMessage") as? String {
-            failureMsg = failureMessage
-        }
         var errorMsg = ""
-        if let error: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") as? String {
-            errorMsg = error
+        //Sync warning detected
+        if let failureMessage: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultSyncWarningMessage") as? String {
+            newSyncLog.activityType = "Sync Warning"
+            syncMsg = "Sync Warning"
+            failureMsg = failureMessage
+            errorMsg = ""
+            SyncUpDailogGlobal.isSyncWarning = true
         }
-        SyncUpDailogGlobal.isSyncError = true
-        SyncUpDailogGlobal.isSyncErrorNoCallBack = false
+        else {
+            //Sync error from callback
+            if let sync: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultsync") as? String {
+                syncMsg = sync
+                SyncUpDailogGlobal.isSyncError = true
+            }
+            var failureMsg = ""
+            if let failureMessage: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultMessage") as? String {
+                failureMsg = failureMessage
+                SyncUpDailogGlobal.isSyncError = true
+            }
+            var errorMsg = ""
+            if let error: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") as? String {
+                errorMsg = error
+                SyncUpDailogGlobal.isSyncError = true
+            }
+        }
         
         UserDefaults.standard.removeObject(forKey:"key_name")
         
@@ -603,8 +617,16 @@ class StoreDispatcher {
         
         let success = createSyncLogLocally(fieldsToUpload:syncLogDict)
         
-        if success {
-            //            No Need to Sync at this instance
+        //Clear User Default here as it set the flags
+        DispatchQueue.main.async{
+            if UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") != nil {
+                UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultError")
+                UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultsync")
+                UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultMessage")
+            }
+            if UserDefaults.standard.object(forKey: "errorSDKUserDefaultSyncWarningMessage") != nil {
+                UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultSyncWarningMessage")
+            }
         }
     }
     
@@ -667,16 +689,6 @@ class StoreDispatcher {
      */
     func clearSyncUpLogSOUP(){
         sfaStore.clearSoup(SoupSyncLog)
-
-//    Add the cleAr code here
-        DispatchQueue.main.async{
-            if UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") != nil {
-                UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultError")
-                UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultsync")
-                UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultMessage")
-                
-            }
-        }
     }
     
     

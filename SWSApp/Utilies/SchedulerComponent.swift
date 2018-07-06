@@ -130,7 +130,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
     
     func checkVisitStates(textField : UITextField){
         
-        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil && ((PlanVisitManager.sharedInstance.visit?.Id)?.count)! > 0){
             
             if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
                 

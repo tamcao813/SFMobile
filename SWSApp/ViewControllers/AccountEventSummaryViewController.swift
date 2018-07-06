@@ -35,7 +35,7 @@ class AccountEventSummaryViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
-
+        
     }
     
     
@@ -61,7 +61,7 @@ class AccountEventSummaryViewController: UIViewController {
     
     func fetchVisit(){
         if let id = visitId{
-//            let visitArray = VisitsViewModel().visitsForUser()
+            //            let visitArray = VisitsViewModel().visitsForUser()
             let visitArray = GlobalWorkOrderArray.workOrderArray
             for visit in visitArray {
                 if visit.Id == id {
@@ -106,7 +106,7 @@ class AccountEventSummaryViewController: UIViewController {
                     }
                 }
             }
-
+            
         }
         tableView.reloadData()
     }
@@ -142,15 +142,22 @@ class AccountEventSummaryViewController: UIViewController {
         
         monthLabel.text =   DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"MMM")
         dayLabel.text =   DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"dd")
-
-        var startTime = ""
-        var endTime = ""
-        startTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"hh:mm a")
         guard let visitEndDateString = visitObject?.endDate else {
             //TODO: handle it in better way, Ideally visitObject.enddate should never be null
             return
         }
-        endTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitEndDateString,dateFormat:"hh:mm a")
+
+        var startTime = ""
+        var endTime = ""
+        
+        if DateTimeUtility.isDeviceIsin24hrFormat() {
+            startTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"HH:mm")
+            endTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitEndDateString,dateFormat:"HH:mm")
+            
+        }else {
+            startTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitStartDateString,dateFormat:"hh:mm a")
+            endTime =  DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visitEndDateString,dateFormat:"hh:mm a")
+        }
         timeLabel.text = "\(startTime)-\(endTime)"
     }
     
@@ -164,35 +171,84 @@ class AccountEventSummaryViewController: UIViewController {
         self.tableView.register(UINib(nibName: "EventLocationTableViewCell", bundle: nil), forCellReuseIdentifier: "EventLocationTableViewCell")
     }
     
+    func deleteLocalEventEntry(){
+        let attributeDict = ["type":"WorkOrder"]
+        let visitNoteDict: [String:Any] = [
+            Visit.VisitsFields[0]: self.visitObject!.Id,
+            Visit.VisitsFields[14]:self.visitObject?.soupEntryId,
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyCreated:false,
+            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyDeleted:true,
+            "attributes":attributeDict]
+        
+        let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
+        
+        if let index = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == self.visitObject?.Id}) {
+            GlobalWorkOrderArray.workOrderArray.remove(at: index)
+        }
+        
+        if(success){
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
         
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Event Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
             
-            let attributeDict = ["type":"WorkOrder"]
-            let visitNoteDict: [String:Any] = [
-                Visit.VisitsFields[0]: self.visitObject!.Id,
-                Visit.VisitsFields[14]:self.visitObject?.soupEntryId,
-                kSyncTargetLocal:true,
-                kSyncTargetLocallyCreated:false,
-                kSyncTargetLocallyUpdated:false,
-                kSyncTargetLocallyDeleted:true,
-                "attributes":attributeDict]
-            
-            let success = VisitSchedulerViewModel().deleteVisitLocally(fields: visitNoteDict)
-            
-            if let index = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == self.visitObject?.Id}) {
-                GlobalWorkOrderArray.workOrderArray.remove(at: index)
-            }
-            
-            if(success){
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
                 
-                
+                self.deleteLocalEventEntry()
                 self.dismiss(animated: true, completion: nil)
+                
+            }else{
+                
+                DispatchQueue.main.async { //do this in group.notify
+                    MBProgressHUD.show(onWindow: true)
+                }
+                
+                //Call Delete UI API and after success save the data to DB
+                StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
+                    if data == nil{
+                        self.deleteLocalEventEntry()
+                        
+                        VisitSchedulerViewModel().syncVisitsWithServer{ error in
+                            
+                            if error != nil{
+                                
+                                print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
+                                
+                            }
+                            DispatchQueue.main.async {
+                                VisitModelForUIAPI.isEditMode = false
+                                MBProgressHUD.hide(forWindow: true)
+                            }
+                        }
+                        
+                        self.dismiss(animated: true, completion: nil)
+                        
+                    }else{
+                        
+                        DispatchQueue.main.async { //do this in group.notify
+                            MBProgressHUD.hide(forWindow: true)
+                        }
+                        
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Event has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                            
+                            // self.dismiss(animated: true, completion: nil)
+                            
+                        }, action2: {
+                            
+                        })
+                    }
+                }
             }
+            
         }) {
             
             print("Cancel")
@@ -202,6 +258,8 @@ class AccountEventSummaryViewController: UIViewController {
     
     
     @IBAction func editVisitOrNotesButtonTapped(_ sender: UIButton){
+        
+        //VisitModelForUIAPI.isEditMode = true
         
         PlanVisitManager.sharedInstance.editPlanVisit = true
         let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
@@ -332,9 +390,9 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
             paragraphStyle.lineBreakMode = .byTruncatingTail
             attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
             attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Ubuntu", size: 17.0)!, range: NSMakeRange(0, attributedString.length))
-
+            
             cell?.descLabel.attributedText = attributedString;
-
+            
             return cell!
         case 1:
             return getLocationCell()
@@ -429,15 +487,15 @@ extension AccountEventSummaryViewController : NavigateToAccountVisitSummaryDeleg
     
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
-       //     AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
-                self.dismiss(animated: true, completion: nil)
-                self.delegate?.navigateToAccountScreen()
-          //  }){
-                
-            }
+            //     AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.navigateToAccountScreen()
+            //  }){
+            
         }
-   // }
+    }
+    // }
 }
 
 extension AccountEventSummaryViewController : CreateNewEventControllerDelegate {

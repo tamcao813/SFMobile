@@ -163,6 +163,7 @@
 		8DDD4A4420BBD5FF00423E20 /* SyncInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD4A4220BBD5FF00423E20 /* SyncInfoViewController.swift */; };
 		8DDD4A4A20BBFC5200423E20 /* TitleDepartmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD4A4820BBFC5000423E20 /* TitleDepartmentTableViewCell.swift */; };
 		8DDD4A4C20BBFC5200423E20 /* TitleDepartmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD4A4920BBFC5100423E20 /* TitleDepartmentTableViewCell.xib */; };
+		8DEE7B5E20EA3A99007FAF02 /* ReachabilitySingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEE7B5D20EA3A99007FAF02 /* ReachabilitySingleton.swift */; };
 		911D0C6720AEB9610083BACB /* CalendarSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */; };
 		911D170020AD3E7C007D61C3 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */; };
 		912FA9E820AAFC75005979FF /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 912FA9E720AAFC75005979FF /* Calendar.storyboard */; };
@@ -177,6 +178,8 @@
 		9187924420A55C79009CB557 /* CalendarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924320A55C79009CB557 /* CalendarMenuViewController.swift */; };
 		9187924720A55CAE009CB557 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9187924620A55CAE009CB557 /* CalendarListViewController.swift */; };
 		9188866820C68BD300560860 /* OpportunitiesListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9188866720C68BD300560860 /* OpportunitiesListTableViewCell.swift */; };
+		918D8C4520EBD5EC0042C444 /* OpportunityObjective.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D8C4420EBD5EC0042C444 /* OpportunityObjective.swift */; };
+		918D8C4720EBD5FF0042C444 /* OpportunityObjectiveSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D8C4620EBD5FE0042C444 /* OpportunityObjectiveSortUtility.swift */; };
 		919FEFE920AEEED400ED6BBC /* VisitSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919FEFE820AEEED400ED6BBC /* VisitSortUtility.swift */; };
 		91AA8EC92095CCCC00787D83 /* ContactListAccountLinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */; };
 		91AA8ECB2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */; };
@@ -536,6 +539,7 @@
 		8DDD4A4220BBD5FF00423E20 /* SyncInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncInfoViewController.swift; sourceTree = "<group>"; };
 		8DDD4A4820BBFC5000423E20 /* TitleDepartmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TitleDepartmentTableViewCell.swift; path = "Personal Detail Cells/TitleDepartmentTableViewCell.swift"; sourceTree = "<group>"; };
 		8DDD4A4920BBFC5100423E20 /* TitleDepartmentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TitleDepartmentTableViewCell.xib; path = "Personal Detail Cells/TitleDepartmentTableViewCell.xib"; sourceTree = "<group>"; };
+		8DEE7B5D20EA3A99007FAF02 /* ReachabilitySingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilitySingleton.swift; sourceTree = "<group>"; };
 		911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSortUtility.swift; sourceTree = "<group>"; };
 		911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringUtil.swift; sourceTree = "<group>"; };
 		912FA9E720AAFC75005979FF /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
@@ -550,6 +554,8 @@
 		9187924320A55C79009CB557 /* CalendarMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMenuViewController.swift; sourceTree = "<group>"; };
 		9187924620A55CAE009CB557 /* CalendarListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarListViewController.swift; sourceTree = "<group>"; };
 		9188866720C68BD300560860 /* OpportunitiesListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesListTableViewCell.swift; sourceTree = "<group>"; };
+		918D8C4420EBD5EC0042C444 /* OpportunityObjective.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpportunityObjective.swift; sourceTree = "<group>"; };
+		918D8C4620EBD5FE0042C444 /* OpportunityObjectiveSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpportunityObjectiveSortUtility.swift; sourceTree = "<group>"; };
 		919FEFE820AEEED400ED6BBC /* VisitSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSortUtility.swift; sourceTree = "<group>"; };
 		91AA8EC62095CCCC00787D83 /* ContactListAccountLinkDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountLinkDetails.swift; sourceTree = "<group>"; };
 		91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountFooterDetails.swift; sourceTree = "<group>"; };
@@ -1226,6 +1232,7 @@
 			isa = PBXGroup;
 			children = (
 				F2064C8920CE664600FC03A0 /* Opportunity.swift */,
+				918D8C4420EBD5EC0042C444 /* OpportunityObjective.swift */,
 				914E191720D10CBB0024E267 /* OpportunityWorkorder.swift */,
 				F2FDA1492099D92D000921A8 /* Visit.swift */,
 				6DDF2B2420A9EBF300FA5A87 /* SyncConfiguration.swift */,
@@ -1449,6 +1456,7 @@
 			children = (
 				AEDF060020D1060600312E1C /* SyncConfigurationSortUtility.swift */,
 				F2064C8B20CE669900FC03A0 /* OpportunitySortUtility.swift */,
+				918D8C4620EBD5FE0042C444 /* OpportunityObjectiveSortUtility.swift */,
 				AE3D30D320BCC1AA0053ACE0 /* PaddingLabel.swift */,
 				AE1FAABF20B6C2EE005B44EC /* ColumnFlowLayout.swift */,
 				AE1FAABD20B6C2ED005B44EC /* CustomMethods.swift */,
@@ -1477,6 +1485,7 @@
 				AE8F41F320A09F1A0033F81D /* UIView+Properties.swift */,
 				911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */,
 				F2DB9B8320C570B500338329 /* GlobalURL.plist */,
+				8DEE7B5D20EA3A99007FAF02 /* ReachabilitySingleton.swift */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -1586,7 +1595,6 @@
 				D1FB18202062A7C00072F4C1 /* Frameworks */,
 				D1FB18212062A7C00072F4C1 /* Resources */,
 				39FF01D4EE09EC15BFE75762 /* [CP] Embed Pods Frameworks */,
-				F128C77A0859D84A433127D5 /* [CP] Copy Pods Resources */,
 				F27DFA1520CAD19800CCA244 /* ShellScript */,
 			);
 			buildRules = (
@@ -1606,8 +1614,6 @@
 				D1FB18332062A7C00072F4C1 /* Sources */,
 				D1FB18342062A7C00072F4C1 /* Frameworks */,
 				D1FB18352062A7C00072F4C1 /* Resources */,
-				66BD611E3A1C47431A02B843 /* [CP] Embed Pods Frameworks */,
-				59D4B7CEF0D4C001D4A59C5B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1627,8 +1633,6 @@
 				D1FB183E2062A7C10072F4C1 /* Sources */,
 				D1FB183F2062A7C10072F4C1 /* Frameworks */,
 				D1FB18402062A7C10072F4C1 /* Resources */,
-				F1815049E18BEF5937DEB387 /* [CP] Embed Pods Frameworks */,
-				DCECF624DDAC93F7302237C9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1868,36 +1872,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		59D4B7CEF0D4C001D4A59C5B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		66BD611E3A1C47431A02B843 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7D085E038417463EAC57175A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1934,54 +1908,9 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DCECF624DDAC93F7302237C9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F128C77A0859D84A433127D5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F1815049E18BEF5937DEB387 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F27DFA1520CAD19800CCA244 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -1990,7 +1919,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" d04bfd17cad558861aa8721448606ad9b0a5d9c1 52dbce72c62774f90542ff12c36d40fd0a9774fc3e94194565de9067e239d540";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2130,6 +2059,7 @@
 				8D3D470920D8FA3D00EEC78F /* RecordType.swift in Sources */,
 				121D740F207E73070046BE41 /* String+PartString.swift in Sources */,
 				D125134420648E1000CD6CB4 /* User.swift in Sources */,
+				918D8C4520EBD5EC0042C444 /* OpportunityObjective.swift in Sources */,
 				F293733020B8266B00E659CB /* AccountVisitListFilterTableViewCell.swift in Sources */,
 				D1FB18272062A7C00072F4C1 /* AppDelegate.swift in Sources */,
 				129A69952099995F00642B14 /* StrategyQuestions.swift in Sources */,
@@ -2200,6 +2130,7 @@
 				AEDF060320D1065500312E1C /* SyncConfigurationViewModel.swift in Sources */,
 				F2AB945F2095D5000028802E /* DuringVisitsTopicsViewController.swift in Sources */,
 				8D17A5D620A2118D00ABC9DC /* ViewContactLinkToVisitTableViewCell.swift in Sources */,
+				918D8C4720EBD5FF0042C444 /* OpportunityObjectiveSortUtility.swift in Sources */,
 				8D4BA3A220B45B58005CFE56 /* SearchAccountTableViewCell.swift in Sources */,
 				D2CD7F63208E01B20016B4FB /* AccountVisitListViewController.swift in Sources */,
 				F2064C8A20CE664600FC03A0 /* Opportunity.swift in Sources */,
@@ -2233,6 +2164,7 @@
 				F2AB945A2095D4E40028802E /* AccountStrategyViewControllerr.swift in Sources */,
 				8D17A5DD20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.swift in Sources */,
 				129A699E2099BB8300642B14 /* StrategyAnswersViewModel.swift in Sources */,
+				8DEE7B5E20EA3A99007FAF02 /* ReachabilitySingleton.swift in Sources */,
 				9187924420A55C79009CB557 /* CalendarMenuViewController.swift in Sources */,
 				8D8D000620C14597009683AC /* NotificationListViewController.swift in Sources */,
 				AE43DD01209622E7005D8DD1 /* SelectOpportunitiesViewController.swift in Sources */,
@@ -2413,7 +2345,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SWSApp/Info.plist;
 				INFOPLIST_OUTPUT_FORMAT = XML;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2439,6 +2376,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SWSApp/Info.plist;
 				INFOPLIST_OUTPUT_FORMAT = XML;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

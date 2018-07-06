@@ -62,6 +62,8 @@ class CreateNewVisitViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         StrategyNotes.isStrategyText = "NO"
+        //VisitModelForUIAPI.isEditMode = false
+        
     }
     
     deinit {
@@ -196,6 +198,11 @@ class CreateNewVisitViewController: UIViewController {
     }
     
     @IBAction func planButtonTapped(sender: UIButton) {
+        
+        DispatchQueue.main.async { //do this in group.notify
+            MBProgressHUD.hide(forWindow: true)
+        }
+        
         if validateVisitData() {
             errorLbl.text = ""
             if PlanVisitManager.sharedInstance.visit != nil {
@@ -271,8 +278,27 @@ class CreateNewVisitViewController: UIViewController {
         }else{
             PlanVisitManager.sharedInstance.visit?.contactId = ""
         }
-        PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
-        PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+        
+        //Check Weather the dates are changed or not(Used to Check States for UI API)
+        if PlanVisitManager.sharedInstance.visit?.startDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: startTime.text!){
+            VisitModelForUIAPI.isEditMode = true
+            
+        }else if PlanVisitManager.sharedInstance.visit?.endDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: endTime.text!){
+            VisitModelForUIAPI.isEditMode = true
+            
+        }else{
+            
+            VisitModelForUIAPI.isEditMode = false
+        }
+        
+        
+        if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+            
+            VisitModelForUIAPI.isEditMode = false
+        }
+        
+        PlanVisitManager.sharedInstance.visit?.startDate =  DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: startTime.text!)
+        PlanVisitManager.sharedInstance.visit?.endDate = DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: endTime.text!)
         PlanVisitManager.sharedInstance.visit?.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)
         PlanVisitManager.sharedInstance.visit?.dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.endDate)!)
         PlanVisitManager.sharedInstance.visit?.location = locationStr
@@ -311,8 +337,8 @@ class CreateNewVisitViewController: UIViewController {
         }else{
             new_visit.contactId = ""
         }
-        new_visit.startDate =  getDataTimeinStr(date: startDate.text!, time: startTime.text!)
-        new_visit.endDate = getDataTimeinStr(date: startDate.text!, time: endTime.text!)
+        new_visit.startDate =  DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: startTime.text!)
+        new_visit.endDate = DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: endTime.text!)
         if dismiss {
             new_visit.status = "Scheduled"
         }else{
@@ -420,19 +446,6 @@ class CreateNewVisitViewController: UIViewController {
         let someString:String = String(randomNum)
         return someString
     }
-    
-    func getDataTimeinStr(date:String, time: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy'T'hh:mm a"
-        var string = date + "T" + time
-        if let dateFromString = dateFormatter.date(from: string) {
-            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            dateFormatter.timeZone = TimeZone(identifier:"UTC")
-            string = dateFormatter.string(from: dateFromString)
-        }
-        return string
-    }
 }
 
 extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSource {
@@ -476,6 +489,14 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             searchAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.accountsDropDown
             cell?.delegate = self
+            if visitId != nil {
+                cell?.searchContactTextField.isUserInteractionEnabled = false
+                cell?.searchContactTextField.alpha = 0.5
+            }else {
+                cell?.searchContactTextField.isUserInteractionEnabled = true
+                cell?.searchContactTextField.alpha = 1.0
+                cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
+            }
             return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell") as? AccountContactLinkTableViewCell
@@ -485,6 +506,14 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             if let account = selectedAccount {
                 cell?.displayCellContent(account: account)
             }
+            if visitId != nil {
+                  cell?.deleteButton.isUserInteractionEnabled = false
+                  cell?.deleteButton.alpha = 0.3
+            }else {
+                cell?.deleteButton.isUserInteractionEnabled = true
+                cell?.deleteButton.alpha = 1.0
+            }
+
             return cell!
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchForContactTableViewCell") as? SearchForContactTableViewCell
@@ -506,8 +535,15 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             endTime = cell?.schedulerComponentView.endTimeTextField
             if let visit = visitObject {
                 cell?.schedulerComponentView.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: visit.startDate)
-                cell?.schedulerComponentView.startTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.startDate,dateFormat:"hh:mm a")
-                cell?.schedulerComponentView.endTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.endDate,dateFormat:"hh:mm a")
+                
+                if DateTimeUtility.isDeviceIsin24hrFormat() {
+                    cell?.schedulerComponentView.startTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.startDate,dateFormat:"HH:mm")
+                    cell?.schedulerComponentView.endTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.endDate,dateFormat:"HH:mm")
+                    
+                }else {
+                    cell?.schedulerComponentView.startTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.startDate,dateFormat:"hh:mm a")
+                    cell?.schedulerComponentView.endTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: visit.endDate,dateFormat:"hh:mm a")
+                }
                 cell?.layoutIfNeeded()
             }
             return cell!
@@ -561,8 +597,35 @@ extension CreateNewVisitViewController: AccountContactLinkTableViewCellDelegate 
 extension CreateNewVisitViewController: SearchForContactTableViewCellDelegate {
     func contactSelected(contact: Contact) {
         createNewVisitViewControllerGlobals.userInput = true
-        selectedContact = contact
-        reloadTableView()
+        
+        //Check if this selected contact is SGWS Employees return
+        let sgwsContacts = StoreDispatcher.shared.fetchAllSGWSEmployeeContacts()
+        
+        let sgwsContact = sgwsContacts.filter( { return $0.contactId == contact.contactId } )
+        
+        if(sgwsContact.count > 0){
+            
+            selectedContact = contact
+            reloadTableView()
+            
+        } else {
+            
+            if StoreDispatcher.shared.isContactSynced(id: contact.contactId){
+                showAlert()
+                return
+            }else{
+                selectedContact = contact
+                reloadTableView()
+            }
+        }
+    }
+    
+    func showAlert() {
+        let alertController = UIAlertController(title: "Alert", message:
+            StringConstants.checkContactId, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

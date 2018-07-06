@@ -141,6 +141,7 @@ class ServicePurposesViewController: UIViewController {
     
     @IBAction func saveAndClose(sender: UIButton) {
        
+        //VisitModelForUIAPI.isEditMode = true
         
         if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
             
@@ -323,5 +324,11 @@ extension ServicePurposesViewController : UICollectionViewDelegateFlowLayout {
             return 10.0
     }
 
+}
+
+extension ServicePurposesViewController:UITextViewDelegate{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return AlertUtilities.disableEmojis(text: text)
+    }
 }
 

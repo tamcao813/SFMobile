@@ -7,10 +7,9 @@
 //
 
 import UIKit
-//import DropDown
 import Reachability
 import CoreLocation
-
+import SmartStore
 
 struct SelectedMoreButton {
     static var selectedItem : Int = -1
@@ -106,8 +105,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         return calendarTabVC
     }()
     // objectives VC
-    lazy var objectivesVC : UIViewController? = {
-        let objectivesTabVC = self.storyboard?.instantiateViewController(withIdentifier: "ObjectivesControllerID")
+    lazy var objectivesVC : ObjectivesViewController? = {
+        let objectivesTabVC = self.storyboard?.instantiateViewController(withIdentifier: "ObjectivesControllerID") as? ObjectivesViewController
         return objectivesTabVC
     }()
     // more VC
@@ -441,13 +440,25 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         onlineStatusView.addGestureRecognizer(tapOnline)
         
         self.navigationItem.rightBarButtonItems = [userInitialLabelButton, self.notificationButton!, onlineSyncStatus!]
-        let logoButton = UIBarButtonItem(image: UIImage(named: "AppLogo"), style:UIBarButtonItemStyle.plain, target: nil, action: nil)
-        //logoButton.isEnabled = true
+        let logoButton = UIBarButtonItem(image: UIImage(named: "AppLogo"), style:UIBarButtonItemStyle.plain, target: self, action: #selector(addTapped))
+        if let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl?.description {
+            if instanceUrl == StringConstants.detestServerUrl {
+                logoButton.isEnabled = true
+            }else{
+                logoButton.isEnabled = false
+            }
+        }
         //logoButton.tintColor = UIColor.red
         logoButton.tintColor = UIColor.clear
         logoButton.setBackgroundImage(UIImage(named: "AppLogo"), for: .normal, barMetrics: .default)
         self.navigationItem.leftBarButtonItem = logoButton
         
+        
+    }
+
+    @objc func addTapped(){
+        let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
+            present(SmartStoreViewController, animated: true, completion: nil)
     }
     
     // MARK: SyncUp Data and resync down

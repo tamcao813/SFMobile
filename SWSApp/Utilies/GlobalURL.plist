@@ -45,7 +45,7 @@
 	<key>insightsAccountUrl</key>
 	<string>/lightning/n/SGWS_Account_Insight?AccountID=</string>
 	<key>homeScreenUrl</key>
-	<string>/lightning/n/SGWS_Home_Page</string>
+	<string>/lightning/n/Home_Page</string>
 	<key>opportunitiesUrl</key>
 	<string>/lightning/r/Opportunity/</string>
 	<key>opportunityEndUrl</key>
@@ -62,5 +62,13 @@
 	<string>Southernglazerstopaz://</string>
 	<key>gospotItuneUrl</key>
 	<string>itms://itunes.apple.com/us/app/gospotcheck-team/id571011905?platform=ipad&amp;preserveScrollPosition=true#platform/ipad</string>
+	<key>eventUrl</key>
+	<string>ui-api/records/</string>
+	<key>detestServerUrl</key>
+	<string>https://sgws-de--deTest.cs77.my.salesforce.com</string>
+	<key>visitContactAlertMessage</key>
+	<string>Selected Contact cannot be invited for a visit ! Please perform sync prior selecting this contact for a visit</string>
+	<key>eventContactAlertMessage</key>
+	<string>Selected Contact cannot be invited for a event ! Please perform sync prior selecting this contact for a event</string>
 </dict>
 </plist>

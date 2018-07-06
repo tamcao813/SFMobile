@@ -284,6 +284,7 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
         case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
                 searchAccountTextField = cell?.searchContactTextField
+                cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
                 accountsDropDown = cell?.accountsDropDown
                 cell?.delegate = self
                 return cell!

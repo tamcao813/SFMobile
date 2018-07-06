@@ -75,5 +75,30 @@ class StringConstants {
     static let gospotcheckUrl = globalUrlDictionary["gospotcheckUrl"] as! String
     static let topazUrl = globalUrlDictionary["topazUrl"] as! String
     static let gospotItuneUrl = globalUrlDictionary["gospotItuneUrl"] as! String
+    
+    //Event URL
+    static let eventUrl = globalUrlDictionary["eventUrl"] as! String
+    
+    //DetestServer Url
+    static let detestServerUrl = globalUrlDictionary["detestServerUrl"] as! String
+    
+    //Alert for offline contact in Visits and Events
+    static let checkContactId = globalUrlDictionary["visitContactAlertMessage"] as! String
+    static let eventCheckContactId = globalUrlDictionary["eventContactAlertMessage"] as! String
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

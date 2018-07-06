@@ -63,4 +63,8 @@ extension DescriptionTableViewCell: UITextViewDelegate {
         CreateNewActionItemViewController.createActionItemsGlobals.userInput = true
         return true
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return AlertUtilities.disableEmojis(text: text)
+    }
 }

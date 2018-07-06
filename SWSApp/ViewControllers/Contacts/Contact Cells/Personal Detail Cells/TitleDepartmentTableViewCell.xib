@@ -49,7 +49,7 @@
                         </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                        <textInputTraits key="textInputTraits"/>
+                        <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                 <real key="value" value="1"/>
@@ -73,7 +73,7 @@
                         </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                        <textInputTraits key="textInputTraits"/>
+                        <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                 <real key="value" value="1"/>

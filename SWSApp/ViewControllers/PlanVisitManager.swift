@@ -8,6 +8,10 @@
 
 import SmartSync
 
+struct VisitModelForUIAPI {
+    static var isEditMode = false
+}
+
 class PlanVisitManager {
     static let sharedInstance = PlanVisitManager()
     
@@ -48,7 +52,59 @@ class PlanVisitManager {
         print("CloudCodeExecutor has been initialized")
     }
     
+    //ON call of Plan or Save
     func editAndSaveVisit()->Bool{
+        
+        //Checking if Date is changed only than this flow else old flow
+        if VisitModelForUIAPI.isEditMode{
+            
+            DispatchQueue.main.async { //do this in group.notify
+                MBProgressHUD.show(onWindow: true)
+            }
+            //Call UI API , after success of that Save in Local
+            StoreDispatcher.shared.editVisitFromOutlook(VisitData: visit!) { (data) in
+                if data == nil{
+                    //Success Save to DB
+                    self.editAndSaveVisitData()
+                    
+                    VisitSchedulerViewModel().syncVisitsWithServer{ error in
+                        
+                        if error != nil{
+                            
+                            print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
+                            
+                        }
+                        DispatchQueue.main.async { 
+                            VisitModelForUIAPI.isEditMode = false
+                            MBProgressHUD.hide(forWindow: true)
+                        }
+                    }
+                    
+                }else{
+                    
+                    DispatchQueue.main.async { //do this in group.notify
+                        MBProgressHUD.hide(forWindow: true)
+                        VisitModelForUIAPI.isEditMode = false
+                    }
+                    
+                    //Failure Show Alert
+                    let alert = UIAlertView()
+                    alert.title = "Alert"
+                    alert.message = "Saving of Visit/Event has failed, Please try again"
+                    alert.addButton(withTitle: "OK")
+                    alert.show()
+                    
+                }
+            }
+        }//old flow
+        else{
+            self.editAndSaveVisitData()
+        }
+        return true
+    }
+    
+    func editAndSaveVisitData(){
+        
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
@@ -115,24 +171,21 @@ class PlanVisitManager {
             
             
             kSyncTargetLocal:true,
-            kSyncTargetLocallyCreated:true,
-            kSyncTargetLocallyUpdated:false,
+            kSyncTargetLocallyCreated:false,
+            kSyncTargetLocallyUpdated:true,
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
         
         let success = VisitSchedulerViewModel().editVisitToSoup(fields: addNewDict)
         let visitDataDict:[String: WorkOrderUserObject] = ["visit": visit!]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisit"), object:nil, userInfo: visitDataDict)
-         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshCalendar"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
         
         print("Success is here \(success)")
         
-        
-        
-        return true
     }
     
 }

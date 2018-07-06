@@ -389,7 +389,7 @@ class CreateNewContactViewController: UIViewController {
         
         newContact.sgws_sfa_customer_check = true
         
-        if !newContact.buyerFlag {
+        if isNewContact, !newContact.buyerFlag {
             newContact.contactClassification = contactClassificationTextField.text!
             if newContact.contactClassification == "Other"{
                 newContact.otherSpecification = otherReasonTextField.text!
@@ -539,6 +539,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
             searchAccountTextField = cell?.searchContactTextField
+            cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
             accountsDropDown = cell?.accountsDropDown
             cell?.delegate = self
             return cell!
@@ -920,6 +921,11 @@ extension CreateNewContactViewController: PrimaryFunctionTableViewCellDelegate {
     func primaryFunctionValueSelected(pickerOption: [String : Any]) {
         self.pickerOption = pickerOption
         self.fromPicker = true
+        if pickerOption["validFor"] as! Int == 1 {
+            doesHaveBuyingPower = true
+        }else{
+            doesHaveBuyingPower = false
+        }
         self.tableView.reloadData()
     }
 }

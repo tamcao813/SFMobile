@@ -275,7 +275,7 @@
                                                                     <rect key="frame" x="20" y="14" width="995" height="213"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="alphabet"/>
                                                                     <connections>
                                                                         <outlet property="delegate" destination="NQb-oM-mOa" id="slm-MB-fxG"/>
                                                                     </connections>

@@ -466,7 +466,7 @@ class OpportunitiesMenuViewController: UIViewController {
             self.searchByEnteredTextDelegate?.filteringOpportunities(filtering: false)
         }
         let _:[String: String] = ["SearchStr": searchBar.text!]
-        self.tableView.setContentOffset(CGPoint.zero, animated: false)
+//        self.tableView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     //Clears all the filter selection
@@ -607,7 +607,7 @@ extension OpportunitiesMenuViewController : UISearchBarDelegate{
     }
     
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        return true
+        return AlertUtilities.disableEmojis(text: text)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

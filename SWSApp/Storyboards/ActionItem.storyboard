@@ -75,7 +75,7 @@
                                 <rect key="frame" x="30" y="40" width="222" height="56"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="done"/>
                                 <connections>
                                     <outlet property="delegate" destination="rIj-qc-owG" id="uF9-5S-g7o"/>
                                 </connections>
@@ -751,7 +751,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Zt-PU-ZiM">
-                                <rect key="frame" x="0.0" y="100" width="1024" height="618"/>
+                                <rect key="frame" x="0.0" y="100" width="1024" height="588"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="bTA-rO-TAY" id="bMW-JS-mgG"/>
@@ -759,7 +759,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ppa-JS-2pd">
-                                <rect key="frame" x="0.0" y="718" width="1024" height="50"/>
+                                <rect key="frame" x="0.0" y="688" width="1024" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieU-3W-GfZ">
                                         <rect key="frame" x="824" y="25" width="0.0" height="0.0"/>
@@ -768,15 +768,21 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dNm-d3-UhY">
-                                        <rect key="frame" x="844" y="10" width="140" height="30"/>
+                                        <rect key="frame" x="844" y="20" width="140" height="40"/>
                                         <color key="backgroundColor" name="Data New"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="JaY-Bk-7qz"/>
                                             <constraint firstAttribute="width" constant="140" id="c8M-67-JXJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="Save &amp; Close">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="saveAndCloseButtonTapped:" destination="bTA-rO-TAY" eventType="touchUpInside" id="jkC-9E-Tjy"/>
                                         </connections>
@@ -784,11 +790,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="ieU-3W-GfZ" firstAttribute="centerY" secondItem="ppa-JS-2pd" secondAttribute="centerY" id="Efe-cU-ulp"/>
+                                    <constraint firstItem="ieU-3W-GfZ" firstAttribute="centerY" secondItem="ppa-JS-2pd" secondAttribute="centerY" constant="-15" id="Efe-cU-ulp"/>
                                     <constraint firstAttribute="trailing" secondItem="dNm-d3-UhY" secondAttribute="trailing" constant="40" id="If7-3a-GHK"/>
                                     <constraint firstItem="dNm-d3-UhY" firstAttribute="leading" secondItem="ieU-3W-GfZ" secondAttribute="trailing" constant="20" id="TV0-YJ-xgI"/>
-                                    <constraint firstAttribute="bottom" secondItem="dNm-d3-UhY" secondAttribute="bottom" constant="10" id="svv-WZ-Qsx"/>
-                                    <constraint firstItem="dNm-d3-UhY" firstAttribute="top" secondItem="ppa-JS-2pd" secondAttribute="top" constant="10" id="us7-87-q29"/>
+                                    <constraint firstAttribute="bottom" secondItem="dNm-d3-UhY" secondAttribute="bottom" constant="20" id="svv-WZ-Qsx"/>
+                                    <constraint firstItem="dNm-d3-UhY" firstAttribute="top" secondItem="ppa-JS-2pd" secondAttribute="top" constant="20" id="us7-87-q29"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -817,7 +823,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AfH-4T-eSC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="113" y="612"/>
+            <point key="canvasLocation" x="112.49999999999999" y="611.71875"/>
         </scene>
     </scenes>
     <resources>

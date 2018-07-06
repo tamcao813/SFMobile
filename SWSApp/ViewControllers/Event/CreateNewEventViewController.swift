@@ -171,8 +171,28 @@ class CreateNewEventViewController: UIViewController {
         }else{
             PlanVisitManager.sharedInstance.visit?.contactId = ""
         }
-        PlanVisitManager.sharedInstance.visit?.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
-        PlanVisitManager.sharedInstance.visit?.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
+        
+        //Check Weather the dates are changed or not(Used to Check States for UI API)
+        if PlanVisitManager.sharedInstance.visit?.startDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime){
+            
+            VisitModelForUIAPI.isEditMode = true
+            
+        }else if PlanVisitManager.sharedInstance.visit?.endDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime){
+            
+            VisitModelForUIAPI.isEditMode = true
+            
+        }else{
+            
+            VisitModelForUIAPI.isEditMode = false
+        }
+        
+        if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+            
+            VisitModelForUIAPI.isEditMode = false
+        }
+        
+        PlanVisitManager.sharedInstance.visit?.startDate =  DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
+        PlanVisitManager.sharedInstance.visit?.endDate = DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
         PlanVisitManager.sharedInstance.visit?.dateStart = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)
         PlanVisitManager.sharedInstance.visit?.dateEnd = DateTimeUtility.getDateInUTCFormatFromDateString(dateString: (PlanVisitManager.sharedInstance.visit?.endDate)!)
         //let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
@@ -276,8 +296,8 @@ class CreateNewEventViewController: UIViewController {
         }else{
             new_Event.contactId = ""
         }
-        new_Event.startDate =  getDataTimeinStr(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
-        new_Event.endDate = getDataTimeinStr(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
+        new_Event.startDate =  DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime)
+        new_Event.endDate = DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime)
         
         new_Event.recordTypeId = SyncConfigurationViewModel().syncConfigurationRecordIdforEvent()
         
@@ -356,19 +376,6 @@ class CreateNewEventViewController: UIViewController {
             }
         }
     }
-    
-    func getDataTimeinStr(date:String, time: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy'T'hh:mm a"
-        var string = date + "T" + time
-        if let dateFromString = dateFormatter.date(from: string) {
-            //again assign the dateFormat and UTC timezone to get proper string else it will return the UTC format string
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-            dateFormatter.timeZone = TimeZone(identifier:"UTC")
-            string = dateFormatter.string(from: dateFromString)
-        }
-        return string
-    }
 }
 
 extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSource {
@@ -444,15 +451,28 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
                     
                     cell.eventStartDateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.startDate)
                     cell.eventEndDateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.endDate)
-                    cell.eventStartTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"hh:mm a")
-                    cell.eventEndTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"hh:mm a")
+                    if DateTimeUtility.isDeviceIsin24hrFormat() {
+                        cell.eventStartTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"HH:mm")
+                        cell.eventEndTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"HH:mm")
+                    }else {
+                        cell.eventStartTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"hh:mm a")
+                        cell.eventEndTimeTextField.text = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"hh:mm a")
+                    }
                     
                     //Setting the model Data in Edit Mode
                     CreateNewEventViewControllerGlobals.startDate = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.startDate)
                     CreateNewEventViewControllerGlobals.endDate = DateTimeUtility.convertUtcDatetoReadableDateString(dateString: eventObject.endDate)
-                    CreateNewEventViewControllerGlobals.startTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"hh:mm a")
-                    CreateNewEventViewControllerGlobals.endTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"hh:mm a")
                     
+                    if DateTimeUtility.isDeviceIsin24hrFormat() {
+                        CreateNewEventViewControllerGlobals.startTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"HH:mm")
+                        CreateNewEventViewControllerGlobals.endTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"HH:mm")
+                        
+                    }else {
+                        CreateNewEventViewControllerGlobals.startTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.startDate,dateFormat:"hh:mm a")
+                        CreateNewEventViewControllerGlobals.endTime = DateTimeUtility.convertUTCDateStringToLocalTimeZone(dateString: eventObject.endDate,dateFormat:"hh:mm a")
+                        
+                    }
+                  
                     if eventObject.sgwsAlldayEvent == true{
                         cell.btnAllDayEvent?.setImage(UIImage(named:"Checkbox Selected"), for: .normal)
                         cell.isSelectedFlag = true
@@ -477,6 +497,14 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             searchAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.accountsDropDown
             cell?.delegate = self
+            if eventWorkOrderObject != nil {
+                cell?.searchContactTextField.isUserInteractionEnabled = false
+                cell?.searchContactTextField.alpha = 0.5
+            }else {
+                cell?.searchContactTextField.isUserInteractionEnabled = true
+                 cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
+                cell?.searchContactTextField.alpha = 1.0
+            }
             return cell!
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell") as? AccountContactLinkTableViewCell
@@ -485,6 +513,13 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             cell?.delegate = self
             if let account = selectedAccount {
                 cell?.displayCellContent(account: account)
+            }
+            if eventWorkOrderObject != nil {
+                cell?.deleteButton.isUserInteractionEnabled = false
+                 cell?.deleteButton.alpha = 0.3
+            }else {
+                cell?.deleteButton.isUserInteractionEnabled = true
+                cell?.deleteButton.alpha = 1.0
             }
             return cell!
         case 4:
@@ -573,8 +608,34 @@ extension CreateNewEventViewController: AccountContactLinkTableViewCellDelegate 
 extension CreateNewEventViewController: SearchForContactTableViewCellDelegate {
     func contactSelected(contact: Contact) {
         CreateNewEventViewControllerGlobals.userInput = true
-        selectedContact = contact
-        reloadTableView()
+        
+        //Check if this selected contact is SGWS Employees return
+        let sgwsContacts = StoreDispatcher.shared.fetchAllSGWSEmployeeContacts()
+        
+        let sgwsContact = sgwsContacts.filter( { return $0.contactId == contact.contactId } )
+        
+        if(sgwsContact.count > 0){
+            
+            selectedContact = contact
+            reloadTableView()
+            
+        } else {
+            
+            if StoreDispatcher.shared.isContactSynced(id: contact.contactId){
+                showAlert()
+                return
+            }else{
+                selectedContact = contact
+                reloadTableView()
+            }
+        }
+    }
+    func showAlert() {
+        let alertController = UIAlertController(title: "Alert", message:
+            StringConstants.eventCheckContactId, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

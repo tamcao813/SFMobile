@@ -27,8 +27,9 @@ let SoupRecordType = "RecordType"
 
 var soupNames: [String] = [SoupUser,SoupAccount,SoupContact,SoupAccountContactRelation,SoupAccountNotes,SoupVisit,SoupStrategyQA,SoupStrategyQuestion,SoupStrategyAnswers,SoupSyncConfiguration,SoupActionItem,SoupNotifications,SoupSyncLog,SoupRecordType]
 
-let SoupOpportunity = "opportunity"
-//let SoupUploadOpportunity = "uploadOpportunity"
+let SoupOpportunity = "OpportunityLineItem"
+let SoupUploadOpportunity = "Opportunity"
+let SoupOpportunityObjective = "SGWS_Opportunity_Objective__c"
 let SoupOpportunityWorkorder = "SGWS_Opportunity_WorkOrder__c"
 
 // SyncId constants
@@ -53,8 +54,11 @@ let SyncDownIdNote = "SyncDownIdNote"
 let SyncUpIdVisit = "SyncUpIdVisit"
 let SyncDownIdVisit = "SyncDownIdVisit"
 
+let SyncDownIdUploadOpportunity = "SyncDownIdUploadOpportunity"
+
 let SyncUpIdOpportunity = "SyncUpIdOpportunity"
-let SyncDownIdOpportunity = "SyncDownIdOpportunity"
+let SyncDownIdOpportunityLineItem = "SyncDownIdOpportunityLineItem"
+let SyncDownIdOpportunityObjective = "SyncDownIdOpportunityObjective"
 
 let SyncUpIdStrategyQA = "SyncUpIdStrategyQA"
 let SyncDownIdStrategyQA = "SyncDownIdStrategyQA"

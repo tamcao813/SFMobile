@@ -128,14 +128,61 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
         super.init(coder: aDecoder)
     }
     
+    func checkVisitStates(textField : UITextField){
+        
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+            
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+                
+                //Its a local created entry
+                if textField.tag == 200{
+                    self.dateView(textField: textField)
+                }else{
+                    self.timeView(textField: textField)
+                }
+            }else{
+                
+                //Its already Synced UP
+                if AppDelegate.isConnectedToNetwork(){
+                    textField.isUserInteractionEnabled = true
+                    if textField.tag == 200{
+                        self.dateView(textField: textField)
+                    }else{
+                        self.timeView(textField: textField)
+                    }
+                    
+                }else{
+                    textField.isUserInteractionEnabled = false
+                }
+            }
+            
+        }else{
+            //Its a new local created entry
+            if textField.tag == 200{
+                self.dateView(textField: textField)
+            }else{
+                self.timeView(textField: textField)
+            }
+        }
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        textField.isUserInteractionEnabled = true
+        
         switch textField.tag {
         case 200:
-            self.dateView(textField: textField)
+         
+            self.checkVisitStates(textField: textField)
+
         case 201:
-            self.timeView(textField: textField)
+            
+            self.checkVisitStates(textField: textField)
+            
         case 202:
-            self.timeView(textField: textField)
+           
+            self.checkVisitStates(textField: textField)
+            
         default:
             print("default")
         }
@@ -211,6 +258,15 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
         inputView.backgroundColor = UIColor.white
         datePickerView.frame.origin = CGPoint(x: self.frame.width/1.2, y: 20)
         datePickerView.datePickerMode = .date
+        
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+            
+            let startDate = DateTimeUtility.covertUTCtoLocalTimeZone(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)
+            
+            datePickerView.date = startDate!
+            
+        }
+        
         datePickerView.minimumDate = NSDate() as Date
         inputView.addSubview(datePickerView) // add date picker to UIView
         

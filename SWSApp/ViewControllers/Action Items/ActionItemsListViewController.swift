@@ -80,7 +80,8 @@ class ActionItemsListViewController: UIViewController {
             
             let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
             
-            if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid) {
+            if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid) ||
+                (FilterMenuModel.isFromAccountListView == "") && (appDelegate.currentSelectedUserId != loggedInuserid) {
                 
                 actionItemsArray = actionItemsArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
             }

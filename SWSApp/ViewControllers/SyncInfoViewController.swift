@@ -60,7 +60,6 @@ class SyncInfoViewController: UIViewController {
                 
                 if(SyncUpDailogGlobal.isSyncError == true) {
                     self.updateDailog(syncUpFailed: true)
-                    SyncUpDailogGlobal.isSyncError = false
                     return  //If error return without incrementing progress
                 }
                 
@@ -90,8 +89,11 @@ class SyncInfoViewController: UIViewController {
         
         if !SyncUpDailogGlobal.isSyncing {
             self.delegate?.startSyncUp()
-            SyncUpDailogGlobal.isSyncing = true
-            SyncUpDailogGlobal.syncType = "Manual"
+            SyncUpDailogGlobal.isSyncing    = true
+            SyncUpDailogGlobal.syncType     = "Manual"
+            //Error & Warning Flag to reset false on synccall
+            SyncUpDailogGlobal.isSyncError  = false
+            SyncUpDailogGlobal.isSyncWarning = false
         }
     }
     

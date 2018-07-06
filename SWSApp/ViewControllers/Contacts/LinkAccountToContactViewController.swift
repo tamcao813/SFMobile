@@ -170,7 +170,7 @@ class LinkAccountToContactViewController: UIViewController {
             return
         }
 
-        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,(contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == "Other" {
+        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,(contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == "Other",(otherReasonTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             otherReasonTextField.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError

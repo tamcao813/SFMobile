@@ -19,7 +19,7 @@ class OpportunitySortUtility {
         if let loggedInuserid: String = (UserViewModel().loggedInUser?.userId) {
             
             let currentSelectedUSerId = (UIApplication.shared.delegate as! AppDelegate).currentSelectedUserId
-            if(currentSelectedUSerId != loggedInuserid) {
+            if (FilterMenuModel.isFromAccountListView == "NO") && (currentSelectedUSerId != loggedInuserid) {
 
                 return GlobalOpportunityModel.globalOpportunity.filter( { return ($0.ownerId == currentSelectedUSerId) && ($0.accountId == accountId) } )
             }

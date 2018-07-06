@@ -64,6 +64,8 @@ struct FilterMenuModel {
     
     static var city: String = ""
     
+    static var isFromAccountListView = ""
+
     static var comingFromDetailsScreen = ""
     static var selectedAccountId = ""
     

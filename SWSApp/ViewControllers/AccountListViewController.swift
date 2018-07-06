@@ -145,6 +145,8 @@ class AccountsListViewController: UIViewController {
     //Account List Notification
     @objc func reloadAllAccounts(notification: NSNotification){
         
+        FilterMenuModel.isFromAccountListView = "NO"
+
         if FilterMenuModel.selectedAccountId != "" {
             let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser(), accountId: FilterMenuModel.selectedAccountId)
             guard accountList != nil, (accountList?.count)! > 0  else {
@@ -822,6 +824,7 @@ extension AccountsListViewController : UITableViewDelegate{
         
         delegate?.pushTheScreenToDetailsScreen(accountData: account)
         FilterMenuModel.comingFromDetailsScreen = "YES"
+        FilterMenuModel.isFromAccountListView = "YES"
     }
 }
 

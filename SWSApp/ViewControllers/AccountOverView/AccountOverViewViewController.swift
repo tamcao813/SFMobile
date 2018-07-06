@@ -102,7 +102,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         let userViewModel = UserViewModel()
         let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
         
-        if(appDelegate.currentSelectedUserId != loggedInuserid){
+        if (FilterMenuModel.isFromAccountListView == "NO") && ( appDelegate.currentSelectedUserId != loggedInuserid ) {
             
             let upcomingVisitArryfilteredByCounsultant:[WorkOrderUserObject] = upcomingVisit.filter( { return $0.ownerId == appDelegate.currentSelectedUserId })
             

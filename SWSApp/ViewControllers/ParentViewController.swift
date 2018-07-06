@@ -1139,11 +1139,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     private func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
         
         self.view.endEditing(true)
-        
+        FilterMenuModel.isFromAccountListView = ""
+
         if index != 1{
             filterMenuModel.clearFilterModelData()
         }
-        
+
         if index != 2{
             
             let accVC = contactsVC as? ContactsViewController

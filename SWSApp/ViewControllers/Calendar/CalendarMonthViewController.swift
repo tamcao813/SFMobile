@@ -531,7 +531,7 @@ extension CalendarMonthViewController : NavigateToContactsDelegate{
         
         if data == .actionItems{
            
-            
+            FilterMenuModel.isFromAccountVisitSummary = "YES"
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showActionItems"), object:nil)
         }
         
@@ -557,6 +557,7 @@ extension CalendarMonthViewController : NavigateToContactsDelegate{
             }
             
         }else {
+            FilterMenuModel.isFromAccountVisitSummary = "YES"
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMoreScreens"), object:data.rawValue)
         }
     }

@@ -3909,11 +3909,16 @@ class StoreDispatcher {
     
     func syncDownNotification(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c,SGWS_Type__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false"
+        let userViewModel = UserViewModel()
         
-        print("soql notification query is \(soqlQuery)")
+        let userid: String = (userViewModel.loggedInUser?.userId)!
+        let childQuery = "SELECT AccountId FROM AccountTeamMember WHERE User.Id =" + "'\(userid)'"
         
-        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
+        let soupQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c,SGWS_Type__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false AND SGWS_Account__c IN (\(childQuery))"
+        
+        print("soupQuery notification query is \(soupQuery)")
+        
+        let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soupQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:SFSyncStateMergeMode.overwrite)
         
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupNotifications)

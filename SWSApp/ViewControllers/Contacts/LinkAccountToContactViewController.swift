@@ -165,7 +165,6 @@ class LinkAccountToContactViewController: UIViewController {
         
         if let buyerFlag = doesHaveBuyingPower,!buyerFlag && (contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             contactClassificationTextField.borderColor = .red
-            contactClassificationTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return
@@ -173,7 +172,6 @@ class LinkAccountToContactViewController: UIViewController {
 
         if let buyerFlag = doesHaveBuyingPower,!buyerFlag,(contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == "Other" {
             otherReasonTextField.borderColor = .red
-            otherReasonTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return
@@ -300,22 +298,24 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
             return cell!
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
-            
-//            cell?.setBuyingPower(value: doesHaveBuyingPower)
-            
-            if let acr = accContactRelation { //this is for editing
-                if isFirstTimeLoaded {
-                    cell?.primaryFunctionTextField.text = acr.roles
-                }
-            }
+            //        cell?.setBuyingPower(value: doesHaveBuyingPower)
             cell?.delegate = self
-            primaryFunctionTextField = cell?.primaryFunctionTextField            
+            if let acr = accContactRelation,!fromPicker {
+                cell?.acrDetail = acr
+                cell?.displayCellContent()
+            }
+            
+            if let option = pickerOption, fromPicker{
+                primaryFunctionTextField.text = option["value"] as? String
+            }
+            primaryFunctionTextField = cell?.primaryFunctionTextField
             return cell!
         case 3:
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
+                
                 if let option = pickerOption, fromPicker{
                     if option["validFor"] as! Int == 1 {
                         doesHaveBuyingPower = true
@@ -373,6 +373,11 @@ extension LinkAccountToContactViewController: PrimaryFunctionTableViewCellDelega
     func primaryFunctionValueSelected(pickerOption: [String : Any]) {
         self.pickerOption = pickerOption
         self.fromPicker = true
+        if pickerOption["validFor"] as! Int == 1 {
+            doesHaveBuyingPower = true
+        }else{
+            doesHaveBuyingPower = false
+        }
         self.tableView.reloadData()
     }
 }

@@ -382,9 +382,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     
     
     private func setupTopMenuIcons(){
+        var loggedInUserInitials = ""
+        if let userId = SFUserAccountManager.sharedInstance().currentUser?.fullName{
+            loggedInUserInitials = Validations().getIntials(name: userId)
+        }
         
-        let userId = SFUserAccountManager.sharedInstance().currentUser?.fullName
-        let loggedInUserInitials = Validations().getIntials(name: userId!)
         print("Name is ----\(loggedInUserInitials)")
         self.userInitialLabel = UILabel(frame: CGRect(x: 3, y:5, width: 35, height: 35))
         self.userInitialLabel?.font  = UIFont(name: "Ubuntu-Medium", size: 14)

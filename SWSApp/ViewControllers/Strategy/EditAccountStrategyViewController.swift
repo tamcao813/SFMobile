@@ -36,7 +36,7 @@ class EditAccountStrategyViewController: UIViewController {
     var strategyQAResponse:[StrategyQA] = []
     var strategyNotes = ""
     var isFirstTimeLoad = true
-    var singleSelect = "Single"
+    var selectionType = "Single"
     
     @IBOutlet weak var collectionView : UICollectionView?
     
@@ -122,7 +122,7 @@ class EditAccountStrategyViewController: UIViewController {
                 dict.setValue(questionData.SGWS_Question_Description__c, forKey: "subHeader") //Added Subheader
                 dict.setValue(questionData.SGWS_Question_Sub_Type__c, forKey: "subHeaderStrategy")
                 dict.setValue(questionData.Id, forKey: "id")
-                if questionData.SGWS_Answer_Type__c == singleSelect{
+                if questionData.SGWS_Answer_Type__c == selectionType{
                     dict.setValue(questionData.SGWS_Answer_Type__c, forKey: "selectionType")
                 }else{
                     dict.setValue("Multi", forKey: "selectionType")

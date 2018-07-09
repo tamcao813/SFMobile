@@ -3109,7 +3109,7 @@ class StoreDispatcher {
         
         let surveyIdsFormattedString = "'" + surveyIdsString + "'"
         
-        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c,SGWS_Question_Description__c FROM SGWS_Question__c"
+        let soqlQuery = "SELECT Id,Name,SGWS_Deactivate__c,SGWS_Question_Sub_Type__c,SGWS_Question_Type__c,SGWS_Sorting_Order__c,SGWS_Survey_ID__c,SGWS_Question_Description__c FROM SGWS_Question__c,SGWS_Answer_Type__c"
         
         print("soql syncDownStrategyQuestions query is \(soqlQuery)")
         

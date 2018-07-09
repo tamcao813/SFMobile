@@ -30,10 +30,10 @@ class EditAccountStrategyCollectionReusableView: UICollectionReusableView {
         }
         
         
-//        if (headerQuestion["selectionType"] as! String) == "1"{
-//            self.selectionLabel?.text = "Single Select"
-//        }else{
-//            self.selectionLabel?.text = "Multi Select"
-//        }
+        if (headerQuestion["selectionType"] as! String) == "Single"{
+            self.selectionLabel?.text = "Single Select"
+        }else{
+            self.selectionLabel?.text = "Multi Select"
+        }
     }
 }

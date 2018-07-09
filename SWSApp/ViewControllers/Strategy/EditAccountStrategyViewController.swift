@@ -585,7 +585,7 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
             
             //Used for Single selection = 1 or Multiselection = 2
-            if (tableData["selectionType"] as! String) == "Single"{
+            if (tableData["selectionType"] as! String) == selectionType{
                 for setData in tableContent{
                     let data = setData as! NSMutableDictionary
                     data.setValue("NO", forKey: "isSelected")

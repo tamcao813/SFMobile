@@ -75,8 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 self.setupRootViewController()
                 //For SDK error one can use .debug or .error to switch off .off
-                SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .debug
-                SFSDKCoreLogger.sharedInstance().logLevel       =    .debug
+                SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .error
+                SFSDKCoreLogger.sharedInstance().logLevel       =    .error
                 
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()

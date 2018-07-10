@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.3</string>
+	<string>1.2.3.32</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>28</string>
+	<string>32</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -60,7 +60,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>App Needs Location permission.</string>
 	<key>SFDCOAuthLoginHost</key>
-	<string>sgws-de--detest.cs77.my.salesforce.com</string>
+	<string>${AuthLoginHost}</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>CrimsonText-Bold.ttf</string>

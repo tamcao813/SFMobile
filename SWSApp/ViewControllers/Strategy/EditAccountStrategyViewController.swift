@@ -36,6 +36,7 @@ class EditAccountStrategyViewController: UIViewController {
     var strategyQAResponse:[StrategyQA] = []
     var strategyNotes = ""
     var isFirstTimeLoad = true
+    var selectionType = "Single"
     
     @IBOutlet weak var collectionView : UICollectionView?
     
@@ -66,28 +67,6 @@ class EditAccountStrategyViewController: UIViewController {
         validateTheReguiredVield.isSaveClicked = "0"
         
         isFirstTimeLoad = true
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        //StrategyNotes.accountStrategyNotes = ""
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK:-
@@ -143,6 +122,11 @@ class EditAccountStrategyViewController: UIViewController {
                 dict.setValue(questionData.SGWS_Question_Description__c, forKey: "subHeader") //Added Subheader
                 dict.setValue(questionData.SGWS_Question_Sub_Type__c, forKey: "subHeaderStrategy")
                 dict.setValue(questionData.Id, forKey: "id")
+                if questionData.SGWS_Answer_Type__c == selectionType{
+                    dict.setValue(questionData.SGWS_Answer_Type__c, forKey: "selectionType")
+                }else{
+                    dict.setValue("Multi", forKey: "selectionType")
+                }
                 
                 self.createAnswersWithIsSelectedKey(answer : answer , questionData : questionData , dict : dict , tableViewData : tableViewData)
             }
@@ -601,19 +585,19 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
             
             //Used for Single selection = 1 or Multiselection = 2
-            //if (tableData["selectionType"] as! String) == "1"{
-            //    for setData in tableContent{
-            //        let data = setData as! NSMutableDictionary
-            //        data.setValue("NO", forKey: "isSelected")
-            //    }
-            //    questions.setValue("YES", forKey: "isSelected")
-            //}else{
-            if (questions["isSelected"] as! String) == "NO"{
+            if (tableData["selectionType"] as! String) == selectionType{
+                for setData in tableContent{
+                    let data = setData as! NSMutableDictionary
+                    data.setValue("NO", forKey: "isSelected")
+                }
                 questions.setValue("YES", forKey: "isSelected")
             }else{
-                questions.setValue("NO", forKey: "isSelected")
+                if (questions["isSelected"] as! String) == "NO"{
+                    questions.setValue("YES", forKey: "isSelected")
+                }else{
+                    questions.setValue("NO", forKey: "isSelected")
+                }
             }
-            //}
             collectionView.reloadData()
         }
     }

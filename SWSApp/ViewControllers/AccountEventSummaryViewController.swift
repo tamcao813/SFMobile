@@ -456,6 +456,16 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 3 {
+            
+            //Check if this selected contact is SGWS Employees
+            let sgwsContacts = StoreDispatcher.shared.fetchAllSGWSEmployeeContacts()
+            
+            let syncConfigurationList = sgwsContacts.filter( { return $0.contactId == selectedContact.contactId } )
+            
+            if(syncConfigurationList.count > 0){
+                return
+            }
+            
             if selectedContact != nil {
                 DispatchQueue.main.async {
                     self.dismiss(animated: false, completion: nil)

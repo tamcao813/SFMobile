@@ -173,22 +173,15 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         //contactViewModel.accountsForContacts()
         
         if ContactsGlobal.accountId == "" {
-            
             isAccountSpecific = false
-
             globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: "")
-            
         }else{
-            
             isAccountSpecific = true
-            
             delegate?.clearAllMenu()
-            
             globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
             print("globalContactsForList.count  = \(globalContactsForList.count)")
             
-            ContactsGlobal.accountId = ""
-            
+            ContactsGlobal.accountId = ""            
         }
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         

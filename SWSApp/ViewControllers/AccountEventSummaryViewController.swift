@@ -440,6 +440,11 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
                 return
             }
             
+            if !ContactSortUtility().checkIfContactExistOnRoute(contact: selectedContact) {
+                return
+            }
+            
+            
             if selectedContact != nil {
                 DispatchQueue.main.async {
                     self.dismiss(animated: false, completion: nil)

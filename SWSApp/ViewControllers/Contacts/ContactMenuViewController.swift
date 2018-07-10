@@ -46,7 +46,7 @@ class ContactMenuViewController: UIViewController {
         
         if let contactData = ContactsViewModel().globalContacts() as [Contact]? {
             
-            var functionRoles = filterClass.sectionItems[1] as! [String]
+            var functionRoles = filterClass.sectionItems[0] as! [String]
 
             for contactObject in contactData {
                 
@@ -62,7 +62,7 @@ class ContactMenuViewController: UIViewController {
             }
             
             if functionRoles.count > 0{
-                filterClass.sectionItems[1] = functionRoles
+                filterClass.sectionItems[0] = functionRoles
             }
 
         }
@@ -125,12 +125,6 @@ class ContactMenuViewController: UIViewController {
     //Used to Clear the Model Data
     func clearFilterModelData(clearcontactsOnMyRoute: Bool){
         
-        ContactFilterMenuModel.allContacts = ""
-        ContactFilterMenuModel.contactsOnMyRoute = ""
-        if !clearcontactsOnMyRoute {
-            ContactFilterMenuModel.contactsOnMyRoute = "YES"
-        }
-        
         ContactFilterMenuModel.allRole = ""
         ContactFilterMenuModel.functionRoles = [String]()
         
@@ -147,14 +141,9 @@ class ContactMenuViewController: UIViewController {
         //Used to Clear the Expanded section of ContactFilter Option
         selectedSection = -1
         self.expandedSectionHeaderNumber = -1
-        if !clearcontactsOnMyRoute {
-            ContactFilterMenuModel.contactsOnMyRoute = "YES"
-            selectedSection = 0
-            self.expandedSectionHeaderNumber = 0
-        }
 
         if self.expandedSectionHeaderNumber != -1{
-            if self.expandedSectionHeaderNumber == 0, ContactFilterMenuModel.contactsOnMyRoute == "YES" {
+            if self.expandedSectionHeaderNumber == 0 {
                 
             }
             else {
@@ -260,39 +249,15 @@ class ContactMenuViewController: UIViewController {
         
         switch indexPath.section {
         case 0:
-            
-            contactsCellClickedSingleSelection(indexPath)
-
-        case 1:
-            
             roleCellClickedSingleSelection(indexPath, arrayContent: arrayContent)
-
-        case 2:
-            
+        case 1:
             buyingPowerCellClickedSingleSelection(indexPath)
-
         default:
             break
-
         }
         
         tableView.reloadData()
         
-    }
-    
-    func contactsCellClickedSingleSelection(_ indexPath: IndexPath) {
-    
-        switch indexPath.row {
-        case 0:
-            ContactFilterMenuModel.allContacts = "YES"
-            ContactFilterMenuModel.contactsOnMyRoute = "NO"
-        case 1:
-            ContactFilterMenuModel.allContacts = "NO"
-            ContactFilterMenuModel.contactsOnMyRoute = "YES"
-        default:
-            break
-        }
-
     }
     
     func roleCellClickedSingleSelection(_ indexPath: IndexPath, arrayContent : Array<Any>) {
@@ -363,9 +328,7 @@ class ContactMenuViewController: UIViewController {
     
     private func isValidUserInputAtSearchFilterPanel()->Bool{
         var validInput = false
-        if(searchBar.text!.count > 0 ||
-            ContactFilterMenuModel.allContacts != "" ||
-            (ContactFilterMenuModel.allRole == "YES" || ContactFilterMenuModel.functionRoles.count > 0) ||
+        if(searchBar.text!.count > 0 || (ContactFilterMenuModel.allRole == "YES" || ContactFilterMenuModel.functionRoles.count > 0) ||
             (ContactFilterMenuModel.allBuyingPower == "YES" || ContactFilterMenuModel.buyingPower == "YES" || ContactFilterMenuModel.nobuyingPower == "YES" /*ContactFilterMenuModel.buyerFlags.count > 0*/))
         {
             print("ValidUserInputAtSearchFilterPanel")

@@ -1,0 +1,9 @@
+//
+//  DEINTConfig.xcconfig
+//  SWSApp
+//
+//  Created by Thillaiganesh, C. on 10/07/18.
+//  Copyright © 2018 maria.min-hui.yu. All rights reserved.
+//
+
+AuthLoginHost = sgws-de--deint.cs95.my.salesforce.com

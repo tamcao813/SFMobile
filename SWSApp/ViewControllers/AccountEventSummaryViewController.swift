@@ -257,7 +257,7 @@ class AccountEventSummaryViewController: UIViewController {
                                 MBProgressHUD.hide(forWindow: true)
                             }
                             
-                            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Event has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteEventMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                                 
                                 // self.dismiss(animated: true, completion: nil)
                                 
@@ -267,7 +267,7 @@ class AccountEventSummaryViewController: UIViewController {
                     
                 }else{
                     
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Event not allowed in offline, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteEventNotAllowedMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                     }, action2: {})
                 }
             }

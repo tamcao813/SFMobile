@@ -418,7 +418,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
                                 MBProgressHUD.hide(forWindow: true)
                             }
                             
-                            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit has failed, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteVisitMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                                 
                                 // self.dismiss(animated: true, completion: nil)
                                 
@@ -430,7 +430,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
                     
                 }else{
                     
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit not allowed in offline, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteVisitNotAllowedMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                         
                         // self.dismiss(animated: true, completion: nil)
                         

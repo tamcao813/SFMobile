@@ -51,6 +51,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     var visitObject: WorkOrderUserObject?
     var visitStatus: AccountVisitStatus?
     var delegate : NavigateToContactsDelegate?
+    var isReachable = true
     
     //LOCATION
     var locationManager = CLLocationManager()
@@ -98,6 +99,8 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         //VisitModelForUIAPI.isEditMode = false
         
         self.setLocationManager()
+        self.checkForReachbility()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -249,6 +252,31 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         //        }
     }
     
+    
+    func checkForReachbility(){
+        
+        if AppDelegate.isConnectedToNetwork(){
+            self.isReachable = true
+        }else{
+            self.isReachable = false
+        }
+        
+        ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
+            self.isReachable = true
+        }
+        
+        ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
+            self.isReachable = false
+        }
+        
+        do {
+            try ReachabilitySingleton.sharedInstance().startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
+    }
+    
     func getStartDateAndEndTime() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
@@ -348,15 +376,16 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     //TODO: RAVI put all alert messages in string constant file
     @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
-        if AppDelegate.isConnectedToNetwork(){
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
+            
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
                 
-                if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
-                    
-                    self.deleteLocalVisitEntry()
-                    self.dismiss(animated: true, completion: nil)
-                    
-                }else{
+                self.deleteLocalVisitEntry()
+                self.dismiss(animated: true, completion: nil)
+                
+            }else{
+                
+                if self.isReachable{
                     
                     DispatchQueue.main.async { //do this in group.notify
                         MBProgressHUD.show(onWindow: true)
@@ -398,20 +427,21 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
                             })
                         }
                     }
+                    
+                }else{
+                    
+                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit not allowed in offline, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                        
+                        // self.dismiss(animated: true, completion: nil)
+                        
+                    }, action2: {
+                        
+                    })
                 }
-                
-            }) {
-                print("Cancel")
             }
-        } else{
-            print("NO Connection")
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Visit not allowed in offline, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-                
-                // self.dismiss(animated: true, completion: nil)
-                
-            }, action2: {
-                
-            })
+            
+        }) {
+            print("Cancel")
         }
     }
     

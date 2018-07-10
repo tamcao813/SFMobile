@@ -29,13 +29,13 @@ class AccountEventSummaryViewController: UIViewController {
     var accountObject: Account?
     var selectedContact: Contact!
     var visitObject: WorkOrderUserObject?
-    
+    var isReachable = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshVisit), name: NSNotification.Name("refreshAccountVisitList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.navigateToAccountScreen), name: NSNotification.Name("navigateToAccountScreen"), object: nil)
-        
+        self.checkForReachbility()
     }
     
     
@@ -197,14 +197,39 @@ class AccountEventSummaryViewController: UIViewController {
         }
     }
     
+    func checkForReachbility(){
+        
+        if AppDelegate.isConnectedToNetwork(){
+            self.isReachable = true
+        }else{
+            self.isReachable = false
+        }
+        
+        ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
+            self.isReachable = true
+        }
+        
+        ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
+            self.isReachable = false
+        }
+        
+        do {
+            try ReachabilitySingleton.sharedInstance().startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
+    }
+    
     @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
-        if AppDelegate.isConnectedToNetwork() {
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Event Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Event Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
+            
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
+                self.deleteLocalEventEntry()
+                self.dismiss(animated: true, completion: nil)
+            }else{
                 
-                if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
-                    self.deleteLocalEventEntry()
-                    self.dismiss(animated: true, completion: nil)
-                }else{
+                if self.isReachable{
                     
                     DispatchQueue.main.async { //do this in group.notify
                         MBProgressHUD.show(onWindow: true)
@@ -239,14 +264,15 @@ class AccountEventSummaryViewController: UIViewController {
                             }, action2: {})
                         }
                     }
+                    
+                }else{
+                    
+                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Event not allowed in offline, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                    }, action2: {})
                 }
-            }) {
-                print("Cancel")
             }
-        }else{
-            print("NO Connection")
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Deletion of Event not allowed in offline, Please try again ", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-            }, action2: {})
+        }) {
+            print("Cancel")
         }
     }
     

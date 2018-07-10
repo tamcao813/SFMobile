@@ -21,6 +21,11 @@ class StringConstants {
     static let deleteConfirmation = "Are you sure you want to delete?"
     static let contactsSavedSuccessfully = "Your contact has been saved successfully"
     static let saveFail = ""
+    static let deleteVisitMessage = "Deletion of Visit has failed, Please try again !"
+    static let deleteVisitNotAllowedMessage = "Deletion of Visit not allowed in offline mode, Please try again !"
+    
+    static let deleteEventMessage = "Deletion of Event has failed, Please try again !"
+    static let deleteEventNotAllowedMessage = "Deletion of Event not allowed in offline mode, Please try again !"
     
     static var globalUrlDictionary : NSDictionary!
     

@@ -224,7 +224,9 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
             self.insetValuesToDB()
             //Edit the visit
             if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
-                let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
+                let status = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+                    //print(error!)
+                })
                 print(status)
             } else{
                 //First Time A Visit is created and Saved

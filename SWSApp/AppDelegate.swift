@@ -37,8 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         super.init()
         var  plistpath:String? = ""
         //TODO: [SMK] Move the RemoteAccessConsumerKey in plist and put it in keychain
-        #if DEVELOPMENT
-            plistpath  = Bundle.main.path(forResource: "SFPropertydev", ofType: "plist")
+        #if DEINT
+            plistpath  = Bundle.main.path(forResource: "SFPropertyDeInt", ofType: "plist")
+        #elseif DETEST
+            plistpath  = Bundle.main.path(forResource: "SFPropertyDeTest", ofType: "plist")
+        #elseif DEDEV
+            plistpath  = Bundle.main.path(forResource: "SFPropertyDeDev", ofType: "plist")
         #else
             plistpath  = Bundle.main.path(forResource: "SFProperty", ofType: "plist")
         #endif

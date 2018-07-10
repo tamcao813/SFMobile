@@ -43,7 +43,6 @@
 		4A00BB5020BBBCC60003C3ED /* SyncLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A00BB4F20BBBCC60003C3ED /* SyncLog.swift */; };
 		4A39D30320AC496C00F79D95 /* AccountsActionItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */; };
 		4ADB2B0D206B1BAB001A8785 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */; };
-		6D38329B20875E00006805C6 /* SFPropertydev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D38329A20875E00006805C6 /* SFPropertydev.plist */; };
 		6DB9E3AC20CFBE9700041850 /* SoupConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB9E3AB20CFBE9600041850 /* SoupConstants.swift */; };
 		6DB9E3AE20CFBEA500041850 /* ConfigurationAndPickListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB9E3AD20CFBEA500041850 /* ConfigurationAndPickListModel.swift */; };
 		6DBD031A2077B5EF0083419E /* UFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6DBD030B2077B5EE0083419E /* UFL.txt */; };
@@ -185,6 +184,9 @@
 		91AA8ECB2095CCCC00787D83 /* ContactListAccountFooterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */; };
 		91AA8ECD2095CCCC00787D83 /* ContactListAccountHeaderDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */; };
 		91AB8C1C20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AB8C1B20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift */; };
+		91BB8DBC20F489B900912B5F /* SFPropertyDeDev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91BB8DB920F489B800912B5F /* SFPropertyDeDev.plist */; };
+		91BB8DBD20F489B900912B5F /* SFPropertyDeInt.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91BB8DBA20F489B900912B5F /* SFPropertyDeInt.plist */; };
+		91BB8DBE20F489B900912B5F /* SFPropertyDeTest.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91BB8DBB20F489B900912B5F /* SFPropertyDeTest.plist */; };
 		91C3E599208F0F460067CF3E /* ContactFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */; };
 		91C3E5A1208F0F710067CF3E /* ContactMenuTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */; };
 		91D2DA3320C10A4800104191 /* OpportunitiesFilterMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D2DA3220C10A4800104191 /* OpportunitiesFilterMenuModel.swift */; };
@@ -415,16 +417,20 @@
 		12E47BE3208B518A00D37B74 /* ContactListDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		12F0F899208FA6BD00160C3D /* AccountContactRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountContactRelation.swift; sourceTree = "<group>"; };
 		19C8BD47DF4615A2A812341C /* Pods-SWSAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		1E4B7E3D01225F4BBD905E88 /* Pods-SWSAppUITests.deint.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.deint.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.deint.xcconfig"; sourceTree = "<group>"; };
+		2C570DE02937A032AC58A85A /* Pods-SWSAppTests.detest.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.detest.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.detest.xcconfig"; sourceTree = "<group>"; };
+		38A00CC49672A7089D0F093D /* Pods-SWSAppTests.deint.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.deint.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.deint.xcconfig"; sourceTree = "<group>"; };
 		47406C810A477C295440E667 /* Pods-SWSAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4A00BB4F20BBBCC60003C3ED /* SyncLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncLog.swift; sourceTree = "<group>"; };
 		4A39D30220AC496C00F79D95 /* AccountsActionItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsActionItemViewModel.swift; sourceTree = "<group>"; };
 		4ADB2B0A206B1BAA001A8785 /* SWSApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SWSApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		4ADB2B0B206B1BAB001A8785 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		4ADB2B0C206B1BAB001A8785 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		4C6EFA98422A516124244A2D /* Pods-SWSApp.detest.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.detest.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.detest.xcconfig"; sourceTree = "<group>"; };
 		4E8B2141B0640B1581755B3D /* Pods-SWSApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.debug.xcconfig"; sourceTree = "<group>"; };
 		5AA42EFBD421FE930972321D /* Pods-SWSApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B3277C8952E6C9483CD1CA7 /* Pods-SWSAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		6D38329A20875E00006805C6 /* SFPropertydev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SFPropertydev.plist; sourceTree = "<group>"; };
+		657641A1100958E2220752CA /* Pods-SWSApp.deint.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.deint.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.deint.xcconfig"; sourceTree = "<group>"; };
 		6DB9E3AB20CFBE9600041850 /* SoupConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoupConstants.swift; sourceTree = "<group>"; };
 		6DB9E3AD20CFBEA500041850 /* ConfigurationAndPickListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationAndPickListModel.swift; sourceTree = "<group>"; };
 		6DBD030B2077B5EE0083419E /* UFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = UFL.txt; path = SWSApp/Resources/Fonts/UFL.txt; sourceTree = SOURCE_ROOT; };
@@ -540,6 +546,9 @@
 		8DDD4A4820BBFC5000423E20 /* TitleDepartmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TitleDepartmentTableViewCell.swift; path = "Personal Detail Cells/TitleDepartmentTableViewCell.swift"; sourceTree = "<group>"; };
 		8DDD4A4920BBFC5100423E20 /* TitleDepartmentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TitleDepartmentTableViewCell.xib; path = "Personal Detail Cells/TitleDepartmentTableViewCell.xib"; sourceTree = "<group>"; };
 		8DEE7B5D20EA3A99007FAF02 /* ReachabilitySingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilitySingleton.swift; sourceTree = "<group>"; };
+		911B745A20F4A64000603B7F /* DETESTConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DETESTConfig.xcconfig; sourceTree = "<group>"; };
+		911B745E20F4A7A700603B7F /* DEINTConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DEINTConfig.xcconfig; sourceTree = "<group>"; };
+		911B745F20F4A7BD00603B7F /* DEDEVConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DEDEVConfig.xcconfig; sourceTree = "<group>"; };
 		911D0C6620AEB9610083BACB /* CalendarSortUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSortUtility.swift; sourceTree = "<group>"; };
 		911D16FF20AD3E7C007D61C3 /* AttributedStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringUtil.swift; sourceTree = "<group>"; };
 		912FA9E720AAFC75005979FF /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
@@ -561,6 +570,9 @@
 		91AA8EC72095CCCC00787D83 /* ContactListAccountFooterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountFooterDetails.swift; sourceTree = "<group>"; };
 		91AA8EC82095CCCC00787D83 /* ContactListAccountHeaderDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAccountHeaderDetails.swift; sourceTree = "<group>"; };
 		91AB8C1B20C11573000DB53F /* OpportunitiesMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesMenuTableViewCell.swift; sourceTree = "<group>"; };
+		91BB8DB920F489B800912B5F /* SFPropertyDeDev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SFPropertyDeDev.plist; sourceTree = "<group>"; };
+		91BB8DBA20F489B900912B5F /* SFPropertyDeInt.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SFPropertyDeInt.plist; sourceTree = "<group>"; };
+		91BB8DBB20F489B900912B5F /* SFPropertyDeTest.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SFPropertyDeTest.plist; sourceTree = "<group>"; };
 		91C3E598208F0F460067CF3E /* ContactFilterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactFilterViewModel.swift; sourceTree = "<group>"; };
 		91C3E5A0208F0F710067CF3E /* ContactMenuTableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMenuTableTableViewCell.swift; sourceTree = "<group>"; };
 		91D2DA3220C10A4800104191 /* OpportunitiesFilterMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunitiesFilterMenuModel.swift; sourceTree = "<group>"; };
@@ -586,6 +598,8 @@
 		91FAEF3520A57DD500209D71 /* UIColorExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtention.swift; sourceTree = "<group>"; };
 		91FAEF3620A57DD500209D71 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		91FAEF3820A57DD500209D71 /* WRWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRWeekView.swift; sourceTree = "<group>"; };
+		A70EFAFC2B85C6853270C0BB /* Pods-SWSAppUITests.dedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.dedev.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.dedev.xcconfig"; sourceTree = "<group>"; };
+		A88A98CA7BBDD26B052BA148 /* Pods-SWSApp.dedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.dedev.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.dedev.xcconfig"; sourceTree = "<group>"; };
 		A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE029EBD20C55C3F00DA7194 /* DayHomeCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayHomeCalendarViewController.swift; sourceTree = "<group>"; };
 		AE1FAA8420B45888005B44EC /* EventDescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDescriptionTableViewCell.swift; sourceTree = "<group>"; };
@@ -624,6 +638,7 @@
 		AEF951172089C7800083EA47 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		AEF951192089C7D70083EA47 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
 		AEF9511B2089DFEE0083EA47 /* PlanVisitEditableScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanVisitEditableScreen.storyboard; sourceTree = "<group>"; };
+		B2950157F395A3A0E33FAD0B /* Pods-SWSAppUITests.detest.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.detest.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.detest.xcconfig"; sourceTree = "<group>"; };
 		BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BADB33B820D909BD006585F5 /* SourceUndersoldTableviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceUndersoldTableviewCell.swift; sourceTree = "<group>"; };
 		BADB33B920D909BD006585F5 /* InsightsUnsoldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsightsUnsoldTableViewCell.swift; sourceTree = "<group>"; };
@@ -745,6 +760,7 @@
 		F2FDA1472099D924000921A8 /* VisitsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitsViewModel.swift; sourceTree = "<group>"; };
 		F2FDA1492099D92D000921A8 /* Visit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visit.swift; sourceTree = "<group>"; };
 		F2FEB0DA2073DBEE00B25E2A /* Filter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Filter.storyboard; sourceTree = "<group>"; };
+		F586351540EC2547C92C2652 /* Pods-SWSAppTests.dedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.dedev.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.dedev.xcconfig"; sourceTree = "<group>"; };
 		F7079A5982A809CAAA6EF1A9 /* Pods_SWSAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -857,6 +873,9 @@
 				D1FB182F2062A7C00072F4C1 /* LaunchScreen.storyboard */,
 				6DBD030A2077B5C70083419E /* Fonts */,
 				D1FB182D2062A7C00072F4C1 /* Assets.xcassets */,
+				911B745E20F4A7A700603B7F /* DEINTConfig.xcconfig */,
+				911B745A20F4A64000603B7F /* DETESTConfig.xcconfig */,
+				911B745F20F4A7BD00603B7F /* DEDEVConfig.xcconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -929,6 +948,15 @@
 				BAA023C9966A1C378C4D55C3 /* Pods-SWSAppUITests.release.xcconfig */,
 				4E8B2141B0640B1581755B3D /* Pods-SWSApp.debug.xcconfig */,
 				5AA42EFBD421FE930972321D /* Pods-SWSApp.release.xcconfig */,
+				657641A1100958E2220752CA /* Pods-SWSApp.deint.xcconfig */,
+				4C6EFA98422A516124244A2D /* Pods-SWSApp.detest.xcconfig */,
+				A88A98CA7BBDD26B052BA148 /* Pods-SWSApp.dedev.xcconfig */,
+				38A00CC49672A7089D0F093D /* Pods-SWSAppTests.deint.xcconfig */,
+				2C570DE02937A032AC58A85A /* Pods-SWSAppTests.detest.xcconfig */,
+				F586351540EC2547C92C2652 /* Pods-SWSAppTests.dedev.xcconfig */,
+				1E4B7E3D01225F4BBD905E88 /* Pods-SWSAppUITests.deint.xcconfig */,
+				B2950157F395A3A0E33FAD0B /* Pods-SWSAppUITests.detest.xcconfig */,
+				A70EFAFC2B85C6853270C0BB /* Pods-SWSAppUITests.dedev.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1327,7 +1355,9 @@
 		D1FB18542062BAA80072F4C1 /* PropertyPlist */ = {
 			isa = PBXGroup;
 			children = (
-				6D38329A20875E00006805C6 /* SFPropertydev.plist */,
+				91BB8DBA20F489B900912B5F /* SFPropertyDeInt.plist */,
+				91BB8DBB20F489B900912B5F /* SFPropertyDeTest.plist */,
+				91BB8DB920F489B800912B5F /* SFPropertyDeDev.plist */,
 				D1FB18552062BB1F0072F4C1 /* SFProperty.plist */,
 				F2590104209216ED00C2E354 /* DuringVisitTopics.plist */,
 				F20C1A26209347EA00D2351C /* Insights.plist */,
@@ -1699,6 +1729,7 @@
 				8D17A5DF20A224B800ABC9DC /* ScheduleAppointmentTableViewCell.xib in Resources */,
 				8D4BA3A820B45B58005CFE56 /* SearchAccountTableViewCell.xib in Resources */,
 				91497FF620C012E900A3F4F3 /* Opportunities.storyboard in Resources */,
+				91BB8DBC20F489B900912B5F /* SFPropertyDeDev.plist in Resources */,
 				6DBD03252077B5EF0083419E /* Ubuntu-LightItalic.ttf in Resources */,
 				BADB33C320DB8FCB006585F5 /* AccountsSummaryOpportunities.xib in Resources */,
 				BADB33C720DB95C7006585F5 /* InsightsUnsoldTableViewCell.xib in Resources */,
@@ -1764,6 +1795,7 @@
 				D23C409E208DCF610006691C /* AccountVisit.storyboard in Resources */,
 				8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */,
 				D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */,
+				91BB8DBE20F489B900912B5F /* SFPropertyDeTest.plist in Resources */,
 				AE1FAA8A20B4588A005B44EC /* EventDescriptionTableViewCell.xib in Resources */,
 				8D4BA33E20B455EC005CFE56 /* ActionItemsListTableViewCell.xib in Resources */,
 				8DD1500B209330E200858349 /* AccountView.xib in Resources */,
@@ -1776,8 +1808,8 @@
 				D1FB18592062F7A40072F4C1 /* Main.storyboard in Resources */,
 				8DD150062093308700858349 /* AssociateTableViewCell.xib in Resources */,
 				D1FB18312062A7C00072F4C1 /* LaunchScreen.storyboard in Resources */,
-				6D38329B20875E00006805C6 /* SFPropertydev.plist in Resources */,
 				91FAEF4920A57DD500209D71 /* WRColumnHeader.xib in Resources */,
+				91BB8DBD20F489B900912B5F /* SFPropertyDeInt.plist in Resources */,
 				F2086B7720B5B424008A61F0 /* VisitLocationTableViewCell.xib in Resources */,
 				8D4BA3AA20B45B58005CFE56 /* AccountContactLinkTableViewCell.xib in Resources */,
 				6DBD031C2077B5EF0083419E /* CrimsonText-Bold.ttf in Resources */,
@@ -2225,8 +2257,358 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		91BB8DAD20F4875D00912B5F /* DEDEV */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 911B745F20F4A7BD00603B7F /* DEDEVConfig.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = DEDEV;
+		};
+		91BB8DAE20F4875D00912B5F /* DEDEV */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A88A98CA7BBDD26B052BA148 /* Pods-SWSApp.dedev.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = SWSApp/Info.plist;
+				INFOPLIST_OUTPUT_FORMAT = XML;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
+				PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = DEDEV;
+		};
+		91BB8DAF20F4875D00912B5F /* DEDEV */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F586351540EC2547C92C2652 /* Pods-SWSAppTests.dedev.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 533B3D79JJ;
+				INFOPLIST_FILE = SWSAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWSApp.app/SWSApp";
+			};
+			name = DEDEV;
+		};
+		91BB8DB020F4875D00912B5F /* DEDEV */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A70EFAFC2B85C6853270C0BB /* Pods-SWSAppUITests.dedev.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 533B3D79JJ;
+				INFOPLIST_FILE = SWSAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SWSApp;
+			};
+			name = DEDEV;
+		};
+		91BB8DB120F4876A00912B5F /* DETEST */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 911B745A20F4A64000603B7F /* DETESTConfig.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = DETEST;
+		};
+		91BB8DB220F4876A00912B5F /* DETEST */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C6EFA98422A516124244A2D /* Pods-SWSApp.detest.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = SWSApp/Info.plist;
+				INFOPLIST_OUTPUT_FORMAT = XML;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
+				PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
+				SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = DETEST;
+		};
+		91BB8DB320F4876A00912B5F /* DETEST */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C570DE02937A032AC58A85A /* Pods-SWSAppTests.detest.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 533B3D79JJ;
+				INFOPLIST_FILE = SWSAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWSApp.app/SWSApp";
+			};
+			name = DETEST;
+		};
+		91BB8DB420F4876A00912B5F /* DETEST */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2950157F395A3A0E33FAD0B /* Pods-SWSAppUITests.detest.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 533B3D79JJ;
+				INFOPLIST_FILE = SWSAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SWSApp;
+			};
+			name = DETEST;
+		};
+		91BB8DB520F4877500912B5F /* DEINT */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 911B745E20F4A7A700603B7F /* DEINTConfig.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = DEINT;
+		};
+		91BB8DB620F4877500912B5F /* DEINT */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 657641A1100958E2220752CA /* Pods-SWSApp.deint.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = Y6PXE5R6AZ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = SWSApp/Info.plist;
+				INFOPLIST_OUTPUT_FORMAT = XML;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgws.SFA;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "dd9a0f43-3734-4252-9a56-cb163c7db8b9";
+				PROVISIONING_PROFILE_SPECIFIER = SFAProvisioningProductionDistribution;
+				SWIFT_OBJC_BRIDGING_HEADER = "SWSApp/Utilies/SWSApp-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = DEINT;
+		};
+		91BB8DB720F4877500912B5F /* DEINT */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38A00CC49672A7089D0F093D /* Pods-SWSAppTests.deint.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 533B3D79JJ;
+				INFOPLIST_FILE = SWSAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWSApp.app/SWSApp";
+			};
+			name = DEINT;
+		};
+		91BB8DB820F4877500912B5F /* DEINT */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E4B7E3D01225F4BBD905E88 /* Pods-SWSAppUITests.deint.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 533B3D79JJ;
+				INFOPLIST_FILE = SWSAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.itenutosoft.SWSAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SWSApp;
+			};
+			name = DEINT;
+		};
 		D1FB18492062A7C10072F4C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 911B745F20F4A7BD00603B7F /* DEDEVConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2286,6 +2668,7 @@
 		};
 		D1FB184A2062A7C10072F4C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 911B745E20F4A7A700603B7F /* DEINTConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2472,36 +2855,48 @@
 			buildConfigurations = (
 				D1FB18492062A7C10072F4C1 /* Debug */,
 				D1FB184A2062A7C10072F4C1 /* Release */,
+				91BB8DB520F4877500912B5F /* DEINT */,
+				91BB8DB120F4876A00912B5F /* DETEST */,
+				91BB8DAD20F4875D00912B5F /* DEDEV */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = DEINT;
 		};
 		D1FB184B2062A7C10072F4C1 /* Build configuration list for PBXNativeTarget "SWSApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D1FB184C2062A7C10072F4C1 /* Debug */,
 				D1FB184D2062A7C10072F4C1 /* Release */,
+				91BB8DB620F4877500912B5F /* DEINT */,
+				91BB8DB220F4876A00912B5F /* DETEST */,
+				91BB8DAE20F4875D00912B5F /* DEDEV */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = DEINT;
 		};
 		D1FB184E2062A7C10072F4C1 /* Build configuration list for PBXNativeTarget "SWSAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D1FB184F2062A7C10072F4C1 /* Debug */,
 				D1FB18502062A7C10072F4C1 /* Release */,
+				91BB8DB720F4877500912B5F /* DEINT */,
+				91BB8DB320F4876A00912B5F /* DETEST */,
+				91BB8DAF20F4875D00912B5F /* DEDEV */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = DEINT;
 		};
 		D1FB18512062A7C10072F4C1 /* Build configuration list for PBXNativeTarget "SWSAppUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D1FB18522062A7C10072F4C1 /* Debug */,
 				D1FB18532062A7C10072F4C1 /* Release */,
+				91BB8DB820F4877500912B5F /* DEINT */,
+				91BB8DB420F4876A00912B5F /* DETEST */,
+				91BB8DB020F4875D00912B5F /* DEDEV */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = DEINT;
 		};
 /* End XCConfigurationList section */
 	};

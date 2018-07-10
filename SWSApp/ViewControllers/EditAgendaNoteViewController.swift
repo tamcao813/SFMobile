@@ -45,7 +45,9 @@ class EditAgendaNoteViewController: UIViewController {
     
     @IBAction func saveAndClose(sender: UIButton) {
         PlanVisitManager.sharedInstance.visit?.description = descriptionTextView.text
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+            //print(error!)
+        })
         DispatchQueue.main.async {
             self.dismiss(animated: true)
         }        

@@ -211,6 +211,7 @@ class SyncConfigurationSortUtility {
         return objectArray
     }
     
+    // To date logic is commented in notes if we get to date we will enable this - consideration taken from soumin
     static func getAccountNotesDataUsingSyncTime(objectArray: Array<AccountNotes>) -> Array<AccountNotes>  {
         
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
@@ -234,11 +235,11 @@ class SyncConfigurationSortUtility {
                 if isManager {
                     if !systemConfigurationObject.salesManagerSyncFrom.isEmpty {
                         let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesManagerSyncFrom as NSString).floatValue))
-                        let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesManagerSyncTo as NSString).floatValue))
+//                        let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesManagerSyncTo as NSString).floatValue))
                         
                         /* REPLACE dateStart With YOUR DATE PROPERTY */
                         if let startDate = $0.lastModifiedDateInDateType {
-                            if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                            if startDate.isLater(than: prevMonthDate) { //}, startDate.isEarlier(than: next3MonthDate) {
                                 return true
                             }
                             else {
@@ -248,10 +249,10 @@ class SyncConfigurationSortUtility {
                         
                     } else {
                         let prevMonthDate = Date().add(component: .month, value: -3)
-                        let next3MonthDate = Date().add(component: .month, value: 0)
+//                        let next3MonthDate = Date().add(component: .month, value: 0)
                         /* REPLACE dateStart With YOUR DATE PROPERTY */
                         if let startDate = $0.lastModifiedDateInDateType {
-                            if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                            if startDate.isLater(than: prevMonthDate) { //}, startDate.isEarlier(than: next3MonthDate) {
                                 return true
                             }
                             else {
@@ -262,10 +263,10 @@ class SyncConfigurationSortUtility {
                 } else {
                     if !systemConfigurationObject.salesConsultantSyncFrom.isEmpty {
                         let prevMonthDate = Date().add(component: .day, value: -Int((systemConfigurationObject.salesConsultantSyncFrom as NSString).floatValue))
-                        let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesConsultantSyncTo as NSString).floatValue))
+//                        let next3MonthDate = Date().add(component: .day, value: Int((systemConfigurationObject.salesConsultantSyncTo as NSString).floatValue))
                         /* REPLACE dateStart With YOUR DATE PROPERTY */
                         if let startDate = $0.lastModifiedDateInDateType {
-                            if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                            if startDate.isLater(than: prevMonthDate) { //}, startDate.isEarlier(than: next3MonthDate) {
                                 return true
                             }
                             else {
@@ -274,10 +275,10 @@ class SyncConfigurationSortUtility {
                         }
                     } else {
                         let prevMonthDate = Date().add(component: .month, value: -3)
-                        let next3MonthDate = Date().add(component: .month, value: 0)
+//                        let next3MonthDate = Date().add(component: .month, value: 0)
                         /* REPLACE dateStart With YOUR DATE PROPERTY */
                         if let startDate = $0.lastModifiedDateInDateType {
-                            if startDate.isLater(than: prevMonthDate), startDate.isEarlier(than: next3MonthDate) {
+                            if startDate.isLater(than: prevMonthDate) { //}, startDate.isEarlier(than: next3MonthDate) {
                                 return true
                             }
                             else {

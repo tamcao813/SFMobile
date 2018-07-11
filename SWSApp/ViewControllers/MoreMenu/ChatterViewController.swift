@@ -15,6 +15,7 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     
     @IBOutlet var webView : WKWebView?
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
+    
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
     //MARK:- View LifeCycle Methods
@@ -26,15 +27,31 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
         initializeReachability()
+        loadWebView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        webView?.reload()
+        webView?.isHidden = true
+    }
+    
+    //MARK:-
+    //Initialize reachability Check
     func initializeReachability(){
         ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
-            self.loadWebView()
+            self.webView?.reload()
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = true
+                self.webView?.isHidden = false
+            }
         }
         
         ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
-            self.loadWebView()
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = false
+                self.webView?.isHidden = true
+            }
         }
         
         do {
@@ -44,11 +61,7 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadWebView()
-    }
-    
+    //Load the webview with specified URL
     func loadWebView(){
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
@@ -61,18 +74,10 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         webView?.navigationDelegate = self
         
         webView?.load(requestObj)
-        
-        if AppDelegate.isConnectedToNetwork(){
-            lblNoNetworkConnection?.isHidden = true
-            webView?.isHidden = false
-        }else{
-            lblNoNetworkConnection?.isHidden = false
-            webView?.isHidden = true
-        }
     }
 }
 
-////MARK:- UIWebView Delegate
+//MARK:- UIWebView Delegate
 extension ChatterViewController : UIWebViewDelegate , WKUIDelegate {
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
@@ -87,6 +92,7 @@ extension ChatterViewController : UIWebViewDelegate , WKUIDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
+        webView.isHidden = false
         //activityIndicator.stopAnimating()
     }
 }

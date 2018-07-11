@@ -1197,8 +1197,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         case .ObjectivesVCIndex:
             vc = objectivesVC
             
-            let viewVc = objectivesVC as! ObjectivesViewController
-            viewVc.loadWebView()
+//            let viewVc = objectivesVC as! ObjectivesViewController
+//            viewVc.webView.isHidden = true
             ContactsGlobal.accountId = ""
             
         default:
@@ -1220,6 +1220,18 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             calendarVC?.willMove(toParentViewController: nil)
             calendarVC?.view.removeFromSuperview()
             calendarVC?.removeFromParentViewController()
+        }
+        
+        if previouslySelectedVCIndex == 0 {
+            homeVC?.willMove(toParentViewController: nil)
+            homeVC?.view.removeFromSuperview()
+            homeVC?.removeFromParentViewController()
+        }
+        
+        if previouslySelectedVCIndex == 4{
+            objectivesVC?.willMove(toParentViewController: nil)
+            objectivesVC?.view.removeFromSuperview()
+            objectivesVC?.removeFromParentViewController()
         }
         
         if(!ifMoreVC){

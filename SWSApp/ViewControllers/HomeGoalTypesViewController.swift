@@ -26,14 +26,25 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2 - 275, y: self.view.bounds.size.height/2 - 200)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
-        self.initializeReachability()
-        self.loadUrlRequest()
+        //self.initializeReachability()
+        //self.loadUrlRequest()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        webView?.reload()
-        self.webView?.isHidden = true
+        if AppDelegate.isConnectedToNetwork(){
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = true
+                self.webView?.isHidden = false
+            }
+        }else{
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = false
+                self.webView?.isHidden = true
+            }
+        }
+        self.loadUrlRequest()
+        initializeReachability()
     }
     
     //MARK:-
@@ -57,13 +68,13 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
     func initializeReachability(){
         
         ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
-            self.webView?.reload()
+            self.loadUrlRequest()
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = true
                 self.btnViewPerformance?.isUserInteractionEnabled = true
                 self.webView?.isHidden = false
+                self.webView?.reload()
             }
-            
         }
         
         ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in

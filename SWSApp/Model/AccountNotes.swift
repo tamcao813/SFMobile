@@ -17,6 +17,8 @@ class AccountNotes {
     var ownerId: String
     var accountId: String
     var accountNotesDesc: String
+    var lastModifiedDateInDateType: Date?
+    
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(AccountNotes.AccountNotesFields, ary))
@@ -26,6 +28,13 @@ class AccountNotes {
     init(json: [String: Any]) {
         Id = json["Id"] as? String ?? ""
         lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
+        if lastModifiedDate == "" {
+            lastModifiedDateInDateType = nil
+        }
+        else {
+            lastModifiedDateInDateType = DateTimeUtility.getDateNotificationFromDateString(dateString: lastModifiedDate)
+        }
+        
         name = json["Name"] as? String ?? ""
         ownerId = json["OwnerId"] as? String ?? ""
         accountId = json["SGWS_Account__c"] as? String ?? ""
@@ -39,6 +48,6 @@ class AccountNotes {
         ownerId = ""
         accountId =  ""
         accountNotesDesc =  ""
-        
+        lastModifiedDateInDateType = nil
     }
 }

@@ -277,7 +277,6 @@
 		D1FB18312062A7C00072F4C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1FB182F2062A7C00072F4C1 /* LaunchScreen.storyboard */; };
 		D1FB183C2062A7C10072F4C1 /* SWSAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB183B2062A7C10072F4C1 /* SWSAppTests.swift */; };
 		D1FB18472062A7C10072F4C1 /* SWSAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB18462062A7C10072F4C1 /* SWSAppUITests.swift */; };
-		D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1FB18552062BB1F0072F4C1 /* SFProperty.plist */; };
 		D1FB18592062F7A40072F4C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1FB18582062F7A40072F4C1 /* Main.storyboard */; };
 		D1FCDE0F20733025005F956D /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FCDE0B20733024005F956D /* FilterViewModel.swift */; };
 		D1FCDE1020733025005F956D /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FCDE0C20733024005F956D /* UserViewModel.swift */; };
@@ -679,7 +678,6 @@
 		D1FB18422062A7C10072F4C1 /* SWSAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SWSAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1FB18462062A7C10072F4C1 /* SWSAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSAppUITests.swift; sourceTree = "<group>"; };
 		D1FB18482062A7C10072F4C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D1FB18552062BB1F0072F4C1 /* SFProperty.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SFProperty.plist; sourceTree = "<group>"; };
 		D1FB18582062F7A40072F4C1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		D1FCDE0B20733024005F956D /* FilterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		D1FCDE0C20733024005F956D /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -1358,7 +1356,6 @@
 				91BB8DBA20F489B900912B5F /* SFPropertyDeInt.plist */,
 				91BB8DBB20F489B900912B5F /* SFPropertyDeTest.plist */,
 				91BB8DB920F489B800912B5F /* SFPropertyDeDev.plist */,
-				D1FB18552062BB1F0072F4C1 /* SFProperty.plist */,
 				F2590104209216ED00C2E354 /* DuringVisitTopics.plist */,
 				F20C1A26209347EA00D2351C /* Insights.plist */,
 				AE43DD0520970BC3005D8DD1 /* ServicePurposes.plist */,
@@ -1794,7 +1791,6 @@
 				F22CE6E420B48B1C001A2171 /* EventStartEndDateTableViewCell.xib in Resources */,
 				D23C409E208DCF610006691C /* AccountVisit.storyboard in Resources */,
 				8DD1500D209336FD00858349 /* Strategy.storyboard in Resources */,
-				D1FB18562062BB1F0072F4C1 /* SFProperty.plist in Resources */,
 				91BB8DBE20F489B900912B5F /* SFPropertyDeTest.plist in Resources */,
 				AE1FAA8A20B4588A005B44EC /* EventDescriptionTableViewCell.xib in Resources */,
 				8D4BA33E20B455EC005CFE56 /* ActionItemsListTableViewCell.xib in Resources */,
@@ -2608,7 +2604,7 @@
 		};
 		D1FB18492062A7C10072F4C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 911B745F20F4A7BD00603B7F /* DEDEVConfig.xcconfig */;
+			baseConfigurationReference = 911B745A20F4A64000603B7F /* DETESTConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

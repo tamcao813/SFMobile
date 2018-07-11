@@ -41,10 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             plistpath  = Bundle.main.path(forResource: "SFPropertyDeInt", ofType: "plist")
         #elseif DETEST
             plistpath  = Bundle.main.path(forResource: "SFPropertyDeTest", ofType: "plist")
-        #elseif DEDEV
+        #else // DEDEV
             plistpath  = Bundle.main.path(forResource: "SFPropertyDeDev", ofType: "plist")
-        #else
-            plistpath  = Bundle.main.path(forResource: "SFProperty", ofType: "plist")
         #endif
         
         let globalPlistUrl = Bundle.main.path(forResource: "GlobalURL", ofType: ".plist", inDirectory: nil)

@@ -72,7 +72,7 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         let url  =  URL(string:authUrl+accountUrl)
         let requestObj = URLRequest(url: url!)
         webView?.navigationDelegate = self
-        
+        webView?.uiDelegate = self
         webView?.load(requestObj)
     }
 }
@@ -94,5 +94,27 @@ extension ChatterViewController : UIWebViewDelegate , WKUIDelegate {
         print("finish to load")
         webView.isHidden = false
         //activityIndicator.stopAnimating()
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,
+                 completionHandler: @escaping () -> Void) {
+        
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            completionHandler()
+        }))
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        decisionHandler(.allow)
+    }
+    
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        return nil
     }
 }

@@ -468,6 +468,12 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         activeViewController = duringVisitVC
     }
     
+    @IBAction func insightsButtonClicked(sender : UIButton){
+        let accountStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let accountVisitListVC = accountStoryboard.instantiateViewController(withIdentifier: "InsightsModelViewControllerID") as! InsightsModelViewController
+        self.present(accountVisitListVC, animated: true, completion: nil)
+    }
+    
     //Save button Clicked
     @IBAction func saveContinueAndComplete(sender : UIButton){
         

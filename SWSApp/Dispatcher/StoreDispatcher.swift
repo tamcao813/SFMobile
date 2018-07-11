@@ -3339,7 +3339,7 @@ class StoreDispatcher {
         let syncUpTarget: SFParentChildrenSyncUpTarget = SFParentChildrenSyncUpTarget.newSyncTarget(with: parentInfo, parentCreateFieldlist: WorkOrderUserObject.parentCreateFieldList, parentUpdateFieldlist: WorkOrderUserObject.parentUpdateFieldList, childrenInfo: childrenInfo, childrenCreateFieldlist: OpportunityWorkorder.opportunityWorkorderFields, childrenUpdateFieldlist: OpportunityWorkorder.opportunityWorkorderSyncUpFields, relationshipType: .relationpshipMasterDetail)
         
         //Running sync up
-        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: WorkOrderUserObject.parentUpdateFieldList, mergeMode: SFSyncStateMergeMode.overwrite)
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: WorkOrderUserObject.parentUpdateFieldList, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
         //        sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupVisit)
         sfaSyncMgr.Promises.syncUp(target: syncUpTarget, options: syncOptions, soupName: SoupVisit)
             .done { syncStateStatus in
@@ -4306,7 +4306,7 @@ class StoreDispatcher {
     
     func syncUpOpportunity(completion:@escaping (_ error: NSError?)->()) {
         
-        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: Opportunity.opportunityUploadSyncUpFields, mergeMode: SFSyncStateMergeMode.overwrite)
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: Opportunity.opportunityUploadSyncUpFields, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupUploadOpportunity)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {

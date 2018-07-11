@@ -41,10 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             plistpath  = Bundle.main.path(forResource: "SFPropertyDeInt", ofType: "plist")
         #elseif DETEST
             plistpath  = Bundle.main.path(forResource: "SFPropertyDeTest", ofType: "plist")
-        #elseif DEDEV
+        #else // DEDEV
             plistpath  = Bundle.main.path(forResource: "SFPropertyDeDev", ofType: "plist")
-        #else
-            plistpath  = Bundle.main.path(forResource: "SFProperty", ofType: "plist")
         #endif
         
         let globalPlistUrl = Bundle.main.path(forResource: "GlobalURL", ofType: ".plist", inDirectory: nil)
@@ -275,6 +273,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                         guard let user = user else {
                             print("No logged in user retrieved")
+                            self.resetLaunchandResyncConfiguration()
+                            // Show Alert and exit the app
+                            self.showAlertandExit()
                             return
                         }
                         

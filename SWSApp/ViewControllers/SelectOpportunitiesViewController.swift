@@ -203,7 +203,9 @@ class SelectOpportunitiesViewController: UIViewController {
     }
     
     @IBAction func loadInsightsScreen(sender:UIButton) {
-        
+        let accountStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let accountVisitListVC = accountStoryboard.instantiateViewController(withIdentifier: "InsightsModelViewControllerID") as! InsightsModelViewController
+        self.present(accountVisitListVC, animated: true, completion: nil)
     }
     
     //MARK:- Sort Button Actions

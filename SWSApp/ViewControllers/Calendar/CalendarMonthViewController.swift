@@ -378,7 +378,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
                     
                     button.visit = event
                     button.isHidden = false
-                    button.setAttributedTitle(self.getAttributedSting(date: event.date, title: event.title), for: .normal)
+                    button.setAttributedTitle(self.getAttributedSting(date: event.time, title: event.title), for: .normal)
                     // Border Color according to evevt type (BLUE OR ORANGE)
                     button.borderColor(value:self.getColorAccordingToEventType(type: event.type))
                     inc = inc + 1
@@ -411,7 +411,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
                         let button:EventButton = cell.viewWithTag(inc) as! EventButton
                         button.isHidden = false
                         button.visit = event
-                        button.setAttributedTitle(self.getAttributedSting(date: event.date, title: event.title), for: .normal)
+                        button.setAttributedTitle(self.getAttributedSting(date: event.time, title: event.title), for: .normal)
                         // Border Color according to evevt type (BLUE OR ORANGE)
                         button.borderColor(value:self.getColorAccordingToEventType(type: event.type))
                         
@@ -442,7 +442,7 @@ extension CalendarMonthViewController : UICollectionViewDataSource {
                         let button:EventButton = cell.viewWithTag(inc) as! EventButton
                         button.isHidden = false
                         button.visit = event
-                        button.setAttributedTitle(self.getAttributedSting(date: event.date, title: event.title), for: .normal)
+                        button.setAttributedTitle(self.getAttributedSting(date: event.time, title: event.title), for: .normal)
                         
                         // Border Color according to evevt type (BLUE OR ORANGE)
                         button.borderColor(value:self.getColorAccordingToEventType(type: event.type))

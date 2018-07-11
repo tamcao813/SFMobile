@@ -1196,11 +1196,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             vc = objectivesVC
-            
-//            let viewVc = objectivesVC as! ObjectivesViewController
-//            viewVc.webView.isHidden = true
             ContactsGlobal.accountId = ""
-            
         default:
             ifMoreVC = true
             ContactsGlobal.accountId = ""

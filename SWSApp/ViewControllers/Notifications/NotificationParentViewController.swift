@@ -25,6 +25,7 @@ class NotificationParentViewController: UIViewController {
     func resetFilters(){
         notificationFilterVC?.clearActionItemFilterModel()
         notificationListVC?.getNotifications()
+        notificationListVC?.scrollTableTotop()
         notificationListVC?.tableView.setContentOffset(.zero, animated: true)
     }
     

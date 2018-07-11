@@ -50,6 +50,8 @@
 	<string>/lightning/r/Opportunity/</string>
 	<key>opportunityEndUrl</key>
 	<string>/view?iospref=web&amp;0.source=alohaHeader</string>
+	<key>reportsEndUrl</key>
+	<string>/lightning/n/Operational_Metrics_Page</string>
 	<key>salesConsultantTitle</key>
 	<string>Sales Consultant</string>
 	<key>salesManagerTitle</key>

@@ -226,6 +226,11 @@ class CreateNewVisitViewController: UIViewController {
             }else{
                 createNewVisit(dismiss: false)
             }
+            
+            //Set the Working Visit account Id to global AccountID for Insight
+            if let accId = PlanVisitManager.sharedInstance.visit?.accountId{
+                AccountId.selectedAccountId = accId
+            }
         }
     }
     

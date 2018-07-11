@@ -17,6 +17,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
     @IBOutlet weak var btnViewPerformance : UIButton?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+    
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,16 +26,18 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2 - 275, y: self.view.bounds.size.height/2 - 200)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
+        self.initializeReachability()
+        self.loadUrlRequest()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.loadUrlRequest()
+        webView?.reload()
+        self.webView?.isHidden = true
     }
     
     //MARK:-
-    //Used to load the Web Content Within the app Using WEBKIT VIEW
+    //Initialize reachability Check
     func loadUrlRequest(){
         
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
@@ -42,30 +45,33 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
                 
         let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenUrl
         
-        //let accountUrl: String = authUrl +  endUrl
-        //let url  =  URL(string:authUrl)//+accountUrl)
+        let url = URL(string: authUrl)
+        let requestObj = URLRequest(url: url!)
+        self.webView?.uiDelegate = self
+        self.webView?.navigationDelegate = self
+        self.webView?.load(requestObj)
+        
+    }
+    
+    //Load the webview with specified URL
+    func initializeReachability(){
         
         ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
-            if reachability.connection == .wifi {
-                print("Reachable via WiFi")
-            } else {
-                print("Reachable via Cellular")
+            self.webView?.reload()
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = true
+                self.btnViewPerformance?.isUserInteractionEnabled = true
+                self.webView?.isHidden = false
             }
-            let url = URL(string: authUrl)
-            let requestObj = URLRequest(url: url!)
-            self.webView?.uiDelegate = self
-            self.webView?.navigationDelegate = self
             
-            self.lblNoNetworkConnection?.isHidden = true
-            self.btnViewPerformance?.isUserInteractionEnabled = true//isHidden = false
-            self.webView?.isHidden = false
-            self.webView?.load(requestObj)
         }
         
         ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
-            self.lblNoNetworkConnection?.isHidden = false
-            self.btnViewPerformance?.isUserInteractionEnabled = false//isHidden = true
-            self.webView?.isHidden = true
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = false
+                self.btnViewPerformance?.isUserInteractionEnabled = false
+                self.webView?.isHidden = true
+            }
         }
         
         do {
@@ -97,6 +103,7 @@ extension HomeGoalTypesViewController :UIWebViewDelegate, WKUIDelegate{
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
+        self.webView?.isHidden = false
         //activityIndicator.stopAnimating()
     }
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,

@@ -62,7 +62,12 @@ class NotificationListViewController: UIViewController {
     }
     
     func reloadTableView(){
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func scrollTableTotop(){
         DispatchQueue.main.async {
             if NotificationFilterModel.filterApplied {
                 if(self.filteredNotificationsArray.count > 0){
@@ -88,6 +93,7 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
             filteredNotificationsArray = NotificationsSortUtility().filterOnly(notifications: notificationsArray)
         }
         reloadTableView()
+        scrollTableTotop()
     }
     
     func clearFilter(){
@@ -95,9 +101,10 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
         NotificationFilterModel.filterApplied = false
         //reloadTableView()
         getNotifications()
+        scrollTableTotop()
     }
     
-    func editNotification(notification: Notifications){
+    func editNotification(notification: Notifications,scrollTotop: Bool){
         var editNotification = Notifications(for: "notification")
         editNotification = notification
         if editNotification.isRead {
@@ -119,6 +126,9 @@ extension NotificationListViewController :  NotificationSearchButtonTappedDelega
         if success {
             self.delegate?.updateCount()
             self.getNotifications()
+            if scrollTotop{
+                scrollTableTotop()
+            }
         }
     }
 }
@@ -145,9 +155,9 @@ extension NotificationListViewController : UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if NotificationFilterModel.filterApplied {
-            self.editNotification(notification: filteredNotificationsArray[indexPath.row])
+            self.editNotification(notification: filteredNotificationsArray[indexPath.row],scrollTotop: false)
         }else{
-            self.editNotification(notification: notificationsArray[indexPath.row])
+            self.editNotification(notification: notificationsArray[indexPath.row],scrollTotop: false)
         }
     }
 }

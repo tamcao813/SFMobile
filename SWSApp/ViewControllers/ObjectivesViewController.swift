@@ -18,7 +18,6 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
-    
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +27,27 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
         initializeReachability()
+        self.loadWebView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        webView.reload()
+        webView.isHidden = true
+    }
+    
+    //MARK:-
+    //Initialize reachability Check
     func initializeReachability(){
         ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
-            self.loadWebView()
+            self.lblNoNetworkConnection?.isHidden = true
+            self.webView.isHidden = false
+            self.webView.reload()
         }
         
         ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
-            self.loadWebView()
+            self.lblNoNetworkConnection?.isHidden = false
+            self.webView.isHidden = true
         }
         
         do {
@@ -46,14 +57,7 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadWebView()
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-    
+    //Load the webview with specified URL
     func loadWebView(){
         
         DispatchQueue.main.async {
@@ -65,21 +69,13 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
             let requestObj = URLRequest(url: url!)
             self.webView?.navigationDelegate = self
             self.webView.uiDelegate = self
-            
             self.webView?.load(requestObj)
             
-            if AppDelegate.isConnectedToNetwork(){
-                self.lblNoNetworkConnection?.isHidden = true
-                self.webView.isHidden = false
-            }else{
-                self.lblNoNetworkConnection?.isHidden = false
-                self.webView.isHidden = true
-            }
         }
     }
 }
 
-////MARK:- UIWebView Delegate
+//MARK:- UIWebView Delegate
 extension ObjectivesViewController : UIWebViewDelegate , WKUIDelegate{
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
@@ -89,11 +85,13 @@ extension ObjectivesViewController : UIWebViewDelegate , WKUIDelegate{
 
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("Start to load")
+        
         //activityIndicator.startAnimating()
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
+        webView.isHidden = false
         //activityIndicator.stopAnimating()
     }
 

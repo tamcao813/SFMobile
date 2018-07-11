@@ -106,31 +106,25 @@ class ContactSortUtility {
         var filteredContactArray = [Contact]()
         var enteredAnyFilterCase = false
         
-        if ContactFilterMenuModel.allContacts == "YES" {
-            enteredAnyFilterCase = true
-            filteredContactArray = contactListToBeSorted
-        }else if ContactFilterMenuModel.contactsOnMyRoute == "YES" {
+        enteredAnyFilterCase = true
+        let accountViewModel = AccountsViewModel()
+        let accounts = accountViewModel.accountsForLoggedUser()
+        
+        if accounts.count > 0 {
+            var filteredAccountContactArray = [Contact]()
+            for account in accounts {
+                filteredAccountContactArray += contactListToBeSorted.filter( { return account.account_Id == $0.accountId } )
+            }
             
-            enteredAnyFilterCase = true
-            let accountViewModel = AccountsViewModel()
-            let accounts = accountViewModel.accountsForLoggedUser()
-            
-            if accounts.count > 0 {
-                var filteredAccountContactArray = [Contact]()
-                for account in accounts {
-                    filteredAccountContactArray += contactListToBeSorted.filter( { return account.account_Id == $0.accountId } )
-                }
-                
-                if filteredAccountContactArray.count > 0 {
-                    let filteredNoDuplicateContactArray = filteredAccountContactArray.reduce([]) { (r, p) -> [Contact] in
-                        var r2 = r
-                        if !r.contains (where: { $0.contactId == p.contactId }) {
-                            r2.append(p)
-                        }
-                        return r2
+            if filteredAccountContactArray.count > 0 {
+                let filteredNoDuplicateContactArray = filteredAccountContactArray.reduce([]) { (r, p) -> [Contact] in
+                    var r2 = r
+                    if !r.contains (where: { $0.contactId == p.contactId }) {
+                        r2.append(p)
                     }
-                    filteredContactArray = filteredNoDuplicateContactArray
+                    return r2
                 }
+                filteredContactArray = filteredNoDuplicateContactArray
             }
         }
         return (enteredAnyFilterCase, filteredContactArray)
@@ -203,4 +197,33 @@ class ContactSortUtility {
             return contactToBeFormatted.contactClassification
         }
     }
+    
+//    func checkIfContactExistOnRoute(contact: Contact)-> Bool{
+//        var filteredContactArray = [Contact]()
+//        let contactListToBeSorted = ContactsViewModel().globalContacts()
+//        let accountViewModel = AccountsViewModel()
+//        let accounts = accountViewModel.accountsForLoggedUser()
+//
+//        if accounts.count > 0 {
+//            var filteredAccountContactArray = [Contact]()
+//            for account in accounts {
+//                filteredAccountContactArray += contactListToBeSorted.filter( { return account.account_Id == $0.accountId } )
+//            }
+//
+//            if filteredAccountContactArray.count > 0 {
+//                let filteredNoDuplicateContactArray = filteredAccountContactArray.reduce([]) { (r, p) -> [Contact] in
+//                    var r2 = r
+//                    if !r.contains (where: { $0.contactId == p.contactId }) {
+//                        r2.append(p)
+//                    }
+//                    return r2
+//                }
+//                filteredContactArray = filteredNoDuplicateContactArray
+//            }
+//        }
+//        
+//        filteredContactArray = filteredContactArray.filter( { return $0.contactId == contact.contactId } )
+//
+//        return filteredContactArray.count > 0
+//    }
 }

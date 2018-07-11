@@ -91,6 +91,9 @@ class StringConstants {
     static let checkContactId = globalUrlDictionary["visitContactAlertMessage"] as! String
     static let eventCheckContactId = globalUrlDictionary["eventContactAlertMessage"] as! String
     
+    //Reports Url
+    static let reportsUrl = globalUrlDictionary["reportsEndUrl"] as! String
+    
 }
 
 

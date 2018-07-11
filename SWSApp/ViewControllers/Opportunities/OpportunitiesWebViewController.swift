@@ -26,24 +26,36 @@ class OpportunitiesWebViewController : UIViewController , WKNavigationDelegate{
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 100)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
-        initializeReachability()
-        self.loadWebView()
+        //initializeReachability()
+        //self.loadWebView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        webView?.reload()
-        webView?.isHidden = true
+        if AppDelegate.isConnectedToNetwork(){
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = true
+                self.webView?.isHidden = false
+            }
+        }else{
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = false
+                self.webView?.isHidden = true
+            }
+        }
+        loadWebView()
+        initializeReachability()
     }
     
     //MARK:-
     //Initialize reachability Check
     func initializeReachability(){
         ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
-            self.webView?.reload()
+            self.loadWebView()
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = true
                 self.webView?.isHidden = false
+                self.webView?.reload()
             }
         }
         

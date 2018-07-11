@@ -748,9 +748,9 @@ extension AccountVisitSummaryViewController: UITableViewDelegate, UITableViewDat
                     return
                 }
                 
-                if !ContactSortUtility().checkIfContactExistOnRoute(contact: selectedContact) {
-                    return
-                }
+//                if !ContactSortUtility().checkIfContactExistOnRoute(contact: selectedContact) {
+//                    return
+//                }
                 
                 DispatchQueue.main.async {
                     self.dismiss(animated: false, completion: nil)

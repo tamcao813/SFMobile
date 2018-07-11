@@ -198,32 +198,32 @@ class ContactSortUtility {
         }
     }
     
-    func checkIfContactExistOnRoute(contact: Contact)-> Bool{
-        var filteredContactArray = [Contact]()
-        let contactListToBeSorted = ContactsViewModel().globalContacts()
-        let accountViewModel = AccountsViewModel()
-        let accounts = accountViewModel.accountsForLoggedUser()
-        
-        if accounts.count > 0 {
-            var filteredAccountContactArray = [Contact]()
-            for account in accounts {
-                filteredAccountContactArray += contactListToBeSorted.filter( { return account.account_Id == $0.accountId } )
-            }
-            
-            if filteredAccountContactArray.count > 0 {
-                let filteredNoDuplicateContactArray = filteredAccountContactArray.reduce([]) { (r, p) -> [Contact] in
-                    var r2 = r
-                    if !r.contains (where: { $0.contactId == p.contactId }) {
-                        r2.append(p)
-                    }
-                    return r2
-                }
-                filteredContactArray = filteredNoDuplicateContactArray
-            }
-        }
-        
-        filteredContactArray = filteredContactArray.filter( { return $0.contactId == contact.contactId } )
-        
-        return filteredContactArray.count > 0
-    }
+//    func checkIfContactExistOnRoute(contact: Contact)-> Bool{
+//        var filteredContactArray = [Contact]()
+//        let contactListToBeSorted = ContactsViewModel().globalContacts()
+//        let accountViewModel = AccountsViewModel()
+//        let accounts = accountViewModel.accountsForLoggedUser()
+//
+//        if accounts.count > 0 {
+//            var filteredAccountContactArray = [Contact]()
+//            for account in accounts {
+//                filteredAccountContactArray += contactListToBeSorted.filter( { return account.account_Id == $0.accountId } )
+//            }
+//
+//            if filteredAccountContactArray.count > 0 {
+//                let filteredNoDuplicateContactArray = filteredAccountContactArray.reduce([]) { (r, p) -> [Contact] in
+//                    var r2 = r
+//                    if !r.contains (where: { $0.contactId == p.contactId }) {
+//                        r2.append(p)
+//                    }
+//                    return r2
+//                }
+//                filteredContactArray = filteredNoDuplicateContactArray
+//            }
+//        }
+//        
+//        filteredContactArray = filteredContactArray.filter( { return $0.contactId == contact.contactId } )
+//
+//        return filteredContactArray.count > 0
+//    }
 }

@@ -440,9 +440,9 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
                 return
             }
             
-            if !ContactSortUtility().checkIfContactExistOnRoute(contact: selectedContact) {
-                return
-            }
+//            if !ContactSortUtility().checkIfContactExistOnRoute(contact: selectedContact) {
+//                return
+//            }
             
             
             if selectedContact != nil {

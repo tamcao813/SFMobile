@@ -37,45 +37,14 @@ class ContactMenuTableTableViewCell: UITableViewCell {
         let titleContent = sectionContent[indexPath.section] as? NSArray
         self.filterLabel.text = titleContent![indexPath.row] as? String
         self.titleLabel.text = ""
-        
         switch indexPath.section{
         case 0:
-            
-            displayContactCellContent(indexPath)
-            
-        case 1:
-            
             displayRoleCellContent(indexPath)
-            
-        case 2:
-            
-            displayBuyingPowerCellContent(indexPath)
-            
-        default:
-            break
-            
-        }
-    }
-    
-    func displayContactCellContent(_ indexPath : IndexPath){
-        
-        switch indexPath.row{
-        case 0:
-            if ContactFilterMenuModel.allContacts == "YES"{
-                self.dropDownImageView.image = UIImage.init(named: "radioSelected")
-            }else{
-                self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
-            }
         case 1:
-            if ContactFilterMenuModel.contactsOnMyRoute == "YES"{
-                self.dropDownImageView.image = UIImage.init(named: "radioSelected")
-            }else{
-                self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
-            }
+            displayBuyingPowerCellContent(indexPath)
         default:
-            break
+            break            
         }
-        
     }
     
     func displayRoleCellContent(_ indexPath : IndexPath){

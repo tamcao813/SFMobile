@@ -12,7 +12,7 @@ class NotificationsViewModel {
     func notificationsForUser() -> [Notifications] {
         let notificationsArray = StoreDispatcher.shared.fetchNotifications()
         var filteredNotificationArray = SyncConfigurationSortUtility.getNotificationDataUsingSyncTime(objectArray: notificationsArray)
-        filteredNotificationArray = filteredNotificationArray.sorted(by: { $0.createdDate < $1.createdDate })
+        filteredNotificationArray = filteredNotificationArray.sorted(by: { $0.createdDate > $1.createdDate })
         return filteredNotificationArray
     }
     

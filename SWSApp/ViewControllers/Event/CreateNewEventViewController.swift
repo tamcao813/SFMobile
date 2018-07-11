@@ -65,6 +65,7 @@ class CreateNewEventViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         btnSave?.isUserInteractionEnabled = true
+        VisitModelForUIAPI.isEditMode = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,11 +139,22 @@ class CreateNewEventViewController: UIViewController {
             btnSave?.isUserInteractionEnabled = false
             if isEditingMode{
                 if PlanVisitManager.sharedInstance.visit != nil {
-                    editCurrentEvent()
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true)
-                        self.delegate?.updateEventListFromCreate()
-                    }
+                    editCurrentEvent({ error in
+                        
+                        //Check for errors, if nil perform next operations
+                        if error == nil{
+                            DispatchQueue.main.async {
+                                self.dismiss(animated: true)
+                                self.delegate?.updateEventListFromCreate()
+                            }
+                        }else{
+                            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Saving of Visit/Event has failed, Please try again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                                
+                            }, action2: {
+                                
+                            })
+                        }
+                    })
                 }
             }else{
                 createNewEvent()
@@ -164,7 +176,7 @@ class CreateNewEventViewController: UIViewController {
         }
     }
     
-    func editCurrentEvent(){
+    func editCurrentEvent(_ completion:@escaping (_ error: NSError?)->()){
         PlanVisitManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
         if let contact = selectedContact {
             PlanVisitManager.sharedInstance.visit?.contactId = contact.contactId
@@ -209,7 +221,10 @@ class CreateNewEventViewController: UIViewController {
         PlanVisitManager.sharedInstance.visit?.shippingState = selectedAccount.shippingState
         PlanVisitManager.sharedInstance.visit?.shippingPostalCode = selectedAccount.shippingPostalCode
         
-        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+            //print(error!)
+            completion(error)
+        })
         
         if let row = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == PlanVisitManager.sharedInstance.visit?.Id}) {
             GlobalWorkOrderArray.workOrderArray[row] = PlanVisitManager.sharedInstance.visit!

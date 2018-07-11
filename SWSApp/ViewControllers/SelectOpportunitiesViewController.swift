@@ -177,7 +177,9 @@ class SelectOpportunitiesViewController: UIViewController {
     @IBAction func saveAndClose(sender: UIButton) {
         //STATEMACHINE:If you com tho this Screen its in Planned state
         PlanVisitManager.sharedInstance.visit?.status = "Planned"
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+            //print(error!)
+        })
         DispatchQueue.main.async {
             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         }
@@ -201,7 +203,9 @@ class SelectOpportunitiesViewController: UIViewController {
     }
     
     @IBAction func loadInsightsScreen(sender:UIButton) {
-        
+        let accountStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let accountVisitListVC = accountStoryboard.instantiateViewController(withIdentifier: "InsightsModelViewControllerID") as! InsightsModelViewController
+        self.present(accountVisitListVC, animated: true, completion: nil)
     }
     
     //MARK:- Sort Button Actions

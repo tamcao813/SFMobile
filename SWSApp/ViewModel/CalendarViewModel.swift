@@ -92,7 +92,7 @@ class CalendarViewModel {
                     if daysBetween == 0 {
                         
                         let minutessBetween = Date.minutesBetween(start: eventStartDate, end: eventEndDate)
-                        let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventStartDate), chunk: (minutessBetween > 30) ? eventStartDate.chunkBetween(date: eventEndDate) : 30.minutes, title: visitTitle, location: visit.location , ownerId:  ownerId)
+                        let visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventStartDate), chunk: (minutessBetween > 30) ? eventStartDate.chunkBetween(date: eventEndDate) : 30.minutes, title: visitTitle, location: visit.location , ownerId:  ownerId, time:eventStartDate)
                         visitEvent.accountId = visit.accountId
                         visitEvent.accountNumber = vistAccountNumber
                         visitEvent.accountName = vistAccountName
@@ -104,11 +104,11 @@ class CalendarViewModel {
                             let currentStartDate = eventStartDate.add(component: .day, value: day)
                             let visitEvent: WREvent!
                             if day == 0 {
-                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventStartDate), chunk: eventStartDate.chunkBetween(date: eventStartDate.endOfDay), title: visitTitle, location: visit.location, ownerId:  ownerId)
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventStartDate, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventStartDate), chunk: eventStartDate.chunkBetween(date: eventStartDate.endOfDay), title: visitTitle, location: visit.location, ownerId:  ownerId, time:eventStartDate)
                             } else if day == daysBetween {
-                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventEndDate.startOfDay, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventEndDate.startOfDay), chunk: eventEndDate.startOfDay.chunkBetween(date: eventEndDate), title: visitTitle, location: visit.location ,ownerId:  ownerId)
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: eventEndDate.startOfDay, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: eventEndDate.startOfDay), chunk: eventEndDate.startOfDay.chunkBetween(date: eventEndDate), title: visitTitle, location: visit.location ,ownerId:  ownerId, time:eventEndDate)
                             } else {
-                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: currentStartDate.startOfDay, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: currentStartDate.startOfDay), chunk: currentStartDate.startOfDay.chunkBetween(date: currentStartDate.endOfDay), title: visitTitle, location: visit.location, ownerId:  ownerId)
+                                visitEvent = WREvent.makeVisitEvent(Id: visit.Id, type: visitType, date: currentStartDate.startOfDay, startDate: DateTimeUtility.dateToStringinyyyyMMddd(eventDate: currentStartDate.startOfDay), chunk: currentStartDate.startOfDay.chunkBetween(date: currentStartDate.endOfDay), title: visitTitle, location: visit.location, ownerId:  ownerId, time: currentStartDate)
                             }
                             visitEvent.accountId = visit.accountId
                             visitEvent.accountNumber = vistAccountNumber

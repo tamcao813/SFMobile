@@ -13,7 +13,8 @@ class AccountsNotesViewModel {
     //    let accountsForLoggedUser: [Account] = StoreDispatcher.shared.fetchAccountsForLoggedUser()
     
     func accountsNotesForUser() -> [AccountNotes] {
-        return StoreDispatcher.shared.fetchAccountsNotes()
+        let notesArray = StoreDispatcher.shared.fetchAccountsNotes()
+        return SyncConfigurationSortUtility.getAccountNotesDataUsingSyncTime(objectArray: notesArray)        
     }
     func createNewNotesLocally(fields: [String:Any]) -> Bool {
         return StoreDispatcher.shared.createNewNotesLocally(fieldsToUpload:fields)

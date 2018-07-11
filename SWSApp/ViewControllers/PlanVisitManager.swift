@@ -52,8 +52,9 @@ class PlanVisitManager {
         print("CloudCodeExecutor has been initialized")
     }
     
+
     //ON call of Plan or Save
-    func editAndSaveVisit()->Bool{
+    func editAndSaveVisit(_ completion:@escaping (_ error: NSError?)->())->Bool{
         
         //Checking if Date is changed only than this flow else old flow
         if VisitModelForUIAPI.isEditMode{
@@ -69,31 +70,30 @@ class PlanVisitManager {
                     VisitSchedulerViewModel().syncVisitsWithServer{ error in
                         if error != nil{
                             print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
-                        }
-                        DispatchQueue.main.async { 
+                            completion(error)
+                            VisitModelForUIAPI.isEditMode = true
+                        }else{
                             VisitModelForUIAPI.isEditMode = false
+                        }
+                        
+                        DispatchQueue.main.async { 
                             MBProgressHUD.hide(forWindow: true)
+                            completion(nil)
                         }
                     }
                 }else{
+                    
                     DispatchQueue.main.async { //do this in group.notify
                         MBProgressHUD.hide(forWindow: true)
-                        VisitModelForUIAPI.isEditMode = false
+                        VisitModelForUIAPI.isEditMode = true
+                        completion(data as NSError?)
                     }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                        //Failure Show Alert
-                        let alert = UIAlertView()
-                        alert.title = "Alert"
-                        alert.message = "Saving of Visit/Event has failed, Please try again"
-                        alert.addButton(withTitle: "OK")
-                        alert.show()
-                    })
                 }
             }
         }//old flow
         else{
             self.editAndSaveVisitData()
+            completion(nil)
         }
         return true
     }

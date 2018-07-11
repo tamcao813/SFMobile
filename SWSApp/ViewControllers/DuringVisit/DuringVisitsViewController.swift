@@ -73,13 +73,17 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
         geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
 //        geoLocationForVisit.didReceiveLocation = true
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit() //This line may not be received
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+            //print(error!)
+        })
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
         print("The error is in location \(error)")
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit() //This line may not be received
+        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+            //print(error!)
+        })
     }
     
 //    /// fetchLocationTill will block the Save button till location is received
@@ -464,6 +468,12 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         activeViewController = duringVisitVC
     }
     
+    @IBAction func insightsButtonClicked(sender : UIButton){
+        let accountStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let accountVisitListVC = accountStoryboard.instantiateViewController(withIdentifier: "InsightsModelViewControllerID") as! InsightsModelViewController
+        self.present(accountVisitListVC, animated: true, completion: nil)
+    }
+    
     //Save button Clicked
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
@@ -477,7 +487,9 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
                     geoLocationForVisit.lastVisitStatus == "Planned"{
                     //Get time on button clicked
                     geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-                    _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+                    _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+                        //print(error!)
+                    })
                 }
             }
         }
@@ -492,7 +504,9 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             delegate?.navigateToAccountVisitingScreen()
             //Must dismiss at last
             DispatchQueue.main.async{
-                _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+                _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+                    //print(error!)
+                })
                 self.dismiss(animated: true, completion: nil)
             }
             return

@@ -62,7 +62,7 @@ class CreateNewVisitViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         StrategyNotes.isStrategyText = "NO"
-        //VisitModelForUIAPI.isEditMode = false
+        VisitModelForUIAPI.isEditMode = false
         
     }
     
@@ -206,13 +206,30 @@ class CreateNewVisitViewController: UIViewController {
         if validateVisitData() {
             errorLbl.text = ""
             if PlanVisitManager.sharedInstance.visit != nil {
-                editCurrentVisit()
-                let opportunitiesViewController = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil).instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
-                DispatchQueue.main.async {
-                    self.present(opportunitiesViewController, animated: true)
-                }
+                editCurrentVisit({ error in
+                    //print(error!)
+                    
+                    //Check for errors, if nil perform next operations
+                    if error == nil{
+                        let opportunitiesViewController = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil).instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
+                        DispatchQueue.main.async {
+                            self.present(opportunitiesViewController, animated: true)
+                        }
+                    }else{
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Saving of Visit/Event has failed, Please try again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                            
+                        }, action2: {
+                            
+                        })
+                    }
+                })
             }else{
                 createNewVisit(dismiss: false)
+            }
+            
+            //Set the Working Visit account Id to global AccountID for Insight
+            if let accId = PlanVisitManager.sharedInstance.visit?.accountId{
+                AccountId.selectedAccountId = accId
             }
         }
     }
@@ -222,10 +239,23 @@ class CreateNewVisitViewController: UIViewController {
             errorLbl.text = ""
             PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
             if PlanVisitManager.sharedInstance.visit != nil {
-                editCurrentVisit()
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true)
-                }
+                editCurrentVisit({ error in
+                    //print(error!)
+                    
+                    //Check for errors, if nil perform next operations
+                    if error == nil{
+                        DispatchQueue.main.async {
+                            self.dismiss(animated: true)
+                        }
+                    }else{
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Saving of Visit/Event has failed, Please try again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                    
+                        }, action2: {
+                    
+                        })
+                    }
+                })
+                
             }else{
                 createNewVisit(dismiss: true)
 //                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
@@ -265,7 +295,7 @@ class CreateNewVisitViewController: UIViewController {
         }
     }
     
-    func editCurrentVisit(){
+    func editCurrentVisit(_ completion:@escaping (_ error: NSError?)->()){
         PlanVisitManager.sharedInstance.visit?.accountId = selectedAccount.account_Id
         PlanVisitManager.sharedInstance.visit?.accountName = selectedAccount.accountName
         PlanVisitManager.sharedInstance.visit?.accountNumber = selectedAccount.accountNumber
@@ -286,11 +316,12 @@ class CreateNewVisitViewController: UIViewController {
         }else if PlanVisitManager.sharedInstance.visit?.endDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: startDate.text!, time: endTime.text!){
             VisitModelForUIAPI.isEditMode = true
             
-        }else{
-            
-            VisitModelForUIAPI.isEditMode = false
         }
-        
+//        else{
+//
+//            VisitModelForUIAPI.isEditMode = false
+//        }
+//
         
         if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
             
@@ -309,8 +340,10 @@ class CreateNewVisitViewController: UIViewController {
         if let row = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == visitObject?.Id}) {
             GlobalWorkOrderArray.workOrderArray[row] = visitObject!
         }
-        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit()        
-        
+        let _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+            //print(error!)
+            completion(error)
+        })
     }
     
     func createNewVisit(dismiss: Bool) {

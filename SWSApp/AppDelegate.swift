@@ -37,10 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         super.init()
         var  plistpath:String? = ""
         //TODO: [SMK] Move the RemoteAccessConsumerKey in plist and put it in keychain
-        #if DEVELOPMENT
-            plistpath  = Bundle.main.path(forResource: "SFPropertydev", ofType: "plist")
-        #else
-            plistpath  = Bundle.main.path(forResource: "SFProperty", ofType: "plist")
+        #if DEINT
+            plistpath  = Bundle.main.path(forResource: "SFPropertyDeInt", ofType: "plist")
+        #elseif DETEST
+            plistpath  = Bundle.main.path(forResource: "SFPropertyDeTest", ofType: "plist")
+        #else // DEDEV
+            plistpath  = Bundle.main.path(forResource: "SFPropertyDeDev", ofType: "plist")
         #endif
         
         let globalPlistUrl = Bundle.main.path(forResource: "GlobalURL", ofType: ".plist", inDirectory: nil)
@@ -271,6 +273,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                         guard let user = user else {
                             print("No logged in user retrieved")
+                            self.resetLaunchandResyncConfiguration()
+                            // Show Alert and exit the app
+                            self.showAlertandExit()
                             return
                         }
                         

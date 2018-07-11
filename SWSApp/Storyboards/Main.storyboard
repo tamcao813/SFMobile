@@ -401,7 +401,7 @@
                                                     <rect key="frame" x="16" y="25" width="396" height="40"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Store Name with large textttttttttt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HWO-3K-fuM">
-                                                            <rect key="frame" x="0.0" y="0.0" width="319.5" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="304.5" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="Iog-CH-u5D"/>
                                                                 <constraint firstAttribute="width" constant="558" id="Yo2-eE-idd"/>
@@ -411,7 +411,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ouc-Fo-9xZ">
-                                                            <rect key="frame" x="339.5" y="0.0" width="56.5" height="40"/>
+                                                            <rect key="frame" x="324.5" y="0.0" width="71.5" height="40"/>
                                                             <subviews>
                                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Details" translatesAutoresizingMaskIntoConstraints="NO" id="fmM-s7-Nln" userLabel="Arrow">
                                                                     <rect key="frame" x="-20" y="0.0" width="20" height="40"/>
@@ -421,7 +421,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="  Details" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXV-BH-of7">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="40"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="25.5" height="40"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="70" id="5ZS-Hk-PLG"/>
                                                                         <constraint firstAttribute="height" constant="40" id="vwe-NN-eSG"/>
@@ -430,8 +430,8 @@
                                                                     <color key="textColor" name="Data New"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aob-ED-wPG">
-                                                                    <rect key="frame" x="44" y="0.0" width="12.5" height="40"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aob-ED-wPG">
+                                                                    <rect key="frame" x="25.5" y="0.0" width="46" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                     <color key="textColor" name="Data New"/>
                                                                     <nil key="highlightedColor"/>
@@ -857,7 +857,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="726" height="747"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sA2-aZ-MwC">
-                                        <rect key="frame" x="0.0" y="20" width="726" height="1065"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="726" height="1065"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xcx-Tx-49x">
                                                 <rect key="frame" x="0.0" y="0.0" width="726" height="366"/>
@@ -1236,7 +1236,7 @@
                                     <constraint firstAttribute="trailing" secondItem="sA2-aZ-MwC" secondAttribute="trailing" constant="40" id="Mvc-Ox-Z7f"/>
                                     <constraint firstItem="sA2-aZ-MwC" firstAttribute="leading" secondItem="zzj-HF-j8x" secondAttribute="leading" id="O5d-uL-Lsc"/>
                                     <constraint firstAttribute="bottom" secondItem="sA2-aZ-MwC" secondAttribute="bottom" id="WWz-cG-4Xr"/>
-                                    <constraint firstItem="sA2-aZ-MwC" firstAttribute="top" secondItem="zzj-HF-j8x" secondAttribute="top" constant="20" id="sZd-EY-qFh"/>
+                                    <constraint firstItem="sA2-aZ-MwC" firstAttribute="top" secondItem="zzj-HF-j8x" secondAttribute="top" id="sZd-EY-qFh"/>
                                 </constraints>
                             </scrollView>
                         </subviews>

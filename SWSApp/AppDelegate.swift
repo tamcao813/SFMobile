@@ -273,6 +273,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                         guard let user = user else {
                             print("No logged in user retrieved")
+                            self.resetLaunchandResyncConfiguration()
+                            // Show Alert and exit the app
+                            self.showAlertandExit()
                             return
                         }
                         

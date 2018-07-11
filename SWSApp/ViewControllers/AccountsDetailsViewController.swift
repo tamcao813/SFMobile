@@ -152,7 +152,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         super.viewWillAppear(animated)
         self.setupDetailsScreenUI()
         self.setupPastDueUI()
-        self.setupAccountHealthGrade()
+      //  self.setupAccountHealthGrade()
         self.setupPercentageValue()
         IQKeyboardManager.shared.enable = true
     }
@@ -228,25 +228,25 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         }
     }
     
-    //Setup Health Grade value wheather its Good, Medium or Bad
-    func setupAccountHealthGrade(){
-        if accountDetailForLoggedInUser?.acctHealthGrade == "A"{
-            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
-            centerLabel?.layer.backgroundColor = UIColor(named: "Good")?.cgColor//green.cgColor
-        }else if accountDetailForLoggedInUser?.acctHealthGrade == "B"{
-            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
-            centerLabel?.layer.backgroundColor = UIColor(named: "Medium Alert")?.cgColor//yellow.cgColor
-        }else if accountDetailForLoggedInUser?.acctHealthGrade == "C"{
-            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
-            centerLabel?.layer.backgroundColor = UIColor.orange.cgColor
-            
-        }else if accountDetailForLoggedInUser?.acctHealthGrade == "D"{
-            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
-            centerLabel?.layer.backgroundColor = UIColor(named: "Bad")?.cgColor//.red.cgColor
-        } else {
-            centerLabel?.layer.backgroundColor = UIColor.clear.cgColor
-        }
-    }
+//    //Setup Health Grade value wheather its Good, Medium or Bad
+//    func setupAccountHealthGrade(){
+//        if accountDetailForLoggedInUser?.acctHealthGrade == "A"{
+//            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+//            centerLabel?.layer.backgroundColor = UIColor(named: "Good")?.cgColor//green.cgColor
+//        }else if accountDetailForLoggedInUser?.acctHealthGrade == "B"{
+//            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+//            centerLabel?.layer.backgroundColor = UIColor(named: "Medium Alert")?.cgColor//yellow.cgColor
+//        }else if accountDetailForLoggedInUser?.acctHealthGrade == "C"{
+//            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+//            centerLabel?.layer.backgroundColor = UIColor.orange.cgColor
+//
+//        }else if accountDetailForLoggedInUser?.acctHealthGrade == "D"{
+//            centerLabel?.text = accountDetailForLoggedInUser?.acctHealthGrade
+//            centerLabel?.layer.backgroundColor = UIColor(named: "Bad")?.cgColor//.red.cgColor
+//        } else {
+//            centerLabel?.layer.backgroundColor = UIColor.clear.cgColor
+//        }
+//    }
     
     //Based on Percentage values images Bad, Medium and Good are shown
     func setupPercentageValue(){

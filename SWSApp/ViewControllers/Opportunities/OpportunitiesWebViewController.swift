@@ -67,7 +67,6 @@ class OpportunitiesWebViewController : UIViewController , WKNavigationDelegate{
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.opportunitiesUrl + opportunityWebViewId + StringConstants.opportunityEndUrl
         
-        
         let url  =  URL(string:authUrl)
         let requestObj = URLRequest(url: url!)
         webView?.navigationDelegate = self

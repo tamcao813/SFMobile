@@ -110,9 +110,24 @@ class ContactSortUtility {
         let accounts = accountViewModel.accountsForLoggedUser()
         
         if accounts.count > 0 {
+            let acrArray = ContactsViewModel().accountsForContacts()
+            
             var filteredAccountContactArray = [Contact]()
             for account in accounts {
-                filteredAccountContactArray += contactListToBeSorted.filter( { return account.account_Id == $0.accountId } )
+                filteredAccountContactArray += contactListToBeSorted.filter( {
+                    if account.account_Id == $0.accountId {
+                        return true
+                    }
+                    let thisContactId = $0.contactId
+                    let acrAccountId = acrArray.filter( {thisContactId == $0.contactId} )
+                    if acrAccountId.count > 0  {
+                        return account.account_Id == acrAccountId[0].accountId
+                    }
+                    else {
+                        return false
+                    }
+                    
+                } )
             }
             
             if filteredAccountContactArray.count > 0 {

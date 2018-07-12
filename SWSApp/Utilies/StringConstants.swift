@@ -34,6 +34,7 @@ class StringConstants {
     static let apexChatterUrl = globalUrlDictionary["apexChatterUrl"] as! String
     static let endUrl = globalUrlDictionary["endUrl"] as! String
     static let retUrl = globalUrlDictionary["retUrl"] as! String
+    static let globalChatter = globalUrlDictionary["globalChatter"] as! String
     
     //During Visit
     static let googleUrl = globalUrlDictionary["googleUrl"] as! String

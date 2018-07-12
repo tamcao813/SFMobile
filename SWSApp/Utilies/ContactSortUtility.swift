@@ -104,9 +104,8 @@ class ContactSortUtility {
     
     static func filterContactByFilterByAssociation(contactListToBeSorted : [Contact])-> (Bool, [Contact]){
         var filteredContactArray = [Contact]()
-        var enteredAnyFilterCase = false
+        let enteredAnyFilterCase = true
         
-        enteredAnyFilterCase = true
         let accountViewModel = AccountsViewModel()
         let accounts = accountViewModel.accountsForLoggedUser()
         

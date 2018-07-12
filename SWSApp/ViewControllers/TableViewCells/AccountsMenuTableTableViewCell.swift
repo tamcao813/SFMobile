@@ -38,7 +38,7 @@ class AccountsMenuTableTableViewCell: UITableViewCell {
         //self.borderView.layer.borderColor = UIColor.init(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0).cgColor
         let titleContent = sectionContent[indexPath.section] as? NSArray
         
-        if indexPath.section == 8 { //Manager section
+        if indexPath.section == 7 { //Manager section
             let consult = titleContent![indexPath.row] as? Consultant
             self.filterLabel.text = consult?.name
         }
@@ -51,19 +51,19 @@ class AccountsMenuTableTableViewCell: UITableViewCell {
         switch indexPath.section{
         case 0:
             self.showPastDueCell(indexPath: indexPath)
-        case 2:
+        case 1:
             self.showStatusCell(indexPath: indexPath)
-        case 3:
+        case 2:
             self.showPremiseCell(indexPath: indexPath)
-        case 4:
+        case 3:
             self.showSingleOrMultiSelectionCell(indexPath: indexPath)
-        case 5:
+        case 4:
             self.showChannelCell(indexPath: indexPath)
-        case 6:
+        case 5:
             self.showSubchannelCell(indexPath: indexPath)
-        case 7:
+        case 6:
             self.showLicenseCell(indexPath: indexPath)
-        case 8:
+        case 7:
             self.showManagerCell(indexPath: indexPath, rowContent: titleContent as! [Consultant])
         default:
             break

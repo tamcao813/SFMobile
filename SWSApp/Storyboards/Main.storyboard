@@ -65,7 +65,7 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature is only available online." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eq4-90-gew">
-                                <rect key="frame" x="375" y="348" width="274" height="20"/>
+                                <rect key="frame" x="375.5" y="348" width="273.5" height="20"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -853,7 +853,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="726" height="747"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzj-HF-j8x">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zzj-HF-j8x">
                                 <rect key="frame" x="0.0" y="0.0" width="726" height="747"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sA2-aZ-MwC">
@@ -1233,7 +1233,7 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="sA2-aZ-MwC" secondAttribute="trailing" constant="40" id="Mvc-Ox-Z7f"/>
+                                    <constraint firstAttribute="trailing" secondItem="sA2-aZ-MwC" secondAttribute="trailing" id="Mvc-Ox-Z7f"/>
                                     <constraint firstItem="sA2-aZ-MwC" firstAttribute="leading" secondItem="zzj-HF-j8x" secondAttribute="leading" id="O5d-uL-Lsc"/>
                                     <constraint firstAttribute="bottom" secondItem="sA2-aZ-MwC" secondAttribute="bottom" id="WWz-cG-4Xr"/>
                                     <constraint firstItem="sA2-aZ-MwC" firstAttribute="top" secondItem="zzj-HF-j8x" secondAttribute="top" id="sZd-EY-qFh"/>

@@ -18,14 +18,13 @@ protocol SearchByEnteredTextDelegate: class {
 //Account Filter Menu options
 enum AccountFilterMenuOptions : Int{
     case pastDue = 0
-    case actionItems = 1
-    case status = 2
-    case premise = 3
-    case singleMultiSelect = 4
-    case channel = 5
-    case subChannel = 6
-    case licenseType = 7
-    case myTeam = 8
+    case status = 1
+    case premise = 2
+    case singleMultiSelect = 3
+    case channel = 4
+    case subChannel = 5
+    case licenseType = 6
+    case myTeam = 7
 }
 
 class AccountsMenuViewController: UIViewController {
@@ -156,12 +155,12 @@ class AccountsMenuViewController: UIViewController {
         
         if channelData.count > 0 {
             if subChannelData.count > 0{
-                filterClass.sectionItems.insert(channelData, at: 5)
-                filterClass.sectionItems.insert(subChannelData, at: 6)
+                filterClass.sectionItems.insert(channelData, at: AccountFilterMenuOptions.channel.rawValue)
+                filterClass.sectionItems.insert(subChannelData, at: AccountFilterMenuOptions.subChannel.rawValue)
             }
         }else{
-            filterClass.sectionItems.insert([], at: 5)
-            filterClass.sectionItems.insert([], at: 6)
+            filterClass.sectionItems.insert([], at: AccountFilterMenuOptions.channel.rawValue)
+            filterClass.sectionItems.insert([], at: AccountFilterMenuOptions.subChannel.rawValue)
         }
     }
     
@@ -231,8 +230,9 @@ class AccountsMenuViewController: UIViewController {
             self.tableView.reloadData()
         }
         
-        if selectedSection == 6{
+        if selectedSection == 5{
             if FilterMenuModel.channel == ""{
+                
             }else{
                 self.sectionHeaderOperation(section: section!, eImageView: eImageView)
             }

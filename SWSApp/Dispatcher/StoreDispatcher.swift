@@ -2633,6 +2633,7 @@ class StoreDispatcher {
                 newarr.append(modifResult[7])
                 newarr.append(modifResult[8])
                 newarr.append(modifResult[9])
+                newarr.append(modifResult[10])
                 
                 let ary:[Any] = result[i] as! [Any]
                 let accountNotesArray = AccountNotes(withAry: newarr)

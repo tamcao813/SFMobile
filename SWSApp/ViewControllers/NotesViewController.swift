@@ -304,8 +304,8 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
                 cell.timeLabel?.text = dateTime[1]
             }
         }else{
-            cell.dateLabel?.text = "Date"
-            cell.timeLabel?.text = "Time"
+            cell.dateLabel?.text = ""
+            cell.timeLabel?.text = ""
         }
         return cell
     }

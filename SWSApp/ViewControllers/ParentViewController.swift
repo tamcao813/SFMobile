@@ -765,6 +765,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             else if SyncUpDailogGlobal.isSyncWarning == true {
                 //Check if ther is error register without callback in userdefaults if so force enter in DB
                 syncFailed = true
+                // Login the error in error case.
+            }else if UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") != nil{
+                StoreDispatcher.shared.createSyncLogOnSyncError(networkType: self.networkType)
+                syncFailed = true
             }
             
             //Write to persistence for Resync to default

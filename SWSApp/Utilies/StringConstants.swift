@@ -60,6 +60,9 @@ class StringConstants {
     
     //HomeScreen URLS
     static let homeScreenUrl = globalUrlDictionary["homeScreenUrl"] as! String
+    static let homeScreenBoBURL = globalUrlDictionary["homeScreenBoB"] as! String
+    static let homeScreenWHWNURL = globalUrlDictionary["homeScreenWHWN"] as! String
+    
     
     //Objectives URLS
     static let objectivesUrl = globalUrlDictionary["objectivesUrl"] as! String

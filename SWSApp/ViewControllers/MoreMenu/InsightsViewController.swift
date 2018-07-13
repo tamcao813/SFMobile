@@ -79,7 +79,21 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
         let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
         let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
         
-        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.insightsUrl
+        var authUrl: String = ""
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        if(appDelegate.insightLaunchIdentifier == "BoB"){
+            
+            authUrl = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenBoBURL
+        }else if(appDelegate.insightLaunchIdentifier == "WHWN"){
+            
+            authUrl = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenWHWNURL
+        }
+        else {
+        
+        authUrl = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.insightsUrl
+        }
         
         //let accountUrl: String = authUrl +  StringConstants.endUrl
         

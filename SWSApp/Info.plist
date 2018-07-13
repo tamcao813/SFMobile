@@ -63,6 +63,8 @@
 	<string>App Needs Location permission.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires to access your Camera to upload via Chatter</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires to access your Microphone</string>
 	<key>SFDCOAuthLoginHost</key>
 	<string>${AuthLoginHost}</string>
 	<key>UIAppFonts</key>

@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 //import DropDown
-import IQKeyboardManagerSwift
 
 //DropDown menu optrions when AddNew is clicked
 enum DropDownMenuOptionsInDetails : Int{
@@ -59,7 +58,7 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
     @IBOutlet weak var btnNotes : UIButton?
     @IBOutlet weak var imgStatus : UIImageView?
     @IBOutlet weak var addNewButton: UIButton!
-    
+    @IBOutlet weak var scrollView: UIScrollView!
     var accountDetailForLoggedInUser : Account?
     var goingFromAccountDetails = true
     var selectedIndex : Int = 0
@@ -144,9 +143,22 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         
         StrategyScreenLoadFrom.isLoadFromStrategy = "0"
         
-        
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
+
+    @objc func keyboardWillShow(notification:NSNotification){
+        guard let keyboardFrameValue = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else {
+            return
+        }
+        let keyboardFrame = view.convert(keyboardFrameValue.cgRectValue, from: nil)
+        scrollView.contentOffset = CGPoint(x:0, y:keyboardFrame.size.height - 100)
+    }
+    
+    @objc func keyboardWillHide(notification:NSNotification){
+        scrollView.contentOffset = .zero
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -154,19 +166,6 @@ class AccountDetailsViewController : UIViewController , sendNotesDataToNotesDele
         self.setupPastDueUI()
       //  self.setupAccountHealthGrade()
         self.setupPercentageValue()
-        IQKeyboardManager.shared.enable = true
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        
     }
     
     //MARK:-

@@ -2571,7 +2571,7 @@ class StoreDispatcher {
     
     func syncDownNotes(_ completion:@escaping (_ error: NSError?)->()) {
         
-        let soqlQuery = "SELECT Id,SGWS_AppModified_DateTime__c,Name,OwnerId,SGWS_Account__c,SGWS_Description__c FROM SGWS_Account_Notes__c"
+        let soqlQuery = "SELECT Id,SGWS_AppModified_DateTime__c,Name,OwnerId,SGWS_Account__c,SGWS_Description__c,LastModifiedDate FROM SGWS_Account_Notes__c"
         
         print("soql notes query is \(soqlQuery)")
         
@@ -2633,6 +2633,7 @@ class StoreDispatcher {
                 newarr.append(modifResult[7])
                 newarr.append(modifResult[8])
                 newarr.append(modifResult[9])
+                newarr.append(modifResult[10])
                 
                 let ary:[Any] = result[i] as! [Any]
                 let accountNotesArray = AccountNotes(withAry: newarr)

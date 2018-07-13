@@ -24,15 +24,15 @@ class ActionItemsContainerViewController: UIViewController {
             ActionItemFilterModel.fromAccount = false
             ActionItemFilterModel.accountId = nil
         }
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        let userViewModel = UserViewModel()
+//        let userViewModel = UserViewModel()
         
-        let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+//        let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
         
-        if(appDelegate.currentSelectedUserId == loggedInuserid){
-            actionItemFilterVC?.clearActionItemFilterModel()
-        }
+//        if(appDelegate.currentSelectedUserId == loggedInuserid){
+//            actionItemFilterVC?.clearActionItemFilterModel()
+//        }
         actionItemListVC?.refreshActionItemList()
         actionItemFilterVC?.delegate = actionItemListVC
         actionItemListVC?.tableView.setContentOffset(.zero, animated: true)

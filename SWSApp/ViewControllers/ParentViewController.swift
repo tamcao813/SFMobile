@@ -204,6 +204,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.showContact), name: NSNotification.Name(rawValue: "SwitchToContact"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showActionItemOrNotification), name: NSNotification.Name(rawValue: "goToAllActionItem/Notification"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showInsightBob(notification:)), name: NSNotification.Name(rawValue: "goTOInsightBob/Notification"), object: nil)
+        
         
         //NotificationCenter.default.addObserver(self, selector: #selector(self.showAllAccounts), name: NSNotification.Name("showAllAccounts"), object: nil)
         
@@ -220,6 +222,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             autoSyncTimer = Timer.scheduledTimer(timeInterval: 60*30, target: self, selector: #selector(self.automticResync), userInfo: nil, repeats: true)
         }
     }
+    
     
     
     func startUpdatingLocationAlerts() {
@@ -318,7 +321,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         
     }
     
-    
+    @objc func showInsightBob(notification: NSNotification){
+        
+        self.navigateToMoreOptionsViewControllers(index: 2, selectedIndex: 2)
+
+    }
     
     @objc func showActionItemOrNotification(notification: NSNotification){
         let data : Int = notification.object.unsafelyUnwrapped as! Int
@@ -936,6 +943,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         self.moreDropDown.textColor =  UIColor.gray
         
         FilterMenuModel.isFromAccountVisitSummary = ""
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        appDelegate.insightLaunchIdentifier = ""
         self.selectedDropDownOption(selectedIndex : selectedIndex)
     }
     

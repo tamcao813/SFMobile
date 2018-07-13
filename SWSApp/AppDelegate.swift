@@ -30,7 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var consultants = [Consultant]()
     var alertVisible = false
     var launchedBefore:Bool = false
-
+    
+    var insightLaunchIdentifier:String = ""
     
     override init(){
         

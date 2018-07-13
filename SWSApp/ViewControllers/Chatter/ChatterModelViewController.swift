@@ -51,11 +51,11 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
     //Initialize reachability Check
     func initializeReachability(){
         ReachabilitySingleton.sharedInstance().whenReachable = { reachability in
-            self.loadWebView()
+            //self.loadWebView()
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = true
                 self.webView?.isHidden = false
-                self.webView?.reload()
+                //self.webView?.reload()
             }
         }
         

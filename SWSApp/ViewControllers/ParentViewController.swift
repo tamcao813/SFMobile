@@ -318,13 +318,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             // do something with your image
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SelectedContact"), object:nil, userInfo: contactDict)
         }
-        
     }
     
     @objc func showInsightBob(notification: NSNotification){
-        
+        topMenuBar?.selectedSegment = 5
         self.navigateToMoreOptionsViewControllers(index: 2, selectedIndex: 2)
-
     }
     
     @objc func showActionItemOrNotification(notification: NSNotification){

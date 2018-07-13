@@ -97,10 +97,24 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
     }
     
     //MARK:- IBAction Methods
-    //Close button Clicked
-    @IBAction func closeButtonAction(sender : UIButton){
-        self.dismiss(animated: true, completion: nil)
+    //View Trends Button Clicked
+    @IBAction func viewTrendsButtonClicked(sender : UIButton){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.insightLaunchIdentifier = "WHWN"
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goTOInsightBob/Notification"), object:4)
+        
     }
+    
+    //View Performance Button Clicked
+    @IBAction func viewPerformanceButtonClicked(sender : UIButton){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.insightLaunchIdentifier = "BoB"
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goTOInsightBob/Notification"), object:4)
+        
+    }
+    
 }
 
 //MARK:- UIWebView Delegate

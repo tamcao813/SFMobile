@@ -50,11 +50,15 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
     //MARK:-
     //Initialize reachability Check
     func loadUrlRequest(){
+        guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
+            return
+        }
         
-        let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
-        let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
-                
-        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenUrl
+        guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
+            return
+        }
+         
+        let authUrl: String = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenUrl
         
         let url = URL(string: authUrl)
         let requestObj = URLRequest(url: url!)

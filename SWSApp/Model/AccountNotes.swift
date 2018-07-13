@@ -32,11 +32,8 @@ class AccountNotes {
         lastModifiedDateServer = json["LastModifiedDate"] as? String ?? ""
         if lastModifiedDate == "" {
             lastModifiedDate = lastModifiedDateServer
-            lastModifiedDateInDateType = DateTimeUtility.getDateNotificationFromDateString(dateString: lastModifiedDateServer)
         }
-        else {
-            lastModifiedDateInDateType = DateTimeUtility.getDateNotificationFromDateString(dateString: lastModifiedDate)
-        }
+        lastModifiedDateInDateType = DateTimeUtility.getDateNotificationFromDateString(dateString: lastModifiedDate)
         
         name = json["Name"] as? String ?? ""
         ownerId = json["OwnerId"] as? String ?? ""

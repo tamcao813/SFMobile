@@ -261,17 +261,17 @@
         <!--Chatter View Controller-->
         <scene sceneID="F3p-pi-4ba">
             <objects>
-                <viewController storyboardIdentifier="ChatterViewControllerID" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7wP-nj-UrI" customClass="ChatterViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatterViewControllerID" modalPresentationStyle="formSheet" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7wP-nj-UrI" customClass="ChatterViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="E1N-Yf-Y6c">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XV5-DJ-qK6">
+                            <wkWebView contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="XV5-DJ-qK6">
                                 <rect key="frame" x="0.0" y="0.0" width="1112" height="764"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
+                                    <wkPreferences key="preferences" javaScriptCanOpenWindowsAutomatically="YES"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature is only available online." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iK-iC-2oQ">
@@ -283,12 +283,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="leading" secondItem="xLe-x8-vAa" secondAttribute="leading" id="2oJ-WT-cOF"/>
-                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="top" secondItem="E1N-Yf-Y6c" secondAttribute="top" id="BD0-x9-AQ4"/>
+                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="trailing" secondItem="xLe-x8-vAa" secondAttribute="trailing" id="Eh5-Ui-jsZ"/>
+                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="top" secondItem="E1N-Yf-Y6c" secondAttribute="top" id="H8M-4h-s9p"/>
                             <constraint firstItem="2iK-iC-2oQ" firstAttribute="centerY" secondItem="xLe-x8-vAa" secondAttribute="centerY" constant="-10" id="Poj-T9-A40"/>
-                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="trailing" secondItem="xLe-x8-vAa" secondAttribute="trailing" id="VVg-lB-BO5"/>
+                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="leading" secondItem="xLe-x8-vAa" secondAttribute="leading" id="RPo-qm-fSV"/>
+                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="bottom" secondItem="xLe-x8-vAa" secondAttribute="bottom" constant="-70" id="XYM-5W-fq5"/>
                             <constraint firstItem="2iK-iC-2oQ" firstAttribute="centerX" secondItem="xLe-x8-vAa" secondAttribute="centerX" id="agF-TF-CQ8"/>
-                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="bottom" secondItem="xLe-x8-vAa" secondAttribute="bottom" constant="-70" id="hyO-tF-GUP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xLe-x8-vAa"/>
                     </view>

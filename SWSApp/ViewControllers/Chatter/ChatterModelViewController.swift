@@ -26,7 +26,7 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
         //initializeReachability()
-        //loadWebView()
+        loadWebView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +43,6 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
                 self.webView?.isHidden = true
             }
         }
-        loadWebView()
         initializeReachability()
     }
     

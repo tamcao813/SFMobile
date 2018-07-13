@@ -9,10 +9,11 @@
 import Foundation
 
 class AccountNotes {
-    static let AccountNotesFields: [String] = ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"]
+    static let AccountNotesFields: [String] = ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c","LastModifiedDate"]
     
     var Id:String
     var lastModifiedDate:String
+    var lastModifiedDateServer:String
     var name: String
     var ownerId: String
     var accountId: String
@@ -28,8 +29,10 @@ class AccountNotes {
     init(json: [String: Any]) {
         Id = json["Id"] as? String ?? ""
         lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
+        lastModifiedDateServer = json["LastModifiedDate"] as? String ?? ""
         if lastModifiedDate == "" {
-            lastModifiedDateInDateType = nil
+            lastModifiedDate = lastModifiedDateServer
+            lastModifiedDateInDateType = DateTimeUtility.getDateNotificationFromDateString(dateString: lastModifiedDateServer)
         }
         else {
             lastModifiedDateInDateType = DateTimeUtility.getDateNotificationFromDateString(dateString: lastModifiedDate)
@@ -44,6 +47,7 @@ class AccountNotes {
     init(for: String) {
         Id = ""
         lastModifiedDate = ""
+        lastModifiedDateServer = ""
         name = ""
         ownerId = ""
         accountId =  ""

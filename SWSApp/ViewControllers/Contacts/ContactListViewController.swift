@@ -178,7 +178,20 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         }else{
             isAccountSpecific = true
             delegate?.clearAllMenu()
-            globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
+            
+            var isValid : Bool = false
+            var data = [Contact]()
+            print(ContactsGlobal.accountId)
+            
+            (isValid, data) = ContactSortUtility.filterContactByFilterByAssociationDetails(contactListToBeSorted: contactViewModel.globalContacts(), selectedAccountId: ContactsGlobal.accountId)
+            
+            if isValid {
+                globalContactsForList = data//.filter({$0.accountId == ContactsGlobal.accountId})
+            }
+            else {
+                globalContactsForList = [Contact]()
+            }
+            
             print("globalContactsForList.count  = \(globalContactsForList.count)")
             
             ContactsGlobal.accountId = ""            

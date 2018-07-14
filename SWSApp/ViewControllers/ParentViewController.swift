@@ -155,6 +155,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         return gospotcheckVC
     }()
     
+    lazy var reportsViewController : UIViewController? = {
+        let reportsVC = moreMenuStoryboard.instantiateViewController(withIdentifier: "ReportsViewControllerID") as UIViewController
+        return reportsVC
+    }()
+    
     var reachability = Reachability()!
     var locationManager = CLLocationManager()
     
@@ -971,6 +976,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         
         self.clearAccountsVisitFilterModel()
         
+        self.removePresentedMoreControllers()
+        
         //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
         switch index {
         case 0:
@@ -986,7 +993,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             moreVC1.view.addSubview((self.insightsViewController?.view)!)
             self.moreDropDownSelectionIndex = index
         case 3:
-            self.instantiateViewController(identifier: "ReportsViewControllerID", moreOptionVC: moreVC1, index: index)
+            moreVC1.view.addSubview((self.reportsViewController?.view)!)
+            self.moreDropDownSelectionIndex = index
         case 4:
             self.notificationParent?.resetFilters()
             self.notificationParent?.delegate = self
@@ -1007,6 +1015,24 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             
         default:
             break
+        }
+        
+        
+    }
+    
+    func removePresentedMoreControllers(){
+        if SelectedMoreButton.selectedItem == 2 {
+            insightsViewController?.willMove(toParentViewController: nil)
+            insightsViewController?.view.removeFromSuperview()
+            insightsViewController?.removeFromParentViewController()
+        }else if SelectedMoreButton.selectedItem == 3{
+            reportsViewController?.willMove(toParentViewController: nil)
+            reportsViewController?.view.removeFromSuperview()
+            reportsViewController?.removeFromParentViewController()
+        }else if SelectedMoreButton.selectedItem == 5{
+            chatterViewController?.willMove(toParentViewController: nil)
+            chatterViewController?.view.removeFromSuperview()
+            chatterViewController?.removeFromParentViewController()
         }
     }
     

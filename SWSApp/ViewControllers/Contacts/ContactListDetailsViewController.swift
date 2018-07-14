@@ -85,7 +85,24 @@ extension ContactListDetailsViewController : UITableViewDataSource {
         
         cell.contactId = (contactDetail?.contactId)!
         
-        cell.displayCellContent(accountLinked[(indexPath.row-2)].accountId, withRoles: accountLinked[(indexPath.row-2)].roles, forClassification: ContactSortUtility.formatContactClassification(contactToBeFormatted: contactDetail!))
+        var acrArray = ContactsViewModel().accountsForContacts()
+        acrArray = acrArray.filter( {(contactDetail?.contactId == $0.contactId) && (accountLinked[(indexPath.row-2)].accountId == $0.accountId)} )
+        
+        var classification = ""
+        if acrArray.count > 0 {
+            if acrArray[0].buyingPower == 1 {
+                classification = "Buyer"
+            }
+            else {
+                classification = acrArray[0].contactClassification
+                if classification == "Other" {
+                    classification = acrArray[0].otherSpecification
+                }
+            }
+        }
+
+//        cell.displayCellContent(accountLinked[(indexPath.row-2)].accountId, withRoles: accountLinked[(indexPath.row-2)].roles, forClassification: ContactSortUtility.formatContactClassification(contactToBeFormatted: contactDetail!))
+        cell.displayCellContent(accountLinked[(indexPath.row-2)].accountId, withRoles: accountLinked[(indexPath.row-2)].roles, forClassification: classification)
 
         cell.unlinkAccountContactButton.tag = indexPath.row - countHeaderFooter
         cell.unlinkAccountContactButton.addTarget(self, action: #selector(actionUnlinkAccountContactDetails), for: .touchUpInside)

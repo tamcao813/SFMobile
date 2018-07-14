@@ -32,12 +32,8 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if AppDelegate.isConnectedToNetwork(){
-            DispatchQueue.main.async {
-                self.lblNoNetworkConnection?.isHidden = true
-                self.webView?.isHidden = false
-            }
-        }else{
+        self.webView?.isHidden = true
+        if !(AppDelegate.isConnectedToNetwork()){
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true

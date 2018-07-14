@@ -26,7 +26,6 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 70)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
-        webView.isHidden = true
         //initializeReachability()
         //self.loadWebView()
     }
@@ -34,18 +33,17 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if AppDelegate.isConnectedToNetwork(){
-            DispatchQueue.main.async {
-                self.lblNoNetworkConnection?.isHidden = true
-                self.webView?.isHidden = false
-            }
-        }else{
+        self.webView?.isHidden = true
+        
+        if !(AppDelegate.isConnectedToNetwork()){
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
             }
         }
-        loadWebView()
+        DispatchQueue.main.async{
+            self.loadWebView()
+        }
         self.initializeReachability()            
     }
     
@@ -93,7 +91,7 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
         }
         else {
         
-        authUrl = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.insightsUrl
+            authUrl = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.insightsUrl
         }
         
         //let accountUrl: String = authUrl +  StringConstants.endUrl

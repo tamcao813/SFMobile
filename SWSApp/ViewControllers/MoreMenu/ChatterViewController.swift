@@ -13,7 +13,7 @@ import WebKit
 
 class ChatterViewController: UIViewController , WKNavigationDelegate {
     
-    @IBOutlet var webView : WKWebView?
+    @IBOutlet weak var webView : WKWebView?
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
@@ -27,18 +27,13 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
         //initializeReachability()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        webView?.isHidden = true
         
-        if AppDelegate.isConnectedToNetwork(){
-            DispatchQueue.main.async {
-                self.lblNoNetworkConnection?.isHidden = true
-                self.webView?.isHidden = false
-            }
-        }else{
+        if !(AppDelegate.isConnectedToNetwork()){
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true

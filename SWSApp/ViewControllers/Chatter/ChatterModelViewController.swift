@@ -14,6 +14,7 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
     
     @IBOutlet weak var webView : WKWebView?
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
+    var isNewModelOpened = false
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
@@ -46,6 +47,14 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
         initializeReachability()
     }
     
+    override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
+        if (self.presentedViewController != nil) {
+            super.dismiss(animated: flag, completion: completion)
+        }else if self.isNewModelOpened == true{
+            super.dismiss(animated: flag, completion: completion)
+        }
+    }
+    
     //MARK:-
     //Initialize reachability Check
     func initializeReachability(){
@@ -54,7 +63,7 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = true
                 self.webView?.isHidden = false
-                //self.webView?.reload()
+                self.webView?.reload()
             }
         }
         
@@ -90,6 +99,7 @@ class ChatterModelViewController : UIViewController , WKNavigationDelegate{
     //MARK:- IBActions
     //Close Button Clicked
     @IBAction func closeButtonAction(sender : UIButton){
+        self.isNewModelOpened = true
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -126,6 +136,7 @@ extension ChatterModelViewController :UIWebViewDelegate , WKUIDelegate{
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(.allow)
+        self.isNewModelOpened = false
     }
     
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {

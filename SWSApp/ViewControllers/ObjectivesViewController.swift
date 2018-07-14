@@ -32,12 +32,10 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if AppDelegate.isConnectedToNetwork(){
-            DispatchQueue.main.async {
-                self.lblNoNetworkConnection?.isHidden = true
-                self.webView?.isHidden = false
-            }
-        }else{
+        DispatchQueue.main.async {
+            self.webView?.isHidden = true
+        }
+        if !(AppDelegate.isConnectedToNetwork()){
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
@@ -57,7 +55,6 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
                 self.webView.isHidden = false
                 self.webView.reload()
             }
-            
         }
         
         ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in

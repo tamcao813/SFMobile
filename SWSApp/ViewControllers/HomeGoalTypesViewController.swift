@@ -15,6 +15,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
     @IBOutlet weak var webView : WKWebView?
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
     @IBOutlet weak var btnViewPerformance : UIButton?
+    @IBOutlet weak var btnViewTrends : UIButton?
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
@@ -72,6 +73,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = true
                 self.btnViewPerformance?.isUserInteractionEnabled = true
+                self.btnViewTrends?.isUserInteractionEnabled = true
                 self.webView?.isHidden = false
                 self.webView?.reload()
             }
@@ -81,6 +83,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.btnViewPerformance?.isUserInteractionEnabled = false
+                self.btnViewTrends?.isUserInteractionEnabled = false
                 self.webView?.isHidden = true
             }
         }

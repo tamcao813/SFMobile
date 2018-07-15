@@ -1938,6 +1938,9 @@ class StoreDispatcher {
                 if acr.buyingPower == 1 {
                     acrObjects.append(acr)
                 }
+                else if acr.contactClassification == "Influencer" {
+                    acrObjects.append(acr)
+                }
             }
         }
         

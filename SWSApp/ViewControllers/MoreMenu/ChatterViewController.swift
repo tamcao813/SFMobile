@@ -26,9 +26,9 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         super.viewDidLoad()
         
         //set up activity indicator
-        activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 70)
+        activityIndicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height / 2)
         activityIndicator.color = UIColor.lightGray
-        webView?.addSubview(activityIndicator)
+        self.view.addSubview(activityIndicator)
         loadWebView()
         isFirstTimeLoad = true
         //initializeReachability()
@@ -109,12 +109,12 @@ extension ChatterViewController : UIWebViewDelegate , WKUIDelegate {
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
-        //activityIndicator.stopAnimating()
+        activityIndicator.stopAnimating()
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("Start to load")
-        //activityIndicator.startAnimating()
+        activityIndicator.startAnimating()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -122,7 +122,7 @@ extension ChatterViewController : UIWebViewDelegate , WKUIDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.webView?.isHidden = false
         }
-        //activityIndicator.stopAnimating()
+        activityIndicator.stopAnimating()
     }
     
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,

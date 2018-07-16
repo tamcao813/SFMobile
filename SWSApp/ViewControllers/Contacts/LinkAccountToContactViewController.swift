@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 //import DropDown
 
 protocol LinkAccountToContactViewControllerDelegate: NSObjectProtocol {
@@ -14,6 +15,10 @@ protocol LinkAccountToContactViewControllerDelegate: NSObjectProtocol {
 }
 
 class LinkAccountToContactViewController: UIViewController {
+    
+    struct  linkAccountToContactGlobals {
+        static var userInput = false
+    }
 
     @IBOutlet weak var unlinkButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -91,6 +96,8 @@ class LinkAccountToContactViewController: UIViewController {
         
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
+        
+        IQKeyboardManager.shared.enable = true
     }
     
     func initializingXIBs(){
@@ -132,11 +139,15 @@ class LinkAccountToContactViewController: UIViewController {
             dropdown.hide()
         }
         DispatchQueue.main.async {
+            if linkAccountToContactGlobals.userInput {
                 AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                     self.dismiss(animated: true, completion: nil)
                 }){
                     
                 }
+            }else{
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
     
@@ -371,6 +382,7 @@ extension LinkAccountToContactViewController: AccountContactLinkTableViewCellDel
 
 extension LinkAccountToContactViewController: PrimaryFunctionTableViewCellDelegate {
     func primaryFunctionValueSelected(pickerOption: [String : Any]) {
+        linkAccountToContactGlobals.userInput = true
         self.pickerOption = pickerOption
         self.fromPicker = true
         if pickerOption["validFor"] as! Int == 1 {
@@ -384,6 +396,7 @@ extension LinkAccountToContactViewController: PrimaryFunctionTableViewCellDelega
 
 extension LinkAccountToContactViewController: ToggleTableViewCellDelegate {
     func buyingPowerChanged(buyingPower: Bool) {
+        linkAccountToContactGlobals.userInput = true
         doesHaveBuyingPower = buyingPower
         isFirstTimeLoaded = false
         self.tableView.reloadData()

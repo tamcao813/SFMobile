@@ -1935,7 +1935,13 @@ class StoreDispatcher {
             for i in 0...result.count - 1 {
                 let ary:[Any] = result[i] as! [Any]
                 let acr = AccountContactRelation(withAry: ary)
+                if acr.isActive == 0 {
+                    continue
+                }
                 if acr.buyingPower == 1 {
+                    acrObjects.append(acr)
+                }
+                else if acr.contactClassification == "Influencer" {
                     acrObjects.append(acr)
                 }
             }

@@ -117,6 +117,7 @@ class SyncInfoViewController: UIViewController {
                 self.lastSyncDateLabel.text = ""
             }
         }
+        SyncUpDailogGlobal.isSyncError = false
         self.setProgress(progress: Float(0))
         SyncUpDailogGlobal.isSyncing = false
     }

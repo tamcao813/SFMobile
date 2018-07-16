@@ -131,7 +131,9 @@ extension HomeGoalTypesViewController :UIWebViewDelegate, WKUIDelegate{
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
-        self.webView?.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.webView?.isHidden = false
+        }
         //activityIndicator.stopAnimating()
     }
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,

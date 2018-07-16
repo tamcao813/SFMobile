@@ -71,10 +71,15 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     
     //Load the webview with specified URL
     func loadWebView(){
-        let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
-        let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
+        guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
+            return
+        }
+        
+        guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
+            return
+        }
 
-        let authUrl: String = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.globalChatter
+        let authUrl: String = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.globalChatter
         
         let url  =  URL(string:authUrl)
         let requestObj = URLRequest(url: url!)
@@ -99,7 +104,9 @@ extension ChatterViewController : UIWebViewDelegate , WKUIDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
-        webView.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.webView?.isHidden = false
+        }
         //activityIndicator.stopAnimating()
     }
     

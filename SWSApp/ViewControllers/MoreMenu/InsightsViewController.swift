@@ -75,8 +75,13 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
     
     //Load the webview with specified URL
     func loadWebView(){
-        let instanceUrl: String = SFRestAPI.sharedInstance().user.credentials.instanceUrl!.description
-        let accessToken: String = SFRestAPI.sharedInstance().user.credentials.accessToken!
+        guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
+            return
+        }
+        
+        guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
+            return
+        }
         
         var authUrl: String = ""
         
@@ -84,14 +89,14 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
         
         if(appDelegate.insightLaunchIdentifier == "BoB"){
             
-            authUrl = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenBoBURL
+            authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenBoBURL
         }else if(appDelegate.insightLaunchIdentifier == "WHWN"){
             
-            authUrl = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenWHWNURL
+            authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenWHWNURL
         }
         else {
         
-            authUrl = instanceUrl + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.insightsUrl
+            authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.insightsUrl
         }
         
         //let accountUrl: String = authUrl +  StringConstants.endUrl
@@ -120,7 +125,9 @@ extension InsightsViewController : UIWebViewDelegate, WKUIDelegate{
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
-        webView.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.webView?.isHidden = false
+        }
        // activityIndicator.stopAnimating()
     }
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,

@@ -16,6 +16,9 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     @IBOutlet weak var webView : WKWebView?
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
     
+    var isWebViewLoaded = false
+    var isFirstTimeLoad = false
+    
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
     //MARK:- View LifeCycle Methods
@@ -26,21 +29,30 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2 - 70)
         activityIndicator.color = UIColor.lightGray
         webView?.addSubview(activityIndicator)
+        loadWebView()
+        isFirstTimeLoad = true
         //initializeReachability()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        webView?.isHidden = true
-        
+        //webView?.isHidden = true
+       
         if !(AppDelegate.isConnectedToNetwork()){
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
             }
         }
-        loadWebView()
+        //loadWebView()
         initializeReachability()
+        
+        if isFirstTimeLoad,isWebViewLoaded{
+            isFirstTimeLoad = false
+            DispatchQueue.main.async {
+                self.webView?.frame = CGRect(x: (self.webView?.frame.origin.x)!, y: (self.webView?.frame.origin.y)! + 64, width: (self.webView?.frame.size.width)!, height: ((self.webView?.frame.size.height)! + 5))
+            }
+        }
     }
     
     //MARK:-
@@ -71,6 +83,9 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     
     //Load the webview with specified URL
     func loadWebView(){
+        
+        webView?.isHidden = true
+        
         guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
             return
         }
@@ -123,6 +138,7 @@ extension ChatterViewController : UIWebViewDelegate , WKUIDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(.allow)
+        isWebViewLoaded = true
     }
     
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {

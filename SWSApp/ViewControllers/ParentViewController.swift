@@ -1033,6 +1033,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             chatterViewController?.willMove(toParentViewController: nil)
             chatterViewController?.view.removeFromSuperview()
             chatterViewController?.removeFromParentViewController()
+            
+            (chatterViewController as? ChatterViewController)?.loadWebView()
         }
     }
     

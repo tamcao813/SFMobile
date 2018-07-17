@@ -19,6 +19,7 @@ class StringConstants {
     static let invalidDate = "Please enter a valid date"
     static let discardChangesConfirmation = "Any changes will not be saved. Are you sure you want to close?"
     static let deleteConfirmation = "Are you sure you want to delete?"
+    static let deleteNoteConfirmation = "Are you sure you want to delete this note?"
     static let contactsSavedSuccessfully = "Your contact has been saved successfully"
     static let saveFail = ""
     static let deleteVisitMessage = "Deletion of Visit has failed, Please try again !"

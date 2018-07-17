@@ -349,7 +349,7 @@ extension NotesViewController :UITableViewDelegate,UITableViewDataSource,SwipeTa
             let cell = tableView.cellForRow(at: indexPath) as! NotesTableViewCell
             let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
             let notesDelete = self.tableViewDisplayData[indexPath.row]
-            let alert = UIAlertController(title: "Delete Note?", message: StringConstants.deleteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Delete Note?", message: StringConstants.deleteNoteConfirmation, preferredStyle: UIAlertControllerStyle.alert)
             let continueAction = UIAlertAction(title: "Delete", style: .default) { action in
                 // Handle when button is clicked
                 self.tableViewDisplayData.remove(at: indexPath.row)

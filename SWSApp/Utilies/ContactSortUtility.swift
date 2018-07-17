@@ -115,7 +115,7 @@ class ContactSortUtility {
                 return true
             }
             let thisContactId = $0.contactId
-            let acrAccountId = acrArray.filter( {thisContactId == $0.contactId} )
+            let acrAccountId = acrArray.filter( {$0.isActive == 1 && thisContactId == $0.contactId} )
             for acr in acrAccountId {
                 if ((selectedAccountId == acr.accountId) && (thisContactId == acr.contactId)) {
                     return true
@@ -159,7 +159,7 @@ class ContactSortUtility {
                         return true
                     }
                     let thisContactId = $0.contactId
-                    let acrAccountId = acrArray.filter( {thisContactId == $0.contactId} )
+                    let acrAccountId = acrArray.filter( {$0.isActive == 1 && thisContactId == $0.contactId} )
                     for acr in acrAccountId {
                         if ((account.account_Id == acr.accountId) && (thisContactId == acr.contactId)) {
                             return true

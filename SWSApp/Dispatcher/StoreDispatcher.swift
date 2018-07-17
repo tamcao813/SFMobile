@@ -1636,12 +1636,14 @@ class StoreDispatcher {
                 let ary:[Any] = result[i] as! [Any]
                 let resultDict = Dictionary(uniqueKeysWithValues: zip(Contact.ContactFields, ary))
                 let contact = Contact(withAry: resultDict)
+                contactAry.append(contact)
+                /*
                 if contact.buyerFlag {
                     contactAry.append(contact)
                 }
                 else if contact.contactClassification == "Influencer" {
                     contactAry.append(contact)
-                }
+                }*/
             }
         }
         else if error != nil {

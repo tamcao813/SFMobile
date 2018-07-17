@@ -460,6 +460,10 @@ extension AccountEventSummaryViewController: UITableViewDelegate, UITableViewDat
             //Check if this selected contact is SGWS Employees
             let sgwsContacts = StoreDispatcher.shared.fetchAllSGWSEmployeeContacts()
             
+            if selectedContact == nil {
+                return
+            }
+            
             let syncConfigurationList = sgwsContacts.filter( { return $0.contactId == selectedContact.contactId } )
             
             if(syncConfigurationList.count > 0){

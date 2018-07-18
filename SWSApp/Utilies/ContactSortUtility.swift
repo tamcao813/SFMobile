@@ -111,9 +111,10 @@ class ContactSortUtility {
         var filteredAccountContactArray = [Contact]()
 
         filteredAccountContactArray = contactListToBeSorted.filter( {
+            /*
             if selectedAccountId == $0.accountId {
                 return true
-            }
+            }*/
             let thisContactId = $0.contactId
             let acrAccountId = acrArray.filter( {$0.isActive == 1 && thisContactId == $0.contactId} )
             for acr in acrAccountId {
@@ -155,9 +156,11 @@ class ContactSortUtility {
             var filteredAccountContactArray = [Contact]()
             for account in accounts {
                 filteredAccountContactArray += contactListToBeSorted.filter( {
+                    /*
                     if account.account_Id == $0.accountId {
                         return true
-                    }
+                    }*/
+                    
                     let thisContactId = $0.contactId
                     let acrAccountId = acrArray.filter( {$0.isActive == 1 && thisContactId == $0.contactId} )
                     for acr in acrAccountId {

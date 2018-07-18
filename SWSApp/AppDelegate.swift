@@ -133,6 +133,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+//        Fabric.sharedSDK().debug = true
+        Fabric.with([Crashlytics.self()])
+        
         self.launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         
         if launchedBefore
@@ -150,9 +153,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Listen to kSFUserWillLogoutNotification
         NotificationCenter.default.addObserver(self, selector: #selector(self.resetLaunchandResyncConfiguration), name: NSNotification.Name("kSFUserWillLogoutNotification"), object: nil)
-        Fabric.with([Crashlytics.self])
-
+        
         return true
+        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

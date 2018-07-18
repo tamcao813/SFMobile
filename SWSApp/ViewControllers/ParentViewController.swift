@@ -938,10 +938,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         let dropDownItem5 = NSLocalizedString("  Notifications", comment: "Notifications")
         let dropDownItem6 = NSLocalizedString("  Chatter", comment: "Chatter")
         let dropDownItem7 = NSLocalizedString("  Transactions (Topaz)", comment: "Transactions (Topaz)")
-        let dropDownItem8 = NSLocalizedString("  Load Deposit (IDD)", comment: "Load Deposit (IDD)")
-        let dropDownItem9 = NSLocalizedString("  GoSpotCheck", comment: "GoSpotCheck")
+//        let dropDownItem8 = NSLocalizedString("  Load Deposit (IDD)", comment: "Load Deposit (IDD)")
+        let dropDownItem8 = NSLocalizedString("  GoSpotCheck", comment: "GoSpotCheck")
         // set the data source for the dropdown
-        moreDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4, dropDownItem5, dropDownItem6, dropDownItem7, dropDownItem8, dropDownItem9]
+        moreDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4, dropDownItem5, dropDownItem6, dropDownItem7, dropDownItem8]
         self.moreDropDown.textFont = UIFont(name: "Ubuntu", size: 13)!
         self.moreDropDown.textColor =  UIColor.gray
         
@@ -1006,9 +1006,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         case 6:
             launchTopazApp()
             //self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
+//        case 7:
+//            self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
         case 7:
-            self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
-        case 8:
             launchGospotCheckApp()
             //moreVC1.view.addSubview((self.gospotcheckViewController?.view)!)
            // self.moreDropDownSelectionIndex = index

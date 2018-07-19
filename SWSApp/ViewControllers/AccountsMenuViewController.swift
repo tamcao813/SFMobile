@@ -156,11 +156,11 @@ class AccountsMenuViewController: UIViewController {
         if channelData.count > 0 {
             if subChannelData.count > 0{
                 filterClass.sectionItems.insert(channelData, at: AccountFilterMenuOptions.channel.rawValue)
-                filterClass.sectionItems.insert(subChannelData, at: AccountFilterMenuOptions.subChannel.rawValue)
+           //     filterClass.sectionItems.insert(subChannelData, at: AccountFilterMenuOptions.subChannel.rawValue)
             }
         }else{
             filterClass.sectionItems.insert([], at: AccountFilterMenuOptions.channel.rawValue)
-            filterClass.sectionItems.insert([], at: AccountFilterMenuOptions.subChannel.rawValue)
+           // filterClass.sectionItems.insert([], at: AccountFilterMenuOptions.subChannel.rawValue)
         }
     }
     
@@ -397,6 +397,37 @@ class AccountsMenuViewController: UIViewController {
         }
     }
     
+    // Select Sub Channels
+    
+    func selectSubChannels(channelData:Array<String>, row: Int) {
+        
+        var subChannelData = [String]()
+        
+        for item in accountsForLoggedUserFiltered{
+            let channel = item.channelTD
+            let subchannel = item.subChannelTD
+            
+            if channel == channelData[row] {
+                if subchannel != ""{
+                    
+                    if !(subChannelData.contains(subchannel)){
+                        subChannelData.append(subchannel)
+                    }
+                }
+            }
+        }
+        
+        if channelData.count > 0 {
+            if subChannelData.count > 0{
+                filterClass.sectionItems.insert(subChannelData, at: AccountFilterMenuOptions.subChannel.rawValue)
+            }
+        }else{
+            filterClass.sectionItems.insert([], at: AccountFilterMenuOptions.subChannel.rawValue)
+        }
+        sectionData = filterClass.sectionItems
+        
+    }
+    
     //Channel selection
     func performChannelOperation(indexPath : IndexPath, arrayContent : Array<Any>){
         
@@ -406,6 +437,7 @@ class AccountsMenuViewController: UIViewController {
             FilterMenuModel.channelIndex = indexPath.row
             FilterMenuModel.channel = arrayData[indexPath.row]
         }
+        self.selectSubChannels(channelData: channelData, row: indexPath.row)
     }
     
     //Subchannel Selection

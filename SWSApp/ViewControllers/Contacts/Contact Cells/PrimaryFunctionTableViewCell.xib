@@ -37,6 +37,7 @@
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-Mi-9Cv" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
                         <rect key="frame" x="40" y="56" width="200" height="40"/>
+                        <accessibility key="accessibilityConfiguration" identifier="primaryFunctionTextFieldID"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="QH5-gx-R4f"/>
                             <constraint firstAttribute="width" constant="200" id="t1u-TD-iz6"/>

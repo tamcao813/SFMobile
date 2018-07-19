@@ -37,6 +37,7 @@
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="name@email.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FVB-B3-ZcB">
                         <rect key="frame" x="40" y="56" width="260" height="40"/>
+                        <accessibility key="accessibilityConfiguration" identifier="emailTextFieldID"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="Lof-8V-Kej"/>
                             <constraint firstAttribute="width" constant="260" id="UMP-tb-P5f"/>

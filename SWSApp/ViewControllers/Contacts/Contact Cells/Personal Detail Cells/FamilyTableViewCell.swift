@@ -36,18 +36,32 @@ class FamilyTableViewCell: UITableViewCell {
         if nameTextField.tag == 1 || dateTextField.tag == 1{
             nameTextField.text! = (contactDetail?.child1Name)!
             dateTextField.text! = (contactDetail?.child1Birthday)!
+            nameTextField.accessibilityIdentifier = "child1NameID"
+            dateTextField.accessibilityIdentifier = "child1BirthdayID"
         }else if nameTextField.tag == 2 || dateTextField.tag == 2 {
             nameTextField.text! = (contactDetail?.child2Name)!
             dateTextField.text! = (contactDetail?.child2Birthday)!
+            nameTextField.accessibilityIdentifier = "child2NameID"
+            dateTextField.accessibilityIdentifier = "child2BirthdayID"
+
         }else if nameTextField.tag == 3 || dateTextField.tag == 3{
             nameTextField.text! = (contactDetail?.child3Name)!
             dateTextField.text! = (contactDetail?.child3Birthday)!
+            nameTextField.accessibilityIdentifier = "child3NameID"
+            dateTextField.accessibilityIdentifier = "child3BirthdayID"
+
         }else if nameTextField.tag == 4 || dateTextField.tag == 4{
             nameTextField.text! = (contactDetail?.child4Name)!
             dateTextField.text! = (contactDetail?.child4Birthday)!
+            nameTextField.accessibilityIdentifier = "child4NameID"
+            dateTextField.accessibilityIdentifier = "child4BirthdayID"
+
         }else{
             nameTextField.text! = (contactDetail?.child5Name)!
             dateTextField.text! = (contactDetail?.child5Birthday)!
+            nameTextField.accessibilityIdentifier = "child5NameID"
+            dateTextField.accessibilityIdentifier = "child5BirthdayID"
+
         }
     }
     

@@ -43,6 +43,7 @@
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Department" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bFb-Eb-Z6M">
                         <rect key="frame" x="339" y="128.5" width="200" height="40"/>
+                        <accessibility key="accessibilityConfiguration" identifier="departmentTextFieldID"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="RTZ-8U-avW"/>
                             <constraint firstAttribute="height" constant="40" id="bhr-kq-U9q"/>
@@ -67,6 +68,7 @@
                     </textField>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K7b-rR-CQe">
                         <rect key="frame" x="40" y="128.5" width="200" height="40"/>
+                        <accessibility key="accessibilityConfiguration" identifier="titleTextFieldID"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="6AH-1n-Ib0"/>
                             <constraint firstAttribute="height" constant="40" id="KMT-zb-weL"/>

@@ -820,12 +820,12 @@ extension AccountsListViewController : UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let account:Account = tableViewDisplayData[indexPath.row  + currentPageIndex!]
-        
-        delegate?.pushTheScreenToDetailsScreen(accountData: account)
-        FilterMenuModel.comingFromDetailsScreen = "YES"
-        FilterMenuModel.isFromAccountListView = "YES"
+        if let index = currentPageIndex {
+            let account:Account = tableViewDisplayData[indexPath.row  + index]
+            delegate?.pushTheScreenToDetailsScreen(accountData: account)
+            FilterMenuModel.comingFromDetailsScreen = "YES"
+            FilterMenuModel.isFromAccountListView = "YES"
+        }
     }
 }
 

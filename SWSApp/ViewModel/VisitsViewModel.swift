@@ -187,7 +187,7 @@ class VisitsViewModel {
         /*  BUG:7: Activities displayed in Account overview is not sorted by scheduled date and time. Newly created activity is displayed at last
          Fixed by sorted in > order 
          */
-        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        visitsForUserArray = visitsForUserArray.sorted(by: { $0.startDate < $1.startDate })
         return visitsForUserArray
     }
 
@@ -212,7 +212,7 @@ class VisitsViewModel {
         /*  BUG:7: Activities displayed in Account overview is not sorted by scheduled date and time. Newly created activity is displayed at last
          Fixed by sorted in > order
          */
-        visitsForUserArray = visitsForUserArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        visitsForUserArray = visitsForUserArray.sorted(by: { $0.startDate < $1.startDate })
         return visitsForUserArray
     }
 }

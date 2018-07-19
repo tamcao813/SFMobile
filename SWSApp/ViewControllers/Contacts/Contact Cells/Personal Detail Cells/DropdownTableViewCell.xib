@@ -34,6 +34,7 @@
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select One" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BsY-jB-eTf" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
                         <rect key="frame" x="40" y="56" width="200" height="40"/>
+                        <accessibility key="accessibilityConfiguration" identifier="dropdownTextfieldID"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="IC4-qw-3Xc"/>
                             <constraint firstAttribute="height" constant="40" id="ThS-HK-hm3"/>

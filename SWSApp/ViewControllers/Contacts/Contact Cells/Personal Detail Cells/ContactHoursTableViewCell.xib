@@ -37,6 +37,7 @@
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ex 8-5 PM, M-F" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z3t-6H-rOn">
                         <rect key="frame" x="40" y="56" width="200" height="40"/>
+                        <accessibility key="accessibilityConfiguration" identifier="contactHoursTextFieldID"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="C6H-I1-D1y"/>
                             <constraint firstAttribute="height" constant="40" id="fhr-dA-IBu"/>

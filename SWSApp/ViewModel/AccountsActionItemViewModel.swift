@@ -90,7 +90,7 @@ class AccountsActionItemViewModel {
             }
             return false
         }
-        actionForUserArray = actionForUserArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        actionForUserArray = actionForUserArray.sorted(by: { $0.activityDate > $1.activityDate })
         actionForUserArray = actionForUserArray.sorted(by: { $0.isUrgent && !$1.isUrgent })
         return actionForUserArray
     }
@@ -111,7 +111,7 @@ class AccountsActionItemViewModel {
             }
             return false
         }
-        actionForUserArray = actionForUserArray.sorted(by: { $0.lastModifiedDate > $1.lastModifiedDate })
+        actionForUserArray = actionForUserArray.sorted(by: { $0.activityDate > $1.activityDate })
         actionForUserArray = actionForUserArray.sorted(by: { $0.isUrgent && !$1.isUrgent })
         return actionForUserArray
     }

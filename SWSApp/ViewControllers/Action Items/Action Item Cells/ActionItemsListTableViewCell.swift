@@ -27,30 +27,31 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
         actionItemTitleLabel.text = actionItem.subject
         dueDateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))
         
-        if actionItem.activityDate != "" {
-            if actionItem.status == "Open" {
-                if ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
-                    if actionItem.status != "Open" {
-                        actionItemStatusLabel.text = "Open"
-                        updateStatusInDB(actionItem: actionItem, status: "Open")
-                    }else{
-                        actionItemStatusLabel.text = actionItem.status
-                    }
-                }else{
-                    if actionItem.status != "Overdue" {
-                        actionItemStatusLabel.text = "Overdue"
-                        updateStatusInDB(actionItem: actionItem, status: "Overdue")
-                    }else{
-                        actionItemStatusLabel.text = actionItem.status
-                    }
-                }
-            }else{
-                actionItemStatusLabel.text = actionItem.status
-            }
-        }else{
-            actionItemStatusLabel.text = actionItem.status
-        }
+        actionItemStatusLabel.text = actionItem.status
         
+//        if actionItem.activityDate != "" {
+//            if actionItem.status == "Open" {
+//                if ActionItemSortUtility().isItOpenState(dueDate: actionItem.activityDate){
+//                    if actionItem.status != "Open" {
+//                        actionItemStatusLabel.text = "Open"
+//                        updateStatusInDB(actionItem: actionItem, status: "Open")
+//                    }else{
+//                        actionItemStatusLabel.text = actionItem.status
+//                    }
+//                }else{
+//                    if actionItem.status != "Overdue" {
+//                        actionItemStatusLabel.text = "Overdue"
+//                        updateStatusInDB(actionItem: actionItem, status: "Overdue")
+//                    }else{
+//                        actionItemStatusLabel.text = actionItem.status
+//                    }
+//                }
+//            }else{
+//                actionItemStatusLabel.text = actionItem.status
+//            }
+//        }else{
+//            actionItemStatusLabel.text = actionItem.status
+//        }
         
         if actionItem.isUrgent {
             urgentImageViewWidthConstarint.constant = 20

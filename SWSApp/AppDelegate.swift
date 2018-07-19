@@ -128,7 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let ret = (isReachable && !needsConnection)
         
         return ret
-        
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

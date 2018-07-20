@@ -33,7 +33,7 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.webView?.isHidden = true
+        //self.webView?.isHidden = true
         
         if !(AppDelegate.isConnectedToNetwork()){
             DispatchQueue.main.async {
@@ -41,10 +41,10 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
                 self.webView?.isHidden = true
             }
         }
-        DispatchQueue.main.async{
-            self.loadWebView()
-        }
-        self.initializeReachability()            
+//        DispatchQueue.main.async{
+//            self.loadWebView()
+//        }
+        self.initializeReachability()
     }
     
     //MARK:-
@@ -75,6 +75,7 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
     
     //Load the webview with specified URL
     func loadWebView(){
+        webView?.isHidden = true
         guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
             return
         }

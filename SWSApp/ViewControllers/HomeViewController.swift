@@ -19,6 +19,7 @@ class HomeViewController: UIViewController {
     
     let userViewModel = UserViewModel()
     var loggerInUser: User?
+    var homeGoalsVc : HomeGoalTypesViewController?
     
     @IBOutlet weak var scollView : UIScrollView?
     
@@ -47,11 +48,21 @@ class HomeViewController: UIViewController {
         print("Home VC will disappear")
     }
     
+    //MARK:- Segue Methods
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "HomeGoalTypesViewControllerSegue") {
+            homeGoalsVc = segue.destination as? HomeGoalTypesViewController
+        }
+    }
+    
     //Scroll Tableview Content to Top
     func scrollToTop(){
         DispatchQueue.main.async {
+            self.homeGoalsVc?.loadUrlRequest()
             self.scollView?.setContentOffset(CGPoint.zero, animated: true)
         }
     }
+    
+    
 }
 

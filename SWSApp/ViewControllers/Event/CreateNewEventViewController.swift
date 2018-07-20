@@ -54,6 +54,11 @@ class CreateNewEventViewController: UIViewController {
     var visitViewModel = VisitSchedulerViewModel()
     weak var delegate: CreateNewEventControllerDelegate!
     
+    var tempStartTime = ""
+    var tempEndTime = ""
+    var tempSubject = ""
+    var tempLocation = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         customizedUI()
@@ -119,6 +124,14 @@ class CreateNewEventViewController: UIViewController {
         if let dropdown = contactsDropdown {
             dropdown.hide()
         }
+        
+        if VisitModelForUIAPI.isEditMode == true{
+            PlanVisitManager.sharedInstance.visit?.startDate = tempStartTime
+            PlanVisitManager.sharedInstance.visit?.endDate = tempEndTime
+            PlanVisitManager.sharedInstance.visit?.subject = tempSubject
+            PlanVisitManager.sharedInstance.visit?.location = tempLocation
+        }
+        
         DispatchQueue.main.async {
             if  CreateNewEventViewControllerGlobals.userInput {
                 AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
@@ -149,6 +162,7 @@ class CreateNewEventViewController: UIViewController {
                             }
                         }else{
                             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Saving of Visit/Event has failed, Please try again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                                
                                 self.btnSave?.isUserInteractionEnabled = true
                             }, action2: {
                                 
@@ -185,19 +199,26 @@ class CreateNewEventViewController: UIViewController {
         }
         
         //Check Weather the dates are changed or not(Used to Check States for UI API)
-        if PlanVisitManager.sharedInstance.visit?.startDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime){
+        if VisitModelForUIAPI.isEditMode != true{
             
-            VisitModelForUIAPI.isEditMode = true
+            tempStartTime = (PlanVisitManager.sharedInstance.visit?.startDate)!
+            tempEndTime = (PlanVisitManager.sharedInstance.visit?.endDate)!
+            tempSubject = (PlanVisitManager.sharedInstance.visit?.subject)!
+            tempLocation = (PlanVisitManager.sharedInstance.visit?.location)!
             
-        }else if PlanVisitManager.sharedInstance.visit?.endDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime){
-            
-            VisitModelForUIAPI.isEditMode = true
-            
-        }else{
-            
-            VisitModelForUIAPI.isEditMode = false
+            if PlanVisitManager.sharedInstance.visit?.startDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.startDate, time: CreateNewEventViewControllerGlobals.startTime){
+                
+                VisitModelForUIAPI.isEditMode = true
+                
+            }else if PlanVisitManager.sharedInstance.visit?.endDate != DateTimeUtility().getDateFromDateAndTimeInYYYYDDMMFormat(date: CreateNewEventViewControllerGlobals.endDate, time: CreateNewEventViewControllerGlobals.endTime){
+                
+                VisitModelForUIAPI.isEditMode = true
+                
+            }else{
+                
+                VisitModelForUIAPI.isEditMode = false
+            }
         }
-        
         if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
             
             VisitModelForUIAPI.isEditMode = false

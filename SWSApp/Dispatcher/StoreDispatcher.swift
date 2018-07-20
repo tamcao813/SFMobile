@@ -3984,7 +3984,7 @@ class StoreDispatcher {
         
         var notification: [Notifications] = []
         let notificationsFields = Notifications.notificationsFields.map{"{FS_Notification__c:\($0)}"}
-        let soapQuery = "Select \(notificationsFields.joined(separator: ",")) FROM {FS_Notification__c} WHERE {FS_Notification__c:AccountId}"
+        let soapQuery = "Select \(notificationsFields.joined(separator: ",")) FROM {FS_Notification__c}"
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?

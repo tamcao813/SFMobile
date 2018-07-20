@@ -108,11 +108,13 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         fetchVisit()
         initializingXIBs()
         fetchOpportunityList()
+        FilterMenuModel.isFromAccountVisitSummary = "YES"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         locationManager.stopUpdatingLocation()
+        FilterMenuModel.isFromAccountVisitSummary = ""
         NotificationCenter.default.removeObserver(self)
     }
     

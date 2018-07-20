@@ -79,7 +79,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
         
         //creating notifications array according to accountId
-        notificationArray = notificationModel.notificationsForUser()
+        notificationArray = notificationModel.accountOverViewNotificationsForUser()
         notificationArrayToDisplay = notificationArray.filter( { return $0.account == accountId } )
         
         //creating upcomingvisit array according to accountId

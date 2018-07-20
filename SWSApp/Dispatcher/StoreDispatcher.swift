@@ -1235,7 +1235,7 @@ class StoreDispatcher {
     
     func fetchAllAccountIdFromUser()->[String]{
         var accountIdsArray:[String] = []
-        let soqlQuery = "Select {User:AccountId} FROM {User}"
+        let soqlQuery = "Select DISTINCT {User:AccountId} FROM {User}"
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         var error : NSError?
         let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
@@ -3984,7 +3984,7 @@ class StoreDispatcher {
         
         var notification: [Notifications] = []
         let notificationsFields = Notifications.notificationsFields.map{"{FS_Notification__c:\($0)}"}
-        let soapQuery = "Select \(notificationsFields.joined(separator: ",")) FROM {FS_Notification__c}"
+        let soapQuery = "Select \(notificationsFields.joined(separator: ",")) FROM {FS_Notification__c} WHERE {FS_Notification__c:AccountId}"
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
         var error : NSError?

@@ -300,6 +300,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: 0)
             
         }else if  data == LoadThePersistantMenuScreen.notifications.rawValue {
+            topMenuBar?.selectedSegment = 5
             self.navigateToMoreOptionsViewControllers(index: 4, selectedIndex: 4)
         }
     }

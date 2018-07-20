@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,6 +35,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gp5-b3-4fT">
                                 <rect key="frame" x="964" y="35" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="createEventCloseButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="LwS-6c-eSd"/>
                                     <constraint firstAttribute="height" constant="40" id="kkx-yi-kUM"/>
@@ -56,6 +57,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9O-PO-5Sk">
                                             <rect key="frame" x="864" y="10" width="120" height="40"/>
                                             <color key="backgroundColor" name="Data New"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="btnSaveID"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="3Bz-B3-XsY"/>
                                                 <constraint firstAttribute="width" constant="120" id="4mV-lA-8Oy"/>
@@ -134,6 +136,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vzC-Ey-tFJ">
                                 <rect key="frame" x="964" y="41.5" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="EventSummaryCloseButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="AIa-jE-uZW"/>
                                     <constraint firstAttribute="width" constant="40" id="pQ3-UQ-IJm"/>

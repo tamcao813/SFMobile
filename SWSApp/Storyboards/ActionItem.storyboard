@@ -92,13 +92,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qE1-5c-wcS">
-                                                    <rect key="frame" x="15" y="3" width="37" height="26.5"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ROA-ao-oAd">
-                                                    <rect key="frame" x="12" y="9" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaS-EH-Qi1">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -488,6 +488,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y1v-h8-mHv">
                                 <rect key="frame" x="964" y="40" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="actionDetailsCloseButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="jBs-oh-FeR"/>
                                     <constraint firstAttribute="height" constant="40" id="kfr-aq-GCc"/>
@@ -739,6 +740,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3B-Mm-l9T">
                                 <rect key="frame" x="964" y="35" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="newActionItemCloseButton"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="IJt-CL-Al7"/>
                                     <constraint firstAttribute="width" constant="40" id="jNm-9H-3t5"/>
@@ -770,6 +772,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dNm-d3-UhY">
                                         <rect key="frame" x="844" y="20" width="140" height="40"/>
                                         <color key="backgroundColor" name="Data New"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="actionItemSaveButtonID"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="JaY-Bk-7qz"/>
                                             <constraint firstAttribute="width" constant="140" id="c8M-67-JXJ"/>

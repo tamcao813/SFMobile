@@ -538,6 +538,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
+            cell?.searchContactTextField.accessibilityIdentifier = "contactSearchContactTextFieldID"
             searchAccountTextField = cell?.searchContactTextField
             cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
             accountsDropDown = cell?.accountsDropDown
@@ -628,6 +629,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
         cell?.headerLabel.text = "Notes"
         notesTextView = cell?.descriptionTextView
+        cell?.descriptionTextView.accessibilityIdentifier = "notesDescriptionTextViewID"
         notesTextView.accessibilityIdentifier = "notesTextViewID"
         cell?.descriptionTextView.tag = 4
         if let notes = contactDetail?.sgwsNotes, notes != "" {
@@ -641,6 +643,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
         cell?.headerLabel.text = "Likes"
         likeTextView = cell?.descriptionTextView
+        cell?.descriptionTextView.accessibilityIdentifier = "likesDescriptionTextViewID"
         likeTextView.accessibilityIdentifier = "likeTextViewID"
         cell?.descriptionTextView.tag = 1
         if let dislikes = contactDetail?.dislikes, dislikes != "" {
@@ -655,6 +658,8 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         cell?.headerLabel.text = "Dislikes"
         dislikeTextView = cell?.descriptionTextView
         dislikeTextView.accessibilityIdentifier = "dislikeTextViewID"
+        cell?.descriptionTextView.accessibilityIdentifier = "dislikedDescriptionTextViewID"
+
         cell?.descriptionTextView.tag = 2
         if let likes = contactDetail?.likes, likes != "" {
             cell?.contactDetail = contactDetail
@@ -667,7 +672,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
         cell?.headerLabel.text = "Favorite Activities"
         favouriteTextView = cell?.descriptionTextView
-        favouriteTextView.accessibilityIdentifier = "favouriteTextViewID"
+        cell?.descriptionTextView.accessibilityIdentifier = "favouriteTextViewID"
         cell?.descriptionTextView.tag = 3
         if let fav = contactDetail?.favouriteActivities, fav != "" {
             cell?.contactDetail = contactDetail

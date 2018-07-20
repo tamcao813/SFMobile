@@ -33,6 +33,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ch9-dD-u4x">
                                                 <rect key="frame" x="536" y="8" width="38" height="38"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="duringVisitActionItemCloseButton"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="38" id="dET-uZ-Cvq"/>
                                                 </constraints>
@@ -200,6 +201,7 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JD7-nN-b2d">
                                                 <rect key="frame" x="554" y="14" width="40" height="38"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="duringVisitNotificationCloseButotnID"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="129-Ep-X1z"/>
                                                 </constraints>

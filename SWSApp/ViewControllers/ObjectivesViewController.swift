@@ -73,9 +73,9 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     
     //Load the webview with specified URL
     func loadWebView(){
-        webView?.isHidden = true
+        
         DispatchQueue.main.async {
-            
+            self.webView?.isHidden = true
             guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
                 return
             }

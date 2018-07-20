@@ -83,17 +83,15 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     
     //Load the webview with specified URL
     func loadWebView(){
-        
-        webView?.isHidden = true
-        
+        DispatchQueue.main.async {
+            self.webView?.isHidden = true
+        }
         guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
             return
         }
-        
         guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
             return
         }
-
         let authUrl: String = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.globalChatter
         
         let url  =  URL(string:authUrl)

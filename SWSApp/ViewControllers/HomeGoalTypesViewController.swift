@@ -47,7 +47,9 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
     //MARK:-
     //Initialize reachability Check
     func loadUrlRequest(){
-        webView?.isHidden = true
+        DispatchQueue.main.async {
+            self.webView?.isHidden = true
+        }
         guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
             return
         }

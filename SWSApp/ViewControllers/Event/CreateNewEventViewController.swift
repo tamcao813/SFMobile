@@ -149,7 +149,7 @@ class CreateNewEventViewController: UIViewController {
                             }
                         }else{
                             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Saving of Visit/Event has failed, Please try again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-                                
+                                self.btnSave?.isUserInteractionEnabled = true
                             }, action2: {
                                 
                             })

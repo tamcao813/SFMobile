@@ -156,11 +156,11 @@ class AccountsMenuViewController: UIViewController {
         if channelData.count > 0 {
             if subChannelData.count > 0{
                 filterClass.sectionItems.insert(channelData, at: AccountFilterMenuOptions.channel.rawValue)
-           //     filterClass.sectionItems.insert(subChannelData, at: AccountFilterMenuOptions.subChannel.rawValue)
+                filterClass.sectionItems.insert([], at: AccountFilterMenuOptions.subChannel.rawValue)
             }
         }else{
             filterClass.sectionItems.insert([], at: AccountFilterMenuOptions.channel.rawValue)
-           // filterClass.sectionItems.insert([], at: AccountFilterMenuOptions.subChannel.rawValue)
+            filterClass.sectionItems.insert([], at: AccountFilterMenuOptions.subChannel.rawValue)
         }
     }
     
@@ -419,6 +419,8 @@ class AccountsMenuViewController: UIViewController {
         
         if channelData.count > 0 {
             if subChannelData.count > 0{
+                
+                filterClass.sectionItems.remove(at: AccountFilterMenuOptions.subChannel.rawValue)
                 filterClass.sectionItems.insert(subChannelData, at: AccountFilterMenuOptions.subChannel.rawValue)
             }
         }else{
@@ -430,6 +432,8 @@ class AccountsMenuViewController: UIViewController {
     
     //Channel selection
     func performChannelOperation(indexPath : IndexPath, arrayContent : Array<Any>){
+        
+        FilterMenuModel.subChannelIndex = -1
         
         let channelData = sectionData[indexPath.section] as! [String]
         if channelData[0] != ""{

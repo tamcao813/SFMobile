@@ -1235,7 +1235,7 @@ class StoreDispatcher {
     
     func fetchAllAccountIdFromUser()->[String]{
         var accountIdsArray:[String] = []
-        let soqlQuery = "Select {User:AccountId} FROM {User}"
+        let soqlQuery = "Select DISTINCT {User:AccountId} FROM {User}"
         let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 100000)
         var error : NSError?
         let result = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)

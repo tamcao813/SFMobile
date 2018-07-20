@@ -16,6 +16,13 @@ class NotificationsViewModel {
         return filteredNotificationArray
     }
     
+    func accountOverViewNotificationsForUser() -> [Notifications] {
+        let notificationsArray = StoreDispatcher.shared.fetchNotifications()
+        var filteredNotificationArray = SyncConfigurationSortUtility.getNotificationDataUsingSyncTime(objectArray: notificationsArray)
+        filteredNotificationArray = filteredNotificationArray.sorted(by: { $0.createdDate < $1.createdDate })
+        return filteredNotificationArray
+    }
+    
     func editNotificationsLocally(fields: [String:Any]) -> Bool {
         return StoreDispatcher.shared.editNotificationsLocally(fieldsToUpload:fields)
     }

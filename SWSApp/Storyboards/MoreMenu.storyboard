@@ -170,7 +170,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wxw-fZ-Y1J">
-                                <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                                <rect key="frame" x="0.0" y="20" width="1112" height="744"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -188,10 +188,10 @@
                         <constraints>
                             <constraint firstItem="Tfs-1c-wRr" firstAttribute="centerY" secondItem="Pfh-UH-2CK" secondAttribute="centerY" id="54c-A5-xch"/>
                             <constraint firstItem="Tfs-1c-wRr" firstAttribute="centerX" secondItem="Pfh-UH-2CK" secondAttribute="centerX" id="9WR-kd-m6S"/>
-                            <constraint firstItem="wxw-fZ-Y1J" firstAttribute="bottom" secondItem="Pfh-UH-2CK" secondAttribute="bottom" id="H3l-DF-6z0"/>
-                            <constraint firstItem="wxw-fZ-Y1J" firstAttribute="top" secondItem="aTA-HE-STX" secondAttribute="top" id="KCg-qK-6fa"/>
-                            <constraint firstItem="wxw-fZ-Y1J" firstAttribute="leading" secondItem="Pfh-UH-2CK" secondAttribute="leading" id="cNf-2O-aCt"/>
-                            <constraint firstItem="wxw-fZ-Y1J" firstAttribute="trailing" secondItem="Pfh-UH-2CK" secondAttribute="trailing" id="mSa-2B-OBg"/>
+                            <constraint firstItem="Pfh-UH-2CK" firstAttribute="trailing" secondItem="wxw-fZ-Y1J" secondAttribute="trailing" id="GXI-He-YhP"/>
+                            <constraint firstItem="wxw-fZ-Y1J" firstAttribute="leading" secondItem="Pfh-UH-2CK" secondAttribute="leading" id="LGT-Yh-iVC"/>
+                            <constraint firstItem="Pfh-UH-2CK" firstAttribute="bottom" secondItem="wxw-fZ-Y1J" secondAttribute="bottom" constant="70" id="nCm-bf-asA"/>
+                            <constraint firstItem="Pfh-UH-2CK" firstAttribute="top" secondItem="wxw-fZ-Y1J" secondAttribute="top" id="rzA-b2-ZY8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Pfh-UH-2CK"/>
                     </view>

@@ -44,6 +44,8 @@ class AccountEventSummaryViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchVisit()
         initializingXIBs()
+        VisitModelForUIAPI.isEditMode = false
+
     }
     
     @objc func refreshVisit(){

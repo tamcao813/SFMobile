@@ -32,16 +32,16 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.webView?.isHidden = true
-        }
+//        DispatchQueue.main.async {
+//            self.webView?.isHidden = true
+//        }
         if !(AppDelegate.isConnectedToNetwork()){
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
             }
         }
-        self.loadWebView()
+        //self.loadWebView()
         initializeReachability()
     }
     
@@ -75,7 +75,7 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     func loadWebView(){
         
         DispatchQueue.main.async {
-            
+            self.webView?.isHidden = true
             guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
                 return
             }

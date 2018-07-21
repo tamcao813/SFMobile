@@ -228,13 +228,59 @@ class ContactSortUtility {
             
             if ContactFilterMenuModel.buyingPower == "YES"{
                 enteredAnyFilterCase = true
-                filteredBuyingPowerContactArray = contactListToBeSorted.filter( { return $0.buyerFlag == true } )
+//                filteredBuyingPowerContactArray = contactListToBeSorted.filter( { return $0.buyerFlag == true } )
+                let acrArray = ContactsViewModel().accountsForContacts()
+                
+                filteredBuyingPowerContactArray = contactListToBeSorted.filter( {
+                    let selectedAccountId = $0.accountId as String
+                    if selectedAccountId == "" {
+                        return false
+                    }
+                    
+                    let thisContactId = $0.contactId
+                    let acrAccountId = acrArray.filter( {$0.isActive == 1 && thisContactId == $0.contactId && selectedAccountId == $0.accountId} )
+                    for acr in acrAccountId {
+                        if acr.buyingPower == 1 {
+                            return true
+                        }
+                        else if acr.contactClassification == "Influencer" {
+                            return true
+                        }
+                    }
+                    
+                    return false
+                    
+                } )
             }
             
             // filter by NO Buying Power
             if ContactFilterMenuModel.nobuyingPower == "YES"{
                 enteredAnyFilterCase = true
-                filteredNoBuyingPowerContactArray = contactListToBeSorted.filter( { return $0.buyerFlag == false } )
+//                filteredNoBuyingPowerContactArray = contactListToBeSorted.filter( { return $0.buyerFlag == false } )
+                let acrArray = ContactsViewModel().accountsForContacts()
+                
+                filteredBuyingPowerContactArray = contactListToBeSorted.filter( {
+                    let selectedAccountId = $0.accountId as String
+                    if selectedAccountId == "" {
+                        return false
+                    }
+                    
+                    let thisContactId = $0.contactId
+                    let acrAccountId = acrArray.filter( {$0.isActive == 1 && thisContactId == $0.contactId && selectedAccountId == $0.accountId} )
+                    for acr in acrAccountId {
+                        if acr.buyingPower == 1 {
+                            return false
+                        }
+                        else if acr.contactClassification == "Influencer" {
+                            return false
+                        }
+                        else {
+                            return true
+                        }
+                    }
+                    
+                    return false
+                } )
             }
             
             if filteredBuyingPowerContactArray.count > 0 {

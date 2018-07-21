@@ -18,7 +18,7 @@ protocol SearchContactByEnteredTextDelegate: class {
 class ContactMenuViewController: UIViewController {
 
     let kHeaderSectionTag: Int = 7900;
-    var expandedSectionHeaderNumber: Int = 0
+    var expandedSectionHeaderNumber: Int = -1
     var expandedSectionHeader: UITableViewHeaderFooterView!
     weak var searchByEnteredTextDelegate: SearchContactByEnteredTextDelegate?
     
@@ -28,7 +28,7 @@ class ContactMenuViewController: UIViewController {
     @IBOutlet weak var searchBar : UISearchBar!
     
     //Used for selected section in TableView
-    var selectedSection = 0
+    var selectedSection = -1
     
     var contactForLoggedUserFiltered = [Account]()
     

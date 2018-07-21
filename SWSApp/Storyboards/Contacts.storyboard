@@ -1009,11 +1009,11 @@
                                         <rect key="frame" x="0.0" y="778" width="1024" height="240"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5CT-4v-0dJ" id="WJQ-Vh-t3X">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="239.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="240"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwx-tO-XIL">
-                                                    <rect key="frame" x="32" y="0.0" width="960" height="239.5"/>
+                                                    <rect key="frame" x="32" y="0.0" width="960" height="239"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3R-71-c8H">
                                                             <rect key="frame" x="0.0" y="0.0" width="960" height="130"/>
@@ -1135,7 +1135,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Cd-uW-EhI">
-                                                            <rect key="frame" x="0.0" y="130" width="960" height="109.5"/>
+                                                            <rect key="frame" x="0.0" y="130" width="960" height="109"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Influencer" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kZ-4x-K9B">
                                                                     <rect key="frame" x="32" y="36.5" width="74" height="18"/>
@@ -1202,7 +1202,7 @@
                                         <rect key="frame" x="0.0" y="1018" width="1024" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eQy-lk-T2Y" id="t08-9G-LrM">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="199.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last updated on March 25, 2018 by Mark Sharpie" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enT-D7-rEc">
@@ -1212,24 +1212,29 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZM-jd-z41">
-                                                    <rect key="frame" x="742" y="34" width="250" height="50"/>
-                                                    <color key="backgroundColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <rect key="frame" x="793" y="34" width="200" height="50"/>
+                                                    <color key="backgroundColor" red="0.25882352941176467" green="0.52941176470588236" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="094-Dv-5iZ"/>
-                                                        <constraint firstAttribute="width" constant="250" id="ELm-Ie-JkW"/>
+                                                        <constraint firstAttribute="width" constant="200" id="ELm-Ie-JkW"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Link New Account">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="enT-D7-rEc" firstAttribute="top" secondItem="t08-9G-LrM" secondAttribute="top" constant="50" id="6dB-Ia-HJW"/>
-                                                <constraint firstAttribute="trailing" secondItem="lZM-jd-z41" secondAttribute="trailing" constant="32" id="LtY-SA-Wa7"/>
+                                                <constraint firstAttribute="trailing" secondItem="lZM-jd-z41" secondAttribute="trailing" constant="31" id="LtY-SA-Wa7"/>
                                                 <constraint firstItem="enT-D7-rEc" firstAttribute="leading" secondItem="t08-9G-LrM" secondAttribute="leading" constant="64" id="Nw9-kK-Dj8"/>
                                                 <constraint firstItem="lZM-jd-z41" firstAttribute="centerY" secondItem="enT-D7-rEc" secondAttribute="centerY" id="btk-Vm-aWV"/>
                                                 <constraint firstItem="lZM-jd-z41" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="enT-D7-rEc" secondAttribute="trailing" constant="5" id="pfw-c0-Z66"/>
@@ -1295,13 +1300,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcD-eK-Ax7">
-                                                    <rect key="frame" x="15" y="3" width="37" height="27"/>
+                                                    <rect key="frame" x="15" y="3" width="37" height="27.5"/>
                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHB-dj-eb3">
-                                                    <rect key="frame" x="12" y="9.5" width="218" height="21"/>
+                                                    <rect key="frame" x="12" y="10" width="218" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDf-nS-fSv">
                                                             <rect key="frame" x="6" y="0.0" width="192" height="20.5"/>
@@ -1378,10 +1383,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPg-Z4-Iba">
-                                                    <rect key="frame" x="15" y="36" width="203" height="49.5"/>
+                                                    <rect key="frame" x="15" y="36" width="203" height="50"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zip Code or City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD4-Z3-Iua">
-                                                            <rect key="frame" x="5" y="0.0" width="203" height="49.5"/>
+                                                            <rect key="frame" x="5" y="0.0" width="203" height="50"/>
                                                             <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
                                                             <textInputTraits key="textInputTraits"/>

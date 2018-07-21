@@ -10,6 +10,7 @@ import UIKit
 
 protocol ContactDetailsScreenDelegate{
     func pushTheScreenToContactDetailsScreen(contactData : Contact)
+    func reloadAllMenu()
     func clearAllMenu()
 }
 
@@ -172,6 +173,9 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         contactsAcc = contactViewModel.activeAccountsForContacts()
         //contactViewModel.accountsForContacts()
         
+        delegate?.reloadAllMenu()
+
+
         if ContactsGlobal.accountId == "" {
             isAccountSpecific = false
             globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: "")

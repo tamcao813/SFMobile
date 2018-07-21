@@ -44,10 +44,14 @@ class ContactMenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        loadFuncRoles()
+    }
+
+    func loadFuncRoles() {
         if let contactData = ContactsViewModel().globalContacts() as [Contact]? {
             
             var functionRoles = filterClass.sectionItems[0] as! [String]
-
+            
             for contactObject in contactData {
                 
                 let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contactObject.contactId)
@@ -64,9 +68,9 @@ class ContactMenuViewController: UIViewController {
             if functionRoles.count > 0{
                 filterClass.sectionItems[0] = functionRoles
             }
-
+            
         }
-
+        
         print(filterClass.sectionItems)
     }
     
@@ -120,6 +124,14 @@ class ContactMenuViewController: UIViewController {
         searchTextField.attributedPlaceholder = NSAttributedString(string:"Name, Account, ID", attributes: [NSAttributedStringKey.font: UIFont(name: "Ubuntu", size: 18)!])
         searchTextField.rightView = imageView
         searchTextField.rightViewMode = UITextFieldViewMode.always
+    }
+
+    func relaodFilter(){
+        loadFuncRoles()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.tableView.reloadData()
+        }
     }
     
     //Used to Clear the Model Data

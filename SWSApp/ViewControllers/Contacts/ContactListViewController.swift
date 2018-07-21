@@ -182,7 +182,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         }else{
             isAccountSpecific = true
             delegate?.clearAllMenu()
-            
+            /*
             var isValid : Bool = false
             var data = [Contact]()
             print(ContactsGlobal.accountId)
@@ -194,7 +194,9 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
             }
             else {
                 globalContactsForList = [Contact]()
-            }
+            }*/
+            
+            globalContactsForList = contactViewModel.contactsWithBuyingPower(forAccount: ContactsGlobal.accountId)
             
             print("globalContactsForList.count  = \(globalContactsForList.count)")
             

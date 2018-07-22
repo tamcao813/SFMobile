@@ -17,7 +17,7 @@ protocol SearchContactByEnteredTextDelegate: class {
 
 class ContactMenuViewController: UIViewController {
 
-    let kHeaderSectionTag: Int = 7900;
+    let kHeaderSectionTag: Int = 6900;
     var expandedSectionHeaderNumber: Int = -1
     var expandedSectionHeader: UITableViewHeaderFooterView!
     weak var searchByEnteredTextDelegate: SearchContactByEnteredTextDelegate?
@@ -152,18 +152,9 @@ class ContactMenuViewController: UIViewController {
         
         //Used to Clear the Expanded section of ContactFilter Option
         selectedSection = -1
-        self.expandedSectionHeaderNumber = -1
-
         if self.expandedSectionHeaderNumber != -1{
-            if self.expandedSectionHeaderNumber == 0 {
-                
-            }
-            else {
-                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-                if cImageView != nil {
-                    tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
-                }
-            }
+            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
         }
         
         if tableView != nil{
@@ -449,11 +440,10 @@ extension ContactMenuViewController : UITableViewDataSource{
             print("Down")
         }
         
-        //As Action Item is in Sprint 2, Dropdown icon is set to DownArrow
-        if section == 3{
-            theImageView.image = UIImage(named: "dropDown")
-        }
-        
+//        //As Action Item is in Sprint 2, Dropdown icon is set to DownArrow
+//        if section == 3{
+//            theImageView.image = UIImage(named: "dropDown")
+//        }
         
         theImageView.tag = kHeaderSectionTag + section
         header.addSubview(theImageView)
@@ -461,7 +451,7 @@ extension ContactMenuViewController : UITableViewDataSource{
         // make headers touchable
         header.tag = section
         let headerTapGesture = UITapGestureRecognizer()
-        headerTapGesture.addTarget(self, action: #selector(AccountsMenuViewController.sectionHeaderWasTouched(_:)))
+        headerTapGesture.addTarget(self, action: #selector(ContactMenuViewController.sectionHeaderWasTouched(_:)))
         header.addGestureRecognizer(headerTapGesture)
     }
     

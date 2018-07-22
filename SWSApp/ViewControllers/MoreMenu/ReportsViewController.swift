@@ -55,6 +55,7 @@ class ReportsViewController: UIViewController , WKNavigationDelegate {
         
         ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
             }
@@ -71,21 +72,23 @@ class ReportsViewController: UIViewController , WKNavigationDelegate {
     func loadWebView(){
         DispatchQueue.main.async {
             self.webView?.isHidden = true
+            
+            guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
+                return
+            }
+            
+            guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
+                return
+            }
+            let authUrl: String = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.reportsUrl
+            
+            let url  =  URL(string:authUrl)//+accountUrl)
+            let requestObj = URLRequest(url: url!)
+            self.webView?.navigationDelegate = self
+            self.webView?.uiDelegate = self
+            self.webView?.load(requestObj)
+            
         }
-        guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
-            return
-        }
-        
-        guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
-            return
-        }
-        let authUrl: String = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.reportsUrl
-        
-        let url  =  URL(string:authUrl)//+accountUrl)
-        let requestObj = URLRequest(url: url!)
-        webView?.navigationDelegate = self
-        webView?.uiDelegate = self
-        webView?.load(requestObj)
     }
 }
 

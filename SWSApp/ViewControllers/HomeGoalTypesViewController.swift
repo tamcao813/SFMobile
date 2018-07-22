@@ -84,6 +84,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         
         ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
                 self.lblNoNetworkConnection?.isHidden = false
                 self.btnViewPerformance?.isUserInteractionEnabled = false
                 self.btnViewTrends?.isUserInteractionEnabled = false

@@ -961,7 +961,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         if index == 6{
             launchTopazApp()
             return
-        }else if index == 8{
+        }else if index == 7{
             launchGospotCheckApp()
             return
         }
@@ -1026,7 +1026,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             insightsViewController?.willMove(toParentViewController: nil)
             insightsViewController?.view.removeFromSuperview()
             insightsViewController?.removeFromParentViewController()
-            (insightsViewController as? InsightsViewController)?.loadWebView()
+            DispatchQueue.main.async {
+                //(self.insightsViewController as? InsightsViewController)?.webView.stopLoading()
+                (self.insightsViewController as? InsightsViewController)?.loadWebView()
+            }
             
         }else if SelectedMoreButton.selectedItem == 3{
             reportsViewController?.willMove(toParentViewController: nil)

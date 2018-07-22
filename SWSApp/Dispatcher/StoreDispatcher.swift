@@ -144,23 +144,6 @@ class StoreDispatcher {
             }
         }
         
-        
-        //ACR
-        group.enter()
-        let acrfields: [String] = AccountContactRelation.AccountContactRelationFields
-        
-        syncUpACR(fieldsToUpload: acrfields, completion: {error in
-            if error != nil {
-                print(error?.localizedDescription ?? "error")
-                print("syncACRwithServer: ACR Sync up failed")
-            }
-            self.reSyncACR() { error in
-                group.leave()
-                
-            }
-        })
-        
-        
         //Strategy QA / Response
         group.enter()
         
@@ -200,7 +183,49 @@ class StoreDispatcher {
                 print("syncContactsWithServer: Contacts Sync up failed")
             }
             self.reSyncContact() { error in
-                group.leave()
+                //group.leave()
+                
+                //resync ACR
+                let acrArray = ContactsViewModel().accountsForContacts() //need all because some ACRs may be changed to unlinked
+                
+                var updatedACRs = [AccountContactRelation]()
+                
+                var meg = ""
+                for acr in acrArray {
+                    if acr.contactId.starts(with: "NEW") {
+                        let sfContactId = ContactsViewModel().contactIdForACR(with: acr.contactId)
+                        if sfContactId != "" {
+                            acr.contactId = sfContactId
+                            updatedACRs.append(acr)
+                        }
+                        else {
+                            meg = meg + "sfContactId is empty for tempId: " + acr.contactId + " "
+                            print(meg)
+                        }
+                    }
+                }
+                
+                if updatedACRs.count > 0 {
+                    let successAcrSoup = ContactsViewModel().updateACRToSoup(objects: updatedACRs)
+                    if !successAcrSoup {
+                        print("updateACRToSoup failed")
+                    }
+                }
+
+                let acrfields: [String] = AccountContactRelation.AccountContactRelationFields
+                
+                self.syncUpACR(fieldsToUpload: acrfields, completion: {error in
+                    if error != nil {
+                        print(error?.localizedDescription ?? "error")
+                        print("syncACRwithServer: ACR Sync up failed")
+                    }
+                    self.reSyncACR() { error in
+                        group.leave()
+                        
+                    }
+                })
+                
+                
                 
             }
         })

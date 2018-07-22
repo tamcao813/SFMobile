@@ -81,7 +81,14 @@ class AccountDetailTabViewController: UITableViewController {
     
     // Battery indicator implementation....
     func batteryIndicator(headerCell:UITableViewCell) {
-        let mtdValue:Double = ((account?.percentageLastYearMTDNetSales)! as NSString).doubleValue
+        let mtdValue : Double
+        
+        if (account?.percentageLastYearMTDNetSales) != nil {
+            mtdValue = ((account?.percentageLastYearMTDNetSales)! as NSString).doubleValue
+        }else{
+            mtdValue = 0.0
+        }
+        
         print("MTD value is \(mtdValue)")
         
         if (mtdValue >= 0.0 && mtdValue < 0.4 )
@@ -165,7 +172,16 @@ class AccountDetailTabViewController: UITableViewController {
         cell.emailLabel.text = contact.email
         cell.nameLabel.text = contact.name
         cell.phoneNumberLabel.text = contact.phoneNumber
-        cell.function_RoleLabel.text = contact.functionRole
+//        cell.function_RoleLabel.text = contact.functionRole
+        var acrArray = ContactsViewModel().accountsForContacts()
+        acrArray = acrArray.filter( {($0.isActive == 1) && (contact.contactId == $0.contactId) && (account?.account_Id == $0.accountId)} )
+        
+        var functionRole = ""
+        if acrArray.count > 0 {
+            functionRole = acrArray[0].roles
+        }
+        cell.function_RoleLabel.text = functionRole
+
         cell.initialsLabel.text =  Validations().getIntials(name: contact.name) //contact.getIntials(name: contact.name)
 
         cell.selectionStyle = .none
@@ -219,13 +235,13 @@ class AccountDetailTabViewController: UITableViewController {
             headerCell.phoneValue.text = account?.phone
             headerCell.licenseTypeValue.text = account?.licenseType
             headerCell.licenseNumberValue.text = account?.licenseNumber
-            headerCell.mtdSalesValue.text =  CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.mtdNetSales)!)
-            headerCell.creditLimitValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.creditLimit)!) 
-            headerCell.totalBalanceValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.totalARBalance)!)
-            headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate)
-            headerCell.pastDueValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.pastDueAmountDouble)!)
+            headerCell.mtdSalesValue.text =  CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.mtdNetSales) ?? 0.0)
+            headerCell.creditLimitValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.creditLimit) ?? 0.0)
+            headerCell.totalBalanceValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.totalARBalance) ?? 0.0)
+            headerCell.expirationValue.text = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.licenseExpirationDate ?? "")
+            headerCell.pastDueValue.text = CurrencyFormatter.convertToCurrencyFormat(amountToConvert: (account?.pastDueAmountDouble) ?? 0.0)
             headerCell.deliveryFrequencyValue.text = account?.deliveryFrequency
-            headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate)
+            headerCell.nextDeliveryDateValue.text =  DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: account?.nextDeliveryDate ?? "")
             //Getting only working hours from extension
             //  let workingHours = account?.operatingHours.slice(from: ":", to: "\n")
             headerCell.businessHoursValue.text = account?.operatingHours
@@ -236,7 +252,8 @@ class AccountDetailTabViewController: UITableViewController {
             
             let frame = tableView.frame
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 800, height: 50))
-            sectionLabel.text = (account?.accountName)! + " " + "Contacts"
+            
+            sectionLabel.text = (account?.accountName) ?? "" + " " + "Contacts"
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
             

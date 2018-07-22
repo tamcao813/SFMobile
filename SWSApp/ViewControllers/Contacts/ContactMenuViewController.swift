@@ -17,8 +17,8 @@ protocol SearchContactByEnteredTextDelegate: class {
 
 class ContactMenuViewController: UIViewController {
 
-    let kHeaderSectionTag: Int = 7900;
-    var expandedSectionHeaderNumber: Int = 0
+    let kHeaderSectionTag: Int = 6900;
+    var expandedSectionHeaderNumber: Int = -1
     var expandedSectionHeader: UITableViewHeaderFooterView!
     weak var searchByEnteredTextDelegate: SearchContactByEnteredTextDelegate?
     
@@ -28,7 +28,7 @@ class ContactMenuViewController: UIViewController {
     @IBOutlet weak var searchBar : UISearchBar!
     
     //Used for selected section in TableView
-    var selectedSection = 0
+    var selectedSection = -1
     
     var contactForLoggedUserFiltered = [Account]()
     
@@ -44,10 +44,14 @@ class ContactMenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        loadFuncRoles()
+    }
+
+    func loadFuncRoles() {
         if let contactData = ContactsViewModel().globalContacts() as [Contact]? {
             
             var functionRoles = filterClass.sectionItems[0] as! [String]
-
+            
             for contactObject in contactData {
                 
                 let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contactObject.contactId)
@@ -64,9 +68,9 @@ class ContactMenuViewController: UIViewController {
             if functionRoles.count > 0{
                 filterClass.sectionItems[0] = functionRoles
             }
-
+            
         }
-
+        
         print(filterClass.sectionItems)
     }
     
@@ -121,6 +125,14 @@ class ContactMenuViewController: UIViewController {
         searchTextField.rightView = imageView
         searchTextField.rightViewMode = UITextFieldViewMode.always
     }
+
+    func relaodFilter(){
+        loadFuncRoles()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.tableView.reloadData()
+        }
+    }
     
     //Used to Clear the Model Data
     func clearFilterModelData(clearcontactsOnMyRoute: Bool){
@@ -140,18 +152,9 @@ class ContactMenuViewController: UIViewController {
         
         //Used to Clear the Expanded section of ContactFilter Option
         selectedSection = -1
-        self.expandedSectionHeaderNumber = -1
-
         if self.expandedSectionHeaderNumber != -1{
-            if self.expandedSectionHeaderNumber == 0 {
-                
-            }
-            else {
-                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-                if cImageView != nil {
-                    tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
-                }
-            }
+            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
         }
         
         if tableView != nil{
@@ -437,11 +440,10 @@ extension ContactMenuViewController : UITableViewDataSource{
             print("Down")
         }
         
-        //As Action Item is in Sprint 2, Dropdown icon is set to DownArrow
-        if section == 3{
-            theImageView.image = UIImage(named: "dropDown")
-        }
-        
+//        //As Action Item is in Sprint 2, Dropdown icon is set to DownArrow
+//        if section == 3{
+//            theImageView.image = UIImage(named: "dropDown")
+//        }
         
         theImageView.tag = kHeaderSectionTag + section
         header.addSubview(theImageView)
@@ -449,7 +451,7 @@ extension ContactMenuViewController : UITableViewDataSource{
         // make headers touchable
         header.tag = section
         let headerTapGesture = UITapGestureRecognizer()
-        headerTapGesture.addTarget(self, action: #selector(AccountsMenuViewController.sectionHeaderWasTouched(_:)))
+        headerTapGesture.addTarget(self, action: #selector(ContactMenuViewController.sectionHeaderWasTouched(_:)))
         header.addGestureRecognizer(headerTapGesture)
     }
     

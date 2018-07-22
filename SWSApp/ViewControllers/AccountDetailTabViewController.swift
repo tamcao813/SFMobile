@@ -172,7 +172,16 @@ class AccountDetailTabViewController: UITableViewController {
         cell.emailLabel.text = contact.email
         cell.nameLabel.text = contact.name
         cell.phoneNumberLabel.text = contact.phoneNumber
-        cell.function_RoleLabel.text = contact.functionRole
+//        cell.function_RoleLabel.text = contact.functionRole
+        var acrArray = ContactsViewModel().accountsForContacts()
+        acrArray = acrArray.filter( {($0.isActive == 1) && (contact.contactId == $0.contactId) && (account?.account_Id == $0.accountId)} )
+        
+        var functionRole = ""
+        if acrArray.count > 0 {
+            functionRole = acrArray[0].roles
+        }
+        cell.function_RoleLabel.text = functionRole
+
         cell.initialsLabel.text =  Validations().getIntials(name: contact.name) //contact.getIntials(name: contact.name)
 
         cell.selectionStyle = .none

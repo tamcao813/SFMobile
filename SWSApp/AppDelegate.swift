@@ -82,9 +82,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 SFSDKCoreLogger.sharedInstance().logLevel       =    .error
                 
             }.postLogout {  [unowned self] in
-                self.handleSdkManagerLogout()
                 print("postLogout")
                 self.resetLaunchandResyncConfiguration()
+                self.handleSdkManagerLogout()
                 
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
                 self.handleUserSwitch(fromUser, toUser: toUser)
@@ -229,13 +229,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func handleSdkManagerLogout(){
+    func resetViewState(_ postResetBlock: @escaping () -> ())
+    {
+        if let rootViewController = self.window!.rootViewController {
+            if let _ = rootViewController.presentedViewController {
+                rootViewController.dismiss(animated: false, completion: postResetBlock)
+                return
+            }
+        }
+        
+        postResetBlock()
+    }
+    
+    func handleSdkManagerLogout()
+    {
         SFSDKLogger.log(type(of:self), level:.debug, message: "SFUserAccountManager logged out.  Resetting app.")
-        if((self.window?.rootViewController?.presentedViewController) != nil){
-            self.window?.rootViewController?.dismiss(animated: true, completion: {
-                self.initializeAppViewState()
+        self.resetViewState { () -> () in
+            self.initializeAppViewState()
+            
+            // Multi-user pattern:
+            // - If there are two or more existing accounts after logout, let the user choose the account
+            //   to switch to.
+            // - If there is one existing account, automatically switch to that account.
+            // - If there are no further authenticated accounts, present the login screen.
+            //
+            // Alternatively, you could just go straight to re-initializing your app state, if you know
+            // your app does not support multiple accounts.  The logic below will work either way.
+            
+            var numberOfAccounts : Int;
+            let allAccounts = SFUserAccountManager.sharedInstance().allUserAccounts()
+            numberOfAccounts = (allAccounts!.count);
+            
+            if numberOfAccounts > 1 {
+                let userSwitchVc = SFDefaultUserManagementViewController(completionBlock: {
+                    action in
+                    self.window!.rootViewController!.dismiss(animated:true, completion: nil)
+                })
+                if let actualRootViewController = self.window!.rootViewController {
+                    actualRootViewController.present(userSwitchVc, animated: true, completion: nil)
+                }
+            } else {
+                if (numberOfAccounts == 1) {
+                    SFUserAccountManager.sharedInstance().currentUser = allAccounts![0]
+                }
                 SalesforceSDKManager.shared().launch()
-            })
+            }
         }
     }
     

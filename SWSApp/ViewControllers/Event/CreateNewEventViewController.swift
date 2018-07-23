@@ -219,7 +219,7 @@ class CreateNewEventViewController: UIViewController {
                 VisitModelForUIAPI.isEditMode = false
             }
         }
-        if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+        if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!).0{
             
             VisitModelForUIAPI.isEditMode = false
         }

@@ -132,7 +132,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
         
         if((PlanVisitManager.sharedInstance.visit?.Id) != nil && ((PlanVisitManager.sharedInstance.visit?.Id)?.count)! > 0){
             
-            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!).0{
                 
                 //Its a local created entry
                 if textField.tag == 200{

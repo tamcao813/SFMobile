@@ -58,6 +58,7 @@ class InsightsModelViewController : UIViewController , WKNavigationDelegate{
         
         ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
             }

@@ -620,7 +620,7 @@ extension AccountsMenuViewController : UITableViewDataSource{
 //        }
         
         //Used to check Subchannel Click action. if Channel is empty dont change the drop down icon
-        if section == 6{
+        if section == 5{
             if FilterMenuModel.channel == ""{
                 theImageView.image = UIImage(named: "dropDown")
             }

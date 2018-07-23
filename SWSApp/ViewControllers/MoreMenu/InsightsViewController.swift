@@ -41,10 +41,10 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
                 self.webView?.isHidden = true
             }
         }
-        DispatchQueue.main.async{
-            self.loadWebView()
-        }
-        self.initializeReachability()            
+//        DispatchQueue.main.async{
+//            self.loadWebView()
+//        }
+        self.initializeReachability()
     }
     
     //MARK:-
@@ -61,6 +61,7 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
         
         ReachabilitySingleton.sharedInstance().whenUnreachable = { _ in
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
             }
@@ -75,38 +76,42 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
     
     //Load the webview with specified URL
     func loadWebView(){
-        guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
-            return
-        }
         
-        guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
-            return
-        }
-        
-        var authUrl: String = ""
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        if(appDelegate.insightLaunchIdentifier == "BoB"){
+        self.webView?.isHidden = true
+        //DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+            guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
+                return
+            }
             
-            authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenBoBURL
-        }else if(appDelegate.insightLaunchIdentifier == "WHWN"){
+            guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
+                return
+            }
             
-            authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenWHWNURL
-        }
-        else {
-        
-            authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.insightsUrl
-        }
-        
-        //let accountUrl: String = authUrl +  StringConstants.endUrl
-        
-        let url  =  URL(string:authUrl)//+accountUrl)
-        let requestObj = URLRequest(url: url!)
-        self.webView.uiDelegate = self
-        webView?.navigationDelegate = self
-        
-        webView?.load(requestObj)
+            var authUrl: String = ""
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            if(appDelegate.insightLaunchIdentifier == "BoB"){
+                
+                authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenBoBURL
+                
+            }else if(appDelegate.insightLaunchIdentifier == "WHWN"){
+                
+                authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenWHWNURL
+            }
+            else {
+                
+                authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.insightsUrl
+            }
+            
+            //let accountUrl: String = authUrl +  StringConstants.endUrl
+            
+            let url  =  URL(string:authUrl)//+accountUrl)
+            let requestObj = URLRequest(url: url!)
+            self.webView.uiDelegate = self
+            self.webView?.navigationDelegate = self
+            self.webView?.load(requestObj)
+        //}
     }
 }
 
@@ -125,7 +130,7 @@ extension InsightsViewController : UIWebViewDelegate, WKUIDelegate{
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish to load")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
             self.webView?.isHidden = false
         }
         activityIndicator.stopAnimating()

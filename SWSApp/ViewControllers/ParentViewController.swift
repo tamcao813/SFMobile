@@ -961,7 +961,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         if index == 6{
             launchTopazApp()
             return
-        }else if index == 8{
+        }else if index == 7{
             launchGospotCheckApp()
             return
         }
@@ -1026,16 +1026,23 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             insightsViewController?.willMove(toParentViewController: nil)
             insightsViewController?.view.removeFromSuperview()
             insightsViewController?.removeFromParentViewController()
+            DispatchQueue.main.async {
+                //(self.insightsViewController as? InsightsViewController)?.webView.stopLoading()
+                (self.insightsViewController as? InsightsViewController)?.loadWebView()
+            }
+            
         }else if SelectedMoreButton.selectedItem == 3{
             reportsViewController?.willMove(toParentViewController: nil)
             reportsViewController?.view.removeFromSuperview()
             reportsViewController?.removeFromParentViewController()
+            (reportsViewController as? ReportsViewController)?.loadWebView()
+            
         }else if SelectedMoreButton.selectedItem == 5{
             chatterViewController?.willMove(toParentViewController: nil)
             chatterViewController?.view.removeFromSuperview()
             chatterViewController?.removeFromParentViewController()
-            
             (chatterViewController as? ChatterViewController)?.loadWebView()
+            
         }
     }
     
@@ -1177,11 +1184,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     
     private func homeScreenScrollToTop(){
         if previouslySelectedVCIndex == 0{
-            let homeScreen = self.homeVC as? HomeViewController
-            homeScreen?.scrollToTop()
-            
+//            let homeScreen = self.homeVC as? HomeViewController
+//            homeScreen?.scrollToTop()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "scrollToTopHomeActivities"), object:nil)
-            
         }
     }
     
@@ -1265,12 +1270,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             homeVC?.willMove(toParentViewController: nil)
             homeVC?.view.removeFromSuperview()
             homeVC?.removeFromParentViewController()
+            (homeVC as! HomeViewController).scrollToTop()
         }
         
         if previouslySelectedVCIndex == 4{
             objectivesVC?.willMove(toParentViewController: nil)
             objectivesVC?.view.removeFromSuperview()
             objectivesVC?.removeFromParentViewController()
+            (objectivesVC)?.loadWebView()
         }
         
         if(!ifMoreVC){

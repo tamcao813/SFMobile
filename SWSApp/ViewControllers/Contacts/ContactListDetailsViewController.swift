@@ -22,6 +22,9 @@ class ContactListDetailsViewController: UIViewController,ContactDetailsScreenDel
         ContactListViewController.refreshContactDetailDelegate = self
         // Do any additional setup after loading the view.
     }
+    func reloadAllMenu() {
+
+    }
     func clearAllMenu() {
         
     }

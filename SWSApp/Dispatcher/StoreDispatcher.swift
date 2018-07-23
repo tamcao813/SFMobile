@@ -144,23 +144,6 @@ class StoreDispatcher {
             }
         }
         
-        
-        //ACR
-        group.enter()
-        let acrfields: [String] = AccountContactRelation.AccountContactRelationFields
-        
-        syncUpACR(fieldsToUpload: acrfields, completion: {error in
-            if error != nil {
-                print(error?.localizedDescription ?? "error")
-                print("syncACRwithServer: ACR Sync up failed")
-            }
-            self.reSyncACR() { error in
-                group.leave()
-                
-            }
-        })
-        
-        
         //Strategy QA / Response
         group.enter()
         
@@ -200,7 +183,49 @@ class StoreDispatcher {
                 print("syncContactsWithServer: Contacts Sync up failed")
             }
             self.reSyncContact() { error in
-                group.leave()
+                //group.leave()
+                
+                //resync ACR
+                let acrArray = ContactsViewModel().accountsForContacts() //need all because some ACRs may be changed to unlinked
+                
+                var updatedACRs = [AccountContactRelation]()
+                
+                var meg = ""
+                for acr in acrArray {
+                    if acr.contactId.starts(with: "NEW") {
+                        let sfContactId = ContactsViewModel().contactIdForACR(with: acr.contactId)
+                        if sfContactId != "" {
+                            acr.contactId = sfContactId
+                            updatedACRs.append(acr)
+                        }
+                        else {
+                            meg = meg + "sfContactId is empty for tempId: " + acr.contactId + " "
+                            print(meg)
+                        }
+                    }
+                }
+                
+                if updatedACRs.count > 0 {
+                    let successAcrSoup = ContactsViewModel().updateACRToSoup(objects: updatedACRs)
+                    if !successAcrSoup {
+                        print("updateACRToSoup failed")
+                    }
+                }
+
+                let acrfields: [String] = AccountContactRelation.AccountContactRelationFields
+                
+                self.syncUpACR(fieldsToUpload: acrfields, completion: {error in
+                    if error != nil {
+                        print(error?.localizedDescription ?? "error")
+                        print("syncACRwithServer: ACR Sync up failed")
+                    }
+                    self.reSyncACR() { error in
+                        group.leave()
+                        
+                    }
+                })
+                
+                
                 
             }
         })
@@ -1925,7 +1950,7 @@ class StoreDispatcher {
 //        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_AccountContactMobile__c:SGWS_Buying_Power__c} = 1"
         
         //Changed the Query as we need to Display linked data with Buyer flag and Influencer
-        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_Account__c} = '\(accountId)' AND {SGWS_AccountContactMobile__c:SGWS_Buying_Power__c} = 1 OR {SGWS_AccountContactMobile__c:SGWS_Contact_Classification__c} = 'Influencer'"
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_Account__c} = '\(accountId)' AND ({SGWS_AccountContactMobile__c:SGWS_Buying_Power__c} = 1 OR {SGWS_AccountContactMobile__c:SGWS_Contact_Classification__c} = 'Influencer')"
 
         let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
         
@@ -3948,9 +3973,9 @@ class StoreDispatcher {
         let userViewModel = UserViewModel()
         
         let userid: String = (userViewModel.loggedInUser?.userId)!
-        let childQuery = "SELECT AccountId FROM AccountTeamMember WHERE User.Id =" + "'\(userid)'"
+        let childQuery = "SELECT AccountId FROM AccountTeamMember WHERE UserId = " + "'\(userid)'"
         
-        let soupQuery = "SELECT Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c,SGWS_Type__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false"//and Account__c  IN (\(childQuery))"
+        let soupQuery = "SELECT id,Account__c,CreatedDate,Name,SGWS_Account_License_Notification__c,SGWS_Contact_Birthday_Notification__c,SGWS_Contact__c, SGWS_Site__c,SGWS_Type__c FROM FS_Notification__c WHERE (SGWS_Type__c = 'Birthday' or SGWS_Type__c = 'License Expiration') and SGWS_Deactivate__c = false and Account__c  IN (\(childQuery))"
         
         print("soupQuery notification query is \(soupQuery)")
         

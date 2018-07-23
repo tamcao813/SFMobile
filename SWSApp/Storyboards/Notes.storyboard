@@ -45,6 +45,7 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xHu-uK-I5K">
                                 <rect key="frame" x="63" y="140.5" width="556" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="notesTitleTextFieldID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="vb5-zU-dEc"/>
                                 </constraints>
@@ -74,6 +75,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FQN-jX-iEl">
                                 <rect key="frame" x="63" y="272" width="999" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="notesTextViewID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="ljO-Gd-m5c"/>
                                 </constraints>
@@ -98,6 +100,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75y-3D-Ixf">
                                 <rect key="frame" x="1044" y="39" width="41" height="38"/>
+                                <accessibility key="accessibilityConfiguration" identifier="noteCloseButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="41" id="5OF-Dq-uRD"/>
                                 </constraints>
@@ -109,6 +112,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qc5-bh-X3k">
                                 <rect key="frame" x="904" y="698" width="153" height="36"/>
                                 <color key="backgroundColor" name="Data New"/>
+                                <accessibility key="accessibilityConfiguration" identifier="notesSaveButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="9JW-FR-Eam"/>
                                     <constraint firstAttribute="width" constant="153" id="Sd1-Fs-2ph"/>
@@ -462,6 +466,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rD2-Mb-arJ">
                                 <rect key="frame" x="1028" y="50" width="38" height="38"/>
+                                <accessibility key="accessibilityConfiguration" identifier="EditNoteCloseButtonID"/>
                                 <state key="normal" image="Close"/>
                                 <connections>
                                     <action selector="closeWith_sender:" destination="EP0-BQ-qDP" eventType="touchUpInside" id="9Z7-fN-bxg"/>

@@ -519,6 +519,7 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
+            cell?.searchContactTextField.accessibilityIdentifier = "visitSearchContactTextFieldID"
             searchAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.accountsDropDown
             cell?.delegate = self

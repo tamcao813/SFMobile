@@ -1030,6 +1030,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ed5-bl-9Vy">
                                         <rect key="frame" x="963" y="33" width="38" height="38"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="duringVisitCloseButtonID"/>
                                         <state key="normal" image="Close"/>
                                         <connections>
                                             <action selector="closeButtonClickedWithSender:" destination="VfR-jM-hAA" eventType="touchUpInside" id="CUN-z8-94P"/>
@@ -1038,6 +1039,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cE8-bw-o9L">
                                         <rect key="frame" x="824" y="37" width="107" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="duringVisitAccountStrategyButtonID"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="5ft-Lr-xGu"/>
                                             <constraint firstAttribute="width" constant="107" id="MdZ-Qa-VKG"/>
@@ -1053,6 +1055,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gM-nd-Zd3">
                                         <rect key="frame" x="636" y="37" width="94" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="duringVisitNotificationsButtonID"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="9jW-Dp-e8j"/>
                                             <constraint firstAttribute="width" constant="94" id="bwC-OA-DW9"/>
@@ -1068,6 +1071,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jd-a1-eva">
                                         <rect key="frame" x="542" y="37" width="94" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="duringVisitActionItemsButtonID"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="94" id="Bux-wL-osz"/>
                                             <constraint firstAttribute="height" constant="30" id="Xcw-yn-bfy"/>
@@ -1082,6 +1086,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZU-mu-fqD">
                                         <rect key="frame" x="482" y="37" width="60" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="duringVisitChatterButtonID"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="aRb-ms-n75"/>
                                             <constraint firstAttribute="height" constant="30" id="u5h-xd-Swt"/>
@@ -1096,6 +1101,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGz-hj-dCP">
                                         <rect key="frame" x="381" y="37" width="101" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="duringVisitGoSpotCheckButtonID"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="101" id="gF6-jG-ZsU"/>
                                             <constraint firstAttribute="height" constant="30" id="ikX-or-hUJ"/>
@@ -1110,6 +1116,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O6r-GT-fPE">
                                         <rect key="frame" x="238" y="37" width="143" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="duringVisitTransactionButtonID"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="143" id="5OS-ea-Z5s"/>
                                             <constraint firstAttribute="height" constant="30" id="An4-K7-cem"/>
@@ -1124,6 +1131,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9mp-0t-N3K">
                                         <rect key="frame" x="166" y="37" width="72" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="duringVisitContactButtonID"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="72" id="2bJ-SW-hYv"/>
                                             <constraint firstAttribute="height" constant="30" id="x5x-6h-hbM"/>

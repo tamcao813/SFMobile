@@ -50,13 +50,14 @@ class ContactMenuViewController: UIViewController {
     func loadFuncRoles() {
         if let contactData = ContactsViewModel().globalContacts() as [Contact]? {
             
-            var functionRoles = filterClass.sectionItems[0] as! [String]
-            
+//            var functionRoles = filterClass.sectionItems[0] as! [String]
+            var functionRoles = ["All"]
+
             for contactObject in contactData {
                 
                 let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contactObject.contactId)
                 for acrObject in accountsListWithContactId {
-                    if acrObject.roles != ""{
+                    if acrObject.isActive == 1 && acrObject.roles != ""{
                         if !(functionRoles.contains(acrObject.roles)){
                             functionRoles.append(acrObject.roles)
                         }
@@ -219,7 +220,8 @@ class ContactMenuViewController: UIViewController {
                 indexesPath.append(index)
             }
             self.tableView!.beginUpdates()
-            self.tableView!.deleteRows(at: indexesPath, with: UITableViewRowAnimation.fade)
+//            self.tableView!.deleteRows(at: indexesPath, with: UITableViewRowAnimation.fade)
+            self.tableView!.reloadSections([section], with: .none)
             self.tableView!.endUpdates()
         }
     }

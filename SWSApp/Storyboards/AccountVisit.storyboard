@@ -328,6 +328,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGd-Ri-gvD">
                                 <rect key="frame" x="30" y="353" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.25882352941176467" green="0.52941176470588236" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="startVisitButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="BoC-Lo-ofj"/>
                                     <constraint firstAttribute="height" constant="40" id="j4s-Ye-AFD"/>
@@ -348,6 +349,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fh2-vm-Ac9">
                                 <rect key="frame" x="30" y="401" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="editVisitButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="GUy-Xc-Bq2"/>
                                     <constraint firstAttribute="width" constant="120" id="NBH-lG-ZiB"/>
@@ -404,6 +406,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-iM-AOQ">
                                 <rect key="frame" x="30" y="449" width="120" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="deleteVisitButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="aex-pJ-A1H"/>
                                     <constraint firstAttribute="height" constant="40" id="hdL-mC-hZq"/>

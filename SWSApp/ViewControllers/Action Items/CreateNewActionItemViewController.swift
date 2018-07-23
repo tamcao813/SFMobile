@@ -228,11 +228,14 @@ class CreateNewActionItemViewController: UIViewController {
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
+            else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
         
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+//         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
     }
     
@@ -341,7 +344,9 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemTitleTableViewCell") as? ActionItemTitleTableViewCell
+            cell?.actionTitleTextField.accessibilityIdentifier = "actionTitleTextFieldID"
             actionTitleTextField = cell?.actionTitleTextField
+            
             if let actionItem = actionItemObject {
                 cell?.actionItemObject = actionItem
                 cell?.actionTitleTextField.text = actionItem.subject
@@ -349,6 +354,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
+            cell?.searchContactTextField.accessibilityIdentifier = "actionItemSearchContactTextFieldID"
             searchAccountTextField = cell?.searchContactTextField
             accountDropDown = cell?.accountsDropDown
             cell?.titleLabel.text = "Link an Account"
@@ -383,6 +389,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
             cell?.headerLabel.text = "Action Item Description*"
             actionItemDescriptionTextView = cell?.descriptionTextView
+            cell?.descriptionTextView.accessibilityIdentifier = "ActionItemDescriptionTextViewID"
             if let actionItem = actionItemObject {
                 cell?.actionItemObject = actionItem
                 actionItemDescriptionTextView.text = actionItem.description
@@ -403,6 +410,7 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
             dueDateTextField = cell?.dateTextfield
+            cell?.dateTextfield.accessibilityIdentifier = "actionItemDueDateID"
             dateTextFieldContainerView = cell?.dateTextFieldContainerView
 //            cell?.datePickerView.minimumDate = Date()
             cell?.headerLabel.text = "Due Date"

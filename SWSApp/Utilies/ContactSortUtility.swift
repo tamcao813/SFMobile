@@ -68,6 +68,19 @@ class ContactSortUtility {
                 }
             }
         }
+        
+        if contactListWithSearchResults.count > 0 {
+            let filteredNoDuplicateContactArray = contactListWithSearchResults.reduce([]) { (r, p) -> [Contact] in
+                var r2 = r
+                if !r.contains (where: { $0.contactId == p.contactId }) {
+                    r2.append(p)
+                }
+                return r2
+            }
+            
+            contactListWithSearchResults = filteredNoDuplicateContactArray
+        }
+    
         return contactListWithSearchResults
     }
     

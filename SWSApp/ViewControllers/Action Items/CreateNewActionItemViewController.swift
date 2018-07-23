@@ -228,6 +228,9 @@ class CreateNewActionItemViewController: UIViewController {
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
+            else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
         

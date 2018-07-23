@@ -223,58 +223,77 @@ class AccountEventSummaryViewController: UIViewController {
         
     }
     
-    @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Event Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
-            
-            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
-                self.deleteLocalEventEntry()
-                self.dismiss(animated: true, completion: nil)
-            }else{
+    func isWorkOrderDataExists()-> Bool{
+        var dataExists : Bool
+        if !(StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id).1){
+            dataExists = false
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Record is not available in Server, please Resync again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                 
-                if self.isReachable{
-                    
-                    DispatchQueue.main.async { //do this in group.notify
-                        MBProgressHUD.show(onWindow: true)
-                    }
-                    
-                    //Call Delete UI API and after success save the data to DB
-                    StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
-                        if data == nil{
-                            self.deleteLocalEventEntry()
-                            
-                            VisitSchedulerViewModel().syncVisitsWithServer{ error in
-                                if error != nil{
-                                    print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
-                                }
-                                DispatchQueue.main.async {
-                                    VisitModelForUIAPI.isEditMode = false
-                                    MBProgressHUD.hide(forWindow: true)
-                                }
-                            }
-                            
-                            self.dismiss(animated: true, completion: nil)
-                        }else{
-                            
-                            DispatchQueue.main.async { //do this in group.notify
-                                MBProgressHUD.hide(forWindow: true)
-                            }
-                            
-                            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteEventMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-                                
-                                // self.dismiss(animated: true, completion: nil)
-                                
-                            }, action2: {})
-                        }
-                    }
-                    
+            }) {
+                
+            }
+        }else{
+            dataExists = true
+        }
+        return dataExists
+    }
+    
+    @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
+        
+        if isWorkOrderDataExists(){
+            
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Event Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
+                
+                if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id).0{
+                    self.deleteLocalEventEntry()
+                    self.dismiss(animated: true, completion: nil)
                 }else{
                     
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteEventNotAllowedMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-                    }, action2: {})
+                    if self.isReachable{
+                        
+                        DispatchQueue.main.async { //do this in group.notify
+                            MBProgressHUD.show(onWindow: true)
+                        }
+                        
+                        //Call Delete UI API and after success save the data to DB
+                        StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
+                            if data == nil{
+                                self.deleteLocalEventEntry()
+                                
+                                VisitSchedulerViewModel().syncVisitsWithServer{ error in
+                                    if error != nil{
+                                        print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
+                                    }
+                                    DispatchQueue.main.async {
+                                        VisitModelForUIAPI.isEditMode = false
+                                        MBProgressHUD.hide(forWindow: true)
+                                    }
+                                }
+                                
+                                self.dismiss(animated: true, completion: nil)
+                            }else{
+                                
+                                DispatchQueue.main.async { //do this in group.notify
+                                    MBProgressHUD.hide(forWindow: true)
+                                }
+                                
+                                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteEventMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                                    
+                                    // self.dismiss(animated: true, completion: nil)
+                                    
+                                }, action2: {})
+                            }
+                        }
+                        
+                    }else{
+                        
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteEventNotAllowedMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                        }, action2: {})
+                    }
                 }
+            }) {
+                print("Cancel")
             }
-        }) {
-            print("Cancel")
         }
     }
     
@@ -282,22 +301,24 @@ class AccountEventSummaryViewController: UIViewController {
         
         //VisitModelForUIAPI.isEditMode = true
         
-        PlanVisitManager.sharedInstance.editPlanVisit = true
-        let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
-        
-        createEventViewController.isEditingMode = true
-        createEventViewController.delegate = self
-        createEventViewController.selectedAccount = accountObject
-        createEventViewController.selectedContact = selectedContact
-        createEventViewController.eventWorkOrderObject = visitObject
-        
-        //createEventViewController.visitId = visitObject?.Id
-        
-        DispatchQueue.main.async {
-            self.present(createEventViewController, animated: true)
-            createEventViewController.pageHeaderLabel.text = "Edit Event"
+        if isWorkOrderDataExists(){
+            
+            PlanVisitManager.sharedInstance.editPlanVisit = true
+            let createEventViewController = UIStoryboard(name: "CreateEvent", bundle: nil).instantiateViewController(withIdentifier :"CreateNewEventViewController") as! CreateNewEventViewController
+            
+            createEventViewController.isEditingMode = true
+            createEventViewController.delegate = self
+            createEventViewController.selectedAccount = accountObject
+            createEventViewController.selectedContact = selectedContact
+            createEventViewController.eventWorkOrderObject = visitObject
+            
+            //createEventViewController.visitId = visitObject?.Id
+            
+            DispatchQueue.main.async {
+                self.present(createEventViewController, animated: true)
+                createEventViewController.pageHeaderLabel.text = "Edit Event"
+            }
         }
-        
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){

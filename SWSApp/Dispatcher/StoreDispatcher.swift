@@ -939,18 +939,36 @@ class StoreDispatcher {
     }
     
     //Check weather the Visit/Event is creted locally or Synced UP
-    func isWorkOrderCreatedLocally(id: String) -> Bool{
+    func isWorkOrderCreatedLocally(id: String) -> (Bool,Bool){
         var createdFlag = false
-        let workOrderEntry = sfaStore.lookupSoupEntryId(forSoupName: SoupVisit, forFieldPath: "Id", fieldValue: id, error: nil)
-        let entryArray = sfaStore.retrieveEntries([workOrderEntry] , fromSoup: SoupVisit)
-        if(entryArray.count > 0){
-            let entry = entryArray[0]
-            var soupEntry = entry as! [String:Any]
-            createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
+        var isValidEntry = false
+        
+        var error : NSError?
+        
+        let workOrderEntry = sfaStore.lookupSoupEntryId(forSoupName: SoupVisit, forFieldPath: "Id", fieldValue: id, error: &error)
+        
+        if workOrderEntry.intValue > 0 {
+            
+            isValidEntry = true
+            if(error == nil){
+                
+                let entryArray = sfaStore.retrieveEntries([workOrderEntry] , fromSoup: SoupVisit)
+                if(entryArray.count > 0){
+                    let entry = entryArray[0]
+                    var soupEntry = entry as! [String:Any]
+                    createdFlag = soupEntry[kSyncTargetLocallyCreated] as! Bool
+                }else{
+                    createdFlag = true
+                }
+                return (createdFlag,isValidEntry)
+            }
         }else{
-            createdFlag = true
+            
+            isValidEntry = false
+            
         }
-        return createdFlag
+    
+        return (false,isValidEntry)
     }
     
     func editVisitFromOutlook(VisitData: WorkOrderUserObject, completion:@escaping (_ error: NSError?)->()){

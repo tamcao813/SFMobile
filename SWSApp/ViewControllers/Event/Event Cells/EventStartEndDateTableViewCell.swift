@@ -105,7 +105,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         
         if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
             
-            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!){
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!).0{
                 //Its a local created entry
                 if textField.tag == 300 || textField.tag == 302{
                     self.dateView(textField: textField)

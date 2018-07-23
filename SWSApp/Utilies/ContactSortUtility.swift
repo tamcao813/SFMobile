@@ -111,16 +111,10 @@ class ContactSortUtility {
         var filteredAccountContactArray = [Contact]()
 
         filteredAccountContactArray = contactListToBeSorted.filter( {
-            /*
-            if selectedAccountId == $0.accountId {
-                return true
-            }*/
             let thisContactId = $0.contactId
-            let acrAccountId = acrArray.filter( {$0.isActive == 1 && thisContactId == $0.contactId} )
-            for acr in acrAccountId {
-                if ((selectedAccountId == acr.accountId) && (thisContactId == acr.contactId)) {
-                    return true
-                }
+            let acrAccountId = acrArray.filter( {$0.isActive == 1 && thisContactId == $0.contactId && selectedAccountId == $0.accountId} )
+            if acrAccountId.count > 0 {
+                return true
             }
 
             return false
@@ -136,9 +130,8 @@ class ContactSortUtility {
                 return r2
             }
             
-            filteredContactArray = filteredNoDuplicateContactArray.filter( {($0.buyerFlag == true) || ($0.contactClassification == "Influencer")} )
+            filteredContactArray = filteredNoDuplicateContactArray
         }
-        
         
         return (enteredAnyFilterCase, filteredContactArray)
     }
@@ -156,17 +149,12 @@ class ContactSortUtility {
             var filteredAccountContactArray = [Contact]()
             for account in accounts {
                 filteredAccountContactArray += contactListToBeSorted.filter( {
-                    /*
-                    if account.account_Id == $0.accountId {
-                        return true
-                    }*/
                     
                     let thisContactId = $0.contactId
-                    let acrAccountId = acrArray.filter( {$0.isActive == 1 && thisContactId == $0.contactId} )
-                    for acr in acrAccountId {
-                        if ((account.account_Id == acr.accountId) && (thisContactId == acr.contactId)) {
-                            return true
-                        }
+                    let selectedAccountId = account.account_Id
+                    let acrAccountId = acrArray.filter( {$0.isActive == 1 && thisContactId == $0.contactId && selectedAccountId == $0.accountId} )
+                    if acrAccountId.count > 0 {
+                        return true
                     }
 
                     return false

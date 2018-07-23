@@ -293,6 +293,7 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
         switch indexPath.section {
         case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
+                cell?.searchContactTextField.accessibilityIdentifier = "LinkContactSearchContactTextFieldID"
                 searchAccountTextField = cell?.searchContactTextField
                 cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
                 accountsDropDown = cell?.accountsDropDown

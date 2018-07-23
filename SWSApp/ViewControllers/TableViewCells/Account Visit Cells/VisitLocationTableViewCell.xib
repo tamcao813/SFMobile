@@ -34,6 +34,7 @@
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D8P-lS-rTn">
                         <rect key="frame" x="40" y="50" width="400" height="40"/>
+                        <accessibility key="accessibilityConfiguration" identifier="locationTxtFldID"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="jnK-CV-6we"/>
                             <constraint firstAttribute="width" constant="400" id="ugT-Fw-BaC"/>

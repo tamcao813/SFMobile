@@ -81,6 +81,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
         dateTextField.rightImage = UIImage(named:"Calender_Icon")!
         dateTextField.rightPadding = 8
         dateTextField.placeholder = "MM/DD/YYYY"
+        dateTextField.accessibilityIdentifier = "dateTextFieldID"
         dateTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         dateTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
         dateTextField.layer.borderWidth = 1.0
@@ -95,6 +96,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
         startTimeTextField.rightPadding = 8
         startTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
         startTimeTextField.placeholder = "HH:MM"
+        startTimeTextField.accessibilityIdentifier = "startTimeTextFieldID"
         startTimeTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         startTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
         startTimeTextField.tag = 201
@@ -109,6 +111,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
         endTimeTextField.rightPadding = 8
         endTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
         endTimeTextField.placeholder = "HH:MM"
+        endTimeTextField.accessibilityIdentifier = "endTimeTextFieldID"
         endTimeTextField.tag = 202
         endTimeTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         endTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor

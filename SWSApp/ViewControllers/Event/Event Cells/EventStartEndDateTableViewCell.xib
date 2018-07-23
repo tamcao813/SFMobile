@@ -51,6 +51,7 @@
                             </imageView>
                             <textField opaque="NO" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VEK-fW-dG3" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="180" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="eventStartDateTextFieldID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fJy-m1-LhK"/>
                                 </constraints>
@@ -105,6 +106,7 @@
                             </imageView>
                             <textField opaque="NO" tag="301" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TWz-HW-ciT" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="eventStartTimeTextFieldID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="9ez-XM-ywh"/>
                                 </constraints>
@@ -213,6 +215,7 @@
                             </imageView>
                             <textField opaque="NO" tag="303" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V5J-Jb-LrS" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="eventEndTimeTextFieldID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="RQ9-Zy-120"/>
                                 </constraints>

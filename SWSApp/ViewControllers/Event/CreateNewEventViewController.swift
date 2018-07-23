@@ -458,6 +458,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             cell?.actionHeaderLabel.text = "Title*"
             cell?.actionTitleTextField.placeholder = "Enter Title"
             cell?.actionTitleTextField.tag = indexPath.section
+            cell?.actionTitleTextField.accessibilityIdentifier = "eventTitleActionTitleTextFieldID"
             
             
             if let eventObject = eventWorkOrderObject{
@@ -530,6 +531,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
+            cell?.searchContactTextField.accessibilityIdentifier = "eventSearchContactTextFieldID"
             searchAccountTextField = cell?.searchContactTextField
             accountsDropdown = cell?.accountsDropDown
             cell?.delegate = self
@@ -577,6 +579,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             locationTextField.borderColor = UIColor.lightGray//(named: "LightGrey")
             cell?.actionTitleTextField.text = CreateNewEventViewControllerGlobals.location
             cell?.actionHeaderLabel.text = "Location"
+            cell?.actionTitleTextField.accessibilityIdentifier = "eventLocationActionTitleTextFieldID"
             cell?.actionTitleTextField.placeholder = "Enter Location"
             cell?.actionTitleTextField.tag = indexPath.section
             
@@ -602,6 +605,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
     func getEventDescriptionCell() -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
         cell?.headerLabel.text = "Event Description"
+        cell?.descriptionTextView.accessibilityIdentifier = "eventDescriptionTextViewID"
         eventDescriptionTextView = cell?.descriptionTextView
         cell?.descriptionTextView.tag = 500
         

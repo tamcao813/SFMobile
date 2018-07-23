@@ -219,7 +219,8 @@ class ContactMenuViewController: UIViewController {
                 indexesPath.append(index)
             }
             self.tableView!.beginUpdates()
-            self.tableView!.deleteRows(at: indexesPath, with: UITableViewRowAnimation.fade)
+//            self.tableView!.deleteRows(at: indexesPath, with: UITableViewRowAnimation.fade)
+            self.tableView!.reloadSections([section], with: .none)
             self.tableView!.endUpdates()
         }
     }

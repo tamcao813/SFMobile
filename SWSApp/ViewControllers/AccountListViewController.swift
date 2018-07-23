@@ -138,8 +138,13 @@ class AccountsListViewController: UIViewController {
         DispatchQueue.main.async {
             self.accountListTableView.reloadData()
             self.updateUI()
-            let indexPath = IndexPath(row: 0, section: 0)
-            self.accountListTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            if self.tableViewDisplayData.count > 0{
+                let indexPath = IndexPath(row: 0, section: 0)
+                self.accountListTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            }else{
+                self.accountListTableView.beginUpdates()
+                self.accountListTableView.endUpdates()
+            }
         }
     }
     

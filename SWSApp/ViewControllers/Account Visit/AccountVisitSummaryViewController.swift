@@ -376,74 +376,94 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         }
     }
     
+    func isWorkOrderDataExists()-> Bool{
+        var dataExists : Bool
+        if !(StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id).1){
+            dataExists = false
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Record is not available in Server, please Resync again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                
+            }) {
+                
+            }
+        }else{
+            dataExists = true
+        }
+        return dataExists
+    }
+    
     //TODO: RAVI put all alert messages in string constant file
     @IBAction func deleteVisitButtonTapped(_ sender: UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
+        
+        if isWorkOrderDataExists(){
             
-            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id){
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Visit Delete", errorMessage: StringConstants.deleteConfirmation, errorAlertActionTitle: "Delete", errorAlertActionTitle2: "Cancel", viewControllerUsed: self, action1: {
                 
-                self.deleteLocalVisitEntry()
-                self.dismiss(animated: true, completion: nil)
-                
-            }else{
-                
-                if self.isReachable{
+                if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id).0{
                     
-                    DispatchQueue.main.async { //do this in group.notify
-                        MBProgressHUD.show(onWindow: true)
-                    }
-                    
-                    //Call Delete UI API and after success save the data to DB
-                    StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
-                        if data == nil{
-                            
-                            self.deleteLocalVisitEntry()
-                            
-                            VisitSchedulerViewModel().syncVisitsWithServer{ error in
-                                
-                                if error != nil{
-                                    
-                                    print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
-                                    
-                                }
-                                DispatchQueue.main.async {
-                                    VisitModelForUIAPI.isEditMode = false
-                                    MBProgressHUD.hide(forWindow: true)
-                                }
-                            }
-                            
-                            self.dismiss(animated: true, completion: nil)
-                            
-                        }else{
-                            
-                            DispatchQueue.main.async { //do this in group.notify
-                                MBProgressHUD.hide(forWindow: true)
-                            }
-                            
-                            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteVisitMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
-                                
-                                // self.dismiss(animated: true, completion: nil)
-                                
-                            }, action2: {
-                                
-                            })
-                        }
-                    }
+                    self.deleteLocalVisitEntry()
+                    self.dismiss(animated: true, completion: nil)
                     
                 }else{
                     
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteVisitNotAllowedMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                    if self.isReachable{
                         
-                        // self.dismiss(animated: true, completion: nil)
+                        DispatchQueue.main.async { //do this in group.notify
+                            MBProgressHUD.show(onWindow: true)
+                        }
                         
-                    }, action2: {
+                        //Call Delete UI API and after success save the data to DB
+                        StoreDispatcher.shared.deleteVisitFromOutlook(recordTypeId: self.visitObject!.Id) { (data) in
+                            if data == nil{
+                                
+                                self.deleteLocalVisitEntry()
+                                
+                                VisitSchedulerViewModel().syncVisitsWithServer{ error in
+                                    
+                                    if error != nil{
+                                        
+                                        print("Sync visit with server failed \(String(describing: error?.localizedDescription))")
+                                        
+                                    }
+                                    DispatchQueue.main.async {
+                                        VisitModelForUIAPI.isEditMode = false
+                                        MBProgressHUD.hide(forWindow: true)
+                                    }
+                                }
+                                
+                                self.dismiss(animated: true, completion: nil)
+                                
+                            }else{
+                                
+                                DispatchQueue.main.async { //do this in group.notify
+                                    MBProgressHUD.hide(forWindow: true)
+                                }
+                                
+                                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteVisitMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                                    
+                                    // self.dismiss(animated: true, completion: nil)
+                                    
+                                }, action2: {
+                                    
+                                })
+                            }
+                        }
                         
-                    })
+                    }else{
+                        
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.deleteVisitNotAllowedMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                            
+                            // self.dismiss(animated: true, completion: nil)
+                            
+                        }, action2: {
+                            
+                        })
+                    }
                 }
+                
+            }) {
+                print("Cancel")
             }
             
-        }) {
-            print("Cancel")
         }
     }
     
@@ -481,14 +501,18 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         
         switch visitStatus {
         case .scheduled?:
-            PlanVisitManager.sharedInstance.editPlanVisit = true
-            let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
-            createVisitViewController.isEditingMode = false
-            createVisitViewController.visitId = visitObject?.Id
-            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
-            DispatchQueue.main.async {
-                self.present(createVisitViewController, animated: true)
+            
+            if isWorkOrderDataExists(){
+                
+                PlanVisitManager.sharedInstance.editPlanVisit = true
+                let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+                createVisitViewController.isEditingMode = false
+                createVisitViewController.visitId = visitObject?.Id
+                PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+                PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+                DispatchQueue.main.async {
+                    self.present(createVisitViewController, animated: true)
+                }
             }
         case .inProgress?:
             print("In progress")
@@ -501,14 +525,18 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
             self.present(viewController!, animated: true)
         case .planned?:
-            PlanVisitManager.sharedInstance.editPlanVisit = true
-            let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
-            createVisitViewController.isEditingMode = false
-            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
-            PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
-            createVisitViewController.visitId = visitObject?.Id
-            DispatchQueue.main.async {
-                self.present(createVisitViewController, animated: true)
+            
+            if isWorkOrderDataExists(){
+                
+                PlanVisitManager.sharedInstance.editPlanVisit = true
+                let createVisitViewController = UIStoryboard(name: "AccountVisit", bundle: nil).instantiateViewController(withIdentifier :"CreateNewVisitViewController") as! CreateNewVisitViewController
+                createVisitViewController.isEditingMode = false
+                PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = (visitObject?.sgwsVisitPurpose)!
+                PlanVisitManager.sharedInstance.visit?.sgwsAgendaNotes = (visitObject?.sgwsAgendaNotes)!
+                createVisitViewController.visitId = visitObject?.Id
+                DispatchQueue.main.async {
+                    self.present(createVisitViewController, animated: true)
+                }
             }
         default:
             break

@@ -21,20 +21,16 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         //set up activity indicator
         activityIndicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height / 2)
         activityIndicator.color = UIColor.lightGray
         self.view.addSubview(activityIndicator)
-        //initializeReachability()
-        //self.loadWebView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        DispatchQueue.main.async {
-//            self.webView?.isHidden = true
-//        }
+
         if AppDelegate.isConnectedToNetwork(){
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = true
@@ -45,7 +41,6 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
                 self.webView?.isHidden = true
             }
         }
-        //self.loadWebView()
         initializeReachability()
     }
     

@@ -27,13 +27,10 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         activityIndicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height / 2)
         activityIndicator.color = UIColor.lightGray
         self.view.addSubview(activityIndicator)
-        //self.initializeReachability()
-        //self.loadUrlRequest()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //self.webView?.isHidden = true
         if AppDelegate.isConnectedToNetwork(){
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = true
@@ -44,7 +41,6 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
                 self.webView?.isHidden = true
             }
         }
-        //self.loadUrlRequest()
         initializeReachability()
     }
     
@@ -107,7 +103,6 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         appDelegate.insightLaunchIdentifier = "WHWN"
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goTOInsightBob/Notification"), object:4)
-        
     }
     
     //View Performance Button Clicked
@@ -116,9 +111,7 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         appDelegate.insightLaunchIdentifier = "BoB"
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goTOInsightBob/Notification"), object:4)
-        
     }
-    
 }
 
 //MARK:- UIWebView Delegate

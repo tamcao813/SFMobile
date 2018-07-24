@@ -114,7 +114,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         locationManager.stopUpdatingLocation()
-        FilterMenuModel.isFromAccountVisitSummary = ""
+        //FilterMenuModel.isFromAccountVisitSummary = ""
         NotificationCenter.default.removeObserver(self)
     }
     

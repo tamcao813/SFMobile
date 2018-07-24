@@ -26,8 +26,6 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height / 2)
         activityIndicator.color = UIColor.lightGray
         self.view.addSubview(activityIndicator)
-        //initializeReachability()
-        //self.loadWebView()
     }
     
     override func viewWillAppear(_ animated: Bool) {

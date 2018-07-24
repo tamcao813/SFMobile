@@ -24,13 +24,10 @@ class ReportsViewController: UIViewController , WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height / 2)
         activityIndicator.color = UIColor.lightGray
         self.view.addSubview(activityIndicator)
-        //initializeReachability()
-        //loadWebView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //self.webView?.isHidden = true
         if AppDelegate.isConnectedToNetwork(){
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = true
@@ -41,7 +38,6 @@ class ReportsViewController: UIViewController , WKNavigationDelegate {
                 self.webView?.isHidden = true
             }
         }
-        //loadWebView()
         initializeReachability()
     }
     

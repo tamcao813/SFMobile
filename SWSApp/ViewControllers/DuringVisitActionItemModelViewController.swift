@@ -47,12 +47,12 @@ class DuringVisitActionItemModelViewController:UIViewController {
     func fetchActionItemsFromDB(){
         actionItemsArray = [ActionItem]()
         let accountId = PlanVisitManager.sharedInstance.visit?.accountId
-            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
-                for actionItem in actionItemsArrayLocal {
-                    if actionItem.accountId == accountId {
-                        actionItemsArray.append(actionItem)
-                    }
-                }
+        let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
+        for actionItem in actionItemsArrayLocal {
+            if actionItem.accountId == accountId {
+                actionItemsArray.append(actionItem)
+            }
+        }
     }
     
     var navigationDelegate : NavigateToDuringVisitViewControllerDelegate?

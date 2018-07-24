@@ -656,8 +656,9 @@ extension DuringVisitsViewController : NavigateToDuringVisitViewControllerDelega
     
     //After coming back from Action Item Modal View
     func navigateToDuringVisitVC() {
-        self.dismiss(animated: true, completion: nil)
-        self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
+        self.dismiss(animated: true, completion: {
+            self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
+        })
     }
 }
 

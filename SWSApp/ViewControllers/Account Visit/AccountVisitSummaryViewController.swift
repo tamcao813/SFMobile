@@ -584,7 +584,7 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
         
     }
     func NavigateToAccountVisitSummaryActionItems(data: LoadThePersistantMenuScreen) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
             self.closeButtonTapped(nil)
         }
         // FilterMenuModel.selectedAccountId = (AccountObject.account?.account_Id)!

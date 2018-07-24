@@ -651,7 +651,9 @@ extension Date {
 //MARK:- NavigateToContacts Delegate
 extension AccountOverViewViewController : NavigateToContactsDelegate{
     func navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen) {
-        
+        if  data == .actionItems{
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showActionItems"), object:nil)
+        }
     }
     
     func navigateToVisitListing() {

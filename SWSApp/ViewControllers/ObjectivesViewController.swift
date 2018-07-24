@@ -35,7 +35,11 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
 //        DispatchQueue.main.async {
 //            self.webView?.isHidden = true
 //        }
-        if !(AppDelegate.isConnectedToNetwork()){
+        if AppDelegate.isConnectedToNetwork(){
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = true
+            }
+        }else{
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
@@ -74,13 +78,11 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     
     //Load the webview with specified URL
     func loadWebView(){
-        
         DispatchQueue.main.async {
             self.webView?.isHidden = true
             guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
                 return
             }
-            
             guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
                 return
             }
@@ -91,7 +93,6 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
             self.webView?.navigationDelegate = self
             self.webView.uiDelegate = self
             self.webView?.load(requestObj)
-            
         }
     }
 }

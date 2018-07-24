@@ -463,7 +463,6 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             }) {
                 print("Cancel")
             }
-            
         }
     }
     
@@ -572,17 +571,21 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     }
     
     func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
-            
             self.closeButtonTapped(nil)
         }
-        
         self.delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
-        
-        
-        
     }
+    
+    @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
+        self.closeButtonTapped(nil)
+        if LoadThePersistantMenuScreenItem.loadItemScreen == 1{
+            self.delegate?.navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen.actionItems)
+        }else{
+            self.delegate?.navigateTheScreenToContactsInPersistantMenu(data:LoadThePersistantMenuScreen.notifications)
+        }
+    }
+    
     func NavigateToAccountVisitSummaryActionItems(data: LoadThePersistantMenuScreen) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
             self.closeButtonTapped(nil)

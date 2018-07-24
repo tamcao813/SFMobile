@@ -23,9 +23,13 @@ enum LoadThePersistantMenuScreen : Int{
     case notifications
 }
 
+struct LoadThePersistantMenuScreenItem {
+    static var loadItemScreen = 0
+}
+
 protocol NavigateToAccountVisitSummaryDelegate {
     func NavigateToAccountVisitSummary(data : LoadThePersistantMenuScreen)
-     func NavigateToAccountVisitSummaryActionItems(data : LoadThePersistantMenuScreen)
+    func NavigateToAccountVisitSummaryActionItems(data : LoadThePersistantMenuScreen)
     func navigateToAccountVisitingScreen()
 }
 

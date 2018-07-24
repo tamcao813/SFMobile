@@ -38,7 +38,11 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         super.viewWillAppear(animated)
         //webView?.isHidden = true
        
-        if !(AppDelegate.isConnectedToNetwork()){
+        if AppDelegate.isConnectedToNetwork(){
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = true
+            }
+        }else{
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
@@ -86,20 +90,20 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     func loadWebView(){
         DispatchQueue.main.async {
             self.webView?.isHidden = true
+            guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
+                return
+            }
+            guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
+                return
+            }
+            let authUrl: String = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.globalChatter
+            
+            let url  =  URL(string:authUrl)
+            let requestObj = URLRequest(url: url!)
+            self.webView?.navigationDelegate = self
+            self.webView?.uiDelegate = self
+            self.webView?.load(requestObj)
         }
-        guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
-            return
-        }
-        guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
-            return
-        }
-        let authUrl: String = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.globalChatter
-        
-        let url  =  URL(string:authUrl)
-        let requestObj = URLRequest(url: url!)
-        webView?.navigationDelegate = self
-        webView?.uiDelegate = self
-        webView?.load(requestObj)
     }
 }
 

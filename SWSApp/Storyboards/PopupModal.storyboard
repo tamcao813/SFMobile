@@ -173,9 +173,11 @@
                     <connections>
                         <outlet property="bgView" destination="A0F-jg-J62" id="tsh-jZ-Iax"/>
                         <outlet property="tableView" destination="7AZ-oq-FhZ" id="HnA-aA-Jcr"/>
+                        <segue destination="4Kn-5i-KKL" kind="unwind" identifier="unwindToActionItemSegue" unwindAction="unwindToVC1WithSegue:" id="SLb-pA-BzX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5XI-Xb-IVQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="4Kn-5i-KKL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="46.875" y="88.28125"/>
         </scene>
@@ -315,9 +317,11 @@
                     </view>
                     <connections>
                         <outlet property="bgView" destination="uzl-wu-Oz4" id="hxB-CM-btm"/>
+                        <segue destination="61o-JC-EQV" kind="unwind" identifier="unwindToNotificationSegue" unwindAction="unwindToVC1WithSegue:" id="QrC-cE-ysn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Qs-bQ-R68" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="61o-JC-EQV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="46.875" y="932.8125"/>
         </scene>

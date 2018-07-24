@@ -42,6 +42,7 @@ class LinkAccountToContactViewController: UIViewController {
     var alreadyLinkedAccounts = [String]()
     var pickerOption: [String : Any]?
     var fromPicker = false
+    var fromPickerPrimary = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -313,12 +314,12 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
             //        cell?.setBuyingPower(value: doesHaveBuyingPower)
             cell?.delegate = self
-            if let acr = accContactRelation,!fromPicker {
+            if let acr = accContactRelation,!fromPickerPrimary {
                 cell?.acrDetail = acr
                 cell?.displayCellContent()
             }
             
-            if let option = pickerOption, fromPicker{
+            if let option = pickerOption, fromPickerPrimary{
                 primaryFunctionTextField.text = option["value"] as? String
             }
             primaryFunctionTextField = cell?.primaryFunctionTextField
@@ -387,6 +388,7 @@ extension LinkAccountToContactViewController: PrimaryFunctionTableViewCellDelega
         linkAccountToContactGlobals.userInput = true
         self.pickerOption = pickerOption
         self.fromPicker = true
+        self.fromPickerPrimary = true
         if pickerOption["validFor"] as! Int == 1 {
             doesHaveBuyingPower = true
         }else{

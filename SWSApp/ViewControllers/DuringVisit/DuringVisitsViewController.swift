@@ -656,7 +656,7 @@ extension DuringVisitsViewController : NavigateToDuringVisitViewControllerDelega
     
     //After coming back from Action Item Modal View
     func navigateToDuringVisitVC() {
-        self.dismiss(animated: true, completion: {
+        self.dismiss(animated: false, completion: {
             self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
         })
     }
@@ -667,10 +667,10 @@ extension DuringVisitsViewController :NavigateToDuringVisitViewController{
     //After coming back from Notifications Modal View
     func navigateNotificationToDuringVisitVC() {
         DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
+            self.dismiss(animated: false, completion: {
+                self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
+            })
         }
-        
     }
 }
 

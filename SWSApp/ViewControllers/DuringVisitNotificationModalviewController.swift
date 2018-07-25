@@ -59,12 +59,14 @@ class DuringVisitNotificationModalviewController:UIViewController{
         DispatchQueue.main.async {
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                 
-                //self.dismiss(animated: true, completion: nil)
                 // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToAllActionItem/Notification"), object:4)
-                //self.delegate?.navigateNotificationToDuringVisitVC()
                 
-                LoadThePersistantMenuScreenItem.loadItemScreen = 2
-                self.performSegue(withIdentifier: "unwindToNotificationSegue", sender: nil)
+                self.dismiss(animated: false, completion: {
+                    self.delegate?.navigateNotificationToDuringVisitVC()
+                })
+               
+                //LoadThePersistantMenuScreenItem.loadItemScreen = 2
+                //self.performSegue(withIdentifier: "unwindToNotificationSegue", sender: nil)
                 
             }) {
                 

@@ -89,7 +89,7 @@ class ActionItemsListViewController: UIViewController {
            // actionItemsArray = [ActionItem]()
             let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
             for actionItem in actionItemsArrayLocal {
-                if actionItem.accountId == (AccountObject.account?.account_Id)! {
+                if actionItem.accountId == (AccountObject.account?.account_Id) ?? "" {
                     actionItemsArray.append(actionItem)
                 }
             }

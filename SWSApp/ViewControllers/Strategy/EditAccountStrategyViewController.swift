@@ -268,7 +268,16 @@ class EditAccountStrategyViewController: UIViewController {
         let new_Strategy = StrategyQA(for: "NewStrategy")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        new_Strategy.OwnerId = (appDelegate.loggedInUser?.userId)!
+        let loggedInuserid: String = (UserViewModel().loggedInUser?.userId)!
+        let currentSelectedUSerId = (UIApplication.shared.delegate as! AppDelegate).currentSelectedUserId
+        
+        if loggedInuserid == currentSelectedUSerId{
+            new_Strategy.OwnerId = (appDelegate.loggedInUser?.userId)!
+        }else{
+            new_Strategy.OwnerId = currentSelectedUSerId
+        }
+        
+        //new_Strategy.OwnerId = (appDelegate.loggedInUser?.userId)!
         new_Strategy.SGWS_Account__c = AccountId.selectedAccountId
         new_Strategy.SGWS_Notes__c = StrategyNotes.accountStrategyNotes
         

@@ -37,7 +37,7 @@ struct FilterMenuModel {
     static var pastDueYes = ""
     static var pastDueNo = ""
     
-    static var statusIsActive = ""
+    static var statusIsActive = "YES"
     static var statusIsInActive = ""
     static var statusIsSuspended = ""
     

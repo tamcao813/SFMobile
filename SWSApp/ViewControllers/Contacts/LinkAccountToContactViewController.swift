@@ -363,7 +363,9 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
                 }
                 
                 contactClassificationTextField = cell?.classificationTextField
+                contactClassificationTextField.accessibilityIdentifier = "linkContactClassificationTextFieldID"
                 otherReasonTextField = cell?.otherTextField
+                otherReasonTextField.accessibilityIdentifier = "linkOtherReasonTextFieldID"
                 return cell!
             default:
                 return UITableViewCell()

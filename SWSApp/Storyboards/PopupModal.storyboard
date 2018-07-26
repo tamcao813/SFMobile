@@ -317,6 +317,7 @@
                     </view>
                     <connections>
                         <outlet property="bgView" destination="uzl-wu-Oz4" id="hxB-CM-btm"/>
+                        <outlet property="tableView" destination="jSF-vL-QiW" id="XTw-Ix-odX"/>
                         <segue destination="61o-JC-EQV" kind="unwind" identifier="unwindToNotificationSegue" unwindAction="unwindToVC1WithSegue:" id="QrC-cE-ysn"/>
                     </connections>
                 </viewController>

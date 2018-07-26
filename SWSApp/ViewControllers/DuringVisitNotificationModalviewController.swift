@@ -17,6 +17,7 @@ class DuringVisitNotificationModalviewController:UIViewController{
     
     //outlets
     @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var tableView: UITableView!
     var notificationsArray = [Notifications]()
     var notificationArrayToDisplay = [Notifications]()
     
@@ -28,11 +29,12 @@ class DuringVisitNotificationModalviewController:UIViewController{
         bgView.layer.shadowOpacity = 1
         bgView.layer.shadowOffset = CGSize.zero
         bgView.layer.shadowRadius = 5
-        getNotifications()
+        //getNotifications()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getNotifications()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,6 +47,7 @@ class DuringVisitNotificationModalviewController:UIViewController{
         notificationsArray = [Notifications]()
         notificationsArray = NotificationsViewModel().notificationsForUser()
         notificationArrayToDisplay = notificationsArray.filter( { return $0.account == accountId } )
+        tableView.reloadData()
     }
     
     var delegate : NavigateToDuringVisitViewController?
@@ -60,10 +63,11 @@ class DuringVisitNotificationModalviewController:UIViewController{
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                 
                 // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToAllActionItem/Notification"), object:4)
-                
-                self.dismiss(animated: false, completion: {
-                    self.delegate?.navigateNotificationToDuringVisitVC()
-                })
+                //DispatchQueue.main.async {
+                    self.dismiss(animated: false, completion: {
+                        self.delegate?.navigateNotificationToDuringVisitVC()
+                    })
+                //}
                
                 //LoadThePersistantMenuScreenItem.loadItemScreen = 2
                 //self.performSegue(withIdentifier: "unwindToNotificationSegue", sender: nil)

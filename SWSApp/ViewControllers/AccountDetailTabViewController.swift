@@ -253,7 +253,7 @@ class AccountDetailTabViewController: UITableViewController {
             let frame = tableView.frame
             let sectionLabel = UILabel.init(frame: CGRect(x: 40, y: 25, width: 800, height: 50))
             
-            sectionLabel.text = (account?.accountName) ?? "" + " " + "Contacts"
+            sectionLabel.text = (account?.accountName)! + " " + "Contacts"
             sectionLabel.textColor = UIColor.black
             sectionLabel.font = UIFont(name: "Ubuntu-Medium", size: 25)
             

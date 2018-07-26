@@ -88,7 +88,7 @@ class ActionItemsListViewController: UIViewController {
         }else if FilterMenuModel.isFromAccountVisitSummary == "YES"{
             let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
             for actionItem in actionItemsArrayLocal {
-                if actionItem.accountId == (AccountObject.account?.account_Id)! {
+                if actionItem.accountId == (AccountObject.account?.account_Id) ?? "" {
                     actionItemsArray.append(actionItem)
                 }
             }

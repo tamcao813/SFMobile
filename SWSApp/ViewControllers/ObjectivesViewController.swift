@@ -21,27 +21,26 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         //set up activity indicator
         activityIndicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height / 2)
         activityIndicator.color = UIColor.lightGray
         self.view.addSubview(activityIndicator)
-        //initializeReachability()
-        //self.loadWebView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        DispatchQueue.main.async {
-//            self.webView?.isHidden = true
-//        }
-        if !(AppDelegate.isConnectedToNetwork()){
+
+        if AppDelegate.isConnectedToNetwork(){
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = true
+            }
+        }else{
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
             }
         }
-        //self.loadWebView()
         initializeReachability()
     }
     
@@ -74,13 +73,11 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
     
     //Load the webview with specified URL
     func loadWebView(){
-        
         DispatchQueue.main.async {
             self.webView?.isHidden = true
             guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
                 return
             }
-            
             guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
                 return
             }
@@ -91,7 +88,6 @@ class ObjectivesViewController: UIViewController, WKNavigationDelegate {
             self.webView?.navigationDelegate = self
             self.webView.uiDelegate = self
             self.webView?.load(requestObj)
-            
         }
     }
 }

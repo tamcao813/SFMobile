@@ -114,7 +114,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         locationManager.stopUpdatingLocation()
-        FilterMenuModel.isFromAccountVisitSummary = ""
+        //FilterMenuModel.isFromAccountVisitSummary = ""
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -463,7 +463,6 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             }) {
                 print("Cancel")
             }
-            
         }
     }
     
@@ -546,7 +545,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     @IBAction func closeButtonTapped(_ sender: UIButton?){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
         locationManager.stopUpdatingLocation()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
     }
     
     @IBAction func accountStrategyButtonTapped(_ sender: Any) {
@@ -572,17 +571,21 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     }
     
     func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
-            
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.closeButtonTapped(nil)
         }
-        
         self.delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
-        
-        
-        
     }
+    
+    @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
+        self.closeButtonTapped(nil)
+        if LoadThePersistantMenuScreenItem.loadItemScreen == 1{
+            self.delegate?.navigateTheScreenToActionItemsInPersistantMenu(data: LoadThePersistantMenuScreen.actionItems)
+        }else{
+        self.delegate?.navigateTheScreenToContactsInPersistantMenu(data:LoadThePersistantMenuScreen.notifications)
+        }
+    }
+    
     func NavigateToAccountVisitSummaryActionItems(data: LoadThePersistantMenuScreen) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
             self.closeButtonTapped(nil)
@@ -596,10 +599,13 @@ extension AccountVisitSummaryViewController : NavigateToAccountVisitSummaryDeleg
     
     func navigateToAccountVisitSummaryScreen() {
         DispatchQueue.main.async {
-            //   AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            //AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            
             FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.navigateToAccountScreen()
+            self.dismiss(animated: false, completion: {
+                self.delegate?.navigateToAccountScreen()
+            })
+            
             // }){
             
         }

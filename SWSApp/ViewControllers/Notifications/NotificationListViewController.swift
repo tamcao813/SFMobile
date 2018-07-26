@@ -40,7 +40,7 @@ class NotificationListViewController: UIViewController {
     func getNotifications(){
         if FilterMenuModel.isFromAccountVisitSummary == "YES" {
             notificationsArray = NotificationsViewModel().notificationsForUser()
-            notificationsArray = notificationsArray.filter( { return $0.account ==  (AccountObject.account?.account_Id)! } )
+            notificationsArray = notificationsArray.filter( { return $0.account ==  (AccountObject.account?.account_Id) ?? "" } )
         }
         else{
             notificationsArray = NotificationsViewModel().notificationsForUser()

@@ -42,7 +42,8 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     var isDisabledPreviously = false
     
     var isAccountSpecific: Bool = false
-    
+    var accountIdSpecific: String = ""
+
     //Used for Page control operation
     @IBOutlet var pageButtonArr: [UIButton]!
     var globalContactCount:Int?
@@ -178,9 +179,11 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 
         if ContactsGlobal.accountId == "" {
             isAccountSpecific = false
+            accountIdSpecific = ""
             globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: "")
         }else{
             isAccountSpecific = true
+            accountIdSpecific = ContactsGlobal.accountId
             delegate?.clearAllMenu()
             
             var isValid : Bool = false
@@ -245,10 +248,29 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("performContactFilterOperation")
         print(ContactFilterMenuModel.functionRoles)
         
-        if (!isAccountSpecific || ContactFilterMenuModel.comingFromDetailsScreen != "YES") {
-            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
+        if (isAccountSpecific || ContactFilterMenuModel.comingFromDetailsScreen == "YES") {
+//            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.contacts(forAccount: ContactsGlobal.accountId), searchBarText: searchString)
+            
+            var isValid : Bool = false
+            var data = [Contact]()
+            print(ContactsGlobal.accountId)
+            
+            if ContactFilterMenuModel.comingFromDetailsScreen == "YES" {
+                (isValid, data) = ContactSortUtility.filterContactByFilterByAssociationDetails(contactListToBeSorted: contactViewModel.globalContacts(), selectedAccountId: ContactsGlobal.accountId)
+            }
+            else {
+                (isValid, data) = ContactSortUtility.filterContactByFilterByAssociationDetails(contactListToBeSorted: contactViewModel.globalContacts(), selectedAccountId: accountIdSpecific)
+            }
+            
+            if isValid {
+                globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: data, searchBarText: searchString)
+            }
+            else {
+                globalContactsForList = [Contact]()
+            }
+
         } else {
-            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.contacts(forAccount: ContactsGlobal.accountId), searchBarText: searchString)
+            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
         }
         
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)

@@ -450,8 +450,6 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             self.present(createActionItemViewController, animated: false)
     }
     
-    
-    
     //Back Button Clicked
     @IBAction func backButtonClicked(sender : UIButton){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
@@ -537,9 +535,9 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
         let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
         StrategyScreenLoadFrom.isLoadFromStrategy = "1"
-        
         (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.present(vc, animated: true, completion: nil)
+        (vc as AccountStrategyViewController).delegate = self
     }
     
     //Edit Account strategy Clicked
@@ -674,4 +672,11 @@ extension DuringVisitsViewController :NavigateToDuringVisitViewController{
     }
 }
 
+extension DuringVisitsViewController : RefreshDuringVisitStrategyDelegate{
+    
+    //After coming back from Strategy Screen, reload Strategy Logic
+    func refreshStrategyDataInDuringVisit() {
+        self.loadTheDataFromStrategyQA()
+    }
+}
 

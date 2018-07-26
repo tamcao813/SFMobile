@@ -13,6 +13,10 @@ struct StrategyScreenLoadFrom {
     static var isLoadFromStrategy = "0"
 }
 
+protocol RefreshDuringVisitStrategyDelegate {
+    func refreshStrategyDataInDuringVisit()
+}
+
 class AccountStrategyViewController : UIViewController{
     
     @IBOutlet weak var collectionView : UICollectionView?
@@ -28,6 +32,8 @@ class AccountStrategyViewController : UIViewController{
     let strategyAnswersViewModel = StrategyAnswersViewModel()
     var tableViewRowDetails : NSMutableArray?
     var tableViewData : NSMutableArray?
+    
+    var delegate : RefreshDuringVisitStrategyDelegate?
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -337,6 +343,7 @@ class AccountStrategyViewController : UIViewController{
     
     @IBAction func closeButtonClicked(sender : UIButton){
         self.dismiss(animated: true, completion: nil)
+        delegate?.refreshStrategyDataInDuringVisit()
     }
 }
 

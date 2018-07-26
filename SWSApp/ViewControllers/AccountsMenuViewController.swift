@@ -30,7 +30,7 @@ enum AccountFilterMenuOptions : Int{
 class AccountsMenuViewController: UIViewController {
     
     let kHeaderSectionTag: Int = 6900;
-    var expandedSectionHeaderNumber: Int = -1
+    var expandedSectionHeaderNumber: Int = 1
     var expandedSectionHeader: UITableViewHeaderFooterView!
     weak var searchByEnteredTextDelegate: SearchByEnteredTextDelegate?
     lazy var filterClass = Filter()
@@ -43,7 +43,7 @@ class AccountsMenuViewController: UIViewController {
     @IBOutlet weak var searchBar : UISearchBar!
     
     //Used for selected section in TableView
-    var selectedSection = -1
+    var selectedSection = 1
     
     var accountsForLoggedUserFiltered = [Account]()
     
@@ -178,7 +178,7 @@ class AccountsMenuViewController: UIViewController {
             FilterMenuModel.pastDueYes = ""
             FilterMenuModel.pastDueNo = ""
             
-            FilterMenuModel.statusIsActive = ""
+            FilterMenuModel.statusIsActive = "YES"
             FilterMenuModel.statusIsInActive = ""
             FilterMenuModel.statusIsSuspended = ""
             
@@ -204,14 +204,23 @@ class AccountsMenuViewController: UIViewController {
             
             //Used to Clear the Expanded section of Filter Option
             selectedSection = -1
-            if self.expandedSectionHeaderNumber != -1{
+            if self.expandedSectionHeaderNumber != 1{
                 let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-                tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+                 if self.expandedSectionHeaderNumber != -1 {
+                    tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+                }
             }
             
             if tableView != nil{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 tableView.reloadData()
+                if self.expandedSectionHeaderNumber != 1 {
+                    if self.expandedSectionHeaderNumber != -1 {
+                        tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: UIImageView(image: UIImage(named: "dropDown")))
+                    }
+                    self.sectionHeaderOperation(section: 1, eImageView: UIImageView(image: UIImage(named: "dropUp")))
+                    
+                }
             }
         }
     }

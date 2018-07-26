@@ -41,8 +41,6 @@ class LinkAccountToContactViewController: UIViewController {
     var countOfLinkedAccounts: Int = 0
     var alreadyLinkedAccounts = [String]()
     var pickerOption: [String : Any]?
-    var fromPicker = false
-    var fromPickerPrimary = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +53,17 @@ class LinkAccountToContactViewController: UIViewController {
             fetchAccountDetails()
             doesHaveBuyingPower = accContactRelation?.buyingPower == 1
         }
+        
+        let opts = PlistMap.sharedInstance.readPList(plist: "/ContactRoles.plist")
+        
+        for opt in opts {
+            let option = opt as! [String: Any]
+            if option["value"] as? String == accContactRelation?.roles{
+                pickerOption = option
+                break
+            }
+        }
+    
     }
     
     func fetchACRs() {
@@ -65,6 +74,7 @@ class LinkAccountToContactViewController: UIViewController {
         for acr in acrs {
             alreadyLinkedAccounts.append(acr.accountId)
         }
+        
     }
     
     func fetchAccountDetails(){
@@ -312,43 +322,31 @@ extension LinkAccountToContactViewController : UITableViewDataSource,UITableView
             return cell!
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
-            //        cell?.setBuyingPower(value: doesHaveBuyingPower)
             cell?.delegate = self
-            if let acr = accContactRelation,!fromPickerPrimary {
-                cell?.acrDetail = acr
-                cell?.displayCellContent()
-            }
+            primaryFunctionTextField = cell?.primaryFunctionTextField
             
-            if let option = pickerOption, fromPickerPrimary{
+            if let option = pickerOption{
                 primaryFunctionTextField.text = option["value"] as? String
             }
-            primaryFunctionTextField = cell?.primaryFunctionTextField
+            
             return cell!
         case 3:
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
-                
-                if let option = pickerOption, fromPicker{
+                if let option = pickerOption{
                     if option["validFor"] as! Int == 1 {
-                        doesHaveBuyingPower = true
-                        cell?.yesButton.isUserInteractionEnabled = true
                         cell?.noButton.isUserInteractionEnabled = true
+                        cell?.yesButton.isUserInteractionEnabled = true
                     }else{
-                        doesHaveBuyingPower = false
-                        cell?.yesButton.isUserInteractionEnabled = false
                         cell?.noButton.isUserInteractionEnabled = false
+                        cell?.yesButton.isUserInteractionEnabled = false
                     }
-                    fromPicker = false
                 }
                 
-                if let buyingPower = doesHaveBuyingPower{
-                    if buyingPower {
-                        cell?.setBuyingPower(value: true)
-                    }else{
-                        cell?.setBuyingPower(value: false)
-                    }
+                if let buyer = doesHaveBuyingPower{
+                    cell?.setBuyingPower(value: buyer)
                 }
                 return cell!
             case 1:
@@ -387,8 +385,6 @@ extension LinkAccountToContactViewController: PrimaryFunctionTableViewCellDelega
     func primaryFunctionValueSelected(pickerOption: [String : Any]) {
         linkAccountToContactGlobals.userInput = true
         self.pickerOption = pickerOption
-        self.fromPicker = true
-        self.fromPickerPrimary = true
         if pickerOption["validFor"] as! Int == 1 {
             doesHaveBuyingPower = true
         }else{
@@ -401,7 +397,11 @@ extension LinkAccountToContactViewController: PrimaryFunctionTableViewCellDelega
 extension LinkAccountToContactViewController: ToggleTableViewCellDelegate {
     func buyingPowerChanged(buyingPower: Bool) {
         linkAccountToContactGlobals.userInput = true
-        doesHaveBuyingPower = buyingPower
+        if buyingPower {
+            doesHaveBuyingPower = true
+        }else{
+            doesHaveBuyingPower = false
+        }
         isFirstTimeLoaded = false
         self.tableView.reloadData()
     }

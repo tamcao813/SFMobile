@@ -130,7 +130,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Account Strategy for this account has not been completed yet. Click ‘Edit’ to fill out the Account Strategy now." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17S-vj-Wd6">
-                                <rect key="frame" x="169.5" y="418.5" width="774.5" height="17"/>
+                                <rect key="frame" x="169" y="269" width="774.5" height="17"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -149,7 +149,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="17S-vj-Wd6" firstAttribute="centerY" secondItem="sdF-XD-axo" secondAttribute="centerY" id="4al-Od-hwU"/>
+                            <constraint firstItem="17S-vj-Wd6" firstAttribute="centerY" secondItem="sdF-XD-axo" secondAttribute="centerY" constant="-150" id="4al-Od-hwU"/>
                             <constraint firstItem="sdF-XD-axo" firstAttribute="trailing" secondItem="HY3-oi-mmZ" secondAttribute="trailing" constant="21" id="5g9-Nn-MvU"/>
                             <constraint firstItem="gOG-uA-kRW" firstAttribute="top" secondItem="Jb4-kb-baz" secondAttribute="top" constant="11" id="CDX-SI-XBm"/>
                             <constraint firstItem="sdF-XD-axo" firstAttribute="trailing" secondItem="FZE-sy-J5P" secondAttribute="trailing" constant="21" id="E6Q-wp-aJa"/>
@@ -326,7 +326,7 @@
                                                             </connections>
                                                         </button>
                                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please correct required fields" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6C-jz-oGh">
-                                                            <rect key="frame" x="548" y="356.5" width="226.5" height="19.5"/>
+                                                            <rect key="frame" x="548" y="356" width="226.5" height="20"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                                             <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -408,7 +408,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Multi Select" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOP-zx-dwB">
-                                            <rect key="frame" x="42" y="86" width="54" height="11.5"/>
+                                            <rect key="frame" x="42" y="86" width="54" height="12"/>
                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="10"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>

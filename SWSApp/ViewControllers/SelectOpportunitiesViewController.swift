@@ -80,6 +80,7 @@ class SelectOpportunitiesViewController: UIViewController {
         //STATEMACHINE:No State Change
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStrategyData"), object:nil)
         DispatchQueue.main.async {
             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         }

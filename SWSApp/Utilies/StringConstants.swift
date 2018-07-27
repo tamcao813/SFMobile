@@ -99,6 +99,9 @@ class StringConstants {
     //Reports Url
     static let reportsUrl = globalUrlDictionary["reportsEndUrl"] as! String
     
+    //Contact Role
+    static let contactRole = globalUrlDictionary["contactRole"] as! String
+    
 }
 
 

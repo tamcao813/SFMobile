@@ -78,5 +78,7 @@
 	<string>/lightning/n/SGWS_Account_Insight?iospref=web&amp;0.source=alohaHeader</string>
 	<key>homeScreenWHWN</key>
 	<string>/lightning/n/Home_Page_2?iospref=web&amp;0.source=alohaHeader</string>
+	<key>contactRole</key>
+	<string>/ContactRoles.plist</string>
 </dict>
 </plist>

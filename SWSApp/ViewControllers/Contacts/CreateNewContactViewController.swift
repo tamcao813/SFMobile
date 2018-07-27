@@ -586,7 +586,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
                 cell?.displayCellContents()
                 contactClassificationTextField = cell?.classificationTextField
+                contactClassificationTextField.accessibilityIdentifier = "newcontactClassificationTextFieldID"
                 otherReasonTextField = cell?.otherTextField
+                otherReasonTextField.accessibilityIdentifier = "newContactOtherReasonTextFieldID"
                 return cell!
             default:
                 return UITableViewCell()

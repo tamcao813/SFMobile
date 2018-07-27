@@ -32,11 +32,12 @@ class DuringVisitActionItemModelViewController:UIViewController {
         bgView.layer.shadowOpacity = 1
         bgView.layer.shadowOffset = CGSize.zero
         bgView.layer.shadowRadius = 5
-        fetchActionItemsFromDB()
+        //fetchActionItemsFromDB()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchActionItemsFromDB()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -47,12 +48,13 @@ class DuringVisitActionItemModelViewController:UIViewController {
     func fetchActionItemsFromDB(){
         actionItemsArray = [ActionItem]()
         let accountId = PlanVisitManager.sharedInstance.visit?.accountId
-            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
-                for actionItem in actionItemsArrayLocal {
-                    if actionItem.accountId == accountId {
-                        actionItemsArray.append(actionItem)
-                    }
-                }
+        let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
+        for actionItem in actionItemsArrayLocal {
+            if actionItem.accountId == accountId {
+                actionItemsArray.append(actionItem)
+            }
+        }
+        tableView.reloadData()
     }
     
     var navigationDelegate : NavigateToDuringVisitViewControllerDelegate?
@@ -67,17 +69,20 @@ class DuringVisitActionItemModelViewController:UIViewController {
         DispatchQueue.main.async {
             AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                 
-                self.dismiss(animated: true, completion: {
-                    self.navigationDelegate?.navigateToDuringVisitVC()
+                DispatchQueue.main.async {
+                    self.dismiss(animated: false, completion: {
+                        self.navigationDelegate?.navigateToDuringVisitVC()
                     })
+                }
+                
+                //LoadThePersistantMenuScreenItem.loadItemScreen = 1
+                //self.performSegue(withIdentifier: "unwindToActionItemSegue", sender: nil)
                 
             }) {
                 
             }
         }
-
     }
-    
 }
 
 //MARK:- Delegate and DataSource methods

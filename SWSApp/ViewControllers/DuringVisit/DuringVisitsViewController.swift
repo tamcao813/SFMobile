@@ -23,9 +23,13 @@ enum LoadThePersistantMenuScreen : Int{
     case notifications
 }
 
+struct LoadThePersistantMenuScreenItem {
+    static var loadItemScreen = 0
+}
+
 protocol NavigateToAccountVisitSummaryDelegate {
     func NavigateToAccountVisitSummary(data : LoadThePersistantMenuScreen)
-     func NavigateToAccountVisitSummaryActionItems(data : LoadThePersistantMenuScreen)
+    func NavigateToAccountVisitSummaryActionItems(data : LoadThePersistantMenuScreen)
     func navigateToAccountVisitingScreen()
 }
 
@@ -446,8 +450,6 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             self.present(createActionItemViewController, animated: false)
     }
     
-    
-    
     //Back Button Clicked
     @IBAction func backButtonClicked(sender : UIButton){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
@@ -533,9 +535,9 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
         let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
         StrategyScreenLoadFrom.isLoadFromStrategy = "1"
-        
         (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.present(vc, animated: true, completion: nil)
+        (vc as AccountStrategyViewController).delegate = self
     }
     
     //Edit Account strategy Clicked
@@ -652,7 +654,7 @@ extension DuringVisitsViewController : NavigateToDuringVisitViewControllerDelega
     
     //After coming back from Action Item Modal View
     func navigateToDuringVisitVC() {
-        self.dismiss(animated: true, completion: {
+        self.dismiss(animated: false, completion: {
             self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
         })
     }
@@ -663,11 +665,18 @@ extension DuringVisitsViewController :NavigateToDuringVisitViewController{
     //After coming back from Notifications Modal View
     func navigateNotificationToDuringVisitVC() {
         DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
+            self.dismiss(animated: false, completion: {
+                self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
+            })
         }
-        
     }
 }
 
+extension DuringVisitsViewController : RefreshDuringVisitStrategyDelegate{
+    
+    //After coming back from Strategy Screen, reload Strategy Logic
+    func refreshStrategyDataInDuringVisit() {
+        self.loadTheDataFromStrategyQA()
+    }
+}
 

@@ -26,24 +26,21 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height / 2)
         activityIndicator.color = UIColor.lightGray
         self.view.addSubview(activityIndicator)
-        //initializeReachability()
-        //self.loadWebView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.webView?.isHidden = true
-        
-        if !(AppDelegate.isConnectedToNetwork()){
+        if AppDelegate.isConnectedToNetwork(){
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = true
+            }
+        }else{
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
             }
         }
-//        DispatchQueue.main.async{
-//            self.loadWebView()
-//        }
         self.initializeReachability()
     }
     
@@ -77,8 +74,8 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
     //Load the webview with specified URL
     func loadWebView(){
         
-        self.webView?.isHidden = true
-        //DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            self.webView?.isHidden = true
             self.activityIndicator.startAnimating()
             guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
                 return
@@ -111,7 +108,7 @@ class InsightsViewController: UIViewController, WKNavigationDelegate {
             self.webView.uiDelegate = self
             self.webView?.navigationDelegate = self
             self.webView?.load(requestObj)
-        //}
+        }
     }
 }
 

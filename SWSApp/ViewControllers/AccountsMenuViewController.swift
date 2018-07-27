@@ -30,7 +30,7 @@ enum AccountFilterMenuOptions : Int{
 class AccountsMenuViewController: UIViewController {
     
     let kHeaderSectionTag: Int = 6900;
-    var expandedSectionHeaderNumber: Int = -1
+    var expandedSectionHeaderNumber: Int = 1
     var expandedSectionHeader: UITableViewHeaderFooterView!
     weak var searchByEnteredTextDelegate: SearchByEnteredTextDelegate?
     lazy var filterClass = Filter()
@@ -43,7 +43,7 @@ class AccountsMenuViewController: UIViewController {
     @IBOutlet weak var searchBar : UISearchBar!
     
     //Used for selected section in TableView
-    var selectedSection = -1
+    var selectedSection = 1
     
     var accountsForLoggedUserFiltered = [Account]()
     
@@ -164,8 +164,7 @@ class AccountsMenuViewController: UIViewController {
         }
     }
     
-    //Used to Clear the Model Data
-    func clearFilterModelData(){
+    func clearFilterData(){
         if FilterMenuModel.comingFromDetailsScreen == "YES"{
             FilterMenuModel.comingFromDetailsScreen = "NO"
         }else{
@@ -212,6 +211,68 @@ class AccountsMenuViewController: UIViewController {
             if tableView != nil{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
                 tableView.reloadData()
+            }
+        }
+    }
+
+    
+    //Used to Clear the Model Data
+    func clearFilterModelData(){
+        if FilterMenuModel.comingFromDetailsScreen == "YES"{
+            FilterMenuModel.comingFromDetailsScreen = "NO"
+        }else{
+            
+            //reset to loggedInUser/Manager
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.currentSelectedUserId = (appDelegate.loggedInUser?.userId)!
+            FilterMenuModel.selectedConsultant = nil
+            
+            FilterMenuModel.pastDueYes = ""
+            FilterMenuModel.pastDueNo = ""
+            
+            FilterMenuModel.statusIsActive = "YES"
+            FilterMenuModel.statusIsInActive = ""
+            FilterMenuModel.statusIsSuspended = ""
+            
+            FilterMenuModel.premiseOn = ""
+            FilterMenuModel.premiseOff = ""
+            
+            FilterMenuModel.singleSelected = ""
+            FilterMenuModel.multiSelected = ""
+            
+            FilterMenuModel.licenseW = ""
+            FilterMenuModel.licenseL = ""
+            FilterMenuModel.licenseB = ""
+            FilterMenuModel.licenseN = ""
+            
+            FilterMenuModel.channel = ""
+            FilterMenuModel.subChannel = ""
+            
+            FilterMenuModel.city = ""
+            
+            if searchBar != nil{
+                searchBar.text = ""
+            }
+            
+            //Used to Clear the Expanded section of Filter Option
+            selectedSection = -1
+            if self.expandedSectionHeaderNumber != 1{
+                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+                 if self.expandedSectionHeaderNumber != -1 {
+                    tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
+                }
+            }
+            
+            if tableView != nil{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+                tableView.reloadData()
+                if self.expandedSectionHeaderNumber != 1 {
+                    if self.expandedSectionHeaderNumber != -1 {
+                        tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: UIImageView(image: UIImage(named: "dropDown")))
+                    }
+                    self.sectionHeaderOperation(section: 1, eImageView: UIImageView(image: UIImage(named: "dropUp")))
+                    
+                }
             }
         }
     }
@@ -542,7 +603,7 @@ class AccountsMenuViewController: UIViewController {
     
     //Clears all the filter selection
     @IBAction func clearButton(_ sender: Any) {
-        self.clearFilterModelData()
+        self.clearFilterData()
         self.searchByEnteredTextDelegate?.filtering(filtering: false)
     }
 }

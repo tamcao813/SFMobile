@@ -40,10 +40,9 @@ class NotificationListViewController: UIViewController {
     func getNotifications(){
         if FilterMenuModel.isFromAccountVisitSummary == "YES" {
             notificationsArray = NotificationsViewModel().notificationsForUser()
-            notificationsArray = notificationsArray.filter( { return $0.account ==  (AccountObject.account?.account_Id)! } )
+            notificationsArray = notificationsArray.filter( { return $0.account ==  (AccountObject.account?.account_Id) ?? "" } )
         }
         else{
-            notificationsArray = [Notifications]()
             notificationsArray = NotificationsViewModel().notificationsForUser()
         }
             self.reloadTableView()
@@ -63,7 +62,11 @@ class NotificationListViewController: UIViewController {
     
     func reloadTableView(){
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            UIView.performWithoutAnimation({() -> Void in
+                self.tableView.reloadData()
+                self.tableView!.beginUpdates()
+                self.tableView!.endUpdates()
+            })
         }
     }
     

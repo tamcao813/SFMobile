@@ -95,6 +95,10 @@ class AccountsListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        isFiltering = true
+        accountsForLoggedUserFiltered = AccountSortUtility.filterAccountByAppliedFilter(accountsListToBeSorted: accountsForLoggedUserOriginal, searchBarText: "")
+        self.updateTheTableViewDataAccordingly()
+        
         
     }
     
@@ -146,6 +150,9 @@ class AccountsListViewController: UIViewController {
                 self.accountListTableView.endUpdates()
             }
         }
+        isFiltering = true
+        accountsForLoggedUserFiltered = AccountSortUtility.filterAccountByAppliedFilter(accountsListToBeSorted: accountsForLoggedUserOriginal, searchBarText: "")
+        self.updateTheTableViewDataAccordingly()
     }
     
     //Account List Notification

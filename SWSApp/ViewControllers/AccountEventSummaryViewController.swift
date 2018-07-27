@@ -539,11 +539,10 @@ extension AccountEventSummaryViewController : NavigateToAccountVisitSummaryDeleg
     
     func NavigateToAccountVisitSummary(data: LoadThePersistantMenuScreen) {
         DispatchQueue.main.async {
-            self.dismiss(animated: false, completion: nil)
-            self.delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
+            self.dismiss(animated: false, completion: {
+                self.delegate?.navigateTheScreenToContactsInPersistantMenu(data: data)
+            })
         }
-        
-        
     }
     
     func navigateToAccountVisitSummaryScreen() {

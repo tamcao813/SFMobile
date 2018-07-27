@@ -86,10 +86,9 @@ class ActionItemsListViewController: UIViewController {
                 actionItemsArray = actionItemsArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
             }
         }else if FilterMenuModel.isFromAccountVisitSummary == "YES"{
-           // actionItemsArray = [ActionItem]()
             let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
             for actionItem in actionItemsArrayLocal {
-                if actionItem.accountId == (AccountObject.account?.account_Id)! {
+                if actionItem.accountId == (AccountObject.account?.account_Id) ?? "" {
                     actionItemsArray.append(actionItem)
                 }
             }
@@ -190,7 +189,11 @@ class ActionItemsListViewController: UIViewController {
     
     func reloadTableView(){
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            UIView.performWithoutAnimation({() -> Void in
+                self.tableView.reloadData()
+                self.tableView!.beginUpdates()
+                self.tableView!.endUpdates()
+            })
         }
     }
     

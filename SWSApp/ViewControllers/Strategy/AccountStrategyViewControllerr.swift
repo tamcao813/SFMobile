@@ -13,6 +13,10 @@ struct StrategyScreenLoadFrom {
     static var isLoadFromStrategy = "0"
 }
 
+protocol RefreshDuringVisitStrategyDelegate {
+    func refreshStrategyDataInDuringVisit()
+}
+
 class AccountStrategyViewController : UIViewController{
     
     @IBOutlet weak var collectionView : UICollectionView?
@@ -29,6 +33,8 @@ class AccountStrategyViewController : UIViewController{
     var tableViewRowDetails : NSMutableArray?
     var tableViewData : NSMutableArray?
     
+    var delegate : RefreshDuringVisitStrategyDelegate?
+    
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +46,8 @@ class AccountStrategyViewController : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadStrategyData), name: NSNotification.Name("actionItemSyncDownComplete"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadStrategyData), name: NSNotification.Name("refreshStrategyData"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -337,6 +345,7 @@ class AccountStrategyViewController : UIViewController{
     
     @IBAction func closeButtonClicked(sender : UIButton){
         self.dismiss(animated: true, completion: nil)
+        delegate?.refreshStrategyDataInDuringVisit()
     }
 }
 

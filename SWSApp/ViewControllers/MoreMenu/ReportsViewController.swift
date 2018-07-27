@@ -24,20 +24,20 @@ class ReportsViewController: UIViewController , WKNavigationDelegate {
         activityIndicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height / 2)
         activityIndicator.color = UIColor.lightGray
         self.view.addSubview(activityIndicator)
-        //initializeReachability()
-        //loadWebView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //self.webView?.isHidden = true
-        if !(AppDelegate.isConnectedToNetwork()){
+        if AppDelegate.isConnectedToNetwork(){
+            DispatchQueue.main.async {
+                self.lblNoNetworkConnection?.isHidden = true
+            }
+        }else{
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
                 self.webView?.isHidden = true
             }
         }
-        //loadWebView()
         initializeReachability()
     }
     
@@ -72,11 +72,9 @@ class ReportsViewController: UIViewController , WKNavigationDelegate {
     func loadWebView(){
         DispatchQueue.main.async {
             self.webView?.isHidden = true
-            
             guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
                 return
             }
-            
             guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
                 return
             }

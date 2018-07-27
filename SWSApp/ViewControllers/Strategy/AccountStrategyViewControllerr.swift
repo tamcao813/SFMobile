@@ -46,6 +46,8 @@ class AccountStrategyViewController : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadStrategyData), name: NSNotification.Name("actionItemSyncDownComplete"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadStrategyData), name: NSNotification.Name("refreshStrategyData"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

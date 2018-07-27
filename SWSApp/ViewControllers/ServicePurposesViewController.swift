@@ -131,6 +131,8 @@ class ServicePurposesViewController: UIViewController {
         }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStrategyData"), object:nil)
+
     }
     
     @IBAction func backVC(sender: UIButton) {
@@ -166,6 +168,7 @@ class ServicePurposesViewController: UIViewController {
         }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStrategyData"), object:nil)
     }
     
     

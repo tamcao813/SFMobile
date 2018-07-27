@@ -54,7 +54,7 @@ class LinkAccountToContactViewController: UIViewController {
             doesHaveBuyingPower = accContactRelation?.buyingPower == 1
         }
         
-        let opts = PlistMap.sharedInstance.readPList(plist: "/ContactRoles.plist")
+        let opts = PlistMap.sharedInstance.readPList(plist: StringConstants.contactRole)
         
         for opt in opts {
             let option = opt as! [String: Any]

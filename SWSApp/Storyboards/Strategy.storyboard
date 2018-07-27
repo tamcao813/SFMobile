@@ -137,6 +137,7 @@
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7GF-3v-UVq">
                                 <rect key="frame" x="1053" y="34" width="38" height="38"/>
+                                <accessibility key="accessibilityConfiguration" identifier="closeButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="74g-1Z-P2j"/>
                                     <constraint firstAttribute="width" constant="38" id="Fuw-vl-mY7"/>
@@ -274,6 +275,7 @@
                                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hzv-D0-nJ2">
                                                                     <rect key="frame" x="20" y="14" width="995" height="213"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <accessibility key="accessibilityConfiguration" identifier="strategyNotes"/>
                                                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="alphabet"/>
                                                                     <connections>

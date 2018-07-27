@@ -88,7 +88,7 @@ class EventsUITests: XCTestCase {
         XCUIApplication().tables.buttons["Save"].tap()
         
         app.navigationBars["SWSApp.ParentView"]/*@START_MENU_TOKEN@*/.buttons["Accounts"]/*[[".staticTexts.buttons[\"Accounts\"]",".buttons[\"Accounts\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
+        app.buttons["Clear"].tap()
         tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Aus Lounge Bar"]/*[[".cells.staticTexts[\"Aus Lounge Bar\"]",".staticTexts[\"Aus Lounge Bar\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["event1"]/*[[".cells.staticTexts[\"event1\"]",".staticTexts[\"event1\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         

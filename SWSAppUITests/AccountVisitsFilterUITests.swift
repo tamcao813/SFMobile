@@ -435,7 +435,7 @@ class AccountVisitsFilterUITests: XCTestCase {
         paymentPickUpStaticText.tap()
         paymentPickUpStaticText.tap()
         
-        let closebuttonButton = app.buttons["closeButton"]
+        let closebuttonButton = app.buttons["agendaCloseButtonID"]
         closebuttonButton.tap()
         
         let alert = app.alerts["Alert"]
@@ -444,7 +444,7 @@ class AccountVisitsFilterUITests: XCTestCase {
         alert.buttons["Yes"].tap()
         
         app.navigationBars["SWSApp.ParentView"]/*@START_MENU_TOKEN@*/.buttons["Accounts"]/*[[".staticTexts.buttons[\"Accounts\"]",".buttons[\"Accounts\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
+        app.buttons["Clear"].tap()
         let tablesQuery = app.tables
         tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Blenders Pride"]/*[[".cells.staticTexts[\"Blenders Pride\"]",".staticTexts[\"Blenders Pride\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         //tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Visit Blenders Pride"]/*[[".cells.staticTexts[\"Visit Blenders Pride\"]",".staticTexts[\"Visit Blenders Pride\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()

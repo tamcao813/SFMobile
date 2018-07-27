@@ -274,12 +274,12 @@ class ContactUITests: XCTestCase {
         
         let app = XCUIApplication()
         XCUIApplication().navigationBars["SWSApp.ParentView"]/*@START_MENU_TOKEN@*/.buttons["Accounts"]/*[[".staticTexts.buttons[\"Accounts\"]",".buttons[\"Accounts\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        app.swipeUp()
+        app.buttons["Clear"].tap()
         
         app.tables/*@START_MENU_TOKEN@*/.staticTexts["Blenders Pride"]/*[[".cells.staticTexts[\"Blenders Pride\"]",".staticTexts[\"Blenders Pride\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         app.buttons["Details"].tap()
         //XCUIApplication().tables/*@START_MENU_TOKEN@*/.staticTexts["Blenders Pride Contacts"]/*[[".otherElements[\"Blenders Pride Contacts\"].staticTexts[\"Blenders Pride Contacts\"]",".staticTexts[\"Blenders Pride Contacts\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        XCUIApplication().scrollViews.otherElements.tables/*@START_MENU_TOKEN@*/.staticTexts["Blenders Pride"]/*[[".otherElements[\"Blenders Pride\"].staticTexts[\"Blenders Pride\"]",".staticTexts[\"Blenders Pride\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeUp()
+        XCUIApplication().scrollViews.otherElements.tables/*@START_MENU_TOKEN@*/.staticTexts["Blenders Pride Contacts"]/*[[".otherElements[\"Blenders Pride Contacts\"].staticTexts[\"Blenders Pride Contacts\"]",".staticTexts[\"Blenders Pride Contacts\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeUp()
         app.swipeUp()
         
     }

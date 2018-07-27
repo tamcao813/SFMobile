@@ -67,6 +67,7 @@ class AccountFilterUITests: XCTestCase {
         
         let tablesQuery = app.tables
         tablesQuery.staticTexts["Status"].tap()
+        tablesQuery.staticTexts["Status"].tap()
         tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Active"]/*[[".cells.staticTexts[\"Active\"]",".staticTexts[\"Active\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         app.buttons["Submit"].tap()
         app.buttons["Clear"].tap()
@@ -153,6 +154,7 @@ class AccountFilterUITests: XCTestCase {
         app.navigationBars["SWSApp.ParentView"]/*@START_MENU_TOKEN@*/.buttons["Accounts"]/*[[".staticTexts.buttons[\"Accounts\"]",".buttons[\"Accounts\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
         let tablesQuery = app.tables
+        app.buttons["Clear"].tap()
         tablesQuery.otherElements.staticTexts["Past Due"].tap()
         tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Yes"]/*[[".cells.staticTexts[\"Yes\"]",".staticTexts[\"Yes\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         app.buttons["Submit"].tap()

@@ -78,6 +78,7 @@ class SelectOpportunitiesViewController: UIViewController {
     
     @IBAction func closeVC(sender: UIButton) {
         //STATEMACHINE:No State Change
+        StrategyScreenLoadFrom.isLoadFromStrategy = "0"
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStrategyData"), object:nil)

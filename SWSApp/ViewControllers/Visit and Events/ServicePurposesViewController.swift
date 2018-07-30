@@ -129,6 +129,7 @@ class ServicePurposesViewController: UIViewController {
            DispatchQueue.main.async {            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
             }
         }
+        StrategyScreenLoadFrom.isLoadFromStrategy = "0"
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStrategyData"), object:nil)
@@ -166,6 +167,7 @@ class ServicePurposesViewController: UIViewController {
             self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
             
         }
+        StrategyScreenLoadFrom.isLoadFromStrategy = "0"
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStrategyData"), object:nil)

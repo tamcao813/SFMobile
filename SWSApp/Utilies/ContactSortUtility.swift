@@ -231,15 +231,9 @@ class ContactSortUtility {
             if ContactFilterMenuModel.buyingPower == "YES"{
                 enteredAnyFilterCase = true
                 let acrArray = ContactsViewModel().accountsForContacts()
-                
                 filteredBuyingPowerContactArray = contactListToBeSorted.filter( {
-                    let selectedAccountId = $0.accountId as String
-                    if selectedAccountId == "" {
-                        return false
-                    }
-                    
                     let thisContactId = $0.contactId
-                    let acrAccountId = acrArray.filter( {$0.isActive == 1 && $0.buyingPower == 1 && thisContactId == $0.contactId && selectedAccountId == $0.accountId} )
+                    let acrAccountId = acrArray.filter( {$0.isActive == 1 && $0.buyingPower == 1 && thisContactId == $0.contactId} )
                     if acrAccountId.count > 0 {
                         return true
                     }
@@ -255,13 +249,8 @@ class ContactSortUtility {
                 let acrArray = ContactsViewModel().accountsForContacts()
                 
                 filteredNoBuyingPowerContactArray = contactListToBeSorted.filter( {
-                    let selectedAccountId = $0.accountId as String
-                    if selectedAccountId == "" {
-                        return false
-                    }
-                    
                     let thisContactId = $0.contactId
-                    let acrAccountId = acrArray.filter( {$0.isActive == 1 && $0.buyingPower != 1 && thisContactId == $0.contactId && selectedAccountId == $0.accountId} )
+                    let acrAccountId = acrArray.filter( {$0.isActive == 1 && $0.buyingPower != 1 && thisContactId == $0.contactId} )
                     if acrAccountId.count > 0 {
                         return true
                     }

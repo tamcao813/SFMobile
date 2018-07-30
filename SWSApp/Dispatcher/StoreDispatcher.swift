@@ -632,12 +632,12 @@ class StoreDispatcher {
                 syncMsg = sync
                 SyncUpDailogGlobal.isSyncError = true
             }
-            var failureMsg = ""
+            
             if let failureMessage: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultMessage") as? String {
                 failureMsg = failureMessage
                 SyncUpDailogGlobal.isSyncError = true
             }
-            var errorMsg = ""
+            
             if let error: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") as? String {
                 errorMsg = error
                 SyncUpDailogGlobal.isSyncError = true

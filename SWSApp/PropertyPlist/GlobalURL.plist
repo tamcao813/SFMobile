@@ -55,7 +55,7 @@
 	<key>salesConsultantTitle</key>
 	<string>Sales Consultant</string>
 	<key>salesManagerTitle</key>
-	<string>Sales Manager</string>
+	<string>Sales Manager Level 1</string>
 	<key>sgwsOutcome</key>
 	<string>/SGWS_Outcome__c</string>
 	<key>gospotcheckUrl</key>

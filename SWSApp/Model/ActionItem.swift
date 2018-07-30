@@ -48,7 +48,6 @@ class ActionItem {
         self.init(json: resultDict)
     }
     
-    
     init(json: [String: Any]) {
         Id = json["Id"] as? String ?? ""
         accountId = json["SGWS_Account__c"] as? String ?? ""

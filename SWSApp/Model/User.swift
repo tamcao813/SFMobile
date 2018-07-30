@@ -10,7 +10,7 @@ import Foundation
 
 
 class User {
-    static let UserFields = ["Id", "User.Username", "User.Name", "AccountId", "UserId", "User.Email","User.Phone","TeamMemberRole","User.SGWS_Site__c","User.ManagerId", "Account.RecordTypeId","User.SGWS_Employee_Contact_Id__c"] // Stage 1
+    static let UserFields = ["Id", "User.Username", "User.Name", "AccountId", "UserId", "User.Email","User.Phone","User.SGWS_Title__c","User.SGWS_Site__c","User.ManagerId", "Account.RecordTypeId","User.SGWS_Employee_Contact_Id__c"] // Stage 1
     
     static let UserSimpleFields =
      ["Id", "Username", "Name", "AccountId", "Email","Phone","SGWS_Site__c","ManagerId", "Account.RecordTypeId"]

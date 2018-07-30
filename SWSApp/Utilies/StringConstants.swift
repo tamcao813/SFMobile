@@ -28,6 +28,8 @@ class StringConstants {
     static let deleteEventMessage = "Deletion of Event has failed, Please try again !"
     static let deleteEventNotAllowedMessage = "Deletion of Event not allowed in offline mode, Please try again !"
     
+    static let unauthorisedLoginMessage = "You are not authorized or do not have associated accounts. Please contact Admin!"
+    
     static var globalUrlDictionary : NSDictionary!
     
     //Chatter URL

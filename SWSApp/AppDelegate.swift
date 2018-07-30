@@ -321,8 +321,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                         
                         //Validate User Role
-                        
-                        //self.validateUserRole({ (user, error) in
+                        self.validateUserRole(user: user){ (error) in
                         
                         self.loggedInUser =  user
                         self.currentSelectedUserId = user.userId
@@ -398,7 +397,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                         //} //else resync
                         
-                        //})
+                        }
                     })
                 })
             })
@@ -449,30 +448,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //return false;
     }
     
-//        func validateUserRole(user: User,completion: @escaping (Bool) -> ()) {
-//    
-//            let alert = UIAlertController(title: "Alert", message: "You do not have access to the SFA mobile application", preferredStyle: UIAlertControllerStyle.alert)
-//    
-//            // Check if this user is Sales Consultant OR Sales Manager or not
-//            // If not show Alert and logout
-//            if((user.userTeamMemberRole == StringConstants.salesConsultantTitle) || (user.userTeamMemberRole == StringConstants.salesManagerTitle)){
-//                completion(true)
-//            }
-//            else {
-//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-//                    SFUserAccountManager.sharedInstance().logout()
-//                    //       completion(true)
-//
-//                    exit(0)
-//                }))
-//                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-//            }
-//    
-//        }
+    func validateUserRole(user:User,completion:@escaping (_ error: NSError?)->()) {
+    
+            let alert = UIAlertController(title: "Alert", message: StringConstants.unauthorisedLoginMessage, preferredStyle: UIAlertControllerStyle.alert)
+        
+            print("Role \(user.userTeamMemberRole)")
+            // Check if this user is Sales Consultant OR Sales Manager Level 1 or not
+            // If not show Alert and logout
+            if((user.userTeamMemberRole == StringConstants.salesConsultantTitle) || (user.userTeamMemberRole == StringConstants.salesManagerTitle)){
+                completion(nil)
+            }
+            else {
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    self.resetLaunchandResyncConfiguration()
+                    SFUserAccountManager.sharedInstance().logout()
+                    //       completion(true)
+
+                    exit(0)
+                }))
+                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+    
+        }
     
         func showAlertandExit() {
     
-            let alert = UIAlertController(title: "Alert", message: "Logged in user don’t have any associated accounts, Please contact admin!", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Alert", message: StringConstants.unauthorisedLoginMessage, preferredStyle: UIAlertControllerStyle.alert)
     
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                     SFUserAccountManager.sharedInstance().logout()

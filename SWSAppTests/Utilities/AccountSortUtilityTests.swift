@@ -14,7 +14,7 @@ class MockAccountDataProvider
 {
     static func mockTestAccount1() -> Account {
         let acc = Account(for: "mockup")
-        acc.accountId =  "001m000000cHLmDAAW"
+        acc.account_Id =  "001m000000cHLmDAAW"
         acc.accountNumber = "148"
         acc.accountName = "Crown Liquor Store"
         //acc.shippingAddress =  "B1- 202 Argentina"
@@ -31,7 +31,7 @@ class MockAccountDataProvider
     }
     static func mockTestAccount2() -> Account {
         let acc = Account(for: "mockup")
-        acc.accountId =  "001m000000cHLmDAAZ"
+        acc.account_Id =  "001m000000cHLmDAAZ"
         acc.accountNumber = "188"
         acc.accountName = "Big Liquor Store"
         //acc.shippingAddress = "B1- 202 California"
@@ -50,7 +50,7 @@ class MockAccountDataProvider
     
     static func mockTestAccount3() -> Account {
         let acc = Account(for: "mockup")
-        acc.accountId =  "001m000000cHLmDAAZ"
+        acc.account_Id =  "001m000000cHLmDAAZ"
         acc.accountNumber = "198"
         acc.accountName = "Bigger Liquor Store"
         //acc.shippingAddress = "7890"
@@ -74,7 +74,7 @@ class MockAccountDataProvider
     
     static func mockTestAccount4() -> Account {
         let acc = Account(for: "mockup")
-        acc.accountId =  "001m000000cHLmDAAZ"
+        acc.account_Id =  "001m000000cHLmDAAZ"
         acc.accountNumber = "208"
         acc.accountName = "Biggest Liquor Store"
         //acc.shippingAddress = "4567"
@@ -242,23 +242,117 @@ class AccountListTests: XCTestCase {
         listOfMockAccountData.removeAll()
     }
     
-    // sort by account name alphabetically ascending descending
-    /*func testSortAccountListAlphabeticallyAscending()
-    {
-        var listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
-        let accountsArrayAlphabeticallyAscending = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted:listOfMockAccountData, ascending: true)
-    }*/
     
+    // account ID search
+    func testSearchAccountByAccountId() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountAfterSearch = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: listOfMockAccountData, accountId: "001m000000cHLmDAAW")
+        if(accountAfterSearch.count > 1){
+            XCTFail()
+        }
+        
+        let desiredAccount: Account = accountAfterSearch[0]
+        if(desiredAccount.accountName != "Crown Liquor Store" ){
+            XCTFail()
+        }
+    }
+    
+    // sort by account name ascending descending
+    func testSortAccountListAlphabeticallyAscending() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountsArrayAlphabeticallyAscending = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted: listOfMockAccountData, ascending: true)
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[0].accountName, "Big Liquor Store")
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[1].accountName, "Bigger Liquor Store")
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[2].accountName, "Biggest Liquor Store")
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[3].accountName, "Crown Liquor Store")
+    }
+    
+    func testSortAccountListAlphabeticallyDescending() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountsArrayAlphabeticallyDescending = AccountSortUtility.sortByAccountNameAlphabetically(accountsListToBeSorted: listOfMockAccountData, ascending: false)
+        XCTAssertEqual(accountsArrayAlphabeticallyDescending[0].accountName, "Crown Liquor Store")
+        XCTAssertEqual(accountsArrayAlphabeticallyDescending[1].accountName, "Biggest Liquor Store")
+        XCTAssertEqual(accountsArrayAlphabeticallyDescending[2].accountName, "Bigger Liquor Store")
+        XCTAssertEqual(accountsArrayAlphabeticallyDescending[3].accountName, "Big Liquor Store")
+    }
     // sort by action items ascending descending
+    
+    func testSortActionItemsAscending() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountsArrayAscending = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted: listOfMockAccountData, ascending: true)
+        XCTAssertEqual(accountsArrayAscending[0].actionItem, 2)
+        XCTAssertEqual(accountsArrayAscending[1].actionItem, 5)
+        XCTAssertEqual(accountsArrayAscending[2].actionItem, 7)
+        XCTAssertEqual(accountsArrayAscending[3].actionItem, 15)
+    }
+    
+    func testSortActionItemsDescending() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountsArrayDescending = AccountSortUtility.sortAccountsByActionItems(accountsListToBeSorted: listOfMockAccountData, ascending: false)
+        XCTAssertEqual(accountsArrayDescending[0].actionItem, 15)
+        XCTAssertEqual(accountsArrayDescending[1].actionItem, 7)
+        XCTAssertEqual(accountsArrayDescending[2].actionItem, 5)
+        XCTAssertEqual(accountsArrayDescending[3].actionItem, 2)
+    }
     
     // sort by netsales ascending descending
     
+    func testSortNetSalesAscending() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountsArrayAscending = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted: listOfMockAccountData, ascending: true)
+        XCTAssertEqual(accountsArrayAscending[0].totalCYR12NetSales, 2000.00)
+        XCTAssertEqual(accountsArrayAscending[1].totalCYR12NetSales, 4000.00)
+        XCTAssertEqual(accountsArrayAscending[2].totalCYR12NetSales, 4300.00)
+        XCTAssertEqual(accountsArrayAscending[3].totalCYR12NetSales, 4500.00)
+    }
+    
+    func testSortNetSalesDescending() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountsArrayDescending = AccountSortUtility.sortAccountsByTotalNetSales(accountsListToBeSorted: listOfMockAccountData, ascending: false)
+        XCTAssertEqual(accountsArrayDescending[0].totalCYR12NetSales, 4500.00)
+        XCTAssertEqual(accountsArrayDescending[1].totalCYR12NetSales, 4300.00)
+        XCTAssertEqual(accountsArrayDescending[2].totalCYR12NetSales, 4000.00)
+        XCTAssertEqual(accountsArrayDescending[3].totalCYR12NetSales, 2000.00)
+    }
+    
     // sort by balance ascending descending
+    
+    func testSortBalanceAscending() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountsArrayAlphabeticallyAscending = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: listOfMockAccountData, ascending: true)
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[0].totalARBalance, 90.98)
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[1].totalARBalance, 80.98)
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[2].totalARBalance, 90.98)
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[3].totalARBalance, 99.98)
+    }
+    
+    func testSortBalanceDescending() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountsArrayAlphabeticallyAscending = AccountSortUtility.sortAccountsByBalance(accountsListToBeSorted: listOfMockAccountData, ascending: false)
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[0].totalARBalance, 90.98)
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[1].totalARBalance, 80.98)
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[2].totalARBalance, 90.98)
+        XCTAssertEqual(accountsArrayAlphabeticallyAscending[3].totalARBalance, 99.98)
+    }
     
     // sort by next delivery date ascending descending
     
-    // filter and search
+    func testSortNextDeliveryDateAscending() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountsArrayDateAscending = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: listOfMockAccountData, ascending: true)
+        XCTAssertEqual(accountsArrayDateAscending[0].nextDeliveryDate, "2018-05-07")
+        XCTAssertEqual(accountsArrayDateAscending[1].nextDeliveryDate, "2018-07-10")
+        XCTAssertEqual(accountsArrayDateAscending[2].nextDeliveryDate, "2018-06-17")
+        XCTAssertEqual(accountsArrayDateAscending[3].nextDeliveryDate, "2018-04-27")
+    }
     
-    
+    func testSortNextDeliveryDateDescending() {
+        let listOfMockAccountData = MockAccountDataProvider.getListOfMockAccountObjects()
+        let accountsArrayDateDescending = AccountSortUtility.sortAccountsByNextDeliveryDate(accountsListToBeSorted: listOfMockAccountData, ascending: false)
+        XCTAssertEqual(accountsArrayDateDescending[0].nextDeliveryDate, "2018-04-27")
+        XCTAssertEqual(accountsArrayDateDescending[1].nextDeliveryDate, "2018-06-17")
+        XCTAssertEqual(accountsArrayDateDescending[2].nextDeliveryDate, "2018-07-10")
+        XCTAssertEqual(accountsArrayDateDescending[3].nextDeliveryDate, "2018-05-07")
+    }
     
 }

@@ -21,28 +21,6 @@ class SWSAppTests: XCTestCase {
         super.tearDown()
     }
     
-    func testValidDate(){
-        let validate = Validations()
-        XCTAssertTrue(validate.isValidDate(dateString: "04-23-2018"))
-        XCTAssertFalse(validate.isValidDate(dateString: "23-04-2018"))
-    }
-    
-    func testValidateEmail(){
-        let validate = Validations()
-        XCTAssertTrue(validate.isValidEmail(testStr: "abc@gmail.com"))
-    }
-    
-    func testPhoneNumnber(){
-        let validate = Validations()
-        XCTAssertEqual(validate.validatePhoneNumber(phoneNumber: "(541) 754-3010"),"(541) 754-3010")
-    }
-    
-    func testremoveSpecialCharsFromString(){
-        let validObj = Validations()
-        let result = validObj.removeSpecialCharsFromString(text: "#12334")
-        XCTAssertEqual(result, "12334")
-    }
-    
     func testPhoneTable(){
         let validate = String()
         XCTAssertFalse(validate.isPhone())
@@ -55,7 +33,6 @@ class SWSAppTests: XCTestCase {
     }
     
     func testAccountViewInitFrame(){
-        
         let rect = CGRect(x: 0, y: 0, width: 100, height: 100)
         
         let test = AccountView.init(frame: rect)
@@ -94,34 +71,6 @@ class SWSAppTests: XCTestCase {
         
     }
     
-    //StrategyQAViewModel
-    
-    func testFetchStrategy(){
-        let strategy = "Competition Is About The Same"
-        let test = StrategyQAViewModel()
-        test.syncStrategyWithServer{error in
-            
-        }
-        _ = test.editStrategyQALocally(fields: ["":""])
-        
-        
-        let expectation = XCTestExpectation(description: "resyncStrategyAnswers")
-        test.syncStrategyQuestionsWithServer{error in
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10.0)
-        
-        
-        //completion handler test case
-        let expectation1 = XCTestExpectation(description: "resyncStrategyAnswers")
-        test.syncStrategyAnswersWithServer{ error in
-            expectation1.fulfill()
-        }
-        wait(for: [expectation1], timeout: 10.0)
-        //
-        XCTAssertNotNil(test.fetchStrategy(acc: strategy))
-    }
-    
     //AccountTableViewCell
     
     func testSetSelected(){
@@ -158,26 +107,6 @@ class SWSAppTests: XCTestCase {
         XCTAssertNotNil(test.getContactsData(searchStr: contact))
     }
     
-    //AccountContactRelation
-    
-    func testAccountContactRelationToJson(){
-        let accountContactRelationFields: [String: Any] = ["Id": "", "SGWS_Account__c": "", "SGWS_Contact__c": "", "Name": "", "SGWS_Account_Site_Number__c": "", "SGWS_isActive__c": "", "SGWS_Buying_Power__c": "", "SGWS_Roles__c": ""]
-        
-        let test = AccountContactRelation.init(json: accountContactRelationFields)
-        XCTAssertNotNil(test.toJson())
-    }
-    
-    //Contact
-    
-    func testContactToJson(){
-        
-        let contactFields: [String: Any] = ["Id": "", "Name": " ", "FirstName": "", "LastName": "", "Phone": "", "Email": "", "Birthdate": "","SGWS_Buying_Power__c": "false","AccountId": "", "Account.SWS_Account_Site__c": "","SGWS_Account_Site_Number__c": "","Title": "","Department": "","SGWS_Preferred_Name__c": "","SGWS_Contact_Hours__c": "","SGWS_Notes__c": "", "LastModifiedBy.Name": "","SGWS_AppModified_DateTime__c": "","SGWS_Child_1_Name__c": "","SGWS_Child_1_Birthday__c": "","SGWS_Child_2_Name__c": "","SGWS_Child_2_Birthday__c": "","SGWS_Child_3_Name__c": "","SGWS_Child_3_Birthday__c": "","SGWS_Child_4_Name__c": "","SGWS_Child_4_Birthday__c": "","SGWS_Child_5_Name__c": "","SGWS_Child_5_Birthday__c": "","SGWS_Anniversary__c": "","SGWS_Likes__c": "","SGWS_Dislikes__c": "","SGWS_Favorite_Activities__c": "","SGWS_Life_Events__c": "","SGWS_Life_Events_Date__c": "","Fax": "","SGWS_Other_Specification__c": "","SGWS_Roles__c": "","SGWS_Preferred_Communication_Method__c": "", "SGWS_Contact_Classification__c": ""]
-        
-        let test = Contact.init(withAry: contactFields)
-        XCTAssertNotNil(test.toJson())
-        
-    }
-    
     //PhoneTableViewCell
     
     func testDisplayCellContent(){
@@ -196,15 +125,6 @@ class SWSAppTests: XCTestCase {
     func testStripped(){
         let test = String()
         XCTAssertNotNil(test.stripped)
-    }
-    
-    //Validations
-    
-    func testGetInitials(){
-        let testVal = Validations()
-        XCTAssertEqual(testVal.getIntials(name: "Daniel Brown"), "DB")
-        XCTAssertEqual(testVal.getIntials(name: "Justin Timber"), "JT")
-        XCTAssertNotEqual(testVal.getIntials(name: "Rosh Jacob"), "JR")
     }
     
     // MARK: - Tests for ViewWillDisappear()
@@ -717,43 +637,6 @@ class SWSAppTests: XCTestCase {
         XCTAssertNotNil(test)
     }
     
-    //DateTimeUtility
-    
-    func testconvertUtcDatetoReadableDate(){
-        let date =  DateTimeUtility.convertUtcDatetoReadableDate(dateStringfromAccountNotes: "")
-        XCTAssertNotNil(date, "")
-    }
-    
-    func testconvertUtcDatetoReadableDateLikeStrategy(){
-        let date = DateTimeUtility.convertUtcDatetoReadableDateLikeStrategy(dateString: "")
-        XCTAssertNotNil(date, "")
-    }
-    
-    func testgetEEEEMMMdFormattedDateString(){
-        let time = Date()
-        let date = DateTimeUtility.getEEEEMMMdFormattedDateString(date: time)
-        XCTAssertNotNil(date, date)
-    }
-    
-    func testgetDateFromyyyyMMddTimeFormattedDateString(){
-        let date = DateTimeUtility.getDDMMYYYFormattedDateString(dateStringfromAccountObject: "")
-        XCTAssertNotNil(date)
-    }
-    
-    func testConvertUtcDatetoReadableDateMMDDYYYY(){
-        let date = DateTimeUtility.convertUtcDatetoReadableDateMMDDYYYY(dateString: "")
-        XCTAssertNotNil(date)
-    }
-    
-    func testIsWeekend() {
-        _ = DateTimeUtility.isWeekend(date: Date())
-    }
-    
-    func testGetDateFromStringFormat() {
-        _ = DateTimeUtility.getDateFromStringFormat(dateStr: "17-7-201")
-        
-    }
-    
     func testGetDayForVisitCurrentWeek() {
         let accCtr = AccountOverViewViewController()
         _ = accCtr.getDayForVisitCurrentWeek(dateToConvert: "2018-07-16T00:00:00.000+0000")
@@ -858,5 +741,433 @@ class SWSAppTests: XCTestCase {
         XCTAssertNotNil(sd.registerSoups())
         
     }
+    
+    
+    func testTableViewDidDeselectRowAt(){
+        let account = AccountsMenuViewController()
+        let index = IndexPath()
+        let tableView = UITableView()
+        XCTAssertNotNil(account.tableView(tableView, didDeselectRowAt: index))
+    }
+    
+    func testTextFieldDidEndEditing(){
+        let account = AccountsMenuTableTableViewCell()
+        let textField = UITextField()
+        XCTAssertNotNil(account.textFieldDidEndEditing(textField))
+    }
+    
+    func testViewModel(){
+        let account = AccountsViewController()
+        XCTAssertNotNil(account.viewWillDisappear(true))
+    }
+    
+    //CustomerHeaderTableViewCell
+    func testSetSelectedCustomerHeaderTableViewCell(){
+        let custom = CustomerHeaderTableViewCell()
+        XCTAssertNotNil(custom.setSelected(true, animated: true))
+    }
+    
+    //ParentViewController
+    func testDidReceiveMemoryWarning(){
+        let parent = ParentViewController()
+        XCTAssertNotNil(parent.didReceiveMemoryWarning())
+    }
+    
+    //EditAccountStrategyViewController
+    func testMemoryWarning(){
+        let strategy =  EditAccountStrategyViewController()
+        XCTAssertNotNil(strategy.didReceiveMemoryWarning())
+    }
+    
+    func testCloseAcion(){
+        let account = AccountView()
+        XCTAssertNotNil(account.closeAction((Any).self))
+    }
+    
+    //AssociateTableViewCell
+    func testAssociateSetSelected(){
+        let associate = AssociateTableViewCell()
+        XCTAssertNotNil(associate.setSelected(false, animated: false))
+    }
+    
+    //AccountDetailsViewController
+    func testDismissEditNote() {
+        let accountDetailsObj = AccountDetailsViewController()
+        XCTAssertNotNil(accountDetailsObj.dismissEditNote())
+        XCTAssertNotNil(accountDetailsObj.displayAccountNotes())
+        XCTAssertNotNil(accountDetailsObj.noteCreated())
+    }
+    
+    func testAccountsDidReceiveMemoryWarning(){
+        let account = AccountsMenuViewController()
+        XCTAssertNotNil(account.didReceiveMemoryWarning())
+    }
+    
+    func testSearchBarSearchButtonClicked(){
+        let account = AccountsMenuViewController()
+        let search = UISearchBar()
+        XCTAssertNotNil(account.searchBarSearchButtonClicked(search))
+    }
+    
+    func testForegroundBackground() {
+        
+        let appInstace = UIApplication.shared.delegate!
+        appInstace.applicationWillEnterForeground!(UIApplication.shared)
+        appInstace.applicationDidEnterBackground!(UIApplication.shared)
+        appInstace.applicationWillResignActive!(UIApplication.shared)
+        appInstace.applicationWillTerminate!(UIApplication.shared)
+        
+    }
+    
+    //ActionItemViewController
+    func testActionItemViewControllerViewWillAppear(){
+        let appear = ActionItemsViewController()
+        XCTAssertNotNil(appear.viewWillAppear(true))
+    }
+    
+    func testActionItemViewControllerViewWillDisappear(){
+        let disAppear = ActionItemsViewController()
+        XCTAssertNotNil(disAppear.viewWillDisappear(true))
+    }
+    
+    //ActionItemModalTableViewCell
+    
+    func testActionItemModalTableViewCellAwakeFromNib(){
+        let awake = ActionItemModalTableViewCell()
+        XCTAssertNotNil(awake.awakeFromNib())
+    }
+    
+    //ActionItemTitleTableViewCell
+    
+    func testTextFieldShouldReturnActionItem(){
+        let actionitem = ActionItemTitleTableViewCell()
+        let textField = UITextField()
+        XCTAssertNotNil(actionitem.textFieldShouldReturn(textField))
+    }
+    func testSortCalendarData(){
+        let calendarObj = CalendarListViewController()
+        XCTAssertNotNil(calendarObj.sortCalendarData(searchString: "Blender"))
+    }
+    //DayHomeCalendarViewController
+    func testTapDate(){
+        let calendar = DayHomeCalendarViewController()
+        let date = Date()
+        XCTAssertNotNil(calendar.tap(date: date))
+    }
+    
+    //CalendarMonthViewController
+    
+    func testCalendarMonthViewController(){
+        let cal = CalendarMonthViewController()
+        XCTAssertNotNil(cal.didReceiveMemoryWarning())
+    }
+    
+    func testNavigateTheScreenToContacts() {
+        let calendarObj = CalendarMonthViewController()
+        let temp = LoadThePersistantMenuScreen.contacts
+        let temp1 = LoadThePersistantMenuScreen.actionItems
+        XCTAssertNotNil(calendarObj.navigateTheScreenToContactsInPersistantMenu(data: temp))
+        XCTAssertNotNil(calendarObj.navigateTheScreenToContactsInPersistantMenu(data: temp1))
+        XCTAssertNotNil(calendarObj.navigateTheScreenToActionItemsInPersistantMenu(data: temp1))
+        XCTAssertNotNil(calendarObj.navigateToAccountScreen())
+        XCTAssertNotNil(calendarObj.navigateToVisitListing())
+    }
+    
+    func testdisplayLocationItemCellContent(){
+        let contact = ContactMenuTableTableViewCell()
+        let index = IndexPath()
+        XCTAssertNotNil(contact.displayLocationItemCellContent(indexPath: index, placeHolderText: ""))
+    }
+    
+    //PrimaryFunctionTableViewCell
+    func testPrimarytextFieldShouldReturn(){
+        let primary = PrimaryFunctionTableViewCell()
+        let textField = UITextField()
+        XCTAssertNotNil(primary.textFieldShouldReturn(textField))
+    }
+    
+    //NameTableViewCell
+    func testNametextFieldShouldReturn(){
+        let primary = NameTableViewCell()
+        let textField = UITextField()
+        XCTAssertNotNil(primary.textFieldShouldReturn(textField))
+    }
+    
+    //SchedulerComponent
+    func testConvenienceInit(){
+        let schedule = SchedulerComponent.init()
+        XCTAssertNotNil(schedule)
+    }
+    
+    //ContactMenuViewController
+    func testViewDidDisappear(){
+        let contact = ContactMenuViewController()
+        XCTAssertNotNil(contact.viewDidDisappear(true))
+        XCTAssertNotNil(contact.didReceiveMemoryWarning())
+    }
+    
+    func testTableViewTitleForHeaderInSection(){
+        let contact = ContactMenuViewController()
+        let table =  UITableView()
+        XCTAssertNotNil(contact.tableView(table, titleForHeaderInSection: 1))
+    }
+    
+    func testSearchBarTextDidChange(){
+        let contact = ContactMenuViewController()
+        let search = UISearchBar()
+        XCTAssertNotNil(contact.searchBar(search, textDidChange: "hello"))
+        XCTAssertNotNil(contact.searchBar(search, textDidChange: ""))
+    }
+    
+    func testSearchBarButtonClickedContactMenuVC(){
+        let contact = ContactMenuViewController()
+        let search = UISearchBar()
+        XCTAssertNotNil(contact.searchBarSearchButtonClicked(search))
+    }
+    
+    //DateFieldTableViewCell
+    func testDateTextFieldShouldReturn(){
+        let date = DateFieldTableViewCell()
+        let text = UITextField()
+        XCTAssertNotNil(date.textFieldShouldReturn(text))
+    }
+    
+    func testSortContactData(){
+        let contact = ContactListViewController()
+        XCTAssertNotNil(contact.sortContactData(searchString: "a"))
+    }
+    
+    func testHomeViewCycle(){
+        let home = HomeViewController()
+        XCTAssertNotNil(home.viewWillDisappear(true))
+    }
+    
+    //SearchForContactTableViewCell
+    func testTextFieldShouldReturnSearchForContact(){
+        let contact = SearchForContactTableViewCell()
+        let text = UITextField()
+        XCTAssertNotNil(contact.textFieldShouldReturn(text))
+    }
+    
+    func testContactsViewControllerClearAllMenu(){
+        let contact = ContactsViewController()
+        XCTAssertNotNil(contact.clearAllMenu())
+    }
+    
+    func testContactListDetailsViewControllerClearAllMenu(){
+        let contact = ContactListDetailsViewController()
+        XCTAssertNotNil(contact.clearAllMenu())
+    }
+    
+    func testSafelyLimitedTo() {
+        let str :String = "1234566777"
+        let invalidPhoneNum = "Welcome"
+        _ = str.safelyLimitedTo(length: 3)
+        _ = str.safelyLimitedTo(length: str.count)
+        _ = str.isPhoneNumber
+        _ = invalidPhoneNum.isPhoneNumber
+        
+    }
+    
+    func testCornerRadius() {
+        let view = UIView()
+        view.cornerRadius = 10
+        view.borderWidth = 10
+        view.borderColor = UIColor.red
+        view.shadowRadius = 10
+        view.shake()
+        view.dropShadow()
+        view.backgroundColor = UIColor(hexString: "#4287C2FF")
+    }
+    
+    func testUITextFieldExtension() {
+        let textField = UITextField()
+        textField.text = "1272772727272"
+        _ = textField.maxLength
+        textField.maxLength = 10
+        textField.fix(textField: textField)
+        
+    }
+    
+    func testNotesRandomNumberGen(){
+        let cnote = CreateNoteViewController()
+        let randomId = cnote.generateRandomIDForNotes()
+        XCTAssertNotNil(randomId)
+    }
+    
+    func testEditNoteFunc(){
+        let enote = EditNoteViewController()
+        XCTAssertNotNil(enote.displayAccountNotes())
+        XCTAssertNotNil(enote.noteCreated())
+        XCTAssertNotNil(enote.navigateToNotesSection())
+        XCTAssertNotNil(enote.dismissEditNote())
+    }
+    
+    func testNoteViewFunc(){
+        let note = NotesViewController()
+        XCTAssertNotNil(note.dismissEditNote())
+        XCTAssertNotNil(note.noteCreated())
+        XCTAssertNotNil(note.navigateToNotesSection())
+    }
+    
+    //EditNoteViewController
+    func testNotesDelegate(){
+        let notesObj = EditNoteViewController()
+        XCTAssertNotNil(notesObj.displayAccountNotes())
+        XCTAssertNotNil(notesObj.noteCreated())
+        XCTAssertNotNil(notesObj.navigateToNotesSection())
+        XCTAssertNotNil(notesObj.dismissEditNote())
+    }
+    
+    //NotesViewController
+    func testNotesNavigateDelegate()  {
+        let noteObj = NotesViewController()
+        XCTAssertNotNil(noteObj.navigateToNotesSection())
+        XCTAssertNotNil(noteObj.noteCreated())
+        XCTAssertNotNil(noteObj.dismissEditNote())
+    }
+    
+    func generateRandomIDForNotes()->String  {
+        //  Make a variable equal to a random number....
+        let randomNum:UInt32 = arc4random_uniform(99999999) // range is 0 to 99
+        // convert the UInt32 to some other  types
+        let someString:String = String(randomNum)
+        return someString
+    }
+    
+    //NotificationsViewController
+    
+    func testNotificationsViewControllerViewWillAppear(){
+        let appear = NotificationsViewController()
+        XCTAssertNotNil(appear.viewWillAppear(true))
+    }
+    
+    //NotificationModalTableViewCell
+    
+    func testNotificationModalTableViewCellAwakeFromNib(){
+        let awake = NotificationModalTableViewCell()
+        XCTAssertNotNil(awake.awakeFromNib())
+    }
+    
+    func testconvertToDictionary(){
+        let visit = DuringVisitsTopicsViewController()
+        XCTAssertNil(visit.convertToDictionary(text: "Hello"))
+    }
+    
+    func testNavigateToVisitSummaryScreen(){
+        let visit = AccountVisitSummaryViewController()
+        XCTAssertNotNil(visit.navigateToVisitSummaryScreen())
+    }
+    
+    func testRefresh(){
+        let visit = DuringVisitsViewController()
+        XCTAssertNotNil(visit.refreshStrategyScreenToLoadNewData())
+    }
+    
+    func testEeventViewDidLoad(){
+        let event = EventSummaryViewController()
+        XCTAssertNotNil(event.viewDidLoad())
+    }
+    
+    //ButtonTableViewCell
+    func testButtonTableViewCellAwakeFromNib(){
+        let button =  ButtonTableViewCell()
+        XCTAssertNotNil(button.awakeFromNib())
+    }
+    
+    func testButtonTableViewCellSetSelected(){
+        let button =  ButtonTableViewCell()
+        XCTAssertNotNil(button.setSelected(true, animated: true))
+    }
+    
+    //InsightsSourceUnderSoldTableViewCell
+    func testInsightsUnderSoldAwakeFromNib(){
+        let insights = InsightsSourceUnderSoldTableViewCell()
+        XCTAssertNotNil(insights.awakeFromNib())
+    }
+    
+    func testInsightsUnderSoldShowDropDownMenu(){
+        let insights = InsightsSourceUnderSoldTableViewCell()
+        let button = UIButton()
+        XCTAssertNotNil(insights.showDropDownMenu(sender: button))
+    }
+    
+    //InsightsSourceTopSellerTableViewCell
+    
+    func testInsightsTopSellerAwakeFromNib(){
+        let insights = InsightsSourceTopSellerTableViewCell()
+        XCTAssertNotNil(insights.awakeFromNib())
+    }
+    
+    func testInsightsTopSellerShowDropDownMenu(){
+        let insights = InsightsSourceTopSellerTableViewCell()
+        let button = UIButton()
+        XCTAssertNotNil(insights.showDropDownMenu(sender: button))
+    }
+    
+    //AccountsUndersoldTableViewCell
+    func testAccountAwakeFromNib(){
+        let undersold = AccountsUndersoldTableViewCell()
+        XCTAssertNotNil(undersold.awakeFromNib())
+    }
+    
+    //TitleDepartmentTableViewCell
+    func testTextFieldShouldReturnTitleDepartmentTableViewCell(){
+        let title = TitleDepartmentTableViewCell()
+        let textField = UITextField()
+        XCTAssertNotNil(title.textFieldShouldReturn(textField))
+    }
+    
+    //DuringVisitsInsightsViewController
+    func testProductNameButtonCLicked(){
+        let visit = DuringVisitsInsightsViewController()
+        let button = UIButton()
+        XCTAssertNotNil(visit.productNameButtonCLicked(sender: button))
+    }
+    
+    func testSourceButtonClicked(){
+        let visit = DuringVisitsInsightsViewController()
+        let button = UIButton()
+        XCTAssertNotNil(visit.sourceButtonCLicked(sender: button))
+    }
+    
+    func testCommitAmtButtonCLicked(){
+        let visit = DuringVisitsInsightsViewController()
+        let button = UIButton()
+        XCTAssertNotNil(visit.commitAmtButtonCLicked(sender: button))
+    }
+    
+    func testOutcomeButtonCLicked(){
+        let visit = DuringVisitsInsightsViewController()
+        let button = UIButton()
+        XCTAssertNotNil(visit.outcomeButtonCLicked(sender: button))
+    }
+    
+    func testAccountOverViewViewController(){
+        let acc = AccountOverViewViewController()
+        let temp = LoadThePersistantMenuScreen.chatter
+        XCTAssertNotNil(acc.navigateTheScreenToActionItemsInPersistantMenu(data: temp))
+        XCTAssertNotNil(acc.navigateToVisitListing())
+        let temp2 = LoadThePersistantMenuScreen.contacts
+        XCTAssertNotNil(acc.navigateTheScreenToContactsInPersistantMenu(data: temp2))
+        XCTAssertNotNil(acc.navigateToAccountScreen())
+    }
+    
+    //CalendarFilter, Filter, AccountVisitListFilter
+    
+    func testFilterSectionNames(){
+        let calfil = CalendarFilter()
+        XCTAssertNotNil(calfil.sectionNames(isManager: false))
+        XCTAssertNotNil(calfil.sectionNames(isManager: true))
+        
+        let fil = Filter()
+        XCTAssertNotNil(fil.sectionNames(isManager: false))
+        XCTAssertNotNil(fil.sectionNames(isManager: true))
+        
+        let filt = AccountVisitListFilter()
+        XCTAssertNotNil(filt.sectionNames(isManager: false))
+        XCTAssertNotNil(filt.sectionNames(isManager: true))
+    }
+    
     
 }

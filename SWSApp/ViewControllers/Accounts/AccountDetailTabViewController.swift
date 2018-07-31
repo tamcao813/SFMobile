@@ -334,7 +334,6 @@ class AccountDetailTabViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
         
-        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
         var ary: [Contact] = []
         if indexPath.section == 1 {
             ary = contactsWithBuyingPower
@@ -348,6 +347,7 @@ class AccountDetailTabViewController: UITableViewController {
             return
         }
         let contact = ary[indexPath.row]
+        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
         ContactFilterMenuModel.selectedContactId = contact.contactId
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
 

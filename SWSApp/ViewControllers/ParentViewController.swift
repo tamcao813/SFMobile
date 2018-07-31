@@ -34,7 +34,7 @@ struct ActionItemsGlobal {
 protocol ParentViewControllerDelegate {
     func reloadOpportunityDataFromDB()
 }
-class ParentViewController: UIViewController, XMSegmentedControlDelegate {
+class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafariViewControllerDelegate {
     
     //autoSync automtic/manual and Status of network wifi/cell
     var status:String = ""
@@ -330,8 +330,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     }
     
     @objc func showInsightBob(notification: NSNotification){
-        topMenuBar?.selectedSegment = 5
-        self.navigateToMoreOptionsViewControllers(index: 2, selectedIndex: 2)
+//        topMenuBar?.selectedSegment = 5
+//        self.navigateToMoreOptionsViewControllers(index: 2, selectedIndex: 2)
+          openSFSafariVC()
     }
     
     @objc func showActionItemOrNotification(notification: NSNotification){
@@ -894,6 +895,51 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
         
     }
     
+    //Insights Global
+    
+    func openSFSafariVC() {
+        DispatchQueue.main.async {
+            guard let instanceUrl = SFRestAPI.sharedInstance().user.credentials.instanceUrl else {
+                return
+            }
+            
+            guard let accessToken = SFRestAPI.sharedInstance().user.credentials.accessToken else {
+                return
+            }
+            
+            var authUrl: String = ""
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            if(appDelegate.insightLaunchIdentifier == "BoB"){
+                
+                authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenBoBURL
+            }else if(appDelegate.insightLaunchIdentifier == "WHWN"){
+                
+                authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenWHWNURL
+            }
+            else if(appDelegate.insightLaunchIdentifier == "obj"){
+                
+                authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.objectivesUrl
+            }
+            else {
+                
+                authUrl = instanceUrl.description + StringConstants.secureUrl + accessToken + StringConstants.retUrl + StringConstants.homeScreenBoBURL
+            }
+            
+            
+            
+            let safariVC = SFSafariViewController(url: NSURL(string:authUrl )! as URL)
+            self.present(safariVC, animated: true, completion: nil)
+            //safariVC.
+            safariVC.delegate = self
+        }
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
     private func setupTopMenuItems(){
         
         // get the menu items from localized strings
@@ -991,6 +1037,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             launchGospotCheckApp()
             return
         }
+        else if index == 2{
+            openSFSafariVC()
+            return
+        }
                 
         self.removeSubviews()
         currentViewController?.view.addSubview(moreVC1.view)
@@ -1017,8 +1067,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             moreVC1.view.addSubview((self.accountVisit?.view)!)
             self.moreDropDownSelectionIndex = index
         case 2:
-            moreVC1.view.addSubview((self.insightsViewController?.view)!)
-            self.moreDropDownSelectionIndex = index
+//            moreVC1.view.addSubview((self.insightsViewController?.view)!)
+//            self.moreDropDownSelectionIndex = index
+            openSFSafariVC()
         case 3:
             moreVC1.view.addSubview((self.reportsViewController?.view)!)
             self.moreDropDownSelectionIndex = index
@@ -1269,7 +1320,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
             vc = calendarVC
             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
-            vc = objectivesVC
+           // vc = objectivesVC
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.insightLaunchIdentifier = "obj"
+            openSFSafariVC()
             ContactsGlobal.accountId = ""
         default:
             ifMoreVC = true

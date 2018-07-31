@@ -75,9 +75,9 @@
 	<key>globalChatter</key>
 	<string>/lightning/page/chatter?iospref=web</string>
 	<key>homeScreenBoB</key>
-	<string>/lightning/n/SGWS_Account_Insight?iospref=web&amp;0.source=alohaHeader</string>
+	<string>/analytics/wave/wave.apexp?path=dashboard/0FK0x0000008PLPGA2</string>
 	<key>homeScreenWHWN</key>
-	<string>/lightning/n/Home_Page_2?iospref=web&amp;0.source=alohaHeader</string>
+	<string>/analytics/wave/wave.apexp?path=dashboard%2F0FK0x0000008PCgGAM</string>
 	<key>contactRole</key>
 	<string>/ContactRoles.plist</string>
 </dict>

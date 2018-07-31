@@ -172,15 +172,19 @@ class AccountDetailTabViewController: UITableViewController {
         cell.emailLabel.text = contact.email
         cell.nameLabel.text = contact.name
         cell.phoneNumberLabel.text = contact.phoneNumber
-//        cell.function_RoleLabel.text = contact.functionRole
-        var acrArray = ContactsViewModel().accountsForContacts()
-        acrArray = acrArray.filter( {($0.isActive == 1) && (contact.contactId == $0.contactId) && (account?.account_Id == $0.accountId)} )
-        
-        var functionRole = ""
-        if acrArray.count > 0 {
-            functionRole = acrArray[0].roles
+        if indexPath.section == 2 {
+            cell.function_RoleLabel.text = contact.functionRole
         }
-        cell.function_RoleLabel.text = functionRole
+        else {
+            var acrArray = ContactsViewModel().accountsForContacts()
+            acrArray = acrArray.filter( {($0.isActive == 1) && (contact.contactId == $0.contactId) && (account?.account_Id == $0.accountId)} )
+            
+            var functionRole = ""
+            if acrArray.count > 0 {
+                functionRole = acrArray[0].roles
+            }
+            cell.function_RoleLabel.text = functionRole
+        }
 
         cell.initialsLabel.text =  Validations().getIntials(name: contact.name) //contact.getIntials(name: contact.name)
 
@@ -330,7 +334,6 @@ class AccountDetailTabViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
         
-        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
         var ary: [Contact] = []
         if indexPath.section == 1 {
             ary = contactsWithBuyingPower
@@ -344,6 +347,7 @@ class AccountDetailTabViewController: UITableViewController {
             return
         }
         let contact = ary[indexPath.row]
+        ContactFilterMenuModel.comingFromDetailsScreen = "YES"
         ContactFilterMenuModel.selectedContactId = contact.contactId
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllContacts"), object:nil)
 

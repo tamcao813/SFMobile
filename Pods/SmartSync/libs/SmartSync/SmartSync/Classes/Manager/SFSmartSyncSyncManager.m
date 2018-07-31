@@ -244,6 +244,20 @@ static NSMutableDictionary *syncMgrList = nil;
         NSString *errorSDKStrSync = [NSString stringWithFormat:@"%@",sync];
         NSString *errorSDKStrMessage = [NSString stringWithFormat:@"%@",failureMessage];
         NSString *errorSDKStrError = [NSString stringWithFormat:@"%@",error];
+        
+        /* Check for Duplicte Error
+         error.userInfo[@"error"][0][@"errorCode"] */
+        if(error.code == 400) {
+            if (error.userInfo != nil) {
+                if (error.userInfo[@"error"] != nil) {
+                    NSArray *arr = error.userInfo[@"error"];
+                    if([arr count] != 0 && [[arr[0] valueForKey:@"errorCode"] isEqualToString:@"MALFORMED_ID"]){
+                        [[NSUserDefaults standardUserDefaults] setObject:arr[0] forKey:@"errorSDKUserDefaultDuplicateEntryError"];
+                    }
+                }
+            }
+        }
+        
         /* Any Error will be logged in User Default which would propagate to Application in Swift to be send to SFDC server */
         [[NSUserDefaults standardUserDefaults] setObject:errorSDKStrSync forKey:@"errorSDKUserDefaultsync"];
         [[NSUserDefaults standardUserDefaults] setObject:errorSDKStrMessage forKey:@"errorSDKUserDefaultMessage"];

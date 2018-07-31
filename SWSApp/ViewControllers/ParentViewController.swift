@@ -785,6 +785,29 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
                 syncFailed = true
             }
             
+            /* if Duplicate entry detected errorSDKUserDefaultDuplicateEntryError */
+            if let duplicateEntryDict = UserDefaults.standard.object(forKey: "errorSDKUserDefaultDuplicateEntryError") as? [String:AnyObject]{
+                if let errocode = duplicateEntryDict["errorCode"] as? String{
+                    if errocode == "MALFORMED_ID" {
+                        if let msg = duplicateEntryDict["message"] as? String{
+                            //duplicate value found: SGWS_Contact_Phone__c duplicates value on record with id: 0030t00000RostZ
+                            let idarry = msg.components(separatedBy: ": ")
+                            if idarry.count >= 3 {
+                                if(idarry[0] == "Contact") {
+                                    let id2Del = idarry[2]
+                                    if !id2Del.isEmpty {
+                                        let status = StoreDispatcher.shared.delDuplicateContactLocally(id: id2Del)
+                                        if(status == true) {
+                                            UserDefaults.standard.removeObject(forKey: "errorSDKUserDefaultDuplicateEntryError")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
             //Write to persistence for Resync to default
             UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
             StoreDispatcher.shared.createSyncLogOnSyncStop(networkType: self.networkType)

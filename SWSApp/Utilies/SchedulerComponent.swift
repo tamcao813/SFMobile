@@ -203,6 +203,9 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
             print("default")
         }
     }
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+      return false
+    }
     
     // MARK - Custom Methods
     

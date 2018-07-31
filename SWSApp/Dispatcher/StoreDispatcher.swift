@@ -632,12 +632,12 @@ class StoreDispatcher {
                 syncMsg = sync
                 SyncUpDailogGlobal.isSyncError = true
             }
-            var failureMsg = ""
+            
             if let failureMessage: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultMessage") as? String {
                 failureMsg = failureMessage
                 SyncUpDailogGlobal.isSyncError = true
             }
-            var errorMsg = ""
+            
             if let error: String = UserDefaults.standard.object(forKey: "errorSDKUserDefaultError") as? String {
                 errorMsg = error
                 SyncUpDailogGlobal.isSyncError = true
@@ -2099,6 +2099,35 @@ class StoreDispatcher {
         }
     }
     
+    /// delDuplicateContactLocally : Will check if ID is in contct list nd delete it.
+    ///
+    /// - Parameter id: Contact Id which neededs to be deleted.
+    /// - Returns: True/False based on success.
+    func delDuplicateContactLocally(id: String) -> Bool{
+        var status = false
+        //1 Check for Id is in SoupContact, if so call removeEntries to delete the entry
+        var error : NSError?
+        let soqlQuery = "Select * FROM {Contact} Where {Contact:Id} == '\(id)'"
+        let fetchQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlQuery, withPageSize: 10)
+        let arr = sfaStore.query(with: fetchQuerySpec!, pageIndex: 0, error: &error)
+        if arr.count == 1 {
+            sfaStore.removeEntries(byQuery:fetchQuerySpec!, fromSoup: SoupContact)
+            status = true
+        }
+        //2 Check for Id is in SoupAccountContactRelation, if so call removeEntries to delete the entry
+        let soqlACMQuery = "Select * FROM {SGWS_AccountContactMobile__c} Where {SGWS_AccountContactMobile__c:SGWS_Contact__c} == '\(id)'"
+        let fetchACMQuerySpec = SFQuerySpec.newSmartQuerySpec(soqlACMQuery, withPageSize: 10)
+        let arrACM = sfaStore.query(with: fetchACMQuerySpec!, pageIndex: 0, error: &error)
+        if arrACM.count == 1 {
+            sfaStore.removeEntries(byQuery:fetchACMQuerySpec!, fromSoup: SoupAccountContactRelation)
+        }
+        else {
+            status = false
+        }
+        
+        return status
+    }
+    
     //MARK:- VISIT CODE
     func registerVisitSoup(){
         
@@ -3091,7 +3120,7 @@ class StoreDispatcher {
     }
     
     func syncUpContact(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
-        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
+        let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.overwrite)
         
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupContact)
             .done { syncStateStatus in

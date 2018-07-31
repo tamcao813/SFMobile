@@ -157,7 +157,7 @@ class ContactSortUtility {
         let accounts = accountViewModel.accountsForLoggedUser()
 
         let acrArray = ContactsViewModel().accountsForContacts()
-
+        /*
         if accounts.count > 0 {
             
             var filteredAccountContactArray = [Contact]()
@@ -185,7 +185,38 @@ class ContactSortUtility {
                 }
                 filteredContactArray = filteredNoDuplicateContactArray
             }
+        }*/
+        
+        if accounts.count > 0 {
+            
+            var filteredAccountContactArray = [Contact]()
+            
+            let acrFilteredArray = ContactsViewModel().accountsForSetOfAccounts(For: acrArray.map { $0.accountId })
+            
+            filteredAccountContactArray += contactListToBeSorted.filter( {
+                
+                let thisContactId = $0.contactId
+                let acrAccountId = acrFilteredArray.filter( {thisContactId == $0.contactId} )
+                if acrAccountId.count > 0 {
+                    return true
+                }
+                
+                return false
+            } )
+
+            if filteredAccountContactArray.count > 0 {
+                let filteredNoDuplicateContactArray = filteredAccountContactArray.reduce([]) { (r, p) -> [Contact] in
+                    var r2 = r
+                    if !r.contains (where: { $0.contactId == p.contactId }) {
+                        r2.append(p)
+                    }
+                    return r2
+                }
+                filteredContactArray = filteredNoDuplicateContactArray
+            }
         }
+        
+        
         return (enteredAnyFilterCase, filteredContactArray)
     }
     

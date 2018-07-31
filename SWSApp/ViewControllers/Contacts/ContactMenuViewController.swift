@@ -53,9 +53,12 @@ class ContactMenuViewController: UIViewController {
 //            var functionRoles = filterClass.sectionItems[0] as! [String]
             var functionRoles = ["All"]
 
+            let accountsList = ContactsViewModel().activeAccountsForContacts()
+
             for contactObject in contactData {
                 
-                let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contactObject.contactId)
+//                let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contactObject.contactId)
+                let accountsListWithContactId = accountsList.filter{ return $0.contactId == contactObject.contactId }
                 for acrObject in accountsListWithContactId {
                     if acrObject.isActive == 1 && acrObject.roles != ""{
                         if !(functionRoles.contains(acrObject.roles)){

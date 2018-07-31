@@ -63,6 +63,7 @@
 		91FAEF5F20A57DD500209D71 /* UIColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3520A57DD500209D71 /* UIColorExtention.swift */; };
 		91FAEF6120A57DD500209D71 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3620A57DD500209D71 /* StringExtension.swift */; };
 		91FAEF6320A57DD500209D71 /* WRWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FAEF3820A57DD500209D71 /* WRWeekView.swift */; };
+		91FC060B2110277D0011983C /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FC060A2110277D0011983C /* ParentViewController.swift */; };
 		AE029EBE20C55C3F00DA7194 /* DayHomeCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE029EBD20C55C3F00DA7194 /* DayHomeCalendarViewController.swift */; };
 		AE1FAAAE20B6C200005B44EC /* MonthCollectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1FAAA620B6C1FF005B44EC /* MonthCollectionHeaderView.xib */; };
 		AE1FAAB020B6C200005B44EC /* MonthCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1FAAA720B6C1FF005B44EC /* MonthCollectionHeaderView.swift */; };
@@ -227,7 +228,6 @@
 		F2895B8B210DE09F00BEEF24 /* NotificationsSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2895B66210DE09D00BEEF24 /* NotificationsSortUtility.swift */; };
 		F2895B8C210DE09F00BEEF24 /* AttributedStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2895B67210DE09E00BEEF24 /* AttributedStringUtil.swift */; };
 		F2895B8D210DE09F00BEEF24 /* ContactSortUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2895B68210DE09E00BEEF24 /* ContactSortUtility.swift */; };
-		F2895B8E210DE09F00BEEF24 /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2895B69210DE09E00BEEF24 /* ParentViewController.swift */; };
 		F2895B96210DE1C300BEEF24 /* AccountDetailTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2895B8F210DE1C100BEEF24 /* AccountDetailTabViewController.swift */; };
 		F2895B97210DE1C300BEEF24 /* AccountsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2895B90210DE1C100BEEF24 /* AccountsMenuViewController.swift */; };
 		F2895B98210DE1C300BEEF24 /* AccountOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2895B91210DE1C100BEEF24 /* AccountOverViewViewController.swift */; };
@@ -517,6 +517,7 @@
 		91FAEF3520A57DD500209D71 /* UIColorExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtention.swift; sourceTree = "<group>"; };
 		91FAEF3620A57DD500209D71 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		91FAEF3820A57DD500209D71 /* WRWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRWeekView.swift; sourceTree = "<group>"; };
+		91FC060A2110277D0011983C /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		A70EFAFC2B85C6853270C0BB /* Pods-SWSAppUITests.dedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppUITests.dedev.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppUITests/Pods-SWSAppUITests.dedev.xcconfig"; sourceTree = "<group>"; };
 		A88A98CA7BBDD26B052BA148 /* Pods-SWSApp.dedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSApp.dedev.xcconfig"; path = "Pods/Target Support Files/Pods-SWSApp/Pods-SWSApp.dedev.xcconfig"; sourceTree = "<group>"; };
 		A997E07A79EDE0C10254FCF1 /* Pods_SWSAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -690,7 +691,6 @@
 		F2895B66210DE09D00BEEF24 /* NotificationsSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsSortUtility.swift; sourceTree = "<group>"; };
 		F2895B67210DE09E00BEEF24 /* AttributedStringUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedStringUtil.swift; sourceTree = "<group>"; };
 		F2895B68210DE09E00BEEF24 /* ContactSortUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSortUtility.swift; sourceTree = "<group>"; };
-		F2895B69210DE09E00BEEF24 /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		F2895B8F210DE1C100BEEF24 /* AccountDetailTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailTabViewController.swift; sourceTree = "<group>"; };
 		F2895B90210DE1C100BEEF24 /* AccountsMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsMenuViewController.swift; sourceTree = "<group>"; };
 		F2895B91210DE1C100BEEF24 /* AccountOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOverViewViewController.swift; sourceTree = "<group>"; };
@@ -1509,6 +1509,7 @@
 		D1FB185A2062F86C0072F4C1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				91FC060A2110277D0011983C /* ParentViewController.swift */,
 				F2895AF1210DD30D00BEEF24 /* Accounts */,
 				8D4BA31C20B455EB005CFE56 /* Action Items */,
 				9187923B20A55B96009CB557 /* Calendar */,
@@ -1589,7 +1590,6 @@
 				F2895B5D210DE09A00BEEF24 /* OpportunityObjectiveSortUtility.swift */,
 				F2895B60210DE09B00BEEF24 /* OpportunitySortUtility.swift */,
 				F2895B51210DE09700BEEF24 /* PaddingLabel.swift */,
-				F2895B69210DE09E00BEEF24 /* ParentViewController.swift */,
 				F2895B62210DE09B00BEEF24 /* PlanVisitManager.swift */,
 				F2895B5F210DE09A00BEEF24 /* PlistMap.swift */,
 				F2895B57210DE09800BEEF24 /* ReachabilitySingleton.swift */,
@@ -2450,6 +2450,7 @@
 				91FAEF5F20A57DD500209D71 /* UIColorExtention.swift in Sources */,
 				C9B63C6E208DB819008D9E14 /* CreateNoteViewController.swift in Sources */,
 				F2895CC0210DE8C700BEEF24 /* NameTableViewCell.swift in Sources */,
+				91FC060B2110277D0011983C /* ParentViewController.swift in Sources */,
 				AE1FAAB820B6C200005B44EC /* WeekCollectionHeaderView.swift in Sources */,
 				F2895C8A210DE7AD00BEEF24 /* ContactListAccountLinkDetails.swift in Sources */,
 				F2895C8F210DE7AD00BEEF24 /* ContactMenuTableTableViewCell.swift in Sources */,
@@ -2525,7 +2526,6 @@
 				F2895BA8210DE1E500BEEF24 /* ActionItemFilterViewController.swift in Sources */,
 				F20A89D820BA871200AF35EA /* AccountVisitListSortUtility.swift in Sources */,
 				F2895C0D210DE63000BEEF24 /* EventSummaryViewController.swift in Sources */,
-				F2895B8E210DE09F00BEEF24 /* ParentViewController.swift in Sources */,
 				F2895C60210DE72900BEEF24 /* DuringVisitsInsightsCollectionViewCell.swift in Sources */,
 				121468F420AD603A00942A00 /* DropDown+Appearance.swift in Sources */,
 				6F3D30A2206BA066000CFFCC /* HomeViewController.swift in Sources */,

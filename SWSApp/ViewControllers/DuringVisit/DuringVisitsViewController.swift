@@ -408,7 +408,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
                 }
                 else
                 {
-                    let alert = UIAlertController(title: "Alert", message: "Topaz app is not installed", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Alert", message: StringConstants.topazAlertMessage, preferredStyle: .alert)
 
                     let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
 

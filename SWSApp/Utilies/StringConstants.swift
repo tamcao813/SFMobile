@@ -30,6 +30,8 @@ class StringConstants {
     
     static let unauthorisedLoginMessage = "You are not authorized or do not have associated accounts. Please contact Admin!"
     
+    static let topazAlertMessage = "Topaz is not installed or outdated version"
+    
     static var globalUrlDictionary : NSDictionary!
     
     //Chatter URL

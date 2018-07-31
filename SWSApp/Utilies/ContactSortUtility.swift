@@ -155,9 +155,10 @@ class ContactSortUtility {
         
         let accountViewModel = AccountsViewModel()
         let accounts = accountViewModel.accountsForLoggedUser()
-        
+
+        let acrArray = ContactsViewModel().accountsForContacts()
+
         if accounts.count > 0 {
-            let acrArray = ContactsViewModel().accountsForContacts()
             
             var filteredAccountContactArray = [Contact]()
             for account in accounts {

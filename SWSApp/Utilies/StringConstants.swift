@@ -22,13 +22,11 @@ class StringConstants {
     static let deleteNoteConfirmation = "Are you sure you want to delete this note?"
     static let contactsSavedSuccessfully = "Your contact has been saved successfully"
     static let saveFail = ""
-    static let deleteVisitMessage = "Deletion of Visit has failed, Please try again !"
-    static let deleteVisitNotAllowedMessage = "Deletion of Visit not allowed in offline mode, Please try again !"
-    
-    static let deleteEventMessage = "Deletion of Event has failed, Please try again !"
-    static let deleteEventNotAllowedMessage = "Deletion of Event not allowed in offline mode, Please try again !"
-    
-    static let unauthorisedLoginMessage = "You are not authorized or do not have associated accounts. Please contact Admin!"
+    static let deleteVisitMessage = "Deletion of Visit/Event has failed. Please try again or contact the National Service Desk if you experience an ongoing issue."
+    static let deleteVisitNotAllowedMessage = "Deletion of a Visit/Event is not allowed in offline mode. Please try again when you are online."
+    static let deleteEventMessage = "Deletion of Visit/Event has failed. Please try again or contact the National Service Desk if you experience an ongoing issue."
+    static let deleteEventNotAllowedMessage = "Deletion of a Visit/Event is not allowed in offline mode. Please try again when you are online."
+    static let unauthorisedLoginMessage = "You are not authorized to login to this application or do not have a SalesForce CRM account. Please contact the National Service Desk for assistance."
     
     static let topazAlertMessage = "Topaz is not installed or outdated version"
     

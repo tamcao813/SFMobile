@@ -1316,6 +1316,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             contactVC.contactDetails?.view.removeFromSuperview()
             contactVC.contactDetails?.removeFromParentViewController()
             vc = contactVC
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
             vc = calendarVC
             ContactsGlobal.accountId = ""
@@ -1331,7 +1332,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             break
         }
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         previouslySelectedVCIndex = index
         self.removePresentedViewControllers()
         

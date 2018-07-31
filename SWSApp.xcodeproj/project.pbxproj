@@ -426,6 +426,7 @@
 		F2895D19210DE9C200BEEF24 /* VisitCallToConfirmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2895D07210DE9C100BEEF24 /* VisitCallToConfirmTableViewCell.xib */; };
 		F2895D1A210DE9C200BEEF24 /* EventStartEndDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2895D08210DE9C100BEEF24 /* EventStartEndDateTableViewCell.xib */; };
 		F2895D1B210DE9C200BEEF24 /* VisitCallToConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2895D09210DE9C200BEEF24 /* VisitCallToConfirmTableViewCell.swift */; };
+		F2BE47B721106BD300363B02 /* ActionItemDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BE47B621106BD300363B02 /* ActionItemDispatcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -889,6 +890,7 @@
 		F2895D07210DE9C100BEEF24 /* VisitCallToConfirmTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCallToConfirmTableViewCell.xib; sourceTree = "<group>"; };
 		F2895D08210DE9C100BEEF24 /* EventStartEndDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventStartEndDateTableViewCell.xib; sourceTree = "<group>"; };
 		F2895D09210DE9C200BEEF24 /* VisitCallToConfirmTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCallToConfirmTableViewCell.swift; sourceTree = "<group>"; };
+		F2BE47B621106BD300363B02 /* ActionItemDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionItemDispatcher.swift; sourceTree = "<group>"; };
 		F586351540EC2547C92C2652 /* Pods-SWSAppTests.dedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWSAppTests.dedev.xcconfig"; path = "Pods/Target Support Files/Pods-SWSAppTests/Pods-SWSAppTests.dedev.xcconfig"; sourceTree = "<group>"; };
 		F7079A5982A809CAAA6EF1A9 /* Pods_SWSAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SWSAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1558,6 +1560,7 @@
 		D1FCDE13207332B9005F956D /* Dispatcher */ = {
 			isa = PBXGroup;
 			children = (
+				F2BE47B621106BD300363B02 /* ActionItemDispatcher.swift */,
 				6DB9E3AB20CFBE9600041850 /* SoupConstants.swift */,
 				D1FE1CD520654734009CC47C /* StoreDispatcher.swift */,
 			);
@@ -2387,6 +2390,7 @@
 				F2895BF4210DE54C00BEEF24 /* EditAccountStrategyCollectionViewCell.swift in Sources */,
 				F2895C06210DE63000BEEF24 /* EditAgendaNoteViewController.swift in Sources */,
 				F2895B31210DE01D00BEEF24 /* OpportunityWorkorder.swift in Sources */,
+				F2BE47B721106BD300363B02 /* ActionItemDispatcher.swift in Sources */,
 				F2895CED210DE97300BEEF24 /* UpComingVisitTableViewCell.swift in Sources */,
 				F2895B18210DDFF000BEEF24 /* ContactsViewModel.swift in Sources */,
 				91FAEF6120A57DD500209D71 /* StringExtension.swift in Sources */,

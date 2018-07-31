@@ -7,24 +7,25 @@
 //
 
 import Foundation
+import SmartSync
 
 class AccountsActionItemViewModel {
     
     func actionItemFourMonthsSorted() -> [ActionItem] {
         let actionItemsArray = getAcctionItemForUser()
-//        let prevMonthDate = Date().add(component: .month, value: -1)
-//        let next3MonthDate = Date().add(component: .month, value: 3)
-//
-//        actionItemsArray = actionItemsArray.filter {
-//            if let activityDate = DateTimeUtility.getDateActionItemFromDateString(dateString: $0.activityDate) {
-//                if activityDate.isLater(than: prevMonthDate), activityDate.isEarlier(than: next3MonthDate) {
-//                    return true
-//                }else {
-//                    return false
-//                }
-//            }
-//            return true
-//        }
+        //        let prevMonthDate = Date().add(component: .month, value: -1)
+        //        let next3MonthDate = Date().add(component: .month, value: 3)
+        //
+        //        actionItemsArray = actionItemsArray.filter {
+        //            if let activityDate = DateTimeUtility.getDateActionItemFromDateString(dateString: $0.activityDate) {
+        //                if activityDate.isLater(than: prevMonthDate), activityDate.isEarlier(than: next3MonthDate) {
+        //                    return true
+        //                }else {
+        //                    return false
+        //                }
+        //            }
+        //            return true
+        //        }
         
         var filteredActionItemArray = SyncConfigurationSortUtility.getActionItemDataUsingSyncTime(objectArray: actionItemsArray)
         filteredActionItemArray = filteredActionItemArray.sorted(by: { $0.activityDate < $1.activityDate })
@@ -56,8 +57,8 @@ class AccountsActionItemViewModel {
         return StoreDispatcher.shared.editActionItemStatusLocally(fieldsToUpload:fields)
     }
     
-    func editActionItemStatusLocallyAutomatically(fields: [String:Any]) -> Bool{
-        return StoreDispatcher.shared.editActionItemStatusLocallyAutomatically(fieldsToUpload:fields)
+    func editActionItemStatusLocallyAutomatically(id: String,fields: [String:Any]) -> Bool{
+        return StoreDispatcher.shared.editActionItemStatusLocallyAutomatically(Id: id,fieldsToUpload: fields)
     }
     
     func deleteActionItemLocally(fields: [String:Any]) -> Bool {
@@ -92,7 +93,6 @@ class AccountsActionItemViewModel {
         }
         
         actionForUserArray = actionForUserArray.sorted(by: { $0.isUrgent && !$1.isUrgent })
-        actionForUserArray = actionForUserArray.sorted(by: { $0.activityDate < $1.activityDate })
         return actionForUserArray
     }
     
@@ -112,17 +112,29 @@ class AccountsActionItemViewModel {
             }
             return false
         }
-        
         actionForUserArray = actionForUserArray.sorted(by: { $0.isUrgent && !$1.isUrgent })
-        actionForUserArray = actionForUserArray.sorted(by: { $0.activityDate < $1.activityDate })
         return actionForUserArray
     }
     
     func syncAccountsActionItemWithServer(_ completion:@escaping (_ error: NSError?)->()) {
         let fields: [String] = ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c"]
-
+        
         var isError:Bool = false
-
+        
+        //Fetching action items in open state and changing its status
+        var actionItemLastUpdated = ""
+        if let date = UserDefaults.standard.object(forKey: "actionItemLastUpdated")  as? String{
+            actionItemLastUpdated = date
+        }
+        
+        if actionItemLastUpdated == ""{
+            updateActionStatusBeforeSyncup()
+        }
+        
+        if actionItemLastUpdated != "",!DateTimeUtility().compareDateWithCurrentDate(){
+            updateActionStatusBeforeSyncup()
+        }
+        
         StoreDispatcher.shared.syncUpActionItem(fieldsToUpload: fields, completion: {error in
             if error != nil {
                 print(error?.localizedDescription ?? "error")
@@ -142,4 +154,21 @@ class AccountsActionItemViewModel {
             }
         })
     }
+    
+    func updateActionStatusBeforeSyncup(){
+        
+        let actionItemArray = ActionItemDispatcher().fetchOpenStateActionItem()
+        
+        if actionItemArray.count > 0 {
+            for actionItem in actionItemArray{
+                let data = ActionItemDispatcher().editActionItemStatusBulkAutomatically(id: actionItem.Id)
+                print(data)
+            }
+        }
+        
+        let date = Date()
+        UserDefaults.standard.set("\(DateTimeUtility().getCurrentDate(date: date))", forKey: "actionItemLastUpdated")
+    }
+    
 }
+

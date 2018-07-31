@@ -248,11 +248,14 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate {
     }
     @objc func automticResync()
     {
-        print("$$$$$$$$$$$$$$$$$$$$ Autosync called")
-        if !SyncUpDailogGlobal.isSyncing {
-            self.startSyncUp()
-            SyncUpDailogGlobal.isSyncing = true
-            SyncUpDailogGlobal.syncType = "Automatic"
+        let state: UIApplicationState = UIApplication.shared.applicationState
+        if state == .active {
+            print("$$$$$$$$$$$$$$$$$$$$ Autosync called")
+            if !SyncUpDailogGlobal.isSyncing {
+                self.startSyncUp()
+                SyncUpDailogGlobal.isSyncing = true
+                SyncUpDailogGlobal.syncType = "Automatic"
+            }
         }
     }
     

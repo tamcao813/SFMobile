@@ -68,23 +68,23 @@ class ActionItemsListTableViewCell: SwipeTableViewCell {
         }
     }
     
-    func updateStatusInDB(actionItem: ActionItem,status: String){
-        var editActionItem = ActionItem(for: "editActionItem")
-        editActionItem = actionItem
-        editActionItem.status = status
-        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-        let attributeDict = ["type":"Task"]
-        let actionItemDict: [String:Any] = [
-            
-            ActionItem.AccountActionItemFields[0]: editActionItem.Id,
-            ActionItem.AccountActionItemFields[4]: editActionItem.status,
-            ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
-
-            "attributes":attributeDict]
-        
-        if AccountsActionItemViewModel().editActionItemStatusLocallyAutomatically(fields: actionItemDict){            
-        }
-    }
+//    func updateStatusInDB(actionItem: ActionItem,status: String){
+//        var editActionItem = ActionItem(for: "editActionItem")
+//        editActionItem = actionItem
+//        editActionItem.status = status
+//        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+//        let attributeDict = ["type":"Task"]
+//        let actionItemDict: [String:Any] = [
+//
+//            ActionItem.AccountActionItemFields[0]: editActionItem.Id,
+//            ActionItem.AccountActionItemFields[4]: editActionItem.status,
+//            ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
+//
+//            "attributes":attributeDict]
+//
+//        if AccountsActionItemViewModel().editActionItemStatusLocallyAutomatically(fields: actionItemDict){
+//        }
+//    }
     
     func fetchAccountDetails(actionItem: ActionItem?){
         accountNameLabel.text = actionItem?.accountName

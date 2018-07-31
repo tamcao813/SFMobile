@@ -67,6 +67,12 @@ class EditAccountStrategyViewController: UIViewController {
         validateTheReguiredVield.isSaveClicked = "0"
         
         isFirstTimeLoad = true
+        StrategyNotes.isCellClicked = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        StrategyNotes.isCellClicked = false
     }
     
     //MARK:-
@@ -497,13 +503,24 @@ class EditAccountStrategyViewController: UIViewController {
     //Cancel button Clicked
     @IBAction func cancelButtonAction(sender : UIButton){
         print("Cancel button Clicked")
-        self.showAlert()
+        
+        if StrategyNotes.isCellClicked{
+            self.showAlert()
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
     
     //Close Button Clicked
     @IBAction func closeButtonAction(sender : UIButton){
         print("Close button Clicked")
-        self.showAlert()
+        
+        if StrategyNotes.isCellClicked{
+            self.showAlert()
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -587,6 +604,8 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         print("You selected cell #\(indexPath.item)!")
         
         if indexPath.section < (tableViewRowDetails?.count)!{
+            
+            StrategyNotes.isCellClicked = true
             
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray

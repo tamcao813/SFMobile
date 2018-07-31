@@ -664,9 +664,43 @@ class DateTimeUtility
         }
         return ""
     }
-
+    
+    func compareDateWithCurrentDate() -> Bool{
+        let actionItemLastUpdated = UserDefaults.standard.object(forKey: "actionItemLastUpdated") as! String
+        if actionItemLastUpdated == "" {
+            return true
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        if let mmddyyDate = dateFormatter.date(from: actionItemLastUpdated) {
+            if mmddyyDate >= yesterday! {
+                return true
+            }else{
+                return false
+            }
+        }else{
+            dateFormatter.dateFormat = "yyyy/MM/dd"
+            if let dateyymmdd = dateFormatter.date(from: actionItemLastUpdated){
+                if dateyymmdd >= yesterday! {
+                    return true
+                }else{
+                    return false
+                }
+            }
+        }
+        return false
+    }
+    
+    ///Get Current Date in MMDDYY format
+    static func getCurrentDateInString() -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateString = formatter.string(from: date)
+        return dateString
+    }
 }
-
 
 
 extension Date {
@@ -746,6 +780,5 @@ extension Date {
     var endOfWeek: Date {
         return Calendar.current.date(byAdding: .second, value: 604799, to: self.startOfWeek)!
     }
-
 }
 

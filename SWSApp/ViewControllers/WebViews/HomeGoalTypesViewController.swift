@@ -34,10 +34,14 @@ class HomeGoalTypesViewController : UIViewController , WKNavigationDelegate{
         if AppDelegate.isConnectedToNetwork(){
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = true
+                self.btnViewPerformance?.isUserInteractionEnabled = true
+                self.btnViewTrends?.isUserInteractionEnabled = true
             }
         }else{
             DispatchQueue.main.async {
                 self.lblNoNetworkConnection?.isHidden = false
+                self.btnViewPerformance?.isUserInteractionEnabled = false
+                self.btnViewTrends?.isUserInteractionEnabled = false
                 self.webView?.isHidden = true
             }
         }

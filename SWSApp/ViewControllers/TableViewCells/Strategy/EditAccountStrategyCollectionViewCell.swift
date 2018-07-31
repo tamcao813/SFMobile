@@ -11,6 +11,7 @@ import UIKit
 struct StrategyNotes {
     static var accountStrategyNotes = ""
     static var isStrategyText = ""
+    static var isCellClicked = false
 }
 
 class EditAccountStrategyCollectionViewCell: UICollectionViewCell {

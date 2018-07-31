@@ -2340,6 +2340,19 @@ class StoreDispatcher {
     
     func syncUpActionItem(fieldsToUpload: [String], completion:@escaping (_ error: NSError?)->()) {
         
+        var actionItemLastUpdated = ""
+        if let date = UserDefaults.standard.object(forKey: "actionItemLastUpdated") as? String{
+            actionItemLastUpdated = date
+        }
+        
+        if actionItemLastUpdated == ""{
+            AccountsActionItemViewModel().updateActionStatusBeforeSyncup()
+        }
+        
+        if actionItemLastUpdated != "",!DateTimeUtility().compareDateWithCurrentDate(){
+            AccountsActionItemViewModel().updateActionStatusBeforeSyncup()
+        }
+        
         let syncOptions = SFSyncOptions.newSyncOptions(forSyncUp: fieldsToUpload, mergeMode: SFSyncStateMergeMode.leaveIfChanged)
         
         sfaSyncMgr.Promises.syncUp(options: syncOptions, soupName: SoupActionItem)
@@ -2364,6 +2377,65 @@ class StoreDispatcher {
             }
             .catch { error in
                 completion(error as NSError?)
+        }
+    }
+    
+    func fetchOpenStateActionItems()->[ActionItem]{
+        var actionItem: [ActionItem] = []
+        let soapQueryWithoutAccount = "SELECT DISTINCT {Task:Id},{Task:SGWS_Account__c},{Task:Subject},{Task:Description},{Task:Status},{Task:ActivityDate},{Task:SGWS_Urgent__c},{Task:SGWS_AppModified_DateTime__c},{Task:RecordTypeId},{Task:OwnerId},{Task:_soupEntryId} FROM {Task} Where {Task:Status} = 'Open' AND ({Task:ActivityDate} IS NOT NULL OR {Task:ActivityDate} != '') AND {Task:ActivityDate} < '\(DateTimeUtility.getCurrentDateInString())'"
+        
+        let querySpecWithoutAccount = SFQuerySpec.newSmartQuerySpec(soapQueryWithoutAccount, withPageSize: 100000)
+        
+        var error : NSError?
+        let resultWithoutAccount = sfaStore.query(with: querySpecWithoutAccount!, pageIndex: 0, error: &error)
+        
+        if (error == nil && resultWithoutAccount.count > 0) {
+            
+            for i in 0...resultWithoutAccount.count - 1 {
+                
+                let soupDataWithoutAccount = resultWithoutAccount[i] as! [Any]
+                
+                let entryArryWithoutAccount = sfaStore.retrieveEntries([soupDataWithoutAccount[10]], fromSoup: SoupActionItem)
+                
+                let itemWithoutAccount = entryArryWithoutAccount[0]
+                let subItemWithoutAccount = itemWithoutAccount as! [String:Any]
+                
+                let flag = subItemWithoutAccount["__locally_deleted__"] as! Bool
+                // if deleted skip
+                if(flag){
+                    continue
+                }
+                
+                let aryWithoutAccount:[Any] = resultWithoutAccount[i] as! [Any]
+                let actionItemArrayWithoutAccount = ActionItem(withAryNoAccount: aryWithoutAccount)
+                actionItem.append(actionItemArrayWithoutAccount)
+            }
+        }
+        else if error != nil {
+            print("fetch action item  " + " error:" + (error?.localizedDescription)!)
+        }
+        return actionItem
+    }
+    
+    func updateActiontemStatusInDB(actionItem: ActionItem,status: String){
+        var editActionItem = ActionItem(for: "editActionItem")
+        editActionItem = actionItem
+        editActionItem.status = status
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+        let attributeDict = ["type":"Task"]
+        let actionItemDict: [String:Any] = [
+            
+            ActionItem.AccountActionItemFields[0]: editActionItem.Id,
+            ActionItem.AccountActionItemFields[4]: editActionItem.status,
+            ActionItem.AccountActionItemFields[7]: editActionItem.lastModifiedDate,
+            
+            kSyncTargetLocal:true,
+            kSyncTargetLocallyUpdated:true,
+            
+            "attributes":attributeDict]
+        
+        
+        if AccountsActionItemViewModel().editActionItemStatusLocallyAutomatically(id: editActionItem.Id, fields: actionItemDict){
         }
     }
     
@@ -2594,7 +2666,9 @@ class StoreDispatcher {
         }
     }
     
-    func editActionItemStatusLocallyAutomatically(fieldsToUpload: [String:Any]) -> Bool{
+    func editActionItemStatusLocallyAutomatically(Id: String, fieldsToUpload: [String:Any]) -> Bool{
+        let soupQuery = "SELECT {Task:Id},{Task:Status},{Task:SGWS_AppModified_DateTime__c} FROM {Task} Where {Task:Id} = \(Id)"
+        
         let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)

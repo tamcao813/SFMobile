@@ -37,6 +37,10 @@ class ContactsViewModel{
         return StoreDispatcher.shared.fetchContactsAccounts()
     }
     
+    func accountsForSetOfAccounts(For accountIds: [String]) -> [AccountContactRelation] {
+        return StoreDispatcher.shared.fetchLinkedActiveSetOfAccounts(For: accountIds)
+    }
+    
     func activeAccountsForContacts() -> [AccountContactRelation] {
         return StoreDispatcher.shared.fetchContactsActiveAccounts()
     }

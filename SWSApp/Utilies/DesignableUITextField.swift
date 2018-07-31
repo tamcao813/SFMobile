@@ -63,6 +63,10 @@ class DesignableUITextField: UITextField {
         // Placeholder text color
         attributedPlaceholder = NSAttributedString(string: placeholder != nil ?  placeholder! : "", attributes:[NSAttributedStringKey.foregroundColor: color])
     }
+        override public func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+            return false
+        }
+  
     
     // Provides left padding for images
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect {

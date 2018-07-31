@@ -204,7 +204,7 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
         }
     }
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action ==  "paste:" || action == "copy:"{
+        if action ==  "paste:" || action == "copy:" || action == "cut:" || action == "select:" || action == "selectAll:"{
             return false
         }
         return super.canPerformAction(action, withSender: sender)

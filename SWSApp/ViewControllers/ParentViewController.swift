@@ -80,6 +80,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     //Sync Object Count - To be updated if more objects added here
     let syncObjectCount:Int = 10
     
+    
+    var isPresentingNotificationVc = false
+    
     // keep the views loaded
     //home VC
     lazy var homeVC: UIViewController? = {
@@ -291,20 +294,26 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
         
         let data : Int = notification.object.unsafelyUnwrapped as! Int
         
-        let moreVC1:MoreViewController = self.moreVC as! MoreViewController
-        let currentViewController = self.displayCurrentTab(data)
-        self.removeSubviews()
-        currentViewController?.view.addSubview(moreVC1.view)
-        
-        if data == LoadThePersistantMenuScreen.chatter.rawValue {
-            self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: 5)
-            
-        }else if data == LoadThePersistantMenuScreen.actionItems.rawValue {
-            self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: 0)
-            
-        }else if  data == LoadThePersistantMenuScreen.notifications.rawValue {
+        if  data == LoadThePersistantMenuScreen.notifications.rawValue {
+            isPresentingNotificationVc = true
             topMenuBar?.selectedSegment = 5
             self.navigateToMoreOptionsViewControllers(index: 4, selectedIndex: 4)
+            
+        }else{
+            
+            isPresentingNotificationVc = false
+            let moreVC1:MoreViewController = self.moreVC as! MoreViewController
+            let currentViewController = self.displayCurrentTab(data)
+            self.removeSubviews()
+            currentViewController?.view.addSubview(moreVC1.view)
+            
+            if data == LoadThePersistantMenuScreen.chatter.rawValue {
+                self.instantiateViewController(identifier: "ChatterViewControllerID", moreOptionVC: moreVC1, index: 5)
+                
+            }else if data == LoadThePersistantMenuScreen.actionItems.rawValue {
+                self.instantiateViewController(identifier: "ActionItemsViewControllerID", moreOptionVC: moreVC1, index: 0)
+                
+            }
         }
     }
     
@@ -336,6 +345,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     }
     
     @objc func showActionItemOrNotification(notification: NSNotification){
+        isPresentingNotificationVc = true
         let data : Int = notification.object.unsafelyUnwrapped as! Int
         let moreVC1:MoreViewController = self.moreVC as! MoreViewController
         let currentViewController = self.displayCurrentTab(data)
@@ -974,6 +984,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     {
         //print("Tab tapped" + String(selectedSegment))
         // display other tabs
+        isPresentingNotificationVc = false
         _ = displayCurrentTab(selectedSegment)
         if(selectedSegment == 0) {
             defaults.set(true, forKey: "FromHomeVC")
@@ -1322,9 +1333,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
            // vc = objectivesVC
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.insightLaunchIdentifier = "obj"
-            openSFSafariVC()
+            if !isPresentingNotificationVc{
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.insightLaunchIdentifier = "obj"
+                openSFSafariVC()
+                topMenuBar?.selectedSegment = previouslySelectedVCIndex
+            }
+            
             ContactsGlobal.accountId = ""
         default:
             ifMoreVC = true

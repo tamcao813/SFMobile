@@ -20,6 +20,8 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
     let datePickerView = UIDatePicker()
     
     var isSelectedFlag = false
+    
+    var currentPresentingViewController: UIViewController?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -299,12 +301,10 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
     }
     
     func showAlert(message:String){
-        let alert = UIAlertView()
-        alert.title = "Alert"
-        alert.message = message
-        alert.addButton(withTitle: "OK")
-        alert.show()
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
+        currentPresentingViewController?.present(alert, animated: true, completion: nil)
     }
     
 //    func convertToDate(dateString: String) -> Date {

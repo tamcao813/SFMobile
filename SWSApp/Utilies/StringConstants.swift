@@ -30,6 +30,10 @@ class StringConstants {
     
     static let topazAlertMessage = "Topaz is not installed or outdated version"
     
+    static let workOrderIdNotExists = "You do not have permissions to delete this Visit/Event because you are not the record creator. Please contact the record creator to delete or contact the National Service Desk if you experience an ongoing issue."
+    
+    static let uiApiFailureMessage = "Saving of Visit/Event has failed. Please try again or contact the National Service Desk if you experience an ongoing issue.​"
+    
     static var globalUrlDictionary : NSDictionary!
     
     //Chatter URL
@@ -65,7 +69,6 @@ class StringConstants {
     static let homeScreenUrl = globalUrlDictionary["homeScreenUrl"] as! String
     static let homeScreenBoBURL = globalUrlDictionary["homeScreenBoB"] as! String
     static let homeScreenWHWNURL = globalUrlDictionary["homeScreenWHWN"] as! String
-    
     
     //Objectives URLS
     static let objectivesUrl = globalUrlDictionary["objectivesUrl"] as! String
@@ -105,18 +108,4 @@ class StringConstants {
     static let contactRole = globalUrlDictionary["contactRole"] as! String
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -216,7 +216,7 @@ class CreateNewVisitViewController: UIViewController {
                             self.present(opportunitiesViewController, animated: true)
                         }
                     }else{
-                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Saving of Visit/Event has failed, Please try again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.uiApiFailureMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                             
                         }, action2: {
                             
@@ -248,7 +248,7 @@ class CreateNewVisitViewController: UIViewController {
                             self.dismiss(animated: true)
                         }
                     }else{
-                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Saving of Visit/Event has failed, Please try again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.uiApiFailureMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                     
                         }, action2: {
                     

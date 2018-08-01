@@ -69,9 +69,9 @@
 	<key>detestServerUrl</key>
 	<string>https://sgws-de--deTest.cs77.my.salesforce.com</string>
 	<key>visitContactAlertMessage</key>
-	<string>Selected Contact cannot be invited for a visit ! Please perform sync prior selecting this contact for a visit</string>
+	<string>The selected contact cannot be added to this Visit/Event. Please perform a manual sync prior to selecting this contact for the Visit/Event.</string>
 	<key>eventContactAlertMessage</key>
-	<string>Selected Contact cannot be invited for a event ! Please perform sync prior selecting this contact for a event</string>
+	<string>The selected contact cannot be added to this Visit/Event. Please perform a manual sync prior to selecting this contact for the Visit/Event.​</string>
 	<key>globalChatter</key>
 	<string>/lightning/page/chatter?iospref=web</string>
 	<key>homeScreenBoB</key>

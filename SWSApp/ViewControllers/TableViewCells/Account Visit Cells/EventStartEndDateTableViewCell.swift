@@ -243,20 +243,17 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         }else{
             
                 if let ed = maxDate{
-                    
+
                     if datePickerView.date <= ed{
-                        
+
                         eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
-                        
+
                     }else{
                          showAlert(message: "Event can not be created more than 14 days.")
                     }
                 }
             
-            
-            
-            
-           
+           // eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
             eventEndTimeTextField.text = ""
             CreateNewEventViewControllerGlobals.endTime = ""
         }

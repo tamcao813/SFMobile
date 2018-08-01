@@ -23,6 +23,8 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
     let datePickerView = UIDatePicker()
     var dateFormatter = DateFormatter()
     
+    var currentPresentingViewController: UIViewController?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -208,11 +210,11 @@ class AccountVisitListFilterTableViewCell: UITableViewCell {
             if DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: (lblStartDate?.text!)!).compare(DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: (lblEndDate?.text!)!)) == .orderedDescending  {
                 lblEndDate?.text! = ""
                 
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Date should be lesser than End Date"
-                alert.addButton(withTitle: "OK")
-                alert.show()
+                let alert = UIAlertController(title: "Alert", message: "Start Date should be lesser than End Date", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                
+                currentPresentingViewController?.present(alert, animated: true, completion: nil)
+
             }
         }
         resignTextField()

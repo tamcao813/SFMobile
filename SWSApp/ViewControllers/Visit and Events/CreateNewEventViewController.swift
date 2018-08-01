@@ -481,6 +481,8 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             startTimeTextField = cell.eventStartTimeTextField!
             endTimeTextField = cell.eventEndTimeTextField!
             
+            cell.currentPresentingViewController = self
+            
             if let eventObject = eventWorkOrderObject{
                 
                 //For the first Time Load as it will be False

@@ -484,6 +484,8 @@ extension AccountVisitListFilterViewController : UITableViewDataSource{
                 (cell as! AccountVisitListFilterTableViewCell).delegate = self
                 
             }
+            (cell as! AccountVisitListFilterTableViewCell).currentPresentingViewController = self
+
             return cell!
         }
         
@@ -492,6 +494,8 @@ extension AccountVisitListFilterViewController : UITableViewDataSource{
         (cell as! AccountVisitListFilterTableViewCell).delegate = self
         self.passDataToTableViewCell(cell: cell!, indexPath: indexPath)
         
+        (cell as! AccountVisitListFilterTableViewCell).currentPresentingViewController = self
+
         return cell!
     }
 }

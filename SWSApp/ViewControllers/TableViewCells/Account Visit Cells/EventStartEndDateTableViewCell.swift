@@ -9,7 +9,7 @@
 import UIKit
 
 class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
-
+    
     @IBOutlet weak var eventStartDateTextField: UITextField!
     @IBOutlet weak var eventStartTimeTextField: UITextField!
     @IBOutlet weak var eventEndDateTextField: UITextField!
@@ -20,7 +20,9 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
     let datePickerView = UIDatePicker()
     
     var isSelectedFlag = false
-
+    var startDate:Date?
+    var maxDate:Date?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         customizedUI()
@@ -46,7 +48,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 eventEndDateTextField.text = eventStartDateTextField.text
                 
                 CreateNewEventViewControllerGlobals.endDate = eventStartDateTextField.text!
-
+                
                 if DateTimeUtility.isDeviceIsin24hrFormat() {
                     eventStartTimeTextField.text = "00:00"
                     eventEndTimeTextField.text = "23:59"
@@ -234,11 +236,27 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        
         if sender.tag == 300{
             eventStartDateTextField.text = dateFormatter.string(from: datePickerView.date)
+            startDate = datePickerView.date
+            maxDate =  startDate?.add(component: .day, value: 14)
         }else{
-            eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
+            
+                if let ed = maxDate{
+                    
+                    if datePickerView.date <= ed{
+                        
+                        eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
+                        
+                    }else{
+                         showAlert(message: "Event can not be created more than 14 days.")
+                    }
+                }
+            
+            
+            
+            
+           
             eventEndTimeTextField.text = ""
             CreateNewEventViewControllerGlobals.endTime = ""
         }
@@ -246,7 +264,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         if (!eventStartDateTextField.text!.isEmpty && !eventEndDateTextField.text!.isEmpty) {
             if DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: eventStartDateTextField.text!).compare(DateTimeUtility.getMMDDYYYFormattedDateFromString(dateString: eventEndDateTextField.text!)) == .orderedDescending  {
                 eventEndDateTextField.text! = ""
-                  showAlert(message: "Start Date should be lesser than End Date")
+                showAlert(message: "Start Date should be lesser than End Date")
             }
         }
         
@@ -307,19 +325,19 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         
     }
     
-//    func convertToDate(dateString: String) -> Date {
-//        let dateformatter = DateFormatter()
-//        dateformatter.timeStyle = .medium
-//        dateformatter.dateFormat = "hh:mm a"
-//        var dateFromString = Date()
-//        if dateformatter.date(from:(dateString)) != nil {
-//            dateFromString = dateformatter.date(from: dateString)!
-//        } else {
-//            dateformatter.timeStyle = .medium
-//            dateformatter.dateFormat = "HH:mm a"
-//            dateFromString = dateformatter.date(from: dateString)!
-//        }
-//
-//        return dateFromString
-//    }
+    //    func convertToDate(dateString: String) -> Date {
+    //        let dateformatter = DateFormatter()
+    //        dateformatter.timeStyle = .medium
+    //        dateformatter.dateFormat = "hh:mm a"
+    //        var dateFromString = Date()
+    //        if dateformatter.date(from:(dateString)) != nil {
+    //            dateFromString = dateformatter.date(from: dateString)!
+    //        } else {
+    //            dateformatter.timeStyle = .medium
+    //            dateformatter.dateFormat = "HH:mm a"
+    //            dateFromString = dateformatter.date(from: dateString)!
+    //        }
+    //
+    //        return dateFromString
+    //    }
 }

@@ -564,6 +564,7 @@ extension CreateNewVisitViewController: UITableViewDelegate, UITableViewDataSour
             return cell!
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleAppointmentTableViewCell") as? ScheduleAppointmentTableViewCell
+            cell?.schedulerComponentView.currentPresentingViewController = self
             startDate = cell?.schedulerComponentView.dateTextField
             startTime = cell?.schedulerComponentView.startTimeTextField
             endTime = cell?.schedulerComponentView.endTimeTextField

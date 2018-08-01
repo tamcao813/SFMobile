@@ -80,6 +80,8 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
         
         bottomViewSpacing.constant = 30
         
+        schedulerComponentView.currentPresentingViewController = self
+
         //self.createNewVisit()
         
         

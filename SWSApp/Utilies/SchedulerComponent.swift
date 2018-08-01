@@ -20,6 +20,8 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
     var endTimeTextField = DesignableUITextField()
     let datePickerView = UIDatePicker()
     
+    var currentPresentingViewController: UIViewController?
+    
     //LOCATION
    // var locationManager = CLLocationManager()
     
@@ -245,11 +247,10 @@ class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate
     }
     
     func showAlert(message:String) {
-        let alert = UIAlertView()
-        alert.title = "Alert"
-        alert.message = message
-        alert.addButton(withTitle: "OK")
-        alert.show()
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        currentPresentingViewController?.present(alert, animated: true, completion: nil)
     }
     
     @objc func doneButton(sender:UIButton)

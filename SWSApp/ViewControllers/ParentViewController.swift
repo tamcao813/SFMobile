@@ -1110,16 +1110,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     }
     
     func removePresentedMoreControllers(){
-        if SelectedMoreButton.selectedItem == 2 {
-            insightsViewController?.willMove(toParentViewController: nil)
-            insightsViewController?.view.removeFromSuperview()
-            insightsViewController?.removeFromParentViewController()
-            DispatchQueue.main.async {
-                //(self.insightsViewController as? InsightsViewController)?.webView.stopLoading()
-                (self.insightsViewController as? InsightsViewController)?.loadWebView()
-            }
-            
-        }else if SelectedMoreButton.selectedItem == 3{
+            if SelectedMoreButton.selectedItem == 3{
             reportsViewController?.willMove(toParentViewController: nil)
             reportsViewController?.view.removeFromSuperview()
             reportsViewController?.removeFromParentViewController()
@@ -1367,13 +1358,6 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             homeVC?.view.removeFromSuperview()
             homeVC?.removeFromParentViewController()
             (homeVC as! HomeViewController).scrollToTop()
-        }
-        
-        if previouslySelectedVCIndex == 4{
-            objectivesVC?.willMove(toParentViewController: nil)
-            objectivesVC?.view.removeFromSuperview()
-            objectivesVC?.removeFromParentViewController()
-            (objectivesVC)?.loadWebView()
         }
         
         if(!ifMoreVC){

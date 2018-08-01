@@ -161,7 +161,7 @@ class CreateNewEventViewController: UIViewController {
                                 self.delegate?.updateEventListFromCreate()
                             }
                         }else{
-                            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Saving of Visit/Event has failed, Please try again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+                            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.uiApiFailureMessage, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                                 
                                 self.btnSave?.isUserInteractionEnabled = true
                             }, action2: {

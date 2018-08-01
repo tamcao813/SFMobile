@@ -380,7 +380,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         var dataExists : Bool
         if !(StoreDispatcher.shared.isWorkOrderCreatedLocally(id: self.visitObject!.Id).1){
             dataExists = false
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: "Record is not available in Server, please Resync again", errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Alert", errorMessage: StringConstants.workOrderIdNotExists, errorAlertActionTitle: "Ok", errorAlertActionTitle2: nil, viewControllerUsed: self, action1: {
                 
             }) {
                 

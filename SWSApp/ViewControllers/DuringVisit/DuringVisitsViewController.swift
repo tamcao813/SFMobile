@@ -72,7 +72,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
-        locationManager.stopUpdatingLocation()
+//        locationManager.stopUpdatingLocation()
         
         geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
         geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
@@ -84,7 +84,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationManager.stopUpdatingLocation()
+//        locationManager.stopUpdatingLocation()
         print("The error is in location \(error)")
 //        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
 //            //print(error!)
@@ -509,6 +509,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             //Must dismiss at last
             DispatchQueue.main.async{
                 _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+                    self.locationManager.stopUpdatingLocation()
                     //print(error!)
                 })
                 self.dismiss(animated: true, completion: nil)

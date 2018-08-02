@@ -74,20 +74,28 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         let userLocation:CLLocation = locations[0] as CLLocation
         locationManager.stopUpdatingLocation()
         
-        geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
-        geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
+        let alert = UIAlertController(title: "Alert", message: "Got location", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            
+            geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
+            geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
+        }))
+        
+
+        
 //        geoLocationForVisit.didReceiveLocation = true
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
-            //print(error!)
-        })
+//        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+//            //print(error!)
+//        })
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
         print("The error is in location \(error)")
-        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
-            //print(error!)
-        })
+//        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+//            //print(error!)
+//        })
     }
     
 //    /// fetchLocationTill will block the Save button till location is received

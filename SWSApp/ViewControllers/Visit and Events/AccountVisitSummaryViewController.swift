@@ -58,7 +58,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     func setLocationManager(){
         locationManager.distanceFilter  = kCLLocationAccuracyNearestTenMeters;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.delegate = self
     }
     

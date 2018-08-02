@@ -20,8 +20,10 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
     let datePickerView = UIDatePicker()
     
     var isSelectedFlag = false
+    var currentPresentingViewController:UIViewController?
     var startDate:Date?
     var maxDate:Date?
+    var eventWorkOrderObject: WorkOrderUserObject!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -233,27 +235,66 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         textField.inputAccessoryView = toolBar
     }
     
+    func workOrderObjectInEditMode(workOrderObject : WorkOrderUserObject){
+        eventWorkOrderObject = workOrderObject
+    }
+    
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         if sender.tag == 300{
-            eventStartDateTextField.text = dateFormatter.string(from: datePickerView.date)
-            startDate = datePickerView.date
-            maxDate =  startDate?.add(component: .day, value: 14)
-        }else{
-            
-                if let ed = maxDate{
+            if  !(eventEndDateTextField.text?.isEmpty)!{
 
-                    if datePickerView.date <= ed{
-
-                        eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
-
-                    }else{
-                         showAlert(message: "Event can not be created more than 14 days.")
+                let minDateFromTextField = dateFormatter.date(from: eventEndDateTextField.text!)
+                let minDate = minDateFromTextField?.add(component: .day, value: -14)
+                
+                if let md = minDate{
+                    
+                    if datePickerView.date >= md{
+                        
+                        eventStartDateTextField.text = dateFormatter.string(from: datePickerView.date)
+                        startDate = datePickerView.date
+                        maxDate =  startDate?.add(component: .day, value: 14)
                     }
+                    else{
+                        
+                        showAlert(message: "Event can not be created more than 14 days.")
+                    }
+                    
+                    
                 }
+                
+            }else {
+                
+                eventStartDateTextField.text = dateFormatter.string(from: datePickerView.date)
+                startDate = datePickerView.date
+                maxDate =  startDate?.add(component: .day, value: 14)
+                
+            }
             
-           // eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
+
+            
+            
+        }else{
+            if eventWorkOrderObject != nil{
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+                let date =  dateFormatter.date(from: eventWorkOrderObject.startDate)
+                dateFormatter.dateFormat = "MM/dd/yyyy"
+                let dateString = dateFormatter.string(from: date!)
+                startDate = dateFormatter.date(from: dateString)
+                maxDate =  startDate?.add(component: .day, value: 14)
+            }
+            if let ed = maxDate{
+                
+                if datePickerView.date <= ed{
+                    
+                    eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
+                    
+                }else{
+                    showAlert(message: "Event can not be created more than 14 days.")
+                }
+            }
+            // eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
             eventEndTimeTextField.text = ""
             CreateNewEventViewControllerGlobals.endTime = ""
         }

@@ -244,7 +244,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
         dateFormatter.dateFormat = "MM/dd/yyyy"
         if sender.tag == 300{
             if  !(eventEndDateTextField.text?.isEmpty)!{
-
+                
                 let minDateFromTextField = dateFormatter.date(from: eventEndDateTextField.text!)
                 let minDate = minDateFromTextField?.add(component: .day, value: -14)
                 
@@ -271,9 +271,6 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                 maxDate =  startDate?.add(component: .day, value: 14)
                 
             }
-            
-
-            
             
         }else{
             if eventWorkOrderObject != nil{

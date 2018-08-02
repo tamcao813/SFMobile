@@ -484,6 +484,7 @@ extension CreateNewEventViewController: UITableViewDelegate, UITableViewDataSour
             cell.currentPresentingViewController = self
             
             if let eventObject = eventWorkOrderObject{
+                cell.workOrderObjectInEditMode(workOrderObject: eventObject)
                 
                 //For the first Time Load as it will be False
                 if CreateNewEventViewControllerGlobals.isFirstTimeLoad == true{

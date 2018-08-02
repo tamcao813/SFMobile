@@ -50,7 +50,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     func setLocationManager(){
         locationManager.distanceFilter  = kCLLocationAccuracyNearestTenMeters;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.delegate = self
     }
     
@@ -74,20 +74,13 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         let userLocation:CLLocation = locations[0] as CLLocation
         locationManager.stopUpdatingLocation()
         
-        let alert = UIAlertController(title: "Alert", message: "Got location", preferredStyle: UIAlertControllerStyle.alert)
+        geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
+        geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
         
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-            
-            geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
-            geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
-        }))
-        
-
-        
-//        geoLocationForVisit.didReceiveLocation = true
-//        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
-//            //print(error!)
-//        })
+        //        geoLocationForVisit.didReceiveLocation = true
+        //        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+        //            //print(error!)
+        //        })
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -179,6 +172,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.startUpdatingLocationAlerts()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -505,7 +499,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
         }
         else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
             //location related code
-            self.startUpdatingLocationAlerts()
+            //self.startUpdatingLocationAlerts()
             geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
             PlanVisitManager.sharedInstance.visit?.status = "Completed"
 

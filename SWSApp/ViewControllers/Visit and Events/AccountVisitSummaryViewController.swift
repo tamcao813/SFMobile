@@ -73,7 +73,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         }
             // 3. we do have authorization
         else if CLLocationManager.authorizationStatus() == .authorizedAlways {
-            locationManager.startUpdatingLocation()
+            //locationManager.startUpdatingLocation()
         }
     }
     //Location related callbacks
@@ -544,7 +544,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     @IBAction func closeButtonTapped(_ sender: UIButton?){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
         self.dismiss(animated: false, completion: nil)
     }
     

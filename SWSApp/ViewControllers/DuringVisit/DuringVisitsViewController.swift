@@ -49,7 +49,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     var locationManager = CLLocationManager()
     
     func setLocationManager(){
-        locationManager.distanceFilter  = kCLLocationAccuracyNearestTenMeters;
+        locationManager.distanceFilter  = kCLLocationAccuracyKilometer;
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.delegate = self
     }
@@ -57,7 +57,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     func startUpdatingLocationAlerts() {
         // 1. status is not determined
         if CLLocationManager.authorizationStatus() == .notDetermined {
-            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
         }
             // 2. authorization were denied
         else if CLLocationManager.authorizationStatus() == .denied {
@@ -66,13 +66,13 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
             // 3. we do have authorization
         else if CLLocationManager.authorizationStatus() == .authorizedAlways {
             locationManager.delegate = self
-            locationManager.startUpdatingLocation()
+            //locationManager.startUpdatingLocation()
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
-//        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
         
         geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
         geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
@@ -84,7 +84,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
         print("The error is in location \(error)")
 //        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
 //            //print(error!)

@@ -168,7 +168,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.startUpdatingLocationAlerts()
+        self.startUpdatingLocationAlerts()
         
         // Do any additional setup after loading the view, typically from a nib.
         // set up persistent menu
@@ -339,9 +339,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     }
     
     @objc func showInsightBob(notification: NSNotification){
-//        topMenuBar?.selectedSegment = 5
-//        self.navigateToMoreOptionsViewControllers(index: 2, selectedIndex: 2)
-          openSFSafariVC()
+        //        topMenuBar?.selectedSegment = 5
+        //        self.navigateToMoreOptionsViewControllers(index: 2, selectedIndex: 2)
+        openSFSafariVC()
     }
     
     @objc func showActionItemOrNotification(notification: NSNotification){
@@ -482,10 +482,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
         
         
     }
-
+    
     @objc func addTapped(){
         let SmartStoreViewController = SFSmartStoreInspectorViewController.init(store:  SFSmartStore.sharedStore(withName: StoreDispatcher.SFADB) as! SFSmartStore)
-            present(SmartStoreViewController, animated: true, completion: nil)
+        present(SmartStoreViewController, animated: true, completion: nil)
     }
     
     // MARK: SyncUp Data and resync down
@@ -632,8 +632,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             
             if self.isVisitSynDownComplete {
                 group.enter()
-                    DispatchQueue.global(qos: .background).async {
-                        GlobalWorkOrderArray.workOrderArray = StoreDispatcher.shared.fetchVisits()
+                DispatchQueue.global(qos: .background).async {
+                    GlobalWorkOrderArray.workOrderArray = StoreDispatcher.shared.fetchVisits()
                     DispatchQueue.main.async {
                         print("Visit Download Complete")
                     }
@@ -657,7 +657,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             group.leave()
         }
         
-
+        
         // Action Item  Sync with server
         group.enter()
         AccountsActionItemViewModel().syncAccountsActionItemWithServer{ error in
@@ -852,7 +852,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
                 }else{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "actionItemSyncDownComplete"), object:nil)
                 }
-                    MBProgressHUD.hide(forWindow: true)
+                MBProgressHUD.hide(forWindow: true)
             }
         }
         // Start sync progress
@@ -1022,7 +1022,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
         let dropDownItem5 = NSLocalizedString("  Notifications", comment: "Notifications")
         let dropDownItem6 = NSLocalizedString("  Chatter", comment: "Chatter")
         let dropDownItem7 = NSLocalizedString("  Transactions (Topaz)", comment: "Transactions (Topaz)")
-//        let dropDownItem8 = NSLocalizedString("  Load Deposit (IDD)", comment: "Load Deposit (IDD)")
+        //        let dropDownItem8 = NSLocalizedString("  Load Deposit (IDD)", comment: "Load Deposit (IDD)")
         let dropDownItem8 = NSLocalizedString("  GoSpotCheck", comment: "GoSpotCheck")
         // set the data source for the dropdown
         moreDropDown.dataSource = [dropDownItem1, dropDownItem2, dropDownItem3, dropDownItem4, dropDownItem5, dropDownItem6, dropDownItem7, dropDownItem8]
@@ -1031,7 +1031,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
         
         FilterMenuModel.isFromAccountVisitSummary = ""
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
+        
         appDelegate.insightLaunchIdentifier = ""
         self.selectedDropDownOption(selectedIndex : selectedIndex)
     }
@@ -1052,7 +1052,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             openSFSafariVC()
             return
         }
-                
+        
         self.removeSubviews()
         currentViewController?.view.addSubview(moreVC1.view)
         SelectedMoreButton.selectedItem = index
@@ -1069,17 +1069,20 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
         //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
         switch index {
         case 0:
+            ScreenToLoad.presentingScreen = "5"
             moreVC1.view.addSubview((self.actionItemParent?.view)!)
             ActionItemFilterModel.fromAccount = false
             ActionItemFilterModel.accountId = nil
             self.actionItemParent?.fromPersistentMenu = true
             self.moreDropDownSelectionIndex = index
         case 1:
+            ScreenToLoad.presentingScreen = "6"
             moreVC1.view.addSubview((self.accountVisit?.view)!)
             self.moreDropDownSelectionIndex = index
         case 2:
-//            moreVC1.view.addSubview((self.insightsViewController?.view)!)
-//            self.moreDropDownSelectionIndex = index
+            ScreenToLoad.presentingScreen = "7"
+            //            moreVC1.view.addSubview((self.insightsViewController?.view)!)
+            //            self.moreDropDownSelectionIndex = index
             openSFSafariVC()
         case 3:
             moreVC1.view.addSubview((self.reportsViewController?.view)!)
@@ -1095,12 +1098,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
         case 6:
             launchTopazApp()
             //self.instantiateViewController(identifier: "TopazViewControllerID", moreOptionVC: moreVC1, index: index)
-//        case 7:
-//            self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
+            //        case 7:
+        //            self.instantiateViewController(identifier: "IDDViewControllerID", moreOptionVC: moreVC1, index: index)
         case 7:
             launchGospotCheckApp()
             //moreVC1.view.addSubview((self.gospotcheckViewController?.view)!)
-           // self.moreDropDownSelectionIndex = index
+            // self.moreDropDownSelectionIndex = index
             
         default:
             break
@@ -1110,7 +1113,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     }
     
     func removePresentedMoreControllers(){
-            if SelectedMoreButton.selectedItem == 3{
+        if SelectedMoreButton.selectedItem == 3{
             reportsViewController?.willMove(toParentViewController: nil)
             reportsViewController?.view.removeFromSuperview()
             reportsViewController?.removeFromParentViewController()
@@ -1263,8 +1266,8 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     
     private func homeScreenScrollToTop(){
         if previouslySelectedVCIndex == 0{
-//            let homeScreen = self.homeVC as? HomeViewController
-//            homeScreen?.scrollToTop()
+            //            let homeScreen = self.homeVC as? HomeViewController
+            //            homeScreen?.scrollToTop()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "scrollToTopHomeActivities"), object:nil)
         }
     }
@@ -1275,11 +1278,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
         
         self.view.endEditing(true)
         FilterMenuModel.isFromAccountListView = ""
-
+        
         if index != 1{
             filterMenuModel.clearFilterModelData()
         }
-
+        
         if index != 2{
             
             let accVC = contactsVC as? ContactsViewController
@@ -1306,13 +1309,16 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             
         case .HomeVCIndex:
             vc = homeVC
+            ScreenToLoad.presentingScreen = "0"
             ContactsGlobal.accountId = ""
         case .AccountVCIndex:
+            ScreenToLoad.presentingScreen = "1"
             let accVC = accountsVC as? AccountsViewController
             accVC?.accountDetails?.view.removeFromSuperview()
             vc = accountsVC
             ContactsGlobal.accountId = ""
         case .ContactsVCIndex:
+            ScreenToLoad.presentingScreen = "2"
             let contactVC = contactsVC as! ContactsViewController
             contactVC.contactDetails?.willMove(toParentViewController: nil)
             contactVC.contactDetails?.view.removeFromSuperview()
@@ -1320,10 +1326,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             vc = contactVC
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
+            ScreenToLoad.presentingScreen = "3"
             vc = calendarVC
             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
-           // vc = objectivesVC
+            // vc = objectivesVC
+            ScreenToLoad.presentingScreen = "4"
             if !isPresentingNotificationVc{
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.insightLaunchIdentifier = "obj"
@@ -1338,7 +1346,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             break
         }
         
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
+        //        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         previouslySelectedVCIndex = index
         self.removePresentedViewControllers()
         

@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct ScreenToLoad {
+    static var presentingScreen = ""
+}
+
 class GlobalConstants
 {
     // persistent menu related
@@ -24,6 +28,7 @@ class GlobalConstants
         case Month = 3
     }
     
+   
 }
 
 public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {

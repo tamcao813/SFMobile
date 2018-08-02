@@ -34,6 +34,8 @@ class StringConstants {
     
     static let uiApiFailureMessage = "Saving of Visit/Event has failed. Please try again or contact the National Service Desk if you experience an ongoing issue.​"
     
+    static let cannotCreateEventMoreThan14Days = "Event cannot be created for more than 14 days."
+    
     static var globalUrlDictionary : NSDictionary!
     
     //Chatter URL

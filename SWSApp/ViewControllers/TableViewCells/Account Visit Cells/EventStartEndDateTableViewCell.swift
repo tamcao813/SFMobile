@@ -258,7 +258,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                     }
                     else{
                         
-                        showAlert(message: "Event can not be created more than 14 days.")
+                        showAlert(message: StringConstants.cannotCreateEventMoreThan14Days)
                     }
                     
                     
@@ -288,7 +288,7 @@ class EventStartEndDateTableViewCell: UITableViewCell , UITextFieldDelegate {
                     eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)
                     
                 }else{
-                    showAlert(message: "Event can not be created more than 14 days.")
+                    showAlert(message: StringConstants.cannotCreateEventMoreThan14Days)
                 }
             }
             // eventEndDateTextField.text = dateFormatter.string(from: datePickerView.date)

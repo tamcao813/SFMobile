@@ -350,13 +350,17 @@ class ContactMenuViewController: UIViewController {
     
     //Filters the account list according to filter selection
     @IBAction func submitButton(_ sender: Any) {
+        
+        MBProgressHUD.show(onWindow: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
         // step 1
         //Apply logic for filter selection performed in ContactFilter screen to ContactFilter List screen
         // validate user input and then proceed for filtering and search
-        if(isValidUserInputAtSearchFilterPanel() == true)
+            if(self.isValidUserInputAtSearchFilterPanel() == true)
         {
             self.searchByEnteredTextDelegate?.filteringContact(filtering: true)
-            searchByEnteredTextDelegate?.performContactFilterOperation(searchString: searchBar.text!)
+            self.searchByEnteredTextDelegate?.performContactFilterOperation(searchString: self.searchBar.text!)
         }
         else
         {
@@ -365,13 +369,22 @@ class ContactMenuViewController: UIViewController {
             
             print(" Not ValidUserInputAtSearchFilterPanel")
         }
-        self.tableView.setContentOffset(CGPoint.zero, animated: false)
+            self.tableView.setContentOffset(CGPoint.zero, animated: false)
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
     
     //Clears all the filter selection
     @IBAction func clearButton(_ sender: Any) {
-        self.clearFilterModelData(clearcontactsOnMyRoute: true)
-        self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
+        MBProgressHUD.show(onWindow: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            // Put your code which should be executed with a delay here
+            self.clearFilterModelData(clearcontactsOnMyRoute: true)
+            self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
+            MBProgressHUD.hide(forWindow: true)
+        })
+        
 
     }
 

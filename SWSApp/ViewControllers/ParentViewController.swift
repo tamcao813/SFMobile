@@ -236,7 +236,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     func startUpdatingLocationAlerts() {
         // 1. status is not determined
         if CLLocationManager.authorizationStatus() == .notDetermined {
-            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
         }
             // 2. authorization were denied
         else if CLLocationManager.authorizationStatus() == .denied {

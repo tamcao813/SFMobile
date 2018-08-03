@@ -1252,6 +1252,11 @@ class StoreDispatcher {
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
+        //Cleans the server deleted records in the application db store
+        if let userSyncId = self.syncIdDictionary[SyncDownIdUser]{
+            _ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId:userSyncId)
+        }
+        
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
@@ -1302,11 +1307,17 @@ class StoreDispatcher {
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
+        //Cleans the server deleted records in the application db store
+        if let userAccSyncId = self.syncIdDictionary[SyncDownIdUserData]{
+            _ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId:userAccSyncId)
+        }
+        
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdUserData] = syncId
+                    
                     print("syncDownUserDataForAccounts() done")
                     completion(nil)
                 }
@@ -1352,11 +1363,19 @@ class StoreDispatcher {
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
+        //Cleans the server deleted records in the application db store
+        if let accSyncId = self.syncIdDictionary[SyncDownIdAccount]{
+            _ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId:accSyncId)
+        }
+        
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupAccount)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    
                     let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdAccount] = syncId
+                    
+                    
                     print("syncDownAccount() done")
                     completion(nil)
                 }

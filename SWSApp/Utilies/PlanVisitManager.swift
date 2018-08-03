@@ -92,8 +92,12 @@ class PlanVisitManager {
             }
         }//old flow
         else{
-            self.editAndSaveVisitData()
-            completion(nil)
+            MBProgressHUD.show(onWindow: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                self.editAndSaveVisitData()
+                completion(nil)
+                MBProgressHUD.hide(forWindow: true)
+            })
         }
         return true
     }

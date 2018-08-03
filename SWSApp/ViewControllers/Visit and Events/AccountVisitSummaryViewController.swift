@@ -98,7 +98,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         
         //VisitModelForUIAPI.isEditMode = false
         
-        self.setLocationManager()
+        //self.setLocationManager()
         self.checkForReachbility()
         
     }

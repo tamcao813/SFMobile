@@ -146,31 +146,37 @@ class ServicePurposesViewController: UIViewController {
        
         //VisitModelForUIAPI.isEditMode = true
         
-        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
-            
-            PlanVisitManager.sharedInstance.visit?.status = "Planned"
-            
-            //Take Purpose List
-            let stringRepresentation = selectedPurposesValuesList.joined(separator: ";")
-            PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = stringRepresentation
-           // PlanVisitManager.sharedInstance.sgwsAgendaNotes =
-            let status = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
-                //print(error!)
-            })
-            if let row = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == PlanVisitManager.sharedInstance.visit?.Id}) {
-                GlobalWorkOrderArray.workOrderArray[row] = PlanVisitManager.sharedInstance.visit!
-            }
-            print(status)
-        }
+        MBProgressHUD.show(onWindow: true)
         
-        DispatchQueue.main.async{
-            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             
-        }
-        StrategyScreenLoadFrom.isLoadFromStrategy = "0"
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStrategyData"), object:nil)
+            if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+                
+                PlanVisitManager.sharedInstance.visit?.status = "Planned"
+                
+                //Take Purpose List
+                let stringRepresentation = self.selectedPurposesValuesList.joined(separator: ";")
+                PlanVisitManager.sharedInstance.visit?.sgwsVisitPurpose = stringRepresentation
+                // PlanVisitManager.sharedInstance.sgwsAgendaNotes =
+                let status = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+                    //print(error!)
+                })
+                if let row = GlobalWorkOrderArray.workOrderArray.index(where: {$0.Id == PlanVisitManager.sharedInstance.visit?.Id}) {
+                    GlobalWorkOrderArray.workOrderArray[row] = PlanVisitManager.sharedInstance.visit!
+                }
+                print(status)
+            }
+            
+            DispatchQueue.main.async{
+                self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                
+            }
+            StrategyScreenLoadFrom.isLoadFromStrategy = "0"
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStrategyData"), object:nil)
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
     
     

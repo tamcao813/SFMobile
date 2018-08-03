@@ -141,13 +141,11 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     //MARK: Visit/Event related helper method
     func fetchVisit(visitIdTemp:String?){
         if let id = visitIdTemp{
-            let visitArray = GlobalWorkOrderArray.workOrderArray
-            for visit in visitArray {
-                if visit.Id == id {
-                    visitObject = visit
-                    break
-                }
+            let visitArray = GlobalWorkOrderArray.workOrderArray.filter( {$0.Id == id} )
+            if visitArray.count > 0 {
+                visitObject = visitArray[0]
             }
+
         }
         PlanVisitManager.sharedInstance.visit = visitObject
         
@@ -194,13 +192,10 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     func fetchAccountDetails(){
         if let accountId = visitObject?.accountId {
-            let accountsArray = AccountsViewModel().accountsForLoggedUser()
-            for account in accountsArray{
-                if account.account_Id == accountId {
-                    accountObject = account
-                    AccountObject.account = account
-                    break
-                }
+            let accountsArray = AccountsViewModel().accountsForLoggedUser().filter( {accountId == $0.account_Id} )
+            if accountsArray.count > 0 {
+                accountObject = accountsArray[0]
+                AccountObject.account = accountsArray[0]
             }
         }
     }

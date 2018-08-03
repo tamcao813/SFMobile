@@ -24,10 +24,10 @@ class AccountsViewModel {
     
     func syncAccountWithServer(_ completion:@escaping (_ error: NSError?)->()) {
         
-        //        StoreDispatcher.shared.reSyncUser { error in
-        //            if error != nil {
-        //
-        //            }
+                //Call sync down user also
+                StoreDispatcher.shared.syncDownUser { error in
+        
+                    }
         //
         //            //1.Sync down User Data
         //            StoreDispatcher.shared.syncDownUserDataForAccounts{ error in

@@ -43,7 +43,7 @@ class ContactSortUtility {
         var contactListWithSearchResults = [Contact]()
         // trim leading trailing white spaces
         let trimmedSearchString = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        
+        /*
         for contact in contactsForLoggedUser{
             // search contace name and Account Id
             if (contact.name.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil
@@ -67,7 +67,45 @@ class ContactSortUtility {
                     break
                 }
             }
-        }
+        }*/
+        
+        let accounts = AccountsViewModel().accountsForLoggedUser()
+        let acrFilteredArray = ContactsViewModel().accountsForSetOfContacts(For: contactsForLoggedUser.map { $0.contactId })
+
+        contactListWithSearchResults = contactsForLoggedUser.filter( {
+            if ($0.name.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil) {
+                return true
+            }
+            
+            let thisContactId = $0.contactId
+            let accFilterArray = acrFilteredArray.filter( {thisContactId == $0.contactId} )
+            
+            let accountSearch = accFilterArray.filter( {
+                let thisAccountId = $0.accountId
+                let aFilterArray = accounts.filter( {thisAccountId == $0.account_Id} )
+                if aFilterArray.count > 0 {
+                    if (aFilterArray[0].accountName.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil) {
+                        return true
+                    }
+                    if (aFilterArray[0].accountNumber.self.range(of: trimmedSearchString, options: .caseInsensitive) != nil) {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
+                }
+                else {
+                    return false
+                }
+            } )
+            
+            if accountSearch.count > 0 {
+                return true
+            }
+            else {
+                return false
+            }
+        } )
         
         if contactListWithSearchResults.count > 0 {
             let filteredNoDuplicateContactArray = contactListWithSearchResults.reduce([]) { (r, p) -> [Contact] in

@@ -1990,6 +1990,36 @@ class StoreDispatcher {
         return acrAry
     }
 
+    func fetchLinkedActiveSetOfContacts(For contactIds: [String]) -> [AccountContactRelation] {
+        var acrAry: [AccountContactRelation] = []
+        
+        let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
+        
+        let contactIdsString = contactIds.joined(separator: "','")
+        let contactIdsFormattedString = "'" + contactIdsString + "'"
+        
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_IsActive__c} = 1 AND {SGWS_AccountContactMobile__c:SGWS_Contact__c} IN (\(contactIdsFormattedString))"
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let acr = AccountContactRelation(withAry: ary)
+                if acr.isActive == 1 {
+                    acrAry.append(acr)
+                }
+            }
+        }
+        else if error != nil {
+            print("fetchLinkedActiveSetOfContacts " + " error:" + (error?.localizedDescription)!)
+        }
+        return acrAry
+    }
+
     func fetchContactIdsWithBuyingPower(forAccount accountId: String) -> [String] {
         var acrAry: [String] = []
         

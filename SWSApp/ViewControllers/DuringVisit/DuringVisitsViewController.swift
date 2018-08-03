@@ -84,7 +84,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
         print("The error is in location \(error)")
 //        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
 //            //print(error!)
@@ -177,7 +177,7 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        locationManager.stopUpdatingLocation()
+       // locationManager.stopUpdatingLocation()
         geoLocationForVisit.startLatitude = 0.0
         geoLocationForVisit.startLongitude = 0.0
         geoLocationForVisit.startTime = ""
@@ -481,56 +481,66 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     //Save button Clicked
     @IBAction func saveContinueAndComplete(sender : UIButton){
         
-        if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue" {
-            geoLocationForVisit.lastVisitStatus = (PlanVisitManager.sharedInstance.visit?.status)!
-            PlanVisitManager.sharedInstance.visit?.status = "In-Progress"
-            
-            //if geoLocationForVisit.startTime == "FromContinueVisit" do not save s it ws done previously
-            if(geoLocationForVisit.startTime != "FromContinueVisit") {
-                if  geoLocationForVisit.lastVisitStatus == "Scheduled" ||
-                    geoLocationForVisit.lastVisitStatus == "Planned"{
-                    //Get time on button clicked
-                    geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-                    _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
-                        //print(error!)
-                    })
+        MBProgressHUD.show(onWindow: true)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            if self.btnSaveContinueComplete?.titleLabel?.text == "Save and Continue" {
+                geoLocationForVisit.lastVisitStatus = (PlanVisitManager.sharedInstance.visit?.status)!
+                PlanVisitManager.sharedInstance.visit?.status = "In-Progress"
+                
+                //if geoLocationForVisit.startTime == "FromContinueVisit" do not save s it ws done previously
+                if(geoLocationForVisit.startTime != "FromContinueVisit") {
+                    if  geoLocationForVisit.lastVisitStatus == "Scheduled" ||
+                        geoLocationForVisit.lastVisitStatus == "Planned"{
+                        //Get time on button clicked
+                        geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+                        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+                            //print(error!)
+                        })
+                    }
                 }
             }
-        }
-        else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
-            //location related code
-            //self.startUpdatingLocationAlerts()
-            geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-            PlanVisitManager.sharedInstance.visit?.status = "Completed"
-
-            self.saveOpportunityCommitValuesLocally()
-            self.saveOutcomeToWorkOrderOpportunityLocally()
-            delegate?.navigateToAccountVisitingScreen()
-            //Must dismiss at last
-            DispatchQueue.main.async{
-                _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
-                    //self.locationManager.stopUpdatingLocation()
-                    //print(error!)
-                })
-                self.dismiss(animated: true, completion: nil)
+            else if self.btnSaveContinueComplete?.titleLabel?.text == "Complete"{
+                //location related code
+                //self.startUpdatingLocationAlerts()
+                geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+                PlanVisitManager.sharedInstance.visit?.status = "Completed"
+                
+                self.saveOpportunityCommitValuesLocally()
+                self.saveOutcomeToWorkOrderOpportunityLocally()
+                self.delegate?.navigateToAccountVisitingScreen()
+                //Must dismiss at last
+                DispatchQueue.main.async{
+                    _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+                        //self.locationManager.stopUpdatingLocation()
+                        //print(error!)
+                    })
+                    
+                    MBProgressHUD.hide(forWindow: true)
+                    
+                    self.dismiss(animated: true, completion: nil)
+                }
+                return
             }
-            return
-        }
-        
-        btnBack?.isHidden = false
-        btnCreateActionItem?.isHidden = true
-        imgDiscussion?.image = UIImage(named: "Small Status Good")
-        imgInsights?.image = UIImage(named: "selectedButton")
-        
-        btnDiscussion?.setTitle("", for: .normal)
-        btnInsights?.setTitle("Insights", for: .normal)
-        btnSaveContinueComplete?.setTitle("Complete", for: .normal)
-        
-        let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
-        let duringVisitVC: DuringVisitsInsightsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsInsightsViewControllerID") as! DuringVisitsInsightsViewController
-        duringVisitVC.visitInformation = visitObject
-        activeViewController = duringVisitVC
-        activeViewController = duringVisitVC
+            
+            self.btnBack?.isHidden = false
+            self.btnCreateActionItem?.isHidden = true
+            self.imgDiscussion?.image = UIImage(named: "Small Status Good")
+            self.imgInsights?.image = UIImage(named: "selectedButton")
+            
+            self.btnDiscussion?.setTitle("", for: .normal)
+            self.btnInsights?.setTitle("Insights", for: .normal)
+            self.btnSaveContinueComplete?.setTitle("Complete", for: .normal)
+            
+            MBProgressHUD.hide(forWindow: true)
+            
+            let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
+            let duringVisitVC: DuringVisitsInsightsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsInsightsViewControllerID") as! DuringVisitsInsightsViewController
+            duringVisitVC.visitInformation = self.visitObject
+            self.activeViewController = duringVisitVC
+            self.activeViewController = duringVisitVC
+            
+        })
     }
     
     //Account strategy Clicked
@@ -569,19 +579,22 @@ class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     //Chatter Button Clicked
     @IBAction func chatterClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            DispatchQueue.main.async {
-                //self.dismiss(animated: true, completion: nil)
-                //self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
-                
-                let chatterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier :"ChatterModelViewControllerID") as! ChatterModelViewController
-                DispatchQueue.main.async {
-                    self.present(chatterViewController, animated: true)
-                }
-            }
-        }) {
-            
-        }
+//        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+//            DispatchQueue.main.async {
+//                //self.dismiss(animated: true, completion: nil)
+//                //self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
+//
+//                let chatterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier :"ChatterModelViewControllerID") as! ChatterModelViewController
+//                DispatchQueue.main.async {
+//                    self.present(chatterViewController, animated: true)
+//                }
+//            }
+//        }) {
+//
+//        }
+        
+        let chatterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier :"ChatterModelViewControllerID") as! ChatterModelViewController
+        self.present(chatterViewController, animated: true)
     }
     
     //Action Item Button Clicked

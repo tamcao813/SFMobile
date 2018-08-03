@@ -113,7 +113,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
         //FilterMenuModel.isFromAccountVisitSummary = ""
         NotificationCenter.default.removeObserver(self)
     }
@@ -482,7 +482,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             }
             else {
                 geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-                self.startUpdatingLocationAlerts()
+              //  self.startUpdatingLocationAlerts()
             }
             
             self.present(vc, animated: true, completion: nil)
@@ -544,7 +544,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     @IBAction func closeButtonTapped(_ sender: UIButton?){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
         self.dismiss(animated: false, completion: nil)
     }
     

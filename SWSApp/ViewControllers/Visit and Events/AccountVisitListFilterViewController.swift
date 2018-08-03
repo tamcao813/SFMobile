@@ -366,12 +366,20 @@ class AccountVisitListFilterViewController : UIViewController{
     //MARK:- IBAction Methods
     //Clear button Clicked
     @IBAction func clearButtonTapped(_ sender: UIButton){
-        self.clearAccountVisitFilterModel()
+        MBProgressHUD.show(onWindow: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            self.clearAccountVisitFilterModel()
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
     
     //Submit Button Clicked
     @IBAction func submitButtonTapped(_ sender: UIButton){
-        delegate?.performFilterOperation(searchText: searchBar)
+        MBProgressHUD.show(onWindow: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            self.delegate?.performFilterOperation(searchText: self.searchBar)
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
 }
 

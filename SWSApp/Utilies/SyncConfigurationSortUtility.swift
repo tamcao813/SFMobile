@@ -52,9 +52,12 @@ class SyncConfigurationSortUtility {
     static func getActionItemDataUsingSyncTime(objectArray: Array<ActionItem>) -> Array<ActionItem>  {
         
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
-        let isManager:Bool = UserViewModel().consultants.count > 0
+        var isManager:Bool = false
         
-        let objectArray = objectArray.filter {
+        DispatchQueue.main.async {
+            isManager = UserViewModel().consultants.count > 0
+        }
+            let objectArray = objectArray.filter {
             if let systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId: $0.recordTypeId) {
                 if systemConfigurationObject.developerName == "SGWS_Task" {
                     if isManager {
@@ -132,7 +135,11 @@ class SyncConfigurationSortUtility {
     static func getNotificationDataUsingSyncTime(objectArray: Array<Notifications>) -> Array<Notifications>  {
         
         let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
-        let isManager:Bool = UserViewModel().consultants.count > 0
+        var isManager:Bool = false
+        DispatchQueue.main.async {
+          isManager = UserViewModel().consultants.count > 0
+        }
+//        let isManager:Bool = UserViewModel().consultants.count > 0
         var recordTypeId = ""
         
         let recordTypeIdArray = RecordTypeViewModel().getRecordTypeForDeveloper()

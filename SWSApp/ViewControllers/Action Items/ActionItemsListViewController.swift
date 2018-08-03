@@ -24,6 +24,9 @@ class ActionItemsListViewController: UIViewController {
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     var searchStr = ""
     
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.actionItemSyncDownComplete), name: NSNotification.Name("actionItemSyncDownComplete"), object: nil)
@@ -38,6 +41,10 @@ class ActionItemsListViewController: UIViewController {
         }
         
         btnAddNew.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New", bigString: "+"), for: .normal)
+        activityIndicator.center =   CGPoint(x: self.view.frame.width/2-200, y: self.view.frame.height/2-200)
+        activityIndicator.color = UIColor.darkGray
+        self.view.addSubview(activityIndicator)
+
         
 //        fetchActionItemsFromDB()
     }
@@ -45,7 +52,9 @@ class ActionItemsListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        fetchActionItemsFromDB()
+        self.fetchActionItemsFromDB()
+
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -61,53 +70,65 @@ class ActionItemsListViewController: UIViewController {
         fetchActionItemsFromDB()
     }
     
+
     /// Fetches Action Items From Task Table and sort filters 4 months of Action Item in Sort by Date Pattern
     func fetchActionItemsFromDB(){
-        actionItemsArray = [ActionItem]()
-        if ActionItemFilterModel.fromAccount{
-            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsSorted()
-            if let accountId = ActionItemFilterModel.accountId {
+        activityIndicator.startAnimating()
+        
+         DispatchQueue.global(qos: .userInitiated).async {
+            self.actionItemsArray = [ActionItem]()
+            if ActionItemFilterModel.fromAccount{
+                let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsSorted()
+                if let accountId = ActionItemFilterModel.accountId {
+                    for actionItem in actionItemsArrayLocal {
+                        if actionItem.accountId == accountId {
+                            self.actionItemsArray.append(actionItem)
+                        }
+                    }
+                }
+                //If consultant is selected, Filter items based on seleted consultant
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                
+                let userViewModel = UserViewModel()
+                
+                let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+                
+                if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid) ||
+                    (FilterMenuModel.isFromAccountListView == "") && (appDelegate.currentSelectedUserId != loggedInuserid) {
+                    
+                    self.actionItemsArray = self.actionItemsArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
+                }
+            }else if FilterMenuModel.isFromAccountVisitSummary == "YES"{
+                let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
                 for actionItem in actionItemsArrayLocal {
-                    if actionItem.accountId == accountId {
-                        actionItemsArray.append(actionItem)
+                    if actionItem.accountId == (AccountObject.account?.account_Id) ?? "" {
+                        self.actionItemsArray.append(actionItem)
                     }
                 }
             }
-            //If consultant is selected, Filter items based on seleted consultant
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            
-            let userViewModel = UserViewModel()
-            
-            let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
-            
-            if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid) ||
-                (FilterMenuModel.isFromAccountListView == "") && (appDelegate.currentSelectedUserId != loggedInuserid) {
-                
-                actionItemsArray = actionItemsArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
+            else{
+                self.actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
             }
-        }else if FilterMenuModel.isFromAccountVisitSummary == "YES"{
-            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
-            for actionItem in actionItemsArrayLocal {
-                if actionItem.accountId == (AccountObject.account?.account_Id) ?? "" {
-                    actionItemsArray.append(actionItem)
-                }
+            if ActionItemFilterModel.filterApplied {
+                self.applyFilter(searchText: self.searchStr)
+            }
+            self.customizedUI()
+            self.reloadTableView()
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
             }
         }
-        else{
-            actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
-        }
-        if ActionItemFilterModel.filterApplied {
-            applyFilter(searchText: searchStr)
-        }
-        customizedUI()
-        reloadTableView()
+       
     }
     
     func customizedUI(){
-        self.tableView.rowHeight = UITableViewAutomaticDimension;
-        self.tableView.estimatedRowHeight = 100
-        self.tableView.tableFooterView = UIView()
-        initializeNibs()
+        DispatchQueue.main.async {
+            self.tableView.rowHeight = UITableViewAutomaticDimension;
+            self.tableView.estimatedRowHeight = 100
+            self.tableView.tableFooterView = UIView()
+            self.initializeNibs()
+        }
+   
     }
     
     func initializeNibs(){

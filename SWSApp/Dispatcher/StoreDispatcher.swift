@@ -2866,7 +2866,7 @@ class StoreDispatcher {
     
     func editNotesLocally(fieldsToUpload: [String:Any]) -> Bool{
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountNotes, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountNotes, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 10000)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)

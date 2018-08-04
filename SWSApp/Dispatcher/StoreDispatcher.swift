@@ -1157,6 +1157,8 @@ class StoreDispatcher {
             let sfIndex = SFSoupIndex(path: userQueryFields[i], indexType: kSoupIndexTypeString, columnName: userQueryFields[i])!
             indexSpec.append(sfIndex)
         }
+        let localIndex =   SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!
+        indexSpec.append(localIndex)
         
         do {
             try sfaStore.registerSoup(SoupUser, withIndexSpecs: indexSpec, error: ())
@@ -1352,7 +1354,7 @@ class StoreDispatcher {
                 let str = "\(LastSyncDateUTC)"
                 let arrOfSplitDate = str.components(separatedBy: " ")
                 let dateCombineStringInFormat = "\(arrOfSplitDate[0])T\(arrOfSplitDate[1])\(arrOfSplitDate[2])"
-                resyncClause = "AND (Account.LastModifiedDate > \(dateCombineStringInFormat) OR AccountTeamMember.LastModifiedDate > \(dateCombineStringInFormat))"
+               // resyncClause = "AND (Account.LastModifiedDate > \(dateCombineStringInFormat) OR AccountTeamMember.LastModifiedDate > \(dateCombineStringInFormat))"
             }
         }
         

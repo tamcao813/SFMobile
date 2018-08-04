@@ -38,6 +38,9 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
     
     var accountId : String!
     
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,8 +54,15 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshAccountOverView), name: NSNotification.Name("refreshAccountOverView"), object: nil)
         
-        getDB()
+        activityIndicator.center =  CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/2-200)
+        activityIndicator.color = UIColor.darkGray
+        self.view.addSubview(activityIndicator)
         
+        activityIndicator.startAnimating()
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.getDB()
+        }
         
     }
     
@@ -138,6 +148,7 @@ class AccountOverViewViewController: UIViewController,UITableViewDelegate,UITabl
         DispatchQueue.main.async {
             self.upcomingActivitiesTableView.reloadData()
             self.pastActivitiesTableView.reloadData()
+            self.activityIndicator.stopAnimating()
         }
         
     }

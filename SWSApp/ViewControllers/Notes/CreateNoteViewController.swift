@@ -39,6 +39,7 @@ class CreateNoteViewController : UIViewController{
     var comingFromAccountDetails:Bool?
     
     
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
     //MARK:- View Life Cycles
     override func viewDidLoad() {
@@ -48,8 +49,10 @@ class CreateNoteViewController : UIViewController{
         //  notesTitleTextField.layer.cornerRadius =
         notesTitleTextField.delegate = self
         textView.delegate = self
-        
-        
+        activityIndicator.center =  CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/2-200)
+        activityIndicator.color = UIColor.darkGray
+        self.view.addSubview(activityIndicator)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,13 +62,10 @@ class CreateNoteViewController : UIViewController{
             self.textView?.text = notesToEdit.accountNotesDesc
             self.notesTitleTextField?.text = notesToEdit.name
         }
-        
         if comingFromNotesVC == true{
-            
             self.editNotel_Label.text = "Edit Note"
         }
         else {
-            
             self.editNotel_Label.text = "Add Note"
         }
     }
@@ -103,20 +103,10 @@ class CreateNoteViewController : UIViewController{
             kSyncTargetLocallyUpdated:false,
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
-        
-        
         let success = accNotesViewModel.createNewNotesLocally(fields: addNewDict)
         print("Success is here \(success)")
-        
-        // Show the alert if not saved
-        
     }
-    //
-    //    if(!isAddingNewNote) {
-    //    self.textView?.text = notesToEdit.accountNotesDesc
-    //    self.notesTitleTextField?.text = notesToEdit.name
-    //    }
-    
+
     //Show Alert Message
     func showAlert(){
         AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
@@ -147,59 +137,44 @@ class CreateNoteViewController : UIViewController{
             if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
                 notesTitleTextField.borderColor = UIColor.red
                 errorLabel.text = StringConstants.emptyFieldError
-                // create the alert
-//                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldInNoted, preferredStyle: UIAlertControllerStyle.alert)
-//                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-//                self.present(alert, animated: true, completion: nil)
                 return
             }
             self.createNewNotes()
-            
             self.dismiss(animated: true, completion: {
+                 //MBProgressHUD.show(onWindow: true)
+                self.activityIndicator.startAnimating()
                 self.sendNoteDelegate?.displayAccountNotes()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
-                
                 if self.comingFromAccountDetails == true{
-                    
                     self.sendNoteDelegate?.navigateToNotesSection()
-                    
                 }
-                
-                
-                //self.sendNoteDelegate?.noteCreated()
             })
         } else {
             if (notesTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
                 // create the alert
                 notesTitleTextField.borderColor = UIColor.red
                 errorLabel.text = StringConstants.emptyFieldError
-//                let alert = UIAlertController(title: "Notes", message: StringConstants.emptyFieldInNoted, preferredStyle: UIAlertControllerStyle.alert)
-//                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-//                self.present(alert, animated: true, completion: nil)
                 return
             }
-            self.editNote()
-            self.dismiss(animated: true, completion: {
-                self.sendNoteDelegate?.dismissEditNote()
-                self.sendNoteDelegate?.displayAccountNotes()
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
-                
-                
-                
-            })
+            
+            activityIndicator.startAnimating()
+                        self.editNote()
+                        self.dismiss(animated: true, completion: {
+                        //MBProgressHUD.show(onWindow: true)
+                        DispatchQueue.global(qos: .userInitiated).async {
+                            self.sendNoteDelegate?.dismissEditNote()
+                            self.sendNoteDelegate?.displayAccountNotes()
+                            DispatchQueue.main.async {
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshNotesList"), object:nil)
+                                 self.activityIndicator.stopAnimating()
+                            }
+                            
+                        }
+                        
+                    })
+            
+            }
         }
-    }
-    
-    
-    //    if ((titleLabel?.text)!.isEmpty){
-    //    // create the alert
-    //    let alert = UIAlertController(title: "Notes", message: "Please enter required fields", preferredStyle: UIAlertControllerStyle.alert)
-    //    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-    //    self.present(alert, animated: true, completion: nil)
-    //    return
-    //    }
-    
-    
     
     @IBAction func editNote(_ sender: Any) {
         // self.performSegue(withIdentifier: "editToCreate", sender: nil)

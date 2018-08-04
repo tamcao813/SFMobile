@@ -11,10 +11,6 @@ import UIKit
 import SwipeCellKit
 import SmartSync
 
-
-
-
-
 class NotesTableViewCell : SwipeTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -47,11 +43,11 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
     var sortedNotesList = [AccountNotes]()
     var tableViewDisplayData = [AccountNotes]()
     var originalAccountNotesList = [AccountNotes]()
-   
-    
-    
     @IBOutlet weak var notesTableView : UITableView?
     var strategyNotes = ""
+    
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+    
     
     //MARK:- ViewLifeCycle
     
@@ -59,47 +55,49 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotesList), name: NSNotification.Name("refreshNotesList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotesListAfterDelete), name: NSNotification.Name("refreshNotesListPostDelete"), object: nil)
-        accountNotesArray = accNotesViewModel.accountsNotesForUser()
-        tableViewDisplayData = accountNotesArray
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        let userViewModel = UserViewModel()
-        
-        let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+        activityIndicator.center =  CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/2-200)
+        activityIndicator.color = UIColor.darkGray
+        self.view.addSubview(activityIndicator)
 
-        if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid) ||
-            (FilterMenuModel.isFromAccountListView == "") && (appDelegate.currentSelectedUserId != loggedInuserid) {
-            
-            let notesArryfilteredByCounsultant:[AccountNotes] = accountNotesArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
-            
-            notesArray =  notesArryfilteredByCounsultant
-            notesArray = notesArray.filter{$0.accountId == self.accountId}
-        } else {
-        // = accountNotesArray.filter{$0.accountId == self.accountId}
-            notesArray = accountNotesArray.filter{$0.accountId == self.accountId}
+        
+       // MBProgressHUD.show(onWindow: true)
+        activityIndicator.startAnimating()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.accountNotesArray = self.accNotesViewModel.accountsNotesForUser()
+            self.tableViewDisplayData = self.accountNotesArray
+            DispatchQueue.main.async {
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let userViewModel = UserViewModel()
+                let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+                if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid) ||
+                    (FilterMenuModel.isFromAccountListView == "") && (appDelegate.currentSelectedUserId != loggedInuserid) {
+                    
+                    let notesArryfilteredByCounsultant:[AccountNotes] = self.accountNotesArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
+                    
+                    self.notesArray =  notesArryfilteredByCounsultant
+                    self.notesArray = self.notesArray.filter{$0.accountId == self.accountId}
+                } else {
+                    // = accountNotesArray.filter{$0.accountId == self.accountId}
+                    self.notesArray = self.accountNotesArray.filter{$0.accountId == self.accountId}
+                }
+                self.tableViewDisplayData = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: self.notesArray, ascending: false)
+            }
+            let data = self.strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
+            DispatchQueue.main.async {
+                if data.count > 0{
+                    self.strategyNotes = (data.first?.SGWS_Notes__c)!
+                }
+                self.notesTableView?.estimatedRowHeight = 600.0;
+                self.notesTableView?.rowHeight = UITableViewAutomaticDimension
+                self.notesTableView?.setNeedsLayout()
+                self.notesTableView?.layoutIfNeeded()
+                self.notesTableView?.reloadData()
+                 self.activityIndicator.stopAnimating()
+                 //MBProgressHUD.hide(forWindow: true)
+            }
         }
         
-//        for accNotes in accountNotesArray {
-//            if(accNotes.accountId == self.accountId) {
-//                notesArray.append(accNotes)
-//            }
-//            //filtered array of notes related to my notes
-//            print("Notes Array \(notesArray)")
-//        }
-        originalAccountNotesList = NoteSortUtility.sortAccountsByNotesDateModified(accountNotesToBeSorted: notesArray, ascending: false)
-        tableViewDisplayData = originalAccountNotesList
-        
-        let data = strategyQAViewModel.fetchStrategy(acc: AccountId.selectedAccountId)
-        if data.count > 0{
-            strategyNotes = (data.first?.SGWS_Notes__c)!
-        }
-     
-        self.notesTableView?.estimatedRowHeight = 600.0;
-        self.notesTableView?.rowHeight = UITableViewAutomaticDimension
-        
-        self.notesTableView?.setNeedsLayout()
-        self.notesTableView?.layoutIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,7 +124,10 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
             print("Notes Array \(notesArray)")
             
         }
-        notesTableView?.reloadData()
+        DispatchQueue.main.async {
+            self.notesTableView?.reloadData()
+        }
+     
     }
     
     func noteCreated() {
@@ -153,8 +154,6 @@ class NotesViewController : UIViewController,sendNotesDataToNotesDelegate, Navig
             isAscendingNotesName = true
             sortedNotesList = NoteSortUtility.sortByNoteTitleAlphabetically(notesListToBeSorted: tableViewDisplayData, ascending: false)
         }
-        
-        //self.accountListTableView.reloadData()
         self.updateTheTableViewDataAccordingly()
         
     }

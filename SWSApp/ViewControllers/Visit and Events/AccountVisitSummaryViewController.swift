@@ -65,7 +65,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     func startUpdatingLocationAlerts() {
         // 1. status is not determined
         if CLLocationManager.authorizationStatus() == .notDetermined {
-            locationManager.requestAlwaysAuthorization()
+           locationManager.requestWhenInUseAuthorization()
         }
             // 2. authorization were denied
         else if CLLocationManager.authorizationStatus() == .denied {
@@ -98,7 +98,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
         
         //VisitModelForUIAPI.isEditMode = false
         
-        self.setLocationManager()
+        //self.setLocationManager()
         self.checkForReachbility()
         
     }
@@ -113,7 +113,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
         //FilterMenuModel.isFromAccountVisitSummary = ""
         NotificationCenter.default.removeObserver(self)
     }
@@ -141,13 +141,11 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     //MARK: Visit/Event related helper method
     func fetchVisit(visitIdTemp:String?){
         if let id = visitIdTemp{
-            let visitArray = GlobalWorkOrderArray.workOrderArray
-            for visit in visitArray {
-                if visit.Id == id {
-                    visitObject = visit
-                    break
-                }
+            let visitArray = GlobalWorkOrderArray.workOrderArray.filter( {$0.Id == id} )
+            if visitArray.count > 0 {
+                visitObject = visitArray[0]
             }
+
         }
         PlanVisitManager.sharedInstance.visit = visitObject
         
@@ -194,13 +192,10 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     func fetchAccountDetails(){
         if let accountId = visitObject?.accountId {
-            let accountsArray = AccountsViewModel().accountsForLoggedUser()
-            for account in accountsArray{
-                if account.account_Id == accountId {
-                    accountObject = account
-                    AccountObject.account = account
-                    break
-                }
+            let accountsArray = AccountsViewModel().accountsForLoggedUser().filter( {accountId == $0.account_Id} )
+            if accountsArray.count > 0 {
+                accountObject = accountsArray[0]
+                AccountObject.account = accountsArray[0]
             }
         }
     }
@@ -482,7 +477,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
             }
             else {
                 geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
-                self.startUpdatingLocationAlerts()
+              //  self.startUpdatingLocationAlerts()
             }
             
             self.present(vc, animated: true, completion: nil)
@@ -544,7 +539,7 @@ class AccountVisitSummaryViewController: UIViewController, CLLocationManagerDele
     
     @IBAction func closeButtonTapped(_ sender: UIButton?){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
-        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
         self.dismiss(animated: false, completion: nil)
     }
     

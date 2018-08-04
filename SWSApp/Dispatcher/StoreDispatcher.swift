@@ -17,6 +17,9 @@ struct DOWNLOAD_SIZE {
     static let CONTACT_SIZE = 10000
 }
 
+let SOUPQUERY_PAGE_SIZE:UInt = 10000
+let SOQLQUERY_PAGE_LIMIT:UInt = 10000
+
 
 class StoreDispatcher {
     static let shared = StoreDispatcher()
@@ -1157,6 +1160,8 @@ class StoreDispatcher {
             let sfIndex = SFSoupIndex(path: userQueryFields[i], indexType: kSoupIndexTypeString, columnName: userQueryFields[i])!
             indexSpec.append(sfIndex)
         }
+        let localIndex =   SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!
+        indexSpec.append(localIndex)
         
         do {
             try sfaStore.registerSoup(SoupUser, withIndexSpecs: indexSpec, error: ())
@@ -1246,11 +1251,16 @@ class StoreDispatcher {
         let fields : [String] = User.UserFields
         let userId =   SFUserAccountManager.sharedInstance().currentUser?.credentials.userId
         
-        let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember Where UserId = '\(userId!)' OR User.ManagerId = '\(userId!)' limit 1000"
+        let soqlQuery = "Select \(fields.joined(separator: ",")) from AccountTeamMember Where UserId = '\(userId!)' OR User.ManagerId = '\(userId!)' limit \(SOQLQUERY_PAGE_LIMIT)"
         
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
+        
+        //Cleans the server deleted records in the application db store
+        if let userSyncId = self.syncIdDictionary[SyncDownIdUser]{
+            _ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId:userSyncId)
+        }
         
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
             .done { syncStateStatus in
@@ -1302,11 +1312,17 @@ class StoreDispatcher {
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
+        //Cleans the server deleted records in the application db store
+        if let userAccSyncId = self.syncIdDictionary[SyncDownIdUserData]{
+            _ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId:userAccSyncId)
+        }
+        
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdUserData] = syncId
+                    
                     print("syncDownUserDataForAccounts() done")
                     completion(nil)
                 }
@@ -1341,22 +1357,30 @@ class StoreDispatcher {
                 let str = "\(LastSyncDateUTC)"
                 let arrOfSplitDate = str.components(separatedBy: " ")
                 let dateCombineStringInFormat = "\(arrOfSplitDate[0])T\(arrOfSplitDate[1])\(arrOfSplitDate[2])"
-                resyncClause = "AND (Account.LastModifiedDate > \(dateCombineStringInFormat) OR AccountTeamMember.LastModifiedDate > \(dateCombineStringInFormat))"
+               // resyncClause = "AND (Account.LastModifiedDate > \(dateCombineStringInFormat) OR AccountTeamMember.LastModifiedDate > \(dateCombineStringInFormat))"
             }
         }
         
-        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' AND (UserId = '\(userid)' OR User.ManagerId = '\(userid)') \(resyncClause) limit 10000 "
+        let soqlQuery = "SELECT Id,Account.SGWS_Account_Health_Grade__c,Account.Name,Account.AccountNumber,Account.SWS_Total_CY_MTD_Net_Sales__c,Account.SWS_Total_AR_Balance__c, Account.IS_Next_Delivery_Date__c,Account.SWS_Premise_Code__c,Account.SWS_License_Type__c,Account.SWS_License__c,Account.Google_Place_Operating_Hours__c,Account.SWS_License_Expiration_Date__c,Account.SWS_Total_CY_R12_Net_Sales__c,Account.SWS_Credit_Limit__c,Account.SWS_TD_Channel__c,Account.SWS_TD_Sub_Channel__c,Account.SWS_License_Status_Description__c,Account.ShippingCity,Account.ShippingCountry,Account.ShippingPostalCode,Account.ShippingState,Account.ShippingStreet,Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c,Account.SWS_AR_Past_Due_Amount__c,Account.SWS_Delivery_Frequency__c,Account.SGWS_Single_Multi_Locations_Filter__c,Account.Google_Place_Formatted_Phone__c,Account.SWS_Status_Description__c,AccountId,Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c,Account.SGWS_SurveyId__c, UserId FROM AccountTeamMember Where Account.RecordType.DeveloperName='Customer' AND (UserId = '\(userid)' OR User.ManagerId = '\(userid)') \(resyncClause) limit \(SOQLQUERY_PAGE_LIMIT) "
         
     
         let syncDownTarget = SFSoqlSyncDownTarget.newSyncTarget(soqlQuery)
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
+        //Cleans the server deleted records in the application db store
+        if let accSyncId = self.syncIdDictionary[SyncDownIdAccount]{
+            _ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId:accSyncId)
+        }
+        
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupAccount)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    
                     let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdAccount] = syncId
+                    
+                    
                     print("syncDownAccount() done")
                     completion(nil)
                 }
@@ -1780,7 +1804,7 @@ class StoreDispatcher {
         
         var contactAry: [Contact] = []
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupContact, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 10000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupContact, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -1986,6 +2010,36 @@ class StoreDispatcher {
         }
         else if error != nil {
             print("fetchLinkedActiveSetOfAccounts " + " error:" + (error?.localizedDescription)!)
+        }
+        return acrAry
+    }
+
+    func fetchLinkedActiveSetOfContacts(For contactIds: [String]) -> [AccountContactRelation] {
+        var acrAry: [AccountContactRelation] = []
+        
+        let fields = AccountContactRelation.AccountContactRelationFields.map{"{SGWS_AccountContactMobile__c:\($0)}"}
+        
+        let contactIdsString = contactIds.joined(separator: "','")
+        let contactIdsFormattedString = "'" + contactIdsString + "'"
+        
+        let soapQuery = "Select \(fields.joined(separator: ",")) FROM {SGWS_AccountContactMobile__c} WHERE {SGWS_AccountContactMobile__c:SGWS_IsActive__c} = 1 AND {SGWS_AccountContactMobile__c:SGWS_Contact__c} IN (\(contactIdsFormattedString))"
+        
+        let querySpec = SFQuerySpec.newSmartQuerySpec(soapQuery, withPageSize: 100000)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpec!, pageIndex: 0, error: &error)
+        
+        if (error == nil && result.count > 0) {
+            for i in 0...result.count - 1 {
+                let ary:[Any] = result[i] as! [Any]
+                let acr = AccountContactRelation(withAry: ary)
+                if acr.isActive == 1 {
+                    acrAry.append(acr)
+                }
+            }
+        }
+        else if error != nil {
+            print("fetchLinkedActiveSetOfContacts " + " error:" + (error?.localizedDescription)!)
         }
         return acrAry
     }
@@ -2558,7 +2612,7 @@ class StoreDispatcher {
     }
     
     func deleteActionItemLocally(fieldsToUpload: [String:Any]) -> Bool{
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -2594,7 +2648,7 @@ class StoreDispatcher {
     
     
     func editActionItemLocally(fieldsToUpload: [String:Any]) -> Bool{
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
@@ -2648,7 +2702,7 @@ class StoreDispatcher {
     }
     
     func editActionItemStatusLocally(fieldsToUpload: [String:Any]) -> Bool{
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
@@ -2699,7 +2753,7 @@ class StoreDispatcher {
     func editActionItemStatusLocallyAutomatically(Id: String, fieldsToUpload: [String:Any]) -> Bool{
         let soupQuery = "SELECT {Task:Id},{Task:Status},{Task:SGWS_AppModified_DateTime__c} FROM {Task} Where {Task:Id} = \(Id)"
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
@@ -2836,7 +2890,7 @@ class StoreDispatcher {
     
     func editNotesLocally(fieldsToUpload: [String:Any]) -> Bool{
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountNotes, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountNotes, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -2888,7 +2942,7 @@ class StoreDispatcher {
     
     func deleteNotesLocally(fieldsToUpload: [String:Any]) -> Bool{
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountNotes, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountNotes, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -3051,7 +3105,7 @@ class StoreDispatcher {
         allFields[kSyncTargetLocal] = true
         
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupContact, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupContact, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -3097,7 +3151,7 @@ class StoreDispatcher {
         var allFields = fields
         let currentId = allFields["Id"] as! String
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountContactRelation, withOrderPath: "SGWS_Account__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupAccountContactRelation, withOrderPath: "SGWS_Account__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -3581,7 +3635,7 @@ class StoreDispatcher {
         allFields[kSyncTargetLocal] = true
         var ary = [Any]()
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupStrategyQA, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupStrategyQA, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -4198,7 +4252,7 @@ class StoreDispatcher {
     
     func editNotificationsLocally(fieldsToUpload: [String:Any]) -> Bool{
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupNotifications, withOrderPath: "CreatedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupNotifications, withOrderPath: "CreatedDate", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -4657,7 +4711,7 @@ class StoreDispatcher {
             return false
         }
         
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Work_Order__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
+        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Work_Order__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
@@ -4858,7 +4912,7 @@ class StoreDispatcher {
         }
         
         //        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupOpportunityWorkorder, withOrderPath: "SGWS_Outcome__c", with: SFSoupQuerySortOrder.ascending , withPageSize: 1000)
-        let querySpecAll = SFQuerySpec.newExactQuerySpec(SoupOpportunityWorkorder, withSelectPaths: nil, withPath: "SGWS_Work_Order__c", withMatchKey: "\(fieldsWorkOrderValue)", withOrderPath: "SGWS_Outcome__c", with: .ascending, withPageSize: 1000)
+        let querySpecAll = SFQuerySpec.newExactQuerySpec(SoupOpportunityWorkorder, withSelectPaths: nil, withPath: "SGWS_Work_Order__c", withMatchKey: "\(fieldsWorkOrderValue)", withOrderPath: "SGWS_Outcome__c", with: .ascending, withPageSize: SOUPQUERY_PAGE_SIZE)
         
         var error : NSError?
         let result = sfaStore.query(with: querySpecAll!, pageIndex: 0, error: &error)

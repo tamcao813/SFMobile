@@ -199,45 +199,52 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     }
     
     @IBAction func planAction(sender: UIButton) {
-        let validateArray = validatefields()
-        if validateArray.contains(false) {
-            errorLbl.isHidden = false
-        } else {
-            PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
-            errorLbl.isHidden = true
-            self.insetValuesToDB()
-            // createNewVisit()
-            let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
-            self.present(viewController, animated: true)
-        }
+        MBProgressHUD.show(onWindow: true)
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            let validateArray = self.validatefields()
+            if validateArray.contains(false) {
+                self.errorLbl.isHidden = false
+            } else {
+                PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
+                self.errorLbl.isHidden = true
+                self.insetValuesToDB()
+                // createNewVisit()
+                let storyboard = UIStoryboard(name: "PlanVisitEditableScreen", bundle: nil)
+                let viewController = storyboard.instantiateViewController(withIdentifier :"SelectOpportunitiesViewControllerID")
+                self.present(viewController, animated: true)
+            }
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
     
     @IBAction func scheduleAndClose(sender: UIButton) {
-        let validateArray = validatefields()
+        MBProgressHUD.show(onWindow: true)
         
-        if validateArray.contains(false) {
-            errorLbl.isHidden = false
-            
-        } else {
-            PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
-            errorLbl.isHidden = true
-            self.insetValuesToDB()
-            //Edit the visit
-            if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
-                let status = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
-                    //print(error!)
-                })
-                print(status)
-            } else{
-                //First Time A Visit is created and Saved
-                createNewVisit()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            let validateArray = self.validatefields()
+            if validateArray.contains(false) {
+                self.errorLbl.isHidden = false
+            } else {
+                PlanVisitManager.sharedInstance.visit?.status = "Scheduled"
+                self.errorLbl.isHidden = true
+                self.insetValuesToDB()
+                //Edit the visit
+                if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+                    let status = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+                        //print(error!)
+                    })
+                    print(status)
+                } else{
+                    //First Time A Visit is created and Saved
+                    self.createNewVisit()
+                }
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true)
+                }
             }
-            DispatchQueue.main.async {
-                self.dismiss(animated: true)
-            }
-        }
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
     
     // MARK:- Custom Methods

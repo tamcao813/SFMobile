@@ -528,6 +528,9 @@ extension AccountsListViewController{
             
             self.kNoOfPageSet! += 1
         }
+        else {
+            self.kRemainderNoPagesDisabled = 0
+        }
         self.currentPageIndex = 0   //It will have index value of the page it is displaying right now, 0 or 5 or next 10, 15---
         self.currentPageSet = 0     //[1][2][3][4][5][6] --- CPI
         

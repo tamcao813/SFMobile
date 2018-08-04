@@ -38,6 +38,7 @@ class ActionItemsListViewController: UIViewController {
         }
         
         btnAddNew.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New", bigString: "+"), for: .normal)
+
         
 //        fetchActionItemsFromDB()
     }
@@ -45,7 +46,9 @@ class ActionItemsListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        fetchActionItemsFromDB()
+        self.fetchActionItemsFromDB()
+
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -63,13 +66,14 @@ class ActionItemsListViewController: UIViewController {
     
     /// Fetches Action Items From Task Table and sort filters 4 months of Action Item in Sort by Date Pattern
     func fetchActionItemsFromDB(){
-        actionItemsArray = [ActionItem]()
+        
+        self.actionItemsArray = [ActionItem]()
         if ActionItemFilterModel.fromAccount{
             let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsSorted()
             if let accountId = ActionItemFilterModel.accountId {
                 for actionItem in actionItemsArrayLocal {
                     if actionItem.accountId == accountId {
-                        actionItemsArray.append(actionItem)
+                        self.actionItemsArray.append(actionItem)
                     }
                 }
             }
@@ -83,31 +87,35 @@ class ActionItemsListViewController: UIViewController {
             if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid) ||
                 (FilterMenuModel.isFromAccountListView == "") && (appDelegate.currentSelectedUserId != loggedInuserid) {
                 
-                actionItemsArray = actionItemsArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
+                self.actionItemsArray = self.actionItemsArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
             }
         }else if FilterMenuModel.isFromAccountVisitSummary == "YES"{
             let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
             for actionItem in actionItemsArrayLocal {
                 if actionItem.accountId == (AccountObject.account?.account_Id) ?? "" {
-                    actionItemsArray.append(actionItem)
+                    self.actionItemsArray.append(actionItem)
                 }
             }
         }
         else{
-            actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
+            self.actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
         }
         if ActionItemFilterModel.filterApplied {
-            applyFilter(searchText: searchStr)
+            self.applyFilter(searchText: self.searchStr)
         }
-        customizedUI()
-        reloadTableView()
+        self.customizedUI()
+        self.reloadTableView()
+        
     }
     
     func customizedUI(){
-        self.tableView.rowHeight = UITableViewAutomaticDimension;
-        self.tableView.estimatedRowHeight = 100
-        self.tableView.tableFooterView = UIView()
-        initializeNibs()
+        DispatchQueue.main.async {
+            self.tableView.rowHeight = UITableViewAutomaticDimension;
+            self.tableView.estimatedRowHeight = 100
+            self.tableView.tableFooterView = UIView()
+            self.initializeNibs()
+        }
+   
     }
     
     func initializeNibs(){

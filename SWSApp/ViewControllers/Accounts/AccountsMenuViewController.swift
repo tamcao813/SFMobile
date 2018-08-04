@@ -584,27 +584,40 @@ class AccountsMenuViewController: UIViewController {
     
     //Filters the account list according to filter selection
     @IBAction func submitButton(_ sender: Any) {
-        // step 1
-        //Apply logic for filter selection performed in Filter screen to Filter List screen
-        // validate user input and then proceed for filtering and search
-        if(isValidUserInputAtSearchFilterPanel() == true)
-        {
-            self.searchByEnteredTextDelegate?.filtering(filtering: true)
-            searchByEnteredTextDelegate?.performFilterOperation(searchString: searchBar.text!)
-        }
-        else
-        {
-            //reset the table view data to main array
-            self.searchByEnteredTextDelegate?.filtering(filtering: false)
-            
-            print(" Not ValidUserInputAtSearchFilterPanel")
-        }
+        
+        MBProgressHUD.show(onWindow: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            // step 1
+            //Apply logic for filter selection performed in Filter screen to Filter List screen
+            // validate user input and then proceed for filtering and search
+            if(self.isValidUserInputAtSearchFilterPanel() == true)
+            {
+                self.searchByEnteredTextDelegate?.filtering(filtering: true)
+                self.searchByEnteredTextDelegate?.performFilterOperation(searchString: self.searchBar.text!)
+            }
+            else
+            {
+                //reset the table view data to main array
+                self.searchByEnteredTextDelegate?.filtering(filtering: false)
+                
+                print(" Not ValidUserInputAtSearchFilterPanel")
+            }
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
     
     //Clears all the filter selection
     @IBAction func clearButton(_ sender: Any) {
-        self.clearFilterData()
-        self.searchByEnteredTextDelegate?.filtering(filtering: false)
+        
+        MBProgressHUD.show(onWindow: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            
+            self.clearFilterData()
+            self.searchByEnteredTextDelegate?.filtering(filtering: false)
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
 }
 

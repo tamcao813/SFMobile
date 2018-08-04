@@ -199,10 +199,6 @@ class CreateNewVisitViewController: UIViewController {
     
     @IBAction func planButtonTapped(sender: UIButton) {
         
-        DispatchQueue.main.async { //do this in group.notify
-            MBProgressHUD.hide(forWindow: true)
-        }
-        
         if validateVisitData() {
             errorLbl.text = ""
             if PlanVisitManager.sharedInstance.visit != nil {
@@ -224,7 +220,13 @@ class CreateNewVisitViewController: UIViewController {
                     }
                 })
             }else{
-                createNewVisit(dismiss: false)
+                
+                MBProgressHUD.show(onWindow: true)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                    self.createNewVisit(dismiss: false)
+                    MBProgressHUD.hide(forWindow: true)
+                })
             }
             
             //Set the Working Visit account Id to global AccountID for Insight
@@ -257,7 +259,12 @@ class CreateNewVisitViewController: UIViewController {
                 })
                 
             }else{
-                createNewVisit(dismiss: true)
+                MBProgressHUD.show(onWindow: true)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                    self.createNewVisit(dismiss: true)
+                    MBProgressHUD.hide(forWindow: true)
+                })
 //                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "REFRESH_MONTH_CALENDAR"), object:nil)
 //                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             }

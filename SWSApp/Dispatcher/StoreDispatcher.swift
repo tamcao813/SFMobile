@@ -1157,6 +1157,8 @@ class StoreDispatcher {
             let sfIndex = SFSoupIndex(path: userQueryFields[i], indexType: kSoupIndexTypeString, columnName: userQueryFields[i])!
             indexSpec.append(sfIndex)
         }
+        let localIndex =   SFSoupIndex(path: kSyncTargetLocal, indexType: kSoupIndexTypeString, columnName: "kSyncTargetLocal")!
+        indexSpec.append(localIndex)
         
         do {
             try sfaStore.registerSoup(SoupUser, withIndexSpecs: indexSpec, error: ())
@@ -1252,6 +1254,11 @@ class StoreDispatcher {
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
+        //Cleans the server deleted records in the application db store
+        if let userSyncId = self.syncIdDictionary[SyncDownIdUser]{
+            _ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId:userSyncId)
+        }
+        
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
@@ -1302,11 +1309,17 @@ class StoreDispatcher {
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
+        //Cleans the server deleted records in the application db store
+        if let userAccSyncId = self.syncIdDictionary[SyncDownIdUserData]{
+            _ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId:userAccSyncId)
+        }
+        
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupUser)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
                     let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdUserData] = syncId
+                    
                     print("syncDownUserDataForAccounts() done")
                     completion(nil)
                 }
@@ -1341,7 +1354,7 @@ class StoreDispatcher {
                 let str = "\(LastSyncDateUTC)"
                 let arrOfSplitDate = str.components(separatedBy: " ")
                 let dateCombineStringInFormat = "\(arrOfSplitDate[0])T\(arrOfSplitDate[1])\(arrOfSplitDate[2])"
-                resyncClause = "AND (Account.LastModifiedDate > \(dateCombineStringInFormat) OR AccountTeamMember.LastModifiedDate > \(dateCombineStringInFormat))"
+               // resyncClause = "AND (Account.LastModifiedDate > \(dateCombineStringInFormat) OR AccountTeamMember.LastModifiedDate > \(dateCombineStringInFormat))"
             }
         }
         
@@ -1352,11 +1365,19 @@ class StoreDispatcher {
         let syncOptions    = SFSyncOptions.newSyncOptions(forSyncDown:
             SFSyncStateMergeMode.overwrite)
         
+        //Cleans the server deleted records in the application db store
+        if let accSyncId = self.syncIdDictionary[SyncDownIdAccount]{
+            _ = self.sfaSyncMgr.Promises.cleanResyncGhosts(syncId:accSyncId)
+        }
+        
         sfaSyncMgr.Promises.syncDown(target: syncDownTarget, options: syncOptions, soupName: SoupAccount)
             .done { syncStateStatus in
                 if syncStateStatus.isDone() {
+                    
                     let syncId:UInt = UInt(syncStateStatus.syncId)
                     self.syncIdDictionary[SyncDownIdAccount] = syncId
+                    
+                    
                     print("syncDownAccount() done")
                     completion(nil)
                 }

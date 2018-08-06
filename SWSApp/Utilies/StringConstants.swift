@@ -36,6 +36,9 @@ class StringConstants {
     
     static let cannotCreateEventMoreThan14Days = "Event cannot be created for more than 14 days."
     
+    static let changesWillNotBeSavedMessage = "Any changes will not be saved"
+    static let closingMessage = "Are you sure you want to close?"
+    
     static var globalUrlDictionary : NSDictionary!
     
     //Chatter URL

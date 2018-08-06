@@ -29,7 +29,7 @@ class EditAgendaNoteViewController: UIViewController {
     @IBAction func closeVC(sender: UIButton) {
         
         if editNotesText != descriptionTextView.text{
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                 DispatchQueue.main.async {
                     self.dismiss(animated: true, completion: nil)
                 }

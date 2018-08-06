@@ -235,7 +235,7 @@ class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDeleg
     
     @IBAction func accountsDetailsButtonClicked(sender : UIButton){
         DispatchQueue.main.async {
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                 FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
                 self.dismiss(animated: false, completion: nil)

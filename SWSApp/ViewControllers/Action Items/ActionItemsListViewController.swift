@@ -67,45 +67,51 @@ class ActionItemsListViewController: UIViewController {
     /// Fetches Action Items From Task Table and sort filters 4 months of Action Item in Sort by Date Pattern
     func fetchActionItemsFromDB(){
         
-        self.actionItemsArray = [ActionItem]()
-        if ActionItemFilterModel.fromAccount{
-            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsSorted()
-            if let accountId = ActionItemFilterModel.accountId {
+        MBProgressHUD.show(onWindow: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            
+            self.actionItemsArray = [ActionItem]()
+            if ActionItemFilterModel.fromAccount{
+                let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsSorted()
+                if let accountId = ActionItemFilterModel.accountId {
+                    for actionItem in actionItemsArrayLocal {
+                        if actionItem.accountId == accountId {
+                            self.actionItemsArray.append(actionItem)
+                        }
+                    }
+                }
+                //If consultant is selected, Filter items based on seleted consultant
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                
+                let userViewModel = UserViewModel()
+                
+                let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+                
+                if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid) ||
+                    (FilterMenuModel.isFromAccountListView == "") && (appDelegate.currentSelectedUserId != loggedInuserid) {
+                    
+                    self.actionItemsArray = self.actionItemsArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
+                }
+            }else if FilterMenuModel.isFromAccountVisitSummary == "YES"{
+                let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
                 for actionItem in actionItemsArrayLocal {
-                    if actionItem.accountId == accountId {
+                    if actionItem.accountId == (AccountObject.account?.account_Id) ?? "" {
                         self.actionItemsArray.append(actionItem)
                     }
                 }
             }
-            //If consultant is selected, Filter items based on seleted consultant
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            
-            let userViewModel = UserViewModel()
-            
-            let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
-            
-            if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid) ||
-                (FilterMenuModel.isFromAccountListView == "") && (appDelegate.currentSelectedUserId != loggedInuserid) {
-                
-                self.actionItemsArray = self.actionItemsArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
+            else{
+                self.actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
             }
-        }else if FilterMenuModel.isFromAccountVisitSummary == "YES"{
-            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
-            for actionItem in actionItemsArrayLocal {
-                if actionItem.accountId == (AccountObject.account?.account_Id) ?? "" {
-                    self.actionItemsArray.append(actionItem)
-                }
+            if ActionItemFilterModel.filterApplied {
+                self.applyFilter(searchText: self.searchStr)
             }
-        }
-        else{
-            self.actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
-        }
-        if ActionItemFilterModel.filterApplied {
-            self.applyFilter(searchText: self.searchStr)
-        }
-        self.customizedUI()
-        self.reloadTableView()
-        
+            self.customizedUI()
+            self.reloadTableView()
+            
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
     
     func customizedUI(){

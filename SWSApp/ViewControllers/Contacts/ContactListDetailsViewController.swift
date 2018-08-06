@@ -19,9 +19,20 @@ class ContactListDetailsViewController: UIViewController,ContactDetailsScreenDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(ContactFilterMenuModel.selectedContactIdFromDetailScreen != ""){
+            if let selectedContact = contactDetail?.contactId{
+                ContactFilterMenuModel.selectedContactIdFromDetailScreen = selectedContact
+            }
+        }
+
         ContactListViewController.refreshContactDetailDelegate = self
         // Do any additional setup after loading the view.
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ContactFilterMenuModel.selectedContactIdFromDetailScreen = ""
+    }
+    
     func reloadAllMenu() {
 
     }

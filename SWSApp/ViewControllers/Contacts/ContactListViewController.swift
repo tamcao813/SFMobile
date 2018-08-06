@@ -311,54 +311,61 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
     }
     
     @objc func reloadAllContacts(notification: NSNotification){
-        contactsAcc = [AccountContactRelation]()
-        globalContactCount = contactViewModel.globalContacts().count
         
-        contactsAcc = contactViewModel.activeAccountsForContacts()
-        //contactViewModel.accountsForContacts()
+        MBProgressHUD.show(onWindow: true)
         
-        initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
-        updateUI()
-        print("\(self.noOfPages!)")
-        
-        DispatchQueue.main.async {
-            UIView.performWithoutAnimation({() -> Void in
-                self.tableView.reloadData()
-                if(self.numberOfAccountRows > 0){
-                    self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .none, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            
+            self.contactsAcc = [AccountContactRelation]()
+            self.globalContactCount = self.contactViewModel.globalContacts().count
+            
+            self.contactsAcc = self.contactViewModel.activeAccountsForContacts()
+            //contactViewModel.accountsForContacts()
+            
+            self.initPageViewWith(inputArr: self.globalContactsForList, pageSize: self.kPageSize)
+            self.updateUI()
+            print("\(self.noOfPages!)")
+            
+            DispatchQueue.main.async {
+                UIView.performWithoutAnimation({() -> Void in
+                    self.tableView.reloadData()
+                    if(self.numberOfAccountRows > 0){
+                        self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .none, animated: true)
+                    }
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
+                })
+            }
+            
+            for count in 1...5 {
+                self.pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+                self.pageButtonArr[count].backgroundColor = UIColor.white
+                self.pageButtonArr[count].setTitle(String(count), for: .normal)
+            }
+            self.pageButtonArr[1].backgroundColor = UIColor.lightGray
+            self.pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+            self.loadContactData()
+            
+            //Pass data to child using delegates
+            if !ContactFilterMenuModel.selectedContactIdFromDetailScreen.isEmpty {
+                guard let selectedContact = ContactSortUtility.searchContactByContactId( ContactFilterMenuModel.selectedContactIdFromDetailScreen) else {
+                    return
                 }
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-            })
-        }
-        
-        for count in 1...5 {
-            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
-            pageButtonArr[count].backgroundColor = UIColor.white
-            pageButtonArr[count].setTitle(String(count), for: .normal)
-        }
-        pageButtonArr[1].backgroundColor = UIColor.lightGray
-        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
-        loadContactData()
-        
-        //Pass data to child using delegates
-        if !ContactFilterMenuModel.selectedContactIdFromDetailScreen.isEmpty {
-            guard let selectedContact = ContactSortUtility.searchContactByContactId( ContactFilterMenuModel.selectedContactIdFromDetailScreen) else {
-                return
+                ContactListViewController.refreshContactDetailDelegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
             }
-              ContactListViewController.refreshContactDetailDelegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
-        }
-        
-        if ContactFilterMenuModel.comingFromDetailsScreen == "YES", ContactFilterMenuModel.selectedContactId != "" {
             
-            guard let selectedContact = ContactSortUtility.searchContactByContactId(ContactFilterMenuModel.selectedContactId) else {
-                return
+            if ContactFilterMenuModel.comingFromDetailsScreen == "YES", ContactFilterMenuModel.selectedContactId != "" {
+                
+                guard let selectedContact = ContactSortUtility.searchContactByContactId(ContactFilterMenuModel.selectedContactId) else {
+                    return
+                }
+                self.delegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
+                
+                ContactFilterMenuModel.selectedContactId = ""
+                
             }
-            delegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
-            
-            ContactFilterMenuModel.selectedContactId = ""
-            
-        }
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
 }
 

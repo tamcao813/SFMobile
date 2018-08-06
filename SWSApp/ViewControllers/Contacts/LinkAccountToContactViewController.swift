@@ -151,7 +151,7 @@ class LinkAccountToContactViewController: UIViewController {
         }
         DispatchQueue.main.async {
             if linkAccountToContactGlobals.userInput {
-                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                     linkAccountToContactGlobals.userInput = false
                     self.dismiss(animated: true, completion: nil)
                 }){

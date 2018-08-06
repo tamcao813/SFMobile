@@ -185,7 +185,7 @@ class PlanVisitViewController: UIViewController, CloseAccountViewDelegate {
     
     @IBAction func closeVC(sender: UIButton) {
         DispatchQueue.main.async {
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                 if (self.myTableView != nil) {
                     self.myTableView.removeFromSuperview()
                     self.view.endEditing(true)

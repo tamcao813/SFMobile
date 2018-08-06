@@ -16,8 +16,8 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
     @IBOutlet weak var webView : WKWebView?
     @IBOutlet weak var lblNoNetworkConnection : UILabel?
     
-    //var isWebViewLoaded = false
-    //var isFirstTimeLoad = false
+    var isWebViewLoaded = false
+    var isFirstTimeLoad = false
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
@@ -30,7 +30,7 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         activityIndicator.color = UIColor.lightGray
         self.view.addSubview(activityIndicator)
         loadWebView()
-        //isFirstTimeLoad = true
+        isFirstTimeLoad = true
         //initializeReachability()
     }
     
@@ -51,12 +51,12 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         //loadWebView()
         initializeReachability()
         
-//        if isFirstTimeLoad,isWebViewLoaded{
-//            isFirstTimeLoad = false
-//            DispatchQueue.main.async {
-//                self.webView?.frame = CGRect(x: (self.webView?.frame.origin.x)!, y: (self.webView?.frame.origin.y)! + 64, width: (self.webView?.frame.size.width)!, height: ((self.webView?.frame.size.height)! + 5))
-//            }
-//        }
+        if isFirstTimeLoad,isWebViewLoaded{
+            isFirstTimeLoad = false
+            DispatchQueue.main.async {
+                self.webView?.frame = CGRect(x: (self.webView?.frame.origin.x)!, y: (self.webView?.frame.origin.y)! + 64, width: (self.webView?.frame.size.width)!, height: ((self.webView?.frame.size.height)! + 5))
+            }
+        }
     }
     
     //MARK:-
@@ -141,7 +141,7 @@ extension ChatterViewController : UIWebViewDelegate , WKUIDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(.allow)
-        //isWebViewLoaded = true
+        isWebViewLoaded = true
     }
     
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {

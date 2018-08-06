@@ -2702,10 +2702,17 @@ class StoreDispatcher {
     }
     
     func editActionItemStatusLocally(fieldsToUpload: [String:Any]) -> Bool{
-        let querySpecAll =  SFQuerySpec.newAllQuerySpec(SoupActionItem, withOrderPath: "SGWS_AppModified_DateTime__c", with: SFSoupQuerySortOrder.ascending , withPageSize: SOUPQUERY_PAGE_SIZE)
-        var error : NSError?
-        let result = sfaStore.query(with: querySpecAll, pageIndex: 0, error: &error)
         
+        let fieldsValue = fieldsToUpload["Id"] as? String ?? ""
+        if fieldsValue.isEmpty {
+            return false
+        }
+
+        let querySpecAll = SFQuerySpec.newExactQuerySpec(SoupActionItem, withSelectPaths: nil, withPath: "Id", withMatchKey: "\(fieldsValue)", withOrderPath: "SGWS_AppModified_DateTime__c", with: .ascending, withPageSize: SOUPQUERY_PAGE_SIZE)
+        
+        var error : NSError?
+        let result = sfaStore.query(with: querySpecAll!, pageIndex: 0, error: &error)
+
         var editedActionItem = [String: Any]()
         
         for  actionItem in result{

@@ -1069,18 +1069,15 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
         //  self.moreDropDown.selectionBackgroundColor = UIColor.gray
         switch index {
         case 0:
-            ScreenToLoad.presentingScreen = "5"
             moreVC1.view.addSubview((self.actionItemParent?.view)!)
             ActionItemFilterModel.fromAccount = false
             ActionItemFilterModel.accountId = nil
             self.actionItemParent?.fromPersistentMenu = true
             self.moreDropDownSelectionIndex = index
         case 1:
-            ScreenToLoad.presentingScreen = "6"
             moreVC1.view.addSubview((self.accountVisit?.view)!)
             self.moreDropDownSelectionIndex = index
         case 2:
-            ScreenToLoad.presentingScreen = "7"
             //            moreVC1.view.addSubview((self.insightsViewController?.view)!)
             //            self.moreDropDownSelectionIndex = index
             openSFSafariVC()
@@ -1309,16 +1306,13 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             
         case .HomeVCIndex:
             vc = homeVC
-            ScreenToLoad.presentingScreen = "0"
             ContactsGlobal.accountId = ""
         case .AccountVCIndex:
-            ScreenToLoad.presentingScreen = "1"
             let accVC = accountsVC as? AccountsViewController
             accVC?.accountDetails?.view.removeFromSuperview()
             vc = accountsVC
             ContactsGlobal.accountId = ""
         case .ContactsVCIndex:
-            ScreenToLoad.presentingScreen = "2"
             let contactVC = contactsVC as! ContactsViewController
             contactVC.contactDetails?.willMove(toParentViewController: nil)
             contactVC.contactDetails?.view.removeFromSuperview()
@@ -1326,12 +1320,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             vc = contactVC
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAllContacts"), object:nil)
         case .CalendarVCIndex:
-            ScreenToLoad.presentingScreen = "3"
             vc = calendarVC
             ContactsGlobal.accountId = ""
         case .ObjectivesVCIndex:
             // vc = objectivesVC
-            ScreenToLoad.presentingScreen = "4"
             if !isPresentingNotificationVc{
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.insightLaunchIdentifier = "obj"

@@ -6,8 +6,6 @@ pod 'ReachabilitySwift'
 pod 'SwipeCellKit', '~> 2.1.0'
 pod 'DateToolsSwift'
 pod 'IQKeyboardManagerSwift'
-pod 'Fabric'
-pod 'Crashlytics'
 # pod 'ActionSheetPicker-3.0'
 
 def sf_pods

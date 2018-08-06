@@ -11,11 +11,6 @@ import SalesforceSDKCore
 import SalesforceSwiftSDK
 import PromiseKit
 import Reachability
-import Fabric
-import Crashlytics
-
-//import DropDown
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -133,9 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-//        Fabric.sharedSDK().debug = true
-        Fabric.with([Crashlytics.self()])
         
         self.launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         

@@ -51,12 +51,20 @@ class ChatterViewController: UIViewController , WKNavigationDelegate {
         //loadWebView()
         initializeReachability()
         
-        if isFirstTimeLoad,isWebViewLoaded{
-            isFirstTimeLoad = false
-            DispatchQueue.main.async {
-                self.webView?.frame = CGRect(x: (self.webView?.frame.origin.x)!, y: (self.webView?.frame.origin.y)! + 64, width: (self.webView?.frame.size.width)!, height: ((self.webView?.frame.size.height)! + 5))
+        if GlobalConstants.chatterfromMoreOption {
+            GlobalConstants.chatterfromMoreOption = false
+        }
+        else {
+            if isFirstTimeLoad,isWebViewLoaded{
+                isFirstTimeLoad = false
+                DispatchQueue.main.async {
+                    self.webView?.frame = CGRect(x: (self.webView?.frame.origin.x)!, y: 64, width: (self.webView?.frame.size.width)!, height: ((self.webView?.frame.size.height)! + 10))
+                    
+                    self.webView?.layoutIfNeeded()
+                }
             }
         }
+
     }
     
     //MARK:-

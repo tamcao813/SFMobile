@@ -1054,6 +1054,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
         }
         
         self.removeSubviews()
+        removePresentedOldMoreControllers()
         currentViewController?.view.addSubview(moreVC1.view)
         SelectedMoreButton.selectedItem = index
         
@@ -1090,7 +1091,9 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             moreVC1.view.addSubview((self.notificationParent?.view)!)
             self.moreDropDownSelectionIndex = index
         case 5:
+            GlobalConstants.chatterfromMoreOption = true
             moreVC1.view.addSubview((self.chatterViewController?.view)!)
+            (chatterViewController as? ChatterViewController)?.loadWebView()
             self.moreDropDownSelectionIndex = index
         case 6:
             launchTopazApp()
@@ -1109,6 +1112,12 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
         
     }
     
+    func removePresentedOldMoreControllers(){
+        chatterViewController?.willMove(toParentViewController: nil)
+        chatterViewController?.view.removeFromSuperview()
+        chatterViewController?.removeFromParentViewController()
+    }
+    
     func removePresentedMoreControllers(){
         if SelectedMoreButton.selectedItem == 3{
             reportsViewController?.willMove(toParentViewController: nil)
@@ -1117,10 +1126,10 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
             (reportsViewController as? ReportsViewController)?.loadWebView()
             
         }else if SelectedMoreButton.selectedItem == 5{
-            chatterViewController?.willMove(toParentViewController: nil)
-            chatterViewController?.view.removeFromSuperview()
-            chatterViewController?.removeFromParentViewController()
-            (chatterViewController as? ChatterViewController)?.loadWebView()
+//            chatterViewController?.willMove(toParentViewController: nil)
+//            chatterViewController?.view.removeFromSuperview()
+//            chatterViewController?.removeFromParentViewController()
+//            (chatterViewController as? ChatterViewController)?.loadWebView()
             
         }
     }

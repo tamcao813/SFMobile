@@ -24,6 +24,8 @@ class GlobalConstants
         case Month = 3
     }
     
+    static var chatterfromMoreOption: Bool = false
+    
 }
 
 public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {

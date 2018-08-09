@@ -947,6 +947,7 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        GlobalConstants.chatterfromMoreOption = true
         controller.dismiss(animated: true, completion: nil)
     }
     

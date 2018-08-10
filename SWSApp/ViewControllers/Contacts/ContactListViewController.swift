@@ -349,6 +349,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
             //Pass data to child using delegates
             if !ContactFilterMenuModel.selectedContactIdFromDetailScreen.isEmpty {
                 guard let selectedContact = ContactSortUtility.searchContactByContactId( ContactFilterMenuModel.selectedContactIdFromDetailScreen) else {
+                    MBProgressHUD.hide(forWindow: true)
                     return
                 }
                 ContactListViewController.refreshContactDetailDelegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
@@ -357,6 +358,7 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
             if ContactFilterMenuModel.comingFromDetailsScreen == "YES", ContactFilterMenuModel.selectedContactId != "" {
                 
                 guard let selectedContact = ContactSortUtility.searchContactByContactId(ContactFilterMenuModel.selectedContactId) else {
+                    MBProgressHUD.hide(forWindow: true)
                     return
                 }
                 self.delegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)

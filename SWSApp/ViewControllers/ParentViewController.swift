@@ -1114,9 +1114,11 @@ class ParentViewController: UIViewController, XMSegmentedControlDelegate,SFSafar
     }
     
     func removePresentedOldMoreControllers(){
-        chatterViewController?.willMove(toParentViewController: nil)
-        chatterViewController?.view.removeFromSuperview()
-        chatterViewController?.removeFromParentViewController()
+        if SelectedMoreButton.selectedItem == 5 {
+            chatterViewController?.willMove(toParentViewController: nil)
+            chatterViewController?.view.removeFromSuperview()
+            chatterViewController?.removeFromParentViewController()
+        }
     }
     
     func removePresentedMoreControllers(){

@@ -10,7 +10,10 @@ import Foundation
 
 class PlanVisit {
     
-    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","_soupEntryId","SGWS_WorkOrder_Location__c","SGWS_All_Day_Event__c"]
+    //SyncUp
+    static let workOrderSyncUpfields: [String] = ["Subject","SGWS_WorkOrder_Location__c","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","SGWS_All_Day_Event__c"]
+    
+    static let planVisitFields: [String] = ["Id","Subject","AccountId","SGWS_Appointment_Status__c","StartDate","EndDate","SGWS_Visit_Purpose__c","Description","SGWS_Agenda_Notes__c","Status","SGWS_AppModified_DateTime__c","ContactId","RecordTypeId","_soupEntryId","SGWS_WorkOrder_Location__c","SGWS_All_Day_Event__c","OwnerId","visitTitle","visitType","accountList","systemConfigurationObject","SGWS_Start_Latitude__c","SGWS_Start_Longitude__c","SGWS_Start_Time_of_Visit__c","SGWS_End_Latitude__c","SGWS_End_Longitude__c","SGWS_End_Time_of_Visit__c"]
     
     var Id : String
     var subject : String
@@ -28,8 +31,25 @@ class PlanVisit {
     var location:String
     var soupEntryId : Int
     var workOrderType :String
-
+    
     var sgwsAlldayEvent :Bool
+    
+    var ownerId : String
+    
+    var visitTitle: String
+    var visitType: String
+    var accountList: [Account]?
+    let systemConfigurationObject:SyncConfiguration?
+    
+    // location related
+    var startLatitude:Double
+    var startLongitude:Double
+    var startTime_of_Visit: String
+ 
+    var endLatitude:Double
+    var endLongitude:Double
+    var endTime_of_Visit: String
+    
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(PlanVisit.planVisitFields, ary))
@@ -54,13 +74,44 @@ class PlanVisit {
         location =  json["SGWS_WorkOrder_Location__c"] as? String ?? ""
         soupEntryId = json["_soupEntryId"] as? Int ?? 0
         sgwsAlldayEvent = json["SGWS_All_Day_Event__c"] as? Bool ?? false
-
-
-        if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == StoreDispatcher.shared.workOrderRecordTypeIdVisit){
-            workOrderType = StoreDispatcher.shared.workOrderTypeVisit
-        } else {
-            workOrderType = StoreDispatcher.shared.workOrderTypeEvent
-            
+        
+        ownerId = json["OwnerId"] as? String ?? ""
+        startLatitude = json["SGWS_Start_Latitude__c"] as? Double ?? 0.0
+        startLongitude = json["SGWS_Start_Longitude__c"] as? Double ?? 0.0
+        startTime_of_Visit = json["SGWS_Start_Time_of_Visit__c"] as? String ?? ""
+ 
+        
+        
+        endLatitude = json["SGWS_End_Latitude__c"] as? Double ?? 0.0
+        endLongitude = json["SGWS_End_Longitude__c"] as? Double ?? 0.0
+        endTime_of_Visit = json["SGWS_End_Time_of_Visit__c"] as? String ?? ""
+        
+        
+        let globalSyncConfigurationList = SyncConfigurationViewModel().syncConfiguration()
+        let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
+        
+        
+//        if((StoreDispatcher.shared.workOrderTypeDict[StoreDispatcher.shared.workOrderTypeVisit]) == StoreDispatcher.shared.workOrderRecordTypeIdVisit){
+//            workOrderType = StoreDispatcher.shared.workOrderTypeVisit
+//        } else {
+//            workOrderType = StoreDispatcher.shared.workOrderTypeEvent
+//
+//        }
+        
+        accountList = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: globalAccountsForLoggedUser, accountId: self.accountId)
+        
+        workOrderType = ""
+        
+        systemConfigurationObject = SyncConfigurationSortUtility.searchSyncConfigurationByRecordTypeId(syncConfigurationList: globalSyncConfigurationList, recordTypeId:recordTypeId)
+        visitType = ""
+        visitTitle = ""
+        if (systemConfigurationObject?.developerName == "SGWS_WorkOrder_Event") {
+            visitType = "event"
+            visitTitle = subject
+        }
+        else if (systemConfigurationObject?.developerName == "SGWS_WorkOrder_Visit") {
+            visitType = "visit"
+            visitTitle = accountList![0].accountName + ": " + accountList![0].accountNumber
         }
     }
     
@@ -83,6 +134,18 @@ class PlanVisit {
         soupEntryId = 0
         workOrderType = ""
         sgwsAlldayEvent = false
-
+        ownerId = ""
+        visitTitle = ""
+        visitType = ""
+        accountList = nil
+        systemConfigurationObject = nil
+        startLatitude = 0.0
+         startLongitude = 0.0
+        startTime_of_Visit = ""
+        endLatitude = 0.0
+        endLongitude = 0.0
+        endTime_of_Visit = ""
+        
+        
     }
 }

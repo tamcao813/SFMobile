@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventStartEndDateTableViewCell" rowHeight="140" id="KGk-i7-Jjw" customClass="EventStartEndDateTableViewCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="938" height="140"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="938" height="139.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRV-1Z-LBH">
+                        <rect key="frame" x="40" y="2" width="45" height="39"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Csu-J3-lVA">
+                        <rect key="frame" x="410" y="2" width="36" height="18"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HSQ-Hy-u7j">
+                        <rect key="frame" x="40" y="54" width="180" height="40"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Calender" translatesAutoresizingMaskIntoConstraints="NO" id="WBN-PX-hBt">
+                                <rect key="frame" x="150" y="-0.5" width="20" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="2Ax-Pj-iBp"/>
+                                    <constraint firstAttribute="height" constant="40" id="pDE-iP-Frw"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VEK-fW-dG3" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="180" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="eventStartDateTextFieldID"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="fJy-m1-LhK"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.67000000000000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="biv-Fu-oxc"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="WBN-PX-hBt" secondAttribute="bottom" id="aSe-3Q-n8F"/>
+                            <constraint firstAttribute="bottom" secondItem="VEK-fW-dG3" secondAttribute="bottom" id="aUb-6F-VRf"/>
+                            <constraint firstAttribute="trailing" secondItem="WBN-PX-hBt" secondAttribute="trailing" constant="10" id="beH-TA-hOa"/>
+                            <constraint firstItem="VEK-fW-dG3" firstAttribute="leading" secondItem="HSQ-Hy-u7j" secondAttribute="leading" id="hR6-VB-ymZ"/>
+                            <constraint firstItem="VEK-fW-dG3" firstAttribute="top" secondItem="HSQ-Hy-u7j" secondAttribute="top" id="o9k-ve-wIm"/>
+                            <constraint firstItem="WBN-PX-hBt" firstAttribute="top" secondItem="HSQ-Hy-u7j" secondAttribute="top" id="plY-HS-w3P"/>
+                            <constraint firstAttribute="trailing" secondItem="VEK-fW-dG3" secondAttribute="trailing" id="ryX-fl-GsV"/>
+                            <constraint firstAttribute="width" constant="180" id="xuP-3y-sxs"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <integer key="value" value="0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bQ-eZ-FsH">
+                        <rect key="frame" x="250" y="54" width="120" height="40"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropDownLight" translatesAutoresizingMaskIntoConstraints="NO" id="Dl6-9i-v61">
+                                <rect key="frame" x="95" y="-0.5" width="15" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="AkH-9b-EBZ"/>
+                                    <constraint firstAttribute="height" constant="40" id="E3u-Vf-x5z"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" tag="301" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TWz-HW-ciT" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="eventStartTimeTextFieldID"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="9ez-XM-ywh"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.67000000000000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="UMS-ye-Iyz"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Dl6-9i-v61" secondAttribute="trailing" constant="10" id="5eo-S4-sME"/>
+                            <constraint firstAttribute="bottom" secondItem="Dl6-9i-v61" secondAttribute="bottom" id="7T6-m5-Nz7"/>
+                            <constraint firstItem="Dl6-9i-v61" firstAttribute="top" secondItem="0bQ-eZ-FsH" secondAttribute="top" id="C8R-L9-dzP"/>
+                            <constraint firstItem="TWz-HW-ciT" firstAttribute="top" secondItem="0bQ-eZ-FsH" secondAttribute="top" id="Kbl-hi-FuK"/>
+                            <constraint firstAttribute="trailing" secondItem="TWz-HW-ciT" secondAttribute="trailing" id="jQL-Bp-tBX"/>
+                            <constraint firstAttribute="width" constant="120" id="q0h-PC-AIi"/>
+                            <constraint firstAttribute="bottom" secondItem="TWz-HW-ciT" secondAttribute="bottom" id="q2L-3G-eI3"/>
+                            <constraint firstItem="TWz-HW-ciT" firstAttribute="leading" secondItem="0bQ-eZ-FsH" secondAttribute="leading" id="rKt-QY-t9B"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <integer key="value" value="0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAc-ow-Pw6">
+                        <rect key="frame" x="410" y="54" width="180" height="40"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Calender" translatesAutoresizingMaskIntoConstraints="NO" id="VR4-R0-VGE">
+                                <rect key="frame" x="150" y="-0.5" width="20" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="WpV-Hx-3jv"/>
+                                    <constraint firstAttribute="width" constant="20" id="zfj-Uy-ZJ1"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" tag="302" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M8P-FS-Rkb" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="180" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="j5u-Mo-Tsr"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.67000000000000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="zAU-ce-esq"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="180" id="1Kh-OK-pM4"/>
+                            <constraint firstAttribute="bottom" secondItem="M8P-FS-Rkb" secondAttribute="bottom" id="CaV-91-zXg"/>
+                            <constraint firstItem="M8P-FS-Rkb" firstAttribute="leading" secondItem="XAc-ow-Pw6" secondAttribute="leading" id="DDD-0T-SOk"/>
+                            <constraint firstItem="VR4-R0-VGE" firstAttribute="top" secondItem="XAc-ow-Pw6" secondAttribute="top" id="IAd-Lf-cUm"/>
+                            <constraint firstItem="M8P-FS-Rkb" firstAttribute="top" secondItem="XAc-ow-Pw6" secondAttribute="top" id="Jix-ac-fV4"/>
+                            <constraint firstAttribute="bottom" secondItem="VR4-R0-VGE" secondAttribute="bottom" id="aP7-TO-fV0"/>
+                            <constraint firstAttribute="trailing" secondItem="M8P-FS-Rkb" secondAttribute="trailing" id="f6D-CQ-IDh"/>
+                            <constraint firstAttribute="trailing" secondItem="VR4-R0-VGE" secondAttribute="trailing" constant="10" id="tNB-91-hAb"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <integer key="value" value="0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Opw-NV-pT2">
+                        <rect key="frame" x="620" y="54" width="120" height="40"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropDownLight" translatesAutoresizingMaskIntoConstraints="NO" id="ghs-2q-Vav">
+                                <rect key="frame" x="95" y="-0.5" width="15" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="R58-wz-i8C"/>
+                                    <constraint firstAttribute="height" constant="40" id="qCV-XN-d6X"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" tag="303" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V5J-Jb-LrS" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="eventEndTimeTextFieldID"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="RQ9-Zy-120"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.67000000000000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="2vJ-Ff-Mg9"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ghs-2q-Vav" firstAttribute="top" secondItem="Opw-NV-pT2" secondAttribute="top" id="2zd-if-dsM"/>
+                            <constraint firstAttribute="bottom" secondItem="V5J-Jb-LrS" secondAttribute="bottom" id="3fU-b8-ZdV"/>
+                            <constraint firstAttribute="trailing" secondItem="V5J-Jb-LrS" secondAttribute="trailing" id="Nhu-Db-cIf"/>
+                            <constraint firstItem="V5J-Jb-LrS" firstAttribute="leading" secondItem="Opw-NV-pT2" secondAttribute="leading" id="ad5-Qs-YqZ"/>
+                            <constraint firstItem="V5J-Jb-LrS" firstAttribute="top" secondItem="Opw-NV-pT2" secondAttribute="top" id="gY7-Mn-JoL"/>
+                            <constraint firstAttribute="width" constant="120" id="gwE-O4-6N7"/>
+                            <constraint firstAttribute="trailing" secondItem="ghs-2q-Vav" secondAttribute="trailing" constant="10" id="rfS-Ic-dcf"/>
+                            <constraint firstAttribute="bottom" secondItem="ghs-2q-Vav" secondAttribute="bottom" id="yNn-Rg-kjb"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <integer key="value" value="0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoF-dJ-IiX">
+                        <rect key="frame" x="33" y="113" width="140" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="140" id="a7P-c4-nVv"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                        <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-15" maxY="0.0"/>
+                        <state key="normal" title="All Day Event" image="Checkbox">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="allDayEventButtonActionWithSender:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jqS-tq-B6Y"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="KoF-dJ-IiX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="33" id="1Qa-yV-KDL"/>
+                    <constraint firstItem="HSQ-Hy-u7j" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="1er-ta-SMt"/>
+                    <constraint firstItem="Opw-NV-pT2" firstAttribute="leading" secondItem="XAc-ow-Pw6" secondAttribute="trailing" constant="30" id="4bI-ZI-WNe"/>
+                    <constraint firstItem="HSQ-Hy-u7j" firstAttribute="top" secondItem="RRV-1Z-LBH" secondAttribute="bottom" constant="13" id="BJV-pu-tYy"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="HSQ-Hy-u7j" secondAttribute="bottom" constant="35" id="DTX-3f-keV"/>
+                    <constraint firstItem="0bQ-eZ-FsH" firstAttribute="top" secondItem="HSQ-Hy-u7j" secondAttribute="top" id="KnQ-jf-ckG"/>
+                    <constraint firstItem="Opw-NV-pT2" firstAttribute="top" secondItem="XAc-ow-Pw6" secondAttribute="top" id="R2j-dV-spQ"/>
+                    <constraint firstItem="RRV-1Z-LBH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="TNX-LK-1Tg"/>
+                    <constraint firstItem="XAc-ow-Pw6" firstAttribute="leading" secondItem="0bQ-eZ-FsH" secondAttribute="trailing" constant="40" id="YNZ-io-Ygi"/>
+                    <constraint firstItem="0bQ-eZ-FsH" firstAttribute="leading" secondItem="HSQ-Hy-u7j" secondAttribute="trailing" constant="30" id="YNi-BQ-Z0S"/>
+                    <constraint firstItem="Csu-J3-lVA" firstAttribute="top" secondItem="RRV-1Z-LBH" secondAttribute="top" id="dja-3W-SwK"/>
+                    <constraint firstAttribute="bottom" secondItem="KoF-dJ-IiX" secondAttribute="bottom" constant="6.5" id="hTK-Ne-1gZ"/>
+                    <constraint firstItem="RRV-1Z-LBH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="pQH-eE-2KQ"/>
+                    <constraint firstItem="Csu-J3-lVA" firstAttribute="leading" secondItem="XAc-ow-Pw6" secondAttribute="leading" id="uoP-Uk-3fh"/>
+                    <constraint firstItem="XAc-ow-Pw6" firstAttribute="top" secondItem="0bQ-eZ-FsH" secondAttribute="top" id="vDJ-PN-mK2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnAllDayEvent" destination="KoF-dJ-IiX" id="1oH-qN-6r8"/>
+                <outlet property="eventEndDateTextField" destination="M8P-FS-Rkb" id="hp6-9K-bpE"/>
+                <outlet property="eventEndTimeTextField" destination="V5J-Jb-LrS" id="T82-9O-EU6"/>
+                <outlet property="eventStartDateTextField" destination="VEK-fW-dG3" id="PCC-Cs-5hp"/>
+                <outlet property="eventStartTimeTextField" destination="TWz-HW-ciT" id="iEl-dM-zNi"/>
+            </connections>
+            <point key="canvasLocation" x="349" y="94"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Calender" width="30" height="33"/>
+        <image name="Checkbox" width="20" height="20"/>
+        <image name="dropDownLight" width="10" height="15"/>
+    </resources>
+</document>

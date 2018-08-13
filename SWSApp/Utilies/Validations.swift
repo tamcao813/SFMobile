@@ -67,7 +67,7 @@ class Validations {
         let nameSep = name.components(separatedBy: " ")
         if (nameSep == [name]) || (nameSep == ["", nameSep[1]]) || (nameSep == [nameSep[0], ""])  {
             if name.count >= 2 {
-                return String(name.prefix(2))
+                return String(name.prefix(1))
             }
             else {
                 return name
@@ -77,24 +77,24 @@ class Validations {
         let initials = name.components(separatedBy: " ")
         print(initials)
         var firstChar = ""
-        
+    
         if(initials[0] != "") {
-            var firstCharIndex = initials[0].index(initials[0].startIndex, offsetBy: 1)
-            firstChar = initials[0].substring(to: firstCharIndex)
+            let firstCharIndex = initials[0].index(initials[0].startIndex, offsetBy: 1)
+            firstChar = String(initials[0][..<firstCharIndex])
             print(firstChar)
         }
         if(initials[1] != "") {
-            var firstCharIndex = initials[1].index(initials[1].startIndex, offsetBy: 1)
-            firstChar = firstChar+initials[1].substring(to: firstCharIndex)
+            let firstCharIndex = initials[1].index(initials[1].startIndex, offsetBy: 1)
+           // firstChar = String(initials[1][..<firstCharIndex])
+            firstChar = firstChar+String(initials[1][..<firstCharIndex])
             print(firstChar)
         }
         return firstChar
     }
     
     func removeSpecialCharsFromString(text: String) -> String {
-        let okayChars : Set<Character> =
-            Set("1234567890".characters)
-        return String(text.characters.filter {okayChars.contains($0) })
+        let stringValue:String = "1234567890"
+        let CharArray = Array(stringValue)
+        return String(Array(text).filter {CharArray.contains($0) })
     }
 }
-

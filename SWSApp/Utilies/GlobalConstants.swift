@@ -24,10 +24,12 @@ class GlobalConstants
         case Month = 3
     }
     
+    static var chatterfromMoreOption: Bool = false
+    
 }
 
 public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-//   let output = items.map { "\($0)" }.joined(separator: separator)
-//   Swift.print(output, terminator: terminator)
+//    let output = items.map { "\($0)" }.joined(separator: separator)
+//    Swift.print(output, terminator: terminator)
 }
 

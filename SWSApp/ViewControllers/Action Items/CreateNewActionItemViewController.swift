@@ -69,6 +69,11 @@ class CreateNewActionItemViewController: UIViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 100
         self.tableView.tableFooterView = UIView()
+        if isEditingMode {
+            screenHeaderLabel.text = "Edit An Action Item"
+        }else{
+            screenHeaderLabel.text = "Create An Action Item"
+        }
         saveView.dropShadow()
         initializeNibs()
         getSelectedActionItem()
@@ -89,7 +94,7 @@ class CreateNewActionItemViewController: UIViewController {
     
     func getSelectedAccount(){
         if let accountId = actionItemObject?.accountId {
-            let accountsArray = AccountsViewModel().accountsForLoggedUser
+            let accountsArray = AccountsViewModel().accountsForLoggedUser()
             for account in accountsArray{
                 if account.account_Id == accountId {
                     selectedAccount = account
@@ -118,7 +123,7 @@ class CreateNewActionItemViewController: UIViewController {
         }
         DispatchQueue.main.async {
             if  createActionItemsGlobals.userInput {
-                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                     createActionItemsGlobals.userInput = false
                     self.dismiss(animated: true, completion: nil)
                 }){}
@@ -139,11 +144,6 @@ class CreateNewActionItemViewController: UIViewController {
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return
-//        }else if selectedAccount == nil {
-//            searchAccountTextField.borderColor = .red
-//            tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
-//            errorLabel.text = StringConstants.emptyFieldError
-//            return
         }else if actionItemDescriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
             actionItemDescriptionTextView.borderColor = .red
             tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
@@ -176,7 +176,7 @@ class CreateNewActionItemViewController: UIViewController {
         
         newActionItem.subject = actionTitleTextField.text!
         newActionItem.description = actionItemDescriptionTextView.text!
-        newActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
+        newActionItem.activityDate = DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: dueDateTextField.text!)
         if newActionItem.activityDate != ""{
             if ActionItemSortUtility().isItOpenState(dueDate: newActionItem.activityDate){
                 newActionItem.status = "Open"
@@ -184,7 +184,6 @@ class CreateNewActionItemViewController: UIViewController {
                 newActionItem.status = "Overdue"
             }
         }else{
-            
             newActionItem.status = "Open"
         }
         if isUrgentSwitch.isOn {
@@ -192,7 +191,14 @@ class CreateNewActionItemViewController: UIViewController {
         }else{
             newActionItem.isUrgent = false
         }
-        newActionItem.lastModifiedDate = getTimestamp()
+        newActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+        let recordTypeArray = RecordTypeViewModel().getRecordTypeForDeveloper()
+        let actionItemRecordType = recordTypeArray.filter( { return $0.developerName.contains("SGWS_Task") } )
+        
+        if actionItemRecordType.count > 0{
+            newActionItem.recordTypeId = actionItemRecordType[0].Id
+        }
+        
         let attributeDict = ["type":"Task"]
         var actionItemDict: [String:Any] = [
             
@@ -204,6 +210,7 @@ class CreateNewActionItemViewController: UIViewController {
             ActionItem.AccountActionItemFields[5]: newActionItem.activityDate,
             ActionItem.AccountActionItemFields[6]: newActionItem.isUrgent,
             ActionItem.AccountActionItemFields[7]: newActionItem.lastModifiedDate,
+            ActionItem.AccountActionItemFields[8]: newActionItem.recordTypeId,
             
             kSyncTargetLocal:true,
             kSyncTargetLocallyCreated:true,
@@ -212,11 +219,8 @@ class CreateNewActionItemViewController: UIViewController {
             "attributes":attributeDict]
         
         if(actionItemDict["ActivityDate"] as! String == ""){
-            
             actionItemDict.removeValue(forKey: "ActivityDate")
         }
-            
-            
         
         let success = AccountsActionItemViewModel().createNewActionItemLocally(fields: actionItemDict)
         if success {
@@ -224,9 +228,15 @@ class CreateNewActionItemViewController: UIViewController {
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
+            else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+            }
             self.dismiss(animated: true, completion: nil)
         }
+        
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+//         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
     }
     
     func editActionItem(){
@@ -240,7 +250,7 @@ class CreateNewActionItemViewController: UIViewController {
         }
         editActionItem.subject = actionTitleTextField.text!
         editActionItem.description = actionItemDescriptionTextView.text!
-        editActionItem.activityDate = DateTimeUtility().convertDateSendToServerActionItem(dateString: dueDateTextField.text!)
+        editActionItem.activityDate = DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: dueDateTextField.text!)
         if let status = actionItemObject?.status {
             editActionItem.status = status
             if editActionItem.activityDate != ""{
@@ -258,9 +268,9 @@ class CreateNewActionItemViewController: UIViewController {
         }else{
             editActionItem.isUrgent = false
         }
-        editActionItem.lastModifiedDate = getTimestamp()
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
-        let actionItemDict: [String:Any] = [
+        var actionItemDict: [String:Any] = [
             
             ActionItem.AccountActionItemFields[0]: editActionItem.Id,
             ActionItem.AccountActionItemFields[1]: editActionItem.accountId,
@@ -277,18 +287,24 @@ class CreateNewActionItemViewController: UIViewController {
             kSyncTargetLocallyDeleted:false,
             "attributes":attributeDict]
         
+        /*  BUG:9: Edited Action Item is not getting synced to Server Without Activity Date
+         Fixed by adding Below Check  for activity date.
+         */
+        
+        if(actionItemDict["ActivityDate"] as! String == ""){
+            actionItemDict.removeValue(forKey: "ActivityDate")
+        }
+        
         let success = AccountsActionItemViewModel().editActionItemLocally(fields: actionItemDict)
         if success {
-           
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
             self.delegate?.updateActionDesc()
             self.delegate?.updateActionList()
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
-            
             self.dismiss(animated: true, completion: nil)
         }
-       
     }
     
     func generateRandomIDForActionItems()->String  {
@@ -298,14 +314,6 @@ class CreateNewActionItemViewController: UIViewController {
         let someString:String = String(randomNum)
         print("number in notes is \(someString)")
         return someString
-    }
-    
-    func getTimestamp() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
     }
 }
 
@@ -336,7 +344,9 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemTitleTableViewCell") as? ActionItemTitleTableViewCell
+            cell?.actionTitleTextField.accessibilityIdentifier = "actionTitleTextFieldID"
             actionTitleTextField = cell?.actionTitleTextField
+            
             if let actionItem = actionItemObject {
                 cell?.actionItemObject = actionItem
                 cell?.actionTitleTextField.text = actionItem.subject
@@ -344,9 +354,19 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
+            cell?.searchContactTextField.accessibilityIdentifier = "actionItemSearchContactTextFieldID"
             searchAccountTextField = cell?.searchContactTextField
             accountDropDown = cell?.accountsDropDown
             cell?.titleLabel.text = "Link an Account"
+            //Enable the search field during edit action items when the accountid is nil
+            if (actionItemObject != nil && !((actionItemObject?.accountId.isEmpty)!)){
+                cell?.searchContactTextField.isUserInteractionEnabled = false
+                cell?.searchContactTextField.alpha = 0.5
+            }else {
+                cell?.searchContactTextField.isUserInteractionEnabled = true
+                cell?.searchContactTextField.backgroundColor = UIColor.clear
+                cell?.searchContactTextField.alpha = 1.0
+            }
             cell?.delegate = self
             return cell!
         case 2:
@@ -357,11 +377,19 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
             if let account = selectedAccount {
                 cell?.displayCellContent(account: account)
             }
+            if actionItemObject != nil && !((actionItemObject?.accountId.isEmpty)!)  {
+                cell?.deleteButton.isUserInteractionEnabled = false
+                cell?.deleteButton.alpha = 0.3
+            }else {
+                cell?.deleteButton.isUserInteractionEnabled = true
+                cell?.deleteButton.alpha = 1.0
+            }
             return cell!
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
             cell?.headerLabel.text = "Action Item Description*"
             actionItemDescriptionTextView = cell?.descriptionTextView
+            cell?.descriptionTextView.accessibilityIdentifier = "ActionItemDescriptionTextViewID"
             if let actionItem = actionItemObject {
                 cell?.actionItemObject = actionItem
                 actionItemDescriptionTextView.text = actionItem.description
@@ -382,13 +410,13 @@ extension CreateNewActionItemViewController : UITableViewDelegate, UITableViewDa
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
             dueDateTextField = cell?.dateTextfield
+            cell?.dateTextfield.accessibilityIdentifier = "actionItemDueDateID"
             dateTextFieldContainerView = cell?.dateTextFieldContainerView
 //            cell?.datePickerView.minimumDate = Date()
             cell?.headerLabel.text = "Due Date"
             if let actionItem = actionItemObject {
                 cell?.actionItem = actionItem
-                cell?.dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: actionItemObject?.activityDate)
-                
+                cell?.dateTextfield.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItemObject?.activityDate))
             }
             return cell!
         default:

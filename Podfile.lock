@@ -75,6 +75,16 @@ DEPENDENCIES:
   - SmartSync (from `https://github.com/forcedotcom/SalesforceMobileSDK-iOS`)
   - SwipeCellKit (~> 2.1.0)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CocoaLumberjack
+    - DateToolsSwift
+    - FMDB
+    - IQKeyboardManagerSwift
+    - ReachabilitySwift
+    - SQLCipher
+    - SwipeCellKit
+
 EXTERNAL SOURCES:
   PromiseKit:
     :git: https://github.com/mxcl/PromiseKit
@@ -127,4 +137,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 42c0e8d8ecd3676ed4a3632e0a24832831f32307
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

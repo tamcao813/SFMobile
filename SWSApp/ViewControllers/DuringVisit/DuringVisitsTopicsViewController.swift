@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 protocol NavigateToVisitSummaryScreenDelegate {
     func navigateToVisitSummaryScreen()
 }
@@ -21,31 +20,14 @@ class  DuringVisitsTopicsViewController : UIViewController {
     var visitObject : WorkOrderUserObject?
     var accountObject: Account?
     var collectionViewRowDetails : NSMutableArray?
-    
     var delegate : NavigateToVisitSummaryScreenDelegate?
-    
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewRowDetails = NSMutableArray()
         fetchAccountDetails()
-        //let plistPath = Bundle.main.path(forResource: "DuringVisitTopics", ofType: ".plist", inDirectory: nil)
-        //let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
-        //collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
-        
-        //print(dictionary!)
-    }
-    
-    func fetchAccountDetails(){
-        if let accountId = visitObject?.accountId {
-            let accountsArray = AccountsViewModel().accountsForLoggedUser
-            for account in accountsArray{
-                if account.account_Id == accountId {
-                    accountObject = account
-                }
-            }
-        }
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,41 +60,16 @@ class  DuringVisitsTopicsViewController : UIViewController {
         addressDict.setValue(fullAddress, forKey: "storeAddress")
         mainArray.add(addressDict)
         
-//        addressLabel?.text = fullAddress
-        
-//        if let address = accountObject.accountBillingAddress {
-//
-//            if address != ""{
-//                let data = self.convertToDictionary(text: address)
-//
-//                let street = data!["street"] as? String ?? ""
-//    //            guard let street = data!["street"] as? String else{
-//    //                return
-//    //            }
-//                let city = data!["city"] as? String ?? ""
-//    //            guard let city = data!["city"] as? String else{
-//    //                return
-//    //            }
-//                let postalCode = data!["postalCode"] as? String ?? ""
-//    //            guard let postalCode = data!["postalCode"] as? String else {
-//    //                return
-//    //            }
-//                let addressString = street + " " + city + " " + postalCode
-//
-//
-//            }
-//        }
-
         let visitNotes = visitObject?.description
         let displayDataDict = NSMutableDictionary()
         displayDataDict.setValue("Visit Notes", forKey: "headerText")
         displayDataDict.setValue(visitNotes, forKey: "notesText")
         mainArray.add(displayDataDict)
         
-        let strategyDictionary = NSMutableDictionary()
-        strategyDictionary.setValue("Account Strategy", forKey: "headerText")
-        strategyDictionary.setValue("Load the Account Strategy", forKey: "subHeader")
-        mainArray.add(strategyDictionary)
+        //let strategyDictionary = NSMutableDictionary()
+        //strategyDictionary.setValue("Account Strategy", forKey: "headerText")
+        //strategyDictionary.setValue("Load the Account Strategy", forKey: "subHeader")
+        //mainArray.add(strategyDictionary)
         
         let agendaNotes = visitObject?.sgwsAgendaNotes
         let agentDict = NSMutableDictionary()
@@ -125,13 +82,24 @@ class  DuringVisitsTopicsViewController : UIViewController {
         agentDict.setValue(agentArray, forKey: "answers")
         mainArray.add(agentDict)
         
-
-        
         collectionViewRowDetails = mainArray
         print(mainArray)
         
     }
 
+    //Fetch the from Accounts View Model
+    func fetchAccountDetails(){
+        if let accountId = visitObject?.accountId {
+            let accountsArray = AccountsViewModel().accountsForLoggedUser()
+            for account in accountsArray{
+                if account.account_Id == accountId {
+                    accountObject = account
+                }
+            }
+        }
+    }
+    
+    //Covert the String to Dictionart
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
             do {
@@ -142,10 +110,7 @@ class  DuringVisitsTopicsViewController : UIViewController {
         }
         return nil
     }
-
 }
-
-
 
 //MARK:- UICollectionView DataSource
 extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
@@ -157,7 +122,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         //used to many cells under Account Strategy and Buying Motives
-        if section >= 3{
+        if section >= 2{
             let tableData = collectionViewRowDetails![section] as! NSDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             return tableContent.count
@@ -173,7 +138,7 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
             
             sectionHeader.isHidden = true
             
-            if indexPath.section >= 3{
+            if indexPath.section >= 2{
                 sectionHeader.isHidden = false
                 sectionHeader.displayHeaderViewData(data: collectionViewRowDetails!, indexPath: indexPath)
             }
@@ -197,11 +162,15 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell2", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
             (cell as! DuringVisitsTopicsCollectionViewCell).displayNotesCellData(data: cellData)
             
-        }else if indexPath.section == 2{
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
-            (cell as! DuringVisitsTopicsCollectionViewCell).delegate = self
-            
-        }else if indexPath.section >= 3{
+        }
+        
+//        else if indexPath.section == 2{
+//            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitCell", for: indexPath) as! DuringVisitsTopicsCollectionViewCell
+//            (cell as! DuringVisitsTopicsCollectionViewCell).delegate = self
+//
+//        }
+        
+        else if indexPath.section >= 2{
             
             let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
@@ -216,14 +185,13 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
         return cell!
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         FilterMenuModel.comingFromDetailsScreen = "YES"
         FilterMenuModel.selectedAccountId = (accountObject?.account_Id)!
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
         if indexPath.section == 0{
             DispatchQueue.main.async {
-                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                     FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
                     self.dismiss(animated: false, completion: nil)
@@ -232,13 +200,8 @@ extension DuringVisitsTopicsViewController : UICollectionViewDataSource {
                 }
             }
         }
-        
-        
-        
-        
     }
 }
-
 
 //MARK:- UICollectionView Delegate
 extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
@@ -248,21 +211,19 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
         if indexPath.section == 1{
             return CGSize(width: collectionView.frame.size.width, height: 250)
             
-        }else if indexPath.section == 20{//used to change the height of cell Dynamically
-            
+        }else if indexPath.section >= 2{//used to change the height of cell Dynamically
             let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
-            
             let data = (questions["answerText"] as! String)
             
-            let attString = NSAttributedString(string: data, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15.0)])
-            let dynamicSize: CGRect = attString.boundingRect(with: CGSize(width: self.collectionView!.bounds.size.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-            
-            return dynamicSize.size
-            
-        } else if indexPath.section >= 3{
-            return CGSize(width: collectionView.frame.size.width, height: 20)
+            let approximateWidthOfContent = view.frame.width
+            // x is the width of the logo in the left
+            let size = CGSize(width: approximateWidthOfContent, height: CGFloat.greatestFiniteMagnitude)
+            //1000 is the large arbitrary values which should be taken in case of very high amount of content
+            let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)]
+            let estimatedFrame = NSString(string: data).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+            return CGSize(width: (self.collectionView?.frame.size.width)!, height: estimatedFrame.height)
         }
         return CGSize(width: collectionView.frame.size.width, height: 100)
     }
@@ -271,13 +232,12 @@ extension DuringVisitsTopicsViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
         //Used to display header for last cell only
-        if section >= 3{
-            return CGSize(width: collectionView.frame.size.width  , height: 80)
+        if section >= 2{
+            return CGSize(width: collectionView.frame.size.width  , height: 50)
         }
         return CGSize(width: 0.0, height: 0.0)
     }
 }
-
 
 //MARK:- NavigateToStrategyFromDuringVisits Delegate
 extension DuringVisitsTopicsViewController : NavigateToStrategyFromDuringVisitsDelegate{

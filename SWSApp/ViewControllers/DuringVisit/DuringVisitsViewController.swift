@@ -9,6 +9,12 @@
 import Foundation
 import UIKit
 import IQKeyboardManagerSwift
+import CoreLocation
+import SmartSync
+
+struct AccountObject {
+    static var account : Account?
+}
 
 enum LoadThePersistantMenuScreen : Int{
     case contacts = 0
@@ -17,12 +23,17 @@ enum LoadThePersistantMenuScreen : Int{
     case notifications
 }
 
+struct LoadThePersistantMenuScreenItem {
+    static var loadItemScreen = 0
+}
+
 protocol NavigateToAccountVisitSummaryDelegate {
     func NavigateToAccountVisitSummary(data : LoadThePersistantMenuScreen)
+    func NavigateToAccountVisitSummaryActionItems(data : LoadThePersistantMenuScreen)
     func navigateToAccountVisitingScreen()
 }
 
-class  DuringVisitsViewController : UIViewController {
+class  DuringVisitsViewController : UIViewController,CLLocationManagerDelegate {
     
     @IBOutlet weak var containerView : UIView?
     @IBOutlet weak var btnBack : UIButton?
@@ -32,6 +43,64 @@ class  DuringVisitsViewController : UIViewController {
     @IBOutlet weak var btnInsights : UIButton?
     @IBOutlet weak var btnEditAccountStrategy : UIButton?
     @IBOutlet weak var btnSaveContinueComplete : UIButton?
+    @IBOutlet weak var btnCreateActionItem : UIButton?
+    
+    //MARK: LOCATION
+    var locationManager = CLLocationManager()
+    
+    func setLocationManager(){
+        locationManager.distanceFilter  = kCLLocationAccuracyNearestTenMeters;
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.delegate = self
+    }
+    
+    func startUpdatingLocationAlerts() {
+        // 1. status is not determined
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        }
+            // 2. authorization were denied
+        else if CLLocationManager.authorizationStatus() == .denied {
+            print("Location services were previously denied. Please enable location services for this app in Settings.")
+        }
+            // 3. we do have authorization
+        else if CLLocationManager.authorizationStatus() == .authorizedAlways {
+            locationManager.delegate = self
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        locationManager.stopUpdatingLocation()
+        
+        geoLocationForVisit.endLatitude = userLocation.coordinate.latitude
+        geoLocationForVisit.endLongitude = userLocation.coordinate.longitude
+        
+        //        geoLocationForVisit.didReceiveLocation = true
+        //        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+        //            //print(error!)
+        //        })
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        locationManager.stopUpdatingLocation()
+        print("The error is in location \(error)")
+//        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+//            //print(error!)
+//        })
+    }
+    
+//    /// fetchLocationTill will block the Save button till location is received
+//    func fetchLocationTill(){
+//        var count = 4
+//        while geoLocationForVisit.didReceiveLocation == false && count > 0{
+//            sleep(5)
+//            count = count - 1
+//        }
+//        _ = PlanVisitManager.sharedInstance.editAndSaveVisit()
+//        geoLocationForVisit.didReceiveLocation = false
+//    }
     
     var visitObject: WorkOrderUserObject?
     
@@ -42,6 +111,7 @@ class  DuringVisitsViewController : UIViewController {
     let strategyAnswersViewModel = StrategyAnswersViewModel()
     var tableViewData : NSMutableArray?
     
+    //Present Active ViewController
     private var activeViewController: UIViewController? {
         didSet {
             removeInactiveViewController(inactiveViewController: oldValue)
@@ -49,6 +119,7 @@ class  DuringVisitsViewController : UIViewController {
         }
     }
     
+    //Remove Inactive ViewController
     private func removeInactiveViewController(inactiveViewController: UIViewController?) {
         if let inActiveVC = inactiveViewController {
             // call before removing child view controller's view from hierarchy
@@ -61,6 +132,7 @@ class  DuringVisitsViewController : UIViewController {
         }
     }
     
+    //Update Active ViewController
     private func updateActiveViewController() {
         if let activeVC = activeViewController {
             // call before adding child view controller's view as subview
@@ -86,6 +158,7 @@ class  DuringVisitsViewController : UIViewController {
         duringVisitVC.visitObject = visitObject
         activeViewController = duringVisitVC
         IQKeyboardManager.shared.enable = true
+        self.setLocationManager()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,14 +172,18 @@ class  DuringVisitsViewController : UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
+        self.startUpdatingLocationAlerts()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        
+       // locationManager.stopUpdatingLocation()
+        geoLocationForVisit.startLatitude = 0.0
+        geoLocationForVisit.startLongitude = 0.0
+        geoLocationForVisit.startTime = ""
+        geoLocationForVisit.endLatitude = 0.0
+        geoLocationForVisit.endLongitude = 0.0
+        geoLocationForVisit.endTime = ""
     }
     
     //MARK:-
@@ -190,7 +267,6 @@ class  DuringVisitsViewController : UIViewController {
         dict.setValue(answerArray, forKey: "answers") //Added Answers for Subheader
         
         tableviewData.add(dict)
-        
     }
     
     //Used to load the Strategy Subheader Questions
@@ -309,33 +385,79 @@ class  DuringVisitsViewController : UIViewController {
     }
     
     //MARK:- IBAction Methods
+    //Close Button Clicked
     @IBAction func closeButtonClicked(sender : UIButton){
         
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
             self.dismiss(animated: true, completion: nil)
             
         }) {
             print("No")
         }
-        
     }
     
+    //Transaction button clicked
     @IBAction func transactionClicked(sender : UIButton){
-        UIApplication.shared.open(URL(string : "http://www.google.com")!, options: [:], completionHandler: { (status) in
-            
-        })
+        
+        DispatchQueue.main.async {
+            if let url = URL(string: StringConstants.topazUrl)
+            {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.open(url)
+                }
+                else
+                {
+                    let alert = UIAlertController(title: "Alert", message: StringConstants.topazAlertMessage, preferredStyle: .alert)
+
+                    let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+
+                    alert.addAction(cancelAction)
+                    self.present(alert, animated: true, completion: nil)                }
+            }
+        }
     }
     
+    //GoSpot Button Clicked
     @IBAction func goSpotClicked(sender : UIButton){
-        UIApplication.shared.open(URL(string : "http://www.google.com")!, options: [:], completionHandler: { (status) in
-            
-        })
+        
+        DispatchQueue.main.async {
+            if let url = URL(string: StringConstants.gospotcheckUrl)
+            {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.open(url)
+                }
+                else
+                {
+                    let url  = URL(string: StringConstants.gospotItuneUrl)
+                    
+                    if UIApplication.shared.canOpenURL(url!) {
+                        UIApplication.shared.open(url!)
+                    }
+                }
+            }
+        }
     }
     
+    // Create Action Item Button clicked
+    @IBAction func createActionItemButtonClicked(_ sender: UIButton) {
+        
+        btnCreateActionItem?.isHidden = false
+            let createActionItemViewController = UIStoryboard(name: "ActionItem", bundle: nil).instantiateViewController(withIdentifier :"CreateNewActionItemViewController") as! CreateNewActionItemViewController
+            createActionItemViewController.isEditingMode = false
+            createActionItemViewController.selectedAccount = AccountObject.account
+            self.present(createActionItemViewController, animated: false)
+    }
+    
+    //Back Button Clicked
     @IBAction func backButtonClicked(sender : UIButton){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountVisitList"), object:nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshVisitEventList"), object:nil)
         btnBack?.isHidden = true
+        btnCreateActionItem?.isHidden = false
         imgDiscussion?.image = UIImage(named: "selectedButton")
         imgInsights?.image = UIImage(named: "selectedGrey")
         
@@ -350,38 +472,88 @@ class  DuringVisitsViewController : UIViewController {
         activeViewController = duringVisitVC
     }
     
-    @IBAction func saveContinueAndComplete(sender : UIButton){
-        
-        if btnSaveContinueComplete?.titleLabel?.text == "Save and Continue"{
-            PlanVisitManager.sharedInstance.visit?.status = "In-Progress"
-            //Save the data in DB
-            let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
-        }
-        else if btnSaveContinueComplete?.titleLabel?.text == "Complete"{
-            PlanVisitManager.sharedInstance.visit?.status = "Completed"
-            DispatchQueue.main.async{
-                self.dismiss(animated: true, completion: nil)
-            }
-            
-            //Save the data in DB
-            let status = PlanVisitManager.sharedInstance.editAndSaveVisit()
-            delegate?.navigateToAccountVisitingScreen()
-            return
-        }
-        
-        btnBack?.isHidden = false
-        imgDiscussion?.image = UIImage(named: "Small Status Good")
-        imgInsights?.image = UIImage(named: "selectedButton")
-        
-        btnDiscussion?.setTitle("", for: .normal)
-        btnInsights?.setTitle("Insights", for: .normal)
-        btnSaveContinueComplete?.setTitle("Complete", for: .normal)
-        
-        let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
-        let duringVisitVC: DuringVisitsInsightsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsInsightsViewControllerID") as! DuringVisitsInsightsViewController
-        activeViewController = duringVisitVC
+    @IBAction func insightsButtonClicked(sender : UIButton){
+        let accountStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let accountVisitListVC = accountStoryboard.instantiateViewController(withIdentifier: "InsightsModelViewControllerID") as! InsightsModelViewController
+        self.present(accountVisitListVC, animated: true, completion: nil)
     }
     
+    //Save button Clicked
+    @IBAction func saveContinueAndComplete(sender : UIButton){
+        
+        MBProgressHUD.show(onWindow: true)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            if self.btnSaveContinueComplete?.titleLabel?.text == "Save and Continue" {
+                geoLocationForVisit.lastVisitStatus = (PlanVisitManager.sharedInstance.visit?.status)!
+                PlanVisitManager.sharedInstance.visit?.status = "In-Progress"
+                
+                //if geoLocationForVisit.startTime == "FromContinueVisit" do not save s it ws done previously
+                if(geoLocationForVisit.startTime != "FromContinueVisit") {
+                    if  geoLocationForVisit.lastVisitStatus == "Scheduled" ||
+                        geoLocationForVisit.lastVisitStatus == "Planned"{
+                        //Get time on button clicked
+                        geoLocationForVisit.startTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+                        _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+                            //print(error!)
+                        })
+                    }
+                }
+            }
+            else if self.btnSaveContinueComplete?.titleLabel?.text == "Complete"{
+                //location related code
+                //self.startUpdatingLocationAlerts()
+                geoLocationForVisit.endTime = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+                PlanVisitManager.sharedInstance.visit?.status = "Completed"
+                
+                self.saveOpportunityCommitValuesLocally()
+                self.saveOutcomeToWorkOrderOpportunityLocally()
+                self.delegate?.navigateToAccountVisitingScreen()
+                //Must dismiss at last
+                DispatchQueue.main.async{
+                    _ = PlanVisitManager.sharedInstance.editAndSaveVisit({ error in
+                        //self.locationManager.stopUpdatingLocation()
+                        //print(error!)
+                    })
+                    
+                    MBProgressHUD.hide(forWindow: true)
+                    
+                    self.dismiss(animated: true, completion: nil)
+                }
+                return
+            }
+            
+            self.btnBack?.isHidden = false
+            self.btnCreateActionItem?.isHidden = true
+            self.imgDiscussion?.image = UIImage(named: "Small Status Good")
+            self.imgInsights?.image = UIImage(named: "selectedButton")
+            
+            self.btnDiscussion?.setTitle("", for: .normal)
+            self.btnInsights?.setTitle("Insights", for: .normal)
+            self.btnSaveContinueComplete?.setTitle("Complete", for: .normal)
+            
+            MBProgressHUD.hide(forWindow: true)
+            
+            let storyboard = UIStoryboard.init(name: "DuringVisit", bundle: nil)
+            let duringVisitVC: DuringVisitsInsightsViewController = storyboard.instantiateViewController(withIdentifier: "DuringVisitsInsightsViewControllerID") as! DuringVisitsInsightsViewController
+            duringVisitVC.visitInformation = self.visitObject
+            self.activeViewController = duringVisitVC
+            self.activeViewController = duringVisitVC
+            
+        })
+    }
+    
+    //Account strategy Clicked
+    @IBAction func loadStrategyViewController(sender : UIButton){
+        let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
+        let vc: AccountStrategyViewController = storyboard.instantiateViewController(withIdentifier: "AccountStrategyViewControllerID") as! AccountStrategyViewController
+        StrategyScreenLoadFrom.isLoadFromStrategy = "1"
+        (vc as AccountStrategyViewController).modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(vc, animated: true, completion: nil)
+        (vc as AccountStrategyViewController).delegate = self
+    }
+    
+    //Edit Account strategy Clicked
     @IBAction func loadEditAccountStrategy(sender : UIButton){
         let storyboard: UIStoryboard = UIStoryboard(name: "Strategy", bundle: nil)
         let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EditAccountStrategyViewControllerID") as! EditAccountStrategyViewController
@@ -393,9 +565,10 @@ class  DuringVisitsViewController : UIViewController {
         (vc as! EditAccountStrategyViewController).delegate = self
     }
     
+    //Contact button Clicked
     @IBAction func contactsClicked(sender : UIButton){
         DispatchQueue.main.async {
-            AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {                
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {                
                 self.dismiss(animated: false, completion: nil)
                 self.delegate?.NavigateToAccountVisitSummary(data: .contacts)
             }) {
@@ -404,40 +577,84 @@ class  DuringVisitsViewController : UIViewController {
         }
     }
     
+    //Chatter Button Clicked
     @IBAction func chatterClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            DispatchQueue.main.async {
-                //self.dismiss(animated: true, completion: nil)
-                //self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
-                
-                let chatterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier :"ChatterModelViewControllerID") as! ChatterModelViewController
-                DispatchQueue.main.async {
-                    self.present(chatterViewController, animated: true)
-                }
-            }
-        }) {
-            
-        }
+//        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+//            DispatchQueue.main.async {
+//                //self.dismiss(animated: true, completion: nil)
+//                //self.delegate?.NavigateToAccountVisitSummary(data: .chatter)
+//
+//                let chatterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier :"ChatterModelViewControllerID") as! ChatterModelViewController
+//                DispatchQueue.main.async {
+//                    self.present(chatterViewController, animated: true)
+//                }
+//            }
+//        }) {
+//
+//        }
+        
+        let chatterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier :"ChatterModelViewControllerID") as! ChatterModelViewController
+        self.present(chatterViewController, animated: true)
     }
     
+    //Action Item Button Clicked
     @IBAction func actionItemsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummary(data: .actionItems)
-        }) {
+        DispatchQueue.main.async {
+            let modalPopupStoryboard = UIStoryboard.init(name: "PopupModal", bundle: nil)
+            let modalPopupViewController: DuringVisitActionItemModelViewController = modalPopupStoryboard.instantiateViewController(withIdentifier: "ActionItemsModalID") as! DuringVisitActionItemModelViewController
+            modalPopupViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(modalPopupViewController, animated: true, completion: nil)
+            modalPopupViewController.navigationDelegate = self
+        }
+    }
+    
+    //Notification Button Clicked
+    @IBAction func notificationsClicked(sender : UIButton){
+        DispatchQueue.main.async {
+            let modalPopupStoryboard = UIStoryboard.init(name: "PopupModal", bundle: nil)
+            let modalPopupViewController: DuringVisitNotificationModalviewController = modalPopupStoryboard.instantiateViewController(withIdentifier: "notificationID") as! DuringVisitNotificationModalviewController
+            modalPopupViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.present(modalPopupViewController, animated: true, completion: nil)
+            modalPopupViewController.delegate = self
             
         }
     }
     
-    @IBAction func notificationsClicked(sender : UIButton){
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-            self.dismiss(animated: true, completion: nil)
-            self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
-            
-        }) {
-            
+    @objc func saveOpportunityCommitValuesLocally() {
+        if DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.count > 0 {
+            for opportunity in DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList {
+                _ = StoreDispatcher.shared.editOpportunityCommitToSoup(fieldsToUpload: ["id":opportunity.id,"SGWS_Commit__c":opportunity.commit])
+            }
         }
     }
+    
+    @objc func saveOutcomeToWorkOrderOpportunityLocally() {
+        if  DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.count > 0 {
+            for object in DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList {
+                
+                let workOrder: String = PlanVisitManager.sharedInstance.visit?.Id ?? ""
+                _ = StoreDispatcher.shared.editOpportunityOutcomeToSoup(fieldsToUpload: [
+                    "Id": object["Id"]!,
+                    "SGWS_Outcome__c": object["SGWS_Outcome__c"]!,
+                    "SGWS_Work_Order__c": workOrder] )
+//                _ = StoreDispatcher.shared.fetchOpportunityWorkorderDebug()
+                
+                let attributeDict = ["type":"WorkOrder"]
+                
+                let addNewDict: [String:Any] = [
+                    
+                    PlanVisit.planVisitFields[13]:PlanVisitManager.sharedInstance.visit?.soupEntryId ?? "",
+                    kSyncTargetLocal:true,
+                    kSyncTargetLocallyCreated:true,
+                    kSyncTargetLocallyUpdated:false,
+                    kSyncTargetLocallyDeleted:false,
+                    "attributes":attributeDict]
+                
+                _ = VisitSchedulerViewModel().editVisitToSoupEx(fields: addNewDict)
+            }
+        }
+    }
+    
 }
 
 //MARK:- RefreshStrategyScreen Delegate
@@ -445,6 +662,36 @@ extension DuringVisitsViewController : RefreshStrategyScreenDelegate{
     
     //After coming back from Edit Strategy Screen, reload Strategy Logic
     func refreshStrategyScreenToLoadNewData(){
+        self.loadTheDataFromStrategyQA()
+    }
+}
+
+extension DuringVisitsViewController : NavigateToDuringVisitViewControllerDelegate{
+    
+    //After coming back from Action Item Modal View
+    func navigateToDuringVisitVC() {
+        self.dismiss(animated: false, completion: {
+            self.delegate?.NavigateToAccountVisitSummaryActionItems(data: .actionItems)
+        })
+    }
+}
+
+extension DuringVisitsViewController :NavigateToDuringVisitViewController{
+    
+    //After coming back from Notifications Modal View
+    func navigateNotificationToDuringVisitVC() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: false, completion: {
+                self.delegate?.NavigateToAccountVisitSummary(data: .notifications)
+            })
+        }
+    }
+}
+
+extension DuringVisitsViewController : RefreshDuringVisitStrategyDelegate{
+    
+    //After coming back from Strategy Screen, reload Strategy Logic
+    func refreshStrategyDataInDuringVisit() {
         self.loadTheDataFromStrategyQA()
     }
 }

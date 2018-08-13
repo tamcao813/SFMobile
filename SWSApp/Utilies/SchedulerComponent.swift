@@ -7,14 +7,46 @@
 //
 
 import UIKit
+ //LOCATION
+import CoreLocation
+//protocol LocationDelegate {
+//    func onTimeTap(latitude:String, longitude:String, startTime:String)
+//}
 
-class SchedulerComponent: UIView, UITextFieldDelegate {
+class SchedulerComponent: UIView, UITextFieldDelegate, CLLocationManagerDelegate {
     
     var dateTextField = DesignableUITextField()
     var startTimeTextField = DesignableUITextField()
     var endTimeTextField = DesignableUITextField()
     let datePickerView = UIDatePicker()
     
+    var currentPresentingViewController: UIViewController?
+    
+    //LOCATION
+   // var locationManager = CLLocationManager()
+    
+//    func setLocationManager(){
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.delegate = self
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
+//    }
+    
+//    func startUpdatingLocation() {
+//        // 1. status is not determined
+//        if CLLocationManager.authorizationStatus() == .NotDetermined {
+//            locationManager.requestAlwaysAuthorization()
+//        }
+//            // 2. authorization were denied
+//        else if CLLocationManager.authorizationStatus() == .Denied {
+//            showAlert("Location services were previously denied. Please enable location services for this app in Settings.")
+//        }
+//            // 3. we do have authorization
+//        else if CLLocationManager.authorizationStatus() == .AuthorizedAlways {
+//            locationManager.startUpdatingLocation()
+//        }
+//    }
+//
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -22,9 +54,11 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+//        
+//        setLocationManager()
+//        startUpdatingLocation()
         
         // Set UILabel size and position
-        
         let dateLabel = UILabel(frame: CGRect(x: 0, y: 5, width: 100, height: 21))
         dateLabel.text = "Date of Visit"
         dateLabel.textColor = UIColor(fromHexValue: "#9A9A9A")
@@ -48,10 +82,12 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         dateTextField =  DesignableUITextField(frame: CGRect(x: 0, y: 30, width: 180, height: 40))
         dateTextField.rightImage = UIImage(named:"Calender_Icon")!
         dateTextField.rightPadding = 8
-        dateTextField.placeholder = "yyyy-MM-dd"
+        dateTextField.placeholder = "MM/DD/YYYY"
+        dateTextField.accessibilityIdentifier = "dateTextFieldID"
         dateTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         dateTextField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0).cgColor
         dateTextField.layer.borderWidth = 1.0
+        dateTextField.layer.cornerRadius = 2.0
         dateTextField.tag = 200
         dateTextField.borderStyle = UITextBorderStyle.roundedRect
         dateTextField.delegate = self
@@ -61,11 +97,13 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         startTimeTextField.rightImage = UIImage(named:"dropDownLight")!
         startTimeTextField.rightPadding = 8
         startTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
-        startTimeTextField.placeholder = "hh:mm"
+        startTimeTextField.placeholder = "HH:MM"
+        startTimeTextField.accessibilityIdentifier = "startTimeTextFieldID"
         startTimeTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         startTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
         startTimeTextField.tag = 201
         startTimeTextField.layer.borderWidth = 1.0
+        startTimeTextField.layer.cornerRadius = 2.0
         startTimeTextField.borderStyle = UITextBorderStyle.roundedRect
         startTimeTextField.delegate = self
         self.addSubview(startTimeTextField)
@@ -74,11 +112,13 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         endTimeTextField.rightImage = UIImage(named:"dropDownLight")!
         endTimeTextField.rightPadding = 8
         endTimeTextField.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
-        endTimeTextField.placeholder = "hh:mm"
+        endTimeTextField.placeholder = "HH:MM"
+        endTimeTextField.accessibilityIdentifier = "endTimeTextFieldID"
         endTimeTextField.tag = 202
         endTimeTextField.font = UIFont(name:"Ubuntu", size: 14.0)
         endTimeTextField.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0).cgColor
         endTimeTextField.layer.borderWidth = 1.0
+        endTimeTextField.layer.cornerRadius = 2.0
         endTimeTextField.borderStyle = UITextBorderStyle.roundedRect
         endTimeTextField.delegate = self
         self.addSubview(endTimeTextField)
@@ -93,14 +133,61 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         super.init(coder: aDecoder)
     }
     
+    func checkVisitStates(textField : UITextField){
+        
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil && ((PlanVisitManager.sharedInstance.visit?.Id)?.count)! > 0){
+            
+            if StoreDispatcher.shared.isWorkOrderCreatedLocally(id: (PlanVisitManager.sharedInstance.visit?.Id)!).0{
+                
+                //Its a local created entry
+                if textField.tag == 200{
+                    self.dateView(textField: textField)
+                }else{
+                    self.timeView(textField: textField)
+                }
+            }else{
+                
+                //Its already Synced UP
+                if AppDelegate.isConnectedToNetwork(){
+                    textField.isUserInteractionEnabled = true
+                    if textField.tag == 200{
+                        self.dateView(textField: textField)
+                    }else{
+                        self.timeView(textField: textField)
+                    }
+                    
+                }else{
+                    textField.isUserInteractionEnabled = false
+                }
+            }
+            
+        }else{
+            //Its a new local created entry
+            if textField.tag == 200{
+                self.dateView(textField: textField)
+            }else{
+                self.timeView(textField: textField)
+            }
+        }
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        textField.isUserInteractionEnabled = true
+        
         switch textField.tag {
         case 200:
-            self.dateView(textField: textField)
+         
+            self.checkVisitStates(textField: textField)
+
         case 201:
-            self.timeView(textField: textField)
+            
+            self.checkVisitStates(textField: textField)
+            
         case 202:
-            self.timeView(textField: textField)
+           
+            self.checkVisitStates(textField: textField)
+            
         default:
             print("default")
         }
@@ -118,12 +205,15 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
             print("default")
         }
     }
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+      return false
+    }
     
     // MARK - Custom Methods
     
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         dateTextField.text = dateFormatter.string(from: datePickerView.date)
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
@@ -140,29 +230,27 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
             endTimeTextField.text = dateFormatter.string(from: datePickerView.date)
         }
         if (!startTimeTextField.text!.isEmpty && !endTimeTextField.text!.isEmpty) {
-            if convertToDate(dateString: startTimeTextField.text!) == convertToDate(dateString: endTimeTextField.text!)  {
+            if DateTimeUtility.getTimeFromDateString(dateString: startTimeTextField.text!) == DateTimeUtility.getTimeFromDateString(dateString: endTimeTextField.text!)  {
                 endTimeTextField.text! = ""
+                 showAlert(message: "Start Time should be lesser than End Time")
                 
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
-                
-            } else if convertToDate(dateString: startTimeTextField.text!).compare(convertToDate(dateString: endTimeTextField.text!)) == .orderedDescending  {
+            } else if DateTimeUtility.getTimeFromDateString(dateString: startTimeTextField.text!).compare(DateTimeUtility.getTimeFromDateString(dateString: endTimeTextField.text!)) == .orderedDescending  {
                 endTimeTextField.text! = ""
-                
-                let alert = UIAlertView()
-                alert.title = "Alert"
-                alert.message = "Start Time should be lesser than End Time"
-                alert.addButton(withTitle: "OK")
-                alert.show()
+                showAlert(message: "Start Time should be lesser than End Time")
+              
             }
         }
         
         resignTextField()
         self.endEditing(true)// To resign the inputView on clicking done.
 //        NotificationCenter.default.post(name: Notification.Name("VALIDATEFIELDS"), object: nil, userInfo:nil)
+    }
+    
+    func showAlert(message:String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        currentPresentingViewController?.present(alert, animated: true, completion: nil)
     }
     
     @objc func doneButton(sender:UIButton)
@@ -177,6 +265,15 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         inputView.backgroundColor = UIColor.white
         datePickerView.frame.origin = CGPoint(x: self.frame.width/1.2, y: 20)
         datePickerView.datePickerMode = .date
+        
+        if((PlanVisitManager.sharedInstance.visit?.Id) != nil){
+            
+            let startDate = DateTimeUtility.covertUTCtoLocalTimeZone(dateString: (PlanVisitManager.sharedInstance.visit?.startDate)!)
+            
+            datePickerView.date = startDate!
+            
+        }
+        
         datePickerView.minimumDate = NSDate() as Date
         inputView.addSubview(datePickerView) // add date picker to UIView
         
@@ -224,21 +321,24 @@ class SchedulerComponent: UIView, UITextFieldDelegate {
         textField.inputAccessoryView = toolBar
     }
     
-    func convertToDate(dateString: String) -> Date {
-        let dateformatter = DateFormatter()
-        dateformatter.timeStyle = .medium
-        dateformatter.dateFormat = "hh:mm a"
-        var dateFromString = Date()
-        if dateformatter.date(from:(dateString)) != nil {
-            dateFromString = dateformatter.date(from: dateString)!
-        } else {
-            dateformatter.timeStyle = .medium
-            dateformatter.dateFormat = "HH:mm a"
-            dateFromString = dateformatter.date(from: dateString)!
-        }
-        
-        return dateFromString
-    }
+//    func convertToDate(dateString: String) -> Date {
+//        let dateformatter = DateFormatter()
+//        dateformatter.timeStyle = .medium
+//        dateformatter.dateFormat = "hh:mm a"
+//        var dateFromString = Date()
+//        if dateformatter.date(from:(dateString)) != nil {
+//            dateFromString = dateformatter.date(from: dateString)!
+//        } else {
+//            dateformatter.timeStyle = .medium
+//            dateformatter.dateFormat = "HH:mm a"
+//            dateFromString = dateformatter.date(from: dateString)!
+//        }
+//
+//        return dateFromString
+//    }
+//
+//
+    
     
     func resignTextField(){
         dateTextField.resignFirstResponder()

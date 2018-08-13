@@ -29,6 +29,14 @@ class CalendarMenuViewController: UIViewController {
     //Used for selected section in TableView
     var selectedSection = 0
     
+    
+    var isManager: Bool = false
+    var consultantAry = [Consultant]()
+    
+    var sectionData = [[Any]]()
+    var sectionNames = [String]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +46,19 @@ class CalendarMenuViewController: UIViewController {
         self.customizeSearchBar()
         
         self.tableView!.tableFooterView = UIView()
+        
+        //To check the User is Manager or Consultant
+        consultantAry = UserViewModel().consultants
+        consultantAry = consultantAry.sorted { $0.name < $1.name }
+        
+        isManager = consultantAry.count > 0
+        sectionNames = CalendarFilter().sectionNames(isManager: isManager)
+        sectionData = CalendarFilter().sectionItems
+        
+        if isManager {
+            sectionData.insert(consultantAry, at: 1)
+            CalendarFilter().sectionItems = sectionData
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,6 +114,7 @@ class CalendarMenuViewController: UIViewController {
 
         CalendarFilterMenuModel.visitsType = "YES"
         CalendarFilterMenuModel.eventsType = "YES"
+        CalendarFilterMenuModel.selectConsultantClicked = ""
         
         if searchBar != nil{
             searchBar.text = ""
@@ -118,6 +140,9 @@ class CalendarMenuViewController: UIViewController {
             tableView.reloadData()
         }
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.currentSelectedUserId = (appDelegate.loggedInUser?.userId)!
+        CalendarFilterMenuModel.selectedConsultant = nil
     }
 
     //Used to check which section header was clicked
@@ -161,7 +186,7 @@ class CalendarMenuViewController: UIViewController {
     
     //Used to dismiss Dropdown menu
     func tableViewCollapeSection(_ section: Int, imageView: UIImageView) {
-        let sectionData = filterClass.sectionItems[section] as! NSArray
+        let sectionData = self.sectionData[section]
         self.expandedSectionHeaderNumber = -1
         
         if (sectionData.count == 0) {
@@ -184,7 +209,7 @@ class CalendarMenuViewController: UIViewController {
     //Used to show Dropdown menu
     func tableViewExpandSection(_ section: Int, imageView: UIImageView) {
         
-        let sectionData = filterClass.sectionItems[section] as! NSArray
+        let sectionData = self.sectionData[section]
         if (sectionData.count == 0) {
             self.expandedSectionHeaderNumber = -1;
             return;
@@ -210,14 +235,19 @@ class CalendarMenuViewController: UIViewController {
         switch indexPath.section {
         case 0:
             calendarCellClickedSingleSelection(indexPath)
-            
+        case 1:
+            self.performSelectConsultantOperation(indexPath: indexPath)
         default:
             break
-            
         }
-        
         tableView.reloadData()
-        
+    }
+    
+    func performSelectConsultantOperation(indexPath : IndexPath) {
+        CalendarFilterMenuModel.selectedConsultant = consultantAry[indexPath.row]
+        CalendarFilterMenuModel.selectConsultantClicked = "YES"
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.currentSelectedUserId = consultantAry[indexPath.row].id
     }
     
     func calendarCellClickedSingleSelection(_ indexPath: IndexPath) {
@@ -247,7 +277,7 @@ class CalendarMenuViewController: UIViewController {
     
     //Data to pass for Respective Cell Class
     func passDataToTableViewCell(cell : UITableViewCell, indexPath : IndexPath){
-        (cell as? CalendarMenuTableTableViewCell)?.displayCellContent(sectionContent: filterClass.sectionItems as NSArray, indexPath: indexPath)
+        (cell as? CalendarMenuTableTableViewCell)?.displayCellContent(sectionContent: sectionData as NSArray, indexPath: indexPath)
         
     }
     
@@ -260,7 +290,7 @@ class CalendarMenuViewController: UIViewController {
     private func isValidUserInputAtSearchFilterPanel()->Bool{
         var validInput = false
         if(searchBar.text!.count > 0 ||
-            (CalendarFilterMenuModel.visitsType == "NO" || CalendarFilterMenuModel.eventsType == "NO"))
+            (CalendarFilterMenuModel.visitsType == "NO" || CalendarFilterMenuModel.eventsType == "NO") ||  CalendarFilterMenuModel.selectConsultantClicked != "")
         {
             validInput = true
         }
@@ -304,15 +334,15 @@ class CalendarMenuViewController: UIViewController {
 extension CalendarMenuViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if filterClass.sectionNames.count > 0 {
-            return filterClass.sectionNames.count
+        if sectionNames.count > 0 {
+            return sectionNames.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (self.expandedSectionHeaderNumber == section) {
-            let arrayOfItems = filterClass.sectionItems[section] as! NSArray
+            let arrayOfItems = sectionData[section]
             return arrayOfItems.count;
         }else {
             return 0;
@@ -328,7 +358,7 @@ extension CalendarMenuViewController : UITableViewDataSource{
         let myLabel = UILabel()
         myLabel.frame = CGRect(x: 15, y: 18, width: tableView.frame.size.width, height: 20)
         myLabel.font = UIFont(name:"Ubuntu", size: 18.0)
-        myLabel.text = filterClass.sectionNames[section] as? String
+        myLabel.text = sectionNames[section]
         
         let headerView = UIView()
         headerView.addSubview(myLabel)
@@ -339,8 +369,8 @@ extension CalendarMenuViewController : UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (filterClass.sectionNames.count > 0) {
-            return filterClass.sectionNames[section] as? String
+        if sectionNames.count > 0 {
+            return sectionNames[section]
         }
         return ""
     }
@@ -404,7 +434,7 @@ extension CalendarMenuViewController : UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
         
-        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : filterClass.sectionItems)
+        self.tableViewCellClickedSingleSelection(indexPath: indexPath , arrayContent : sectionData)
         
     }
     
@@ -429,7 +459,7 @@ extension CalendarMenuViewController : UISearchBarDelegate{
     }
     
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        return true
+        return AlertUtilities.disableEmojis(text: text)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

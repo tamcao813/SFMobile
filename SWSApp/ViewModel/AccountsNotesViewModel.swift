@@ -13,7 +13,8 @@ class AccountsNotesViewModel {
     //    let accountsForLoggedUser: [Account] = StoreDispatcher.shared.fetchAccountsForLoggedUser()
     
     func accountsNotesForUser() -> [AccountNotes] {
-        return StoreDispatcher.shared.fetchAccountsNotes()
+        let notesArray = StoreDispatcher.shared.fetchAccountsNotes()
+        return SyncConfigurationSortUtility.getAccountNotesDataUsingSyncTime(objectArray: notesArray)        
     }
     func createNewNotesLocally(fields: [String:Any]) -> Bool {
         return StoreDispatcher.shared.createNewNotesLocally(fieldsToUpload:fields)
@@ -40,8 +41,31 @@ class AccountsNotesViewModel {
         })
     }
     
-    
-    
-    
+    //sync up Notes then resync down
+    func syncNotesWithServer(_ completion:@escaping (_ error: NSError?)->()) {
+        let fields: [String] = AccountNotes.AccountNotesFields
+        
+        var isError:Bool = false
+        
+        StoreDispatcher.shared.syncUpNotes(fieldsToUpload: fields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncNotesWithServer: Note Sync up failed")
+                isError =  true
+            }
+
+            StoreDispatcher.shared.reSyncNote { error in
+                if isError || error != nil {
+                    print(error?.localizedDescription ?? "error")
+                    print("syncNotesWithServer: Note reSync failed")
+                    completion(error)
+                }
+                else {
+                    completion(nil)
+                }
+            }
+
+        })
+    }
     
 }

@@ -8,31 +8,85 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManagerSwift
 
 
-class DuringVisitsInsightsViewController : UIViewController{
+class DuringVisitsInsightsViewController : UIViewController,SourceTableCellDelegate,InsightsUndersoldSourceTableCellDelegate,InsightsSourceUnsoldTableCellDelegate{
     
-    @IBOutlet weak var collectionView : UICollectionView?
+    @IBOutlet weak var insightsTableViewController : UITableView?
+    @IBOutlet weak var accNameLbl : UILabel?
+    @IBOutlet weak var pinCodeLbl : UILabel?
+    @IBOutlet weak var accAddressLbl : UILabel?
+    @IBOutlet weak var recommendLabel : UILabel?
     
+    var visitInformation :WorkOrderUserObject?
+    var opportunityList = [Opportunity]()
+    var accountObject: Account?
+    var pickListValuesForOpportunities = [String]()
     var collectionViewRowDetails : NSMutableArray?
+    var pickerOptions = [[String:Any]]()
+    var selectedOpportunitiesFromDB = [OpportunityWorkorder]()
     
+    static var modifiedCommitOpportunitiesList = [Opportunity]()
+    static var modifiedOutcomeWorkOrderList = [NSDictionary]()
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        IQKeyboardManager.shared.enable = true
+        self.fetchAccountDetails()
+        
+        accNameLbl?.text = accountObject?.accountName
+        pinCodeLbl?.text = accountObject?.accountNumber
+        accAddressLbl?.text = getFullAccountAddress()
+        opportunityList = OpportunitySortUtility().opportunityFor(forAccount: (PlanVisitManager.sharedInstance.visit?.accountId)!)
+        
+        
+        opportunityList = opportunityList.filter{($0.status != "Closed") && ($0.status != "Closed Won")}
+        var selectedOpportunitiesList = [Opportunity]()
+        selectedOpportunitiesFromDB = OpportunityViewModel().globalOpportunityWorkorder()
+        if selectedOpportunitiesFromDB.count > 0 {
+            
+            selectedOpportunitiesFromDB = selectedOpportunitiesFromDB.filter( { $0.workOrder == (PlanVisitManager.sharedInstance.visit?.Id)!} )
+            if selectedOpportunitiesFromDB.count > 0 {
+                
+                for obj in selectedOpportunitiesFromDB {
+                    
+                    selectedOpportunitiesList.append(contentsOf: opportunityList.filter( { $0.id == obj.opportunityId } ))
+                }
+            }
+        }
+        opportunityList = selectedOpportunitiesList
+        
         
         let plistPath = Bundle.main.path(forResource: "Insights", ofType: ".plist", inDirectory: nil)
         let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
         collectionViewRowDetails = dictionary!["New item"] as? NSMutableArray
         
-        print(dictionary!)
-        
+        let opts = PlistMap.sharedInstance.readPList(plist: StringConstants.workOrderPlist)
+        pickerOptions = opts as! [[String : Any]]
+        for pickerOption in pickerOptions {
+            
+            if let value = pickerOption["value"] as?  String {
+                pickListValuesForOpportunities.append(value)
+
+            }
+        }
+
+        if opportunityList.count > 0 {
+            self.insightsTableViewController?.isHidden = false
+        }else {
+            self.insightsTableViewController?.isHidden = true
+        }
+        insightsTableViewController?.contentInsetAdjustmentBehavior = .never
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList = [Opportunity]()
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList = [NSDictionary]()
     }
     
     
@@ -45,67 +99,242 @@ class DuringVisitsInsightsViewController : UIViewController{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        
     }
     
-}
-
-
-//MARK:- UICollectionView DataSource
-extension DuringVisitsInsightsViewController : UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return (collectionViewRowDetails?.count)!
+    //MARK:-
+    //Update the data from Top Sellers TextField
+    func updateDataFromTopSellerCellTextfield(_ index: Int,commit: String) {
+        opportunityList[index].commit = commit
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let tableData = collectionViewRowDetails![section] as! NSDictionary
-        let tableContent = tableData["answers"] as! NSMutableArray
-        return tableContent.count
+    //Update the data from Top Sellers Button Action
+    func updateDataFromTopSellerCellButton(_index: Int, outcome: String) {
+       // var modifiedOutcomeObject : NSDictionary?
+        let modifiedOutcomeObject = NSMutableDictionary()
+        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
+        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        viewForSupplementaryElementOfKind kind: String,
-                        at indexPath: IndexPath) -> UICollectionReusableView{
-        
-        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "duringVisitInsightsHeaderCell", for: indexPath) as? DuringVisitsInsightsCollectionReusableView{
-            
-            sectionHeader.displayHeaderViewData(data: collectionViewRowDetails!, indexPath: indexPath)
-            return sectionHeader
+    //Update the data from Unsold TextField
+    func updateDataFromUnsoldTableCellTextField(_ index: Int,commit: String) {
+        opportunityList[index].commit = commit
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
+    }
+    
+    //Update the data from Unsold Button Action
+    func updateDataFromUnsoldTableCellButtton(_index: Int, outcome: String) {
+       // var modifiedOutcomeObject : NSDictionary?
+        let modifiedOutcomeObject = NSMutableDictionary()
+        modifiedOutcomeObject.setValue(opportunityList[_index].id, forKey: "Id")
+        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
+    }
+    
+    //Update the data from Undersold Textfield
+    func updateDataFromUndersoldTableCellTextfield(_ index: Int,commit: String) {
+        opportunityList[index].commit = commit
+        DuringVisitsInsightsViewController.modifiedCommitOpportunitiesList.append(opportunityList[index])
+    }
+    
+    //Update the data from Undersold Button Action
+    func updateDataFromUndersoldTableCellButton(index: Int, outcome: String) {
+     
+        let modifiedOutcomeObject = NSMutableDictionary()
+        modifiedOutcomeObject.setValue(opportunityList[index].id, forKey: "Id")
+        modifiedOutcomeObject.setValue(outcome, forKey: "SGWS_Outcome__c")
+        DuringVisitsInsightsViewController.modifiedOutcomeWorkOrderList.append(modifiedOutcomeObject)
+    }
+    
+    //Used to Reload the TableView Data
+    func sortAndRelaodTable() {
+        opportunityList =  OpportunitySortUtility().opportunitySort(opportunityList)
+        insightsTableViewController?.reloadData()
+    }
+    
+    //Fetch the from Accounts View Model
+    func fetchAccountDetails(){
+        if let accountId = visitInformation?.accountId {
+            let accountsArray = AccountsViewModel().accountsForLoggedUser()
+            accountObject = accountsArray.filter({$0.account_Id == accountId }).first
         }
-        return UICollectionReusableView()
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    //Get Full account Address from Account Object
+    func getFullAccountAddress()->String {
         
-        let tableData = collectionViewRowDetails![indexPath.section] as! NSMutableDictionary
-        let tableContent = tableData["answers"] as! NSMutableArray
-        let answers = tableContent[indexPath.row] as! NSMutableDictionary
+        var fullAddress = ""
+        if let shippingStreet = accountObject?.shippingStreet, let shippingCity = accountObject?.shippingCity , let shippingState = accountObject?.shippingState, let shippingPostalCode = accountObject?.shippingPostalCode{
+            // latitudeDouble and longitudeDouble are non-optional in here
+            if shippingStreet == "" && shippingCity == "" && shippingState == "" && shippingPostalCode == "" {
+                fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+            }else{
+                if (shippingStreet != "" || shippingCity != "") {
+                    if (shippingState != "" || shippingPostalCode != "") {
+                        fullAddress = "\(shippingStreet) \(shippingCity), \(shippingState) \(shippingPostalCode)"
+                    }else{
+                        fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                    }
+                }else{
+                    fullAddress = "\(shippingStreet) \(shippingCity) \(shippingState) \(shippingPostalCode)"
+                }
+            }
+        }
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duringVisitInsightsCell", for: indexPath) as! DuringVisitsInsightsCollectionViewCell
-        cell.displayCellData(data: answers , indexPath : indexPath)
+        return fullAddress
+    }
+    
+    //MARK:- IBActions Methods
+    //Sort By Product Name
+    @IBAction func productNameButtonCLicked(sender : UIButton){
         
-        return cell
+        if OpportunitiesFilterMenuModel.isAscendingProductName == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingProductName = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingProductName = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingSource = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    //Sort By Source
+    @IBAction func sourceButtonCLicked(sender : UIButton){
+        if OpportunitiesFilterMenuModel.isAscendingSource == "YES" {
+            OpportunitiesFilterMenuModel.isAscendingSource = "NO"
+        }
+        else {
+            OpportunitiesFilterMenuModel.isAscendingSource = "YES"
+        }
+        OpportunitiesFilterMenuModel.isAscendingProductName = ""
+        OpportunitiesFilterMenuModel.isAscendingPYCMSold = ""
+        OpportunitiesFilterMenuModel.isAscendingCommit = ""
+        OpportunitiesFilterMenuModel.isAscendingSold = ""
+        OpportunitiesFilterMenuModel.isAscendingMonth = ""
+        OpportunitiesFilterMenuModel.isAscendingStatus = ""
+        
+        sortAndRelaodTable()
+    }
+    
+    @IBAction func commitAmtButtonCLicked(sender : UIButton){
+     
+        
+    }
+    
+    @IBAction func outcomeButtonCLicked(sender : UIButton){
+        
+        
+    }
+    
+    @IBAction func accountsDetailsButtonClicked(sender : UIButton){
+        DispatchQueue.main.async {
+            AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                FilterMenuModel.selectedAccountId = (self.accountObject?.account_Id)!
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "navigateToAccountScreen"), object:nil)
+                self.dismiss(animated: false, completion: nil)
+            }){
+                
+            }
+        }
     }
 }
 
-//MARK:- UICollectionView Delegate
-extension DuringVisitsInsightsViewController : UICollectionViewDelegateFlowLayout{
+//MARK:- TableView Delegate Methods
+extension DuringVisitsInsightsViewController : UITableViewDelegate{
     
-    //Used for Collection view Cell
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(width: collectionView.frame.size.width, height: 100)
-    }
-    
-    //Used to set width and height of HeaderView
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
-        return CGSize(width: collectionView.frame.size.width  , height: 125)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
-
-
+//MARK:- TableView DataSource Methods
+extension DuringVisitsInsightsViewController : UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 95
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return opportunityList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+        let currentOpportunity:Opportunity = opportunityList[indexPath.row]
+        switch currentOpportunity.source {
+        case "What's Hot/What's Not":
+             let cell = tableView.dequeueReusableCell(withIdentifier: "insightsTopSellerTableViewCell", for: indexPath) as! InsightsSourceTopSellerTableViewCell
+             
+            cell.productNameLabel.text = currentOpportunity.productName
+            cell.sourceLabel.text = currentOpportunity.source
+            cell.r12Label.text = currentOpportunity.R12
+            cell.r6TrendLabel.text = currentOpportunity.R6Trend
+            cell.r3TrendLabel.text = currentOpportunity.R3Trend
+            cell.commitAmtTextFiels.text = currentOpportunity.commit
+            cell.cellDelegate = self
+            cell.commitAmtTextFiels.tag = indexPath.row
+            cell.outcomeButton.tag = indexPath.row
+            cell.dropDown.dataSource = pickListValuesForOpportunities
+            return cell
+            
+        case "Undersold":
+            let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnderSoldTableViewCell", for: indexPath) as! InsightsSourceUnderSoldTableViewCell
+            cell.productNameLabel.text = currentOpportunity.productName
+            cell.sourceLabel.text = currentOpportunity.source
+            cell.accLabel.text = currentOpportunity.acct
+            cell.segmentLabel.text = currentOpportunity.segment
+            cell.gapLabel.text = currentOpportunity.gap
+            cell.commitAmtTextFiels.text = currentOpportunity.commit
+            cell.commitAmtTextFiels.tag = indexPath.row
+            cell.outcomeButton.tag = indexPath.row
+            cell.cellDelegate = self
+            cell.dropDown.dataSource = pickListValuesForOpportunities
+            return cell
+            
+        case "Unsold":
+            let cell = tableView.dequeueReusableCell(withIdentifier: "insightsUnsoldTableViewCell", for: indexPath) as! InsightsSourceUnsoldTableViewCell
+            cell.productNameLabel.text = currentOpportunity.productName
+            cell.sourceLabel.text = currentOpportunity.source
+            if currentOpportunity.unsoldPeriodDays.isEmpty {
+                cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays
+            }else {
+               cell.unsoldPeriodLabel.text = currentOpportunity.unsoldPeriodDays + " Days"
+            }
+            cell.commitAmtTextFiels.text = currentOpportunity.commit
+            cell.commitAmtTextFiels.tag = indexPath.row
+            cell.outcomeButton.tag = indexPath.row
+            cell.cellDelegate = self
+            cell.dropDown.dataSource = pickListValuesForOpportunities
+            return cell
+            
+        default:
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "insightsTopSellerTableViewCell", for: indexPath) as! InsightsSourceTopSellerTableViewCell
+            cell.productNameLabel.text = currentOpportunity.productName
+            cell.sourceLabel.text = currentOpportunity.source
+            cell.r12Label.text = currentOpportunity.acct
+            cell.r6TrendLabel.text = currentOpportunity.segment
+            cell.r3TrendLabel.text = currentOpportunity.gap
+            cell.commitAmtTextFiels.text = currentOpportunity.commit
+            cell.commitAmtTextFiels.tag = indexPath.row
+            cell.outcomeButton.tag = indexPath.row
+            cell.cellDelegate = self
+            cell.dropDown.dataSource = pickListValuesForOpportunities
+            return cell
+            
+        }
+    }
+}
 
 

@@ -20,12 +20,10 @@ class StrategyQAViewModel {
     }
     func uploadStrategyQAToServer(fields: [String], completion: @escaping (_ error: NSError?)->() ) {
         StoreDispatcher.shared.syncUpStrategyQA(fieldsToUpload: fields, completion: {error in
-            
             if error != nil {
                 print(error?.localizedDescription ?? "error")
                 completion(error)
-            }
-            else {
+            }else {
                 completion(nil)
             }
         })
@@ -33,7 +31,70 @@ class StrategyQAViewModel {
     
     func fetchStrategy(acc: String)->[StrategyQA]{
         
-        return StoreDispatcher.shared.fetchStrategy(forAccount: acc)
+        if let loggedInuserid: String = (UserViewModel().loggedInUser?.userId) {
+            
+            let currentSelectedUSerId = (UIApplication.shared.delegate as! AppDelegate).currentSelectedUserId
+            if (FilterMenuModel.isFromAccountListView == "YES") && (currentSelectedUSerId != loggedInuserid) ||
+                (FilterMenuModel.isFromAccountListView == "") && (currentSelectedUSerId != loggedInuserid) {
+                
+                return StoreDispatcher.shared.fetchStrategy(forAccount: acc, withOwner: currentSelectedUSerId)
+            }
+        }
+        let currentSelectedUSerId = (UIApplication.shared.delegate as! AppDelegate).currentSelectedUserId
+        return StoreDispatcher.shared.fetchStrategy(forAccount: acc, withOwner: currentSelectedUSerId)
+    }
+    
+    func syncStrategyWithServer(_ completion:@escaping (_ error: NSError?)->()) {
+        let fields: [String] = ["OwnerId","SGWS_Account__c","SGWS_Answer_Description_List__c","SGWS_Answer_Options__c","SGWS_Notes__c","SGWS_Question__c","SGWS_AppModified_DateTime__c"]
+        
+         var isError:Bool = false
+        
+        StoreDispatcher.shared.syncUpStrategyQA(fieldsToUpload: fields, completion: {error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncStrategyWithServer: Strategy Sync up failed")
+                isError =  true
+            }
+            
+            StoreDispatcher.shared.reSyncStrategyQA{ error in
+                 if isError || error != nil {
+                    print(error?.localizedDescription ?? "error")
+                    print("syncStrategyWithServer: Strategy reSync failed")
+                    completion(error)
+                }
+                else {
+                    completion(nil)
+                }
+            }
+        })
+    }
+    
+    func syncStrategyQuestionsWithServer(_ completion:@escaping (_ error: NSError?)->()) {
+
+            StoreDispatcher.shared.reSyncStrategyQuestions{ error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "error")
+                    print("syncStrategyQuestionsWithServer: StrategyQuestions reSync failed")
+                    completion(error)
+                }
+                else {
+                    completion(nil)
+                }
+            }
+    }
+    
+    func syncStrategyAnswersWithServer(_ completion:@escaping (_ error: NSError?)->()) {
+        
+        StoreDispatcher.shared.reSyncStrategyAnswers{ error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                print("syncStrategyAnswersWithServer: StrategyAnswers reSync failed")
+                completion(error)
+            }
+            else {
+                completion(nil)
+            }
+        }
     }
     
 }

@@ -10,11 +10,21 @@ import Foundation
 
 class Filter {
     
-    var sectionNames : Array<Any>  = ["Past Due", "Action Items", "Status", "Premise" , "Single / Multi locations" ,"Channel", "Sub-Channel" ,"License Type"]
+    //var sectionNames : Array<Any>  = ["Past Due", "Action Items", "Status", "Premise" , "Single / Multi locations" ,"Channel", "Sub-Channel" ,"License Type"]
     
-    var sectionItems : Array<Any> = [ ["Yes", "No"],[],
-                                      ["Active", "Inactive","Suspended"],
-                                      ["On","Off"], ["Single","Multi"],["W","L","B","N"]]
+    var sectionItems: [[Any]] = [ ["Yes", "No"],
+                                  ["Active", "Inactive","Suspended"],
+                                  ["On","Off"], ["Single","Multi"],["L","W","B","N"]]
+    
+    func sectionNames(isManager: Bool = false) -> [String] {
+        var names = ["Past Due","Status","Premise","Single / Multi locations","Channel","Sub-Channel","License Type"]
+        
+        if isManager {
+            names.append("My Team")
+        }
+        
+        return names
+    }
     
 }
 
@@ -27,7 +37,7 @@ struct FilterMenuModel {
     static var pastDueYes = ""
     static var pastDueNo = ""
     
-    static var statusIsActive = ""
+    static var statusIsActive = "YES"
     static var statusIsInActive = ""
     static var statusIsSuspended = ""
     
@@ -54,7 +64,12 @@ struct FilterMenuModel {
     
     static var city: String = ""
     
+    static var isFromAccountListView = ""
+
     static var comingFromDetailsScreen = ""
     static var selectedAccountId = ""
-
+    
+    static var isFromAccountVisitSummary = ""
+    
+    static var selectedConsultant: Consultant?
 }

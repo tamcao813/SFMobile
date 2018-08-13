@@ -36,6 +36,7 @@ class EditAccountStrategyViewController: UIViewController {
     var strategyQAResponse:[StrategyQA] = []
     var strategyNotes = ""
     var isFirstTimeLoad = true
+    var selectionType = "Single"
     
     @IBOutlet weak var collectionView : UICollectionView?
     
@@ -48,22 +49,16 @@ class EditAccountStrategyViewController: UIViewController {
         
         IQKeyboardManager.shared.enable = true
         
-        if self.view.frame.size.width == 1112.0{
+        if self.view.frame.size.width == 1112{
             textViewWidth = 1105
             collectionViewWidth = 525
-        }else if self.view.frame.size.width == 1024.0{
+        }else if self.view.frame.size.width == 1024{
             textViewWidth = 1015
             collectionViewWidth = 480
-        }else if self.view.frame.size.width == 1366.0{
+        }else if self.view.frame.size.width == 1366{
             textViewWidth = 1360
             collectionViewWidth = 650
         }
-        
-        //        let plistPath = Bundle.main.path(forResource: "EditAccountStrategy", ofType: ".plist", inDirectory: nil)
-        //        let dictionary = NSMutableDictionary(contentsOfFile: plistPath!)
-        //        tableViewRowDetails = dictionary!["New item"] as? NSMutableArray
-        //        print(dictionary!)
-        
         
         self.getEditStrategyData()
         
@@ -72,28 +67,12 @@ class EditAccountStrategyViewController: UIViewController {
         validateTheReguiredVield.isSaveClicked = "0"
         
         isFirstTimeLoad = true
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
+        StrategyNotes.isCellClicked = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        //StrategyNotes.accountStrategyNotes = ""
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        StrategyNotes.isCellClicked = false
     }
     
     //MARK:-
@@ -149,6 +128,11 @@ class EditAccountStrategyViewController: UIViewController {
                 dict.setValue(questionData.SGWS_Question_Description__c, forKey: "subHeader") //Added Subheader
                 dict.setValue(questionData.SGWS_Question_Sub_Type__c, forKey: "subHeaderStrategy")
                 dict.setValue(questionData.Id, forKey: "id")
+                if questionData.SGWS_Answer_Type__c == selectionType{
+                    dict.setValue(questionData.SGWS_Answer_Type__c, forKey: "selectionType")
+                }else{
+                    dict.setValue("Multi", forKey: "selectionType")
+                }
                 
                 self.createAnswersWithIsSelectedKey(answer : answer , questionData : questionData , dict : dict , tableViewData : tableViewData)
             }
@@ -228,9 +212,10 @@ class EditAccountStrategyViewController: UIViewController {
         }
     }
     
+    //Show an alert with appropriate text
     func showAlert(){
         
-        AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+        AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
             
             self.dismiss(animated: true, completion: nil)
         }){
@@ -289,7 +274,16 @@ class EditAccountStrategyViewController: UIViewController {
         let new_Strategy = StrategyQA(for: "NewStrategy")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        new_Strategy.OwnerId = (appDelegate.loggedInUser?.userId)!
+        let loggedInuserid: String = (UserViewModel().loggedInUser?.userId)!
+        let currentSelectedUSerId = (UIApplication.shared.delegate as! AppDelegate).currentSelectedUserId
+        
+        if loggedInuserid == currentSelectedUSerId{
+            new_Strategy.OwnerId = (appDelegate.loggedInUser?.userId)!
+        }else{
+            new_Strategy.OwnerId = currentSelectedUSerId
+        }
+        
+        //new_Strategy.OwnerId = (appDelegate.loggedInUser?.userId)!
         new_Strategy.SGWS_Account__c = AccountId.selectedAccountId
         new_Strategy.SGWS_Notes__c = StrategyNotes.accountStrategyNotes
         
@@ -310,14 +304,16 @@ class EditAccountStrategyViewController: UIViewController {
                 for _ in 0...strategyArray.count - 1{//r in strategyArray{
                     let response : NSMutableDictionary
                     print("This is the Index %@",q)
-                    //if q < strategyArray.count{
-                    response = strategyArray[q] as! NSMutableDictionary
-                    //}
-                    //else{
-                    //    break
-                    //}
                     
-                    self.checkAnswerSelectedForTheQuestionaires(response: response, q: q, new_Strategy: new_Strategy)
+                    if q <= strategyArray.count - 1{
+                        response = strategyArray[q] as! NSMutableDictionary
+                        
+                        self.checkAnswerSelectedForTheQuestionaires(response: response, q: q, new_Strategy: new_Strategy)
+                    }else{
+                        //Insert new entry into DB
+                        self.createNewStrategyAnswers(q: q, new_Strategy: new_Strategy)
+                    }
+                    
                     break
                 }
                 
@@ -326,7 +322,7 @@ class EditAccountStrategyViewController: UIViewController {
                 self.createNewStrategyAnswers(q: q, new_Strategy: new_Strategy)
             }
         }
-        
+
         self.dismiss(animated: true, completion: nil)
         self.delegate?.refreshStrategyScreenToLoadNewData()
     }
@@ -466,7 +462,7 @@ class EditAccountStrategyViewController: UIViewController {
         
         let addNewDict: [String:Any] = [
             StrategyQA.StrategyQAFields[0]:editStrategy.Id,
-            StrategyQA.StrategyQAFields[7]:editStrategy.OwnerId,
+            //StrategyQA.StrategyQAFields[7]:editStrategy.OwnerId,
             StrategyQA.StrategyQAFields[1]:editStrategy.SGWS_Account__c,
             StrategyQA.StrategyQAFields[8]:editStrategy.SGWS_Answer_Description_List__c,
             StrategyQA.StrategyQAFields[4]:editStrategy.SGWS_Notes__c,
@@ -485,7 +481,8 @@ class EditAccountStrategyViewController: UIViewController {
         
     }
     
-    //MARK:- Button Actions
+    //MARK:- IBActions
+    //Save button Clicked
     @IBAction func saveButtonAction(sender : UIButton){
         print("Save button Clicked")
         validateTheReguiredVield.isSaveClicked = "1"
@@ -503,14 +500,27 @@ class EditAccountStrategyViewController: UIViewController {
         }
     }
     
+    //Cancel button Clicked
     @IBAction func cancelButtonAction(sender : UIButton){
         print("Cancel button Clicked")
-        self.showAlert()
+        
+        if StrategyNotes.isCellClicked{
+            self.showAlert()
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
     
+    //Close Button Clicked
     @IBAction func closeButtonAction(sender : UIButton){
         print("Close button Clicked")
-        self.showAlert()
+        
+        if StrategyNotes.isCellClicked{
+            self.showAlert()
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -571,6 +581,7 @@ extension EditAccountStrategyViewController : UICollectionViewDataSource {
             if isFirstTimeLoad == true{
                 isFirstTimeLoad = false
                 (cell1 as! EditAccountStrategyCollectionViewCell).textView?.text = strategyNotes
+                StrategyNotes.accountStrategyNotes = strategyNotes
             }
             
         }else{
@@ -594,25 +605,27 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
         
         if indexPath.section < (tableViewRowDetails?.count)!{
             
+            StrategyNotes.isCellClicked = true
+            
             let tableData = tableViewRowDetails![indexPath.section] as! NSMutableDictionary
             let tableContent = tableData["answers"] as! NSMutableArray
             
             let questions = tableContent[indexPath.row] as! NSMutableDictionary
             
             //Used for Single selection = 1 or Multiselection = 2
-            //if (tableData["selectionType"] as! String) == "1"{
-            //    for setData in tableContent{
-            //        let data = setData as! NSMutableDictionary
-            //        data.setValue("NO", forKey: "isSelected")
-            //    }
-            //    questions.setValue("YES", forKey: "isSelected")
-            //}else{
-            if (questions["isSelected"] as! String) == "NO"{
+            if (tableData["selectionType"] as! String) == selectionType{
+                for setData in tableContent{
+                    let data = setData as! NSMutableDictionary
+                    data.setValue("NO", forKey: "isSelected")
+                }
                 questions.setValue("YES", forKey: "isSelected")
             }else{
-                questions.setValue("NO", forKey: "isSelected")
+                if (questions["isSelected"] as! String) == "NO"{
+                    questions.setValue("YES", forKey: "isSelected")
+                }else{
+                    questions.setValue("NO", forKey: "isSelected")
+                }
             }
-            //}
             collectionView.reloadData()
         }
     }
@@ -631,6 +644,12 @@ extension EditAccountStrategyViewController : UICollectionViewDelegate , UIColle
             return CGSize(width: 0.0  , height: 30.0)
         }
         return CGSize(width: 50.0, height: 110)
+    }
+}
+
+extension EditAccountStrategyViewController: UITextViewDelegate{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return AlertUtilities.disableEmojis(text: text)
     }
 }
 

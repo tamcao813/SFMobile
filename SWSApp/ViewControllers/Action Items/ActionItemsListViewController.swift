@@ -37,47 +37,91 @@ class ActionItemsListViewController: UIViewController {
             }
         }
         
-        btnAddNew.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New ", bigString: "+"), for: .normal)
+        btnAddNew.setAttributedTitle(AttributedStringUtil.formatAttributedText(smallString: "Add New", bigString: "+"), for: .normal)
+
         
-        fetchActionItemsFromDB()
+//        fetchActionItemsFromDB()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.fetchActionItemsFromDB()
+
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        FilterMenuModel.isFromAccountVisitSummary = ""
     }
     
     @objc func actionItemSyncDownComplete(){
         fetchActionItemsFromDB()
     }
     
-    
     @objc func refreshActionItemList(){
         fetchActionItemsFromDB()
     }
     
+    /// Fetches Action Items From Task Table and sort filters 4 months of Action Item in Sort by Date Pattern
     func fetchActionItemsFromDB(){
-        actionItemsArray = [ActionItem]()
-        if ActionItemFilterModel.fromAccount{
-            let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsSorted()
-            if let accountId = ActionItemFilterModel.accountId {
+        
+        MBProgressHUD.show(onWindow: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            
+            self.actionItemsArray = [ActionItem]()
+            if ActionItemFilterModel.fromAccount{
+                let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsSorted()
+                if let accountId = ActionItemFilterModel.accountId {
+                    for actionItem in actionItemsArrayLocal {
+                        if actionItem.accountId == accountId {
+                            self.actionItemsArray.append(actionItem)
+                        }
+                    }
+                }
+                //If consultant is selected, Filter items based on seleted consultant
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                
+                let userViewModel = UserViewModel()
+                
+                let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+                
+                if (FilterMenuModel.isFromAccountListView == "YES") && (appDelegate.currentSelectedUserId != loggedInuserid) ||
+                    (FilterMenuModel.isFromAccountListView == "") && (appDelegate.currentSelectedUserId != loggedInuserid) {
+                    
+                    self.actionItemsArray = self.actionItemsArray.filter( { return $0.ownerId == appDelegate.currentSelectedUserId } )
+                }
+            }else if FilterMenuModel.isFromAccountVisitSummary == "YES"{
+                let actionItemsArrayLocal = AccountsActionItemViewModel().actionItemFourMonthsDescSorted()
                 for actionItem in actionItemsArrayLocal {
-                    if actionItem.accountId == accountId {
-                        actionItemsArray.append(actionItem)
+                    if actionItem.accountId == (AccountObject.account?.account_Id) ?? "" {
+                        self.actionItemsArray.append(actionItem)
                     }
                 }
             }
-        }else{
-            actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
-        }
-       // actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
-        if ActionItemFilterModel.filterApplied {
-            applyFilter(searchText: searchStr)
-        }
-        customizedUI()
-        reloadTableView()
+            else{
+                self.actionItemsArray = AccountsActionItemViewModel().actionItemFourMonthsSorted()
+            }
+            if ActionItemFilterModel.filterApplied {
+                self.applyFilter(searchText: self.searchStr)
+            }
+            self.customizedUI()
+            self.reloadTableView()
+            
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
     
     func customizedUI(){
-        self.tableView.rowHeight = UITableViewAutomaticDimension;
-        self.tableView.estimatedRowHeight = 100
-        self.tableView.tableFooterView = UIView()
-        initializeNibs()
+        DispatchQueue.main.async {
+            self.tableView.rowHeight = UITableViewAutomaticDimension;
+            self.tableView.estimatedRowHeight = 100
+            self.tableView.tableFooterView = UIView()
+            self.initializeNibs()
+        }
+   
     }
     
     func initializeNibs(){
@@ -159,7 +203,11 @@ class ActionItemsListViewController: UIViewController {
     
     func reloadTableView(){
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            UIView.performWithoutAnimation({() -> Void in
+                self.tableView.reloadData()
+                self.tableView!.beginUpdates()
+                self.tableView!.endUpdates()
+            })
         }
     }
     
@@ -184,8 +232,10 @@ extension ActionItemsListViewController : ActionItemSearchButtonTappedDelegate{
     }
     
     func clearFilter(){
+        FilterMenuModel.isFromAccountVisitSummary = ""
         ActionItemFilterModel.filterApplied = false
-        reloadTableView()
+       // reloadTableView()
+        fetchActionItemsFromDB()
     }
 }
 
@@ -229,7 +279,7 @@ extension ActionItemsListViewController : UITableViewDelegate, UITableViewDataSo
     }
 }
 
-//MARK:- Swipe Evenyt Delegate Methods
+//MARK:- Swipe Event Delegate Methods
 extension ActionItemsListViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
@@ -325,7 +375,7 @@ extension ActionItemsListViewController {
             }
         }
         
-        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             
@@ -340,7 +390,9 @@ extension ActionItemsListViewController {
             "attributes":attributeDict]
         
         let success = AccountsActionItemViewModel().editActionItemStatusLocally(fields: actionItemDict)
+        
         if success {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
             self.fetchActionItemsFromDB()
         }
     }
@@ -366,7 +418,14 @@ extension ActionItemsListViewController {
                 "attributes":attributeDict]
             
             let success = AccountsActionItemViewModel().deleteActionItemLocally(fields: editActionItemDict)
-            if(success){
+            if(success)
+            {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
+                if ActionItemFilterModel.fromAccount {
+                }
+                else {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+                }
                 self.fetchActionItemsFromDB()
             }
             else {

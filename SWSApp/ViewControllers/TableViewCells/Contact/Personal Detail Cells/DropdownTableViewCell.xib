@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DropdownTableViewCell" rowHeight="106" id="NYh-DD-aFO" customClass="DropdownTableViewCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="802" height="106"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NYh-DD-aFO" id="Fpa-Ar-NWw">
+                <rect key="frame" x="0.0" y="0.0" width="802" height="105.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferred Communication Method" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7R-GE-agy">
+                        <rect key="frame" x="40" y="10" width="287" height="25.5"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select One" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BsY-jB-eTf" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
+                        <rect key="frame" x="40" y="56" width="200" height="40"/>
+                        <accessibility key="accessibilityConfiguration" identifier="dropdownTextfieldID"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="IC4-qw-3Xc"/>
+                            <constraint firstAttribute="height" constant="40" id="ThS-HK-hm3"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="NYh-DD-aFO" id="LST-6g-ZqA"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="p7R-GE-agy" firstAttribute="top" secondItem="Fpa-Ar-NWw" secondAttribute="top" constant="10" id="4vH-5W-sUo"/>
+                    <constraint firstItem="BsY-jB-eTf" firstAttribute="top" secondItem="p7R-GE-agy" secondAttribute="bottom" constant="20" id="Fw3-WR-5Q1"/>
+                    <constraint firstAttribute="bottom" secondItem="BsY-jB-eTf" secondAttribute="bottom" constant="10" id="PR0-HP-mOn"/>
+                    <constraint firstItem="BsY-jB-eTf" firstAttribute="leading" secondItem="p7R-GE-agy" secondAttribute="leading" id="SNO-rZ-Q3x"/>
+                    <constraint firstItem="p7R-GE-agy" firstAttribute="leading" secondItem="Fpa-Ar-NWw" secondAttribute="leading" constant="40" id="dMV-nt-VCO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="lm2-2u-XMt"/>
+            <connections>
+                <outlet property="dropdownTextfield" destination="BsY-jB-eTf" id="0Zv-EN-WyT"/>
+                <outlet property="headerLabel" destination="p7R-GE-agy" id="5ze-zw-GxQ"/>
+            </connections>
+            <point key="canvasLocation" x="314" y="112"/>
+        </tableViewCell>
+    </objects>
+</document>

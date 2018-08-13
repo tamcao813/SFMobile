@@ -7,44 +7,14 @@
 //
 
 import Foundation
-//Collect all data in Enum can be used in later improvement not used now
-enum ActionItemTable: Int, CustomStringConvertible {
-    case Id = 0
-    case AccountId
-    case Subject
-    case Description
-    case Status
-    case ActivityDate
-    case IsUrgent
-    case AppModifiedDate
-    case RecordTypeId
-    
-    var description: String {
-        switch self {
-        case .Id:
-            return "Id"
-        case .AccountId:
-            return "AccountId"
-        case .Subject:
-            return "Subject"
-        case .Description:
-            return "Description"
-        case .Status:
-            return "Status"
-        case .ActivityDate:
-            return "ActivityDate"
-        case .IsUrgent:
-            return "SGWS_Urgent__c"
-        case .AppModifiedDate:
-            return "SGWS_AppModified_DateTime__c"
-        case .RecordTypeId:
-            return "RecordTypeId"
-        }
-    }
-}
-
 class ActionItem {
-    static let AccountActionItemFields: [String] =  ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c","RecordTypeId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet"]
+    
+    static let ActionItemSyncUpFields:[String] =
+        ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c"]
+    
+    static let AccountActionItemFields: [String] =  ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c","RecordTypeId","Account.Name","Account.AccountNumber","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","OwnerId"]
+    
+    static let AccountActionItemFieldsWithoutAccount: [String] =  ["Id","SGWS_Account__c","Subject","Description","Status","ActivityDate","SGWS_Urgent__c","SGWS_AppModified_DateTime__c","RecordTypeId","OwnerId"]
     
     var Id:String
     var accountId:String
@@ -52,10 +22,12 @@ class ActionItem {
     var description: String
     var status: String
     var activityDate: String
+    var dateStart : Date?
     var isUrgent:Bool
     var lastModifiedDate: String
     var recordTypeId: String
     var _soupEntryId: Int
+   
     
     var accountName: String
     var accountNumber: String
@@ -64,9 +36,15 @@ class ActionItem {
     var shippingPostalCode: String
     var shippingState: String
     var shippingStreet: String
+    var ownerId: String
     
-    convenience init(withAry ary: [Any]) {
+    convenience init(withAryAccount ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(ActionItem.AccountActionItemFields, ary))
+        self.init(json: resultDict)
+    }
+    
+    convenience init(withAryNoAccount ary: [Any]) {
+        let resultDict = Dictionary(uniqueKeysWithValues: zip(ActionItem.AccountActionItemFieldsWithoutAccount, ary))
         self.init(json: resultDict)
     }
     
@@ -77,6 +55,12 @@ class ActionItem {
         description = json["Description"] as? String ?? ""
         status = json["Status"] as? String ?? ""
         activityDate = json["ActivityDate"] as? String ?? ""
+        if activityDate == "" {
+            dateStart = nil
+        }
+        else {
+            dateStart = DateTimeUtility.getDateActionItemFromDateString(dateString: activityDate)
+        }
         isUrgent = json["SGWS_Urgent__c"] as? Bool ?? false
         let isUrgentString = json["SGWS_Urgent__c"] as? String ?? ""
         if isUrgentString == "true" {
@@ -89,7 +73,7 @@ class ActionItem {
         lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
         recordTypeId = json["RecordTypeId"] as? String ?? ""
         _soupEntryId = json["_soupEntryId"] as? Int ?? 0
-        
+    
         accountName = json["Account.Name"] as? String ?? ""
         shippingCity = json["Account.ShippingCity"] as? String ?? ""
         shippingCountry = json["Account.ShippingCountry"] as? String ?? ""
@@ -97,9 +81,7 @@ class ActionItem {
         shippingState = json["Account.ShippingState"] as? String ?? ""
         shippingStreet = json["Account.ShippingStreet"] as? String ?? ""
         accountNumber = json["Account.AccountNumber"] as? String ?? ""
-        
-        
-        
+        ownerId = json["OwnerId"] as? String ?? ""
     }
     
     init(for: String) {
@@ -109,18 +91,20 @@ class ActionItem {
         description = ""
         status = ""
         activityDate = ""
+        dateStart = nil
         isUrgent = false
         lastModifiedDate = ""
         recordTypeId = ""
         _soupEntryId = 0
-        
+       
         accountName = ""
         accountNumber = ""
         shippingCity = ""
         shippingCountry = ""
         shippingPostalCode = ""
         shippingState = ""
-        shippingStreet = ""   
+        shippingStreet = ""
+        ownerId = ""
     }
 }
 

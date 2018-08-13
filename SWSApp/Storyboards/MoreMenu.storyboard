@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="AvenirNext.ttc">
-            <string>AvenirNext-DemiBold</string>
-        </array>
         <array key="Ubuntu-Regular.ttf">
             <string>Ubuntu</string>
         </array>
@@ -129,24 +126,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insights Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qh-oW-DR9">
-                                <rect key="frame" x="476.5" y="349.5" width="159" height="23.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOh-cp-CDt">
+                                <rect key="frame" x="0.0" y="20" width="1112" height="752"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature is only available online." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPk-dG-N9Y">
+                                <rect key="frame" x="419" y="407.5" width="274" height="19.5"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="8qh-oW-DR9" firstAttribute="centerX" secondItem="Igb-oe-CQi" secondAttribute="centerX" id="AQu-EQ-jQj"/>
-                            <constraint firstItem="8qh-oW-DR9" firstAttribute="centerY" secondItem="Igb-oe-CQi" secondAttribute="centerY" constant="-56" id="hff-LS-sBK"/>
+                            <constraint firstItem="nPk-dG-N9Y" firstAttribute="centerY" secondItem="6up-ke-FZC" secondAttribute="centerY" constant="-9.75" id="B3s-UY-7KM"/>
+                            <constraint firstItem="dOh-cp-CDt" firstAttribute="leading" secondItem="6up-ke-FZC" secondAttribute="leading" id="SSg-8Y-bPx"/>
+                            <constraint firstItem="6up-ke-FZC" firstAttribute="bottom" secondItem="dOh-cp-CDt" secondAttribute="bottom" constant="62" id="XZp-Mg-Svk"/>
+                            <constraint firstItem="nPk-dG-N9Y" firstAttribute="centerX" secondItem="6up-ke-FZC" secondAttribute="centerX" id="bys-tG-nWK"/>
+                            <constraint firstItem="dOh-cp-CDt" firstAttribute="top" secondItem="6up-ke-FZC" secondAttribute="top" id="dJc-k0-Pbl"/>
+                            <constraint firstItem="6up-ke-FZC" firstAttribute="trailing" secondItem="dOh-cp-CDt" secondAttribute="trailing" id="q0X-23-3EH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6up-ke-FZC"/>
                     </view>
+                    <connections>
+                        <outlet property="lblNoNetworkConnection" destination="nPk-dG-N9Y" id="J8X-z4-dwP"/>
+                        <outlet property="webView" destination="dOh-cp-CDt" id="Y6G-At-eyj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5XN-g0-WIu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2990" y="1183"/>
+            <point key="canvasLocation" x="2990" y="1204"/>
         </scene>
         <!--Reports View Controller-->
         <scene sceneID="WtX-bp-XjP">
@@ -156,24 +169,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reports Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LJ-2H-wBS">
-                                <rect key="frame" x="476.5" y="349.5" width="159" height="23.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wxw-fZ-Y1J">
+                                <rect key="frame" x="0.0" y="20" width="1112" height="752"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature is only available online." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfs-1c-wRr">
+                                <rect key="frame" x="419" y="417" width="273.5" height="20"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="5LJ-2H-wBS" firstAttribute="centerY" secondItem="aTA-HE-STX" secondAttribute="centerY" constant="-56" id="Faa-G9-9H8"/>
-                            <constraint firstItem="5LJ-2H-wBS" firstAttribute="centerX" secondItem="aTA-HE-STX" secondAttribute="centerX" id="f5X-pL-5tx"/>
+                            <constraint firstItem="Tfs-1c-wRr" firstAttribute="centerY" secondItem="Pfh-UH-2CK" secondAttribute="centerY" id="54c-A5-xch"/>
+                            <constraint firstItem="Tfs-1c-wRr" firstAttribute="centerX" secondItem="Pfh-UH-2CK" secondAttribute="centerX" id="9WR-kd-m6S"/>
+                            <constraint firstItem="Pfh-UH-2CK" firstAttribute="trailing" secondItem="wxw-fZ-Y1J" secondAttribute="trailing" id="GXI-He-YhP"/>
+                            <constraint firstItem="wxw-fZ-Y1J" firstAttribute="leading" secondItem="Pfh-UH-2CK" secondAttribute="leading" id="LGT-Yh-iVC"/>
+                            <constraint firstItem="Pfh-UH-2CK" firstAttribute="bottom" secondItem="wxw-fZ-Y1J" secondAttribute="bottom" constant="62" id="nCm-bf-asA"/>
+                            <constraint firstItem="Pfh-UH-2CK" firstAttribute="top" secondItem="wxw-fZ-Y1J" secondAttribute="top" id="rzA-b2-ZY8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Pfh-UH-2CK"/>
                     </view>
+                    <connections>
+                        <outlet property="lblNoNetworkConnection" destination="Tfs-1c-wRr" id="PSJ-v3-0gB"/>
+                        <outlet property="webView" destination="wxw-fZ-Y1J" id="8eH-bI-0vX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IK8-UL-QZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1740" y="1878"/>
+            <point key="canvasLocation" x="1739.5683453237411" y="1877.6978417266189"/>
         </scene>
         <!--Load Deposit View Controller-->
         <scene sceneID="Lgu-TJ-gVU">
@@ -205,7 +234,7 @@
         <!--Transactions View Controller-->
         <scene sceneID="b9L-h2-b9e">
             <objects>
-                <viewController storyboardIdentifier="TopazViewControllerID" id="aUf-HF-4XN" customClass="TransactionsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TopazViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aUf-HF-4XN" customClass="TransactionsViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R2S-Ec-hEC">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -232,17 +261,17 @@
         <!--Chatter View Controller-->
         <scene sceneID="F3p-pi-4ba">
             <objects>
-                <viewController storyboardIdentifier="ChatterViewControllerID" modalPresentationStyle="overCurrentContext" id="7wP-nj-UrI" customClass="ChatterViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatterViewControllerID" modalPresentationStyle="formSheet" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7wP-nj-UrI" customClass="ChatterViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="E1N-Yf-Y6c">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XV5-DJ-qK6">
-                                <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
+                            <wkWebView contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="XV5-DJ-qK6">
+                                <rect key="frame" x="0.0" y="20" width="1112" height="752"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
+                                    <wkPreferences key="preferences" javaScriptCanOpenWindowsAutomatically="YES"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature is only available online." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iK-iC-2oQ">
@@ -254,12 +283,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="leading" secondItem="xLe-x8-vAa" secondAttribute="leading" id="2oJ-WT-cOF"/>
-                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="top" secondItem="E1N-Yf-Y6c" secondAttribute="top" id="BD0-x9-AQ4"/>
+                            <constraint firstItem="xLe-x8-vAa" firstAttribute="bottom" secondItem="XV5-DJ-qK6" secondAttribute="bottom" constant="62" id="C2J-cD-6R7"/>
+                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="leading" secondItem="xLe-x8-vAa" secondAttribute="leading" id="Eb2-Pd-CWv"/>
+                            <constraint firstItem="xLe-x8-vAa" firstAttribute="trailing" secondItem="XV5-DJ-qK6" secondAttribute="trailing" id="IyD-kK-KwG"/>
+                            <constraint firstItem="xLe-x8-vAa" firstAttribute="top" secondItem="XV5-DJ-qK6" secondAttribute="top" id="JDR-jp-mKo"/>
                             <constraint firstItem="2iK-iC-2oQ" firstAttribute="centerY" secondItem="xLe-x8-vAa" secondAttribute="centerY" constant="-10" id="Poj-T9-A40"/>
-                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="trailing" secondItem="xLe-x8-vAa" secondAttribute="trailing" id="VVg-lB-BO5"/>
                             <constraint firstItem="2iK-iC-2oQ" firstAttribute="centerX" secondItem="xLe-x8-vAa" secondAttribute="centerX" id="agF-TF-CQ8"/>
-                            <constraint firstItem="XV5-DJ-qK6" firstAttribute="bottom" secondItem="xLe-x8-vAa" secondAttribute="bottom" id="hyO-tF-GUP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xLe-x8-vAa"/>
                     </view>
@@ -275,7 +304,7 @@
         <!--Go Spot Check View Controller-->
         <scene sceneID="tne-w2-19W">
             <objects>
-                <viewController storyboardIdentifier="GoSpotViewControllerID" id="W8C-lY-QPP" customClass="GoSpotCheckViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GoSpotViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="W8C-lY-QPP" customClass="GoSpotCheckViewController" customModule="SWSApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3QK-Ka-amI">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -9,7 +9,7 @@
 import Foundation
 
 class Account {
-    static let AccountFields: [String] = ["Account.SGWS_Account_Health_Grade__c","Account.Name","Account.AccountNumber","Account.SWS_Total_CY_MTD_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.IS_Next_Delivery_Date__c","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SGWS_Single_Multi_Locations_Filter__c","Account.Google_Place_Formatted_Phone__c","Account.SWS_Status_Description__c","AccountId","Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c"]
+    static let AccountFields: [String] = ["Account.SGWS_Account_Health_Grade__c","Account.Name","Account.AccountNumber","Account.SWS_Total_CY_MTD_Net_Sales__c","Account.SWS_Total_AR_Balance__c","Account.IS_Next_Delivery_Date__c","Account.SWS_Premise_Code__c","Account.SWS_License_Type__c","Account.SWS_License__c","Account.Google_Place_Operating_Hours__c","Account.SWS_License_Expiration_Date__c","Account.SWS_Total_CY_R12_Net_Sales__c","Account.SWS_Credit_Limit__c","Account.SWS_TD_Channel__c","Account.SWS_TD_Sub_Channel__c","Account.SWS_License_Status_Description__c","Account.ShippingCity","Account.ShippingCountry","Account.ShippingPostalCode","Account.ShippingState","Account.ShippingStreet","Account.SWS_PCT_to_Last_Year_MTD_Net_Sales__c","Account.SWS_AR_Past_Due_Amount__c","Account.SWS_Delivery_Frequency__c","Account.SGWS_Single_Multi_Locations_Filter__c","Account.Google_Place_Formatted_Phone__c","Account.SWS_Status_Description__c","AccountId","Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c","AccountActionItem"]
     //,,,
 //  ,,,,,,,,,,,,"Account.ShippingGeocodeAccuracy",,,,,"Account.SWS_License_Status__c",,"Account.SGWS_Account_Health_Grade__c",,"Account.SWS_License_Type_Description__c"]
     
@@ -43,18 +43,18 @@ class Account {
     var shippingState: String
     var shippingStreet: String
     //var shippingAddress: String
-    //var userId: String
+    var userId: String
     var acctHealthGrade: String
     var deliveryFrequency: String
     var licenseTypeDescription: String
     var pastDueAlert: String
-    var actionItem: Int
     var percentageLastYearMTDNetSales: String
     var singleMultiLocationFilter:String // single multi
     var acctDescStatus: String
     var account_Id: String
     var percentageLastYearR12NetSales:String
     var pastDueAmountDouble: Double
+    var actionItem: Int
     
   
   
@@ -98,7 +98,8 @@ class Account {
         shippingState = json["Account.ShippingState"] as? String ?? ""
         shippingStreet = json["Account.ShippingStreet"] as? String ?? ""
       //  shippingAddress = json["Account.ShippingAddress"] as? String ?? ""
-       // userId = json["UserId"] as? String ?? ""
+        
+        userId = json["UserId"] as? String ?? ""
         nextDeliveryDate = json["Account.IS_Next_Delivery_Date__c"] as? String ?? "" //need to check if ok to have a default or make it a string
        
         deliveryFrequency = json["Account.SWS_Delivery_Frequency__c"] as? String ?? ""
@@ -107,12 +108,9 @@ class Account {
         acctDescStatus = json["Account.SWS_Status_Description__c"] as? String ?? ""
         account_Id = json["AccountId"] as? String ?? ""
         percentageLastYearR12NetSales = json["Account.SWS_PCT_to_Last_Year_R12_Net_Sales__c"] as? String ?? ""
-        actionItem = 2 //need to get from query
         
         pastDueAmountDouble = Double(pastDueAmount)!
-       
-      
-     
+        actionItem = json["AccountActionItem"] as? Int ?? 0
     }
     
     init(for: String)  {
@@ -144,104 +142,18 @@ class Account {
         shippingState = ""
         shippingStreet = ""
        // shippingAddress = ""
-       // userId = ""
+        userId = ""
         nextDeliveryDate = ""
         deliveryFrequency = ""
         licenseTypeDescription = ""
         pastDueAlert = ""
         percentageLastYearMTDNetSales = ""
-        actionItem = 2
+        actionItem = 0
         singleMultiLocationFilter = ""
         acctDescStatus = ""
         account_Id = ""
         pastDueAmountDouble = 0.0
         percentageLastYearR12NetSales = ""
-       
-      
-       
-       
-    }
-    
-    static func mockAccount1() -> Account {
-        let acc = Account(for: "mockup")
-       // acc.accountId =  "001m000000cHLmDAAW"
-        acc.accountNumber = "148"
-        acc.accountName = "Crown Liquor Store"
-      //  acc.shippingAddress =  "B1- 202 Argentina"
-        acc.shippingStreet = "W. Broadway Blvd"
-        acc.shippingCity = "New York4"
-        acc.shippingState = "NY"
-        acc.shippingPostalCode = "12105"
-        acc.shippingCountry = "USA"
-        acc.totalARBalance = 90.98
-        acc.totalCYR12NetSales = 2000.00
-     //   acc.nextDeliveryDate = Date()
-        acc.actionItem = 2
-        return acc
-    }
-    static func mockAccount2() -> Account {
-        let acc = Account(for: "mockup")
-        //acc.accountId =  "001m000000cHLmDAAZ"
-        acc.accountNumber = "188"
-        acc.accountName = "Big Liquor Store"
-     //   acc.shippingAddress = "B1- 202 California"
-        acc.shippingStreet = "W. Broadway Blvd"
-        acc.shippingCity = "New York3"
-        acc.shippingState = "NY"
-        acc.shippingPostalCode = "12102"
-        acc.shippingCountry = "USA"
-        acc.totalARBalance = 80.98
-        acc.totalCYR12NetSales = 4000.00
-     //   acc.nextDeliveryDate = Date()
-        acc.actionItem = 5
-        
-        return acc
-    }
-    
-    static func mockAccount3() -> Account {
-        let acc = Account(for: "mockup")
-      //  acc.accountId =  "001m000000cHLmDAAZ"
-        acc.accountNumber = "198"
-        acc.accountName = "Bigger Liquor Store"
-     //   acc.shippingAddress = "7890"
-        acc.shippingStreet = "W. Broadway Blvd"
-        acc.shippingCity = "New York2"
-        acc.shippingState = "NY"
-        acc.shippingPostalCode = "12101"
-        acc.shippingCountry = "USA"
-        acc.totalARBalance = 90.98
-        acc.totalCYR12NetSales = 4500.00
-        let dateFormatter = DateFormatter()
-        //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"// MM-DD-YYYY
-        dateFormatter.dateFormat = "yyyy-MM-dd"// MM-DD-YYYY
-        dateFormatter.timeZone = TimeZone(identifier:"UTC")
-     //   acc.nextDeliveryDate = dateFormatter.date(from:"2018-05-10")!
-        acc.actionItem = 7
-        
-        return acc
-    }
-    
-    static func mockAccount4() -> Account {
-        let acc = Account(for: "mockup")
-      //  acc.accountId =  "001m000000cHLmDAAZ"
-        acc.accountNumber = "208"
-        acc.accountName = "Biggest Liquor Store"
-      //  acc.shippingAddress = "4567"
-        acc.shippingStreet = "W. Broadway Blvd"
-        acc.shippingCity = "New York1"
-        acc.shippingState = "NY"
-        acc.shippingPostalCode = "12100"
-        acc.shippingCountry = "USA"
-        acc.totalARBalance = 99.98
-        acc.totalCYR12NetSales = 4300.00
-        let dateFormatter = DateFormatter()
-        //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"// MM-DD-YYYY
-        dateFormatter.dateFormat = "yyyy-MM-dd"// MM-DD-YYYY
-        dateFormatter.timeZone = TimeZone(identifier:"UTC")
-  //      acc.nextDeliveryDate = dateFormatter.date(from:"2018-07-13")!
-        acc.actionItem = 15
-        
-        return acc
     }
 }
 

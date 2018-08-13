@@ -22,10 +22,10 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
     @IBOutlet weak var lblAddress : UILabel!
     @IBOutlet weak var lblLocation : UILabel!
    
-    
+    //Display cell data from WorkOrderUserObject
     func displayCellData(data : WorkOrderUserObject?){
         //Used to Check wheather its an Event or Visit
-        if(data?.recordTypeId == StoreDispatcher.shared.workOrderRecordTypeIdEvent){
+        if(data?.recordTypeId == SyncConfigurationViewModel().syncConfigurationRecordIdforEvent()){
             DispatchQueue.main.async {
                 self.statusView.backgroundColor = UIColor.orange
             }
@@ -70,6 +70,11 @@ class AccountVisitListTableViewCell: SwipeTableViewCell {
             if(dateTime.count > 0){
                 dateLabel?.text  = dateTime[0]
                 timeLabel?.text = dateTime[1]
+                if dateTime.count > 2{
+                    timeLabel?.text = "\(dateTime[1]) \(dateTime[2])"
+                }
+                
+                
             }
         }
     }

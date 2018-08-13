@@ -24,9 +24,18 @@ class ActionItemsContainerViewController: UIViewController {
             ActionItemFilterModel.fromAccount = false
             ActionItemFilterModel.accountId = nil
         }
-        actionItemFilterVC?.clearActionItemFilterModel()
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+//        let userViewModel = UserViewModel()
+        
+//        let loggedInuserid: String = (userViewModel.loggedInUser?.userId)!
+        
+//        if(appDelegate.currentSelectedUserId == loggedInuserid){
+//            actionItemFilterVC?.clearActionItemFilterModel()
+//        }
         actionItemListVC?.refreshActionItemList()
         actionItemFilterVC?.delegate = actionItemListVC
+        actionItemListVC?.tableView.setContentOffset(.zero, animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -40,5 +49,10 @@ class ActionItemsContainerViewController: UIViewController {
         }
     }
     
+    func clearActionItemFilter(){
+        actionItemFilterVC?.clearActionItemFilterModel()
+    }
     
 }
+
+

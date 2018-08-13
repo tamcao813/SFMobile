@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FamilyTableViewCell" rowHeight="120" id="hZb-am-kfv" customClass="FamilyTableViewCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="802" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hZb-am-kfv" id="AHu-x2-dVC">
+                <rect key="frame" x="0.0" y="0.0" width="802" height="119.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Family" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oU8-mN-svC">
+                        <rect key="frame" x="40" y="10" width="722" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="eUc-8L-gt2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQ0-ne-CXF">
+                        <rect key="frame" x="40" y="46" width="37.5" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="lGL-9I-ynO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                        <color key="textColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oFl-wq-cAo">
+                        <rect key="frame" x="40" y="67" width="140" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="140" id="0eM-LH-l9n"/>
+                            <constraint firstAttribute="height" constant="40" id="2Gx-up-O9a"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="hZb-am-kfv" id="u1g-9C-HCp"/>
+                        </connections>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfi-zB-2Oi">
+                        <rect key="frame" x="200" y="46" width="31" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="2WC-BD-St4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUw-a4-dHL">
+                        <rect key="frame" x="200" y="67" width="180" height="40"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Calender" translatesAutoresizingMaskIntoConstraints="NO" id="bbI-Th-X9g">
+                                <rect key="frame" x="150" y="0.0" width="20" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="h5I-Of-8De"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3xe-NC-6wX" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="180" height="40"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="bbI-Th-X9g" secondAttribute="trailing" constant="10" id="2ot-FX-z2l"/>
+                            <constraint firstAttribute="bottom" secondItem="bbI-Th-X9g" secondAttribute="bottom" id="5mL-MX-WMB"/>
+                            <constraint firstAttribute="trailing" secondItem="3xe-NC-6wX" secondAttribute="trailing" id="8N0-Nu-wuo"/>
+                            <constraint firstItem="bbI-Th-X9g" firstAttribute="top" secondItem="mUw-a4-dHL" secondAttribute="top" id="KxM-KR-EDl"/>
+                            <constraint firstAttribute="bottom" secondItem="3xe-NC-6wX" secondAttribute="bottom" id="LYW-2Z-hKa"/>
+                            <constraint firstItem="3xe-NC-6wX" firstAttribute="top" secondItem="mUw-a4-dHL" secondAttribute="top" id="TGs-Jz-d0h"/>
+                            <constraint firstAttribute="width" constant="180" id="VzB-v2-LAE"/>
+                            <constraint firstAttribute="height" constant="40" id="WQl-rH-ihR"/>
+                            <constraint firstItem="3xe-NC-6wX" firstAttribute="leading" secondItem="mUw-a4-dHL" secondAttribute="leading" id="sNq-EF-RjV"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="mUw-a4-dHL" firstAttribute="leading" secondItem="dfi-zB-2Oi" secondAttribute="leading" id="2NL-rz-ZDU"/>
+                    <constraint firstAttribute="trailing" secondItem="oU8-mN-svC" secondAttribute="trailing" constant="40" id="6R5-9d-HOm"/>
+                    <constraint firstItem="GQ0-ne-CXF" firstAttribute="top" secondItem="oU8-mN-svC" secondAttribute="bottom" constant="16" id="BFG-SS-uHO"/>
+                    <constraint firstItem="GQ0-ne-CXF" firstAttribute="leading" secondItem="AHu-x2-dVC" secondAttribute="leading" constant="40" id="Bvv-UH-jqZ"/>
+                    <constraint firstAttribute="bottom" secondItem="oFl-wq-cAo" secondAttribute="bottom" constant="12.5" id="E2K-7H-iCQ"/>
+                    <constraint firstItem="oU8-mN-svC" firstAttribute="top" secondItem="AHu-x2-dVC" secondAttribute="top" constant="10" id="EW2-aZ-Rfh"/>
+                    <constraint firstItem="oFl-wq-cAo" firstAttribute="leading" secondItem="AHu-x2-dVC" secondAttribute="leading" constant="40" id="Nip-a6-I4c"/>
+                    <constraint firstItem="dfi-zB-2Oi" firstAttribute="leading" secondItem="oFl-wq-cAo" secondAttribute="trailing" constant="20" id="Nkk-6Q-hEe"/>
+                    <constraint firstItem="mUw-a4-dHL" firstAttribute="top" secondItem="dfi-zB-2Oi" secondAttribute="bottom" constant="5" id="bnn-3g-q9N"/>
+                    <constraint firstItem="oU8-mN-svC" firstAttribute="leading" secondItem="AHu-x2-dVC" secondAttribute="leading" constant="40" id="fSu-Ez-b3y"/>
+                    <constraint firstItem="dfi-zB-2Oi" firstAttribute="top" secondItem="GQ0-ne-CXF" secondAttribute="top" id="sCk-gO-kHA"/>
+                    <constraint firstItem="oFl-wq-cAo" firstAttribute="top" secondItem="GQ0-ne-CXF" secondAttribute="bottom" constant="5" id="zyP-Rd-i0M"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Nb9-Ia-Cty"/>
+            <connections>
+                <outlet property="dateLabel" destination="dfi-zB-2Oi" id="qKC-UW-adZ"/>
+                <outlet property="dateLabelHeightConstraint" destination="2WC-BD-St4" id="mea-ej-eTV"/>
+                <outlet property="dateTextField" destination="3xe-NC-6wX" id="gl0-hP-yN3"/>
+                <outlet property="familyLabel" destination="oU8-mN-svC" id="doT-3k-xAz"/>
+                <outlet property="familyLabelHeightConstraint" destination="eUc-8L-gt2" id="2Iv-8w-gyi"/>
+                <outlet property="nameLabel" destination="GQ0-ne-CXF" id="Gbw-GQ-b0O"/>
+                <outlet property="nameLabelHeightConstraint" destination="lGL-9I-ynO" id="FZ7-xe-Rsh"/>
+                <outlet property="nameTextField" destination="oFl-wq-cAo" id="V9S-mG-dpe"/>
+            </connections>
+            <point key="canvasLocation" x="314" y="124"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Calender" width="30" height="33"/>
+    </resources>
+</document>

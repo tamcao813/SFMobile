@@ -9,14 +9,17 @@
 import Foundation
 
 class AccountNotes {
-    static let AccountNotesFields: [String] = ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c"]
+    static let AccountNotesFields: [String] = ["Id","SGWS_AppModified_DateTime__c","Name","OwnerId","SGWS_Account__c","SGWS_Description__c","LastModifiedDate"]
     
     var Id:String
     var lastModifiedDate:String
+    var lastModifiedDateServer:String
     var name: String
     var ownerId: String
     var accountId: String
     var accountNotesDesc: String
+    var lastModifiedDateInDateType: Date?
+    
     
     convenience init(withAry ary: [Any]) {
         let resultDict = Dictionary(uniqueKeysWithValues: zip(AccountNotes.AccountNotesFields, ary))
@@ -26,6 +29,12 @@ class AccountNotes {
     init(json: [String: Any]) {
         Id = json["Id"] as? String ?? ""
         lastModifiedDate = json["SGWS_AppModified_DateTime__c"] as? String ?? ""
+        lastModifiedDateServer = json["LastModifiedDate"] as? String ?? ""
+        if lastModifiedDate == "" {
+            lastModifiedDate = lastModifiedDateServer
+        }
+        lastModifiedDateInDateType = DateTimeUtility.getDateNotificationFromDateString(dateString: lastModifiedDate)
+        
         name = json["Name"] as? String ?? ""
         ownerId = json["OwnerId"] as? String ?? ""
         accountId = json["SGWS_Account__c"] as? String ?? ""
@@ -35,27 +44,11 @@ class AccountNotes {
     init(for: String) {
         Id = ""
         lastModifiedDate = ""
+        lastModifiedDateServer = ""
         name = ""
         ownerId = ""
         accountId =  ""
         accountNotesDesc =  ""
-        
+        lastModifiedDateInDateType = nil
     }
-    
-    
-    
-    static func mockNotes() -> AccountNotes {
-        let notes = AccountNotes(for: "mockUp")
-        notes.Id = "1234"
-        notes.lastModifiedDate =  "1/2/18"
-        notes.name = "shubham shukla"
-        notes.ownerId = "5678"
-        notes.accountId = "9012"
-        notes.accountNotesDesc = "This is my first Note"
-        return notes
-    }
-    
-    
-    
 }
-

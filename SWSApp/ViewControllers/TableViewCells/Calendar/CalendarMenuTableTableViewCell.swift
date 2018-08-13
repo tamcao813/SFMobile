@@ -29,18 +29,40 @@ class CalendarMenuTableTableViewCell: UITableViewCell {
     //Used to display cell content
     func displayCellContent(sectionContent : NSArray , indexPath : IndexPath){
         
-        //self.borderView.layer.borderColor = UIColor.init(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0).cgColor
         let titleContent = sectionContent[indexPath.section] as? NSArray
-        self.filterLabel.text = titleContent![indexPath.row] as? String
+        if indexPath.section == 1{//Manager section
+            
+            let consult = titleContent![indexPath.row] as? Consultant
+            self.filterLabel.text = consult?.name
+        }
+        else {
+            self.filterLabel.text = titleContent![indexPath.row] as? String
+        }
+        
+        //self.borderView.layer.borderColor = UIColor.init(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0).cgColor
+        
+        //self.filterLabel.text = titleContent![indexPath.row] as? String
         self.titleLabel.text = ""
         
         switch indexPath.section{
         case 0:
             displayEventTypeCellContent(indexPath)
-            
+        case 1:
+            self.showManagerCell(indexPath: indexPath, rowContent: titleContent as! [Consultant])
         default:
             break
             
+        }
+    }
+    
+    //Show Manager Cell
+    func showManagerCell(indexPath : IndexPath, rowContent: [Consultant]){
+        self.dropDownImageView.image = UIImage.init(named: "radioUnselected")
+        
+        if let consult = CalendarFilterMenuModel.selectedConsultant {
+            if consult.name == rowContent[indexPath.row].name && consult.id == rowContent[indexPath.row].id {
+                self.dropDownImageView.image = UIImage.init(named: "radioSelected")
+            }
         }
     }
     

@@ -2,7 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+<<<<<<< HEAD
       "filename" : "deletX.png",
+=======
+      "filename" : "deletX@2x.png",
+>>>>>>> release/Prod_1_0
       "scale" : "1x"
     },
     {

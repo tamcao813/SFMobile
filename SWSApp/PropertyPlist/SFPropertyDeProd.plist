@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>RemoteAccessConsumerKey</key>
+	<string>3MVG9A2kN3Bn17humbF0f8fpLURUWvZvqo4kxL.hNo8AVmryARX7aBuHyw6bvIaVnt6Qz9TOJKE2ykxAlUD4S</string>
+	<key>OAuthRedirectURI</key>
+	<string>sws://success</string>
+</dict>
+</plist>

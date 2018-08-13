@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>secureUrl</key>
+	<string>/secur/frontdoor.jsp?sid=</string>
+	<key>apexChatterUrl</key>
+	<string>&amp;retURL=/apex/sgwsACNChatter?id=</string>
+	<key>endUrl</key>
+	<string>/one/one.app?source=alohaHeader#/sObject/Event/home</string>
+	<key>retUrl</key>
+	<string>&amp;retURL=</string>
+	<key>contactPicklistValue</key>
+	<string>ui-api/object-info/Contact/picklist-values/</string>
+	<key>rules</key>
+	<string>/SGWS_Roles__c</string>
+	<key>serviceUrl</key>
+	<string>/services/data/v41.0/</string>
+	<key>contactRolesPlist</key>
+	<string>/ContactRoles.plist</string>
+	<key>workOrderPlist</key>
+	<string>/Opportunity.plist</string>
+	<key>preferredCommunicationUrl</key>
+	<string>/SGWS_Preferred_Communication_Method__c</string>
+	<key>contactClassification</key>
+	<string>/SGWS_Contact_Classification__c</string>
+	<key>contactPreferredPlist</key>
+	<string>/ContactPreferred.plist</string>
+	<key>contactClassificationPlist</key>
+	<string>/ContactClassification.plist</string>
+	<key>workorderPicklistValue</key>
+	<string>ui-api/object-info/WorkOrder/picklist-values/</string>
+	<key>outcomePicklistValue</key>
+	<string>ui-api/object-info/SGWS_Opportunity_WorkOrder__c/picklist-values/</string>
+	<key>visitPurpose</key>
+	<string>/SGWS_Visit_Purpose__c</string>
+	<key>accountVisitPurposePlist</key>
+	<string>/AccountVisitPurpose.plist</string>
+	<key>swsUri</key>
+	<string>sws://success</string>
+	<key>objectivesUrl</key>
+	<string>/lightning/o/SGWS_Objectives__c/list?filterName=Recent&amp;0.source=alohaHeader</string>
+	<key>insightsUrl</key>
+	<string>/lightning/n/SGWS_Account_Insight</string>
+	<key>insightsAccountUrl</key>
+	<string>/lightning/n/SGWS_Account_Insight?AccountID=</string>
+	<key>homeScreenUrl</key>
+	<string>/lightning/n/SGWS_Home_Page1</string>
+	<key>opportunitiesUrl</key>
+	<string>/lightning/r/Opportunity/</string>
+	<key>opportunityEndUrl</key>
+	<string>/view?iospref=web&amp;0.source=alohaHeader</string>
+	<key>reportsEndUrl</key>
+	<string>/lightning/n/Operational_Metrics_Page</string>
+	<key>salesConsultantTitle</key>
+	<string>Sales Consultant</string>
+	<key>salesManagerTitle</key>
+	<string>Sales Manager Level 1</string>
+	<key>sgwsOutcome</key>
+	<string>/SGWS_Outcome__c</string>
+	<key>gospotcheckUrl</key>
+	<string>GoSpotCheck://</string>
+	<key>topazUrl</key>
+	<string>Southernglazerstopaz://</string>
+	<key>gospotItuneUrl</key>
+	<string>itms://itunes.apple.com/us/app/gospotcheck-team/id571011905?platform=ipad&amp;preserveScrollPosition=true#platform/ipad</string>
+	<key>eventUrl</key>
+	<string>ui-api/records/</string>
+	<key>detestServerUrl</key>
+	<string>https://sgws-de--deTest.cs77.my.salesforce.com</string>
+	<key>visitContactAlertMessage</key>
+	<string>The selected contact cannot be added to this Visit/Event. Please perform a manual sync prior to selecting this contact for the Visit/Event.</string>
+	<key>eventContactAlertMessage</key>
+	<string>The selected contact cannot be added to this Visit/Event. Please perform a manual sync prior to selecting this contact for the Visit/Event.​</string>
+	<key>globalChatter</key>
+	<string>/lightning/page/chatter?iospref=web</string>
+	<key>homeScreenBoB</key>
+	<string>/analytics/wave/wave.apexp?path=dashboard/0FK0x0000008PLPGA2</string>
+	<key>homeScreenWHWN</key>
+	<string>/analytics/wave/wave.apexp?path=dashboard%2F0FK0x0000008PCgGAM</string>
+	<key>contactRole</key>
+	<string>/ContactRoles.plist</string>
+</dict>
+</plist>

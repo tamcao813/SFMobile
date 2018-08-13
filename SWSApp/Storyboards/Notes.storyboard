@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -45,12 +45,13 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xHu-uK-I5K">
                                 <rect key="frame" x="63" y="140.5" width="556" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="notesTitleTextFieldID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="vb5-zU-dEc"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <integer key="value" value="1"/>
@@ -74,11 +75,12 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FQN-jX-iEl">
                                 <rect key="frame" x="63" y="272" width="999" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="notesTextViewID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="ljO-Gd-m5c"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="alphabet"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
@@ -98,6 +100,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75y-3D-Ixf">
                                 <rect key="frame" x="1044" y="39" width="41" height="38"/>
+                                <accessibility key="accessibilityConfiguration" identifier="noteCloseButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="41" id="5OF-Dq-uRD"/>
                                 </constraints>
@@ -109,6 +112,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qc5-bh-X3k">
                                 <rect key="frame" x="904" y="698" width="153" height="36"/>
                                 <color key="backgroundColor" name="Data New"/>
+                                <accessibility key="accessibilityConfiguration" identifier="notesSaveButtonID"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="9JW-FR-Eam"/>
                                     <constraint firstAttribute="width" constant="153" id="Sd1-Fs-2ph"/>
@@ -185,33 +189,6 @@
                                 <rect key="frame" x="0.0" y="40" width="1112" height="794"/>
                                 <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <view key="tableFooterView" userInteractionEnabled="NO" contentMode="scaleToFill" id="eyT-5J-7RQ">
-                                    <rect key="frame" x="0.0" y="208" width="1112" height="248"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Strategy Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOh-re-GBE">
-                                            <rect key="frame" x="31" y="28" width="242.5" height="25"/>
-                                            <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="22"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29D-4h-PYp">
-                                            <rect key="frame" x="31" y="61" width="1048" height="128"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstItem="MOh-re-GBE" firstAttribute="top" secondItem="eyT-5J-7RQ" secondAttribute="top" constant="28" id="KSH-QA-BWs"/>
-                                        <constraint firstItem="29D-4h-PYp" firstAttribute="leading" secondItem="eyT-5J-7RQ" secondAttribute="leading" constant="31" id="Laa-2r-6zT"/>
-                                        <constraint firstAttribute="trailing" secondItem="29D-4h-PYp" secondAttribute="trailing" constant="33" id="NtT-YS-YHd"/>
-                                        <constraint firstAttribute="bottom" secondItem="29D-4h-PYp" secondAttribute="bottom" constant="59" id="Qpe-9c-vgJ"/>
-                                        <constraint firstItem="29D-4h-PYp" firstAttribute="top" secondItem="MOh-re-GBE" secondAttribute="bottom" constant="8" id="VeH-Bd-gF6"/>
-                                        <constraint firstItem="MOh-re-GBE" firstAttribute="leading" secondItem="eyT-5J-7RQ" secondAttribute="leading" constant="31" id="avN-cm-9Z8"/>
-                                    </constraints>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="notesSortCellID" rowHeight="80" id="pJl-Ll-iWl">
                                         <rect key="frame" x="0.0" y="28" width="1112" height="80"/>
@@ -357,6 +334,49 @@
                                             <outlet property="titleLabel" destination="wJr-ws-KCK" id="ypZ-eZ-Rzd"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="strategyNotesTitleCellIdentifier" rowHeight="92" id="MgZ-bt-Yt6" customClass="NotesTableViewCell" customModule="SWSApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="208" width="1112" height="92"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MgZ-bt-Yt6" id="uiJ-rY-FoX">
+                                            <rect key="frame" x="0.0" y="0.0" width="1112" height="92"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7FV-5m-ffm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="1112" height="8"/>
+                                                    <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="8" id="073-Vb-Ybc"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Strategy Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOh-re-GBE">
+                                                    <rect key="frame" x="22" y="26" width="242.5" height="25"/>
+                                                    <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fhq-XA-dwN">
+                                                    <rect key="frame" x="22" y="60" width="1067" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="MOh-re-GBE" firstAttribute="leading" secondItem="uiJ-rY-FoX" secondAttribute="leading" constant="22" id="47I-ic-rLV"/>
+                                                <constraint firstItem="7FV-5m-ffm" firstAttribute="leading" secondItem="uiJ-rY-FoX" secondAttribute="leading" id="HbK-cz-blc"/>
+                                                <constraint firstAttribute="bottom" secondItem="Fhq-XA-dwN" secondAttribute="bottom" constant="11" id="IXf-x8-kvs"/>
+                                                <constraint firstItem="7FV-5m-ffm" firstAttribute="top" secondItem="uiJ-rY-FoX" secondAttribute="top" id="Kg7-bo-dxQ"/>
+                                                <constraint firstItem="Fhq-XA-dwN" firstAttribute="top" secondItem="MOh-re-GBE" secondAttribute="bottom" constant="9" id="MH6-lR-nbl"/>
+                                                <constraint firstAttribute="trailing" secondItem="7FV-5m-ffm" secondAttribute="trailing" id="P7u-i3-ehk"/>
+                                                <constraint firstItem="MOh-re-GBE" firstAttribute="top" secondItem="uiJ-rY-FoX" secondAttribute="top" constant="26" id="fgl-oS-uC1"/>
+                                                <constraint firstAttribute="trailing" secondItem="Fhq-XA-dwN" secondAttribute="trailing" constant="23" id="sRN-eM-qfQ"/>
+                                                <constraint firstItem="Fhq-XA-dwN" firstAttribute="leading" secondItem="uiJ-rY-FoX" secondAttribute="leading" constant="22" id="szz-Ol-9cW"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="strategyNotes" destination="Fhq-XA-dwN" id="q7R-RY-O2F"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BDv-f6-9Zo" id="2ty-IQ-YFb"/>
@@ -375,7 +395,6 @@
                     </view>
                     <connections>
                         <outlet property="notesTableView" destination="RLW-Uk-DF3" id="jpZ-48-Knc"/>
-                        <outlet property="strategyNotes" destination="29D-4h-PYp" id="DbW-AM-4Ua"/>
                         <segue destination="EP0-BQ-qDP" kind="presentation" identifier="editNotesSegue" modalPresentationStyle="overCurrentContext" id="NaX-7i-Uly"/>
                         <segue destination="nFu-Pa-Vui" kind="presentation" identifier="createNoteSegue" id="2C3-CV-b8r"/>
                     </connections>
@@ -447,6 +466,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rD2-Mb-arJ">
                                 <rect key="frame" x="1028" y="50" width="38" height="38"/>
+                                <accessibility key="accessibilityConfiguration" identifier="EditNoteCloseButtonID"/>
                                 <state key="normal" image="Close"/>
                                 <connections>
                                     <action selector="closeWith_sender:" destination="EP0-BQ-qDP" eventType="touchUpInside" id="9Z7-fN-bxg"/>
@@ -512,6 +532,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2C3-CV-b8r"/>
+        <segue reference="tVG-SC-ooj"/>
     </inferredMetricsTieBreakers>
 </document>

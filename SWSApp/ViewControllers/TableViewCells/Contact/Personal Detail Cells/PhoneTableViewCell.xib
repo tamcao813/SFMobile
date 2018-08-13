@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Medium.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PhoneTableViewCell" rowHeight="106" id="N0C-5o-1zq" customClass="PhoneTableViewCell" customModule="SWSApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="802" height="106"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N0C-5o-1zq" id="52u-ap-oJq">
+                <rect key="frame" x="0.0" y="0.0" width="802" height="105.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHu-eZ-gvR">
+                        <rect key="frame" x="40" y="10" width="100" height="25.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="vQM-ih-vjz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fax (Optional)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syh-lX-f8k">
+                        <rect key="frame" x="260" y="10" width="200" height="20.5"/>
+                        <accessibility key="accessibilityConfiguration" identifier="faxTextFieldID"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="ZHw-2z-Pj9"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(334) 424-0366" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qVC-Xw-ew3" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
+                        <rect key="frame" x="40" y="56" width="180" height="40"/>
+                        <accessibility key="accessibilityConfiguration" identifier="phoneTextFieldID"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="180" id="AhO-ws-tnY"/>
+                            <constraint firstAttribute="height" constant="40" id="hnB-8i-6EU"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="N0C-5o-1zq" id="WbI-e4-MHg"/>
+                        </connections>
+                    </textField>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(555) 555-5555" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R2B-Nt-P66" customClass="CustomUITextField" customModule="SWSApp" customModuleProvider="target">
+                        <rect key="frame" x="260" y="55.5" width="180" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="180" id="5xP-nf-PCR"/>
+                            <constraint firstAttribute="height" constant="40" id="WlM-yv-aAZ"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="N0C-5o-1zq" id="Q1n-SN-I80"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="qVC-Xw-ew3" firstAttribute="leading" secondItem="kHu-eZ-gvR" secondAttribute="leading" id="EKW-Tg-eAm"/>
+                    <constraint firstAttribute="bottom" secondItem="qVC-Xw-ew3" secondAttribute="bottom" constant="10" id="FWt-Yb-w1n"/>
+                    <constraint firstItem="qVC-Xw-ew3" firstAttribute="top" secondItem="kHu-eZ-gvR" secondAttribute="bottom" constant="20" id="Kkc-YC-gIb"/>
+                    <constraint firstItem="R2B-Nt-P66" firstAttribute="leading" secondItem="syh-lX-f8k" secondAttribute="leading" id="PHl-JN-laG"/>
+                    <constraint firstItem="syh-lX-f8k" firstAttribute="top" secondItem="kHu-eZ-gvR" secondAttribute="top" id="Q4G-8T-243"/>
+                    <constraint firstItem="syh-lX-f8k" firstAttribute="leading" secondItem="qVC-Xw-ew3" secondAttribute="trailing" constant="40" id="W4x-9Q-QY8"/>
+                    <constraint firstItem="kHu-eZ-gvR" firstAttribute="top" secondItem="52u-ap-oJq" secondAttribute="top" constant="10" id="aye-s4-FDR"/>
+                    <constraint firstAttribute="bottom" secondItem="R2B-Nt-P66" secondAttribute="bottom" constant="10" id="tTM-7G-srJ"/>
+                    <constraint firstItem="kHu-eZ-gvR" firstAttribute="leading" secondItem="52u-ap-oJq" secondAttribute="leading" constant="40" id="uIO-Iu-liA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Npa-Gk-dz3"/>
+            <connections>
+                <outlet property="faxTextField" destination="R2B-Nt-P66" id="SYg-J6-iHT"/>
+                <outlet property="phoneTextField" destination="qVC-Xw-ew3" id="4Se-Ep-SSJ"/>
+            </connections>
+            <point key="canvasLocation" x="314" y="112"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -56,7 +56,7 @@ class CreateNewContactViewController: UIViewController {
     var familyDate4Textfield: UITextField!
     var familyDate5Textfield: UITextField!
     @IBOutlet weak var headingLabel: UITextField!
-    var doesHaveBuyingPower: Bool = true
+    var doesHaveBuyingPower: Bool?
     weak var delegate: CreateNewContactViewControllerDelegate!
     var isNewContact: Bool = true
     var contactId: String?
@@ -65,6 +65,8 @@ class CreateNewContactViewController: UIViewController {
     var globalContacts = [Contact]()
     @IBOutlet weak var errorLabel: UILabel!
     var accountsDropDown : DropDown?
+    var pickerOption: [String : Any]?
+    var fromPicker = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,7 +134,7 @@ class CreateNewContactViewController: UIViewController {
         }
         DispatchQueue.main.async {
             if  createNewGlobals.userInput {
-                AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
+                AlertUtilities.showAlertMessageWithTwoActionsAndHandler(StringConstants.changesWillNotBeSavedMessage, errorMessage: StringConstants.closingMessage, errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
                     createNewGlobals.userInput = false
                     self.dismiss(animated: true, completion: nil)
                 }){
@@ -157,7 +159,8 @@ class CreateNewContactViewController: UIViewController {
             primaryFunctionTextField.borderColor = .lightGray
         }
         
-        if isNewContact && !doesHaveBuyingPower{
+        if let buyingPower = doesHaveBuyingPower,!buyingPower,isNewContact {
+            contactClassificationTextField.borderColor = .lightGray
             otherReasonTextField.borderColor = .lightGray
         }
         
@@ -168,7 +171,7 @@ class CreateNewContactViewController: UIViewController {
     
     func checkValidations() -> Bool{
         if isNewContact {
-            if checkAccountSelectedValidation() && checkPrimaryFunctionValidation() && checkFirstNameValidation() && checkLastNameValidation() && checkPhoneNumberValidation() && checkFaxNumberValidation() && checkEmailValidation(){
+            if checkAccountSelectedValidation() && checkPrimaryFunctionValidation() && checkContactClassificationValidation() && checkOtherSpecificationValidation() && checkFirstNameValidation() && checkLastNameValidation() && checkPhoneNumberValidation() && checkFaxNumberValidation() && checkEmailValidation(){
                 return true
             }else{
                 return false
@@ -197,6 +200,28 @@ class CreateNewContactViewController: UIViewController {
             primaryFunctionTextField.borderColor = .red
             primaryFunctionTextField.becomeFirstResponder()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 2), at: .top, animated: true)
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        return true
+    }
+    
+    func checkContactClassificationValidation() -> Bool {
+        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,isNewContact && (contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+            contactClassificationTextField.borderColor = .red
+            contactClassificationTextField.becomeFirstResponder()
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            errorLabel.text = StringConstants.emptyFieldError
+            return false
+        }
+        return true
+    }
+    
+    func checkOtherSpecificationValidation() -> Bool {
+        if let buyerFlag = doesHaveBuyingPower,!buyerFlag,isNewContact && (contactClassificationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)) == "Other",(otherReasonTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+            otherReasonTextField.borderColor = .red
+            otherReasonTextField.becomeFirstResponder()
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             errorLabel.text = StringConstants.emptyFieldError
             return false
         }
@@ -312,7 +337,6 @@ class CreateNewContactViewController: UIViewController {
         if !isNewContact {
             newContact = contactDetail!
             newContact.buyerFlag = (contactDetail?.buyerFlag)!
-            
         }else{
             newContact.buyerFlag = true
             newContact.accountId = accountSelected.account_Id
@@ -322,7 +346,7 @@ class CreateNewContactViewController: UIViewController {
         newContact.firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         newContact.name = newContact.firstName.trimmingCharacters(in: .whitespacesAndNewlines) + " " + newContact.lastName.trimmingCharacters(in: .whitespacesAndNewlines)
-        newContact.lastModifiedByName = (UserViewModel().loggedInUser?.userName)!
+        newContact.lastModifiedByName = (UserViewModel().loggedInUser?.fullName)!
         newContact.preferredName = preferredNameTextField.text!
         newContact.title = titleTextField.text!
         newContact.department = departmentTextField.text!
@@ -330,44 +354,49 @@ class CreateNewContactViewController: UIViewController {
         newContact.email = emailTextField.text!
         newContact.contactHours = contactHoursTextField.text!
         newContact.favouriteActivities = favouriteTextView.text!
-        newContact.lastModifiedDate = getTimeStampInString()
-        newContact.buyerFlag = doesHaveBuyingPower
+        newContact.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
+        if let buyerFlag = doesHaveBuyingPower {
+            newContact.buyerFlag = buyerFlag
+        }
         
         newContact.preferredCommunicationMethod = (preferredCommunicationTextField.text! == "Select One") ? "" : preferredCommunicationTextField.text!
         
-        newContact.birthDate = (birthdayTextField.text! == "Select") ? "" : birthdayTextField.text!
+        newContact.birthDate = (birthdayTextField.text! == "Select") ? "" : DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: birthdayTextField.text!)
         
-        newContact.anniversary = (anniversaryTextField.text! == "Select") ? "" : anniversaryTextField.text!
+        newContact.anniversary = (anniversaryTextField.text! == "Select") ? "" : DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: anniversaryTextField.text!)
         
         newContact.child1Name = familyName1Textfield.text!
-        newContact.child1Birthday = (familyDate1Textfield.text! == "Select") ? "" : familyDate1Textfield.text!
+        newContact.child1Birthday = (familyDate1Textfield.text! == "Select") ? "" : DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: familyDate1Textfield.text!)
+
         
         newContact.child2Name = familyName2Textfield.text!
-        newContact.child2Birthday = (familyDate2Textfield.text! == "Select") ? "" : familyDate2Textfield.text!
+        newContact.child2Birthday = (familyDate2Textfield.text! == "Select") ? "" :  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: familyDate2Textfield.text!)
         
         newContact.child3Name = familyName3Textfield.text!
-        newContact.child3Birthday = (familyDate3Textfield.text! == "Select") ? "" : familyDate3Textfield.text!
-        
+        newContact.child3Birthday = (familyDate3Textfield.text! == "Select") ? "" :  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: familyDate3Textfield.text!)
+
         newContact.child4Name = familyName4Textfield.text!
-        newContact.child4Birthday = (familyDate4Textfield.text! == "Select") ? "" : familyDate4Textfield.text!
-        
+        newContact.child4Birthday = (familyDate4Textfield.text! == "Select") ? "" :          DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: familyDate4Textfield.text!)
+
         newContact.child5Name = familyName5Textfield.text!
-        newContact.child5Birthday = (familyDate5Textfield.text! == "Select") ? "" : familyDate5Textfield.text!
+        newContact.child5Birthday = (familyDate5Textfield.text! == "Select") ? "" :
+            DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: familyDate5Textfield.text!)
         
         newContact.likes = likeTextView.text!
         newContact.dislikes = dislikeTextView.text!
         newContact.sgwsNotes = notesTextView.text!
         newContact.fax = faxTextField.text!
         
+        newContact.sgws_sfa_customer_check = true
+        
+        if isNewContact, !newContact.buyerFlag {
+            newContact.contactClassification = contactClassificationTextField.text!
+            if newContact.contactClassification == "Other"{
+                newContact.otherSpecification = otherReasonTextField.text!
+            }
+        }
+        
         return newContact
-    }
-    
-    func getTimeStampInString() -> String{
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        let timeStamp = dateFormatter.string(from: date)
-        return timeStamp
     }
     
     func createAcrSoupEntry(contact: Contact) -> Bool {
@@ -378,27 +407,26 @@ class CreateNewContactViewController: UIViewController {
         newACR.roles = contact.functionRole
         newACR.isActive = 1
         newACR.buyingPower = contact.buyerFlag ? 1:0
+        if !contact.buyerFlag {
+            newACR.contactClassification = contact.contactClassification
+            if newACR.contactClassification == "Other"{
+                newACR.otherSpecification = contact.otherSpecification
+            }
+        }
         
         return ContactsViewModel().createNewACRToSoup(object: newACR)
     }
     
     func checkDuplicateEntryExist(newContact: Contact) -> Bool{
         globalContacts = ContactsViewModel().globalContacts()
-        if globalContacts.count > 0 {
-            for index in 0 ... globalContacts.count - 1 {
-                if globalContacts[index].contactId == newContact.contactId {
-                    globalContacts.remove(at: index)
-                    break
-                }
-            }
-        }
+        let getFilteredContacts = globalContacts.filter( { return $0.contactId != newContact.contactId } )
         
         // Checkin Duplicate Entry
-        for contact in globalContacts {
-            if contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.phoneNumber == newContact.phoneNumber || contact.firstName == newContact.firstName && contact.lastName == newContact.lastName && contact.email == newContact.email {
-                showAlert(message: "A duplicate contact with the same name and phone or name and email has been detected")
-                return true
-            }
+        let duplicateEntry = getFilteredContacts.filter( { return ($0.firstName.lowercased().contains(newContact.firstName.lowercased()) && $0.lastName.lowercased().contains(newContact.lastName.lowercased()) && $0.phoneNumber.lowercased().contains(newContact.phoneNumber.lowercased())) || ($0.firstName.lowercased().contains(newContact.firstName.lowercased()) && $0.lastName.lowercased().contains(newContact.lastName.lowercased()) && $0.email.lowercased().contains(newContact.email.lowercased())) } )
+        
+        if duplicateEntry.count > 0{
+            showAlert(message: "A duplicate contact with the same name and phone or name and email has been detected")
+            return true
         }
         return false
     }
@@ -488,10 +516,14 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
     
     func getNumberOfRowsForBuyerFlagSection() -> Int {
         if isNewContact {
-            if doesHaveBuyingPower {
-                return 1
+            if let buyingPower = doesHaveBuyingPower {
+                if buyingPower {
+                    return 1
+                }else{
+                    return 2
+                }
             }else{
-                return 2
+                return 1
             }
         }else{
             return 0
@@ -506,7 +538,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAccountTableViewCell") as? SearchAccountTableViewCell
+            cell?.searchContactTextField.accessibilityIdentifier = "contactSearchContactTextFieldID"
             searchAccountTextField = cell?.searchContactTextField
+            cell?.searchContactTextField.layer.backgroundColor = UIColor.clear.cgColor
             accountsDropDown = cell?.accountsDropDown
             cell?.delegate = self
             return cell!
@@ -526,13 +560,35 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell
                 cell?.delegate = self
-                cell?.setBuyingPower(value:  doesHaveBuyingPower)
+                
+                if let option = pickerOption, fromPicker{
+                    if option["validFor"] as! Int == 1 {
+                        doesHaveBuyingPower = true
+                        cell?.yesButton.isUserInteractionEnabled = true
+                        cell?.noButton.isUserInteractionEnabled = true
+                    }else{
+                        doesHaveBuyingPower = false
+                        cell?.yesButton.isUserInteractionEnabled = false
+                        cell?.noButton.isUserInteractionEnabled = false
+                    }
+                    fromPicker = false
+                }
+                
+                if let buyingPower = doesHaveBuyingPower{
+                    if buyingPower {
+                        cell?.setBuyingPower(value: true)
+                    }else{
+                        cell?.setBuyingPower(value: false)
+                    }
+                }
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ContactClassificationTableViewCell") as? ContactClassificationTableViewCell
                 cell?.displayCellContents()
                 contactClassificationTextField = cell?.classificationTextField
+                contactClassificationTextField.accessibilityIdentifier = "newcontactClassificationTextFieldID"
                 otherReasonTextField = cell?.otherTextField
+                otherReasonTextField.accessibilityIdentifier = "newContactOtherReasonTextFieldID"
                 return cell!
             default:
                 return UITableViewCell()
@@ -575,6 +631,8 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
         cell?.headerLabel.text = "Notes"
         notesTextView = cell?.descriptionTextView
+        cell?.descriptionTextView.accessibilityIdentifier = "notesDescriptionTextViewID"
+        notesTextView.accessibilityIdentifier = "notesTextViewID"
         cell?.descriptionTextView.tag = 4
         if let notes = contactDetail?.sgwsNotes, notes != "" {
             cell?.contactDetail = contactDetail
@@ -587,6 +645,8 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
         cell?.headerLabel.text = "Likes"
         likeTextView = cell?.descriptionTextView
+        cell?.descriptionTextView.accessibilityIdentifier = "likesDescriptionTextViewID"
+        likeTextView.accessibilityIdentifier = "likeTextViewID"
         cell?.descriptionTextView.tag = 1
         if let dislikes = contactDetail?.dislikes, dislikes != "" {
             cell?.contactDetail = contactDetail
@@ -599,6 +659,9 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
         cell?.headerLabel.text = "Dislikes"
         dislikeTextView = cell?.descriptionTextView
+        dislikeTextView.accessibilityIdentifier = "dislikeTextViewID"
+        cell?.descriptionTextView.accessibilityIdentifier = "dislikedDescriptionTextViewID"
+
         cell?.descriptionTextView.tag = 2
         if let likes = contactDetail?.likes, likes != "" {
             cell?.contactDetail = contactDetail
@@ -611,6 +674,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as? DescriptionTableViewCell
         cell?.headerLabel.text = "Favorite Activities"
         favouriteTextView = cell?.descriptionTextView
+        cell?.descriptionTextView.accessibilityIdentifier = "favouriteTextViewID"
         cell?.descriptionTextView.tag = 3
         if let fav = contactDetail?.favouriteActivities, fav != "" {
             cell?.contactDetail = contactDetail
@@ -630,7 +694,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child1Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+            cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:childDate)
         }
         return cell!
     }
@@ -649,7 +713,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child2Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+            cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:childDate)
         }
         return cell!
     }
@@ -668,7 +732,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child3Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+             cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:childDate)
         }
         return cell!
     }
@@ -687,7 +751,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child4Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+            cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:childDate)
         }
         return cell!
     }
@@ -706,7 +770,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
             cell?.displayCellContent()
         }
         if let childDate = contactDetail?.child5Birthday, childDate != "" {
-            cell?.dateTextField.text = childDate
+             cell?.dateTextField.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:childDate)
         }
         return cell!
     }
@@ -759,8 +823,8 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
     
     func getPrimaryFunctionCell() -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PrimaryFunctionTableViewCell") as? PrimaryFunctionTableViewCell
-        cell?.setBuyingPower(value: doesHaveBuyingPower)
-        
+//        cell?.setBuyingPower(value: doesHaveBuyingPower)
+        cell?.delegate = self
         if let contactDetail = contactDetail {
             cell?.contactDetail = contactDetail
             cell?.displayCellContent()
@@ -815,6 +879,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
         cell?.headerLabel.text = "Anniversary"
         anniversaryTextField = cell?.dateTextfield
+        anniversaryTextField.accessibilityIdentifier = "anniversaryTextFieldID"
         cell?.dateTextfield.tag = 2
         if let anniversaryDate = contactDetail?.anniversary, anniversaryDate != "" {
             cell?.contactDetail = contactDetail
@@ -827,6 +892,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateFieldTableViewCell") as? DateFieldTableViewCell
         cell?.headerLabel.text = "Birthday"
         birthdayTextField = cell?.dateTextfield
+        birthdayTextField.accessibilityIdentifier = "birthdayTextFieldID"
         cell?.dateTextfield.tag = 1
         if let birthDate = contactDetail?.birthDate, birthDate != "" {
             cell?.contactDetail = contactDetail
@@ -840,7 +906,7 @@ extension CreateNewContactViewController: UITableViewDataSource, UITableViewDele
 extension CreateNewContactViewController: ToggleTableViewCellDelegate {
     func buyingPowerChanged(buyingPower: Bool) {
         doesHaveBuyingPower = buyingPower
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
 }
 
@@ -861,5 +927,18 @@ extension CreateNewContactViewController: AccountContactLinkTableViewCellDelegat
         createNewGlobals.userInput = true
         accountSelected = nil
         tableView.reloadData()
+    }
+}
+
+extension CreateNewContactViewController: PrimaryFunctionTableViewCellDelegate {
+    func primaryFunctionValueSelected(pickerOption: [String : Any]) {
+        self.pickerOption = pickerOption
+        self.fromPicker = true
+        if pickerOption["validFor"] as! Int == 1 {
+            doesHaveBuyingPower = true
+        }else{
+            doesHaveBuyingPower = false
+        }
+        self.tableView.reloadData()
     }
 }

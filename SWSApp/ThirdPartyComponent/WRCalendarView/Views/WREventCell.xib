@@ -22,43 +22,50 @@
                 <rect key="frame" x="0.0" y="0.0" width="183" height="168"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9OT-80-CyK">
-                        <rect key="frame" x="0.0" y="0.0" width="183" height="1"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="JeL-71-TpO"/>
-                        </constraints>
-                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySO-rT-ELe">
                         <rect key="frame" x="0.0" y="1" width="2" height="167"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="2" id="tGo-PY-Tvw"/>
+                            <constraint firstAttribute="width" constant="2" id="Dm6-Ef-11q"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SvP-El-S0W">
-                        <rect key="frame" x="6" y="10" width="177" height="17"/>
+                        <rect key="frame" x="6" y="4" width="177" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="nFm-UB-UFb"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                         <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ahq-pc-sKE">
+                        <rect key="frame" x="70.5" y="73.5" width="42" height="21"/>
+                        <attributedString key="attributedText">
+                            <fragment content="Label">
+                                <attributes>
+                                    <font key="NSFont" metaFont="system" size="17"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="SvP-El-S0W" firstAttribute="leading" secondItem="ySO-rT-ELe" secondAttribute="trailing" constant="4" id="6Fn-E2-m4W"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SvP-El-S0W" secondAttribute="bottom" constant="3" id="C9s-GO-Yqb"/>
-                <constraint firstItem="ySO-rT-ELe" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Dtf-KZ-eMg"/>
-                <constraint firstItem="9OT-80-CyK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Fta-qZ-9Dk"/>
-                <constraint firstAttribute="trailing" secondItem="9OT-80-CyK" secondAttribute="trailing" id="HIs-Le-EqD"/>
-                <constraint firstItem="ySO-rT-ELe" firstAttribute="top" secondItem="9OT-80-CyK" secondAttribute="bottom" id="PRh-S2-aEE"/>
-                <constraint firstItem="9OT-80-CyK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Qh7-MZ-gUi"/>
-                <constraint firstItem="SvP-El-S0W" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="WvW-m1-gEG"/>
-                <constraint firstAttribute="bottom" secondItem="ySO-rT-ELe" secondAttribute="bottom" id="s8m-ey-Z50"/>
-                <constraint firstAttribute="trailing" secondItem="SvP-El-S0W" secondAttribute="trailing" id="sYy-j0-Nye"/>
+                <constraint firstItem="SvP-El-S0W" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="6qE-7I-ZN2"/>
+                <constraint firstItem="SvP-El-S0W" firstAttribute="leading" secondItem="ySO-rT-ELe" secondAttribute="trailing" constant="4" id="A7T-O4-cRr"/>
+                <constraint firstAttribute="bottom" secondItem="ySO-rT-ELe" secondAttribute="bottom" id="PCU-LN-wRT"/>
+                <constraint firstItem="ySO-rT-ELe" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="XqD-RI-1ts"/>
+                <constraint firstItem="ySO-rT-ELe" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="1" id="g9D-N1-Ma4"/>
+                <constraint firstItem="Ahq-pc-sKE" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="gsY-vn-lFB"/>
+                <constraint firstAttribute="trailing" secondItem="SvP-El-S0W" secondAttribute="trailing" id="sxc-8e-7pv"/>
+                <constraint firstItem="Ahq-pc-sKE" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="wbM-nr-wAI"/>
             </constraints>
             <size key="customSize" width="183" height="168"/>
             <connections>
                 <outlet property="borderView" destination="ySO-rT-ELe" id="Yqi-6u-zFQ"/>
+                <outlet property="homeTitleLabel" destination="Ahq-pc-sKE" id="uKj-6w-Yfo"/>
                 <outlet property="titleLabel" destination="SvP-El-S0W" id="oEn-93-BpK"/>
             </connections>
             <point key="canvasLocation" x="-32.5" y="113"/>

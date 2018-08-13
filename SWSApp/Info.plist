@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>SFA</string>
+	<string>Proof</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.2</string>
+	<string>0.1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -30,20 +30,48 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>48</string>
+	<string>1</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>d04bfd17cad558861aa8721448606ad9b0a5d9c1</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>itms</string>
+		<string>GoSpotCheck</string>
+		<string>Southernglazerstopaz</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-		<key>NSAllowsArbitraryLoadsInWebContent</key>
-		<true/>
+		<false/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires to access your Photo library to upload via Chatter</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App Needs Location permission.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App Needs Location permission.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires to access your Microphone</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires to access your Camera to upload via Chatter</string>
 	<key>SFDCOAuthLoginHost</key>
-	<string>sgws-de--detest.cs77.my.salesforce.com</string>
+	<string>${AuthLoginHost}</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>CrimsonText-Bold.ttf</string>

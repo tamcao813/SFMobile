@@ -17,8 +17,8 @@ protocol SearchContactByEnteredTextDelegate: class {
 
 class ContactMenuViewController: UIViewController {
 
-    let kHeaderSectionTag: Int = 7900;
-    var expandedSectionHeaderNumber: Int = 0
+    let kHeaderSectionTag: Int = 6900;
+    var expandedSectionHeaderNumber: Int = -1
     var expandedSectionHeader: UITableViewHeaderFooterView!
     weak var searchByEnteredTextDelegate: SearchContactByEnteredTextDelegate?
     
@@ -28,7 +28,7 @@ class ContactMenuViewController: UIViewController {
     @IBOutlet weak var searchBar : UISearchBar!
     
     //Used for selected section in TableView
-    var selectedSection = 0
+    var selectedSection = -1
     
     var contactForLoggedUserFiltered = [Account]()
     
@@ -44,15 +44,23 @@ class ContactMenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        loadFuncRoles()
+    }
+
+    func loadFuncRoles() {
         if let contactData = ContactsViewModel().globalContacts() as [Contact]? {
             
-            var functionRoles = filterClass.sectionItems[1] as! [String]
+//            var functionRoles = filterClass.sectionItems[0] as! [String]
+            var functionRoles = ["All"]
+
+            let accountsList = ContactsViewModel().activeAccountsForContacts()
 
             for contactObject in contactData {
                 
-                let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contactObject.contactId)
+//                let accountsListWithContactId = AccountContactRelationUtility.getAccountByFilterByContactId(contactId: contactObject.contactId)
+                let accountsListWithContactId = accountsList.filter{ return $0.contactId == contactObject.contactId }
                 for acrObject in accountsListWithContactId {
-                    if acrObject.roles != ""{
+                    if acrObject.isActive == 1 && acrObject.roles != ""{
                         if !(functionRoles.contains(acrObject.roles)){
                             functionRoles.append(acrObject.roles)
                         }
@@ -62,11 +70,11 @@ class ContactMenuViewController: UIViewController {
             }
             
             if functionRoles.count > 0{
-                filterClass.sectionItems[1] = functionRoles
+                filterClass.sectionItems[0] = functionRoles
             }
-
+            
         }
-
+        
         print(filterClass.sectionItems)
     }
     
@@ -121,15 +129,17 @@ class ContactMenuViewController: UIViewController {
         searchTextField.rightView = imageView
         searchTextField.rightViewMode = UITextFieldViewMode.always
     }
+
+    func relaodFilter(){
+        loadFuncRoles()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.tableView.reloadData()
+        }
+    }
     
     //Used to Clear the Model Data
     func clearFilterModelData(clearcontactsOnMyRoute: Bool){
-        
-        ContactFilterMenuModel.allContacts = ""
-        ContactFilterMenuModel.contactsOnMyRoute = ""
-        if !clearcontactsOnMyRoute {
-            ContactFilterMenuModel.contactsOnMyRoute = "YES"
-        }
         
         ContactFilterMenuModel.allRole = ""
         ContactFilterMenuModel.functionRoles = [String]()
@@ -146,23 +156,9 @@ class ContactMenuViewController: UIViewController {
         
         //Used to Clear the Expanded section of ContactFilter Option
         selectedSection = -1
-        self.expandedSectionHeaderNumber = -1
-        if !clearcontactsOnMyRoute {
-            ContactFilterMenuModel.contactsOnMyRoute = "YES"
-            selectedSection = 0
-            self.expandedSectionHeaderNumber = 0
-        }
-
         if self.expandedSectionHeaderNumber != -1{
-            if self.expandedSectionHeaderNumber == 0, ContactFilterMenuModel.contactsOnMyRoute == "YES" {
-                
-            }
-            else {
-                let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
-                if cImageView != nil {
-                    tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
-                }
-            }
+            let cImageView = self.view.viewWithTag(kHeaderSectionTag + self.expandedSectionHeaderNumber) as? UIImageView
+            tableViewCollapeSection(self.expandedSectionHeaderNumber, imageView: cImageView!)
         }
         
         if tableView != nil{
@@ -227,7 +223,8 @@ class ContactMenuViewController: UIViewController {
                 indexesPath.append(index)
             }
             self.tableView!.beginUpdates()
-            self.tableView!.deleteRows(at: indexesPath, with: UITableViewRowAnimation.fade)
+//            self.tableView!.deleteRows(at: indexesPath, with: UITableViewRowAnimation.fade)
+            self.tableView!.reloadSections([section], with: .none)
             self.tableView!.endUpdates()
         }
     }
@@ -260,39 +257,15 @@ class ContactMenuViewController: UIViewController {
         
         switch indexPath.section {
         case 0:
-            
-            contactsCellClickedSingleSelection(indexPath)
-
-        case 1:
-            
             roleCellClickedSingleSelection(indexPath, arrayContent: arrayContent)
-
-        case 2:
-            
+        case 1:
             buyingPowerCellClickedSingleSelection(indexPath)
-
         default:
             break
-
         }
         
         tableView.reloadData()
         
-    }
-    
-    func contactsCellClickedSingleSelection(_ indexPath: IndexPath) {
-    
-        switch indexPath.row {
-        case 0:
-            ContactFilterMenuModel.allContacts = "YES"
-            ContactFilterMenuModel.contactsOnMyRoute = "NO"
-        case 1:
-            ContactFilterMenuModel.allContacts = "NO"
-            ContactFilterMenuModel.contactsOnMyRoute = "YES"
-        default:
-            break
-        }
-
     }
     
     func roleCellClickedSingleSelection(_ indexPath: IndexPath, arrayContent : Array<Any>) {
@@ -363,9 +336,7 @@ class ContactMenuViewController: UIViewController {
     
     private func isValidUserInputAtSearchFilterPanel()->Bool{
         var validInput = false
-        if(searchBar.text!.count > 0 ||
-            ContactFilterMenuModel.allContacts != "" ||
-            (ContactFilterMenuModel.allRole == "YES" || ContactFilterMenuModel.functionRoles.count > 0) ||
+        if(searchBar.text!.count > 0 || (ContactFilterMenuModel.allRole == "YES" || ContactFilterMenuModel.functionRoles.count > 0) ||
             (ContactFilterMenuModel.allBuyingPower == "YES" || ContactFilterMenuModel.buyingPower == "YES" || ContactFilterMenuModel.nobuyingPower == "YES" /*ContactFilterMenuModel.buyerFlags.count > 0*/))
         {
             print("ValidUserInputAtSearchFilterPanel")
@@ -379,13 +350,17 @@ class ContactMenuViewController: UIViewController {
     
     //Filters the account list according to filter selection
     @IBAction func submitButton(_ sender: Any) {
+        
+        MBProgressHUD.show(onWindow: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
         // step 1
         //Apply logic for filter selection performed in ContactFilter screen to ContactFilter List screen
         // validate user input and then proceed for filtering and search
-        if(isValidUserInputAtSearchFilterPanel() == true)
+            if(self.isValidUserInputAtSearchFilterPanel() == true)
         {
             self.searchByEnteredTextDelegate?.filteringContact(filtering: true)
-            searchByEnteredTextDelegate?.performContactFilterOperation(searchString: searchBar.text!)
+            self.searchByEnteredTextDelegate?.performContactFilterOperation(searchString: self.searchBar.text!)
         }
         else
         {
@@ -394,13 +369,22 @@ class ContactMenuViewController: UIViewController {
             
             print(" Not ValidUserInputAtSearchFilterPanel")
         }
-        self.tableView.setContentOffset(CGPoint.zero, animated: false)
+            self.tableView.setContentOffset(CGPoint.zero, animated: false)
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
     
     //Clears all the filter selection
     @IBAction func clearButton(_ sender: Any) {
-        self.clearFilterModelData(clearcontactsOnMyRoute: true)
-        self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
+        MBProgressHUD.show(onWindow: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            // Put your code which should be executed with a delay here
+            self.clearFilterModelData(clearcontactsOnMyRoute: true)
+            self.searchByEnteredTextDelegate?.filteringContact(filtering: false)
+            MBProgressHUD.hide(forWindow: true)
+        })
+        
 
     }
 
@@ -474,11 +458,10 @@ extension ContactMenuViewController : UITableViewDataSource{
             print("Down")
         }
         
-        //As Action Item is in Sprint 2, Dropdown icon is set to DownArrow
-        if section == 3{
-            theImageView.image = UIImage(named: "dropDown")
-        }
-        
+//        //As Action Item is in Sprint 2, Dropdown icon is set to DownArrow
+//        if section == 3{
+//            theImageView.image = UIImage(named: "dropDown")
+//        }
         
         theImageView.tag = kHeaderSectionTag + section
         header.addSubview(theImageView)
@@ -486,7 +469,7 @@ extension ContactMenuViewController : UITableViewDataSource{
         // make headers touchable
         header.tag = section
         let headerTapGesture = UITapGestureRecognizer()
-        headerTapGesture.addTarget(self, action: #selector(AccountsMenuViewController.sectionHeaderWasTouched(_:)))
+        headerTapGesture.addTarget(self, action: #selector(ContactMenuViewController.sectionHeaderWasTouched(_:)))
         header.addGestureRecognizer(headerTapGesture)
     }
     
@@ -547,7 +530,7 @@ extension ContactMenuViewController : UISearchBarDelegate{
     }
     
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        return true
+        return AlertUtilities.disableEmojis(text: text)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

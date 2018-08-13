@@ -47,7 +47,7 @@ class ActionItemDetailsViewController: UIViewController {
     
     func getSelectedAccount(){
         if let accountId = actionItemObject?.accountId, accountId != ""{
-            let accountsArray = AccountsViewModel().accountsForLoggedUser
+            let accountsArray = AccountsViewModel().accountsForLoggedUser()
             for account in accountsArray{
                 if account.account_Id == accountId {
                     selectedAccount = account
@@ -66,10 +66,10 @@ class ActionItemDetailsViewController: UIViewController {
         self.tableView.estimatedRowHeight = 100
         initializeXibs()
         footerView.dropShadow()
-        actionItemStatusLabel.text = actionItemObject?.status
         if let actionItem = actionItemObject {
-            dueDateLabel.text = DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes: actionItem.activityDate)
-        }
+            dueDateLabel.text =   DateTimeUtility.convertUtcDatetoReadableDateOnlyDate(dateStringfromAccountNotes:  DateTimeUtility().convertMMDDYYYtoUTCWithoutTime(dateString: actionItem.activityDate))
+            actionItemStatusLabel.text = actionItemObject?.status
+        }        
     }
     
     func initializeXibs(){
@@ -95,6 +95,8 @@ class ActionItemDetailsViewController: UIViewController {
             if(success){
                 self.delegate?.updateList()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
                 if ActionItemFilterModel.fromAccount{
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
                     
@@ -109,15 +111,19 @@ class ActionItemDetailsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton){
         DispatchQueue.main.async {
             self.delegate?.updateList()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
+             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadAccountsData"), object:nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
+            self.delegate?.updateList()
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -157,7 +163,7 @@ class ActionItemDetailsViewController: UIViewController {
         var editActionItem = ActionItem(for: "editActionItem")
         editActionItem = actionItemObject!
         editActionItem.status = "Complete"
-        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             
@@ -189,7 +195,7 @@ class ActionItemDetailsViewController: UIViewController {
             editActionItem.status = "Overdue"
         }
         
-        editActionItem.lastModifiedDate = ActionItemSortUtility().getTimestamp()
+        editActionItem.lastModifiedDate = DateTimeUtility.getCurrentTimeStampInUTCAsString()
         let attributeDict = ["type":"Task"]
         let actionItemDict: [String:Any] = [
             
@@ -207,6 +213,7 @@ class ActionItemDetailsViewController: UIViewController {
         if success {
             self.delegate?.updateList()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshAccountOverView"), object:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshHomeActivities"), object:nil)
             if ActionItemFilterModel.fromAccount{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshActionItemList"), object:nil)
             }
@@ -241,7 +248,7 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
         case 1:
             return 1
         case 2:
-            if let account = selectedAccount{
+            if selectedAccount != nil {
                 return 1
             }
             return 0
@@ -270,11 +277,6 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
             if let account = selectedAccount{
                 cell?.displayCellContent(account: account, isEditing: true)
             }
-                //else{
-//                cell?.phoneNumberLabel.text = ""
-//                cell?.addressLabel.text = ""
-//                cell?.accountLabel.text = ""
-//            }
             return cell!
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActionItemDescriptionTableViewCell") as? ActionItemDescriptionTableViewCell
@@ -287,17 +289,11 @@ extension ActionItemDetailsViewController: UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 2{
+        if indexPath.section == 2{
             if let accountId = selectedAccount?.account_Id {
-                DispatchQueue.main.async {
-                    AlertUtilities.showAlertMessageWithTwoActionsAndHandler("Any changes will not be saved", errorMessage: "Are you sure you want to close?", errorAlertActionTitle: "Yes", errorAlertActionTitle2: "No", viewControllerUsed: self, action1: {
-                        FilterMenuModel.selectedAccountId = accountId
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
-                        self.dismiss(animated: true, completion: nil)
-                    }){
-                        
-                    }
-                }
+                FilterMenuModel.selectedAccountId = accountId
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAllAccounts"), object:nil)
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }

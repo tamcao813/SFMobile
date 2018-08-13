@@ -10,13 +10,14 @@ import UIKit
 
 protocol ContactDetailsScreenDelegate{
     func pushTheScreenToContactDetailsScreen(contactData : Contact)
+    func reloadAllMenu()
     func clearAllMenu()
 }
 
 class ContactListViewController: UIViewController, UITableViewDataSource {
     
     var delegate : ContactDetailsScreenDelegate?
-    
+    static var refreshContactDetailDelegate: ContactDetailsScreenDelegate?
     let contactViewModel = ContactsViewModel()
     var globalContactsForList = [Contact]()
     var accountContactsForList = [Contact]()
@@ -40,6 +41,9 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
     var kOrignalArray:[Any]?
     var isDisabledPreviously = false
     
+    var isAccountSpecific: Bool = false
+    var accountIdSpecific: String = ""
+
     //Used for Page control operation
     @IBOutlet var pageButtonArr: [UIButton]!
     var globalContactCount:Int?
@@ -52,6 +56,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         globalContactCount = 0
         currentPageIndex = 0
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadAllContacts), name: NSNotification.Name("reloadAllContacts"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.selctedContact), name: NSNotification.Name(rawValue: "SelectedContact"), object: nil)
         fetchContacts()
     }
     
@@ -120,7 +125,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
                     //break //fix this, need to get all names
                 }
                 else { // acr table is not populated so reading from accounts table.
-                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser, accountId: acc.accountId)
+                    let accountList: [Account]? = AccountSortUtility.searchAccountByAccountId(accountsForLoggedUser: AccountsViewModel().accountsForLoggedUser(), accountId: acc.accountId)
                     guard accountList != nil, (accountList?.count)! > 0  else {
                         continue
                     }
@@ -169,17 +174,36 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
         contactsAcc = contactViewModel.activeAccountsForContacts()
         //contactViewModel.accountsForContacts()
         
+        delegate?.reloadAllMenu()
+
+
         if ContactsGlobal.accountId == "" {
-            
+            isAccountSpecific = false
+            accountIdSpecific = ""
             globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: "")
-            
         }else{
-            
+            isAccountSpecific = true
+            accountIdSpecific = ContactsGlobal.accountId
             delegate?.clearAllMenu()
             
-            globalContactsForList = contactViewModel.contacts(forAccount: ContactsGlobal.accountId)
+            var isValid : Bool = false
+            var data = [Contact]()
+            print(ContactsGlobal.accountId)
+            
+            (isValid, data) = ContactSortUtility.filterContactByFilterByAssociationDetails(contactListToBeSorted: contactViewModel.globalContacts(), selectedAccountId: ContactsGlobal.accountId)
+            
+            if isValid {
+                globalContactsForList = data//.filter({$0.accountId == ContactsGlobal.accountId})
+            }
+            else {
+                globalContactsForList = [Contact]()
+            }
+            
+//            globalContactsForList = contactViewModel.contactsWithBuyingPower(forAccount: ContactsGlobal.accountId)
+            
             print("globalContactsForList.count  = \(globalContactsForList.count)")
             
+            ContactsGlobal.accountId = ""            
         }
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
         
@@ -224,10 +248,29 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         print("performContactFilterOperation")
         print(ContactFilterMenuModel.functionRoles)
         
-        if (ContactsGlobal.accountId == "" || ContactFilterMenuModel.comingFromDetailsScreen != "YES") {
-            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
+        if (isAccountSpecific || ContactFilterMenuModel.comingFromDetailsScreen == "YES") {
+//            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.contacts(forAccount: ContactsGlobal.accountId), searchBarText: searchString)
+            
+            var isValid : Bool = false
+            var data = [Contact]()
+            print(ContactsGlobal.accountId)
+            
+            if ContactFilterMenuModel.comingFromDetailsScreen == "YES" {
+                (isValid, data) = ContactSortUtility.filterContactByFilterByAssociationDetails(contactListToBeSorted: contactViewModel.globalContacts(), selectedAccountId: ContactsGlobal.accountId)
+            }
+            else {
+                (isValid, data) = ContactSortUtility.filterContactByFilterByAssociationDetails(contactListToBeSorted: contactViewModel.globalContacts(), selectedAccountId: accountIdSpecific)
+            }
+            
+            if isValid {
+                globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: data, searchBarText: searchString)
+            }
+            else {
+                globalContactsForList = [Contact]()
+            }
+
         } else {
-            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.contacts(forAccount: ContactsGlobal.accountId), searchBarText: searchString)
+            globalContactsForList = ContactSortUtility.filterContactByAppliedFilter(contactListToBeSorted: contactViewModel.globalContacts(), searchBarText: searchString)
         }
         
         globalContactsForList = ContactSortUtility.sortByContactNameAlphabetically(contactsListToBeSorted: globalContactsForList, ascending: true)
@@ -259,49 +302,72 @@ extension ContactListViewController : SearchContactByEnteredTextDelegate{
         self.tableView.reloadData()
     }
     
+    
+    @objc func selctedContact(notification: NSNotification){
+        
+        if let contact = notification.userInfo?["contact"] as? Contact {
+            delegate?.pushTheScreenToContactDetailsScreen(contactData: contact)
+        }
+    }
+    
     @objc func reloadAllContacts(notification: NSNotification){
-        contactsAcc = [AccountContactRelation]()
-        globalContactCount = contactViewModel.globalContacts().count
         
-        contactsAcc = contactViewModel.activeAccountsForContacts()
-        //contactViewModel.accountsForContacts()
+        MBProgressHUD.show(onWindow: true)
         
-        initPageViewWith(inputArr: globalContactsForList, pageSize: kPageSize)
-        updateUI()
-        print("\(self.noOfPages!)")
-        
-        DispatchQueue.main.async {
-            UIView.performWithoutAnimation({() -> Void in
-                self.tableView.reloadData()
-                if(self.numberOfAccountRows > 0){
-                    self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .none, animated: true)
-                }
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-            })
-        }
-        
-        for count in 1...5 {
-            pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
-            pageButtonArr[count].backgroundColor = UIColor.white
-            pageButtonArr[count].setTitle(String(count), for: .normal)
-        }
-        pageButtonArr[1].backgroundColor = UIColor.lightGray
-        pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
-        
-        
-        loadContactData()
-        
-        if ContactFilterMenuModel.comingFromDetailsScreen == "YES", ContactFilterMenuModel.selectedContactId != "" {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             
-            guard let selectedContact = ContactSortUtility.searchContactByContactId(ContactFilterMenuModel.selectedContactId) else {
-                return
+            self.contactsAcc = [AccountContactRelation]()
+            self.globalContactCount = self.contactViewModel.globalContacts().count
+            
+            self.contactsAcc = self.contactViewModel.activeAccountsForContacts()
+            //contactViewModel.accountsForContacts()
+            
+            self.initPageViewWith(inputArr: self.globalContactsForList, pageSize: self.kPageSize)
+            self.updateUI()
+            print("\(self.noOfPages!)")
+            
+            DispatchQueue.main.async {
+                UIView.performWithoutAnimation({() -> Void in
+                    self.tableView.reloadData()
+                    if(self.numberOfAccountRows > 0){
+                        self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .none, animated: true)
+                    }
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
+                })
             }
-            delegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
             
-            ContactFilterMenuModel.selectedContactId = ""
+            for count in 1...5 {
+                self.pageButtonArr[count].setTitleColor(UIColor.black, for: .normal)
+                self.pageButtonArr[count].backgroundColor = UIColor.white
+                self.pageButtonArr[count].setTitle(String(count), for: .normal)
+            }
+            self.pageButtonArr[1].backgroundColor = UIColor.lightGray
+            self.pageButtonArr[1].setTitleColor(UIColor.white, for: .normal)
+            self.loadContactData()
             
-        }
+            //Pass data to child using delegates
+            if !ContactFilterMenuModel.selectedContactIdFromDetailScreen.isEmpty {
+                guard let selectedContact = ContactSortUtility.searchContactByContactId( ContactFilterMenuModel.selectedContactIdFromDetailScreen) else {
+                    MBProgressHUD.hide(forWindow: true)
+                    return
+                }
+                ContactListViewController.refreshContactDetailDelegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
+            }
+            
+            if ContactFilterMenuModel.comingFromDetailsScreen == "YES", ContactFilterMenuModel.selectedContactId != "" {
+                
+                guard let selectedContact = ContactSortUtility.searchContactByContactId(ContactFilterMenuModel.selectedContactId) else {
+                    MBProgressHUD.hide(forWindow: true)
+                    return
+                }
+                self.delegate?.pushTheScreenToContactDetailsScreen(contactData: selectedContact)
+                
+                ContactFilterMenuModel.selectedContactId = ""
+                
+            }
+            MBProgressHUD.hide(forWindow: true)
+        })
     }
 }
 
@@ -521,6 +587,7 @@ extension ContactListViewController : UITableViewDelegate{
             let globalContact:Contact = globalContactsForList[indexPath.row + currentPageIndex!]
             delegate?.pushTheScreenToContactDetailsScreen(contactData: globalContact)
             ContactFilterMenuModel.comingFromDetailsScreen = "YES"
+            ContactFilterMenuModel.selectedContactIdFromDetailScreen = globalContact.contactId
         }
     }
 }

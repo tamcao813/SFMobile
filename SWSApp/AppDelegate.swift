@@ -11,7 +11,6 @@ import SalesforceSDKCore
 import SalesforceSwiftSDK
 import PromiseKit
 import Reachability
-//import DropDown
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,23 +21,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var OAuthRedirectURI = ""
     
     var loggedInUser: User?
+    var currentSelectedUserId: String = ""
+    var consultants = [Consultant]()
     var alertVisible = false
-    let isMockUser = false //set it to true to use mock data or set it to false if testing with real data
+    var launchedBefore:Bool = false
+    
+    var insightLaunchIdentifier:String = ""
     
     override init(){
         
         super.init()
         var  plistpath:String? = ""
-        #if DEVELOPMENT
-            plistpath  = Bundle.main.path(forResource: "SFPropertydev", ofType: "plist")
-        #else
-            plistpath  = Bundle.main.path(forResource: "SFProperty", ofType: "plist")
+        //TODO: [SMK] Move the RemoteAccessConsumerKey in plist and put it in keychain
+        #if DEINT
+            plistpath  = Bundle.main.path(forResource: "SFPropertyDeInt", ofType: "plist")
+        #elseif DEPROD
+            plistpath  = Bundle.main.path(forResource: "SFPropertyDeProd", ofType: "plist")
+        #elseif DETEST
+            plistpath  = Bundle.main.path(forResource: "SFPropertyDeTest", ofType: "plist")
+        #else // DEDEV
+            plistpath  = Bundle.main.path(forResource: "SFPropertyDeDev", ofType: "plist")
         #endif
+        
+        let globalPlistUrl = Bundle.main.path(forResource: "GlobalURL", ofType: ".plist", inDirectory: nil)
+        StringConstants.globalUrlDictionary = NSDictionary(contentsOfFile: globalPlistUrl!)
         
         if let  path = plistpath {
             if let dict = NSDictionary(contentsOfFile: path) as? Dictionary<String, String> {
-                RemoteAccessConsumerKey = "3MVG9RHx1QGZ7Osh_vtc0e3wNtWVhM7NEKUUwNMuN3zr4RmYpcJsPmeU5Pd9eXyIFfh1Qk6J7qG2WW7sqaid4" //dict["RemoteAccessConsumerKey"]!
-                OAuthRedirectURI = "sws://success" //dict["OAuthRedirectURI"]!
+                RemoteAccessConsumerKey = dict["RemoteAccessConsumerKey"]!
+                OAuthRedirectURI = StringConstants.swsUri //dict["OAuthRedirectURI"]!
             }
         }
         
@@ -51,19 +62,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 SFUserAccountManager.sharedInstance().advancedAuthConfiguration = SFOAuthAdvancedAuthConfiguration.require;
             }
             .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
+                let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
                 let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
                 SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
-                //setup StoreDispatcher by registering soups
-                StoreDispatcher.shared.registerSoups()
+                //If launched first time Or Any soup is missing than treat it as first launch and call StoreDispatcher register soups
+                let isAllSoupExist = StoreDispatcher.shared.checkIfAllSoupsExist()
+                if((!launchedBefore && !isAllSoupExist)){
+                        StoreDispatcher.shared.sfaStore.removeAllSoups()
+                        StoreDispatcher.shared.registerSoups()
+                        self.resetLaunchandResyncConfiguration()
+                    }
+                
                 self.setupRootViewController()
-                SFSDKAnalyticsLogger.sharedInstance().logLevel = .off
-                SFSDKCoreLogger.sharedInstance().logLevel = .off
+                //For SDK error one can use .debug or .error to switch off .off
+                SFSDKAnalyticsLogger.sharedInstance().logLevel  =    .error
+                SFSDKCoreLogger.sharedInstance().logLevel       =    .error
+                
             }.postLogout {  [unowned self] in
+                print("postLogout")
+                self.resetLaunchandResyncConfiguration()
                 self.handleSdkManagerLogout()
+                
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
                 self.handleUserSwitch(fromUser, toUser: toUser)
+                self.resetLaunchandResyncConfiguration()
             }.launchError {  [unowned self] (error: Error, launchActionList: SFSDKLaunchAction) in
                 SFSDKLogger.log(type(of:self), level:.error, message:"Error during SDK launch: \(error.localizedDescription)")
+                self.resetLaunchandResyncConfiguration()
                 self.initializeAppViewState()
                 SalesforceSDKManager.shared().launch()
             }
@@ -100,20 +125,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let ret = (isReachable && !needsConnection)
         
         return ret
-        
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        self.launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        
+        if launchedBefore
+        {
+            print("Not first launch.")
+        }
+        else
+        {
+            print("First launch")
+        }
+        
         initializeAppViewState()
         SalesforceSDKManager.shared().launch()
         DropDown.startListeningToKeyboard()
+        
+        //Listen to kSFUserWillLogoutNotification
+        NotificationCenter.default.addObserver(self, selector: #selector(self.resetLaunchandResyncConfiguration), name: NSNotification.Name("kSFUserWillLogoutNotification"), object: nil)
+        
         return true
+        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
+
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -131,6 +173,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
+        
     }
     
     func initializeAppViewState() {
@@ -151,11 +195,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         reachability?.whenUnreachable = { _ in
-            StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+            StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                 if user == nil {
                     if !self.alertVisible {
                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                            exit(0)
+                           // exit(0)
                         }))
                         self.window?.rootViewController?.present(alert, animated: true, completion: nil)
                         self.alertVisible = true
@@ -179,13 +223,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func handleSdkManagerLogout(){
+    func resetViewState(_ postResetBlock: @escaping () -> ())
+    {
+        if let rootViewController = self.window!.rootViewController {
+            if let _ = rootViewController.presentedViewController {
+                rootViewController.dismiss(animated: false, completion: postResetBlock)
+                return
+            }
+        }
+        
+        postResetBlock()
+    }
+    
+    func handleSdkManagerLogout()
+    {
         SFSDKLogger.log(type(of:self), level:.debug, message: "SFUserAccountManager logged out.  Resetting app.")
-        if((self.window?.rootViewController?.presentedViewController) != nil){
-            self.window?.rootViewController?.dismiss(animated: true, completion: {
-                self.initializeAppViewState()
+        self.resetViewState { () -> () in
+            self.initializeAppViewState()
+            
+            // Multi-user pattern:
+            // - If there are two or more existing accounts after logout, let the user choose the account
+            //   to switch to.
+            // - If there is one existing account, automatically switch to that account.
+            // - If there are no further authenticated accounts, present the login screen.
+            //
+            // Alternatively, you could just go straight to re-initializing your app state, if you know
+            // your app does not support multiple accounts.  The logic below will work either way.
+            
+            var numberOfAccounts : Int;
+            let allAccounts = SFUserAccountManager.sharedInstance().allUserAccounts()
+            numberOfAccounts = (allAccounts!.count);
+            
+            if numberOfAccounts > 1 {
+                let userSwitchVc = SFDefaultUserManagementViewController(completionBlock: {
+                    action in
+                    self.window!.rootViewController!.dismiss(animated:true, completion: nil)
+                })
+                if let actualRootViewController = self.window!.rootViewController {
+                    actualRootViewController.present(userSwitchVc, animated: true, completion: nil)
+                }
+            } else {
+                if (numberOfAccounts == 1) {
+                    SFUserAccountManager.sharedInstance().currentUser = allAccounts![0]
+                }
                 SalesforceSDKManager.shared().launch()
-            })
+            }
         }
     }
     
@@ -212,49 +294,124 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             DispatchQueue.main.async(execute: {
                 //to do: show Hub and progress
                 
+                if(self.isKeyPresentInUserDefaults(key: "resyncDictionary")){
+                    StoreDispatcher.shared.syncIdDictionary = UserDefaults.standard.dictionary(forKey: "resyncDictionary") as! [String : UInt]
+                }
+                
                 StoreDispatcher.shared.syncDownUser({ (error) in
                     if error != nil {
                         print("error in syncDownUser")
-                        return
+                        //Don't return from here
+                     //   return
                     }
                     
-                    StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+                    StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                         guard let user = user else {
                             print("No logged in user retrieved")
+                            self.resetLaunchandResyncConfiguration()
+                            // Show Alert and exit the app
+                            self.showAlertandExit()
                             return
                         }
                         
-                        self.loggedInUser =  user
-                        //       self.validateRole(user: self.loggedInUser!, completion: {_ in
+                        //Validate User Role
+                        self.validateUserRole(user: user){ (error) in
                         
-                        StoreDispatcher.shared.downloadAllSoups({ (error) in
-                            if error != nil {
-                                print("error in downloadAllSoups")
-                                return
-                            }
-                            DispatchQueue.main.async(execute: {
-                                //to do: show progress 100% completed and dismiss Hub
+                        self.loggedInUser =  user
+                        self.currentSelectedUserId = user.userId
+                        self.consultants = consults
+            print("appdelegate: currentSelectedUserId: " + self.currentSelectedUserId)
+                        
+                        //If first time download all soups
+                        if(!self.launchedBefore){
+                            StoreDispatcher.shared.downloadAllSoups({ (error) in
+                                if error != nil {
+                                    print("error in downloadAllSoups")
+                                    self.resetLaunchandResyncConfiguration()
+                                    return
+                                }
+                                DispatchQueue.main.async(){
+                                let globalAccountsForLoggedUser = AccountsViewModel().accountsForLoggedUser()
+                                if(globalAccountsForLoggedUser.count == 0){
+                                    self.resetLaunchandResyncConfiguration()
+                                    
+                                    // Show Alert and exit the app
+                                        self.showAlertandExit()
+                                    }
+                                }
+                                // If both register and syncdownall is completed than only set the launched comeplete flag
+                                UserDefaults.standard.set(true, forKey: "launchedBefore")
+                                let date = Date()
+                                UserDefaults.standard.set(date, forKey: "lastSyncDateInDateFormat")
+                                let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
+                                UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
+                                UserDefaults.standard.set("Last Sync Successful", forKey: "lastSyncStatus")
+                                //save the resyncdictionary to defaults
+                                UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
                                 
-                                print("DispatchQueue.main.async rootViewController")
-                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
-                                window.rootViewController = viewController
-                                window.makeKeyAndVisible()
+                                DispatchQueue.main.async(execute: {
+                                    //to do: show progress 100% completed and dismiss Hub
+                                    
+                                    print("DispatchQueue.main.async rootViewController")
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                                    window.rootViewController = viewController
+                                    window.makeKeyAndVisible()
+                                })
+                                
                             })
-                        })
-                        // })
+                        } else {
+                            
+                            StoreDispatcher.shared.resyncAllSoups({ (error) in
+                                let date = Date()
+                                UserDefaults.standard.set(date, forKey: "lastSyncDateInDateFormat")
+                                let lastSyncDate = "\(DateTimeUtility().getCurrentTime(date: date)) / \(DateTimeUtility().getCurrentDate(date: date))"
+                                UserDefaults.standard.set(lastSyncDate, forKey: "lastSyncDate")
+                                if error != nil {
+                                    
+                                    print("error in resyncAllSoups")
+                                 UserDefaults.standard.set("Last Sync Failed", forKey: "lastSyncStatus")
+                                    return
+                                }
+                             
+                                UserDefaults.standard.set("Last Sync Successful", forKey: "lastSyncStatus")
+                                //save the resyncdictionary to defaults
+                                UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
+                                 print("resyncAllSoups resyncDictionary \(StoreDispatcher.shared.syncIdDictionary)")
+                                DispatchQueue.main.async(execute: {
+                                    //to do: show progress 100% completed and dismiss Hub
+                                    
+                                    print("DispatchQueue.main.async rootViewController")
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+                                    window.rootViewController = viewController
+                                    window.makeKeyAndVisible()
+                                })
+                            })
+                        }
+                        //} //else resync
+                        
+                        }
                     })
                 })
             })
+        //})
         }
         reachability?.whenUnreachable = { _ in
-            StoreDispatcher.shared.fetchLoggedInUser ({ (user, error) in
+            
+            if(self.isKeyPresentInUserDefaults(key: "resyncDictionary")){
+                StoreDispatcher.shared.syncIdDictionary = UserDefaults.standard.dictionary(forKey: "resyncDictionary") as! [String : UInt]
+            }
+            
+            StoreDispatcher.shared.fetchLoggedInUser ({ (user, consults, error) in
                 guard let user = user else {
                     print("No logged in user retrieved")
                     return
                 }
                 
                 self.loggedInUser =  user
+                self.currentSelectedUserId = user.userId
+                self.consultants = consults
                 
                 print("Not reachable")
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -285,28 +442,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //return false;
     }
     
-    //    func validateRole(user: User, completion: @escaping (Bool) -> ()) {
-    //
-    //        let alert = UIAlertController(title: "Alert", message: "You do not have access to the SFA mobile application", preferredStyle: UIAlertControllerStyle.alert)
-    //
-    //
-    //        // Check if this user is Sales Rep OR Sales Manager or not
-    //        // If not show Alert and logout
-    //        if((user.userTeamMemberRole == "Sales Rep") || (user.userTeamMemberRole == "Sales Manager")){
-    //
-    //            completion(true)
-    //
-    //        }
-    //        else {
-    //            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-    //                // StoreDispatcher.shared.deleteSmartStore()
-    //                SFUserAccountManager.sharedInstance().logout()
-    //                completion(true)
-    //                exit(0)
-    //            }))
-    //            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-    //        }
-    //
-    //    }
+    func validateUserRole(user:User,completion:@escaping (_ error: NSError?)->()) {
+    
+            let alert = UIAlertController(title: "Alert", message: StringConstants.unauthorisedLoginMessage, preferredStyle: UIAlertControllerStyle.alert)
+        
+            print("Role \(user.userTeamMemberRole)")
+            // Check if this user is Sales Consultant OR Sales Manager Level 1 or not
+            // If not show Alert and logout
+            if((user.userTeamMemberRole == StringConstants.salesConsultantTitle) || (user.userTeamMemberRole == StringConstants.salesManagerTitle)){
+                completion(nil)
+            }
+            else {
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    self.resetLaunchandResyncConfiguration()
+                    SFUserAccountManager.sharedInstance().logout()
+                    //       completion(true)
+
+                    exit(0)
+                }))
+                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+    
+        }
+    
+        func showAlertandExit() {
+    
+            let alert = UIAlertController(title: "Alert", message: StringConstants.unauthorisedLoginMessage, preferredStyle: UIAlertControllerStyle.alert)
+    
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    SFUserAccountManager.sharedInstance().logout()
+                    exit(0)
+                }))
+                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+    
+    
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
+    @objc func resetLaunchandResyncConfiguration(){
+        if(self.isKeyPresentInUserDefaults(key: "launchedBefore")){
+            UserDefaults.standard.set(false,forKey: "launchedBefore")
+        }
+        StoreDispatcher.shared.syncIdDictionary.removeAll()
+        UserDefaults.standard.set(StoreDispatcher.shared.syncIdDictionary, forKey: "resyncDictionary")
+    }
     
 }

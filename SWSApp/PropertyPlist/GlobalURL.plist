@@ -75,9 +75,9 @@
 	<key>globalChatter</key>
 	<string>/lightning/page/chatter?iospref=web</string>
 	<key>homeScreenBoB</key>
-	<string>/analytics/wave/wave.apexp?path=dashboard/0FK0x0000008PLPGA2</string>
+	<string>/analytics/wave/wave.apexp?path=dashboard%2F0FK5A000000TO2YWAW</string>
 	<key>homeScreenWHWN</key>
-	<string>/analytics/wave/wave.apexp?path=dashboard%2F0FK0x0000008PCgGAM</string>
+	<string>/analytics/wave/wave.apexp?path=dashboard%2F0FK5A000000TO2dWAG</string>
 	<key>contactRole</key>
 	<string>/ContactRoles.plist</string>
 </dict>

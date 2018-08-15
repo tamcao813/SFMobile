@@ -22,17 +22,25 @@ class StringConstants {
     static let deleteNoteConfirmation = "Are you sure you want to delete this note?"
     static let contactsSavedSuccessfully = "Your contact has been saved successfully"
     static let saveFail = ""
-    static let deleteVisitMessage = "Deletion of Visit/Event has failed. Please try again or contact the National Service Desk if you experience an ongoing issue."
+    //static let deleteVisitMessage = "Deletion of Visit/Event has failed. Please try again or contact the National Service Desk if you experience an ongoing issue."
+    static let deleteVisitMessage = "Deletion of Visit/Event has failed. Please try again or contact the Hypercare line at (703) 948-0488, Access Code 9441047574 if you experience an ongoing issue."
     static let deleteVisitNotAllowedMessage = "Deletion of a Visit/Event is not allowed in offline mode. Please try again when you are online."
-    static let deleteEventMessage = "Deletion of Visit/Event has failed. Please try again or contact the National Service Desk if you experience an ongoing issue."
+    //static let deleteEventMessage = "Deletion of Visit/Event has failed. Please try again or contact the National Service Desk if you experience an ongoing issue."
+    static let deleteEventMessage = "Deletion of Visit/Event has failed. Please try again or contact the Hypercare line at (703) 948-0488, Access Code 9441047574 if you experience an ongoing issue."
+    
     static let deleteEventNotAllowedMessage = "Deletion of a Visit/Event is not allowed in offline mode. Please try again when you are online."
-    static let unauthorisedLoginMessage = "You are not authorized to login to this application or do not have a SalesForce CRM account. Please contact the National Service Desk for assistance."
+    //static let unauthorisedLoginMessage = "You are not authorized to login to this application or do not have a SalesForce CRM account. Please contact the National Service Desk for assistance."
+    static let unauthorisedLoginMessage = "You are not authorized to login to this application or do not have a SalesForce CRM account. Please first contact your Market Business Administrator and if they are unavailable, please contact the Hypercare line at (703) 948-0488, Access Code 9441047574 for assistance."
+
+    //You are not authorized to login to this application or do not have a SalesForce CRM account. Please first contact your Market Business Administrator and if they are unavailable, please contact the Hypercare line at (703) 948-0488, Access Code 9441047574the National Service Desk for assistance.
     
     static let topazAlertMessage = "Topaz is not installed or outdated version"
     
-    static let workOrderIdNotExists = "You do not have permissions to delete this Visit/Event because you are not the record creator. Please contact the record creator to delete or contact the National Service Desk if you experience an ongoing issue."
+    //static let workOrderIdNotExists = "You do not have permissions to delete this Visit/Event because you are not the record creator. Please contact the record creator to delete or contact the National Service Desk if you experience an ongoing issue."
+    static let workOrderIdNotExists = "You do not have permissions to delete this Visit/Event because you are not the record creator. Please contact the record creator to delete or contact your Market Business Administrator if you experience an ongoing issue."
     
-    static let uiApiFailureMessage = "Saving of Visit/Event has failed. Please try again or contact the National Service Desk if you experience an ongoing issue.​"
+    //static let uiApiFailureMessage = "Saving of Visit/Event has failed. Please try again or contact the National Service Desk if you experience an ongoing issue.​"
+    static let uiApiFailureMessage = "Saving of Visit/Event has failed. Please try again or contact the Hypercare line at (703) 948-0488, Access Code 9441047574 if you experience an ongoing issue."
     
     static let cannotCreateEventMoreThan14Days = "Event cannot be created for more than 14 days."
     
